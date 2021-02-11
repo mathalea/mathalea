@@ -681,6 +681,9 @@ function Droite(arg1, arg2, arg3, arg4) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
@@ -721,6 +724,9 @@ function Droite(arg1, arg2, arg3, arg4) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -1131,6 +1137,9 @@ function Polyline(...points) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
@@ -1164,6 +1173,9 @@ function Polyline(...points) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -1464,7 +1476,10 @@ function Segment(arg1, arg2, arg3, arg4, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-        default:
+          case 4:
+            this.style += ` stroke-dasharray="1 2" `;
+            break;
+          default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -1585,6 +1600,10 @@ function Segment(arg1, arg2, arg3, arg4, color) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -1752,7 +1771,10 @@ function Polygone(...points) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-        default:
+          case 4:
+            this.style += ` stroke-dasharray="1 2" `;
+            break;
+          default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -1788,6 +1810,9 @@ function Polygone(...points) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -2175,7 +2200,10 @@ function Cercle(O, r, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-        default:
+          case 4:
+            this.style += ` stroke-dasharray="1 2" `;
+            break;
+          default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -2213,6 +2241,9 @@ function Cercle(O, r, color) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -2306,7 +2337,10 @@ function Ellipse(O, rx, ry, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-        default:
+          case 4:
+            this.style += ` stroke-dasharray="1 2" `;
+            break;
+          default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -2343,6 +2377,9 @@ function Ellipse(O, rx, ry, color) {
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -2622,6 +2659,9 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
@@ -2651,6 +2691,9 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
           break;
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
           break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
@@ -2682,6 +2725,9 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
           break;
         case 3:
           tableauOptions.push(` dash dot dot `);
+          break;
+        case 4:
+          tableauOptions.push(` dotted `);
           break;
         default:
           tableauOptions.push(` dashed `);
@@ -6245,9 +6291,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     let lignes, colones // tableaux contenant les différentes chaines à écrire
     let nb_lignes, nbcolones
     let yLine = 0
-    let segments = [], index = 0, textes = [], texte
+    let segments = [], index = 0, textes = [], texte,s,p
     let code = ""
-    let longueurTotale = lgt + tabInit1.length * escpl + 2 * deltacl
+    let longueurTotale = lgt + (tabInit1.length-1) * escpl +1+ 2 * deltacl
     let MathToSVG = function (string) {
       let stringhtml = ['', '', ''], strSplit,idx=0
       if (string[0] == '$') string = string.substring(1, string.length - 1)
@@ -6269,6 +6315,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
             stringhtml[idx] = strSplit[1].substring(0, strSplit[1].length - 1);
             stringhtml[idx+1] = strSplit[2].substring(0, strSplit[2].length - 1);
           }
+          else if (string.substring(0, 6) == "\\text{") {
+            string=string.substring(6,string.length)
+            stringhtml[idx]=string.split('}')[0]
+            stringhtml[idx+1]=string.split('}')[1]
+          }
           else {
             if (isNaN(parseFloat(string))) {
               stringhtml[idx] = string
@@ -6289,8 +6340,60 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
       if (i > 0) {
         switch (tabLines[index][0]) {
           case 'Line':
-            console.log(tabLines[index])
-            yLine -= tabInit0[i][1]
+            textes.push(texteParPosition(MathToSVG(tabInit0[i][0])[0],this.lgt/2,yLine-tabInit0[i][1]/2, 0, 'black', 1, 'middle', true))
+              for (let k = 1; k < tabLines[index].length; k++) {
+                if (tabLines[index][k] != "") {
+                  texte=MathToSVG(tabLines[index][k])
+                  console.log(texte)
+                  if (texte[2] == '' && texte[1] == '') {
+                    console.log(texte[0])
+                    switch (texte[0]){
+                      case 'z':
+                        textes.push(texteParPosition('0', this.lgt + this.deltacl + this.escpl/2 * (k- 0.5), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+                        s=  segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5),yLine,this.lgt + this.deltacl + this.escpl/2 * (k - 0.5),yLine-tabInit0[i][1])
+                        s.pointilles=4
+                        segments.push(s)
+                        break
+                      case 'd':
+                        segments.push(segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5)-0.1,yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5)-0.1,yLine-tabInit0[i][1]))
+                        segments.push(segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5)+0.1,yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5)+0.1,yLine-tabInit0[i][1]))
+                        break
+                      case 't' :
+                      s=  segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5),yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5),yLine-tabInit0[i][1])
+                      s.pointilles=4
+                      segments.push(s)
+                      break
+                      case 'h' :
+                      p=polygone(point(this.lgt + this.deltacl + this.escpl/2 * (k-1),yLine),
+                      point(this.lgt + this.deltacl + this.escpl/2 * (k),yLine),
+                      point(this.lgt + this.deltacl + this.escpl/2 * (k),yLine-tabInit0[i][1]),
+                      point(this.lgt + this.deltacl + this.escpl/2 * (k-1),yLine-tabInit0[i][1]))
+                      p.couleurDeRemplissage='gray'
+                      segments.push(p)
+                      break
+                      case '+' :
+                        textes.push(texteParPosition('+', this.lgt + this.deltacl + this.escpl/2 * (k - 0.5), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+
+                      break
+                      case '-' :
+                        textes.push(texteParPosition('-', this.lgt + this.deltacl + this.escpl/2 * (k - 0.5), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+
+                      break
+                    }
+                  }
+                 else if (texte[2] == '') {
+                    textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl/2 * (k - 0.5), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+                  }
+                  /*
+                  else {
+                    textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * (j + 0.5) - texte[1].length / 2+0.1, yLine-tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+                    textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl * (j + 0.5), yLine-0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+                    textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl * (j + 0.5), yLine-0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+                    textes.push(segment(this.lgt + this.deltacl + this.escpl * (j + 0.5)- tabInit0[0][1] / 4, yLine-tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl * (j + 0.5) + tabInit0[0][1] / 4, yLine-tabInit0[0][1] / 2))
+                  }*/
+                }
+              }
+           yLine -= tabInit0[i][1]
             i++
             index++
             break
@@ -6312,7 +6415,6 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
       }
       else {
         texte = MathToSVG(tabInit0[0][0])
-        console.log(texte)
         if (texte[2] == '' && texte[1] == '') {
           textes.push(texteParPosition(texte[0], this.lgt / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
         }
@@ -6321,25 +6423,24 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         }
         else {
           textes.push(texteParPosition(texte[0], this.lgt / 2 - texte[1].length / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-          textes.push(texteParPosition(texte[1], this.lgt / 2, 0.5 - tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-          textes.push(texteParPosition(texte[2], this.lgt / 2, 0.5 + tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+          textes.push(texteParPosition(texte[1], this.lgt / 2, -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+          textes.push(texteParPosition(texte[2], this.lgt / 2, -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
           textes.push(segment(this.lgt / 2 - tabInit0[0][1] / 2, tabInit0[0][1] / 2, this.lgt / 2 + tabInit0[0][1] / 2, tabInit0[0][1] / 2))
         }
         for (let j = 0; j < tabInit1.length; j++) {
           if (tabInit1[j] != "") {
             texte=MathToSVG(tabInit1[j])
-            console.log(texte)
             if (texte[2] == '' && texte[1] == '') {
-              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * j+0.5, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
             }
             else if (texte[2] == '') {
-              textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl * j + 0.5, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
             }
             else {
-              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * (j + 0.5) - texte[1].length / 2+0.1, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-              textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl * (j + 0.5), -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-              textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl * (j + 0.5), -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-              textes.push(segment(this.lgt + this.deltacl + this.escpl * (j + 0.5)- tabInit0[0][1] / 4, -tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl * (j + 0.5) + tabInit0[0][1] / 4, -tabInit0[0][1] / 2))
+              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * j +texte[0].length/2 - texte[1].length / 2+0.1, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl * j +texte[0].length/2, -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl * j  +texte[0].length/2 , -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+              textes.push(segment(this.lgt + this.deltacl + this.escpl * j +texte[0].length/2- tabInit0[0][1] / 4, -tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl * j +texte[0].length/2 + tabInit0[0][1] / 4, -tabInit0[0][1] / 2))
             }
           }
         }
@@ -6397,7 +6498,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 2, deltacl = 0.5, colors = [] }) {
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.1, colors = [] }) {
   return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors })
 }
 
@@ -6972,6 +7073,9 @@ function CrochetD(A, color = "blue") {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
@@ -7022,6 +7126,9 @@ function CrochetG(A, color = "blue") {
           break;
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
           break;
         default:
           this.style += ` stroke-dasharray="5 5" `;
