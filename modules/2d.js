@@ -6249,44 +6249,36 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     let code = ""
     let longueurTotale = lgt + tabInit1.length * escpl + 2 * deltacl
     let MathToSVG = function (string) {
-      let stringhtml = ['', '', ''], strSplit
+      let stringhtml = ['', '', ''], strSplit,idx=0
       if (string[0] == '$') string = string.substring(1, string.length - 1)
       switch (string) {
         case '-\\infty':
-          stringhtml[0] = `-&infin;`
+          stringhtml[idx] = `-&infin;`
           break
         case '+\\infty':
-          stringhtml[0] = '+&infin;'
+          stringhtml[idx] = '+&infin;'
           break
         default:
           if (string[0] == '-') {
-            stringhtml[0] = '-'
+            stringhtml[idx] = '-'
+            idx++
             string = string.substring(1, string.length)
-          }
-          else {
-            if (isNaN(parseFloat(string))) {
-              stringhtml[0] = string
-            }
-            else {
-              stringhtml[0] = parseFloat(string)
-            }
           }
           if (string.substring(0, 7) == "\\dfrac{") {
             strSplit = string.split('{');
-            stringhtml[1] = strSplit[1].substring(0, strSplit[1].length - 1);
-            stringhtml[2] = strSplit[2].substring(0, strSplit[2].length - 1);
+            stringhtml[idx] = strSplit[1].substring(0, strSplit[1].length - 1);
+            stringhtml[idx+1] = strSplit[2].substring(0, strSplit[2].length - 1);
           }
           else {
             if (isNaN(parseFloat(string))) {
-              stringhtml[1] = string
+              stringhtml[idx] = string
             }
             else {
-              stringhtml[1] = parseFloat(string)
+              stringhtml[idx] = parseFloat(string)
             }
           }
 
       }
-      console.log(stringhtml)
       return stringhtml
     }
     for (let i = 0; i < tabInit0.length && index < tabLines.length;) {
@@ -6297,7 +6289,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
       if (i > 0) {
         switch (tabLines[index][0]) {
           case 'Line':
-
+            console.log(tabLines[index])
             yLine -= tabInit0[i][1]
             i++
             index++
@@ -6320,6 +6312,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
       }
       else {
         texte = MathToSVG(tabInit0[0][0])
+        console.log(texte)
         if (texte[2] == '' && texte[1] == '') {
           textes.push(texteParPosition(texte[0], this.lgt / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
         }
@@ -6329,12 +6322,25 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         else {
           textes.push(texteParPosition(texte[0], this.lgt / 2 - texte[1].length / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
           textes.push(texteParPosition(texte[1], this.lgt / 2, 0.5 - tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-          textes.push(texteParPosition(texte[1], this.lgt / 2, 0.5 + tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+          textes.push(texteParPosition(texte[2], this.lgt / 2, 0.5 + tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
           textes.push(segment(this.lgt / 2 - tabInit0[0][1] / 2, tabInit0[0][1] / 2, this.lgt / 2 + tabInit0[0][1] / 2, tabInit0[0][1] / 2))
         }
         for (let j = 0; j < tabInit1.length; j++) {
           if (tabInit1[j] != "") {
-            textes.push(texteParPosition(MathToSVG(tabInit1[j]), this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+            texte=MathToSVG(tabInit1[j])
+            console.log(texte)
+            if (texte[2] == '' && texte[1] == '') {
+              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+            }
+            else if (texte[2] == '') {
+              textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+            }
+            else {
+              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * (j + 0.5) - texte[1].length / 2+0.1, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl * (j + 0.5), -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+              textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl * (j + 0.5), -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
+              textes.push(segment(this.lgt + this.deltacl + this.escpl * (j + 0.5)- tabInit0[0][1] / 4, -tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl * (j + 0.5) + tabInit0[0][1] / 4, -tabInit0[0][1] / 2))
+            }
           }
         }
         yLine -= tabInit0[0][1]
@@ -6348,7 +6354,6 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     for (let i = 0; i < textes.length; i++) {
       code += "\n\t" + textes[i].svg(coeff)
     }
-    console.log(code)
     return code
   }
 
