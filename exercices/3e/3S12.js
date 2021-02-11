@@ -130,7 +130,7 @@ export default function calcul_Effectif_Frequence() {
     texte_corr += texte_gras(`La fréquence des ` + lstAnimauxExo[1] + ` est donc : ` + arrondi_virgule(100*lstNombresAnimaux[1]/Ntotal,1) + `%. <br>`);
 
     //question 3
-    texte_corr += num_alpha(2) + `On fait la somme des effectifs de chaque espèce de quadripèdes : `
+    texte_corr += num_alpha(2) + ` On fait la somme des effectifs de chaque espèce de quadripèdes : `
     let N_totalQuadri = lstNombresAnimaux[0];
      texte_corr += lstNombresAnimaux[0] ;
     for (let i = 1; i < nbQuadri; i++) {
