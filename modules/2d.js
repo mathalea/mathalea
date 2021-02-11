@@ -6237,7 +6237,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
   this.lgt = lgt
   this.escpl = escpl
   this.deltacl = deltacl
-  
+
   this.svg = function (coeff) {
     let tabInit0 = this.tabInit[0]
     let tabInit1 = this.tabInit[1]
@@ -6245,12 +6245,40 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     let lignes, colones // tableaux contenant les différentes chaines à écrire
     let nb_lignes, nbcolones
     let yLine = 0
-    let segments = [], index = 0,textes=[]
+    let segments = [], index = 0, textes = []
     let code = ""
     let longueurTotale = lgt + tabInit1.length * escpl + 2 * deltacl
-    let MathToSVG =function(string){
-      string=string.substring(1,string.length-1)
-      return string
+    let MathToSVG = function (string) {
+      let stringhtml = ''
+      if (string[0] == '$') string = string.substring(1, string.length - 1)
+      switch (string) {
+        case '-\\infty':
+          stringhtml = `-&infin;`
+          break
+        case '+\\infty':
+          stringhtml = '+&infin;'
+          break
+        default:
+          if (string[0] == '-') {
+            stringhtml = '-'
+            string = string.substring(1, string.length)
+          }
+          console.log(string,string.substring(0, 7) )
+          if (string.substring(0, 7) == "\\dfrac{") {
+            stringhtml += 'b/a'
+          }
+          else {
+            if (isNaN(parseFloat(string))) {
+              stringhtml += string
+            }
+            else {
+              stringhtml += parseFloat(string)
+            }
+          }
+
+      }
+
+      return stringhtml
     }
     for (let i = 0; i < tabInit0.length && index < tabLines.length;) {
       segments.push(segment(0, yLine, longueurTotale, yLine))
@@ -6282,10 +6310,10 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         }
       }
       else {
-        textes.push(texteParPosition(MathToSVG(tabInit0[0][0]),this.lgt/2,-tabInit0[0][1]/2,0,'black',1,'middle',true))
-        for (let j=0;j<tabInit1.length;j++){
-          if (tabInit1[j]!=""){
-            textes.push(texteParPosition(MathToSVG(tabInit1[j]),this.lgt+this.deltacl+this.escpl*(j+0.5),-tabInit0[0][1]/2,0,'black',1,'middle',true))
+        textes.push(texteParPosition(MathToSVG(tabInit0[0][0]), this.lgt / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
+        for (let j = 0; j < tabInit1.length; j++) {
+          if (tabInit1[j] != "") {
+            textes.push(texteParPosition(MathToSVG(tabInit1[j]), this.lgt + this.deltacl + this.escpl * (j + 0.5), -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
           }
         }
         yLine -= tabInit0[0][1]
