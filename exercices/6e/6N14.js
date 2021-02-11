@@ -2,7 +2,6 @@ import Exercice from '../ClasseExercice.js';
 import { combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
 import {mathalea2d} from "/modules/2d.js"
 import {fraction} from "/modules/fractions.js"
-
 /**
  * 6N14
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
