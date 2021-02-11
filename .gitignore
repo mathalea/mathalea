@@ -4,3 +4,5 @@
 documentations/
 # ignorer le dossier _utilsSeb
 _utilsSeb/
+#
+modules/menuDesExercicesDisponibles.js
