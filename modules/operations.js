@@ -401,6 +401,13 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             else
                 Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$`
             break
+        case 'divisionE':
+                if (sortie_html)
+                    Code = DivisionPosee3d(operande1, operande2,0);
+                else
+                    Code = `$\\opidiv{${operande1}}{${operande2}}$`
+                break
+               
          }
     return Code
 } 

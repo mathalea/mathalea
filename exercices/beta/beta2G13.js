@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif} from "/modules/outils.js"
+import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from "/modules/2d.js"
+
 /**
  * @Auteur Stéphane Guyon
  */
@@ -38,6 +40,18 @@ export default function calculer_coordonnees_vecteurs() {
                     texte = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on donne les points suivants :`;
                     texte += ` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`;
                     texte += `<br>Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$ `;
+                    r = repere2()//On définit le repère  
+                    A = point(xA, yA)
+                    B = point(xB, yB)                     
+                    t = tracePoint(A, B,'red') // Variable qui trace les points avec une croix
+                    l = labelPoint(A,B)// Variable qui trace les nom s A et B
+                    l.color='red'                    
+                    texte += mathalea2d({
+                      xmin: -6,
+                      ymin: -6,
+                      xmax: 6,
+                      ymax: 6
+                    }, r, t,l);// On trace le graphique
 
 
 
@@ -46,6 +60,7 @@ export default function calculer_coordonnees_vecteurs() {
                     texte_corr += ` <br>On applique ici aux données de l'énoncé :`;
                     texte_corr += ` $\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecriture_parenthese_si_negatif(xA)}  \\\\${yB}-${ecriture_parenthese_si_negatif(yA)}\\end{pmatrix}$<br>`;
                     texte_corr += `Ce qui donne au final : $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}  \\\\${yB - yA}\\end{pmatrix}$<br>`;
+
                     break;
                 case 2:
 
@@ -64,4 +79,5 @@ export default function calculer_coordonnees_vecteurs() {
         }
         liste_de_question_to_contenu(this);
     };
+   
 }

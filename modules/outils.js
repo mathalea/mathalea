@@ -6,7 +6,7 @@ import { fraction,listeFractions } from "/modules/Fractions.js"
 export function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
-		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
+		argument.contenu_correction = html_paragraphe(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
 		let vspace = '';
 		if (argument.vspace) {
@@ -17,7 +17,7 @@ export function liste_de_question_to_contenu(argument) {
 		} else {
 			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
-		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+		argument.contenu_correction = tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
 }
@@ -3425,7 +3425,11 @@ export function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton
 	if (id_youtube.substr(0,4)=='http'){
 		if (id_youtube.slice(-4)=='.pdf'){
 			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
-		} else {
+		} 
+		if (id_youtube.substr(0,17)=='https://youtu.be/'){
+			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube.substr(17,28)}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+		} 
+		else {
 			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
 		}
 	} else if (id_youtube.substr(0,4)=='<ifr'){
