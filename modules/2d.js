@@ -3501,7 +3501,7 @@ export function translation2Points(O, A, B, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot et Jean-Claude Lhote
  */
-export function rotation(A, O, angle, nom, positionLabel) {
+export function rotation(A, O, angle, nom="", positionLabel="above") {
   if (A.constructor == Point) {
     let x = calcul(
       O.x +
