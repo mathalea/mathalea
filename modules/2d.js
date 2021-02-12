@@ -3599,7 +3599,7 @@ export function sens_de_rotation(A, O, sens) {
  *
  * @Auteur Rémi Angot
  */
-export function homothetie(A, O, k, nom, positionLabel) {
+export function homothetie(A, O, k, nom="", positionLabel="") {
   if (A.constructor == Point) {
     let x = calcul(O.x + k * (A.x - O.x));
     let y = calcul(O.y + k * (A.y - O.y));
@@ -3725,7 +3725,7 @@ export function distancePointDroite(A, d) {
  * N = projectionOrtho(M,d,'N','below left')
  *@Auteur Jean-Claude Lhote
  */
-export function projectionOrtho(M, d, nom = " ", positionLabel = "above") {
+export function projectionOrtho(M, d, nom = "", positionLabel = "above") {
   let a = d.a,
     b = d.b,
     c = d.c,
@@ -3758,7 +3758,7 @@ export function projectionOrtho(M, d, nom = " ", positionLabel = "above") {
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @Auteur = Jean-Claude Lhote
  */
-export function affiniteOrtho(A, d, k, nom = " ", positionLabel = "above") {
+export function affiniteOrtho(A, d, k, nom = "", positionLabel = "above") {
   let a = d.a,
     b = d.b,
     c = d.c,
@@ -3831,7 +3831,7 @@ export function affiniteOrtho(A, d, k, nom = " ", positionLabel = "above") {
  * M = similitude(B,O,30,0.7,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 0.7
  * @Auteur Jean-Claude Lhote
  */
-export function similitude(A, O, a, k, nom = " ", positionLabel = "above") {
+export function similitude(A, O, a, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let ra = Math.radians(a);
     let x = calcul(
