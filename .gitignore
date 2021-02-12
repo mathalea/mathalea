@@ -1,6 +1,2 @@
 # ignorer le dossier de config de visual studio code
 .vscode/
-# ignorer le dossier documentations
-documentations/
-# ignorer le dossier _utilsSeb
-_utilsSeb/

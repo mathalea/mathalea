@@ -7298,11 +7298,8 @@ function LatexParPoint(texte, A, color) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
-    return `<foreignObject style="overflow: visible;" y="${A.ySVG(
-      coeff
-    )}" x="${A.xSVG(
-      coeff
-    )}" width="200" height="50"><div>${texte}</div></foreignObject`;
+    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)}" x="${A.xSVG(coeff)}" width="200" height="50"><div style="position:fixed!important; text-align:center">
+    ${texte}</div></foreignObject>`;
   };
   this.tikz = function () {
     let code = `\\draw (${A.x},${A.y}) node[anchor = center] {${texte}};`;
