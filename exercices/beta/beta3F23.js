@@ -18,7 +18,7 @@ export default function antecedent_par_calcul() {
     "use strict"
     Exercice.call(this)
     this.titre = "Déterminer un antécédent";
-    this.consigne = "On résoudra les questiosn suivantes par le caclul, et on cherchera à donner une valeur exacte et simplifiée du résultat. ";
+    this.consigne = "Répondre aux questions suivantes avec une valeur exacte simplifiée. ";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
@@ -66,9 +66,9 @@ export default function antecedent_par_calcul() {
   
           case 2:
             // f(x) = ax + b avec a et b grands relatifs
-            a = randint(-2000,2000, [-1,0,1]);
-            b = randint(-2000,2000);
-            m = randint(-2000,2000);
+            a = randint(-999,999, [-1,0,1]);
+            b = randint(-999,999, [0]);
+            m = randint(-999,999, [0]);
             expr =`$f(x)=${a}x ${ecriture_algebrique(b)}$`;
             texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `;
             texte_corr += `On résout l'équation : $${a}x ${ecriture_algebrique(b)} = ${m}$. <br>`;  
