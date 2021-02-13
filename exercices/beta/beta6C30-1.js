@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, calcul,nombre_avec_espace} from "/modules/outils.js"
+import {liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, calcul, tex_nombre,shuffle2tableaux} from "/modules/outils.js"
 
 /**
  * Reconnaître une fonction affine
@@ -40,57 +40,95 @@ export default function Multiplication_mental_decimaux() {
     this.liste_corrections = []
     let type_de_questions_disponibles=["add", "mul", "add_deci", "mul_deci"] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
   
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
-        let a=0, b=0, tabrep=[]; // les deux opérandes
+        let a=0, b=0, tabrep=[], tabicone=[]; // les deux opérandes
 
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case "add":
                a = 10*randint(1,9)+randint(1,9);
                b = 10*randint(1,9)+randint(1,9);
                texte += `Calcul : $${a} + ${b}$. <br>`;
+               texte_corr += `Calcul : $${a} + ${b}$. <br>`;
                texte += `Réponses possibles : <br>`;
-               tabrep = [a+b, a*b, (a+b)/10, 10*(a+b), a+b+1];
-               for (let i of tabrep) {
-                texte += `${i}  &emsp;  `;
-               }
+               tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)];
+               tabicone = [1,0,0,0,0,0];
+               shuffle2tableaux(tabrep, tabicone);
+               for (let i=0; i<5; i++) {
+                 texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                if (tabicone[i]==1) {
+                  texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                } else {
+                  texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                }
+              }
           break;
   
           case "mul":
             a = 10*randint(1,9)+randint(1,9);
             b = 10*randint(1,9)+randint(1,9);
             texte += `Calcul : $${a} \\times ${b}$. <br>`
+            texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
             texte += `Réponses possibles : <br>`;
             tabrep = [a*b, 10*a*b, a*b/10, a+b, a*b+1];
-            for (let i of tabrep) {
-             texte += `${i} &emsp;   `;
-            }
-          break
+            tabicone = [1,0,0,0,0,0];
+            shuffle2tableaux(tabrep, tabicone);
+            for (let i=0; i<5; i++) {
+              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             if (tabicone[i]==1) {
+               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             } else {
+               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             }
+           }
+       break
           
           case "add_deci":
-            a = 10*randint(1,9)+randint(1,9,[3,4,5,6,7])+0.1*randint(1,9)+0.01*randint(0,9,[2,5]);
-            b = 10*randint(1,9)+randint(1,9,[3,4,5,6,7])+0.1*randint(1,9)+0.01*randint(0,9);
-            texte += `Calcul : $${nombreDecimal(a)} + ${nombreDecimal(b)}$. <br>`
+            a = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
+            b = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
+            texte += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
+            texte_corr += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
             texte += `Réponses possibles : <br>`;
-            tabrep = [nombreDecimal(a+b), calcul(a*b,4), nombreDecimal((a+b)/10), nombreDecimal(10*(a+b)), nombreDecimal(a+b+0.01)];
-            for (let i of tabrep) {
-             texte += `${i} &emsp;   `;
-            }
+            tabrep = [(a+b)/100, (a*b)/100, (a+b)/1000, 10*(a+b)/100,(a+b+1)/100];
+            tabicone = [1,0,0,0,0,0];
+            shuffle2tableaux(tabrep, tabicone);
+            for (let i=0; i<5; i++) {
+              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             if (tabicone[i]==1) {
+               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             } else {
+               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             }
+           }
           break 
 
           case "mul_deci":
-            a = 10*randint(1,9)+randint(1,9,[3,4,5,6,7])+0.1*randint(1,9)+0.01*randint(0,9,[2,5]);
-            b = 10*randint(1,9)+randint(1,9,[3,4,5,6,7])+0.1*randint(1,9)+0.01*randint(0,9);
-            texte += `Calcul : $${nombreDecimal(a)} \\times ${nombreDecimal(b)}$. <br>`
+            a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]);
+            b = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9);
+            texte += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
+            texte_corr += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
             texte += `Réponses possibles : <br>`;
-            tabrep = [a*b, 10*a*b, a*b/10, a+b, a*b+1];
-            tabrep = tabrep.map(calcul);
-            for (let i of tabrep) {
-             texte += `${i} &emsp;   `;
-            }
+            tabrep = [(a*b)/10000, (10*a*b)/10000, (a*b)/100000, (a+b)/100, (a*b+1)/10000];
+            tabicone = [1,0,0,0,0,0];
+            shuffle2tableaux(tabrep, tabicone);
+            for (let i=0; i<5; i++) {
+              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             if (tabicone[i]==1) {
+               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             } else {
+               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+             }
+           }
           break
 
         }
