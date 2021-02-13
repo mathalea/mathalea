@@ -6274,7 +6274,7 @@ export function traceGraphiqueCartesien(...args) {
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0 
  */
-function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }) {
+function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,hauteurLignes }) {
 
   ObjetMathalea2D.call(this)
   this.tabInit = tabInit
@@ -6283,6 +6283,15 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
   this.lgt = lgt
   this.escpl = escpl
   this.deltacl = deltacl
+  this.hauteurLignes=[]
+  if (hauteurLignes.length!=0) { // On récupère les hauteurs de lignes
+    this.hauteurLignes=hauteurLignes
+  }
+  else { // Si elles ne sont pas définies, on met 14 par défaut
+    for (let i=0;i<tabInit[0].length/2;i++){
+      this.hauteurLignes.push(20)
+    }
+  }
 
   this.svg = function (coeff) {
     let tabInit0 = this.tabInit[0]
@@ -6293,19 +6302,30 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     let yLine = 0
     let segments = [], index = 0, textes = [], texte,long, s, p
     let code = ""
-    let longueurTotale = this.lgt + (tabInit1.length/2 -1) * escpl + 1 + 2 * deltacl
+    let longueurTotale = this.lgt + (tabInit1.length/2 -1) * escpl  + 2 * deltacl
+
+    let MathToSVG = function (string) { // fonction qui traduit si possible la chaine Latex en un tableau de chaine
+      // un seul élément si c'est du texte ou un nombre
+      // deux éléments si il y a un signe - et du texte
+      // trois élément si c'est une fraction les 2e et 3e sont le numérateur et le dénominateur. Le 1er est éventuellement un signe -
+      if (string[0] == '$') string = string.substring(1, string.length - 1)
+      return string
+    }
     for (let i = 0; i < tabInit0.length/2 && index < tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
       // On crée une ligne horizontale et les séparations verticales de base
       segments.push(segment(0, yLine, longueurTotale, yLine))
-      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]))
-      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]))
-      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]))
+      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
       if (i > 0) { // On est dans les lignes 1 à n 
         // Line et Var incrémente i de 1 et décrémente yLine de la hauteur de la ligne
         // Val, Ima et Slope incrémente index mais pas i
         switch (tabLines[index][0]) {
           case 'Line':
-            textes.push(latexParCoordonnees(tabInit0[i][0], this.lgt/2-tabInit0[i][2]/8, yLine ))
+            long=tabInit0[i][2]
+//            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
+            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
+
             for (let k = 1; k < tabLines[index].length/2; k++) {
               if (tabLines[index][k*2] != "") {
                 texte = tabLines[index][k*2]
@@ -6314,34 +6334,34 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
                 if (texte.length == 1) {
                   switch (texte[0]) {
                     case 'z':
-                      textes.push(latexParCoordonnees('$0$', this.lgt + this.deltacl + this.escpl / 2 * (k-1)-1/8, yLine))
-                      s = segment(this.lgt + this.deltacl + this.escpl / 2 *(k-1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k-1) , yLine - tabInit0[i][1])
+                      textes.push(latexParCoordonnees('0', this.lgt + this.deltacl + this.escpl / 2 * (k-1), yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 *(k-1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k-1) , yLine - tabInit0[i][1]*this.hauteurLignes[i]/14)
                       s.pointilles = 4
                       segments.push(s)
                       break
                     case 'd':
-                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) - 0.1, yLine - tabInit0[i][1]))
-                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) + 0.1, yLine - tabInit0[i][1]))
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) - 0.1, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) + 0.1, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
                       break
                     case 't':
-                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1), yLine - tabInit0[i][1])
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14)
                       s.pointilles = 4
                       segments.push(s)
                       break
                     case 'h':
                       p = polygone(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1]),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1]))
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14),
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
                       p.couleurDeRemplissage = 'gray'
                       segments.push(p)
                       break
                     case '+':
-                      textes.push(latexParCoordonnees('$+$', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine))
+                      textes.push(latexParCoordonnees('+', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
 
                       break
                     case '-':
-                      textes.push(latexParCoordonnees('$-$', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine))
+                      textes.push(latexParCoordonnees('-', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
 
                       break
                   }
@@ -6350,16 +6370,16 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
                   // textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
                 }
                 else {
-                  textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl / 2 * (k - 1) -long/8, yLine))
+                  textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i]))
                 }
               }
             }
-            yLine -= tabInit0[i][1]
+            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
             i++
             index++
             break
           case 'Var':
-            yLine -= tabInit0[i][1]
+            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
             i++
             index++
             break
@@ -6378,14 +6398,14 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         texte = tabInit0[0][0]
         long=tabInit0[0][1]
         console.log('tabInit00',texte,long)
-        textes.push(latexParCoordonnees(texte,this.lgt/2-long/8, 0))
+        textes.push(latexParCoordonnees(MathToSVG(texte),this.lgt/2,-tabInit0[0][1]*this.hauteurLignes[0]/28,'black',long,this.hauteurLignes[0]))
       for (let j = 0; j < tabInit1.length/2; j++) {
         texte = tabInit1[j*2]
         long=tabInit1[j*2+1]
         console.log('tabInit1',texte,long)
-        textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl * j-long/8, 0))
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1]*this.hauteurLignes[0]/28,'black',long,this.hauteurLignes[0]))
       }
-        yLine -= tabInit0[0][1]
+        yLine -= tabInit0[0][1]*this.hauteurLignes[0]/14
         i++
       }
     }
@@ -6443,8 +6463,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.5, colors = [] }) {
-  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors })
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.5, colors = [], hauteurLignes=[] }) {
+  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes })
 }
 
 
@@ -7230,7 +7250,7 @@ function LatexParPoint(texte, A, color, size = 200, hauteurLigne = 12) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
-    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)-hauteurLigne}" x="${A.xSVG(coeff)-demiSize}" width="${size*2}" height="50"><div style="margin-left: auto;
+    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)-hauteurLigne/2}" x="${A.xSVG(coeff)-demiSize}" width="${size*2}" height="50"><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\color{${color}}${texte}$</div></foreignObject>`;
   };
@@ -7243,9 +7263,9 @@ export function latexParPoint(...args) {
   return new LatexParPoint(...args);
 }
 
-export function latexParCoordonnees(texte, x, y) {
+export function latexParCoordonnees(texte, x, y,color='black',size=200,hauteurLigne=12) {
   let A = point(x, y);
-  return latexParPoint(texte, A);
+  return latexParPoint(texte, A,color,size,hauteurLigne);
 }
 
 /**
