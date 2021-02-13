@@ -213,7 +213,6 @@ export default function Calculs_trigonometriques() {
           normalH=rotationV3d(R,normalV,90)
           P=rotationV3d(M,normalH,-alpha)
           P.p2d.nom='P'
-          console.log(P)
           H=point3d(0,0,P.z3d,false)
           R2=vecteur3d(H,P)
           H.p2d.nom='H'
