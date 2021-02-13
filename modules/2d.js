@@ -6311,17 +6311,15 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
       if (string[0] == '$') string = string.substring(1, string.length - 1)
       return string
     }
-    for (let i = 0; i < tabInit0.length/2 && index < tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
-      // On crée une ligne horizontale et les séparations verticales de base
-      segments.push(segment(0, yLine, longueurTotale, yLine))
-      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-      if (i > 0) { // On est dans les lignes 1 à n 
+    console.log(tabLines)
+    for (let i=-1;i < tabInit0.length && index<tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
+
+      if (i >= 0) { // On est dans les lignes 1 à n 
         // Line et Var incrémente i de 1 et décrémente yLine de la hauteur de la ligne
         // Val, Ima et Slope incrémente index mais pas i
         switch (tabLines[index][0]) {
           case 'Line':
+            i++
             long=tabInit0[i][2]
 //            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
             textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
@@ -6330,7 +6328,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
               if (tabLines[index][k*2] != "") {
                 texte = tabLines[index][k*2]
                 long=tabLines[index][k*2+1]
-                console.log('tabLines',texte,long)
+                console.log('tabLine',texte,long,i,index)
                 if (texte.length == 1) {
                   switch (texte[0]) {
                     case 'z':
@@ -6374,28 +6372,65 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
                 }
               }
             }
+                  // On crée une ligne horizontale et les séparations verticales de base
+      segments.push(segment(0, yLine, longueurTotale, yLine))
+      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i+1]/14))
+      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
             yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
-            i++
             index++
             break
           case 'Var':
-
-            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
             i++
+            for (let k = 1; k < tabLines[index].length/2; k++) {
+              if (tabLines[index][k*2] != "") {
+                texte = tabLines[index][k*2]
+                long=tabLines[index][k*2+1]
+                console.log('tabVar',texte,long,i,index)
+              }
+            }
+                             // On crée une ligne horizontale et les séparations verticales de base
+      segments.push(segment(0, yLine, longueurTotale, yLine))
+      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i+1]/14))
+      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+ 
+            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
             index++
             break
           case 'Val':
+            for (let k = 1; k < tabLines[index].length/2; k++) {
+              if (tabLines[index][k*2] != "") {
+                texte = tabLines[index][k*2]
+                long=tabLines[index][k*2+1]
+                console.log('tabVal',texte,long,i,index)
+              }
+            }
             index++
             break
           case 'Ima':
+            for (let k = 1; k < tabLines[index].length/2; k++) {
+              if (tabLines[index][k*2] != "") {
+                texte = tabLines[index][k*2]
+                long=tabLines[index][k*2+1]
+                console.log('tabIma',texte,long,i,index)
+              }
+            }
             index++
             break
           case 'Slope':
-
+            for (let k = 1; k < tabLines[index].length/2; k++) {
+              if (tabLines[index][k*2] != "") {
+                texte = tabLines[index][k*2]
+                long=tabLines[index][k*2+1]
+                console.log('tabSlope',texte,long,i,index)
+              }
+            }
             break
         }
       }
       else { // ici on est dans la ligne d'entête
+      i++
         texte = tabInit0[0][0]
         long=tabInit0[0][1]
         console.log('tabInit00',texte,long)
@@ -6407,7 +6442,6 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
         textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1]*this.hauteurLignes[0]/28,'black',long,this.hauteurLignes[0]))
       }
         yLine -= tabInit0[0][1]*this.hauteurLignes[0]/14
-        i++
       }
     }
 
