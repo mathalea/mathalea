@@ -55,13 +55,17 @@ export default function antecedent_par_calcul() {
             m = randint(-20,20);
             expr =`$f(x)=${a}x ${ecriture_algebrique(b)}$`;
             texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `;
-            texte_corr += `On résout l'équation : $${a}x ${ecriture_algebrique(b)} = ${m}$. <br>`;  
-            texte_corr += `$ ${a}x = ${m} ${ecriture_algebrique(-b)}$ <br>`;
+            texte_corr += `On cherche un nombre $x$ tel que $f(x) = ${m}$. `
+            texte_corr += `On résout donc l'équation : $f(x) = ${m}$. <br>`;  
+            texte_corr += `$\\begin{aligned} `;
+            texte_corr += `${a}x ${ecriture_algebrique(b)} &= ${m} \\\\ `;
+            texte_corr += `${a}x &= ${m} ${ecriture_algebrique(-b)} \\\\ `;
             if (pgcd(m-b,a)==1 && m-b>0 && a>0) { // teste si la fraction est simplifiable
-              texte_corr += `$x = ${tex_fraction(m-b, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-b, a)} \\\\`;
             } else {
-              texte_corr += `$x = ${tex_fraction(m-b, a)} = ${tex_fraction_reduite(m-b, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-b, a)} = ${tex_fraction_reduite(m-b, a)}\\\\ `;
             }
+            texte_corr += `\\end{aligned}$`;
           break;
   
           case 2:
@@ -71,14 +75,17 @@ export default function antecedent_par_calcul() {
             m = randint(-999,999, [0]);
             expr =`$f(x)=${a}x ${ecriture_algebrique(b)}$`;
             texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `;
-            texte_corr += `On résout l'équation : $${a}x ${ecriture_algebrique(b)} = ${m}$. <br>`;  
-            texte_corr += `$ ${a}x = ${m} ${ecriture_algebrique(-b)}$ <br>`;
+            texte_corr += `On cherche un nombre $x$ tel que $f(x) = ${m}$. `
+            texte_corr += `On résout donc l'équation : $f(x) = ${m}$. <br>`;  
+            texte_corr += `$\\begin{aligned} `;
+            texte_corr += ` ${a}x ${ecriture_algebrique(b)}&= ${m} \\\\ `;
+            texte_corr += ` ${a}x &= ${m} ${ecriture_algebrique(-b)}\\\\ `;
             if (pgcd(m-b,a)==1 && m-b>0 && a>0) {// teste si la fraction est simplifiable
-              texte_corr += `$x = ${tex_fraction(m-b, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-b, a)}\\\\`;
             } else {
-              texte_corr += `$x = ${tex_fraction(m-b, a)} = ${tex_fraction_reduite(m-b, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-b, a)} = ${tex_fraction_reduite(m-b, a)}\\\\`;
             }
-
+            texte_corr += `\\end{aligned}$`;
           break
   
           case 3:
@@ -89,15 +96,20 @@ export default function antecedent_par_calcul() {
             m = randint(-20,20);
             expr =`$f(x)=${a}(x ${ecriture_algebrique(b)})${ecriture_algebrique(c)}$`;
             texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `;
-            texte_corr += `On résout l'équation : $${a}(x ${ecriture_algebrique(b)})${ecriture_algebrique(b)} = ${m}$. <br>`; 
-            texte_corr += `$${a}x ${ecriture_algebrique(a*b)}${ecriture_algebrique(c)}  = ${m}$. <br>`;
-            texte_corr += `$${a}x ${ecriture_algebrique(a*b+c)}  = ${m}$. <br>`;
-            texte_corr += `$ ${a}x = ${m} ${ecriture_algebrique(-a*b-c)}$ <br>`;
+            texte_corr += `On cherche un nombre $x$ tel que $f(x) = ${m}$. `
+            texte_corr += `On résout donc l'équation : $f(x) = ${m}$. <br>`;  
+
+            texte_corr += `$\\begin{aligned} `;
+            texte_corr += `${a}(x ${ecriture_algebrique(b)})${ecriture_algebrique(c)} &= ${m}\\\\`;
+            texte_corr += `${a}x ${ecriture_algebrique(a*b)}${ecriture_algebrique(c)} &= ${m}\\\\`;
+            texte_corr += `${a}x ${ecriture_algebrique(a*b+c)} &= ${m}\\\\`;
+            texte_corr += `${a}x &= ${m} ${ecriture_algebrique(-a*b-c)}\\\\`;
             if (pgcd(m-a*b-c,a)==1 && m-a*b-c>0 && a>0) {// teste si la fraction est simplifiable
-              texte_corr += `$x = ${tex_fraction(m-a*b-c, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-a*b-c, a)}\\\\`;
             } else {
-              texte_corr += `$x = ${tex_fraction(m-a*b-c, a)} = ${tex_fraction_reduite(m-a*b-c, a)}$`;
+              texte_corr += `x &= ${tex_fraction(m-a*b-c, a)} = ${tex_fraction_reduite(m-a*b-c, a)}\\\\`;
             }
+            texte_corr += `\\end{aligned}$`;
           break
             
           case 4:
@@ -110,15 +122,22 @@ export default function antecedent_par_calcul() {
             m = randint(-20,20);
             expr =`$f(x)=${a}(${b}x ${ecriture_algebrique(c)})${ecriture_algebrique(d)}x${ecriture_algebrique(e)}$`;
             texte += `Déterminer l'antécédent de $${m}$ par la fonction $f$ définie par ${expr}. `
-            texte_corr += `On résout l'équation : $${a}(${b}x ${ecriture_algebrique(c)})${ecriture_algebrique(d)}x${ecriture_algebrique(e)} = ${m}$. <br>`; 
-            texte_corr += `$${a*b}x ${ecriture_algebrique(a*c)}${ecriture_algebrique(d)}x${ecriture_algebrique(e)}  = ${m}$. <br>`;
-            texte_corr += `$${a*b+d}x ${ecriture_algebrique(a*c+e)} = ${m}$. <br>`;
-            texte_corr += `$${a*b+d}x = ${m-a*c-e}$. <br>`;
+            texte_corr += `On cherche un nombre $x$ tel que $f(x) = ${m}$. `
+            texte_corr += `On résout donc l'équation : $f(x) = ${m}$. <br>`;  
+
+            texte_corr += `$\\begin{aligned} `;
+            texte_corr += `${a}(${b}x ${ecriture_algebrique(c)})${ecriture_algebrique(d)}x${ecriture_algebrique(e)} &= ${m}\\\\`;
+            texte_corr += `${a*b}x ${ecriture_algebrique(a*c)}${ecriture_algebrique(d)}x${ecriture_algebrique(e)} &= ${m}\\\\`;
+            texte_corr += `${a*b+d}x ${ecriture_algebrique(a*c+e)} &= ${m}\\\\`;
+            texte_corr += `${a*b+d}x  &= ${m}${ecriture_algebrique(-a*c-e)}\\\\`;
+            texte_corr += `${a*b+d}x &= ${m-a*c-e}\\\\`;
             if (pgcd(m-a*c-e,a*b+d)==1 && m-a*c-e>0 && a*b+d>0) {// teste si la fraction est simplifiable
-              texte_corr += `$x = ${tex_fraction(m-a*c-e, a*b+d)}$`;
+              texte_corr += `x &= ${tex_fraction(m-a*c-e, a*b+d)}\\\\`;
             } else {
-              texte_corr += `$x = ${tex_fraction(m-a*c-e, a*b+d)} = ${tex_fraction_reduite(m-a*c-e, a*b+d)}$`;
+              texte_corr += `x &= ${tex_fraction(m-a*c-e, a*b+d)} = ${tex_fraction_reduite(m-a*c-e, a*b+d)}\\\\`;
             }
+            texte_corr += `\\end{aligned}$`;
+
           break            
         }
 
