@@ -6860,14 +6860,13 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             }
             index++
             break
-          case 'Ima':
-            for (let k = 1; k < tabLines[index].length / 2; k++) {
-              if (tabLines[index][k * 2] != "") {
-                texte = tabLines[index][k * 2]
-                long = tabLines[index][k * 2 + 1]
-                //              console.log('tabIma', texte, long, i, index)
+          case 'Ima': // ajouter des valeurs sur la flèche...
+          
+              if (tabLines[index][3] != "") {
+                texte = tabLines[index][3]
+                long = tabLines[index][4]
+                textes.push(latexParCoordonnees(MathToSVG(texte),this.lgt + this.deltacl + this.escpl * ((tabLines[index][1] - 1)+(tabLines[index][2] - 1))/2, yLine + tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
               }
-            }
             index++
             break
           case 'Slope':

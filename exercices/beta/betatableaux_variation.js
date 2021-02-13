@@ -55,10 +55,11 @@ export default function Essai_tableaux_de_variation() {
 
         let t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
         tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
-       ['$-\\infty$',25,'$\\sqrt{2}$',15,'$3$',10,'$4$',10]],
+       ['$-\\infty$',18,'$\\sqrt{2}$',15,'$3$',10,'$4$',10]],
         tabLines:
         [['Line',30,'',0,'-',6,'z',10,'+',8,'d',6,'+',8,'d',6],
-        ['Var',10,'+/$5$',10,'-/$-3$',15,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18]
+        ['Var',10,'-/$-\\infty$',18,'R/',0,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18],
+        ['Ima',1,3,'$e^{\\sqrt{2}}$',20]
       ]
       })
 
