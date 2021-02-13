@@ -1476,10 +1476,10 @@ function Segment(arg1, arg2, arg3, arg4, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-          case 4:
-            this.style += ` stroke-dasharray="1 2" `;
-            break;
-          default:
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
+        default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -1771,10 +1771,10 @@ function Polygone(...points) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-          case 4:
-            this.style += ` stroke-dasharray="1 2" `;
-            break;
-          default:
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
+        default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -2200,10 +2200,10 @@ function Cercle(O, r, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-          case 4:
-            this.style += ` stroke-dasharray="1 2" `;
-            break;
-          default:
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
+        default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -2337,10 +2337,10 @@ function Ellipse(O, rx, ry, color) {
         case 3:
           this.style += ` stroke-dasharray="3 2 6 2 " `;
           break;
-          case 4:
-            this.style += ` stroke-dasharray="1 2" `;
-            break;
-          default:
+        case 4:
+          this.style += ` stroke-dasharray="1 2" `;
+          break;
+        default:
           this.style += ` stroke-dasharray="5 5" `;
           break;
       }
@@ -3501,7 +3501,7 @@ export function translation2Points(O, A, B, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot et Jean-Claude Lhote
  */
-export function rotation(A, O, angle, nom="", positionLabel="above") {
+export function rotation(A, O, angle, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(
       O.x +
@@ -3599,7 +3599,7 @@ export function sens_de_rotation(A, O, sens) {
  *
  * @Auteur Rémi Angot
  */
-export function homothetie(A, O, k, nom="", positionLabel="") {
+export function homothetie(A, O, k, nom = "", positionLabel = "") {
   if (A.constructor == Point) {
     let x = calcul(O.x + k * (A.x - O.x));
     let y = calcul(O.y + k * (A.y - O.y));
@@ -6270,8 +6270,8 @@ export function traceGraphiqueCartesien(...args) {
  * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
  * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
  * exemple :
- * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...]]
- * tabLines:[[type,codeL1C1,codeL1C2,codeL1C3,...],[type,codeL2C1,codeL2C2,codeL2C3,...]]
+ * tabInit:[[[texte1,taille1,long1],[texte2,taille2,long2]...],[valeur1,long1,valeur2,long2,valeur3,long3...]]
+ * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0 
  */
 function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }) {
@@ -6291,57 +6291,12 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     let lignes, colones // tableaux contenant les différentes chaines à écrire
     let nb_lignes, nbcolones
     let yLine = 0
-    let segments = [], index = 0, textes = [], texte,s,p
+    let segments = [], index = 0, textes = [], texte,long, s, p
     let code = ""
-    let longueurTotale = lgt + (tabInit1.length-1) * escpl +1+ 2 * deltacl
-
-
-    let MathToSVG = function (string) { // fonction qui traduit si possible la chaine Latex en un tableau de chaine
-      // un seul élément si c'est du texte ou un nombre
-      // deux éléments si il y a un signe - et du texte
-      // trois élément si c'est une fraction les 2e et 3e sont le numérateur et le dénominateur. Le 1er est éventuellement un signe -
-      let stringhtml = ['', '', ''], strSplit,idx=0
-      if (string[0] == '$') string = string.substring(1, string.length - 1)
-      switch (string) {
-        case '-\\infty':
-          stringhtml[idx] = `-&infin;`
-          break
-        case '+\\infty':
-          stringhtml[idx] = '+&infin;'
-          break
-        default:
-          if (string[0] == '-') {
-            stringhtml[idx] = '-'
-            idx++
-            string = string.substring(1, string.length)
-          }
-          if (string.substring(0, 7) == "\\dfrac{") {
-            strSplit = string.split('{');
-            stringhtml[idx] = strSplit[1].substring(0, strSplit[1].length - 1);
-            stringhtml[idx+1] = strSplit[2].substring(0, strSplit[2].length - 1);
-          }
-          else if (string.substring(0, 6) == "\\text{") {
-            string=string.substring(6,string.length)
-            stringhtml[idx]=string.split('}')[0]
-            stringhtml[idx+1]=string.split('}')[1]
-          }
-          else {
-            if (isNaN(parseFloat(string))) {
-              stringhtml[idx] = string
-            }
-            else {
-              stringhtml[idx] = parseFloat(string)
-            }
-          }
-
-      }
-      return stringhtml
-    }
-
-
-    for (let i = 0; i < tabInit0.length && index < tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
-// On crée une ligne horizontale et les séparations verticales de base
-    segments.push(segment(0, yLine, longueurTotale, yLine))
+    let longueurTotale = this.lgt + (tabInit1.length/2 -1) * escpl + 1 + 2 * deltacl
+    for (let i = 0; i < tabInit0.length/2 && index < tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
+      // On crée une ligne horizontale et les séparations verticales de base
+      segments.push(segment(0, yLine, longueurTotale, yLine))
       segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]))
       segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]))
       segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]))
@@ -6350,60 +6305,56 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         // Val, Ima et Slope incrémente index mais pas i
         switch (tabLines[index][0]) {
           case 'Line':
-            textes.push(texteParPosition(MathToSVG(tabInit0[i][0])[0],this.lgt/2,yLine-tabInit0[i][1]/2, 0, 'black', 1, 'middle', true))
-              for (let k = 1; k < tabLines[index].length; k++) {
-                if (tabLines[index][k] != "") {
-                  texte=MathToSVG(tabLines[index][k])
-                  console.log(texte)
-                  if (texte[2] == '' && texte[1] == '') {
-                    console.log(texte[0])
-                    switch (texte[0]){
-                      case 'z':
-                        textes.push(texteParPosition('0', this.lgt + this.deltacl + this.escpl/2 * (k- 0.6), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
-                        s=  segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.6),yLine,this.lgt + this.deltacl + this.escpl/2 * (k - 0.6),yLine-tabInit0[i][1])
-                        s.pointilles=4
-                        segments.push(s)
-                        break
-                      case 'd':
-                        segments.push(segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5)-0.1,yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5)-0.1,yLine-tabInit0[i][1]))
-                        segments.push(segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5)+0.1,yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5)+0.1,yLine-tabInit0[i][1]))
-                        break
-                      case 't' :
-                      s=  segment(this.lgt + this.deltacl + this.escpl/2 * (k - 0.5),yLine,this.lgt + this.deltacl + this.escpl/2 * (k + 0.5),yLine-tabInit0[i][1])
-                      s.pointilles=4
+            textes.push(latexParCoordonnees(tabInit0[i][0], this.lgt/2-tabInit0[i][2]/8, yLine ))
+            for (let k = 1; k < tabLines[index].length/2; k++) {
+              if (tabLines[index][k*2] != "") {
+                texte = tabLines[index][k*2]
+                long=tabLines[index][k*2+1]
+                console.log('tabLines',texte,long)
+                if (texte.length == 1) {
+                  switch (texte[0]) {
+                    case 'z':
+                      textes.push(latexParCoordonnees('$0$', this.lgt + this.deltacl + this.escpl / 2 * (k-1)-1/8, yLine))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 *(k-1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k-1) , yLine - tabInit0[i][1])
+                      s.pointilles = 4
                       segments.push(s)
                       break
-                      case 'h' :
-                      p=polygone(point(this.lgt + this.deltacl + this.escpl/2 * (k-1),yLine),
-                      point(this.lgt + this.deltacl + this.escpl/2 * (k),yLine),
-                      point(this.lgt + this.deltacl + this.escpl/2 * (k),yLine-tabInit0[i][1]),
-                      point(this.lgt + this.deltacl + this.escpl/2 * (k-1),yLine-tabInit0[i][1]))
-                      p.couleurDeRemplissage='gray'
+                    case 'd':
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) - 0.1, yLine - tabInit0[i][1]))
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) + 0.1, yLine - tabInit0[i][1]))
+                      break
+                    case 't':
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1), yLine - tabInit0[i][1])
+                      s.pointilles = 4
+                      segments.push(s)
+                      break
+                    case 'h':
+                      p = polygone(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1]),
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1]))
+                      p.couleurDeRemplissage = 'gray'
                       segments.push(p)
                       break
-                      case '+' :
-                        textes.push(texteParPosition('+', this.lgt + this.deltacl + this.escpl/2 * (k - 1), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+                    case '+':
+                      textes.push(latexParCoordonnees('$+$', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine))
 
                       break
-                      case '-' :
-                        textes.push(texteParPosition('-', this.lgt + this.deltacl + this.escpl/2 * (k -1), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
+                    case '-':
+                      textes.push(latexParCoordonnees('$-$', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine))
 
                       break
-                    }
-                  }
-                 else if (texte[2] == '') {
-                    textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2, 0, 'black', 1, 'middle', true))
-                  }
-                  
-                  else {
-                    textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl/2 * (k -0.6) - 0.4, yLine-tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-                    textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl/2 * (k -0.6), yLine-0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-                    textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl/2 * (k -0.6), yLine-0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-                    textes.push(segment(this.lgt + this.deltacl + this.escpl/2 * (k -0.6)- tabInit0[0][1] / 4, yLine-tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl/2 * (k -0.6) + tabInit0[0][1] / 4, yLine-tabInit0[0][1] / 2))
                   }
                 }
+                else if (texte == 'R/') {
+                  // textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
+                }
+                else {
+                  textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl / 2 * (k - 1) -long/8, yLine))
+                }
               }
-           yLine -= tabInit0[i][1]
+            }
+            yLine -= tabInit0[i][1]
             i++
             index++
             break
@@ -6424,36 +6375,16 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
         }
       }
       else { // ici on est dans la ligne d'entête
-        texte = MathToSVG(tabInit0[0][0])
-        if (texte[2] == '' && texte[1] == '') {
-          textes.push(texteParPosition(texte[0], this.lgt / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-        }
-        else if (texte[2] == '') {
-          textes.push(texteParPosition(texte[0] + texte[1], this.lgt / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-        }
-        else {
-          textes.push(texteParPosition(texte[0], this.lgt / 2 - texte[1].length / 2, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-          textes.push(texteParPosition(texte[1], this.lgt / 2, -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-          textes.push(texteParPosition(texte[2], this.lgt / 2, -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-          textes.push(segment(this.lgt / 2 - tabInit0[0][1] / 2, tabInit0[0][1] / 2, this.lgt / 2 + tabInit0[0][1] / 2, tabInit0[0][1] / 2))
-        }
-        for (let j = 0; j < tabInit1.length; j++) {
-          if (tabInit1[j] != "") {
-            texte=MathToSVG(tabInit1[j])
-            if (texte[2] == '' && texte[1] == '') {
-              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * j+0.5, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-            }
-            else if (texte[2] == '') {
-              textes.push(texteParPosition(texte[0] + texte[1], this.lgt + this.deltacl + this.escpl * j + 0.5, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-            }
-            else {
-              textes.push(texteParPosition(texte[0], this.lgt + this.deltacl + this.escpl * j +texte[0].length/2 - texte[1].length / 2+0.1, -tabInit0[0][1] / 2, 0, 'black', 1, 'middle', true))
-              textes.push(texteParPosition(texte[1], this.lgt + this.deltacl + this.escpl * j +texte[0].length/2, -0.5 + tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-              textes.push(texteParPosition(texte[2], this.lgt + this.deltacl + this.escpl * j  +texte[0].length/2 , -0.5 - tabInit0[0][1] / 4, 0, 'black', 1, 'middle', true))
-              textes.push(segment(this.lgt + this.deltacl + this.escpl * j +texte[0].length/2- tabInit0[0][1] / 4, -tabInit0[0][1] / 2, this.lgt + this.deltacl + this.escpl * j +texte[0].length/2 + tabInit0[0][1] / 4, -tabInit0[0][1] / 2))
-            }
-          }
-        }
+        texte = tabInit0[0][0]
+        long=tabInit0[0][1]
+        console.log('tabInit00',texte,long)
+        textes.push(latexParCoordonnees(texte,this.lgt/2-long/8, 0))
+      for (let j = 0; j < tabInit1.length/2; j++) {
+        texte = tabInit1[j*2]
+        long=tabInit1[j*2+1]
+        console.log('tabInit1',texte,long)
+        textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl * j-long/8, 0))
+      }
         yLine -= tabInit0[0][1]
         i++
       }
@@ -6486,8 +6417,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     }
     code = code.substring(0, code.length - 1)
     code += `}{`
-    for (let i = 0; i < tabinit1.length; i++) {
-      code += ` ${tabinit1[i]},`
+    for (let i = 0; i < tabinit1.length/2; i++) {
+      code += ` ${tabinit1[i*2]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}` + "\n\t"
@@ -6495,15 +6426,15 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
       type = this.tabLines[i][0]
       if (type == 'Val' || type == 'Ima') {
         code += `\\tkzTab${type}`
-        for (let j = 1; j < this.tabLines[i].length; j++) {
-          code += `{${this.tabLines[i][j]}}`
+        for (let j = 1; j < this.tabLines[i*2].length; j++) {
+          code += `{${this.tabLines[i][j*2]}}`
         }
         code += "\n\t"
       }
       else {
         code += `\\tkzTab${type}{ `
         for (let j = 1; j < this.tabLines[i].length; j++) {
-          code += ` ${this.tabLines[i][j]},`
+          code += ` ${this.tabLines[i][j*2]},`
         }
         code = code.substring(0, code.length - 1)
         code += `}` + "\n\t"
@@ -6512,7 +6443,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.1, colors = [] }) {
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.5, colors = [] }) {
   return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors })
 }
 
