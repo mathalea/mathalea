@@ -25,10 +25,10 @@ export default function Essai_tableaux_de_variation() {
     let type_de_questions_disponibles = ['type1']; // On créé 3 types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-        // Boucle principale où i+1 correspond au numéro de la question
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1': 
-        let t=tableau_de_variation({escpl:5,tabInit:[[['$x$',1,10] ,['$f(x)=ax+b$',1,200],["$f '(x)=a$",1,200],['$a<0$',2,40],['$a>0$',2,40]],
+
+      //un tableau pour rire
+
+      /*  let t=tableau_de_variation({escpl:5,tabInit:[[['$x$',1,10] ,['$f(x)=ax+b$',1,200],["$f '(x)=a$",1,200],['$a<0$',2,40],['$a>0$',2,40]],
         ['$-\\infty$',30,'$-\\dfrac{b}{a}$',40,'$+\\infty$',30]],
         tabLines:
         [['Line',200,'',0,'$\\text{signe de } -a$',220,'z',10,'$\\text{signe de } a$',200,'',0],
@@ -37,20 +37,37 @@ export default function Essai_tableaux_de_variation() {
         ['Ima',30,'1',10,'3',10,'2',10,'O',10],
         ['Var',30,'+/$10$',30,'-V-/$5$/$1$',10,'+D+/$3$/$1$',10,'R\\',0,'-/$-\\infty$',30],
         ['Ima',30,'1',10,'3',10,'2',10,'O',10]]})
-        console.log(t)
-        texte = mathalea2d({xmin:0,ymin:-15,xmax:18,ymax:1,pixelsParCm:30},t);
+        */
+
+      // un tableau correct en exemple 
+
+        // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
+        // lgt = taille de la première colonne tout est en cm
+        // tabInit contient 2 tableaux
+        // le premier contient des triplets [chaine d'entête,hauteur de ligne,nombre de pixels de largeur estimée du texte pour le centrage]
+        // le deuxième contient une succession de chaines et de largeurs en pixels : ce sont les antécédent de la ligne d'entête
+        // tabLines contient des tableaux de la forme ['type',...] 
+        // type est 'Line' pour une ligne de signes et valeurs. Les valeurs sont données avec à la suite leur largeur estimée en pixels.
+        // type est 'Var' pour une ligne de variations. Les variations sont des chaines respectant une syntaxe particulière.
+        // On intercale une largeur estimée pour le texte éventuel
+        // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
+       // reste à faire les types 'Ima', 'Val' et 'Slope"
+
+        let t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
+       ['$-\\infty$',25,'$\\sqrt{2}$',15,'$3$',10,'$4$',10]],
+        tabLines:
+        [['Line',30,'',0,'-',6,'z',10,'+',8,'d',6,'+',8,'d',6],
+        ['Var',10,'+/$5$',10,'-/$-3$',15,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18]
+      ]
+      })
+
+      // Attention : pixelsParCm n'influe pas sur le latexParCoordonnees, il faudra laisser 30 !
+      // Sinon, le tableau sera réduit mais pas le texte à l'intérieur.
+
+        texte = mathalea2d({xmin:0,ymin:-15,xmax:21,ymax:1,pixelsParCm:30},t);
           texte_corr = ``;
-          break;
-        case 'type2': 
-            texte = `Question ${i+1} de type 2`;
-            texte_corr = `Correction ${i+1} de type 2`;
-          break;
-        case 'type3': // Table de 200
-            texte = `Question ${i+1} de type 2`;
-            texte_corr = `Correction ${i+1} de type 2`;
-          break;
-        
-      }
+       
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
