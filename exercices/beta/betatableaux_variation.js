@@ -59,7 +59,7 @@ export default function Essai_tableaux_de_variation() {
         tabLines:
         [['Line',30,'',0,'-',6,'z',10,'+',8,'d',6,'+',8,'d',6],
         ['Var',10,'-/$-\\infty$',18,'R/',0,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18],
-        ['Ima',1,3,'$e^{\\sqrt{2}}$',20]
+        ['Val',3,4,0.25,'$\\sqrt{10}$','$7$',20]
       ]
       })
 

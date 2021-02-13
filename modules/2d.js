@@ -6850,13 +6850,12 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             yLine -= tabInit0[i][1] * this.hauteurLignes[i] / 14
             index++
             break
-          case 'Val':
-            for (let k = 1; k < tabLines[index].length / 2; k++) {
-              if (tabLines[index][k * 2] != "") {
-                texte = tabLines[index][k * 2]
-                long = tabLines[index][k * 2 + 1]
-                //            console.log('tabVal', texte, long, i, index)
-              }
+          case 'Val': // ajouter un antécédent et son image sur la flèche. 6 paramètres + 'Val' 
+          // ['Val',antécédent du début de la flèche, antécédent de la fin de la flèche, position sur la flèche entre 0 et 1, 'antécédent', 'image',long]
+            if (tabLines[index][5] != "") {
+              long = tabLines[index][6]
+              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][5]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], yLine +0.7+tabLines[index][3]* tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
+              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][4]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], - tabInit0[0][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
             }
             index++
             break
