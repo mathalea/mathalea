@@ -7527,7 +7527,7 @@ function LatexParPoint(texte, A, color, size = 200, hauteurLigne = 12) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
-    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size * 2}" height="50"><div style="margin-left: auto;
+    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)-hauteurLigne}" x="${A.xSVG(coeff)-demiSize}" width="${size*2}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\color{${color}}${texte}$</div></foreignObject>`;
   };
