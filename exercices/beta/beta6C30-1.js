@@ -112,6 +112,8 @@ export default function Multiplication_mental_decimaux() {
           break 
 
           case "mul_deci":
+            // a et b sont des nombres à 4 chiffres, dont 2 avant la virgule
+            // on multiplie par 100 pour travailler avec des nombres entiers. Par ex : 6547 plutôt que 65.47
             a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]); // on évite le 2*5 avec les derniers chiffres
             b = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9);
             texte += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
