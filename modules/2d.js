@@ -1731,6 +1731,7 @@ function Polygone(...points) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 0.7;
+  this.hachures='none'
   if (Array.isArray(points[0])) {
     //Si le premier argument est un tableau
     this.listePoints = points[0];
@@ -1789,7 +1790,19 @@ function Polygone(...points) {
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
     }
+    if (this.hachures!='none'){
+      switch (this.hachures){
+        case 'north east lines':
 
+        break
+        case 'horizonal lines' :
+
+        break
+        case 'vertical lines' :
+
+        break
+      }
+    }
     return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
@@ -1827,6 +1840,9 @@ function Polygone(...points) {
     }
     if (this.couleurDeRemplissage != '') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
+    if (this.hachures!='none'){
+      tableauOptions.push(`pattern = ${this.hachures}`)
     }
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
@@ -6274,7 +6290,7 @@ export function traceGraphiqueCartesien(...args) {
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0 
  */
-function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,hauteurLignes }) {
+function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes }) {
 
   ObjetMathalea2D.call(this)
   this.tabInit = tabInit
@@ -6283,12 +6299,12 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
   this.lgt = lgt
   this.escpl = escpl
   this.deltacl = deltacl
-  this.hauteurLignes=[]
-  if (hauteurLignes.length!=0) { // On récupère les hauteurs de lignes
-    this.hauteurLignes=hauteurLignes
+  this.hauteurLignes = []
+  if (hauteurLignes.length != 0) { // On récupère les hauteurs de lignes
+    this.hauteurLignes = hauteurLignes
   }
   else { // Si elles ne sont pas définies, on met 14 par défaut
-    for (let i=0;i<tabInit[0].length/2;i++){
+    for (let i = 0; i < tabInit[0].length; i++) {
       this.hauteurLignes.push(20)
     }
   }
@@ -6300,9 +6316,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
     let lignes, colones // tableaux contenant les différentes chaines à écrire
     let nb_lignes, nbcolones
     let yLine = 0
-    let segments = [], index = 0, textes = [], texte,long, s, p
+    let segments = [], index = 0, textes = [], texte, long, s, p, v, A, B, fleches = [], codeVar = [],ZI=[],ZIon,zonesEstInterdit=[]
     let code = ""
-    let longueurTotale = this.lgt + (tabInit1.length/2 -1) * escpl  + 2 * deltacl
+    let longueurTotale = this.lgt + (tabInit1.length / 2 - 1) * escpl + 2 * deltacl
 
     let MathToSVG = function (string) { // fonction qui traduit si possible la chaine Latex en un tableau de chaine
       // un seul élément si c'est du texte ou un nombre
@@ -6311,55 +6327,72 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
       if (string[0] == '$') string = string.substring(1, string.length - 1)
       return string
     }
-    console.log(tabLines)
-    for (let i=-1;i < tabInit0.length && index<tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
 
-      if (i >= 0) { // On est dans les lignes 1 à n 
+    for (let i = -1; i < tabInit0.length && index < tabLines.length;) { // on s'arrête quand on dépasse le nombre de lignes prévues
+
+      if (i == -1) { // ici on est dans la ligne d'entête
+        i++
+        // On crée une ligne horizontale et les séparations verticales de base
+        segments.push(segment(0, yLine, longueurTotale, yLine))
+        segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+        segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+        segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+
+        texte = tabInit0[0][0]
+        long = tabInit0[0][1]
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0]))
+        for (let j = 0; j < tabInit1.length / 2; j++) {
+          texte = tabInit1[j * 2]
+          long = tabInit1[j * 2 + 1]
+          textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0]))
+        }
+        yLine -= tabInit0[0][1] * this.hauteurLignes[0] / 14
+      }
+      else { // On est dans les lignes 1 à n 
         // Line et Var incrémente i de 1 et décrémente yLine de la hauteur de la ligne
         // Val, Ima et Slope incrémente index mais pas i
         switch (tabLines[index][0]) {
           case 'Line':
             i++
-            long=tabInit0[i][2]
-//            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
-            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
+            long = tabInit0[i][2]
+            //            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
+            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i]))
 
-            for (let k = 1; k < tabLines[index].length/2; k++) {
-              if (tabLines[index][k*2] != "") {
-                texte = tabLines[index][k*2]
-                long=tabLines[index][k*2+1]
-                console.log('tabLine',texte,long,i,index)
+            for (let k = 1; k < tabLines[index].length / 2; k++) {
+              if (tabLines[index][k * 2] != "") {
+                texte = tabLines[index][k * 2]
+                long = tabLines[index][k * 2 + 1]
                 if (texte.length == 1) {
                   switch (texte[0]) {
                     case 'z':
-                      textes.push(latexParCoordonnees('0', this.lgt + this.deltacl + this.escpl / 2 * (k-1), yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
-                      s = segment(this.lgt + this.deltacl + this.escpl / 2 *(k-1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k-1) , yLine - tabInit0[i][1]*this.hauteurLignes[i]/14)
+                      textes.push(latexParCoordonnees('0', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                       s.pointilles = 4
                       segments.push(s)
                       break
                     case 'd':
-                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) - 0.1, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1) + 0.1, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1) - 0.1, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      segments.push(segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1) + 0.1, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                       break
                     case 't':
-                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k -1), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                       s.pointilles = 4
                       segments.push(s)
                       break
                     case 'h':
                       p = polygone(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14),
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                       p.couleurDeRemplissage = 'gray'
                       segments.push(p)
                       break
                     case '+':
-                      textes.push(latexParCoordonnees('+', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
+                      textes.push(latexParCoordonnees('+', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
 
                       break
                     case '-':
-                      textes.push(latexParCoordonnees('-', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1]*this.hauteurLignes[i]/28,'black',10,this.hauteurLignes[i]))
+                      textes.push(latexParCoordonnees('-', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLinetabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
 
                       break
                   }
@@ -6368,86 +6401,295 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
                   // textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
                 }
                 else {
-                  textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i]))
+                  textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i]))
                 }
               }
             }
-                  // On crée une ligne horizontale et les séparations verticales de base
-      segments.push(segment(0, yLine, longueurTotale, yLine))
-      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i+1]/14))
-      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
+            // On crée une ligne horizontale et les séparations verticales de base
+            segments.push(segment(0, yLine, longueurTotale, yLine))
+            segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            yLine -= tabInit0[i][1] * this.hauteurLignes[i] / 14
             index++
             break
           case 'Var':
-            i++
-            for (let k = 1; k < tabLines[index].length/2; k++) {
-              if (tabLines[index][k*2] != "") {
-                texte = tabLines[index][k*2]
-                long=tabLines[index][k*2+1]
-                console.log('tabVar',texte,long,i,index)
+            i++ // index des lignes (ça démarre à -1 pour l'entête, ça passe à 0 pour la première ligne (celle sous l'entête) et c'est incrémenté à chaque nouvelle ligne)
+            fleches = [] // les points qui marquent le départ et/ou l'arrivée d'une flèche (endroit où se situent les valeurs)
+            ZI=[] // Liste de points (qui vont par deux : un sur la ligne du dessus, l'autre en dessous)
+            ZIon=false // un booléen qui bascule à true si on entre dans une zone interdite et qui rebascule à false à la prochaine valeur
+            // utilisé pour ajouter les deux points de droite servant à faire le rectangle hachuré/
+            zonesEstInterdit=[] // Un tableau pour garder la trace des "zones interdites" où il ne doit pas y avoir de flèches
+            for (let k = 1; k < tabLines[index].length / 2; k++) {
+              textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', tabInit0[i][2], this.hauteurLignes[i]))
+              if (tabLines[index][k * 2] != "") {
+                texte = tabLines[index][k * 2]
+                long = tabLines[index][k * 2 + 1]
+                codeVar = texte.split('/')
+                switch (codeVar.length) {
+                  case 1: // il n'y a qu'un code
+                    //on ne fait rien, c'est la commande R/ ou un emplacement vide sans /
+                    break
+                  case 2: // Une seule expression (2 codes séparés par un seul /)
+                    switch (codeVar[0]) {
+                      case '+': // une expression
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                        if (ZIon){
+                          ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                          ZIon=false
+                        }
+                        zonesEstInterdit.push(false)
+                        break
+                      case '-': // une expression
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                      break
+                      case '+C': // une expression sur une double barre (prolongement par continuité)
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                      break
+                      case '-C': // une expression sur une double barre (prolongement par continuité)
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                      break
+                      case '+D': // une expression suivie d’une double barre (discontinuité)
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                    break
+                      case '-D': // une expression suivie d’une double barre (discontinuité)
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                       break
+                      case '+H': // une expression suivie d’une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=true
+                      zonesEstInterdit.push(true)
+                      break
+                      case '-H': // une expression suivie d’une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=true
+                      zonesEstInterdit.push(true)
+                      break
+                      case 'D-': //expression précédée d'une double barre discontinuité 
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+long/28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                        break
+                      case 'D+'://expression précédée d'une double barre discontinuité
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+long/28, yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      if (ZIon){
+                        ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1),yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=false}
+                      zonesEstInterdit.push(false)
+                        break
+                      case '-DH': //expression suivie d'une double barre discontinuité et d'une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                       ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                       ZIon=true
+                       zonesEstInterdit.push(true)
+                      break
+                      case '+DH': //expression suivie d'une double barre discontinuité et d'une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-long/28, yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                     ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                     ZIon=true
+                     zonesEstInterdit.push(true)
+                        break
+                      case '-CH':  //expression sur une double barre discontinuité et d'une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=true
+                      zonesEstInterdit.push(true)
+                        break
+                      case '+CH': //expression sur une double barre discontinuité et d'une zone interdite
+                      textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3, 'black', long, this.hauteurLignes[i]))
+                      fleches.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - 0.3))
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)-0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
+                      segments.push(s)
+                      ZI.push(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine),point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1)+0.06,yLine- tabInit0[i][1] * this.hauteurLignes[i] / 14))
+                      ZIon=true
+                      zonesEstInterdit.push(true)
+                        break
+                    }
+                  case 3: // 2 expressions sérarées par / /
+                    switch (codeVar[0].substring(2)) { // on regarde le code
+                      case '':
+                        break
+                      case '-CD-': // Une expression sur une double barre prolongement par continuité 
+                        break
+                      case '+CD+': // Une expression sur une double barre prolongement par continuité 
+                        break
+                      case '-CD+': // Une expression sur une double barre prolongement par continuité 
+                        break
+                      case '+CD-': // Une expression sur une double barre prolongement par continuité 
+                        break
+                      case 'H': // Une expression suivie d'une zone interdite
+                        break
+                      case '-D-': // Une expression sur une double barre discontinuité
+                        break
+                      case '+D+': // Une expression sur une double barre discontinuité
+                        break
+                      case '-D+': // Une expression sur une double barre discontinuité
+                        break
+                      case '+D-': // Une expression sur une double barre discontinuité
+                        break
+                      case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
+                        break
+                      case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
+                        break
+                      case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
+                        break
+                      case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
+                        break
+                      case '-V-': // deux expressions 
+                        break
+                      case '+V+': // deux expressions 
+                        break
+                      case '-V+': // deux expressions 
+                        break
+                      case '+V-': // deux expressions 
+                        break
+
+                    }
+                    break
+
+                  case 3: //deux expressions
+
+                    break
+
+                }
+
+                }
+
               }
+              for (let n = 0; n < fleches.length-1; n++) {
+                if (!zonesEstInterdit[n]){
+                v = vecteur(translation(fleches[n],vecteur(0.6,0)), translation(fleches[n+1],vecteur(-0.6,0))).representant(translation(fleches[n],vecteur(0.6,0)))
+                v.styleExtremites = '->'
+                segments.push(v)
+                }
             }
-                             // On crée une ligne horizontale et les séparations verticales de base
-      segments.push(segment(0, yLine, longueurTotale, yLine))
-      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]*this.hauteurLignes[i+1]/14))
-      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
-      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]*this.hauteurLignes[i]/14))
- 
-            yLine -= tabInit0[i][1]*this.hauteurLignes[i]/14
+            for (let n=0;n<=ZI.length/4-1;n++){
+              p=polygone(ZI[4*n],ZI[4*n+2],ZI[4*n+3],ZI[4*n+1])
+              p.couleurDeRemplissage='red'
+              p.opaciteDeRemplissage=0.3
+              p.opacite=1
+              segments.push(p)
+            }
+
+            // On crée une ligne horizontale et les séparations verticales de base
+            segments.push(segment(0, yLine, longueurTotale, yLine))
+            segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
+            yLine -= tabInit0[i][1] * this.hauteurLignes[i] / 14
             index++
             break
           case 'Val':
-            for (let k = 1; k < tabLines[index].length/2; k++) {
-              if (tabLines[index][k*2] != "") {
-                texte = tabLines[index][k*2]
-                long=tabLines[index][k*2+1]
-                console.log('tabVal',texte,long,i,index)
+            for (let k = 1; k < tabLines[index].length / 2; k++) {
+              if (tabLines[index][k * 2] != "") {
+                texte = tabLines[index][k * 2]
+                long = tabLines[index][k * 2 + 1]
+    //            console.log('tabVal', texte, long, i, index)
               }
             }
             index++
             break
           case 'Ima':
-            for (let k = 1; k < tabLines[index].length/2; k++) {
-              if (tabLines[index][k*2] != "") {
-                texte = tabLines[index][k*2]
-                long=tabLines[index][k*2+1]
-                console.log('tabIma',texte,long,i,index)
+            for (let k = 1; k < tabLines[index].length / 2; k++) {
+              if (tabLines[index][k * 2] != "") {
+                texte = tabLines[index][k * 2]
+                long = tabLines[index][k * 2 + 1]
+  //              console.log('tabIma', texte, long, i, index)
               }
             }
             index++
             break
           case 'Slope':
-            for (let k = 1; k < tabLines[index].length/2; k++) {
-              if (tabLines[index][k*2] != "") {
-                texte = tabLines[index][k*2]
-                long=tabLines[index][k*2+1]
-                console.log('tabSlope',texte,long,i,index)
+            for (let k = 1; k < tabLines[index].length / 2; k++) {
+              if (tabLines[index][k * 2] != "") {
+                texte = tabLines[index][k * 2]
+                long = tabLines[index][k * 2 + 1]
+//                console.log('tabSlope', texte, long, i, index)
               }
             }
             break
         }
       }
-      else { // ici on est dans la ligne d'entête
-      i++
-        texte = tabInit0[0][0]
-        long=tabInit0[0][1]
-        console.log('tabInit00',texte,long)
-        textes.push(latexParCoordonnees(MathToSVG(texte),this.lgt/2,-tabInit0[0][1]*this.hauteurLignes[0]/28,'black',long,this.hauteurLignes[0]))
-      for (let j = 0; j < tabInit1.length/2; j++) {
-        texte = tabInit1[j*2]
-        long=tabInit1[j*2+1]
-        console.log('tabInit1',texte,long)
-        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1]*this.hauteurLignes[0]/28,'black',long,this.hauteurLignes[0]))
-      }
-        yLine -= tabInit0[0][1]*this.hauteurLignes[0]/14
-      }
+
     }
 
     // On ferme le tableau en bas
     segments.push(segment(0, yLine, longueurTotale, yLine))
-
     //On écrit le code avec tous les éléments.
     for (let i = 0; i < segments.length; i++) {
       code += "\n\t" + segments[i].svg(coeff)
@@ -6466,32 +6708,30 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
     code += `]{`
     let tabinit0 = this.tabInit[0]
     let tabinit1 = this.tabInit[1]
-    console.log(tabinit0,tabinit1)
     let type
     for (let i = 0; i < tabinit0.length; i++) {
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}{`
-    for (let i = 0; i < tabinit1.length/2; i++) {
-      code += ` ${tabinit1[i*2]},`
+    for (let i = 0; i < tabinit1.length / 2; i++) {
+      code += ` ${tabinit1[i * 2]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}` + "\n\t"
-    console.log(this.tabLines)
     for (let i = 0; i < this.tabLines.length; i++) {
       type = this.tabLines[i][0]
       if (type == 'Val' || type == 'Ima') {
         code += `\\tkzTab${type}`
-        for (let j = 1; j < this.tabLines[i].length/2; j++) {
-          code += `{${this.tabLines[i][j*2]}}`
+        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
+          code += `{${this.tabLines[i][j * 2]}}`
         }
         code += "\n\t"
       }
       else {
         code += `\\tkzTab${type}{ `
-        for (let j = 1; j < this.tabLines[i].length/2; j++) {
-          code += ` ${this.tabLines[i][j*2]},`
+        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
+          code += ` ${this.tabLines[i][j * 2]},`
         }
         code = code.substring(0, code.length - 1)
         code += `}` + "\n\t"
@@ -6500,7 +6740,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors,h
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 3, deltacl = 0.5, colors = [], hauteurLignes=[] }) {
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.5, colors = [], hauteurLignes = [] }) {
   return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes })
 }
 
@@ -7283,11 +7523,11 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
  * @Auteur Rémi Angot
  */
 function LatexParPoint(texte, A, color, size = 200, hauteurLigne = 12) {
-  let demiSize = calcul(size/2)
+  let demiSize = calcul(size / 2)
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
-    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)-hauteurLigne/2}" x="${A.xSVG(coeff)-demiSize}" width="${size*2}" height="50"><div style="margin-left: auto;
+    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size * 2}" height="50"><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\color{${color}}${texte}$</div></foreignObject>`;
   };
@@ -7300,9 +7540,9 @@ export function latexParPoint(...args) {
   return new LatexParPoint(...args);
 }
 
-export function latexParCoordonnees(texte, x, y,color='black',size=200,hauteurLigne=12) {
+export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12) {
   let A = point(x, y);
-  return latexParPoint(texte, A,color,size,hauteurLigne);
+  return latexParPoint(texte, A, color, size, hauteurLigne);
 }
 
 /**

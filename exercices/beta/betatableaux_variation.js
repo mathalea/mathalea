@@ -28,7 +28,15 @@ export default function Essai_tableaux_de_variation() {
         // Boucle principale où i+1 correspond au numéro de la question
       switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': 
-        let t=tableau_de_variation({escpl:4,tabInit:[[['$x$',1,10] ,["$f(x)=ax+b$",1,200],["$f '(x)=a$",1,200],["$a<0$",2,30],['$a>0$',2,30]],['$-\\infty$',30,'$-\\dfrac{b}{a}$',40,'$+\\infty$',30]],tabLines:[['Line',200,'',0,'$\\text{signe de } -a$',220,'z',10,'$\\text{signe de } a$',200,'',0],['Line',160,'',0,'',0,'$\\text{signe de } a$',200,'',0,'',0],['Var',30,'-/ $-\\infty$',30,'R/',0,'+/ $+\\infty$',30],['Ima',30,'1',10,'3',10,'2',10,'O',10],['Var',30,'+/ $+\\infty$',30,'R/ ',0,'-/ $-\\infty$',30],['Ima',30,'1',10,'3',10,'2',10,'O',10]]})
+        let t=tableau_de_variation({escpl:5,tabInit:[[['$x$',1,10] ,['$f(x)=ax+b$',1,200],["$f '(x)=a$",1,200],['$a<0$',2,40],['$a>0$',2,40]],
+        ['$-\\infty$',30,'$-\\dfrac{b}{a}$',40,'$+\\infty$',30]],
+        tabLines:
+        [['Line',200,'',0,'$\\text{signe de } -a$',220,'z',10,'$\\text{signe de } a$',200,'',0],
+        ['Line',160,'',0,'',0,'$\\text{signe de } a$',200,'',0,'',0],
+        ['Var',30,'-/$-\\infty$',30,'+C/$5$',10,'R\\',0,'-/$12$',20,'+/$+\\infty$',30],
+        ['Ima',30,'1',10,'3',10,'2',10,'O',10],
+        ['Var',30,'+/$10$',30,'+DH/$5$',10,'D+/$3$',10,'R\\',0,'-/$-\\infty$',30],
+        ['Ima',30,'1',10,'3',10,'2',10,'O',10]]})
         console.log(t)
         texte = mathalea2d({xmin:0,ymin:-15,xmax:18,ymax:1,pixelsParCm:30},t);
           texte_corr = ``;
