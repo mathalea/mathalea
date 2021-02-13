@@ -35,7 +35,7 @@ export default function Essai_tableaux_de_variation() {
         ['Line',160,'',0,'',0,'$\\text{signe de } a$',200,'',0,'',0],
         ['Var',30,'-/$-\\infty$',30,'+C/$5$',10,'R\\',0,'-/$12$',20,'+/$+\\infty$',30],
         ['Ima',30,'1',10,'3',10,'2',10,'O',10],
-        ['Var',30,'+/$10$',30,'+DH/$5$',10,'D+/$3$',10,'R\\',0,'-/$-\\infty$',30],
+        ['Var',30,'+/$10$',30,'-V-/$5$/$1$',10,'+D+/$3$/$1$',10,'R\\',0,'-/$-\\infty$',30],
         ['Ima',30,'1',10,'3',10,'2',10,'O',10]]})
         console.log(t)
         texte = mathalea2d({xmin:0,ymin:-15,xmax:18,ymax:1,pixelsParCm:30},t);
