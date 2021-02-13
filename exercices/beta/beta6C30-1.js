@@ -13,10 +13,9 @@ import {liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, 
 */
 
 export default function Multiplication_mental_decimaux() {
-    "use strict"
-     
+    "use strict"     
     Exercice.call(this)
-    this.titre = "Exo zéro Mathalea";
+    this.titre = "Opérations avec les nombres décimaux";
     this.consigne = "Trouver la réponse exacte du calcul parmi les réponses proposées.";
     this.nb_questions = 4; // Ici le nombre de questions
     this.video = "";
@@ -41,6 +40,7 @@ export default function Multiplication_mental_decimaux() {
     let type_de_questions_disponibles=["add", "mul", "add_deci", "mul_deci"] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     
+    // on définit l'espace horizontal entre les réponses en fonction de la sortie html/LaTeX :
     let espace =``;
     if (sortie_html) {
       espace = `&emsp;`;
@@ -49,7 +49,6 @@ export default function Multiplication_mental_decimaux() {
     }
   
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
         let a=0, b=0, tabrep=[], tabicone=[]; // les deux opérandes
@@ -61,9 +60,9 @@ export default function Multiplication_mental_decimaux() {
                texte += `Calcul : $${a} + ${b}$. <br>`;
                texte_corr += `Calcul : $${a} + ${b}$. <br>`;
                texte += `Réponses possibles : <br>`;
-               tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)];
-               tabicone = [1,0,0,0,0,0];
-               shuffle2tableaux(tabrep, tabicone);
+               tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)]; // réponses possibles
+               tabicone = [1,0,0,0,0,0]; // 1 pour la bonne réponse
+               shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
                for (let i=0; i<5; i++) {
                  texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
                 if (tabicone[i]==1) {
@@ -99,9 +98,9 @@ export default function Multiplication_mental_decimaux() {
             texte += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
             texte_corr += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
             texte += `Réponses possibles : <br>`;
-            tabrep = [(a+b)/100, (a*b)/100, (a+b)/1000, 10*(a+b)/100,(a+b+1)/100];
-            tabicone = [1,0,0,0,0,0];
-            shuffle2tableaux(tabrep, tabicone);
+            tabrep = [(a+b)/100, (a*b)/100, (a+b)/1000, 10*(a+b)/100,(a+b+1)/100]; 
+            tabicone = [1,0,0,0,0,0]; 
+            shuffle2tableaux(tabrep, tabicone); 
             for (let i=0; i<5; i++) {
               texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
@@ -113,7 +112,7 @@ export default function Multiplication_mental_decimaux() {
           break 
 
           case "mul_deci":
-            a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]);
+            a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]); // on évite le 2*5 avec les derniers chiffres
             b = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9);
             texte += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
             texte_corr += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
@@ -130,7 +129,6 @@ export default function Multiplication_mental_decimaux() {
              }
            }
           break
-
         }
 
         if (this.liste_questions.indexOf(texte) == -1) {
@@ -149,7 +147,6 @@ export default function Multiplication_mental_decimaux() {
   
   //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
   //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-  
+  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]  
   } // Fin de l'exercice.
   
