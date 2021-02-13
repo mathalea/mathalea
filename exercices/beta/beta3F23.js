@@ -25,7 +25,7 @@ export default function antecedent_par_calcul() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2);
+    this.spacing_corr = sortie_html ? 3 : 1
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
