@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrondi_virgule,nombre_avec_espace} from "/modules/outils.js"
+import {liste_de_question_to_contenu,tex_nombre, randint, calcul, arrondi_virgule,nombre_avec_espace} from "/modules/outils.js"
+import { fraction } from "/modules/Fractions.js"
 
 /**
  * Reconnaître une fonction affine
@@ -47,6 +48,9 @@ export default function SimulateurAleatoire() {
 
         switch (parseInt(this.sup)) { // 
           case 1: // Tirages de dés
+          let f=fraction(1,nbFaces)
+        texte_corr =`Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondi_virgule(f.pourcentage)}\\%$.<br>`
+
           texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque faces.<br>On obtient les résultats suivants : <br>`;
           if (this.sup3){
           for (let i = 0; i<nbFaces ; i++) {
@@ -67,13 +71,16 @@ export default function SimulateurAleatoire() {
             for (let i=0;i<nbLancers;i++){
               tabEff[randint(1,nbFaces)-1]++
             }
-            S=tabEff[face]/3
+            S=tabEff[face]*3/4
             tabEff[randint(1,nbFaces,face)-1]-=S
             tabEff[face-1]+=S
             for (let i =0; i<nbFaces ; i++) {
               tabRes[i] = [i, calcul(tabEff[i]/nbLancers)];
             }   
+            texte_corr+=`Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
+            texte_corr+=`En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondi_virgule(f.pourcentage)}\\%$.`
           }
+
             break;
   
           case 2: // Tirage dans une urne
@@ -95,7 +102,6 @@ export default function SimulateurAleatoire() {
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
-
 
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
