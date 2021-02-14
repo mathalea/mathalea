@@ -6904,9 +6904,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             }
             for (let n = 0; n <= ZI.length / 4 - 1; n++) {
               p = polygone(ZI[4 * n], ZI[4 * n + 2], ZI[4 * n + 3], ZI[4 * n + 1])
-              p.couleurDeRemplissage = 'red'
-              p.opaciteDeRemplissage = 0.7
               p.opacite = 1
+              p.hachures="north east lines"
               segments.push(p)
             }
 
