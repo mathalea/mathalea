@@ -9233,5 +9233,4 @@ export function pavage() {
  export function tkzTab({ tabInit = ['', ''], tabLines = [] }) {
   return new TkzTab({ tabInit: tabInit, tabLines: tabLines })
 };
-  return new Pavage()
-}
+
