@@ -7,7 +7,7 @@ import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from
  * @Auteur 
  * Référence 
 */
-export default function Calculs_trigonometriques2() {
+export default function Calculs_trigonometriques1() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Calcul d\'un parallèle terrestre";
     this.consigne = "";

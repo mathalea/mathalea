@@ -7,7 +7,7 @@ import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d
  * @Auteur 
  * Référence 
 */
-export default function Calculs_trigonometriques1() {
+export default function Calculs_trigonometriques2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculer la hauteur d\'un objet vu sous un angle donné";
   this.consigne = "";
@@ -88,7 +88,7 @@ export default function Calculs_trigonometriques1() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire1_case_a_cocher = ['Afficher un schéma et des questions intermédiaires'];
+  this.besoin_formulaire_case_a_cocher = ['Afficher un schéma et des questions intermédiaires'];
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
