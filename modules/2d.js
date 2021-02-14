@@ -7008,14 +7008,14 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color,scal
  *
  * @Auteur Rémi Angot
  */
-function LatexParPoint(texte, A, color, size = 200, hauteurLigne = 12) {
+function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   let demiSize = calcul(size/2)
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
     return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff)-hauteurLigne}" x="${A.xSVG(coeff)-demiSize}" width="${size*2}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
-    $\\color{${color}}${texte}$</div></foreignObject>`;
+    $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
   };
   this.tikz = function () {
     let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
@@ -7026,9 +7026,9 @@ export function latexParPoint(...args) {
   return new LatexParPoint(...args);
 }
 
-export function latexParCoordonnees(texte, x, y) {
+export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   let A = point(x, y);
-  return latexParPoint(texte, A);
+  return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
 }
 
 /**
