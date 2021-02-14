@@ -1,7 +1,8 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
+import {liste_de_question_to_contenu,combinaison_listes,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
 import { randint } from '/modules/outils.js';
-
+import {warn_message} from '/modules/outils.js';
+import {tex_enumerate, html_enumerate, enumerate} from '/modules/outils.js';
 
 /**
  * @class Syracuse
@@ -15,14 +16,18 @@ function Syracuse({N}) {
   this.suiteDeSyracuse = function() {
     let sortie = [N];
     let u = N;
-    while (u !=1) {
-      if (u%2 == 0) {
-        u = u/2;        
-      } else {
-        u = 3*u+1;        
+    if (N==1) {
+      sortie = [1,4,2,1];
+    } else {
+      while (u !=1) {
+        if (u%2 == 0) {
+          u = u/2;        
+        } else {
+          u = 3*u+1;        
+        };
+        sortie.push(u);
       };
-      sortie.push(u);
-    };
+    }
     return sortie;
   };
 
@@ -49,7 +54,6 @@ function Syracuse({N}) {
     };
     return compteur-1;    
   };
-
  };
 
 function syracuse({ N='1'}) {
@@ -60,8 +64,9 @@ export default function Exercice_zero_mathalea() {
     "use strict"
     Exercice.call(this)
     this.titre = "Conjecture de Syracuse";
-    this.nb_questions = 1; // Ici le nombre de questions
-    this.nb_questions_modifiable=true // Active le formulaire nombre de questions
+    this.consigne = "";        
+    this.nb_questions = 5; // Ici le nombre de questions
+    this.nb_questions_modifiable=false // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
@@ -79,37 +84,81 @@ export default function Exercice_zero_mathalea() {
   
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
-    let type_de_questions_disponibles=[1] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
+    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
   
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+        let string_algo = `
+        ${enumerate([
+          `On choisit un nombre entier strictement positif.`,
+          `Si l'entier choisi est pair on le divise par 2.`,
+          `Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.`,
+          `On recommence avec le nouvel entier trouvé tant qu'il ne vaut pas 1.`
+        ])}                    
+        `;
+        this.introduction = warn_message(string_algo, `nombres`, `Algorithme de Syracuse`);
 
-        texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
-        texte_corr = `` // Idem pour le texte de la correction.
+        //texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
+        //texte_corr = `` // Idem pour le texte de la correction.
+        let entier =randint(1,200);
+        while (syracuse({N:entier}).tempsDeVol()>25) {
+          entier = randint(1,200);
+        };
 
+        let string_connaissance=`Petit point connaissance ...`
 
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-          case 1:
-            texte += `Mon super texte de ouf juste pour tester ma classe.<br>`;
-            texte += `${syracuse({
-              N:15//randint(1,10)
-            }).suiteDeSyracuse()}<br>`
-            texte += `${syracuse({
-              N:15//randint(1,10)
-            }).suiteDeSyracuse().length}<br>`
-            texte += `${syracuse({
-              N:15//randint(1,10)
-            }).tempsDeVol()}<br>`
-            texte += `${syracuse({
-              N:15//randint(1,10)
-            }).altitudeMaximale()}<br>`
-            texte += `${syracuse({
-              N:127//randint(1,10)
-            }).tempsDeVolEnAltitude()}<br>`
-            texte_corr += `Mon super texte de ouf de corr pour tester ma classe.`;
+          case 1: //Etude du cas N = 1
+            texte = `On choisit le nombre entier 1. Quels sont tous les entiers déterminés par cet algorithme ?`
+            texte_corr = `${syracuse({N:1}).suiteDeSyracuse()}`;
+            string_connaissance +=`cas 1`;
+            texte_corr+= warn_message(string_connaissance, `nombres`, `Conjecture de Syracuse`);
+            // texte += `Mon super texte de ouf juste pour tester ma classe.<br>`;
+            // texte += `${syracuse({
+            //   N:15//randint(1,10)
+            // }).suiteDeSyracuse()}<br>`
+            // texte += `${syracuse({
+            //   N:15//randint(1,10)
+            // }).suiteDeSyracuse().length}<br>`
+            // texte += `${syracuse({
+            //   N:15//randint(1,10)
+            // }).tempsDeVol()}<br>`
+            // texte += `${syracuse({
+            //   N:15//randint(1,10)
+            // }).altitudeMaximale()}<br>`
+            // texte += `${syracuse({
+            //   N:127//randint(1,10)
+            // }).tempsDeVolEnAltitude()}<br>`
+            // texte_corr += `Mon super texte de ouf de corr pour tester ma classe.`;
                
+          break;
+          case 2: // suite de Syracuse pour un entier aléatoire          
+            texte = `Déterminer tous les entiers issus de cet algorithme lorsqu'on choisit ${entier}.`;
+            texte_corr = `${syracuse({N:entier}).suiteDeSyracuse()}`;
+            string_connaissance +=`cas 2`;
+            texte_corr+= warn_message(string_connaissance, `nombres`, `Conjecture de Syracuse`);
+          break;
+          case 3://Altitude max
+            texte = `Quelle est la valeur maximale de cette liste d'entiers ?`;
+            texte_corr = `${syracuse({N:entier}).altitudeMaximale()}`;
+            string_connaissance +=`cas 3`;
+            texte_corr+= warn_message(string_connaissance, `nombres`, `Conjecture de Syracuse`);
+          break;
+          case 4://temps de vol
+            texte = `Quelle est le nombre d'élements de cette liste d'entiers, sans compter la valeur initiale ?`;
+            texte_corr = `${syracuse({N:entier}).tempsDeVol()}`;
+            string_connaissance +=`cas 4`;
+            texte_corr+= warn_message(string_connaissance, `nombres`, `Conjecture de Syracuse`);
           break;            
-        }
+          case 5://vol en altitude
+            texte = `Quelle est le nombre d'éléments de cette liste d'entiers qui sont strictement supérieurs à la valeur initiale, sans compter cette valeur initiale ?`;
+            texte_corr = `${syracuse({N:entier}).tempsDeVolEnAltitude()}`;
+            string_connaissance +=`cas 5`;
+            texte_corr+= warn_message(string_connaissance, `nombres`, `Conjecture de Syracuse`);
+          break;            
+
+        };      
+        
 
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
