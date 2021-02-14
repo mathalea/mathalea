@@ -2,6 +2,13 @@ import Exercice from '../ClasseExercice.js';
 import { tex_fraction_reduite, choice, tex_nombre, calcul,liste_de_question_to_contenu, combinaison_listes, randint, arrondi, creerNomDePolygone } from "/modules/outils.js"
 import { mathalea2d, angle, point, droite, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, projectionOrtho, segment, codageAngleDroit, labelPoint, longueur } from "/modules/2d.js"
 
+
+/**
+ * Calculer un angle pour pouvoir ensuite calculer une longueur avec 2 triangles rectangles imbriqués
+ * @Auteur Rémi Angot
+ * Référence 3G32-5
+ * 2021-02-14
+*/
 export default function CalculsTrigo() {
     Exercice.call(this)
     this.titre = "Problème trigonométrique - Triangle rectangle inscrit dans un triangle rectangle";
