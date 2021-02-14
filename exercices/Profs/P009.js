@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,tex_nombre, randint, calcul, arrondi_virgule,nombre_avec_espace} from "/modules/outils.js"
 import { fraction } from "/modules/Fractions.js"
+import {repere2,traceBarre,mathalea2d} from "/modules/2d.js"
 
 /**
  * Reconnaître une fonction affine
@@ -22,7 +23,8 @@ export default function SimulateurAleatoire() {
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  
+  this.correction_detaillee_disponible=true
+  this.correction_detaillee=true
    this.sup = 1; // situation 1=dés
    this.sup2 = 10000; // nbLancers
    this.sup3 = false; // true = équiprobable, false = jeu truqué
@@ -102,14 +104,32 @@ export default function SimulateurAleatoire() {
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
+if (this.correction_detaillee){
 
-        if (this.liste_questions.indexOf(texte) == -1) {
-          // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+  let coef = 10;
+  let r = repere2({
+    grilleX: false,
+    grilleY: 'pointilles',
+    xThickListe: [],
+    xLabelListe: [],
+    yUnite: 1 / coef,
+    yThickDistance: 1 * coef,
+    yMax: 35,
+    xMin: 0,
+    xMax: 10,
+    yMin: 0,
+    axeXStyle: '',
+    yLegende: "fréquences en %"
+  });
+
+  let lstElementGraph = [];
+  for (let i = 0; i < nbFaces; i++) {
+    lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 1), tabRes[i][1]*10, i+1), { unite: 1 / coef });
+  }
+  texte += mathalea2d({ xmin: -1, xmax: 11, ymin: -4, ymax: 5, pixelsParCm: 30, scale: 1 }, r, lstElementGraph);
+}
           this.liste_questions.push(texte);
           this.liste_corrections.push(texte_corr);
-        }
-
-      
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
