@@ -58,7 +58,7 @@ export default function Essai_tableaux_de_variation() {
        ['$-\\infty$',18,'$\\sqrt{2}$',15,'$3$',10,'$4$',10]],
         tabLines:
         [['Line',30,'',0,'-',6,'z',10,'+',8,'d',6,'+',8,'d',6],
-        ['Var',10,'-/$-\\infty$',18,'R/',0,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18],
+        ['Var',10,'-/$-\\infty$',18,'-CH/$3$',0,'+D-/$+\\infty$/$\\dfrac{3}{2}$',18,'+D/$+\\infty$',18],
         ['Val',3,4,0.25,'$\\sqrt{10}$','$7$',20]
       ]
       })
