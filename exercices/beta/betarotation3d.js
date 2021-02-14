@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { mathalea2d } from '/modules/2d.js'
+import { mathalea2d,point,rotation,latexParPoint } from '/modules/2d.js'
 import {point3d,polygone3d,rotation3d,droite3d} from "/modules/3d.js"
 import {texcolors} from "/modules/outils.js"
 
@@ -38,7 +38,16 @@ export default function beta_rotation3d() {
         }
         objets.push(Axex.p2d,Axey.p2d,Axez.p2d)
         this.contenu = mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
-
+        O = point(0,0)
+        A = point(5,0)
+        let points = []
+        let textes = []
+        for (let i=0 ; i<24 ; i++){
+          points[i] = rotation(A,O,i*15+30)
+          console.log(i,points)
+          textes[i] = latexParPoint('$\\dfrac{\\pi^2}{4x}$',points[i])
+        }
+        this.contenu +=mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, textes)
     }
 };
 
