@@ -1731,7 +1731,10 @@ function Polygone(...points) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 0.7;
-  this.hachures = 'none'
+  this.hachures = "";
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1;
+  this.distanceDesHachures = 10;
   if (Array.isArray(points[0])) {
     //Si le premier argument est un tableau
     this.listePoints = points[0];
@@ -1743,12 +1746,6 @@ function Polygone(...points) {
     this.listePoints = points;
     this.nom = this.listePoints.join();
   }
-  // for (let point of this.listePoints) { // fausse bonne idée que d'appeler nommePolygone ici.
-  //   if (point.nom!="") {
-  //     this.sommets=nommePolygone(this)
-  //     break
-  //   }
-  //}
 
   this.binomesXY = function (coeff) {
     let liste = "";
@@ -1781,29 +1778,50 @@ function Polygone(...points) {
       }
 
     }
-    if (this.couleurDeRemplissage == "") {
-      this.style += ` fill="none" `;
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `;
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
-    }
-    if (this.opacite != 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `;
-    }
-    if (this.hachures != 'none') {
+    let pattern = ''
+    if (this.hachures) {
+      if (this.couleurDeRemplissage.length<1){
+        this.couleurDeRemplissage = "none"
+      }
       switch (this.hachures) {
         case 'north east lines':
-
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
           break
-        case 'horizonal lines':
-
+        case 'horizontal lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="${calcul(this.distanceDesHachures/2)}" x2="${calcul(this.distanceDesHachures)}" y2="${calcul(this.distanceDesHachures/2)}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
           break
         case 'vertical lines':
-
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
           break
+        default :
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
       }
+      return pattern + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
+
+    } else {
+      if (this.couleurDeRemplissage == "") {
+        this.style += ` fill="none" `;
+      } else {
+        this.style += ` fill="${this.couleurDeRemplissage}" `;
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+      }
+      if (this.opacite != 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `;
+      }
+      return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
     }
-    return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
     let tableauOptions = [];
@@ -1841,8 +1859,12 @@ function Polygone(...points) {
     if (this.couleurDeRemplissage != '') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
-    if (this.hachures != 'none') {
-      tableauOptions.push(`pattern = ${this.hachures}`)
+    if (this.hachures) {
+      if (['north east lines','horizontal lines','vertical lines'].includes(this.hachures)){
+        tableauOptions.push(`pattern = ${this.hachures}`)
+      } else {
+        tableauOptions.push(`pattern = north east lines`)
+      }
     }
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
@@ -2201,6 +2223,10 @@ function Cercle(O, r, color) {
   this.rayon = r;
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 0.7;
+  this.hachures = "";
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1;
+  this.distanceDesHachures = 10;
   this.svg = function (coeff) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
@@ -2225,18 +2251,53 @@ function Cercle(O, r, color) {
       }
 
     }
-    if (this.opacite != 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `;
-    }
-    if (this.couleurDeRemplissage == "") {
-      this.style += ` fill="none" `;
+
+    let pattern = ''
+    if (this.hachures) {
+      if (this.couleurDeRemplissage.length<1){
+        this.couleurDeRemplissage = "none"
+      }
+      switch (this.hachures) {
+        case 'north east lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'horizontal lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(90 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'vertical lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        default :
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+      }
+      return pattern + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
     } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `;
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+      if (this.opacite != 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `;
+      }
+      if (this.couleurDeRemplissage == "") {
+        this.style += ` fill="none" `;
+      } else {
+        this.style += ` fill="${this.couleurDeRemplissage}" `;
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+      }
+  
+      return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff
+        }" stroke="${this.color}" ${this.style} id="${this.id}" />`;
     }
 
-    return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff
-      }" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
     let optionsDraw = [];
@@ -2268,6 +2329,13 @@ function Cercle(O, r, color) {
     }
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    if (this.hachures) {
+      if (['north east lines','horizontal lines','vertical lines'].includes(this.hachures)){
+        tableauOptions.push(`pattern = ${this.hachures}`)
+      } else {
+        tableauOptions.push(`pattern = north east lines`)
+      }
     }
     if (tableauOptions.length > 0) {
       optionsDraw = "[" + tableauOptions.join(",") + "]";
