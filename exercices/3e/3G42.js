@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {randint, liste_de_question_to_contenu,combinaison_listes, nombreDecimal,exposant, calcul,texte_gras} from "/modules/outils.js"
+import {mathalea2d} from "/modules/2d.js"
+import {point3d, vecteur3d, sphere3d, cylindre3d} from "/modules/3d.js"
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
@@ -13,7 +15,7 @@ export default function Exercice_zero_mathalea2d3d() {
     Exercice.call(this)
     this.titre = `Volume d'une boule`;
     this.consigne = `On arrondira les résultats à ` + nombreDecimal(0.1) + ` cm` + exposant(3) + `. <br>`;
-    this.video = "https://youtu.be/YQF7CBY-uEk";
+    this.video = "YQF7CBY-uEk";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true; // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
@@ -71,8 +73,8 @@ export default function Exercice_zero_mathalea2d3d() {
             texte_corr += `On en déduit : $r^2 = \\dfrac{${A}}{4\\pi}$. <br>`;
             texte_corr += `Et, comme $r$ est positif : $r=\\sqrt{\\dfrac{${A}}{4\\pi}}$. <br>`
             let rayon = calcul(Math.sqrt(A/(4*Math.PI)));
-            texte_corr += `On obtient donc une valeur approchée de $r$ : $r \\approx ${rayon}$. <br>`;
-            texte_corr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ cm})^3$. <br>`;
+            texte_corr += `On obtient donc une valeur approchée de $r$ : $r \\approx ` +nombreDecimal(rayon)+ `$. <br>`;
+            texte_corr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (` +nombreDecimal(rayon)+ ` \\text{ cm})^3$. <br>`;
             texte_corr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*rayon*rayon*rayon, 4) + ` cm` + exposant(3) + `. <br>`);
           break
             
@@ -80,6 +82,18 @@ export default function Exercice_zero_mathalea2d3d() {
             let diam = randint(2,30); 
             texte += `Un boîte cylindrique de ${2*diam} cm de diamètre et de ${2*diam} cm de hauteur contient une boule de diamètre ${2*diam} cm. <br>`;
             texte += `Calculer le volume dans la boîte laissée libre par la boule. `;
+
+            texte_corr += `Représentons la situation par un petit schéma : <br>`;
+              let O=point3d(0,0,0);
+              let B=point3d(2.5,0,0);
+              let OO = point3d(0,0,5);
+              let o=point3d(0,0,2.5);
+              let R=vecteur3d(O,B);
+              let normal = vecteur3d(0,0,1);
+              let s = sphere3d(o,2.5,5,5,'blue');
+              let c=cylindre3d(O,OO,normal,R,R);
+          //mathalea.anglePerspective=20;
+            texte_corr +='<br>'+ mathalea2d({xmin:-5,max:9,ymin:-1.5,ymax:6,scale:.8}, s,c)+`<br>`;
             texte_corr += `Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>`;
             texte_corr += `Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>`;
             texte_corr += `Le rayon du cylindre est la moitié de son diamètre, soit ${diam} cm, et sa hauteur est ${2*diam} cm. <br>`;
@@ -100,6 +114,6 @@ export default function Exercice_zero_mathalea2d3d() {
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
     };
-this.besoin_formulaire_numerique = ['Type de questions', 4, `1 : avec le rayon\n 2 : avec le diamètre\n 3 : avec l'aire\n 4 : petit problème`]
+this.besoin_formulaire_numerique = ['Type de questions', 4, `1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l’aire\n 4 : À partir du rayon, du diamètre, de l’aire ou en résolvant un problème`]
 } // Fin de l'exercice.
   

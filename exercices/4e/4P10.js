@@ -748,7 +748,7 @@ export default function Problemes_grandeurs_composees() {
                 num_alpha(1) +
                 ` En déduire sa	` +
                 katex_Popup2(
-                  numero_de_l_exercice + i,
+                  numero_de_l_exercice + i+1,
                   type_aide,
                   `vitesse`,
                   `Définition : Vitesse (grandeur physique)`,

@@ -446,54 +446,57 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
    * @param {Vecteur3d} rayon1 
    * @param {Vecteur3d} rayon2
    */
-  function Cylindre3d(centrebase1,centrebase2,normal,rayon1,rayon2){
+  function Cylindre3d(centrebase1,centrebase2,normal,rayon1,rayon2,color){
     ObjetMathalea2D.call(this)
     this.centrebase1=centrebase1
     this.centrebase2=centrebase2
     this.normal=normal
     this.rayon1=rayon1
     this.rayon2=rayon2
+    this.color=color
     let objets=[],c1,c2,c3,c4,s,color1,color2
     let prodvec=vecteur3d(math.cross(this.normal.matrice,this.rayon1.matrice))
     let prodscal=math.dot(prodvec.matrice,vecteur3d(0,1,0).matrice)
     let cote1,cote2
     if (prodscal>0) {
       cote1='caché'
-      color1='gray'
+      color1=this.color
       cote2='visible'
-      color2='black'
+      color2=this.color
     }
     else {
       cote2='caché'
       cote1='visible'
-      color1='black'
-      color2='gray'
+      color1=this.color
+      color2=this.color
     }
     c1=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote1,color1)
     c3=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote1,color1)
     c2=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote2,color2)
     c4=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote2,color2)
     c3.pointilles=false
-    c3.color='black'
-    for (let i=0;i<c1.listePoints.length;i++){
+    c3.color=this.color
+    for (let i=0;i<c1.listePoints.length;i+=2){
       s=segment(c3.listePoints[i],c1.listePoints[i])
       if (cote1=='caché'){
         s.pointilles=2
-        s.color='gray'
+        s.color=this.color
+        s.opacite=0.3
       }
       else {
-        s.color='black'
+        s.color=this.color
       }
       objets.push(s)
     }
-    for (let i=0;i<c2.listePoints.length;i++){
+    for (let i=0;i<c2.listePoints.length;i+=2){
       s=segment(c4.listePoints[i],c2.listePoints[i])
       if (cote2=='caché'){
         s.pointilles=2
-        s.color='gray'
+        s.color=this.color
+        s.opacite=0.3
       }
       else {
-        s.color='black'
+        s.color=this.color
       }
       objets.push(s)
     }
@@ -513,8 +516,8 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
       return code;
     }
   }
-  export function cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2){
-    return new Cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2)
+  export function cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2,color){
+    return new Cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2,color)
   }
   
   /**
