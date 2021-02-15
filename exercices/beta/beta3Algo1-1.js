@@ -1,10 +1,10 @@
 import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
-import {mathalea2d,point,repere2,repere,traceGraphiqueCartesien,segment} from "/modules/2d.js"
-import {randint} from '/modules/outils.js';
-import {warn_message,lampe_message} from '/modules/outils.js';
-import {enumerate,enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
+import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment} from "/modules/2d.js"
+import {randint,calcul} from '/modules/outils.js';
+import {lampe_message} from '/modules/outils.js';
+import {enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
 
 /**
  * @class Syracuse
@@ -101,8 +101,16 @@ export default function Exercice_zero_mathalea() {
     this.liste_corrections = []
     let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
-  
+      // On choisit un entier pour l'étude de la suite de Syracuse correspondante
+      // On contraitn le temps de vol entre 5 et 25
+      let entier =randint(1,200);
+      while (syracuse({N:entier}).tempsDeVol()>25 || syracuse({N:entier}).tempsDeVol()<5 || syracuse({N:entier}).altitudeMaximale()>100) {
+        entier = randint(1,200);
+      };
+
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+
+        // Petite intro connaissances
         let string_intro = `En mathématiques, on appelle conjecture une proposition qui n'est pas encore démontrée.
         On a éventuellement vérifié cette proposition sur beaucoup d'exemples mais cela ne garantit pas qu'elle soit toujours vraie.<br>
         Nous allons nous intéresser à la ${texte_gras('conjecture de Syracuse')} découverte par le mathématicien allemand ${texte_gras('Lothar Collatz')} en 1930
@@ -122,7 +130,13 @@ export default function Exercice_zero_mathalea() {
           `$\\leadsto$ Si l'entier choisi est pair on le divise par 2.`,
           `$\\leadsto$ Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.`,
           `On recommence avec le nouvel entier trouvé tant qu'il ne vaut pas 1.`
-        ])}                    
+        ])}<br>                    
+        `;        
+        string_intro += `${texte_gras('Conjecture de Syracuse :')}<br>`;
+        string_intro += `Encore appelée conjecture de ${texte_gras('Collatz')}, conjecture ${texte_gras('d\'Ulam')},
+        conjecture ${texte_gras('tchèque')} ou ${texte_gras('problème 3x + 1')}, est l'hypothèse mathématique selon laquelle
+        la suite de Syracuse de n'importe quel entier strictement positif atteint 1.<br>
+        En dépit de la simplicité de son énoncé, cette conjecture défie depuis de nombreuses années les mathématiciens.
         `;
 
         this.introduction = lampe_message({
@@ -131,56 +145,55 @@ export default function Exercice_zero_mathalea() {
           couleur: `nombres`
         });
 
-
-        //texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
-        //texte_corr = `` // Idem pour le texte de la correction.
-        let entier =randint(1,200);
-        while (syracuse({N:entier}).tempsDeVol()>25 || syracuse({N:entier}).tempsDeVol()<5) {
-          entier = randint(1,200);
-        };
-        let objets_correction = [], params_correction = {};
-        //console.log(syracuse({N:entier}).coordonneesSuiteDeSyracuse(syracuse({N:entier}).suiteDeSyracuse()));
+       
+        // Pour les objets de mathALEA2D
+        let objets_correction= [], objets_correction_plus = [], params_correction = {};        
+        // On crée la liste de coordonnées de la suite de Syracuse 
         let coord_Syracuse = syracuse({N:entier}).coordonneesSuiteDeSyracuse(syracuse({N:entier}).suiteDeSyracuse());
 
+        // Pour ajouter le graphique et le repère
+        let y_coeff = 5;
+        let x_coeff = 2;
+
+        // Le repère
         let r2 = repere2({
           axesEpaisseur : 3,
-          //grille:false,
-          yMax: syracuse({N:entier}).altitudeMaximale()+1,
-          xMin: -10,
+          grille:false,          
+          xMin: -1,
+          yMin: -1,
           xMax: syracuse({N:entier}).tempsDeVol()+1,
-          yMin: -10,
-          // yThickMin: 0,
-          // yThickDistance: 10,
-          // yUnite:1,
-          // xUnite:1,
-          // xThickMin: 0,
-          // xThickDistance:1,
-          // axeXStyle: '->',
-          // xLegende: 'rang',
-          // yLegende: 'altitude',          
-          
+          yMax: syracuse({N:entier}).altitudeMaximale()+5,         
+          yThickMin: 0,
+          yThickDistance: 1*y_coeff,
+          yUnite:1/y_coeff,
+          xUnite:1/x_coeff,
+          xThickMin: 0,
+          xThickDistance:1,
+          axeXStyle: '->',
+          xLegende: 'rang',
+          yLegende: 'altitude',                    
         });
-        let r = repere({
-          xmin: -10,
-          ymin: -10,
-          ymax: syracuse({N:entier}).altitudeMaximale()+1,
-          xmax: syracuse({N:entier}).tempsDeVol()+1,
-          xscale: 2,
-          legendeX: "rang",
-          legendeY: "altitude",
-        });
-
         
+        // Le graphique cartésien
         let g = traceGraphiqueCartesien(coord_Syracuse,r2)
         
-        objets_correction.push(g);       
+        // On pousse tout ça dans les objets, le repère aussi coño !!!
+        objets_correction.push(r2,g);
+        
+        let A = point(0,syracuse({N:entier}).suiteDeSyracuse()[0]);
+        let B = point(syracuse({N:entier}).tempsDeVol(),syracuse({N:entier}).suiteDeSyracuse()[0]);
+        let s = segment(A,B,'red');
+        
+        objets_correction_plus.push(r2,g,s);
+
+        // On fixe la fenetre pour le SVG/Tikz
         params_correction = {
-           xmin: -10,
-           ymin: -10,
-           xmax:syracuse({N:entier}).tempsDeVol()+5,
-           ymax: syracuse({N:entier}).altitudeMaximale()+5,
-           pixelsParCm: 30,
-           scale: 1,
+           xmin: -2,
+           ymin: -2,
+           xmax:calcul((syracuse({N:entier}).tempsDeVol()+5)/x_coeff),
+           ymax: calcul((syracuse({N:entier}).altitudeMaximale()+10)/y_coeff),
+           pixelsParCm: 30,           
+           scale: 0.5,
            mainlevee: false 
         }
                 
@@ -192,20 +205,21 @@ export default function Exercice_zero_mathalea() {
             C'est pourquoi on ne s'intéresse qu'à la liste des entiers jusqu'au premier 1.`
           },
           cas2 :{
-            titre:`Suite de Syracuse`,
-            texte:``
+            titre:`Vol de la suite de Syracuse ${entier}`,
+            texte:`Les graphiques font penser à la chute chaotique d'un grêlon ou bien à la trajectoire d'une feuille emportée par le vent.
+            Sur le graphique ci-dessuus, on peut observer le vol de la suite de Syracuse ${entier}.`
           },
           cas3 :{
-            titre:`Altitude maximale`,
-            texte:``
+            titre:`Altitude maximale de la suite de Syracuse ${entier}`,
+            texte:`Si on file la métaphore, la valeur maximale atteinte par les valeurs trouvées serait désignée par l'altitude maximale du vol. `
           },
           cas4 :{
-            titre:`Temps de vol`,
-            texte:``
+            titre:`Temps de vol de la suite de Syracuse ${entier}`,
+            texte:`C'est le nombre d'applications de l'algorithme nécessaires à atteindre la valeur 1 pour la première fois.`
           },
           cas5 :{
-            titre:`Temps de vol en altitude`,
-            texte:``
+            titre:`Temps de vol en altitude de la suite de Syracuse ${entier}`,
+            texte:`C'est le plus petit nombre de fois qu'il faut appliquer l'algorithme pour strictement repasser en dessous de la valeur initiale.`
           },
         };
 
@@ -217,28 +231,39 @@ export default function Exercice_zero_mathalea() {
             break;
           case 2: //suite de Syracuse pour un entier aléatoire          
             texte = `Déterminer tous les entiers issus de cet algorithme lorsqu'on choisit ${entier}.`;
-            texte_corr = `La suite de Syracuse du nombre ${entier} est : ${texte_gras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte;              
+            texte_corr = `La suite de Syracuse du nombre ${entier} est : <br>
+            ${texte_gras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
+            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
 
             if (this.correction_detaillee) {
-//              texte_corr +=`<br>détails<br>`;
               texte_corr += mathalea2d(params_correction, objets_correction)
             }            
             break;
           case 3://altitude max
             texte = `Quelle est la valeur maximale de cette liste d'entiers ?`;
-            texte_corr = `${syracuse({N:entier}).altitudeMaximale()}<br><br>`;            
+            texte_corr = `La valeur maximale atteinte vaut : ${texte_gras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
             texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
             break;
           case 4://temps de vol
             texte = `Quelle est le nombre d'élements de cette liste d'entiers, sans compter la valeur initiale ?`;
-            texte_corr = `${syracuse({N:entier}).tempsDeVol()}<br><br>`;            
+            texte_corr = `Sans compter la valeur initiale, cette liste comporte ${texte_gras(syracuse({N:entier}).tempsDeVol())} éléments.<br><br>`;            
             texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
             break;            
           case 5://temps de vol en altitude
-            texte = `Quelle est le nombre d'éléments de cette liste d'entiers qui sont strictement supérieurs à la valeur initiale, sans compter cette valeur initiale ?`;
-            texte_corr = `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte;              
+            texte = `Au bout de combien d'application minimum de l'algorithme la valeur trouvée est elle strictement inférieure à la valeur initiale ?`;
+            //`Quelle est le nombre d'éléments de cette liste d'entiers qui sont strictement supérieurs à la valeur initiale, sans compter cette valeur initiale ?`;            
+            if (syracuse({N:entier}).tempsDeVolEnAltitude()==0) {
+              texte_corr = `Dès la première application de l'algorithme la valer trouvée est inférieure à la valeur initiale.`
+            } else {
+              texte_corr = `Il faut appliquer au minimum ${syracuse({N:entier}).tempsDeVolEnAltitude()} fois l'algorithme pour que la valeur trouvée soit strictement inférieure à la valeur initiale.`
+            };
+            texte_corr +=`<br><br>`;
+            //texte_corr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
+            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
+
+            if (this.correction_detaillee) {
+              texte_corr += mathalea2d(params_correction, objets_correction_plus)
+            } 
             break;
         };      
         
