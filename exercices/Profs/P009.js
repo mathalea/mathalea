@@ -73,7 +73,7 @@ export default function SimulateurAleatoire() {
             for (let i=0;i<nbLancers;i++){
               tabEff[randint(1,nbFaces)-1]++
             }
-            S=tabEff[face]*3/4
+            S=tabEff[face-1]*3/4
             tabEff[randint(1,nbFaces,face)-1]-=S
             tabEff[face-1]+=S
             for (let i =0; i<nbFaces ; i++) {
@@ -81,6 +81,7 @@ export default function SimulateurAleatoire() {
             }   
             texte_corr+=`Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
             texte_corr+=`En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondi_virgule(f.pourcentage)}\\%$.`
+            console.log(tabEff,S,face,nbFaces)
           }
 
             break;
