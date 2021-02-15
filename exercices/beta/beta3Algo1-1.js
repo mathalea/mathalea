@@ -1,7 +1,7 @@
 import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
-import {mathalea2d,point,repere2,segment} from "/modules/2d.js"
+import {mathalea2d,point,repere2,repere,traceGraphiqueCartesien,segment} from "/modules/2d.js"
 import {randint} from '/modules/outils.js';
 import {warn_message,lampe_message} from '/modules/outils.js';
 import {enumerate,enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
@@ -30,6 +30,15 @@ function Syracuse({N}) {
         sortie.push(u);
       };
     }
+    return sortie;
+  };
+
+  // Pour créer les coordonées à placer dans un graphique cartésien d'une suite de Syracuse
+  this.coordonneesSuiteDeSyracuse = function(suite) {
+    let sortie = [];
+    for (let i=0; i<suite.length;i++) {
+      sortie.push([i,suite[i]]);
+    };
     return sortie;
   };
 
@@ -126,38 +135,54 @@ export default function Exercice_zero_mathalea() {
         //texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         //texte_corr = `` // Idem pour le texte de la correction.
         let entier =randint(1,200);
-        while (syracuse({N:entier}).tempsDeVol()>25) {
+        while (syracuse({N:entier}).tempsDeVol()>25 || syracuse({N:entier}).tempsDeVol()<5) {
           entier = randint(1,200);
         };
         let objets_correction = [], params_correction = {};
+        //console.log(syracuse({N:entier}).coordonneesSuiteDeSyracuse(syracuse({N:entier}).suiteDeSyracuse()));
+        let coord_Syracuse = syracuse({N:entier}).coordonneesSuiteDeSyracuse(syracuse({N:entier}).suiteDeSyracuse());
 
-        // Pour tracer de proche en proche le ligne brisée
-        let A,B,s;
-        // On va faire un graphe de la suite
-        for (let k=0;k<syracuse({N:entier}).tempsDeVol()+1;k++){
-          A = point(k,syracuse({N:entier}).suiteDeSyracuse()[k])
-          B = point(k+1,syracuse({N:entier}).suiteDeSyracuse()[k+1])
-          s = segment(A,B);
-          objets_correction.push(s)
-        } 
-        
-        let r = repere2({
-          grille:false,
+        let r2 = repere2({
+          axesEpaisseur : 3,
+          //grille:false,
           yMax: syracuse({N:entier}).altitudeMaximale()+1,
           xMin: -10,
           xMax: syracuse({N:entier}).tempsDeVol()+1,
           yMin: -10,
-          yThickMin: 0,
-          yThickDistance: 10,
-          yUnite:1,
-          xUnite:1,
-          xThickMin: 0,
-          xThickDistance:10,
-          //axeXStyle: '',
-          //yLegende: "y"
+          // yThickMin: 0,
+          // yThickDistance: 10,
+          // yUnite:1,
+          // xUnite:1,
+          // xThickMin: 0,
+          // xThickDistance:1,
+          // axeXStyle: '->',
+          // xLegende: 'rang',
+          // yLegende: 'altitude',          
+          
         });
-        objets_correction.push(r);       
-        params_correction = { xmin: -10, ymin: -10, xmax:syracuse({N:entier}).tempsDeVol()+1, ymax: syracuse({N:entier}).altitudeMaximale()+1, pixelsParCm: 5, scale: 1, mainlevee: false }
+        let r = repere({
+          xmin: -10,
+          ymin: -10,
+          ymax: syracuse({N:entier}).altitudeMaximale()+1,
+          xmax: syracuse({N:entier}).tempsDeVol()+1,
+          xscale: 2,
+          legendeX: "rang",
+          legendeY: "altitude",
+        });
+
+        
+        let g = traceGraphiqueCartesien(coord_Syracuse,r2)
+        
+        objets_correction.push(g);       
+        params_correction = {
+           xmin: -10,
+           ymin: -10,
+           xmax:syracuse({N:entier}).tempsDeVol()+5,
+           ymax: syracuse({N:entier}).altitudeMaximale()+5,
+           pixelsParCm: 30,
+           scale: 1,
+           mainlevee: false 
+        }
                 
 
         let string_connaissance={
@@ -196,7 +221,7 @@ export default function Exercice_zero_mathalea() {
             texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte;              
 
             if (this.correction_detaillee) {
-              texte_corr +=`<br>détails<br>`;
+//              texte_corr +=`<br>détails<br>`;
               texte_corr += mathalea2d(params_correction, objets_correction)
             }            
             break;
