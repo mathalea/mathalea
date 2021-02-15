@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrondi,nombre_avec_espace} from "/modules/outils.js"
+import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrondi,nombre_avec_espace, texte_en_couleur_et_gras} from "/modules/outils.js"
 
 /**
  * Reconnaître une fonction affine
@@ -36,7 +36,7 @@ export default function Stabilisation_frequence() {
   
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
-    let type_de_questions_disponibles=[1,2] // tableau à compléter par valeurs possibles des types de questions
+    let type_de_questions_disponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
   
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
@@ -45,58 +45,186 @@ export default function Stabilisation_frequence() {
         texte_corr = `` // Idem pour le texte de la correction.
         let nbFaces = 2*randint(1,5)+2; // nombre de faces du dé : 4, 6, 8, 10 ou 12
         let nbLancers = 10000; // nombre de lancers 
-        let tabEff = new Array();// tableau d'effectifs temporaires - une dimension [eff]
-        let S = 0; // effectif total
-        let tabRes = new Array(); // tableau des fréqeunces observées - deux dimensions [val, freq]
-
-        texte += `On lance un dé équilibré à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque faces. On obtient les résultats suivants : <br>`;
-
+        let tabcoul = ["rouges", "vertes", "bleues", "noires"];
+        let tabEff = new Array();// tableau d'effectifs temporaires - une dimension [eff]        
+        let tabEffModif = new Array();// tableau d'effectifs temporaires après modification - une dimension [eff]        
+        let S1 = 0, S2 = 0; // effectif total
+        let tabRes = new Array(); // tableau des fréquences observées - deux dimensions [val, freq]
+        let tabProba = new Array(); // tableau des proba théoriques, à comparer à tabRes
+        let tabValeur = []; // numéro de la face du dé
+        let titreligne = "Numéro de la face"; // ou "couleur de la boule"
+        let tabtitrecolonne = tabValeur; // ou tabcoul
+        let face = 0;
+        let N = 0; // largeur du tableau
 
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
+            // avec un dé
             // Cas où les fréquesnces rejoignent les proba
+            texte += "CAS n° 1 <br>";
+            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
             for (let i = 0; i<nbFaces ; i++) {
+              tabValeur[i]=i+1;
               tabEff[i] = [randint(90,110)];
-              S += parseInt(tabEff[i]);
+              S1 += parseInt(tabEff[i]);
             }             
             for (let i =0; i<nbFaces ; i++) {
-              tabRes[i] = [i, calcul(tabEff[i]/S)];
-            }   
+              tabRes[i] = [i, calcul(tabEff[i]/S1)];
+            } 
+            texte_corr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
+            switch (nbFaces){
+              case 4:
+                texte_corr += ` $\\dfrac{1}{4} = 25\\%$ `;
+              case 6:
+                texte_corr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
+              case 8:
+                texte_corr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
+              case 10:
+                  texte_corr += ` $\\dfrac{1}{10} = 10\\%$ `;
+              case 12:
+                  texte_corr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
+            }
+            texte_corr += `d'apparaitre. <br>`
+            texte_corr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
+            texte_corr += `Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>`;
+            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
           break;
   
           case 2:
-            // Cas où les fréquences ne rejoignent pas les proba
-            let face = randint(1, nbFaces); // on choisit une face au hasard. Elle aura une fréquence déséquilibrée.
+          // avec un dé  
+          // Cas où les fréquences ne rejoignent pas les proba
+          texte += "CAS n° 2 <br>";
+            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
+            face = randint(1, nbFaces); // on choisit une face au hasard. Elle aura une fréquence déséquilibrée.
             for (let i = 0; i<nbFaces ; i++) {
+              tabValeur[i]=i+1;
               if (i == face) {
                 tabEff[i] = [2*randint(90,110)];
               }
               else {
                 tabEff[i] = [randint(90,110)];
               }
-              S += parseInt(tabEff[i]);
+              S1 += parseInt(tabEff[i]);
             }             
             for (let i =0; i<nbFaces ; i++) {
-              tabRes[i] = [i, calcul(tabEff[i]/S)];
+              tabRes[i] = [i, calcul(tabEff[i]/S1)];
+            }  
+            texte_corr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
+            switch (nbFaces){
+              case 4:
+                texte_corr += ` $\\dfrac{1}{4} = 25\\%$ `;
+              case 6:
+                texte_corr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
+              case 8:
+                texte_corr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
+              case 10:
+                  texte_corr += ` $\\dfrac{1}{10} = 10\\%$ `;
+              case 12:
+                  texte_corr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
+            }
+            texte_corr += `d'apparaitre. <br>`;
+            texte_corr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
+            texte_corr += `Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>`;
+            texte_corr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`;
+            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
+          break; 
+
+          case 3:
+          // avec une urne et des boules  
+          // Cas où les fréquences rejoignent les proba
+          texte += "CAS n° 3 <br>";
+            tabEff = [randint(2,9), randint(2,9), randint(2,9), randint(2,9)];
+            S1 = tabEff.reduce((a, b)=> a + b,0);
+            for (let i =0; i<4 ; i++) {
+              tabProba[i] = [tabcoul[i], calcul(tabEff[i]/S1)];
             }   
-          break  
+
+            texte += `Dans une urne opaque, il y a `;  
+            for (let i=0 ; i<3; i++) {
+              texte += `${tabEff[i]} boules ${tabcoul[i]}, `;
+            }
+            texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`;
+            texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombre_avec_espace(nbLancers)} fois. `
+            texte += `On étudie les fréquences d'apparition de chaque couleur. On obtient les résultats suivants : <br>`;
+            tabEffModif = tabEff.map(x=>x*(1+randint(-50,50)/1000)); // on modifie très légèrement le tirage max 5%
+            S2 = tabEff.reduce((a, b)=> a + b,0);
+            for (let i =0; i<4 ; i++) {
+              tabRes[i] = [tabcoul[i], calcul(tabEffModif[i]/S2)];
+            }   
+            titreligne = "Couleur des boules"; // pour remplir le tableau
+            tabtitrecolonne = tabcoul; 
+            texte_corr += `Chaque boule a la même probabilité d'être choisie. Par exemple, la probabilité de tirer une boule ${tabcoul[0]} est : $\\dfrac{${tabEff[0]}}{${S1}}$. `
+            texte_corr += `Les probabilités théoriques sont : <br>`;
+            N = tabtitrecolonne.length;
+            texte_corr += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
+            texte_corr += `\\hline\n`;
+            texte_corr += `\\text{${titreligne}}`
+            for (let i = 0; i<N ; i++) {
+              texte_corr += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
+            }
+            texte_corr += `\\\\\\hline\n`;
+            texte_corr += `\\text{Fréquence d'apparition (en fraction)}`;
+            for (let i = 0; i<N ; i++) {
+              texte_corr += ` & \\dfrac{${tabEff[i]}}{${S1}} `; // probleme d'espace
+            }
+            texte_corr += `\\\\\\hline\n`;
+            texte_corr += `\\text{Fréquence d'apparition (en pourcentage)}`;
+            for (let i = 0; i<N ; i++) {
+              texte_corr += ` & \\text{${arrondi(100*tabEff[i]/S1, 1)}} \\% `;
+            }
+            texte_corr += `\\\\\\hline\n`;
+            texte_corr += `\\end{array}\n$ <br>`;
+            texte_corr += `Les probabilités semblent très proches des fréquences observées. <br>`;
+            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.`);
+
+          break;  
+
+          case 4:
+            // avec une urne et des boules  
+            // Cas où les fréquences rejoignent les proba
+            texte += "CAS n° 4 <br>";
+              face = randint(1, nbFaces); // on choisit une couleur au hasard. Elle aura une fréquence déséquilibrée.
+              tabEff = [randint(2,9), randint(2,9), randint(2,9), randint(2,9)];
+              S1 = tabEff.reduce((a, b)=> a + b,0);
+              for (let i =0; i<4 ; i++) {
+                tabProba[i] = [tabcoul[i], calcul(tabEff[i]/S1)];
+              }    
+              texte += `Dans une urne opaque, il y a `;  
+              for (let i=0 ; i<3; i++) {
+                texte += `${tabEff[i]} boules ${tabcoul[i]}, `;
+              }
+              texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`;
+              texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombre_avec_espace(nbLancers)} fois. `
+              texte += `On étudie les fréquences d'apparition de chaque couleur. On obtient les résultats suivants : <br>`;
+              tabEffModif[face] = 1.75*tabEff[face]; // on augmente de 75% l'effectif d'une couleur
+              tabEffModif = tabEff.map(x=>x*(1+randint(-50,50)/1000)); // on modifie très légèrement le tirage max 5%
+              S2 = tabEffModif.reduce((a, b)=> a + b,0);
+              for (let i =0; i<4 ; i++) {
+                tabRes[i] = [tabcoul[i], calcul(tabEffModif[i]/S2)];
+              }   
+              titreligne = "Couleur des boules"; // pour remplir le tableau
+              tabtitrecolonne = tabcoul; 
+              texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un tirage aléatoire dans une urne.`);
+
+            break;  
+  
         }
-        texte += `$\\begin{array}{|l|` + `c|`.repeat(nbFaces) + `}\n`;
+        N = tabtitrecolonne.length;
+        texte += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
         texte += `\\hline\n`;
-        texte += `\\text{Numéro de la face}`;
-        for (let i = 0; i<nbFaces ; i++) {
-          texte += ` & \\textbf{\\text{${i+1}}}`;
+        texte += `\\text{${titreligne}}`
+        for (let i = 0; i<N ; i++) {
+          texte += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\text{Fréquence d'apparition}`;
-        for (let i = 0; i<nbFaces ; i++) {
+        for (let i = 0; i<N ; i++) {
           texte += ` & \\text{${arrondi(100*tabRes[i][1], 1)}} \\% `;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
         texte += `Ces résultats vous paraissent-ils normaux ? Détailler votre réponse en vous basant sur des calculs.<br>`;
-
 
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
