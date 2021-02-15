@@ -22,9 +22,9 @@ export default function Stabilisation_frequence() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+   this.sup = 1; // situation 1=dés
+   this.sup2 = 10000; // nbLancers
+   this.sup3 = false; // true = équiprobable, false = jeu truqué
   
   if (sortie_html) {
     this.consigne = `<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>`
@@ -277,9 +277,9 @@ export default function Stabilisation_frequence() {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
-  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+  this.besoin_formulaire_numerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
+  this.besoin_formulaire2_texte = ["Nombre de tirages"];
+  this.besoin_formulaire3_case_a_cocher =['équiprobabilité',true]
   
   } // Fin de l'exercice.
   

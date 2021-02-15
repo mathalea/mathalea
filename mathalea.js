@@ -49,7 +49,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         (function gestionURL() {
             if (liste_des_exercices.length > 0) {
                 let fin_de_l_URL = "";
-                if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html')<0) {
+                if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html')<0 && window.location.pathname.indexOf('beta.html')<0) {
                     fin_de_l_URL += "exercice.html";
                 }
                 fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
