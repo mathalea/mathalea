@@ -37,26 +37,34 @@ export default function variation_polynome_degre3() {
        // reste à faire les types 'Ima', 'Val' et 'Slope"
     let texte='',texte_corr=''
        let coef_f=this.sup.split('/')
+       console.log(coef_f)
     let a,b,c,d,a1,b1,c1,a2,b2,xx,rac=[],t
     [a,b,c,d]=coef_f
     a1=3*a
     b1=2*b
-    c1=c
+    c1=1*c    
     a2=6*a
     b2=2*b
-    let x2=fraction(b,3*a)
-    let trouver_les_racines=function(a,b,c){
-
-    let delta=b*b-4*a*c // on calcule les racines de f'
-    if (delta<0) return []
-    else if (delta==0) return [-b/2/a]
-    let x1=(-b+Math.sqrt(delta))/2/a
-    let x3=(-b-Math.sqrt(delta))/2/a
+    let x2=fraction(-b,3*a)
+    let trouver_les_racines=function(a0,b0,c0){
+console.log(a0,b0,c0)
+    let delta=b0*b0-4*a0*c0 // on calcule les racines de f'
+    if (delta<0) {
+      console.log('delta <0')
+      return []
+    }
+    else if (delta==0) {
+      console.log('delta=0',-b0/2/a0)
+      return [-b0/2/a0]
+    }
+    let x1=(-b0+Math.sqrt(delta))/2/a0
+    let x3=(-b0-Math.sqrt(delta))/2/a0
     if (x3<x1) { // on ordonne les racines de f'
       xx=x3
       x3=x1
       x1=xx
     }
+    console.log(x1,x3)
       return [x1,x3]    
 
   }
@@ -70,14 +78,14 @@ export default function variation_polynome_degre3() {
       return a2*x+b2
     }
     if (a<0){
-        if (f1(x2.num/x2.den)>0 ){ // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
+        if (f1(-b/3/a)>0 ){ // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac=trouver_les_racines(a1,b1,c1)
           t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
             tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
            ['$-\\infty$',18,`$${arrondi_virgule(rac[0])}$`,15,`$${arrondi_virgule(rac[1])}$`,15,'$+\\infty$',18]],
             tabLines:
             [['Line',30,'',0,'-',6,'z',0,'+',6,'z',0,'-',6],
-            ['Var',10,'+/$+\\infty$',18,`-/$${arrondi_virgule(f(rac[0]))}$`,15,`+/$${arrondi_virgule(f(rac[0]))}$`,15,'-/$-\\infty$',18]
+            ['Var',10,'+/$+\\infty$',18,`-/$${arrondi_virgule(f(rac[0]))}$`,15,`+/$${arrondi_virgule(f(rac[1]))}$`,15,'-/$-\\infty$',18]
           ]
           })
         }
@@ -95,7 +103,7 @@ export default function variation_polynome_degre3() {
 
     }
     else {
-      if (f1(x2.num/x2.den)>0 ) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
+      if (f1(-b/3/a)>0 ) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
           t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
         tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
        ['$-\\infty$',18,'$+\\infty$',18]],
