@@ -14,7 +14,7 @@ export default function variation_polynome_degre3() {
   this.nb_questions = 1;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
-  this.sup = "1/-2/3/-5" ; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = "-1/-2/3/1" ; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.liste_packages='tkz-tab'
@@ -80,22 +80,22 @@ console.log(a0,b0,c0)
     if (a<0){
         if (f1(-b/3/a)>0 ){ // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac=trouver_les_racines(a1,b1,c1)
-          t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
-            tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
-           ['$-\\infty$',18,`$${arrondi_virgule(rac[0])}$`,15,`$${arrondi_virgule(rac[1])}$`,15,'$+\\infty$',18]],
+          t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
+            tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+           ['$-\\infty$',30,`$${arrondi_virgule(rac[0])}$`,50,`$${arrondi_virgule(rac[1])}$`,60,'$+\\infty$',30]],
             tabLines:
-            [['Line',30,'',0,'-',6,'z',0,'+',6,'z',0,'-',6],
-            ['Var',10,'+/$+\\infty$',18,`-/$${arrondi_virgule(f(rac[0]))}$`,15,`+/$${arrondi_virgule(f(rac[1]))}$`,15,'-/$-\\infty$',18]
+            [['Line',30,'',0,'-',20,'z',20,'+',20,'z',20,'-',20],
+            ['Var',10,'+/$+\\infty$',30,`-/$${arrondi_virgule(f(rac[0]))}$`,50,`+/$${arrondi_virgule(f(rac[1]))}$`,50,'-/$-\\infty$',30]
           ]
           })
         }
         else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
-        t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
+        t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
           tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
-         ['$-\\infty$',18,'$+\\infty$',18]],
+         ['$-\\infty$',30,'$+\\infty$',30]],
           tabLines:
-          [['Line',30,'-',6],
-          ['Var',10,'+/$+\\infty$',18,'-/$-\\infty$',18]
+          [['Line',30,'',0,'-',20],
+          ['Var',10,'+/$+\\infty$',30,'-/$-\\infty$',30]
         ]
         })
 
@@ -104,12 +104,12 @@ console.log(a0,b0,c0)
     }
     else {
       if (f1(-b/3/a)>0 ) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
-          t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
-        tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
-       ['$-\\infty$',18,'$+\\infty$',18]],
+          t=tableau_de_variation({colorBackground:'red',escpl:5,deltacl:0.6,lgt:3.5, 
+        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,'$+\\infty$',30]],
         tabLines:
-        [['Line',30,'+',6],
-        ['Var',10,'-/$-\\infty$',18,'+/$+\\infty$',18]
+        [['Line',30,'',0,'+',20],
+        ['Var',20,'-/$-\\infty$',30,'+/$+\\infty$',30]
       ]
       })
 
@@ -117,12 +117,12 @@ console.log(a0,b0,c0)
       }
       else {// la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
       rac=trouver_les_racines(a1,b1,c1)
-      t=tableau_de_variation({escpl:5,delatcl:0.8,lgt:3.5, 
-        tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
-       ['$-\\infty$',18,`$${arrondi_virgule(rac[0])}$`,15,`$${arrondi_virgule(rac[1])}$`,15,'$+\\infty$',18]],
+      t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,`$${arrondi_virgule(rac[0])}$`,60,`$${arrondi_virgule(rac[1])}$`,60,'$+\\infty$',30]],
         tabLines:
-        [['Line',30,'',0,'+',6,'z',0,'-',6,'z',0,'+',6],
-        ['Var',10,'-/$-\\infty$',18,`+/$${arrondi_virgule(f(rac[0]))}$`,15,`-/$${arrondi_virgule(f(rac[1]))}$`,15,'+/$+\\infty$',18]
+        [['Line',30,'',0,'+',20,'z',20,'-',20,'z',20,'+',20],
+        ['Var',10,'-/$-\\infty$',30,`+/$${arrondi_virgule(f(rac[0]))}$`,50,`-/$${arrondi_virgule(f(rac[1]))}$`,50,'+/$+\\infty$',30]
       ]
       })
 

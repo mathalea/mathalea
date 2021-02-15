@@ -53,7 +53,7 @@ export default function SimulateurAleatoire() {
           let f=fraction(1,nbFaces)
         texte_corr =`Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondi_virgule(f.pourcentage)}\\%$.<br>`
 
-          texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque faces.<br>On obtient les résultats suivants : <br>`;
+          texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`;
           if (this.sup3){
           for (let i = 0; i<nbFaces ; i++) {
               tabEff.push(0)
