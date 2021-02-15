@@ -1,8 +1,8 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
+import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
 import { randint } from '/modules/outils.js';
 import {warn_message} from '/modules/outils.js';
-import {tex_enumerate, html_enumerate, enumerate} from '/modules/outils.js';
+import {enumerate} from '/modules/outils.js';
 
 /**
  * @class Syracuse
