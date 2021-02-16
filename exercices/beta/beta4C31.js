@@ -107,7 +107,7 @@ export default function Comparer_puissance10() {
                   texte_corr += `$${n1} > ${n2}$. <br>`;
                 }
                 if (n1==n2) {
-                  texte_corr += `les exposants sont égaux. On compare ${tex_nombre(a1)} et ${tex_nombre(a2)} : `;
+                  texte_corr += `Les exposants sont égaux. On compare ${tex_nombre(a1)} et ${tex_nombre(a2)} : `;
                   if (a1<a2) {
                     texte_corr += `$${tex_nombre(a1)} < ${tex_nombre(a2)}$. <br>`;
                   } else {
@@ -122,18 +122,18 @@ export default function Comparer_puissance10() {
                 texte_corr += `Les deux nombres sont négatifs. Ils sont rangés dans l'ordre contraire de leur opposé : ${ecriturePuissance(-a1, 10, n1)} et ${ecriturePuissance(-a2, 10, n2)}. <br>`;
                 texte_corr += `On compare les exposants de l'écriture scientifique : `; 
                 if (n1>n2) {
-                  texte_corr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} > ${ecriturePuissance(-a2, 10, n2)}. <br>`;
+                  texte_corr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
                 }
                 if (n1==n2) {
                   texte_corr += `les exposants sont égaux. On compare ${tex_nombre(a1)} et ${tex_nombre(a2)} : `;
                   if (a1<a2) {
-                    texte_corr += `$${tex_nombre(a1)} < ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} < ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
+                    texte_corr += `$${tex_nombre(a1)} < ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
                   } else {
-                    texte_corr += `$${tex_nombre(a1)} > ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} > ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
+                    texte_corr += `$${tex_nombre(a1)} > ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
                   }
                 }
                 if (n1<n2) {
-                  texte_corr += `$${n1} < ${n2}$.Donc ${ecriturePuissance(-a1, 10, n1)} < ${ecriturePuissance(-a2, 10, n2)}. <br>`;
+                  texte_corr += `$${n1} < ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
                 }             
               }  
             }
@@ -144,12 +144,12 @@ export default function Comparer_puissance10() {
       } // fin de la correction détaillée
       // correction courte :
       if (nbA1 > nbA2) {
-        texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} > ${ecriturePuissance(a2, 10, n2)} <br>`);
+        texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
        } else {
          if (nbA1 == nbA2) {
-          texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} = ${ecriturePuissance(a2, 10, n2)} <br>`);
+          texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
            } else {
-           texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} < ${ecriturePuissance(a2, 10, n2)} <br>`);
+           texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
          }
      }
 
