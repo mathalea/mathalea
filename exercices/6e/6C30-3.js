@@ -10,6 +10,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, 
 * - produit de deux entiers
 * - somme de deux décimaux
 * - produit de deux décimaux
+* date : 2021/02/15
 */
 
 export default function Multiplication_mental_decimaux() {
