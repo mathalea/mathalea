@@ -1864,9 +1864,13 @@ export function nombrec2(nb){
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
  * @Auteur Jean-Claude Lhote
  */
-export function sp() {
-	if (sortie_html) return `&nbsp`
-	else return `~`
+export function sp(nb=1) {
+	let s=``
+	for (let i=0;i<nb;i++){
+	if (sortie_html) s+=`&nbsp`
+	else s+=`~`
+	}
+	return s
 }
 
 /**

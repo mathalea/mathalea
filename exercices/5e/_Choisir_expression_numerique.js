@@ -48,7 +48,7 @@ export default function Choisir_expression_numerique(nb_operations, decimal, tim
 					a = calcul(Math.round(a) * b);
 					expf = `Le quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)}`;
 					expn = `$${tex_nombre(a)}\\div ${tex_nombre(b)}$`;
-					expc = `$${tex_nombre(a)}\\div ${tex_nombre(b)} = ${tex_nombrec(a)}$`;
+					expc = `$${tex_nombre(a)}\\div ${tex_nombre(b)} = ${tex_nombrec(a/b)}$`;
 					break;
 			}
 			break;
