@@ -102,8 +102,10 @@ export default function Exercice_zero_mathalea() {
     let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
       // On choisit un entier pour l'étude de la suite de Syracuse correspondante
-      // On contraitn le temps de vol entre 5 et 25
-      let entier =randint(1,200);
+      // On contraint le temps de vol entre 5 et 25
+      // On contraint l'altitude maximale en dessous de 100
+      //let entier = 15;
+      let entier = randint(1,200);      
       while (syracuse({N:entier}).tempsDeVol()>25 || syracuse({N:entier}).tempsDeVol()<5 || syracuse({N:entier}).altitudeMaximale()>100) {
         entier = randint(1,200);
       };
@@ -124,7 +126,7 @@ export default function Exercice_zero_mathalea() {
         if (sortie_html) {
           string_intro +=`<br>`;
         };
-        string_intro += `
+        string_intro += `        
         ${enumerate_sans_puce_sans_numero([
           `On choisit un nombre entier strictement positif.`,
           `$\\leadsto$ Si l'entier choisi est pair on le divise par 2.`,
@@ -180,8 +182,8 @@ export default function Exercice_zero_mathalea() {
         // On pousse tout ça dans les objets, le repère aussi coño !!!
         objets_correction.push(r2,g);
         
-        let A = point(0,syracuse({N:entier}).suiteDeSyracuse()[0]);
-        let B = point(syracuse({N:entier}).tempsDeVol(),syracuse({N:entier}).suiteDeSyracuse()[0]);
+        let A = point(0,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
+        let B = point(syracuse({N:entier}).tempsDeVol()/x_coeff,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
         let s = segment(A,B,'red');
         
         objets_correction_plus.push(r2,g,s);
@@ -207,7 +209,7 @@ export default function Exercice_zero_mathalea() {
           cas2 :{
             titre:`Vol de la suite de Syracuse ${entier}`,
             texte:`Les graphiques font penser à la chute chaotique d'un grêlon ou bien à la trajectoire d'une feuille emportée par le vent.
-            Sur le graphique ci-dessuus, on peut observer le vol de la suite de Syracuse ${entier}.`
+            Sur le graphique ci-dessous, on peut observer le vol de la suite de Syracuse ${entier}.`
           },
           cas3 :{
             titre:`Altitude maximale de la suite de Syracuse ${entier}`,
@@ -215,11 +217,13 @@ export default function Exercice_zero_mathalea() {
           },
           cas4 :{
             titre:`Temps de vol de la suite de Syracuse ${entier}`,
-            texte:`C'est le nombre d'applications de l'algorithme nécessaires à atteindre la valeur 1 pour la première fois.`
+            texte:`C'est le plus petit nombre de fois qu'il faut appliquer l'algorithme pour atteindre la valeur 1 pour la première fois.`
           },
           cas5 :{
             titre:`Temps de vol en altitude de la suite de Syracuse ${entier}`,
-            texte:`C'est le plus petit nombre de fois qu'il faut appliquer l'algorithme pour strictement repasser en dessous de la valeur initiale.`
+            texte:`C'est le plus petit nombre de fois qu'il faut appliquer l'algorithme avant que la valeur suivante soit strictement inférieure
+            à la valeur initiale. ${texte_gras('Attention')} cela ne signifie pas que l'on ne repassera jamais au dessus de la valeur initiale.
+            `
           },
         };
 
@@ -245,17 +249,17 @@ export default function Exercice_zero_mathalea() {
             texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
             break;
           case 4://temps de vol
-            texte = `Quelle est le nombre d'élements de cette liste d'entiers, sans compter la valeur initiale ?`;
-            texte_corr = `Sans compter la valeur initiale, cette liste comporte ${texte_gras(syracuse({N:entier}).tempsDeVol())} éléments.<br><br>`;            
+            texte = `Combien de fois au minimum faut-il appliquer l'algorithme pour trouver la valeur 1 ?`;
+            texte_corr = `Il faut  appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
             texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
             break;            
           case 5://temps de vol en altitude
-            texte = `Au bout de combien d'application minimum de l'algorithme la valeur trouvée est elle strictement inférieure à la valeur initiale ?`;
+            texte = `Au bout de combien d'application minimum de l'algorithme la valeur calculée suivante sera-t-elle strictement inférieure à la valeur initiale ?`;
             //`Quelle est le nombre d'éléments de cette liste d'entiers qui sont strictement supérieurs à la valeur initiale, sans compter cette valeur initiale ?`;            
             if (syracuse({N:entier}).tempsDeVolEnAltitude()==0) {
               texte_corr = `Dès la première application de l'algorithme la valer trouvée est inférieure à la valeur initiale.`
             } else {
-              texte_corr = `Il faut appliquer au minimum ${syracuse({N:entier}).tempsDeVolEnAltitude()} fois l'algorithme pour que la valeur trouvée soit strictement inférieure à la valeur initiale.`
+              texte_corr = `Il faut appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
             };
             texte_corr +=`<br><br>`;
             //texte_corr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
@@ -265,8 +269,7 @@ export default function Exercice_zero_mathalea() {
               texte_corr += mathalea2d(params_correction, objets_correction_plus)
             } 
             break;
-        };      
-        
+        };         
 
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
