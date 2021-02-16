@@ -86,6 +86,7 @@ export default function Exercice_zero_mathalea() {
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
     this.correction_detaillee_disponible=true;
     this.liste_packages = `bclogo`;
+    this.video = 'aRe4ARtQiJY';
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
