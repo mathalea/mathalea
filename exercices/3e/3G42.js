@@ -4,13 +4,13 @@ import {mathalea2d} from "/modules/2d.js"
 import {point3d, vecteur3d, sphere3d, cylindre3d} from "/modules/3d.js"
 
 /**
-* Trouver le dernier chiffre d'un calcul (somme, produit, différence)
+* Calculer le volume d'une boule
 * @auteur Erwan DUPLESSY
 * 3G42
 * date : 2021/02/09
 */
 
-export default function Exercice_zero_mathalea2d3d() {
+export default function Volume_boule() {
     "use strict"
     Exercice.call(this)
     this.titre = `Volume d'une boule`;
