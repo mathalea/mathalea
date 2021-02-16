@@ -6,9 +6,9 @@ import { tableau_de_variation,mathalea2d } from '/modules/2d.js';
  * @Auteur 
  * Référence 
 */
-export default function Essai_tableaux_de_variation() {
+export default function variation_polynome_degre3() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Test de tableaux de variation";
+  this.titre = "étude de fonction de degré 3";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
@@ -80,7 +80,7 @@ export default function Essai_tableaux_de_variation() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_texte = ['coefficients de $ax^3+bx^2+cx+d$ séparés par des tirets'];
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
