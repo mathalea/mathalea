@@ -57,12 +57,12 @@ export default function variation_polynome_degre3() {
       if (b0!=0){
       if (b0%2==0){
         if (a0!=1&&a0!=-1){
-      x1s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig1}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
-      x3s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig2}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+      x1s=math.parse(`(${-b0*s/2}${sig1}sqrt(${b0*b0/4-a0*c0}))/${Math.abs(a0)}`).toTex()
+      x3s=math.parse(`(${-b0*s/2}${sig2}sqrt(${b0*b0/4-a0*c0}))/${Math.abs(a0)}`).toTex()
       }
       else {
-        x1s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig1}sqrt(${b0*b0/4-a0*c0})`).toTex()
-        x3s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig2}sqrt(${b0*b0/4-a0*c0})`).toTex()
+        x1s=math.parse(`${-b0*s/2}${sig1}sqrt(${b0*b0/4-a0*c0})`).toTex()
+        x3s=math.parse(`${-b0*s/2}${sig2}sqrt(${b0*b0/4-a0*c0})`).toTex()
       }
     }
       else{
