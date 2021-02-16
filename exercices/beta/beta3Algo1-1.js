@@ -2,7 +2,7 @@ import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment} from "/modules/2d.js"
-import {randint,calcul} from '/modules/outils.js';
+import {randint,calcul,modal_youtube,modal_url} from '/modules/outils.js';
 import {lampe_message} from '/modules/outils.js';
 import {enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
 
@@ -86,7 +86,8 @@ export default function Exercice_zero_mathalea() {
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
     this.correction_detaillee_disponible=true;
     this.liste_packages = `bclogo`;
-    this.video = 'aRe4ARtQiJY';
+    //this.video = 'aRe4ARtQiJY';
+    //this.video = modal_youtube('ex_syr','https://youtu.be/aRe4ARtQiJY','Conjecture de Syracuse','Intro Vidéo');
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
@@ -94,10 +95,16 @@ export default function Exercice_zero_mathalea() {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function () {
+    this.nouvelle_version = function (numero_de_l_exercice) {
+    this.bouton_aide = modal_youtube(
+      numero_de_l_exercice,
+      'https://youtu.be/aRe4ARtQiJY',
+      'Conjecture de Syracuse',
+      'En vidéo sur Maths-et-tiques'
+    );
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-  
+    
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
     let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
