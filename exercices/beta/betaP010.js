@@ -37,24 +37,22 @@ export default function variation_polynome_degre3() {
        // reste à faire les types 'Ima', 'Val' et 'Slope"
     let texte='',texte_corr=''
        let coef_f=this.sup.split('/')
-       console.log(coef_f)
     let a,b,c,d,a1,b1,c1,a2,b2,xx,xxs,rac=[],t
     [a,b,c,d]=coef_f
+    if (a!=0){ //degré 3
+
     a1=3*a
     b1=2*b
     c1=1*c    
     a2=6*a
     b2=2*b
-   
+     
     let trouver_les_racines=function(a0,b0,c0){
-console.log(a0,b0,c0)
     let delta=b0*b0-4*a0*c0 // on calcule les racines de f'
     if (delta<0) {
-      console.log('delta <0')
       return []
     }
     else if (delta==0) {
-      console.log('delta=0',-b0/2/a0)
       return [-b0/2/a0]
     }
     let x1s,x3s,s,sig1,sig2
@@ -83,6 +81,7 @@ console.log(a0,b0,c0)
       return [x1,x3,x1s,x3s]    
 
   }
+  
     let f=function(x){
       return a*x**3+b*x**2+c*x+d
     }
@@ -145,14 +144,44 @@ console.log(a0,b0,c0)
 
 
     }
-
       // Attention : pixelsParCm n'influe pas sur le latexParCoordonnees, il faudra laisser 30 !
       // Sinon, le tableau sera réduit mais pas le texte à l'intérieur.
     texte=`Tableau de variation de la fonction : $f(x)=$`
     let fx=`${ecriture_nombre_relatif(a)}*x^3+(${ecriture_nombre_relatif(b)})*x^2+(${ecriture_nombre_relatif(c)})*x+(${ecriture_nombre_relatif(d)})`
-    console.log(fx)
-      texte+=`$${printlatex(fx)}$.<br>`
-        texte += mathalea2d({xmin:0,ymin:-6,xmax:21,ymax:1,pixelsParCm:30},t);
+  }
+  else if (b!=0) { //degré 2
+    let x1=-b/2/a
+    let minima=(-b*b+4*a*c)/4/a
+    let x1s=`${tex_fraction_signe(-b,2*a)}`
+    let fx1s=`${tex_fraction_signe(-b*b+4*a*c,4*a)}`
+    if (a>0) {
+      if (minima<0) { // f(x)=0 a deux solutions
+
+      }
+      else // f(x)=0 n'a pas de solution f(x)>0 pour tout x
+    }
+    else {
+      if (minima>0){// f(x)=0 a deux solutions
+
+      }
+      else {// f(x)=0 n'a pas de solution f(x)<0 pour tout x
+
+      }
+    }
+  }
+
+  else if (c!=0) { // degré 1
+
+  }
+
+  else { // fonction constante
+
+
+  }
+
+
+    texte+=`$${printlatex(fx)}$.<br>`
+      texte += mathalea2d({xmin:0,ymin:-6,xmax:21,ymax:1,pixelsParCm:30},t);
           texte_corr = ``;
 
         this.liste_questions.push(texte);
