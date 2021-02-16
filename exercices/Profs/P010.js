@@ -135,7 +135,7 @@ export default function variation_polynome_degre3() {
     if (a<0){
         if (f1(-b/3/a)>0 ){ // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac=trouver_les_racines(a1,b1,c1)
-          t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
+          t=tableau_de_variation({colorBackground:'white',escpl:5,delatcl:0.8,lgt:3.5, 
             tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
            ['$-\\infty$',30,`$${rac[2]}$`,50,`$${rac[3]}$`,60,'$+\\infty$',30]],
             tabLines:
@@ -145,7 +145,7 @@ export default function variation_polynome_degre3() {
           })
         }
         else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
-        t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
+        t=tableau_de_variation({colorBackground:'white',escpl:5,delatcl:0.8,lgt:3.5, 
           tabInit:[[['$x$',1.5,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
          ['$-\\infty$',30,'$+\\infty$',30]],
           tabLines:
@@ -159,7 +159,7 @@ export default function variation_polynome_degre3() {
     }
     else {
       if (f1(-b/3/a)>0 ) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
-          t=tableau_de_variation({colorBackground:'red',escpl:3.5,deltacl:0.6,lgt:3.5, 
+          t=tableau_de_variation({colorBackground:'white',escpl:3.5,deltacl:0.6,lgt:3.5, 
         tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
        ['$-\\infty$',30,'$+\\infty$',30]],
         tabLines:
@@ -172,7 +172,7 @@ export default function variation_polynome_degre3() {
       }
       else {// la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
       rac=trouver_les_racines(a1,b1,c1)
-      t=tableau_de_variation({colorBackground:'red',escpl:3.5,delatcl:0.8,lgt:3.5, 
+      t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
         tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
        ['$-\\infty$',30,`$${arrondi_virgule(rac[0])}$`,60,`$${arrondi_virgule(rac[1])}$`,60,'$+\\infty$',30]],
         tabLines:
