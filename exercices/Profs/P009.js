@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,tex_nombre, randint, calcul, arrondi_virgule,nombre_avec_espace} from "/modules/outils.js"
 import { fraction } from "/modules/Fractions.js"
+import {repere2,traceBarre,mathalea2d} from "/modules/2d.js"
 
 /**
  * Reconnaître une fonction affine
@@ -22,7 +23,8 @@ export default function SimulateurAleatoire() {
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  
+  this.correction_detaillee_disponible=true
+  this.correction_detaillee=true
    this.sup = 1; // situation 1=dés
    this.sup2 = 10000; // nbLancers
    this.sup3 = false; // true = équiprobable, false = jeu truqué
@@ -51,7 +53,7 @@ export default function SimulateurAleatoire() {
           let f=fraction(1,nbFaces)
         texte_corr =`Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondi_virgule(f.pourcentage)}\\%$.<br>`
 
-          texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque faces.<br>On obtient les résultats suivants : <br>`;
+          texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`;
           if (this.sup3){
           for (let i = 0; i<nbFaces ; i++) {
               tabEff.push(0)
@@ -71,7 +73,7 @@ export default function SimulateurAleatoire() {
             for (let i=0;i<nbLancers;i++){
               tabEff[randint(1,nbFaces)-1]++
             }
-            S=tabEff[face]*3/4
+            S=tabEff[face-1]*3/4
             tabEff[randint(1,nbFaces,face)-1]-=S
             tabEff[face-1]+=S
             for (let i =0; i<nbFaces ; i++) {
@@ -79,6 +81,7 @@ export default function SimulateurAleatoire() {
             }   
             texte_corr+=`Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
             texte_corr+=`En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondi_virgule(f.pourcentage)}\\%$.`
+            console.log(tabEff,S,face,nbFaces)
           }
 
             break;
@@ -102,14 +105,32 @@ export default function SimulateurAleatoire() {
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
+if (this.correction_detaillee){
 
-        if (this.liste_questions.indexOf(texte) == -1) {
-          // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+  let coef = 10;
+  let r = repere2({
+    grilleX: false,
+    grilleY: 'pointilles',
+    xThickListe: [],
+    xLabelListe: [],
+    yUnite: 1 / coef,
+    yThickDistance: 1 * coef,
+    yMax: 35,
+    xMin: 0,
+    xMax: 10,
+    yMin: 0,
+    axeXStyle: '',
+    yLegende: "fréquences en %"
+  });
+
+  let lstElementGraph = [];
+  for (let i = 0; i < nbFaces; i++) {
+    lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 1), tabRes[i][1]*10, i+1), { unite: 1 / coef });
+  }
+  texte += mathalea2d({ xmin: -1, xmax: 11, ymin: -4, ymax: 5, pixelsParCm: 30, scale: 1 }, r, lstElementGraph);
+}
           this.liste_questions.push(texte);
           this.liste_corrections.push(texte_corr);
-        }
-
-      
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants

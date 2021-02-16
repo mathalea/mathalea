@@ -58,7 +58,7 @@ export default function Priorites_et_relatifs_et_puissances() {
   this.nb_cols = 2;
   this.nb_cols_corr = 1;
   this.tailleDiaporama = 100;
-  this.video = "" // Id YouTube ou url
+  this.video = "https://youtu.be/0G9xWLl-0zg" // Id YouTube ou url
   this.spacing = sortie_html ? 3 : 1;
   this.spacing_corr = sortie_html ? 3 : 1;
 
@@ -87,59 +87,66 @@ export default function Priorites_et_relatifs_et_puissances() {
       switch (liste_type_de_questions[i]) {
         case 1: //a² + b*c
         texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(a)}^2 +  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}$`;
-        texte_corr = `$${lettre_depuis_chiffre(i+1)}=${mise_en_evidence(ecriture_parenthese_si_negatif(a)+'^2','blue')}  +  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}
-           =${a*a} + ${mise_en_evidence((ecriture_parenthese_si_negatif(b) + "\\times" + ecriture_parenthese_si_negatif(c)),'blue')}
-           =${a*a} ${ecriture_algebrique(b*c)}
-          =${a*a + b*c}$`;
+        texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+        =${mise_en_evidence(ecriture_parenthese_si_negatif(a)+'^2','blue')}  +  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}
+        \\\\&=${a*a} + ${mise_en_evidence((ecriture_parenthese_si_negatif(b) + "\\times" + ecriture_parenthese_si_negatif(c)),'blue')}
+        \\\\&=${a*a} ${ecriture_algebrique(b*c)}\\end{aligned}
+        \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ( a*a + b*c))}\\\\$`;
           break;
         
         case 2: //a + b²*c   
           texte = `$${lettre_depuis_chiffre(i+1)} = ${a} + ${ecriture_parenthese_si_negatif(p)}^2 \\times ${ecriture_parenthese_si_negatif(c)}$`;
-          texte_corr = `$${lettre_depuis_chiffre(i+1)}=${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p) + '^2', 'blue')} \\times ${ecriture_parenthese_si_negatif(c)}
-            =${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p*p) + '\\times' + ecriture_parenthese_si_negatif(c), 'blue')}
-            =${a + ecriture_algebrique(p*p*c)}
-            =${a + p*p*c}$`;
+          texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+          =${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p) + '^2', 'blue')} \\times ${ecriture_parenthese_si_negatif(c)}
+          \\\\&=${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p*p) + '\\times' + ecriture_parenthese_si_negatif(c), 'blue')}
+          \\\\&=${a + ecriture_algebrique(p*p*c)}\\end{aligned}
+          \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a + p*p*c))}\\\\$`;
             break;     
 
         case 3: //a²+b+c*d 
-        texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(a)}^2 +  ${ecriture_parenthese_si_negatif(b)} ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}$`;
-        texte_corr = `$${lettre_depuis_chiffre(i+1)}=${mise_en_evidence(ecriture_parenthese_si_negatif(a) + '^2','blue')} ${ecriture_algebrique(b)}  ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}
-           =${a*a} ${ecriture_algebrique(b)} +  ${mise_en_evidence((ecriture_parenthese_si_negatif(c) + "\\times" + ecriture_parenthese_si_negatif(d)),'blue') }
-           =${a*a + ecriture_algebrique(b)+ecriture_algebrique(c*d)}
-          =${a*a + b + c * d}$`;
+        texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(a)}^2   ${ecriture_algebrique(b)} ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}$`;
+        texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+        =${mise_en_evidence(ecriture_parenthese_si_negatif(a) + '^2','blue')} ${ecriture_algebrique(b)}  ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}
+        \\\\&=${a*a} ${ecriture_algebrique(b)} +  ${mise_en_evidence((ecriture_parenthese_si_negatif(c) + "\\times" + ecriture_parenthese_si_negatif(d)),'blue') }
+        \\\\&=${a*a + ecriture_algebrique(b)+ecriture_algebrique(c*d)}\\end{aligned}
+        \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a*a + b + c * d))}\\\\$`;
           break;              
 
         case 4: //a²*(b+c)
           texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(n)}^2 \\times ( ${b + ecriture_algebrique(c)})$`;
-          texte_corr = `$${lettre_depuis_chiffre(i+1)}=${mise_en_evidence(ecriture_parenthese_si_negatif(n) + '^2','blue')}  \\times ( ${b+ecriture_algebrique(c)})
-             =${n*n} \\times ( ${mise_en_evidence(b + ecriture_algebrique(c), 'blue')})
-             =${n*n} \\times ${ecriture_parenthese_si_negatif(b+c)}
-            =${n*n*(b+c)}$`;
+          texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+          =${mise_en_evidence(ecriture_parenthese_si_negatif(n) + '^2','blue')}  \\times ( ${b+ecriture_algebrique(c)})
+          \\\\&=${n*n} \\times ( ${mise_en_evidence(b + ecriture_algebrique(c), 'blue')})
+          \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(b+c)}\\end{aligned}
+          \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(b+c)))}\\\\$`;
             break;      
 
         case 5: //m*(n²+p*n)
             texte = `$${lettre_depuis_chiffre(i+1)} = ${m} \\times ( ${ecriture_parenthese_si_negatif(n)}^2${ecriture_algebrique(p)}\\times${ecriture_parenthese_si_negatif(n)})$`;
-            texte_corr = `$${lettre_depuis_chiffre(i+1)}=${m} \\times ( ${mise_en_evidence(ecriture_parenthese_si_negatif(n)+'^2','blue')} ${ecriture_algebrique(p)}\\times${ecriture_parenthese_si_negatif(n)})
-               =${m} \\times ( ${n*n} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p) + "\\times" + ecriture_parenthese_si_negatif(n),'blue') })
-               =${m}\\times ( ${mise_en_evidence((n*n + ecriture_algebrique(p*n)),'blue') })
-               =${m}\\times ${ecriture_parenthese_si_negatif( n*n + p*n)}
-              =${m*(n*n+p*n)}$`;
+            texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+            =${m} \\times ( ${mise_en_evidence(ecriture_parenthese_si_negatif(n)+'^2','blue')} ${ecriture_algebrique(p)}\\times${ecriture_parenthese_si_negatif(n)})
+            \\\\&=${m} \\times ( ${n*n} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p) + "\\times" + ecriture_parenthese_si_negatif(n),'blue') })
+            \\\\&=${m}\\times ( ${mise_en_evidence((n*n + ecriture_algebrique(p*n)),'blue') })
+            \\\\&=${m}\\times ${ecriture_parenthese_si_negatif( n*n + p*n)}\\end{aligned}
+            \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (m*(n*n+p*n)))}\\\\$`;
               break;    
 
         case 6: //(a+b+n²)*d 
               texte = `$${lettre_depuis_chiffre(i+1)} = (${a} ${ecriture_algebrique(b)} + ${ecriture_parenthese_si_negatif(n)}^2 ) \\times ${ecriture_parenthese_si_negatif(d)}$`;
-              texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${a} + ${ecriture_parenthese_si_negatif(b)} + ${mise_en_evidence(ecriture_parenthese_si_negatif(n) +'^2','blue')}  ) \\times ${ecriture_parenthese_si_negatif(d)}
-                 =(${mise_en_evidence((a + ecriture_algebrique(b) + ecriture_algebrique(n*n)),'blue') }) \\times ${ecriture_parenthese_si_negatif(d)}
-                 =${a + b + n*n} \\times ${ecriture_parenthese_si_negatif(d)}
-                =${(a+b+n*n)*d}$`;
+              texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+              =(${a} + ${ecriture_parenthese_si_negatif(b)} + ${mise_en_evidence(ecriture_parenthese_si_negatif(n) +'^2','blue')}  ) \\times ${ecriture_parenthese_si_negatif(d)}
+              \\\\&=(${mise_en_evidence((a + ecriture_algebrique(b) + ecriture_algebrique(n*n)),'blue') }) \\times ${ecriture_parenthese_si_negatif(d)}
+              \\\\&=${a + b + n*n} \\times ${ecriture_parenthese_si_negatif(d)}\\end{aligned}
+              \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ((a+b+n*n)*d))}\\\\$`;
                 break;   
 
         case 7: //n²*(a+b+c)
                 texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(n)}^2 \\times ( ${a+ecriture_algebrique(b)+ecriture_algebrique(c)})$`;
-                texte_corr = `$${lettre_depuis_chiffre(i+1)}=${mise_en_evidence(ecriture_parenthese_si_negatif(n) +'^2','blue') } \\times ( ${a} ${ecriture_algebrique(b)} ${ecriture_algebrique(c)})
-                   =${n*n} \\times ( ${mise_en_evidence(a + ecriture_algebrique(b) + ecriture_algebrique(c),'blue')})
-                   =${n*n} \\times ${ecriture_parenthese_si_negatif(a+b+c)}
-                  =${n*n*(a+b+c)}$`;
+                texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
+                =${mise_en_evidence(ecriture_parenthese_si_negatif(n) +'^2','blue') } \\times ( ${a} ${ecriture_algebrique(b)} ${ecriture_algebrique(c)})
+                \\\\&=${n*n} \\times ( ${mise_en_evidence(a + ecriture_algebrique(b) + ecriture_algebrique(c),'blue')})
+                \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(a+b+c)}\\end{aligned}
+                \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(a+b+c)))}\\\\$`;
                   break;   
 
       }     
