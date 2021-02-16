@@ -1,7 +1,7 @@
 import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
-import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment} from "/modules/2d.js"
+import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,texteParPoint,latexParCoordonnees} from "/modules/2d.js"
 import {randint,calcul,modal_youtube,modal_url} from '/modules/outils.js';
 import {lampe_message} from '/modules/outils.js';
 import {enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
@@ -179,9 +179,10 @@ export default function Exercice_zero_mathalea() {
           xUnite:1/x_coeff,
           xThickMin: 0,
           xThickDistance:1,
-          axeXStyle: '->',
-          xLegende: 'rang',
-          yLegende: 'altitude',                    
+          xLegende: 'Nombre d\'applications de l\'algorithme',
+          xLegendePosition : [calcul((syracuse({N:entier}).tempsDeVol()+2)/x_coeff), 0],
+          yLegende: 'Altitude',
+          yLegendePosition : [-1, calcul((syracuse({N:entier}).altitudeMaximale()+8)/y_coeff)],                    
         });
         
         // Le graphique cartésien
@@ -193,14 +194,24 @@ export default function Exercice_zero_mathalea() {
         let A = point(0,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
         let B = point(syracuse({N:entier}).tempsDeVol()/x_coeff,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
         let s = segment(A,B,'red');
+        //let t = texteParPoint('mon texte',B);
+        let t = latexParCoordonnees(
+          '\\text{Altitude initiale}',
+          syracuse({N:entier}).tempsDeVol()/x_coeff,
+          syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff,
+          'red',
+          200,
+          25,
+          'white'
+        );
         
-        objets_correction_plus.push(r2,g,s);
+        objets_correction_plus.push(r2,g,s,t);
 
         // On fixe la fenetre pour le SVG/Tikz
         params_correction = {
            xmin: -2,
            ymin: -2,
-           xmax:calcul((syracuse({N:entier}).tempsDeVol()+5)/x_coeff),
+           xmax:calcul((syracuse({N:entier}).tempsDeVol()+20)/x_coeff),
            ymax: calcul((syracuse({N:entier}).altitudeMaximale()+10)/y_coeff),
            pixelsParCm: 30,           
            scale: 0.5,
