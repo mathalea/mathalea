@@ -1,8 +1,8 @@
 import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
-import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,texteParPoint,latexParCoordonnees} from "/modules/2d.js"
-import {randint,calcul,modal_youtube,modal_url} from '/modules/outils.js';
+import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from "/modules/2d.js"
+import {randint,calcul,modal_youtube} from '/modules/outils.js';
 import {lampe_message} from '/modules/outils.js';
 import {enumerate_sans_puce_sans_numero,texte_gras} from '/modules/outils.js';
 
@@ -86,29 +86,27 @@ export default function Exercice_zero_mathalea() {
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
     this.correction_detaillee_disponible=true;
     this.liste_packages = `bclogo`;
-    //this.video = 'aRe4ARtQiJY';
-    //this.video = modal_youtube('ex_syr','https://youtu.be/aRe4ARtQiJY','Conjecture de Syracuse','Intro Vidéo');
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+    // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
-  
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function (numero_de_l_exercice) {
-    this.bouton_aide = modal_youtube(
-      numero_de_l_exercice,
-      'https://youtu.be/aRe4ARtQiJY',
-      'Conjecture de Syracuse',
-      'En vidéo sur Maths-et-tiques'
-    );
-    // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+    //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
+    //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
+    //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
     
-    this.liste_questions = [] // tableau contenant la liste des questions 
-    this.liste_corrections = []
-    let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
+    // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
+    this.nouvelle_version = function (numero_de_l_exercice) {
+      this.bouton_aide = modal_youtube(
+        numero_de_l_exercice,
+        'https://youtu.be/aRe4ARtQiJY',
+        'Conjecture de Syracuse',
+        'En vidéo sur Maths-et-tiques'
+      );
+      // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+      // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+      
+      this.liste_questions = [] // tableau contenant la liste des questions 
+      this.liste_corrections = []
+      let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
+      let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
       // On choisit un entier pour l'étude de la suite de Syracuse correspondante
       // On contraint le temps de vol entre 5 et 25
       // On contraint l'altitude maximale en dessous de 100
@@ -178,8 +176,8 @@ export default function Exercice_zero_mathalea() {
           yUnite:1/y_coeff,
           xUnite:1/x_coeff,
           xThickMin: 0,
-          xThickDistance:1,
-          xLegende: 'Nombre d\'applications de l\'algorithme',
+          xThickDistance:1*x_coeff,
+          xLegende: 'Applications de l\'algorithme',
           xLegendePosition : [calcul((syracuse({N:entier}).tempsDeVol()+2)/x_coeff), 0],
           yLegende: 'Altitude',
           yLegendePosition : [-1, calcul((syracuse({N:entier}).altitudeMaximale()+8)/y_coeff)],                    
@@ -214,7 +212,7 @@ export default function Exercice_zero_mathalea() {
            xmax:calcul((syracuse({N:entier}).tempsDeVol()+20)/x_coeff),
            ymax: calcul((syracuse({N:entier}).altitudeMaximale()+10)/y_coeff),
            pixelsParCm: 30,           
-           scale: 0.5,
+           scale: 0.7,
            mainlevee: false 
         }
                 
