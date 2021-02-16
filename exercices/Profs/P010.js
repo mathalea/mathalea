@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {unSiPositifMoinsUnSinon,signe,tex_fraction_signe,fraction_simplifiee, liste_de_question_to_contenu,ecriture_parenthese_si_negatif,printlatex,ecriture_algebrique,arrondi_virgule,ecriture_algebrique_sauf1,ecriture_nombre_relatif} from "/modules/outils.js"
+import {reduire_polynome_degre3, unSiPositifMoinsUnSinon,signe,tex_fraction_signe,fraction_simplifiee, liste_de_question_to_contenu,ecriture_parenthese_si_negatif,printlatex,ecriture_algebrique,arrondi_virgule,ecriture_algebrique_sauf1,ecriture_nombre_relatif} from "/modules/outils.js"
 import { tableau_de_variation,mathalea2d } from '/modules/2d.js';
 import {fraction} from "/modules/Fractions.js"
 /**
@@ -66,8 +66,8 @@ export default function variation_polynome_degre3() {
       }
     }
       else{
-        x1s=math.parse(`(${-b0}+sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
-        x3s=math.parse(`(${-b0}-sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
+        x1s=math.parse(`(${-b0}+sqrt(${b0*b0-4*a0*c0}))/${2*a0}`).toTex()
+        x3s=math.parse(`(${-b0}-sqrt(${b0*b0-4*a0*c0}))/${2*a0}`).toTex()
       }
     }
     else {
@@ -100,6 +100,13 @@ export default function variation_polynome_degre3() {
         x1=xx
         x1s=xxs
       }
+      console.log (x1s,x3s)
+      x1s=x1s.replace('\\left(','')
+      x1s=x1s.replace('\\right)','')
+      x3s=x3s.replace('\\left(','')
+      x3s=x3s.replace('\\right)','')
+      console.log(x1s,x3s)
+      
         return [x1,x3,x1s,x3s]    
   
     }
@@ -108,6 +115,7 @@ export default function variation_polynome_degre3() {
     let texte=`Tableau de variation de la fonction : $f(x)=$`;
     
     [a,b,c,d]=coef_f //On récupère les coefficient du polynome
+    fxstring=`${reduire_polynome_degre3(a,b,c,d)}`
 
     if (a!=0){ //degré 3
     a1=3*a
@@ -115,7 +123,6 @@ export default function variation_polynome_degre3() {
     c1=1*c    
     a2=6*a
     b2=2*b
- 
     f=function(x){
       return a*x**3+b*x**2+c*x+d
     }
@@ -198,7 +205,7 @@ export default function variation_polynome_degre3() {
     }
    console.log(a,b,c)
     fx1s=`${tex_fraction_signe(fraction_simplifiee(-b*b+4*a*c,4*a)[0],fraction_simplifiee(-b*b+4*a*c,4*a)[1])}`
-console.log(-b*b+4*a*c,4*a,fx1s)
+
     f=function(x){
       return a*x**2+b*x+c
     }
@@ -216,56 +223,109 @@ console.log(-b*b+4*a*c,4*a,fx1s)
         tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
        ['$-\\infty$',30,`$${rac[2]}$`,60,`$${x2s}$`,60,`$${rac[3]}$`,60,'$+\\infty$',30]],
         tabLines:
-        [['Line',30,'R/',0,'R/',0,'-',20,'R/',0,'z',20,'R/',0,'+',0,'R/',0],
+        [['Line',30,'R/',0,'R/',0,'-',20,'R/',0,'z',20,'R/',0,'+',20,'R/',0],
         ['Var',10,'+/$+\\infty$',30,'R/',0,`-/$${fx1s}$`,50,'R/',0,'+/$+\\infty$',30],
-        ['Ima',10,'',0,'0',12,'',0,'0',12,'',0]
+        ['Ima',1,3,'$0$',12],
+        ['Ima',3,5,'$0$',12]
       ]
       })
 
       }
       else if (minima>0){ // f(x)=0 n'a pas de solution f(x)>0 pour tout x
-      
+      t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+      tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+     ['$-\\infty$',30,`$${x2s}$`,60,'$+\\infty$',30]],
+      tabLines:
+      [['Line',30,'R/',0,'-',20,'z',20,'+',20],
+      ['Var',10,'+/$+\\infty$',30,`-/$${fx1s}$`,50,'+/$+\\infty$',30]
+    ]
+    })
       }
       else { //f(x)=0 a une solution unique : minima=0
 
       }
     }
-    else {
+    else { // a<0
       if (minima>0){// f(x)=0 a deux solutions
         rac=trouver_les_racines(a,b,c)
-        t=tableau_de_variation({colorBackground:'red',escpl:3.5,delatcl:0.8,lgt:3.5, 
-        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
-       ['$-\\infty$',30,`$${x1s}$`,60,'$+\\infty$',30]],
+        t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,`$${rac[2]}$`,60,`$${x2s}$`,60,`$${rac[3]}$`,60,'$+\\infty$',30]],
         tabLines:
-        [['Line',30,'',0,'-',20,'z',20,'+',20],
-        ['Var',10,'+/$+\\infty$',30,`-/$${fx1s}$`,50,'+/$+\\infty$',30]
+        [['Line',30,'R/',0,'R/',0,'+',20,'R/',0,'z',20,'R/',0,'-',20,'R/',0],
+        ['Var',10,'-/$-\\infty$',30,'R/',0,`+/$${fx1s}$`,50,'R/',0,'-/$-\\infty$',30],
+        ['Ima',1,3,'$0$',12],
+        ['Ima',3,5,'$0$',12]
       ]
       })
 
       }
       else if (minima<0){// f(x)=0 n'a pas de solution f(x)<0 pour tout x
-
+      t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+      tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+     ['$-\\infty$',30,`$${x2s}$`,60,'$+\\infty$',30]],
+      tabLines:
+      [['Line',30,'R/',0,'+',20,'z',20,'-',20],
+      ['Var',10,'-/$-\\infty$',30,`+/$${fx1s}$`,50,'-/$-\\infty$',30]
+    ]
+    })
       }
       else {//f(x)=0 a une solution unique : minima=0 désigne ici un maximum
 
+        t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,`$${x2s}$`,60,'$+\\infty$',30]],
+        tabLines:
+        [['Line',30,'R/',0,'+',20,'z',20,'-',20],
+        ['Var',10,'-/$-\\infty$',30,`+/$0$`,12,'-/$-\\infty$',30]
+      ]
+      })
       }
     }
-    fxstring=`${ecriture_nombre_relatif(a)}*x^2+(${ecriture_nombre_relatif(b)})*x+(${ecriture_nombre_relatif(c)})`
+
 
   }
 
   else if (c!=0) { // degré 1
-
+    if (c>0){ // croissante
+      t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+      tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+     ['$-\\infty$',30,`$${tex_fraction_signe(-d,c)}$`,60,'$+\\infty$',30]],
+      tabLines:
+      [['Line',30,'R/',0,'R/',0,'+',20,'R/',0],
+      ['Var',10,'-/$-\\infty$',30,`R/`,0,'+/$+\\infty$',30],
+      ['Ima',1,3,'$0$',12]
+    ]
+    })
+    }
+    else { //décroissante
+      t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+      tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+     ['$-\\infty$',30,`$${tex_fraction_signe(-d,c)}$`,60,'$+\\infty$',30]],
+      tabLines:
+      [['Line',30,'R/',0,'R/',0,'-',20,'R/',0],
+      ['Var',10,'+/$+\\infty$',30,`R/`,0,'-/$-\\infty$',30],
+      ['Ima',1,3,'$0$',12]
+    ]
+    })
+    }
   }
 
   else { // fonction constante
-
+    t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+    tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",1.5,60]],
+   ['$-\\infty$',30,'$+\\infty$',30]],
+    tabLines:
+    [['Line',30,'R/',0,'$0$',20,'R/',0],
+    ['Var',10,`+/$${d}$`,30,`+/$${d}$`,30]
+  ]
+  })
 
   }
 
 
     texte+=`$${printlatex(fxstring)}$.<br>`
-      texte += mathalea2d({xmin:0,ymin:-6,xmax:21,ymax:1,pixelsParCm:30},t);
+      texte += mathalea2d({xmin:0,ymin:-7,xmax:21,ymax:1,pixelsParCm:30},t);
           texte_corr = ``;
 
         this.liste_questions.push(texte);
