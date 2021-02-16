@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {unSiPositifMoinsUnSinon,signe,liste_de_question_to_contenu,ecriture_parenthese_si_negatif,printlatex,ecriture_algebrique,arrondi_virgule,ecriture_algebrique_sauf1,ecriture_nombre_relatif} from "/modules/outils.js"
+import {unSiPositifMoinsUnSinon,signe,tex_fraction_signe,fraction_simplifiee, liste_de_question_to_contenu,ecriture_parenthese_si_negatif,printlatex,ecriture_algebrique,arrondi_virgule,ecriture_algebrique_sauf1,ecriture_nombre_relatif} from "/modules/outils.js"
 import { tableau_de_variation,mathalea2d } from '/modules/2d.js';
 import {fraction} from "/modules/Fractions.js"
 /**
@@ -35,67 +35,101 @@ export default function variation_polynome_degre3() {
         // On intercale une largeur estimée pour le texte éventuel
         // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
        // reste à faire les types 'Ima', 'Val' et 'Slope"
-    let texte='',texte_corr=''
-       let coef_f=this.sup.split('/')
-    let a,b,c,d,a1,b1,c1,a2,b2,xx,xxs,rac=[],t
-    [a,b,c,d]=coef_f
-    if (a!=0){ //degré 3
+   
+   
 
+
+    let a,b,c,d,a1,b1,c1,a2,b2,xx,xxs,rac=[],t,x1s,fx1s,x3s,x2s,sig1,sig2,s,delta,x1,x3,x2,f,f1,f2,minima,fxstring
+    
+    let trouver_les_racines=function(a0,b0,c0){
+      delta=b0*b0-4*a0*c0 // on calcule les racines de f'
+      if (delta<0) {
+        return []
+      }
+      else if (delta==0) {
+        return [-b0/2/a0]
+      }
+      x1=(-b0+Math.sqrt(delta))/2/a0
+      x3=(-b0-Math.sqrt(delta))/2/a0
+      s=unSiPositifMoinsUnSinon(a0)
+      sig1=signe(s)
+      sig2=signe(-s)
+      if (b0!=0){
+      if (b0%2==0){
+        if (a0!=1&&a0!=-1){
+      x1s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig1}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+      x3s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig2}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+      }
+      else {
+        x1s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig1}sqrt(${b0*b0/4-a0*c0})`).toTex()
+        x3s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig2}sqrt(${b0*b0/4-a0*c0})`).toTex()
+      }
+    }
+      else{
+        x1s=math.parse(`(${-b0}+sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
+        x3s=math.parse(`(${-b0}-sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
+      }
+    }
+    else {
+      if (b0%2==0){
+        if (a0!=1&&a0!=-1){
+        if (sig1=='-') x1s=math.parse(`${sig1}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+        if (sig1=='-') x1s=math.parse(`${sig1}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+        
+        x3s=math.parse(`${sig2}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
+        }
+        else {
+          if (sig1=='-') x1s=math.parse(`-sqrt(${b0*b0/4-a0*c0})`).toTex()
+          else x1s=math.parse(`sqrt(${b0*b0/4-a0*c0})`).toTex()
+          if (sig2=='-') x3s=math.parse(`-sqrt(${b0*b0/4-a0*c0})`).toTex()
+          else x3s=math.parse(`-sqrt(${b0*b0/4-a0*c0})`).toTex()
+        }
+        }
+        else{
+          if (sig1=='-') x1s=math.parse(`-sqrt(${b0*b0}+${-4*a0*c0})/${Math.abs(2*a0)}`).toTex()
+          else x1s=math.parse(`sqrt(${b0*b0}+${-4*a0*c0})/${Math.abs(2*a0)}`).toTex()
+          if (sig2=='-') x3s=math.parse(`-sqrt(${b0*b0}+${-4*a0*c0})/${Math.abs(2*a0)}`).toTex()
+          else x3s=math.parse(`sqrt(${b0*b0}+${-4*a0*c0})/${Math.abs(2*a0)}`).toTex()
+        }
+    }
+      if (x3<x1) { // on ordonne les racines de f'
+        xx=x3
+        xxs=x3s
+        x3=x1
+        x3s=x1s
+        x1=xx
+        x1s=xxs
+      }
+        return [x1,x3,x1s,x3s]    
+  
+    }
+    let texte_corr=''
+    let coef_f=this.sup.split('/')
+    let texte=`Tableau de variation de la fonction : $f(x)=$`;
+    
+    [a,b,c,d]=coef_f //On récupère les coefficient du polynome
+
+    if (a!=0){ //degré 3
     a1=3*a
     b1=2*b
     c1=1*c    
     a2=6*a
     b2=2*b
-     
-    let trouver_les_racines=function(a0,b0,c0){
-    let delta=b0*b0-4*a0*c0 // on calcule les racines de f'
-    if (delta<0) {
-      return []
-    }
-    else if (delta==0) {
-      return [-b0/2/a0]
-    }
-    let x1s,x3s,s,sig1,sig2
-    let x1=(-b0+Math.sqrt(delta))/2/a0
-    let x3=(-b0-Math.sqrt(delta))/2/a0
-    s=unSiPositifMoinsUnSinon(a0)
-    sig1=signe(s)
-    sig2=signe(-s)
-    if (b0%2==0){
-    x1s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig1}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
-    x3s=math.parse(`${-b0*s/2}/${Math.abs(a0)}${sig2}sqrt(${b0*b0/4-a0*c0})/${Math.abs(a0)}`).toTex()
-    }
-    else{
-      x1s=math.parse(`(${-b0}+sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
-      x3s=math.parse(`(${-b0}-sqrt(${b0*b0}+${-4*a0*c0}))/${2*a0}`).toTex()
-    }
-    if (x3<x1) { // on ordonne les racines de f'
-      xx=x3
-      xxs=x3s
-      x3=x1
-      x3s=x1s
-      x1=xx
-      x1s=xxs
-    }
-    console.log(x1,x3,x1s,x3s)
-      return [x1,x3,x1s,x3s]    
-
-  }
-  
-    let f=function(x){
+ 
+    f=function(x){
       return a*x**3+b*x**2+c*x+d
     }
-    let f1=function(x){
+    f1=function(x){
       return a1*x**2+b1*x+c1
     }
-    let f2=function(x){
+    f2=function(x){
       return a2*x+b2
     }
     if (a<0){
         if (f1(-b/3/a)>0 ){ // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac=trouver_les_racines(a1,b1,c1)
           t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
-            tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+            tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
            ['$-\\infty$',30,`$${rac[2]}$`,50,`$${rac[3]}$`,60,'$+\\infty$',30]],
             tabLines:
             [['Line',30,'',0,'-',20,'z',20,'+',20,'z',20,'-',20],
@@ -105,7 +139,7 @@ export default function variation_polynome_degre3() {
         }
         else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
         t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
-          tabInit:[[['$x$',1,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
+          tabInit:[[['$x$',1.5,10],["$f'(x)$",1,30],["$f(x)$",2,25]],
          ['$-\\infty$',30,'$+\\infty$',30]],
           tabLines:
           [['Line',30,'',0,'-',20],
@@ -118,8 +152,8 @@ export default function variation_polynome_degre3() {
     }
     else {
       if (f1(-b/3/a)>0 ) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
-          t=tableau_de_variation({colorBackground:'red',escpl:5,deltacl:0.6,lgt:3.5, 
-        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+          t=tableau_de_variation({colorBackground:'red',escpl:3.5,deltacl:0.6,lgt:3.5, 
+        tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
        ['$-\\infty$',30,'$+\\infty$',30]],
         tabLines:
         [['Line',30,'',0,'+',20],
@@ -131,8 +165,8 @@ export default function variation_polynome_degre3() {
       }
       else {// la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
       rac=trouver_les_racines(a1,b1,c1)
-      t=tableau_de_variation({colorBackground:'red',escpl:5,delatcl:0.8,lgt:3.5, 
-        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+      t=tableau_de_variation({colorBackground:'red',escpl:3.5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
        ['$-\\infty$',30,`$${arrondi_virgule(rac[0])}$`,60,`$${arrondi_virgule(rac[1])}$`,60,'$+\\infty$',30]],
         tabLines:
         [['Line',30,'',0,'+',20,'z',20,'-',20,'z',20,'+',20],
@@ -146,28 +180,78 @@ export default function variation_polynome_degre3() {
     }
       // Attention : pixelsParCm n'influe pas sur le latexParCoordonnees, il faudra laisser 30 !
       // Sinon, le tableau sera réduit mais pas le texte à l'intérieur.
-    texte=`Tableau de variation de la fonction : $f(x)=$`
-    let fx=`${ecriture_nombre_relatif(a)}*x^3+(${ecriture_nombre_relatif(b)})*x^2+(${ecriture_nombre_relatif(c)})*x+(${ecriture_nombre_relatif(d)})`
+    fxstring=`${ecriture_nombre_relatif(a)}*x^3+(${ecriture_nombre_relatif(b)})*x^2+(${ecriture_nombre_relatif(c)})*x+(${ecriture_nombre_relatif(d)})`
   }
   else if (b!=0) { //degré 2
-    let x1=-b/2/a
-    let minima=(-b*b+4*a*c)/4/a
-    let x1s=`${tex_fraction_signe(-b,2*a)}`
-    let fx1s=`${tex_fraction_signe(-b*b+4*a*c,4*a)}`
+    a=b
+    b=c
+    c=d
+    a1=2*a
+    b1=b
+    x1=-b1/a1
+    minima=(-b*b+4*a*c)/4/a
+    if (b!=0) {
+      x2s=`${tex_fraction_signe(fraction_simplifiee(-b,2*a)[0],fraction_simplifiee(-b,2*a)[1])}`
+    }
+    else {
+      x2s=`0`
+    }
+   console.log(a,b,c)
+    fx1s=`${tex_fraction_signe(fraction_simplifiee(-b*b+4*a*c,4*a)[0],fraction_simplifiee(-b*b+4*a*c,4*a)[1])}`
+console.log(-b*b+4*a*c,4*a,fx1s)
+    f=function(x){
+      return a*x**2+b*x+c
+    }
+    f1=function(x){
+      return a1*x+b1
+    }
+    f2=function(x){
+      return a1
+    }
     if (a>0) {
+
       if (minima<0) { // f(x)=0 a deux solutions
+        rac=trouver_les_racines(a,b,c)
+        t=tableau_de_variation({colorBackground:'white',escpl:3.5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1.5,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,`$${rac[2]}$`,60,`$${x2s}$`,60,`$${rac[3]}$`,60,'$+\\infty$',30]],
+        tabLines:
+        [['Line',30,'R/',0,'R/',0,'-',20,'R/',0,'z',20,'R/',0,'+',0,'R/',0],
+        ['Var',10,'+/$+\\infty$',30,'R/',0,`-/$${fx1s}$`,50,'R/',0,'+/$+\\infty$',30],
+        ['Ima',10,'',0,'0',12,'',0,'0',12,'',0]
+      ]
+      })
 
       }
-      else // f(x)=0 n'a pas de solution f(x)>0 pour tout x
+      else if (minima>0){ // f(x)=0 n'a pas de solution f(x)>0 pour tout x
+      
+      }
+      else { //f(x)=0 a une solution unique : minima=0
+
+      }
     }
     else {
       if (minima>0){// f(x)=0 a deux solutions
+        rac=trouver_les_racines(a,b,c)
+        t=tableau_de_variation({colorBackground:'red',escpl:3.5,delatcl:0.8,lgt:3.5, 
+        tabInit:[[['$x$',1,20],["$f'(x)$",1,60],["$f(x)$",2,60]],
+       ['$-\\infty$',30,`$${x1s}$`,60,'$+\\infty$',30]],
+        tabLines:
+        [['Line',30,'',0,'-',20,'z',20,'+',20],
+        ['Var',10,'+/$+\\infty$',30,`-/$${fx1s}$`,50,'+/$+\\infty$',30]
+      ]
+      })
 
       }
-      else {// f(x)=0 n'a pas de solution f(x)<0 pour tout x
+      else if (minima<0){// f(x)=0 n'a pas de solution f(x)<0 pour tout x
+
+      }
+      else {//f(x)=0 a une solution unique : minima=0 désigne ici un maximum
 
       }
     }
+    fxstring=`${ecriture_nombre_relatif(a)}*x^2+(${ecriture_nombre_relatif(b)})*x+(${ecriture_nombre_relatif(c)})`
+
   }
 
   else if (c!=0) { // degré 1
@@ -180,7 +264,7 @@ export default function variation_polynome_degre3() {
   }
 
 
-    texte+=`$${printlatex(fx)}$.<br>`
+    texte+=`$${printlatex(fxstring)}$.<br>`
       texte += mathalea2d({xmin:0,ymin:-6,xmax:21,ymax:1,pixelsParCm:30},t);
           texte_corr = ``;
 

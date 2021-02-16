@@ -6384,7 +6384,6 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     let segments = [], index = 0, textes = [], texte, long, s, p, v, fleches = [], codeVar = [], ZI = [], ZIon, zonesEstInterdit = []
     let code = ""
     let longueurTotale = this.lgt + (tabInit1.length / 2 - 1) * escpl + 2 * this.deltacl
-console.log(this.deltacl)
     let MathToSVG = function (string) { // fonction qui traduit si possible la chaine Latex en un tableau de chaine
       // un seul élément si c'est du texte ou un nombre
       // deux éléments si il y a un signe - et du texte
@@ -6427,7 +6426,6 @@ console.log(this.deltacl)
               if (tabLines[index][k * 2] != "") {
                 texte = tabLines[index][k * 2]
                 long = tabLines[index][k * 2 + 1]
-                console.log(texte,'longueur=',long,'index=',index,'k=',k)
                 if (texte.length == 1) {
                   switch (texte[0]) {
                     case 'z':

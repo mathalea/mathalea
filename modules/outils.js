@@ -1091,7 +1091,7 @@ export function fraction_simplifiee(n,d){
 * @Auteur Rémi Angot
 */
 export function tex_fraction_reduite(n,d){
-	if (n%d==0) {
+	if (Math.abs(n)%Math.abs(d)==0) {
 		return n/d
 	} else {
 		return tex_fraction_signe(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
