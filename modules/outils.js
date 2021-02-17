@@ -1091,7 +1091,7 @@ export function fraction_simplifiee(n,d){
 * @Auteur Rémi Angot
 */
 export function tex_fraction_reduite(n,d){
-	if (n%d==0) {
+	if (Math.abs(n)%Math.abs(d)==0) {
 		return n/d
 	} else {
 		return tex_fraction_signe(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
@@ -1185,6 +1185,7 @@ else {
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * @Auteur Jean-Claude Lhote
  * @param {number} a 
  * @param {number} b 
  */
@@ -1198,6 +1199,110 @@ export function reduire_ax_plus_b(a,b) {
 	else if (a==0) result='0'
 	return result
 }
+/**
+ * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
+ * @Auteur Jean-Claude Lhote
+ */
+export function reduire_polynome_degre3(a, b, c, d) {
+	let result = ``
+	if (a != 0) {
+		switch (a) {
+			case 1:
+				result += 'x^3'
+				break
+			case -1:
+				result += '-x^3'
+				break
+			default:
+				result += `${a}x^3`
+				break
+		}
+		if (b != 0) {
+			switch (b) {
+				case 1:
+					result += '+x^2'
+					break
+				case -1:
+					result += '-x^2'
+					break
+				default:
+					result += `${ecriture_algebrique(b)}x^2`
+					break
+			}
+		}
+		if (c != 0) {
+			switch (c) {
+				case 1:
+					result += '+x'
+					break;
+				case -1:
+					result += '-x'
+					break
+				default:
+					result += `${ecriture_algebrique(c)}x`
+					break
+			}
+		}
+		if (d != 0) {
+			result += `${ecriture_algebrique(d)}`
+		}
+	}
+	else { // degré 2 pas de degré 3
+		if (b != 0) {
+			switch (b) {
+				case 1:
+					result += 'x^2'
+					break
+				case -1:
+					result += '-x^2'
+					break
+				default:
+					result += `${ecriture_algebrique(b)}x^2`
+					break
+			}
+			if (c != 0) {
+				switch (c) {
+					case 1:
+						result += '+x'
+						break;
+					case -1:
+						result += '-x'
+						break
+					default:
+						result += `${ecriture_algebrique(c)}x`
+						break
+				}
+			}
+			if (d != 0) {
+				result += `${ecriture_algebrique(d)}`
+			}
+		}
+		else  // degré 1 pas de degré 2 ni de degré 3
+			if (c != 0) {
+				switch (c) {
+					case 1:
+						result += 'x'
+						break;
+					case -1:
+						result += '-x'
+						break
+					default:
+						result += `${ecriture_algebrique(c)}x`
+						break
+				}
+				if (d != 0) {
+					result += `${ecriture_algebrique(d)}`
+				}
+			}
+			else { // degré 0 a=0, b=0 et c=0
+				result += `${ecriture_algebrique(d)}`
+			}
+
+	}
+	return result
+}
+
+
 /**
 *
 * Donne la liste des facteurs premiers d'un nombre
