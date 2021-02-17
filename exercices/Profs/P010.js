@@ -501,7 +501,7 @@ export default function variation_polynome_degre3() {
     yThickDistance : pas,
   })
     macourbe=courbe2(mafonction,{repere:monrepere,step:0.1,epaisseur:1})
-    texte ='Etude des variations de la fonction $f(x)=$'
+    texte ='Étude des variations de la fonction $f(x)=$'
     texte += `$${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -7, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
     if (this.sup2) {
