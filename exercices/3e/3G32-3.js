@@ -44,7 +44,13 @@ export default function Calculs_trigonometriques3() {
           S = pointAdistance(H, 7, 90, 'S')
           p = polygoneAvecNom(A, B, H, S)
           objets.push(p[1], p[0], segment(S, B), codageAngleDroit(A, H, S))
+      if (sortie_html){
           objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
+      }
+      else {
+        objets.push(afficheMesureAngle(H, A, S, 'black', 2, `$${alfa}$`), afficheMesureAngle(H, B, S, 'black', 2, `$${baita}$`))
+
+      }
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un observateur sur un bateau s'approche d'une falaise dont il veut mesurer la hauteur.<br>`;
