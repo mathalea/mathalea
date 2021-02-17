@@ -201,9 +201,9 @@ export default function SimulateurAleatoire() {
       case 2:
         texte += `$\\begin{array}{|l|` + `c|`.repeat(nbFaces) + `}\n`;
         texte += `\\hline\n`;
-        texte += `\\text{Numéro de la face}`;
+        texte += `\\text{Couleur de la boule}`;
         for (let i = 0; i < nbFaces; i++) {
-          texte += ` & \\textbf{\\text{${i + 1}}}`;
+          texte += ` & \\textbf{\\text{${tabcoul[i].substring(0,tabcoul[i].length-1)}}}`;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\text{Fréquence d'apparition}`;
