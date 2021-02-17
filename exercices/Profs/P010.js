@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { reduire_polynome_degre3, unSiPositifMoinsUnSinon,signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif } from "/modules/outils.js"
-import { tableau_de_variation, mathalea2d,repere2,courbe2 } from '/modules/2d.js';
+import { tableau_de_variation, mathalea2d,repere2,courbe2,segment,vecteur,rotation,translation,point,tracePoint } from '/modules/2d.js';
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -42,8 +42,9 @@ export default function variation_polynome_degre3() {
 
     let a, b, c, d, a1, b1, c1, a2, xx, xxs, rac = [], t, x1s, fx1s, x3s, x2s
     let sig1, sig2, s, delta, x1,x2, x3, f, minima, fxstring,mafonction,maderivee
-    let YMAXI,YMINI,XMINI,XMAXI,monrepere,macourbe,texte,texte_corr
+    let YMAXI,YMINI,XMINI,XMAXI,monrepere,macourbe,texte,texte_corr,scalex,scaley
     let coef_f = this.sup.split('/')
+    let vecteurs=[],A,B,C,tangente
 
     let trouver_les_racines = function (a0, b0, c0) { // Une fonction locale pour trouver les racines d'une équation du 2nd degré
       delta = b0 * b0 - 4 * a0 * c0 // on calcule les racines de f'
@@ -140,6 +141,32 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(rac[1])+2
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(rac[0])),Math.round(mafonction(rac[1])))
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(rac[0])),Math.round(mafonction(rac[1])))
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(rac[0]*scalex,mafonction(rac[0])*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(rac[0])*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
+          A=point(rac[1]*scalex,mafonction(rac[1])*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(rac[1])*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
+          A=point(-b/(3*a)*scalex,mafonction(-b/(3*a))*scaley)
+          vecteurs.push(tracePoint(A))
+          B=translation(A,vecteur(1*scalex,maderivee(-b/(3*a))*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='red'
+          vecteurs.push(tangente)
+          
+          
         }
         else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
           t = tableau_de_variation({
@@ -155,7 +182,16 @@ export default function variation_polynome_degre3() {
           XMAXI=4
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)))
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)))
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(-b/(3*a)*scalex,mafonction(-b/(3*a))*scaley)
+          vecteurs.push(tracePoint(A))
+          B=translation(A,vecteur(1*scalex,maderivee(-b/(3*a))*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='red'
+          vecteurs.push(tangente)
         }
 
       }
@@ -174,7 +210,16 @@ export default function variation_polynome_degre3() {
           XMAXI=4
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)))
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)))
-
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(-b/(3*a)*scalex,mafonction(-b/(3*a))*scaley)
+          vecteurs.push(tracePoint(A))
+          B=translation(A,vecteur(1*scalex,maderivee(-b/(3*a))*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='red'
+          vecteurs.push(tangente)
         }
         else {// la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouver_les_racines(a1, b1, c1)
@@ -192,7 +237,30 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(rac[1])+2
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(rac[0])),Math.round(mafonction(rac[1])))
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(rac[0])),Math.round(mafonction(rac[1])))
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(rac[0]*scalex,mafonction(rac[0])*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(rac[0])*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
+          A=point(rac[1]*scalex,mafonction(rac[1])*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(rac[1])*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
+          A=point(-b/(3*a)*scalex,mafonction(-b/(3*a))*scaley)
+          vecteurs.push(tracePoint(A))
+          B=translation(A,vecteur(1*scalex,maderivee(-b/(3*a))*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='red'
+          vecteurs.push(tangente)
         }
 
 
@@ -237,7 +305,15 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(x2+3)
           YMINI=Math.round(mafonction(x2))-2
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(x2)))
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(x2*scalex,mafonction(x2)*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(x2)*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
         }
         else if (minima > 0) { // f(x)=0 n'a pas de solution f(x)>0 pour tout x
           t = tableau_de_variation({
@@ -253,7 +329,15 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(x2)+3
           YMINI=-10
           YMAXI=Math.max(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(x2)))
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(x2*scalex,mafonction(x2)*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(x2)*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
         }
         else { //f(x)=0 a une solution unique : minima=0
 
@@ -277,7 +361,15 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(x2)+3
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(x2)))
           YMAXI=Math.round(mafonction(x2))+2
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(x2*scalex,mafonction(x2)*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(x2)*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
         }
         else if (minima < 0) {// f(x)=0 n'a pas de solution f(x)<0 pour tout x
           t = tableau_de_variation({
@@ -293,7 +385,15 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(x2)+2
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(x2)))
           YMAXI=10
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(x2*scalex,mafonction(x2)*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(x2)*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
         }
         else {//f(x)=0 a une solution unique : minima=0 désigne ici un maximum
 
@@ -310,7 +410,15 @@ export default function variation_polynome_degre3() {
           XMAXI=Math.round(x2)+2
           YMINI=Math.min(Math.round(mafonction(XMINI)),Math.round(mafonction(XMAXI)),Math.round(mafonction(x2)))
           YMAXI=10
-  
+          scalex=Math.abs(10/(XMAXI-XMINI))
+          scaley=Math.abs(10/(YMAXI-YMINI))
+          A=point(x2*scalex,mafonction(x2)*scaley)
+          B=translation(A,vecteur(1*scalex,maderivee(x2)*scaley))
+          C=rotation(B,A,180)
+          tangente=segment(C,B)
+          tangente.styleExtremites='<->'
+          tangente.color='blue'
+          vecteurs.push(tangente)
         }
       }
 
@@ -377,11 +485,11 @@ export default function variation_polynome_degre3() {
     }
 
     let pas=Math.round(Math.abs((YMAXI-YMINI)/10))
-    let scalex=Math.abs(10/(XMAXI-XMINI))
-    let scaley=Math.abs(10/(YMAXI-YMINI))
+    scalex=Math.abs(10/(XMAXI-XMINI))
+    scaley=Math.abs(10/(YMAXI-YMINI))
 
     console.log(XMINI,XMAXI,YMINI,YMAXI,pas)
-    console.log(a,b,c,d,mafonction(x2),mafonction(XMINI),mafonction(XMAXI))
+
     monrepere=repere2({ xUnite : scalex,
       yUnite : scaley,
       xMin : XMINI,
@@ -397,7 +505,7 @@ export default function variation_polynome_degre3() {
     texte += `$${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -7, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
     if (this.sup2) {
-      texte +='<br>'+ mathalea2d({ xmin: (XMINI-1)*scalex, ymin: (YMINI-1)*scaley, xmax: (XMAXI+2)*scalex, ymax: (YMAXI+1)*scaley, pixelsParCm: 30 }, macourbe,monrepere);
+      texte +='<br>'+ mathalea2d({ xmin: (XMINI-1)*scalex, ymin: (YMINI-1)*scaley, xmax: (XMAXI+2)*scalex, ymax: (YMAXI+1)*scaley, pixelsParCm: 30 }, macourbe,monrepere,vecteurs);
     }
 
 
