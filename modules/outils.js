@@ -1204,7 +1204,7 @@ export function reduire_ax_plus_b(a,b) {
  * @Auteur Jean-Claude Lhote
  */
 export function reduire_polynome_degre3(a, b, c, d) {
-	let result = ``
+	let result = ""
 	if (a != 0) {
 		switch (a) {
 			case 1:
@@ -1257,7 +1257,7 @@ export function reduire_polynome_degre3(a, b, c, d) {
 					result += '-x^2'
 					break
 				default:
-					result += `${ecriture_algebrique(b)}x^2`
+					result += `${b}x^2`
 					break
 			}
 			if (c != 0) {
@@ -1287,7 +1287,7 @@ export function reduire_polynome_degre3(a, b, c, d) {
 						result += '-x'
 						break
 					default:
-						result += `${ecriture_algebrique(c)}x`
+						result += `${c}x`
 						break
 				}
 				if (d != 0) {
@@ -1295,10 +1295,11 @@ export function reduire_polynome_degre3(a, b, c, d) {
 				}
 			}
 			else { // degré 0 a=0, b=0 et c=0
-				result += `${ecriture_algebrique(d)}`
+				result += `${d}`
 			}
 
 	}
+	console.log(result)
 	return result
 }
 
