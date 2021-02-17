@@ -7337,7 +7337,7 @@ function Courbe2(f, {
   } else {
     pas = step;
   }
-  for (let x = xmin; x <= xmax; x = calcul(x + pas)
+  for (let x = xmin; x <= xmax; x += pas
   ) {
     if (f(x) < ymax + .2 && f(x) > ymin - .2) {
       points.push(point(calcul(x * xunite), calcul(f(x) * yunite)));
