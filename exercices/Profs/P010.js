@@ -15,6 +15,7 @@ export default function variation_polynome_degre3() {
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
   this.sup = "-1/-2/3/1"; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup2 = true 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.liste_packages = 'tkz-tab'
@@ -392,11 +393,12 @@ export default function variation_polynome_degre3() {
     yThickDistance : pas,
   })
     macourbe=courbe2(mafonction,{repere:monrepere,step:0.1,epaisseur:1})
-
-    texte = `$${printlatex(fxstring)}$.<br>`
+    texte ='Etude des variations de la fonction $f(x)=$'
+    texte += `$${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -7, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
-    texte +='<br>'+ mathalea2d({ xmin: (XMINI-1)*scalex, ymin: (YMINI-1)*scaley, xmax: (XMAXI+2)*scalex, ymax: (YMAXI+1)*scaley, pixelsParCm: 30 }, macourbe,monrepere);
-    
+    if (this.sup2) {
+      texte +='<br>'+ mathalea2d({ xmin: (XMINI-1)*scalex, ymin: (YMINI-1)*scaley, xmax: (XMAXI+2)*scalex, ymax: (YMAXI+1)*scaley, pixelsParCm: 30 }, macourbe,monrepere);
+    }
 
 
     texte_corr = ``;
@@ -407,6 +409,7 @@ export default function variation_polynome_degre3() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_texte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /','-1/-2/3/1 par exemple'];
+  this.besoin_formulaire2_case_a_cocher =['Représentation graphique',true]
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
