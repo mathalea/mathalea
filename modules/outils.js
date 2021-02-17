@@ -1850,6 +1850,25 @@ export function enumerate(liste,spacing){
 	}
 }
 
+/**
+* Renvoie une liste sans puce ni numéro HTML ou LaTeX suivant le contexte
+* 
+* @param liste une liste de questions
+* @param spacing interligne (line-height en css)
+* @Auteur Sébastien Lozano
+*/
+export function enumerate_sans_puce_sans_numero(liste,spacing){
+	if (sortie_html) {
+		//return html_enumerate(liste,spacing)
+		// for (let i=0; i<liste.length;i++) {
+		// 	liste[i]='> '+liste[i];
+		// }		
+		return html_ligne(liste,spacing)
+	} else {
+		//return tex_enumerate(liste,spacing)
+		return tex_enumerate(liste,spacing).replace('\\begin{enumerate}','\\begin{enumerate}[label={}]')
+	}
+}
 
 /**
 *  Renvoie un paragraphe HTML à partir d'un string
