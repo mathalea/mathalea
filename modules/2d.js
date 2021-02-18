@@ -6967,28 +6967,40 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     let tabinit1 = this.tabInit[1]
     let type
     for (let i = 0; i < tabinit0.length; i++) {
+      if (tabinit0[i][0].indexOf(',')!=-1){
+        tabinit0[i][0]=`{${tabinit0[i][0]}}`
+      }
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}{`
     for (let i = 0; i < tabinit1.length / 2; i++) {
+      if (tabinit1[i*2].indexOf(',')!=-1){
+        tabinit1[i*2]=`{${tabinit1[i*2]}}`
+      }
       code += ` ${tabinit1[i * 2]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
       type = this.tabLines[i][0]
-      if (type == 'Val' || type == 'Ima') {
+      if (type == 'Val'||type=='Ima'){
         code += `\\tkzTab${type}`
-        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
-          code += `{${this.tabLines[i][j * 2]}}`
+        for (let j = 1; j < this.tabLines[i].length -1; j++) {
+          if (this.tabLines[i][j].indexOf(',')!=-1){
+            this.tabLines[i][j]=`{${this.tabLines[i][j]}}`
+          }
+          code += `{${this.tabLines[i][j]}},`
         }
         code += "\n\t"
       }
-      else {
+      else if (type=='Var'||type=='Line'){
         code += `\\tkzTab${type}{ `
-        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
-          code += ` ${this.tabLines[i][j * 2]},`
+        for (let j = 2; j < this.tabLines[i].length ; j+=2) {
+          if (this.tabLines[i][j].indexOf(',')!=-1){
+            this.tabLines[i][j]=`{${this.tabLines[i][j]}}`
+          }
+          code += ` ${this.tabLines[i][j]},`
         }
         code = code.substring(0, code.length - 1)
         code += `}` + "\n\t"

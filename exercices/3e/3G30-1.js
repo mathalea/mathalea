@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { mathalea2d, point, similitude, longueur, polygone,rotation, codageAngleDroit, nommePolygone, segment, codeAngle, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle  } from "/modules/2d.js";
 import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from "/modules/outils.js";
+import Thales2D_3e from './3G20';
 
 
 /**
@@ -82,8 +83,16 @@ export default function Mon_Exercice() {
     let sAH = segment(A,H)
     let sAB = segment(A,B)
     let t13 = texteSurSegment('hypoténuse',B,A)
-    let t23 = texteSurSegment("opposé à ⍺",A,H)
-    let t33 = texteSurSegment("adjacent à ⍺",H,B)
+    let t23
+    let t33
+    if (sortie_html) {
+    t23 = texteSurSegment("opposé à ⍺",A,H)
+    t33 = texteSurSegment("adjacent à ⍺",H,B)
+    }
+    else {
+        t23 = texteSurSegment("opposé à $\\alpha$",A,H)
+        t33 = texteSurSegment("adjacent à $\\alpha$",H,B)
+    }
     let hypo3 = segment(A,B)
     hypo3.epaisseur = 2
     hypo3.color = 'blue'

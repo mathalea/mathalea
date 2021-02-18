@@ -49,13 +49,18 @@ export default function Calculs_trigonometriques4() {
           C = projectionOrtho(B, droite(A, S), 'C')
           p = polygoneAvecNom(A, B, H, S, C)
           objets.push(p[1], p[0], segment(C, B), segment(S, B), codageAngleDroit(A, H, S),codageAngleDroit(B,C,S))
+          if (sortie_html) {
           objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
+          }
+          else {
+            objets.push(afficheMesureAngle(H, A, S, 'black', 2, `$${alfa}$`), afficheMesureAngle(H, B, S, 'black', 2, `$${baita}$`))
+          }
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>`;
           texte += `Pour cela, il utilise un théodolite en un point $A$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $S$ de la montagne, le point $A$ et la base de la montagne $H$.<br>`
           texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $B$.<br>`
-          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $${alfa}=${alpha}\\degree$, $${baita}=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
+          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $${alfa}=${alpha}\\degree$, $${baita}=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>';
 
           if (this.sup) {
             texte += `${num_alpha(j)}Exprimer la mesure de l'angle $\\widehat{BSH}$ en fonction de $${baita}$.<br>`
@@ -88,7 +93,7 @@ export default function Calculs_trigonometriques4() {
           texte += `${num_alpha(j)}Quelle est la hauteur de la montagne (arrondir au mètre près) ?<br>`
           texte += `On supposera le point d'observation au niveau du sol.`
           j=0
-          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>'
           if (this.sup) {
             texte_corr += `${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, les angles aigus sont complémentaires donc $\\widehat{BSH}=90-${baita}$.<br>`
             texte_corr += `${num_alpha(j+1)}Dans le triangle $AHS$ rectangle en $H$, pour la même raison $\\widehat{ASH}=90-${alfa}$.<br>`

@@ -55,7 +55,12 @@ export default function Calculs_trigonometriques2() {
           S = pointAdistance(B, 9, 90, 'S')
           p = polygoneAvecNom(A, B, H, S, O)
           objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
-          objets.push(afficheMesureAngle(B, O, S, 'black', 3, '${alfa}'), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
+         if(sortie_html){
+          objets.push(afficheMesureAngle(B, O, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
+         }
+         else {
+          objets.push(afficheMesureAngle(B, O, S, 'black', 3, `$${alfa}$`), afficheMesureAngle(A, B, O, 'black', 2, `$${baita}$`), afficheMesureAngle(B, O, H, 'black', 2, `$${baita}$`))
+         }
           objets.push(texteSurSegment(`${tex_nombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${tex_nombre(distance)} m`, O, H))
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
           texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${tex_nombre(distance)}$ m de l'observateur.<br>`
