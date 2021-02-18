@@ -6074,7 +6074,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - .5)
+    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.3,'black',30,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6083,7 +6083,7 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (let y of yLabelListe) {
-    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - .5, calcul(y * yUnite), 'gauche')
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite) - 0.8, calcul(y * yUnite)+0.2, 'black',30,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -7796,9 +7796,16 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) { 
+    if (colorBackground!=''){
     return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
+    }
+    else {
+      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
+      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      $\\color{${color}}{${texte}}$</div></foreignObject>`;
+    }
   };
   this.tikz = function () {
     let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
