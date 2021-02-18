@@ -6037,6 +6037,7 @@ function Repere2({
   axeX.styleExtremites = axeXStyle;
   axeX.color = axesCouleur;
   let abscisseAxe = Math.max(0, xMin)
+  let labelysize
   let axeY = segment(calcul(abscisseAxe * xUnite), calcul(yMin * yUnite), calcul(abscisseAxe * xUnite), calcul(yMax * yUnite));
   axeY.epaisseur = axesEpaisseur;
   axeY.styleExtremites = axeYStyle;
@@ -6083,7 +6084,14 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (let y of yLabelListe) {
-    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite) - 0.8, calcul(y * yUnite)+0.2, 'black',30,12,'')
+    if (y<0) {
+      labelysize=0.25*(Math.ceil(Math.log10(-y+1))+1)
+    }
+    else {
+      labelysize=0.25*Math.ceil(Math.log10(y+1))
+    }
+    console.log(labelysize)
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
     l.isVisible = false;
     objets.push(l);
   }

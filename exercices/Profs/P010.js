@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { reduire_polynome_degre3, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif } from "/modules/outils.js"
+import { reduire_polynome_degre3, calcul,unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif } from "/modules/outils.js"
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '/modules/2d.js';
 /**
  * Description didactique de l'exercice
@@ -142,7 +142,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+          scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(rac[0] * scalex, mafonction(rac[0]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[0]) * scaley))
           C = rotation(B, A, 180)
@@ -183,7 +183,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)))
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(-b / (3 * a) * scalex, mafonction(-b / (3 * a)) * scaley)
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
@@ -211,7 +211,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)))
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(-b / (3 * a) * scalex, mafonction(-b / (3 * a)) * scaley)
           vecteurs.push(tracePoint(A))
           B = translation(A, vecteur(1 * scalex, maderivee(-b / (3 * a)) * scaley))
@@ -238,7 +238,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(rac[0] * scalex, mafonction(rac[0]) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(rac[0]) * scaley))
           C = rotation(B, A, 180)
@@ -306,7 +306,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.round(mafonction(x2)) - 2
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(x2)))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
@@ -330,7 +330,7 @@ export default function variation_polynome_degre3() {
           YMINI = -10
           YMAXI = Math.max(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(x2)))
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
@@ -362,7 +362,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(x2)))
           YMAXI = Math.round(mafonction(x2)) + 2
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
@@ -386,7 +386,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(x2)))
           YMAXI = 10
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
@@ -411,7 +411,7 @@ export default function variation_polynome_degre3() {
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(x2)))
           YMAXI = 10
           scalex = Math.abs(10 / (XMAXI - XMINI))
-          scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
           A = point(x2 * scalex, mafonction(x2) * scaley)
           B = translation(A, vecteur(1 * scalex, maderivee(x2) * scaley))
           C = rotation(B, A, 180)
@@ -484,9 +484,9 @@ export default function variation_polynome_degre3() {
       YMAXI = 10 ** (Math.ceil(Math.log10(d)))
     }
 
-    let pas = 10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 10))))
-    scalex = Math.abs(10 / (XMAXI - XMINI))
-    scaley = 10 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
+    let pas = calcul(10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 20))))/2)
+    scalex = Math.abs(10 / (XMAXI - XMINI)) 
+    scaley = 20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI)))
 
     console.log(XMINI, XMAXI, YMINI, YMAXI, pas)
 
