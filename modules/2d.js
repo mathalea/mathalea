@@ -6085,13 +6085,13 @@ function Repere2({
   }
   for (let y of yLabelListe) {
     if (y<0) {
-      labelysize=0.25*(Math.ceil(Math.log10(-y+1))+1)
+      labelysize=0.18*(Math.ceil(Math.log10(-y+1))+1)
     }
     else {
-      labelysize=0.25*Math.ceil(Math.log10(y+1))
+      labelysize=0.18*Math.ceil(Math.log10(y+1))
     }
     console.log(labelysize)
-    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.2 , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
     l.isVisible = false;
     objets.push(l);
   }
