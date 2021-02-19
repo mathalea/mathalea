@@ -6037,6 +6037,7 @@ function Repere2({
   axeX.styleExtremites = axeXStyle;
   axeX.color = axesCouleur;
   let abscisseAxe = Math.max(0, xMin)
+  let labelysize
   let axeY = segment(calcul(abscisseAxe * xUnite), calcul(yMin * yUnite), calcul(abscisseAxe * xUnite), calcul(yMax * yUnite));
   axeY.epaisseur = axesEpaisseur;
   axeY.styleExtremites = axeYStyle;
@@ -6074,7 +6075,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - .5)
+    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.3,'black',30,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6083,7 +6084,14 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (let y of yLabelListe) {
-    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - .5, calcul(y * yUnite), 'gauche')
+    if (y<0) {
+      labelysize=0.18*(Math.ceil(Math.log10(-y+1))+1)
+    }
+    else {
+      labelysize=0.18*Math.ceil(Math.log10(y+1))
+    }
+    console.log(labelysize)
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.2 , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -7796,9 +7804,16 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) { 
+    if (colorBackground!=''){
     return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
+    }
+    else {
+      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
+      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      $\\color{${color}}{${texte}}$</div></foreignObject>`;
+    }
   };
   this.tikz = function () {
     let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
