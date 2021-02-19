@@ -487,9 +487,6 @@ export default function variation_polynome_degre3() {
     let pas=Math.round(Math.abs((YMAXI-YMINI)/10))
     scalex=Math.abs(10/(XMAXI-XMINI))
     scaley=Math.abs(10/(YMAXI-YMINI))
-
-    console.log(XMINI,XMAXI,YMINI,YMAXI,pas)
-
     monrepere=repere2({ xUnite : scalex,
       yUnite : scaley,
       xMin : XMINI,
