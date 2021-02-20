@@ -1966,7 +1966,7 @@ export function tex_nombre(nb){
 * @Auteur Rémi Angot
 */
 export function tex_nombre2(nb){
-	let nombre = tex_nombre(math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}))
+	let nombre = math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}).replace('.',',')
 	let rang_virgule = nombre.indexOf(',')
 	for (let i=rang_virgule+4; i<nombre.length; i+=3){
 		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
@@ -1975,11 +1975,17 @@ export function tex_nombre2(nb){
 	if (sortie_html){
 		return nombre
 	} else {
-		return tex_nombre(math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}))
+		let result;
+		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
+			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
+		}else{
+			result = nb.toString().replace('.',',');
+		}
+		return result;
 	}
 }
 export function tex_nombrec2(expr,precision=8){
-	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision})
+	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision}).replace('.',',')
 }
 export function nombrec2(nb){
 	return math.evaluate(nb)
