@@ -1,17 +1,21 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes,randint,tex_nombrec,nombrec2,choice,mise_en_evidence} from "/modules/outils.js"
-
+import {liste_de_question_to_contenu,combinaison_listes,randint,tex_nombrec,tex_nombre2,choice,mise_en_evidence,tex_fraction} from "/modules/outils.js"
+/**
+ * @Auteur Jean-claude Lhote
+ * Publié le 20/02/2021
+ * Référence 6C30-4
+ */
 export default function Placer_la_virgule() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Compléter une multiplication par $0,1$ ; $0,01$ ; $0,001$";
+    this.titre = "Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.consigne=`Complète avec 0,1 ; 0,01 ou 0,001`
+    this.consigne=`Les égalités suivantes sont fausses. Place la virgule correctement dans le résultat pour que l'égalité soit juste.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   this.sup = false; 
@@ -27,7 +31,7 @@ export default function Placer_la_virgule() {
     this.liste_corrections = []
     let type_de_questions_disponibles=[1] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-  
+    let rang=['millièmes','centièmes','dixièmes']
       for (let i = 0, texte, texte_corr,coef,nombre,nombreentier,resultat,exposant, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -42,11 +46,12 @@ export default function Placer_la_virgule() {
         nombreentier=randint(10,1000)+randint(10,999)*choice([0,1000])
         nombre=nombreentier*10**exposant
         resultat=nombre*10**coef
-        console.log(nombrec2(resultat),tex_nombrec(resultat))
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
-               texte= `$${tex_nombrec(nombre)} \\times \\ldots = ${tex_nombrec(resultat)}$`
-               texte_corr=`Quand on multiplie un nombre par $${tex_nombrec(10**coef)}$ chaque chiffres devient $${tex_nombrec(10**(-coef))}$ fois plus petit :<br>$${tex_nombrec(nombre)} \\times ${mise_en_evidence(tex_nombrec(10**coef),'blue')} = ${tex_nombrec(resultat)}$`
+               texte= `$${tex_nombrec(nombre)} \\times ${tex_nombrec(10**coef)}~~ = ~~\\phantom{......}${tex_nombrec(nombreentier)}$<br>`
+               texte_corr=`Quand on multiplie par $${tex_nombrec(10**coef)}=${tex_fraction(1,10**(-coef))}$ chaque chiffre prend une valeur $${tex_nombrec(10**(-coef))}$ fois plus petite.<br>`
+               texte_corr+=`Le chiffre des unités se positionne donc dans les ${rang[3+coef]} :<br>`
+               texte_corr+=`$${tex_nombrec(nombre)} \\times ${tex_nombrec(10**coef)} = ${tex_nombre2(resultat)}$`//${tex_nombrec(Math.floor(resultat))}${mise_en_evidence(',')}${tex_nombrec(resultat-Math.floor(resultat)).replace('0,','')}$`
           break;
   
           case 2:
