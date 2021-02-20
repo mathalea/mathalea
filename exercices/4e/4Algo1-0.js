@@ -21,6 +21,7 @@ import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} fr
   //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 
   this.liste_packages = "scratch3";
+	this.type_exercice = "Scratch";
 
   let type_de_questions_disponibles;
 
