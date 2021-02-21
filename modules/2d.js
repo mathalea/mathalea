@@ -2702,6 +2702,10 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
+  this.hachures = "";
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1;
+  this.distanceDesHachures = 10;
   if (typeof (angle) != 'number') {
     angle = arrondi(angleOriente(M, Omega, angle), 1)
   }
@@ -2751,14 +2755,51 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
       }
 
     }
+    let pattern = ''
+    if (this.hachures) {
+      if (this.couleurDeRemplissage.length<1){
+        this.couleurDeRemplissage = "none"
+      }
+      switch (this.hachures) {
+        case 'north east lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'horizontal lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="${calcul(this.distanceDesHachures/2)}" x2="${calcul(this.distanceDesHachures)}" y2="${calcul(this.distanceDesHachures/2)}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'vertical lines':
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+          break
+        default :
+          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
+            </pattern>`
+      }
+
+    return pattern +`<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff, 1)} ${arrondi(l * coeff, 1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+  }
+  else {
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     if (this.couleurDeRemplissage != 'none') {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
     }
+    
     return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff, 1)} ${arrondi(l * coeff, 1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+
   }
+}
   else this.svg = function (coeff) {
     this.style = ``
     if (this.epaisseur != 1) {
@@ -2825,6 +2866,14 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     }
     if (rayon && fill != 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+     
+    }
+    if (this.hachures) {
+      if (['north east lines','horizontal lines','vertical lines'].includes(this.hachures)){
+        tableauOptions.push(`pattern = ${this.hachures}`)
+      } else {
+        tableauOptions.push(`pattern = north east lines`)
+      }
     }
     if (tableauOptions.length > 0) {
       optionsDraw = "[" + tableauOptions.join(',') + "]"
