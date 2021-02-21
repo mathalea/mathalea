@@ -1387,6 +1387,16 @@ export function tex_racine_carree(n) {
 }
 
 /**
+* Utilise giac/xcas 
+* 
+* @Auteur Rémi Angot
+*/
+export function xcas(expression){
+	return UI.eval(`latex(${expression})`).replaceAll('\\cdot ','~').replaceAll("\\frac","\\dfrac").replaceAll('\"','');
+	
+}
+
+/**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @Auteur Rémi Angot
