@@ -1,3 +1,4 @@
+import { xcas } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint, combinaison_listes} from "/modules/outils.js"
 /**
@@ -29,8 +30,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         case 'type1': 
             a = randint(1,5)
             b = randint(1,5)
-           texte = `$${UI.eval(`latex(simplifier((${a}sqrt(${a+b}x)/(${b}x))))`)}$`.replaceAll('\\cdot ','~').replaceAll('frac','dfrac').replaceAll('\"','');
-           texte_corr = `$${UI.eval(`latex(simplifier(deriver(${a}sqrt(${a+b}x)/(${b}x))))`).replaceAll('\\cdot ','~').replaceAll('frac','dfrac').replaceAll('\"','')}$`;
+           texte = `$${xcas(`simplifier(${a}sqrt(${a+b}x)/(${b}x))`)}$`
+           texte_corr = `$${xcas(`simplifier(deriver(${a}sqrt(${a+b}x)/(${b}x)))`)}$`
            break;
         case 'type2': 
             texte = `Question ${i+1} de type 2`;
