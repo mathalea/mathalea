@@ -158,7 +158,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 trust: false,
             });
             let besoinMG32 = false;
-              let besoinScratch = false;
+            let besoinScratch = false;
               for (let i = 0; i < liste_des_exercices.length; i++) {
                 if (listeObjetsExercice[i].type_exercice == "MG32") {
                  besoinMG32 = true
@@ -179,7 +179,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                       MG32_tracer_toutes_les_figures();
                 })
               }
-
               if (besoinScratch){
                   loadScript("include/scratchblocks-v3.5-min.js")
                   .then(()=>{
@@ -269,7 +268,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
                  besoinScratch = true
                 }
+               
               }
+              
               if (besoinMG32){
                 loadScript("https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js")
                 .then(()=>{
@@ -282,7 +283,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                       MG32_tracer_toutes_les_figures();
                 })
               }
-
               if (besoinScratch){
                   loadScript("include/scratchblocks-v3.5-min.js")
                   .then(()=>{
@@ -477,6 +477,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
      *
      */
     function mise_a_jour_de_la_liste_des_exercices() {
+        let besoinXCas = false
         mathalea.listeDesScriptsCharges = [];
         let promises = [];
         for (let i = 0, id; i < liste_des_exercices.length; i++) {
@@ -497,6 +498,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     .then((module) => {
                         if (module) {
                             listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                            if (listeObjetsExercice[i].type_exercice == 'XCas') {
+                                besoinXCas = true;
+                            }
                         }
                     })
             );
@@ -547,6 +551,26 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 }
             })
             .then(() => {
+                if (besoinXCas){
+                    // On charge le javascript de XCas
+                    document.getElementById("exercices").innerHTML = `<div class="profile-main-loader">
+                    <div class="loader">
+                      <svg class="circular-loader"viewBox="25 25 50 50" >
+                        <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
+                      </svg>
+                    </div>
+                  </div>`
+                    return loadScript("modules/giacsimple.js")
+
+                }
+            })
+            .then((resolve,reject) => {
+                if (besoinXCas) {
+                    // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
+                    return checkXCas();
+                    }
+            })
+            .then(() => {
                 mise_a_jour_du_code();
             });
     }
@@ -566,6 +590,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
               }
           })
           
+    }
+    const checkXCas = () => {
+        return new Promise((resolve, reject) => {
+                const monInterval = setInterval(() => {
+                    if (typeof(Module)!= 'undefined'){
+                            if (Module.ready == true){
+                                resolve();
+                                clearInterval(monInterval);
+                            }
+                        }
+                }, 500);
+          })
     }
 
     // GESTION DE MG32
