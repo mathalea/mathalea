@@ -8317,11 +8317,13 @@ export function mathalea2d(
     // de cette manière d'autres options Tikz pourront aussi être ajoutées
     // si il n'y a qu'une optionsTikz on peut passer un string
     let listeOptionsTikz = [];
-    if (typeof optionsTikz === "string" ) {
-      listeOptionsTikz.push(optionsTikz);
-    } else {
-      optionsTikz.forEach(e => listeOptionsTikz.push(e))
-    };
+    if (optionsTikz !== undefined ) {
+      if (typeof optionsTikz === "string" ) {
+        listeOptionsTikz.push(optionsTikz);
+      } else {
+        optionsTikz.forEach(e => listeOptionsTikz.push(e))
+      };  
+    }
     if (scale == 1) {
       if (listeOptionsTikz.length==0) {
         code = `\\begin{tikzpicture}[baseline]\n`;
