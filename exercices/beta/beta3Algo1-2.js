@@ -213,6 +213,7 @@ export default function Exercice_zero_mathalea() {
            ymax: calcul((syracuse({N:entier}).altitudeMaximale()+10)/y_coeff),
            pixelsParCm: 30,           
            scale: 0.7,
+           optionsTikz: [`xscale=${1/x_coeff}`,`yscale=${1/y_coeff}`],
            mainlevee: false 
         }
                 
