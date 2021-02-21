@@ -553,7 +553,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 if (besoinXCas){
                     // On charge le javascript de XCas
+                    document.getElementById("exercices").innerHTML = `<div class="profile-main-loader">
+                    <div class="loader">
+                      <svg class="circular-loader"viewBox="25 25 50 50" >
+                        <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
+                      </svg>
+                    </div>
+                  </div>`
                     return loadScript("modules/giacsimple.js")
+
                 }
             })
             .then((resolve,reject) => {
