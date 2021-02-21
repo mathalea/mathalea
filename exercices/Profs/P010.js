@@ -40,7 +40,7 @@ export default function variation_polynome_degre3() {
 
 
     let a, b, c, d, a1, b1, c1, a2, xx, xxs, rac = [], t, x1s, fx1s, x3s, x2s
-    let sig1, sig2, s, delta, x1, x2, x3,X1,X2,X3,XXs, f, minima, fxstring, mafonction, maderivee,MaFonction
+    let sig1, sig2, s, delta, x1, x2, x3,X1,X2,X3,XXs, f, minima, fxstring, mafonction, maderivee,MaFonction,solutions
     let YMAXI, YMINI, XMINI, XMAXI, monrepere, macourbe, texte, texte_corr, scalex, scaley
     let coef_f = this.sup.split('/')
     let vecteurs = [], A, B, C, tangente
@@ -518,9 +518,26 @@ export default function variation_polynome_degre3() {
     texte += `${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
     if (this.sup2) {
-      texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs);
+      texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs)+'<br>';
+      solutions=xcas("fsolve("+fxstring+"=0,x)").replace('[','').replace(']','').split(',')
+      if (solutions[0]==""){
+        texte+=`A la vue du tableau de variation de la fonction $f$, il n'y a pas de solution à l'équation $f(x)=0$.`
+      }
+      else {
+      texte +=`Par lecture graphique on peut lire les solutions de $f(x)=0$ : `
+        if (solutions.length==1) {
+          texte+=`$x\\approx${arrondi_virgule(solutions[0],1)}$`
+        }
+        else {
+          if (solutions.length==2) {
+            texte += `$x\\approx${arrondi_virgule(solutions[0],1)}$ et $x\\approx${arrondi_virgule(solutions[1],1)}$`
+          }
+          else {
+            texte += `$x\\approx${arrondi_virgule(solutions[0],1)}$, $x\\approx${arrondi_virgule(solutions[1],1)}$ et $x\\approx${arrondi_virgule(solutions[2],1)}$`
+          }
+        }
     }
-
+  }
 
     texte_corr = ``;
 
