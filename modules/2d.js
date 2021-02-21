@@ -7816,7 +7816,13 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     }
   };
   this.tikz = function () {
-    let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
+    //let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
+    let code;
+    if (colorBackground!=''){
+      code = `\\draw (${A.x},${A.y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
+    } else {
+      code = `\\draw (${A.x},${A.y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
+    };    
     return code;
   };
 }
@@ -8325,25 +8331,25 @@ export function mathalea2d(
       };  
     }
     if (scale == 1) {
-      if (listeOptionsTikz.length==0) {
-        code = `\\begin{tikzpicture}[baseline]\n`;
-      } else {
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline]\n`;
+      // } else {
         code = `\\begin{tikzpicture}[baseline`;
         for (let l=0;l<listeOptionsTikz.length;l++) {
           code += `,${listeOptionsTikz[l]}`;
         }
         code += `]\n`;  
-      }      
+      //}      
     } else {
-      if (listeOptionsTikz.length==0) {
-        code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
-      } else {
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
+      // } else {
         code = `\\begin{tikzpicture}[baseline,scale = ${scale}`;
         for (let l=0;l<listeOptionsTikz.length;l++) {
           code += `,${listeOptionsTikz[l]}`;
         }
         code += `]\n`;  
-      }
+      //}
     }
 
     code += `
