@@ -8278,7 +8278,7 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
  */
 
 export function mathalea2d(
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale=1, optionsTikz = [], mainlevee = false, amplitude = 1 } = {},
+  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale=1, optionsTikz , mainlevee = false, amplitude = 1 } = {},
   ...objets
 ) {
   let code = "";
@@ -8311,27 +8311,34 @@ export function mathalea2d(
     code += `\n</svg>`;
     code = code.replace(/\\thickspace/gm, ' ')
     //		pixelsParCm = 20;
-  } else {    
+  } else {        
     // si scale existe autre que 1 il faut que le code reste comme avant
     // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
     // de cette manière d'autres options Tikz pourront aussi être ajoutées
+    // si il n'y a qu'une optionsTikz on peut passer un string
+    let listeOptionsTikz = [];
+    if (typeof optionsTikz === "string" ) {
+      listeOptionsTikz.push(optionsTikz);
+    } else {
+      optionsTikz.forEach(e => listeOptionsTikz.push(e))
+    };
     if (scale == 1) {
-      if (optionsTikz.length==0) {
+      if (listeOptionsTikz.length==0) {
         code = `\\begin{tikzpicture}[baseline]\n`;
       } else {
         code = `\\begin{tikzpicture}[baseline`;
-        for (let l=0;l<optionsTikz.length;l++) {
-          code += `,${optionsTikz[l]}`;
+        for (let l=0;l<listeOptionsTikz.length;l++) {
+          code += `,${listeOptionsTikz[l]}`;
         }
         code += `]\n`;  
       }      
     } else {
-      if (optionsTikz.length==0) {
+      if (listeOptionsTikz.length==0) {
         code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
       } else {
         code = `\\begin{tikzpicture}[baseline,scale = ${scale}`;
-        for (let l=0;l<optionsTikz.length;l++) {
-          code += `,${optionsTikz[l]}`;
+        for (let l=0;l<listeOptionsTikz.length;l++) {
+          code += `,${listeOptionsTikz[l]}`;
         }
         code += `]\n`;  
       }
