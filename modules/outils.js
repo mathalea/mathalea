@@ -1299,7 +1299,6 @@ export function reduire_polynome_degre3(a, b, c, d) {
 			}
 
 	}
-	console.log(result)
 	return result
 }
 

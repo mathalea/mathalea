@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif } from "/modules/outils.js"
+import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif ,xcas} from "/modules/outils.js"
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '/modules/2d.js';
 /**
  * Description didactique de l'exercice
@@ -19,7 +19,8 @@ export default function variation_polynome_degre3() {
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.liste_packages = 'tkz-tab'
-
+  this.type_exercice='XCas'
+  
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -38,10 +39,8 @@ export default function variation_polynome_degre3() {
     // reste à faire les types 'Ima', 'Val' et 'Slope"
 
 
-
-
     let a, b, c, d, a1, b1, c1, a2, xx, xxs, rac = [], t, x1s, fx1s, x3s, x2s
-    let sig1, sig2, s, delta, x1, x2, x3, f, minima, fxstring, mafonction, maderivee
+    let sig1, sig2, s, delta, x1, x2, x3,X1,X2,X3,XXs, f, minima, fxstring, mafonction, maderivee,MaFonction
     let YMAXI, YMINI, XMINI, XMAXI, monrepere, macourbe, texte, texte_corr, scalex, scaley
     let coef_f = this.sup.split('/')
     let vecteurs = [], A, B, C, tangente
@@ -54,62 +53,28 @@ export default function variation_polynome_degre3() {
       else if (delta == 0) {
         return [-b0 / 2 / a0]
       }
-      x1 = (-b0 + Math.sqrt(delta)) / 2 / a0
-      x3 = (-b0 - Math.sqrt(delta)) / 2 / a0
-      s = unSiPositifMoinsUnSinon(a0)
-      sig1 = signe(s)
-      sig2 = signe(-s)
-      if (b0 != 0) {
-        if (b0 % 2 == 0) {
-          if (a0 != 1 && a0 != -1) {
-            x1s = math.parse(`(${-b0 * s / 2}${sig1}sqrt(${delta}))/${Math.abs(a0)}`).toTex()
-            x3s = math.parse(`(${-b0 * s / 2}${sig2}sqrt(${delta}))/${Math.abs(a0)}`).toTex()
-          }
-          else {
-            x1s = math.parse(`${-b0 * s / 2}${sig1}sqrt(${delta})`).toTex()
-            x3s = math.parse(`${-b0 * s / 2}${sig2}sqrt(${delta})`).toTex()
-          }
-        }
-        else {
-          x1s = math.parse(`(${-s*b0}${sig1}sqrt(${delta}))/${2 * s*a0}`).toTex()
-          x3s = math.parse(`(${-s*b0}${sig2}sqrt(${delta}))/${2 * s*a0}`).toTex()
-        }
-      }
-      else {
-        if (b0 % 2 == 0) {
-          if (a0 != 1 && a0 != -1) {
-            if (sig1 == '-') x1s = math.parse(`${sig1}sqrt(${delta})/${Math.abs(a0)}`).toTex()
-            if (sig1 == '-') x1s = math.parse(`${sig1}sqrt(${delta})/${Math.abs(a0)}`).toTex()
-
-            x3s = math.parse(`${sig2}sqrt(${delta})/${Math.abs(a0)}`).toTex()
-          }
-          else {
-            if (sig1 == '-') x1s = math.parse(`-sqrt(${delta})`).toTex()
-            else x1s = math.parse(`sqrt(${delta})`).toTex()
-            if (sig2 == '-') x3s = math.parse(`-sqrt(${delta})`).toTex()
-            else x3s = math.parse(`-sqrt(${delta})`).toTex()
-          }
-        }
-        else {
-          if (sig1 == '-') x1s = math.parse(`-sqrt(${delta})/${Math.abs(2 * a0)}`).toTex()
-          else x1s = math.parse(`sqrt(${delta})/${Math.abs(2 * a0)}`).toTex()
-          if (sig2 == '-') x3s = math.parse(`-sqrt(${delta})/${Math.abs(2 * a0)}`).toTex()
-          else x3s = math.parse(`sqrt(${delta})/${Math.abs(2 * a0)}`).toTex()
-        }
-      }
+      x1 = (-b0 - Math.sqrt(delta)) / 2 / a0
+      x3 = (-b0 + Math.sqrt(delta)) / 2 / a0
+      X1=`(${-b0}-sqrt(${b0*b0}-${4*a0*c0}))/${2*a0}`
+      X3=`(${-b0}+sqrt(${b0*b0}-${4*a0*c0}))/${2*a0}`
+      x1s=xcas(`simplify((${-b0}-sqrt(${delta}))/${2*a0})`)
+      x3s=xcas(`simplify((${-b0}+sqrt(${delta}))/${2*a0})`)
       if (x3 < x1) { // on ordonne les racines de f'
         xx = x3
         xxs = x3s
+        XXs=X3
         x3 = x1
         x3s = x1s
+        X3=X1
         x1 = xx
         x1s = xxs
+        X1=XXs
       }
-      x1s = x1s.replace('\\left(', '')
-      x1s = x1s.replace('\\right)', '')
-      x3s = x3s.replace('\\left(', '')
-      x3s = x3s.replace('\\right)', '')
-      return [x1, x3, x1s, x3s]
+      x1s = x1s.replace('(', '')
+      x1s = x1s.replace(')', '')
+      x3s = x3s.replace('(', '')
+      x3s = x3s.replace(')', '')
+      return [x1, x3, x1s, x3s,X1,X3]
     }
     a = parseFloat(coef_f[0])
     b = parseFloat(coef_f[1])
@@ -123,20 +88,35 @@ export default function variation_polynome_degre3() {
       c1 = 1 * c
       a2 = 6 * a
       mafonction = x => a * x ** 3 + b * x ** 2 + c * x + d
+      MaFonction=`${a}*x^3+${b}*x^2+${c}x+${d}`
       maderivee = x => 3 * a * x ** 2 + 2 * b * x + c
 
       if (a < 0) {
         if (maderivee(-b / 3 / a) > 0) { // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac = trouver_les_racines(a1, b1, c1)
+     if (this.sup3){
+      
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
-            ['$-\\infty$', 30, `$${rac[2]}$`, 50, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
+            colorBackground: 'white', escpl: 5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[30,20,30],
+            tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 1.5, 60]],
+            ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
+            tabLines:
+              [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
+              ['Var', 10, '+/$+\\infty$', 30, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '-/$-\\infty$', 30]
+              ]
+          })
+        }
+        else {
+          t = tableau_de_variation({
+            colorBackground: 'white', escpl: 5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[30,20,30],
+            tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 1.5, 60]],
+            ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
               ['Var', 10, '+/$+\\infty$', 30, `-/$${arrondi_virgule(mafonction(rac[0]))}$`, 50, `+/$${arrondi_virgule(mafonction(rac[1]))}$`, 50, '-/$-\\infty$', 30]
               ]
           })
+        }
           XMINI = Math.round(rac[0]) - 2
           XMAXI = Math.round(rac[1]) + 2
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
@@ -170,7 +150,7 @@ export default function variation_polynome_degre3() {
         }
         else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 5, delatcl: 0.8, lgt: 3.5,
+            colorBackground: 'white', escpl: 5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[30,20,30],
             tabInit: [[['$x$', 1.5, 10], ["$f'(x)$", 1, 30], ["$f(x)$", 2, 25]],
             ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
@@ -198,7 +178,7 @@ export default function variation_polynome_degre3() {
       else {
         if (maderivee(-b / 3 / a) > 0) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, deltacl: 0.6, lgt: 3.5,
+            colorBackground: 'white', escpl: 3.5, deltacl: 0.6, lgt: 3.5,hauteurLignes:[30,20,30],
             tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
             ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
@@ -223,6 +203,18 @@ export default function variation_polynome_degre3() {
         }
         else {// la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouver_les_racines(a1, b1, c1)
+          if (this.sup3){
+          t = tableau_de_variation({
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
+            tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            ['$-\\infty$', 30, `$${arrondi_virgule(rac[0])}$`, 60, `$${arrondi_virgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+            tabLines:
+              [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
+              ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
+              ]
+          })
+        }
+        else {
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
             tabInit: [[['$x$', 1.5, 20], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
@@ -232,7 +224,7 @@ export default function variation_polynome_degre3() {
               ['Var', 10, '-/$-\\infty$', 30, `+/$${arrondi_virgule(mafonction(rac[0]))}$`, 50, `-/$${arrondi_virgule(mafonction(rac[1]))}$`, 50, '+/$+\\infty$', 30]
               ]
           })
-
+        }
           XMINI = Math.round(rac[0]) - 2
           XMAXI = Math.round(rac[1]) + 2
           YMINI = Math.min(Math.round(mafonction(XMINI)), Math.round(mafonction(XMAXI)), Math.round(mafonction(rac[0])), Math.round(mafonction(rac[1])))
@@ -509,7 +501,6 @@ export default function variation_polynome_degre3() {
     scalex = Math.abs(10 / (XMAXI - XMINI))
     scaley = calcul(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
 
-    console.log(XMINI, XMAXI, YMINI, YMAXI, pas)
 
     monrepere = repere2({
       xUnite: scalex,
@@ -525,7 +516,7 @@ export default function variation_polynome_degre3() {
     macourbe = courbe2(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
     texte = 'Étude des variations de la fonction $f(x)='
     texte += `${printlatex(fxstring)}$.<br>`
-    texte += mathalea2d({ xmin: 0, ymin: -7, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
+    texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, t);
     if (this.sup2) {
       texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs);
     }
@@ -540,6 +531,7 @@ export default function variation_polynome_degre3() {
   };
   this.besoin_formulaire_texte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple'];
   this.besoin_formulaire2_case_a_cocher = ['Représentation graphique', true]
+  this.besoin_formulaire3_case_a_cocher = ['Valeurs exactes',false]
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
