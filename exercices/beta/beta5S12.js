@@ -86,7 +86,7 @@ export default function Construire_Un_Diagramme() {
         }
         contenutableau.push(`180\\degree`)
     
-        texte_corr+=`${tab_C_L(entete, ['\\text{Éffectifs}','\\text{Fréquences}','\\text{Angles}'], contenutableau)}<br>`
+        texte_corr+=`${tab_C_L(entete, ['\\text{Éffectifs}','\\text{Fréquences}','\\text{Angles}'], contenutableau,3)}<br>`
         objets_enonce = []
         objets_correction = []
 
