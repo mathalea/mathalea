@@ -8398,6 +8398,14 @@ export function mathalea2d(
   }
   return code;
 }
+export function motifs(index){
+  switch (index) {
+    case 0: return 'north east lines'
+    case 1: return 'horizontal lines'
+    case 2: return 'vertical lines'
+    default : return 'north east lines'
+  }
+}
 
 function pattern({motif='north east lines',id,distanceDesHachures=10,epaisseurDesHachures=1,couleurDesHachures='black',couleurDeRemplissage='none',opaciteDeRemplissage=0.5}){
   let myPattern = ''
@@ -8450,7 +8458,7 @@ function pattern({motif='north east lines',id,distanceDesHachures=10,epaisseurDe
 
       break
      }
-    return `pattern = ${myPattern}`
+    return `${myPattern}`
   }
 }
 /**
