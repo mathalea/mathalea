@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu_sans_numero,texcolors, combinaison_listes, tab_C_L, choice, randint } from "/modules/outils.js"
-import { mathalea2d,arc,point,rotation,motifs,tracePoint} from "/modules/2d.js"
+import { liste_de_question_to_contenu_sans_numero,texcolors,arrondi_virgule,tex_fraction_reduite, combinaison_listes, tab_C_L, choice, randint } from "/modules/outils.js"
+import { mathalea2d,arc,point,rotation,motifs,tracePoint,vecteur,translation,carre,texteParPosition} from "/modules/2d.js"
 
 /**
  * @Auteur Jean-Claude Lhote
@@ -28,7 +28,7 @@ export default function Construire_Un_Diagramme() {
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
         let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
         let lstNombresAnimaux = []; // liste des effectifs de chaque animal
-        let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
+        let lstVal = [10, 20]; // liste des valeurs à éviter pour les effectifs
 
         let objets_enonce, objets_enonceml, objets_correction, params_enonce, params_correction
         let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
@@ -47,18 +47,22 @@ export default function Construire_Un_Diagramme() {
         switch (parseInt(this.sup2)) {
             case 1:
                 for (let i = 0; i < nbAnimaux; i++) {
-                    N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+                    N = randint(10, 50, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
                     lstNombresAnimaux.push(N);
                     lstVal = lstVal.concat([N - 1, N, N + 1]); // valeurs à supprimer pour éviter des valeurs proches
                 }
                 break;
             case 2:
                 for (let i = 0; i < nbAnimaux; i++) {
-                    N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+                    N = randint(10, 50, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
                     lstNombresAnimaux.push(10 * N);
                     lstVal = lstVal.concat([N - 1, N, N + 1]); // valeurs à supprimer pour éviter des valeurs proches
                 }
                 break;
+        }
+        let effectiftotal=0
+        for (let i=0;i<nbAnimaux;i++){
+            effectiftotal+=lstNombresAnimaux[i]
         }
         for (let i = 0; i < nbAnimaux; i++) {
             nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
@@ -67,34 +71,54 @@ export default function Construire_Un_Diagramme() {
         }
         texte += `${tab_C_L(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br>`
         texte+=`Représenter ces données par un diagramme semi-circulaire.<br>`
-
+        entete.push('\\text{Total}')
+        let contenutableau=[]
+        for (let i=0;i<nbAnimaux;i++){
+            contenutableau.push(lstNombresAnimaux[i])
+        }
+       contenutableau.push(effectiftotal)
+        for (let i=0;i<nbAnimaux;i++){
+            contenutableau.push(tex_fraction_reduite(lstNombresAnimaux[i],effectiftotal)+'\\approx '+arrondi_virgule(lstNombresAnimaux[i]/effectiftotal,2))
+        }
+        contenutableau.push('1')
+        for (let i=0;i<nbAnimaux;i++){
+            contenutableau.push(`${tex_fraction_reduite(lstNombresAnimaux[i],effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i]*180/effectiftotal)}\\degree`)
+        }
+        contenutableau.push(`180\\degree`)
+    
+        texte_corr+=`${tab_C_L(entete, ['\\text{Effectifs}','\\text{Fréquences à 0,01 près}','\\text{Angles à }1\\degree\\text{ près}'], contenutableau)}<br>`
         objets_enonce = []
         objets_correction = []
-        let effectiftotal=0
-        for (let i=0;i<nbAnimaux;i++){
-            effectiftotal+=lstNombresAnimaux[i]
-        }
+
         let A=point(0,0)
         let B=point(6,0)
+        let T=point(7,0)
         let a0=arc(B,A,180,true,'white','black')
         objets_enonce.push(a0)
         objets_correction.push(a0)
         let alpha=0;
-        let angle,a
+        let angle,a,legende,textelegende
         let t=tracePoint(A)
         t.style='+'
         objets_enonce.push(t)
         objets_correction.push(t)
+    
         for (let i=0;i<nbAnimaux;i++){
             angle=180*lstNombresAnimaux[i]/effectiftotal
             a=arc(rotation(B,A,alpha),A,angle,true,texcolors(i+1),'black',0.3)
             a.hachures=motifs(i)
             objets_correction.push(a)
             alpha+=angle
+            legende=carre(translation(T,vecteur(0,1.5*i)),translation(T,vecteur(1,1.5*i)),'black')
+            legende.couleurDeRemplissage=texcolors(i+1)
+            legende.hachures=motifs(i)
+            legende.opaciteDeRemplissage=0.3
+            textelegende=texteParPosition(lstAnimauxExo[i],8.5,i*1.5+.5,0,'black',1.5,'left',false)
+            objets_correction.push(legende,textelegende)
         }
 
          params_enonce = { xmin:-6.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false}
-        params_correction = { xmin:-6.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false}
+        params_correction = { xmin:-6.5, ymin: -0.5, xmax: 18, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false}
         texte += mathalea2d(params_enonce, objets_enonce)
         texte_corr += mathalea2d(params_correction, objets_correction)
         this.liste_questions.push(texte);
