@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu_sans_numero,texcolors,arrondi_virgule,tex_fraction_reduite, combinaison_listes, tab_C_L, choice, randint } from "/modules/outils.js"
+import { liste_de_question_to_contenu_sans_numero,texcolors,arrondi_virgule,tex_fraction, combinaison_listes, tab_C_L, choice, randint } from "/modules/outils.js"
 import { mathalea2d,arc,point,rotation,motifs,tracePoint,vecteur,translation,carre,texteParPosition} from "/modules/2d.js"
 
 /**
@@ -16,7 +16,7 @@ export default function Construire_Un_Diagramme() {
     this.nb_cols_corr = 1;
     this.pas_de_version_LaTeX = false
     this.pas_de_version_HMTL = false
-    this.sup = 1;
+    this.sup = 3;
     this.sup2 = 1;
     //  this.sup3 = false;
     this.nouvelle_version = function () {
@@ -39,9 +39,9 @@ export default function Construire_Un_Diagramme() {
         texte_corr=''
         let entete = ['\\text{Animaux}']
         switch (parseInt(this.sup)) {
-            case 1: nbAnimaux = 4; break;
-            case 2: nbAnimaux = 5; break;
-            case 3: nbAnimaux = 6; break;
+            case 1: nbAnimaux = 2; break;
+            case 2: nbAnimaux = 3; break;
+            case 3: nbAnimaux = 4; break;
             default: nbAnimaux = 4;
         }
         switch (parseInt(this.sup2)) {
@@ -78,15 +78,15 @@ export default function Construire_Un_Diagramme() {
         }
        contenutableau.push(effectiftotal)
         for (let i=0;i<nbAnimaux;i++){
-            contenutableau.push(tex_fraction_reduite(lstNombresAnimaux[i],effectiftotal)+'\\approx '+arrondi_virgule(lstNombresAnimaux[i]/effectiftotal,2))
+            contenutableau.push(tex_fraction(lstNombresAnimaux[i],effectiftotal)+'\\approx '+arrondi_virgule(lstNombresAnimaux[i]/effectiftotal,2))
         }
         contenutableau.push('1')
         for (let i=0;i<nbAnimaux;i++){
-            contenutableau.push(`${tex_fraction_reduite(lstNombresAnimaux[i],effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i]*180/effectiftotal)}\\degree`)
+            contenutableau.push(`${tex_fraction(lstNombresAnimaux[i],effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i]*180/effectiftotal)}\\degree`)
         }
         contenutableau.push(`180\\degree`)
     
-        texte_corr+=`${tab_C_L(entete, ['\\text{Effectifs}','\\text{Fréquences à 0,01 près}','\\text{Angles à }1\\degree\\text{ près}'], contenutableau)}<br>`
+        texte_corr+=`${tab_C_L(entete, ['\\text{Éffectifs}','\\text{Fréquences}','\\text{Angles}'], contenutableau)}<br>`
         objets_enonce = []
         objets_correction = []
 
@@ -97,7 +97,7 @@ export default function Construire_Un_Diagramme() {
         objets_enonce.push(a0)
         objets_correction.push(a0)
         let alpha=0;
-        let angle,a,legende,textelegende
+        let angle,a,legende,textelegende,hachures
         let t=tracePoint(A)
         t.style='+'
         objets_enonce.push(t)
@@ -105,27 +105,28 @@ export default function Construire_Un_Diagramme() {
     
         for (let i=0;i<nbAnimaux;i++){
             angle=180*lstNombresAnimaux[i]/effectiftotal
-            a=arc(rotation(B,A,alpha),A,angle,true,texcolors(i+1),'black',0.3)
-            a.hachures=motifs(i)
+            a=arc(rotation(B,A,alpha),A,angle,true,texcolors(i+1),'black',0.7)
+            hachures=motifs(randint(0,10))
+            a.hachures=hachures
             objets_correction.push(a)
             alpha+=angle
             legende=carre(translation(T,vecteur(0,1.5*i)),translation(T,vecteur(1,1.5*i)),'black')
             legende.couleurDeRemplissage=texcolors(i+1)
-            legende.hachures=motifs(i)
-            legende.opaciteDeRemplissage=0.3
+            legende.hachures=hachures
+            legende.opaciteDeRemplissage=0.7
             textelegende=texteParPosition(lstAnimauxExo[i],8.5,i*1.5+.5,0,'black',1.5,'left',false)
             objets_correction.push(legende,textelegende)
         }
 
          params_enonce = { xmin:-6.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false}
-        params_correction = { xmin:-6.5, ymin: -0.5, xmax: 18, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false}
+        params_correction = { xmin:-6.5, ymin: -0.5, xmax: 20, ymax: 6.5+nbAnimaux-4, pixelsParCm: 20, scale: 1, mainlevee: false}
         texte += mathalea2d(params_enonce, objets_enonce)
         texte_corr += mathalea2d(params_correction, objets_correction)
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         liste_de_question_to_contenu_sans_numero(this); // On envoie l'exercice à la fonction de mise en page
     };
-    this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+    this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 2 espèces\n choix 2 : 3 espèces\n choix 3 : 4 espèces`];
     this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
     // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
 
