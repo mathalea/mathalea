@@ -1,5 +1,4 @@
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondi_virgule, calcul, lettre_depuis_chiffre, tex_nombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from "/modules/outils.js"
-import { fraction } from "/modules/Fractions.js"
 
 /*
   MathALEA2D
@@ -922,8 +921,8 @@ function ConstructionMediatrice(
   let O = milieu(A, B);
   let m = rotation(A, O, 90);
   let n = rotation(A, O, -90);
-  let M = pointSurSegment(O, m, longueur(A, B) * 0.75);
-  let N = pointSurSegment(O, n, longueur(A, B) * 0.75);
+  let M = pointSurSegment(O, m, longueur(A, B) * 0.785);
+  let N = pointSurSegment(O, n, longueur(A, B) * 0.785);
   let arcm1 = traceCompas(A, M);
   let arcm2 = traceCompas(B, M);
   let arcn1 = traceCompas(A, N);
@@ -1377,7 +1376,7 @@ function NomVecteurParPosition(nom, x, y, taille = 1, angle = 0, color = 'black'
   let s, t, M1, M0, M2, M, P, V
   t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'middle', true)
   M = point(this.x, this.y)
-  P = point(M.x + 0.7 * this.nom.length, M.y)
+  P = point(M.x + 1.1 * this.nom.length, M.y)
   M0 = similitude(P, M, 90 + this.angle, 0.5 / this.nom.length)
   M1 = translation(M0, vecteur(P, M))
   M2 = translation(M0, vecteur(M, P))
@@ -1730,7 +1729,7 @@ export function demiDroiteAvecExtremite(A, B, color = "black") {
 function Polygone(...points) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
-  this.opaciteDeRemplissage = 0.7;
+  this.opaciteDeRemplissage = 1.1;
   this.hachures = "";
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
@@ -1778,37 +1777,18 @@ function Polygone(...points) {
       }
 
     }
-    let pattern = ''
     if (this.hachures) {
       if (this.couleurDeRemplissage.length<1){
         this.couleurDeRemplissage = "none"
       }
-      switch (this.hachures) {
-        case 'north east lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        case 'horizontal lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="${calcul(this.distanceDesHachures/2)}" x2="${calcul(this.distanceDesHachures)}" y2="${calcul(this.distanceDesHachures/2)}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        case 'vertical lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        default :
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-      }
-      return pattern + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
+      return pattern({motif:this.hachures,
+        id:this.id,
+        distanceDesHachures:this.distanceDesHachures,
+        epaisseurDesHachures:this.epaisseurDesHachures,
+        couleurDesHachures:this.couleurDesHachures,
+        couleurDeRemplissage:this.couleurDeRemplissage,
+        opaciteDeRemplissage:this.opaciteDeRemplissage,
+      }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
 
     } else {
       if (this.couleurDeRemplissage == "") {
@@ -1820,7 +1800,7 @@ function Polygone(...points) {
       if (this.opacite != 1) {
         this.style += ` stroke-opacity="${this.opacite}" `;
       }
-      return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
+      return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`;
     }
   };
   this.tikz = function () {
@@ -1860,10 +1840,15 @@ function Polygone(...points) {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
     if (this.hachures) {
-      if (['north east lines','horizontal lines','vertical lines'].includes(this.hachures)){
-        tableauOptions.push(`pattern = ${this.hachures}`)
-      } else {
-        tableauOptions.push(`pattern = north east lines`)
+      if (this.hachures) {
+        tableauOptions.push(pattern({motif:this.hachures,
+          id:this.id,
+          distanceDesHachures:this.distanceDesHachures,
+          epaisseurDesHachures:this.epaisseurDesHachures,
+          couleurDesHachures:this.couleurDesHachures,
+          couleurDeRemplissage:this.couleurDeRemplissage,
+          opaciteDeRemplissage:this.opaciteDeRemplissage,
+        }))
       }
     }
     let optionsDraw = [];
@@ -2222,7 +2207,7 @@ function Cercle(O, r, color) {
   this.centre = O;
   this.rayon = r;
   this.couleurDeRemplissage = "";
-  this.opaciteDeRemplissage = 0.7;
+  this.opaciteDeRemplissage = 1.1;
   this.hachures = "";
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
@@ -2252,37 +2237,18 @@ function Cercle(O, r, color) {
 
     }
 
-    let pattern = ''
     if (this.hachures) {
       if (this.couleurDeRemplissage.length<1){
         this.couleurDeRemplissage = "none"
       }
-      switch (this.hachures) {
-        case 'north east lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        case 'horizontal lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(90 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        case 'vertical lines':
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-          break
-        default :
-          pattern += `<pattern id="pattern${this.id}" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="${this.distanceDesHachures}" height="${this.distanceDesHachures}" fill="${this.couleurDeRemplissage}" fill-opacity="${this.opaciteDeRemplissage}"/>
-            <line x1="0" y1="0" x2="0" y2="${this.distanceDesHachures}" style="stroke:${this.couleurDesHachures}; stroke-width:${this.epaisseurDesHachures}" />
-            </pattern>`
-      }
-      return pattern + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
+      return pattern({motif:this.hachures,
+        id:this.id,
+        distanceDesHachures:this.distanceDesHachures,
+        epaisseurDesHachures:this.epaisseurDesHachures,
+        couleurDesHachures:this.couleurDesHachures,
+        couleurDeRemplissage:this.couleurDeRemplissage,
+        opaciteDeRemplissage:this.opaciteDeRemplissage,
+      }) + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`;
     } else {
       if (this.opacite != 1) {
         this.style += ` stroke-opacity="${this.opacite}" `;
@@ -2331,10 +2297,15 @@ function Cercle(O, r, color) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
     if (this.hachures) {
-      if (['north east lines','horizontal lines','vertical lines'].includes(this.hachures)){
-        tableauOptions.push(`pattern = ${this.hachures}`)
-      } else {
-        tableauOptions.push(`pattern = north east lines`)
+      if (this.hachures) {
+        tableauOptions.push(pattern({motif:this.hachures,
+          id:this.id,
+          distanceDesHachures:this.distanceDesHachures,
+          epaisseurDesHachures:this.epaisseurDesHachures,
+          couleurDesHachures:this.couleurDesHachures,
+          couleurDeRemplissage:this.couleurDeRemplissage,
+          opaciteDeRemplissage:this.opaciteDeRemplissage,
+        }))
       }
     }
     if (tableauOptions.length > 0) {
@@ -2405,7 +2376,7 @@ function Ellipse(O, rx, ry, color) {
   this.rx = rx;
   this.ry = ry;
   this.couleurDeRemplissage = "";
-  this.opaciteDeRemplissage = 0.7;
+  this.opaciteDeRemplissage = 1.1;
   this.svg = function (coeff) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
@@ -2703,6 +2674,10 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
+  this.hachures = "";
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1;
+  this.distanceDesHachures = 10;
   if (typeof (angle) != 'number') {
     angle = arrondi(angleOriente(M, Omega, angle), 1)
   }
@@ -2752,14 +2727,32 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
       }
 
     }
+    if (this.hachures) {
+      if (this.couleurDeRemplissage.length<1){
+        this.couleurDeRemplissage = "none"
+      }
+ 
+      return pattern({motif:this.hachures,
+        id:this.id,
+        distanceDesHachures:this.distanceDesHachures,
+        epaisseurDesHachures:this.epaisseurDesHachures,
+        couleurDesHachures:this.couleurDesHachures,
+        couleurDeRemplissage:this.couleurDeRemplissage,
+        opaciteDeRemplissage:this.opaciteDeRemplissage,
+      }) +`<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff, 1)} ${arrondi(l * coeff, 1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+  }
+  else {
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     if (this.couleurDeRemplissage != 'none') {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
     }
+    
     return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff, 1)} ${arrondi(l * coeff, 1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+
   }
+}
   else this.svg = function (coeff) {
     this.style = ``
     if (this.epaisseur != 1) {
@@ -2826,6 +2819,17 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     }
     if (rayon && fill != 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+     
+    }
+    if (this.hachures) {
+      tableauOptions.push(pattern({motif:this.hachures,
+        id:this.id,
+        distanceDesHachures:this.distanceDesHachures,
+        epaisseurDesHachures:this.epaisseurDesHachures,
+        couleurDesHachures:this.couleurDesHachures,
+        couleurDeRemplissage:this.couleurDeRemplissage,
+        opaciteDeRemplissage:this.opaciteDeRemplissage,
+      }))
     }
     if (tableauOptions.length > 0) {
       optionsDraw = "[" + tableauOptions.join(',') + "]"
@@ -2970,7 +2974,7 @@ export function traceCompas(
   A,
   angle = 20,
   color = "gray",
-  opacite = 0.7,
+  opacite = 1.1,
   epaisseur = 1,
   pointilles = false
 ) {
@@ -3144,7 +3148,7 @@ export function droiteMainLevee(A, B, amp, color = 'black', epaisseur = 1) {
 function PolygoneMainLevee(points, amp) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
-  this.opaciteDeRemplissage = 0.7;
+  this.opaciteDeRemplissage = 1.1;
   // Le premier argument (points) doit être un tableau de points !!!
   this.listePoints = points;
   //     this.nom = this.listePoints.join();
@@ -3912,7 +3916,7 @@ export function affiniteOrtho(A, d, k, nom = "", positionLabel = "above") {
  * @param {number} k // le rapport de l'homothétie
  * @param {string} nom
  * @param {string} positionLabel
- * M = similitude(B,O,30,0.7,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 0.7
+ * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
  * @Auteur Jean-Claude Lhote
  */
 export function similitude(A, O, a, k, nom = "", positionLabel = "above") {
@@ -5109,7 +5113,7 @@ function DroiteGraduee2({
   this.Max = Max;
 
   let objets = [], S, T, P, i;
-  let longueurTotale = (Max - Min) * Unite + 0.7;
+  let longueurTotale = (Max - Min) * Unite + 1.1;
   let absord = [1, 0];
   if (axePosition != 'H') absord = [0, 1]
   if (axeStyle == '->') {
@@ -5630,7 +5634,7 @@ function Repere({
   grilleHorizontaleVisible = false,
   grillePrincipaleDistance = 1,
   grillePrincipaleColor = "gray",
-  grillePrincipaleOpacite = 0.7,
+  grillePrincipaleOpacite = 1.1,
   grillePrincipalePointilles = false,
   grillePrincipaleVisible = true,
   grilleSecondaireDistance = 0.1,
@@ -6038,6 +6042,7 @@ function Repere2({
   axeX.styleExtremites = axeXStyle;
   axeX.color = axesCouleur;
   let abscisseAxe = Math.max(0, xMin)
+  let labelysize
   let axeY = segment(calcul(abscisseAxe * xUnite), calcul(yMin * yUnite), calcul(abscisseAxe * xUnite), calcul(yMax * yUnite));
   axeY.epaisseur = axesEpaisseur;
   axeY.styleExtremites = axeYStyle;
@@ -6075,7 +6080,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - .5)
+    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.3,'black',30,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6084,7 +6089,13 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (let y of yLabelListe) {
-    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - .5, calcul(y * yUnite), 'gauche')
+    if (y<0) {
+      labelysize=0.18*(Math.ceil(Math.log10(-y+1))+1)
+    }
+    else {
+      labelysize=0.18*Math.ceil(Math.log10(y+1))
+    }
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.2 , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6358,7 +6369,7 @@ export function traceGraphiqueCartesien(...args) {
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0 
  */
-function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes }) {
+function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes ,colorBackground}) {
 
   ObjetMathalea2D.call(this)
   this.tabInit = tabInit
@@ -6371,7 +6382,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
   if (hauteurLignes.length != 0) { // On récupère les hauteurs de lignes
     this.hauteurLignes = hauteurLignes
   }
-  else { // Si elles ne sont pas définies, on met 14 par défaut
+  else { // Si elles ne sont pas définies, on met 20 par défaut
     for (let i = 0; i < tabInit[0].length; i++) {
       this.hauteurLignes.push(20)
     }
@@ -6381,13 +6392,10 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     let tabInit0 = this.tabInit[0]
     let tabInit1 = this.tabInit[1]
     let tabLines = this.tabLines
-    let lignes, colones // tableaux contenant les différentes chaines à écrire
-    let nb_lignes, nbcolones
     let yLine = 0
-    let segments = [], index = 0, textes = [], texte, long, s, p, v, A, B, fleches = [], codeVar = [], ZI = [], ZIon, zonesEstInterdit = []
+    let segments = [], index = 0, textes = [], texte, long, s, p, v, fleches = [], codeVar = [], ZI = [], ZIon, zonesEstInterdit = []
     let code = ""
-    let longueurTotale = this.lgt + (tabInit1.length / 2 - 1) * escpl + 2 * deltacl
-
+    let longueurTotale = this.lgt + (tabInit1.length / 2 - 1) * escpl + 2 * this.deltacl
     let MathToSVG = function (string) { // fonction qui traduit si possible la chaine Latex en un tableau de chaine
       // un seul élément si c'est du texte ou un nombre
       // deux éléments si il y a un signe - et du texte
@@ -6407,12 +6415,12 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
         segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
 
         texte = tabInit0[0][0]
-        long = tabInit0[0][1]
-        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0]))
+        long = tabInit0[0][2]
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0],colorBackground))
         for (let j = 0; j < tabInit1.length / 2; j++) {
           texte = tabInit1[j * 2]
           long = tabInit1[j * 2 + 1]
-          textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0]))
+          textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl * j, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0],colorBackground))
         }
         yLine -= tabInit0[0][1] * this.hauteurLignes[0] / 14
       }
@@ -6424,7 +6432,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             i++
             long = tabInit0[i][2]
             //            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt/2, yLine-tabInit0[i][1]*this.hauteurLignes[i]/28,'black',long,this.hauteurLignes[i] ))
-            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i]))
+            textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i],colorBackground))
 
             for (let k = 1; k < tabLines[index].length / 2; k++) {
               if (tabLines[index][k * 2] != "") {
@@ -6433,7 +6441,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                 if (texte.length == 1) {
                   switch (texte[0]) {
                     case 'z':
-                      textes.push(latexParCoordonnees('0', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
+                      textes.push(latexParCoordonnees('0', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i],colorBackground))
                       s = segment(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine, this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                       s.pointilles = 4
                       segments.push(s)
@@ -6456,11 +6464,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                       segments.push(p)
                       break
                     case '+':
-                      textes.push(latexParCoordonnees('+', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
+                      textes.push(latexParCoordonnees('+', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i],colorBackground))
 
                       break
                     case '-':
-                      textes.push(latexParCoordonnees('-', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', 10, this.hauteurLignes[i]))
+                      textes.push(latexParCoordonnees('-', this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i],colorBackground))
 
                       break
                   }
@@ -6469,7 +6477,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                   // textes.push(latexParCoordonnees(texte, this.lgt + this.deltacl + this.escpl/2 * (k - 0.6), yLine-tabInit0[i][1] / 2))
                 }
                 else {
-                  textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i]))
+                  textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', long, this.hauteurLignes[i],colorBackground))
                 }
               }
             }
@@ -6489,7 +6497,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             // utilisé pour ajouter les deux points de droite servant à faire le rectangle hachuré/
             zonesEstInterdit = [] // Un tableau pour garder la trace des "zones interdites" où il ne doit pas y avoir de flèches
             for (let k = 1; k < tabLines[index].length / 2; k++) {
-              textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', tabInit0[i][2], this.hauteurLignes[i]))
+              textes.push(latexParCoordonnees(MathToSVG(tabInit0[i][0]), this.lgt / 2, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 28, 'black', tabInit0[i][2], this.hauteurLignes[i],colorBackground))
               if (tabLines[index][k * 2] != "") {
                 texte = tabLines[index][k * 2]
                 long = tabLines[index][k * 2 + 1]
@@ -6501,8 +6509,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                   case 2: // Une seule expression (2 codes séparés par un seul /)
                     switch (codeVar[0]) {
                       case '+': // une expression
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6510,8 +6518,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-': // une expression
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6519,8 +6527,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+C': // une expression sur une double barre (prolongement par continuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6532,8 +6540,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-C': // une expression sur une double barre (prolongement par continuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i]))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6545,8 +6553,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+D': // une expression suivie d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6558,8 +6566,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-D': // une expression suivie d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6571,22 +6579,22 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+H': // une expression suivie d’une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                         ZIon = true
                         zonesEstInterdit.push(true)
                         break
                       case '-H': // une expression suivie d’une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i]))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                         ZIon = true
                         zonesEstInterdit.push(true)
                         break
                       case 'D-': //expression précédée d'une double barre discontinuité 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6598,8 +6606,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case 'D+'://expression précédée d'une double barre discontinuité
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6611,8 +6619,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-DH': //expression suivie d'une double barre discontinuité et d'une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6622,8 +6630,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(true)
                         break
                       case '+DH': //expression suivie d'une double barre discontinuité et d'une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i]))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6633,8 +6641,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(true)
                         break
                       case '-CH':  //expression sur une double barre discontinuité et d'une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6644,8 +6652,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(true)
                         break
                       case '+CH': //expression sur une double barre discontinuité et d'une zone interdite
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground,colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6660,9 +6668,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                       case '':
                         break
                       case '-CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité) 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6674,9 +6682,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)  
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 14, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 14, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6688,11 +6696,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)  
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6704,11 +6712,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)  
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6720,11 +6728,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6736,11 +6744,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6752,11 +6760,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6768,11 +6776,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6784,9 +6792,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6798,9 +6806,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6812,11 +6820,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6828,11 +6836,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité) 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) - 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
                         segments.push(s)
                         s = segment(this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine, this.lgt + this.deltacl + this.escpl * (k - 1) + 0.05, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14)
@@ -6844,9 +6852,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-V-': // deux expressions 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6854,9 +6862,9 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+V+': // deux expressions 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6864,11 +6872,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '-V+': // deux expressions 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6876,11 +6884,11 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
                         zonesEstInterdit.push(false)
                         break
                       case '+V-': // deux expressions 
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 0.7, 'black', long, this.hauteurLignes[i]))
-                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7, 'black', long, this.hauteurLignes[i]))
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 0.7))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[1]), this.lgt + this.deltacl + this.escpl * (k - 1) - long / 28, yLine - 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        textes.push(latexParCoordonnees(MathToSVG(codeVar[2]), this.lgt + this.deltacl + this.escpl * (k - 1) + long / 28, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1, 'black', long, this.hauteurLignes[i],colorBackground))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - 1.1))
                         zonesEstInterdit.push(true)
-                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 0.7))
+                        fleches.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14 + 1.1))
                         if (ZIon) {
                           ZI.push(point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine), point(this.lgt + this.deltacl + this.escpl * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
                           ZIon = false
@@ -6897,7 +6905,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             }
             for (let n = 0; n < fleches.length - 1; n++) {
               if (!zonesEstInterdit[n]) {
-                v = vecteur(translation(fleches[n], vecteur(1, 0)), translation(fleches[n + 1], vecteur(-1, 0))).representant(translation(fleches[n], vecteur(1, 0)))
+                v = vecteur(translation(fleches[n], vecteur(1.5, 0)), translation(fleches[n + 1], vecteur(-1.5, 0))).representant(translation(fleches[n], vecteur(1.5, 0)))
                 v.styleExtremites = '->'
                 segments.push(v)
               }
@@ -6921,8 +6929,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
           // ['Val',antécédent du début de la flèche, antécédent de la fin de la flèche, position sur la flèche entre 0 et 1, 'antécédent', 'image',long]
             if (tabLines[index][5] != "") {
               long = tabLines[index][6]
-              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][5]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], yLine +0.7+tabLines[index][3]* tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
-              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][4]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], - tabInit0[0][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
+              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][5]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], yLine +1.1+tabLines[index][3]* tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i],colorBackground))
+              textes.push(latexParCoordonnees(MathToSVG(tabLines[index][4]),this.lgt + this.deltacl + this.escpl * (tabLines[index][1] - 1)+1+(this.escpl-2)*(tabLines[index][2] -tabLines[index][1] )*tabLines[index][3], - tabInit0[0][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i],colorBackground))
             }
             index++
             break
@@ -6931,7 +6939,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
               if (tabLines[index][3] != "") {
                 texte = tabLines[index][3]
                 long = tabLines[index][4]
-                textes.push(latexParCoordonnees(MathToSVG(texte),this.lgt + this.deltacl + this.escpl * ((tabLines[index][1] - 1)+(tabLines[index][2] - 1))/2, yLine + tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i]))
+                textes.push(latexParCoordonnees(MathToSVG(texte),this.lgt + this.deltacl + this.escpl * ((tabLines[index][1] - 1)+(tabLines[index][2] - 1))/2, yLine + tabInit0[i][1] * this.hauteurLignes[i] / 28 , 'black', long, this.hauteurLignes[i],colorBackground))
               }
             index++
             break
@@ -6971,28 +6979,40 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     let tabinit1 = this.tabInit[1]
     let type
     for (let i = 0; i < tabinit0.length; i++) {
+      if (tabinit0[i][0].indexOf(',')!=-1){
+        tabinit0[i][0]=`{${tabinit0[i][0]}}`
+      }
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}{`
     for (let i = 0; i < tabinit1.length / 2; i++) {
+      if (tabinit1[i*2].indexOf(',')!=-1){
+        tabinit1[i*2]=`{${tabinit1[i*2]}}`
+      }
       code += ` ${tabinit1[i * 2]},`
     }
     code = code.substring(0, code.length - 1)
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
       type = this.tabLines[i][0]
-      if (type == 'Val' || type == 'Ima') {
+      if (type == 'Val'||type=='Ima'){
         code += `\\tkzTab${type}`
-        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
-          code += `{${this.tabLines[i][j * 2]}}`
+        for (let j = 1; j < this.tabLines[i].length -1; j++) {
+          if (this.tabLines[i][j].indexOf(',')!=-1){
+            this.tabLines[i][j]=`{${this.tabLines[i][j]}}`
+          }
+          code += `{${this.tabLines[i][j]}},`
         }
         code += "\n\t"
       }
-      else {
+      else if (type=='Var'||type=='Line'){
         code += `\\tkzTab${type}{ `
-        for (let j = 1; j < this.tabLines[i].length / 2; j++) {
-          code += ` ${this.tabLines[i][j * 2]},`
+        for (let j = 2; j < this.tabLines[i].length ; j+=2) {
+          if (this.tabLines[i][j].indexOf(',')!=-1){
+            this.tabLines[i][j]=`{${this.tabLines[i][j]}}`
+          }
+          code += ` ${this.tabLines[i][j]},`
         }
         code = code.substring(0, code.length - 1)
         code += `}` + "\n\t"
@@ -7001,8 +7021,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [] }) {
-  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes })
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [],colorBackground='gray' }) {
+  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes,colorBackground:colorBackground })
 }
 
 
@@ -7341,7 +7361,7 @@ function Courbe2(f, {
   } else {
     pas = step;
   }
-  for (let x = xmin; x <= xmax; x = calcul(x + pas)
+  for (let x = xmin; x <= xmax; x += pas
   ) {
     if (f(x) < ymax + .2 && f(x) > ymin - .2) {
       points.push(point(calcul(x * xunite), calcul(f(x) * yunite)));
@@ -7787,13 +7807,26 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   let demiSize = calcul(size/2)
   ObjetMathalea2D.call(this);
   this.color = color;
-  this.svg = function (coeff) {
-    return `<foreignObject style="overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size * 2}" height="50" id="${this.id}" ><div style="margin-left: auto;
+  this.svg = function (coeff) { 
+    if (colorBackground!=''){
+    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
+    }
+    else {
+      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
+      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      $\\color{${color}}{${texte}}$</div></foreignObject>`;
+    }
   };
   this.tikz = function () {
-    let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
+    //let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
+    let code;
+    if (colorBackground!=''){
+      code = `\\draw (${A.x},${A.y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
+    } else {
+      code = `\\draw (${A.x},${A.y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
+    };    
     return code;
   };
 }
@@ -7844,7 +7877,7 @@ function FractionParPosition({ x = 0, y = 0, fraction = fraction(1, 2), couleur 
 
     let code = segment(x, y, calcul(x + longueur / 30 / mathalea.scale, 2), y, couleur).tikz()
     if (signe == -1) {
-      code += segment(calcul(x - ((longueur / 30 + 0.75) / mathalea.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / mathalea.scale / 2), 2), y, couleur).tikz()
+      code += segment(calcul(x - ((longueur / 30 + 0.785) / mathalea.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / mathalea.scale / 2), 2), y, couleur).tikz()
     }
     code += texteParPosition(nombre_avec_espace(num), calcul(x + longueur / 60 / mathalea.scale, 2), calcul(y + offset / 30 / mathalea.scale, 2), "milieu", couleur).tikz()
     code += texteParPosition(nombre_avec_espace(den), calcul(x + longueur / 60 / mathalea.scale, 2), calcul(y - offset / 30 / mathalea.scale, 2), "milieu", couleur).tikz()
@@ -8145,44 +8178,6 @@ export function afficherCrayon(...args) {
   return new AfficherCrayon(...args)
 }
 
-/**
- * Déplace un instrument suivant le vecteur AB
- * 
- * @param {any} instrument 
- * @param {any} A point de départ
- * @param {any} B point d'arrivée
- * @param {number} [begin=0] peut être un nombre de seconde ou la fin d'un évènement précédent avec id.end
- * @param {any} id pour lier les animations
-
- * 
- */
-function TranslationInstrument(instrument, A, B, begin = 0, id) {
-  ObjetMathalea2D.call(this)
-  let v = vecteur(A, B) // vecteur du départ à la cible
-  let texteId = '' // Ajout d'un id facultatif à l'animation
-  if (id === undefined) {
-    texteId = ''
-  } else {
-    texteId = `id="${id}"`
-  }
-  this.svg = function (coeff) {
-    let code = `
-    <line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${A.xSVG(coeff)}" y2="${A.ySVG(coeff)}" stroke="black" > 
-    <animate attributeName="x2" from="${A.xSVG(coeff)}" to="${B.xSVG(coeff)}" begin="${begin}" dur="1s" fill="freeze" /> 
-    <animate attributeName="y2" from="${A.ySVG(coeff)}" to="${B.ySVG(coeff)}" begin="${begin}" dur="1s" fill="freeze" /> 
-    </line> 
-    <animateMotion
-    xlink:href="#${instrument.id}"
-    ${texteId}
-    path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)}"
-    dur="1s"
-    additive="sum"
-    begin="${begin}"
-    fill="freeze" 
-    id="${this.id}"/>`
-    return code
-  }
-}
 
 
 
@@ -8240,6 +8235,8 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
   let fenetreymin = fenetreMathalea2d[3] * -(1)
   let fenetrexmax = fenetreMathalea2d[2]
   let fenetreymax = fenetreMathalea2d[1] * (-1)
+  let sortie=sortie_html
+  sortie_html=false
   if (scale == 1) {
     code += `\\begin{tikzpicture}[baseline]\n`;
   } else {
@@ -8258,6 +8255,7 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
 	\\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
 
 	\n\n`;
+
   for (let objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
@@ -8274,9 +8272,10 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
         if (!mainlevee || typeof (objet.tikzml) == 'undefined') code += "\t" + objet.tikz() + "\n";
         else code += "\t" + objet.tikzml(mathalea.amplitude) + "\n";
       }
-    } catch (error) { }
+    } catch (error) {}
   }
   code += `\\end{tikzpicture}\n`;
+  sortie_html=sortie
   return code;
 }
 
@@ -8287,10 +8286,13 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
  * @Auteur Rémi Angot
+ * 
+ * 
+ * Le paramètre optionsTikz est un tableau de strings contenant exclusivement des options Tikz à ajouter
  */
 
 export function mathalea2d(
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, mainlevee = false, amplitude = 1 } = {},
+  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale=1, optionsTikz , mainlevee = false, amplitude = 1 } = {},
   ...objets
 ) {
   let code = "";
@@ -8323,11 +8325,39 @@ export function mathalea2d(
     code += `\n</svg>`;
     code = code.replace(/\\thickspace/gm, ' ')
     //		pixelsParCm = 20;
-  } else {
+  } else {        
+    // si scale existe autre que 1 il faut que le code reste comme avant
+    // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
+    // de cette manière d'autres options Tikz pourront aussi être ajoutées
+    // si il n'y a qu'une optionsTikz on peut passer un string
+    let listeOptionsTikz = [];
+    if (optionsTikz !== undefined ) {
+      if (typeof optionsTikz === "string" ) {
+        listeOptionsTikz.push(optionsTikz);
+      } else {
+        optionsTikz.forEach(e => listeOptionsTikz.push(e))
+      };  
+    }
     if (scale == 1) {
-      code = `\\begin{tikzpicture}[baseline]\n`;
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline]\n`;
+      // } else {
+        code = `\\begin{tikzpicture}[baseline`;
+        for (let l=0;l<listeOptionsTikz.length;l++) {
+          code += `,${listeOptionsTikz[l]}`;
+        }
+        code += `]\n`;  
+      //}      
     } else {
-      code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
+      // } else {
+        code = `\\begin{tikzpicture}[baseline,scale = ${scale}`;
+        for (let l=0;l<listeOptionsTikz.length;l++) {
+          code += `,${listeOptionsTikz[l]}`;
+        }
+        code += `]\n`;  
+      //}
     }
 
     code += `
@@ -8368,7 +8398,108 @@ export function mathalea2d(
   }
   return code;
 }
+export function motifs(index){
+  switch (index) {
+    case 0: return 'north east lines'
+    case 1: return 'horizontal lines'
+    case 2: return 'vertical lines'
+    case 3: return 'dots'
+    case 4: return 'crosshatch dots'
+    case 5: return 'fivepointed stars'
+    case 6: return 'sixpointed stars'
+    case 7: return 'bricks'
+    case 8: return 'checkerboard'
+    case 9: return 'grid'
+    case 10: return 'crosshatch'
+    default : return 'north east lines'
+  }
+}
 
+function pattern({motif='north east lines',id,distanceDesHachures=10,epaisseurDesHachures=1,couleurDesHachures='black',couleurDeRemplissage='none',opaciteDeRemplissage=0.5}){
+  let myPattern = ''
+  if (sortie_html) {
+
+      if (couleurDeRemplissage.length<1){
+        couleurDeRemplissage = "none"
+      }
+      switch (motif) {
+        case 'north east lines':
+          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'horizontal lines':
+          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <line x1="0" y1="${calcul(distanceDesHachures/2)}" x2="${calcul(distanceDesHachures)}" y2="${calcul(distanceDesHachures/2)}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
+            </pattern>`
+          break
+        case 'vertical lines':
+          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
+            </pattern>`
+          break
+          case 'dots' :
+            myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            </pattern>`
+          break
+          case 'crosshatch dots':
+          myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          </pattern>`
+        break
+        case 'fivepointed stars':
+          myPattern += `<pattern id="pattern${id}" width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <polygon points="10,5 6.2,4.2 6.6,0.2 4.6,3.6 1,2 3.6,5 1,8 4.6,6.4 6.6,9.8 6.2,5.8 " stroke="${couleurDesHachures}"  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+          </pattern>`
+        break
+        case 'sixpointed stars':
+          myPattern += `<pattern id="pattern${id}"  width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+        <polygon points="10,5 7.6,3.4 7.6,0.6 5,2 2.6,0.6 2.4,3.4 0,5 2.4,6.4 2.6,9.4 5,8 7.6,9.4 7.6,6.4 " stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+        </pattern>`
+        break;
+        default :
+        myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+        <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
+        </pattern>`
+      break
+      }
+      return myPattern ;
+
+    }
+  else {
+    switch (motif) {
+      case 'north east lines':
+        myPattern=`pattern = ${motif}`
+            break
+      case 'horizontal lines':
+        myPattern=`pattern = ${motif}`
+            break
+      case 'vertical lines':
+        myPattern=`pattern = ${motif}`
+        break
+      default :
+      myPattern=`pattern = north east lines`
+
+      break
+     }
+    return `${myPattern}`
+  }
+}
 /**
  * Fonction créant un labyrinthe de nombres
  * Le tableau de nombres doit être de format [6][3]
@@ -9162,9 +9293,7 @@ export function pavage() {
   this.tabInit = tabInit;
   this.tabLines = tabLines;
 
-  this.svg = function (coeff) {
-    let tabinit0 = this.tabInit[0];
-    let tabinit1 = this.tabInit[1];
+  this.svg = function () {
   };
 
   

@@ -3,6 +3,7 @@ import {num_alpha,combinaison_listes,randint,choisit_lettres_differentes} from "
 import {mathalea2d,tracePoint,labelPoint} from "/modules/2d.js"
 import {point3d,droite3d,vecteur3d,arete3d,sphere3d,rotation3d,rotationV3d,demicercle3d} from "/modules/3d.js"
 import { sens_de_rotation3d } from '/modules/3d.js';
+import { liste_de_question_to_contenu_sans_numero } from '/modules/outils.js';
 
 export default function ReperageSurLaSphere() {
     "use strict"
@@ -28,8 +29,8 @@ export default function ReperageSurLaSphere() {
     if (this.sup==1) liste_type_de_questions=combinaison_listes([1],this.nb_questions)
     else if (this.sup==2) liste_type_de_questions=combinaison_listes([2],this.nb_questions)
     else liste_type_de_questions=combinaison_listes([1,2],this.nb_questions)
-      this.contenu=''
-      this.contenu_correction=''
+      let texte=''
+      let texte_correction=''
       let O=point3d(0,0,0,false,'O')
       let M=point3d(10,0,0,true,'M')
       let PoleNord=point3d(0,0,11,false,'N')
@@ -78,7 +79,7 @@ export default function ReperageSurLaSphere() {
         NordouSud.push('N')
       }
       nom=choisit_lettres_differentes(this.nb_questions,'Q')
-      this.contenu=``
+      texte=``
       for (let i = 0, latitude,longitude,M,lab,croix; i < this.nb_questions;) {
         latitude=randint(-3,6,0)*10
         longitude=randint(-6,4)*10
@@ -107,27 +108,31 @@ export default function ReperageSurLaSphere() {
         croix.style='o'
         switch (liste_type_de_questions[i]) {
           case 1:
-            this.contenu +=`${num_alpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
-            this.contenu_correction+=`${num_alpha(i)} Les coordonnées de $${nom[i]}$ sont $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` 
+            texte +=`${num_alpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
+            texte_correction+=`${num_alpha(i)} Les coordonnées de $${nom[i]}$ sont $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` 
             objets_enonce.push(croix,lab)
             objets_correction.push(croix,lab)
             break
           case 2:
-            this.contenu +=`${num_alpha(i)} Placer le point $${nom[i]}$ de  coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>`
-            this.contenu_correction+=`${num_alpha(i)} Le point $${nom[i]}$ de coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$ est placé sur cette sphère.<br>` 
+            texte +=`${num_alpha(i)} Placer le point $${nom[i]}$ de  coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>`
+            texte_correction+=`${num_alpha(i)} Le point $${nom[i]}$ de coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$ est placé sur cette sphère.<br>` 
             objets_correction.push(croix,lab)
           break
         }
         i++
       }
+
         // paramètres pour la perspective
   mathalea.anglePerspective=30
   mathalea.coeffPerspective=0.5
-      params_enonce = { xmin:-13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 1, mainlevee: false}
+      params_enonce = { xmin:-13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false}
 
      // texte_corr += mathalea2d(params_correction, objets_correction)
-      this.contenu +='<br>'+ mathalea2d(params_enonce, objets_enonce)
-      this.contenu_correction +='<br>'+ mathalea2d(params_enonce, objets_correction)
+      texte +='<br>'+ mathalea2d(params_enonce, objets_enonce)
+      texte_correction +='<br>'+ mathalea2d(params_enonce, objets_correction)
+      this.liste_questions.push(texte)
+      this.liste_corrections.push(texte_correction)
+      liste_de_question_to_contenu_sans_numero(this)
     };
   
   this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange`]

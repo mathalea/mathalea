@@ -61,7 +61,7 @@ export default function Calculs_trigonometriques1() {
             objets.push(afficheMesureAngle(M.p2d, O.p2d, P.p2d, 'black', 1.5, `${alpha}`))
             texte = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets) + '<br>'
             texte += `Quelle est la longueur du $${alpha}$ième parallèle Nord ?`
-            texte_corr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets) + '<br>'
+            texte_corr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
             texte_corr += `Considérons que le $${alpha}$ième parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
             texte_corr += `Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>`
             texte_corr += `Dans le triangle $OPH$ rectangle en $H$, $cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times cos(\\widehat{OPH})$.<br>`
