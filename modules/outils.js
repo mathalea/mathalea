@@ -776,6 +776,22 @@ export function ecriture_parenthese_si_moins(expr) {
 };
 
 /**
+ * 
+ * @Auteur Jean-claude Lhote
+ * @param {numero} 1=A, 2=B ..
+ * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
+ */
+
+export function calcul_aligne(numero,etapes){
+	let script=`$\\begin{aligned}${mise_en_evidence(lettre_depuis_chiffre(numero))}&=${etapes[0]}`
+	for (let i=1;i<etapes.length-1;i++){
+		script+=`\\\\&=${etapes[i]}`
+	}
+	script+=`\\\\${mise_en_evidence(lettre_depuis_chiffre(numero)+'&='+etapes[etapes.length-1])}$`
+	return script
+}
+
+/**
 * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
 * 
 * @Auteur Rémi Angot
