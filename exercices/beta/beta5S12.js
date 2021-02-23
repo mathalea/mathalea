@@ -23,6 +23,8 @@ export default function Construire_Un_Diagramme() {
         this.liste_questions = []
         this.liste_corrections = []
         let type_de_questions_disponibles = [1]
+        let liste_hachures_disponibles=[0,1,3,4,5,6,7,8,9,10]
+        let liste_motifs=combinaison_listes(liste_hachures_disponibles,4)
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
         let N = 0, nom, texte, texte_corr, reponseinf, reponsesup;
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
@@ -106,7 +108,7 @@ export default function Construire_Un_Diagramme() {
         for (let i=0;i<nbAnimaux;i++){
             angle=180*lstNombresAnimaux[i]/effectiftotal
             a=arc(rotation(B,A,alpha),A,angle,true,texcolors(i+1),'black',0.7)
-            hachures=motifs(randint(0,10))
+            hachures=motifs(liste_motifs[i])
             a.hachures=hachures
             objets_correction.push(a)
             alpha+=angle
