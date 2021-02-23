@@ -4596,8 +4596,15 @@ export function texte_ou_pas(texte) {
  * @author Sébastien Lozano
  * 
  */
-export function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
+export function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes,arraystretch) {
 	'use strict';
+	let myLatexArraystretch;	
+	if (typeof arraystretch === 'undefined') {
+		myLatexArraystretch = 1
+	} else {
+		myLatexArraystretch = arraystretch
+	};
+
 	// on définit le nombre de colonnes
 	let C = tab_entetes_colonnes.length;
 	// on définit le nombre de lignes
@@ -4607,7 +4614,8 @@ export function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 	if (sortie_html) {
 		tableau_C_L += `$\\def\\arraystretch{2.5}\\begin{array}{|`;
 	} else {
-		tableau_C_L += `$\\begin{array}{|`;
+		tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`; 
+		tableau_C_L += `\\begin{array}{|`;
 	};
 	// on construit la 1ere ligne avec toutes les colonnes
 	for (let k=0;k<C;k++) {
@@ -4651,8 +4659,13 @@ export function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 		};
 		tableau_C_L += `\\\\\n`;
 		tableau_C_L += `\\hline\n`;	
-	};	
-	tableau_C_L += `\\end{array}\n$`
+	};		
+	tableau_C_L += `\\end{array}\n`
+	if (sortie_html) {
+		tableau_C_L += `$`;
+	} else {
+		tableau_C_L += `\\renewcommand{\\arraystretch}{1}$\n`;
+	};
 
 	return tableau_C_L;
 };
