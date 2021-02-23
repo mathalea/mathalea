@@ -139,7 +139,7 @@ function TracePoint(...points) {
     */    else if (this.style == '#') {
           p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
           p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
-          c = carreIndirect(p1, p2, this.color)
+          c = carre(p1, p2, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
@@ -8415,7 +8415,15 @@ export function motifs(index){
   }
 }
 
-function pattern({ motif = 'north east lines', id, distanceDesHachures = 10, epaisseurDesHachures = 1, couleurDesHachures = 'black', couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5 }) {
+function pattern({ motif = 'north east lines',
+ id,
+ distanceDesHachures = 10,
+ epaisseurDesHachures = 1,
+ couleurDesHachures = 'black',
+ couleurDeRemplissage = 'none',
+ opaciteDeRemplissage = 0.5,
+ sortieNB = true
+ }) {
   let myPattern = ''
   if (sortie_html) {
 
@@ -8509,6 +8517,7 @@ function pattern({ motif = 'north east lines', id, distanceDesHachures = 10, epa
 
   }
   else {
+    if (sortieNB){
     switch (motif) {
       case 'north east lines':
         myPattern = `pattern = ${motif}`
@@ -8546,8 +8555,48 @@ function pattern({ motif = 'north east lines', id, distanceDesHachures = 10, epa
       default:
         myPattern = `pattern = north east lines`
         break
-
     }
+  }
+  else {
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break;
+      case 'crosshatch':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      default:
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
+        break
+    }
+  }
     return `${myPattern}`
   }
 }
