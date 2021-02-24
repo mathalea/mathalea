@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, calcul, tex_nombre,shuffle2tableaux} from "/modules/outils.js"
+import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, calcul, tex_nombre,shuffle2tableaux} from "/modules/outils.js"
 
 /**
  * Reconnaître une fonction affine
@@ -63,6 +63,13 @@ export default function Multiplication_mental_decimaux() {
                texte += `Réponses possibles : <br>`;
                tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)]; // réponses possibles
                tabicone = [1,0,0,0,0,0]; // 1 pour la bonne réponse
+               
+               /**********************************************************************/
+               // ajouté par Jean-Caude Lhote pour générer des QCM AMC
+               this.QCM=[`Calcul : $${a}+${b}$.\\\\ \\n Réponses possibles`] 
+               this.QCM.push(tabrep.slice(0),tabicone.slice(0)) // tableau pour la fonction export_QCM_AMC
+               /**********************************************************************/
+
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
                for (let i=0; i<5; i++) {
                  texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
