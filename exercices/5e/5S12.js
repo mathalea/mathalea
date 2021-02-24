@@ -45,7 +45,7 @@ export default function Construire_Un_Diagramme() {
         let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
             'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
 
-        texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un tableau qui donne le nombre d’individus de quelques espèces.<br>';
+        texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>';
         texte_corr = ''
         let entete = ['\\text{Animaux}']
         switch (parseInt(this.sup)) {
@@ -79,13 +79,13 @@ export default function Construire_Un_Diagramme() {
             lstAnimauxExo.push(nom);
             entete.push(`\\text{${nom}}`)
         }
-        texte += `${tab_C_L(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br>`
+        texte += `${tab_C_L(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
         objets_enonce = []
         objets_correction = []
 
         switch (liste_type_de_questions[0]) {
             case 1:
-                texte += `Représenter ces données par un diagramme semi-circulaire.<br>`
+                texte += `Représenter ces données par un diagramme semi-circulaire.<br><br>`
                 entete.push('\\text{Totaux}')
                 let contenutableau = []
                 for (let i = 0; i < nbAnimaux; i++) {
@@ -129,8 +129,8 @@ export default function Construire_Un_Diagramme() {
                     legende.opaciteDeRemplissage = 0.7
                     textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
                     objets_correction.push(legende, textelegende)
-                    params_enonce = { xmin: -6.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
-                    params_correction = { xmin: -6.5, ymin: -0.5, xmax: 20, ymax: 6.5 + nbAnimaux - 4, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    params_enonce = { xmin: -6.5, ymin: -0.2, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    params_correction = { xmin: -6.5, ymin: -0.2, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 }
                 break
@@ -167,7 +167,7 @@ export default function Construire_Un_Diagramme() {
                 }
                 objets_correction.push(r)
                 params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7 + nbAnimaux - 4, pixelsParCm: 20, scale: 1, mainlevee: false }
+                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 break
 
@@ -213,7 +213,7 @@ export default function Construire_Un_Diagramme() {
                 objets_correction.push(r,g)
 
                 params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7 + nbAnimaux - 4, pixelsParCm: 20, scale: 1, mainlevee: false }
+                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7 , pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 break
         }
