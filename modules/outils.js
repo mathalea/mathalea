@@ -7439,3 +7439,46 @@ export function scratchTraductionFr() {
 			"percentTranslated": 100
 		}})
 }
+export function export_QCM_AMC(tabQCM){
+	let tex_QR='',type=''
+	let nbBonnes=0
+	for (let b of tabQCM[2]){
+		if (b==1) nbBonnes++
+	}
+	if (nbBonnes==1) {
+		type='question'
+	}
+	else if (nbBonnes>1){
+		type='questionmult'
+	}
+	else {
+		console.log('Il faut au moins une bonne réponse dans un QCM !')
+		return false
+	}
+	tex_QR=`\\begin{${type}} \\n`
+	tex_QR+=`${tabQCM[0]} \\n`
+	tex_QR+=`\\begin{reponses} \\n`
+	for (let i=0;i<tabQCM[1].length;i++){
+		switch (tabQCM[2][i]){
+			case 1:
+				if (typeof(tabQCM[1][i])=='number'){
+					tex_QR+=`\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.',',')}}}\\n`
+				}
+				else {
+				tex_QR+=`\\bonne{${tabQCM[1][i]}}\\n`
+				}
+			break
+			case 0:
+				if (typeof(tabQCM[1][i])=='number'){
+					tex_QR+=`\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.',',')}}}\\n`
+				}
+				else {
+				tex_QR+=`\\mauvaise{${tabQCM[1][i]}}\\n`
+				}
+			break
+		}
+	}
+	tex_QR+=`\\end{reponses}\\n`
+	tex_QR+=`\\end{${type}}\\n`
+	return tex_QR
+}
