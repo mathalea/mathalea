@@ -86,7 +86,7 @@ export default function Construire_Un_Diagramme() {
         switch (liste_type_de_questions[0]) {
             case 1:
                 texte += `Représenter ces données par un diagramme semi-circulaire.<br>`
-                entete.push('\\text{Total}')
+                entete.push('\\text{Totaux}')
                 let contenutableau = []
                 for (let i = 0; i < nbAnimaux; i++) {
                     contenutableau.push(lstNombresAnimaux[i])
