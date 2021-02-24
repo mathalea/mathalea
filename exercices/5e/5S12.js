@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { premiere_lettre_en_majuscule, liste_de_question_to_contenu_sans_numero, texcolors, arrondi_virgule, tex_fraction, combinaison_listes, tab_C_L, choice, randint } from "/modules/outils.js"
-import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre } from "/modules/2d.js"
+import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from "/modules/2d.js"
 
 /**
  * @Auteur Jean-Claude Lhote
@@ -25,11 +25,11 @@ export default function Construire_Un_Diagramme() {
         this.liste_questions = []
         this.liste_corrections = []
         let type_de_questions_disponibles
-        if (this.sup3 < 4) {
+        if (this.sup3 < 5) {
             type_de_questions_disponibles = [parseInt(this.sup3)]
         }
         else {
-            type_de_questions_disponibles = [randint(1, 3)]
+            type_de_questions_disponibles = [randint(1, 4)]
         }
         let liste_hachures_disponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
         let liste_motifs = combinaison_listes(liste_hachures_disponibles, 4)
@@ -48,6 +48,7 @@ export default function Construire_Un_Diagramme() {
         texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>';
         texte_corr = ''
         let entete = ['\\text{Animaux}']
+        let contenutableau,A,B,T,angle, a, legende, textelegende, hachures,a0,t,alpha
         switch (parseInt(this.sup)) {
             case 1: nbAnimaux = 2; break;
             case 2: nbAnimaux = 3; break;
@@ -85,9 +86,59 @@ export default function Construire_Un_Diagramme() {
 
         switch (liste_type_de_questions[0]) {
             case 1:
+                texte += `Représenter ces données par un diagramme circulaire.<br><br>`
+                entete.push('\\text{Totaux}')
+                contenutableau = []
+                for (let i = 0; i < nbAnimaux; i++) {
+                    contenutableau.push(lstNombresAnimaux[i])
+                }
+                contenutableau.push(effectiftotal)
+                for (let i = 0; i < nbAnimaux; i++) {
+                    contenutableau.push(tex_fraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondi_virgule(lstNombresAnimaux[i] / effectiftotal, 2))
+                }
+                contenutableau.push('1')
+                for (let i = 0; i < nbAnimaux; i++) {
+                    contenutableau.push(`${tex_fraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+                }
+                contenutableau.push(`360\\degree`)
+
+                texte_corr += `${tab_C_L(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+
+                A = point(0, 0)
+                B = point(6, 0)
+                T = point(7, 0)
+                a0 = cercleCentrePoint(A, B,'black')
+                objets_enonce.push(a0)
+                objets_correction.push(a0)
+                alpha = 0;
+
+                t = tracePoint(A)
+                t.style = '+'
+                objets_enonce.push(t)
+                objets_correction.push(t)
+
+                for (let i = 0; i < nbAnimaux; i++) {
+                    angle = 360 * lstNombresAnimaux[i] / effectiftotal
+                    a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
+                    hachures = motifs(liste_motifs[i])
+                    a.hachures = hachures
+                    objets_correction.push(a)
+                    alpha += angle
+                    legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+                    legende.couleurDeRemplissage = texcolors(i + 1)
+                    legende.hachures = hachures
+                    legende.opaciteDeRemplissage = 0.7
+                    textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
+                    objets_correction.push(legende, textelegende)
+                    params_enonce = { xmin: -6.5, ymin: -6.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    params_correction = { xmin: -6.5, ymin: -6.5, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+
+                }
+                break
+            case 2:
                 texte += `Représenter ces données par un diagramme semi-circulaire.<br><br>`
                 entete.push('\\text{Totaux}')
-                let contenutableau = []
+                contenutableau = []
                 for (let i = 0; i < nbAnimaux; i++) {
                     contenutableau.push(lstNombresAnimaux[i])
                 }
@@ -103,15 +154,15 @@ export default function Construire_Un_Diagramme() {
 
                 texte_corr += `${tab_C_L(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
-                let A = point(0, 0)
-                let B = point(6, 0)
-                let T = point(7, 0)
-                let a0 = arc(B, A, 180, true, 'white', 'black')
+                A = point(0, 0)
+                B = point(6, 0)
+                T = point(7, 0)
+                a0 = arc(B, A, 180, true, 'white', 'black')
                 objets_enonce.push(a0)
                 objets_correction.push(a0)
-                let alpha = 0;
-                let angle, a, legende, textelegende, hachures
-                let t = tracePoint(A)
+                alpha = 0;
+                angle, a, legende, textelegende, hachures
+                t = tracePoint(A)
                 t.style = '+'
                 objets_enonce.push(t)
                 objets_correction.push(t)
@@ -134,7 +185,7 @@ export default function Construire_Un_Diagramme() {
 
                 }
                 break
-            case 2:
+            case 3:
                 texte += `Représenter ces données par un diagramme en barres.<br>`
                 coef = 1;
                 switch (parseInt(this.sup2)) {
@@ -171,7 +222,7 @@ export default function Construire_Un_Diagramme() {
 
                 break
 
-            case 3:
+            case 4:
                 texte += `Représenter ces données par un graphique cartésien.<br>`
                 coef = 1;
                 switch (parseInt(this.sup2)) {
@@ -225,6 +276,6 @@ export default function Construire_Un_Diagramme() {
     };
     this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` 2 espèces\n 2 : 3 espèces\n 3 : 4 espèces`];
     this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` Entre 1 et 100\n Entre 100 et 1 000`];
-    this.besoin_formulaire3_numerique = ['Type de diagramme', 4, '1 : Diagramme circulaire\n2 : Diagramme en barres\n3 : Diagramme cartésien\n4 : Au hasard']
+    this.besoin_formulaire3_numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
 
 }
