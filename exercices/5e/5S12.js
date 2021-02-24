@@ -127,7 +127,7 @@ export default function Construire_Un_Diagramme() {
                     legende.couleurDeRemplissage = texcolors(i + 1)
                     legende.hachures = hachures
                     legende.opaciteDeRemplissage = 0.7
-                    textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'left', false)
+                    textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
                     objets_correction.push(legende, textelegende)
                     params_enonce = { xmin: -6.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
                     params_correction = { xmin: -6.5, ymin: -0.5, xmax: 20, ymax: 6.5 + nbAnimaux - 4, pixelsParCm: 20, scale: 1, mainlevee: false }
