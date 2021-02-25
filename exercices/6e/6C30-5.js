@@ -57,12 +57,12 @@ export default function Placer_la_virgule() {
         else {
             exposant=0
         }
-        nombreentier=randint(10,1000)+randint(10,999)*choice([0,1000])
-        nombre=nombreentier*10**exposant
-        resultat=nombre*10**coef
+        nombreentier=calcul(randint(10,1000)+randint(10,999)*choice([0,1000]))
+        nombre=calcul(nombreentier*10**exposant)
+        resultat=calcul(nombre*10**coef)
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
-            tabrep=[resultat,calcul(resultat/10),calcul(resultat*10),calcul(nombre*10**(-coef-1))]
+            tabrep=[resultat,calcul(nombre*10**(-coef)),calcul(nombre*10**(coef-1)),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(10**coef)}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \\n Réponses possibles`,
             tabrep,
