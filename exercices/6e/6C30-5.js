@@ -5,7 +5,7 @@ import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,comb
  * Publié le 20/02/2021
  * Référence 6C30-5
  */
-export default function Placer_la_virgule() {
+export default function Multiplier_par_001() {
     "use strict"
     Exercice.call(this)
     this.titre = "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)";
@@ -114,7 +114,7 @@ export default function Placer_la_virgule() {
           break
   
           case 3:
-            tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef-1))]
+            tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$.\\\\ \\n Réponses possibles`,
             tabrep,
@@ -151,8 +151,6 @@ export default function Placer_la_virgule() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      console.log(this.QCM)
-      console.log(export_QCM_AMC(this.QCM))
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
