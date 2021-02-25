@@ -3,9 +3,9 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, num_alpha,ar
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from "/modules/3d.js"
 /**
- * Description didactique de l'exercice
- * @Auteur 
- * Référence 
+ * Propose de calculer la hauteur d'une montagne à partir de deux relevés d'angle 
+ * @Auteur Jean-Claude Lhote
+ * Référence 3G32-4
 */
 export default function Calculs_trigonometriques4() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -101,16 +101,16 @@ export default function Calculs_trigonometriques4() {
           }
           texte_corr+=`${num_alpha(j)}On sait que $\\widehat{BSH}=90-${baita}$ et $\\widehat{ASH}=90-${alfa}$.<br>Donc $\\widehat{BSC}=\\widehat{ASH}-\\widehat{BSH}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${baita}-${alfa}$.<br>`
           j++
-            texte_corr+=`${num_alpha(j)}Dans le triangle $BCS$ rectangle en $C$, $sin(\\widehat{BSC})=\\dfrac{BC}{BS}$ d'où $BS=\\dfrac{BC}{sin(\\widehat{BSC})}=\\dfrac{BC}{sin(${baita}-${alfa})}$.<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $BCS$ rectangle en $C$, $\\sin(\\widehat{BSC})=\\dfrac{BC}{BS}$ d'où $BS=\\dfrac{BC}{\\sin(\\widehat{BSC})}=\\dfrac{BC}{\\sin(${baita}-${alfa})}$.<br>`
           j++
-            texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $C$, $sin(\\widehat{BAC})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times sin(\\widehat{BAC})=AB\\times sin(${alfa})$.<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $C$, $\\sin(\\widehat{BAC})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times \\sin(\\widehat{BAC})=AB\\times \\sin(${alfa})$.<br>`
           j++
 
-            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $h=BS\\times sin(${baita})=\\dfrac{BC}{sin(${baita}-${alfa})}\\times sin(${baita})=\\dfrac{AB\\times sin(${alfa})}{sin(${baita}-${alfa})}\\times sin(${baita})$<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $h=BS\\times \\sin(${baita})=\\dfrac{BC}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=\\dfrac{AB\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})$<br>`
 
           j++
-          texte_corr += `${num_alpha(j)}Application numérique : $h=\\dfrac{${distance}\\times sin(${alpha})}{sin(${beta}-${alpha})}\\times sin(${beta})$`
-          texte_corr  +=`$=\\dfrac{${distance}\\times sin(${alpha})\\times sin(${beta})}{sin(${beta-alpha})}\\approx ${Math.round(taille)}$ m.<br>`
+          texte_corr += `${num_alpha(j)}Application numérique : $h=\\dfrac{${distance}\\times \\sin(${alpha})}{\\sin(${beta}-${alpha})}\\times \\sin(${beta})$`
+          texte_corr  +=`$=\\dfrac{${distance}\\times \\sin(${alpha})\\times \\sin(${beta})}{\\sin(${beta-alpha})}\\approx ${Math.round(taille)}$ m.<br>`
   
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -5,7 +5,7 @@ import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,comb
  * Publié le 20/02/2021
  * Référence 6C30-5
  */
-export default function Placer_la_virgule() {
+export default function Multiplier_par_001() {
     "use strict"
     Exercice.call(this)
     this.titre = "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)";
@@ -57,12 +57,12 @@ export default function Placer_la_virgule() {
         else {
             exposant=0
         }
-        nombreentier=randint(10,1000)+randint(10,999)*choice([0,1000])
-        nombre=nombreentier*10**exposant
-        resultat=nombre*10**coef
+        nombreentier=calcul(randint(10,1000)+randint(10,999)*choice([0,1000]))
+        nombre=calcul(nombreentier*10**exposant)
+        resultat=calcul(nombre*10**coef)
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
-            tabrep=[resultat,calcul(resultat/10),calcul(resultat*10),calcul(nombre*10**(-coef-1))]
+            tabrep=[resultat,calcul(nombre*10**(-coef)),calcul(nombre*10**(coef-1)),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(10**coef)}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \\n Réponses possibles`,
             tabrep,
@@ -114,7 +114,7 @@ export default function Placer_la_virgule() {
           break
   
           case 3:
-            tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef-1))]
+            tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$.\\\\ \\n Réponses possibles`,
             tabrep,
@@ -151,8 +151,6 @@ export default function Placer_la_virgule() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      console.log(this.QCM)
-      console.log(export_QCM_AMC(this.QCM))
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

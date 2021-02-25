@@ -1993,21 +1993,33 @@ export function tex_nombre(nb){
 export function tex_nombre2(nb){
 	let nombre = math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}).replace('.',',')
 	let rang_virgule = nombre.indexOf(',')
-	for (let i=rang_virgule+4; i<nombre.length; i+=3){
-		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
-		i+=13 // comme on a ajouté un espace, il faut décaler l'indice de 1
+	let partie_entiere = ''
+	if (rang_virgule!=-1) {
+		partie_entiere=nombre.substring(0,rang_virgule)
 	}
-	if (sortie_html){
-		return nombre
-	} else {
-		let result;
-		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
-			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
-		}else{
-			result = nb.toString().replace('.',',');
-		}
-		return result;
+	else {
+		partie_entiere=nombre
 	}
+	let partie_decimale = ''
+	if (rang_virgule!=-1){
+		partie_decimale=nombre.substring(rang_virgule+1)
+	}
+
+	for (let i=partie_entiere.length-3;i>0;i-=3){
+			partie_entiere=partie_entiere.substring(0,i)+'\\thickspace '+partie_entiere.substring(i)
+	}
+	for (let i=3;i<=partie_decimale.length;i+=3){
+		console.log(i,partie_decimale.length)
+		partie_decimale=partie_decimale.substring(0,i)+'\\thickspace '+partie_decimale.substring(i)
+			i+=12
+	}
+	if (partie_decimale==''){
+		nombre=partie_entiere
+	}
+	else {
+		nombre=partie_entiere+','+partie_decimale
+	}
+	return nombre
 }
 export function tex_nombrec2(expr,precision=8){
 	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision}).replace('.',',')
@@ -7444,7 +7456,6 @@ export function export_QCM_AMC(tabQCMs) {
 	let nbBonnes
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
-		console.log(tabQCM)
 		nbBonnes=0
 		for (let b of tabQCM[2]) {
 			if (b == 1) nbBonnes++
