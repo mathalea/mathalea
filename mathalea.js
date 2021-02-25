@@ -721,7 +721,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         form_spacing_corr = [],
         form_sup = [],
         form_sup2 = [],
-        form_sup3 = []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
+        form_sup3 = [],
+        form_ModeQCM= []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
     function parametres_exercice(exercice) {
         /* Pour l'exercice i, on rajoute un formulaire avec 5 inputs : 
@@ -754,7 +755,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_correction_detaillee' + i + '">Correction détaillée : </label> <input id="form_correction_detaillee' + i + '" type="checkbox" ></div>';
                 }
-                if (!exercice[i].nb_questions_modifiable && !exercice[i].correction_detaillee_disponible && !exercice[i].besoin_formulaire_numerique && !exercice[i].besoin_formulaire_texte) {
+                if (exercice[i].QCM_disponible) {
+                    div_parametres_generaux.innerHTML +=
+                        '<div><label for="form_ModeQCM' + i + '">Mode QCM : </label> <input id="form_ModeQCM' + i + '" type="checkbox" ></div>';
+                }
+                
+                if (!exercice[i].nb_questions_modifiable && !exercice[i].correction_detaillee_disponible && !exercice[i].besoin_formulaire_numerique && !exercice[i].besoin_formulaire_texte && !exercice[i].QCM_disponible) {
                     div_parametres_generaux.innerHTML += "<p><em>Cet exercice ne peut pas être paramétré.</em></p>";
                 }
             } else {
@@ -770,6 +776,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (exercice[i].correction_detaillee_disponible) {
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_correction_detaillee' + i + '">Correction détaillée : </label> <input id="form_correction_detaillee' + i + '" type="checkbox" ></div>';
+                }
+                if (exercice[i].QCM_disponible) {
+                    div_parametres_generaux.innerHTML +=
+                        '<div><label for="form_ModeQCM' + i + '">Mode QCM : </label> <input id="form_ModeQCM' + i + '" type="checkbox" ></div>';
                 }
                 if (exercice[i].nb_cols_modifiable) {
                     div_parametres_generaux.innerHTML += '<div><label for="form_nb_cols' + i + '">Nombre de colonnes : </label><input id="form_nb_cols' + i + '" type="number" min="1" max="99"></div>';
@@ -1019,6 +1029,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     });
                 }
 
+       
                 // Gestion du nombre de colones
                 if (exercice[i].nb_cols_modifiable) {
                     form_nb_cols[i] = document.getElementById("form_nb_cols" + i);
@@ -1118,6 +1129,16 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 });
             }
 
+         // Gestion du mode QCM
+         if (exercice[i].QCM_disponible) {
+            form_ModeQCM[i] = document.getElementById("form_ModeQCM" + i);
+            form_ModeQCM[i].checked = exercice[i].ModeQCM; // Rempli le formulaire avec la valeur par défaut
+            form_ModeQCM[i].addEventListener("change", function (e) {
+                // Dès que le statut change, on met à jour
+                exercice[i].ModeQCM = e.target.checked;
+                mise_a_jour_du_code();
+            });
+        }
             // Gestion de l'identifiant de la série
             if (exercice.length > 0) {
                 let form_serie = document.getElementById("form_serie");
