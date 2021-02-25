@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, tex_nombrec, tex_nombre2,calcul, choice, tex_fraction,shuffle2tableaux } from "/modules/outils.js"
+import { export_QCM_AMC,liste_de_question_to_contenu, randint, tex_nombrec, tex_nombre2,calcul, choice, tex_fraction,shuffle2tableaux } from "/modules/outils.js"
+
 /**
  * @Auteur Jean-claude Lhote
  * Publié le 20/02/2021
@@ -86,6 +87,7 @@ export default function Placer_la_virgule() {
       cpt++;
     }
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+    let code=export_QCM_AMC(this.QCM)
   };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

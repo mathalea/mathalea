@@ -191,7 +191,7 @@ export default function Multiplication_mental_decimaux() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      console.log(export_QCM_AMC(this.QCM))
+      let code=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

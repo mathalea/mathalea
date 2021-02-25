@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,combinaison_listes,randint,tex_nombre,tex_nombre2,tex_fraction,choice,mise_en_evidence} from "/modules/outils.js"
+
 /**
  * @Auteur Jean-claude Lhote
  * Publié le 20/02/2021
@@ -153,6 +154,7 @@ export default function Multiplier_par_001() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+      let code=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
