@@ -2181,6 +2181,20 @@ export function couleurAleatoire() {
 	  if (fondblanc&&i%19>=17) i+=2
 	  return couleurs[i%19]
   }
+  export function couleur_en_gris(color){
+	let gris  
+	switch (color){
+		case 'black' :
+			return color
+		case 'white' :
+			return color
+		case 'gray' :
+			return color
+		case 'blue' :
+			
+		
+	} 
+  }
 
 /**
 * Met gras un texte

@@ -122,10 +122,13 @@ export default function Construire_Un_Diagramme() {
                     a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
                     hachures = motifs(liste_motifs[i])
                     a.hachures = hachures
+                    a.couleurDeRemplissage=texcolors(i + 1)
+                    a.couleurDesHachures=a.couleurDeRemplissage
                     objets_correction.push(a)
                     alpha += angle
                     legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-                    legende.couleurDeRemplissage = texcolors(i + 1)
+                    legende.couleurDeRemplissage = a.couleurDeRemplissage
+                    legende.couleurDesHachures = a.couleurDesHachures
                     legende.hachures = hachures
                     legende.opaciteDeRemplissage = 0.7
                     textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
@@ -172,10 +175,13 @@ export default function Construire_Un_Diagramme() {
                     a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
                     hachures = motifs(liste_motifs[i])
                     a.hachures = hachures
+                    a.couleurDeRemplissage=texcolors(i + 1)
+                    a.couleurDesHachures=a.couleurDeRemplissage
                     objets_correction.push(a)
                     alpha += angle
                     legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-                    legende.couleurDeRemplissage = texcolors(i + 1)
+                    legende.couleurDeRemplissage = a.couleurDeRemplissage
+                    legende.couleurDesHachures = a.couleurDesHachures
                     legende.hachures = hachures
                     legende.opaciteDeRemplissage = 0.7
                     textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
@@ -213,8 +219,7 @@ export default function Construire_Un_Diagramme() {
 
                  lstElementGraph = []
                 for (let i = 0; i < nbAnimaux; i++) {
-                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef }))
-               
+                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
                 }
                 objets_correction.push(r)
                 params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }

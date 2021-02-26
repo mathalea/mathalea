@@ -325,7 +325,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-
+ 
                 if ($("#supprimer_correction:checked").val()) {
                     code_LaTeX = codeEnonces;
                 } else {
@@ -334,6 +334,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 }
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
+         
+
 
                 // Gestion du nombre de versions
                 if ($("#nombre_de_versions").val() > 1) {
@@ -1078,6 +1080,19 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 let form_correction_affichee = document.getElementById("supprimer_correction");
                 form_correction_affichee.addEventListener("change", function (e) {
                     // Dès que le statut change, on met à jour
+                    mise_a_jour_du_code();
+                });
+                
+                // Gestion du mode N&B pour les remplissages
+                let form_ModeNB = document.getElementById("ModeNB");
+                form_ModeNB.addEventListener("change", function (e) {
+                    // Dès que le statut change, on met à jour
+                    if ($("#ModeNB:checked").val()) {
+                        mathalea.sortieNB=true;
+                    }
+                    else {
+                        mathalea.sortieNB=false;
+                    }
                     mise_a_jour_du_code();
                 });
 

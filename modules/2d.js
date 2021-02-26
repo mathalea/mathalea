@@ -1730,7 +1730,7 @@ function Polygone(...points) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 1.1;
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -1777,6 +1777,8 @@ function Polygone(...points) {
       }
 
     }
+
+
     if (this.hachures) {
       if (this.couleurDeRemplissage.length<1){
         this.couleurDeRemplissage = "none"
@@ -1839,6 +1841,7 @@ function Polygone(...points) {
     if (this.couleurDeRemplissage != '') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
+
     if (this.hachures) {
       if (this.hachures) {
         tableauOptions.push(pattern({motif:this.hachures,
@@ -2208,7 +2211,7 @@ function Cercle(O, r, color) {
   this.rayon = r;
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 1.1;
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -2296,6 +2299,7 @@ function Cercle(O, r, color) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
+
     if (this.hachures) {
       if (this.hachures) {
         tableauOptions.push(pattern({motif:this.hachures,
@@ -2674,7 +2678,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -2821,6 +2825,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
      
     }
+
     if (this.hachures) {
       tableauOptions.push(pattern({motif:this.hachures,
         id:this.id,
@@ -7045,12 +7050,15 @@ export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 
  * @param {integer} angle
  * @auteur Rémi Angot
  */
-function TraceBarre(x, y, legende = '', { epaisseur = .6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = .3, angle = 66, unite = 1 } = {}) {
+function TraceBarre(x, y, legende = '', { epaisseur = .6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = .3, angle = 66, unite = 1,hachures=false } = {}) {
   ObjetMathalea2D.call(this)
   let p = polygone(point(calcul(x - epaisseur / 2), 0), point(calcul(x - epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), 0))
   p.couleurDeRemplissage = couleurDeRemplissage;
   p.opaciteDeRemplissage = opaciteDeRemplissage;
   p.color = color;
+  if (hachures){
+    p.hachures=hachures
+  }
   let texte = texteParPosition(legende, x, -.2, angle, 'black', 1, 'gauche');
 
   this.tikz = function () {
@@ -8421,8 +8429,7 @@ function pattern({ motif = 'north east lines',
  epaisseurDesHachures = 1,
  couleurDesHachures = 'black',
  couleurDeRemplissage = 'none',
- opaciteDeRemplissage = 0.5,
- sortieNB = true
+ opaciteDeRemplissage = 0.5
  }) {
   let myPattern = ''
   if (sortie_html) {
@@ -8517,7 +8524,7 @@ function pattern({ motif = 'north east lines',
 
   }
   else {
-    if (sortieNB){
+    if (mathalea.sortieNB){
     switch (motif) {
       case 'north east lines':
         myPattern = `pattern = ${motif}`
