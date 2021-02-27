@@ -18,7 +18,7 @@ export default function Multiplier_par_001() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
     this.consigne=`Compléter les pointillés.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=['6C30-5',[]]
+  this.QCM=[this.titre,[]]
   this.QCM_disponible=true
   this.ModeQCM=false;
   this.sup = false; 
@@ -67,7 +67,7 @@ export default function Multiplier_par_001() {
           case 1:
             tabrep=[resultat,calcul(nombre*10**(-coef)),calcul(nombre*10**(coef-1)),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
-            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \\n Réponses possibles`,
+            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone]) 
             texte= `$${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$`
@@ -93,7 +93,7 @@ export default function Multiplier_par_001() {
           case 2:
             tabrep=[calcul(10**coef),calcul(10**(coef-1)),calcul(10**(coef+1)),calcul(10**(-coef))]
             tabicone=[1,0,0,0]
-            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${tex_nombre2(resultat)}$.\\\\ \\n Réponses possibles`,
+            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${tex_nombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone]) 
             texte= `$${tex_nombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${tex_nombre2(resultat)}$`
@@ -119,7 +119,7 @@ export default function Multiplier_par_001() {
           case 3:
             tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef+1))]
             tabicone=[1,0,0,0]
-            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$.\\\\ \\n Réponses possibles`,
+            this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone]) 
 
@@ -154,7 +154,7 @@ export default function Multiplier_par_001() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      let code=export_QCM_AMC(this.QCM)
+      this.codeAMC=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

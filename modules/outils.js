@@ -12,11 +12,13 @@ export function liste_de_question_to_contenu(argument) {
 		if (argument.vspace) {
 			vspace = `\\vspace{${argument.vspace} cm}\n`
 		}
+		if (!mathalea.sortieAMC){
 		if (document.getElementById('supprimer_reference').checked == true) {
 			argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		} else {
 			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
+	}
 		argument.contenu_correction = tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -7483,33 +7485,77 @@ export function export_QCM_AMC(tabQCMs) {
 			console.log('Il faut au moins une bonne réponse dans un QCM !')
 			return false
 		}
-		tex_QR += `\\element{${tabQCMs[0]}}{\\n `
-		tex_QR +=`\\begin{${type}} \\n `
-		tex_QR += `${tabQCM[0]} \\n `
-		tex_QR += `\\begin{reponses} \\n `
+		tex_QR += `\\element{${tabQCMs[0]}}{\n `
+		tex_QR +=`\\begin{${type}} \n `
+		tex_QR += `${tabQCM[0]} \n `
+		tex_QR += `\\begin{reponses} \n `
 		for (let i = 0; i < tabQCM[1].length; i++) {
 			switch (tabQCM[2][i]) {
 				case 1:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\\n `
+						tex_QR += `\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
 					}
 					else {
-						tex_QR += `\\bonne{${tabQCM[1][i]}}\\n `
+						tex_QR += `\\bonne{${tabQCM[1][i]}}\n `
 					}
 					break
 				case 0:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\\n `
+						tex_QR += `\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
 					}
 					else {
-						tex_QR += `\\mauvaise{${tabQCM[1][i]}}\\n `
+						tex_QR += `\\mauvaise{${tabQCM[1][i]}}\n `
 					}
 					break
 			}
 		}
-		tex_QR += `\\end{reponses}\\n `
-		tex_QR += `\\end{${type}}\\n }\\n `
+		tex_QR += `\\end{reponses}\n `
+		tex_QR += `\\end{${type}}\n }\n `
 	}
-	console.log(tex_QR)
-	return tex_QR
+	return [tex_QR,tabQCMs[0],tabQCMs[1].length]
 }
+
+export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+	let entete_copie =
+	`%%% fabrication des copies 
+	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
+	\\noindent{\\bf QCM \\hfill TEST}
+	\\vspace*{.5cm} 
+	\\begin{minipage}{.4\\linewidth}
+	\\centering\\large\\bf ${matiere}\\\\
+	${titre}
+	\\end{minipage}
+	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
+	\\vspace*{.5cm}\\dotfill 
+	\\vspace*{1mm}
+	\\end{minipage}}} %%% fin de l’en-tête`
+	let code_latex =
+	`\\documentclass[a4paper]{article} 
+	\\usepackage[utf8x]{inputenc} 
+	\\usepackage[T1]{fontenc} 
+	\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
+	\\begin{document} 
+	%%% préparation des groupes 
+	\\setdefaultgroupmode{withoutreplacement}`;
+	
+	for (let i=0;i<questions.length;i++){
+		code_latex+=questions[i][0]
+	}
+	code_latex+='\n'+entete_copie
+	for (let i=0;i<questions.length;i++){
+		code_latex+=`\\begin{center}\n
+		\\hrule\\vspace{2mm}\n
+		\\bf\\Large ${questions[i][1]}\n
+		\\vspace{1mm}\\hrule\n
+		\\end{center}\n`
+		if (nb_questions[i]>0){
+			code_latex+=`\\restituegroup[${nb_questions[i]}]{${questions[i][1]}}\n\n`
+		}
+		else {
+			code_latex+=`\\restituegroup{${questions[i][1]}}\n\n`
+		}
+	}
+	code_latex+=`\\end{document}\n`
+	return code_latex
+}
+
