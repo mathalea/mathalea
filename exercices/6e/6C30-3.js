@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,nombreDecimal, calcul, tex_nombre,shuffle2tableaux} from "/modules/outils.js"
+import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,tex_nombre2, calcul,shuffle2tableaux} from "/modules/outils.js"
 
 /**
  * Reconnaître une fonction affine
@@ -27,12 +27,10 @@ export default function Multiplication_mental_decimaux() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
 
     this.QCM=['6C30-3',[]] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
-
+    this.QCM_disponible=false
+    this.ModeQCM=true;
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
     this.nouvelle_version = function () {
@@ -61,35 +59,38 @@ export default function Multiplication_mental_decimaux() {
           case "add":
                a = 10*randint(1,9)+randint(1,9);
                b = 10*randint(1,9)+randint(1,9);
-               texte += `Calcul : $${a} + ${b}$. <br>`;
-               texte_corr += `Calcul : $${a} + ${b}$. <br>`;
-               texte += `Réponses possibles : <br>`;
+
                tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)]; // réponses possibles
                tabicone = [1,0,0,0,0]; // 1 pour la bonne réponse
-               
                /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
                this.QCM[1].push([`Calcul : $${a}+${b}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
                // tableau pour la fonction export_QCM_AMC
                /**********************************************************************/
 
+               texte += `Calcul : $${a} + ${b}$. <br>`;
+         
+               if (this.ModeQCM){
+                texte_corr += `Calcul : $${a} + ${b}$. <br>`;
+               texte += `Réponses possibles : <br>`;
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
                for (let i=0; i<5; i++) {
-                 texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                 if (tabicone[i]==1) {
-                  texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                  texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                 } else {
-                  texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+                  texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                 }
               }
+            }
+            else {
+              texte_corr+=`$${a} + ${b}=${tex_nombre2(calcul(a+b))}$`
+            }
           break;
   
           case "mul":
             a = 10*randint(1,9)+randint(1,9);
             b = 10*randint(1,9)+randint(1,9);
-            texte += `Calcul : $${a} \\times ${b}$. <br>`
-            texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
-            texte += `Réponses possibles : <br>`;
             tabrep = [a*b, 10*a*b, a*b/10, a+b, a*b+1];
             tabicone = [1,0,0,0,0];
             /**********************************************************************/
@@ -98,40 +99,53 @@ export default function Multiplication_mental_decimaux() {
                // tableau pour la fonction export_QCM_AMC
                /**********************************************************************/
 
-            shuffle2tableaux(tabrep, tabicone);
-            for (let i=0; i<5; i++) {
-              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
-             if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
-             } else {
-               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+            texte += `Calcul : $${a} \\times ${b}$. <br>`
+            if (this.ModeQCM){
+              texte += `Réponses possibles : <br>`;
+              texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
+              shuffle2tableaux(tabrep, tabicone);
+              for (let i=0; i<5; i++) {
+                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               if (tabicone[i]==1) {
+                 texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               } else {
+                 texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               }
              }
-           }
+            }
+            else {
+              texte_corr+=`$${a} \\times ${b}=${tex_nombre2(calcul(a*b))}$`
+            }
        break
           
           case "add_deci":
             a = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
             b = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
-            texte += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
-            texte_corr += `Calcul : $${nombreDecimal(a/100)} + ${nombreDecimal(b/100)}$. <br>`
-            texte += `Réponses possibles : <br>`;
-            tabrep = [(a+b)/100, (a*b)/100, (a+b)/1000, 10*(a+b)/100,(a+b+1)/100]; 
+            tabrep = [calcul((a+b)/100), calcul((a*b)/100), calcul((a+b)/1000), calcul(10*(a+b)/100),calcul((a+b+1)/100)]; 
             tabicone = [1,0,0,0,0]; 
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
-               this.QCM[1].push([`Calcul : $${nombreDecimal(a/100)}+${nombreDecimal(b/100)}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
+               this.QCM[1].push([`Calcul : $${tex_nombre2(a/100)}+${tex_nombre2(b/100)}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
                // tableau pour la fonction export_QCM_AMC
                /**********************************************************************/
 
+            texte += `Calcul : $${tex_nombre2(a/100)} + ${tex_nombre2(b/100)}$. <br>`
+            if (this.ModeQCM){
+            texte_corr += `Calcul : $${tex_nombre2(a/100)} + ${tex_nombre2(b/100)}$. <br>`
+            texte += `Réponses possibles : <br>`;
             shuffle2tableaux(tabrep, tabicone); 
             for (let i=0; i<5; i++) {
-              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+               texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              } else {
-               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+               texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              }
            }
+          }
+          else {
+            texte_corr += ` $${tex_nombre2(a/100)} + ${tex_nombre2(b/100)}=${tex_nombre2(calcul(a/100+b/100))}$. <br>`
+          }
           break 
 
           case "mul_deci":
@@ -139,26 +153,32 @@ export default function Multiplication_mental_decimaux() {
             // on multiplie par 100 pour travailler avec des nombres entiers. Par ex : 6547 plutôt que 65.47
             a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]); // on évite le 2*5 avec les derniers chiffres
             b = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9);
-            texte += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
-            texte_corr += `Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$. <br>`
-            texte += `Réponses possibles : <br>`;
             tabrep = [(a*b)/10000, (10*a*b)/10000, (a*b)/100000, (a+b)/100, (a*b+1)/10000];
             tabicone = [1,0,0,0,0];
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
-               this.QCM[1].push([`Calcul : $${nombreDecimal(a/100)} \\times ${nombreDecimal(b/100)}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
+               this.QCM[1].push([`Calcul : $${tex_nombre2(a/100)} \\times ${tex_nombre2(b/100)}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
                // tableau pour la fonction export_QCM_AMC
                /**********************************************************************/
 
+            texte += `Calcul : $${tex_nombre2(a/100)} \\times ${tex_nombre2(b/100)}$. <br>`
+            if (this.ModeQCM){
+            texte_corr += `Calcul : $${tex_nombre2(a/100)} \\times ${tex_nombre2(b/100)}$. <br>`
+            texte += `Réponses possibles : <br>`;
+  
             shuffle2tableaux(tabrep, tabicone);
             for (let i=0; i<5; i++) {
-              texte += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\; ${tex_nombre(tabrep[i])}$` + espace ;
+               texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              } else {
-               texte_corr += `$\\square\\; ${tex_nombre(tabrep[i])}$` + espace ;
+               texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              }
            }
+          }
+          else {
+            texte_corr += `$${tex_nombre2(a/100)} \\times ${tex_nombre2(b/100)}=${tex_nombre2(calcul(a*b/10000))}$. <br>`
+          }
           break
         }
 
@@ -171,14 +191,13 @@ export default function Multiplication_mental_decimaux() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      console.log(this.QCM)
-      console.log(export_QCM_AMC(this.QCM))
+      let code=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
-  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  //	this.besoin_formulaire_case_a_cocher = ['Mode QCM',true]
   //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]  
   } // Fin de l'exercice.

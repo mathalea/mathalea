@@ -54,7 +54,7 @@
 
 	<script>
 		// Les variables globales nécessaires aux exercices (pas terrible...)
-	window.mathalea={anglePerspective:30,coeffPerspective:0.5,pixelsParCm :20,scale : 1,unitesLutinParCm : 50, mainlevee:false,amplitude:1,fenetreMathalea2d : [-1,-10,29,10], objets2D:[]};
+	window.mathalea={sortieNB:false,anglePerspective:30,coeffPerspective:0.5,pixelsParCm :20,scale : 1,unitesLutinParCm : 50, mainlevee:false,amplitude:1,fenetreMathalea2d : [-1,-10,29,10], objets2D:[]};
 	window.sortie_html=false
 	window.est_diaporama=false
 	</script> 
@@ -221,8 +221,13 @@
                   </div>
                   <div class="ui checkbox">
                     <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden">
-                    <label>Cacher les identifiants des exercices</label>
+                    <label>Cacher les identifiants des exercices&nbsp;&nbsp;&nbsp</label>
                   </div>
+                  <div class="ui checkbox">
+                    <input type="checkbox" tabindex="0" id="ModeNB" class="hidden">
+                    <label>Remplissage N&B</label>
+                  </div>
+                  
                 </div>
                 </form>
                 <div class="ui hidden divider"></div>

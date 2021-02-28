@@ -43,6 +43,9 @@ export default function Exercice() {
     // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
     this.pas_de_version_LaTeX = false;
     this.QCM=false; // Pour les exercices de type QCM : contient un tableau.
+    this.QCM_disponible=false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.ModeQCM
+    this.ModeQCM=false // Pour choisir la version QCM ou la version classique (false = version classique)
+
     this.MG32editable = false; //pas d'interface par défaut pour les figures MG32
     this.nouvelle_version = function (numero_de_l_exercice) {};
     this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule

@@ -2009,7 +2009,6 @@ export function tex_nombre2(nb){
 			partie_entiere=partie_entiere.substring(0,i)+'\\thickspace '+partie_entiere.substring(i)
 	}
 	for (let i=3;i<=partie_decimale.length;i+=3){
-		console.log(i,partie_decimale.length)
 		partie_decimale=partie_decimale.substring(0,i)+'\\thickspace '+partie_decimale.substring(i)
 			i+=12
 	}
@@ -2181,6 +2180,20 @@ export function couleurAleatoire() {
 	  let couleurs=['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
 	  if (fondblanc&&i%19>=17) i+=2
 	  return couleurs[i%19]
+  }
+  export function couleur_en_gris(color){
+	let gris  
+	switch (color){
+		case 'black' :
+			return color
+		case 'white' :
+			return color
+		case 'gray' :
+			return color
+		case 'blue' :
+			
+		
+	} 
   }
 
 /**
@@ -7497,6 +7510,6 @@ export function export_QCM_AMC(tabQCMs) {
 		tex_QR += `\\end{reponses}\\n `
 		tex_QR += `\\end{${type}}\\n }\\n `
 	}
-
+	console.log(tex_QR)
 	return tex_QR
 }
