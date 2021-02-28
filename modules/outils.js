@@ -12,11 +12,13 @@ export function liste_de_question_to_contenu(argument) {
 		if (argument.vspace) {
 			vspace = `\\vspace{${argument.vspace} cm}\n`
 		}
+		if (!mathalea.sortieAMC){
 		if (document.getElementById('supprimer_reference').checked == true) {
 			argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		} else {
 			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
+	}
 		argument.contenu_correction = tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -6739,7 +6741,7 @@ export function telechargeFichier(text,filename) {
   
 	element.style.display = 'none';
 	document.body.appendChild(element);
-  
+  console.log(element)
 	element.click();
   
 	document.body.removeChild(element);
@@ -7466,7 +7468,7 @@ export function scratchTraductionFr() {
 }
 export function export_QCM_AMC(tabQCMs) {
 	let tex_QR = ``, type = '', tabQCM
-	let nbBonnes
+	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
@@ -7483,33 +7485,112 @@ export function export_QCM_AMC(tabQCMs) {
 			console.log('Il faut au moins une bonne réponse dans un QCM !')
 			return false
 		}
-		tex_QR += `\\element{${tabQCMs[0]}}{\\n `
-		tex_QR +=`\\begin{${type}} \\n `
-		tex_QR += `${tabQCM[0]} \\n `
-		tex_QR += `\\begin{reponses} \\n `
+		tex_QR += `\\element{${tabQCMs[0]}}{\n `
+		tex_QR +=`	\\begin{${type}}{ques${tabQCMs[0]}-${id}} \n `
+		tex_QR += `		${tabQCM[0]} \n `
+		tex_QR += `		\\begin{reponseshoriz} \n `
 		for (let i = 0; i < tabQCM[1].length; i++) {
 			switch (tabQCM[2][i]) {
 				case 1:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\\n `
+						tex_QR += `			\\bonne{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
 					}
 					else {
-						tex_QR += `\\bonne{${tabQCM[1][i]}}\\n `
+						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
 					}
 					break
 				case 0:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\\n `
+						tex_QR += `			\\mauvaise{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
 					}
 					else {
-						tex_QR += `\\mauvaise{${tabQCM[1][i]}}\\n `
+						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
 					}
 					break
 			}
 		}
-		tex_QR += `\\end{reponses}\\n `
-		tex_QR += `\\end{${type}}\\n }\\n `
+		tex_QR += `		\\end{reponseshoriz}\n `
+		tex_QR += `	\\end{${type}}\n }\n `
+		id++
 	}
-	console.log(tex_QR)
-	return tex_QR
+	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
+
+export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+	let entete_copie =
+	`%%% fabrication des copies 
+	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
+	\\noindent{\\bf QCM \\hfill TEST}
+	\\vspace*{.5cm} 
+	\\begin{minipage}{.4\\linewidth}
+	\\centering\\large\\bf ${matiere}\\\\
+	${titre}
+	\\end{minipage}
+	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
+	\\vspace*{.5cm}\\dotfill 
+	\\vspace*{1mm}
+	\\end{minipage}}} %%% fin de l’en-tête\n`
+	let code_latex =
+	`\\documentclass[a4paper]{article} 
+	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}		        
+\\usepackage[T1]{fontenc}		
+\\usepackage[french]{babel}
+\\usepackage{multicol} 					
+\\usepackage{calc} 						
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}				
+\\usepackage{tabularx}
+\\usepackage[autolanguage]{numprint}
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{textcomp}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+\\usepackage{fancyhdr,lastpage}          	
+\\pagestyle{fancy}                      	
+\\usepackage{fancybox}					
+\\usepackage{setspace}	
+\\usepackage{xcolor}
+	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+	\\definecolor{geo}{cmyk}{.62,.1,0,0}
+	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{pgf,tikz}					
+\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\\usepackage[francais,bloc,completemulti]{automultiplechoice}\n 
+\\begin{document} 
+	%%% préparation des groupes 
+	\\setdefaultgroupmode{withoutreplacement}\n`;
+	
+	for (let i=0;i<questions.length;i++){
+		code_latex+=questions[i][0]
+	}
+	code_latex+='\n'+entete_copie
+	for (let i=0;i<questions.length;i++){
+		code_latex+=`
+	\\begin{center}
+		\\hrule
+		\\vspace{2mm}
+		\\bf\\Large ${questions[i][3]}
+		\\vspace{1mm}
+		\\hrule
+	\\end{center}\n`
+		if (nb_questions[i]>0){
+			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${questions[i][1]}}\n\n`
+		}
+		else {
+			code_latex+=`\\restituegroupe{${questions[i][1]}}\n\n`
+		}
+	}
+	code_latex+=`}\n \\end{document}\n`
+	return code_latex
+}
+
