@@ -7543,7 +7543,6 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
 \\usepackage[autolanguage]{numprint}
-\\usepackage{hyperref}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
