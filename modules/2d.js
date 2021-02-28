@@ -3437,7 +3437,7 @@ export function cibleRonde({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
  */
-function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
+function CibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3445,34 +3445,42 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   this.opacite = 0.5
   this.color = 'gray'
   let objets = [], numero, centre, azimut, rayon, rayon1, rayon2, arc1, arc2
+  let arcPlein
+  if (semi) {
+    arcPlein=180
+  }
+  else {
+    arcPlein=360
+  }
 
-  centre = point(this.x, this.y, this.y)
-  azimut = point(this.x + this.taille, this.y)
+  centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + this.taille, this.y),centre,depart)
   let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
-  for (let i = 0; i < 18; i++) {
-    rayon = segment(azimut, azimut2)
-    rayon1 = rotation(rayon, centre, 20 / 3)
-    rayon2 = rotation(rayon, centre, 40 / 3)
-    rayon2.pointilles = 1
-    rayon1.pointilles = 1
-    rayon1.color = this.color
-    rayon2.color = this.color
-    rayon1.opacite = this.opacite
-    rayon2.opacite = this.opacite
-    arc1 = arc(azimut, centre, 20)
-    arc2 = arc(azimut2, centre, 20)
-    numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, 10), 'milieu', 'gray')
+  let rayons=[]
+  arc1 = arc(azimut, centre, arcPlein)
+  arc2 = arc(azimut2, centre, arcPlein)
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1,arc2,rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    for (let j=1;j<nbSubDivisions;j++){
+    rayons[j-1] = rotation(rayon, centre,j*arcPlein/nbDivisions/nbSubDivisions)
+    rayons[j-1].pointilles=1
+    rayons[j-1].color=this.color
+    rayons[j-1].opacite=this.opacite
+    objets.push(rayons[j-1])
+    }
+    if (label) {
+      numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein/nbDivisions/2), 'milieu', 'gray')
     numero.contour = true
+      objets.push(numero)
+    }
     rayon.color = this.color
     rayon.opacite = this.opacite
-    arc1.color = this.color
-    arc2.color = this.color
-    arc1.opacite = this.opacite
-    arc2.opacite = this.opacite
-
-    objets.push(rayon, rayon1, rayon2, arc1, arc2, numero)
-    azimut = rotation(azimut, centre, 20)
-    azimut2 = rotation(azimut2, centre, 20)
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein/nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein/nbDivisions)
+    rayon = segment(azimut, azimut2)
   }
   this.svg = function (coeff) {
     let code = "";
@@ -3490,8 +3498,8 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   };
 }
 
-export function cibleCouronne({ x = 0, y = 0, taille = 5 }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille })
+export function cibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
+  return new CibleCouronne({ x: x, y: y, taille: taille,depart:depart,nbDivisions:nbDivisions,nbSubDivisions:nbSubDivisions,semi:semi,label:label})
 }
 
 /**
