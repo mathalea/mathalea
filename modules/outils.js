@@ -7468,7 +7468,7 @@ export function scratchTraductionFr() {
 }
 export function export_QCM_AMC(tabQCMs) {
 	let tex_QR = ``, type = '', tabQCM
-	let nbBonnes
+	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
@@ -7486,14 +7486,14 @@ export function export_QCM_AMC(tabQCMs) {
 			return false
 		}
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`	\\begin{${type}} \n `
+		tex_QR +=`	\\begin{${type}}{ques${tabQCMs[0]}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
 		tex_QR += `		\\begin{reponseshoriz} \n `
 		for (let i = 0; i < tabQCM[1].length; i++) {
 			switch (tabQCM[2][i]) {
 				case 1:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `			\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
+						tex_QR += `			\\bonne{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
 					}
 					else {
 						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
@@ -7501,7 +7501,7 @@ export function export_QCM_AMC(tabQCMs) {
 					break
 				case 0:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `			\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
+						tex_QR += `			\\mauvaise{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
 					}
 					else {
 						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
@@ -7511,6 +7511,7 @@ export function export_QCM_AMC(tabQCMs) {
 		}
 		tex_QR += `		\\end{reponseshoriz}\n `
 		tex_QR += `	\\end{${type}}\n }\n `
+		id++
 	}
 	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
@@ -7577,18 +7578,20 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	for (let i=0;i<questions.length;i++){
 		code_latex+=`
 	\\begin{center}
-		\\hrule\\vspace{2mm}
+		\\hrule
+		\\vspace{2mm}
 		\\bf\\Large ${questions[i][3]}
-		\\vspace{1mm}\\hrule
+		\\vspace{1mm}
+		\\hrule
 	\\end{center}\n`
 		if (nb_questions[i]>0){
-			code_latex+=`\\restituegroup[${nb_questions[i]}]{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${questions[i][1]}}\n\n`
 		}
 		else {
-			code_latex+=`\\restituegroup{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe{${questions[i][1]}}\n\n`
 		}
 	}
-	code_latex+=`\\end{document}\n`
+	code_latex+=`}\n \\end{document}\n`
 	return code_latex
 }
 
