@@ -18,7 +18,7 @@ export default function Placer_la_virgule() {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = `Les égalités suivantes sont fausses. Place la virgule correctement dans le résultat pour que l'égalité soit juste.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=[this.titre,[]]
+  this.QCM=['6C30-4',[],this.titre]
   this.QCM_disponible=true
   this.ModeQCM=false
   this.sup = false;
@@ -40,6 +40,7 @@ export default function Placer_la_virgule() {
     } else {
       espace = `\\qquad`;
     }
+    this.QCM[1]=[]
     for (let i = 0, texte, texte_corr, coef, nombre, nombreentier, resultat, exposant,tabrep,tabicone, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
       texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -62,7 +63,7 @@ export default function Placer_la_virgule() {
    
       texte = `$${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${tex_nombre2(nombreentier)}$<br>`
       if (this.ModeQCM) {
-        texte+=`<br>Réponses possibles : ${espace}  `
+        texte+=`<br>  Réponses possibles : ${espace}  `
         shuffle2tableaux(tabrep, tabicone);
         for (let i=0; i<4; i++) {
           texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;

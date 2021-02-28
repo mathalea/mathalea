@@ -24,7 +24,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 	this.sup2 = 3;
-	this.QCM=[this.titre,[]]
+	this.QCM=['5N20',[],this.titre]
 	this.QCM_disponible=true
 	this.ModeQCM=false;
 	this.nouvelle_version = function () {
@@ -42,6 +42,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 			liste_type_de_questions = combinaison_listes(['+', '-'], this.nb_questions);
 		}
 		let tabrep,tabicone=[1,0,0,0]
+	this.QCM[1]=[]
 		let espace =``;
 		if (sortie_html) {
 		  espace = `&emsp;`;
@@ -58,7 +59,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 			while (b == a) {
 				b = randint(2, 9); // pas de fraction avec numérateur et dénominateur égaux
 			}
-			if (this.level!=6) {
+			if (this.sup>1) {
 				k = randint(2, this.sup);
 			}
 			else k=1
@@ -69,7 +70,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 				c = randint(1, 19, d);
 			}
 			if (liste_type_de_questions[i] == '+') { //une addition
-				tabrep=[`${tex_fraction_reduite(a*d+c*b,b*d)}`,`${tex_fraction(a+c,b+d)}`,`${tex_fraction(a+c,b*d)}`,`${tex_fraction(a*c,b*d)}`]
+				tabrep=[`$${tex_fraction_reduite(a*d+c*b,b*d)}$`,`$${tex_fraction(a+c,b+d)}$`,`$${tex_fraction(a+c,b*d)}$`,`$${tex_fraction(a*c,b*d)}$`]
 				tabicone=[1,0,0,0]
 				let ordre_des_fractions = randint(1, 2);
 				if (ordre_des_fractions == 1) {
@@ -119,7 +120,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 				}
 			}
 			} else { //une soustraction
-				tabrep=[`${tex_fraction_reduite(Math.abs(a*d-c*b),Math.abs(b*d))}`,`${tex_fraction(Math.abs(a-c),Math.abs(b-d))}`,`${tex_fraction(Math.abs(a-c),b*d)}`,`${tex_fraction(a*c,b*d)}`]
+				tabrep=[`$${tex_fraction_reduite(Math.abs(a*d-c*b),Math.abs(b*d))}$`,`$${tex_fraction(Math.abs(a-c),Math.abs(b-d))}$`,`$${tex_fraction(Math.abs(a-c),b*d)}$`,`$${tex_fraction(a*c,b*d)}$`]
 			tabicone=[1,0,0,0]
 			
 				if ((a / b) > (c / d)) {
@@ -156,7 +157,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 				}
 				} else {
 					if (this.ModeQCM) {
-						texte+=`<br><br>Réponses possibles : ${espace}  `
+						texte+=`<br>	Réponses possibles : ${espace}  `
 						shuffle2tableaux(tabrep, tabicone);
 						for (let i=0; i<4; i++) {
 						  texte += `$\\square\\; ${tabrep[i]}$` + espace ;

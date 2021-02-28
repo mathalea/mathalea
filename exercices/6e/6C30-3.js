@@ -25,7 +25,7 @@ export default function Multiplication_mental_decimaux() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.QCM=[this.titre,[]] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
+    this.QCM=['6C30-3',[],this.titre] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
     this.QCM_disponible=false
     this.ModeQCM=true;
     this.codeAMC=[]
@@ -49,7 +49,7 @@ export default function Multiplication_mental_decimaux() {
     } else {
       espace = `\\qquad`;
     }
-  
+  	this.QCM[1]=[]
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
@@ -64,7 +64,7 @@ export default function Multiplication_mental_decimaux() {
                tabicone = [1,0,0,0,0]; // 1 pour la bonne réponse
                /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
-               this.QCM[1].push([`Calcul : $${a}+${b}$.\\\\ \\n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
+               this.QCM[1].push([`Calcul : $${a}+${b}$.\\\\ \n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
                // tableau pour la fonction export_QCM_AMC
                /**********************************************************************/
 

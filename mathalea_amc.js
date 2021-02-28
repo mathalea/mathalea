@@ -107,7 +107,6 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
- console.log(questions)
 
                     code_LaTeX = Creer_document_AMC(questions,[],{})
 
@@ -142,9 +141,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
     
     `;
     contenu_fichier+=code_LaTeX
-
-      
-                if ($("#nom_du_fichier").val()) {
+                  if ($("#nom_du_fichier").val()) {
                     telechargeFichier(contenu_fichier, $("#nom_du_fichier").val() + ".tex");
                 } else {
                     telechargeFichier(contenu_fichier, "mathalea.tex");
@@ -621,8 +618,9 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             }
 
          // Gestion du mode QCM
-         exercice[i].ModeQCM=true
-        mise_a_jour_du_code();
+        // exercice[i].ModeQCM=true
+        //mise_a_jour_du_code();
+
          // Gestion de l'identifiant de la série
             if (exercice.length > 0) {
                 let form_serie = document.getElementById("form_serie");

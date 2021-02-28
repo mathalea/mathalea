@@ -18,7 +18,7 @@ export default function Multiplier_par_001() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
     this.consigne=`Compléter les pointillés.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=[this.titre,[]]
+  this.QCM=['6C30-5',[],this.titre]
   this.QCM_disponible=true
   this.ModeQCM=false;
   this.sup = false; 
@@ -49,6 +49,7 @@ export default function Multiplier_par_001() {
     } else {
       espace = `\\qquad`;
     }
+    this.QCM[1]=[]
       for (let i = 0, texte, texte_corr,coef,nombre,nombreentier,resultat,exposant, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -72,7 +73,7 @@ export default function Multiplier_par_001() {
             tabicone]) 
             texte= `$${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$`
             if (this.ModeQCM) {
-              texte+=`<br><br>Réponses possibles : ${espace}  `
+              texte+=`<br>   Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
@@ -98,7 +99,7 @@ export default function Multiplier_par_001() {
             tabicone]) 
             texte= `$${tex_nombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${tex_nombre2(resultat)}$`
             if (this.ModeQCM) {
-              texte+=`<br><br>Réponses possibles : ${espace}  `
+              texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
@@ -125,7 +126,7 @@ export default function Multiplier_par_001() {
 
             texte= `$\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$`
             if (this.ModeQCM) {
-              texte+=`<br><br>Réponses possibles : ${espace}  `
+              texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;

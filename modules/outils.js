@@ -6741,7 +6741,7 @@ export function telechargeFichier(text,filename) {
   
 	element.style.display = 'none';
 	document.body.appendChild(element);
-  
+  console.log(element)
 	element.click();
   
 	document.body.removeChild(element);
@@ -7486,33 +7486,33 @@ export function export_QCM_AMC(tabQCMs) {
 			return false
 		}
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`\\begin{${type}} \n `
-		tex_QR += `${tabQCM[0]} \n `
-		tex_QR += `\\begin{reponses} \n `
+		tex_QR +=`	\\begin{${type}} \n `
+		tex_QR += `		${tabQCM[0]} \n `
+		tex_QR += `		\\begin{reponseshoriz} \n `
 		for (let i = 0; i < tabQCM[1].length; i++) {
 			switch (tabQCM[2][i]) {
 				case 1:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
+						tex_QR += `			\\bonne{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
 					}
 					else {
-						tex_QR += `\\bonne{${tabQCM[1][i]}}\n `
+						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
 					}
 					break
 				case 0:
 					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
+						tex_QR += `			\\mauvaise{\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}}\n `
 					}
 					else {
-						tex_QR += `\\mauvaise{${tabQCM[1][i]}}\n `
+						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
 					}
 					break
 			}
 		}
-		tex_QR += `\\end{reponses}\n `
-		tex_QR += `\\end{${type}}\n }\n `
+		tex_QR += `		\\end{reponseshoriz}\n `
+		tex_QR += `	\\end{${type}}\n }\n `
 	}
-	return [tex_QR,tabQCMs[0],tabQCMs[1].length]
+	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
 
 export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
@@ -7528,26 +7528,59 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,
 	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
 	\\vspace*{.5cm}\\dotfill 
 	\\vspace*{1mm}
-	\\end{minipage}}} %%% fin de l’en-tête`
+	\\end{minipage}}} %%% fin de l’en-tête\n`
 	let code_latex =
 	`\\documentclass[a4paper]{article} 
-	\\usepackage[utf8x]{inputenc} 
-	\\usepackage[T1]{fontenc} 
-	\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
-	\\begin{document} 
+	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}		        
+\\usepackage[T1]{fontenc}		
+\\usepackage[french]{babel}
+\\usepackage{multicol} 					
+\\usepackage{calc} 						
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}				
+\\usepackage{tabularx}
+\\usepackage[autolanguage]{numprint}
+\\usepackage{hyperref}
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{textcomp}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+\\usepackage{fancyhdr,lastpage}          	
+\\pagestyle{fancy}                      	
+\\usepackage{fancybox}					
+\\usepackage{setspace}	
+\\usepackage{xcolor}
+	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+	\\definecolor{geo}{cmyk}{.62,.1,0,0}
+	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{pgf,tikz}					
+\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\\usepackage[francais,bloc,completemulti]{automultiplechoice}\n 
+\\begin{document} 
 	%%% préparation des groupes 
-	\\setdefaultgroupmode{withoutreplacement}`;
+	\\setdefaultgroupmode{withoutreplacement}\n`;
 	
 	for (let i=0;i<questions.length;i++){
 		code_latex+=questions[i][0]
 	}
 	code_latex+='\n'+entete_copie
 	for (let i=0;i<questions.length;i++){
-		code_latex+=`\\begin{center}\n
-		\\hrule\\vspace{2mm}\n
-		\\bf\\Large ${questions[i][1]}\n
-		\\vspace{1mm}\\hrule\n
-		\\end{center}\n`
+		code_latex+=`
+	\\begin{center}
+		\\hrule\\vspace{2mm}
+		\\bf\\Large ${questions[i][3]}
+		\\vspace{1mm}\\hrule
+	\\end{center}\n`
 		if (nb_questions[i]>0){
 			code_latex+=`\\restituegroup[${nb_questions[i]}]{${questions[i][1]}}\n\n`
 		}
