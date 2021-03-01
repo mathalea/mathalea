@@ -446,7 +446,7 @@ export default function Agrandissement_reduction() {
 				else
 					texte = ``;
 				texte += `Un seau a la forme d'un tronc de cône.<br>`;
-				texte += `Sa hauteur intérieure est de ${tex_nombre(h3)}${sp()}dm, sa petite base a un dimaètre intérieur de ${tex_nombre(r2 * 2)}${sp()}dm et sa grande base (l'ouverture) a un diamètre intérieur de ${tex_nombre(r * 2)}${sp()}dm.<br>`;
+				texte += `Sa hauteur intérieure est de ${tex_nombre(h3)}${sp()}dm, sa petite base a un diamètre intérieur de ${tex_nombre(r2 * 2)}${sp()}dm et sa grande base (l'ouverture) a un diamètre intérieur de ${tex_nombre(r * 2)}${sp()}dm.<br>`;
 				if (!sortie_html)
 					texte += `La figure n'est pas en vraie grandeur.<br>`;
 				texte += num_alpha(0) + ` Calculer la hauteur du cône obtenu en prolongeant les bords du seau.<br>`;
