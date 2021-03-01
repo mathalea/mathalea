@@ -48,7 +48,7 @@ def main():
             if os.path.splitext(file)[1]=='.js' and os.path.splitext(file)[0]!='ClasseExercice' and os.path.splitext(file)[0][0]!='_' :
                 with open(dirpath+'/'+file, encoding="utf8", errors='ignore') as searchfile:
                     for line in searchfile:
-                        if 'this.titre' in line:
+                        if 'this.titre=' in line or 'this.titre =' in line :
                             line = re.sub('this.titre\s*=\s*(\"|\'|`)\s*','',line) # Enlève this.titre
                             line = re.sub('\s*(\"|\'|`)\s*\;\s*$','',line) # Guillemets et ; de la fin
                             line = re.sub('^\s*','',line) # Espaces du début
