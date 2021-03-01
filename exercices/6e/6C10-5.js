@@ -21,8 +21,11 @@ export default function Exercice_labyrinthe_multiples() {
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
   this.tailleDiaporama = 100;
+/*********************************************************/
+// On ajoute cette ligne pour AMC
 this.QCM=['6C10-5',[],'Labyrinthe de multiples']
-  this.sup3 = 3
+/**********************************************************/
+this.sup3 = 3
   this.sup = 9;
   if (this.niveau = 'CM') {
     this.sup2 = 10;
@@ -75,12 +78,17 @@ this.QCM=['6C10-5',[],'Labyrinthe de multiples']
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+
+    /*****************************************************/
+    // Pour AMC
     this.QCM[1][0]=[texte,[texte_corr],[3]]
+    this.codeAMC=export_QCM_AMC(this.QCM)
+    /****************************************************/
+
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this)
-    this.codeAMC=export_QCM_AMC(this.QCM)
-  }
+   }
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
   this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
