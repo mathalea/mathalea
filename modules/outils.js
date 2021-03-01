@@ -7466,12 +7466,23 @@ export function scratchTraductionFr() {
 			"percentTranslated": 100
 		}})
 }
+
+/**
+ * 
+ * @param {*} tabQCMs tableau de la forme [ref du groupe,tabQCMs,titre du groupe]
+ * chaque tableau de tabQCMs est constitué par 3 éléments :
+ * la question énoncée, le tableau des réponses, le tableau des booléens bon=1 mauvaise=0
+ * Si le troisième tableau ne comporte que des 0, il s'agit d'une question ouverte.
+ * c'est la longueur du tableau des réponses qui définit le nombre de réponses et donc le nombre de booléens nécessaires
+ * Si c'est pour une question ouverte, il n'y aura qu'une réponse et une seule valeur dans le tableau des booléens qui déterminera le nombre de ligne à réserver pour la réponse
+ */
 export function export_QCM_AMC(tabQCMs) {
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
+		if (tabQCM[2][0]<2) {
 		for (let b of tabQCM[2]) {
 			if (b == 1) nbBonnes++
 		}
@@ -7480,10 +7491,6 @@ export function export_QCM_AMC(tabQCMs) {
 		}
 		else if (nbBonnes > 1) {
 			type = 'questionmult'
-		}
-		else {
-			console.log('Il faut au moins une bonne réponse dans un QCM !')
-			return false
 		}
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
 		tex_QR +=`	\\begin{${type}}{ques${tabQCMs[0]}-${id}} \n `
@@ -7513,6 +7520,15 @@ export function export_QCM_AMC(tabQCMs) {
 		tex_QR += `	\\end{${type}}\n }\n `
 		id++
 	}
+	else { // question ouverte
+		tex_QR += `\\element{${tabQCMs[0]}}{\n `
+		tex_QR +=`	\\begin{question}{ques${tabQCMs[0]}-${id}} \n `
+		tex_QR += `		${tabQCM[0]} \n `
+		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\ ←-
+correctchoice[J]{j}\\scoring{2}} \n`
+		tex_QR +=`\\end{question}\n }\n`
+	}
+}
 	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
 
