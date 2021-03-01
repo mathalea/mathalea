@@ -7524,8 +7524,7 @@ export function export_QCM_AMC(tabQCMs) {
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
 		tex_QR +=`	\\begin{question}{ques${tabQCMs[0]}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
-		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\ ←-
-correctchoice[J]{j}\\scoring{2}} \n`
+		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
 		tex_QR +=`\\end{question}\n }\n`
 	}
 }

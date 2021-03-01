@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,texte_en_couleur_et_gras} from "/modules/outils.js"
+import {export_QCM_AMC,liste_de_question_to_contenu,randint,combinaison_listes,texte_en_couleur_et_gras} from "/modules/outils.js"
 import {mathalea2d,labyrinthe} from "/modules/2d.js"
 /**
  * @Auteur Jean-Claude Lhote
@@ -21,7 +21,7 @@ export default function Exercice_labyrinthe_multiples() {
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
   this.tailleDiaporama = 100;
-
+this.QCM=['6C10-5',[],'Labyrinthe de multiples']
   this.sup3 = 3
   this.sup = 9;
   if (this.niveau = 'CM') {
@@ -45,8 +45,8 @@ export default function Exercice_labyrinthe_multiples() {
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de `,'black')}$${table}$.<br>`
-    texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texte_en_couleur_et_gras("Trouve la sortie en ne passant que par les cases contenant un multiple de ","black")}$${table}$.<br>`
+    texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, "black")}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
     for (let i = 2; i <= maximum; i++){
@@ -75,9 +75,11 @@ export default function Exercice_labyrinthe_multiples() {
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+    this.QCM[1][0]=[texte,[texte_corr],[3]]
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this)
+    this.codeAMC=export_QCM_AMC(this.QCM)
   }
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];

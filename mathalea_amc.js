@@ -90,7 +90,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             // Sortie LaTeX
             // code pour la sortie LaTeX
             let codeEnonces = "";
-            let questions=[];
+            let questions=[],NombresQuestions=[];
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
@@ -108,12 +108,11 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                     }
                 }
 
-                    code_LaTeX = Creer_document_AMC(questions,[],{})
+                    code_LaTeX = Creer_document_AMC(questions,[],{}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
          
-
 
                 div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
                 Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
@@ -161,6 +160,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
 
     contenu_fichier+=code_LaTeX
     let monzip= new JSZip()
+    console.log('export fichier',code_LaTeX)
     monzip.file("mathalea.tex",code_LaTeX)
     monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
     monzip.generateAsync({type:"blob"})
