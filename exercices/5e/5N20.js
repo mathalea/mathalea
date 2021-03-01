@@ -24,7 +24,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 	this.sup2 = 3;
-	this.QCM=['5N20',[],this.titre]
+	this.QCM=['5N20',[],"Additionner ou soustraire deux fractions (dénominateurs multiples)"]
 	this.QCM_disponible=true
 	this.ModeQCM=false;
 	this.nouvelle_version = function () {
