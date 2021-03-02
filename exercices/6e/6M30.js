@@ -115,14 +115,14 @@ export default function Calcul_de_volumes() {
             c = calcul(randint(2, 10) + partieDecimale3);
             h = randint(2, 5);
             l = randint(6, 10);
-            texte = `Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
+            texte = `Un prisme droit de hauteur $${tex_nombre(l)}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
             texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${tex_nombre(c)}${liste_unites[j][0]}\\times${tex_nombre(h)}${liste_unites[j][0]}}{2}\\times${tex_nombre(l)}${liste_unites[j][0]}=${tex_nombrec(arrondi(calcul((c * h * l) / 2), 1))}${liste_unites[j][1]}$`;
           } else {
             j = randint(1, 2); // pour le choix de l'unité
             c = calcul(randint(2, 10) + partieDecimale3);
             h = randint(30, 50);
             l = arrondi(randint(5, 15) / 10, 1);
-            texte = `Un prisme droit de hauteur $${l}${liste_unites[j - 1][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
+            texte = `Un prisme droit de hauteur $${tex_nombre(l)}${liste_unites[j - 1][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
             texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j + 1][0]}}{2}\\times${tex_nombrec(l)}${liste_unites[j - 1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${tex_nombrec(
               calcul(h / 10)
             )}${liste_unites[j][0]}}{2}\\times${l * 10}${liste_unites[j][0]}=${tex_nombrec(calcul((c * h * l) / 2))}${liste_unites[j][1]}$`;
@@ -145,7 +145,7 @@ export default function Calcul_de_volumes() {
             j = randint(2, 3); // pour le choix de l'unité
             r = randint(2, 10);
             h = randint(20, 150);
-            texte = `Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h / 10)}${liste_unites[j - 1][0]}$ de hauteur.`;
+            texte = `Un cône de $${tex_nombre(r)}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h / 10)}${liste_unites[j - 1][0]}$ de hauteur.`;
             texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(calcul(h / 10))}${liste_unites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j][0]}=${tex_fraction(r * r * h, 3)}\\pi\\approx${tex_nombrec(
               calcul((r * r * h * Math.PI) / 3, 1)
             )}${liste_unites[j][1]}$`;
