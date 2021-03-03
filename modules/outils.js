@@ -7555,6 +7555,22 @@ export function scratchTraductionFr() {
  * nb_exemplaire est le nombre de copie à générer
  */
 export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]
+	for (let code of questions){
+		console.log('codeAMC :',code)
+		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
+			groupeDeQuestion.push(code[1])
+			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]=code[2]
+			titre_question[groupeDeQuestion.indexOf(code[1])]=code[3]
+		}
+		else {
+			tex_questions[groupeDeQuestion.indexOf(code[1])]+=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]+=code[2]
+		}
+		
+	}
+	console.log(groupeDeQuestion,tex_questions,nb_questions)
 	let entete_copie =
 	`%%% fabrication des copies 
 	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
@@ -7608,24 +7624,26 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`;
 	
-	for (let i=0;i<questions.length;i++){
-		code_latex+=questions[i][0]
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
+		code_latex+=tex_questions[i]
 	}
 	code_latex+='\n'+entete_copie
-	for (let i=0;i<questions.length;i++){
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
 		code_latex+=`
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}
-		\\bf\\Large ${questions[i][3]}
+		\\bf\\Large ${titre_question[i]}
 		\\vspace{1mm}
 		\\hrule
 	\\end{center}\n`
 		if (nb_questions[i]>0){
-			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
 		}
 		else {
-			code_latex+=`\\restituegroupe{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe{${g}}\n\n`
 		}
 	}
 	code_latex+=`}\n \\end{document}\n`

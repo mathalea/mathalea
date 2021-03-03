@@ -135,9 +135,10 @@ export default function Calcul_de_longueur() {
       let M2=milieu(A,C)
       let M3=milieu(B,C)
       let G=barycentre(p2)
-      let m1=homothetie(M1,G,1+1.5/longueur(G,M1))
-      let m2=homothetie(M2,G,1+1.5/longueur(G,M2))
       let m3=homothetie(M3,G,1+1.5/longueur(G,M3))
+      let m1=homothetie(M1,M3,1+1.5/longueur(M3,M1))
+      let m2=homothetie(M2,M3,1+1.5/longueur(M3,M2))
+
       let t1,t2,t3
       switch (choix_rapport_trigo) {
         case 'cosinus': // AB=BCxcos(B)
@@ -181,7 +182,7 @@ export default function Calcul_de_longueur() {
         objets_enonce.push(p2, codage, nomme,t1,t2,t3,codeangle)
         objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo,codeangle)
 
-        let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 15, scale: 0.87, mainlevee: true,amplitude:0.4 }
+        let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 18, scale: 0.87, mainlevee: true,amplitude:0.4 }
         let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .5, mainlevee: false }
         if (!sortie_html) {
             texte += '\\begin{minipage}{.4\\linewidth}\n'
