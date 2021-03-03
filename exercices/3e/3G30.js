@@ -135,47 +135,45 @@ export default function Calcul_de_longueur() {
       let M2=milieu(A,C)
       let M3=milieu(B,C)
       let G=barycentre(p2)
-      console.log('G',G,'p2',p2)
-      let m1=homothetie(M1,G,1+1.8/longueur(G,M1))
-      let m2=homothetie(M2,G,1+1.8/longueur(G,M2))
-      let m3=homothetie(M3,G,1+1.8/longueur(G,M3))
-      console.log(m1,m2,m3)
+      let m1=homothetie(M1,G,1+1.5/longueur(G,M1))
+      let m2=homothetie(M2,G,1+1.5/longueur(G,M2))
+      let m3=homothetie(M3,G,1+1.5/longueur(G,M3))
       let t1,t2,t3
       switch (choix_rapport_trigo) {
         case 'cosinus': // AB=BCxcos(B)
             t3=latexParPoint(`${bc} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`?`,m1,'black',120,12,'')
-            m2=homothetie(G,B,3.5/longueur(B,G))
-            t1=latexParPoint(`${angleABC}\\degree`,m2,'black',100,12,'')
+            m2=homothetie(G,B,2.5/longueur(B,G))
+            t1=latexParPoint(`${angleABC}\\degree`,m2,'black',50,12,'')
             break
         case 'sinus':
             t3=latexParPoint(`${bc} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`?`,m2,'black',120,12,'')
-            m1=homothetie(G,B,3.5/longueur(B,G))
+            m1=homothetie(G,B,2.5/longueur(B,G))
             t1=latexParPoint(`${angleABC}\\degree`,m1,'black',100,12,'')
             break
         case 'tangente':
             t1=latexParPoint(`${ab} \\text{ cm}`,m1,'black',120,12,'')
             t2=latexParPoint(`?`,m2,'black',120,12,'')
-            m3=homothetie(G,B,3.5/longueur(B,G))
+            m3=homothetie(G,B,2.5/longueur(B,G))
             t3=latexParPoint(`${angleABC}\\degree`,m3,'black',100,12,'')
             break
         case 'invCosinus':
             t1=latexParPoint(`${ab} \\text{ cm}`,m1,'black',120,12,'')
             t3=latexParPoint(`?`,m3,'black',120,12,'')
-            m2=homothetie(G,B,3.5/longueur(B,G))
+            m2=homothetie(G,B,2.5/longueur(B,G))
             t2=latexParPoint(`${angleABC}\\degree`,m2,'black',100,12,'')
             break
         case 'invSinus':
             t2=latexParPoint(`${ac} \\text{ cm}`,m2,'black',120,12,'')
             t3=latexParPoint(`?`,m3,'black',120,12,'')
-            m1=homothetie(G,B,3.5/longueur(B,G))
+            m1=homothetie(G,B,2.5/longueur(B,G))
             t1=latexParPoint(`${angleABC}\\degree`,m1,'black',100,12,'')
             break
         case 'invTangente':
             t2=latexParPoint(`${ac} \\text{ cm}`,m2,'black',120,12,'')
             t1=latexParPoint(`?`,m1,'black',120,12,'')
-            m3=homothetie(G,B,3.5/longueur(B,G))
+            m3=homothetie(G,B,2.5/longueur(B,G))
             t3=latexParPoint(`${angleABC}\\degree`,m3,'black',100,12,'')
             break
     }
