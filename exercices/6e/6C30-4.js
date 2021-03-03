@@ -18,7 +18,7 @@ export default function Placer_la_virgule() {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = `Les égalités suivantes sont fausses. Place la virgule correctement dans le résultat pour que l'égalité soit juste.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=['6C30-4',[],this.titre]
+  this.QCM=['6C30-4',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)"]
   this.QCM_disponible=true
   this.ModeQCM=false
   this.sup = false;

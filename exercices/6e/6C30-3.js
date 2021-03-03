@@ -25,7 +25,7 @@ export default function Multiplication_mental_decimaux() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.QCM=['6C30-3',[],this.titre] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
+    this.QCM=['6C30-3',[],"Opérations avec les nombres décimaux"] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
     this.QCM_disponible=false
     this.ModeQCM=true;
     this.codeAMC=[]

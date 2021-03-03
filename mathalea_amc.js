@@ -90,7 +90,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             // Sortie LaTeX
             // code pour la sortie LaTeX
             let codeEnonces = "";
-            let questions=[];
+            let questions=[],NombresQuestions=[];
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
@@ -108,12 +108,11 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                     }
                 }
 
-                    code_LaTeX = Creer_document_AMC(questions,[],{})
+                    code_LaTeX = Creer_document_AMC(questions,[],{}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
          
-
 
                 div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
                 Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
@@ -140,12 +139,40 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     `;
+    let  load =function(monFichier) {
+        var request;
+        
+        if (window.XMLHttpRequest) { // Firefox
+            request = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) { // IE
+            request = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else {
+            return; // Non supporte
+        }	
+        
+        request.open('GET', monFichier, false); // Synchro
+        request.send(null);
+        
+        return request.responseText;
+        }
+
     contenu_fichier+=code_LaTeX
-                  if ($("#nom_du_fichier").val()) {
+    let monzip= new JSZip()
+    console.log('export fichier',code_LaTeX)
+    monzip.file("mathalea.tex",code_LaTeX)
+    monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
+    monzip.generateAsync({type:"blob"})
+.then(function(content) {
+    // see FileSaver.js
+    saveAs(content, "Projet.zip");
+});
+         /*         if ($("#nom_du_fichier").val()) {
                     telechargeFichier(contenu_fichier, $("#nom_du_fichier").val() + ".tex");
                 } else {
                     telechargeFichier(contenu_fichier, "mathalea.tex");
-                }
+                }*/
             });
 
    
@@ -787,7 +814,8 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             form_serie.value = mathalea.graine; // mise à jour du formulaire
             mise_a_jour_du_code();
         }
-
+        let div_overleaf = document.getElementById("overleaf"); // Récupère le div dans lequel le code va être affiché
+    
         // Gestion du bouton de zoom
         // let taille = parseInt($("#affichage_exercices").css("font-size"));
         // $("#btn_zoom_plus").click(function () {
@@ -844,6 +872,32 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
 			})
 		}
 
+        $("#btn_overleaf").click(function () {
+            // Gestion du style pour l'entête du fichier
+
+            let contenu_fichier = `
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document généré avec MathALEA sous licence CC-BY-SA
+%
+% ${window.location.href}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+`;
+console.log(code_LaTeX)
+                contenu_fichier +=  code_LaTeX ;
+
+            // Gestion du LaTeX statique
+
+            // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+
+            $("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+            if ($("#nom_du_fichier").val()) {
+                $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
+            }
+        });
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;
         let serie = params.get("serie");
