@@ -481,7 +481,7 @@ export function labelPoint(...args) {
  * @param {Polygone} p
  * @Auteur Jean-Claude Lhote
  */
-export function barycentre(p, nom, positionLabel = "above") {
+export function barycentre(p, nom='', positionLabel = "above") {
   let sommex = 0,
     sommey = 0,
     nbsommets = 0;
@@ -7825,12 +7825,12 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   this.color = color;
   this.svg = function (coeff) { 
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
+    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne/ 2-25}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
     margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
+      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2-25}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
       margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
       $\\color{${color}}{${texte}}$</div></foreignObject>`;
     }
@@ -7846,8 +7846,8 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     return code;
   };
 }
-export function latexParPoint(...args) {
-  return new LatexParPoint(...args);
+export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+  return new LatexParPoint(texte,A,color,size,hauteurLigne,colorBackground);
 }
 
 export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
