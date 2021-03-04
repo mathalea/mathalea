@@ -481,7 +481,7 @@ export function labelPoint(...args) {
  * @param {Polygone} p
  * @Auteur Jean-Claude Lhote
  */
-export function barycentre(p, nom, positionLabel = "above") {
+export function barycentre(p, nom='', positionLabel = "above") {
   let sommex = 0,
     sommey = 0,
     nbsommets = 0;
@@ -6428,8 +6428,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
         segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
 
         texte = tabInit0[0][0]
-        long = tabInit0[0][2]
-        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0],colorBackground))
+        long = tabInit0[0][2]//
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2,-tabInit0[0][1] * this.hauteurLignes[0] / 28 , 'black', long, this.hauteurLignes[0],colorBackground))
         for (let j = 0; j < tabInit1.length / 2; j++) {
           texte = tabInit1[j * 2]
           long = tabInit1[j * 2 + 1]
@@ -7824,14 +7824,13 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) { 
+    let centrage=1.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-    margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+    return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${color}}{${texte}}$</div></foreignObject>`;
     }
   };
@@ -7846,12 +7845,12 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     return code;
   };
 }
-export function latexParPoint(...args) {
-  return new LatexParPoint(...args);
+export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+  return new LatexParPoint(texte,A,color,size,hauteurLigne,colorBackground);
 }
 
 export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let A = point(x, y);
+  let A = point(x, y-mathalea.pixelsParCm/25);
   return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
 }
 

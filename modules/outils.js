@@ -7475,8 +7475,15 @@ export function scratchTraductionFr() {
  * Si le troisième tableau ne comporte que des 0, il s'agit d'une question ouverte.
  * c'est la longueur du tableau des réponses qui définit le nombre de réponses et donc le nombre de booléens nécessaires
  * Si c'est pour une question ouverte, il n'y aura qu'une réponse et une seule valeur dans le tableau des booléens qui déterminera le nombre de ligne à réserver pour la réponse
+ * exemple : Pour l'exo 3G30 : tabQCMs=['3G30',[texte,[texte_corr],[4]],'Calculer des longueurs avec la trigonométrie']
+ * exemple de type QCM : ​["6C30-3",[["Calcul : $62+23$.\\\\ \n Réponses possibles",[85,1426,8.5,850,86],[1,0,0,0,0]],
+ * 			["Calcul : $80,88+50,34$.\\\\ \n Réponses possibles",[131.22,407150,13.122,1312.2,131.23],[1,0,0,0,0]]],'Opérations avec les nombres décimaux']
+ * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
+ * chaque tableau est élaboré dans le corps de l'exercice 
+ * La fonction crée la partie préparation des groupes de questions du document AMC.
  */
-export function export_QCM_AMC(tabQCMs) {
+
+ export function export_QCM_AMC(tabQCMs) {
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
@@ -7532,7 +7539,38 @@ export function export_QCM_AMC(tabQCMs) {
 	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
+ * 
+ *  questions est un tableau d'éléments de type codeAMC
+ * codeAMC est un tableau comme celui retourné par la fonction export_QCM_AMC ci-dessus
+ * codeAMC[0] est le code Latex des \element{} du groupe de questions
+ * codeAMC[1] est le nom du groupe
+ * codeAMC[2] est le nombre d'éléments du groupe
+ * codeAMC[3] est le titre affiché en commun pour toutes les questions du groupe. 
+ * 
+ * nb_questions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
+ * si il est indéfini, toutes les questions du groupe seront posées.
+ * nb_exemplaire est le nombre de copie à générer
+ */
 export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]
+	for (let code of questions){
+		console.log('codeAMC :',code)
+		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
+			groupeDeQuestion.push(code[1])
+			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]=code[2]
+			titre_question[groupeDeQuestion.indexOf(code[1])]=code[3]
+		}
+		else {
+			tex_questions[groupeDeQuestion.indexOf(code[1])]+=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]+=code[2]
+		}
+		
+	}
+	console.log(groupeDeQuestion,tex_questions,nb_questions)
 	let entete_copie =
 	`%%% fabrication des copies 
 	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
@@ -7586,24 +7624,26 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`;
 	
-	for (let i=0;i<questions.length;i++){
-		code_latex+=questions[i][0]
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
+		code_latex+=tex_questions[i]
 	}
 	code_latex+='\n'+entete_copie
-	for (let i=0;i<questions.length;i++){
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
 		code_latex+=`
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}
-		\\bf\\Large ${questions[i][3]}
+		\\bf\\Large ${titre_question[i]}
 		\\vspace{1mm}
 		\\hrule
 	\\end{center}\n`
 		if (nb_questions[i]>0){
-			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
 		}
 		else {
-			code_latex+=`\\restituegroupe{${questions[i][1]}}\n\n`
+			code_latex+=`\\restituegroupe{${g}}\n\n`
 		}
 	}
 	code_latex+=`}\n \\end{document}\n`

@@ -97,7 +97,6 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
                     listeObjetsExercice[i].nouvelle_version();
-                console.log(listeObjetsExercice[i])
                     questions.push(listeObjetsExercice[i].codeAMC)
 
                     if (typeof listeObjetsExercice[i].liste_packages === "string") {
