@@ -21,10 +21,6 @@ export default function Calcul_de_longueur() {
     this.correction_detaillee_disponible=true
     this.correction_detaillee=false
 
-    /*********************************************************/
-    // On ajoute cette ligne pour AMC
-    this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie']
-    /**********************************************************/
     if (sortie_html) {
         this.spacing = 4;
         this.spacing_corr = 4;
@@ -36,6 +32,10 @@ export default function Calcul_de_longueur() {
     this.nouvelle_version = function () {
         this.liste_questions = []
         this.liste_corrections = []
+    /*********************************************************/
+    // On ajoute cette ligne pour AMC
+    this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie']
+    /**********************************************************/
 
         let nom = creerNomDePolygone(3)
         let texte = '', texte_corr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
@@ -263,7 +263,6 @@ export default function Calcul_de_longueur() {
         /*****************************************************/
         // Pour AMC
         this.QCM[1][0] = [texte, [texte_corr], [4]]
-        this.codeAMC = export_QCM_AMC(this.QCM)
         /****************************************************/
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);

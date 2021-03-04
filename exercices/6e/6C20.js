@@ -26,6 +26,7 @@ export default function Additionner_soustraires_decimaux() {
   this.QCM = ['6C20', [], 'Poser et effectuer les calculs suivants']
  
   this.nouvelle_version = function () {
+    this.QCM[1]=[]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions
@@ -144,7 +145,6 @@ export default function Additionner_soustraires_decimaux() {
       cpt++;
     }
     liste_de_question_to_contenu(this);
-    this.codeAMC = export_QCM_AMC(this.QCM)
   };
   this.besoin_formulaire_numerique = ["Niveau de difficulté", 3, "1 : Additions de décimaux\n2: Soustraction de décimaux\n3 : Additions et soustraction de décimaux"];
 }

@@ -7483,7 +7483,7 @@ export function scratchTraductionFr() {
  * La fonction crée la partie préparation des groupes de questions du document AMC.
  */
 
- export function export_QCM_AMC(tabQCMs) {
+ export function export_QCM_AMC(tabQCMs,idExo) {
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
@@ -7500,7 +7500,7 @@ export function scratchTraductionFr() {
 			type = 'questionmult'
 		}
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`	\\begin{${type}}{ques${tabQCMs[0]}-${id}} \n `
+		tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
 		tex_QR += `		\\begin{reponseshoriz} \n `
 		for (let i = 0; i < tabQCM[1].length; i++) {
@@ -7529,7 +7529,7 @@ export function scratchTraductionFr() {
 	}
 	else { // question ouverte
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`	\\begin{question}{ques${tabQCMs[0]}-${id}} \n `
+		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
 		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
 		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
@@ -7556,9 +7556,13 @@ export function scratchTraductionFr() {
  * nb_exemplaire est le nombre de copie à générer
  */
 export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+	// Attention questions est maintenant un tableau de tous les this.QCM des exos
+	let idExo=0,code
 	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]
-	for (let code of questions){
-		console.log('codeAMC :',code)
+	for (let qcm of questions){
+		code=export_QCM_AMC(qcm,idExo)
+		idExo++
+		console.log('exercice ',idExo,'this.QCM = ',qcm)
 		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
 			groupeDeQuestion.push(code[1])
 			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
