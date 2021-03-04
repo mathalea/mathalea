@@ -57,7 +57,7 @@ export default function Placer_la_virgule() {
       resultat = calcul(nombre * 10 ** coef)
       tabrep=[resultat,calcul(resultat/10),calcul(resultat*10),calcul(resultat/100)]
       tabicone=[1,0,0,0]
-      this.QCM[1].push([`Ou doit être placée la virgule dans le résultat ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
+      this.QCM[1].push([`Ou doit être placée la virgule dans le résultat ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n`,
       tabrep,
       tabicone]) 
    
