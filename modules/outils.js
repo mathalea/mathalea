@@ -7555,7 +7555,7 @@ export function scratchTraductionFr() {
  * si il est indéfini, toutes les questions du groupe seront posées.
  * nb_exemplaire est le nombre de copie à générer
  */
-export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=10,matiere='Mathématiques',titre='Evaluation'}) {
+export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	let idExo=0,code
 	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]

@@ -41,7 +41,6 @@ export default function Placer_la_virgule() {
     } else {
       espace = `\\qquad`;
     }
-    this.QCM[1]=[]
     for (let i = 0, texte, texte_corr, coef, nombre, nombreentier, resultat, exposant,tabrep,tabicone, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
       texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
