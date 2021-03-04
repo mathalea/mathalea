@@ -481,7 +481,7 @@ export function labelPoint(...args) {
  * @param {Polygone} p
  * @Auteur Jean-Claude Lhote
  */
-export function barycentre(p, nom, positionLabel = "above") {
+export function barycentre(p, nom='', positionLabel = "above") {
   let sommex = 0,
     sommey = 0,
     nbsommets = 0;
@@ -3325,7 +3325,7 @@ export function dansLaCibleRonde(x, y, rang, taille, cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'grey', opacite = 0.5 }) {
+function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3437,7 +3437,7 @@ export function cibleRonde({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
  */
-function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
+function CibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3445,34 +3445,42 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   this.opacite = 0.5
   this.color = 'gray'
   let objets = [], numero, centre, azimut, rayon, rayon1, rayon2, arc1, arc2
+  let arcPlein
+  if (semi) {
+    arcPlein=180
+  }
+  else {
+    arcPlein=360
+  }
 
-  centre = point(this.x, this.y, this.y)
-  azimut = point(this.x + this.taille, this.y)
+  centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + this.taille, this.y),centre,depart)
   let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
-  for (let i = 0; i < 18; i++) {
-    rayon = segment(azimut, azimut2)
-    rayon1 = rotation(rayon, centre, 20 / 3)
-    rayon2 = rotation(rayon, centre, 40 / 3)
-    rayon2.pointilles = 1
-    rayon1.pointilles = 1
-    rayon1.color = this.color
-    rayon2.color = this.color
-    rayon1.opacite = this.opacite
-    rayon2.opacite = this.opacite
-    arc1 = arc(azimut, centre, 20)
-    arc2 = arc(azimut2, centre, 20)
-    numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, 10), 'milieu', 'gray')
+  let rayons=[]
+  arc1 = arc(azimut, centre, arcPlein)
+  arc2 = arc(azimut2, centre, arcPlein)
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1,arc2,rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    for (let j=1;j<nbSubDivisions;j++){
+    rayons[j-1] = rotation(rayon, centre,j*arcPlein/nbDivisions/nbSubDivisions)
+    rayons[j-1].pointilles=1
+    rayons[j-1].color=this.color
+    rayons[j-1].opacite=this.opacite
+    objets.push(rayons[j-1])
+    }
+    if (label) {
+      numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein/nbDivisions/2), 'milieu', 'gray')
     numero.contour = true
+      objets.push(numero)
+    }
     rayon.color = this.color
     rayon.opacite = this.opacite
-    arc1.color = this.color
-    arc2.color = this.color
-    arc1.opacite = this.opacite
-    arc2.opacite = this.opacite
-
-    objets.push(rayon, rayon1, rayon2, arc1, arc2, numero)
-    azimut = rotation(azimut, centre, 20)
-    azimut2 = rotation(azimut2, centre, 20)
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein/nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein/nbDivisions)
+    rayon = segment(azimut, azimut2)
   }
   this.svg = function (coeff) {
     let code = "";
@@ -3490,8 +3498,8 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   };
 }
 
-export function cibleCouronne({ x = 0, y = 0, taille = 5 }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille })
+export function cibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
+  return new CibleCouronne({ x: x, y: y, taille: taille,depart:depart,nbDivisions:nbDivisions,nbSubDivisions:nbSubDivisions,semi:semi,label:label})
 }
 
 /**
@@ -3692,7 +3700,7 @@ export function sens_de_rotation(A, O, sens) {
  *
  * @Auteur Rémi Angot
  */
-export function homothetie(A, O, k, nom = "", positionLabel = "") {
+export function homothetie(A, O, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(O.x + k * (A.x - O.x));
     let y = calcul(O.y + k * (A.y - O.y));
@@ -6420,8 +6428,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
         segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
 
         texte = tabInit0[0][0]
-        long = tabInit0[0][2]
-        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0],colorBackground))
+        long = tabInit0[0][2]//
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2,-tabInit0[0][1] * this.hauteurLignes[0] / 28 , 'black', long, this.hauteurLignes[0],colorBackground))
         for (let j = 0; j < tabInit1.length / 2; j++) {
           texte = tabInit1[j * 2]
           long = tabInit1[j * 2 + 1]
@@ -7816,14 +7824,13 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) { 
+    let centrage=1.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-    margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+    return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${color}}{${texte}}$</div></foreignObject>`;
     }
   };
@@ -7838,12 +7845,12 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     return code;
   };
 }
-export function latexParPoint(...args) {
-  return new LatexParPoint(...args);
+export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+  return new LatexParPoint(texte,A,color,size,hauteurLigne,colorBackground);
 }
 
 export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let A = point(x, y);
+  let A = point(x, y-mathalea.pixelsParCm/25);
   return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
 }
 

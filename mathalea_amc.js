@@ -1,4 +1,4 @@
-import { export_QCM_AMC , Creer_document_AMC, strRandom, telechargeFichier } from "./modules/outils.js";
+import { Creer_document_AMC, strRandom } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modules/menuDesExercicesQCMDisponibles.js'
 
@@ -89,15 +89,13 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
         if (!sortie_html) {
             // Sortie LaTeX
             // code pour la sortie LaTeX
-            let codeEnonces = "";
             let questions=[];
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
-                    listeObjetsExercice[i].nouvelle_version();
-                console.log(listeObjetsExercice[i])
+                    listeObjetsExercice[i].nouvelle_version(i);
                     questions.push(listeObjetsExercice[i].codeAMC)
 
                     if (typeof listeObjetsExercice[i].liste_packages === "string") {
@@ -108,12 +106,11 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                     }
                 }
 
-                    code_LaTeX = Creer_document_AMC(questions,[],{})
+                    code_LaTeX = Creer_document_AMC(questions,[],{}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
          
-
 
                 div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
                 Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
@@ -140,12 +137,40 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     `;
+    let  load =function(monFichier) {
+        var request;
+        
+        if (window.XMLHttpRequest) { // Firefox
+            request = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) { // IE
+            request = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else {
+            return; // Non supporte
+        }	
+        
+        request.open('GET', monFichier, false); // Synchro
+        request.send(null);
+        
+        return request.responseText;
+        }
+
     contenu_fichier+=code_LaTeX
-                  if ($("#nom_du_fichier").val()) {
+    let monzip= new JSZip()
+    console.log('export fichier',code_LaTeX)
+    monzip.file("mathalea.tex",code_LaTeX)
+    monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
+    monzip.generateAsync({type:"blob"})
+.then(function(content) {
+    // see FileSaver.js
+    saveAs(content, "Projet.zip");
+});
+         /*         if ($("#nom_du_fichier").val()) {
                     telechargeFichier(contenu_fichier, $("#nom_du_fichier").val() + ".tex");
                 } else {
                     telechargeFichier(contenu_fichier, "mathalea.tex");
-                }
+                }*/
             });
 
    
@@ -297,17 +322,6 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
     modification(numero_figure);
     }
 
-    /**
-    * Actualise toutes les figures MG32 avec les nouvelles valeurs
-    * @Auteur Rémi Angot
-    */
-    function  MG32_modifie_toutes_les_figures() {
-    for (let i = 0; i < liste_des_exercices.length; i++) {
-        if ( listeObjetsExercice[i].type_exercice=='MG32'){
-            MG32_modifie_figure(i)
-        }
-    }
-    }
 
 
 
@@ -787,7 +801,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             form_serie.value = mathalea.graine; // mise à jour du formulaire
             mise_a_jour_du_code();
         }
-
+    
         // Gestion du bouton de zoom
         // let taille = parseInt($("#affichage_exercices").css("font-size"));
         // $("#btn_zoom_plus").click(function () {
@@ -844,6 +858,32 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
 			})
 		}
 
+        $("#btn_overleaf").click(function () {
+            // Gestion du style pour l'entête du fichier
+
+            let contenu_fichier = `
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document généré avec MathALEA sous licence CC-BY-SA
+%
+% ${window.location.href}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+`;
+console.log(code_LaTeX)
+                contenu_fichier +=  code_LaTeX ;
+
+            // Gestion du LaTeX statique
+
+            // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+
+            $("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+            if ($("#nom_du_fichier").val()) {
+                $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
+            }
+        });
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;
         let serie = params.get("serie");
