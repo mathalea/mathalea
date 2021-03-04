@@ -7534,6 +7534,7 @@ export function scratchTraductionFr() {
 		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
 		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
 		tex_QR +=`\\end{question}\n }\n`
+		id++
 	}
 }
 	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]

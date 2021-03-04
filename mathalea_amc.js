@@ -1,4 +1,4 @@
-import { export_QCM_AMC , Creer_document_AMC, strRandom, telechargeFichier } from "./modules/outils.js";
+import { Creer_document_AMC, strRandom } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modules/menuDesExercicesQCMDisponibles.js'
 
@@ -89,14 +89,13 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
         if (!sortie_html) {
             // Sortie LaTeX
             // code pour la sortie LaTeX
-            let codeEnonces = "";
-            let questions=[],NombresQuestions=[];
+            let questions=[];
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
-                    listeObjetsExercice[i].nouvelle_version();
+                    listeObjetsExercice[i].nouvelle_version(i);
                     questions.push(listeObjetsExercice[i].codeAMC)
 
                     if (typeof listeObjetsExercice[i].liste_packages === "string") {
@@ -323,17 +322,6 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
     modification(numero_figure);
     }
 
-    /**
-    * Actualise toutes les figures MG32 avec les nouvelles valeurs
-    * @Auteur Rémi Angot
-    */
-    function  MG32_modifie_toutes_les_figures() {
-    for (let i = 0; i < liste_des_exercices.length; i++) {
-        if ( listeObjetsExercice[i].type_exercice=='MG32'){
-            MG32_modifie_figure(i)
-        }
-    }
-    }
 
 
 
@@ -813,7 +801,6 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             form_serie.value = mathalea.graine; // mise à jour du formulaire
             mise_a_jour_du_code();
         }
-        let div_overleaf = document.getElementById("overleaf"); // Récupère le div dans lequel le code va être affiché
     
         // Gestion du bouton de zoom
         // let taille = parseInt($("#affichage_exercices").css("font-size"));

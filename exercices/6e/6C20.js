@@ -1,6 +1,6 @@
 import Operation from '/modules/operations.js';
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombrec, tex_nombre } from "/modules/outils.js"
+import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombrec, tex_nombre,export_QCM_AMC } from "/modules/outils.js"
 /**
  * Additions et soustractions de nombres décimaux
  * * xxx-xx,x
@@ -23,7 +23,8 @@ export default function Additionner_soustraires_decimaux() {
   this.nb_questions = 4;
   this.sup = 3;
   this.tailleDiaporama = 100;
-
+  this.QCM = ['6C20', [], 'Poser et effectuer les calculs suivants']
+ 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -137,11 +138,13 @@ export default function Additionner_soustraires_decimaux() {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([texte, [texte_corr], [4]])
         i++;
       }
       cpt++;
     }
     liste_de_question_to_contenu(this);
+    this.codeAMC = export_QCM_AMC(this.QCM)
   };
   this.besoin_formulaire_numerique = ["Niveau de difficulté", 3, "1 : Additions de décimaux\n2: Soustraction de décimaux\n3 : Additions et soustraction de décimaux"];
 }
