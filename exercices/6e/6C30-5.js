@@ -18,7 +18,6 @@ export default function Multiplier_par_001() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
     this.consigne=`Compléter les pointillés.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=['6C30-5',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)"]
   this.QCM_disponible=true
   this.ModeQCM=false;
   this.sup = false; 
@@ -30,7 +29,9 @@ export default function Multiplier_par_001() {
     this.nouvelle_version = function () {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-  
+ 
+    this.QCM=['6C30-5',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)"]
+
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
     let type_de_questions_disponibles
@@ -155,7 +156,6 @@ export default function Multiplier_par_001() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      this.codeAMC=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

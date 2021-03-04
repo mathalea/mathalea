@@ -96,7 +96,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
                     listeObjetsExercice[i].nouvelle_version(i);
-                    questions.push(listeObjetsExercice[i].codeAMC)
+                    questions.push(listeObjetsExercice[i].QCM)
 
                     if (typeof listeObjetsExercice[i].liste_packages === "string") {
                         liste_packages.add(listeObjetsExercice[i].liste_packages);
@@ -105,7 +105,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-
+console.log(questions)
                     code_LaTeX = Creer_document_AMC(questions,[],{}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();

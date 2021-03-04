@@ -25,8 +25,7 @@ export default function Multiplication_mental_decimaux() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.QCM=['6C30-3',[],"Opérations avec les nombres décimaux"] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
-    this.QCM_disponible=false
+       this.QCM_disponible=false
     this.ModeQCM=true;
     this.codeAMC=[]
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
@@ -36,7 +35,9 @@ export default function Multiplication_mental_decimaux() {
     this.nouvelle_version = function () {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-  
+ 
+    this.QCM=['6C30-3',[],"Opérations avec les nombres décimaux"] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
+ 
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
     let type_de_questions_disponibles=["add", "mul", "add_deci", "mul_deci"] // tableau à compléter par valeurs possibles des types de questions
@@ -49,7 +50,6 @@ export default function Multiplication_mental_decimaux() {
     } else {
       espace = `\\qquad`;
     }
-  	this.QCM[1]=[]
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
@@ -191,7 +191,6 @@ export default function Multiplication_mental_decimaux() {
         cpt++;
       }
       liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-      this.codeAMC=export_QCM_AMC(this.QCM)
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
