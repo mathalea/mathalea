@@ -95,7 +95,7 @@ export default function Egalites_entre_fractions() {
           texte_corr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
-          for (let i=0; i<5; i++) {
+          for (let i=0; i<tabrep.length; i++) {
             texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
            if (tabicone[i]==1) {
              texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
@@ -124,11 +124,14 @@ export default function Egalites_entre_fractions() {
           tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction(d*a+1, d)}$`,`$${tex_fraction((d+1)*a, d)}$`,`$${tex_fraction((d+2)*a, d)}$`]
         }
         tabicone=[1,0,0,0,0]
+        this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+        tabrep,
+        tabicone]) 
         if (this.ModeQCM) {
           texte_corr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
-          for (let i=0; i<5; i++) {
+          for (let i=0; i<tabrep.length; i++) {
             texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
            if (tabicone[i]==1) {
              texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;

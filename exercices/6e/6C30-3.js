@@ -74,7 +74,7 @@ export default function Multiplication_mental_decimaux() {
                 texte_corr += `Calcul : $${a} + ${b}$. <br>`;
                texte += `Réponses possibles : <br>`;
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
-               for (let i=0; i<5; i++) {
+               for (let i=0; i<tabrep.length; i++) {
                  texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                 if (tabicone[i]==1) {
                   texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
@@ -104,8 +104,8 @@ export default function Multiplication_mental_decimaux() {
               texte += `Réponses possibles : <br>`;
               texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
               shuffle2tableaux(tabrep, tabicone);
-              for (let i=0; i<5; i++) {
-                texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+              for (let i=0; i<tabrep.length; i++) {
+                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                if (tabicone[i]==1) {
                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
@@ -134,8 +134,8 @@ export default function Multiplication_mental_decimaux() {
             texte_corr += `Calcul : $${tex_nombre2(a/100)} + ${tex_nombre2(b/100)}$. <br>`
             texte += `Réponses possibles : <br>`;
             shuffle2tableaux(tabrep, tabicone); 
-            for (let i=0; i<5; i++) {
-              texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+            for (let i=0; i<tabrep.length; i++) {
+              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
                texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
@@ -167,8 +167,8 @@ export default function Multiplication_mental_decimaux() {
             texte += `Réponses possibles : <br>`;
   
             shuffle2tableaux(tabrep, tabicone);
-            for (let i=0; i<5; i++) {
-              texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+            for (let i=0; i<tabrep.length; i++) {
+              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
                texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {

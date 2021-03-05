@@ -76,7 +76,7 @@ export default function Multiplier_par_001() {
             if (this.ModeQCM) {
               texte+=`<br>   Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
-              for (let i=0; i<4; i++) {
+              for (let i=0; i<tabrep.length; i++) {
                 texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
@@ -102,7 +102,7 @@ export default function Multiplier_par_001() {
             if (this.ModeQCM) {
               texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
-              for (let i=0; i<4; i++) {
+              for (let i=0; i<tabrep.length; i++) {
                 texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
@@ -129,7 +129,7 @@ export default function Multiplier_par_001() {
             if (this.ModeQCM) {
               texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
-              for (let i=0; i<4; i++) {
+              for (let i=0; i<tabrep.length; i++) {
                 texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
