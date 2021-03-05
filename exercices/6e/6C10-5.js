@@ -21,10 +21,6 @@ export default function Exercice_labyrinthe_multiples() {
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
   this.tailleDiaporama = 100;
-/*********************************************************/
-// On ajoute cette ligne pour AMC
-this.QCM=['6C10-5',[],'Labyrinthe de multiples']
-/**********************************************************/
 this.sup3 = 3
   this.sup = 9;
   if (this.niveau = 'CM') {
@@ -38,6 +34,11 @@ this.sup3 = 3
   this.nouvelle_version = function () {
     this.liste_corrections=[]
     this.liste_questions=[]
+    /*********************************************************/
+// On ajoute cette ligne pour AMC
+this.QCM=['6C10-5',[],'Labyrinthe de multiples']
+/**********************************************************/
+
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
     laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
@@ -82,7 +83,6 @@ this.sup3 = 3
     /*****************************************************/
     // Pour AMC
     this.QCM[1][0]=[texte,[texte_corr],[3]]
-    this.codeAMC=export_QCM_AMC(this.QCM)
     /****************************************************/
 
     this.liste_questions.push(texte);

@@ -18,8 +18,7 @@ export default function Placer_la_virgule() {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = `Les égalités suivantes sont fausses. Place la virgule correctement dans le résultat pour que l'égalité soit juste.`
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.QCM=['6C30-4',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)"]
-  this.QCM_disponible=true
+   this.QCM_disponible=true
   this.ModeQCM=false
   this.sup = false;
   
@@ -30,6 +29,8 @@ export default function Placer_la_virgule() {
   this.nouvelle_version = function () {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+ 
+    this.QCM=['6C30-4',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)"]
 
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
@@ -40,7 +41,6 @@ export default function Placer_la_virgule() {
     } else {
       espace = `\\qquad`;
     }
-    this.QCM[1]=[]
     for (let i = 0, texte, texte_corr, coef, nombre, nombreentier, resultat, exposant,tabrep,tabicone, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
       texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -57,7 +57,7 @@ export default function Placer_la_virgule() {
       resultat = calcul(nombre * 10 ** coef)
       tabrep=[resultat,calcul(resultat/10),calcul(resultat*10),calcul(resultat/100)]
       tabicone=[1,0,0,0]
-      this.QCM[1].push([`Ou doit être placée la virgule dans le résultat ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
+      this.QCM[1].push([`Ou doit être placée la virgule dans le résultat ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n`,
       tabrep,
       tabicone]) 
    
@@ -88,7 +88,6 @@ export default function Placer_la_virgule() {
       cpt++;
     }
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-    this.codeAMC=export_QCM_AMC(this.QCM)
   };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.

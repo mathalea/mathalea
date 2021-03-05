@@ -3325,7 +3325,7 @@ export function dansLaCibleRonde(x, y, rang, taille, cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'grey', opacite = 0.5 }) {
+function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3700,7 +3700,7 @@ export function sens_de_rotation(A, O, sens) {
  *
  * @Auteur Rémi Angot
  */
-export function homothetie(A, O, k, nom = "", positionLabel = "") {
+export function homothetie(A, O, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(O.x + k * (A.x - O.x));
     let y = calcul(O.y + k * (A.y - O.y));
