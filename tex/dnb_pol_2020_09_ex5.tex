@@ -1,0 +1,41 @@
+On considère les fonctions $f$ et $g$ suivantes: 
+
+\[f :\: t \longmapsto  4t + 3\quad \text{et}\quad  g :\: t \longmapsto 6t.\]
+
+Leurs représentations graphiques $\left(d_1\right)$ et $\left(d_2\right)$ sont tracées ci-dessous.
+
+\begin{center}
+\psset{xunit=2.25cm,yunit=0.4cm,comma=true}
+\begin{pspicture}(-1,-3)(4.1,24)
+\multido{\n=-1.0+0.1}{52}{\psline[linewidth=0.1pt](\n,-3)(\n,24)}
+\multido{\n=-1.0+0.5}{11}{\psline[linewidth=0.7pt](\n,-3)(\n,24)}
+\multido{\n=-3+1}{28}{\psline[linewidth=0.1pt](-1,\n)(4.1,\n)}
+\multido{\n=0+5}{5}{\psline[linewidth=0.7pt](-1,\n)(4.1,\n)}
+\psaxes[linewidth=1.25pt,Dy=5,Dx=0.5]{->}(0,0)(-1,-3)(4.1,24)
+\psaxes[linewidth=1.25pt,Dy=5,Dx=0.5](0,0)(-1,-3)(4.1,24)
+\psplot[plotpoints=2000,linecolor=red,linewidth=1.25pt]{-0.5}{4}{6 x mul}
+\psplot[plotpoints=2000,linecolor=blue,linewidth=1.25pt]{-1}{4}{4 x mul 3 add}
+\uput[d](3.5,17){\blue $\left(d_2\right)$}\uput[u](3,18){\red $\left(d_1\right)$}
+\uput[dr](0,0){O}
+\end{pspicture}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item Associer chaque droite à la fonction qu'elle représente.
+\item Résoudre par la méthode de votre choix l'équation $f(t) = g(t)$.
+\end{enumerate}
+
+Camille et Claude décident de faire exactement la même randonnée mais Camille part $45$~min avant Claude. On sait que Camille marche à la vitesse constante de $4$ km/h et Claude marche à la vitesse constante de $6$~km/h.
+
+\begin{enumerate}[resume]
+\item Au moment du départ de Claude, quelle est la distance déjà parcourue par Camille ?
+\end{enumerate}
+
+On note $t$ le temps écoulé, exprimé en heure, depuis le départ de Claude. Ainsi $t = 0$ correspond au moment du départ de Claude.
+
+\begin{enumerate}[resume]
+\item Expliquer pourquoi la distance en kilomètre parcourue par Camille en fonction de $t$ peut s'écrire $4t + 3$.
+\item Déterminer le temps que mettra Claude pour rattraper Camille.
+\end{enumerate}

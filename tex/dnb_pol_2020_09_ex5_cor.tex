@@ -1,0 +1,81 @@
+On considère les fonctions $f$ et $g$ suivantes: 
+
+\[f :\: t \longmapsto  4t + 3\quad \text{et}\quad  g :\: t \longmapsto 6t.\]
+
+Leurs représentations graphiques $\left(d_1\right)$ et $\left(d_2\right)$ sont tracées ci-dessous.
+
+\begin{center}
+\psset{xunit=2.25cm,yunit=0.4cm,comma=true}
+\begin{pspicture}(-1,-3)(4.1,24)
+\multido{\n=-1.0+0.1}{52}{\psline[linewidth=0.1pt](\n,-3)(\n,24)}
+\multido{\n=-1.0+0.5}{11}{\psline[linewidth=0.7pt](\n,-3)(\n,24)}
+\multido{\n=-3+1}{28}{\psline[linewidth=0.1pt](-1,\n)(4.1,\n)}
+\multido{\n=0+5}{5}{\psline[linewidth=0.7pt](-1,\n)(4.1,\n)}
+\psaxes[linewidth=1.25pt,Dy=5,Dx=0.5]{->}(0,0)(-1,-3)(4.1,24)
+\psaxes[linewidth=1.25pt,Dy=5,Dx=0.5](0,0)(-1,-3)(4.1,24)
+\psplot[plotpoints=2000,linecolor=red,linewidth=1.25pt]{0}{4}{6 x mul}
+\psplot[plotpoints=2000,linecolor=blue,linewidth=1.25pt]{-0.75}{4}{4 x mul 3 add}
+\uput[d](3.5,17){\blue $\left(d_2\right)$}\uput[u](3,18){\red $\left(d_1\right)$}
+\uput[dr](0,0){O}
+\rput(-0.75,-2){\blue Départ}\rput(-0.75,-3){\blue Camille}
+\rput(0,-2){\red Départ}\rput(0,-3){\red Claude}
+\end{pspicture}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item %Associer chaque droite à la fonction qu'elle représente.
+$\left(d_1\right)$ est la représentation d'une fonction linéaire donc de la fonction $g$ ; effectivement $g(1) = 6$.
+
+Donc $\left(d_2\right)$ la représentation d'une fonction  affine $f$ ; effectivement $f(2) = 4 \times 2 + 3 = 11$.
+\item %Résoudre par la méthode de votre choix l'équation $f(t) = g(t).
+
+$\bullet~~$\emph{Graphiquement} : on voit que les deux droites sont sécantes en (1,5~;~9). On a donc $S = \{1,5\}$.
+
+$\bullet~~$\emph{Par le calcul} : $f(t) = g(t)$ soit $4t + 3 = 6t$ d'où en ajoutant $-4t$ à chaque membre : 
+
+$3 = 2t$ et en multipliant chaque membre par $\dfrac{1}{2}$ : \: $\dfrac{3}{2} = 1,5 = t$.
+\end{enumerate}
+
+%Camille et Claude décident de faire exactement la même randonnée mais Camille part $45$~min avant Claude. On sait que Camille marche à la vitesse constante de $4$ km/h et Claude marche à la vitesse constante de $6$~km/h.
+
+\smallskip
+
+\begin{enumerate}[resume]
+\item %Au moment du départ de Claude, quelle est la distance déjà parcourue par Camille ?
+
+Camille a marché pendant 45 min soit $\dfrac{45}{60} = \dfrac{3\times 15}{4 \times 15} = \dfrac{3}{4}$~(h).
+
+Elle a donc parcouru : $4 \times \dfrac{3}{4} = 4 \times 3 \times \dfrac{1}{4} = 3$~(km).
+\end{enumerate}
+
+On note $t$ le temps écoulé, exprimé en heure, depuis le départ de Claude. Ainsi $t = 0$ correspond au moment du départ de Claude.
+
+\begin{enumerate}[resume]
+\item %Expliquer pourquoi la distance en kilomètre parcourue par Camille en fonction de $t$ peut s'écrire $4t + 3$.
+
+La distance parcourue par Camille est proportionnelle à sa vitesse soit 4~(km/h), mais pour $t = 0$, elle a déjà parcouru 3~km, donc la distance parcourue à partir du moment où Claude démarre est $3 + 4t = 4t + 3 = f(t)$.
+\item %Déterminer le temps que mettra Claude pour rattraper Camille.
+
+La distance parcourue par Claude est proportionnelle à sa vitesse 6~(km/h), donc égale à 
+
+$6t = g(t)$.
+
+Claude rattrape Camille quand ils sont à la même distance du départ, donc au point commun aux deux droites (question 2.) donc au bout de 1,5~h soit 1 h 30~min à 9 km du départ.
+\end{enumerate}
+
+%\begin{center}
+%\begin{pspicture}[showgrid=true](0,0)(4,4)
+%\psset{PtNameMath=false}
+%\psset{dotscale=0.5}
+%\psset{PointSymbol=*}\footnotesize
+%\pstEllipse[Options] (O)(a, b)[angleA] [angleB]
+%\def\ra{2.4}\def\rb{0.8} 
+%\pstGeonode[PosAngle=-90,PointNameSep=0.2](2,2){O} %
+%\psellipse[linecolor=red!60](O)(\ra,\rb) \pstEllipse[linecolor=red!60](O)(\ra,\rb)[0][120]
+%\pstEllipse[linecolor=green!60,linestyle=dashed,arrows=->, arrowscale=1.2](O)(\ra,\rb)[120][200]
+%\pstEllipse[linecolor=blue!60](O)(\ra,\rb)[200][300] 
+%\pstEllipse[linecolor=purple!60,linestyle=dashed,arrows=->,arrowscale=1.2](O)(\ra,\rb)[300][360] \pstEllipse[linecolor=cyan!60](O)(\rb,\ra) 
+%\end{pspicture}
+%\end{center}
