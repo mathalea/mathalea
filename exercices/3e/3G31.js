@@ -70,7 +70,7 @@ export default function Calcul_de_longueur() {
                 ac = randint(40,(bc-2)*10)/10
                 angleABC = Math.round(Math.asin(ac/bc)*180/Math.PI)
                 ab = calcul(bc * Math.cos(Math.asin(ac/bc)))
-                texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, $${nom[1] + nom[2]}=${tex_nombre2(bc)}$ cm et $${nom[0]+nom[2]}=${tex_nombre2(ab)}$ cm.<br>`
+                texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, $${nom[1] + nom[2]}=${tex_nombre2(bc)}$ cm et $${nom[0]+nom[2]}=${tex_nombre2(ac)}$ cm.<br>`
                 texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.<br>`
                 break
             case 'Atan':
@@ -138,8 +138,8 @@ export default function Calcul_de_longueur() {
         objets_enonce.push(p2, codage, nomme,t1,t2,t3,codeangle)
         objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo,codeangle)
 
-        let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 18, scale: 0.47, mainlevee: true,amplitude:0.4 }
-        let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .5, mainlevee: false }
+        let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 3, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 18, scale: 0.47, mainlevee: true,amplitude:0.4 }
+        let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 3, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .5, mainlevee: false }
         if (!sortie_html) {
             texte += '\\begin{minipage}{.4\\linewidth}\n'
         }
