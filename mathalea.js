@@ -527,7 +527,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 })
                 )
                 promises.push(
-                fetch(dictionnaireDesExercices[id]["url"])
+                fetch(dictionnaireDesExercices[id]["urlcor"])
                 .then(response => response.text())
                 .then(data => {
                     
