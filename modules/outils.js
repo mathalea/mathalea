@@ -1788,7 +1788,7 @@ export function tex_enumerate(liste,spacing){
 			result += '\\end{spacing}\n'
 		} 
 	}	
-	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n').replace(/€/g,'\\euro{}')
 	
 }
 
@@ -1822,7 +1822,7 @@ export function tex_paragraphe(liste,spacing=false){
 	if (spacing>1){
 		result += '\\end{spacing}'
 	} 
-	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n').replace(/€/g,'\\euro{}')
 }
 
 /**
@@ -6774,7 +6774,7 @@ export function intro_LaTeX(entete = "Exercices",liste_packages) {
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
@@ -6843,7 +6843,7 @@ ${preambule_personnalise(liste_packages)}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
@@ -7633,7 +7633,7 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,m
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
