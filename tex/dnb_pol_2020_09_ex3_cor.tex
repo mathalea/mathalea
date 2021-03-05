@@ -1,0 +1,114 @@
+%\parbox{0.7\linewidth}{On considère le motif initial ci-contre.
+%
+%Il est composé d'un carré ABCE de côté $5$~cm et d'un triangle EDC, rectangle et isocèle en D.}
+%\hfill
+%\parbox{0.28\linewidth}{\psset{unit=1cm}
+%\begin{pspicture}(3,4)
+%\pspolygon[fillstyle=solid,fillcolor=lightgray](0.5,0.5)(2.5,0.5)(2.5,2.5)(1.5,3.5)(0.5,2.5)%ABCDE
+%\uput[dl](0.5,0.5){A}\uput[dr](2.5,0.5){B}\uput[ur](2.5,2.5){C}\uput[u](1.5,3.5){D}\uput[ul](0.5,2.5){E}
+%\psline(2.5,2.5)(0.5,2.5)
+%\end{pspicture}}
+%
+%\bigskip
+
+\textbf{Partie 1}
+
+\medskip
+
+\begin{enumerate}
+\item %Donner, sans justification, les mesures des angles $\widehat{\text{DEC}}$  et $\widehat{\text{DCE}}$.
+$\widehat{\text{DEC}}$  et $\widehat{\text{DCE}}$ angles aigus d'un triangle rectangle isocèle ont pour mesure 45\degres.
+\item %Montrer que le côté [DE] mesure environ $3,5$~cm au dixième de centimètre près.
+D'après le théorème de Pythagore dans le triangle EDC rectangle en D, on a :
+
+$\text{DE}^2 + \text{DC}^2 = \text{EC}^2$, soit puisque $\text{DE} = \text{DC}$, 
+
+$2\text{DE}^2  = 5^2 = 25$, d'où $\text{DE}^2 = 12,5$.
+
+Finalement $\text{DE} = \sqrt{12,5} \approx 3,53$ soit environ 3,5~cm au dixième près.
+\item %Calculer l'aire du motif initial. Donner une valeur approchée au centimètre carré près.
+L'aire du carré est égale à : $5^2 = 25$.
+
+L'aire du triangle est égale à $\dfrac{\text{DE} \times \text{DC}}{2} = \dfrac{\text{DE}^2}{2} = \dfrac{12,5}{2} = 6,25$.
+
+L'aire du motif est donc égale à : $25 + 6,25 = 31,25$~cm$^2$, soit 31~cm$^2$ au centimètre carré près.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie 2}
+
+\medskip
+
+%\parbox{0.4\linewidth}{On réalise un pavage du plan en partant du motif initial et en utilisant différentes transformations du plan.
+%
+%Dans chacun des quatre cas suivants, donner sans justifier une transformation du plan qui permet de passer :
+
+\begin{enumerate}
+\item %Du motif 1 au motif 2
+La rotation de centre B et d'angle 90\degres{} dans le sens horaire.
+\item %Du motif 1 au motif 3
+La translation de vecteur $\vect{\text{AK}}$.
+\item %Du motif 1 au motif 4
+La rotation de centre B et d'angle 180\degres{} (ou symétrie autour de B).
+\item %Du motif 2 au motif 3
+La rotation de centre H et d'angle 90\degres{} dans le sens anti-horaire.
+\end{enumerate}
+%}
+%\hfill
+%\parbox{0.57\linewidth}{
+%\def\motifa{
+%\psset{unit=1cm}
+%\begin{pspicture}(2.1,3.5)
+%\psline[fillstyle=solid,fillcolor=lightgray](0,0)(2.1,0)(2.1,2.1)(1.05,3.22)(0,2.1)(0,0)
+%\end{pspicture}
+%}%ABCDE
+%\def\motifb
+%{\psset{unit=1cm}
+%\begin{pspicture}(2.1,3.5)
+%\psline(0,0)(2.1,0)(2.1,2.1)(1.05,3.22)(0,2.1)(0,0)
+%\end{pspicture}
+%}
+%\psset{unit=0.75cm}
+%\begin{pspicture}(11,10)
+%\psline(0,0)(4,0)(5,1)(6,0)(8,0)(8,2)(6,2)(5,1)(4,2)(2,2)(2,0)
+%\psline(8,2)(10,2)(11,3)(10,4)(8,4)(10,4)(10,6)(8,6)(7,5)(8,4)(8,2)
+%\psline(8,6)(8,8)(6,8)(4,8)(4,10)(2,10)(2,8)(3,7)(4,8)
+%\psline(6,8)(6,6)(7,5)(6,4)(6,2)
+%\psline(6,6)(4,6)(3,7)(2,6)(0,6)(0,8)(2,8)
+%\psline(0,0)(0,2)(1,3)(2,2)(4,2)(4,4)(6,4)
+%\psline(1,3)(2,4)(4,4)(2,4)(2,6)
+%\psline(0,6)(0,4)(1,3)
+%\pspolygon[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](2,4)(2,6)(3,7)(4,6)(4,4)
+%\pspolygon[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](4,6)(4,4)(6,4)(7,5)(6,6)
+%\pspolygon[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](4,2)(4,4)(6,4)(6,2)(5,1)
+%\pspolygon[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](6,2)(6,4)(7,5)(8,4)(8,2)
+%\uput[l](2,4){A} \uput[dl](4,4){B} \uput[ur](4,6){C} \uput[u](3,7){D} 
+%\uput[ul](2,6){E} \uput[ur](6,6){F} \uput[dr](6,4){G} \uput[u](7,5){H} 
+%\uput[ur](8,4){I} \uput[dr](8,2){J} \uput[dr](6,2){K} \uput[d](5,1){L} 
+%\uput[dl](4,2){M}
+%\rput(3,5){motif 1} \rput(5,5){motif 2}\rput(7,3){motif 3}\rput(5,3){motif 4}
+%\end{pspicture}
+%}
+
+\bigskip
+
+\textbf{Partie 3}
+
+\medskip
+
+%Suite à un agrandissement de rapport $\dfrac{3}{2}$ de la taille du motif initial, on obtient un motif agrandi.
+
+%\medskip
+
+\begin{enumerate}
+\item ~%Construire en vraie grandeur le motif agrandi.
+On dessine un carré de $\dfrac{3}{2} \times 5 = \dfrac{18}{2} = 7,5$~cm de côté.
+%\psset{unit=1.5cm}
+%\begin{pspicture}(3,4)
+%\psframe(0.5,0.5)(2.5,2.5)%ABCE
+%\end{pspicture}
+\item %Par quel coefficient doit-on multiplier l'aire du motif initial pour obtenir l'aire du motif agrandi ?
+
+La longueur de chaque côté ayant été multipliée par $\dfrac{3}{2}$, l'aire est multipliée par $\left(\dfrac{3}{2}\right)^2 = \dfrac{9}{4} = 2,25$.
+\end{enumerate}

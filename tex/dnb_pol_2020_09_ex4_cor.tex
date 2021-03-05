@@ -1,0 +1,36 @@
+%Jean possède 365 albums de bandes dessinées.Afin de trier les albums de sa collection, il les range par série et classe les séries en trois catégories: franco-belges, comics et mangas comme ci-dessous.
+%
+%\begin{center}
+%\begin{tabularx}{\linewidth}{|*{3}{X|}}\hline
+%Séries franco-belges&Séries de comics&Séries de mangas\\ \hline
+%23 albums \og Astérix \fg&35 albums \og Batman \fg&85 albums \og One-Pièce \fg\\
+%22 albums \og Tintin\fg&90 albums \og Spider-Man \fg&65 albums \og Naruto \fg\\
+%45 albums \og Lucky-Luke \fg&&\\ \hline
+%\end{tabularx}
+%\end{center}
+%
+%\medskip
+ 
+Il choisit au hasard un album parmi tous ceux de sa collection.
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item %Quelle est la probabilité que l'album choisi soit un album \og Lucky-Luke\fg ?
+Il y a 45 albums \og Lucky-Luke\fg{} sur 365 albums en tout ; la probabilité est donc égale à $\dfrac{45}{365} = \dfrac{5 \times 9}{5 \times 73} = \dfrac{9}{73}$.
+		\item %Quelle est la probabilité que l'album choisi soit un comics ?
+Il y a $35 + 90 = 125$ albums comics sur 365 albums en tout ; la probabilité est donc égale à $\dfrac{125}{365} = \dfrac{5 \times 25}{5 \times 73} = \dfrac{25}{73}$.
+		\item %Quelle est la probabilité que l'album choisi ne soit pas un manga ?
+Il y a $85 + 65 = 150$ mangas sur 365 albums en tout ; la probabilité de choisir un manga est donc égale à $\dfrac{150}{365} = \dfrac{5 \times 30}{5 \times 73} = \dfrac{30}{73}$.
+
+Donc la probabilité de ne pas choisir un manga est : $1 - \dfrac{30}{73} = \dfrac{43}{73}$.
+	\end{enumerate}
+\item %Tous les albums de chaque série sont numérotés dans l'ordre de sortie en librairie et chacune des séries est complète du numéro 1 au dernier numéro.
+	\begin{enumerate}
+		\item %Quelle est la probabilité que l'album choisi porte le numéro 1 ?
+Il y a donc 7 albums numérotés 1. La probabilité de choisir un album numéroté 1 est donc $\dfrac{7}{365}$.
+		\item %Quelle est la probabilité que l'album choisi porte le numéro 40 ?
+IL y a 4 albums numérotés 40, donc la probabilité de choisir un album numéroté 40 est donc $\dfrac{4}{365}$.
+	\end{enumerate}
+\end{enumerate}
