@@ -7506,20 +7506,10 @@ export function scratchTraductionFr() {
 		for (let i = 0; i < tabQCM[1].length; i++) {
 			switch (tabQCM[2][i]) {
 				case 1:
-					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `			\\bonne{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
-					}
-					else {
 						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-					}
 					break
 				case 0:
-					if (typeof (tabQCM[1][i]) == 'number') {
-						tex_QR += `			\\mauvaise{$\\numprint{${tabQCM[1][i].toString().replace('.', ',')}}$}\n `
-					}
-					else {
 						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-					}
 					break
 			}
 		}

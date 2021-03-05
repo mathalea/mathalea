@@ -67,7 +67,7 @@ export default function Multiplier_par_001() {
         resultat=calcul(nombre*10**coef)
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
-            tabrep=[resultat,calcul(nombre*10**(-coef)),calcul(nombre*10**(coef-1)),calcul(nombre*10**(-coef+1))]
+            tabrep=[`$${tex_nombre2(resultat)}$`,`$${tex_nombre2(calcul(nombre*10**(-coef)))}$`,`$${tex_nombre2(calcul(nombre*10**(coef-1)))}$`,`$${tex_nombre2(calcul(nombre*10**(-coef+1)))}$`]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
             tabrep,
@@ -77,11 +77,11 @@ export default function Multiplier_par_001() {
               texte+=`<br>   Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
-                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
-                 texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
-                 texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
                }
              }
              break
@@ -93,7 +93,7 @@ export default function Multiplier_par_001() {
             break;
   
           case 2:
-            tabrep=[calcul(10**coef),calcul(10**(coef-1)),calcul(10**(coef+1)),calcul(10**(-coef))]
+            tabrep=[`$${tex_nombre2(calcul(10**coef))}$`,`$${tex_nombre2(calcul(10**(coef-1)))}$`,`$${tex_nombre2(calcul(10**(coef+1)))}$`,`$${tex_nombre2(calcul(10**(-coef)))}$`]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $${tex_nombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${tex_nombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
@@ -103,11 +103,11 @@ export default function Multiplier_par_001() {
               texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
-                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
-                 texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
-                 texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
                }
              }
              break
@@ -119,7 +119,7 @@ export default function Multiplier_par_001() {
           break
   
           case 3:
-            tabrep=[nombre,calcul(nombre/10),calcul(nombre*10),calcul(nombre*10**(-coef+1))]
+            tabrep=[`$${tex_nombre2(nombre)}$`,`$${tex_nombre2(calcul(nombre/10))}$`,`$${tex_nombre2(calcul(nombre*10))}$`,`$${tex_nombre2(calcul(nombre*10**(-coef+1)))}$`]
             tabicone=[1,0,0,0]
             this.QCM[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${tex_nombre2(10**coef)}~~ = ~~${tex_nombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
@@ -130,11 +130,11 @@ export default function Multiplier_par_001() {
               texte+=`<br>    Réponses possibles : ${espace}  `
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<4; i++) {
-                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
-                 texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
-                 texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
                }
              }
              break

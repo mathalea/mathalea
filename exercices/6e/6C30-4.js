@@ -55,7 +55,7 @@ export default function Placer_la_virgule() {
       nombreentier = calcul(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
       nombre = calcul(nombreentier * 10 ** exposant)
       resultat = calcul(nombre * 10 ** coef)
-      tabrep=[resultat,calcul(resultat/10),calcul(resultat*10),calcul(resultat/100)]
+      tabrep=[`$${tex_nombre2(resultat)}$`,`$${tex_nombre2(calcul(resultat/10))}$`,`$${tex_nombre2(calcul(resultat*10))}$`,`$${tex_nombre2(calcul(resultat/100))}$`]
       tabicone=[1,0,0,0]
       this.QCM[1].push([`Ou doit être placée la virgule dans le résultat ? $${tex_nombre2(nombre)} \\times ${tex_nombre2(calcul(10**coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n`,
       tabrep,
@@ -66,11 +66,11 @@ export default function Placer_la_virgule() {
         texte+=`<br>  Réponses possibles : ${espace}  `
         shuffle2tableaux(tabrep, tabicone);
         for (let i=0; i<4; i++) {
-          texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
          if (tabicone[i]==1) {
-           texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
          } else {
-           texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
          }
        }
       }
