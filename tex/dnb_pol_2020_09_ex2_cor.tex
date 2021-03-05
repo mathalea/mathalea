@@ -1,0 +1,75 @@
+%On souhaite réaliser une frise composée de rectangles. 
+%
+%Pour cela, on a écrit le programme ci-dessous:
+%
+%\begin{center}
+%\begin{tabularx}{\linewidth}{|X|X|}\hline
+%\begin{scratch}
+%\blockinit{quand \greenflag est cliqué}
+%\blockcontrol{cacher}
+%\blockpen{mettre la taille du stylo à \ovalnum{1}}
+%\blockpen{effacer tout}
+%\blockmove{aller à x: \ovalnum0 y: \ovalnum0}
+%\blockrepeat{répéter \ovalnum{5} fois}
+%{\blockmoreblocks{Rectangle}
+%\blockmove{ajouter \ovalnum{40} à \ovalvariable{x}}
+%\blockmove{ajouter \ovalnum{-20} à \ovalvariable{y}}
+%}
+%\end{scratch}&
+%\begin{scratch}
+%\initmoreblocks{définir \namemoreblocks{Rectangle}}
+%\blockpen{stylo en position d'écriture}
+%\blockmove{s’orienter à \ovalnum{90} degrés}
+%\blockrepeat{répéter \ovalnum{2} fois}
+%{\blockmove{avancer de \ovalnum{40}}
+%\blockmove{tourner \turnright{} de \ovalnum{90} degrés}
+%\blockmove{avancer de \ovalnum{20}}
+%\blockmove{tourner \turnright{} de \ovalnum{90} degrés}}
+%\blockpen{relever le stylo}
+%\end{scratch}\\
+%\textbf{Script principal} &\textbf{Bloc \og rectangle\fg}\\ \hline
+%\end{tabularx}
+%\end{center}
+%
+%On rappelle que l'instruction \og s'orienter à 90 \fg{} consiste à s'orienter horizontalement vers la droite. 
+%
+%\medskip
+%
+%\textbf{Dans cet exercice, aucune justification n'est demandée}
+%
+%\medskip
+
+\begin{enumerate}
+\item %Quelles sont les coordonnées du point de départ du tracé ?
+
+Le point de départ a pour coordonnées (0~;~0).
+\item %Combien de rectangles sont dessinés par le script principal ?
+5 rectangles sont dessinés.
+\item %Dessiner à main levée la figure obtenue avec le script principal.
+On obtient un rectangle le longueur 40 et de largeur 20.
+\item 
+	\begin{enumerate}
+		\item %Sans modifier le script principal, on a obtenu la figure ci-dessous composée de rectangles de longueur $40$ pixels et de largeur $20$ pixels. Proposer une modification du bloc \og rectangle\fg permettant d'obtenir cette figure.
+
+%\begin{center}
+%\psset{unit=1cm}
+%\begin{pspicture}(4.5,2.8)
+%\multirput(0,2)(0.8,-0.4){5}{\psframe(0.4,0.8)}
+%\end{pspicture}
+%\end{center}
+Il suffit d'échanger le 40 et le 20 de \og avancer\fg{} dans le bloc \og Rectangle \fg{}.
+		\item %Où peut-on alors ajouter l'instruction \begin{scratch}\blockmove{ajouter \ovalnum{1} à la taille du stylo}\end{scratch} dans le script principal pour obtenir la figure ci-dessous ?
+		
+%\begin{center}
+%\psset{unit=1cm}
+%\begin{pspicture}(4.5,2.8)
+%\rput(0,2){\psframe[linewidth=1pt](0.4,0.8)}
+%\rput(0.8,1.6){\psframe[linewidth=1.5pt](0.4,0.8)}
+%\rput(1.6,1.2){\psframe[linewidth=2pt](0.4,0.8)}
+%\rput(2.4,0.8){\psframe[linewidth=2.5pt](0.4,0.8)}
+%\rput(3.2,0.4){\psframe[linewidth=3pt](0.4,0.8)}
+%\end{pspicture}
+%\end{center}
+Il faut ajouter cette instruction à la fin du \og répéter 5 fois \fg.
+	\end{enumerate}
+\end{enumerate}

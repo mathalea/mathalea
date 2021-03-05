@@ -208,26 +208,36 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i];
-                    try {
-                        listeObjetsExercice[i].nouvelle_version(i);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                    contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                    if (listeObjetsExercice[i].video.length>3) {
-                        contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide","youtube") + `</div>`;
-                    }
-                    if (listeObjetsExercice[i].bouton_aide) {
-                        contenuDesExercices += `<div id=aide${i}> ${listeObjetsExercice[i].bouton_aide}</div>`;
-                    }
-                    contenuDesExercices += listeObjetsExercice[i].contenu;
-                    if (listeObjetsExercice[i].type_exercice == "MG32") {
-                        contenuDesExercices += `<div id="MG32div${i}" class="MG32"></div>`;
-                    }
-                    contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1}</h3>`;
-                    contenuDesCorrections += listeObjetsExercice[i].contenu_correction;
-                    if (listeObjetsExercice[i].type_exercice == "MG32" && listeObjetsExercice[i].MG32codeBase64corr) {
-                        contenuDesCorrections += `<div id="MG32divcorr${i}" class="MG32"></div>`;
+                    if (listeObjetsExercice[i].type_exercice == "statique") {
+                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
+                        //contenuDesExercices += listeObjetsExercice[i].contenu;
+                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["urlpng"]}">`
+                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
+                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["urlpngcor"]}">`
+                        listeObjetsExercice[i].video = false
+
+                    } else {
+                        try {
+                            listeObjetsExercice[i].nouvelle_version(i);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
+                        if (listeObjetsExercice[i].video.length>3) {
+                            contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide","youtube") + `</div>`;
+                        }
+                        if (listeObjetsExercice[i].bouton_aide) {
+                            contenuDesExercices += `<div id=aide${i}> ${listeObjetsExercice[i].bouton_aide}</div>`;
+                        }
+                        contenuDesExercices += listeObjetsExercice[i].contenu;
+                        if (listeObjetsExercice[i].type_exercice == "MG32") {
+                            contenuDesExercices += `<div id="MG32div${i}" class="MG32"></div>`;
+                        }
+                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1}</h3>`;
+                        contenuDesCorrections += listeObjetsExercice[i].contenu_correction;
+                        if (listeObjetsExercice[i].type_exercice == "MG32" && listeObjetsExercice[i].MG32codeBase64corr) {
+                            contenuDesCorrections += `<div id="MG32divcorr${i}" class="MG32"></div>`;
+                        }
                     }
                 }
                 contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`;
@@ -310,19 +320,29 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
-                    listeObjetsExercice[i].nouvelle_version();
-                    if (listeObjetsExercice[i].titre == "Fichier statique") {
-                        liste_des_exercices_statiques.push(listeObjetsExercice[i].sup);
-                    }
-                    codeEnonces += listeObjetsExercice[i].contenu;
-                    codeEnonces += "\n\n";
-                    codeCorrections += listeObjetsExercice[i].contenu_correction;
-                    codeCorrections += "\n\n";
-                    if (typeof listeObjetsExercice[i].liste_packages === "string") {
-                        liste_packages.add(listeObjetsExercice[i].liste_packages);
+                    if (listeObjetsExercice[i].type_exercice == "statique") {
+                        liste_packages.add('dnb')
+                        codeEnonces += '\n\n\\exo{}\n\n';
+                        codeEnonces += listeObjetsExercice[i].contenu;
+                        codeEnonces += "\n\n";
+                        codeCorrections += '\n\n\\exo{}\n\n';
+                        codeCorrections += listeObjetsExercice[i].contenu_correction;
+                        codeCorrections += "\n\n";
                     } else {
-                        // si c'est un tableau
-                        listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
+                        listeObjetsExercice[i].nouvelle_version();
+                        if (listeObjetsExercice[i].titre == "Fichier statique") {
+                            liste_des_exercices_statiques.push(listeObjetsExercice[i].sup);
+                        }
+                        codeEnonces += listeObjetsExercice[i].contenu;
+                        codeEnonces += "\n\n";
+                        codeCorrections += listeObjetsExercice[i].contenu_correction;
+                        codeCorrections += "\n\n";
+                        if (typeof listeObjetsExercice[i].liste_packages === "string") {
+                            liste_packages.add(listeObjetsExercice[i].liste_packages);
+                        } else {
+                            // si c'est un tableau
+                            listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
+                        }
                     }
                 }
  
@@ -445,6 +465,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
                 $("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+                if (liste_packages.has('dnb')){ // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+                    $("input[name=engine]").val("xelatex");
+                }
                 if ($("#nom_du_fichier").val()) {
                     $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
                 }
@@ -491,21 +514,43 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 console.log(error);
                 console.log(`Exercice ${id} non disponible`);
             }
-            promises.push(
-                import(url)
-                .catch((error) => {
-                    console.log(error)
-                        listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: "", contenu_correction: "" }; // Un exercice vide pour l'exercice qui n'existe pas
-                    })
-                    .then((module) => {
-                        if (module) {
-                            listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
-                            if (listeObjetsExercice[i].type_exercice == 'XCas') {
-                                besoinXCas = true;
+            if (dictionnaireDesExercices[id]["type_exercice"] == "statique") {
+                listeObjetsExercice[i] = dictionnaireDesExercices[id];
+                promises.push(
+                fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    listeObjetsExercice[i].nb_questions_modifiable = false;
+                    listeObjetsExercice[i].video = '';
+                    listeObjetsExercice[i].titre = id;
+                    listeObjetsExercice[i].contenu = data;
+                })
+                )
+                promises.push(
+                fetch(dictionnaireDesExercices[id]["url"])
+                .then(response => response.text())
+                .then(data => {
+                    
+                    listeObjetsExercice[i].contenu_correction = data;
+                })
+                )
+            } else {
+                promises.push(
+                    import(url)
+                    .catch((error) => {
+                        console.log(error)
+                            listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: "", contenu_correction: "" }; // Un exercice vide pour l'exercice qui n'existe pas
+                        })
+                        .then((module) => {
+                            if (module) {
+                                listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                                if (listeObjetsExercice[i].type_exercice == 'XCas') {
+                                    besoinXCas = true;
+                                }
                             }
-                        }
-                    })
-            );
+                        })
+                );
+            }
         }
         Promise.all(promises)
             .then(() => {

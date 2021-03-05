@@ -19,7 +19,7 @@ export function liste_de_question_to_contenu(argument) {
 			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
 	}
-		argument.contenu_correction = tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+		argument.contenu_correction = tex_consigne('') + tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
 }
@@ -6779,6 +6779,7 @@ export function intro_LaTeX(entete = "Exercices",liste_packages) {
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
 \\usepackage{setspace}	
+\\usepackage{colortbl}
 \\usepackage{xcolor}
 	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
 	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
@@ -7250,6 +7251,31 @@ export function preambule_personnalise(liste_packages){
 		break
 		case 'tkz-euclide' :
 			result += '\\usepackage{tkz-euclide}'
+		break
+		case 'dnb' :
+			result +=`
+			\\usepackage{fourier}
+			\\usepackage[scaled=0.875]{helvet}
+			\\renewcommand{\\ttdefault}{lmtt}
+			\\usepackage[normalem]{ulem}
+			\\usepackage{diagbox}
+			\\usepackage{fancybox}
+			\\usepackage{booktabs}
+			\\usepackage{pifont}
+			\\usepackage{multirow}
+			\\usepackage{dcolumn}
+			\\usepackage{lscape}
+			\\usepackage{graphics,graphicx}
+			\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
+			\\usepackage{scratch}
+			\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
+			\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
+			\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
+			\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
+			\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
+			\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
+			\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
+			\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}`
 		break
 		default:
 		    result += `\\usepackage{${packages}}\n`
