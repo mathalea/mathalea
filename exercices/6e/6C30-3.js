@@ -60,7 +60,7 @@ export default function Multiplication_mental_decimaux() {
                a = 10*randint(1,9)+randint(1,9);
                b = 10*randint(1,9)+randint(1,9);
 
-               tabrep = [calcul(a+b), calcul(a*b), calcul((a+b)/10), calcul(10*(a+b)), calcul(a+b+1)]; // réponses possibles
+               tabrep = [`$${tex_nombre2(calcul(a+b))}$`, `$${tex_nombre2(calcul(a*b))}$`, `$${tex_nombre2(calcul((a+b)/10))}$`, `$${tex_nombre2(calcul(10*(a+b)))}$`, `$${tex_nombre2(calcul(a+b+1))}$`]; // réponses possibles
                tabicone = [1,0,0,0,0]; // 1 pour la bonne réponse
                /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
@@ -74,7 +74,7 @@ export default function Multiplication_mental_decimaux() {
                 texte_corr += `Calcul : $${a} + ${b}$. <br>`;
                texte += `Réponses possibles : <br>`;
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
-               for (let i=0; i<5; i++) {
+               for (let i=0; i<tabrep.length; i++) {
                  texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                 if (tabicone[i]==1) {
                   texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
@@ -91,7 +91,7 @@ export default function Multiplication_mental_decimaux() {
           case "mul":
             a = 10*randint(1,9)+randint(1,9);
             b = 10*randint(1,9)+randint(1,9);
-            tabrep = [a*b, 10*a*b, a*b/10, a+b, a*b+1];
+            tabrep = [`$${tex_nombre2(a*b)}$`, `$${tex_nombre2(10*a*b)}$`, `$${tex_nombre2(a*b/10)}$`, `$${tex_nombre2(a+b)}$`, `$${tex_nombre2(a*b+1)}$`];
             tabicone = [1,0,0,0,0];
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
@@ -104,12 +104,12 @@ export default function Multiplication_mental_decimaux() {
               texte += `Réponses possibles : <br>`;
               texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
               shuffle2tableaux(tabrep, tabicone);
-              for (let i=0; i<5; i++) {
+              for (let i=0; i<tabrep.length; i++) {
                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
                if (tabicone[i]==1) {
-                 texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
-                 texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
                }
              }
             }
@@ -121,7 +121,7 @@ export default function Multiplication_mental_decimaux() {
           case "add_deci":
             a = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
             b = 1000*randint(1,9)+100*randint(0,9,[3,4,5,6,7])+10*randint(0,9)+randint(0,9);
-            tabrep = [calcul((a+b)/100), calcul((a*b)/100), calcul((a+b)/1000), calcul(10*(a+b)/100),calcul((a+b+1)/100)]; 
+            tabrep = [`$${tex_nombre2(calcul((a+b)/100))}$`, `$${tex_nombre2(calcul((a*b)/100))}$`, `$${tex_nombre2(calcul((a+b)/1000))}$`, `$${tex_nombre2(calcul(10*(a+b)/100))}$`,`$${tex_nombre2(calcul((a+b+1)/100))}$`]; 
             tabicone = [1,0,0,0,0]; 
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
@@ -134,12 +134,12 @@ export default function Multiplication_mental_decimaux() {
             texte_corr += `Calcul : $${tex_nombre2(a/100)} + ${tex_nombre2(b/100)}$. <br>`
             texte += `Réponses possibles : <br>`;
             shuffle2tableaux(tabrep, tabicone); 
-            for (let i=0; i<5; i++) {
+            for (let i=0; i<tabrep.length; i++) {
               texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
-               texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
              }
            }
           }
@@ -153,7 +153,7 @@ export default function Multiplication_mental_decimaux() {
             // on multiplie par 100 pour travailler avec des nombres entiers. Par ex : 6547 plutôt que 65.47
             a = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9,[2,5]); // on évite le 2*5 avec les derniers chiffres
             b = 1000*randint(1,9)+100*randint(1,9,[3,4,5,6,7])+10*randint(1,9)+randint(0,9);
-            tabrep = [(a*b)/10000, (10*a*b)/10000, (a*b)/100000, (a+b)/100, (a*b+1)/10000];
+            tabrep = [`$${tex_nombre2(calcul((a*b)/10000))}$`,`$${tex_nombre2(calcul((10*a*b)/10000))}$`,`$${tex_nombre2(calcul((a*b)/100000))}$`,`$${tex_nombre2(calcul((a+b)/100))}$`,`$${tex_nombre2(calcul((a*b+1)/10000))}$`];
             tabicone = [1,0,0,0,0];
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
@@ -167,12 +167,12 @@ export default function Multiplication_mental_decimaux() {
             texte += `Réponses possibles : <br>`;
   
             shuffle2tableaux(tabrep, tabicone);
-            for (let i=0; i<5; i++) {
+            for (let i=0; i<tabrep.length; i++) {
               texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
-               texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+               texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
              }
            }
           }

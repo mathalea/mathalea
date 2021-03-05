@@ -2143,7 +2143,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d * 20 / coeff)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").svg(coeff)
+      code += "\n\t" + latexParPoint(p.listePoints[i].nom, P, "black",12,12,'').svg(coeff)
     }
     return code;
   };
@@ -2153,7 +2153,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d / mathalea.scale)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").tikz()
+      code += "\n\t" + texteParPoint(`$${p.listePoints[i].nom}$`, P, "milieu").tikz()
     }
     return code;
   }

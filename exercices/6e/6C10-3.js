@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,creer_couples,choice,tex_nombre} from "/modules/outils.js"
+import {liste_de_question_to_contenu,creer_couples,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from "/modules/outils.js"
 /**
  * Multiplier deux nombres décimaux
  * @Auteur Rémi Angot
@@ -15,15 +15,24 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['6C10-3',[],"tables de multiplications et nombres décimaux"]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = "2-3-4-5-6-7-8-9";
     }
-    let tables = [];
+    let tables = [],tabrep,tabicone
     if (typeof this.sup == "number") {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
@@ -71,6 +80,29 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
         " = " +
         tex_nombre(Algebrite.eval(a * b)) +
         " $";
+        /**********************************/
+        // QCM
+        /**********************************/
+        tabrep=[`$${tex_nombre2(a*b)}$`,`$${tex_nombre2(calcul(a*b/10))}$`,`$${tex_nombre2(calcul(a*b*10))}$`,`$${tex_nombre2(calcul(a*b/100))}$`,`$${tex_nombre2(calcul(a*b*100))}$`]
+        tabicone=[1,0,0,0,0]
+                this.QCM[1].push([`${texte}\n`,
+        tabrep,
+        tabicone]) 
+
+        if (this.ModeQCM) {
+          texte_corr=''
+          texte+=`<br>  Réponses possibles : ${espace}  `
+          shuffle2tableaux(tabrep, tabicone);
+          for (let i=0; i<tabrep.length; i++) {
+            texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           if (tabicone[i]==1) {
+             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+           } else {
+             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           }
+         }
+        }
+
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
     }

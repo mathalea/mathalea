@@ -46,7 +46,7 @@ export default function Mesurer_un_angle() {
       else {
           angle = randint(20,160,90)
       }
-      tabrep=[angle,180-angle,angle/2,Math.round((180+angle)/2),180,90]
+      tabrep=[`$${angle}\\degree$`,`$${180-angle}\\degree$`,`$${angle/2}\\degree$`,`$${Math.round((180+angle)/2)}\\degree$`,`$180\\degree$`,`$90\\degree$`]
       tabicone=[1,0,0,0,0,0]
       anglerot=randint(-180,180)
       angle=signes[i]*angle
@@ -91,12 +91,12 @@ export default function Mesurer_un_angle() {
         texte+=`<br>  Réponses possibles : ${espace}  `
         texte_corr=''
         shuffle2tableaux(tabrep, tabicone);
-        for (let i=0; i<6; i++) {
+        for (let i=0; i<tabrep.length; i++) {
           texte += `$\\square\\; ${tex_nombre2(tabrep[i])}\\degree$` + espace ;
          if (tabicone[i]==1) {
-           texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}\\degree$` + espace ;
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
          } else {
-           texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}\\degree$` + espace ;
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
          }
        }
       }

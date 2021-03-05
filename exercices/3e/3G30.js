@@ -34,7 +34,12 @@ export default function Calcul_de_longueur() {
         this.liste_corrections = []
     /*********************************************************/
     // On ajoute cette ligne pour AMC
-    this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie']
+    if (this.level!=4){
+        this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie']
+    }
+    else {
+        this.QCM = ['4G40', [], 'Calculs de longueurs avec la trigonométrie']
+    }
     /**********************************************************/
 
         let nom = creerNomDePolygone(3)
@@ -111,20 +116,6 @@ export default function Calcul_de_longueur() {
         let codage = codageAngleDroit(B, A, C)
         A.nom = nom[0], B.nom = nom[1], C.nom = nom[2];
         let nomme = nommePolygone(p2, nom),codeangle
-       /* let t1 = texteSurSegment('hypoténuse', C, B)
-        let t2,t3,codageAngle;
-        if (sortie_html) {
-         t2 = texteSurSegment("adjacent à ⍺", B, A)
-         t3 = texteSurSegment("opposé à ⍺", A, C)
-         codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '⍺')
-         codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '𝛽')
-        } else {
-            t2 = texteSurSegment("adjacent à $\\alpha$", B, A)
-            t3 = texteSurSegment("opposé à $\\alpha$", A, C)
-            codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '$\\alpha$')
-            codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '$\\beta$')
-        }
-        */
        let hypo = segment(C, B)
         hypo.epaisseur = 2
         hypo.color = 'blue'

@@ -91,11 +91,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 					texte+=`<br><br>Réponses possibles : ${espace}  `
 					shuffle2tableaux(tabrep, tabicone);
 					for (let i=0; i<4; i++) {
-					  texte += `$\\square\\; ${tabrep[i]}$` + espace ;
+					  texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
 					 if (tabicone[i]==1) {
-					   texte_corr += `$\\blacksquare\\; ${tabrep[i]}$` + espace ;
+					   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
 					 } else {
-					   texte_corr += `$\\square\\; ${tabrep[i]}$` + espace ;
+					   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
 					 }
 				   }
 				}else {
@@ -140,11 +140,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 						texte+=`<br><br>Réponses possibles : ${espace}  `
 						shuffle2tableaux(tabrep, tabicone);
 						for (let i=0; i<4; i++) {
-						  texte += `$\\square\\; ${tabrep[i]}$` + espace ;
+						  texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
 						 if (tabicone[i]==1) {
-						   texte_corr += `$\\blacksquare\\; ${tabrep[i]}$` + espace ;
+						   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
 						 } else {
-						   texte_corr += `$\\square\\; ${tabrep[i]}$` + espace ;
+						   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
 						 }
 					   }
 					}
@@ -160,11 +160,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 						texte+=`<br>	Réponses possibles : ${espace}  `
 						shuffle2tableaux(tabrep, tabicone);
 						for (let i=0; i<4; i++) {
-						  texte += `$\\square\\; ${tabrep[i]}$` + espace ;
+						  texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
 						 if (tabicone[i]==1) {
-						   texte_corr += `$\\blacksquare\\; ${tabrep[i]}$` + espace ;
+						   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
 						 } else {
-						   texte_corr += `$\\square\\; ${tabrep[i]}$` + espace ;
+						   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
 						 }
 					   }
 					}

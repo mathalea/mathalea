@@ -27,6 +27,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
 
 
   this.nouvelle_version = function () {
+    this.QCM=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers']
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions
@@ -117,6 +118,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
           texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
         } // espacement entre les questions
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([texte,[texte_corr],[4]])
         i++;
       }
       cpt++;
