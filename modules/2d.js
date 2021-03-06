@@ -6093,7 +6093,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.3,'black',30,12,'')
+    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5,'black',30,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6108,7 +6108,7 @@ function Repere2({
     else {
       labelysize=0.18*Math.ceil(Math.log10(y+1))
     }
-    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.2 , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
+    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.3 , calcul(y * yUnite), 'black',labelysize*50,12,'')
     l.isVisible = false;
     objets.push(l);
   }
@@ -6397,7 +6397,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
   }
   else { // Si elles ne sont pas définies, on met 20 par défaut
     for (let i = 0; i < tabInit[0].length; i++) {
-      this.hauteurLignes.push(20)
+      this.hauteurLignes.push(10)
     }
   }
 
@@ -7824,7 +7824,7 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) { 
-    let centrage=1.25*mathalea.pixelsParCm
+    let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
     return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
@@ -7850,7 +7850,7 @@ export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLign
 }
 
 export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let A = point(x, y-mathalea.pixelsParCm/25);
+  let A = point(x, y);
   return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
 }
 
