@@ -50,6 +50,9 @@ export default function variation_polynome_degre3() {
         // type est 'Line' pour une ligne de signes et valeurs. Les valeurs sont données avec à la suite leur largeur estimée en pixels.
         // type est 'Var' pour une ligne de variations. Les variations sont des chaines respectant une syntaxe particulière.
         // On intercale une largeur estimée pour le texte éventuel
+        // type est 'Ima' il faut 4 paramètres numériques : le 1er et le 2e sont les N° des antécédents entre lesquels on veut placer l'image
+        // le 3e est la valeur de l'image et le 4e est la largeur estimée en pixels 
+        // type est 'Val' il faut 5 paramètres : Idem Ima pour les deux premiers, le 3e est l'antécédent à ajouter, le 4e son image et le 5e sa taille
         // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
        // reste à faire les types 'Ima', 'Val' et 'Slope"
 

@@ -3,9 +3,9 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, num_alpha,ar
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from "/modules/3d.js"
 /**
- * Description didactique de l'exercice
- * @Auteur 
- * Référence 
+ * propose de mesurer la hauteur d'un objet en utilisant l'angle sous lequel on voit l'objet et la distance à l'objet. 
+ * @Auteur Jean-Claude Lhote
+ * Référence 3G32-2
 */
 export default function Calculs_trigonometriques2() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -55,7 +55,12 @@ export default function Calculs_trigonometriques2() {
           S = pointAdistance(B, 9, 90, 'S')
           p = polygoneAvecNom(A, B, H, S, O)
           objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
-          objets.push(afficheMesureAngle(B, O, S, 'black', 3, '${alfa}'), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
+         if(sortie_html){
+          objets.push(afficheMesureAngle(B, O, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
+         }
+         else {
+          objets.push(afficheMesureAngle(B, O, S, 'black', 3, `$${alfa}$`), afficheMesureAngle(A, B, O, 'black', 2, `$${baita}$`), afficheMesureAngle(B, O, H, 'black', 2, `$${baita}$`))
+         }
           objets.push(texteSurSegment(`${tex_nombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${tex_nombre(distance)} m`, O, H))
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
           texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${tex_nombre(distance)}$ m de l'observateur.<br>`
@@ -72,9 +77,9 @@ export default function Calculs_trigonometriques2() {
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]} arrondie au mètre près.<br>`
 
           texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets)
-          texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $tan(${baita})=\\dfrac{HB}{OH}$.<br>D'où $${baita}=Atan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
+          texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $\\tan(${baita})=\\dfrac{HB}{OH}$.<br>D'où $${baita}=\\arctan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
           texte_corr += `$\\widehat{HOS}=${alfa}-${baita}\\approx ${arrondi_virgule(alpha - beta)}$.<br>`
-          texte_corr += `$HS=OH\\times tan(\\widehat{HOS})\\approx ${distance}\\times tan(${arrondi_virgule(alpha - beta)})\\approx ${tex_nombrec(taille - hauteur)}$ m.<br>`
+          texte_corr += `$HS=OH\\times \\tan(\\widehat{HOS})\\approx ${distance}\\times \\tan(${arrondi_virgule(alpha - beta)})\\approx ${tex_nombrec(taille - hauteur)}$ m.<br>`
           texte_corr += `$BS=BH+HS=${tex_nombre(hauteur)}+${tex_nombrec(taille - hauteur)}=${tex_nombre(taille)}$ m.<br>`
           texte_corr += `Cet${objet[index][2]} ${objet[index][0]} mesure $${tex_nombre(Math.round(taille))}$ m de hauteur.`;
 

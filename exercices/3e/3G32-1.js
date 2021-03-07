@@ -3,9 +3,9 @@ import { liste_de_question_to_contenu, randint, tex_nombrec } from "/modules/out
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from "/modules/3d.js"
 /**
- * Description didactique de l'exercice
- * @Auteur 
- * Référence 
+ * propose de calculer la longueur d'un parallèle terrestre à partir de la latitde
+ * @Auteur Jean-Claude Lhote
+ * Référence 3G32-1 
 */
 export default function Calculs_trigonometriques1() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -60,14 +60,14 @@ export default function Calculs_trigonometriques1() {
             objets.push(arete3d(O, M).p2d)
             objets.push(afficheMesureAngle(M.p2d, O.p2d, P.p2d, 'black', 1.5, `${alpha}`))
             texte = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets) + '<br>'
-            texte += `Quelle est la longueur du $${alpha}$ième parallèle Nord ?`
-            texte_corr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets) + '<br>'
-            texte_corr += `Considérons que le $${alpha}$ième parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
+            texte += `Quelle est la longueur du $${alpha}$e parallèle Nord ?`
+            texte_corr = mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
+            texte_corr += `Considérons que le $${alpha}$e parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
             texte_corr += `Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>`
-            texte_corr += `Dans le triangle $OPH$ rectangle en $H$, $cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times cos(\\widehat{OPH})$.<br>`
+            texte_corr += `Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>`
             texte_corr += `Le rayon de la terre étant approximativement de $6400$ km, nous pouvons calculer $HP$ :<br>`
-            texte_corr += `$HP=6400\\times cos(${alpha})\\approx ${tex_nombrec(6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
-            texte_corr += `Calculons maintenant la longueur $L$ du $${alpha}$ième parallèle : $L\\approx 2\\times \\Pi\\times ${tex_nombrec(6400 * Math.cos(alpha * Math.PI / 180))}\\approx ${tex_nombrec(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
+            texte_corr += `$HP=6400\\times \\cos(${alpha})\\approx ${tex_nombrec(6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
+            texte_corr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${tex_nombrec(6400 * Math.cos(alpha * Math.PI / 180))}\\approx ${tex_nombrec(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
 
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en crée une autre

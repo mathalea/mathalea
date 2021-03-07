@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,mise_en_evidence,tex_fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,mise_en_evidence,tex_fraction,shuffle2tableaux} from "/modules/outils.js"
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
  * @Auteur Rémi Angot
@@ -12,8 +12,19 @@ export default function Egalites_entre_fractions() {
   this.consigne = "Compléter les égalités.";
   this.spacing = 2;
   this.spacing_corr = 2;
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['6N41',[],"Egalités de fractions"]
+    let tabrep,tabicone
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
+
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_fractions = [
@@ -75,6 +86,24 @@ export default function Egalites_entre_fractions() {
           a + mise_en_evidence("\\times" + k),
           b + mise_en_evidence("\\times" + k)
         )} = ${tex_fraction(c, d)}$`;
+        tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction((k-1)*a, d)}$`,`$${tex_fraction((k+1)*a, d)}$`,`$${tex_fraction(Math.abs(d-a), d)}$`]
+        tabicone=[1,0,0,0,0]
+        this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+        tabrep,
+        tabicone]) 
+        if (this.ModeQCM) {
+          texte_corr=''
+          texte+=`<br><br>  Réponses possibles : ${espace}  `
+          shuffle2tableaux(tabrep, tabicone);
+          for (let i=0; i<tabrep.length; i++) {
+            texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           if (tabicone[i]==1) {
+             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+           } else {
+             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           }
+         }
+        }
       } else {
         //écrire un entier sous la forme d'une fraction
         a = randint(1, 9);
@@ -88,6 +117,29 @@ export default function Egalites_entre_fractions() {
           a + mise_en_evidence("\\times" + d),
           "1" + mise_en_evidence("\\times" + d)
         )} = ${tex_fraction(c, d)}$`;
+        if (d!=2) {
+          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction((d-1)*a, d)}$`,`$${tex_fraction((d+1)*a, d)}$`,`$${tex_fraction((d+2)*a, d)}$`]
+        }
+        else {
+          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction(d*a+1, d)}$`,`$${tex_fraction((d+1)*a, d)}$`,`$${tex_fraction((d+2)*a, d)}$`]
+        }
+        tabicone=[1,0,0,0,0]
+        this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+        tabrep,
+        tabicone]) 
+        if (this.ModeQCM) {
+          texte_corr=''
+          texte+=`<br><br>  Réponses possibles : ${espace}  `
+          shuffle2tableaux(tabrep, tabicone);
+          for (let i=0; i<tabrep.length; i++) {
+            texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           if (tabicone[i]==1) {
+             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+           } else {
+             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           }
+         }
+        }
       }
 
       this.liste_questions.push(texte);

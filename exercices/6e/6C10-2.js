@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,creer_couples,randint,choice,tex_nombre} from "/modules/outils.js"
+import {liste_de_question_to_contenu,creer_couples,randint,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from "/modules/outils.js"
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @Auteur Rémi Angot
@@ -15,15 +15,24 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['6C10-2',[],"tables et multiples de 10,100 et 1000"]
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = "2-3-4-5-6-7-8-9";
     }
-    let tables = [];
+    let tables = [],tabrep,tabicone
     if (typeof this.sup == "number") {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
@@ -57,7 +66,8 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
         a = b;
         b = c;
       }
-
+      tabrep=[`$${tex_nombre2(a*b)}$`,`$${tex_nombre2(calcul(a*b/10))}$`,`$${tex_nombre2(calcul(a*b*10))}$`,`$${tex_nombre2(calcul(a*b/100))}$`,`$${tex_nombre2(calcul(a*b*100))}$`]
+      tabicone=[1,0,0,0,0]
       texte =
         "$ " + tex_nombre(a) + " \\times " + tex_nombre(b) + " = \\dotfill $";
       texte_corr =
@@ -68,6 +78,23 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
         " = " +
         tex_nombre(a * b) +
         " $";
+        this.QCM[1].push([`${texte}\n`,
+        tabrep,
+        tabicone]) 
+     
+        if (this.ModeQCM) {
+          texte_corr=''
+          texte+=`<br>  Réponses possibles : ${espace}  `
+          shuffle2tableaux(tabrep, tabicone);
+          for (let i=0; i<tabrep.length; i++) {
+            texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           if (tabicone[i]==1) {
+             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+           } else {
+             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           }
+         }
+        }
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
     }

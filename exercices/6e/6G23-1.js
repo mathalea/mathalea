@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,shuffle2tableaux,tex_nombre2} from "/modules/outils.js"
 import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,homothetie,demiDroite,texteParPoint,similitude,bissectrice,pointSurSegment} from "/modules/2d.js"
 
 /**
@@ -17,8 +17,18 @@ export default function Mesurer_un_angle() {
   this.nb_cols_corr = 2;
   this.sup=1;
   this.video="TEzu9uky56M"
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['6G23-1',[],"Estimer la mesure d'un angle."]
+    let tabrep,tabicone
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
@@ -28,18 +38,25 @@ export default function Mesurer_un_angle() {
       for (let i=0;i<this.nb_questions;i++){
         signes.push(choice([-1,1]))
       if (this.sup==1) {
-          angle = randint (1,17,9)*10
+          angle = randint (2,16,9)*10
       } 
       else if (this.sup==2){
-          angle = randint(3,34,18)*5
+          angle = randint(4,32,18)*5
       }
       else {
-          angle = randint(12,168,90)
+          angle = randint(20,160,90)
       }
+      tabrep=[`$${angle}\\degree$`,`$${180-angle}\\degree$`,`$${angle/2}\\degree$`,`$${Math.round((180+angle)/2)}\\degree$`,`$180\\degree$`,`$90\\degree$`]
+      tabicone=[1,0,0,0,0,0]
       anglerot=randint(-180,180)
       angle=signes[i]*angle
       p = [choice(['x','y','z','t']),lettre_depuis_chiffre(randint(1,16)),choice(['s','u','v','w'])];
-    texte = `Mesure l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
+   if (this.ModeQCM) {
+    texte = `Estime la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
+   } 
+   else {
+     texte = `Mesure l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
+   }
       A = point(0, 0);
       B = point(6, 0);
       B=rotation(B,A,anglerot)
@@ -64,6 +81,25 @@ export default function Mesurer_un_angle() {
       objets_correction=[s1,s2,labels,Apos,Bpos,Cpos,secteur]
       texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
       texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
+   /**********************************************/
+   //Ajout pour AMC
+      this.QCM[1].push([`${texte}\\\\ \n Réponses possibles : `,
+      tabrep,
+      tabicone]) 
+   /********************************************/
+      if (this.ModeQCM) {
+        texte+=`<br>  Réponses possibles : ${espace}  `
+        texte_corr=''
+        shuffle2tableaux(tabrep, tabicone);
+        for (let i=0; i<tabrep.length; i++) {
+          texte += `$\\square\\; ${tex_nombre2(tabrep[i])}\\degree$` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+       }
+      }
       this.liste_questions.push(texte)
       this.liste_corrections.push(texte_corr)
   }

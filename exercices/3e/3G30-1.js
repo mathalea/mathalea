@@ -82,8 +82,16 @@ export default function Mon_Exercice() {
     let sAH = segment(A,H)
     let sAB = segment(A,B)
     let t13 = texteSurSegment('hypoténuse',B,A)
-    let t23 = texteSurSegment("opposé à ⍺",A,H)
-    let t33 = texteSurSegment("adjacent à ⍺",H,B)
+    let t23
+    let t33
+    if (sortie_html) {
+    t23 = texteSurSegment("opposé à ⍺",A,H)
+    t33 = texteSurSegment("adjacent à ⍺",H,B)
+    }
+    else {
+        t23 = texteSurSegment("opposé à $\\alpha$",A,H)
+        t33 = texteSurSegment("adjacent à $\\alpha$",H,B)
+    }
     let hypo3 = segment(A,B)
     hypo3.epaisseur = 2
     hypo3.color = 'blue'

@@ -9,7 +9,7 @@ export default function Fractions_irreductibles() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Fractions irréductibles";
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = `Rendre irréductible une fraction et son inverse à partir des décompositons en produit de facteurs premiers.`;
+	this.consigne = `Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 4 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;

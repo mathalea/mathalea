@@ -516,7 +516,7 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
       return code;
     }
   }
-  export function cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2,color){
+  export function cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2,color='black'){
     return new Cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2,color)
   }
   
