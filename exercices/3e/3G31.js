@@ -112,26 +112,33 @@ export default function Calcul_de_longueur() {
       let m3=homothetie(M3,G,1+1.5/longueur(G,M3))
       let m1=homothetie(M1,M3,1+1.5/longueur(M3,M1))
       let m2=homothetie(M2,M3,1+1.5/longueur(M3,M2))
+      let m4
+      m1.positionLabel=''
+      m2.positionLabel=''
+      m3.positionLabel=''
 
       let t1,t2,t3
       switch (choix_rapport_trigo) {
         case 'Acos': // AB=BCxcos(B)
             t3=latexParPoint(`${tex_nombre2(bc)} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`${tex_nombre2(ab)} \\text{ cm}`,m1,'black',120,12,'')
-            m2=homothetie(G,B,2.5/longueur(B,G))
-            t1=latexParPoint(`?`,m2,'black',50,12,'')
+            m4=homothetie(G,B,2.5/longueur(B,G))
+            m4.positionLabel=''
+            t1=latexParPoint(`?`,m4,'black',50,12,'')
             break
         case 'Asin':
             t3=latexParPoint(`${tex_nombre2(bc)} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`${tex_nombre2(ac)} \\text{ cm}`,m2,'black',120,12,'')
-            m1=homothetie(G,B,2.5/longueur(B,G))
-            t1=latexParPoint(`?`,m1,'black',100,12,'')
+            m4=homothetie(G,B,2.5/longueur(B,G))
+            m4.positionLabel=''
+            t1=latexParPoint(`?`,m4,'black',100,12,'')
             break
         case 'Atan':
             t1=latexParPoint(`${tex_nombre2(ab)} \\text{ cm}`,m1,'black',120,12,'')
             t2=latexParPoint(`${tex_nombre2(ac)} \\text{ cm}`,m2,'black',120,12,'')
-            m3=homothetie(G,B,2.5/longueur(B,G))
-            t3=latexParPoint(`?`,m3,'black',100,12,'')
+            m4=homothetie(G,B,2.5/longueur(B,G))
+            m4.positionLabel=''
+            t3=latexParPoint(`?`,m4,'black',100,12,'')
             break
             }
 

@@ -6093,7 +6093,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5,'black',30,12,'')
+    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5,'milieu','black',1,"middle",true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -6108,7 +6108,7 @@ function Repere2({
     else {
       labelysize=0.18*Math.ceil(Math.log10(y+1))
     }
-    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.3 , calcul(y * yUnite), 'black',labelysize*50,12,'')
+    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite)-0.5 , calcul(y * yUnite),'milieu', 'black',1,'middle',true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -7819,18 +7819,54 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
  *
  * @Auteur Rémi Angot
  */
-function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let demiSize = calcul(size/2)
+export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+  let x,y,coeff=mathalea.pixelsParCm
+  console.log(A.positionLabel)
+switch (A.positionLabel){
+  case 'above' :
+    x=A.x;y=A.y+15/coeff
+  break
+  case 'below' :
+    x=A.x;y=A.y-15/coeff
+  break
+  case 'left' :
+    x=A.x-15/coeff;y=A.y
+  break
+  case 'right' :
+    x=A.x+15/coeff;y=A.y
+  break
+  case 'above right' :
+    x=A.x+15/coeff;y=A.y+15/coeff
+  break
+  case 'above left' :
+    x=A.x-15/coeff;y=A.y+15/coeff
+  break
+  case 'below right' :
+    x=A.x+15/coeff;y=A.y-15/coeff
+  break
+  case 'below left' :
+    x=A.x-15/coeff;y=A.y-15/coeff
+  break
+  default :
+    x=A.x;y=A.y
+  break
+}
+console.log(x,y)
+  return latexParCoordonnees(texte,x,y,color,size,hauteurLigne,colorBackground)
+}
+
+
+function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   ObjetMathalea2D.call(this);
-  this.color = color;
+  let demiSize = calcul(size/2)
   this.svg = function (coeff) { 
     let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+    return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" x="${A.xSVG(coeff) - demiSize}" y="${A.ySVG(coeff) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${color}}{${texte}}$</div></foreignObject>`;
     }
   };
@@ -7838,20 +7874,16 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     //let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code;
     if (colorBackground!=''){
-      code = `\\draw (${A.x},${A.y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
     } else {
-      code = `\\draw (${A.x},${A.y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
+      code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
     };    
     return code;
   };
 }
-export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  return new LatexParPoint(texte,A,color,size,hauteurLigne,colorBackground);
-}
 
-export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let A = point(x, y);
-  return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
+export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white'){
+  return new LatexParCoordonnees(texte,x,y,color,size,hauteurLigne,colorBackground)
 }
 
 /**
