@@ -126,63 +126,56 @@ export default function Calcul_de_longueur() {
       let M2=milieu(A,C)
       let M3=milieu(B,C)
       let G=barycentre(p2)
-      let m3=homothetie(M3,G,1+1.5/longueur(G,M3))
-      let m1=homothetie(M1,M3,1+1.5/longueur(M3,M1))
-      let m2=homothetie(M2,M3,1+1.5/longueur(M3,M2))
-        let m4
-      m1.positionLabel=''
-      m2.positionLabel=''
-      m3.positionLabel=''
+      let m3=homothetie(M3,G,1+1.5/longueur(G,M3),'m3','center')
+      let m1=homothetie(M1,M3,1+1.5/longueur(M3,M1),'m1','center')
+      let m2=homothetie(M2,M3,1+1.5/longueur(M3,M2),'m2','center')
+      let m4
+
       
       let t1,t2,t3
       switch (choix_rapport_trigo) {
         case 'cosinus': // AB=BCxcos(B)
             t3=latexParPoint(`${bc} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`?`,m1,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=' '
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t1=latexParPoint(`${angleABC}\\degree`,m4,'black',20,12,'')
-            console.log(m4,m4.x,m4.y)
             break
         case 'sinus':
             t3=latexParPoint(`${bc} \\text{ cm}`,m3,'black',120,12,'')
             t2=latexParPoint(`?`,m2,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=''
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t1=latexParPoint(`${angleABC}\\degree`,m4,'black',100,12,'')
             break
         case 'tangente':
             t1=latexParPoint(`${ab} \\text{ cm}`,m1,'black',120,12,'')
             t2=latexParPoint(`?`,m2,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=''
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t3=latexParPoint(`${angleABC}\\degree`,m4,'black',100,12,'')
             break
         case 'invCosinus':
             t1=latexParPoint(`${ab} \\text{ cm}`,m1,'black',120,12,'')
             t3=latexParPoint(`?`,m3,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=''
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t2=latexParPoint(`${angleABC}\\degree`,m4,'black',100,12,'')
             break
         case 'invSinus':
             t2=latexParPoint(`${ac} \\text{ cm}`,m2,'black',120,12,'')
             t3=latexParPoint(`?`,m3,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=''
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t1=latexParPoint(`${angleABC}\\degree`,m4,'black',100,12,'')
             break
         case 'invTangente':
             t2=latexParPoint(`${ac} \\text{ cm}`,m2,'black',120,12,'')
             t1=latexParPoint(`?`,m1,'black',120,12,'')
-            m4=homothetie(G,B,2.5/longueur(B,G))
-            m4.positionLabel=''
+            m4=homothetie(G,B,2.5/longueur(B,G),'B2','center')
             t3=latexParPoint(`${angleABC}\\degree`,m4,'black',100,12,'')
             break
     }
-
-        objets_enonce.push(p2, codage, nomme,t1,t2,t3,codeangle,tracePoint(m4),repere2())
-        objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo,codeangle)
+    let Z=point(5,0,'Z','center')
+    let latex1=latexParPoint('T1',Z,'red',20,12,'yellow')
+    let TRACE=tracePoint(Z)
+        objets_enonce.push(p2, codage, nomme,t1,t2,t3,codeangle,tracePoint(m4))
+        objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo,codeangle,TRACE,latex1,repere2())
 
         let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.87, mainlevee: true,amplitude:0.4 }
         let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .5, mainlevee: false }

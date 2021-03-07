@@ -7821,7 +7821,7 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
  */
 export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   let x,y,coeff=mathalea.pixelsParCm
-  console.log(A.positionLabel)
+  if (A.nom=='Z') console.log(A.nom,A.x,A.y,A.positionLabel,'into latexParPoint : coeff=',coeff)
 switch (A.positionLabel){
   case 'above' :
     x=A.x;y=A.y+15/coeff
@@ -7847,11 +7847,13 @@ switch (A.positionLabel){
   case 'below left' :
     x=A.x-15/coeff;y=A.y-15/coeff
   break
-  default :
+  case 'center':
     x=A.x;y=A.y
   break
+  default :
+  x=A.x;y=A.y
+  break
 }
-console.log(x,y)
   return latexParCoordonnees(texte,x,y,color,size,hauteurLigne,colorBackground)
 }
 
@@ -7860,6 +7862,7 @@ function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLi
   ObjetMathalea2D.call(this);
   let demiSize = calcul(size/2)
   this.svg = function (coeff) { 
+    console.log('into SVG() : coeff= ',coeff,'mathalea.pixelsParCm = ',mathalea.pixelsParCm)
     let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
     return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
