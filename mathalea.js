@@ -208,12 +208,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i];
-                    if (listeObjetsExercice[i].type_exercice == "statique") {
+                    if (listeObjetsExercice[i].type_exercice == "dnb") {
                         contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
                         //contenuDesExercices += listeObjetsExercice[i].contenu;
-                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["urlpng"]}">`
+                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["png"]}">`
                         contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["urlpngcor"]}">`
+                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["pngcor"]}">`
                         listeObjetsExercice[i].video = false
 
                     } else {
@@ -320,7 +320,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
-                    if (listeObjetsExercice[i].type_exercice == "statique") {
+                    if (listeObjetsExercice[i].type_exercice == "dnb") {
                         liste_packages.add('dnb')
                         codeEnonces += '\n\n\\exo{}\n\n';
                         codeEnonces += listeObjetsExercice[i].contenu;
@@ -514,7 +514,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 console.log(error);
                 console.log(`Exercice ${id} non disponible`);
             }
-            if (dictionnaireDesExercices[id]["type_exercice"] == "statique") {
+            if (dictionnaireDesExercices[id]["type_exercice"] == "dnb") {
                 listeObjetsExercice[i] = dictionnaireDesExercices[id];
                 promises.push(
                 fetch(url)
