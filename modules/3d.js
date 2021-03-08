@@ -68,6 +68,7 @@ function ObjetMathalea2D() {
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
    * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
 s et dans toutes les transformations.import Nature_polygone from './../exercices/2e/2G12';
+import Exercice_fractions_decomposer from './../exercices/6e/6N20';
 
    * Ils servent notament à définir la direction des plans.
    * 
@@ -569,6 +570,44 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
     return new Prisme3d(base,vecteur,color)
   }
   
+/**
+   * LE cube
+   * @Auteur Jean-Claude Lhote
+   * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
+   * le face avant est dans le plan xz
+   * 
+*/
+class Cube3d{
+    constructor (x,y,z,c,color='black'){
+      let faceAV,faceDr,faceTOP
+      let A=point3d(x,y,z)
+      let vx=vecteur3d(c,0,0)
+      let vy=vecteur3d(0,c,0)
+      let vz=vecteur3d(0,0,c)
+      let B=translation3d(A,vx)
+      let C=translation3d(B,vz)
+      let D=translation3d(A,vz)
+      let E=translation3d(A,vy)
+      let F=translation3d(E,vx)
+      let G=translation3d(F,vz)
+      let H=translation3d(D,vy)
+      faceAV=polygone([A.p2d,B.p2d,C.p2d,D.p2d],color)
+      faceDr=polygone([B.p2d,F.p2d,G.p2d,C.p2d],color)
+      faceTOP=polygone([D.p2d,C.p2d,G.p2d,H.p2d],color)
+      faceAV.couleurDeRemplissage="#A9A9A9"
+      faceTOP.couleurDeRemplissage='white'
+      faceDr.couleurDeRemplissage="#A5C400"
+      this.svg=function(coeff){
+        return faceAV.svg(coeff)+'\n'+faceTOP.svg(coeff)+'\n'+faceDr.svg(coeff)
+      }
+      this.tikz=function(){
+        return faceAV.tikz()+'\n'+faceTOP.tikz()+'\n'+faceDr.tikz()
+      }
+    }
+}
+export function cube3d(x,y,z,c){
+  return new Cube3d(x,y,z,c)
+}
 /**
    * LE PAVE
    * @Auteur Jean-Claude Lhote
