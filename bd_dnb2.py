@@ -31,6 +31,10 @@ def nomDeLieu(text):
         return 'Amérique du sud'
     elif text == 'caledonie' :
         return 'Nouvelle Calédonie'
+    elif text == 'grece' :
+        return 'Grèce'
+    elif text == 'antillesguyanne' :
+        return 'Antilles - Guyanne'
     else :
         return text
 

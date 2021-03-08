@@ -2,7 +2,7 @@
     "dnb_2013_04_pondichery_1": {
         "annee": "2013",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_1_cor.png",
@@ -13,7 +13,7 @@
     "dnb_2013_04_pondichery_2": {
         "annee": "2013",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_2_cor.png",
@@ -24,7 +24,7 @@
     "dnb_2013_04_pondichery_3": {
         "annee": "2013",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_3_cor.png",
@@ -35,7 +35,7 @@
     "dnb_2013_04_pondichery_4": {
         "annee": "2013",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_4_cor.png",
@@ -46,7 +46,7 @@
     "dnb_2013_04_pondichery_5": {
         "annee": "2013",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_5_cor.png",
@@ -54,21 +54,10 @@
         "url": "/tex/dnb_2013_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_5_cor.tex"
     },
-    "dnb_2013_04_pondichery_6": {
-        "annee": "2013",
-        "lieu": "Pondichéry",
-        "mois": "04",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2013_04_pondichery_6.png",
-        "pngcor": "/tex/png/dnb_2013_04_pondichery_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_04_pondichery_6.tex",
-        "urlcor": "/tex/dnb_2013_04_pondichery_6_cor.tex"
-    },
     "dnb_2013_06_ameriquenord_1": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_1_cor.png",
@@ -79,7 +68,7 @@
     "dnb_2013_06_ameriquenord_2": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_2_cor.png",
@@ -90,7 +79,7 @@
     "dnb_2013_06_ameriquenord_3": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_3_cor.png",
@@ -101,7 +90,7 @@
     "dnb_2013_06_ameriquenord_4": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_4_cor.png",
@@ -112,7 +101,7 @@
     "dnb_2013_06_ameriquenord_5": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_5_cor.png",
@@ -123,7 +112,7 @@
     "dnb_2013_06_ameriquenord_6": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_6_cor.png",
@@ -134,7 +123,7 @@
     "dnb_2013_06_ameriquenord_7": {
         "annee": "2013",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_7_cor.png",
@@ -142,21 +131,10 @@
         "url": "/tex/dnb_2013_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_7_cor.tex"
     },
-    "dnb_2013_06_ameriquenord_8": {
-        "annee": "2013",
-        "lieu": "Amérique du Nord",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2013_06_ameriquenord_8.png",
-        "pngcor": "/tex/png/dnb_2013_06_ameriquenord_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_ameriquenord_8.tex",
-        "urlcor": "/tex/dnb_2013_06_ameriquenord_8_cor.tex"
-    },
     "dnb_2013_06_asie_1": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_1_cor.png",
@@ -167,7 +145,7 @@
     "dnb_2013_06_asie_2": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_2_cor.png",
@@ -178,7 +156,7 @@
     "dnb_2013_06_asie_3": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_3_cor.png",
@@ -189,7 +167,7 @@
     "dnb_2013_06_asie_4": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_4_cor.png",
@@ -200,7 +178,7 @@
     "dnb_2013_06_asie_5": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_5_cor.png",
@@ -211,7 +189,7 @@
     "dnb_2013_06_asie_6": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_6_cor.png",
@@ -222,7 +200,7 @@
     "dnb_2013_06_asie_7": {
         "annee": "2013",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_7_cor.png",
@@ -230,98 +208,76 @@
         "url": "/tex/dnb_2013_06_asie_7.tex",
         "urlcor": "/tex/dnb_2013_06_asie_7_cor.tex"
     },
-    "dnb_2013_06_asie_8": {
-        "annee": "2013",
-        "lieu": "Asie",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2013_06_asie_8.png",
-        "pngcor": "/tex/png/dnb_2013_06_asie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_asie_8.tex",
-        "urlcor": "/tex/dnb_2013_06_asie_8_cor.tex"
-    },
-    "dnb_2013_06_etranger_1": {
+    "dnb_2013_06_etrangers_1": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2013_06_etranger_1.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_1_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_1.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_1.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_1_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_1.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_1_cor.tex"
     },
-    "dnb_2013_06_etranger_2": {
+    "dnb_2013_06_etrangers_2": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2013_06_etranger_2.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_2_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_2.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_2.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_2_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_2.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_2_cor.tex"
     },
-    "dnb_2013_06_etranger_3": {
+    "dnb_2013_06_etrangers_3": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2013_06_etranger_3.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_3_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_3.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_3.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_3_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_3.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_3_cor.tex"
     },
-    "dnb_2013_06_etranger_4": {
+    "dnb_2013_06_etrangers_4": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2013_06_etranger_4.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_4_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_4.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_4.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_4_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_4.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_4_cor.tex"
     },
-    "dnb_2013_06_etranger_5": {
+    "dnb_2013_06_etrangers_5": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2013_06_etranger_5.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_5_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_5.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_5.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_5_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_5.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_5_cor.tex"
     },
-    "dnb_2013_06_etranger_6": {
+    "dnb_2013_06_etrangers_6": {
         "annee": "2013",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2013_06_etranger_6.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_6_cor.png",
+        "png": "/tex/png/dnb_2013_06_etrangers_6.png",
+        "pngcor": "/tex/png/dnb_2013_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_6.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_6_cor.tex"
-    },
-    "dnb_2013_06_etranger_7": {
-        "annee": "2013",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2013_06_etranger_7.png",
-        "pngcor": "/tex/png/dnb_2013_06_etranger_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_etranger_7.tex",
-        "urlcor": "/tex/dnb_2013_06_etranger_7_cor.tex"
+        "url": "/tex/dnb_2013_06_etrangers_6.tex",
+        "urlcor": "/tex/dnb_2013_06_etrangers_6_cor.tex"
     },
     "dnb_2013_06_metropole_1": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_1_cor.png",
@@ -332,7 +288,7 @@
     "dnb_2013_06_metropole_2": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_2_cor.png",
@@ -343,7 +299,7 @@
     "dnb_2013_06_metropole_3": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_3_cor.png",
@@ -354,7 +310,7 @@
     "dnb_2013_06_metropole_4": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_4_cor.png",
@@ -365,7 +321,7 @@
     "dnb_2013_06_metropole_5": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_5_cor.png",
@@ -376,7 +332,7 @@
     "dnb_2013_06_metropole_6": {
         "annee": "2013",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_6_cor.png",
@@ -384,21 +340,10 @@
         "url": "/tex/dnb_2013_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_6_cor.tex"
     },
-    "dnb_2013_06_metropole_7": {
-        "annee": "2013",
-        "lieu": "Métropole",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2013_06_metropole_7.png",
-        "pngcor": "/tex/png/dnb_2013_06_metropole_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_metropole_7.tex",
-        "urlcor": "/tex/dnb_2013_06_metropole_7_cor.tex"
-    },
     "dnb_2013_06_polynesie_1": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_1_cor.png",
@@ -409,7 +354,7 @@
     "dnb_2013_06_polynesie_2": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_2_cor.png",
@@ -420,7 +365,7 @@
     "dnb_2013_06_polynesie_3": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_3_cor.png",
@@ -431,7 +376,7 @@
     "dnb_2013_06_polynesie_4": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_4_cor.png",
@@ -442,7 +387,7 @@
     "dnb_2013_06_polynesie_5": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_5_cor.png",
@@ -453,7 +398,7 @@
     "dnb_2013_06_polynesie_6": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_6_cor.png",
@@ -464,7 +409,7 @@
     "dnb_2013_06_polynesie_7": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_7_cor.png",
@@ -472,21 +417,10 @@
         "url": "/tex/dnb_2013_06_polynesie_7.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_7_cor.tex"
     },
-    "dnb_2013_06_polynesie_8": {
-        "annee": "2013",
-        "lieu": "Polynésie",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2013_06_polynesie_8.png",
-        "pngcor": "/tex/png/dnb_2013_06_polynesie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_06_polynesie_8.tex",
-        "urlcor": "/tex/dnb_2013_06_polynesie_8_cor.tex"
-    },
     "dnb_2013_09_polynesie_1": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_1_cor.png",
@@ -497,7 +431,7 @@
     "dnb_2013_09_polynesie_2": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_2_cor.png",
@@ -508,7 +442,7 @@
     "dnb_2013_09_polynesie_3": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_3_cor.png",
@@ -519,7 +453,7 @@
     "dnb_2013_09_polynesie_4": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_4_cor.png",
@@ -530,7 +464,7 @@
     "dnb_2013_09_polynesie_5": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_5_cor.png",
@@ -541,7 +475,7 @@
     "dnb_2013_09_polynesie_6": {
         "annee": "2013",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_6_cor.png",
@@ -552,7 +486,7 @@
     "dnb_2013_11_ameriquesud_1": {
         "annee": "2013",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_1_cor.png",
@@ -563,7 +497,7 @@
     "dnb_2013_11_ameriquesud_2": {
         "annee": "2013",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_2_cor.png",
@@ -574,7 +508,7 @@
     "dnb_2013_11_ameriquesud_3": {
         "annee": "2013",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_3_cor.png",
@@ -585,7 +519,7 @@
     "dnb_2013_11_ameriquesud_4": {
         "annee": "2013",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_4_cor.png",
@@ -596,7 +530,7 @@
     "dnb_2013_11_ameriquesud_5": {
         "annee": "2013",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_5_cor.png",
@@ -604,21 +538,10 @@
         "url": "/tex/dnb_2013_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_5_cor.tex"
     },
-    "dnb_2013_11_ameriquesud_6": {
-        "annee": "2013",
-        "lieu": "Amérique du sud",
-        "mois": "11",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2013_11_ameriquesud_6.png",
-        "pngcor": "/tex/png/dnb_2013_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2013_11_ameriquesud_6.tex",
-        "urlcor": "/tex/dnb_2013_11_ameriquesud_6_cor.tex"
-    },
     "dnb_2013_12_caledonie_1": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_1_cor.png",
@@ -629,7 +552,7 @@
     "dnb_2013_12_caledonie_2": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_2_cor.png",
@@ -640,7 +563,7 @@
     "dnb_2013_12_caledonie_3": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_3_cor.png",
@@ -651,7 +574,7 @@
     "dnb_2013_12_caledonie_4": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_4_cor.png",
@@ -662,7 +585,7 @@
     "dnb_2013_12_caledonie_5": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_5_cor.png",
@@ -673,7 +596,7 @@
     "dnb_2013_12_caledonie_6": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_6_cor.png",
@@ -684,7 +607,7 @@
     "dnb_2013_12_caledonie_7": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_7_cor.png",
@@ -695,7 +618,7 @@
     "dnb_2013_12_caledonie_8": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2013_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_8_cor.png",
@@ -706,7 +629,7 @@
     "dnb_2014_04_pondichery_1": {
         "annee": "2014",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_1_cor.png",
@@ -717,7 +640,7 @@
     "dnb_2014_04_pondichery_2": {
         "annee": "2014",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_2_cor.png",
@@ -728,7 +651,7 @@
     "dnb_2014_04_pondichery_3": {
         "annee": "2014",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_3_cor.png",
@@ -739,7 +662,7 @@
     "dnb_2014_04_pondichery_4": {
         "annee": "2014",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_4_cor.png",
@@ -750,7 +673,7 @@
     "dnb_2014_04_pondichery_5": {
         "annee": "2014",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_5_cor.png",
@@ -758,21 +681,10 @@
         "url": "/tex/dnb_2014_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_5_cor.tex"
     },
-    "dnb_2014_04_pondichery_6": {
-        "annee": "2014",
-        "lieu": "Pondichéry",
-        "mois": "04",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2014_04_pondichery_6.png",
-        "pngcor": "/tex/png/dnb_2014_04_pondichery_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_04_pondichery_6.tex",
-        "urlcor": "/tex/dnb_2014_04_pondichery_6_cor.tex"
-    },
     "dnb_2014_06_ameriquenord_1": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_1_cor.png",
@@ -783,7 +695,7 @@
     "dnb_2014_06_ameriquenord_2": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_2_cor.png",
@@ -794,7 +706,7 @@
     "dnb_2014_06_ameriquenord_3": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_3_cor.png",
@@ -805,7 +717,7 @@
     "dnb_2014_06_ameriquenord_4": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_4_cor.png",
@@ -816,7 +728,7 @@
     "dnb_2014_06_ameriquenord_5": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_5_cor.png",
@@ -827,7 +739,7 @@
     "dnb_2014_06_ameriquenord_6": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_6_cor.png",
@@ -838,7 +750,7 @@
     "dnb_2014_06_ameriquenord_7": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_7_cor.png",
@@ -849,7 +761,7 @@
     "dnb_2014_06_ameriquenord_8": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2014_06_ameriquenord_8.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_8_cor.png",
@@ -860,7 +772,7 @@
     "dnb_2014_06_ameriquenord_9": {
         "annee": "2014",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "9",
         "png": "/tex/png/dnb_2014_06_ameriquenord_9.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_9_cor.png",
@@ -871,7 +783,7 @@
     "dnb_2014_06_asie_1": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_1_cor.png",
@@ -882,7 +794,7 @@
     "dnb_2014_06_asie_2": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_2_cor.png",
@@ -893,7 +805,7 @@
     "dnb_2014_06_asie_3": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_3_cor.png",
@@ -904,7 +816,7 @@
     "dnb_2014_06_asie_4": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_4_cor.png",
@@ -915,7 +827,7 @@
     "dnb_2014_06_asie_5": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_5_cor.png",
@@ -926,7 +838,7 @@
     "dnb_2014_06_asie_6": {
         "annee": "2014",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_6_cor.png",
@@ -934,98 +846,76 @@
         "url": "/tex/dnb_2014_06_asie_6.tex",
         "urlcor": "/tex/dnb_2014_06_asie_6_cor.tex"
     },
-    "dnb_2014_06_asie_7": {
-        "annee": "2014",
-        "lieu": "Asie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2014_06_asie_7.png",
-        "pngcor": "/tex/png/dnb_2014_06_asie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_asie_7.tex",
-        "urlcor": "/tex/dnb_2014_06_asie_7_cor.tex"
-    },
-    "dnb_2014_06_etranger_1": {
+    "dnb_2014_06_etrangers_1": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2014_06_etranger_1.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_1_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_1.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_1.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_1_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_1.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_1_cor.tex"
     },
-    "dnb_2014_06_etranger_2": {
+    "dnb_2014_06_etrangers_2": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2014_06_etranger_2.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_2_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_2.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_2.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_2_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_2.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_2_cor.tex"
     },
-    "dnb_2014_06_etranger_3": {
+    "dnb_2014_06_etrangers_3": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2014_06_etranger_3.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_3_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_3.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_3.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_3_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_3.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_3_cor.tex"
     },
-    "dnb_2014_06_etranger_4": {
+    "dnb_2014_06_etrangers_4": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2014_06_etranger_4.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_4_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_4.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_4.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_4_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_4.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_4_cor.tex"
     },
-    "dnb_2014_06_etranger_5": {
+    "dnb_2014_06_etrangers_5": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2014_06_etranger_5.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_5_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_5.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_5.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_5_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_5.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_5_cor.tex"
     },
-    "dnb_2014_06_etranger_6": {
+    "dnb_2014_06_etrangers_6": {
         "annee": "2014",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2014_06_etranger_6.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_6_cor.png",
+        "png": "/tex/png/dnb_2014_06_etrangers_6.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_6.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_6_cor.tex"
-    },
-    "dnb_2014_06_etranger_7": {
-        "annee": "2014",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2014_06_etranger_7.png",
-        "pngcor": "/tex/png/dnb_2014_06_etranger_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_etranger_7.tex",
-        "urlcor": "/tex/dnb_2014_06_etranger_7_cor.tex"
+        "url": "/tex/dnb_2014_06_etrangers_6.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_6_cor.tex"
     },
     "dnb_2014_06_polynesie_1": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_1_cor.png",
@@ -1036,7 +926,7 @@
     "dnb_2014_06_polynesie_2": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_2_cor.png",
@@ -1047,7 +937,7 @@
     "dnb_2014_06_polynesie_3": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_3_cor.png",
@@ -1058,7 +948,7 @@
     "dnb_2014_06_polynesie_4": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_4_cor.png",
@@ -1069,7 +959,7 @@
     "dnb_2014_06_polynesie_5": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_5_cor.png",
@@ -1080,7 +970,7 @@
     "dnb_2014_06_polynesie_6": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_6_cor.png",
@@ -1088,21 +978,10 @@
         "url": "/tex/dnb_2014_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_6_cor.tex"
     },
-    "dnb_2014_06_polynesie_7": {
-        "annee": "2014",
-        "lieu": "Polynésie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2014_06_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2014_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_06_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2014_06_polynesie_7_cor.tex"
-    },
     "dnb_2014_09_metropole_1": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_1_cor.png",
@@ -1113,7 +992,7 @@
     "dnb_2014_09_metropole_2": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_2_cor.png",
@@ -1124,7 +1003,7 @@
     "dnb_2014_09_metropole_3": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_3_cor.png",
@@ -1135,7 +1014,7 @@
     "dnb_2014_09_metropole_4": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_4_cor.png",
@@ -1146,7 +1025,7 @@
     "dnb_2014_09_metropole_5": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_5_cor.png",
@@ -1157,7 +1036,7 @@
     "dnb_2014_09_metropole_6": {
         "annee": "2014",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_6_cor.png",
@@ -1165,21 +1044,10 @@
         "url": "/tex/dnb_2014_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_6_cor.tex"
     },
-    "dnb_2014_09_metropole_7": {
-        "annee": "2014",
-        "lieu": "Métropole",
-        "mois": "09",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2014_09_metropole_7.png",
-        "pngcor": "/tex/png/dnb_2014_09_metropole_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_09_metropole_7.tex",
-        "urlcor": "/tex/dnb_2014_09_metropole_7_cor.tex"
-    },
     "dnb_2014_09_polynesie_1": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_1_cor.png",
@@ -1190,7 +1058,7 @@
     "dnb_2014_09_polynesie_2": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_2_cor.png",
@@ -1201,7 +1069,7 @@
     "dnb_2014_09_polynesie_3": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_3_cor.png",
@@ -1212,7 +1080,7 @@
     "dnb_2014_09_polynesie_4": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_4_cor.png",
@@ -1223,7 +1091,7 @@
     "dnb_2014_09_polynesie_5": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_5_cor.png",
@@ -1234,7 +1102,7 @@
     "dnb_2014_09_polynesie_6": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_6_cor.png",
@@ -1245,7 +1113,7 @@
     "dnb_2014_09_polynesie_7": {
         "annee": "2014",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_09_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_7_cor.png",
@@ -1253,21 +1121,10 @@
         "url": "/tex/dnb_2014_09_polynesie_7.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_7_cor.tex"
     },
-    "dnb_2014_09_polynesie_8": {
-        "annee": "2014",
-        "lieu": "Polynésie",
-        "mois": "09",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2014_09_polynesie_8.png",
-        "pngcor": "/tex/png/dnb_2014_09_polynesie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_09_polynesie_8.tex",
-        "urlcor": "/tex/dnb_2014_09_polynesie_8_cor.tex"
-    },
     "dnb_2014_11_ameriquesud_1": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_1_cor.png",
@@ -1278,7 +1135,7 @@
     "dnb_2014_11_ameriquesud_2": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_2_cor.png",
@@ -1289,7 +1146,7 @@
     "dnb_2014_11_ameriquesud_3": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_3_cor.png",
@@ -1300,7 +1157,7 @@
     "dnb_2014_11_ameriquesud_4": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_4_cor.png",
@@ -1311,7 +1168,7 @@
     "dnb_2014_11_ameriquesud_5": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_5_cor.png",
@@ -1322,7 +1179,7 @@
     "dnb_2014_11_ameriquesud_6": {
         "annee": "2014",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_6_cor.png",
@@ -1330,21 +1187,10 @@
         "url": "/tex/dnb_2014_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_6_cor.tex"
     },
-    "dnb_2014_11_ameriquesud_7": {
-        "annee": "2014",
-        "lieu": "Amérique du sud",
-        "mois": "11",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2014_11_ameriquesud_7.png",
-        "pngcor": "/tex/png/dnb_2014_11_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2014_11_ameriquesud_7.tex",
-        "urlcor": "/tex/dnb_2014_11_ameriquesud_7_cor.tex"
-    },
     "dnb_2014_12_caledonie_1": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_1_cor.png",
@@ -1355,7 +1201,7 @@
     "dnb_2014_12_caledonie_2": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_2_cor.png",
@@ -1366,7 +1212,7 @@
     "dnb_2014_12_caledonie_3": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_3_cor.png",
@@ -1377,7 +1223,7 @@
     "dnb_2014_12_caledonie_4": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_4_cor.png",
@@ -1388,7 +1234,7 @@
     "dnb_2014_12_caledonie_5": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_5_cor.png",
@@ -1399,7 +1245,7 @@
     "dnb_2014_12_caledonie_6": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_6_cor.png",
@@ -1410,7 +1256,7 @@
     "dnb_2014_12_caledonie_7": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_7_cor.png",
@@ -1421,7 +1267,7 @@
     "dnb_2014_12_caledonie_8": {
         "annee": "2014",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2014_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_8_cor.png",
@@ -1432,7 +1278,7 @@
     "dnb_2015_03_caledonie_1": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_03_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_1_cor.png",
@@ -1443,7 +1289,7 @@
     "dnb_2015_03_caledonie_2": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_03_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_2_cor.png",
@@ -1454,7 +1300,7 @@
     "dnb_2015_03_caledonie_3": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_03_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_3_cor.png",
@@ -1465,7 +1311,7 @@
     "dnb_2015_03_caledonie_4": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_03_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_4_cor.png",
@@ -1476,7 +1322,7 @@
     "dnb_2015_03_caledonie_5": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_03_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_5_cor.png",
@@ -1487,7 +1333,7 @@
     "dnb_2015_03_caledonie_6": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_03_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_6_cor.png",
@@ -1498,7 +1344,7 @@
     "dnb_2015_03_caledonie_7": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "03",
+        "mois": "Mars",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_03_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_7_cor.png",
@@ -1506,21 +1352,10 @@
         "url": "/tex/dnb_2015_03_caledonie_7.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_7_cor.tex"
     },
-    "dnb_2015_03_caledonie_8": {
-        "annee": "2015",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "03",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2015_03_caledonie_8.png",
-        "pngcor": "/tex/png/dnb_2015_03_caledonie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_03_caledonie_8.tex",
-        "urlcor": "/tex/dnb_2015_03_caledonie_8_cor.tex"
-    },
     "dnb_2015_04_pondichery_1": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_1_cor.png",
@@ -1531,7 +1366,7 @@
     "dnb_2015_04_pondichery_2": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_2_cor.png",
@@ -1542,7 +1377,7 @@
     "dnb_2015_04_pondichery_3": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_3_cor.png",
@@ -1553,7 +1388,7 @@
     "dnb_2015_04_pondichery_4": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_4_cor.png",
@@ -1564,7 +1399,7 @@
     "dnb_2015_04_pondichery_5": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_5_cor.png",
@@ -1575,7 +1410,7 @@
     "dnb_2015_04_pondichery_6": {
         "annee": "2015",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_04_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_6_cor.png",
@@ -1583,21 +1418,10 @@
         "url": "/tex/dnb_2015_04_pondichery_6.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_6_cor.tex"
     },
-    "dnb_2015_04_pondichery_7": {
-        "annee": "2015",
-        "lieu": "Pondichéry",
-        "mois": "04",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_04_pondichery_7.png",
-        "pngcor": "/tex/png/dnb_2015_04_pondichery_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_04_pondichery_7.tex",
-        "urlcor": "/tex/dnb_2015_04_pondichery_7_cor.tex"
-    },
     "dnb_2015_06_ameriquenord_1": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_1_cor.png",
@@ -1608,7 +1432,7 @@
     "dnb_2015_06_ameriquenord_2": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_2_cor.png",
@@ -1619,7 +1443,7 @@
     "dnb_2015_06_ameriquenord_3": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_3_cor.png",
@@ -1630,7 +1454,7 @@
     "dnb_2015_06_ameriquenord_4": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_4_cor.png",
@@ -1641,7 +1465,7 @@
     "dnb_2015_06_ameriquenord_5": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_5_cor.png",
@@ -1652,7 +1476,7 @@
     "dnb_2015_06_ameriquenord_6": {
         "annee": "2015",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_6_cor.png",
@@ -1660,21 +1484,10 @@
         "url": "/tex/dnb_2015_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_6_cor.tex"
     },
-    "dnb_2015_06_ameriquenord_7": {
-        "annee": "2015",
-        "lieu": "Amérique du Nord",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_06_ameriquenord_7.png",
-        "pngcor": "/tex/png/dnb_2015_06_ameriquenord_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_ameriquenord_7.tex",
-        "urlcor": "/tex/dnb_2015_06_ameriquenord_7_cor.tex"
-    },
     "dnb_2015_06_asie_1": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_1_cor.png",
@@ -1685,7 +1498,7 @@
     "dnb_2015_06_asie_2": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_2_cor.png",
@@ -1696,7 +1509,7 @@
     "dnb_2015_06_asie_3": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_3_cor.png",
@@ -1707,7 +1520,7 @@
     "dnb_2015_06_asie_4": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_4_cor.png",
@@ -1718,7 +1531,7 @@
     "dnb_2015_06_asie_5": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_5_cor.png",
@@ -1729,7 +1542,7 @@
     "dnb_2015_06_asie_6": {
         "annee": "2015",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_6_cor.png",
@@ -1737,98 +1550,76 @@
         "url": "/tex/dnb_2015_06_asie_6.tex",
         "urlcor": "/tex/dnb_2015_06_asie_6_cor.tex"
     },
-    "dnb_2015_06_asie_7": {
-        "annee": "2015",
-        "lieu": "Asie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_06_asie_7.png",
-        "pngcor": "/tex/png/dnb_2015_06_asie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_asie_7.tex",
-        "urlcor": "/tex/dnb_2015_06_asie_7_cor.tex"
-    },
-    "dnb_2015_06_etranger_1": {
+    "dnb_2015_06_etrangers_1": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2015_06_etranger_1.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_1_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_1.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_1.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_1_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_1.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_1_cor.tex"
     },
-    "dnb_2015_06_etranger_2": {
+    "dnb_2015_06_etrangers_2": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2015_06_etranger_2.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_2_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_2.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_2.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_2_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_2.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_2_cor.tex"
     },
-    "dnb_2015_06_etranger_3": {
+    "dnb_2015_06_etrangers_3": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2015_06_etranger_3.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_3_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_3.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_3.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_3_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_3.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_3_cor.tex"
     },
-    "dnb_2015_06_etranger_4": {
+    "dnb_2015_06_etrangers_4": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2015_06_etranger_4.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_4_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_4.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_4.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_4_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_4.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_4_cor.tex"
     },
-    "dnb_2015_06_etranger_5": {
+    "dnb_2015_06_etrangers_5": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2015_06_etranger_5.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_5_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_5.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_5.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_5_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_5.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_5_cor.tex"
     },
-    "dnb_2015_06_etranger_6": {
+    "dnb_2015_06_etrangers_6": {
         "annee": "2015",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2015_06_etranger_6.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_6_cor.png",
+        "png": "/tex/png/dnb_2015_06_etrangers_6.png",
+        "pngcor": "/tex/png/dnb_2015_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_6.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_6_cor.tex"
-    },
-    "dnb_2015_06_etranger_7": {
-        "annee": "2015",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_06_etranger_7.png",
-        "pngcor": "/tex/png/dnb_2015_06_etranger_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_etranger_7.tex",
-        "urlcor": "/tex/dnb_2015_06_etranger_7_cor.tex"
+        "url": "/tex/dnb_2015_06_etrangers_6.tex",
+        "urlcor": "/tex/dnb_2015_06_etrangers_6_cor.tex"
     },
     "dnb_2015_06_metropole_1": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_1_cor.png",
@@ -1839,7 +1630,7 @@
     "dnb_2015_06_metropole_2": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_2_cor.png",
@@ -1850,7 +1641,7 @@
     "dnb_2015_06_metropole_3": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_3_cor.png",
@@ -1861,7 +1652,7 @@
     "dnb_2015_06_metropole_4": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_4_cor.png",
@@ -1872,7 +1663,7 @@
     "dnb_2015_06_metropole_5": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_5_cor.png",
@@ -1883,7 +1674,7 @@
     "dnb_2015_06_metropole_6": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_6_cor.png",
@@ -1894,7 +1685,7 @@
     "dnb_2015_06_metropole_7": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_06_metropole_7.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_7_cor.png",
@@ -1905,7 +1696,7 @@
     "dnb_2015_06_polynesie_1": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_1_cor.png",
@@ -1916,7 +1707,7 @@
     "dnb_2015_06_polynesie_2": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_2_cor.png",
@@ -1927,7 +1718,7 @@
     "dnb_2015_06_polynesie_3": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_3_cor.png",
@@ -1938,7 +1729,7 @@
     "dnb_2015_06_polynesie_4": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_4_cor.png",
@@ -1949,7 +1740,7 @@
     "dnb_2015_06_polynesie_5": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_5_cor.png",
@@ -1960,7 +1751,7 @@
     "dnb_2015_06_polynesie_6": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_6_cor.png",
@@ -1968,21 +1759,10 @@
         "url": "/tex/dnb_2015_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_6_cor.tex"
     },
-    "dnb_2015_06_polynesie_7": {
-        "annee": "2015",
-        "lieu": "Polynésie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_06_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2015_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_06_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2015_06_polynesie_7_cor.tex"
-    },
     "dnb_2015_09_metropole_1": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_1_cor.png",
@@ -1993,7 +1773,7 @@
     "dnb_2015_09_metropole_2": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_2_cor.png",
@@ -2004,7 +1784,7 @@
     "dnb_2015_09_metropole_3": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_3_cor.png",
@@ -2015,7 +1795,7 @@
     "dnb_2015_09_metropole_4": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_4_cor.png",
@@ -2026,7 +1806,7 @@
     "dnb_2015_09_metropole_5": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_5_cor.png",
@@ -2037,7 +1817,7 @@
     "dnb_2015_09_metropole_6": {
         "annee": "2015",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_6_cor.png",
@@ -2045,21 +1825,10 @@
         "url": "/tex/dnb_2015_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_6_cor.tex"
     },
-    "dnb_2015_09_metropole_7": {
-        "annee": "2015",
-        "lieu": "Métropole",
-        "mois": "09",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_09_metropole_7.png",
-        "pngcor": "/tex/png/dnb_2015_09_metropole_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_09_metropole_7.tex",
-        "urlcor": "/tex/dnb_2015_09_metropole_7_cor.tex"
-    },
     "dnb_2015_09_polynesie_1": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_1_cor.png",
@@ -2070,7 +1839,7 @@
     "dnb_2015_09_polynesie_2": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_2_cor.png",
@@ -2081,7 +1850,7 @@
     "dnb_2015_09_polynesie_3": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_3_cor.png",
@@ -2092,7 +1861,7 @@
     "dnb_2015_09_polynesie_4": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_4_cor.png",
@@ -2103,7 +1872,7 @@
     "dnb_2015_09_polynesie_5": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_5_cor.png",
@@ -2114,7 +1883,7 @@
     "dnb_2015_09_polynesie_6": {
         "annee": "2015",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_6_cor.png",
@@ -2122,21 +1891,10 @@
         "url": "/tex/dnb_2015_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_6_cor.tex"
     },
-    "dnb_2015_09_polynesie_7": {
-        "annee": "2015",
-        "lieu": "Polynésie",
-        "mois": "09",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2015_09_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2015_09_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_09_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2015_09_polynesie_7_cor.tex"
-    },
     "dnb_2015_12_ameriquesud_1": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_12_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_1_cor.png",
@@ -2147,7 +1905,7 @@
     "dnb_2015_12_ameriquesud_2": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_12_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_2_cor.png",
@@ -2158,7 +1916,7 @@
     "dnb_2015_12_ameriquesud_3": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_12_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_3_cor.png",
@@ -2169,7 +1927,7 @@
     "dnb_2015_12_ameriquesud_4": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_12_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_4_cor.png",
@@ -2180,7 +1938,7 @@
     "dnb_2015_12_ameriquesud_5": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_12_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_5_cor.png",
@@ -2191,7 +1949,7 @@
     "dnb_2015_12_ameriquesud_6": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_12_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_6_cor.png",
@@ -2202,7 +1960,7 @@
     "dnb_2015_12_ameriquesud_7": {
         "annee": "2015",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_12_ameriquesud_7.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_7_cor.png",
@@ -2210,21 +1968,10 @@
         "url": "/tex/dnb_2015_12_ameriquesud_7.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_7_cor.tex"
     },
-    "dnb_2015_12_ameriquesud_8": {
-        "annee": "2015",
-        "lieu": "Amérique du sud",
-        "mois": "12",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2015_12_ameriquesud_8.png",
-        "pngcor": "/tex/png/dnb_2015_12_ameriquesud_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2015_12_ameriquesud_8.tex",
-        "urlcor": "/tex/dnb_2015_12_ameriquesud_8_cor.tex"
-    },
     "dnb_2015_12_caledonie_1": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_1_cor.png",
@@ -2235,7 +1982,7 @@
     "dnb_2015_12_caledonie_2": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_2_cor.png",
@@ -2246,7 +1993,7 @@
     "dnb_2015_12_caledonie_3": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_3_cor.png",
@@ -2257,7 +2004,7 @@
     "dnb_2015_12_caledonie_4": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_4_cor.png",
@@ -2268,7 +2015,7 @@
     "dnb_2015_12_caledonie_5": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_5_cor.png",
@@ -2279,7 +2026,7 @@
     "dnb_2015_12_caledonie_6": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_6_cor.png",
@@ -2290,7 +2037,7 @@
     "dnb_2015_12_caledonie_7": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_7_cor.png",
@@ -2301,7 +2048,7 @@
     "dnb_2015_12_caledonie_8": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2015_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_8_cor.png",
@@ -2312,7 +2059,7 @@
     "dnb_2015_12_caledonie_9": {
         "annee": "2015",
         "lieu": "Nouvelle Calédonie",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "9",
         "png": "/tex/png/dnb_2015_12_caledonie_9.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_9_cor.png",
@@ -2323,7 +2070,7 @@
     "dnb_2016_04_pondichery_1": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_1_cor.png",
@@ -2334,7 +2081,7 @@
     "dnb_2016_04_pondichery_2": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_2_cor.png",
@@ -2345,7 +2092,7 @@
     "dnb_2016_04_pondichery_3": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_3_cor.png",
@@ -2356,7 +2103,7 @@
     "dnb_2016_04_pondichery_4": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_4_cor.png",
@@ -2367,7 +2114,7 @@
     "dnb_2016_04_pondichery_5": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_5_cor.png",
@@ -2378,7 +2125,7 @@
     "dnb_2016_04_pondichery_6": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_04_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_6_cor.png",
@@ -2389,7 +2136,7 @@
     "dnb_2016_04_pondichery_7": {
         "annee": "2016",
         "lieu": "Pondichéry",
-        "mois": "04",
+        "mois": "Avril",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2016_04_pondichery_7.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_7_cor.png",
@@ -2397,21 +2144,10 @@
         "url": "/tex/dnb_2016_04_pondichery_7.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_7_cor.tex"
     },
-    "dnb_2016_04_pondichery_8": {
-        "annee": "2016",
-        "lieu": "Pondichéry",
-        "mois": "04",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2016_04_pondichery_8.png",
-        "pngcor": "/tex/png/dnb_2016_04_pondichery_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_04_pondichery_8.tex",
-        "urlcor": "/tex/dnb_2016_04_pondichery_8_cor.tex"
-    },
     "dnb_2016_06_ameriquenord_1": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_1_cor.png",
@@ -2422,7 +2158,7 @@
     "dnb_2016_06_ameriquenord_2": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_2_cor.png",
@@ -2433,7 +2169,7 @@
     "dnb_2016_06_ameriquenord_3": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_3_cor.png",
@@ -2444,7 +2180,7 @@
     "dnb_2016_06_ameriquenord_4": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_4_cor.png",
@@ -2455,7 +2191,7 @@
     "dnb_2016_06_ameriquenord_5": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_5_cor.png",
@@ -2466,7 +2202,7 @@
     "dnb_2016_06_ameriquenord_6": {
         "annee": "2016",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_6_cor.png",
@@ -2474,21 +2210,76 @@
         "url": "/tex/dnb_2016_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_6_cor.tex"
     },
-    "dnb_2016_06_ameriquenord_7": {
+    "dnb_2016_06_antillesguyanne_1": {
         "annee": "2016",
-        "lieu": "Amérique du Nord",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_06_ameriquenord_7.png",
-        "pngcor": "/tex/png/dnb_2016_06_ameriquenord_7_cor.png",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "1",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_1.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_ameriquenord_7.tex",
-        "urlcor": "/tex/dnb_2016_06_ameriquenord_7_cor.tex"
+        "url": "/tex/dnb_2016_06_antillesguyanne_1.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_1_cor.tex"
+    },
+    "dnb_2016_06_antillesguyanne_2": {
+        "annee": "2016",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "2",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_2.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2016_06_antillesguyanne_2.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_2_cor.tex"
+    },
+    "dnb_2016_06_antillesguyanne_3": {
+        "annee": "2016",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "3",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_3.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2016_06_antillesguyanne_3.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_3_cor.tex"
+    },
+    "dnb_2016_06_antillesguyanne_4": {
+        "annee": "2016",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "4",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_4.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2016_06_antillesguyanne_4.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_4_cor.tex"
+    },
+    "dnb_2016_06_antillesguyanne_5": {
+        "annee": "2016",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_5.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2016_06_antillesguyanne_5.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_5_cor.tex"
+    },
+    "dnb_2016_06_antillesguyanne_6": {
+        "annee": "2016",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
+        "numeroExercice": "6",
+        "png": "/tex/png/dnb_2016_06_antillesguyanne_6.png",
+        "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2016_06_antillesguyanne_6.tex",
+        "urlcor": "/tex/dnb_2016_06_antillesguyanne_6_cor.tex"
     },
     "dnb_2016_06_asie_1": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_1_cor.png",
@@ -2499,7 +2290,7 @@
     "dnb_2016_06_asie_2": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_2_cor.png",
@@ -2510,7 +2301,7 @@
     "dnb_2016_06_asie_3": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_3_cor.png",
@@ -2521,7 +2312,7 @@
     "dnb_2016_06_asie_4": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_4_cor.png",
@@ -2532,7 +2323,7 @@
     "dnb_2016_06_asie_5": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_5_cor.png",
@@ -2543,7 +2334,7 @@
     "dnb_2016_06_asie_6": {
         "annee": "2016",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_6_cor.png",
@@ -2551,197 +2342,98 @@
         "url": "/tex/dnb_2016_06_asie_6.tex",
         "urlcor": "/tex/dnb_2016_06_asie_6_cor.tex"
     },
-    "dnb_2016_06_asie_7": {
+    "dnb_2016_06_etrangers_1": {
         "annee": "2016",
-        "lieu": "Asie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_06_asie_7.png",
-        "pngcor": "/tex/png/dnb_2016_06_asie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_asie_7.tex",
-        "urlcor": "/tex/dnb_2016_06_asie_7_cor.tex"
-    },
-    "dnb_2016_06_bugLieu_1": {
-        "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2016_06_bugLieu_1.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_1_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_1.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_1.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_1_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_1.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_1_cor.tex"
     },
-    "dnb_2016_06_bugLieu_2": {
+    "dnb_2016_06_etrangers_2": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2016_06_bugLieu_2.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_2_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_2.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_2.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_2_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_2.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_2_cor.tex"
     },
-    "dnb_2016_06_bugLieu_3": {
+    "dnb_2016_06_etrangers_3": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2016_06_bugLieu_3.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_3_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_3.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_3.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_3_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_3.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_3_cor.tex"
     },
-    "dnb_2016_06_bugLieu_4": {
+    "dnb_2016_06_etrangers_4": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2016_06_bugLieu_4.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_4_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_4.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_4.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_4_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_4.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_4_cor.tex"
     },
-    "dnb_2016_06_bugLieu_5": {
+    "dnb_2016_06_etrangers_5": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2016_06_bugLieu_5.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_5_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_5.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_5.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_5_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_5.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_5_cor.tex"
     },
-    "dnb_2016_06_bugLieu_6": {
+    "dnb_2016_06_etrangers_6": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2016_06_bugLieu_6.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_6_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_6.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_6.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_6_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_6.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_6_cor.tex"
     },
-    "dnb_2016_06_bugLieu_7": {
+    "dnb_2016_06_etrangers_7": {
         "annee": "2016",
-        "lieu": "bugLieu",
-        "mois": "06",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
         "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_06_bugLieu_7.png",
-        "pngcor": "/tex/png/dnb_2016_06_bugLieu_7_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_7.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_7_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_bugLieu_7.tex",
-        "urlcor": "/tex/dnb_2016_06_bugLieu_7_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_7.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_7_cor.tex"
     },
-    "dnb_2016_06_etranger_1": {
+    "dnb_2016_06_etrangers_8": {
         "annee": "2016",
         "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "1",
-        "png": "/tex/png/dnb_2016_06_etranger_1.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_1_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_1.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_1_cor.tex"
-    },
-    "dnb_2016_06_etranger_2": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "2",
-        "png": "/tex/png/dnb_2016_06_etranger_2.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_2_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_2.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_2_cor.tex"
-    },
-    "dnb_2016_06_etranger_3": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "3",
-        "png": "/tex/png/dnb_2016_06_etranger_3.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_3_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_3.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_3_cor.tex"
-    },
-    "dnb_2016_06_etranger_4": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "4",
-        "png": "/tex/png/dnb_2016_06_etranger_4.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_4_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_4.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_4_cor.tex"
-    },
-    "dnb_2016_06_etranger_5": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "5",
-        "png": "/tex/png/dnb_2016_06_etranger_5.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_5.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_5_cor.tex"
-    },
-    "dnb_2016_06_etranger_6": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2016_06_etranger_6.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_6.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_6_cor.tex"
-    },
-    "dnb_2016_06_etranger_7": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_06_etranger_7.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_7.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_7_cor.tex"
-    },
-    "dnb_2016_06_etranger_8": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "8",
-        "png": "/tex/png/dnb_2016_06_etranger_8.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_8_cor.png",
+        "png": "/tex/png/dnb_2016_06_etrangers_8.png",
+        "pngcor": "/tex/png/dnb_2016_06_etrangers_8_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_8.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_8_cor.tex"
-    },
-    "dnb_2016_06_etranger_9": {
-        "annee": "2016",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "9",
-        "png": "/tex/png/dnb_2016_06_etranger_9.png",
-        "pngcor": "/tex/png/dnb_2016_06_etranger_9_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_etranger_9.tex",
-        "urlcor": "/tex/dnb_2016_06_etranger_9_cor.tex"
+        "url": "/tex/dnb_2016_06_etrangers_8.tex",
+        "urlcor": "/tex/dnb_2016_06_etrangers_8_cor.tex"
     },
     "dnb_2016_06_polynesie_1": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_1_cor.png",
@@ -2752,7 +2444,7 @@
     "dnb_2016_06_polynesie_2": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_2_cor.png",
@@ -2763,7 +2455,7 @@
     "dnb_2016_06_polynesie_3": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_3_cor.png",
@@ -2774,7 +2466,7 @@
     "dnb_2016_06_polynesie_4": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_4_cor.png",
@@ -2785,7 +2477,7 @@
     "dnb_2016_06_polynesie_5": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_5_cor.png",
@@ -2796,7 +2488,7 @@
     "dnb_2016_06_polynesie_6": {
         "annee": "2016",
         "lieu": "Polynésie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_6_cor.png",
@@ -2804,21 +2496,10 @@
         "url": "/tex/dnb_2016_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_6_cor.tex"
     },
-    "dnb_2016_06_polynesie_7": {
-        "annee": "2016",
-        "lieu": "Polynésie",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_06_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2016_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_06_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2016_06_polynesie_7_cor.tex"
-    },
     "dnb_2016_09_metropole_1": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_1_cor.png",
@@ -2829,7 +2510,7 @@
     "dnb_2016_09_metropole_2": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_2_cor.png",
@@ -2840,7 +2521,7 @@
     "dnb_2016_09_metropole_3": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_3_cor.png",
@@ -2851,7 +2532,7 @@
     "dnb_2016_09_metropole_4": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_4_cor.png",
@@ -2862,7 +2543,7 @@
     "dnb_2016_09_metropole_5": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_5_cor.png",
@@ -2873,7 +2554,7 @@
     "dnb_2016_09_metropole_6": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_6_cor.png",
@@ -2884,7 +2565,7 @@
     "dnb_2016_09_metropole_7": {
         "annee": "2016",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2016_09_metropole_7.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_7_cor.png",
@@ -2895,7 +2576,7 @@
     "dnb_2016_12_ameriquesud_1": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_12_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_1_cor.png",
@@ -2906,7 +2587,7 @@
     "dnb_2016_12_ameriquesud_2": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_12_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_2_cor.png",
@@ -2917,7 +2598,7 @@
     "dnb_2016_12_ameriquesud_3": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_12_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_3_cor.png",
@@ -2928,7 +2609,7 @@
     "dnb_2016_12_ameriquesud_4": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_12_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_4_cor.png",
@@ -2939,7 +2620,7 @@
     "dnb_2016_12_ameriquesud_5": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_12_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_5_cor.png",
@@ -2950,7 +2631,7 @@
     "dnb_2016_12_ameriquesud_6": {
         "annee": "2016",
         "lieu": "Amérique du sud",
-        "mois": "12",
+        "mois": "Décembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_12_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_6_cor.png",
@@ -2958,21 +2639,10 @@
         "url": "/tex/dnb_2016_12_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_6_cor.tex"
     },
-    "dnb_2016_12_ameriquesud_7": {
-        "annee": "2016",
-        "lieu": "Amérique du sud",
-        "mois": "12",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2016_12_ameriquesud_7.png",
-        "pngcor": "/tex/png/dnb_2016_12_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2016_12_ameriquesud_7.tex",
-        "urlcor": "/tex/dnb_2016_12_ameriquesud_7_cor.tex"
-    },
     "dnb_2017_06_asie_1": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_1_cor.png",
@@ -2983,7 +2653,7 @@
     "dnb_2017_06_asie_2": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_2_cor.png",
@@ -2994,7 +2664,7 @@
     "dnb_2017_06_asie_3": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_3_cor.png",
@@ -3005,7 +2675,7 @@
     "dnb_2017_06_asie_4": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_4_cor.png",
@@ -3016,7 +2686,7 @@
     "dnb_2017_06_asie_5": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_5_cor.png",
@@ -3027,7 +2697,7 @@
     "dnb_2017_06_asie_6": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_6_cor.png",
@@ -3038,7 +2708,7 @@
     "dnb_2017_06_asie_7": {
         "annee": "2017",
         "lieu": "Asie",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_7_cor.png",
@@ -3046,109 +2716,87 @@
         "url": "/tex/dnb_2017_06_asie_7.tex",
         "urlcor": "/tex/dnb_2017_06_asie_7_cor.tex"
     },
-    "dnb_2017_06_asie_8": {
-        "annee": "2017",
-        "lieu": "Asie",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2017_06_asie_8.png",
-        "pngcor": "/tex/png/dnb_2017_06_asie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_asie_8.tex",
-        "urlcor": "/tex/dnb_2017_06_asie_8_cor.tex"
-    },
-    "dnb_2017_06_etranger_1": {
+    "dnb_2017_06_etrangers_1": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2017_06_etranger_1.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_1_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_1.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_1.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_1_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_1.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_1_cor.tex"
     },
-    "dnb_2017_06_etranger_2": {
+    "dnb_2017_06_etrangers_2": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2017_06_etranger_2.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_2_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_2.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_2.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_2_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_2.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_2_cor.tex"
     },
-    "dnb_2017_06_etranger_3": {
+    "dnb_2017_06_etrangers_3": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2017_06_etranger_3.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_3_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_3.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_3.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_3_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_3.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_3_cor.tex"
     },
-    "dnb_2017_06_etranger_4": {
+    "dnb_2017_06_etrangers_4": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2017_06_etranger_4.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_4_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_4.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_4.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_4_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_4.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_4_cor.tex"
     },
-    "dnb_2017_06_etranger_5": {
+    "dnb_2017_06_etrangers_5": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2017_06_etranger_5.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_5_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_5.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_5.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_5_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_5.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_5_cor.tex"
     },
-    "dnb_2017_06_etranger_6": {
+    "dnb_2017_06_etrangers_6": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2017_06_etranger_6.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_6_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_6.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_6.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_6_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_6.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_6_cor.tex"
     },
-    "dnb_2017_06_etranger_7": {
+    "dnb_2017_06_etrangers_7": {
         "annee": "2017",
         "lieu": "Centres étrangers",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
-        "png": "/tex/png/dnb_2017_06_etranger_7.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_7_cor.png",
+        "png": "/tex/png/dnb_2017_06_etrangers_7.png",
+        "pngcor": "/tex/png/dnb_2017_06_etrangers_7_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_7.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_7_cor.tex"
-    },
-    "dnb_2017_06_etranger_8": {
-        "annee": "2017",
-        "lieu": "Centres étrangers",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2017_06_etranger_8.png",
-        "pngcor": "/tex/png/dnb_2017_06_etranger_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_etranger_8.tex",
-        "urlcor": "/tex/dnb_2017_06_etranger_8_cor.tex"
+        "url": "/tex/dnb_2017_06_etrangers_7.tex",
+        "urlcor": "/tex/dnb_2017_06_etrangers_7_cor.tex"
     },
     "dnb_2017_06_metropole_1": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_1_cor.png",
@@ -3159,7 +2807,7 @@
     "dnb_2017_06_metropole_2": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_2_cor.png",
@@ -3170,7 +2818,7 @@
     "dnb_2017_06_metropole_3": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_3_cor.png",
@@ -3181,7 +2829,7 @@
     "dnb_2017_06_metropole_4": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_4_cor.png",
@@ -3192,7 +2840,7 @@
     "dnb_2017_06_metropole_5": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_5_cor.png",
@@ -3203,7 +2851,7 @@
     "dnb_2017_06_metropole_6": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_6_cor.png",
@@ -3211,21 +2859,10 @@
         "url": "/tex/dnb_2017_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_6_cor.tex"
     },
-    "dnb_2017_06_metropole_7": {
-        "annee": "2017",
-        "lieu": "Métropole",
-        "mois": "06",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2017_06_metropole_7.png",
-        "pngcor": "/tex/png/dnb_2017_06_metropole_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_06_metropole_7.tex",
-        "urlcor": "/tex/dnb_2017_06_metropole_7_cor.tex"
-    },
     "dnb_2017_09_metropole_1": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_1_cor.png",
@@ -3236,7 +2873,7 @@
     "dnb_2017_09_metropole_2": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_2_cor.png",
@@ -3247,7 +2884,7 @@
     "dnb_2017_09_metropole_3": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_3_cor.png",
@@ -3258,7 +2895,7 @@
     "dnb_2017_09_metropole_4": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_4_cor.png",
@@ -3269,7 +2906,7 @@
     "dnb_2017_09_metropole_5": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_5_cor.png",
@@ -3280,7 +2917,7 @@
     "dnb_2017_09_metropole_6": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_6_cor.png",
@@ -3291,7 +2928,7 @@
     "dnb_2017_09_metropole_7": {
         "annee": "2017",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_09_metropole_7.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_7_cor.png",
@@ -3302,7 +2939,7 @@
     "dnb_2017_09_polynesie_1": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_1_cor.png",
@@ -3313,7 +2950,7 @@
     "dnb_2017_09_polynesie_2": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_2_cor.png",
@@ -3324,7 +2961,7 @@
     "dnb_2017_09_polynesie_3": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_3_cor.png",
@@ -3335,7 +2972,7 @@
     "dnb_2017_09_polynesie_4": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_4_cor.png",
@@ -3346,7 +2983,7 @@
     "dnb_2017_09_polynesie_5": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_5_cor.png",
@@ -3357,7 +2994,7 @@
     "dnb_2017_09_polynesie_6": {
         "annee": "2017",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_6_cor.png",
@@ -3365,21 +3002,10 @@
         "url": "/tex/dnb_2017_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_6_cor.tex"
     },
-    "dnb_2017_09_polynesie_7": {
-        "annee": "2017",
-        "lieu": "Polynésie",
-        "mois": "09",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2017_09_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2017_09_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_09_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2017_09_polynesie_7_cor.tex"
-    },
     "dnb_2017_11_ameriquesud_1": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_1_cor.png",
@@ -3390,7 +3016,7 @@
     "dnb_2017_11_ameriquesud_2": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_2_cor.png",
@@ -3401,7 +3027,7 @@
     "dnb_2017_11_ameriquesud_3": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_3_cor.png",
@@ -3412,7 +3038,7 @@
     "dnb_2017_11_ameriquesud_4": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_4_cor.png",
@@ -3423,7 +3049,7 @@
     "dnb_2017_11_ameriquesud_5": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_5_cor.png",
@@ -3434,7 +3060,7 @@
     "dnb_2017_11_ameriquesud_6": {
         "annee": "2017",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_6_cor.png",
@@ -3442,98 +3068,87 @@
         "url": "/tex/dnb_2017_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_6_cor.tex"
     },
-    "dnb_2017_11_ameriquesud_7": {
+    "dnb_2017_12_wallisfutuna_1": {
         "annee": "2017",
-        "lieu": "Amérique du sud",
-        "mois": "11",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2017_11_ameriquesud_7.png",
-        "pngcor": "/tex/png/dnb_2017_11_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_11_ameriquesud_7.tex",
-        "urlcor": "/tex/dnb_2017_11_ameriquesud_7_cor.tex"
-    },
-    "dnb_2017_12_bugLieu_1": {
-        "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2017_12_bugLieu_1.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_1_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_1.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_1.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_1_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_1.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_1_cor.tex"
     },
-    "dnb_2017_12_bugLieu_2": {
+    "dnb_2017_12_wallisfutuna_2": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2017_12_bugLieu_2.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_2_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_2.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_2.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_2_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_2.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_2_cor.tex"
     },
-    "dnb_2017_12_bugLieu_3": {
+    "dnb_2017_12_wallisfutuna_3": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2017_12_bugLieu_3.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_3_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_3.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_3.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_3_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_3.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_3_cor.tex"
     },
-    "dnb_2017_12_bugLieu_4": {
+    "dnb_2017_12_wallisfutuna_4": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2017_12_bugLieu_4.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_4_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_4.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_4.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_4_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_4.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_4_cor.tex"
     },
-    "dnb_2017_12_bugLieu_5": {
+    "dnb_2017_12_wallisfutuna_5": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2017_12_bugLieu_5.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_5_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_5.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_5.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_5_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_5.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_5_cor.tex"
     },
-    "dnb_2017_12_bugLieu_6": {
+    "dnb_2017_12_wallisfutuna_6": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2017_12_bugLieu_6.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_6_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_6.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_6.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_6_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_6.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_6_cor.tex"
     },
-    "dnb_2017_12_bugLieu_7": {
+    "dnb_2017_12_wallisfutuna_7": {
         "annee": "2017",
-        "lieu": "bugLieu",
-        "mois": "12",
+        "lieu": "Wallis et Futuna",
+        "mois": "Décembre",
         "numeroExercice": "7",
-        "png": "/tex/png/dnb_2017_12_bugLieu_7.png",
-        "pngcor": "/tex/png/dnb_2017_12_bugLieu_7_cor.png",
+        "png": "/tex/png/dnb_2017_12_wallisfutuna_7.png",
+        "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_7_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2017_12_bugLieu_7.tex",
-        "urlcor": "/tex/dnb_2017_12_bugLieu_7_cor.tex"
+        "url": "/tex/dnb_2017_12_wallisfutuna_7.tex",
+        "urlcor": "/tex/dnb_2017_12_wallisfutuna_7_cor.tex"
     },
     "dnb_2018_05_pondichery_1": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_05_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_1_cor.png",
@@ -3544,7 +3159,7 @@
     "dnb_2018_05_pondichery_2": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_05_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_2_cor.png",
@@ -3555,7 +3170,7 @@
     "dnb_2018_05_pondichery_3": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_05_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_3_cor.png",
@@ -3566,7 +3181,7 @@
     "dnb_2018_05_pondichery_4": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_05_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_4_cor.png",
@@ -3577,7 +3192,7 @@
     "dnb_2018_05_pondichery_5": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_05_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_5_cor.png",
@@ -3588,7 +3203,7 @@
     "dnb_2018_05_pondichery_6": {
         "annee": "2018",
         "lieu": "Pondichéry",
-        "mois": "05",
+        "mois": "Mai",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_05_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_6_cor.png",
@@ -3596,21 +3211,10 @@
         "url": "/tex/dnb_2018_05_pondichery_6.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_6_cor.tex"
     },
-    "dnb_2018_05_pondichery_7": {
-        "annee": "2018",
-        "lieu": "Pondichéry",
-        "mois": "05",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2018_05_pondichery_7.png",
-        "pngcor": "/tex/png/dnb_2018_05_pondichery_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_05_pondichery_7.tex",
-        "urlcor": "/tex/dnb_2018_05_pondichery_7_cor.tex"
-    },
     "dnb_2018_06_ameriquenord_1": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_1_cor.png",
@@ -3621,7 +3225,7 @@
     "dnb_2018_06_ameriquenord_2": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_2_cor.png",
@@ -3632,7 +3236,7 @@
     "dnb_2018_06_ameriquenord_3": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_3_cor.png",
@@ -3643,7 +3247,7 @@
     "dnb_2018_06_ameriquenord_4": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_4_cor.png",
@@ -3654,7 +3258,7 @@
     "dnb_2018_06_ameriquenord_5": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_5_cor.png",
@@ -3665,7 +3269,7 @@
     "dnb_2018_06_ameriquenord_6": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_6_cor.png",
@@ -3676,7 +3280,7 @@
     "dnb_2018_06_ameriquenord_7": {
         "annee": "2018",
         "lieu": "Amérique du Nord",
-        "mois": "06",
+        "mois": "Juin",
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_7_cor.png",
@@ -3684,21 +3288,10 @@
         "url": "/tex/dnb_2018_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_7_cor.tex"
     },
-    "dnb_2018_06_ameriquenord_8": {
-        "annee": "2018",
-        "lieu": "Amérique du Nord",
-        "mois": "06",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2018_06_ameriquenord_8.png",
-        "pngcor": "/tex/png/dnb_2018_06_ameriquenord_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_06_ameriquenord_8.tex",
-        "urlcor": "/tex/dnb_2018_06_ameriquenord_8_cor.tex"
-    },
     "dnb_2018_09_metropole_1": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_1_cor.png",
@@ -3709,7 +3302,7 @@
     "dnb_2018_09_metropole_2": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_2_cor.png",
@@ -3720,7 +3313,7 @@
     "dnb_2018_09_metropole_3": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_3_cor.png",
@@ -3731,7 +3324,7 @@
     "dnb_2018_09_metropole_4": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_4_cor.png",
@@ -3742,7 +3335,7 @@
     "dnb_2018_09_metropole_5": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_5_cor.png",
@@ -3753,7 +3346,7 @@
     "dnb_2018_09_metropole_6": {
         "annee": "2018",
         "lieu": "Métropole",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_6_cor.png",
@@ -3761,21 +3354,87 @@
         "url": "/tex/dnb_2018_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_6_cor.tex"
     },
-    "dnb_2018_09_metropole_7": {
+    "dnb_2018_09_polynesie_1": {
         "annee": "2018",
-        "lieu": "Métropole",
-        "mois": "09",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2018_09_metropole_7.png",
-        "pngcor": "/tex/png/dnb_2018_09_metropole_7_cor.png",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "1",
+        "png": "/tex/png/dnb_2018_09_polynesie_1.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_09_metropole_7.tex",
-        "urlcor": "/tex/dnb_2018_09_metropole_7_cor.tex"
+        "url": "/tex/dnb_2018_09_polynesie_1.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_1_cor.tex"
+    },
+    "dnb_2018_09_polynesie_2": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "2",
+        "png": "/tex/png/dnb_2018_09_polynesie_2.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_2.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_2_cor.tex"
+    },
+    "dnb_2018_09_polynesie_3": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "3",
+        "png": "/tex/png/dnb_2018_09_polynesie_3.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_3.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_3_cor.tex"
+    },
+    "dnb_2018_09_polynesie_4": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "4",
+        "png": "/tex/png/dnb_2018_09_polynesie_4.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_4.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_4_cor.tex"
+    },
+    "dnb_2018_09_polynesie_5": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2018_09_polynesie_5.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_5.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_5_cor.tex"
+    },
+    "dnb_2018_09_polynesie_6": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "6",
+        "png": "/tex/png/dnb_2018_09_polynesie_6.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_6.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_6_cor.tex"
+    },
+    "dnb_2018_09_polynesie_7": {
+        "annee": "2018",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2018_09_polynesie_7.png",
+        "pngcor": "/tex/png/dnb_2018_09_polynesie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2018_09_polynesie_7.tex",
+        "urlcor": "/tex/dnb_2018_09_polynesie_7_cor.tex"
     },
     "dnb_2018_11_ameriquesud_1": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_1_cor.png",
@@ -3786,7 +3445,7 @@
     "dnb_2018_11_ameriquesud_2": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_2_cor.png",
@@ -3797,7 +3456,7 @@
     "dnb_2018_11_ameriquesud_3": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_3_cor.png",
@@ -3808,7 +3467,7 @@
     "dnb_2018_11_ameriquesud_4": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_4_cor.png",
@@ -3819,7 +3478,7 @@
     "dnb_2018_11_ameriquesud_5": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_5_cor.png",
@@ -3830,7 +3489,7 @@
     "dnb_2018_11_ameriquesud_6": {
         "annee": "2018",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_6_cor.png",
@@ -3838,175 +3497,76 @@
         "url": "/tex/dnb_2018_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_6_cor.tex"
     },
-    "dnb_2018_11_ameriquesud_7": {
-        "annee": "2018",
-        "lieu": "Amérique du sud",
-        "mois": "11",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2018_11_ameriquesud_7.png",
-        "pngcor": "/tex/png/dnb_2018_11_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_11_ameriquesud_7.tex",
-        "urlcor": "/tex/dnb_2018_11_ameriquesud_7_cor.tex"
-    },
-    "dnb_2018_bugMois_polynesie_1": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_1": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_1.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_1_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_1.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_1.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_1_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_1.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_1_cor.tex"
     },
-    "dnb_2018_bugMois_polynesie_2": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_2": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_2.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_2_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_2.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_2.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_2_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_2.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_2_cor.tex"
     },
-    "dnb_2018_bugMois_polynesie_3": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_3": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_3.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_3_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_3.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_3.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_3_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_3.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_3_cor.tex"
     },
-    "dnb_2018_bugMois_polynesie_4": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_4": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_4.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_4_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_4.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_4.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_4_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_4.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_4_cor.tex"
     },
-    "dnb_2018_bugMois_polynesie_5": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_5": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_5.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_5_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_5.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_5.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_5_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_5.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_5_cor.tex"
     },
-    "dnb_2018_bugMois_polynesie_6": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
+    "dnb_2019_06_antillesguyanne_6": {
+        "annee": "2019",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_6.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_6_cor.png",
+        "png": "/tex/png/dnb_2019_06_antillesguyanne_6.png",
+        "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_6.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_6_cor.tex"
-    },
-    "dnb_2018_bugMois_polynesie_7": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
-        "numeroExercice": "7",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_7.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_7.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_7_cor.tex"
-    },
-    "dnb_2018_bugMois_polynesie_8": {
-        "annee": "2018",
-        "lieu": "Polynésie",
-        "mois": "bu",
-        "numeroExercice": "8",
-        "png": "/tex/png/dnb_2018_bugMois_polynesie_8.png",
-        "pngcor": "/tex/png/dnb_2018_bugMois_polynesie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2018_bugMois_polynesie_8.tex",
-        "urlcor": "/tex/dnb_2018_bugMois_polynesie_8_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_1": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "1",
-        "png": "/tex/png/dnb_2019_06_bugLieu_1.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_1_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_1.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_1_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_2": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "2",
-        "png": "/tex/png/dnb_2019_06_bugLieu_2.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_2_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_2.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_2_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_3": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "3",
-        "png": "/tex/png/dnb_2019_06_bugLieu_3.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_3_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_3.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_3_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_4": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "4",
-        "png": "/tex/png/dnb_2019_06_bugLieu_4.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_4_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_4.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_4_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_5": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "5",
-        "png": "/tex/png/dnb_2019_06_bugLieu_5.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_5.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_5_cor.tex"
-    },
-    "dnb_2019_06_bugLieu_6": {
-        "annee": "2019",
-        "lieu": "bugLieu",
-        "mois": "06",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2019_06_bugLieu_6.png",
-        "pngcor": "/tex/png/dnb_2019_06_bugLieu_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_06_bugLieu_6.tex",
-        "urlcor": "/tex/dnb_2019_06_bugLieu_6_cor.tex"
+        "url": "/tex/dnb_2019_06_antillesguyanne_6.tex",
+        "urlcor": "/tex/dnb_2019_06_antillesguyanne_6_cor.tex"
     },
     "dnb_2019_07_metropole_1": {
         "annee": "2019",
         "lieu": "Métropole",
-        "mois": "07",
+        "mois": "Juillet",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_07_metropole_1.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_1_cor.png",
@@ -4017,7 +3577,7 @@
     "dnb_2019_07_metropole_2": {
         "annee": "2019",
         "lieu": "Métropole",
-        "mois": "07",
+        "mois": "Juillet",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_07_metropole_2.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_2_cor.png",
@@ -4028,7 +3588,7 @@
     "dnb_2019_07_metropole_3": {
         "annee": "2019",
         "lieu": "Métropole",
-        "mois": "07",
+        "mois": "Juillet",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_07_metropole_3.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_3_cor.png",
@@ -4039,7 +3599,7 @@
     "dnb_2019_07_metropole_4": {
         "annee": "2019",
         "lieu": "Métropole",
-        "mois": "07",
+        "mois": "Juillet",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_07_metropole_4.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_4_cor.png",
@@ -4050,7 +3610,7 @@
     "dnb_2019_07_metropole_5": {
         "annee": "2019",
         "lieu": "Métropole",
-        "mois": "07",
+        "mois": "Juillet",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_07_metropole_5.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_5_cor.png",
@@ -4058,21 +3618,10 @@
         "url": "/tex/dnb_2019_07_metropole_5.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_5_cor.tex"
     },
-    "dnb_2019_07_metropole_6": {
-        "annee": "2019",
-        "lieu": "Métropole",
-        "mois": "07",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2019_07_metropole_6.png",
-        "pngcor": "/tex/png/dnb_2019_07_metropole_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_07_metropole_6.tex",
-        "urlcor": "/tex/dnb_2019_07_metropole_6_cor.tex"
-    },
     "dnb_2019_11_ameriquesud_1": {
         "annee": "2019",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_1_cor.png",
@@ -4083,7 +3632,7 @@
     "dnb_2019_11_ameriquesud_2": {
         "annee": "2019",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_2_cor.png",
@@ -4094,7 +3643,7 @@
     "dnb_2019_11_ameriquesud_3": {
         "annee": "2019",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_3_cor.png",
@@ -4105,7 +3654,7 @@
     "dnb_2019_11_ameriquesud_4": {
         "annee": "2019",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_4_cor.png",
@@ -4116,7 +3665,7 @@
     "dnb_2019_11_ameriquesud_5": {
         "annee": "2019",
         "lieu": "Amérique du sud",
-        "mois": "11",
+        "mois": "Novembre",
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_5_cor.png",
@@ -4124,76 +3673,54 @@
         "url": "/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_5_cor.tex"
     },
-    "dnb_2019_11_ameriquesud_6": {
-        "annee": "2019",
-        "lieu": "Amérique du sud",
-        "mois": "11",
-        "numeroExercice": "6",
-        "png": "/tex/png/dnb_2019_11_ameriquesud_6.png",
-        "pngcor": "/tex/png/dnb_2019_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2019_11_ameriquesud_6.tex",
-        "urlcor": "/tex/dnb_2019_11_ameriquesud_6_cor.tex"
-    },
-    "dnb_2020_09_bugLieu_1": {
+    "dnb_2020_09_antillesguyanne_1": {
         "annee": "2020",
-        "lieu": "bugLieu",
-        "mois": "09",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Septembre",
         "numeroExercice": "1",
-        "png": "/tex/png/dnb_2020_09_bugLieu_1.png",
-        "pngcor": "/tex/png/dnb_2020_09_bugLieu_1_cor.png",
+        "png": "/tex/png/dnb_2020_09_antillesguyanne_1.png",
+        "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_bugLieu_1.tex",
-        "urlcor": "/tex/dnb_2020_09_bugLieu_1_cor.tex"
+        "url": "/tex/dnb_2020_09_antillesguyanne_1.tex",
+        "urlcor": "/tex/dnb_2020_09_antillesguyanne_1_cor.tex"
     },
-    "dnb_2020_09_bugLieu_2": {
+    "dnb_2020_09_antillesguyanne_2": {
         "annee": "2020",
-        "lieu": "bugLieu",
-        "mois": "09",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Septembre",
         "numeroExercice": "2",
-        "png": "/tex/png/dnb_2020_09_bugLieu_2.png",
-        "pngcor": "/tex/png/dnb_2020_09_bugLieu_2_cor.png",
+        "png": "/tex/png/dnb_2020_09_antillesguyanne_2.png",
+        "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_bugLieu_2.tex",
-        "urlcor": "/tex/dnb_2020_09_bugLieu_2_cor.tex"
+        "url": "/tex/dnb_2020_09_antillesguyanne_2.tex",
+        "urlcor": "/tex/dnb_2020_09_antillesguyanne_2_cor.tex"
     },
-    "dnb_2020_09_bugLieu_3": {
+    "dnb_2020_09_antillesguyanne_3": {
         "annee": "2020",
-        "lieu": "bugLieu",
-        "mois": "09",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Septembre",
         "numeroExercice": "3",
-        "png": "/tex/png/dnb_2020_09_bugLieu_3.png",
-        "pngcor": "/tex/png/dnb_2020_09_bugLieu_3_cor.png",
+        "png": "/tex/png/dnb_2020_09_antillesguyanne_3.png",
+        "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_bugLieu_3.tex",
-        "urlcor": "/tex/dnb_2020_09_bugLieu_3_cor.tex"
+        "url": "/tex/dnb_2020_09_antillesguyanne_3.tex",
+        "urlcor": "/tex/dnb_2020_09_antillesguyanne_3_cor.tex"
     },
-    "dnb_2020_09_bugLieu_4": {
+    "dnb_2020_09_antillesguyanne_4": {
         "annee": "2020",
-        "lieu": "bugLieu",
-        "mois": "09",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Septembre",
         "numeroExercice": "4",
-        "png": "/tex/png/dnb_2020_09_bugLieu_4.png",
-        "pngcor": "/tex/png/dnb_2020_09_bugLieu_4_cor.png",
+        "png": "/tex/png/dnb_2020_09_antillesguyanne_4.png",
+        "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_bugLieu_4.tex",
-        "urlcor": "/tex/dnb_2020_09_bugLieu_4_cor.tex"
-    },
-    "dnb_2020_09_bugLieu_5": {
-        "annee": "2020",
-        "lieu": "bugLieu",
-        "mois": "09",
-        "numeroExercice": "5",
-        "png": "/tex/png/dnb_2020_09_bugLieu_5.png",
-        "pngcor": "/tex/png/dnb_2020_09_bugLieu_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_bugLieu_5.tex",
-        "urlcor": "/tex/dnb_2020_09_bugLieu_5_cor.tex"
+        "url": "/tex/dnb_2020_09_antillesguyanne_4.tex",
+        "urlcor": "/tex/dnb_2020_09_antillesguyanne_4_cor.tex"
     },
     "dnb_2020_09_polynesie_1": {
         "annee": "2020",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2020_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_1_cor.png",
@@ -4204,7 +3731,7 @@
     "dnb_2020_09_polynesie_2": {
         "annee": "2020",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2020_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_2_cor.png",
@@ -4215,7 +3742,7 @@
     "dnb_2020_09_polynesie_3": {
         "annee": "2020",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2020_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_3_cor.png",
@@ -4226,23 +3753,12 @@
     "dnb_2020_09_polynesie_4": {
         "annee": "2020",
         "lieu": "Polynésie",
-        "mois": "09",
+        "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2020_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_4_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_4_cor.tex"
-    },
-    "dnb_2020_09_polynesie_5": {
-        "annee": "2020",
-        "lieu": "Polynésie",
-        "mois": "09",
-        "numeroExercice": "5",
-        "png": "/tex/png/dnb_2020_09_polynesie_5.png",
-        "pngcor": "/tex/png/dnb_2020_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/tex/dnb_2020_09_polynesie_5.tex",
-        "urlcor": "/tex/dnb_2020_09_polynesie_5_cor.tex"
     }
 }
