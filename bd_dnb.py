@@ -4,12 +4,11 @@
     Génèrer la base de données des exercices de DNB
 """
 __author__      = "Rémi Angot"
-__licence__   = "MIT"
 
 import json
     
 
-with open('modules/dnb.json') as f:
+with open('dnb.json','w+') as f:
   base_de_donnees = json.load(f)
 
 continuer = True
@@ -23,7 +22,7 @@ while continuer :
     print(f"dnb_{annee}_{mois}_{lieu}_{nb_exercices}")
     for i in range(1,nb_exercices+1):
         sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"] = {}
-        sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"]["themes"] = input(f"Exercice {i} ").split(",")
+        sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"]["themes"] = input(f"Mots clés de l'exercice {i} (séparés par des virgules)").split(",")
         sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"]["type_exercice"] = "dnb"
         sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"]["url"] = f"/tex/dnb_{annee}_{mois}_{lieu}_{i}.tex"
         sujet[f"dnb_{annee}_{mois}_{lieu}_{i}"]["urlcor"] = f"/tex/dnb_{annee}_{mois}_{lieu}_{i}_cor.tex"
@@ -35,5 +34,5 @@ while continuer :
         continuer = False
 
 
-with open('modules/dnb.json', 'w', encoding="utf8") as f:
+with open('modules/dnb.json', 'w+', encoding="utf8") as f:
         json.dump(base_de_donnees, f, sort_keys=True, indent=4, ensure_ascii=False)

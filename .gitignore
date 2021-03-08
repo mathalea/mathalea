@@ -1,5 +1,4 @@
 # ignorer le dossier de config de visual studio code
 .vscode/
 tex/*
-
-
+tex/png/*
