@@ -208,12 +208,11 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (liste_des_exercices.length > 0) {
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i];
-                    if (listeObjetsExercice[i].type_exercice == "statique") {
-                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                        //contenuDesExercices += listeObjetsExercice[i].contenu;
-                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["urlpng"]}">`
-                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["urlpngcor"]}">`
+                    if (listeObjetsExercice[i].type_exercice == "dnb") {
+                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i]["mois"]} ${listeObjetsExercice[i]["annee"]} - ${listeObjetsExercice[i]["lieu"]} (ex ${listeObjetsExercice[i]["numeroExercice"]})</h3>`;
+                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["png"]}">`
+                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i]["mois"]} ${listeObjetsExercice[i]["annee"]} - ${listeObjetsExercice[i]["lieu"]} (ex ${listeObjetsExercice[i]["numeroExercice"]})</h3>`;
+                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["pngcor"]}">`
                         listeObjetsExercice[i].video = false
 
                     } else {

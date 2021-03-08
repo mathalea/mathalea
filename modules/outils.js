@@ -601,6 +601,18 @@ export function filtreDictionnaire(dict,sub) {
 }
 
 
+/*
+* Filtre un dictionnaire suivant la valeur d'une clé
+*
+* @Example
+* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+* @Auteur Rémi Angot
+*/
+export function filtreDictionnaireValeurCle(dict,key,val) {
+	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => v[key]==val));
+}
+
+
 
 /*
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
