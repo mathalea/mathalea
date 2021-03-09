@@ -9,7 +9,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_l
 export default function Egalites_entre_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 11; // Correspond au facteur commun
-  this.sup2=3 // alternace numérateur ou dénominateur imposé.
+  this.sup2=2 // alternace numérateur ou dénominateur imposé.
   this.titre = "Égalités entre fractions simples";
   this.consigne = "Compléter les égalités.";
   this.spacing = 2;
@@ -233,6 +233,6 @@ export default function Egalites_entre_fractions() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = ["Valeur maximale du facteur commun", 99];
-  this.besoin_formulaire2_numerique = ["Type de question : ",3,"1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance"]
+  this.besoin_formulaire2_numerique = ["Type de question",3,"1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance"]
 }
 
