@@ -1,7 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { mathalea2d, point, similitude, longueur, polygone,rotation, codageAngleDroit, nommePolygone, segment, codeAngle, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle  } from "/modules/2d.js";
 import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from "/modules/outils.js";
-import Thales2D_3e from './3G20';
 
 
 /**

@@ -85,7 +85,12 @@ export default function Construire_homothetie_point_3e() {
 				s = segment(M[i], N[i]);
 			}
 			else {
-				s = segment(O, N[i]);
+				if (k<1) {
+					s=segment(O,M[i])
+				}
+				else {
+					s = segment(O, N[i]);
+				}
 			}
 			s.color = arcenciel(i);
 			objets_correction.push(s);
@@ -101,8 +106,8 @@ export default function Construire_homothetie_point_3e() {
 
 		let fenetreMathalea2d = [xMin, yMin, xMax, yMax];
 
-		this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce));
-		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction));
+		this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce));
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction));
 		liste_de_question_to_contenu(this);
 
 		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos

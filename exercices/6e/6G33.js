@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,choice,shuffle} from "/modules/outils.js"
+import {liste_de_question_to_contenu,choice,shuffle,shuffle2tableaux} from "/modules/outils.js"
 import {point,segment,polygone,codageAngleDroit,codeSegments,mathalea2d} from "/modules/2d.js"
 /**
  * Reconnaitre un quadrilatère particulier à partir de ses propriétés
@@ -16,8 +16,17 @@ export default function Reconnaitre_quadrilatere_particulier() {
   this.nb_cols_corr = 2; // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.correction_detaillee_disponible = true;
   sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['6G33',[],"Trouver la nature d'un quadrilatère."]
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
@@ -26,10 +35,15 @@ export default function Reconnaitre_quadrilatere_particulier() {
      {
       texte = '';
       texte_corr = '';
-      let A,B,C,D,O,ABCD,codage,codage1,codage2,codage3,sAC,sBD,marquesDemiDiagonales,marquesDemiDiagonales1,marquesDemiDiagonales2,marquesCotes;
+      let A,B,C,D,O,ABCD,codage,codage1,codage2,codage3,sAC,sBD,marquesDemiDiagonales,marquesDemiDiagonales1,marquesDemiDiagonales2,marquesCotes,tabrep,tabicone;
       switch (liste_de_questions[i]) {
           case 'losange1':
               texte = "Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[1,0,0,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(2, 3);
               C = point(0, 6);
@@ -52,6 +66,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'losange2':
               texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[1,0,0,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(2, 3);
               C = point(0, 6);
@@ -71,6 +90,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'rectangle1':
               texte = "Quelle est la nature d'un quadrilatère ayant 3 angles droits ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[0,1,0,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant 3 angles droits ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(5, 0);
               C = point(5, 3);
@@ -95,6 +119,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'rectangle2':
               texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[0,1,0,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(5, 0);
               C = point(5, 3);
@@ -119,6 +148,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'carre1':
               texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[0,0,1,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(3, 0);
               C = point(3, 3);
@@ -143,6 +177,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'carre2':
               texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[0,0,1,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone]) 
               A = point(0, 0);
               B = point(3, 0);
               C = point(3, 3);
@@ -164,6 +203,11 @@ export default function Reconnaitre_quadrilatere_particulier() {
               break;
           case 'carre3':
               texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ?";
+              tabrep=['losange','rectangle','carré','trapèze','parallélogramme']
+              tabicone=[0,0,1,0,0]
+              this.QCM[1].push([`Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ? \\\\ \n Réponses possibles : `,
+              tabrep,
+              tabicone])
               A = point(0, 0);
               B = point(3, 0);
               C = point(3, 3);
@@ -188,7 +232,19 @@ export default function Reconnaitre_quadrilatere_particulier() {
               texte_corr += "C'est un carré."
               break;
       }
-
+      if (this.ModeQCM) {
+        texte+=`<br>  Réponses possibles : ${espace}  `
+        shuffle2tableaux(tabrep, tabicone);
+        texte_corr=''
+        for (let i=0; i<5; i++) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+       }
+      }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);

@@ -12,12 +12,14 @@ export function liste_de_question_to_contenu(argument) {
 		if (argument.vspace) {
 			vspace = `\\vspace{${argument.vspace} cm}\n`
 		}
+		if (!mathalea.sortieAMC){
 		if (document.getElementById('supprimer_reference').checked == true) {
 			argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		} else {
 			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
-		argument.contenu_correction = tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+	}
+		argument.contenu_correction = tex_consigne('') + tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
 }
@@ -599,6 +601,18 @@ export function filtreDictionnaire(dict,sub) {
 }
 
 
+/*
+* Filtre un dictionnaire suivant la valeur d'une clé
+*
+* @Example
+* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+* @Auteur Rémi Angot
+*/
+export function filtreDictionnaireValeurCle(dict,key,val) {
+	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => v[key]==val));
+}
+
+
 
 /*
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
@@ -774,6 +788,22 @@ export function ecriture_parenthese_si_moins(expr) {
 	}
 	return result;
 };
+
+/**
+ * 
+ * @Auteur Jean-claude Lhote
+ * @param {numero} 1=A, 2=B ..
+ * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
+ */
+
+export function calcul_aligne(numero,etapes){
+	let script=`$\\begin{aligned}${mise_en_evidence(lettre_depuis_chiffre(numero))}&=${etapes[0]}`
+	for (let i=1;i<etapes.length-1;i++){
+		script+=`\\\\&=${etapes[i]}`
+	}
+	script+=`\\\\${mise_en_evidence(lettre_depuis_chiffre(numero)+'&='+etapes[etapes.length-1])}$`
+	return script
+}
 
 /**
 * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
@@ -1770,7 +1800,7 @@ export function tex_enumerate(liste,spacing){
 			result += '\\end{spacing}\n'
 		} 
 	}	
-	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n').replace(/€/g,'\\euro{}')
 	
 }
 
@@ -1804,7 +1834,7 @@ export function tex_paragraphe(liste,spacing=false){
 	if (spacing>1){
 		result += '\\end{spacing}'
 	} 
-	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n').replace(/€/g,'\\euro{}')
 }
 
 /**
@@ -1977,21 +2007,32 @@ export function tex_nombre(nb){
 export function tex_nombre2(nb){
 	let nombre = math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}).replace('.',',')
 	let rang_virgule = nombre.indexOf(',')
-	for (let i=rang_virgule+4; i<nombre.length; i+=3){
-		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
-		i+=13 // comme on a ajouté un espace, il faut décaler l'indice de 1
+	let partie_entiere = ''
+	if (rang_virgule!=-1) {
+		partie_entiere=nombre.substring(0,rang_virgule)
 	}
-	if (sortie_html){
-		return nombre
-	} else {
-		let result;
-		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
-			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
-		}else{
-			result = nb.toString().replace('.',',');
-		}
-		return result;
+	else {
+		partie_entiere=nombre
 	}
+	let partie_decimale = ''
+	if (rang_virgule!=-1){
+		partie_decimale=nombre.substring(rang_virgule+1)
+	}
+
+	for (let i=partie_entiere.length-3;i>0;i-=3){
+			partie_entiere=partie_entiere.substring(0,i)+'\\thickspace '+partie_entiere.substring(i)
+	}
+	for (let i=3;i<=partie_decimale.length;i+=3){
+		partie_decimale=partie_decimale.substring(0,i)+'\\thickspace '+partie_decimale.substring(i)
+			i+=12
+	}
+	if (partie_decimale==''){
+		nombre=partie_entiere
+	}
+	else {
+		nombre=partie_entiere+','+partie_decimale
+	}
+	return nombre
 }
 export function tex_nombrec2(expr,precision=8){
 	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision}).replace('.',',')
@@ -2153,6 +2194,20 @@ export function couleurAleatoire() {
 	  let couleurs=['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
 	  if (fondblanc&&i%19>=17) i+=2
 	  return couleurs[i%19]
+  }
+  export function couleur_en_gris(color){
+	let gris  
+	switch (color){
+		case 'black' :
+			return color
+		case 'white' :
+			return color
+		case 'gray' :
+			return color
+		case 'blue' :
+			
+		
+	} 
   }
 
 /**
@@ -6698,7 +6753,7 @@ export function telechargeFichier(text,filename) {
   
 	element.style.display = 'none';
 	document.body.appendChild(element);
-  
+  console.log(element)
 	element.click();
   
 	document.body.removeChild(element);
@@ -6731,11 +6786,12 @@ export function intro_LaTeX(entete = "Exercices",liste_packages) {
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
 \\usepackage{setspace}	
+\\usepackage{colortbl}
 \\usepackage{xcolor}
 	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
 	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
@@ -6799,7 +6855,7 @@ ${preambule_personnalise(liste_packages)}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
@@ -7208,6 +7264,31 @@ export function preambule_personnalise(liste_packages){
 		case 'tkz-euclide' :
 			result += '\\usepackage{tkz-euclide}'
 		break
+		case 'dnb' :
+			result +=`
+			\\usepackage{fourier}
+			\\usepackage[scaled=0.875]{helvet}
+			\\renewcommand{\\ttdefault}{lmtt}
+			\\usepackage[normalem]{ulem}
+			\\usepackage{diagbox}
+			\\usepackage{fancybox}
+			\\usepackage{booktabs}
+			\\usepackage{pifont}
+			\\usepackage{multirow}
+			\\usepackage{dcolumn}
+			\\usepackage{lscape}
+			\\usepackage{graphics,graphicx}
+			\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
+			\\usepackage{scratch}
+			\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
+			\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
+			\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
+			\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
+			\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
+			\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
+			\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
+			\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}`
+		break
 		default:
 		    result += `\\usepackage{${packages}}\n`
 		} 
@@ -7423,3 +7504,182 @@ export function scratchTraductionFr() {
 			"percentTranslated": 100
 		}})
 }
+
+/**
+ * 
+ * @param {*} tabQCMs tableau de la forme [ref du groupe,tabQCMs,titre du groupe]
+ * chaque tableau de tabQCMs est constitué par 3 éléments :
+ * la question énoncée, le tableau des réponses, le tableau des booléens bon=1 mauvaise=0
+ * Si le troisième tableau ne comporte que des 0, il s'agit d'une question ouverte.
+ * c'est la longueur du tableau des réponses qui définit le nombre de réponses et donc le nombre de booléens nécessaires
+ * Si c'est pour une question ouverte, il n'y aura qu'une réponse et une seule valeur dans le tableau des booléens qui déterminera le nombre de ligne à réserver pour la réponse
+ * exemple : Pour l'exo 3G30 : tabQCMs=['3G30',[texte,[texte_corr],[4]],'Calculer des longueurs avec la trigonométrie']
+ * exemple de type QCM : ​["6C30-3",[["Calcul : $62+23$.\\\\ \n Réponses possibles",[85,1426,8.5,850,86],[1,0,0,0,0]],
+ * 			["Calcul : $80,88+50,34$.\\\\ \n Réponses possibles",[131.22,407150,13.122,1312.2,131.23],[1,0,0,0,0]]],'Opérations avec les nombres décimaux']
+ * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
+ * chaque tableau est élaboré dans le corps de l'exercice 
+ * La fonction crée la partie préparation des groupes de questions du document AMC.
+ */
+
+ export function export_QCM_AMC(tabQCMs,idExo) {
+	let tex_QR = ``, type = '', tabQCM
+	let nbBonnes,id=0
+	for (let j = 0; j < tabQCMs[1].length; j++) {
+		tabQCM = tabQCMs[1][j].slice(0)
+		nbBonnes=0
+		if (tabQCM[2][0]<2) {
+		for (let b of tabQCM[2]) {
+			if (b == 1) nbBonnes++
+		}
+		if (nbBonnes == 1) {
+			type = 'question'
+		}
+		else if (nbBonnes > 1) {
+			type = 'questionmult'
+		}
+		tex_QR += `\\element{${tabQCMs[0]}}{\n `
+		tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
+		tex_QR += `		${tabQCM[0]} \n `
+		tex_QR += `		\\begin{reponseshoriz} \n `
+		for (let i = 0; i < tabQCM[1].length; i++) {
+			switch (tabQCM[2][i]) {
+				case 1:
+						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
+					break
+				case 0:
+						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
+					break
+			}
+		}
+		tex_QR += `		\\end{reponseshoriz}\n `
+		tex_QR += `	\\end{${type}}\n }\n `
+		id++
+	}
+	else { // question ouverte
+		tex_QR += `\\element{${tabQCMs[0]}}{\n `
+		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
+		tex_QR += `		${tabQCM[0]} \n `
+		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
+		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
+		tex_QR +=`\\end{question}\n }\n`
+		id++
+	}
+}
+	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
+}
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
+ * 
+ *  questions est un tableau d'éléments de type codeAMC
+ * codeAMC est un tableau comme celui retourné par la fonction export_QCM_AMC ci-dessus
+ * codeAMC[0] est le code Latex des \element{} du groupe de questions
+ * codeAMC[1] est le nom du groupe
+ * codeAMC[2] est le nombre d'éléments du groupe
+ * codeAMC[3] est le titre affiché en commun pour toutes les questions du groupe. 
+ * 
+ * nb_questions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
+ * si il est indéfini, toutes les questions du groupe seront posées.
+ * nb_exemplaire est le nombre de copie à générer
+ */
+export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
+	// Attention questions est maintenant un tableau de tous les this.QCM des exos
+	let idExo=0,code
+	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]
+	for (let qcm of questions){
+		code=export_QCM_AMC(qcm,idExo)
+		idExo++
+		console.log('exercice ',idExo,'this.QCM = ',qcm)
+		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
+			groupeDeQuestion.push(code[1])
+			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]=code[2]
+			titre_question[groupeDeQuestion.indexOf(code[1])]=code[3]
+		}
+		else {
+			tex_questions[groupeDeQuestion.indexOf(code[1])]+=code[0]
+			nb_questions[groupeDeQuestion.indexOf(code[1])]+=code[2]
+		}
+		
+	}
+	console.log(groupeDeQuestion,tex_questions,nb_questions)
+	let entete_copie =
+	`%%% fabrication des copies 
+	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
+	\\noindent{\\bf QCM \\hfill TEST}
+	\\vspace*{.5cm} 
+	\\begin{minipage}{.4\\linewidth}
+	\\centering\\large\\bf ${matiere}\\\\
+	${titre}
+	\\end{minipage}
+	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
+	\\vspace*{.5cm}\\dotfill 
+	\\vspace*{1mm}
+	\\end{minipage}}} %%% fin de l’en-tête\n`
+	let code_latex =
+	`\\documentclass[a4paper]{article} 
+	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}		        
+\\usepackage[T1]{fontenc}		
+\\usepackage[french]{babel}
+\\usepackage{multicol} 					
+\\usepackage{calc} 						
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}				
+\\usepackage{tabularx}
+\\usepackage[autolanguage]{numprint}
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{textcomp}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
+\\usepackage{fancyhdr,lastpage}          	
+\\pagestyle{fancy}                      	
+\\usepackage{fancybox}					
+\\usepackage{setspace}	
+\\usepackage{xcolor}
+	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+	\\definecolor{geo}{cmyk}{.62,.1,0,0}
+	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{pgf,tikz}					
+\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\\usepackage[francais,bloc,completemulti]{automultiplechoice}\n 
+\\begin{document} 
+	%%% préparation des groupes 
+	\\setdefaultgroupmode{withoutreplacement}\n`;
+	
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
+		code_latex+=tex_questions[i]
+	}
+	code_latex+='\n'+entete_copie
+	for (let g of groupeDeQuestion){
+		let i=groupeDeQuestion.indexOf(g)
+		code_latex+=`
+	\\begin{center}
+		\\hrule
+		\\vspace{2mm}
+		\\bf\\Large ${titre_question[i]}
+		\\vspace{1mm}
+		\\hrule
+	\\end{center}\n`
+		if (nb_questions[i]>0){
+			code_latex+=`\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
+		}
+		else {
+			code_latex+=`\\restituegroupe{${g}}\n\n`
+		}
+	}
+	code_latex+=`}\n \\end{document}\n`
+	return code_latex
+}
+

@@ -139,7 +139,7 @@ function TracePoint(...points) {
     */    else if (this.style == '#') {
           p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
           p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
-          c = carreIndirect(p1, p2, this.color)
+          c = carre(p1, p2, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
@@ -481,7 +481,7 @@ export function labelPoint(...args) {
  * @param {Polygone} p
  * @Auteur Jean-Claude Lhote
  */
-export function barycentre(p, nom, positionLabel = "above") {
+export function barycentre(p, nom='', positionLabel = "above") {
   let sommex = 0,
     sommey = 0,
     nbsommets = 0;
@@ -1730,7 +1730,7 @@ function Polygone(...points) {
   ObjetMathalea2D.call(this);
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 1.1;
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -1777,6 +1777,8 @@ function Polygone(...points) {
       }
 
     }
+
+
     if (this.hachures) {
       if (this.couleurDeRemplissage.length<1){
         this.couleurDeRemplissage = "none"
@@ -1839,6 +1841,7 @@ function Polygone(...points) {
     if (this.couleurDeRemplissage != '') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
+
     if (this.hachures) {
       if (this.hachures) {
         tableauOptions.push(pattern({motif:this.hachures,
@@ -2140,7 +2143,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d * 20 / coeff)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").svg(coeff)
+      code += "\n\t" + latexParPoint(p.listePoints[i].nom, P, "black",12,12,'').svg(coeff)
     }
     return code;
   };
@@ -2150,7 +2153,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d / mathalea.scale)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").tikz()
+      code += "\n\t" + texteParPoint(`$${p.listePoints[i].nom}$`, P, "milieu").tikz()
     }
     return code;
   }
@@ -2208,7 +2211,7 @@ function Cercle(O, r, color) {
   this.rayon = r;
   this.couleurDeRemplissage = "";
   this.opaciteDeRemplissage = 1.1;
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -2296,6 +2299,7 @@ function Cercle(O, r, color) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
+
     if (this.hachures) {
       if (this.hachures) {
         tableauOptions.push(pattern({motif:this.hachures,
@@ -2674,7 +2678,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
-  this.hachures = "";
+  this.hachures = false;
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1;
   this.distanceDesHachures = 10;
@@ -2821,6 +2825,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
      
     }
+
     if (this.hachures) {
       tableauOptions.push(pattern({motif:this.hachures,
         id:this.id,
@@ -3320,7 +3325,7 @@ export function dansLaCibleRonde(x, y, rang, taille, cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'grey', opacite = 0.5 }) {
+function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3432,7 +3437,7 @@ export function cibleRonde({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
  */
-function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
+function CibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
   ObjetMathalea2D.call(this);
   this.x = x;
   this.y = y;
@@ -3440,34 +3445,42 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   this.opacite = 0.5
   this.color = 'gray'
   let objets = [], numero, centre, azimut, rayon, rayon1, rayon2, arc1, arc2
+  let arcPlein
+  if (semi) {
+    arcPlein=180
+  }
+  else {
+    arcPlein=360
+  }
 
-  centre = point(this.x, this.y, this.y)
-  azimut = point(this.x + this.taille, this.y)
+  centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + this.taille, this.y),centre,depart)
   let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
-  for (let i = 0; i < 18; i++) {
-    rayon = segment(azimut, azimut2)
-    rayon1 = rotation(rayon, centre, 20 / 3)
-    rayon2 = rotation(rayon, centre, 40 / 3)
-    rayon2.pointilles = 1
-    rayon1.pointilles = 1
-    rayon1.color = this.color
-    rayon2.color = this.color
-    rayon1.opacite = this.opacite
-    rayon2.opacite = this.opacite
-    arc1 = arc(azimut, centre, 20)
-    arc2 = arc(azimut2, centre, 20)
-    numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, 10), 'milieu', 'gray')
+  let rayons=[]
+  arc1 = arc(azimut, centre, arcPlein)
+  arc2 = arc(azimut2, centre, arcPlein)
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1,arc2,rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    for (let j=1;j<nbSubDivisions;j++){
+    rayons[j-1] = rotation(rayon, centre,j*arcPlein/nbDivisions/nbSubDivisions)
+    rayons[j-1].pointilles=1
+    rayons[j-1].color=this.color
+    rayons[j-1].opacite=this.opacite
+    objets.push(rayons[j-1])
+    }
+    if (label) {
+      numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein/nbDivisions/2), 'milieu', 'gray')
     numero.contour = true
+      objets.push(numero)
+    }
     rayon.color = this.color
     rayon.opacite = this.opacite
-    arc1.color = this.color
-    arc2.color = this.color
-    arc1.opacite = this.opacite
-    arc2.opacite = this.opacite
-
-    objets.push(rayon, rayon1, rayon2, arc1, arc2, numero)
-    azimut = rotation(azimut, centre, 20)
-    azimut2 = rotation(azimut2, centre, 20)
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein/nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein/nbDivisions)
+    rayon = segment(azimut, azimut2)
   }
   this.svg = function (coeff) {
     let code = "";
@@ -3485,8 +3498,8 @@ function CibleCouronne({ x = 0, y = 0, taille = 5 }) {
   };
 }
 
-export function cibleCouronne({ x = 0, y = 0, taille = 5 }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille })
+export function cibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubDivisions=3,semi=false,label=true }) {
+  return new CibleCouronne({ x: x, y: y, taille: taille,depart:depart,nbDivisions:nbDivisions,nbSubDivisions:nbSubDivisions,semi:semi,label:label})
 }
 
 /**
@@ -3687,7 +3700,7 @@ export function sens_de_rotation(A, O, sens) {
  *
  * @Auteur Rémi Angot
  */
-export function homothetie(A, O, k, nom = "", positionLabel = "") {
+export function homothetie(A, O, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(O.x + k * (A.x - O.x));
     let y = calcul(O.y + k * (A.y - O.y));
@@ -6080,7 +6093,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = latexParCoordonnees(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.3,'black',30,12,'')
+    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5,'milieu','black',1,"middle",true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -6095,7 +6108,7 @@ function Repere2({
     else {
       labelysize=0.18*Math.ceil(Math.log10(y+1))
     }
-    let l = latexParCoordonnees(tex_nombre(y), calcul(abscisseAxe * xUnite)-labelysize-0.2 , calcul(y * yUnite)+0.2, 'black',labelysize*50,12,'')
+    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite)-0.5 , calcul(y * yUnite),'milieu', 'black',1,'middle',true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -6384,7 +6397,7 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
   }
   else { // Si elles ne sont pas définies, on met 20 par défaut
     for (let i = 0; i < tabInit[0].length; i++) {
-      this.hauteurLignes.push(20)
+      this.hauteurLignes.push(10)
     }
   }
 
@@ -6415,8 +6428,8 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
         segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1] * this.hauteurLignes[i] / 14))
 
         texte = tabInit0[0][0]
-        long = tabInit0[0][2]
-        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2, -tabInit0[0][1] * this.hauteurLignes[0] / 28, 'black', long, this.hauteurLignes[0],colorBackground))
+        long = tabInit0[0][2]//
+        textes.push(latexParCoordonnees(MathToSVG(texte), this.lgt / 2,-tabInit0[0][1] * this.hauteurLignes[0] / 28 , 'black', long, this.hauteurLignes[0],colorBackground))
         for (let j = 0; j < tabInit1.length / 2; j++) {
           texte = tabInit1[j * 2]
           long = tabInit1[j * 2 + 1]
@@ -7045,12 +7058,15 @@ export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 
  * @param {integer} angle
  * @auteur Rémi Angot
  */
-function TraceBarre(x, y, legende = '', { epaisseur = .6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = .3, angle = 66, unite = 1 } = {}) {
+function TraceBarre(x, y, legende = '', { epaisseur = .6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = .3, angle = 66, unite = 1,hachures=false } = {}) {
   ObjetMathalea2D.call(this)
   let p = polygone(point(calcul(x - epaisseur / 2), 0), point(calcul(x - epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), 0))
   p.couleurDeRemplissage = couleurDeRemplissage;
   p.opaciteDeRemplissage = opaciteDeRemplissage;
   p.color = color;
+  if (hachures){
+    p.hachures=hachures
+  }
   let texte = texteParPosition(legende, x, -.2, angle, 'black', 1, 'gauche');
 
   this.tikz = function () {
@@ -7803,19 +7819,57 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
  *
  * @Auteur Rémi Angot
  */
-function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let demiSize = calcul(size/2)
+export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+  let x,y,coeff=mathalea.pixelsParCm
+  if (A.nom=='Z') console.log(A.nom,A.x,A.y,A.positionLabel,'into latexParPoint : coeff=',coeff)
+switch (A.positionLabel){
+  case 'above' :
+    x=A.x;y=A.y+15/coeff
+  break
+  case 'below' :
+    x=A.x;y=A.y-15/coeff
+  break
+  case 'left' :
+    x=A.x-15/coeff;y=A.y
+  break
+  case 'right' :
+    x=A.x+15/coeff;y=A.y
+  break
+  case 'above right' :
+    x=A.x+15/coeff;y=A.y+15/coeff
+  break
+  case 'above left' :
+    x=A.x-15/coeff;y=A.y+15/coeff
+  break
+  case 'below right' :
+    x=A.x+15/coeff;y=A.y-15/coeff
+  break
+  case 'below left' :
+    x=A.x-15/coeff;y=A.y-15/coeff
+  break
+  case 'center':
+    x=A.x;y=A.y
+  break
+  default :
+  x=A.x;y=A.y
+  break
+}
+  return latexParCoordonnees(texte,x,y,color,size,hauteurLigne,colorBackground)
+}
+
+
+function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   ObjetMathalea2D.call(this);
-  this.color = color;
+  let demiSize = calcul(size/2)
   this.svg = function (coeff) { 
+    console.log('into SVG() : coeff= ',coeff,'mathalea.pixelsParCm = ',mathalea.pixelsParCm)
+    let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-    margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+    return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" y="${A.ySVG(coeff) - hauteurLigne / 2}" x="${A.xSVG(coeff) - demiSize}" width="${size}" height="50" id="${this.id}" ><div style="margin-left: auto;
-      margin-right: auto;width:${size}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${color}}{${texte}}$</div></foreignObject>`;
     }
   };
@@ -7823,20 +7877,16 @@ function LatexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12,
     //let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code;
     if (colorBackground!=''){
-      code = `\\draw (${A.x},${A.y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{\\color{${color}}{${texte}}}};`;
     } else {
-      code = `\\draw (${A.x},${A.y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
+      code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`;
     };    
     return code;
   };
 }
-export function latexParPoint(...args) {
-  return new LatexParPoint(...args);
-}
 
-export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let A = point(x, y);
-  return latexParPoint(texte, A, color, size, hauteurLigne, colorBackground);
+export function latexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white'){
+  return new LatexParCoordonnees(texte,x,y,color,size,hauteurLigne,colorBackground)
 }
 
 /**
@@ -8415,42 +8465,49 @@ export function motifs(index){
   }
 }
 
-function pattern({motif='north east lines',id,distanceDesHachures=10,epaisseurDesHachures=1,couleurDesHachures='black',couleurDeRemplissage='none',opaciteDeRemplissage=0.5}){
+function pattern({ motif = 'north east lines',
+ id,
+ distanceDesHachures = 10,
+ epaisseurDesHachures = 1,
+ couleurDesHachures = 'black',
+ couleurDeRemplissage = 'none',
+ opaciteDeRemplissage = 0.5
+ }) {
   let myPattern = ''
   if (sortie_html) {
 
-      if (couleurDeRemplissage.length<1){
-        couleurDeRemplissage = "none"
-      }
-      switch (motif) {
-        case 'north east lines':
-          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+    if (couleurDeRemplissage.length < 1) {
+      couleurDeRemplissage = "none"
+    }
+    switch (motif) {
+      case 'north east lines':
+        myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
             </pattern>`
-          break
-        case 'horizontal lines':
-          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternUnits="userSpaceOnUse">
+        break
+      case 'horizontal lines':
+        myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <line x1="0" y1="${calcul(distanceDesHachures/2)}" x2="${calcul(distanceDesHachures)}" y2="${calcul(distanceDesHachures/2)}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
+            <line x1="0" y1="${calcul(distanceDesHachures / 2)}" x2="${calcul(distanceDesHachures)}" y2="${calcul(distanceDesHachures / 2)}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
             </pattern>`
-          break
-        case 'vertical lines':
-          myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+        break
+      case 'vertical lines':
+        myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
             </pattern>`
-          break
-          case 'dots' :
-            myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+        break
+      case 'dots':
+        myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
             <circle cx="3" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             <circle cx="8" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             <circle cx="3" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
             </pattern>`
-          break
-          case 'crosshatch dots':
-          myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+        break
+      case 'crosshatch dots':
+        myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
           <circle cx="8" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
           <circle cx="5" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
@@ -8461,42 +8518,134 @@ function pattern({motif='north east lines',id,distanceDesHachures=10,epaisseurDe
           <circle cx="11" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
           </pattern>`
         break
-        case 'fivepointed stars':
-          myPattern += `<pattern id="pattern${id}" width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+      case 'fivepointed stars':
+        myPattern += `<pattern id="pattern${id}" width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
           <polygon points="10,5 6.2,4.2 6.6,0.2 4.6,3.6 1,2 3.6,5 1,8 4.6,6.4 6.6,9.8 6.2,5.8 " stroke="${couleurDesHachures}"  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
           </pattern>`
         break
-        case 'sixpointed stars':
-          myPattern += `<pattern id="pattern${id}"  width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+      case 'sixpointed stars':
+        myPattern += `<pattern id="pattern${id}"  width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
         <polygon points="10,5 7.6,3.4 7.6,0.6 5,2 2.6,0.6 2.4,3.4 0,5 2.4,6.4 2.6,9.4 5,8 7.6,9.4 7.6,6.4 " stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
         </pattern>`
         break;
-        default :
+      case 'crosshatch':
+        myPattern += `<pattern id="pattern${id}" width="12" height="12" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <polygon points="2,2 7.6,7.6 7,8.4 9.8,8.4 9.8,5.6 9,6.2 3.4,0.6 " stroke="${couleurDesHachures}"  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+          </pattern>`
+        break
+      case 'bricks':
+        myPattern += `<pattern id="pattern${id}" width="18" height="16" x="18" y="16" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <line x1="4" y1="2" x2="4" y2="4" stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"  />
+          <line x1="0" y1="4" x2="16" y2="4" stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"   />
+          <line x1="14" y1="4" x2="14" y2="12" stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"   />
+          <line x1="16" y1="12" x2="0" y2="12" stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"   />
+          <line x1="4" y1="12" x2="4" y2="16" stroke="${couleurDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"   />
+          </pattern>`
+        break
+      case 'grid':
+        myPattern += `<pattern id="pattern${id}" width="10" height="10" x="10" y="10" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <polyline points="8,8 0,8 0,0 " fill="none" stroke="${couleurDesHachures}" />
+          </pattern>`
+        break
+      case 'checkerboard':
+        myPattern += `<pattern id="pattern${id}" width="8" height="8" x="8" y="8" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
+          <polygon points="4,4 8,4 8,0 4,0 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+          <polygon points="0,4 4,4 4,8 0,8 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+        
+          </pattern>`
+        break
+      default:
         myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
         <rect x="0" y="0" width="${distanceDesHachures}" height="${distanceDesHachures}" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
         <line x1="0" y1="0" x2="0" y2="${distanceDesHachures}" style="stroke:${couleurDesHachures}; stroke-width:${epaisseurDesHachures}" />
         </pattern>`
-      break
-      }
-      return myPattern ;
+        break
 
     }
+    return myPattern;
+
+  }
+  else {
+    if (mathalea.sortieNB){
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern = ${motif}`
+        break;
+      case 'crosshatch':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern = ${motif}`
+        break
+      default:
+        myPattern = `pattern = north east lines`
+        break
+    }
+  }
   else {
     switch (motif) {
       case 'north east lines':
-        myPattern=`pattern = ${motif}`
-            break
-      case 'horizontal lines':
-        myPattern=`pattern = ${motif}`
-            break
-      case 'vertical lines':
-        myPattern=`pattern = ${motif}`
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
         break
-      default :
-      myPattern=`pattern = north east lines`
-
-      break
-     }
+      case 'horizontal lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break;
+      case 'crosshatch':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      default:
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
+        break
+    }
+  }
     return `${myPattern}`
   }
 }

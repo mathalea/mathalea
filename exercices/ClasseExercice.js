@@ -42,10 +42,15 @@ export default function Exercice() {
     // this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
     // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
     this.pas_de_version_LaTeX = false;
+    this.QCM=false; // Pour les exercices de type QCM : contient un tableau.
+    this.QCM_disponible=false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.ModeQCM
+    this.ModeQCM=false // Pour choisir la version QCM ou la version classique (false = version classique)
+
     this.MG32editable = false; //pas d'interface par défaut pour les figures MG32
     this.nouvelle_version = function (numero_de_l_exercice) {};
     this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
     //this.type_exercice = "MG32";
     //this.taille_div_MG32 = [500, 450];
     //this.type_exercice = "Scratch"
+    // this.QCM=["Quels sont les nombres pairs ?",[7,12,34,25,18],[0,1,1,0,1]] =>["La question",[les réponses],[bonne=1 et mauvaise=0]]
   }

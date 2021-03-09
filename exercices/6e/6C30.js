@@ -12,6 +12,7 @@ import Operation  from '/modules/operations.js'
  * Référence 6C30
  */
 export default function Multiplier_decimaux() {
+
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Multiplications posées de nombres décimaux";
   this.consigne = "Poser et effectuer les calculs suivants.";
@@ -21,6 +22,7 @@ export default function Multiplier_decimaux() {
   this.liste_packages = "xlop";
 
   this.nouvelle_version = function () {
+    this.QCM=['6C30',[],'Multiplications posées de nombres décimaux']
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
@@ -62,6 +64,8 @@ let type_de_questions
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+            // Pour AMC
+    this.QCM[1].push([texte,[texte_corr],[4]])
         i++;
       }
       cpt++;

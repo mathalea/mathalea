@@ -3,9 +3,9 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, num_alpha,ar
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from "/modules/3d.js"
 /**
- * Description didactique de l'exercice
- * @Auteur 
- * Référence 
+ * Propose de calculer la largeur d'une rivière
+ * @Auteur Jean-Claude Lhote
+ * Référence 3G32
 */
 export default function Calculs_trigonometriques() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -72,14 +72,14 @@ export default function Calculs_trigonometriques() {
             j=0
             texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
             if (this.sup) {
-              texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times tan(${alfa})$.<br>`
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $\\tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times \\tan(${alfa})$.<br>`
               j++
-              texte_corr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $tan(${baita})=\\dfrac{BS}{AB}$ d'où $BS=AB\\times tan(${baita})$.<br>`
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $\\tan(${baita})=\\dfrac{BS}{AB}$ d'où $BS=AB\\times \\tan(${baita})$.<br>`
               j++
             }
-            texte_corr+=`${num_alpha(j)}Comme $BS=AB\\times tan(${baita})$ et $BC=AB\\times tan(${alfa})$, alors $CS=AB\\times (tan(${baita})-tan(${alfa}))$.<br>`
+            texte_corr+=`${num_alpha(j)}Comme $BS=AB\\times \\tan(${baita})$ et $BC=AB\\times \\tan(${alfa})$, alors $CS=AB\\times (\\tan(${baita})-\\tan(${alfa}))$.<br>`
             j++
-            texte_corr+=`${num_alpha(j)}Donc $CS=${distance}\\times (tan(${beta})-tan(${alpha}))\\approx ${taille}$ m.<br>`
+            texte_corr+=`${num_alpha(j)}Donc $CS=${distance}\\times (\\tan(${beta})-\\tan(${alpha}))\\approx ${taille}$ m.<br>`
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
