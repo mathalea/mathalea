@@ -4,7 +4,7 @@ import {mathalea2d, point, segment, polygone} from "/modules/2d.js"
 
 
 /**
- * Déterminer une fonction affine à partir de deux images
+* Vue de dessus, face et côté
 * @auteur Erwan DUPLESSY
 * 3G41
 * mars 2021
@@ -46,17 +46,14 @@ export default function VuesEmpilementCubes() {
   
       let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
   
-      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < this.nb_questions;) {
+      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
         objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
         objets_enonceml = [] // Idem pour l'enoncé à main levée si besoin
         objets_correction = [] // Idem pour la correction
   
-        texte = ``; // Nous utilisons souvent cette variable pour construire le texte de la question.
+        texte = `Un empilement de cubes est représenté ci-dessous. <br>`; // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = ``; // Idem pour le texte de la correction.
-        
-
-        ///////////////// A VERIFIER /////////////////////////
-        
+                
         function cube(x,y,z,alpha, beta) { // renvoie une liste de 3 polygones
           let lstPoints = [];
           let lstSegments =[];
@@ -133,71 +130,129 @@ export default function VuesEmpilementCubes() {
           }          
         }
 
-          // cube(x,y,z,0,-90) : vue de haut
-          // cube(x,y,z,90,0) : vue de gauche
-          // cube(x,y,z,0,0) : vue de droite
-          // cube(x,y,z,45,-35) : vue isométrique
+        // cube(x,y,z,0,-90) : vue de haut
+        // cube(x,y,z,90,0) : vue de gauche
+        // cube(x,y,z,0,0) : vue de droite
+        // cube(x,y,z,45,-35) : vue isométrique
         let lstCubes = [];
 
-                //paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-                params_enonce = { xmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false}  
-        
+        // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+        params_enonce = { xmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
+        // ajoute les cubes dans le dessin
         for (i = 0; i < lstCoordonneesCubes.length; i++) {
           for (let elm of cube(lstCoordonneesCubes[i][0],lstCoordonneesCubes[i][1],lstCoordonneesCubes[i][2],30,-35)) {
             objets_enonce.push(elm);
-          }
-                // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-                texte += mathalea2d(params_enonce, objets_enonce)
-
-          for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],45,-35)) {
-            objets_enonce.push(elm);
-          }
-                          // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-                          texte += mathalea2d(params_enonce, objets_enonce)
-
+          }      
         }  
+        texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+
+        // blague
+        objets_enonce = [];
+        lstCoordonneesCubes=[];
+        // C
+        lstCoordonneesCubes.push([2,3,0])
+        lstCoordonneesCubes.push([2,0,0])
+        lstCoordonneesCubes.push([1,3,0])
+        lstCoordonneesCubes.push([1,0,0])
+        lstCoordonneesCubes.push([0,3,0])
+        lstCoordonneesCubes.push([0,2,0])
+        lstCoordonneesCubes.push([0,1,0])
+        lstCoordonneesCubes.push([0,0,0])
+        // O
+        lstCoordonneesCubes.push([6,3,0])
+        lstCoordonneesCubes.push([6,2,0])
+        lstCoordonneesCubes.push([6,1,0])
+        lstCoordonneesCubes.push([6,0,0])
+        lstCoordonneesCubes.push([5,3,0])
+        lstCoordonneesCubes.push([5,0,0])
+        lstCoordonneesCubes.push([4,3,0])
+        lstCoordonneesCubes.push([4,2,0])
+        lstCoordonneesCubes.push([4,1,0])
+        lstCoordonneesCubes.push([4,0,0])
+        // O
+        lstCoordonneesCubes.push([10,3,0])
+        lstCoordonneesCubes.push([10,2,0])
+        lstCoordonneesCubes.push([10,1,0])
+        lstCoordonneesCubes.push([10,0,0])
+        lstCoordonneesCubes.push([9,3,0])
+        lstCoordonneesCubes.push([9,0,0])
+        lstCoordonneesCubes.push([8,3,0])
+        lstCoordonneesCubes.push([8,2,0])
+        lstCoordonneesCubes.push([8,1,0])
+        lstCoordonneesCubes.push([8,0,0])
+        // P
+        lstCoordonneesCubes.push([14,3,0])
+        lstCoordonneesCubes.push([14,2,0])
+        lstCoordonneesCubes.push([14,1,0])
+        lstCoordonneesCubes.push([13,3,0])
+        lstCoordonneesCubes.push([13,1,0])
+        lstCoordonneesCubes.push([12,3,0])
+        lstCoordonneesCubes.push([12,2,0])
+        lstCoordonneesCubes.push([12,1,0])
+        lstCoordonneesCubes.push([12,0,0])
+
+        params_enonce = { xmin:-10, ymin: 0, xmax: 20, ymax: 20, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
+
+        for (i = 0; i < lstCoordonneesCubes.length; i++) {
+          for (let elm of cube(lstCoordonneesCubes[i][0],lstCoordonneesCubes[i][1],lstCoordonneesCubes[i][2],30,-35)) {
+            objets_enonce.push(elm);
+          }      
+        }
+
+        texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
+
+        switch (liste_type_de_questions[i]) {
           case 1:
             texte += `Dessiner la vue de gauche de cet empilement de cubes. <br>`
             //ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
             texte_corr += "Vue de gauche (les faces grises) : "
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],90,0)) {
-              objets_correction.push(elm);
+            params_correction = { xxmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false};
+            for (i = 0; i < lstCoordonneesCubes.length; i++) {
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],90,0)) {
+                objets_correction.push(elm);
+              }
             }
+            texte_corr += mathalea2d(params_correction, objets_correction);
           break;
   
           case 2:
             texte += `Dessiner la vue de droite de cet empilement de cubes. <br>`
             texte_corr += "Vue de droite (les faces vertes) : "
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,0)) {
-              objets_correction.push(elm);
+            params_correction = { xxmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false};
+            for (i = 0; i < lstCoordonneesCubes.length; i++) {
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,0)) {
+                objets_correction.push(elm);
+              }
             }
           break
   
           case 3:
             texte += `Dessiner la vue de dessus de cet empilement de cubes. <br>`
             texte_corr += "Vue de haut (les faces blanches) : "
-
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,-90)) {
-              objets_correction.push(elm);
-            }            
+            params_correction = { xxmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false};
+            for (i = 0; i < lstCoordonneesCubes.length; i++) {
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,-90)) {
+                objets_correction.push(elm);
+              }            
+            }
           break
             
           case 4:
             texte += `Dessiner les vues de gauche, de droite et du dessus de cet empilement de cubes. <br>`
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],90,0)) {
-              objets_correction.push(elm);
-            }
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,0)) {
-              objets_correction.push(elm);
-            }
-            for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,-90)) {
-              objets_correction.push(elm);
-            }
-          
+            params_correction = { xxmin:-10, ymin: 0, xmax: 10, ymax: (long+larg)/2+hmax, pixelsParCm: 20, scale: 1, mainlevee: false};
+            for (i = 0; i < lstCoordonneesCubes.length; i++) {
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],90,0)) {
+                objets_correction.push(elm);
+              }
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,0)) {
+                objets_correction.push(elm);
+              }
+              for (let elm of cube(lstCoordonneesCubes[i][0]+larg+1,lstCoordonneesCubes[i][1]-long-1,lstCoordonneesCubes[i][2],0,-90)) {
+                objets_correction.push(elm);
+              }     
+            }     
           break  
-            
         }
  
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
