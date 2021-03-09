@@ -27,6 +27,11 @@ export default function Additions_soustractions_multiplications_posees() {
 
 
   this.nouvelle_version = function () {
+        /*********************************************************/
+// On ajoute cette ligne pour AMC
+this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
+/**********************************************************/
+
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions
@@ -111,6 +116,11 @@ export default function Additions_soustractions_multiplications_posees() {
           texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
         } // espacement entre les questions
         this.liste_corrections.push(texte_corr);
+            /*****************************************************/
+    // Pour AMC
+    this.QCM[1].push([texte,[texte_corr],[4]])
+    /****************************************************/
+
         i++;
       }
       cpt++;

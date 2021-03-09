@@ -2,9 +2,9 @@ import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, tex_nombre, tex_nombrec } from "/modules/outils.js"
 import { texteSurSegment, pointAdistance,polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 /**
- * Description didactique de l'exercice
- * @Auteur 
- * Référence 
+ * Propose de calculer la hauteur d'une falaise en utilisant les angles de vue depuis deux positions d'un bateau sans s'en approcher.
+ * @Auteur Jean-Claude Lhote
+ * Référence 3G32-3
 */
 export default function Calculs_trigonometriques3() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -44,7 +44,13 @@ export default function Calculs_trigonometriques3() {
           S = pointAdistance(H, 7, 90, 'S')
           p = polygoneAvecNom(A, B, H, S)
           objets.push(p[1], p[0], segment(S, B), codageAngleDroit(A, H, S))
+      if (sortie_html){
           objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
+      }
+      else {
+        objets.push(afficheMesureAngle(H, A, S, 'black', 2, `$${alfa}$`), afficheMesureAngle(H, B, S, 'black', 2, `$${baita}$`))
+
+      }
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un observateur sur un bateau s'approche d'une falaise dont il veut mesurer la hauteur.<br>`;
@@ -61,16 +67,16 @@ export default function Calculs_trigonometriques3() {
           texte += `A quelle distance du pied de la falaise se trouve l'observateur lors du deuxième relevé ?<br>`
           texte += `Arrondir les résultats au mètre près. (On supposera le point d'observation au niveau de l'eau)`
           texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)
-          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $tan(${baita})=\\dfrac{h}{BH}$.<br>D'où $h=BH\\times tan(${baita})$.<br>`
-          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $tan(${alfa})=\\dfrac{h}{AH}$.<br>D'où $h=AH\\times tan(${alfa})$.<br>`
-          texte_corr += `Or $AH=AB+BH$ donc $h=(AB+BH)\\times tan(${alfa})$.<br>`
-          texte_corr += `On en déduit que $BH\\times tan(${baita})=(AB+BH)\\times tan(${alfa})$ soit $BH\\times tan(${baita})=AB\\times tan(${alfa})+BH\\times tan(${alfa})$.<br>`
-          texte_corr += `D'où $AB\\times tan(${alfa})=BH\\times tan(${baita})-BH\\times tan(${alfa})=BH\\times (tan(${baita})-tan(${alfa}))$.<br>`
-          texte_corr += `Et $BH=\\dfrac{AB\\times tan(${alfa})}{tan(${baita})-tan(${alfa})}$.<br>`
-          texte_corr += `Ainsi $h=BH\\times tan(${baita})=\\dfrac{AB\\times tan(${alfa})\\times tan(${baita})}{tan(${baita})-tan(${alfa})}$.<br>`
+          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $\\tan(${baita})=\\dfrac{h}{BH}$.<br>D'où $h=BH\\times \\tan(${baita})$.<br>`
+          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $\\tan(${alfa})=\\dfrac{h}{AH}$.<br>D'où $h=AH\\times \\tan(${alfa})$.<br>`
+          texte_corr += `Or $AH=AB+BH$ donc $h=(AB+BH)\\times \\tan(${alfa})$.<br>`
+          texte_corr += `On en déduit que $BH\\times \\tan(${baita})=(AB+BH)\\times \\tan(${alfa})$ soit $BH\\times \\tan(${baita})=AB\\times \\tan(${alfa})+BH\\times \\tan(${alfa})$.<br>`
+          texte_corr += `D'où $AB\\times \\tan(${alfa})=BH\\times \\tan(${baita})-BH\\times \\tan(${alfa})=BH\\times (\\tan(${baita})-\\tan(${alfa}))$.<br>`
+          texte_corr += `Et $BH=\\dfrac{AB\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
+          texte_corr += `Ainsi $h=BH\\times \\tan(${baita})=\\dfrac{AB\\times \\tan(${alfa})\\times \\tan(${baita})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
           texte_corr += `Application numérique : <br>`
-          texte_corr += `$h=\\dfrac{${distance}\\times tan(${alpha})\\times tan(${alpha + 5})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
-          texte_corr += `$BH=\\dfrac{${distance}\\times tan(${alpha})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
+          texte_corr += `$h=\\dfrac{${distance}\\times \\tan(${alpha})\\times \\tan(${alpha + 5})}{\\tan(${alpha + 5})-\\tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
+          texte_corr += `$BH=\\dfrac{${distance}\\times \\tan(${alpha})}{\\tan(${alpha + 5})-\\tan(${alpha})}\\approx ${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
           texte_corr += `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`;
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
