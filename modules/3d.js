@@ -608,6 +608,88 @@ class Cube3d{
 export function cube3d(x,y,z,c){
   return new Cube3d(x,y,z,c)
 }
+
+class Cube{
+  constructor (x,y,z,alpha,beta,colorD,colorT,colorG){
+    this.x=x
+    this.y=y
+    this.z=z
+    this.alpha=alpha
+    this.beta=beta
+    this.colorD=colorD
+    this.colorG=colorG
+    this.colorT=colorT
+
+    this.lstPoints = [];
+    this.lstPolygone = [];
+    function proj(x,y,z,alpha, beta) {
+      const cosa = Math.cos(alpha*Math.PI/180);
+      const sina = Math.sin(alpha*Math.PI/180);
+      const cosb = Math.cos(beta*Math.PI/180);
+      const sinb = Math.sin(beta*Math.PI/180);
+      return point(cosa*x-sina*y, -sina*sinb*x-cosa*sinb*y+cosb*z);
+    }
+      
+    this.lstPoints.push(proj(this.x,this.y,this.z,this.alpha, this.beta)) // point 0 en bas
+    this.lstPoints.push(proj(this.x+1,this.y,this.z,this.alpha, this.beta)) // point 1
+    this.lstPoints.push(proj(this.x+1,this.y,this.z+1,this.alpha, this.beta)) // point 2
+    this.lstPoints.push(proj(this.x,this.y,this.z+1,this.alpha, this.beta)) //point 3
+    this.lstPoints.push(proj(this.x+1,this.y+1,this.z+1,this.alpha, this.beta)) // point 4
+    this.lstPoints.push(proj(this.x,this.y+1,this.z+1,this.alpha, this.beta)) // point 5
+    this.lstPoints.push(proj(this.x,this.y+1,this.z,this.alpha, this.beta)) // point 6
+    let objets=[],p
+    p=polygone([this.lstPoints[0], this.lstPoints[1],this.lstPoints[2], this.lstPoints[3]], "black")
+    p.opaciteDeRemplissage=1;
+    p.couleurDeRemplissage=this.colorD
+    this.lstPolygone.push(p)
+    p = polygone([this.lstPoints[2], this.lstPoints[4],this.lstPoints[5], this.lstPoints[3]], "black")
+    p.couleurDeRemplissage=this.colorG
+    p.opaciteDeRemplissage=1;
+    this.lstPolygone.push(p)
+    p = polygone([this.lstPoints[3], this.lstPoints[5],this.lstPoints[6], this.lstPoints[0]], "black")
+    p.couleurDeRemplissage=this.colorT
+    p.opaciteDeRemplissage=1;
+    this.lstPolygone.push()
+
+    this.svg=function(coeff){
+      let code = "",f
+      for (i=0;i<3;i++) {
+        f=this.lstPolygone[i]
+        code += "\n\t" + f.svg(coeff);
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code;
+    }
+    this.tikz = function () {
+      let code = "",f
+      for (i=0;i<3;i++) {
+        f=this.lstPolygone[i]
+        code += "\n\t" + f.tikz();
+      }
+      return code;
+    };
+    this.svgml = function (coeff, amp) {
+      let code = "",f
+      for (i=0;i<3;i++) {
+        f=this.lstPolygone[i]
+        code += "\n\t" + f.svgml(coeff, amp);
+      }
+      return code;
+    }
+    this.tikzml = function (amp) {
+      let code = "",f
+      for (i=0;i<3;i++) {
+        f=this.lstPolygone[i]
+      code += "\n\t" + f.tikzml(amp);
+      }
+      return code;
+    };
+  }
+}
+export function cube({x=0,y=0,z=0,alpha=45,beta=-35,colorD="#A5C400",colorT="#FFFFFF",colorG="#A9A9A9"}){
+  return new Cube(x,y,z,alpha,beta,colorD,colorG,colorT)
+}
+
 /**
    * LE PAVE
    * @Auteur Jean-Claude Lhote
