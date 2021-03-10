@@ -2143,6 +2143,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0; i < p.listePoints.length; i++) {
       P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d * 20 / coeff)
+      P.positionLabel='center'
       code += "\n\t" + latexParPoint(p.listePoints[i].nom, P, "black",12,12,'').svg(coeff)
     }
     return code;
@@ -7821,7 +7822,6 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
  */
 export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   let x,y,coeff=mathalea.pixelsParCm
-  if (A.nom=='Z') console.log(A.nom,A.x,A.y,A.positionLabel,'into latexParPoint : coeff=',coeff)
 switch (A.positionLabel){
   case 'above' :
     x=A.x;y=A.y+15/coeff
@@ -7860,17 +7860,24 @@ switch (A.positionLabel){
 
 function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   ObjetMathalea2D.call(this);
-  let demiSize = calcul(size/2)
+  this.x=x
+  this.y=y
+  this.size=size
+  this.hauteurLigne=hauteurLigne
+  this.colorBackground=colorBackground
+  this.color=color
+  this.texte=texte
+
   this.svg = function (coeff) { 
-    console.log('into SVG() : coeff= ',coeff,'mathalea.pixelsParCm = ',mathalea.pixelsParCm)
+    let demiSize = calcul(this.size/2)
     let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
-    $\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}$</div></foreignObject>`;
+    return `<foreignObject style=" overflow: visible;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+    $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" x="${arrondi(x*coeff,2) - demiSize}" y="${arrondi(-y*coeff,2) - hauteurLigne/2-centrage}"  width="${size}" height="${hauteurLigne}" id="${this.id}" ><div style="width:${size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
-      $\\color{${color}}{${texte}}$</div></foreignObject>`;
+      return `<foreignObject style=" overflow: visible;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      $\\color{${this.color}}{${this.texte}}$</div></foreignObject>`;
     }
   };
   this.tikz = function () {
