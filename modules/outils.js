@@ -600,6 +600,29 @@ export function filtreDictionnaire(dict,sub) {
 	);
 }
 
+/*
+* Polyfill Object.fromEntries
+*
+* Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+*/
+if (!Object.fromEntries) {
+	Object.defineProperty(Object, 'fromEntries', {
+	  value(entries) {
+		if (!entries || !entries[Symbol.iterator]) { throw new Error('Object.fromEntries() requires a single iterable argument'); }
+  
+		const o = {};
+  
+		Object.keys(entries).forEach((key) => {
+		  const [k, v] = entries[key];
+  
+		  o[k] = v;
+		});
+  
+		return o;
+	  },
+	});
+  }
+  
 
 /*
 * Filtre un dictionnaire suivant la valeur d'une clé
