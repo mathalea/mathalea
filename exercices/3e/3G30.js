@@ -180,7 +180,7 @@ export default function Calcul_de_longueur() {
         if (this.sup) {
             texte += mathalea2d(params_enonce, objets_enonce) + '<br>'
         }
-        if (this.correction_detaillee){
+        if (!sortie_html&&this.correction_detaillee){
             texte_corr += '\\begin{minipage}{.4\\linewidth}\n'+mathalea2d(params_correction, objets_correction)+'\n\\end{minipage}\n'+'\\begin{minipage}{.7\\linewidth}\n'
             }
         if (!sortie_html&&this.sup) {
@@ -248,7 +248,7 @@ export default function Calcul_de_longueur() {
 
                 break
         }
-if (this.correction_detaillee) {
+if (!sortie_html&&this.correction_detaillee) {
     texte_corr+='\n\\end{minipage}\n'
 }
 
