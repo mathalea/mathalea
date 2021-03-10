@@ -17,20 +17,27 @@ export default function Sens_de_la_fraction() {
   
     this.liste_questions = [] 
     this.liste_corrections = []
-    let type_de_questions_disponibles=[1]
+    let type_de_questions_disponibles=[1,2,3,4]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
   
-      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      for (let i = 0, texte, texte_corr, a,b,cpt = 0; i < this.nb_questions && cpt < 50;) {
 
         texte = `` 
         texte_corr = `` 
-
+        
         switch (liste_type_de_questions[i]) { 
           case 1:
+            a=randint(80,200)
+            b=randint(80,200,a)
+            texte=`Le quotient de $${a}$ par $${b}$ s'écrit : $${tex_fraction(
+              "\\phantom{00000000000000}",
+              "\\phantom{00000000000000}"
+            )}$`
                
           break;
   
           case 2:
+            
           break
   
           case 3:
