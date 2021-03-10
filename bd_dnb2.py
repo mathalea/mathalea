@@ -49,7 +49,7 @@ for (dirpath, dirnames, filenames) in os.walk('./tex/'):
     # Parcourt tout le répertoire /exercices
     for file in filenames:
         nomFichier = os.path.splitext(file)[0]
-        if os.path.splitext(file)[0][-1] != 'r' and os.path.splitext(file)[1] == ".tex" :
+        if nomFichier[-4:] != '_cor' and os.path.splitext(file)[1] == ".tex" :
             listeDNB[nomFichier] = {}
             listeDNB[nomFichier]["url"] = f"/tex/{nomFichier}.tex"
             listeDNB[nomFichier]["png"] = f"/tex/png/{nomFichier}.png"
