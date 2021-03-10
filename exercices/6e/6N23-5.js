@@ -2,6 +2,12 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint,tex_fraction,calcul,choice,tex_nombre2,shuffle2tableaux} from "/modules/outils.js"
 import {fraction} from "/modules/Fractions.js"
 
+/**
+ * Donner la fraction correspondant à un nombre ou à un calcul
+ * @Auteur Jean-Claude Lhote
+ * Ref 6N23-5
+ * Publié le 10/03/2021
+ */
 export default function Sens_de_la_fraction() {
     "use strict"
     Exercice.call(this)
@@ -86,7 +92,6 @@ export default function Sens_de_la_fraction() {
             "\\phantom{00000}"
           )}$`
           texte_corr=`Le nombre $${tex_nombre2(calcul(a/b))}$ s'écrit  $${f.fractionDecimale().texFraction}$`
-          console.log(f.fractionDecimale().texFraction,f.texFractionSimplifiee)
           if (f.fractionDecimale().texFraction!=f.texFractionSimplifiee) {
             texte_corr+=` ou $${f.texFractionSimplifiee}$.`
           }
