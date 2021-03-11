@@ -4613,21 +4613,21 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5, label = ""
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance)
-    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 10 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2);
+    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 8 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,'','center');
     let mesureAngle
     if (label != "") mesureAngle = label
     else mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
-    return "\n" + texteParPoint(mesureAngle, N, "milieu", color).svg(coeff) + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff);
+    return "\n" + latexParPoint(mesureAngle, N,color,30,12,'').svg(coeff) + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff);
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance);
-    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.5), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2);
+    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.3), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,"","center");
     let mesureAngle
     if (label != "") mesureAngle = label
     else mesureAngle == arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
-    return "\n" + texteParPoint(mesureAngle, N, "milieu", color).tikz() + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz();
+    return "\n" + latexParPoint(mesureAngle, N, color,30,12,'').tikz() + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz();
   }
 }
 export function afficheMesureAngle(...args) {
@@ -7872,11 +7872,11 @@ function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLi
     let demiSize = calcul(this.size/2)
     let centrage=0.25*mathalea.pixelsParCm
     if (colorBackground!=''){
-    return `<foreignObject style=" overflow: visible;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
+    return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`;
     }
     else {
-      return `<foreignObject style=" overflow: visible;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x*coeff,2) - demiSize}" y="${arrondi(-this.y*coeff,2) - this.hauteurLigne/2-centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${this.color}}{${this.texte}}$</div></foreignObject>`;
     }
   };

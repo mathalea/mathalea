@@ -23,7 +23,7 @@ export default function Calculs_trigonometriques() {
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let distance, hauteur,alfa,baita, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
+    let distance, hauteur,alfa,baita, beta,alf,bait, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
     if (sortie_html) {
       alfa='α'
       baita='β'
@@ -68,9 +68,9 @@ export default function Calculs_trigonometriques() {
             texte+=`${num_alpha(j)}Exprimer $CS$ en fonction de $AB$, de $${alfa}$ et de $${baita}$.<br>`
             j++
             texte+=`${num_alpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.<br>`
-            texte+=mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
+            texte+=mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>';
             j=0
-            texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+            texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>'
             if (this.sup) {
               texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $\\tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times \\tan(${alfa})$.<br>`
               j++
