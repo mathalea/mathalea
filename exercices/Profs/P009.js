@@ -249,7 +249,7 @@ export default function SimulateurAleatoire() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoin_formulaire_numerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
-  this.besoin_formulaire2_texte = ["Nombre de tirages", `Taper un nombre entier : ${tex_nombre(10000)}`];
+  this.besoin_formulaire2_texte = ["Nombre de tirages", `Taper un nombre entier : ${10000}`];
   this.besoin_formulaire3_case_a_cocher = ["Équiprobabilité", true]
 
 

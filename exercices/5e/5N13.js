@@ -14,6 +14,8 @@ export default function Exercice_fractions_simplifier(max = 11) {
 	this.spacing_corr = 2;
   
 	this.nouvelle_version = function () {
+		this.QCM=['5N13',[],"Simplification de fractions"]
+ 
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées
 	  let liste_fractions = [
@@ -77,6 +79,10 @@ export default function Exercice_fractions_simplifier(max = 11) {
 		  " $";
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
+		    /*****************************************************/
+    // Pour AMC
+    this.QCM[1].push([texte,[texte_corr],[1]])
+    /****************************************************/
 	  }
 	  liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	};
