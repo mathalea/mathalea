@@ -3458,8 +3458,8 @@ function CibleCouronne({ x = 0, y = 0, taille = 5,depart=0,nbDivisions=18,nbSubD
   azimut = rotation(point(this.x + this.taille, this.y),centre,depart)
   let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
   let rayons=[]
-  arc1 = arc(azimut, centre, arcPlein)
-  arc2 = arc(azimut2, centre, arcPlein)
+  arc1 = arc(azimut, centre, arcPlein-0.1,false,'none','gray')
+  arc2 = arc(azimut2, centre, arcPlein-0.1,false,'none','gray')
   rayon = segment(azimut, azimut2)
 
   objets.push(arc1,arc2,rayon)
@@ -4612,22 +4612,36 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5, label = ""
   this.svg = function (coeff) {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
+    let sizelabel
     let M = pointSurSegment(this.sommet, this.depart, this.distance)
-    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 8 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,'','center');
+    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 10 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,'','center');
     let mesureAngle
-    if (label != "") mesureAngle = label
-    else mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
-    return "\n" + latexParPoint(mesureAngle, N,color,30,12,'').svg(coeff) + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff);
+    if (label != "") {
+      mesureAngle = label
+      sizelabel = 30
+    }
+    else {
+      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
+      sizelabel=20
+    }
+    return "\n" + latexParPoint(mesureAngle, N,color,sizelabel,10,'').svg(coeff) + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff);
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
+    let sizelabel
     let M = pointSurSegment(this.sommet, this.depart, this.distance);
-    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.3), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,"","center");
+    let N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.5), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2,"","center");
     let mesureAngle
-    if (label != "") mesureAngle = label
-    else mesureAngle == arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
-    return "\n" + latexParPoint(mesureAngle, N, color,30,12,'').tikz() + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz();
+    if (label != "") {
+      mesureAngle = label
+      sizelabel = 30
+    }
+    else {
+      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
+      sizelabel=20
+    }
+    return "\n" + latexParPoint(mesureAngle, N, color,sizelabel,10,'').tikz() + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz();
   }
 }
 export function afficheMesureAngle(...args) {
