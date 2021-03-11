@@ -635,6 +635,25 @@ export function filtreDictionnaireValeurCle(dict,key,val) {
 	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => v[key]==val));
 }
 
+/*
+* Filtre un dictionnaire si une valeur appartient à une clé de type tableau
+*
+* @Example
+* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+* @Auteur Rémi Angot
+*/
+export function filtreDictionnaireValeurTableauCle(dict,key,val) {
+	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => cleExisteEtContient(v[key],val) ));
+}
+
+function cleExisteEtContient(v,val){
+	if (v!=undefined) {
+		return v.includes(val)
+	} else {
+		return false
+	}
+}
+
 
 
 /*
