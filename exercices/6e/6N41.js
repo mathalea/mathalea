@@ -77,10 +77,10 @@ export default function Egalites_entre_fractions() {
         a = fraction[0];
         b = fraction[1];
         if (this.ModeQCM){
-          k = randint(3, Math.min(this.sup,4));
+          k = randint(3, Math.max(this.sup,4));
         }
         else {
-        k = randint(2, this.sup);
+        k = randint(2, Math.max(3,this.sup));
         }
         c = k * a;
         d = k * b;

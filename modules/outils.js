@@ -1722,24 +1722,39 @@ export function minToHour(minutes){
 * Renvoie un prénom féminin au hasard 
 * @Auteur Rémi Angot
 */
-export function prenomF(){
+export function prenomF(n=1){
+	if (n==1){
 	return choice(['Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine'])
+	}
+	else {
+		return shuffle(['Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine']).slice(0,n)
+	}
 }
 
 /**
 * Renvoie un prénom masculin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomM(){
+export function prenomM(n=1){
+	if (n==1){
 	return choice(['Rémi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude'])
+	}
+	else {
+		return shuffle(['Rémi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude']).slice(0,n)
+	}
 }
 
 /**
 * Renvoie un prénom au hasard
 * @Auteur Rémi Angot
 */
-export function prenom(){
+export function prenom(n=1){
+	if (n==1){
 	return choice([prenomF(),prenomM()])
+	}
+	else {
+		return shuffle(['Rmi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude','Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine']).slice(0,n)
+	}
 }
 
  /**
