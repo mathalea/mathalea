@@ -76,7 +76,7 @@ export default function Egalites_entre_fractions() {
         fraction = choice(liste_fractions); //
         a = fraction[0];
         b = fraction[1];
-        if (this.ModeQCM) {
+        if (this.ModeQCM){
           k = randint(3, Math.min(this.sup,4));
         }
         else {
@@ -154,7 +154,7 @@ export default function Egalites_entre_fractions() {
         //écrire un entier sous la forme d'une fraction
         a = randint(1, 9);
         if (this.ModeQCM) {
-          d=randint(3,9,a)
+          d=randint(3,9,[a,2*a])
         }
         else {
         d = randint(2, 9);
