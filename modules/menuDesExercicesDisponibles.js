@@ -1155,7 +1155,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_6.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_6_cor.tex",
-        "tags":["Prise-initiative,Tableur,Statistiques,Pourcentages"]
+        "tags":["Prise d'initiative,Tableur,Statistiques,Pourcentages"]
     },
     "dnb_2014_06_ameriquenord_1": {
         "annee": "2014",
@@ -1167,7 +1167,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_1_cor.tex",
-        "tags":["incoming"]
+        "tags":["QCM,Arithmétique,Calculs numériques,Inéquations,Hors-programme,Racine carrée,Calcul littéral"]
     },
     "dnb_2014_06_ameriquenord_2": {
         "annee": "2014",
@@ -1179,7 +1179,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_2_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie dans l'espace,Volumes"]
     },
     "dnb_2014_06_ameriquenord_3": {
         "annee": "2014",
@@ -1191,7 +1191,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_3_cor.tex",
-        "tags":["incoming"]
+        "tags":["Proportionnalité,Grandeurs composées,Vitesse,Volumes,Pourcentages"]
     },
     "dnb_2014_06_ameriquenord_4": {
         "annee": "2014",
@@ -1203,7 +1203,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_4_cor.tex",
-        "tags":["incoming"]
+        "tags":["Tableur,Calculs numériques"]
     },
     "dnb_2014_06_ameriquenord_5": {
         "annee": "2014",
@@ -1215,7 +1215,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_5_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie plane,Pythagore,Recherche d'informations"]
     },
     "dnb_2014_06_ameriquenord_6": {
         "annee": "2014",
@@ -1227,7 +1227,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_6_cor.tex",
-        "tags":["incoming"]
+        "tags":["Probabilités,Prise d'initiative,Recherche d'informations"]
     },
     "dnb_2014_06_ameriquenord_7": {
         "annee": "2014",
@@ -1239,7 +1239,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_7_cor.tex",
-        "tags":["incoming"]
+        "tags":["Prise d'initiative,Recherche d'informations,Proportionnalité,Grandeurs composées,Vitesse,Lecture graphique"]
     },
     "dnb_2014_06_ameriquenord_8": {
         "annee": "2014",
@@ -1251,7 +1251,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_8.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_8_cor.tex",
-        "tags":["incoming"]
+        "tags":["Aire et périmètres,Volumes,Grandeurs composées,Débit"]
     },
     "dnb_2014_06_ameriquenord_9": {
         "annee": "2014",
@@ -1263,7 +1263,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_9.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_9_cor.tex",
-        "tags":["incoming"]
+        "tags":["Recherche d'informations,Prise d'initiative, Trigonométrie"]
     },
     "dnb_2014_06_asie_1": {
         "annee": "2014",
