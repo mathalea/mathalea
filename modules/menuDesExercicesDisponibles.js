@@ -1443,7 +1443,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_1_cor.tex",
-        "tags":["incoming"]
+        "tags":["Probabilités"]
     },
     "dnb_2014_06_polynesie_2": {
         "annee": "2014",
@@ -1455,7 +1455,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_2_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie plane,Pythagore,Thalès"]
     },
     "dnb_2014_06_polynesie_3": {
         "annee": "2014",
@@ -1467,7 +1467,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_3_cor.tex",
-        "tags":["incoming"]
+        "tags":["Fonctions,Calculs numériques,Tableur"]
     },
     "dnb_2014_06_polynesie_4": {
         "annee": "2014",
@@ -1479,7 +1479,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_4_cor.tex",
-        "tags":["incoming"]
+        "tags":["Arithmétique,Puissances,Caulculs numériques,Racine carrée,Hors-programme"]
     },
     "dnb_2014_06_polynesie_5": {
         "annee": "2014",
@@ -1491,7 +1491,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_5_cor.tex",
-        "tags":["incoming"]
+        "tags":["Tableur,Calculs numériques"]
     },
     "dnb_2014_06_polynesie_6": {
         "annee": "2014",
@@ -1503,7 +1503,19 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_6_cor.tex",
-        "tags":["incoming"]
+        "tags":["Prise d'initiative,Recherche d'informations,Volumes,Aires et périmètres,Proportionnalité"]
+    },
+    "dnb_2014_06_polynesie_7": {
+        "annee": "2014",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2014_06_polynesie_7.png",
+        "pngcor": "/tex/png/dnb_2014_06_polynesie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2014_06_polynesie_7.tex",
+        "urlcor": "/tex/dnb_2014_06_polynesie_7_cor.tex",
+        "tags":["Géométrie plane,Triangles,Prise d'initiative"]
     },
     "dnb_2014_09_metropole_1": {
         "annee": "2014",
