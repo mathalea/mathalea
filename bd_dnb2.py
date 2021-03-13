@@ -6,9 +6,9 @@ import re       # Gestion des expressions régulières
 import json     # Gestion du json
 
 '''
-    Scanne le répertoire /tex et créé une entrée dans liste_des_exercices.json pour chaque exercice
+    Scanne le répertoire /tex et créé une entrée dans dnb.json pour chaque exercice
 '''
-def write_json(data, filename='modules/liste_des_exercices.json'):
+def write_json(data, filename='modules/dnb.json'):
     with open(filename, 'w', encoding="utf8") as f:
         json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 

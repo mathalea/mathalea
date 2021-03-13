@@ -4668,6 +4668,79 @@ let dictionnaireDNB = {
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_4_cor.tex",
         "tags":["Statistiques","Pourcentage","Tableur"]
     },
+    "dnb_2020_09_antillesguyanne_5": {
+        "annee": "2020",
+        "lieu": "Antilles - Guyanne",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2020_09_antillesguyanne_5.png",
+        "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_antillesguyanne_5.tex",
+        "urlcor": "/tex/dnb_2020_09_antillesguyanne_5_cor.tex"
+        ,
+        "tags":["Probabilités","Arithmétique","Scratch","Algorithmique-programmation"]
+    },
+    "dnb_2020_09_metropole_1": {
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "1",
+        "png": "/tex/png/dnb_2020_09_metropole_1.png",
+        "pngcor": "/tex/png/dnb_2020_09_metropole_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_metropole_1.tex",
+        "urlcor": "/tex/dnb_2020_09_metropole_1_cor.tex",
+        "tags":["QCM","Statistiques","Probabilités","Arithmétique","Volume","Transformations"]
+    },
+    "dnb_2020_09_metropole_2": {
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "2",
+        "png": "/tex/png/dnb_2020_09_metropole_2.png",
+        "pngcor": "/tex/png/dnb_2020_09_metropole_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_metropole_2.tex",
+        "urlcor": "/tex/dnb_2020_09_metropole_2_cor.tex",
+        "tags":["Calculs numériques","Calcul littéral","Equations"]
+    },
+    "dnb_2020_09_metropole_3": {
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "3",
+        "png": "/tex/png/dnb_2020_09_metropole_3.png",
+        "pngcor": "/tex/png/dnb_2020_09_metropole_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_metropole_3.tex",
+        "urlcor": "/tex/dnb_2020_09_metropole_3_cor.tex",
+        "tags":["Pythagore","Thalès","Trigonométrie","Pourcentages","Recherche d'informations"]
+    },
+    "dnb_2020_09_metropole_4": {
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "4",
+        "png": "/tex/png/dnb_2020_09_metropole_4.png",
+        "pngcor": "/tex/png/dnb_2020_09_metropole_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_metropole_4.tex",
+        "urlcor": "/tex/dnb_2020_09_metropole_4_cor.tex",
+        "tags":["Tableur","Fonctions"]
+    },
+    "dnb_2020_09_metropole_5": {
+        "annee": "2020",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2020_09_metropole_5.png",
+        "pngcor": "/tex/png/dnb_2020_09_metropole_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_metropole_5.tex",
+        "urlcor": "/tex/dnb_2020_09_metropole_5_cor.tex",
+        "tags":["Géométrie plane","Scratch","Algorithmique-programmation"]
+    },
     "dnb_2020_09_polynesie_1": {
         "annee": "2020",
         "lieu": "Polynésie",
@@ -4715,6 +4788,114 @@ let dictionnaireDNB = {
         "url": "/tex/dnb_2020_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_4_cor.tex",
         "tags":["Probabilités"]
+    },
+    "dnb_2020_09_polynesie_5": {
+        "annee": "2020",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2020_09_polynesie_5.png",
+        "pngcor": "/tex/png/dnb_2020_09_polynesie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_09_polynesie_5.tex",
+        "urlcor": "/tex/dnb_2020_09_polynesie_5_cor.tex",
+        "tags":["Fonctions","Equations"]
+    },
+    "dnb_2020_12_caledonie_1": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "1",
+        "png": "/tex/png/dnb_2020_12_caledonie_1.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_1.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_1_cor.tex",
+        "tags":["QCM","Calculs numériques","Puissances","Statistiques","Probabilités","Repérage terrestre"]
+    },
+    "dnb_2020_12_caledonie_2": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "2",
+        "png": "/tex/png/dnb_2020_12_caledonie_2.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_2.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_2_cor.tex",
+        "tags":["Pourcentages","Tableur"]
+    },
+    "dnb_2020_12_caledonie_3": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "3",
+        "png": "/tex/png/dnb_2020_12_caledonie_3.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_3.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_3_cor.tex",
+        "tags":["Calculs numériques","Calcul littéral","Equations"]
+    },
+    "dnb_2020_12_caledonie_4": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "4",
+        "png": "/tex/png/dnb_2020_12_caledonie_4.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_4.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_4_cor.tex",
+        "tags":["Thalès","Pythagore","Trigonométrie","Proportionnalité","Durées"]
+    },
+    "dnb_2020_12_caledonie_5": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2020_12_caledonie_5.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_5.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_5_cor.tex",
+        "tags":["Prise d'initiative","Pythagore"]
+    },
+    "dnb_2020_12_caledonie_6": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "6",
+        "png": "/tex/png/dnb_2020_12_caledonie_6.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_6.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_6_cor.tex",
+        "tags":["Arithmétique"]
+    },
+    "dnb_2020_12_caledonie_7": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2020_12_caledonie_7.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_7.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_7_cor.tex",
+        "tags":["Volumes","Calcul littéral","Fonctions"]
+    },
+    "dnb_2020_12_caledonie_8": {
+        "annee": "2020",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroExercice": "8",
+        "png": "/tex/png/dnb_2020_12_caledonie_8.png",
+        "pngcor": "/tex/png/dnb_2020_12_caledonie_8_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2020_12_caledonie_8.tex",
+        "urlcor": "/tex/dnb_2020_12_caledonie_8_cor.tex",
+        "tags":["Scratch","Algorithmique-programmation"]
     }
 }
 
