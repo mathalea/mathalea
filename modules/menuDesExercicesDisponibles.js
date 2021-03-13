@@ -1275,7 +1275,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_1.tex",
         "urlcor": "/tex/dnb_2014_06_asie_1_cor.tex",
-        "tags":["incoming"]
+        "tags":["Calculs numériques,Puissances"]
     },
     "dnb_2014_06_asie_2": {
         "annee": "2014",
@@ -1287,7 +1287,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_2.tex",
         "urlcor": "/tex/dnb_2014_06_asie_2_cor.tex",
-        "tags":["incoming"]
+        "tags":["Calculs numériques,Fonctions,Lecture graphique"]
     },
     "dnb_2014_06_asie_3": {
         "annee": "2014",
@@ -1299,7 +1299,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_3.tex",
         "urlcor": "/tex/dnb_2014_06_asie_3_cor.tex",
-        "tags":["incoming"]
+        "tags":["Agrandissement-reduction,Géométrie plane"]
     },
     "dnb_2014_06_asie_4": {
         "annee": "2014",
@@ -1311,7 +1311,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_4.tex",
         "urlcor": "/tex/dnb_2014_06_asie_4_cor.tex",
-        "tags":["incoming"]
+        "tags":["Vrai-faux,Pourcentages,Arithmétique,Hors-programme,Calcul littéral"]
     },
     "dnb_2014_06_asie_5": {
         "annee": "2014",
@@ -1323,7 +1323,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_5.tex",
         "urlcor": "/tex/dnb_2014_06_asie_5_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie plane,Parallélogramme,Triangle inscrit dans un demi cercle,Hors-programme,Parallélisme"]
     },
     "dnb_2014_06_asie_6": {
         "annee": "2014",
@@ -1335,7 +1335,19 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_6.tex",
         "urlcor": "/tex/dnb_2014_06_asie_6_cor.tex",
-        "tags":["incoming"]
+        "tags":["Calculs numérique,Recherche d'informations, Pourcentages,Inégalités"]
+    },
+    "dnb_2014_06_asie_7": {
+        "annee": "2014",
+        "lieu": "Asie",
+        "mois": "Juin",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2014_06_asie_7.png",
+        "pngcor": "/tex/png/dnb_2014_06_asie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2014_06_asie_7.tex",
+        "urlcor": "/tex/dnb_2014_06_asie_7_cor.tex",
+        "tags":["Prise d'initiative,Recherche d'informations,Trigonométrie,Pythagore"]
     },
     "dnb_2014_06_etrangers_1": {
         "annee": "2014",
