@@ -1359,7 +1359,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_1_cor.tex",
-        "tags":["incoming"]
+        "tags":["Tableur,Arithmétique,Hors-programme,Proportionnalité"]
     },
     "dnb_2014_06_etrangers_2": {
         "annee": "2014",
@@ -1371,7 +1371,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_2_cor.tex",
-        "tags":["incoming"]
+        "tags":["Prise d'initiative,Recherche d'informations,Pythagore"]
     },
     "dnb_2014_06_etrangers_3": {
         "annee": "2014",
@@ -1383,7 +1383,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_3_cor.tex",
-        "tags":["incoming"]
+        "tags":["Vrai-faux,Triangle inscrit dans un cercle,Hors-programme,Géométrie plane,Médiatrice,Triangles,Quadrilétères particuliers"]
     },
     "dnb_2014_06_etrangers_4": {
         "annee": "2014",
@@ -1395,7 +1395,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_4_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie dans l'espace,Pyramide,Agrandissement-réduction,Échelle,Volumes,Grandeurs composées,Prise d'initiative,Recherche d'informations"]
     },
     "dnb_2014_06_etrangers_5": {
         "annee": "2014",
@@ -1407,7 +1407,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_5_cor.tex",
-        "tags":["incoming"]
+        "tags":["Calcul littéral,Calculs numériques"]
     },
     "dnb_2014_06_etrangers_6": {
         "annee": "2014",
@@ -1419,7 +1419,19 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_6_cor.tex",
-        "tags":["incoming"]
+        "tags":["Proportionnalité,Grandeurs composées,Vitesse,Recherche d'informations,Prise d'initiative"]
+    },
+    "dnb_2014_06_etrangers_7": {
+        "annee": "2014",
+        "lieu": "Centres étrangers",
+        "mois": "Juin",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2014_06_etrangers_7.png",
+        "pngcor": "/tex/png/dnb_2014_06_etrangers_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2014_06_etrangers_7.tex",
+        "urlcor": "/tex/dnb_2014_06_etrangers_7_cor.tex",
+        "tags":["Fonctions,Calculs numériques"]
     },
     "dnb_2014_06_polynesie_1": {
         "annee": "2014",
