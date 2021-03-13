@@ -1107,7 +1107,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_2_cor.tex",
-        "tags":["QCM,Calculs numériques,Calcul littéral,Probabilités,Fonctions,Aires et périmètres"]
+        "tags":["QCM,Calculs numériques,Calcul littéral,Probabilités,Fonctions,Aires et périmètres,Hors-programme"]
     },
     "dnb_2014_04_pondichery_3": {
         "annee": "2014",
@@ -1119,7 +1119,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_3.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_3_cor.tex",
-        "tags":["incoming"]
+        "tags":["Vrai-faux,Calcul littéral,Prise d'initiative"]
     },
     "dnb_2014_04_pondichery_4": {
         "annee": "2014",
@@ -1131,7 +1131,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_4.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_4_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie plane,Pythagore,Thalès"]
     },
     "dnb_2014_04_pondichery_5": {
         "annee": "2014",
@@ -1143,7 +1143,19 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_5_cor.tex",
-        "tags":["incoming"]
+        "tags":["Géométrie dans l'espace,Volumes,Agrandissement-reduction,Lecture-graphique"]
+    },
+    "dnb_2014_04_pondichery_6": {
+        "annee": "2014",
+        "lieu": "Pondichéry",
+        "mois": "Avril",
+        "numeroExercice": "6",
+        "png": "/tex/png/dnb_2014_04_pondichery_6.png",
+        "pngcor": "/tex/png/dnb_2014_04_pondichery_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2014_04_pondichery_6.tex",
+        "urlcor": "/tex/dnb_2014_04_pondichery_6_cor.tex",
+        "tags":["Prise-initiative,Tableur,Statistiques,Pourcentages"]
     },
     "dnb_2014_06_ameriquenord_1": {
         "annee": "2014",
