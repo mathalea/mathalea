@@ -8,8 +8,8 @@ import json     # Gestion du json
 '''
     Remplace le contenu du fichier 'modules/liste_des_exercices.json' par l'objet data au format json
 '''
-def write_json(data, filename='modules/liste_des_exercices.json'):
-    with open(filename, 'w', encoding="utf8") as f:
+def write_json(data, filename='liste_des_exercices.json'):
+    with open(filename, 'w+', encoding="utf8") as f:
         json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
 
 

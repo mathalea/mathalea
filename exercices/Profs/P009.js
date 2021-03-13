@@ -83,8 +83,8 @@ export default function SimulateurAleatoire() {
             tabEff[randint(1, nbFaces) - 1]++
           }
           S = tabEff[face - 1] * 3 / 4
-          tabEff[randint(1, nbFaces, face) - 1] -= S
-          tabEff[face - 1] += S
+          tabEff[randint(1, nbFaces, face) - 1] += S
+          tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }
@@ -147,8 +147,8 @@ export default function SimulateurAleatoire() {
             }
           }
           S = tabEff[face - 1] * 3 / 4
-          tabEff[randint(1, 4, face) - 1] -= S
-          tabEff[face - 1] += S
+          tabEff[randint(1, 4, face) - 1] += S
+          tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }

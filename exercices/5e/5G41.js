@@ -130,7 +130,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 }
                 objets_correction.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
                 t1=cercleCentrePoint(O,A)
-                t1.color='grey'
+                t1.color='gray'
                 t1.opacite=0.5
                 t3 = traceCompas(O, C, 20)
                 tri = polygoneAvecNom(A, B, D)
@@ -301,15 +301,15 @@ export default function Constructions_parallelogrammes_particuliers() {
         result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2);
         cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: "" ,taille:0.4});
         cible1.taille = 0.3;
-        cible1.color = 'grey';
+        cible1.color = 'gray';
         cible1.opacite = 0.7;
         cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: "" ,taille:0.4});
         cible2.taille = 0.3;
-        cible2.color = 'grey';
+        cible2.color = 'gray';
         cible2.opacite = 0.7;
         cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: "",taille:0.4 });
         cible3.taille = 0.3;
-        cible3.color = 'grey';
+        cible3.color = 'gray';
         cible3.opacite = 0.7;
         dd1 = segment(O, A)
         dd2 = segment(O, B)

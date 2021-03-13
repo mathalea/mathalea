@@ -55,12 +55,7 @@ export default function Calculs_trigonometriques2() {
           S = pointAdistance(B, 9, 90, 'S')
           p = polygoneAvecNom(A, B, H, S, O)
           objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
-         if(sortie_html){
           objets.push(afficheMesureAngle(B, O, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
-         }
-         else {
-          objets.push(afficheMesureAngle(B, O, S, 'black', 3, `$${alfa}$`), afficheMesureAngle(A, B, O, 'black', 2, `$${baita}$`), afficheMesureAngle(B, O, H, 'black', 2, `$${baita}$`))
-         }
           objets.push(texteSurSegment(`${tex_nombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${tex_nombre(distance)} m`, O, H))
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
           texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${tex_nombre(distance)}$ m de l'observateur.<br>`
@@ -69,14 +64,14 @@ export default function Calculs_trigonometriques2() {
 
             texte += `$O$ représente l'oeil de l'observateur, $[BS]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
 
-            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets);
+            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 0.5 }, objets);
             texte += `<br>Calculer d'abord l'angle $${baita}$.<br>`
             texte += `En déduire la mesure de l'angle $\\widehat{HOS}$.<br>`
             texte += `Calculer alors la longueur $HS$.<br>`
           }
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]} arrondie au mètre près.<br>`
 
-          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets)
+          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 0.5 }, objets)
           texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $\\tan(${baita})=\\dfrac{HB}{OH}$.<br>D'où $${baita}=\\arctan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
           texte_corr += `$\\widehat{HOS}=${alfa}-${baita}\\approx ${arrondi_virgule(alpha - beta)}$.<br>`
           texte_corr += `$HS=OH\\times \\tan(\\widehat{HOS})\\approx ${distance}\\times \\tan(${arrondi_virgule(alpha - beta)})\\approx ${tex_nombrec(taille - hauteur)}$ m.<br>`

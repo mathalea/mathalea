@@ -138,7 +138,7 @@ export default function Agrandissement_reduction() {
 				else
 					texte_corr += `.$<br>`;
 				texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`;
-				texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c), arrondi(h1 * h1 * 100))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c / h1 / h1, 2))}$ cm${exposant(2)}.<br>`;
+				texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombrec(c * c)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c), arrondi(h1 * h1 * 100))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c / h1 / h1, 2))}$ cm${exposant(2)}.<br>`;
 				texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`;
 				texte_corr += `Donc le volume de la pyramide SA'B'C'D' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c * h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}.<br>`;
 				texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `;

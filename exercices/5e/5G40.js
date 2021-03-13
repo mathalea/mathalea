@@ -65,13 +65,13 @@ export default function Constructions_parallelogrammes() {
         result3= dansLaCibleCarree(B.x, B.y, 5, 0.5, cellule3);
         
         cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num:1,taille:0.5 });
-        cible.color = 'grey';
+        cible.color = 'gray';
         cible.opacite = 0.7;
         cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num:2,taille:0.5 });
-        cible2.color = 'grey';
+        cible2.color = 'gray';
         cible2.opacite = 0.7;
         cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num:3,taille:0.5 });
-        cible3.color = 'grey';
+        cible3.color = 'gray';
         cible3.opacite = 0.7;
 		let xMin, yMin, xMax, yMax
 		xMin = Math.min(A.x, B.x,C.x,D.x)-3;

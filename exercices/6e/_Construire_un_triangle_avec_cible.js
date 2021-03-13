@@ -220,7 +220,7 @@ export default function Construire_un_triangle_avec_cible() {
       TT = polygoneAvecNom(A, B, CC)
       objets_enonceml.push(TT[0], TT[1])
       objets_correction.push(T[0], T[1])
-      params_enonceml = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
+      params_enonceml = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.3 }
       params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }
       params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
