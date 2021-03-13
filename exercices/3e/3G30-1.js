@@ -63,8 +63,8 @@ export default function Mon_Exercice() {
         t3 = texteSurSegment("opposé à $\\alpha$",A,C)
         t22 = texteSurSegment("opposé à $\\beta$",B,A)
         t32 = texteSurSegment("adjacent à $\\beta$",A,C)
-        codageAngle = afficheMesureAngle(A,B,C,'red',1.5,'$\\alpha$')
-        codageAngle2 = afficheMesureAngle(A,C,B,'red',1.5,'$\\beta$')
+        codageAngle = afficheMesureAngle(A,B,C,'red',1.5,'\\alpha')
+        codageAngle2 = afficheMesureAngle(A,C,B,'red',1.5,'\\beta')
     }
     let hypo = segment(C,B)
     hypo.epaisseur = 2

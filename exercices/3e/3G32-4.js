@@ -49,12 +49,8 @@ export default function Calculs_trigonometriques4() {
           C = projectionOrtho(B, droite(A, S), 'C')
           p = polygoneAvecNom(A, B, H, S, C)
           objets.push(p[1], p[0], segment(C, B), segment(S, B), codageAngleDroit(A, H, S),codageAngleDroit(B,C,S))
-          if (sortie_html) {
           objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
-          }
-          else {
-            objets.push(afficheMesureAngle(H, A, S, 'black', 2, `$${alfa}$`), afficheMesureAngle(H, B, S, 'black', 2, `$${baita}$`))
-          }
+         
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>`;

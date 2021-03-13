@@ -86,8 +86,7 @@ import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modul
             }
         })();
 
-        if (!sortie_html) {
-            // Sortie LaTeX
+            // Sortie LaTeX quoi qu'il advienne !
             // code pour la sortie LaTeX
             let questions=[];
             code_LaTeX = "";
@@ -120,7 +119,6 @@ console.log(questions)
                 $("#cache").hide(); // Cache au dessus du code LaTeX
                 div.innerHTML = "";
             }
-        }
 
             // Gestion du téléchargement
 
@@ -206,6 +204,7 @@ console.log(questions)
                     .then((module) => {
                         if (module) {
                             listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                            listeObjetsExercice[i].ModeQCM=true
                             if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                 besoinXCas = true;
                             }
@@ -353,31 +352,7 @@ console.log(questions)
         }
 
         for (let i = 0; i < exercice.length; i++) {
-            if (sortie_html) {
-                div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + " : " + exercice[i].titre + " − " + liste_des_exercices[i] + "</h4>";
-                if (exercice[i].pas_de_version_LaTeX) {
-                    div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>";
-                }
-                if (exercice[i].nb_questions_modifiable) {
-                    div_parametres_generaux.innerHTML +=
-                        '<div><label for="form_nb_questions' + i + '">Nombre de questions : </label> <input id="form_nb_questions' + i + '" type="number"  min="1" max="99"></div>';
-                }
-                if (!est_diaporama){
-                    div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>';
-                }
-                if (exercice[i].correction_detaillee_disponible) {
-                    div_parametres_generaux.innerHTML +=
-                        '<div><label for="form_correction_detaillee' + i + '">Correction détaillée : </label> <input id="form_correction_detaillee' + i + '" type="checkbox" ></div>';
-                }
-                if (exercice[i].QCM_disponible) {
-                    div_parametres_generaux.innerHTML +=
-                        '<div><label for="form_ModeQCM' + i + '">Mode QCM : </label> <input id="form_ModeQCM' + i + '" type="checkbox" ></div>';
-                }
-                
-                if (!exercice[i].nb_questions_modifiable && !exercice[i].correction_detaillee_disponible && !exercice[i].besoin_formulaire_numerique && !exercice[i].besoin_formulaire_texte && !exercice[i].QCM_disponible) {
-                    div_parametres_generaux.innerHTML += "<p><em>Cet exercice ne peut pas être paramétré.</em></p>";
-                }
-            } else {
+            exercice[i].ModeQCM=true
                 div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + " : " + exercice[i].titre + "</h4>";
 
                 if (exercice[i].consigne_modifiable) {
@@ -408,7 +383,6 @@ console.log(questions)
                 if (exercice[i].spacing_corr_modifiable) {
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nb_cols_corr' + i + '">Espacement dans la correction : </label><input id="form_spacing_corr' + i + '" type="number" min="1" max="99"></div>';
-                }
 
                 // Si le nombre de versions changent
                 $("#nombre_de_versions").change(function () {
