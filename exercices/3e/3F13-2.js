@@ -104,7 +104,7 @@ export default function Premier_escape_game_mathalea() {
 		switch (type) {
 			case 1: //N&B
 				p = polygoneRegulier(point(-1, -2), point(15, -2), 4);
-				p.couleurDeRemplissage = 'grey';
+				p.couleurDeRemplissage = 'gray';
 				p.opacite = 0.2;
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'black', step: 0.1 });
 				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'white', step: 0.1 });
@@ -115,7 +115,7 @@ export default function Premier_escape_game_mathalea() {
 			case 2: //RGB
 				p = polygoneRegulier(point(-1, -2), point(15, -2), 4);
 				p.opacite = 0.2;
-				p.couleurDeRemplissage = 'grey';
+				p.couleurDeRemplissage = 'gray';
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'red', step: 0.1 });
 				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'green', step: 0.1 });
 				f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'blue', step: 0.1 });
@@ -127,7 +127,7 @@ export default function Premier_escape_game_mathalea() {
 			case 3: //CJMN
 				p = polygoneRegulier(point(-1, -2), point(15, -2), 4);
 				p.opacite = 0.2;
-				p.couleurDeRemplissage = 'grey';
+				p.couleurDeRemplissage = 'gray';
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'cyan', step: 0.1 });
 				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'yellow', step: 0.1 });
 				f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'magenta', step: 0.1 });

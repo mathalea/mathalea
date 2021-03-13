@@ -83,8 +83,8 @@ export default function SimulateurAleatoire() {
             tabEff[randint(1, nbFaces) - 1]++
           }
           S = tabEff[face - 1] * 3 / 4
-          tabEff[randint(1, nbFaces, face) - 1] -= S
-          tabEff[face - 1] += S
+          tabEff[randint(1, nbFaces, face) - 1] += S
+          tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }
@@ -147,8 +147,8 @@ export default function SimulateurAleatoire() {
             }
           }
           S = tabEff[face - 1] * 3 / 4
-          tabEff[randint(1, 4, face) - 1] -= S
-          tabEff[face - 1] += S
+          tabEff[randint(1, 4, face) - 1] += S
+          tabEff[face - 1] -= S
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }
@@ -249,7 +249,7 @@ export default function SimulateurAleatoire() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoin_formulaire_numerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
-  this.besoin_formulaire2_texte = ["Nombre de tirages", `Taper un nombre entier : ${tex_nombre(10000)}`];
+  this.besoin_formulaire2_texte = ["Nombre de tirages", `Taper un nombre entier : ${10000}`];
   this.besoin_formulaire3_case_a_cocher = ["Équiprobabilité", true]
 
 
