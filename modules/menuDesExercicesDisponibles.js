@@ -1048,7 +1048,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_1.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_1_cor.tex",
-        "tags":["incoming"]
+        "tags":["Arithmétique"]
     },
     "dnb_2014_04_pondichery_2": {
         "annee": "2014",
@@ -1060,7 +1060,7 @@ let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_2_cor.tex",
-        "tags":["incoming"]
+        "tags":["QCM,Calculs numériques,Calcul littéral,Probabilités,Fonctions,Aires et périmètres"]
     },
     "dnb_2014_04_pondichery_3": {
         "annee": "2014",
