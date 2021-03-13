@@ -26,8 +26,9 @@ export default function Probleme_de_ratio() {
     objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons'],
     sirops=['de fraise','de citron','de cerise','de menthe','d\'orange'],
     jusdefruit=['d\'annanas','de banane','de pamplemousse','d\'abricot','de raisin'],
-    article
-    let type_de_questions_disponibles = ['partage','mélange']//['partage','mélanges','dilution','recette','ecran'] // tableau à compléter par valeurs possibles des types de questions
+    produits=['produit d\'entretient','décapant biologique','colorant','shampoing automobile','engrais liquide'],
+    article,p1,p2
+    let type_de_questions_disponibles = ['partage','mélange','dilution']//['partage','mélanges','dilution','recette','ecran'] // tableau à compléter par valeurs possibles des types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (let i = 0, texte, texte_corr, x, y, z, total, a, b, c, n = 2, k, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
@@ -143,6 +144,24 @@ export default function Probleme_de_ratio() {
           break
 
         case 'dilution':
+          x=randint(1,3)
+          y=randint(2*x,4*x)
+          a=x+y
+          p1=Math.round(x*100/a)
+          if (n==3) { //Deux ratios de dilution : x:y x:z
+            z=randint(5*x,10*x)
+            b=x+z
+            p2=p1
+            p1=Math.round(x*100/b)
+          }
+          console.log(x,y,z,p1,p2,a,b)
+          texte+=`Un ${produits[(p1+i)%5]} est vendu sous forme concentrée avec l\'indication suivante sur le bidon :<br>`
+          if (n==2){
+            texte+=`Diluer avec de l\'eau à $${p1}\\%$ ($${x}$:$${y}$).<br>`
+          }
+          else {
+            texte+=`Diluer avec de l\'eau de $${p1}\\%$ à $${p2}\\%$ ( de $${x}$:$${y}$ à $${x}$:$${z}$).<br>`
+          }
 
           break
 
