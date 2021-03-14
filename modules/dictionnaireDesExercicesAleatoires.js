@@ -1,4 +1,4 @@
-export let dictionnaire = 
+export let dictionnaireDesExercicesAleatoires = 
 {
     "1E10": {
         "titre": "Calcul du discriminant d'une équation du second degré",

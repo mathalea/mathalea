@@ -1,3 +1,4 @@
+export let dictionnaireDNB = 
 {
     "dnb_2013_04_pondichery_1": {
         "annee": "2013",

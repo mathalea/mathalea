@@ -1,9 +1,13 @@
 import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle }  from "./outils.js" ;
-import {dictionnaire} from "./dictionnaireDesExercices.js"
+import {dictionnaireDesExercicesAleatoires} from "./dictionnaireDesExercicesAleatoires.js"
 import {dictionnaireC3} from "./dictionnaireC3.js" 
 import {dictionnaireDNB} from "./dictionnaireDNB.js"
 
-export function liste_html_des_exercices_d_un_theme(theme){
+// On concatène les différentes listes d'exercices
+export let dictionnaireDesExercices = {...dictionnaireDesExercicesAleatoires,...dictionnaireDNB, ...dictionnaireC3};
+let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices);
+
+function liste_html_des_exercices_d_un_theme(theme){
   let liste = '';
   let dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles,theme);
   for (let id in dictionnaire) {
@@ -12,7 +16,7 @@ export function liste_html_des_exercices_d_un_theme(theme){
   }
   return liste;
 }
-export function liste_html_des_exercices_DNB_annee(annee){
+function liste_html_des_exercices_DNB_annee(annee){
   let liste = '';
   let dictionnaire = filtreDictionnaireValeurCle(dictionnaireDNB,"annee",annee);
   for (let id in dictionnaire) {
@@ -22,7 +26,7 @@ export function liste_html_des_exercices_DNB_annee(annee){
   return liste;
 }
 
-export function liste_html_des_exercices_DNB_theme(theme){
+function liste_html_des_exercices_DNB_theme(theme){
   let liste = '';
   let dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireDNB,"tags",theme);
   for (let id in dictionnaire) {
@@ -32,7 +36,7 @@ export function liste_html_des_exercices_DNB_theme(theme){
   return liste;
 }
 
-export function liste_html_des_exercices_d_un_niveau(liste_de_themes){ // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
+function liste_html_des_exercices_d_un_niveau(liste_de_themes){ // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
   let liste = '';
   for (let theme of liste_de_themes){
     liste += `<h3>${theme[1]}</h3>`;
@@ -42,7 +46,7 @@ export function liste_html_des_exercices_d_un_niveau(liste_de_themes){ // liste_
 }
 
 
-export function get_liste_html_des_exercices_DNB(){ 
+function get_liste_html_des_exercices_DNB(){ 
   let liste = '<div class="accordion">';
   for (let annee of ["2020","2019","2018","2017","2016","2015","2014","2013"]){
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`;
@@ -53,7 +57,7 @@ export function get_liste_html_des_exercices_DNB(){
   return liste;
 }
 
-export function get_liste_html_des_exercices_DNB_theme(){ 
+function get_liste_html_des_exercices_DNB_theme(){ 
   let liste = '<div class="accordion">';
   for (let theme of ["Pythagore","Thalès","Trigonométrie","Géométrie plane","Transformations",
   "Géométrie dans l'espace",
@@ -429,7 +433,7 @@ export function menuDesExercicesDisponibles(){
 }
 
 
-export function menuTheme(theme) {
+function menuTheme(theme) {
   let codeHTML = '<h2 class="ui horizontal divider header">Exercices en ligne à données aléatoires</h2>'
   codeHTML += '\n<div class="ui middle aligned animated selection divided list">'
   let dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles,theme);
@@ -445,7 +449,7 @@ export function menuTheme(theme) {
 }
 
 
-export function listeTheme(theme) {
+function listeTheme(theme) {
   let codeHTML = ''
   let dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles,theme);
   for (let id in dictionnaire) {
@@ -457,7 +461,3 @@ export function listeTheme(theme) {
   return codeHTML
   
 }
-
-
-export let dictionnaireDesExercices = {...dictionnaireDNB, ...dictionnaire, ...dictionnaireC3};
-let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices);
