@@ -61,12 +61,13 @@ export default function Mesurer_un_angle() {
       B = point(6, 0);
       B=rotation(B,A,anglerot)
 
-      Bpos=texteParPoint(p[0],similitude(A,homothetie(B,A,0.95),signes[i]*90,0.1),'milieu')
+      // texte, A, orientation = "milieu", color = 'black', scale = 1, ancrageDeRotation = "middle", math_on = false
+      Bpos=texteParPoint(p[0],similitude(A,homothetie(B,A,0.95),signes[i]*90,0.1),'milieu','black',1,"middle", true)  
       s1 = demiDroite (A, B);
       C = rotation(B,A,angle);
       bis=rotation(B,A,angle/2)
-      Apos=texteParPoint(p[1],pointSurSegment(A,bis,-0.5),'milieu')
-      Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.95),-signes[i]*90,0.1),'milieu')
+      Apos=texteParPoint(p[1],pointSurSegment(A,bis,-0.5),'milieu','black',1,"middle", true)
+      Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.95),-signes[i]*90,0.1),'milieu','black',1,"middle", true)
       s2 = demiDroite(A, C);
       labels=labelPoint(A,B,C)
       secteur=afficheMesureAngle(B,A,C)

@@ -34,7 +34,7 @@ export default function Volume_boule() {
     let type_de_questions_disponibles = []; // tableau à compléter par valeurs possibles des types de questions
     type_de_questions_disponibles = [1,2,3,4];
     let liste_type_de_questions = [];
-    type_de_questions_disponibles.splice(this.sup, 4-parseInt(this.sup));
+    type_de_questions_disponibles.splice(this.sup, 5-parseInt(this.sup));
     liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
  
       // boucle pour fabriquer les nb_questions questions en s'assurant que si il n'y a pas nb_questions différentes
@@ -84,14 +84,14 @@ export default function Volume_boule() {
             texte += `Calculer le volume dans la boîte laissée libre par la boule. `;
 
             texte_corr += `Représentons la situation par un petit schéma : <br>`;
-              let O=point3d(0,0,0);
-              let B=point3d(2.5,0,0);
+              let O = point3d(0,0,0);
+              let B = point3d(2.5,0,0);
               let OO = point3d(0,0,5);
-              let o=point3d(0,0,2.5);
-              let R=vecteur3d(O,B);
+              let o = point3d(0,0,2.5);
+              let R = vecteur3d(O,B);
               let normal = vecteur3d(0,0,1);
               let s = sphere3d(o,2.5,5,5,'blue');
-              let c=cylindre3d(O,OO,normal,R,R);
+              let c=cylindre3d(O,OO,normal,R,R,'black');
           //mathalea.anglePerspective=20;
             texte_corr +='<br>'+ mathalea2d({xmin:-5,max:9,ymin:-1.5,ymax:6,scale:.8}, s,c)+`<br>`;
             texte_corr += `Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>`;

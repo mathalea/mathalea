@@ -600,6 +600,60 @@ export function filtreDictionnaire(dict,sub) {
 	);
 }
 
+/*
+* Polyfill Object.fromEntries
+*
+* Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+*/
+if (!Object.fromEntries) {
+	Object.defineProperty(Object, 'fromEntries', {
+	  value(entries) {
+		if (!entries || !entries[Symbol.iterator]) { throw new Error('Object.fromEntries() requires a single iterable argument'); }
+  
+		const o = {};
+  
+		Object.keys(entries).forEach((key) => {
+		  const [k, v] = entries[key];
+  
+		  o[k] = v;
+		});
+  
+		return o;
+	  },
+	});
+  }
+  
+
+/*
+* Filtre un dictionnaire suivant la valeur d'une clé
+*
+* @Example
+* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+* @Auteur Rémi Angot
+*/
+export function filtreDictionnaireValeurCle(dict,key,val) {
+	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => v[key]==val));
+}
+
+/*
+* Filtre un dictionnaire si une valeur appartient à une clé de type tableau
+*
+* @Example
+* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+* @Auteur Rémi Angot
+*/
+export function filtreDictionnaireValeurTableauCle(dict,key,val) {
+	return Object.fromEntries(Object.entries(dict).filter(([k,v]) => cleExisteEtContient(v[key],val) ));
+}
+
+function cleExisteEtContient(v,val){
+	if (v!=undefined) {
+		return v.includes(val)
+	} else {
+		return false
+	}
+}
+
 
 
 /*
@@ -1668,24 +1722,107 @@ export function minToHour(minutes){
 * Renvoie un prénom féminin au hasard 
 * @Auteur Rémi Angot
 */
-export function prenomF(){
+export function prenomF(n=1){
+	if (n==1){
 	return choice(['Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine'])
+	}
+	else {
+		return shuffle(['Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine']).slice(0,n)
+	}
 }
 
 /**
 * Renvoie un prénom masculin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomM(){
+export function prenomM(n=1){
+	if (n==1){
 	return choice(['Rémi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude'])
+	}
+	else {
+		return shuffle(['Rémi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude']).slice(0,n)
+	}
 }
 
 /**
 * Renvoie un prénom au hasard
 * @Auteur Rémi Angot
 */
-export function prenom(){
+export function prenom(n=1){
+	if (n==1){
 	return choice([prenomF(),prenomM()])
+	}
+	else {
+		return shuffle(['Rmi','Benjamin','Guillaume','Christophe','Cyril','Kamel','Yazid','Mehdi','Karim','Bernard','Joachim','Jean-Claude','Manon','Julie','Aude','Corinne','Léa','Carine','Elsa','Lisa','Marina','Magalie','Nawel','Dalila','Nadia','Yasmine']).slice(0,n)
+	}
+}
+
+/**
+ * Définit l'objet personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+class Personne {
+	constructor ({prenom='',genre='',pronom=''}={}){
+		let choix
+		this.prenom=''
+		this.genre=''
+		this.pronom=''
+		if (prenom==''||typeOf(prenom=='undefined')){ // On le/la baptise
+			choix=prenomPronom()
+				this.prenom=choix[0]
+				this.pronom=choix[1]
+			}
+		else if (pronom=''){ // le pronom n'est pas précisé
+			this.pronom='on'
+		}
+		if (genre==''){
+		if (this.pronom=='il'){
+			this.genre='masculin'
+		}
+		else if (this.pronom=='elle'){
+			this.genre='féminin'
+		}
+		else this.genre='neutre'
+		}
+	}
+}
+/**
+ * crée une instance de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personne({prenom='',genre='',pronom=''}={}){
+	return new Personne({prenom:prenom,genre:genre,pronom:pronom})
+}
+/**
+ * Crée un tableau de n objet de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personnes(n) {
+	let liste=[],essai
+	for (let i=0;i<n;i++){
+		essai=personne()
+		while (liste.indexOf(essai)!=-1){
+			essai=personne()
+		}
+		liste.push(essai)
+	}
+	return liste
+}
+
+/**
+ * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
+ *  @Auteur Jean-Claue Lhote
+ */
+export function prenomPronom(){
+		if (choice([true,false])){
+			return [prenomM(1),'il']
+		}
+		else {
+			return [prenomF(1),'elle']
+		}
 }
 
  /**
@@ -7515,7 +7652,7 @@ export function scratchTraductionFr() {
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
-		if (tabQCM[2][0]<2) {
+		if (tabQCM[2].length>=2) { //si le tableau des booléens comporte au moins 2 booléens, alors c'est un QCM sinon c'est une question ouverte
 		for (let b of tabQCM[2]) {
 			if (b == 1) nbBonnes++
 		}
@@ -7543,7 +7680,7 @@ export function scratchTraductionFr() {
 		tex_QR += `	\\end{${type}}\n }\n `
 		id++
 	}
-	else { // question ouverte
+	else { // question ouverte : En cas de question ouverte, le booléen n'en est pas un mais donne le nombre de lignes pour la zone de réponse
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
 		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
@@ -7560,20 +7697,21 @@ export function scratchTraductionFr() {
  * @Auteur Jean-Claude Lhote
  * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
  * 
- *  questions est un tableau d'éléments de type codeAMC
- * codeAMC est un tableau comme celui retourné par la fonction export_QCM_AMC ci-dessus
- * codeAMC[0] est le code Latex des \element{} du groupe de questions
- * codeAMC[1] est le nom du groupe
- * codeAMC[2] est le nombre d'éléments du groupe
- * codeAMC[3] est le titre affiché en commun pour toutes les questions du groupe. 
+ *  questions est un tableau d'éléments de type Exercice.QCM
+ * Exercice.QCM est un tableau produit par l'exercice 
+ * QCM[0] est la référence du groupe de question, c'est la référence de l'exercice dont il est issu
+ * QCM[1] est un tableau d'éléments de type ['question posée',tableau des réponses,tableau des booléens bon ou mauvais]
+ * QCM[2] est le titre donné sur la copie pour le groupe de question (pour ne pas mettre la référence)
  * 
  * nb_questions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
  * si il est indéfini, toutes les questions du groupe seront posées.
  * nb_exemplaire est le nombre de copie à générer
+ * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
 export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	let idExo=0,code
+	let graine=randint(1,100000)
 	let groupeDeQuestion=[],tex_questions=[[]],titre_question=[]
 	for (let qcm of questions){
 		code=export_QCM_AMC(qcm,idExo)
@@ -7642,6 +7780,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\usepackage[francais,bloc,completemulti]{automultiplechoice}\n 
 \\begin{document} 
+\\AMCrandomseed{${graine}}
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`;
 	
