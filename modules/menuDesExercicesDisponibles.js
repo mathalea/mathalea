@@ -29,7 +29,13 @@ function liste_html_des_exercices_DNB_annee(annee){
 function liste_html_des_exercices_DNB_theme(theme){
   let liste = '';
   let dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireDNB,"tags",theme);
-  for (let id in dictionnaire) {
+  let tableauDesExercices = []
+  for (let id in dictionnaire){
+      tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (let id of tableauDesExercices) {
     liste +=
       `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["annee"]} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
   }
@@ -307,7 +313,7 @@ export function menuDesExercicesDisponibles(){
       liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="active content">`;
       liste_html_des_exercices += liste_html_des_exercices_CM;
       liste_html_des_exercices += `</div>`;
-      liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Cours Moyen(${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
+      liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CM1 / CM2(${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
       liste_html_des_exercices += liste_html_des_exercices_c3;
       liste_html_des_exercices += `</div>`;
       liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
@@ -341,7 +347,7 @@ export function menuDesExercicesDisponibles(){
       liste_html_des_exercices += `</div>`;
     }
     else {
-      liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Cours Moyen (${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
+      liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>CM1 / CM2 (${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
       liste_html_des_exercices += liste_html_des_exercices_c3;
       liste_html_des_exercices += `</div>`;
       liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
