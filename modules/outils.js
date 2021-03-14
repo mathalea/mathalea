@@ -1758,28 +1758,71 @@ export function prenom(n=1){
 }
 
 /**
- * Renvoie un tableau de n couples [prénom,sexe] où sexe='M' ou 'F (renvoie par défaut un couple [prénom,sexe])
- *  @Auteur Jean-Claue Lhote
+ * Définit l'objet personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
  */
-export function prenomSexe(n=1){
-	let result=[],essai
-	for (let i=0;i<n;i++) {
-		if (choice([true,false])){
-			essai=prenomM(1)
-			while (result.indexOf([essai,'M'])!=-1){
-				essai=prenomM(1)
+class Personne {
+	constructor ({prenom='',genre='',pronom=''}={}){
+		let choix
+		this.prenom=''
+		this.genre=''
+		this.pronom=''
+		if (prenom==''||typeOf(prenom=='undefined')){ // On le/la baptise
+			choix=prenomSexe()
+				this.prenom=choix[0]
+				this.pronom=choix[1]
 			}
-			result.push([essai,'M'])
+		else if (pronom=''){ // le pronom n'est pas précisé
+			this.pronom='on'
 		}
-		else {
-			essai=prenomF(1)
-			while (result.indexOf([essai,'F'])!=-1){
-				essai=prenomF(1)
-			}
-			result.push([essai,'F'])
+		if (genre==''){
+		if (this.pronom=='il'){
+			this.genre='masculin'
+		}
+		else if (this.pronom=='elle'){
+			this.genre='féminin'
+		}
+		else this.genre='neutre'
 		}
 	}
-	return result
+}
+/**
+ * crée une instance de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personne({prenom='',genre='',pronom=''}={}){
+	return new Personne({prenom:prenom,genre:genre,pronom:pronom})
+}
+/**
+ * Crée un tableau de n objet de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personnes(n) {
+	let liste=[],essai
+	for (let i=0;i<n;i++){
+		essai=personne()
+		while (liste.indexOf(essai)!=-1){
+			essai=personne()
+		}
+		liste.push(essai)
+	}
+	return liste
+}
+
+/**
+ * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
+ *  @Auteur Jean-Claue Lhote
+ */
+export function prenomSexe(){
+		if (choice([true,false])){
+			return [prenomM(1),'il']
+		}
+		else {
+			return [prenomF(1),'elle']
+		}
 }
 
  /**
