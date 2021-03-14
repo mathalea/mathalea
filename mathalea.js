@@ -543,6 +543,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         .then((module) => {
                             if (module) {
                                 listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                                if (dictionnaireDesExercices[id]["sup"]!=undefined){
+                                    listeObjetsExercice[i]["sup"]=dictionnaireDesExercices[id]["sup"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup2"]!=undefined){
+                                    listeObjetsExercice[i]["sup2"]=dictionnaireDesExercices[id]["sup2"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup3"]!=undefined){
+                                    listeObjetsExercice[i]["sup3"]=dictionnaireDesExercices[id]["sup3"]
+                                }
+                                if (dictionnaireDesExercices[id]["nb_questions"]!=undefined){
+                                    listeObjetsExercice[i]["nb_questions"]=dictionnaireDesExercices[id]["nb_questions"]
+                                }
                                 if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                     besoinXCas = true;
                                 }
