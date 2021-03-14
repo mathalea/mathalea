@@ -1757,6 +1757,74 @@ export function prenom(n=1){
 	}
 }
 
+/**
+ * Définit l'objet personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+class Personne {
+	constructor ({prenom='',genre='',pronom=''}={}){
+		let choix
+		this.prenom=''
+		this.genre=''
+		this.pronom=''
+		if (prenom==''||typeOf(prenom=='undefined')){ // On le/la baptise
+			choix=prenomPronom()
+				this.prenom=choix[0]
+				this.pronom=choix[1]
+			}
+		else if (pronom=''){ // le pronom n'est pas précisé
+			this.pronom='on'
+		}
+		if (genre==''){
+		if (this.pronom=='il'){
+			this.genre='masculin'
+		}
+		else if (this.pronom=='elle'){
+			this.genre='féminin'
+		}
+		else this.genre='neutre'
+		}
+	}
+}
+/**
+ * crée une instance de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personne({prenom='',genre='',pronom=''}={}){
+	return new Personne({prenom:prenom,genre:genre,pronom:pronom})
+}
+/**
+ * Crée un tableau de n objet de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personnes(n) {
+	let liste=[],essai
+	for (let i=0;i<n;i++){
+		essai=personne()
+		while (liste.indexOf(essai)!=-1){
+			essai=personne()
+		}
+		liste.push(essai)
+	}
+	return liste
+}
+
+/**
+ * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
+ *  @Auteur Jean-Claue Lhote
+ */
+export function prenomPronom(){
+		if (choice([true,false])){
+			return [prenomM(1),'il']
+		}
+		else {
+			return [prenomF(1),'elle']
+		}
+}
+
  /**
 * Renvoie un tableau avec les résultats des tirages successifs
 * @param nombre_tirages Combien de tirages ?
