@@ -226,7 +226,7 @@ export default function Probleme_de_ratio() {
             texte+=`${quidam.prenom} veut réaliser une vinaigrette. Pour cela ${article} mélange du vinaigre et de l'huile d'olive selon le ratio $~${x}~:~${y}$.<br>`
             texte+=`${premiere_lettre_en_majuscule(article)} utilise $${y*k}$ cuillères à soupe d'huile d'une contenance de $15 \\text{ mL}$ chacune.<br>`
             texte+=`${num_alpha(0)} Quel volume de vinaigre doit-${article} utiliser ?<br>`
-            texte+=`${num_alpha(1)} Quel sera le volume de vinaigrette, ${quidam.prenom} réalisera-t-${article} ?`
+            texte+=`${num_alpha(1)} Quel volume de vinaigrette ${quidam.prenom} réalisera-t-${article} ?`
             texte_corr+=`${num_alpha(0)} Comme le ratio de vinaigre et d'huile est $${x}~:~${y}$, alors on a :<br>`
             texte_corr+=`${sp(6)}$${tex_fraction("\\text{volume de vinagre en mL}",x+"\\text{ mL}")}=${tex_fraction(`${y*k}\\times 15 \\text{ mL}`,y+"\\text{ mL}")}=${mise_en_evidence(k*15)}$.<br>`
             texte_corr+=`${sp(6)}Le volume de vinaigre doit-être : $${mise_en_evidence(k*15)}\\times ${x}\\text{ mL}=${k*15*x}\\text{ mL}$.<br>`
