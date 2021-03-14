@@ -34,7 +34,7 @@ export let dictionnaireC3 = {
     "c3C31": {
         "titre": "Problèmes de courses",
         "url": "/exercices/6e/6C32.js",
-        "nb_questions": 4,
+        "nb_questions": 1,
         "sup": 1,
     },
 }

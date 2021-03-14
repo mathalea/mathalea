@@ -108,9 +108,7 @@ export default function Probleme_course() {
       )}~\\text{\\euro} + ${tex_nombre(
         Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
       )}~\\text{\\euro}`
-      if (masse_en_kg_de_aliment1 * prix_aliment1 +
-        (masse_en_g_de_aliment2 * prix_aliment2) / 1000==arrondi(masse_en_kg_de_aliment1 * prix_aliment1 +
-          (masse_en_g_de_aliment2 * prix_aliment2) / 1000),2) {
+      if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
             texte_corr+=`=`
           }
           else {
