@@ -1757,6 +1757,31 @@ export function prenom(n=1){
 	}
 }
 
+/**
+ * Renvoie un tableau de n couples [prénom,sexe] où sexe='M' ou 'F (renvoie par défaut un couple [prénom,sexe])
+ *  @Auteur Jean-Claue Lhote
+ */
+export function prenomSexe(n=1){
+	let result=[],essai
+	for (let i=0;i<n;i++) {
+		if (choice([true,false])){
+			essai=prenomM(1)
+			while (result.indexOf([essai,'M'])!=-1){
+				essai=prenomM(1)
+			}
+			result.push([essai,'M'])
+		}
+		else {
+			essai=prenomF(1)
+			while (result.indexOf([essai,'F'])!=-1){
+				essai=prenomF(1)
+			}
+			result.push([essai,'F'])
+		}
+	}
+	return result
+}
+
  /**
 * Renvoie un tableau avec les résultats des tirages successifs
 * @param nombre_tirages Combien de tirages ?
