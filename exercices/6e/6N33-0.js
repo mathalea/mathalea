@@ -24,20 +24,23 @@ export default function Fraction_d_une_quantite() {
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles
     let liste_type_de_questions = []
+    let choixdenh=combinaison_listes([3,4,5,10,12,20,30],this.nb_questions)
+    let choixdent=combinaison_listes([20,24,30],this.nb_questions)
+    let choixdenb=combinaison_listes([4,5,10,12],this.nb_questions)
+     
     if (this.sup < 5)
       type_de_questions_disponibles = [parseInt(this.sup)]
     else
       type_de_questions_disponibles = [1, 2, 3, 4]
     liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (
-      let i = 0, den, num, choix, longueur, numIrred, denIrred, k, masse, frac, texte, texte_corr, cpt = 0;
+      let i = 0, den, num, choix, longueur, numIrred, denIrred, k, masse, frac,frac2, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
-
     ) {
       switch (liste_type_de_questions[i]) {
         case 1:
-          den = choice([2, 3, 4, 5, 10])
-          num = randint(1, den - 1)
+          den = choixdenh[i]
+          num = randint(1, den-1)
           frac = fraction(num, den)
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d\'heure ?<br>`
           if (this.sup2) {
@@ -49,7 +52,7 @@ export default function Fraction_d_une_quantite() {
           texte_corr += `$${frac.texFraction}$ d\'heure correspond donc à $${calcul(num * 60 / den)}$ minutes.`
           break
         case 2:
-          den = choice([2, 3, 4, 5, 10])
+          den = choixdenh[i]
           num = randint(1, 3 * den, den)
           frac = fraction(num, den)
           texte = `À combien de minutes correspondent $${frac.texFraction}$ d\'heure ?<br>`
@@ -63,10 +66,10 @@ export default function Fraction_d_une_quantite() {
           break
         case 3:
           masse = choice([120, 180, 240, 300])
-          denIrred = choice([2, 3, 4, 5, 10])
-          numIrred = randint(1, denIrred - 1)
+          denIrred = choixdent[i]
+          numIrred = (i*randint(1, denIrred - 1))%denIrred
           while (pgcd(denIrred, numIrred) != 1 || calcul(denIrred / numIrred) == 2) {
-            denIrred = choice([2, 3, 4, 5, 10])
+            denIrred = choixdent[i]
             numIrred = randint(1, denIrred - 1)
           }
           frac = fraction(numIrred, denIrred)
@@ -96,10 +99,9 @@ export default function Fraction_d_une_quantite() {
           }
           break
         case 4:
-          den = choice([2, 3, 4, 5, 10])
           num = randint(1, den - 1)
           longueur = choice([120, 180, 240, 300])
-          denIrred = choice([2, 3, 4, 5, 10])
+          denIrred = choixdenb[i]
           numIrred = randint(1, denIrred - 1)
           while (pgcd(denIrred, numIrred) != 1 || calcul(denIrred / numIrred) == 2) {
             denIrred = choice([2, 3, 4, 5, 10])
@@ -126,7 +128,7 @@ export default function Fraction_d_une_quantite() {
 
 
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.liste_corrections.indexOf(texte_corr) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
