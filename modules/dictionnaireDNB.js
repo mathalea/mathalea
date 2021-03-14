@@ -4307,7 +4307,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_1_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_1.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_1_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_1_cor.tex",
+        "tags":["Pythagore","Trigonométrie","Thalès"]
     },
     "dnb_2019_06_ameriquenord_2": {
         "annee": "2019",
@@ -4318,7 +4319,9 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_2_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_2.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_2_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_2_cor.tex",
+        "tags":["Vrai-faux","Fractions","Fonctions","Probabilités","Calcul littéral"]
+    
     },
     "dnb_2019_06_ameriquenord_3": {
         "annee": "2019",
@@ -4329,7 +4332,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_3_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_3.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_3_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_3_cor.tex",
+        "tags":["Tableur","Calculs numériques","Proportionnalité"]
     },
     "dnb_2019_06_ameriquenord_4": {
         "annee": "2019",
@@ -4340,7 +4344,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_4_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_4.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_4_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_4_cor.tex",
+        "tags":["Scratch"]
     },
     "dnb_2019_06_ameriquenord_5": {
         "annee": "2019",
@@ -4351,7 +4356,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_5_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_5.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_5_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_5_cor.tex",
+        "tags":["Transformations"]
     },
     "dnb_2019_06_ameriquenord_6": {
         "annee": "2019",
@@ -4362,7 +4368,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_6_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_6.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_6_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_6_cor.tex",
+        "tags":["Fonctions","Calculs numériques"]
     },
     "dnb_2019_06_ameriquenord_7": {
         "annee": "2019",
@@ -4373,7 +4380,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_7_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_7.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_7_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_7_cor.tex",
+        "tags":["Calculs numériques","Grandeurs","Volumes"]
     },
     "dnb_2019_06_ameriquenord_8": {
         "annee": "2019",
@@ -4384,7 +4392,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_8_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_8.tex",
-        "urlcor": "/tex/dnb_2019_06_ameriquenord_8_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_ameriquenord_8_cor.tex",
+        "tags":["Statistiques","Pourcentages"] 
     },
     "dnb_2019_06_antillesguyanne_1": {
         "annee": "2019",
@@ -4467,7 +4476,9 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_1_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_1.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_1_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_1_cor.tex",
+        "tags":["Programme-de-calcul","Calcul littéral"]
+    
     },
     "dnb_2019_06_asie_2": {
         "annee": "2019",
@@ -4478,7 +4489,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_2_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_2.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_2_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_2_cor.tex",
+        "tags":["Pourcentages","Fractions"]
     },
     "dnb_2019_06_asie_3": {
         "annee": "2019",
@@ -4489,7 +4501,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_3_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_3.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_3_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_3_cor.tex",
+        "tags":["Programmation"]
     },
     "dnb_2019_06_asie_4": {
         "annee": "2019",
@@ -4500,7 +4513,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_4_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_4.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_4_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_4_cor.tex",
+        "tags":["Volumes","Grandeurs"]
     },
     "dnb_2019_06_asie_5": {
         "annee": "2019",
@@ -4511,7 +4525,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_5_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_5.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_5_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_5_cor.tex",
+        "tags":["Quadrilatères","Pythagore"]
     },
     "dnb_2019_06_asie_6": {
         "annee": "2019",
@@ -4522,7 +4537,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_6_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_6.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_6_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_6_cor.tex",
+        "tags":["Proportionnalité","Calculs numériques"]
     },
     "dnb_2019_06_asie_7": {
         "annee": "2019",
@@ -4533,7 +4549,8 @@ export let dictionnaireDNB = {
         "pngcor": "/tex/png/dnb_2019_06_asie_7_cor.png",
         "type_exercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_7.tex",
-        "urlcor": "/tex/dnb_2019_06_asie_7_cor.tex"
+        "urlcor": "/tex/dnb_2019_06_asie_7_cor.tex",
+        "tags":["Fonctions","Tableur"]
     },
     "dnb_2019_06_etrangers_1": {
         "annee": "2019",
