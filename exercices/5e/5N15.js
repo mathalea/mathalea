@@ -27,7 +27,7 @@ export default function Probleme_de_ratio() {
     objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons'],
     sirops=['de fraise','de citron','de cerise','de menthe','d\'orange'],
     jusdefruit=['d\'annanas','de banane','de pamplemousse','d\'abricot','de raisin'],
-    produits=['produit d\'entretien','décapant biologique','colorant','shampoing automobile','engrais liquide'],
+    produits=['produit d\'entretien','décapant biologique','colorant','shampoing automobile','fertilisant liquide'],
     article,p1,p2,quidam,index,index2,
     ratiosables=[[10,6,5],[7,4,4],[13,7,10]],
     ratiovinaigrette=[[2,3],[3,5],[4,7]],
@@ -166,7 +166,7 @@ export default function Probleme_de_ratio() {
               texte+=`Montrer que le ratio correspond bien à la présence de $${p1}\\%$ de produit concentré dans le mélange final.`
               texte_corr+=`Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index%5]} dans $${y}$ unités de volume d\'eau.<br>`
               texte_corr+=`Ce qui fait donc un total de $${x+y}$ unités de volume de produit dilué.<br>`
-              texte_corr+=`La proportion de ${produits[index%5]} est donc : $${tex_fraction(x+"\\text{ u.v}",x+y+"\\text{ u.v}")}\\approx ${tex_nombre2(arrondi(x/(x+y)),3)}$ soit environ $${Math.round(100*x/(x+y))}\\%$`
+              texte_corr+=`La proportion de ${produits[index%5]} est donc : $${tex_fraction(x+"\\text{ unités de volume}",x+y+"\\text{ unités de volume}")}\\approx ${tex_nombre2(arrondi(x/(x+y)),3)}$ soit environ $${Math.round(100*x/(x+y))}\\%$`
             }
             else {
               total=k*(x+y)
@@ -181,9 +181,9 @@ export default function Probleme_de_ratio() {
               texte+=`Montrer que les ratios proposés correspondent bien aux pourcentages de produit concentré dans le mélange final.`
               texte_corr+=`Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index%5]} dans $${y}$ unités de volume d\'eau.<br>`
               texte_corr+=`Ce qui fait donc un total de $${x}+${y}=${x+y}$ unités de volume de produit dilué.<br>`
-              texte_corr+=`La proportion de ${produits[index%5]} est donc : $${tex_fraction(x+"\\text{ u.v}",x+y+"\\text{ u.v}")}\\approx ${tex_nombre2(arrondi(x/(x+y)),4)}$ soit environ $${Math.round(100*x/(x+y))}\\%$<br>`
+              texte_corr+=`La proportion de ${produits[index%5]} est donc : $${tex_fraction(x+"\\text{ unités de volume}",x+y+"\\text{ unités de volume}")}\\approx ${tex_nombre2(arrondi(x/(x+y)),4)}$ soit environ $${Math.round(100*x/(x+y))}\\%$<br>`
               texte_corr+=`De la même façon, selon le ratio $~${x}~:~${z}$, on obtient la proportion suivante :<br>`
-              texte_corr+=`$${tex_fraction(x+"\\text{ u.v}",`${x}+${z}\\text{ u.v}`)}=${tex_fraction(x,x+z)}\\approx ${tex_nombre2(arrondi(x/(x+z)),4)}$ soit environ $${Math.round(100*x/(x+z))}\\%$.<br>`
+              texte_corr+=`$${tex_fraction(x+"\\text{ unités de volume}",`(${x}+${z})\\text{ unités de volume}`)}=${tex_fraction(x,x+z)}\\approx ${tex_nombre2(arrondi(x/(x+z)),4)}$ soit environ $${Math.round(100*x/(x+z))}\\%$.<br>`
               texte_corr+=`Conclusion : les pourcentages et les ratios annoncés correspondent bien.`
             }
             else {
