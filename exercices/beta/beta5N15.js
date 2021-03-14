@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { premierMultipleSuperieur,liste_de_question_to_contenu,tex_nombre2,arrondi,sp, personnes,personne,mise_en_evidence,combinaison_listes,tex_fraction, randint,num_alpha, choice, prenom,prenomSexe,premiere_lettre_en_majuscule ,prenomM,prenomF ,ppcm,calcul} from "/modules/outils.js"
+import { premierMultipleSuperieur,liste_de_question_to_contenu,tex_nombre2,arrondi,sp, personnes,personne,mise_en_evidence,combinaison_listes,tex_fraction, randint,num_alpha, choice, premiere_lettre_en_majuscule ,ppcm,calcul} from "/modules/outils.js"
 
 export default function Probleme_de_ratio() {
   "use strict"

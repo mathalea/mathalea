@@ -1769,7 +1769,7 @@ class Personne {
 		this.genre=''
 		this.pronom=''
 		if (prenom==''||typeOf(prenom=='undefined')){ // On le/la baptise
-			choix=prenomSexe()
+			choix=prenomPronom()
 				this.prenom=choix[0]
 				this.pronom=choix[1]
 			}
@@ -1816,7 +1816,7 @@ export function personnes(n) {
  * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
  *  @Auteur Jean-Claue Lhote
  */
-export function prenomSexe(){
+export function prenomPronom(){
 		if (choice([true,false])){
 			return [prenomM(1),'il']
 		}
