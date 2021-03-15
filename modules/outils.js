@@ -7647,12 +7647,45 @@ export function scratchTraductionFr() {
  */
 
  export function export_QCM_AMC(tabQCMs,idExo) {
+	 let elimineDoublons = function(tabqcm){ //fonction qui va éliminer les doublons si il y en a
+		let reponses=tabqcm[1].slice()
+		let bools=tabqcm[2].slice()
+		for (let i=0;i<reponses.length-1;i++){
+			for (let j=i+1;j<reponses.length;){
+				if (reponses[i]==reponses[j]){
+					console.log('doublon trouvé',reponses[i],reponses[j]) // les réponses i et j sont les mêmes
+
+					if (bools[i]==1) { // si la réponse i est bonne, on vire la j
+						reponses.splice(j,1)
+						bools.splice(j,1)
+					}
+					else if (bools[j]==1) { //si la réponse i est mauvaise et la réponse j bonne,
+						// comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+						reponses.splice(j,1)
+						bools.splice(j,1)
+						bools[i]=1
+					}
+					else { // Les deux réponses sont mauvaises
+						reponses.splice(j,1)
+						bools.splice(j,1)
+					}
+					console.log(reponses,bools)
+				}
+				else {
+					j++
+				}
+			}
+		}
+		return [tabqcm[0],reponses,bools]
+	 }
+
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
 		if (tabQCM[2].length>=2) { //si le tableau des booléens comporte au moins 2 booléens, alors c'est un QCM sinon c'est une question ouverte
+		
 		for (let b of tabQCM[2]) {
 			if (b == 1) nbBonnes++
 		}
@@ -7662,6 +7695,7 @@ export function scratchTraductionFr() {
 		else if (nbBonnes > 1) {
 			type = 'questionmult'
 		}
+		tabQCM=elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
 		tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
@@ -7716,7 +7750,6 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,m
 	for (let qcm of questions){
 		code=export_QCM_AMC(qcm,idExo)
 		idExo++
-		console.log('exercice ',idExo,'this.QCM = ',qcm)
 		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
 			groupeDeQuestion.push(code[1])
 			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
@@ -7729,7 +7762,6 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,m
 		}
 		
 	}
-	console.log(groupeDeQuestion,tex_questions,nb_questions)
 	let entete_copie =
 	`%%% fabrication des copies 
 	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
