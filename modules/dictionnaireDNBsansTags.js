@@ -3883,6 +3883,83 @@ export let dictionnaireDNB =
         "url": "/tex/dnb_2019_06_grece_6.tex",
         "urlcor": "/tex/dnb_2019_06_grece_6_cor.tex"
     },
+    "dnb_2019_06_polynesie_1": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "1",
+        "png": "/tex/png/dnb_2019_06_polynesie_1.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_1.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_1_cor.tex"
+    },
+    "dnb_2019_06_polynesie_2": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "2",
+        "png": "/tex/png/dnb_2019_06_polynesie_2.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_2.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_2_cor.tex"
+    },
+    "dnb_2019_06_polynesie_3": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "3",
+        "png": "/tex/png/dnb_2019_06_polynesie_3.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_3.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_3_cor.tex"
+    },
+    "dnb_2019_06_polynesie_4": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "4",
+        "png": "/tex/png/dnb_2019_06_polynesie_4.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_4.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_4_cor.tex"
+    },
+    "dnb_2019_06_polynesie_5": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "5",
+        "png": "/tex/png/dnb_2019_06_polynesie_5.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_5.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_5_cor.tex"
+    },
+    "dnb_2019_06_polynesie_6": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "6",
+        "png": "/tex/png/dnb_2019_06_polynesie_6.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_6.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_6_cor.tex"
+    },
+    "dnb_2019_06_polynesie_7": {
+        "annee": "2019",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroExercice": "7",
+        "png": "/tex/png/dnb_2019_06_polynesie_7.png",
+        "pngcor": "/tex/png/dnb_2019_06_polynesie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/tex/dnb_2019_06_polynesie_7.tex",
+        "urlcor": "/tex/dnb_2019_06_polynesie_7_cor.tex"
+    },
     "dnb_2019_07_metropole_1": {
         "annee": "2019",
         "lieu": "Métropole",

@@ -22,10 +22,10 @@ export default function Reciproque_Pythagore() {
     if (this.sup == 1) {
       liste_type_de_questions = combinaison_listes(["rectangle"], this.nb_questions);
     }
-    if (this.sup == 2) {
+    else if (this.sup == 2) {
       liste_type_de_questions = combinaison_listes(["pas_rectangle"], this.nb_questions);
     }
-    if (this.sup == 3) {
+    else { // (this.sup == 3)
       liste_type_de_questions = combinaison_listes(["rectangle", "pas_rectangle"], this.nb_questions);
     }
     let liste_triplets_pythagoriciens = [
