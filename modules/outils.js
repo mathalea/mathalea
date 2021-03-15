@@ -7648,23 +7648,31 @@ export function scratchTraductionFr() {
 
  export function export_QCM_AMC(tabQCMs,idExo) {
 	 let elimineDoublons = function(tabqcm){ //fonction qui va éliminer les doublons si il y en a
-		let reponses=tabqcm[1]
-		let bools=tabqcm[2]
+		let reponses=tabqcm[1].slice()
+		let bools=tabqcm[2].slice()
 		for (let i=0;i<reponses.length-1;i++){
-			for (let j=i+1;j<reponses.length;j++){
+			for (let j=i+1;j<reponses.length;){
 				if (reponses[i]==reponses[j]){
 					console.log('doublon trouvé',reponses[i],reponses[j]) // les réponses i et j sont les mêmes
+
 					if (bools[i]==1) { // si la réponse i est bonne, on vire la j
-						reponses.slice(j,1)
-						bools.slice(j,1)
-						j-- //on enlève un élément, le prochain aura le même indice
+						reponses.splice(j,1)
+						bools.splice(j,1)
 					}
-					else { //sinon, comme la réponse i est mauvaise on la vire la réponse i
-						reponses.slice(i,1)
-						bools.slice(i,1)
-						i-- // On enlève un élément le prochain aura le même indice
-						break // Pas besoin d'éliminer d'éventuel triplet, il seront éliminés ensuite
+					else if (bools[j]==1) { //si la réponse i est mauvaise et la réponse j bonne,
+						// comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+						reponses.splice(j,1)
+						bools.splice(j,1)
+						bools[i]=1
 					}
+					else { // Les deux réponses sont mauvaises
+						reponses.splice(j,1)
+						bools.splice(j,1)
+					}
+					console.log(reponses,bools)
+				}
+				else {
+					j++
 				}
 			}
 		}
