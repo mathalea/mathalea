@@ -7719,7 +7719,7 @@ export function scratchTraductionFr() {
 		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
 		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
+		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0.00001}\\mauvaise[RR]{R}\\scoring{0}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
 		tex_QR +=`\\end{question}\n }\n`
 		id++
 	}
