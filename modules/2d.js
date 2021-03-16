@@ -7216,12 +7216,15 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
             }
             index++
             break
-          case 'Slope':
+          case 'Slope': 
+          /****************************************************************************/
+          // Slope n'est pas implémenté... reste à faire (si quelqu'un en a besoin).
+          /****************************************************************************/
             for (let k = 1; k < tabLines[index].length / 2; k++) {
               if (tabLines[index][k * 2] != "") {
                 texte = tabLines[index][k * 2]
                 long = tabLines[index][k * 2 + 1]
-                //                console.log('tabSlope', texte, long, i, index)
+               console.log('tabSlope', texte, long, i, index)
               }
             }
             break
