@@ -14,7 +14,7 @@ export default function Exercice_fractions_simplifier(max = 11) {
 	this.spacing_corr = 2;
   
 	this.nouvelle_version = function () {
-		this.QCM=['5N13',[],"Simplification de fractions"]
+		this.QCM=['5N13',[],"Simplification de fractions",3]
  
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées

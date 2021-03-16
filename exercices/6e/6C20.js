@@ -23,7 +23,7 @@ export default function Additionner_soustraires_decimaux() {
   this.nb_questions = 4;
   this.sup = 3;
   this.tailleDiaporama = 100;
-  this.QCM = ['6C20', [], 'Poser et effectuer les calculs suivants']
+  this.QCM = ['6C20', [], 'Poser et effectuer les calculs suivants',3]
  
   this.nouvelle_version = function () {
     this.QCM[1]=[]

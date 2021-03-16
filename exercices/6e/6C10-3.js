@@ -19,7 +19,7 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6C10-3',[],"tables de multiplications et nombres décimaux"]
+    this.QCM=['6C10-3',[],"tables de multiplications et nombres décimaux",1]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let espace =``;

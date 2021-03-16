@@ -7736,13 +7736,18 @@ export function scratchTraductionFr() {
  * QCM[0] est la référence du groupe de question, c'est la référence de l'exercice dont il est issu
  * QCM[1] est un tableau d'éléments de type ['question posée',tableau des réponses,tableau des booléens bon ou mauvais]
  * QCM[2] est le titre donné sur la copie pour le groupe de question (pour ne pas mettre la référence)
+ * QCM[3] est le type de question :
+ * 1=question à choix multiple avec 1 bonne réponse
+ * 2=questionmult à choix multiple avec plusieurs bonnes réponses
+ * 3=AMCOpen question ouverte sans bonne ni mauvaise réponse 3 cases à cocher par l'enseignant
+ * 4=questionmultx avec AMCnumeriqueChoices question ouverte à réponse numérique codée 
  * 
  * nb_questions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
  * si il est indéfini, toutes les questions du groupe seront posées.
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
+export function Creer_document_AMC({questions,nb_questions=[],nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	let idExo=0,code
 	let graine=randint(1,100000)

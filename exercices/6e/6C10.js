@@ -29,7 +29,7 @@ export default function Additions_soustractions_multiplications_posees() {
   this.nouvelle_version = function () {
         /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
+this.QCM=['6C10',[],'Additions et soustractions de nombres entier',3]
 /**********************************************************/
 
     this.liste_questions = []; // Liste de questions
