@@ -19,7 +19,7 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6C10-2',[],"tables et multiples de 10,100 et 1000"]
+    this.QCM=['6C10-2',[],"tables et multiples de 10,100 et 1000",1]
     let espace =``;
     if (sortie_html) {
       espace = `&emsp;`;

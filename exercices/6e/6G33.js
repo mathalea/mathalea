@@ -20,7 +20,7 @@ export default function Reconnaitre_quadrilatere_particulier() {
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6G33',[],"Trouver la nature d'un quadrilatère."]
+    this.QCM=['6G33',[],"Trouver la nature d'un quadrilatère.",1]
     let espace =``;
     if (sortie_html) {
       espace = `&emsp;`;

@@ -21,7 +21,7 @@ export default function Mesurer_un_angle() {
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6G23-1',[],"Estimer la mesure d'un angle."]
+    this.QCM=['6G23-1',[],"Estimer la mesure d'un angle.",1]
     let tabrep,tabicone
     let espace =``;
     if (sortie_html) {

@@ -28,8 +28,8 @@ export default function Divisions_euclidiennes() {
   this.liste_packages = "xlop";
 
   this.nouvelle_version = function () {
-   if (this.sup<2) this.QCM=['6C11',[],'division euclidienne']
-   else this.QCM=['6C21',[],'division euclidienne niveau 2']
+   if (this.sup<2) this.QCM=['6C11',[],'division euclidienne',3]
+   else this.QCM=['6C21',[],'division euclidienne niveau 2',3]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles,type_de_questions
