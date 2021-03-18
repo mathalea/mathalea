@@ -27,7 +27,7 @@ export default function Additionner_soustraires_decimaux() {
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-			// [int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx]
+			// {int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx}
 			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
 			/********************************************************************/
   this.nouvelle_version = function () {
