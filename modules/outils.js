@@ -7684,45 +7684,71 @@ export function scratchTraductionFr() {
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
-		if (tabQCM[2].length>=2) { //si le tableau des booléens comporte au moins 2 booléens, alors c'est un QCM sinon c'est une question ouverte
-		
-		for (let b of tabQCM[2]) {
-			if (b == 1) nbBonnes++
-		}
-		if (nbBonnes == 1) {
-			type = 'question'
-		}
-		else if (nbBonnes > 1) {
-			type = 'questionmult'
-		}
-		tabQCM=elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
-		tex_QR += `		${tabQCM[0]} \n `
-		tex_QR += `		\\begin{reponseshoriz} \n `
-		for (let i = 0; i < tabQCM[1].length; i++) {
-			switch (tabQCM[2][i]) {
-				case 1:
-						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-					break
-				case 0:
-						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-					break
+		switch (tabQCM[3]){
+			case 1: // question QCM 1 bonne réponse
+			case 2: // question QCM plusieurs bonnes réponses (on va vérifier ça ci-dessous)
+			tabQCM=elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
+			nbBonnes=0
+			for (let b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
+				if (b == 1) nbBonnes++
 			}
+			if (nbBonnes == 1) {
+				type = 'question' // On est dans le cas 1 le type est question
+			}
+			else if (nbBonnes > 1) {
+				type = 'questionmult' // On est dans le cas 2 le type est questionmult
+			}
+			tex_QR += `\\element{${tabQCMs[0]}}{\n `
+			tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
+			tex_QR += `		${tabQCM[0]} \n `
+			tex_QR += `		\\begin{reponseshoriz} \n `
+			for (let i = 0; i < tabQCM[1].length; i++) {
+				switch (tabQCM[2][i]) {
+					case 1:
+							tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
+						break
+					case 0:
+							tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
+						break
+				}
+			}
+			tex_QR += `		\\end{reponseshoriz}\n `
+			tex_QR += `	\\end{${type}}\n }\n `
+			id++
+			break
+			case 3: // AMCOpen question ouverte corrigée par l'enseignant
+			tex_QR += `\\element{${tabQCMs[0]}}{\n `
+			tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
+			tex_QR += `		${tabQCM[0]} \n `
+			tex_QR += `\\explain{${tabQCM[1][0]}}\n`
+			tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+			tex_QR +=`\\end{question}\n }\n`
+			id++
+			break
+			case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
+			/********************************************************************/
+			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
+			// [int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx]
+			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
+			/********************************************************************/
+			tex_QR += `\\element{${tabQCMs[0]}}{\n `
+			tex_QR +=`	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
+			tex_QR += `		${tabQCM[0]} \n `
+			tex_QR += `\\explain{${tabQCM[1][0]}}\n`
+			tex_QR +=`\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2][0]},decimals=${tabQCM[2,1]},sign=${tabQCM[2][2]},`
+			if (tabQCM[2][3]!=0){ // besoin d'un champ pour la puissance de 10. (notation scientifique)
+				tex_QR +=`${tabQCM[2][3]}${tabQCM[2][4]},`
+			}
+			if (tabQCM[2][5]!=0){
+				tex_QR+=`${tabQCM[2][5]},`
+			}
+			tex_QR +=`borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,strict=true}`
+			tex_QR +=`\\end{questionmultx}\n }\n`
+			id++
+			break
 		}
-		tex_QR += `		\\end{reponseshoriz}\n `
-		tex_QR += `	\\end{${type}}\n }\n `
-		id++
-	}
-	else { // question ouverte : En cas de question ouverte, le booléen n'en est pas un mais donne le nombre de lignes pour la zone de réponse
-		tex_QR += `\\element{${tabQCMs[0]}}{\n `
-		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
-		tex_QR += `		${tabQCM[0]} \n `
-		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-		tex_QR +=`\\end{question}\n }\n`
-		id++
-	}
+
+
 }
 	return [tex_QR,tabQCMs[0],tabQCMs[1].length,tabQCMs[2]]
 }
