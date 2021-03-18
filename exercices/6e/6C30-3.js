@@ -36,7 +36,7 @@ export default function Multiplication_mental_decimaux() {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
  
-    this.QCM=['6C30-3',[],"Opérations avec les nombres décimaux"] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
+    this.QCM=['6C30-3',[],"Opérations avec les nombres décimaux",1] // Ajouté par Jean-Claude Lhote : ceci est un exercice à QCM this.QCM permet de l'exporter vers AMC
  
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []

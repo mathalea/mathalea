@@ -36,7 +36,7 @@ this.sup3 = 3
     this.liste_questions=[]
     /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10-5',[],'Labyrinthe de multiples']
+this.QCM=['6C10-5',[],'Labyrinthe de multiples',3]
 /**********************************************************/
 
     let params, texte, texte_corr, trouve

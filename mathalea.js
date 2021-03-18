@@ -543,6 +543,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         .then((module) => {
                             if (module) {
                                 listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                                if (dictionnaireDesExercices[id]["sup"]!=undefined){
+                                    listeObjetsExercice[i]["sup"]=dictionnaireDesExercices[id]["sup"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup2"]!=undefined){
+                                    listeObjetsExercice[i]["sup2"]=dictionnaireDesExercices[id]["sup2"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup3"]!=undefined){
+                                    listeObjetsExercice[i]["sup3"]=dictionnaireDesExercices[id]["sup3"]
+                                }
+                                if (dictionnaireDesExercices[id]["nb_questions"]!=undefined){
+                                    listeObjetsExercice[i]["nb_questions"]=dictionnaireDesExercices[id]["nb_questions"]
+                                }
                                 if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                     besoinXCas = true;
                                 }
@@ -599,7 +611,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 if (besoinXCas){
                     // On charge le javascript de XCas
-                    document.getElementById("exercices").innerHTML = `<div class="profile-main-loader">
+                    let div // le div dans lequel on fera apparaitre le cercle de chargement
+                    if (sortie_html){
+                        div = document.getElementById("exercices")
+                    } else {
+                        div = document.getElementById("div_code_LaTeX")
+                    }
+                    div.innerHTML = `<div class="profile-main-loader">
                     <div class="loader">
                       <svg class="circular-loader"viewBox="25 25 50 50" >
                         <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />

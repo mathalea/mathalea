@@ -29,7 +29,7 @@ export default function Additions_soustractions_multiplications_posees() {
   this.nouvelle_version = function () {
         /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
+this.QCM=['6C10',[],'Additions et soustractions de nombres entier',3]
 /**********************************************************/
 
     this.liste_questions = []; // Liste de questions
@@ -39,7 +39,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
       type_de_questions_disponibles,
       this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    ); 
     if (this.nb_questions == 3) {
       liste_type_de_questions = [1, 2, 5];
     }

@@ -36,10 +36,10 @@ export default function Calcul_de_longueur() {
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (this.level!=4){
-    this.QCM = ['3G31', [], "Calculs d'angle avec la trigonométrie"]
+    this.QCM = ['3G31', [], "Calculs d'angle avec la trigonométrie",3]
     }
     else {
-        this.QCM = ['4G41', [], "Calculs d'angle avec la trigonométrie"]  
+        this.QCM = ['4G41', [], "Calculs d'angle avec la trigonométrie",3]  
     }
     /**********************************************************/
 let mEp,mEp2

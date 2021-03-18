@@ -22,7 +22,7 @@ export default function Multiplier_decimaux() {
   this.liste_packages = "xlop";
 
   this.nouvelle_version = function () {
-    this.QCM=['6C30',[],'Multiplications posées de nombres décimaux']
+    this.QCM=['6C30',[],'Multiplications posées de nombres décimaux',3]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 

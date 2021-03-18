@@ -30,7 +30,7 @@ export default function Placer_la_virgule() {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
  
-    this.QCM=['6C30-4',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)"]
+    this.QCM=['6C30-4',[],"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)",1]
 
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []

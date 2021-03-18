@@ -1757,6 +1757,74 @@ export function prenom(n=1){
 	}
 }
 
+/**
+ * Définit l'objet personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+class Personne {
+	constructor ({prenom='',genre='',pronom=''}={}){
+		let choix
+		this.prenom=''
+		this.genre=''
+		this.pronom=''
+		if (prenom==''||typeOf(prenom=='undefined')){ // On le/la baptise
+			choix=prenomPronom()
+				this.prenom=choix[0]
+				this.pronom=choix[1]
+			}
+		else if (pronom=''){ // le pronom n'est pas précisé
+			this.pronom='on'
+		}
+		if (genre==''){
+		if (this.pronom=='il'){
+			this.genre='masculin'
+		}
+		else if (this.pronom=='elle'){
+			this.genre='féminin'
+		}
+		else this.genre='neutre'
+		}
+	}
+}
+/**
+ * crée une instance de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personne({prenom='',genre='',pronom=''}={}){
+	return new Personne({prenom:prenom,genre:genre,pronom:pronom})
+}
+/**
+ * Crée un tableau de n objet de la classe Personne
+ * @Auteur Jean-Claude Lhote
+ * le 14/03/2021
+ */
+export function personnes(n) {
+	let liste=[],essai
+	for (let i=0;i<n;i++){
+		essai=personne()
+		while (liste.indexOf(essai)!=-1){
+			essai=personne()
+		}
+		liste.push(essai)
+	}
+	return liste
+}
+
+/**
+ * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
+ *  @Auteur Jean-Claue Lhote
+ */
+export function prenomPronom(){
+		if (choice([true,false])){
+			return [prenomM(1),'il']
+		}
+		else {
+			return [prenomF(1),'elle']
+		}
+}
+
  /**
 * Renvoie un tableau avec les résultats des tirages successifs
 * @param nombre_tirages Combien de tirages ?
@@ -7579,12 +7647,45 @@ export function scratchTraductionFr() {
  */
 
  export function export_QCM_AMC(tabQCMs,idExo) {
+	 let elimineDoublons = function(tabqcm){ //fonction qui va éliminer les doublons si il y en a
+		let reponses=tabqcm[1].slice()
+		let bools=tabqcm[2].slice()
+		for (let i=0;i<reponses.length-1;i++){
+			for (let j=i+1;j<reponses.length;){
+				if (reponses[i]==reponses[j]){
+					console.log('doublon trouvé',reponses[i],reponses[j]) // les réponses i et j sont les mêmes
+
+					if (bools[i]==1) { // si la réponse i est bonne, on vire la j
+						reponses.splice(j,1)
+						bools.splice(j,1)
+					}
+					else if (bools[j]==1) { //si la réponse i est mauvaise et la réponse j bonne,
+						// comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+						reponses.splice(j,1)
+						bools.splice(j,1)
+						bools[i]=1
+					}
+					else { // Les deux réponses sont mauvaises
+						reponses.splice(j,1)
+						bools.splice(j,1)
+					}
+					console.log(reponses,bools)
+				}
+				else {
+					j++
+				}
+			}
+		}
+		return [tabqcm[0],reponses,bools]
+	 }
+
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes,id=0
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes=0
 		if (tabQCM[2].length>=2) { //si le tableau des booléens comporte au moins 2 booléens, alors c'est un QCM sinon c'est une question ouverte
+		
 		for (let b of tabQCM[2]) {
 			if (b == 1) nbBonnes++
 		}
@@ -7594,6 +7695,7 @@ export function scratchTraductionFr() {
 		else if (nbBonnes > 1) {
 			type = 'questionmult'
 		}
+		tabQCM=elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
 		tex_QR += `\\element{${tabQCMs[0]}}{\n `
 		tex_QR +=`	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
@@ -7617,7 +7719,7 @@ export function scratchTraductionFr() {
 		tex_QR +=`	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo+1)}-${id}} \n `
 		tex_QR += `		${tabQCM[0]} \n `
 		tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\wrongchoice[F]{f}\\scoring{0}\\wrongchoice[P]{p}\\scoring{1}\\correctchoice[J]{j}\\scoring{2}}\n`
+		tex_QR +=`\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
 		tex_QR +=`\\end{question}\n }\n`
 		id++
 	}
@@ -7634,13 +7736,18 @@ export function scratchTraductionFr() {
  * QCM[0] est la référence du groupe de question, c'est la référence de l'exercice dont il est issu
  * QCM[1] est un tableau d'éléments de type ['question posée',tableau des réponses,tableau des booléens bon ou mauvais]
  * QCM[2] est le titre donné sur la copie pour le groupe de question (pour ne pas mettre la référence)
+ * QCM[3] est le type de question :
+ * 1=question à choix multiple avec 1 bonne réponse
+ * 2=questionmult à choix multiple avec plusieurs bonnes réponses
+ * 3=AMCOpen question ouverte sans bonne ni mauvaise réponse 3 cases à cocher par l'enseignant
+ * 4=questionmultx avec AMCnumeriqueChoices question ouverte à réponse numérique codée 
  * 
  * nb_questions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
  * si il est indéfini, toutes les questions du groupe seront posées.
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
+export function Creer_document_AMC({questions,nb_questions=[],nb_exemplaires=1,matiere='Mathématiques',titre='Evaluation'}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	let idExo=0,code
 	let graine=randint(1,100000)
@@ -7648,7 +7755,6 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,m
 	for (let qcm of questions){
 		code=export_QCM_AMC(qcm,idExo)
 		idExo++
-		console.log('exercice ',idExo,'this.QCM = ',qcm)
 		if (groupeDeQuestion.indexOf(code[1])==-1){ //si le groupe n'existe pas
 			groupeDeQuestion.push(code[1])
 			tex_questions[groupeDeQuestion.indexOf(code[1])]=code[0]
@@ -7661,7 +7767,6 @@ export function Creer_document_AMC(questions,nb_questions=[],{nb_exemplaires=1,m
 		}
 		
 	}
-	console.log(groupeDeQuestion,tex_questions,nb_questions)
 	let entete_copie =
 	`%%% fabrication des copies 
 	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
