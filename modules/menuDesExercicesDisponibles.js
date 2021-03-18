@@ -439,7 +439,7 @@ export function menuDesExercicesDisponibles(){
 }
 
 
-function menuTheme(theme) {
+export function menuTheme(theme) {
   let codeHTML = '<h2 class="ui horizontal divider header">Exercices en ligne à données aléatoires</h2>'
   codeHTML += '\n<div class="ui middle aligned animated selection divided list">'
   let dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles,theme);
