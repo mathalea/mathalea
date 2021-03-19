@@ -43,6 +43,10 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
         "url": "/exercices/6e/6C30-2.js"
     },
+    "6C30-3":{
+        "url":"/exercices/6e/6C30-3.js",
+        "titre":"Opérations avec les nombres décimaux (QCM)"
+    },
     "6C30-4":{
         "url":"/exercices/6e/6C30-4.js",
         "titre":"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule) (QCM)"
@@ -51,9 +55,9 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/6e/6C30-5.js",
         "titre":"Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient) (QCM)"
     },
-    "6C30-3":{
-        "url":"/exercices/6e/6C30-3.js",
-        "titre":"Opérations avec les nombres décimaux (QCM)"
+    "6C31": {
+        "titre": "Divisions décimales",
+        "url": "/exercices/6e/6C31.js"
     },
     "6C23":{
         "url":"/exercices/6e/6C23.js",

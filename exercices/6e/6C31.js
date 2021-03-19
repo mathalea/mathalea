@@ -27,6 +27,7 @@ export default function Division_decimale() {
   this.liste_packages = "xlop";
 
   this.nouvelle_version = function () {
+    this.QCM=['6C31',[],'Divisions décimales',4]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles
@@ -82,6 +83,7 @@ export default function Division_decimale() {
           );
           b = randint(6, 9);
           a = calcul(b * q);
+          console.log(a,' = ',b, ' x ', q)
           break;
         case 6: // un 0 dans le quotient
           if (randint(1, 2) == 1) {
@@ -130,6 +132,7 @@ export default function Division_decimale() {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([texte, [texte_corr,q], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;
