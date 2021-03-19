@@ -852,6 +852,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Tableaux et proportionnalité.",
         "url": "/exercices/5e/5P10.js"
     },
+    "5P11-1": {
+        "titre": "Problème de vitesse",
+        "url": "/exercices/5e/5P11-1.js"
+    },
     "5R10": {
         "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
         "url": "/exercices/5e/5R10.js"
@@ -981,7 +985,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/6e/6C21.js"
     },
     "6C23": {
-        "titre": "Additionner des fractions de même dénominateur",
+        "titre": "Additionner ou soustraire des fractions de même dénominateur",
         "url": "/exercices/6e/6C23.js"
     },
     "6C30": {
