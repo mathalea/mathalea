@@ -1416,6 +1416,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.",
         "url": "/exercices/6e/6P11-1.js"
     },
+    "6P13-1": {
+        "titre": "Facture",
+        "url": "/exercices/6e/6P13-1.js"
+    },
     "6S10": {
         "titre": "Lire un diagramme en barre",
         "url": "/exercices/6e/6S10.js"
