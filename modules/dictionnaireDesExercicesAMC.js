@@ -93,7 +93,7 @@ export let dictionnaireDesExercicesQCM = {
     },
     "3G30":{
         "url":"/exercices/3e/3G30.js",
-        "titre":"Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie "
+        "titre":"Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie (NC+)"
     },
     "3G31":{
         "url":"/exercices/3e/3G31.js",
