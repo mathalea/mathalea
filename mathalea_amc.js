@@ -1,6 +1,7 @@
 import { Creer_document_AMC, strRandom } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
-import {menuDesExercicesQCMDisponibles,dictionnaireDesExercicesQCM} from '/modules/menuDesExercicesQCMDisponibles.js'
+import {menuDesExercicesQCMDisponibles} from '/modules/menuDesExercicesQCMDisponibles.js'
+import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC.js"
 
 (function () {
  // IIFE principal
