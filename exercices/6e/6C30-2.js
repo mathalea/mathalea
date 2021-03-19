@@ -29,6 +29,7 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
   let type_de_questions_disponibles;
 
   this.nouvelle_version = function () {
+    this.QCM=['6C30-2',[],'Calculer le produit de deux décimaux connaissant le produit de deux entiers',4]
     if (this.beta) {
       type_de_questions_disponibles = [0, 1, 2];
     } else {
@@ -39,7 +40,7 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
 
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-
+let reponse
     //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
@@ -66,7 +67,8 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
         question: ``,
         correction: `
 					$${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${tex_nombrec(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${tex_nombrec(10 ** situations[0].p1)} =  ${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${tex_nombrec(10 ** situations[0].p1)} = ${tex_nombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1))}$
-					`
+					`,
+          reponse:calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1)
       });
       enonces.push({
         enonce: `
@@ -77,6 +79,7 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
         correction: `
 					$${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${tex_nombrec(10 ** situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${tex_nombrec(10 ** situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p2))}$
 					`
+          ,reponse:calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2)
       });
       enonces.push({
         enonce: `
@@ -86,7 +89,8 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
         question: ``,
         correction: `
 					$${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${tex_nombrec(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${tex_nombrec(10 ** situations[0].p2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${tex_nombrec(10 ** situations[0].p1)}\\times ${tex_nombrec(10 ** situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${tex_nombrec(10 ** situations[0].p1)}\\times ${tex_nombrec(10 ** situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1) * calcul(10 ** situations[0].p2))}$
-					`
+					`,
+          reponse:calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1 * 10 ** situations[0].p2)
       });
 
       //};
@@ -103,6 +107,7 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
           } else {
             texte_corr = `${enonces[0].correction}`;
           };
+          reponse=enonces[0].reponse
           break;
         case 1:
           texte = `${enonces[1].enonce}`;
@@ -113,6 +118,7 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
           } else {
             texte_corr = `${enonces[1].correction}`;
           };
+          reponse=enonces[1].reponse
           break;
         case 2:
           texte = `${enonces[2].enonce}`;
@@ -123,12 +129,14 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
           } else {
             texte_corr = `${enonces[2].correction}`;
           };
+          reponse=enonces[2].reponse
           break;
       };
       if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
+        this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
       }
       cpt++;
     }

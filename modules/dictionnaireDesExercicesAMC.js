@@ -39,6 +39,10 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Multiplications d'un nombre décimal par 10, 100 ou 1 000.",
         "url": "/exercices/6e/6C30-1.js"
     },
+    "6C30-2": {
+        "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
+        "url": "/exercices/6e/6C30-2.js"
+    },
     "6C30-4":{
         "url":"/exercices/6e/6C30-4.js",
         "titre":"Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule) (QCM)"

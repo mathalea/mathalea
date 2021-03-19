@@ -6887,7 +6887,6 @@ export function telechargeFichier(text, filename) {
 
 	element.style.display = 'none';
 	document.body.appendChild(element);
-	console.log(element)
 	element.click();
 
 	document.body.removeChild(element);
@@ -7679,7 +7678,6 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 						reponses.splice(j, 1)
 						bools.splice(j, 1)
 					}
-					console.log(reponses, bools)
 				}
 				else {
 					j++
@@ -7748,12 +7746,10 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				if (tabQCM[2].exposant_nb_chiffres == 0) {
 					reponse = tabQCM[1][1]
 					if (tabQCM[2].digits == 0) {
-						console.log(reponse)
 						nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
 						tabQCM[2].decimals = nb_chiffres_pd
 						nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
 						tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
-						console.log(nb_chiffres_pe, nb_chiffres_pd)
 					}
 				}
 				tex_QR += `\\element{${tabQCMs[0]}}{\n `
