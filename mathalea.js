@@ -570,6 +570,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 // Récupère les paramètres passés dans l'URL
                 let urlVars = getUrlVars();
+				//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+				//	=> évite les erreurs lors de la suppression de question dans la liste.
+				for (var i = 0; i < urlVars.length; i++) {
+					if (urlVars[i].id != liste_des_exercices[i]) {
+						urlVars.splice(i,1);
+					}	
+				}
                 for (var i = 0; i < urlVars.length; i++) {
                     // récupère les éventuels paramètres dans l'URL
                     // et les recopie dans les formulaires des paramètres
