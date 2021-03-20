@@ -100,7 +100,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 });
             }
         })();
-        if (sortie_html && est_diaporama) {
+        //mise en évidence des exercices sélectionnés.
+		$(".exerciceactif").removeClass("exerciceactif");
+		for (let i = 0; i < liste_des_exercices.length; i++) {
+			$("a.lien_id_exercice[numero='"+liste_des_exercices[i]+"'").addClass("exerciceactif");
+		}
+		
+		if (sortie_html && est_diaporama) {
             if (liste_des_exercices.length>0) { // Pour les diaporamas tout cacher quand un exercice est choisi
                 $("#liste_des_exercices").hide();
                 $("#parametres_generaux").show();
@@ -200,9 +206,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         // Ajoute le contenu dans les div #exercices et #corrections
         if (sortie_html && !est_diaporama) {
-            document.getElementById("exercices").innerHTML = "";
+			document.getElementById("exercices").innerHTML = "";
             document.getElementById("corrections").innerHTML = "";
-
             let contenuDesExercices = "",
                 contenuDesCorrections = "";
             if (liste_des_exercices.length > 0) {
