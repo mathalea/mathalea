@@ -10,6 +10,10 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
  let liste_des_exercices = []; // Liste des identifiants des exercices
  let code_LaTeX = "";
  let liste_packages = new Set();
+ let nb_exemplaires=1
+ let nb_questions=[]
+ let nom_fichier=''
+ let type_entete=''
 
  menuDesExercicesQCMDisponibles();
 
@@ -90,6 +94,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             // Sortie LaTeX quoi qu'il advienne !
             // code pour la sortie LaTeX
             let questions=[];
+
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
@@ -105,7 +110,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:[]}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:[],nb_exemplaires:nb_exemplaires,type_entete:type_entete}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
@@ -156,8 +161,13 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
     contenu_fichier+=code_LaTeX
     let monzip= new JSZip()
-    console.log('export fichier',code_LaTeX)
-    monzip.file("mathalea.tex",code_LaTeX)
+    if ($("#nom_du_fichier").val()!="") {
+        nom_fichier=$("#nom_du_fichier").val() + ".tex"                               ;
+    } else {
+        nom_fichier= "mathalea.tex";
+    }
+    console.log($("#nom_du_fichier").val())
+    monzip.file(`${nom_fichier}`,code_LaTeX)
     monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
     monzip.generateAsync({type:"blob"})
 .then(function(content) {
@@ -327,12 +337,6 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
     let modification = new Function ('numero_figure',code_pour_modifier_la_figure)
     modification(numero_figure);
     }
-
-
-
-
-
-
 
     // FIN DE GESTION DE MG32
 
@@ -782,62 +786,32 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             form_serie.value = mathalea.graine; // mise à jour du formulaire
             mise_a_jour_du_code();
         }
-    
-        // Gestion du bouton de zoom
-        // let taille = parseInt($("#affichage_exercices").css("font-size"));
-        // $("#btn_zoom_plus").click(function () {
-        //     taille *= 1.2;
-        //     $("#affichage_exercices").css("font-size", `${taille}px`);
-        //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-        //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-        // });
-        // $("#btn_zoom_moins").click(function () {
-        //     if (parseInt(taille) > 14) {
-        //         taille *= 0.8;
-        //     }
-        //     $("#affichage_exercices").css("font-size", `${taille}px`);
-        //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-        //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-        // });
-
-        if (sortie_html && !est_diaporama) {
-            // Gestion du bouton de zoom
-                let zoom = 1;
-                $( "#btn_zoom_plus").click(function() {
-                    zoom+=.5;
-                    $("#affichage_exercices").css("transform", `scale(${zoom})`);
-                    $("#affichage_exercices").css("transform-origin", "0 0px");
-                      //window.location.hash = 'section';
-                  });
-                $( "#btn_zoom_moins").click(function() {
-                    if (zoom>1) {
-                        zoom-=.5;
-                    }
-                    $("#affichage_exercices").css("transform", `scale(${zoom})`);
-                    $("#affichage_exercices").css("transform-origin", "0 0px");
-                });
-        }
-
-        // Gestion de la redirection vers MathaleaLaTeX
-        $( "#btnLaTeX").click(function() {
-            window.location.href=window.location.href.replace('exercice.html','mathalealatex.html');
+                    // Gestion du nombre d'exemplaire
+      
+        let form_nb_exemplaires = document.getElementById("nombre_d_exemplaires");
+        form_nb_exemplaires.value = 1; // Rempli le formulaire avec le nombre de questions
+        form_nb_exemplaires.addEventListener("change", function (e) {
+            // Dès que le nombre change, on met à jour
+            nb_exemplaires = e.target.value;
+            mise_a_jour_du_code();
         });
-        
-        if (document.getElementById('btnQRcode')){
-			document.getElementById('btnQRcode').addEventListener('click',function () {
-				$('#ModalQRcode').html('');
-				let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
-					text: window.location.href,
-					width: Math.min(window.innerHeight,window.innerWidth)*.9,
-					height: Math.min(window.innerHeight,window.innerWidth)*.9,
-					colorDark : "#000000",
-					colorLight : "#ffffff",
-					correctLevel : QRCode.CorrectLevel.H
-				});
-				qrcode.makeCode(window.location.href)
-				$('#ModalQRcode').modal('show')
-			})
-		}
+
+         // Gestion des paramètres du fichier LaTeX
+
+         $("#options_type_entete").show();
+         $(function () {
+             $("input:radio[name='type']").change(function () {
+                 if ($("#type_preremplie:checked").val()) {
+                    type_entete="AMCassociation"
+                }
+                else if ($("#type_manuel:checked").val()) {
+                    type_entete="champnom"
+                }
+                else {
+                    type_entete="AMCcodeGrid"
+                }
+             });
+         });
 
         $("#btn_overleaf").click(function () {
             // Gestion du style pour l'entête du fichier
@@ -853,8 +827,8 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
 
 `;
-console.log(code_LaTeX)
-                contenu_fichier +=  code_LaTeX ;
+            console.log(code_LaTeX)
+            contenu_fichier +=  code_LaTeX ;
 
             // Gestion du LaTeX statique
 
@@ -870,9 +844,6 @@ console.log(code_LaTeX)
         let serie = params.get("serie");
         if (serie) {
             mathalea.graine = serie;
-        }
-        if (params.get("duree")) {
-            mathalea.duree = params.get("duree");
         }
         let urlVars = getUrlVars();
         if (urlVars.length > 0) {
