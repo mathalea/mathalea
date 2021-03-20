@@ -7790,7 +7790,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				// La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et 
 				/********************************************************************/
 				tex_QR += `\\element{${tabQCMs[0]}}{\n `
-				tex_QR+=`\\begin{minipage}{0.7 \\linewidth}\n`
+				tex_QR+=`\\begin{minipage}[b]{0.7 \\linewidth}\n`
 				tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}a} \n `
 				tex_QR += `		${tabQCM[0]} \n `
 				tex_QR += `\\explain{${tabQCM[1][0]}}\n`
@@ -7906,6 +7906,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{babel} % sans option => langue définie dans la classe du document
 	 \\usepackage[T1]{fontenc} 
 	 \\usepackage[utf8x]{inputenc}
+	 \\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
 	 \\usepackage{fp}
 	
 	%%%%% SPÉCIFICITÉS A.M.C. %%%%%
@@ -7918,21 +7919,30 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{multicol} 
 	 \\usepackage{wrapfig}  
 	 \\usepackage{fancybox}  % pour \\doublebox \\shadowbox  \\ovalbox \\Ovalbox
-	
+	 \\usepackage{calc} 						% Calculs 
+	 \\usepackage{enumerate}					% Pour modifier les numérotations
+	 \\usepackage{enumitem}
+	 \\usepackage{tabularx}					% Pour faire des tableaux
+
 	%%%%% PACKAGES FIGURES %%%%%
 	%\\usepackage{pstricks,pst-plot,pstricks-add}
 	%   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
 	%   MAIS ON PRÉFÉRERA UTILISER TIKZ...
 	\\usepackage{etex}	  % pour avoir plus de "registres" mémoires / tikz...
 	\\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
-	\\usepackage{tikz}
+	\\usepackage{pgf,tikz}
 	\\usepackage{graphicx} % pour inclure une image
+	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+	\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+	\\usetkzobj{all}
 	
 	%%%%% PACKAGES MATHS %%%%%
 	 \\usepackage{ucs}
 	 \\usepackage{amsmath}
 	 \\usepackage{amsfonts}
 	 \\usepackage{amssymb}
+	 \\usepackage{gensymb}
 	 \\usepackage{eurosym}
 	 \\usepackage{frcursive}
 	 \\newcommand{\\Vcurs}{\\begin{cursive}V\\end{cursive}}
@@ -7941,13 +7951,38 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
 	 %  sous Ubuntu, paquet texlive-science à installer
 	 \\usepackage[autolanguage,np]{numprint}
-	
+	 \\usepackage{mathrsfs}  % Spécial math
+	 \\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+	 \\usepackage{pifont}						% Pour les symboles "ding"
+	 \\usepackage{bbding}						% Pour les symboles
+	 \\usepackage[misc]{ifsym}					% Pour les symboles
+	 \\usepackage{cancel}						% Pour pouvoir barrer les nombres
+
+
 	%%%%% AUTRES %%%%%
 	 \\usepackage{ifthen}
-	
+	 \\usepackage{url} 			        		% Pour afficher correctement les url
+	 \\urlstyle{sf}                          	% qui s'afficheront en police sans serif
+	 \\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
+ 	 \\pagestyle{fancy}                      	% de pages personnalisés
+	 \\usepackage{fancybox}					% Pour les encadrés
+	 \\usepackage{xlop}						% Pour les calculs posés
+	%\\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+	 \\usepackage{multido}					% Pour faire des boucles
+	%\\usepackage{hyperref}					% Pour gérer les liens hyper-texte
+	 \\usepackage{fourier}
+	 \\usepackage{colortbl} 					% Pour des tableaux en couleur
+	 \\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
+	 \\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
+	%\\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+	%\\usepackage[]{qrcode}
+	%\\usepackage{pdflscape}
+	 \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
+	 \\usepackage{tikzsymbols}
+	%\\usepackage{tasks}						% Pour les listes horizontales
+
 	
 	%%%%% Librairies utilisées par Mathgraphe32 %%%% 
-	\\usetikzlibrary{patterns}
 	\\usepackage{fix-cm}
 	\\usepackage{textcomp}
 	
