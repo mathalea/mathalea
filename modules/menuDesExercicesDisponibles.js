@@ -355,6 +355,14 @@ export function menuDesExercicesDisponibles(){
       liste_html_des_exercices += liste_html_des_exercices_prof;
       liste_html_des_exercices += `</div>`;
       liste_html_des_exercices += `</div>`;
+    } else if (window.location.href.indexOf("dnb.html") > 0) {
+      liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Exercices de brevet (classés par année)</div><div class=" active content">`;
+      liste_html_des_exercices += liste_html_des_exercices_DNB;
+      liste_html_des_exercices += `</div>`;
+      liste_html_des_exercices += `<div class="active title"><i class="dropdown icon"></i>Exercices de brevet (classés par thème)</div><div class="active content">`;
+      liste_html_des_exercices += liste_html_des_exercices_DNB_theme;
+      liste_html_des_exercices += `</div>`;
+      liste_html_des_exercices += `</div>`;
     }
     else {
       liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>CM1 / CM2 (${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
