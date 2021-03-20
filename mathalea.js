@@ -398,10 +398,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         if (!sortie_html) {
             // Gestion du téléchargement
-
-            $("#btn_telechargement").click(function () {
+            $("#btn_telechargement").off("click").on("click",function () {
                 // Gestion du style pour l'entête du fichier
-
                 let contenu_fichier = `
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -434,8 +432,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     telechargeFichier(contenu_fichier, "mathalea.tex");
                 }
             });
-
-            $("#btn_overleaf").click(function () {
+			
+			$("#btn_overleaf").off("click").on("click", function () {
                 // Gestion du style pour l'entête du fichier
 
                 let contenu_fichier = `
