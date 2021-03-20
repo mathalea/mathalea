@@ -7739,7 +7739,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				/********************************************************************/
 				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
 				// On pourra rajouter des options : les paramètres sont nommés.
-				// {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
+				// {digits=0,decimals=0,vertical=false,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
 				// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
 				// signe et exposant_signe sont des booléens
 				// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
@@ -7764,6 +7764,15 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				}
 				if (tabQCM[2].approx != 0) {
 					tex_QR += `approx=${tabQCM[2].approx},`
+				}
+				if (typeof tabQCM[2].vertical!='undefined'){	
+				tex_QR += `vertical=${tabQCM[2].vertical},`	
+				}
+				if (typeof tabQCM[2].strict!='undefined'){	
+					tex_QR += `strict=${tabQCM[2].strict},`	
+					}
+				if (typeof tabQCM[2].vhead!='undefined'){	
+					tex_QR += `vhead=${tabQCM[2].vhead},`	
 				}
 				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n`
 				tex_QR += `\\end{questionmultx}\n }\n`
@@ -7842,7 +7851,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	// Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
 
 	let idExo = 0, code,index_of_code
-	let code_latex 
+
 	let nombre_de_questions_indefinie=[]
 	let graine = randint(1, 100000)
 	let groupeDeQuestions = [], tex_questions = [[]], titre_question = []
@@ -7880,6 +7889,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	// Fin de la préparation des groupes
 
 	//variable qui contiendra le code LaTeX pour AMC
+	let code_latex =''
 
 	// variable preambule à abonder le cas échéant si des packages sont nécessaires.
 	// Merci à Sébastien Lozano pour la vérification des dépendances
@@ -8017,7 +8027,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\\exemplaire{${nb_exemplaires}}{   % <========================  /!\\ PENSER À ADAPTER /!\\  ==  %
+	\\exemplaire{${nb_exemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ==  %
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%% EN-TÊTE, IDENTIFICATION AUTOMATIQUE DE L'ÉLÈVE %%%%%
