@@ -255,7 +255,7 @@ if (!sortie_html&&this.correction_detaillee) {
 
         /*****************************************************/
         // Pour AMC
-        this.QCM[1][0] = [texte, [texte_corr,reponse,4], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
+        this.QCM[1][0] = [texte, [texte_corr,reponse,4], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
         /****************************************************/
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);

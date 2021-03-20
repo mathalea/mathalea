@@ -1,4 +1,4 @@
-import { Creer_document_AMC, strRandom } from "./modules/outils.js";
+import { creer_document_AMC, strRandom } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles} from '/modules/menuDesExercicesQCMDisponibles.js'
 import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC.js"
@@ -105,7 +105,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-                    code_LaTeX = Creer_document_AMC({questions:questions,nb_questions:[]}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:[]}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();

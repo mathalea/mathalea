@@ -1768,7 +1768,7 @@ class Personne {
 		this.prenom = ''
 		this.genre = ''
 		this.pronom = ''
-		if (prenom == '' || typeOf(prenom == 'undefined')) { // On le/la baptise
+		if (prenom == '' || ((typeof prenom) == 'undefined')) { // On le/la baptise
 			choix = prenomPronom()
 			this.prenom = choix[0]
 			this.pronom = choix[1]
@@ -7653,6 +7653,8 @@ export function scratchTraductionFr() {
  * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
  * chaque tableau est élaboré dans le corps de l'exercice 
  * La fonction crée la partie préparation des groupes de questions du document AMC.
+ * Elle retourne un tableau hybride contenant dans cet ordre :
+ * Le code Latex du groupe de question, la référence du groupe (passée dans l'argument tabQCMs[0], le nombre de questions dans ce groupe (tabQCMs[1].length), et le titre du groupe passé dans l'argument tabQCM[2])
  */
 
 export function export_QCM_AMC(tabQCMs, idExo) {
@@ -7763,7 +7765,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				if (tabQCM[2].approx != 0) {
 					tex_QR += `approx=${tabQCM[2].approx},`
 				}
-				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,strict=true,Tpoint={,}}\n`
+				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n`
 				tex_QR += `\\end{questionmultx}\n }\n`
 				id++
 				break
@@ -7794,7 +7796,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 						tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
 					}
 				}
-				tex_QR+=`\\begin{minipage}{0.3 \\linewidth}\n`
+				tex_QR+=`\\begin{minipage}[b]{0.3 \\linewidth}\n`
 				tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}b} \n `
 				tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
 				if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -7803,7 +7805,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				if (tabQCM[2].approx != 0) {
 					tex_QR += `approx=${tabQCM[2].approx},`
 				}
-				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,strict=true,Tpoint={,},vertical=true}\n`
+				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
 				tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
 				id++
 			break
@@ -7834,41 +7836,56 @@ export function export_QCM_AMC(tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation' }) {
+export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation' }) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
-	let idExo = 0, code
+	// Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
+	// Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
+
+	let idExo = 0, code,index_of_code
+	let code_latex 
+	let nombre_de_questions_indefinie=[]
 	let graine = randint(1, 100000)
-	let groupeDeQuestion = [], tex_questions = [[]], titre_question = []
+	let groupeDeQuestions = [], tex_questions = [[]], titre_question = []
 	for (let qcm of questions) {
 		code = export_QCM_AMC(qcm, idExo)
 		idExo++
-		if (groupeDeQuestion.indexOf(code[1]) == -1) { //si le groupe n'existe pas
-			groupeDeQuestion.push(code[1])
-			tex_questions[groupeDeQuestion.indexOf(code[1])] = code[0]
-			nb_questions[groupeDeQuestion.indexOf(code[1])] = code[2]
-			titre_question[groupeDeQuestion.indexOf(code[1])] = code[3]
+		index_of_code=groupeDeQuestions.indexOf(code[1])
+		if (index_of_code == -1) { //si le groupe n'existe pas
+			groupeDeQuestions.push(code[1])
+			index_of_code=groupeDeQuestions.indexOf(code[1])
+			tex_questions[index_of_code] = code[0]
+	// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			if (typeof nb_questions[index_of_code] =='undefined' ) {
+				nombre_de_questions_indefinie[index_of_code]=true
+				nb_questions[index_of_code] = code[2]
+			}
+			else { // Si le nombre de question (à restituer pour ce groupe de question) a été défini par l'utilisateur, alors on le laisse !
+				nombre_de_questions_indefinie[index_of_code]=false
+			}
+			// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			titre_question[index_of_code] = code[3]
 		}
-		else {
-			tex_questions[groupeDeQuestion.indexOf(code[1])] += code[0]
-			nb_questions[groupeDeQuestion.indexOf(code[1])] += code[2]
+		else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
+		console.log(tex_questions[index_of_code].indexOf(code[0]))
+			if (tex_questions[index_of_code].indexOf(code[0])==-1){
+			tex_questions[index_of_code] += code[0]
+			// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			if (nombre_de_questions_indefinie[index_of_code]) {
+				nb_questions[index_of_code] += code[2]
+			}
+			}
 		}
 
 	}
-	/*
-	`%%% fabrication des copies 
-	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
-	\\noindent{\\bf QCM \\hfill TEST}
-	\\vspace*{.5cm} 
-	\\begin{minipage}{.4\\linewidth}
-	\\centering\\large\\bf ${matiere}\\\\
-	${titre}
-	\\end{minipage}
-	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
-	\\vspace*{.5cm}\\dotfill 
-	\\vspace*{1mm}
-	\\end{minipage}}} %%% fin de l’en-tête\n`
-*/
-	let code_latex = ''
+	// Fin de la préparation des groupes
+
+	//variable qui contiendra le code LaTeX pour AMC
+
+	// variable preambule à abonder le cas échéant si des packages sont nécessaires.
+	// Merci à Sébastien Lozano pour la vérification des dépendances
+	// Merci à Liouba Lerou pour ses documents qui ont servi de base
+	// A faire : abonder le preambule pour qu'il colle à tous les exos Mathalea_AMC
+
 	let preambule = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%% -I- PRÉAMBULE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7967,13 +7984,17 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%%%% Fin du préambule %%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	`
-	let document = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+// Variable contenant la partie document
+// Celle-ci contient une partie statique et une partie variable (la zone de définition des groupes qui est construite à la volée à partir de la variable groupeDeQuestions alimentée au début)
+
+	let debut_document = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% -II-DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\begin{document}
-\\AMCrandomseed{458101}   % On choisit les "graines" pour initialiser le "hasard"
+\\AMCrandomseed{${graine}}   % On choisit les "graines" pour initialiser le "hasard"
 \\setdefaultgroupmode{withoutreplacement}\n
-\\FPseed=12345678
+\\FPseed=${graine}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% -II-a. CONCEPTION DU QCM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7982,11 +8003,13 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`;
 
-	for (let g of groupeDeQuestion) {
-		let i = groupeDeQuestion.indexOf(g)
-		document += tex_questions[i]
+	for (let g of groupeDeQuestions) {
+		let i = groupeDeQuestions.indexOf(g)
+		debut_document += tex_questions[i]
 	}
 
+// Variable qui contient l'entête d'une copie
+// A faire : Proposer différent type d'entête en fonction d'un paramètre ?
 
 	let entete_copie = ` 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8043,13 +8066,13 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	
 	`
 
-
-
-	code_latex += preambule + '\n' + document + '\n' + entete_copie
-
-	for (let g of groupeDeQuestion) {
-		let i = groupeDeQuestion.indexOf(g)
-		code_latex += `
+	// Ici On ajoute les commandes pour insérer les questions issues des groupes en quantité selon le nb_question[i]
+	// nb_question est un tableau passé en paramètre à la fonction creer_document_AMC pour déterminer le nombre de questions à restituer par groupe.
+	// si ce nombre est 0, on restitue toutes les questions du groupe
+	let contenu_copie=''
+	for (let g of groupeDeQuestions) {
+		let i = groupeDeQuestions.indexOf(g)
+		contenu_copie += `
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}
@@ -8058,51 +8081,15 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 		\\hrule
 	\\end{center}\n`
 		if (nb_questions[i] > 0) {
-			code_latex += `\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
+			contenu_copie += `\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
 		}
 		else {
-			code_latex += `\\restituegroupe{${g}}\n\n`
+			contenu_copie += `\\restituegroupe{${g}}\n\n`
 		}
 	}
-	code_latex += `}\n \\end{document}\n`
+
+	// On assemble les différents morceaux et on retourne le résultat
+	code_latex = preambule + '\n' + debut_document + '\n' + entete_copie + contenu_copie + `}\n \\end{document}\n`
 	return code_latex
 }
 
-/*
-
-	`\\documentclass[a4paper]{article}
-	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage[french]{babel}
-\\usepackage{multicol}
-\\usepackage{calc}
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}
-\\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
-\\usepackage{cancel}
-\\usepackage{textcomp}
-\\usepackage{gensymb}
-\\usepackage{eurosym}
-%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}
-\\pagestyle{fancy}
-\\usepackage{fancybox}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-	\\definecolor{geo}{cmyk}{.62,.1,0,0}
-	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}
-\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
-
-\\usepackage[francais,bloc,completemulti]{automultiplechoice}\n
-*/
