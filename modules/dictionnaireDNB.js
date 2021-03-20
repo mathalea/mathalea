@@ -69,7 +69,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_04_pondichery_6.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_04_pondichery_6_cor.tex",
-        "tags": ["Prise d'initiative", "Proportionnalité", "Durées", "Vitesses", "Puissances"]
+        "tags": ["Prise d'initiatives", "Proportionnalité", "Durées", "Vitesses", "Puissances"]
     },
     "dnb_2013_06_ameriquenord_1": {
         "annee": "2013",
@@ -261,7 +261,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_06_asie_8.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_06_asie_8_cor.tex",
-        "tags": ["Prise d'initiative", "Thalès", "Pythagore", "Aires et périmètres"]
+        "tags": ["Prise d'initiatives", "Thalès", "Pythagore", "Aires et périmètres"]
     },
     "dnb_2013_06_etrangers_1": {
         "annee": "2013",
@@ -333,7 +333,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_06_etrangers_6.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_06_etrangers_6_cor.tex",
-        "tags": ["Prise d'initiative", "Thalès", "Calcul littéral"]
+        "tags": ["Prise d'initiatives", "Thalès", "Calcul littéral"]
     },
     "dnb_2013_06_etrangers_7": {
         "annee": "2013",
@@ -405,7 +405,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_06_metropole_5.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_06_metropole_5_cor.tex",
-        "tags": ["Prise d'initiative", "Recherche d'informations", "Volumes", "Proportionnalité"]
+        "tags": ["Prise d'initiatives", "Recherche d'informations", "Volumes", "Proportionnalité"]
     },
     "dnb_2013_06_metropole_6": {
         "annee": "2013",
@@ -513,7 +513,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_06_polynesie_7.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_06_polynesie_7_cor.tex",
-        "tags": ["Prise d'initiative", "Thalès"]
+        "tags": ["Prise d'initiatives", "Thalès"]
     },
     "dnb_2013_06_polynesie_8": {
         "annee": "2013",
@@ -585,7 +585,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_09_polynesie_5.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_09_polynesie_5_cor.tex",
-        "tags": ["Prise d'initiative", "Thalès", "Calcul littéral"]
+        "tags": ["Prise d'initiatives", "Thalès", "Calcul littéral"]
     },
     "dnb_2013_09_polynesie_6": {
         "annee": "2013",
@@ -597,7 +597,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_09_polynesie_6.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_09_polynesie_6_cor.tex",
-        "tags": ["Prise d'initiative", "Proportionnalité"]
+        "tags": ["Prise d'initiatives", "Proportionnalité"]
     },
     "dnb_2013_11_ameriquesud_1": {
         "annee": "2013",
@@ -645,7 +645,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2013_11_ameriquesud_4.tex",
         "urlcor": "/dnb/2013/tex/dnb_2013_11_ameriquesud_4_cor.tex",
-        "tags": ["Prise d'initiative", "Proportionnalité", "Grandeurs composées"]
+        "tags": ["Prise d'initiatives", "Proportionnalité", "Grandeurs composées"]
     },
     "dnb_2013_11_ameriquesud_5": {
         "annee": "2013",
@@ -1030,7 +1030,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2014/tex/dnb_2014_06_asie_7.tex",
         "urlcor": "/dnb/2014/tex/dnb_2014_06_asie_7_cor.tex",
-        "tags": ["Prise d'initiative","Pythagore","Trigonométrie"]
+        "tags": ["Prise d'initiatives","Pythagore","Trigonométrie"]
     },
     "dnb_2014_06_etrangers_1": {
         "annee": "2014",
@@ -1726,7 +1726,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_04_pondichery_7.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_04_pondichery_7_cor.tex",
-        "tags": ["Prise d'initiative", "Aires et périmètres", "Calcul littéral"]
+        "tags": ["Prise d'initiatives", "Aires et périmètres", "Calcul littéral"]
     },
     "dnb_2015_06_ameriquenord_1": {
         "annee": "2015",
@@ -1846,7 +1846,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_asie_4.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_asie_4_cor.tex",
-        "tags": ["Prise d'initiative", "Arithmétique"]
+        "tags": ["Prise d'initiatives", "Arithmétique"]
     },
     "dnb_2015_06_asie_5": {
         "annee": "2015",
@@ -2101,7 +2101,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_metropole_5.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_metropole_5_cor.tex",
-        "tags": ["Prise d'initiative", "Aires et périmètres", "Calculs numériques", "Proportionnalité"]
+        "tags": ["Prise d'initiatives", "Aires et périmètres", "Calculs numériques", "Proportionnalité"]
     },
     "dnb_2015_06_metropole_6": {
         "annee": "2015",
@@ -2210,7 +2210,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_polynesie_7.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_polynesie_7_cor.tex",
-        "tags": ["Prise d'initiative", "Proportionnalité", "Aires et périmètres"]
+        "tags": ["Prise d'initiatives", "Proportionnalité", "Aires et périmètres"]
     },
     "dnb_2015_09_metropole_1": {
         "annee": "2015",
@@ -2246,7 +2246,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_09_metropole_3.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_09_metropole_3_cor.tex",
-        "tags": ["Prise d'initiative", "Proportionnalité", "Durées", "Vitesses"]
+        "tags": ["Prise d'initiatives", "Proportionnalité", "Durées", "Vitesses"]
     },
     "dnb_2015_09_metropole_4": {
         "annee": "2015",
@@ -2295,7 +2295,7 @@ export let dictionnaireDNB = {
         "url": "/dnb/2015/tex/dnb_2015_09_metropole_7.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_09_metropole_7_cor.tex",
         "tags": ["Durées", "Pourcentages", "Probabilités", "Statistiques"],
-        "tags": ["Prise d'initiative", "Pythagore", "Trigonométrie"]
+        "tags": ["Prise d'initiatives", "Pythagore", "Trigonométrie"]
     },
     "dnb_2015_09_polynesie_1": {
         "annee": "2015",
@@ -2451,7 +2451,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_12_ameriquesud_6.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_12_ameriquesud_6_cor.tex",
-        "tags": ["Prise d'initiative", "Volumes", "Pourcentages", "Proportionnalité"]
+        "tags": ["Prise d'initiatives", "Volumes", "Pourcentages", "Proportionnalité"]
     },
     "dnb_2015_12_ameriquesud_7": {
         "annee": "2015",
@@ -2475,7 +2475,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_12_ameriquesud_8.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_12_ameriquesud_8_cor.tex",
-        "tags": ["Prise d'initiative", "Equations"]
+        "tags": ["Prise d'initiatives", "Equations"]
     },
     "dnb_2015_12_caledonie_1": {
         "annee": "2015",
@@ -2523,7 +2523,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_12_caledonie_4.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_12_caledonie_4_cor.tex",
-        "tags": ["Prise d'initiative", "Pythagore"]
+        "tags": ["Prise d'initiatives", "Pythagore"]
     },
     "dnb_2015_12_caledonie_5": {
         "annee": "2015",
@@ -2816,7 +2816,7 @@ export let dictionnaireDNB = {
     //     "type_exercice": "dnb",
     //     "url": "/dnb/2016/tex/dnb_2016_06_antillesguyanne_3.tex",
     //     "urlcor": "/dnb/2016/tex/dnb_2016_06_antillesguyanne_3_cor.tex",
-    //     "tags": ["Trigonométrie", "Pythagore", "Géométrie plane", "Prise d'initiative"]
+    //     "tags": ["Trigonométrie", "Pythagore", "Géométrie plane", "Prise d'initiatives"]
     // },
 
     // "dnb_2016_06_antillesguyanne_4": {
@@ -3231,7 +3231,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_09_metropole_5.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_09_metropole_5_cor.tex",
-        "tags": ["Hors-programme", "Géométrie plane", "Prise d'initiative"]
+        "tags": ["Hors-programme", "Géométrie plane", "Prise d'initiatives"]
     },
 
     "dnb_2016_09_metropole_6": {
@@ -3401,7 +3401,7 @@ export let dictionnaireDNB = {
     //     "type_exercice": "dnb",
     //     "url": "/dnb/2016/tex/dnb_2016_12_caledonie_4.tex",
     //     "urlcor": "/dnb/2016/tex/dnb_2016_12_caledonie_4_cor.tex",
-    //     "tags": ["Grandeurs composées", "Proportionnalité", "Vitesses", "Prise d'initiative"]
+    //     "tags": ["Grandeurs composées", "Proportionnalité", "Vitesses", "Prise d'initiatives"]
     // },
 
     // "dnb_2016_12_caledonie_5": {
@@ -4138,7 +4138,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2017/tex/dnb_2017_11_ameriquesud_2.tex",
         "urlcor": "/dnb/2017/tex/dnb_2017_11_ameriquesud_2_cor.tex",
-        "tags": ["Prise d'initiative", "Geométrie plane"]
+        "tags": ["Prise d'initiatives", "Geométrie plane"]
     },
     "dnb_2017_11_ameriquesud_3": {
         "annee": "2017",
@@ -4861,7 +4861,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_07_polynesie_4.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_07_polynesie_4_cor.tex",
-         "tags": ["Aires et périmètres", "Grandeurs composées"]
+         "tags": ["Statistiques", "Pourcentages"]
     },
     "dnb_2018_07_polynesie_5": {
         "annee": "2018",
@@ -6158,7 +6158,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_11_ameriquesud_5_cor.tex",
-        "tags": ["Calculs numériques", "Prise d'initiative"]
+        "tags": ["Calculs numériques", "Prise d'initiatives"]
     },
     "dnb_2019_11_ameriquesud_6": {
         "annee": "2019",
@@ -6498,7 +6498,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2020/tex/dnb_2020_12_caledonie_5.tex",
         "urlcor": "/dnb/2020/tex/dnb_2020_12_caledonie_5_cor.tex",
-        "tags": ["Prise d'initiative", "Pythagore"]
+        "tags": ["Prise d'initiatives", "Pythagore"]
     },
     "dnb_2020_12_caledonie_6": {
         "annee": "2020",
