@@ -4763,7 +4763,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_metropole_3.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_metropole_3_cor.tex",
-         "tags": ["Probabilités", "Proportionnalité","Vitesses"]
+         "tags": ["Probabilités"]
     },
     "dnb_2018_06_metropole_4": {
         "annee": "2018",
@@ -4775,7 +4775,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_metropole_4.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_metropole_4_cor.tex",
-        "tags": ["Géométrie plane", "Thalès", "Pythagore", "Trigonométrie"]
+        "tags": ["Géométrie plane", "Pythagore", "Trigonométrie"]
     },
     "dnb_2018_06_metropole_5": {
         "annee": "2018",
@@ -4896,7 +4896,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_1.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_1_cor.tex",
-        "tags": ["Proportionnalité", "Géométrie dans l'espace", "Volumes"]
+        "tags": ["Probabilités", "Statistiques", "Pourcentages", "Tableur"]
     },
     "dnb_2018_09_metropole_2": {
         "annee": "2018",
@@ -4908,7 +4908,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_2.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_2_cor.tex",
-        "tags": ["Statistiques"]
+        "tags": ["Arithmétique"]
     },
     "dnb_2018_09_metropole_3": {
         "annee": "2018",
@@ -4920,7 +4920,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_3.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_3_cor.tex",
-        "tags": ["Probabilités", "Proportionnalité"]
+        "tags": ["Vitesses", "Fonctions"]
     },
     "dnb_2018_09_metropole_4": {
         "annee": "2018",
@@ -4932,7 +4932,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_4.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_4_cor.tex",
-        "tags": ["Géométrie plane", "Thalès", "Pythagore", "Trigonométrie"]
+        "tags": ["Proportionnalité","Volumes","Pourcentages"]
     },
     "dnb_2018_09_metropole_5": {
         "annee": "2018",
@@ -4944,7 +4944,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_5.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_5_cor.tex",
-        "tags": ["Calcul littéral", "Equations", "Calculs numériques"]
+        "tags": ["Algorithmique-programmation"]
     },
     "dnb_2018_09_metropole_6": {
         "annee": "2018",
@@ -4956,7 +4956,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_09_metropole_6.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_09_metropole_6_cor.tex",
-        "tags": ["Transformations", "Aires et périmètres", "Algorithmique-programmation"]
+        "tags": ["Programme de calculs", "Calcul littéral"]
     },
     "dnb_2018_09_metropole_7": {
         "annee": "2018",
