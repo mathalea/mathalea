@@ -21,7 +21,7 @@ function liste_html_des_exercices_DNB_annee(annee){
   let dictionnaire = filtreDictionnaireValeurCle(dictionnaireDNB,"annee",annee);
   for (let id in dictionnaire) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
+      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["lieu"]} - ${dictionnaire[id]["mois"]} -  Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
   }
   return liste;
 }
@@ -37,7 +37,7 @@ function liste_html_des_exercices_DNB_theme(theme){
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (let id of tableauDesExercices) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["annee"]} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
+      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["annee"]} - ${id.substr(9,2)} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
   }
   return liste;
 }
