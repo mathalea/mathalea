@@ -24,6 +24,8 @@ export default function Multiplier_decimaux_par_10_100_1000() {
   this.nb_questions = 8;
 
   this.nouvelle_version = function () {
+    this.QCM=['6C30-1',[],'Multiplications d\'un nombre décimal par 10, 100 ou 1 000.',4]
+ 
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [],type_de_questions;
@@ -39,7 +41,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
       type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if (this.sup2) this.consigne = "Calculer et compléter.";
-
+let reponse
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -64,6 +66,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${tex_nombre(a)} \\times ${tex_nombre(
             b
           )} = ${tex_nombrec(a * b)}$`;
+          reponse=calcul(a*b)
           break;
         case 2: // 10 × a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
@@ -73,6 +76,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${tex_nombre(b)} \\times ${tex_nombre(
             a
           )} = ${tex_nombrec(a * b)}$`;
+          reponse=calcul(a*b)
           break;
         case 3: // abcd/10 × 10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -82,6 +86,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${tex_fraction(a, den)} \\times ${tex_nombre(
             b
           )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          reponse=calcul(a*b/den)
           break;
         case 4: // 10 × abcd/10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -92,6 +97,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
             a,
             den
           )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          reponse=calcul(a*b/den)
           break;
         case 5: // .... × 10 = a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
@@ -101,6 +107,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${mise_en_evidence(
             tex_nombre(a)
           )} \\times ${tex_nombre(b)} = ${tex_nombrec(a * b)}$`;
+          reponse=calcul(a*b)
           break;
         case 6: // 10 × .... = a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
@@ -110,6 +117,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${tex_nombre(b)} \\times ${mise_en_evidence(
             tex_nombre(a)
           )}  = ${tex_nombrec(a * b)}$`;
+         reponse=a
           break;
         case 7: // case 3 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -121,6 +129,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
           texte_corr = `$${tex_fraction(a, den)} \\times ${mise_en_evidence(
             tex_nombre(b)
           )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          reponse=b
           break;
         case 8: // case 4 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -135,6 +144,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
             a * b,
             den
           )} = ${tex_nombrec((a / den) * b)}$`;
+          reponse=calcul(b)
           break;
         case 9: // case 3 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -150,6 +160,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
             a * b,
             den
           )} = ${tex_nombrec((a / den) * b)}$`;
+          calcul(a*b/den)
           break;
         case 10: // case 4 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
@@ -163,6 +174,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
             a,
             mise_en_evidence(tex_nombre(den))
           )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          calcul(a*b/den)
           break;
       }
 
@@ -170,6 +182,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;
