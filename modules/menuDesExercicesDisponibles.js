@@ -21,7 +21,7 @@ function liste_html_des_exercices_DNB_annee(annee){
   let dictionnaire = filtreDictionnaireValeurCle(dictionnaireDNB,"annee",annee);
   for (let id in dictionnaire) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
+      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["lieu"]} - ${dictionnaire[id]["mois"]} -  Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
   }
   return liste;
 }
@@ -37,7 +37,7 @@ function liste_html_des_exercices_DNB_theme(theme){
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (let id of tableauDesExercices) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["annee"]} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
+      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id]["annee"]} - ${id.substr(9,2)} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaire[id])} </br>\n`;
   }
   return liste;
 }
@@ -65,27 +65,35 @@ function get_liste_html_des_exercices_DNB(){
 
 function get_liste_html_des_exercices_DNB_theme(){ 
   let liste = '<div class="accordion">';
-  for (let theme of ["Pythagore","Thalès","Trigonométrie","Géométrie plane","Transformations",
-  "Géométrie dans l'espace",
-  "Aires et périmètres",
-  "Volumes",
-  "Durées",
-  "Grandeurs composées",
+  for (let theme of [
   "Agrandissement-réduction",
-  "Calculs numériques",
-   "Puissances",
-   "Fractions",
-   "Pourcentages",
-   "Proportionnalité",
-   "Vitesses",
-  "Calcul littéral",
-  "Programme de calculs",
-   "Equations",
-  "Fonctions",
-  "Statistiques",
-  "Probabilités",
-  "Arithmétique",
+  "Aires et périmètres",
   "Algorithmique-programmation",
+  "Arithmétique",
+  "Calcul littéral",
+  "Calculs numériques",
+  "Géométrie dans l'espace",
+  "Durées",
+  "Equations",
+  "Fractions",
+  "Fonctions",
+  "Géométrie plane",
+  "Grandeurs composées",
+  "Pourcentages",
+  "Prise d'initiatives",
+  "Programme de calculs",
+  "Probabilités",
+  "Proportionnalité",
+  "Puissances",
+  "Pythagore",
+  "QCM",
+  "Thalès",
+  "Transformations",
+  "Trigonométrie",
+  "Vitesses",
+  "Volumes",
+  "Vrai-faux",
+  "Statistiques",
   "Tableur"
 ]){
 
