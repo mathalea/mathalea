@@ -456,6 +456,28 @@ export function menuTheme(theme) {
   
 }
 
+export function menuThemeDNB(theme) {
+  let codeHTML = `<h2 class="ui horizontal divider header">Exercices du brevet des collèges - ${theme}</h2>`;
+  codeHTML += '\n<div class="ui middle aligned animated selection divided list">';
+  
+  let dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireDNB,"tags",theme);
+  let tableauDesExercices = []
+  for (let id in dictionnaire){
+      tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (let id of tableauDesExercices) {
+    codeHTML +=
+      `<a style="line-height:2.5" class="item" href="/exercice.html?ex=${id}" target="_blank"><div class="header content"> ${dictionnaire[id]["annee"]} - ${dictionnaire[id]["lieu"]} - Ex ${dictionnaire[id]["numeroExercice"]} ${liste_html_des_tags(dictionnaire[id])} </div></a> \n`;
+  }
+
+
+  codeHTML += '\n</div>';
+  return codeHTML
+  
+}
+
 
 function listeTheme(theme) {
   let codeHTML = ''
