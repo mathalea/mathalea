@@ -13,6 +13,7 @@ for (let item in dictionnaireDNB){
 // transforme le set en tableau dans l'ordre alphabétique
 let tableauTags = ([...tags].sort())
 enleve_element(tableauTags,"Système d'équations")
+enleve_element(tableauTags,"Hors programme")
 
 // On concatène les différentes listes d'exercices
 export let dictionnaireDesExercices = {...dictionnaireDesExercicesAleatoires,...dictionnaireDNB, ...dictionnaireC3};
@@ -121,7 +122,11 @@ function liste_html_des_tags(objet){
     let result = ''
     if (objet["tags"]!==undefined){
         for (let tag of objet["tags"]){
-            result += `<div class="ui mini blue label">${tag}</div>`
+            if (tag == "Hors programme") {
+              result += `<div class="ui mini red label">${tag}</div>`
+            } else {
+              result += `<div class="ui mini blue label">${tag}</div>`
+            }
         }
     }
     return result
