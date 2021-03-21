@@ -796,24 +796,20 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             mise_a_jour_du_code();
         });
 // Gestion des paramètres du fichier LaTeX
-
+        // gestion de l'entête
         let form_entete=document.getElementById("options_type_entete");
         
         form_entete.addEventListener("change",function (e) {
         type_entete=e.target.value;
-            console.log(type_entete)
-        /*else
-            if ($("#type_manuel:checked").val()) {
-                type_entete="champnom"
-                console.log(type_entete)
-            }
-            else {
-                type_entete="AMCcodeGrid"
-                console.log(type_entete)
-
-            }*/
          });
-         
+         //gestion du nombre de questions par groupe
+         let form_nb_questions=document.getElementById("nb_questions_par_groupe");
+        
+         form_nb_questions.addEventListener("change",function (e) {
+             let saisie=e.target.value;
+         nb_questions=saisie.split(',');
+         console.log(nb_questions)
+          });         
 
         $("#btn_overleaf").click(function () {
             // Gestion du style pour l'entête du fichier
