@@ -3,3 +3,4 @@
 tex/*
 tex/png/*
 dnb/
+.jshintrc
