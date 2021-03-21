@@ -110,7 +110,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:[],nb_exemplaires:nb_exemplaires,type_entete:type_entete}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:nb_questions,nb_exemplaires:nb_exemplaires,type_entete:type_entete}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
@@ -166,7 +166,6 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
     } else {
         nom_fichier= "mathalea.tex";
     }
-    console.log($("#nom_du_fichier").val())
     monzip.file(`${nom_fichier}`,code_LaTeX)
     monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
     monzip.generateAsync({type:"blob"})
@@ -808,7 +807,6 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
          form_nb_questions.addEventListener("change",function (e) {
              let saisie=e.target.value;
          nb_questions=saisie.split(',');
-         console.log(nb_questions)
           });         
 
         $("#btn_overleaf").click(function () {
@@ -825,7 +823,6 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
 
 `;
-            console.log(code_LaTeX)
             contenu_fichier +=  code_LaTeX ;
 
             // Gestion du LaTeX statique

@@ -8039,6 +8039,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	let nombre_de_questions_indefinie=[]
 	let graine = randint(1, 100000)
 	let groupeDeQuestions = [], tex_questions = [[]], titre_question = []
+	console.log(nb_exemplaires,type_entete,nb_questions)
 	for (let qcm of questions) {
 		code = export_QCM_AMC(qcm, idExo)
 		idExo++
