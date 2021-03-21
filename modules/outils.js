@@ -7398,29 +7398,227 @@ export function preambule_personnalise(liste_packages) {
 				result += '\\usepackage{tkz-euclide}'
 				break
 			case 'dnb':
+			// 	result += `
+			// \\usepackage{fourier}
+			// \\usepackage[scaled=0.875]{helvet}
+			// \\renewcommand{\\ttdefault}{lmtt}
+			// \\usepackage[normalem]{ulem}
+			// \\usepackage{diagbox}
+			// \\usepackage{fancybox}
+			// \\usepackage{booktabs}
+			// \\usepackage{pifont}
+			// \\usepackage{multirow}
+			// \\usepackage{dcolumn}
+			// \\usepackage{lscape}
+			// \\usepackage{graphics,graphicx}
+			// \\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
+			// \\usepackage{scratch}
+			// \\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
+			// \\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
+			// \\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
+			// \\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
+			// \\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
+			// \\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
+			// \\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
+			// \\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
+			// `
 				result += `
-			\\usepackage{fourier}
-			\\usepackage[scaled=0.875]{helvet}
-			\\renewcommand{\\ttdefault}{lmtt}
-			\\usepackage[normalem]{ulem}
-			\\usepackage{diagbox}
-			\\usepackage{fancybox}
-			\\usepackage{booktabs}
-			\\usepackage{pifont}
-			\\usepackage{multirow}
-			\\usepackage{dcolumn}
-			\\usepackage{lscape}
-			\\usepackage{graphics,graphicx}
-			\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
-			\\usepackage{scratch}
-			\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
-			\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
-			\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
-			\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
-			\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
-			\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
-			\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
-			\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}`
+				%%%%% FONTS %%%%%
+				%\\usepackage{fourier}
+				\\usepackage{fourier-otf} % car compilation avec xetex
+				\\usepackage[scaled=0.875]{helvet}
+				\\renewcommand{\\ttdefault}{lmtt}
+				\\usepackage{pifont} % symboles
+				
+				%%%%% MISE EN PAGE %%%%%
+				\\usepackage{makeidx}
+				\\usepackage{lscape} % format paysage
+				
+				%%%%% MISE EN FORME %%%%%
+				\\usepackage[normalem]{ulem} % souligner
+				\\usepackage{booktabs} % tableaux de qualité
+				%\\usepackage[dvips]{hyperref} % hyperlien pour le passage par la compilation dvips
+				
+				%%%%% MATHS %%%%%
+				\\usepackage{diagbox} % des diagonales dans une cellule de tableau
+				\\usepackage{multirow} % fusionner plusieurs lignes de tableau
+				\\usepackage{dcolumn} % aligner des décimaux dans un tableau
+				%\\usepackage{marvosym}   %c'est pour le symbole euro : code \\EUR{}
+				%\\usepackage[np]{numprint} % affichage formaté des nombres
+				
+				%%%%%%% SCRATCH %%%%%%%
+				% Par défaut pour les anciens sujets c'est le package scratch qui est chargé
+				% Les packages scratch et scratch3 sont incompatibles
+				% Il convient donc de commenter l'un d'eux selon les besoins
+				%
+				% à noter que le package scratch3 requiert simplekv et tikz qui sont automatiquement chargés en cas de besoin
+				\\usepackage{scratch}
+				%\\usepackage{scratch3} 
+				
+				%%%%% FIGURES %%%%%
+				\\usepackage{graphics} % à distinguer du package graphicx
+				\\usepackage{framed} % decoration background
+				
+				%%%%%%% PSTRICKS %%%%%%%
+				\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
+				\\usepackage{pst-eucl}  % permet de faire des dessins de géométrie simplement
+				\\usepackage{pst-text}
+				\\usepackage{pst-node,pst-all}
+				
+				%%%%%%% TIKZ %%%%%%%
+				\\usepackage{tkz-tab,tkz-fct}
+				\\usepackage{tkz-euclide}
+				\\usepackage[tikz]{bclogo}
+				\\usetikzlibrary{shadows,decorations.markings}
+				\\usetikzlibrary{decorations.pathreplacing}
+				%\\usepackage{tikz} % arbre en proba
+				%\\usetikzlibrary{trees} % arbre en proba
+				\\usepackage{forest} % arbre en proba
+				
+				%%%%%%% TRACÉS FONNCTIONS %%%%%%%
+				\\usepackage{pgfplots}
+				\\pgfplotsset{compat=1.17}
+				
+				%%%%% PROGRAMMATION %%%%%
+				\\usepackage{xkeyval,ifthen}
+				
+				
+				%%%%% COMMANDES SPRECIFIQUES %%%%%
+				\\newcommand{\\textding}[1]{\\text{\\ding{#1}}}
+				%\\newcommand{\\euro}{\\eurologo{}}
+				\\renewcommand{\\pstEllipse}[5][]{% arc d'ellipse pour le sujet de Polynésie septembre 2013
+				\\psset{#1}
+				\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}
+				}
+				
+				%%%%%%% NOTATIONS DES ENSEMBLES %%%%%%%
+				\\newcommand{\\R}{\\mathbb{R}}
+				\\newcommand{\\N}{\\mathbb{N}}
+				\\newcommand{\\D}{\\mathbb{D}}
+				\\newcommand{\\Z}{\\mathbb{Z}}
+				\\newcommand{\\Q}{\\mathbb{Q}}
+				%\\newcommand{\\C}{\\mathbb{C}}
+				
+				%%%%% TRACÉS DANS UN REPÈRE %%%%%
+				\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}
+				\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}
+				\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
+				\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
+				
+				%%%%% PROBABILITÉS %%%%%
+				% Structure servant à avoir l'événement et la probabilité.
+				\\def\\getEvene#1/#2\\endget{$#1$}
+				\\def\\getProba#1/#2\\endget{$#2$}
+				
+				%%%%% NOMBRES PREMIERS %%%%%
+				\\input{xlop} % JM pour les opérations
+				%%% Table des nombres premiers  %%%%
+				\\newcount\\primeindex
+				\\newcount\\tryindex
+				\\newif\\ifprime
+				\\newif\\ifagain
+				\\newcommand\\getprime[1]{%
+				\\opcopy{2}{P0}%
+				\\opcopy{3}{P1}%
+				\\opcopy{5}{try}
+				\\primeindex=2
+				\\loop
+				\\ifnum\\primeindex<#1\\relax
+				\\testprimality
+				\\ifprime
+				\\opcopy{try}{P\\the\\primeindex}%
+				\\advance\\primeindex by1
+				\\fi
+				\\opadd*{try}{2}{try}%
+				\\ifnum\\primeindex<#1\\relax
+				\\testprimality
+				\\ifprime
+				\\opcopy{try}{P\\the\\primeindex}%
+				\\advance\\primeindex by1
+				\\fi
+				\\opadd*{try}{4}{try}%
+				\\fi
+				\\repeat
+				}
+				\\newcommand\\testprimality{%
+				\\begingroup
+				\\againtrue
+				\\global\\primetrue
+				\\tryindex=0
+				\\loop
+				\\opidiv*{try}{P\\the\\tryindex}{q}{r}%
+				\\opcmp{r}{0}%
+				\\ifopeq \\global\\primefalse \\againfalse \\fi
+				\\opcmp{q}{P\\the\\tryindex}%
+				\\ifoplt \\againfalse \\fi
+				\\advance\\tryindex by1
+				\\ifagain
+				\\repeat
+				\\endgroup
+				}
+				
+				%%% Décomposition en nombres premiers %%%
+				\\newcommand\\primedecomp[2][nil]{%
+				\\begingroup
+				\\opset{#1}%
+				\\opcopy{#2}{NbtoDecompose}%
+				\\opabs{NbtoDecompose}{NbtoDecompose}%
+				\\opinteger{NbtoDecompose}{NbtoDecompose}%
+				\\opcmp{NbtoDecompose}{0}%
+				\\ifopeq
+				Je refuse de décomposer zéro.
+				\\else
+				\\setbox1=\\hbox{\\opdisplay{operandstyle.1}%
+				{NbtoDecompose}}%
+				{\\setbox2=\\box2{}}%
+				\\count255=1
+				\\primeindex=0
+				\\loop
+				\\opcmp{NbtoDecompose}{1}\\ifopneq
+				\\opidiv*{NbtoDecompose}{P\\the\\primeindex}{q}{r}%
+				\\opcmp{0}{r}\\ifopeq
+				\\ifvoid2
+				\\setbox2=\\hbox{%
+				\\opdisplay{intermediarystyle.\\the\\count255}%
+				{P\\the\\primeindex}}%
+				\\else
+				\\setbox2=\\vtop{%
+				\\hbox{\\box2}
+				\\hbox{%
+				\\opdisplay{intermediarystyle.\\the\\count255}%
+				{P\\the\\primeindex}}}
+				\\fi
+				\\opcopy{q}{NbtoDecompose}%
+				\\advance\\count255 by1
+				\\setbox1=\\vtop{%
+				\\hbox{\\box1}
+				\\hbox{%
+				\\opdisplay{operandstyle.\\the\\count255}%
+				{NbtoDecompose}}
+				}%
+				\\else
+				\\advance\\primeindex by1
+				\\fi
+				\\repeat
+				\\hbox{\\box1
+				\\kern0.5\\opcolumnwidth
+				\\opvline(0,0.75){\\the\\count255.25}
+				\\kern0.5\\opcolumnwidth
+				\\box2}%
+				\\fi
+				\\endgroup
+				}
+				
+				%%%%% VÉRIFIER L'UTILITÉ %%%%%
+				%\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
+				%\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
+				%\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
+				%\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
+				
+				
+				%Tapuscrit : Denis Vergès				
+				
+				`
 				break
 			default:
 				result += `\\usepackage{${packages}}\n`
