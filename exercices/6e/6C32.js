@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,tex_nombre,tex_prix} from "/modules/outils.js"
+import {liste_de_question_to_contenu_sans_numero,randint,arrondi,calcul,choice,arrondi_virgule,tex_nombre,tex_nombre2,tex_prix} from "/modules/outils.js"
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
  * @Auteur Rémi Angot
@@ -15,6 +15,7 @@ export default function Probleme_course() {
   this.nb_questions_modifiable = false;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup=false
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
@@ -28,13 +29,26 @@ export default function Probleme_course() {
       "Mehdi",
       "Joaquim",
     ]);
-    let masse_en_kg_de_aliment1 = Algebrite.eval(
+    let masse_en_kg_de_aliment1
+    if (this.sup) {
+      masse_en_kg_de_aliment1=randint(2,5)
+    }
+    else { masse_en_kg_de_aliment1= calcul(
       randint(2, 5) + randint(1, 9) / 10
-    );
-    let prix_aliment1 = Algebrite.eval(randint(2, 4) + randint(1, 9) / 10);
+    );}
+    let prix_aliment1 = calcul(randint(2, 4) + randint(1, 9) / 10);
     let aliment1 = choice(["courgettes", "carottes", "pommes"]);
-    let masse_en_g_de_aliment2 = randint(21, 97) * 10;
-    let prix_aliment2 = Algebrite.eval(randint(12, 23) + randint(1, 9) / 10);
+    let masse_en_g_de_aliment2 
+      
+    let prix_aliment2
+    if (this.sup){
+      prix_aliment2=randint(15,25)
+      masse_en_g_de_aliment2  = randint(2,7) * 500;
+    } 
+    else {
+      prix_aliment2= calcul(randint(12, 23) + randint(1, 9) / 10);
+      masse_en_g_de_aliment2  = randint(21, 97) * 10;
+    }
     let aliment2 = choice(["boeuf", "veau", "poulet"]);
 
     let texte = `${prenom} achète ${tex_nombre(
@@ -47,34 +61,30 @@ export default function Probleme_course() {
       `Prix des ${aliment1} : ${tex_nombre(
         masse_en_kg_de_aliment1
       )} kg × ${tex_prix(prix_aliment1)} €/kg = ${tex_prix(
-        Algebrite.eval(masse_en_kg_de_aliment1 * prix_aliment1)
+        calcul(masse_en_kg_de_aliment1 * prix_aliment1)
       )} €` + "<br>";
     texte_corr +=
-      `Prix du ${aliment2} : ${tex_nombre(
-        Algebrite.eval(masse_en_g_de_aliment2 / 1000)
-      )} kg × ${tex_prix(prix_aliment2)} €/kg = ${tex_nombre(
-        Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
-      )} € ` + "<br>";
-    texte_corr += `Prix total à payer : ${tex_nombre(
-      Algebrite.eval(masse_en_kg_de_aliment1 * prix_aliment1)
-    )} € + ${tex_nombre(
-      Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
-    )} € ≈ ${arrondi_virgule(
-      Algebrite.eval(
+      `Prix du ${aliment2} : ${tex_nombre(calcul(masse_en_g_de_aliment2 / 1000))} kg × ${tex_prix(prix_aliment2)} €/kg = ${tex_nombre(calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000))} € ` + "<br>";
+    texte_corr += `Prix total à payer : ${tex_nombre(calcul(masse_en_kg_de_aliment1 * prix_aliment1))} € + ${tex_nombre(calcul(masse_en_g_de_aliment2 * prix_aliment2 / 1000))} €`
+    if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
+          texte_corr+=` = `
+        }
+        else {
+          texte_corr+=` ≈ `
+        }
+    texte_corr+=`${arrondi_virgule(calcul(masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))} €<br>`;
+    texte_corr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${tex_nombre(masse_en_kg_de_aliment1)} kg × ${tex_prix(prix_aliment1)} €/kg + ${tex_nombre(calcul(masse_en_g_de_aliment2 / 1000))} kg × ${tex_prix(prix_aliment2)} €/kg `
+    if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
+          texte_corr+=` = `
+        }
+        else {
+          texte_corr+=` ≈ `
+        }
+    texte_corr+=`${arrondi_virgule(calcul(
         masse_en_kg_de_aliment1 * prix_aliment1 +
         (masse_en_g_de_aliment2 * prix_aliment2) / 1000
       )
     )} €<br>`;
-    texte_corr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${tex_nombre(
-      masse_en_kg_de_aliment1
-    )} kg × ${tex_prix(prix_aliment1)} €/kg + ${tex_nombre(
-      Algebrite.eval(masse_en_g_de_aliment2 / 1000)
-    )} kg × ${tex_prix(prix_aliment2)} €/kg ≈ ${arrondi_virgule(
-      Algebrite.eval(
-        masse_en_kg_de_aliment1 * prix_aliment1 +
-        (masse_en_g_de_aliment2 * prix_aliment2) / 1000
-      )
-    )} €.`;
 
     if (!sortie_html) {
       texte_corr =
@@ -97,7 +107,14 @@ export default function Probleme_course() {
         Algebrite.eval(masse_en_kg_de_aliment1 * prix_aliment1)
       )}~\\text{\\euro} + ${tex_nombre(
         Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
-      )}~\\text{\\euro} \\approx ${arrondi_virgule(
+      )}~\\text{\\euro}`
+      if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
+            texte_corr+=`=`
+          }
+          else {
+            texte_corr+=`\\approx`
+          }
+      texte_corr+=` ${arrondi_virgule(
         Algebrite.eval(
           masse_en_kg_de_aliment1 * prix_aliment1 +
           (masse_en_g_de_aliment2 * prix_aliment2) / 1000
@@ -110,6 +127,7 @@ export default function Probleme_course() {
 
     liste_de_question_to_contenu_sans_numero(this);
   };
+  this.besoin_formulaire_case_a_cocher=["Calculs faciles"]
 }
 
 

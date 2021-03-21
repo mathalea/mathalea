@@ -53,5 +53,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu
 

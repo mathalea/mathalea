@@ -18,7 +18,7 @@ export default function Egalites_entre_fractions() {
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6N41',[],"Egalités de fractions"]
+    this.QCM=['6N41',[],"Egalités de fractions",1]
     let tabrep,tabicone
     let espace =``;
     if (sortie_html) {

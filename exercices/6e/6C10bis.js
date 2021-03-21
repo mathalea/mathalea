@@ -27,7 +27,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
 
 
   this.nouvelle_version = function () {
-    this.QCM=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers']
+    this.QCM=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers',3]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions

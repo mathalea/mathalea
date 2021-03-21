@@ -22,7 +22,7 @@ export default function Sens_de_la_fraction() {
     this.ModeQCM=false
   
     this.nouvelle_version = function () {
-      this.QCM=['6N25',[],"Sens de l'écriture fractionnaire"]
+      this.QCM=['6N23-5',[],"Sens de l'écriture fractionnaire",1]
       let tabrep,tabicone
       let espace =``;
       if (sortie_html) {

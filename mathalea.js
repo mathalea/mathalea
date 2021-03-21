@@ -1,4 +1,4 @@
-import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from "./modules/outils.js";
+import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube, compteOccurences } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules/menuDesExercicesDisponibles.js";
 
@@ -100,7 +100,24 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 });
             }
         })();
-        if (sortie_html && est_diaporama) {
+        //mise en évidence des exercices sélectionnés.
+		$(".exerciceactif").removeClass("exerciceactif");
+		for (let i = 0; i < liste_des_exercices.length; i++) {
+			$("a.lien_id_exercice[numero='"+liste_des_exercices[i]+"'").addClass("exerciceactif");
+            // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+            if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
+                // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+                let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+                let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
+                $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+            } else {
+                let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+                let txt = ancienTexte.split('✖︎')[0]
+                $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+            }
+		}
+		
+		if (sortie_html && est_diaporama) {
             if (liste_des_exercices.length>0) { // Pour les diaporamas tout cacher quand un exercice est choisi
                 $("#liste_des_exercices").hide();
                 $("#parametres_generaux").show();
@@ -200,9 +217,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         // Ajoute le contenu dans les div #exercices et #corrections
         if (sortie_html && !est_diaporama) {
-            document.getElementById("exercices").innerHTML = "";
+			document.getElementById("exercices").innerHTML = "";
             document.getElementById("corrections").innerHTML = "";
-
             let contenuDesExercices = "",
                 contenuDesCorrections = "";
             if (liste_des_exercices.length > 0) {
@@ -398,10 +414,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         if (!sortie_html) {
             // Gestion du téléchargement
-
-            $("#btn_telechargement").click(function () {
+            $("#btn_telechargement").off("click").on("click",function () {
                 // Gestion du style pour l'entête du fichier
-
                 let contenu_fichier = `
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -434,8 +448,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     telechargeFichier(contenu_fichier, "mathalea.tex");
                 }
             });
-
-            $("#btn_overleaf").click(function () {
+			
+			$("#btn_overleaf").off("click").on("click", function () {
                 // Gestion du style pour l'entête du fichier
 
                 let contenu_fichier = `
@@ -543,6 +557,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         .then((module) => {
                             if (module) {
                                 listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
+                                if (dictionnaireDesExercices[id]["sup"]!=undefined){
+                                    listeObjetsExercice[i]["sup"]=dictionnaireDesExercices[id]["sup"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup2"]!=undefined){
+                                    listeObjetsExercice[i]["sup2"]=dictionnaireDesExercices[id]["sup2"]
+                                }
+                                if (dictionnaireDesExercices[id]["sup3"]!=undefined){
+                                    listeObjetsExercice[i]["sup3"]=dictionnaireDesExercices[id]["sup3"]
+                                }
+                                if (dictionnaireDesExercices[id]["nb_questions"]!=undefined){
+                                    listeObjetsExercice[i]["nb_questions"]=dictionnaireDesExercices[id]["nb_questions"]
+                                }
                                 if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                     besoinXCas = true;
                                 }
@@ -558,6 +584,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 // Récupère les paramètres passés dans l'URL
                 let urlVars = getUrlVars();
+				//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+				//	=> évite les erreurs lors de la suppression de question dans la liste.
+				for (var i = 0; i < urlVars.length; i++) {
+					if (urlVars[i].id != liste_des_exercices[i]) {
+						urlVars.splice(i,1);
+					}	
+				}
                 for (var i = 0; i < urlVars.length; i++) {
                     // récupère les éventuels paramètres dans l'URL
                     // et les recopie dans les formulaires des paramètres
@@ -599,7 +632,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 if (besoinXCas){
                     // On charge le javascript de XCas
-                    document.getElementById("exercices").innerHTML = `<div class="profile-main-loader">
+                    let div // le div dans lequel on fera apparaitre le cercle de chargement
+                    if (sortie_html){
+                        div = document.getElementById("exercices")
+                    } else {
+                        div = document.getElementById("div_code_LaTeX")
+                    }
+                    div.innerHTML = `<div class="profile-main-loader">
                     <div class="loader">
                       <svg class="circular-loader"viewBox="25 25 50 50" >
                         <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />

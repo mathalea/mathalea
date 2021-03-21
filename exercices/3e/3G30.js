@@ -32,13 +32,14 @@ export default function Calcul_de_longueur() {
     this.nouvelle_version = function () {
         this.liste_questions = []
         this.liste_corrections = []
+        let reponse
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (this.level!=4){
-        this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie']
+        this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie',5]
     }
     else {
-        this.QCM = ['4G40', [], 'Calculs de longueurs avec la trigonométrie']
+        this.QCM = ['4G40', [], 'Calculs de longueurs avec la trigonométrie',5]
     }
     /**********************************************************/
 
@@ -195,7 +196,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
                 texte_corr += `soit $${nom[0] + nom[1]}\\approx${tex_nombre(arrondi(ab, 1))}$ cm.`;
-
+reponse =arrondi(ab,1)
                 break
             case 'sinus':
                 texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
@@ -205,7 +206,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
                 texte_corr += `soit $${nom[0] + nom[2]}\\approx${tex_nombre(arrondi(ac, 1))}$ cm.`;
-
+                reponse =arrondi(ac,1)
                 break
             case 'tangente':
                 texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
@@ -215,7 +216,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
                 texte_corr += `soit $${nom[0] + nom[2]}\\approx${tex_nombre(arrondi(ac, 1))}$ cm.`;
-
+                reponse =arrondi(ac,1)
                 break
             case 'invCosinus':
                 texte_corr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -225,7 +226,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
                 texte_corr += `soit $${nom[1] + nom[2]}\\approx${tex_nombre(arrondi(bc, 1))}$ cm.`;
-
+                reponse =arrondi(bc,1)
                 break
             case 'invSinus':
                 texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
@@ -235,7 +236,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texte_corr += `soit $${nom[1] + nom[2]}\\approx${tex_nombre(arrondi(bc, 1))}$ cm.`;
-
+                reponse =arrondi(bc,1)
                 break
             case 'invTangente':
                 texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
@@ -245,7 +246,7 @@ export default function Calcul_de_longueur() {
                 texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texte_corr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texte_corr += `soit $${nom[0] + nom[1]}\\approx${tex_nombre(arrondi(ab, 1))}$ cm.`;
-
+                reponse =arrondi(ab,1)
                 break
         }
 if (!sortie_html&&this.correction_detaillee) {
@@ -254,7 +255,7 @@ if (!sortie_html&&this.correction_detaillee) {
 
         /*****************************************************/
         // Pour AMC
-        this.QCM[1][0] = [texte, [texte_corr], [4]]
+        this.QCM[1][0] = [texte, [texte_corr,reponse,4], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
         /****************************************************/
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);

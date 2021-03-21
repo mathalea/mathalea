@@ -311,6 +311,9 @@ a.lien_id_exercice:hover {
     color: white;
 }
 
+a.lien_id_exercice.exerciceactif {
+  font-weight: bold;
+}
 
 [data-tooltip]:after
 {

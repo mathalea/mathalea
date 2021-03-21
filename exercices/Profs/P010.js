@@ -179,7 +179,7 @@ export default function variation_polynome_degre3() {
         if (maderivee(-b / 3 / a) > 0) {//  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, deltacl: 0.6, lgt: 3.5,hauteurLignes:[30,20,30],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20],
@@ -206,7 +206,7 @@ export default function variation_polynome_degre3() {
           if (this.sup3){
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${arrondi_virgule(rac[0])}$`, 60, `$${arrondi_virgule(rac[1])}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
@@ -217,7 +217,7 @@ export default function variation_polynome_degre3() {
         else {
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${arrondi_virgule(rac[0])}$`, 60, `$${arrondi_virgule(rac[1])}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
@@ -283,8 +283,8 @@ export default function variation_polynome_degre3() {
         if (minima < 0) { // f(x)=0 a deux solutions
           rac = trouver_les_racines(a, b, c)
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0, 'z', 20, 'R/', 0, '+', 20, 'R/', 0],
@@ -309,8 +309,8 @@ export default function variation_polynome_degre3() {
         }
         else if (minima > 0) { // f(x)=0 n'a pas de solution f(x)>0 pour tout x
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -333,8 +333,8 @@ export default function variation_polynome_degre3() {
         }
         else { //f(x)=0 a une solution unique : minima=0
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -360,8 +360,8 @@ export default function variation_polynome_degre3() {
         if (minima > 0) {// f(x)=0 a deux solutions
           rac = trouver_les_racines(a, b, c)
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0, 'z', 20, 'R/', 0, '-', 20, 'R/', 0],
@@ -386,8 +386,8 @@ export default function variation_polynome_degre3() {
         }
         else if (minima < 0) {// f(x)=0 n'a pas de solution f(x)<0 pour tout x
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -411,8 +411,8 @@ export default function variation_polynome_degre3() {
         else {//f(x)=0 a une solution unique : minima=0 désigne ici un maximum
 
           t = tableau_de_variation({
-            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+            colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
             ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -445,8 +445,8 @@ export default function variation_polynome_degre3() {
       x2 = -d / c
       if (c > 0) { // croissante
         t = tableau_de_variation({
-          colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+          colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
           ['$-\\infty$', 30, `$${tex_fraction_signe(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0],
@@ -461,8 +461,8 @@ export default function variation_polynome_degre3() {
       }
       else { //décroissante
         t = tableau_de_variation({
-          colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
-          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2, 60]],
+          colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
+          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
           ['$-\\infty$', 30, `$${tex_fraction_signe(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0],

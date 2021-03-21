@@ -29,17 +29,22 @@ export default function Additions_soustractions_multiplications_posees() {
   this.nouvelle_version = function () {
         /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
-/**********************************************************/
+this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4]
+ 			/********************************************************************/
+      /** Type 4 : questionmultx avec AMCnumericChoices */
+			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
+			// {int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx}
+			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
+			/********************************************************************/
 
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions
+    let type_de_questions,reponse
     let type_de_questions_disponibles = [1, 2, 3, 4, 5];
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
       type_de_questions_disponibles,
       this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    ); 
     if (this.nb_questions == 3) {
       liste_type_de_questions = [1, 2, 5];
     }
@@ -59,6 +64,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
             randint(1, 9);
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9);
           texte = `$${tex_nombre(a)}+${b}$`;
+          reponse=a+b
           texte_corr = Operation({operande1:a,operande2:b,type:'addition'})
           break;
         case 2: // abc0-efg
@@ -71,6 +77,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
           x = a * 1000 + b * 100 + c * 10;
           y = e * 100 + f * 10 + g;
           texte = `$${tex_nombre(x)}-${y}$`;
+          reponse=x-y
           texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 3: // 1abc-def
@@ -83,6 +90,8 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
           x = 1000 + a * 100 + b * 10 + c;
           y = d * 100 + e * 10 + f;
           texte = `$${tex_nombre(x)}-${y}$`;
+          reponse=x-y
+
           texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 4: // abc*d0e tables de 2 à 5
@@ -94,6 +103,8 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
           x = 100 * a + 10 * b + c;
           y = d * 100 + e;
           texte = `$${tex_nombre(x)}\\times${y}$`;
+          reponse=x*y
+
           texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
         case 5: // abc*de tables de 5 à 9
@@ -105,6 +116,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
           x = 100 * a + 10 * b + c;
           y = 10 * d + e;
           texte = `$${x}\\times${y}$`;
+          reponse=x*y
           texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
       }
@@ -118,7 +130,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier']
         this.liste_corrections.push(texte_corr);
             /*****************************************************/
     // Pour AMC
-    this.QCM[1].push([texte,[texte_corr],[4]])
+    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
     /****************************************************/
 
         i++;

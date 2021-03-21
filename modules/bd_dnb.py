@@ -4,13 +4,36 @@
 import os       # Gestion des fichiers
 import re       # Gestion des expressions régulières
 import json     # Gestion du json
+from pathlib import Path
+
 
 '''
     Scanne le répertoire /tex et créé une entrée dans dnb.json pour chaque exercice
 '''
-def write_json(data, filename='modules/dnb.json'):
-    with open(filename, 'w', encoding="utf8") as f:
+def write_json(data, filename='./modules/dictionnaireDNBsansTags.js'):
+    with open(filename, 'w+', encoding="utf8") as f:
         json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
+
+'''
+    Ajoute une première ligne au fichier
+'''
+def prepend_line(line, filename ='./modules/dictionnaireDNBsansTags.js'):
+    """ Insert given string as a new line at the beginning of a file """
+    # define name of temporary dummy file
+    dummy_file = filename + '.bak'
+    # open original file in read mode and dummy file in write mode
+    with open(filename, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
+        # Write given line to the dummy file
+        write_obj.write(line + '\n')
+        # Read lines from original file one by one and append them to the dummy file
+        for line in read_obj:
+            write_obj.write(line)
+    # remove original file
+    os.remove(filename)
+    # Rename dummy file as the original file
+    os.rename(dummy_file, filename)
+
+
 
 def nomDeLieu(text):
     if text == 'metropole' :
@@ -61,6 +84,8 @@ for (dirpath, dirnames, filenames) in os.walk('./tex/'):
             listeDNB[nomFichier]["lieu"] = nomDeLieu(nomFichier.split('_')[3])
             listeDNB[nomFichier]["numeroExercice"] = nomFichier.split('_')[4]
 write_json(listeDNB)
+prepend_line("export let dictionnaireDNB = ")
+
                         
 
         

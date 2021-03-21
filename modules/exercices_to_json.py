@@ -1,4 +1,4 @@
-# Scan le répertoire /exercices puis ecris le fichier /module/liste_des_exercices.json
+# Scan le répertoire /exercices puis ecris le fichier /module/dictionnaireDesExercicesAleatoires
 #
 
 import os       # Gestion des fichiers
@@ -6,11 +6,30 @@ import re       # Gestion des expressions régulières
 import json     # Gestion du json
 
 '''
-    Remplace le contenu du fichier 'modules/liste_des_exercices.json' par l'objet data au format json
+    Remplace le contenu du fichier './modules/dictionnaireDesExercicesAleatoires.js' par l'objet data au format json
 '''
-def write_json(data, filename='liste_des_exercices.json'):
+def write_json(data, filename ='./modules/dictionnaireDesExercicesAleatoires.js'):
     with open(filename, 'w+', encoding="utf8") as f:
         json.dump(data, f, sort_keys=True, indent=4, ensure_ascii=False)
+
+'''
+    Ajoute une première ligne au fichier
+'''
+def prepend_line(line, filename ='./modules/dictionnaireDesExercicesAleatoires.js'):
+    """ Insert given string as a new line at the beginning of a file """
+    # define name of temporary dummy file
+    dummy_file = filename + '.bak'
+    # open original file in read mode and dummy file in write mode
+    with open(filename, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
+        # Write given line to the dummy file
+        write_obj.write(line + '\n')
+        # Read lines from original file one by one and append them to the dummy file
+        for line in read_obj:
+            write_obj.write(line)
+    # remove original file
+    os.remove(filename)
+    # Rename dummy file as the original file
+    os.rename(dummy_file, filename)
 
 
 
@@ -40,6 +59,7 @@ for (dirpath, dirnames, filenames) in os.walk('./exercices/'):
 
 
 write_json(dictionnaireDesRef)
+prepend_line("export let dictionnaireDesExercicesAleatoires = ")
 
         
 
