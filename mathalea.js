@@ -1,4 +1,4 @@
-import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from "./modules/outils.js";
+import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube, compteOccurences } from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules/menuDesExercicesDisponibles.js";
 
@@ -104,6 +104,17 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 		$(".exerciceactif").removeClass("exerciceactif");
 		for (let i = 0; i < liste_des_exercices.length; i++) {
 			$("a.lien_id_exercice[numero='"+liste_des_exercices[i]+"'").addClass("exerciceactif");
+            // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+            if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
+                // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+                let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+                let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
+                $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+            } else {
+                let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+                let txt = ancienTexte.split('✖︎')[0]
+                $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+            }
 		}
 		
 		if (sortie_html && est_diaporama) {

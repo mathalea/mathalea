@@ -347,6 +347,18 @@ export function enleve_element(array, item) {
 		}
 	}
 }
+
+/**
+ * 
+ * Compte les occurenes d'un item dans un tableau
+ * @Author Rémi Angot
+ */
+ export function compteOccurences(array, value) {
+    let cpt = 0;
+    array.forEach((v) => (v === value && cpt++));
+    return cpt;
+}
+
 /**
  * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
  * @Auteur Rémi Angot & Jean-Claude Lhote
