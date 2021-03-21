@@ -1,7 +1,19 @@
-import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle }  from "./outils.js" ;
+import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleve_element }  from "./outils.js" ;
 import {dictionnaireDesExercicesAleatoires} from "./dictionnaireDesExercicesAleatoires.js"
 import {dictionnaireC3} from "./dictionnaireC3.js" 
 import {dictionnaireDNB} from "./dictionnaireDNB.js"
+
+// Liste tous les tags qui ont été utilisé
+let tags = new Set()
+for (let item in dictionnaireDNB){
+  for (let k of dictionnaireDNB[item]["tags"]){
+    tags.add(k)
+  }
+}
+// transforme le set en tableau dans l'ordre alphabétique
+let tableauTags = ([...tags].sort())
+enleve_element(tableauTags,"Système d'équations")
+enleve_element(tableauTags,"Hors programme")
 
 // On concatène les différentes listes d'exercices
 export let dictionnaireDesExercices = {...dictionnaireDesExercicesAleatoires,...dictionnaireDNB, ...dictionnaireC3};
@@ -65,37 +77,38 @@ function get_liste_html_des_exercices_DNB(){
 
 function get_liste_html_des_exercices_DNB_theme(){ 
   let liste = '<div class="accordion">';
-  for (let theme of [
-  "Agrandissement-réduction",
-  "Aires et périmètres",
-  "Algorithmique-programmation",
-  "Arithmétique",
-  "Calcul littéral",
-  "Calculs numériques",
-  "Géométrie dans l'espace",
-  "Durées",
-  "Equations",
-  "Fractions",
-  "Fonctions",
-  "Géométrie plane",
-  "Grandeurs composées",
-  "Pourcentages",
-  "Prise d'initiatives",
-  "Programme de calculs",
-  "Probabilités",
-  "Proportionnalité",
-  "Puissances",
-  "Pythagore",
-  "QCM",
-  "Thalès",
-  "Transformations",
-  "Trigonométrie",
-  "Vitesses",
-  "Volumes",
-  "Vrai-faux",
-  "Statistiques",
-  "Tableur"
-]){
+  for (let theme of tableauTags){
+//     [
+//   "Agrandissement-réduction",
+//   "Aires et périmètres",
+//   "Algorithmique-programmation",
+//   "Arithmétique",
+//   "Calcul littéral",
+//   "Calculs numériques",
+//   "Géométrie dans l'espace",
+//   "Durées",
+//   "Equations",
+//   "Fractions",
+//   "Fonctions",
+//   "Géométrie plane",
+//   "Grandeurs composées",
+//   "Pourcentages",
+//   "Prise d'initiatives",
+//   "Programme de calculs",
+//   "Probabilités",
+//   "Proportionnalité",
+//   "Puissances",
+//   "Pythagore",
+//   "QCM",
+//   "Thalès",
+//   "Transformations",
+//   "Trigonométrie",
+//   "Vitesses",
+//   "Volumes",
+//   "Vrai-faux",
+//   "Statistiques",
+//   "Tableur"
+// ]){
 
     liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`;
     liste += liste_html_des_exercices_DNB_theme(theme);
@@ -109,7 +122,11 @@ function liste_html_des_tags(objet){
     let result = ''
     if (objet["tags"]!==undefined){
         for (let tag of objet["tags"]){
-            result += `<div class="ui mini blue label">${tag}</div>`
+            if (tag == "Hors programme") {
+              result += `<div class="ui mini red label">${tag}</div>`
+            } else {
+              result += `<div class="ui mini blue label">${tag}</div>`
+            }
         }
     }
     return result
