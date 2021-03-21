@@ -795,23 +795,25 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             nb_exemplaires = e.target.value;
             mise_a_jour_du_code();
         });
+// Gestion des paramètres du fichier LaTeX
 
-         // Gestion des paramètres du fichier LaTeX
+        let form_entete=document.getElementById("options_type_entete");
+        
+        form_entete.addEventListener("change",function (e) {
+        type_entete=e.target.value;
+            console.log(type_entete)
+        /*else
+            if ($("#type_manuel:checked").val()) {
+                type_entete="champnom"
+                console.log(type_entete)
+            }
+            else {
+                type_entete="AMCcodeGrid"
+                console.log(type_entete)
 
-         $("#options_type_entete").show();
-         $(function () {
-             $("input:radio[name='type']").change(function () {
-                 if ($("#type_preremplie:checked").val()) {
-                    type_entete="AMCassociation"
-                }
-                else if ($("#type_manuel:checked").val()) {
-                    type_entete="champnom"
-                }
-                else {
-                    type_entete="AMCcodeGrid"
-                }
-             });
+            }*/
          });
+         
 
         $("#btn_overleaf").click(function () {
             // Gestion du style pour l'entête du fichier
