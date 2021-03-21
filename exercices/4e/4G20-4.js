@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,troncature,calcul,tex_nombre,tex_nombrec} from "/modules/outils.js";
+import {liste_de_question_to_contenu,randint,combinaison_listes,troncature,calcul,tex_nombre,tex_nombrec,tex_prix} from "/modules/outils.js";
 /**
  * Description didactique de l'exercice : Calculer_une_expression_litterale_type_pythagore
  * @Auteur Mireille Gain
@@ -54,24 +54,24 @@ miracd = troncature(racd-troncature(racd,2),3);
    = ${tex_nombre(a)} \\times ${tex_nombre(a)} + ${tex_nombre(b)} \\times ${tex_nombre(b)} 
    \\\\&= ${a*a} + ${tex_nombrec(b*b)} 
    \\\\&= ${tex_nombre((a*a + b*b))}\\end{aligned}$`;
-  texte_corr += `<br>$\\sqrt{${a*a+b*b}}$`;
+  texte_corr += `<br>$\\sqrt{${tex_nombrec(a*a+b*b)}}$`;
 
-  if (miracs < 5) {
-    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_nombre(troncature(racs, 2))}$`;
+  if (1000*miracs < 5) {
+    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs, 2))}$`;
   } else {
-    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_nombre(troncature((racs+0.01), 2))}$`;
+    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs+0.01,2))}$`;
   }
 
   texte_corr += `<br><br>$\\begin{aligned}a^2 - b^2& 
   = ${tex_nombre(a)} \\times ${tex_nombre(a)} - ${tex_nombre(b)} \\times ${tex_nombre(b)} 
   \\\\&= ${tex_nombrec(a*a)} - ${tex_nombrec(b*b)} 
   \\\\&= ${tex_nombrec(a*a - b*b)}\\end{aligned}$`;
-  texte_corr += `<br>$\\sqrt{${a*a-b*b}}$`;  
+  texte_corr += `<br>$\\sqrt{${tex_nombrec(a*a-b*b)}}$`;  
 
-  if (miracd < 5) {
-    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_nombre(troncature(racd, 2))}$`;
+  if (1000*miracd < 5) {
+    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racd, 2))}$`;
   } else {
-    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_nombre(troncature((racd+0.01), 2))}$`;
+    texte_corr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature((racd+0.01), 2))}$`;
   }
   
 
