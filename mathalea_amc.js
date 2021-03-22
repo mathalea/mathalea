@@ -13,7 +13,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
  let nb_exemplaires=1
  let nb_questions=[]
  let nom_fichier=''
- let type_entete=''
+ let type_entete='AMCcodeGrid'
 
  menuDesExercicesQCMDisponibles();
 
@@ -199,7 +199,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             id = liste_des_exercices[i];
             let url;
             try {
-                url = dictionnaireDesExercicesQCM[id]["url"];
+                url = dictionnaireDesExercicesQCM[id].url;
             } catch (error) {
                 console.log(error);
                 console.log(`Exercice ${id} non disponible`);
@@ -235,15 +235,15 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                                         urlVars.splice(i,1);
                                     }	
                                 }
-                for (var i = 0; i < urlVars.length; i++) {
+                for (let i = 0; i < urlVars.length; i++) {
                     // récupère les éventuels paramètres dans l'URL
                     // et les recopie dans les formulaires des paramètres
-                    if (urlVars[i]["nb_questions"] && listeObjetsExercice[i].nb_questions_modifiable) {
-                        listeObjetsExercice[i].nb_questions = urlVars[i]["nb_questions"];
+                    if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
+                        listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions;
                         form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
                     }
-                       if (typeof urlVars[i]["sup"] !== 'undefined') {
-                        listeObjetsExercice[i].sup = urlVars[i]["sup"];
+                       if (typeof urlVars[i].sup !== 'undefined') {
+                        listeObjetsExercice[i].sup = urlVars[i].sup;
                         // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
                         try {
                             
@@ -251,15 +251,15 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                         } catch {
                         }
                     }
-                    if (typeof urlVars[i]["sup2"] !== 'undefined') {
-                        listeObjetsExercice[i].sup2 = urlVars[i]["sup2"];
+                    if (typeof urlVars[i].sup2 !== 'undefined') {
+                        listeObjetsExercice[i].sup2 = urlVars[i].sup2;
                         try {
                             form_sup2[i].value = listeObjetsExercice[i].sup2;
                         } catch (error) {
                         }
                     }
-                    if (typeof urlVars[i]["sup3"] !== 'undefined') {
-                        listeObjetsExercice[i].sup3 = urlVars[i]["sup3"];
+                    if (typeof urlVars[i].sup3 !== 'undefined') {
+                        listeObjetsExercice[i].sup3 = urlVars[i].sup3;
                         try {
                             form_sup3[i].value = listeObjetsExercice[i].sup3;
                         } catch (error) {
@@ -797,16 +797,18 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 // Gestion des paramètres du fichier LaTeX
         // gestion de l'entête
         let form_entete=document.getElementById("options_type_entete");
-        
+        form_entete.value = 'AMCcodeGrid'
         form_entete.addEventListener("change",function (e) {
         type_entete=e.target.value;
+        mise_a_jour_du_code()
          });
          //gestion du nombre de questions par groupe
          let form_nb_questions=document.getElementById("nb_questions_par_groupe");
-        
+        form_nb_questions.value=[]
          form_nb_questions.addEventListener("change",function (e) {
              let saisie=e.target.value;
          nb_questions=saisie.split(',');
+         mise_a_jour_du_code()
           });         
 
         $("#btn_overleaf").click(function () {
@@ -843,7 +845,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         let urlVars = getUrlVars();
         if (urlVars.length > 0) {
             for (let i = 0; i < urlVars.length; i++) {
-                liste_des_exercices.push(urlVars[i]["id"]);
+                liste_des_exercices.push(urlVars[i].id);
             }
             form_choix_des_exercices.value = liste_des_exercices.join(",");
             mise_a_jour_de_la_liste_des_exercices();
