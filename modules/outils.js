@@ -8165,7 +8165,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
 	 \\usepackage{tikzsymbols}
 	%\\usepackage{tasks}						% Pour les listes horizontales
-
+\\usepackage{csvsimple}
 	
 	%%%%% Librairies utilisées par Mathgraphe32 %%%% 
 	\\usepackage{fix-cm}
@@ -8240,6 +8240,38 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 
 // Variable qui contient l'entête d'une copie
 // A faire : Proposer différent type d'entête en fonction d'un paramètre ?
+	let entete_type_CodeGrid=	`\\begin{minipage}{10cm}
+	\\champnom{\\fbox{\\parbox{10cm}{    
+	  Écrivez vos nom, prénom et classe : \\\\
+	 \\\\
+	}}}
+	\\end{minipage}
+	
+	%\\\\
+	\\vspace{2mm}
+	
+	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
+	\\vspace{1mm}
+	
+	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+	
+	\\vspace{2mm}
+	`
+	let entete_type_champnom_simple=	`\\begin{minipage}{10cm}
+	\\champnom{\\fbox{\\parbox{10cm}{    
+	  Écrivez vos nom, prénom et classe : \\\\
+	 \\\\
+	}}}
+	\\end{minipage}
+	
+	%\\\\
+	\\vspace{2mm}
+	`
+	let entete_type_preremplie=``
 
 	let entete_copie = ` 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8266,29 +8298,11 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 		\\textbf{${titre}} 
 	\\end{center}
 	\\end{minipage}
-	\\hfill
-	\\begin{minipage}{10cm}
-	\\champnom{\\fbox{\\parbox{10cm}{    
-	  Écrivez vos nom, prénom et classe : \\\\
-	 \\\\
-	}}}
-	\\end{minipage}
-	
-	%\\\\
-	\\vspace{2mm}
-	
-	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
-	\\vspace{1mm}
-	
-	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ}
-	
-	\\vspace{2mm}
-	
-	{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
+	\\hfill`
+	+ //
+
+	+
+	`{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
 	
 	Les questions n'ont qu'une seule bonne réponse. Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
 	
