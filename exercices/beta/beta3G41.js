@@ -21,7 +21,7 @@ export default function VuesEmpilementCubes() {
   this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
   this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
+  this.sup = 2; // A décommenter : valeur par défaut d'un premier paramètre
   this.sup2 = 1; // A décommenter : valeur par défaut d'un deuxième paramètre
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre  
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
@@ -41,6 +41,13 @@ export default function VuesEmpilementCubes() {
 
       texte = `Un empilement de cubes est représenté ci-dessous. <br>`; // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte_corr = ``; // Idem pour le texte de la correction.
+
+      // fonction cube : permet d'obtenir une vue 3D d'un cube à l'aide de 3 quadrilatères
+      // la fonction renvoie une liste de 3 quadrilatères Mathalea2D
+      // cube(x,y,z,0,-90) : vue de haut
+      // cube(x,y,z,90,0) : vue de gauche
+      // cube(x,y,z,0,0) : vue de droite
+      // cube(x,y,z,45,-35) : vue isométrique
               
       function cube(x, y, z, alpha, beta) { // renvoie une liste de 3 polygones
         let lstPoints = [];
@@ -120,10 +127,7 @@ export default function VuesEmpilementCubes() {
       return lstCoordonneesCubes;
       } 
       let L;
-      // cube(x,y,z,0,-90) : vue de haut
-      // cube(x,y,z,90,0) : vue de gauche
-      // cube(x,y,z,0,0) : vue de droite
-      // cube(x,y,z,45,-35) : vue isométrique
+
 
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       params_enonce = { xmin:-10, ymin: 0, xmax: 10, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
@@ -131,7 +135,7 @@ export default function VuesEmpilementCubes() {
       switch (liste_type_de_questions[i]) {
         case 1:
           // GAUCHE
-          texte += `Dessiner la vue de gauche (les faces grises) de cet empilement de cubes. <br>`
+          texte += `Solide 1 : dessiner la vue de gauche (les faces grises) de cet empilement de cubes. <br>`
           L = empilementCubes(longueur, largeur);
           objets_enonce = [] ;
           for (i = 0; i < L.length; i++) {
@@ -141,7 +145,7 @@ export default function VuesEmpilementCubes() {
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
           // correction :
-          texte_corr += "Vue de gauche (les faces grises) : "
+          texte_corr += "Solide 1 : vue de gauche (les faces grises) : "
           params_correction = { xmin:-1, ymin: 0, xmax: 10, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (i = 0; i < L.length; i++) {
@@ -152,7 +156,7 @@ export default function VuesEmpilementCubes() {
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";
 
           // FACE
-          texte += `Dessiner la vue de face (les faces vertes) de cet empilement de cubes. <br>`;
+          texte += `Solide 2 : dessiner la vue de face (les faces vertes) de cet empilement de cubes. <br>`;
           L = empilementCubes(longueur, largeur);
           objets_enonce = [] ;
           for (i = 0; i < L.length; i++) {
@@ -162,7 +166,7 @@ export default function VuesEmpilementCubes() {
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
           // correction :
-          texte_corr += "Vue de face (les faces vertes) : "
+          texte_corr += "Solide 2 : vue de face (les faces vertes) : "
           params_correction = { xmin:-1, ymin: 0, xmax: 10, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (i = 0; i < L.length; i++) {
@@ -172,7 +176,7 @@ export default function VuesEmpilementCubes() {
           }
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";
           //HAUT
-          texte += `Dessiner la vue de haut (les faces blanches) de cet empilement de cubes. <br>`
+          texte += `Solide 3 : dessiner la vue de haut (les faces blanches) de cet empilement de cubes. <br>`
           L = empilementCubes(longueur, largeur);
           objets_enonce = [] ;
           for (i = 0; i < L.length; i++) {
@@ -182,7 +186,7 @@ export default function VuesEmpilementCubes() {
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
           // correction :
-          texte_corr += "Vue de haut (les faces blanches) : "
+          texte_corr += "Solide 3 : vue de haut (les faces blanches) : "
           params_correction = { xmin:-1, ymin: -longueur-1, xmax: 10, ymax: longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (i = 0; i < L.length; i++) {
