@@ -104,7 +104,7 @@ export default function VuesEmpilementCubes() {
         return lstPolygone;
       }
 
-      function empilementCubes(long, larg, max) {
+      function empilementCubes(long, larg, hmax) {
         let tabHauteurs = new Array(larg);
         for (let i = 0; i < larg; i++) {
           tabHauteurs[i] = new Array(long);
@@ -113,13 +113,11 @@ export default function VuesEmpilementCubes() {
         for (let i = 0 ; i < larg; i++) {
           tabHauteurs[i][0] = randint(0,1);   
         }
-        let hmax = 0 ; // hauteur maximale de l'empilement
         // deuxième ligne et suivantes
         for (let i = 0 ; i<larg ; i++) {
           for (let j = 1 ; j<long ; j++) {
-            tabHauteurs[i][j] = Math.min(tabHauteurs[i][j-1] + randint(0,2), max);
+            tabHauteurs[i][j] = Math.min(tabHauteurs[i][j-1] + randint(0,2), hmax);
           } 
-          hmax = Math.max(tabHauteurs[i][long-1], hmax)
         }
         //Vérification Dernière Ligne : ne pas être vide.
         for (let i = 0 ; i<larg ; i++) {
@@ -162,7 +160,7 @@ export default function VuesEmpilementCubes() {
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + " <br>";
           // correction :
-          texte_corr += "On peut représenter l'empilement par tranches : <br>"
+          texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (i = 0; i < L.length; i++) {
@@ -192,7 +190,7 @@ export default function VuesEmpilementCubes() {
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
           // correction :
-          texte_corr += "On peut représenter l'empilement par tranches : <br>"
+          texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (i = 0; i < L.length; i++) {
