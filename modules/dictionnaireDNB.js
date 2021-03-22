@@ -2782,7 +2782,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_1": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "1",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_1.png",
@@ -2795,7 +2795,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_2": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "2",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_2.png",
@@ -2808,7 +2808,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_3": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "3",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_3.png",
@@ -2820,7 +2820,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2016_06_metropole_4": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "4",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_4.png",
@@ -2833,7 +2833,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_5": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "5",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_5.png",
@@ -2846,7 +2846,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_6": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "6",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_6.png",
@@ -2859,7 +2859,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_7": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "7",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_7.png",
@@ -5431,7 +5431,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_1": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "1",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_1.png",
@@ -5443,7 +5443,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_2": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "2",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_2.png",
@@ -5455,7 +5455,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_3": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "3",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_3.png",
@@ -5467,7 +5467,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_4": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "4",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_4.png",
@@ -5479,7 +5479,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_5": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "5",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_5.png",
@@ -5491,7 +5491,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2019_06_antillesguyanne_6": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "6",
         "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_6.png",
@@ -6224,7 +6224,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_1": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_1.png",
@@ -6236,7 +6236,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_2": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_2.png",
@@ -6248,7 +6248,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_3": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_3.png",
@@ -6260,7 +6260,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_4": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_4.png",
@@ -6272,7 +6272,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_5": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_5.png",

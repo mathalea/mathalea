@@ -504,10 +504,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Racine carré d'un carré parfait (calcul mental)",
         "url": "/exercices/4e/4G20-2.js"
     },
-    "4G20-4": {
-        "titre": "Calculer la racine carrée de (x² +/- y²)",
-        "url": "/exercices/4e/4G20-4.js"
-    },
     "4G20MG32": {
         "titre": "Calculer une longueur avec l'égalité de Pythagore (MG32)",
         "url": "/exercices/4e/4G20MG32.js"
@@ -1615,6 +1611,10 @@ export let dictionnaireDesExercicesAleatoires =
     "beta4G20-3": {
         "titre": "Calculer une valeur manquante avec l'égalité de Pythagore",
         "url": "/exercices/beta/beta4G20-3.js"
+    },
+    "beta4G20-4": {
+        "titre": "Calculer la racine carrée de (x² +/- y²)",
+        "url": "/exercices/4e/beta4G20-4.js"
     },
     "beta4N10": {
         "titre": "Arrondir une valeur numérique",
