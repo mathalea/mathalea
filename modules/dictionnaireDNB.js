@@ -789,7 +789,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2014/tex/dnb_2014_04_pondichery_2.tex",
         "urlcor": "/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
-        "tags": ["QCM","Calculs numériques","Aires et périmètres","Fonctions"," Probabilités","Calcul littéral"]
+        "tags": ["QCM","Calculs numériques","Aires et périmètres","Fonctions","Probabilités","Calcul littéral"]
     },
     "dnb_2014_04_pondichery_3": {
         "annee": "2014",
@@ -1017,7 +1017,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2014/tex/dnb_2014_06_asie_6.tex",
         "urlcor": "/dnb/2014/tex/dnb_2014_06_asie_6_cor.tex",
-        "tags": ["Statistiques"," Probabilités"]
+        "tags": ["Statistiques","Probabilités"]
         // Un numéro de question vide
     },
     "dnb_2014_06_asie_7": {
@@ -1678,7 +1678,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_04_pondichery_3.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex",
-        "tags": ["Exercice à prise d'initiative", "Calculs numériques", "Pourcentages"]
+        "tags": ["Prise d'initiatives", "Calculs numériques", "Pourcentages"]
     },
     "dnb_2015_04_pondichery_4": {
         "annee": "2015",
@@ -1702,7 +1702,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_04_pondichery_5.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_04_pondichery_5_cor.tex",
-        "tags": [" Probabilités"]
+        "tags": ["Probabilités"]
     },
     "dnb_2015_04_pondichery_6": {
         "annee": "2015",
@@ -1762,7 +1762,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_ameriquenord_3.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_ameriquenord_3_cor.tex",
-        "tags": ["Statistiques", " Probabilités"]
+        "tags": ["Statistiques", "Probabilités"]
     },
     "dnb_2015_06_ameriquenord_4": {
         "annee": "2015",
@@ -1834,7 +1834,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_asie_3.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_asie_3_cor.tex",
-        "tags": [" Probabilités"]
+        "tags": ["Probabilités"]
     },
     "dnb_2015_06_asie_4": {
         "annee": "2015",
@@ -1894,7 +1894,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_etrangers_1.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_etrangers_1_cor.tex",
-        "tags":[" Probabilités"]
+        "tags":["Probabilités"]
     },
     "dnb_2015_06_etrangers_2": {
         "annee": "2015",
@@ -2089,7 +2089,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_metropole_4.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_metropole_4_cor.tex",
-        "tags": ["Fonctions", " Probabilités", "Puissances", "Arithmétique", "Equations"]
+        "tags": ["Fonctions", "Probabilités", "Puissances", "Arithmétique", "Equations"]
     },
     "dnb_2015_06_metropole_5": {
         "annee": "2015",
@@ -2343,7 +2343,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_09_polynesie_4.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_09_polynesie_4_cor.tex",
-        "tags": ["Système d'équations", "Hors-programme"]
+        "tags": ["Système d'équations", "Hors programme"]
     },
     "dnb_2015_09_polynesie_5": {
         "annee": "2015",
@@ -2391,7 +2391,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_12_ameriquesud_1.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
-        "tags": ["QCM", "Calculs numériques", "Arithmétique", "Système d'équations", "Hors-programme"]
+        "tags": ["QCM", "Calculs numériques", "Arithmétique", "Système d'équations", "Hors programme"]
     },
     "dnb_2015_12_ameriquesud_2": {
         "annee": "2015",
@@ -2487,7 +2487,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_12_caledonie_1.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_12_caledonie_1_cor.tex",
-        "tags": ["QCM", "Aires et périmètres", " Probabilités", "Volumes", "Equations"]
+        "tags": ["QCM", "Aires et périmètres", "Probabilités", "Volumes", "Equations"]
     },
     "dnb_2015_12_caledonie_2": {
         "annee": "2015",
@@ -2674,7 +2674,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_04_pondichery_7.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_04_pondichery_7_cor.tex",
-        "tags": ["Calcul littéral", "Hors-programme", "QCM"]
+        "tags": ["Calcul littéral", "Hors programme", "QCM"]
     },
     "dnb_2016_04_pondichery_8": {
         "annee": "2016",
@@ -2782,7 +2782,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_1": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "1",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_1.png",
@@ -2795,7 +2795,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_2": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "2",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_2.png",
@@ -2808,7 +2808,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_3": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "3",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_3.png",
@@ -2816,11 +2816,11 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_06_metropole_3.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_06_metropole_3_cor.tex",
-        "tags": ["Trigonométrie", "Pythagore", "Géométrie plane", "Prise d'initiative"]
+        "tags": ["Trigonométrie", "Pythagore", "Géométrie plane", "Prise d'initiatives"]
     },
     "dnb_2016_06_metropole_4": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "4",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_4.png",
@@ -2833,7 +2833,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_5": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "5",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_5.png",
@@ -2846,7 +2846,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_6": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "6",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_6.png",
@@ -2859,7 +2859,7 @@ export let dictionnaireDNB = {
 
     "dnb_2016_06_metropole_7": {
         "annee": "2016",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "7",
         "png": "/dnb/2016/tex/png/dnb_2016_06_metropole_7.png",
@@ -2880,7 +2880,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_06_asie_1.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_06_asie_1_cor.tex",
-        "tags": ["Equations", "Probabilités", "Agrandissement-réduction", "Hors-programme"]
+        "tags": ["Equations", "Probabilités", "Agrandissement-réduction", "Hors programme"]
     },
 
     "dnb_2016_06_asie_2": {
@@ -3114,7 +3114,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_06_polynesie_3.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_06_polynesie_3_cor.tex",
-        "tags": ["Trigonométrie", "Pythagore", "Thalès", "Hors-programme", "Géométrie plane"]
+        "tags": ["Trigonométrie", "Pythagore", "Thalès", "Hors programme", "Géométrie plane"]
     },
 
     "dnb_2016_06_polynesie_4": {
@@ -3139,7 +3139,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_06_polynesie_5.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_06_polynesie_5_cor.tex",
-        "tags": ["Volumes", "Géométrie dans l’espace"]
+        "tags": ["Volumes", "Géométrie dans l'espace"]
     },
 
     "dnb_2016_06_polynesie_6": {
@@ -3217,7 +3217,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_09_metropole_4.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_09_metropole_4_cor.tex",
-        "tags": ["Calcul littéral", "Fonctions", "Fractions", "Hors-programme", "Vitesses"]
+        "tags": ["Calcul littéral", "Fonctions", "Fractions", "Hors programme", "Vitesses"]
     },
 
     "dnb_2016_09_metropole_5": {
@@ -3230,7 +3230,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2016/tex/dnb_2016_09_metropole_5.tex",
         "urlcor": "/dnb/2016/tex/dnb_2016_09_metropole_5_cor.tex",
-        "tags": ["Hors-programme", "Géométrie plane", "Prise d'initiatives"]
+        "tags": ["Hors programme", "Géométrie plane", "Prise d'initiatives"]
     },
 
     "dnb_2016_09_metropole_6": {
@@ -3621,7 +3621,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2017/tex/dnb_2017_06_ameriquenord_6.tex",
         "urlcor": "/dnb/2017/tex/dnb_2017_06_ameriquenord_6_cor.tex",
-        "tags": ["Aires périmètres", "Calcul littéral", "Tableur"]
+        "tags": ["Aires et périmètres", "Calcul littéral", "Tableur"]
     },
     "dnb_2017_06_asie_1": {
         "annee": "2017",
@@ -4137,7 +4137,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2017/tex/dnb_2017_11_ameriquesud_2.tex",
         "urlcor": "/dnb/2017/tex/dnb_2017_11_ameriquesud_2_cor.tex",
-        "tags": ["Prise d'initiatives", "Geométrie plane"]
+        "tags": ["Prise d'initiatives", "Géométrie plane"]
     },
     "dnb_2017_11_ameriquesud_3": {
         "annee": "2017",
@@ -4221,7 +4221,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2017/tex/dnb_2017_12_caledonie_2.tex",
         "urlcor": "/dnb/2017/tex/dnb_2017_12_caledonie_2_cor.tex",
-        "tags": ["Programme de calcul", "Fonctions"]
+        "tags": ["Programme de calculs", "Fonctions"]
     },
     "dnb_2017_12_caledonie_3": {
         "annee": "2017",
@@ -4389,7 +4389,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_05_pondichery_1.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_05_pondichery_1_cor.tex",
-        "tags": ["Probalilités"]
+        "tags": ["Probabilités"]
     },
     "dnb_2018_05_pondichery_2": {
         "annee": "2018",
@@ -4571,7 +4571,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_asie_1.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_asie_1_cor.tex",
-        "tags": [" Statistiques","Pourcentages"]
+        "tags": ["Statistiques","Pourcentages"]
     },
     "dnb_2018_06_asie_2": {
         "annee": "2018",
@@ -4619,7 +4619,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_asie_5.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_asie_5_cor.tex",
-        "tags": ["Aires et périmètres","Calcul littéral"," Equations"]
+        "tags": ["Aires et périmètres","Calcul littéral","Equations"]
     },
     "dnb_2018_06_asie_6": {
         "annee": "2018",
@@ -4643,7 +4643,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_asie_7.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_asie_7_cor.tex",
-         "tags": ["Prise d'initiatives","Aires et périmètres"]
+         "tags": ["Prise d'initiatives","Aires et périmètres"]
     },
     "dnb_2018_06_asie_8": {
         "annee": "2018",
@@ -4679,7 +4679,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_etrangers_2.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_etrangers_2_cor.tex",
-        "tags": ["Vitesses","Calcul littéral","Lecture de graphique"]
+        "tags": ["Vitesses","Calcul littéral","Lecture graphique"]
     },
     "dnb_2018_06_etrangers_3": {
         "annee": "2018",
@@ -4703,7 +4703,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_06_etrangers_4.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_06_etrangers_4_cor.tex",
-        "tags": [" Statistiques","Volumes"]
+        "tags": ["Statistiques","Volumes"]
     },
     "dnb_2018_06_etrangers_5": {
         "annee": "2018",
@@ -5100,7 +5100,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_11_ameriquesud_4.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_11_ameriquesud_4_cor.tex",
-        "tags": ["Pythagore", "Prise d'initiatives"]
+        "tags": ["Pythagore", "Prise d'initiatives"]
     },
     "dnb_2018_11_ameriquesud_5": {
         "annee": "2018",
@@ -5196,7 +5196,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2018/tex/dnb_2018_12_caledonie_5.tex",
         "urlcor": "/dnb/2018/tex/dnb_2018_12_caledonie_5_cor.tex",
-         "tags": ["Prise d'initiatives","Pythagore"]
+         "tags": ["Prise d'initiatives","Pythagore"]
     },
     "dnb_2018_12_caledonie_6": {
         "annee": "2018",
@@ -5234,94 +5234,104 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2018/tex/dnb_2018_12_caledonie_8_cor.tex",
         "tags": ["Algorithmique-programmation"]
     },
-    "dnb_2019_03_caledonie_1": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "1",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_1.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_1_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_1_cor.tex"
-    },
-    "dnb_2019_03_caledonie_2": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "2",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_2.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_2_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_2_cor.tex"
-    },
-    "dnb_2019_03_caledonie_3": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "3",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_3.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_3_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_3_cor.tex"
-    },
-    "dnb_2019_03_caledonie_4": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "4",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_4.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_4_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_4_cor.tex"
-    },
-    "dnb_2019_03_caledonie_5": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "5",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_5.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_5_cor.tex"
-    },
-    "dnb_2019_03_caledonie_6": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "6",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_6.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_6_cor.tex"
-    },
-    "dnb_2019_03_caledonie_7": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "7",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_7.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_7_cor.tex"
-    },
-    "dnb_2019_03_caledonie_8": {
-        "annee": "2019",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Mars",
-        "numeroExercice": "8",
-        "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_8.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_03_caledonie_8.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_8_cor.tex"
-    },
+    // "dnb_2019_03_caledonie_1": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "1",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_1.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_1_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_1.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_1_cor.tex",
+    //     "tags": ["Lecture graphique", "Grandeurs composées","Prise d'initiatives"],
+    //     "tags": ["QCM", "Arithmétique","Thalès","Calcul littéral"]
+    // },
+    // "dnb_2019_03_caledonie_2": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "2",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_2.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_2_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_2.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_2_cor.tex",
+    //     "tags": ["Volumes", "Grandeurs composées","Proportionnalité"]
+    // },
+    // "dnb_2019_03_caledonie_3": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "3",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_3.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_3_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_3.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_3_cor.tex",
+    //     "tags": ["Fonctions", "Equations"]
+    // },
+    // "dnb_2019_03_caledonie_4": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "4",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_4.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_4_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_4.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_4_cor.tex",
+    //     "tags": ["Lecture graphique", "Grandeurs composées","Prise d'initiatives"],
+    //     "tags": ["Grandeurs composées", "Vitesses","Pourcentages"]
+    // },
+    // "dnb_2019_03_caledonie_5": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "5",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_5.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_5_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_5.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_5_cor.tex",
+    //     "tags": ["Statistiques", "Tableur","Probabilités"]
+    // },
+    // "dnb_2019_03_caledonie_6": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "6",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_6.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_6_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_6.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_6_cor.tex",
+    //     "tags": ["Algorithmique-programmation"]
+    // },
+    // "dnb_2019_03_caledonie_7": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "7",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_7.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_7_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_7.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_7_cor.tex",
+    //     "tags": ["Vrai-faux", "Pythagore","Agrandissement-réduction"]
+    // },
+    // "dnb_2019_03_caledonie_8": {
+    //     "annee": "2019",
+    //     "lieu": "Nouvelle Calédonie",
+    //     "mois": "Mars",
+    //     "numeroExercice": "8",
+    //     "png": "/dnb/2019/tex/png/dnb_2019_03_caledonie_8.png",
+    //     "pngcor": "/dnb/2019/tex/png/dnb_2019_03_caledonie_8_cor.png",
+    //     "type_exercice": "dnb",
+    //     "url": "/dnb/2019/tex/dnb_2019_03_caledonie_8.tex",
+    //     "urlcor": "/dnb/2019/tex/dnb_2019_03_caledonie_8_cor.tex",
+    //     "tags": ["Grandeurs composées"]
+    // },
     "dnb_2019_06_ameriquenord_1": {
         "annee": "2019",
         "lieu": "Amérique du Nord",
@@ -5405,7 +5415,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex",
-        "tags": ["Calculs numériques", "Grandeurs", "Volumes"]
+        "tags": ["Calculs numériques", "Grandeurs composées", "Volumes"]
     },
     "dnb_2019_06_ameriquenord_8": {
         "annee": "2019",
@@ -5419,76 +5429,76 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2019/tex/dnb_2019_06_ameriquenord_8_cor.tex",
         "tags": ["Statistiques", "Pourcentages"]
     },
-    "dnb_2019_06_metropole_1": {
+    "dnb_2019_06_antillesguyanne_1": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "1",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_1.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_1_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_1.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_1_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_1_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_1.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_1_cor.tex",
         "tags": ["Probabilités", "Calculs numériques"]
     },
-    "dnb_2019_06_metropole_2": {
+    "dnb_2019_06_antillesguyanne_2": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "2",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_2.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_2_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_2.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_2_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_2_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_2.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_2_cor.tex",
         "tags": ["Algorithmique-programmation", "Transformations"]
     },
-    "dnb_2019_06_metropole_3": {
+    "dnb_2019_06_antillesguyanne_3": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "3",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_3.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_3_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_3.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_3_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_3_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_3.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_3_cor.tex",
         "tags": ["Pourcentages", "Statistiques", "Tableur"]
     },
-    "dnb_2019_06_metropole_4": {
+    "dnb_2019_06_antillesguyanne_4": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "4",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_4.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_4_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_4.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_4_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_4_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_4.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_4_cor.tex",
         "tags": ["Trigonométrie", "Thalès"]
     },
-    "dnb_2019_06_metropole_5": {
+    "dnb_2019_06_antillesguyanne_5": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "5",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_5.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_5_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_5.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_5_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_5_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_5.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_5_cor.tex",
         "tags": ["Programme de calculs", "Calcul littéral", "Calculs numériques"]
     },
-    "dnb_2019_06_metropole_6": {
+    "dnb_2019_06_antillesguyanne_6": {
         "annee": "2019",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Juin",
         "numeroExercice": "6",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_metropole_6.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_metropole_6_cor.png",
+        "png": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_6.png",
+        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_antillesguyanne_6_cor.png",
         "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_metropole_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_metropole_6_cor.tex",
+        "url": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_6.tex",
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_antillesguyanne_6_cor.tex",
         "tags": ["Proportionnalité", "Fonctions", "Volumes"]
     },
     "dnb_2019_06_asie_1": {
@@ -5526,7 +5536,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_asie_3.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_06_asie_3_cor.tex",
-        "tags": ["Programmation"]
+        "tags": ["Algorithmique-programmation"]
     },
     "dnb_2019_06_asie_4": {
         "annee": "2019",
@@ -5538,7 +5548,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_asie_4.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_06_asie_4_cor.tex",
-        "tags": ["Volumes", "Grandeurs"]
+        "tags": ["Volumes", "Grandeurs composées"]
     },
     "dnb_2019_06_asie_5": {
         "annee": "2019",
@@ -5550,7 +5560,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_asie_5.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_06_asie_5_cor.tex",
-        "tags": ["Quadrilatères", "Pythagore"]
+        "tags": ["Géométrie plane", "Pythagore"]
     },
     "dnb_2019_06_asie_6": {
         "annee": "2019",
@@ -5585,7 +5595,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_1_cor.tex",
+        "tags": ["QCM","Arithmétique","Pourcentages","Trigonométrie","Statistiques","Transformations"]
     },
     "dnb_2019_06_etrangers_2": {
         "annee": "2019",
@@ -5596,7 +5607,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_2_cor.tex",
+        "tags": ["Programme de calculs","Calcul littéral","Equations", "Tableur"]
     },
     "dnb_2019_06_etrangers_3": {
         "annee": "2019",
@@ -5607,7 +5619,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_3_cor.tex",
+        "tags": ["Calcul littéral","Equations","Algorithmique-programmation"]
     },
     "dnb_2019_06_etrangers_4": {
         "annee": "2019",
@@ -5618,7 +5631,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_4_cor.tex",
+        "tags": ["Probabilités"]
     },
     "dnb_2019_06_etrangers_5": {
         "annee": "2019",
@@ -5629,7 +5643,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_5_cor.tex",
+        "tags": ["Thalès", "Pythagore"]
     },
     "dnb_2019_06_etrangers_6": {
         "annee": "2019",
@@ -5640,7 +5655,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_6_cor.tex",
+        "tags": ["Lecture graphique", "Vitesses"]
     },
     "dnb_2019_06_etrangers_7": {
         "annee": "2019",
@@ -5651,18 +5667,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_7_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_etrangers_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex"
-    },
-    "dnb_2019_06_etrangers_8": {
-        "annee": "2019",
-        "lieu": "Centres étrangers",
-        "mois": "Juin",
-        "numeroExercice": "8",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_etrangers_8.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_etrangers_8_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_etrangers_8.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_8_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex",
+        "tags": ["Prise d'initiatives", "Calculs numériques","Volumes"]
     },
     "dnb_2019_06_grece_1": {
         "annee": "2019",
@@ -5673,7 +5679,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_1_cor.tex",
+        "tags": ["Probabilités"]
     },
     "dnb_2019_06_grece_2": {
         "annee": "2019",
@@ -5684,7 +5691,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_2_cor.tex",
+        "tags": ["Trigonométrie", "Triangles semblables","Agrandissement-réduction"]
     },
     "dnb_2019_06_grece_3": {
         "annee": "2019",
@@ -5695,7 +5703,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_3_cor.tex",
+        "tags": ["Vitesses", "Grandeurs composées"]
     },
     "dnb_2019_06_grece_4": {
         "annee": "2019",
@@ -5706,7 +5715,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_4_cor.tex",
+        "tags": ["Algorithmique-programmation", "Transformations"]
     },
     "dnb_2019_06_grece_5": {
         "annee": "2019",
@@ -5717,7 +5727,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_5_cor.tex",
+        "tags": ["Programme de calculs", "Calcul littéral","Fonctions"]
     },
     "dnb_2019_06_grece_6": {
         "annee": "2019",
@@ -5728,84 +5739,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_06_grece_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_06_grece_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_6_cor.tex"
-    },
-    "dnb_2019_06_polynesie_1": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "1",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_1.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_1_cor.tex"
-    },
-    "dnb_2019_06_polynesie_2": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "2",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_2.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_2_cor.tex"
-    },
-    "dnb_2019_06_polynesie_3": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "3",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_3.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_3_cor.tex"
-    },
-    "dnb_2019_06_polynesie_4": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "4",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_4.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_4_cor.tex"
-    },
-    "dnb_2019_06_polynesie_5": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "5",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_5.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_5_cor.tex"
-    },
-    "dnb_2019_06_polynesie_6": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "6",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_6.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_6_cor.tex"
-    },
-    "dnb_2019_06_polynesie_7": {
-        "annee": "2019",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroExercice": "7",
-        "png": "/dnb/2019/tex/png/dnb_2019_06_polynesie_7.png",
-        "pngcor": "/dnb/2019/tex/png/dnb_2019_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
-        "url": "/dnb/2019/tex/dnb_2019_06_polynesie_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_06_polynesie_7_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_06_grece_6_cor.tex",
+        "tags": ["Agrandissement-réduction", "Volumes","Pourcentages","Prise d'initiatives"]
     },
     "dnb_2019_07_metropole_1": {
         "annee": "2019",
@@ -5830,7 +5765,6 @@ export let dictionnaireDNB = {
         "url": "/dnb/2019/tex/dnb_2019_07_metropole_2.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_07_metropole_2_cor.tex",
         "tags": ["Trigonométrie", "Proportionnalité", "Agrandissement-réduction"]
-
     },
     "dnb_2019_07_metropole_3": {
         "annee": "2019",
@@ -5842,7 +5776,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_metropole_3.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_07_metropole_3_cor.tex",
-        "tags": ["Volumes", "Grandeurs", "Statistiques"]
+        "tags": ["Volumes", "Grandeurs composées", "Statistiques"]
     },
     "dnb_2019_07_metropole_4": {
         "annee": "2019",
@@ -5866,7 +5800,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_metropole_5.tex",
         "urlcor": "/dnb/2019/tex/dnb_2019_07_metropole_5_cor.tex",
-        "tags": ["Transformations", "Probabilités"]
+        "tags": ["Transformations"]
     },
     "dnb_2019_07_metropole_6": {
         "annee": "2019",
@@ -5877,7 +5811,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_metropole_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_metropole_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_metropole_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_metropole_6_cor.tex",
+        "tags": ["Programme de calculs", "Fonctions","Equations","Calcul littéral"]
     },
     "dnb_2019_07_polynesie_1": {
         "annee": "2019",
@@ -5888,7 +5823,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_1_cor.tex",
+        "tags": ["QCM", "Arithmétique","Thalès"]
     },
     "dnb_2019_07_polynesie_2": {
         "annee": "2019",
@@ -5899,7 +5835,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_2_cor.tex",
+        "tags": ["Fonctions", "Tableur","Algorithmique-programmation","Programme de calculs","Calcul littéral","Equations"]
     },
     "dnb_2019_07_polynesie_3": {
         "annee": "2019",
@@ -5910,7 +5847,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_3_cor.tex",
+        "tags": ["Probabilités"]
     },
     "dnb_2019_07_polynesie_4": {
         "annee": "2019",
@@ -5921,7 +5859,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_4_cor.tex",
+        "tags": ["Agrandissement-réduction", "Volumes"]
     },
     "dnb_2019_07_polynesie_5": {
         "annee": "2019",
@@ -5932,7 +5871,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_5_cor.tex",
+        "tags": ["Trigonométrie", "Pythagore"]
     },
     "dnb_2019_07_polynesie_6": {
         "annee": "2019",
@@ -5943,7 +5883,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_6_cor.tex",
+         "tags": ["Vitesses", "Statistiques"]
     },
     "dnb_2019_07_polynesie_7": {
         "annee": "2019",
@@ -5954,7 +5895,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_07_polynesie_7_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_07_polynesie_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_7_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_07_polynesie_7_cor.tex",
+        "tags": ["Lecture graphique", "Grandeurs composées","Prise d'initiatives"]
     },
     "dnb_2019_09_metropole_1": {
         "annee": "2019",
@@ -5965,7 +5907,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_1_cor.tex",
+        "tags": ["Pythagore", "Thalès","Vitesses"]
     },
     "dnb_2019_09_metropole_2": {
         "annee": "2019",
@@ -5976,7 +5919,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_2_cor.tex",
+        "tags": ["Arithmétique", "Puissances"]
     },
     "dnb_2019_09_metropole_3": {
         "annee": "2019",
@@ -5987,7 +5931,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_3_cor.tex",
+        "tags": ["Lecture graphique", "Fonctions","Pourcentages"]
     },
     "dnb_2019_09_metropole_4": {
         "annee": "2019",
@@ -5998,7 +5943,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_4_cor.tex",
+        "tags": ["Proportionnalité","Volumes"]
     },
     "dnb_2019_09_metropole_5": {
         "annee": "2019",
@@ -6009,7 +5955,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_5_cor.tex",
+        "tags": ["Programme de calculs", "Tableur","Calcul littéral","Equations"]
     },
     "dnb_2019_09_metropole_6": {
         "annee": "2019",
@@ -6020,7 +5967,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_metropole_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_metropole_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_metropole_6_cor.tex",
+        "tags": ["Probabilités", "Algorithmique-programmation"]
     },
     "dnb_2019_09_polynesie_1": {
         "annee": "2019",
@@ -6031,7 +5979,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_1_cor.tex",
+        "tags": ["QCM", "Puissances","Vitesses","Arithmétique","Fonctions","Agrandissement-réduction"]
     },
     "dnb_2019_09_polynesie_2": {
         "annee": "2019",
@@ -6042,7 +5991,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_2_cor.tex",
+        "tags": ["Probabilités", "Grandeurs composées"]
     },
     "dnb_2019_09_polynesie_3": {
         "annee": "2019",
@@ -6053,7 +6003,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_3_cor.tex",
+        "tags": ["Statistiques", "Tableur","Calculs numériques"]
     },
     "dnb_2019_09_polynesie_4": {
         "annee": "2019",
@@ -6064,7 +6015,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_4_cor.tex",
+        "tags": ["Transformations", "Agrandissement-réduction","Thalès","Trigonométrie"]
     },
     "dnb_2019_09_polynesie_5": {
         "annee": "2019",
@@ -6075,7 +6027,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_5_cor.tex",
+        "tags": ["Pythagore", "Grandeurs composées","Volumes"]
     },
     "dnb_2019_09_polynesie_6": {
         "annee": "2019",
@@ -6086,7 +6039,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_6_cor.tex",
+        "tags": ["Proportionnalité", "Lecture graphique","Pourcentages","Grandeurs composées"]
     },
     "dnb_2019_09_polynesie_7": {
         "annee": "2019",
@@ -6097,7 +6051,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_09_polynesie_7_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_09_polynesie_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_7_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_09_polynesie_7_cor.tex",
+        "tags": ["Algorithmique-programmation", "Programme de calculs","Calcul littéral","Equations"]
     },
     "dnb_2019_11_ameriquesud_1": {
         "annee": "2019",
@@ -6168,7 +6123,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_11_ameriquesud_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_11_ameriquesud_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_11_ameriquesud_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_11_ameriquesud_6_cor.tex",
+        "tags": ["Algorithmique-programmation"]
     },
     "dnb_2019_12_caledonie_1": {
         "annee": "2019",
@@ -6179,7 +6135,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_1_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_1.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_1_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_1_cor.tex",
+         "tags": ["QCM","Grandeurs composées","Durées","Puissances","Calcul littéral"]
     },
     "dnb_2019_12_caledonie_2": {
         "annee": "2019",
@@ -6190,7 +6147,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_2_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_2.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_2_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_2_cor.tex",
+        "tags": ["Probabilités","Pourcentages"]
     },
     "dnb_2019_12_caledonie_3": {
         "annee": "2019",
@@ -6201,7 +6159,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_3_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_3.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_3_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_3_cor.tex",
+        "tags": ["Agrandissement-réduction"]
     },
     "dnb_2019_12_caledonie_4": {
         "annee": "2019",
@@ -6212,7 +6171,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_4_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_4.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_4_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_4_cor.tex",
+        "tags": ["Pythagore","Thalès"]
     },
     "dnb_2019_12_caledonie_5": {
         "annee": "2019",
@@ -6223,7 +6183,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_5_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_5.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_5_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_5_cor.tex",
+        "tags": ["Lecture graphique"]
     },
     "dnb_2019_12_caledonie_6": {
         "annee": "2019",
@@ -6234,7 +6195,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_6_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_6.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
+        "tags": ["Grandeurs composées","Calculs numériques","Fonctions","Equations","Lecture graphique"]
     },
     "dnb_2019_12_caledonie_7": {
         "annee": "2019",
@@ -6245,7 +6207,8 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_7_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_7.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_7_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_7_cor.tex",
+        "tags": ["Grandeurs composées","Proportionnalité","Prise d'initiatives"]
     },
     "dnb_2019_12_caledonie_8": {
         "annee": "2019",
@@ -6256,11 +6219,12 @@ export let dictionnaireDNB = {
         "pngcor": "/dnb/2019/tex/png/dnb_2019_12_caledonie_8_cor.png",
         "type_exercice": "dnb",
         "url": "/dnb/2019/tex/dnb_2019_12_caledonie_8.tex",
-        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_8_cor.tex"
+        "urlcor": "/dnb/2019/tex/dnb_2019_12_caledonie_8_cor.tex",
+        "tags": ["Algorithmique-programmation"]
     },
     "dnb_2020_09_antillesguyanne_1": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "1",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_1.png",
@@ -6272,7 +6236,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_2": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "2",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_2.png",
@@ -6284,7 +6248,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_3": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "3",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_3.png",
@@ -6296,7 +6260,7 @@ export let dictionnaireDNB = {
     },
     "dnb_2020_09_antillesguyanne_4": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "4",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_4.png",
@@ -6304,11 +6268,11 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2020/tex/dnb_2020_09_antillesguyanne_4.tex",
         "urlcor": "/dnb/2020/tex/dnb_2020_09_antillesguyanne_4_cor.tex",
-        "tags": ["Statistiques", "Pourcentage", "Tableur"]
+        "tags": ["Statistiques", "Pourcentages", "Tableur"]
     },
     "dnb_2020_09_antillesguyanne_5": {
         "annee": "2020",
-        "lieu": "Antilles - Guyanne",
+        "lieu": "Antilles - Guyane",
         "mois": "Septembre",
         "numeroExercice": "5",
         "png": "/dnb/2020/tex/png/dnb_2020_09_antillesguyanne_5.png",
