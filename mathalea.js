@@ -103,7 +103,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         //mise en évidence des exercices sélectionnés.
 		$(".exerciceactif").removeClass("exerciceactif");
 		for (let i = 0; i < liste_des_exercices.length; i++) {
-			$("a.lien_id_exercice[numero='"+liste_des_exercices[i]+"'").addClass("exerciceactif");
+			$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
             // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
             if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
                 // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
