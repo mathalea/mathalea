@@ -1,4 +1,4 @@
-import { creer_document_AMC, strRandom } from "./modules/outils.js";
+import { creer_document_AMC, strRandom ,compteOccurences} from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles} from '/modules/menuDesExercicesQCMDisponibles.js'
 import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC.js"
@@ -90,11 +90,26 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                 });
             }
         })();
-
+ //mise en évidence des exercices sélectionnés.
+ $(".exerciceactif").removeClass("exerciceactif");
+ for (let i = 0; i < liste_des_exercices.length; i++) {
+     $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
+     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+     if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
+         // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+         let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+         let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
+         $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+     } else {
+         let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+         let txt = ancienTexte.split('✖︎')[0]
+         $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+     }
+ }
             // Sortie LaTeX quoi qu'il advienne !
             // code pour la sortie LaTeX
-            let questions=[];
 
+            let questions=[];
             code_LaTeX = "";
             liste_packages = new Set();
             if (liste_des_exercices.length > 0) {
@@ -791,15 +806,28 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         form_nb_exemplaires.value = 1; // Rempli le formulaire avec le nombre de questions
         form_nb_exemplaires.addEventListener("change", function (e) {
             // Dès que le nombre change, on met à jour
+            if (type_entete=="AMCassociation"){
+                nb_exemplaires=1
+                form_nb_exemplaires.value=1
+            }
+            else {
             nb_exemplaires = e.target.value;
+            }
             mise_a_jour_du_code();
         });
 // Gestion des paramètres du fichier LaTeX
         // gestion de l'entête
         let form_entete=document.getElementById("options_type_entete");
         form_entete.value = 'AMCcodeGrid'
+        $('#type_AMCcodeGrid').show()
+        $('#type_champnom').hide()
+        $('#type_AMCassociation').hide()
         form_entete.addEventListener("change",function (e) {
         type_entete=e.target.value;
+        if (type_entete=="AMCassociation"){
+            nb_exemplaires=1
+            form_nb_exemplaires.value=1
+        }
         mise_a_jour_du_code()
          });
          //gestion du nombre de questions par groupe
