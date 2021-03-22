@@ -146,14 +146,14 @@ export default function VuesEmpilementCubes() {
           texte += `Combien de petits cubes contient cet empilement de cubes ? <br>`
           L = empilementCubes(longueur, largeur, hauteur);
           objets_enonce = [] ;
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(L[i][0], L[i][1], L[i][2],30,-35)) {
              objets_enonce.push(elm);
            }      
           }
           texte += mathalea2d(params_enonce, objets_enonce) + " "; 
           objets_enonce = [] ;
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(L[i][0], L[i][1], L[i][2],15,-30)) {
              objets_enonce.push(elm);
            }      
@@ -163,7 +163,7 @@ export default function VuesEmpilementCubes() {
           texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(3*L[i][0],L[i][1],L[i][2],30,-35)) {
               objets_correction.push(elm);
             }
@@ -176,14 +176,14 @@ export default function VuesEmpilementCubes() {
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de largeur ${longueur} ? <br>`;
           L = empilementCubes(longueur, largeur, hauteur);
           objets_enonce = [] ;
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(L[i][0], L[i][1], L[i][2],30,-35)) {
              objets_enonce.push(elm);
            }      
           }  
           texte += mathalea2d(params_enonce, objets_enonce) + " ";
           objets_enonce = [] ;
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(L[i][0], L[i][1], L[i][2],15,-30)) {
              objets_enonce.push(elm);
            }      
@@ -193,13 +193,14 @@ export default function VuesEmpilementCubes() {
           texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
-          for (i = 0; i < L.length; i++) {
+          for (let i = 0; i < L.length; i++) {
             for (let elm of cube(3*L[i][0],L[i][1],L[i][2],30,-35)) {
               objets_correction.push(elm);
             }
           }
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";   
-          texte_corr += `Il manque ${longueur*largeur*hauteur-L.length} cubes.`       
+          texte_corr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur*largeur*hauteur}$. <br>`    
+          texte_corr += `Il manque $${longueur*largeur*hauteur-L.length}$ cubes.`       
 
         break
       }
