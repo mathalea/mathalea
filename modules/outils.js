@@ -6898,7 +6898,8 @@ export function intro_LaTeX(entete = "Exercices", liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
@@ -6968,7 +6969,8 @@ export function intro_LaTeX_coop(liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}			
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}			
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
@@ -8120,7 +8122,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
 	\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
-	\\usetkzobj{all}
+	%\\usetkzobj{all} %problème de compilation
 	
 	%%%%% PACKAGES MATHS %%%%%
 	 \\usepackage{ucs}
@@ -8135,9 +8137,9 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
 	 % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
 	 %  sous Ubuntu, paquet texlive-science à installer
-	 \\usepackage[autolanguage,np]{numprint}
+	 %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans intro_Latex
 	 \\usepackage{mathrsfs}  % Spécial math
-	 \\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+	 %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
 	 \\usepackage{pifont}						% Pour les symboles "ding"
 	 \\usepackage{bbding}						% Pour les symboles
 	 \\usepackage[misc]{ifsym}					% Pour les symboles
