@@ -8270,7 +8270,12 @@ console.log(type_entete)
 	%\\\\
 	\\vspace{2mm}
 	`
-	let entete_type_preremplie=``
+	let entete_type_preremplie=`\\begin{center}
+	\\noindent{}\\fbox{\\vspace*{3mm}
+			 \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}% 
+			  \\vspace*{3mm}
+		  }
+	\\end{center}\n`
 
 	let entete_copie=''
 	if (type_entete=="AMCassociation"){
