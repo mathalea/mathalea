@@ -6898,7 +6898,8 @@ export function intro_LaTeX(entete = "Exercices", liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
@@ -6968,7 +6969,8 @@ export function intro_LaTeX_coop(liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}			
+\\usepackage[autolanguage]{numprint}
+%\\usepackage[autolanguage,np]{numprint}			
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
