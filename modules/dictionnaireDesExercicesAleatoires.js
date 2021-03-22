@@ -1608,6 +1608,14 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Puissances de 10",
         "url": "/exercices/beta/beta4C31.js"
     },
+    "beta4G20-3": {
+        "titre": "Calculer une valeur manquante avec l'égalité de Pythagore",
+        "url": "/exercices/beta/beta4G20-3.js"
+    },
+    "beta4G20-4": {
+        "titre": "Calculer la racine carrée de (x² +/- y²)",
+        "url": "/exercices/4e/beta4G20-4.js"
+    },
     "beta4N10": {
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
