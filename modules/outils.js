@@ -8139,7 +8139,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 %  sous Ubuntu, paquet texlive-science à installer
 	 %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans intro_Latex
 	 \\usepackage{mathrsfs}  % Spécial math
-	 \\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+	 %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
 	 \\usepackage{pifont}						% Pour les symboles "ding"
 	 \\usepackage{bbding}						% Pour les symboles
 	 \\usepackage[misc]{ifsym}					% Pour les symboles
