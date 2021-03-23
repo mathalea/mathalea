@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,  randint} from "/modules/outils.js"
-import {mathalea2d, point, segment, polygone} from "/modules/2d.js"
+import {mathalea2d} from "/modules/2d.js"
 import {cube} from "/modules/3d.js"
 
 /**
@@ -40,71 +40,19 @@ export default function VuesEmpilementCubes() {
     }
     
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-    let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction ;
+    let objets_enonce,objets_correction,params_enonce,params_correction ;
     let longueur = 2+parseInt(this.sup2); // longueur de l'empilement
-    let largeur = 2+parseInt(this.sup2); // largeur de l'empilement
+    let largeur = longueur; // largeur de l'empilement
+    let hauteur = longueur; // hauteur de l'empilement
 
     for (let q = 0, texte, texte_corr, cpt = 0; q < this.nb_questions && cpt < 50;) {
       objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objets_enonceml = [] // Idem pour l'enoncé à main levée si besoin
       objets_correction = [] // Idem pour la correction
 
       texte = `Un empilement de cubes est représenté ci-dessous. <br>`; // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte_corr = ``; // Idem pour le texte de la correction.
-
-      // fonction cube : permet d'obtenir une vue 3D d'un cube à l'aide de 3 quadrilatères
-      // la fonction renvoie une liste de 3 quadrilatères Mathalea2D
-      // cube(x,y,z,0,-90) : vue de haut
-      // cube(x,y,z,90,0) : vue de gauche
-      // cube(x,y,z,0,0) : vue de droite
-      // cube(x,y,z,45,-35) : vue isométrique
-              
-      /*function cube(x, y, z, alpha, beta) { // renvoie une liste de 3 polygones
-        let lstPoints = [];
-        let lstSegments =[];
-        let lstPolygone = [];
-
-        function proj(x,y,z,alpha, beta) {
-          const cosa = Math.cos(alpha*Math.PI/180);
-          const sina = Math.sin(alpha*Math.PI/180);
-          const cosb = Math.cos(beta*Math.PI/180);
-          const sinb = Math.sin(beta*Math.PI/180);
-          return point(cosa*x-sina*y, -sina*sinb*x-cosa*sinb*y+cosb*z);
-        }
-
-        lstPoints.push(proj(x,y,z,alpha, beta)) // point 0 en bas
-        lstPoints.push(proj(x+1,y,z,alpha, beta)) // point 1
-        lstPoints.push(proj(x+1,y,z+1,alpha, beta)) // point 2
-        lstPoints.push(proj(x,y,z+1,alpha, beta)) //point 3
-        lstPoints.push(proj(x+1,y+1,z+1,alpha, beta)) // point 4
-        lstPoints.push(proj(x,y+1,z+1,alpha, beta)) // point 5
-        lstPoints.push(proj(x,y+1,z,alpha, beta)) // point 6
-        lstSegments.push(segment(lstPoints[0], lstPoints[1]))
-        lstSegments.push(segment(lstPoints[1], lstPoints[2]))
-        lstSegments.push(segment(lstPoints[2], lstPoints[3]))
-        lstSegments.push(segment(lstPoints[3], lstPoints[0]))
-        lstSegments.push(segment(lstPoints[2], lstPoints[4]))
-        lstSegments.push(segment(lstPoints[4], lstPoints[5]))
-        lstSegments.push(segment(lstPoints[5], lstPoints[6]))
-        lstSegments.push(segment(lstPoints[6], lstPoints[0]))
-        lstSegments.push(segment(lstPoints[3], lstPoints[5]))
-        let p;
-        p = polygone([lstPoints[0], lstPoints[1],lstPoints[2], lstPoints[3]], "black")
-        p.couleurDeRemplissage = "#A5C400"; // vert
-        p.opaciteDeRemplissage=1;
-        lstPolygone.push(p)
-        p = polygone([lstPoints[2], lstPoints[4],lstPoints[5], lstPoints[3]], "black")
-        p.couleurDeRemplissage = "#FFFFFF"; // blanc
-        lstPolygone.push(p)
-        //lstPolygone.push(p)
-        p = polygone([lstPoints[3], lstPoints[5],lstPoints[6], lstPoints[0]], "black")
-        p.couleurDeRemplissage = "#A9A9A9"; // gris
-        lstPolygone.push(p)
-        //lstPolygone.push()
-        return lstPolygone;
-      }
-*/
-      function empilementCubes(long, larg) {
+      
+      function empilementCubes(long, larg, hmax) {
         let tabHauteurs = new Array(larg);
         for (let i = 0; i < larg; i++) {
           tabHauteurs[i] = new Array(long);
@@ -113,13 +61,11 @@ export default function VuesEmpilementCubes() {
         for (let i = 0 ; i < larg; i++) {
           tabHauteurs[i][0] = randint(0,1);   
         }
-        let hmax = 0 ; // hauteur maximale de l'empilement
         // deuxième ligne et suivantes
         for (let i = 0 ; i<larg ; i++) {
           for (let j = 1 ; j<long ; j++) {
-            tabHauteurs[i][j] = tabHauteurs[i][j-1] + randint(0,2);
+            tabHauteurs[i][j] = Math.min(tabHauteurs[i][j-1] + randint(0,2), hmax);
           } 
-          hmax = Math.max(tabHauteurs[i][long-1], hmax)
         }
         //Vérification Dernière Ligne : ne pas être vide.
         for (let i = 0 ; i<larg ; i++) {
@@ -136,32 +82,47 @@ export default function VuesEmpilementCubes() {
         }
       return lstCoordonneesCubes;
       } 
-      let L;
+      let L, alpha, beta, cosa, cosb, sina, sinb;
 
-      // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      params_enonce = { xmin:-10, ymin: 0, xmax: 10, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
-
+      // début de l'exercice
       switch (liste_type_de_questions[q]) {
         case 1:
-          // GAUCHE
           texte += `Combien de petits cubes contient cet empilement de cubes ? <br>`
-          L = empilementCubes(longueur, largeur);
+          L = empilementCubes(longueur, largeur, hauteur);
+          //dessin 1
+          alpha = 30;
+          beta = -25;
           objets_enonce = [] ;
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],30,-35,{}));
+             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],alpha,beta,{}));
           }
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + " "; 
-          objets_enonce = [] ;
+          //dessin 2
+          alpha = 15;
+          beta = -30;
+          objets_enonce = [] ;          
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],15,-30,{}));
+             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],alpha,beta,{}));
           }  
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + " <br>";
           // correction :
-          texte_corr += "On peut représenter l'empilement par tranches : <br>"
-          params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
+          texte_corr += "On peut représenter l'empilement par tranches : <br>";
+          alpha =30;
+          beta = -25;
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_correction = { xmin:-3*sina*largeur-0.5, ymin: -0.5, xmax: 3*cosa*longueur+0.5, ymax: -sina*sinb*3*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(3*L[i][0],L[i][1],L[i][2],30,-35,{}));
+              objets_correction.push(cube(3*L[i][0],L[i][1],L[i][2],alpha,beta,{}));
           }
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";   
           texte_corr += `Il y a au total ${L.length} cubes.`       
@@ -169,25 +130,49 @@ export default function VuesEmpilementCubes() {
 
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube ? <br>`;
-          L = empilementCubes(longueur, largeur);
+          L = empilementCubes(longueur, largeur,hauteur);
+          //dessin 1
+          alpha =30;
+          beta = -25;
           objets_enonce = [] ;
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],30,-35,{}));
+             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],alpha,beta,{}));
           }  
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + " ";
+          //dessin 2
+          alpha =15;
+          beta = -30;
           objets_enonce = [] ;
           for (let i = 0; i < L.length; i++) {
              objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],15,-30,{}));
           }  
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
           // correction :
-          texte_corr += "Vue de haut (les faces blanches) : "
+          texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           params_correction = { xmin:longueur, ymin: -longueur-1, xmax: 2*longueur+1, ymax: longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
+          alpha =30;
+          beta = -25;
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0]+largeur+1,L[i][1]-longueur-1,L[i][2],0,-90,{}));
+              objets_correction.push(cube(3*L[i][0]+largeur+1,L[i][1]-longueur-1,L[i][2],alpha,beta,{}));
           }
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";   
+          texte_corr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur*largeur*hauteur}$. <br>`    
+          texte_corr += `Il manque $${longueur*largeur*hauteur-L.length}$ cubes.`       
         break
       }
       if (this.liste_questions.indexOf(texte) == -1) {
@@ -204,7 +189,7 @@ export default function VuesEmpilementCubes() {
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
-  this.besoin_formulaire_numerique = ['Type de questions', 2, `1 : un solide et ses trois vues\n 2 : on demande une vue par solide`]
+  this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : compter les cubes\n2 : compter les cubes manquants\n3 un mélange des deux`]
   this.besoin_formulaire2_numerique = ["Taille de l'empilement",5,`3 \n4 \n5 \n6 \n7`];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
   
