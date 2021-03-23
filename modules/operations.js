@@ -34,7 +34,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
 
      let DivisionPosee3d = function (divid, divis,precision=0) {
         let objets = [],zeroutile=false,periode=0
-        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(divid/divis))
+        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(calcul(divid/divis)))
         let decalage= nombreDeChiffresApresLaVirgule(divis)
         let dec1=nombreDeChiffresApresLaVirgule(divid)
         if (divid<divis) 

@@ -1,6 +1,6 @@
 # ignorer le dossier de config de visual studio code
 .vscode/
-tex/*
-tex/png/*
-dnb/
+# tex/*
+# tex/png/*
+# dnb/
 .jshintrc
