@@ -225,10 +225,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 for (let i = 0; i < liste_des_exercices.length; i++) {
                     listeObjetsExercice[i].id = liste_des_exercices[i];
                     if (listeObjetsExercice[i].type_exercice == "dnb") {
-                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i]["mois"]} ${listeObjetsExercice[i]["annee"]} - ${listeObjetsExercice[i]["lieu"]} (ex ${listeObjetsExercice[i]["numeroExercice"]})</h3>`;
-                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i]["png"]}">`
-                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i]["mois"]} ${listeObjetsExercice[i]["annee"]} - ${listeObjetsExercice[i]["lieu"]} (ex ${listeObjetsExercice[i]["numeroExercice"]})</h3>`;
-                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i]["pngcor"]}">`
+                        contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i].mois} ${listeObjetsExercice[i].annee} - ${listeObjetsExercice[i].lieu} (ex ${listeObjetsExercice[i].numeroExercice})</h3>`;
+                        contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i].png}">`
+                        contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i].mois} ${listeObjetsExercice[i].annee} - ${listeObjetsExercice[i].lieu} (ex ${listeObjetsExercice[i].numeroExercice})</h3>`;
+                        contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i].pngcor}">`
                         listeObjetsExercice[i].video = false
 
                     } else {
@@ -522,12 +522,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             id = liste_des_exercices[i];
             let url;
             try {
-                url = dictionnaireDesExercices[id]["url"];
+                url = dictionnaireDesExercices[id].url;
             } catch (error) {
                 console.log(error);
                 console.log(`Exercice ${id} non disponible`);
             }
-            if (dictionnaireDesExercices[id]["type_exercice"] == "dnb") {
+            if (dictionnaireDesExercices[id].type_exercice == "dnb") {
                 listeObjetsExercice[i] = dictionnaireDesExercices[id];
                 promises.push(
                 fetch(url)
@@ -540,7 +540,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 })
                 )
                 promises.push(
-                fetch(dictionnaireDesExercices[id]["urlcor"])
+                fetch(dictionnaireDesExercices[id].urlcor)
                 .then(response => response.text())
                 .then(data => {
                     
@@ -557,17 +557,17 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         .then((module) => {
                             if (module) {
                                 listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
-                                if (dictionnaireDesExercices[id]["sup"]!=undefined){
-                                    listeObjetsExercice[i]["sup"]=dictionnaireDesExercices[id]["sup"]
+                                if (dictionnaireDesExercices[id].sup!=undefined){
+                                    listeObjetsExercice[i].sup=dictionnaireDesExercices[id].sup
                                 }
-                                if (dictionnaireDesExercices[id]["sup2"]!=undefined){
-                                    listeObjetsExercice[i]["sup2"]=dictionnaireDesExercices[id]["sup2"]
+                                if (dictionnaireDesExercices[id].sup2!=undefined){
+                                    listeObjetsExercice[i].sup2=dictionnaireDesExercices[id].sup2
                                 }
-                                if (dictionnaireDesExercices[id]["sup3"]!=undefined){
-                                    listeObjetsExercice[i]["sup3"]=dictionnaireDesExercices[id]["sup3"]
+                                if (dictionnaireDesExercices[id].sup3!=undefined){
+                                    listeObjetsExercice[i].sup3=dictionnaireDesExercices[id].sup3
                                 }
-                                if (dictionnaireDesExercices[id]["nb_questions"]!=undefined){
-                                    listeObjetsExercice[i]["nb_questions"]=dictionnaireDesExercices[id]["nb_questions"]
+                                if (dictionnaireDesExercices[id].nb_questions!=undefined){
+                                    listeObjetsExercice[i].nb_questions=dictionnaireDesExercices[id].nb_questions
                                 }
                                 if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                     besoinXCas = true;
@@ -586,24 +586,24 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 let urlVars = getUrlVars();
 				//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
 				//	=> évite les erreurs lors de la suppression de question dans la liste.
-				for (var i = 0; i < urlVars.length; i++) {
+				for (let i = 0; i < urlVars.length; i++) {
 					if (urlVars[i].id != liste_des_exercices[i]) {
 						urlVars.splice(i,1);
 					}	
 				}
-                for (var i = 0; i < urlVars.length; i++) {
+                for (let i = 0; i < urlVars.length; i++) {
                     // récupère les éventuels paramètres dans l'URL
                     // et les recopie dans les formulaires des paramètres
-                    if (urlVars[i]["nb_questions"] && listeObjetsExercice[i].nb_questions_modifiable) {
-                        listeObjetsExercice[i].nb_questions = urlVars[i]["nb_questions"];
+                    if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
+                        listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions;
                         form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
                     }
-                    if (urlVars[i]["video"] && sortie_html && !est_diaporama) {
-                        listeObjetsExercice[i].video = urlVars[i]["video"];
+                    if (urlVars[i].video && sortie_html && !est_diaporama) {
+                        listeObjetsExercice[i].video = urlVars[i].video;
                         form_video[i].value = listeObjetsExercice[i].video;
                     }
-                    if (typeof urlVars[i]["sup"] !== 'undefined') {
-                        listeObjetsExercice[i].sup = urlVars[i]["sup"];
+                    if (typeof urlVars[i].sup !== 'undefined') {
+                        listeObjetsExercice[i].sup = urlVars[i].sup;
                         // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
                         try {
                             
@@ -611,15 +611,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         } catch {
                         }
                     }
-                    if (typeof urlVars[i]["sup2"] !== 'undefined') {
-                        listeObjetsExercice[i].sup2 = urlVars[i]["sup2"];
+                    if (typeof urlVars[i].sup2 !== 'undefined') {
+                        listeObjetsExercice[i].sup2 = urlVars[i].sup2;
                         try {
                             form_sup2[i].value = listeObjetsExercice[i].sup2;
                         } catch (error) {
                         }
                     }
-                    if (typeof urlVars[i]["sup3"] !== 'undefined') {
-                        listeObjetsExercice[i].sup3 = urlVars[i]["sup3"];
+                    if (typeof urlVars[i].sup3 !== 'undefined') {
+                        listeObjetsExercice[i].sup3 = urlVars[i].sup3;
                         try {
                             form_sup3[i].value = listeObjetsExercice[i].sup3;
                         } catch (error) {
@@ -1425,14 +1425,14 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             // Gestion du bouton de zoom
                 let zoom = 1;
                 $( "#btn_zoom_plus").click(function() {
-                    zoom+=.5;
+                    zoom+=0.5;
                     $("#affichage_exercices").css("transform", `scale(${zoom})`);
                     $("#affichage_exercices").css("transform-origin", "0 0px");
                       //window.location.hash = 'section';
                   });
                 $( "#btn_zoom_moins").click(function() {
                     if (zoom>1) {
-                        zoom-=.5;
+                        zoom-=0.5;
                     }
                     $("#affichage_exercices").css("transform", `scale(${zoom})`);
                     $("#affichage_exercices").css("transform-origin", "0 0px");
@@ -1449,8 +1449,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 				$('#ModalQRcode').html('');
 				let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
 					text: window.location.href,
-					width: Math.min(window.innerHeight,window.innerWidth)*.9,
-					height: Math.min(window.innerHeight,window.innerWidth)*.9,
+					width: Math.min(window.innerHeight,window.innerWidth)*0.9,
+					height: Math.min(window.innerHeight,window.innerWidth)*0.9,
 					colorDark : "#000000",
 					colorLight : "#ffffff",
 					correctLevel : QRCode.CorrectLevel.H
@@ -1472,7 +1472,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         let urlVars = getUrlVars();
         if (urlVars.length > 0) {
             for (let i = 0; i < urlVars.length; i++) {
-                liste_des_exercices.push(urlVars[i]["id"]);
+                liste_des_exercices.push(urlVars[i].id);
             }
             form_choix_des_exercices.value = liste_des_exercices.join(",");
             mise_a_jour_de_la_liste_des_exercices();
