@@ -611,6 +611,7 @@ export function cube3d(x,y,z,c){
 
 class Cube{
   constructor (x,y,z,alpha,beta,colorD,colorT,colorG){
+    ObjetMathalea2D.call(this)
     this.x=x
     this.y=y
     this.z=z
@@ -637,7 +638,7 @@ class Cube{
     this.lstPoints.push(proj(this.x+1,this.y+1,this.z+1,this.alpha, this.beta)) // point 4
     this.lstPoints.push(proj(this.x,this.y+1,this.z+1,this.alpha, this.beta)) // point 5
     this.lstPoints.push(proj(this.x,this.y+1,this.z,this.alpha, this.beta)) // point 6
-    let objets=[],p
+    let p
     p=polygone([this.lstPoints[0], this.lstPoints[1],this.lstPoints[2], this.lstPoints[3]], "black")
     p.opaciteDeRemplissage=1;
     p.couleurDeRemplissage=this.colorD
@@ -649,44 +650,40 @@ class Cube{
     p = polygone([this.lstPoints[3], this.lstPoints[5],this.lstPoints[6], this.lstPoints[0]], "black")
     p.couleurDeRemplissage=this.colorT
     p.opaciteDeRemplissage=1;
-    this.lstPolygone.push()
+    this.lstPolygone.push(p)
 
     this.svg=function(coeff){
-      let code = "",f
-      for (i=0;i<3;i++) {
-        f=this.lstPolygone[i]
-        code += "\n\t" + f.svg(coeff);
+      let code = ""
+      for (let i=0;i<3;i++) {
+        code += "\n\t" + this.lstPolygone[i].svg(coeff);
       }
       code = `<g id="${this.id}">${code}</g>`
       return code;
     }
     this.tikz = function () {
-      let code = "",f
-      for (i=0;i<3;i++) {
-        f=this.lstPolygone[i]
-        code += "\n\t" + f.tikz();
+      let code = ""
+      for (let i=0;i<3;i++) {
+        code += "\n\t" + this.lstPolygone[i].tikz();
       }
       return code;
     };
     this.svgml = function (coeff, amp) {
-      let code = "",f
-      for (i=0;i<3;i++) {
-        f=this.lstPolygone[i]
-        code += "\n\t" + f.svgml(coeff, amp);
+      let code = ""
+      for (let i=0;i<3;i++) {
+        code += "\n\t" + this.lstPolygone[i].svgml(coeff, amp);
       }
       return code;
     }
     this.tikzml = function (amp) {
-      let code = "",f
-      for (i=0;i<3;i++) {
-        f=this.lstPolygone[i]
-      code += "\n\t" + f.tikzml(amp);
+      let code = ""
+      for (let i=0;i<3;i++) {
+      code += "\n\t" + this.lstPolygone[i].tikzml(amp);
       }
       return code;
     };
   }
 }
-export function cube({x=0,y=0,z=0,alpha=45,beta=-35,colorD="#A5C400",colorT="#FFFFFF",colorG="#A9A9A9"}){
+export function cube(x=0,y=0,z=0,alpha=45,beta=-35,{colorD="#A5C400",colorT="#FFFFFF",colorG="#A9A9A9"}={}){
   return new Cube(x,y,z,alpha,beta,colorD,colorG,colorT)
 }
 

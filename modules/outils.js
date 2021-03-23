@@ -885,10 +885,10 @@ export function valeur_base(n) {
 */
 Math.degres = function (radians) {
 	return radians * 180 / Math.PI;
-};
+}
 Math.radians = function (degres) {
 	return degres * Math.PI / 180;
-};
+}
 
 /**
  * 
@@ -1146,7 +1146,7 @@ export function pgcd(a, b) {
 * @Auteur Rémi Angot
 */
 export const ppcm = (a, b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`));
-};
+}
 
 
 /**
@@ -2816,18 +2816,18 @@ export function SVG_fraction(mon_svg, num, den, x, y, couleur) {
 	let num_text = mon_svg.text(num.toString()).attr({ x: x, y: y - 10 });
 	num_text.font({
 		fill: couleur,
-		family: 'Helvetica'
-		, size: 20
-		, anchor: 'middle'
-		, leading: 0
+		family: 'Helvetica',
+		size: 20,
+		anchor: 'middle',
+		leading: 0
 	})
 	let den_text = mon_svg.text(den.toString()).attr({ x: x, y: y + 10 });
 	den_text.font({
 		fill: couleur,
-		family: 'Helvetica'
-		, size: 20
-		, anchor: 'middle'
-		, leading: 0
+		family: 'Helvetica',
+		size: 20,
+		anchor: 'middle',
+		leading: 0
 	})
 }
 
@@ -2856,12 +2856,12 @@ export function SVG_tracer_point(mon_svg, x, y, nom, couleur, shiftxnom, shiftyn
 	let text = mon_svg.text(nom).attr({ x: x + shiftxnom, y: y + shiftynom, fill: couleur, opacity: 0.7 })
 	//ecrit le nom
 	text.font({
-		color: couleur
-		, 'font-weight': 'bolder'
-		, family: 'Helvetica'
-		, size: 14
-		, anchor: 'middle'
-		, leading: -1
+		color: couleur,
+		'font-weight': 'bolder',
+		family: 'Helvetica',
+		size: 14,
+		anchor: 'middle',
+		leading: -1
 	})
 	if (montrer_coord[0]) { // montrer_coord=[true,abs_axe,ord_axe] ou [false]
 		if ((y != montrer_coord[2]) && (x != montrer_coord[1])) SVG_tracer_droite_flecheV(mon_svg, x, y, x, montrer_coord[2], couleur, 3)
@@ -2999,10 +2999,10 @@ export function SVG_Tracer_droite(mon_svg, tailleX, tailleY, Xmin, Xmax, Ymin, Y
 	//ecrit le nom
 	text.font({
 		fill: couleur,
-		family: 'Helvetica'
-		, size: 15
-		, anchor: 'middle'
-		, leading: Ynom
+		family: 'Helvetica',
+		size: 15,
+		anchor: 'middle',
+		leading: Ynom
 	})
 }
 
@@ -3521,8 +3521,8 @@ export function simpExp(b, e) {
 			return ` 1`;
 		default:
 			return ` `;
-	};
-};
+	}
+}
 
 /**
  * Fonction pour écrire des notations scientifique de la forme a * b ^ n
@@ -3542,7 +3542,7 @@ export function puissance(b, n) {
 				return `1`;
 			} else {
 				return `-1`;
-			};
+			}
 		default:
 			if (b < 0) {
 				return `(${b})^{${n}}`;
@@ -3582,7 +3582,7 @@ export function simpNotPuissance(b, e) {
 			} else {
 				return ` -1`;
 				//break;
-			};
+			}
 		case 1: // si la base vaut 1 on renvoit toujours 1
 			return ` 1`;
 		default: // sinon on switch sur l'exposant
@@ -3599,10 +3599,10 @@ export function simpNotPuissance(b, e) {
 						return ` ${b}^{${e}}`;
 						//return ` `;
 						//break;
-					};
-			};
-	};
-};
+					}
+			}
+	}
+}
 
 
 /**
@@ -3625,7 +3625,7 @@ export function eclatePuissance(b, e, couleur) {
 			}
 			return str;
 	}
-};
+}
 
 
 /**
@@ -3647,7 +3647,7 @@ export function puissanceEnProduit(b, e) {
 			}
 			return str;
 	}
-};
+}
 
 /**
  * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
@@ -3828,7 +3828,7 @@ export function modal_video(id_du_modal, url_video, texte, label_bouton = "Vidé
   		</div>
 	</div>`
 	return creer_modal(id_du_modal, contenu, label_bouton, icone)
-};
+}
 /**
  * 
  * @param {number} numero_de_l_exercice 
@@ -3854,11 +3854,11 @@ export function liste_diviseurs(n) {
 	while (i <= n) {
 		if (n % i == 0) {
 			diviseurs.push(i);
-		};
+		}
 		i++;
-	};
+	}
 	return diviseurs;
-};
+}
 
 //=================================================
 // fonctions de 3F1-act
@@ -3903,7 +3903,7 @@ export function tikz_machine_maths(nom, etape1, etape2, etape3, x_ligne1, x_lign
 	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
 	\\end{tikzpicture}	
 	`;
-};
+}
 
 /**
  * Crée un diagramme tikz pour une machine maths
@@ -3941,7 +3941,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (`+ (x_init + saut + 5 * pas / 2) + `,0.5) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,0.5) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,-0.5) -- (` + (x_init + saut + 5 * pas / 2) + `,-0.5) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
 				`;
-			};
+			}
 			// si il y a une operation et pas d'expression algébrique 
 			if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] == 'undefined') {
 				let w_etape = `${nom}(x)=\\ldots`.length;
@@ -3953,7 +3953,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (`+ (x_init + saut + 5 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,-` + (pas / 2) + `) -- (` + (x_init + saut + 5 * pas / 2) + `,-` + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
 				`;
-			};
+			}
 			// si il n'y a pas d'operation mais une expression algébrique
 			if (typeof etapes_expressions[i][0] == 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
 				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
@@ -3965,7 +3965,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (`+ (x_init + saut + 5 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,-` + (pas / 2) + `) -- (` + (x_init + saut + 5 * pas / 2) + `,-` + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
 				`;
-			};
+			}
 			// si il n'y ni une operation et ni expression algébrique
 			if (typeof etapes_expressions[i][0] == 'undefined' && typeof etapes_expressions[i][1] == 'undefined') {
 				let w_etape = `${nom}(x)=\\ldots`.length;
@@ -3977,7 +3977,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (`+ (x_init + saut + 5 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,` + (pas / 2) + `) -- (` + (x_init + saut + w_etape / 4 + 6 * pas / 2) + `,-` + (pas / 2) + `) -- (` + (x_init + saut + 5 * pas / 2) + `,-` + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
 				`;
-			};
+			}
 
 		} else {//sinon c'est une étape intermédiaire
 			// si il y a une operation et une expression algébrique
@@ -3992,7 +3992,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
 				`;
 				saut = saut + 3 * pas + w_etape / 4;
-			};
+			}
 			// si il y a une operation et pas d'expression algébrique 
 			if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] == 'undefined') {
 				let w_etape = `\\ldots`.length;
@@ -4005,7 +4005,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
 				`;
 				saut = saut + 3 * pas + w_etape / 4;
-			};
+			}
 			// si il n'y a pas d'operation mais une expression algébrique
 			if (typeof etapes_expressions[i][0] == 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
 				let w_etape = `${etapes_expressions[i][1]}`.length;
@@ -4018,7 +4018,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
 				`;
 				saut = saut + 3 * pas + w_etape / 4;
-			};
+			}
 			// si il n'y ni une operation et ni expression algébrique
 			if (typeof etapes_expressions[i][0] == 'undefined' && typeof etapes_expressions[i][1] == 'undefined') {
 				let w_etape = `\\ldots`.length;
@@ -4031,7 +4031,7 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				\\node [text width=3cm,text centered, scale=1] at(`+ (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
 				`;
 				saut = saut + 3 * pas + w_etape / 4;
-			};
+			}
 		}
 	}
 	sortie += `
@@ -4055,14 +4055,14 @@ export function katex_Popup(texte, titrePopup, textePopup) {
 		contenu += `<div class="ui special popup" >`;
 		if (titrePopup != '') {
 			contenu += `<div class="header">` + titrePopup + `</div>`;
-		};
+		}
 		contenu += `<div>` + textePopup + `</div>`;
 		contenu += `</div>`;
 		return contenu;
 	} else {
 		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 	}
-};
+}
 export function katex_Popuptest(texte, titrePopup, textePopup) {
 	'use strict';
 	let contenu = ``
@@ -4085,8 +4085,7 @@ export function katex_Popuptest(texte, titrePopup, textePopup) {
  * @author Sébastien Lozano 
  * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
  */
-export function sansAccent(str) {
-	'use strict';
+/* export function sansAccent(str) {
 	var accent = [
 		/[\300-\306]/g, /[\340-\346]/g,
 		/[\310-\313]/g, /[\350-\353]/g,
@@ -4104,7 +4103,8 @@ export function sansAccent(str) {
 	}
 
 	return str;
-};
+}
+*/
 
 /**
 * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
@@ -4127,15 +4127,15 @@ export function katex_Popup2(numero, type, texte, titrePopup, textePopup) {
 				return `${texte}` + modal_texte_long(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, "info circle")
 			} else {
 				return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
-			};
+			}
 		case 2:
 			if (sortie_html) {
 				return `${texte}` + modal_image(numero, textePopup, `${titrePopup}`, `${texte}`)
 			} else {
-				return `\\href{https://coopmaths.fr/images/${sansAccent(texte)}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
-			};
-	};
-};
+				return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
+			}
+	}
+}
 
 
 
@@ -4149,7 +4149,7 @@ export function num_alpha(k) {
 	if (sortie_html) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>';
 	//else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
 	else return '\\textbf {' + String.fromCharCode(97 + k) + '.}';
-};
+}
 
 /**
 * Crée une flèche orange pour la fonction machine
@@ -4161,7 +4161,7 @@ export function num_alpha(k) {
 export function SVG_fleche_machine_maths(groupe, chemin, couleur) {
 	'use strict';
 	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' });
-};
+}
 
 /**Trace un chemin pour un groupe donné avec une couleur donnée
 * @param {object} groupe groupe
@@ -4172,7 +4172,7 @@ export function SVG_fleche_machine_maths(groupe, chemin, couleur) {
 export function SVG_chemin(groupe, chemin, couleur) {
 	'use strict';
 	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' });
-};
+}
 
 /**
  * Crée un diagramme pour une fonction arithmétique à une étape produit
@@ -4257,9 +4257,9 @@ export function SVG_machine_diag_3F1_act_mono(id_du_div, w, h, nom, x_ant, etape
 				`;
 
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
+		}
 	}, 100); // Vérifie toutes les 100ms
-};
+}
 
 //================================================================================================
 // fonctions dont le déplacement dans mathalea_outils.js posait problème
@@ -4285,7 +4285,7 @@ export function my_svg_font(font, interligne, ancre, f_style, f_weight) {
 		//, leading : 0.5
 		weight: f_weight
 	};
-};
+}
 
 /**
  * Fonction pour créer une machine mathématique SVG, une fonction!
@@ -4355,34 +4355,35 @@ export function SVG_machine_maths(id_du_div, w, h, nom, etape1, etape2, etape3, 
 			//------------Dimension Machine-------------------------
 			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 			// pour ajuster celle de la machine.
+			let W_machine_nom,machine_nom,machine_etape1,w_machine_etape1,machine_etape2,w_machine_etape2,machine_etape3,w_machine_etape3
 			if (nom != '') {
-				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
-				var w_machine_nom = machine_nom.length();
+				machine_nom = mon_svg.text(nom).font(prop_font_nom);
+				w_machine_nom = machine_nom.length();
 				machine_nom.clear();
 			} else {
-				var w_machine_nom = 0;
-			};
+				w_machine_nom = 0;
+			}
 			if (etape1 != '') {
-				var machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
-				var w_machine_etape1 = machine_etape1.length();
+				machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
+				w_machine_etape1 = machine_etape1.length();
 				machine_etape1.clear();
 			} else {
-				var w_machine_etape1 = 0;
-			};
+				w_machine_etape1 = 0;
+			}
 			if (etape2 != '') {
-				var machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
-				var w_machine_etape2 = machine_etape2.length();
+				machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
+				w_machine_etape2 = machine_etape2.length();
 				machine_etape2.clear();
 			} else {
-				var w_machine_etape2 = 0;
-			};
+				w_machine_etape2 = 0;
+			}
 			if (etape3 != '') {
-				var machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
-				var w_machine_etape3 = machine_etape3.length();
+				machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
+				w_machine_etape3 = machine_etape3.length();
 				machine_etape3.clear();
 			} else {
-				var w_machine_etape3 = 0;
-			};
+				w_machine_etape3 = 0;
+			}
 
 			let w_etape_max = Math.max(w_machine_nom, w_machine_etape1, w_machine_etape2, w_machine_etape3, w_ant + interligne, w_im + interligne) + 1.5 * interligne;
 
@@ -4441,7 +4442,7 @@ export function SVG_machine_maths(id_du_div, w, h, nom, etape1, etape2, etape3, 
 		}
 
 	}, 100); // Vérifie toutes les 100ms
-};
+}
 
 //============================================================================
 // fin fonctions dont le déplacement dasn mathalea_outils.js posait problème
@@ -4470,7 +4471,7 @@ export function tex_cadre_par_orange(texte) {
 	 `;
 
 	return sortie;
-};
+}
 
 /**
  * Crée un diagramme pour une fonction arithmétique à deux étapes produit puis somme
@@ -4594,9 +4595,9 @@ export function SVG_machine_diag_3F12(id_du_div, w, h, nom, x_ant, etapes_expres
 				`;
 
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
+		}
 	}, 100); // Vérifie toutes les 100ms
-};
+}
 
 /**
  * affiche une video centrée dans une div
@@ -4618,7 +4619,7 @@ export function machine_maths_video(url_video) {
 	</div>`;
 
 	return video;
-};
+}
 
 /**
  * détecte si le navigateur et safari ou chrome et renvoie un booléen
@@ -4635,7 +4636,7 @@ export function detect_safari_chrome_browser() {
 	if ((is_chrome) && (is_opera)) { is_chrome = false; }
 
 	return (is_chrome || is_safari);
-};
+}
 
 /**
 * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
@@ -4681,7 +4682,7 @@ export function liste_nb_premiers_strict_jusqua(borneSup) {
 		i++;
 	}
 	return liste;
-};
+}
 
 /**
  * Liste les nombres premiers jusque n avec la méthode du crible d'Eratosthene optimisée
@@ -4716,7 +4717,7 @@ export function crible_eratosthene_n(n) {
 	}
 
 	return liste;
-};
+}
 
 /**
  * Liste les premiers compris entre min et max au sens large,
@@ -4737,7 +4738,7 @@ export function premiers_entre_bornes(min, max) {
 	premiers_jusque_max.splice(0, premiers_a_suppr.length);
 	// on renvoie le tableau restant
 	return premiers_jusque_max;
-};
+}
 
 /**
  * tire à pile ou face pour écrire ou non un texte
@@ -4752,8 +4753,8 @@ export function texte_ou_pas(texte) {
 		return `\\ldots`;
 	} else {
 		return texte;
-	};
-};
+	}
+}
 
 /**
  * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
@@ -4779,7 +4780,7 @@ export function tab_C_L(tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, ar
 		myLatexArraystretch = 1
 	} else {
 		myLatexArraystretch = arraystretch
-	};
+	}
 
 	// on définit le nombre de colonnes
 	let C = tab_entetes_colonnes.length;
@@ -4792,11 +4793,11 @@ export function tab_C_L(tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, ar
 	} else {
 		tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`;
 		tableau_C_L += `\\begin{array}{|`;
-	};
+	}
 	// on construit la 1ere ligne avec toutes les colonnes
 	for (let k = 0; k < C; k++) {
 		tableau_C_L += `c|`;
-	};
+	}
 	tableau_C_L += `}\n`;
 
 	tableau_C_L += `\\hline\n`
@@ -4813,7 +4814,7 @@ export function tab_C_L(tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, ar
 		else {
 			tableau_C_L += ` & ` + tab_entetes_colonnes[k] + ``;
 		}
-	};
+	}
 	tableau_C_L += `\\\\\n`;
 	tableau_C_L += `\\hline\n`;
 	// on construit toutes les lignes
@@ -4831,19 +4832,19 @@ export function tab_C_L(tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, ar
 			else {
 				tableau_C_L += ` & ` + tab_lignes[(C - 1) * k + m - 1];
 			}
-		};
+		}
 		tableau_C_L += `\\\\\n`;
 		tableau_C_L += `\\hline\n`;
-	};
+	}
 	tableau_C_L += `\\end{array}\n`
 	if (sortie_html) {
 		tableau_C_L += `$`;
 	} else {
 		tableau_C_L += `\\renewcommand{\\arraystretch}{1}$\n`;
-	};
+	}
 
 	return tableau_C_L;
-};
+}
 
 /**
  * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte 
@@ -4856,7 +4857,7 @@ export function warn_message(texte, couleur, titre) {
 	'use strict';
 	if (typeof (titre) == 'undefined') {
 		titre = ``;
-	};
+	}
 	if (sortie_html) {
 		return `
 		<br>
@@ -4873,9 +4874,9 @@ export function warn_message(texte, couleur, titre) {
 			`+ texte + `
 		\\end{bclogo}
 		`;
-	};
+	}
 
-};
+}
 
 /**
  * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone info
@@ -4903,8 +4904,8 @@ export function info_message({ titre, texte, couleur }) {
 			`+ texte + `
 		\\end{bclogo}
 		`;
-	};
-};
+	}
+}
 
 /**
  * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone lampe
@@ -4932,13 +4933,13 @@ export function lampe_message({ titre, texte, couleur }) {
 			`+ texte + `
 		\\end{bclogo}
 		`;
-	};
+	}
 	// return info_message({
 	// 	titre:titre,
 	// 	texte:texte,
 	// 	couleur:couleur
 	// })
-};
+}
 
 
 
@@ -4969,11 +4970,11 @@ export function SVG_engrenages(id_du_div, w, h) {
 					</svg>
 					`;
 				clearInterval(SVGExist[id_du_div]);//Arrête le timer
-			};
+			}
 		}, 100); // Vérifie toutes les 100ms
 
-	};
-};
+	}
+}
 
 
 
@@ -4987,7 +4988,7 @@ export function decomp_fact_prem_array(n) {
 	let liste = obtenir_liste_facteurs_premiers(n);
 	for (let i in liste) {
 		decomposition.push(liste[i]);
-	};
+	}
 	return decomposition;
 }
 
@@ -5041,7 +5042,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$';
 
 		return cotes;
-	};
+	}
 
 	/**
 	 * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
@@ -5057,7 +5058,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$';
 
 		return longueurs;
-	};
+	}
 
 	/**
 	 * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
@@ -5073,7 +5074,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		longueurs[2] = self.l3;
 
 		return longueurs;
-	};
+	}
 
 
 	/**
@@ -5089,7 +5090,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`;
 
 		return angles;
-	};
+	}
 
 	/**
 	 * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
@@ -5105,7 +5106,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		angles[2] = self.a3;
 
 		return angles;
-	};
+	}
 
 	/**
 	 * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
@@ -5120,7 +5121,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 			sommets[2] = '$' + sommets[2] + '$';
 		}
 		return sommets;
-	};
+	}
 
 	/**
 	 * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance 
@@ -5136,8 +5137,8 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		} else {
 			return calcul(self.l1 + self.l2 + self.l3);
-		};
-	};
+		}
+	}
 
 	/**
 	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
@@ -5165,8 +5166,8 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 			return true;
 		} else {
 			return false;
-		};
-	};
+		}
+	}
 
 	/**
 	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
@@ -5194,8 +5195,8 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 			return true;
 		} else {
 			return false;
-		};
-	};
+		}
+	}
 
 	/**
 	 * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
@@ -5227,11 +5228,11 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 				return false;
 			} else {
 				return true;
-			};
+			}
 		} else {
 			return false;
-		};
-	};
+		}
+	}
 
 	// renvoie un booleen selon que les trois angles forment un triangle plat ou non
 	/**
@@ -5251,20 +5252,17 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			return false;
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-		};
+		}
 		if ((self.a1 + self.a2 + self.a3) == 180) {
 			if ((self.a1 == 0 && self.a2 == 0) || (self.a2 == 0 && self.a3 == 0) || (self.a3 == 0 && self.a1 == 0)) {
 				return true;
 			} else {
 				return false;
-			};
+			}
 		} else {
 			return false;
-		};
-	};
-
-	;
-
+		}
+	}
 	this.l1 = l1;
 	this.l2 = l2;
 	this.l3 = l3;
@@ -5285,7 +5283,7 @@ export function Triangles(l1, l2, l3, a1, a2, a3) {
 	this.isTrueTriangleAngles = isTrueTriangleAngles;
 	this.isPlatTriangleAngles = isPlatTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
-};
+}
 
 /**
  * @class
@@ -5310,7 +5308,7 @@ export function Relatif(...relatifs) {
 			relatifs.forEach(function (element) {
 				if (typeof element == 'string') {
 					throw new TypeError(`${element} est un string !`);
-				};
+				}
 				if (element == 0) {
 					throw new RangeError(`${element} a été exclu des valeurs possibles.`)
 				}
@@ -5318,14 +5316,14 @@ export function Relatif(...relatifs) {
 			// Quoi faire sans nombres ?
 			if (relatifs.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
-			};
+			}
 			relatifs.forEach(function (element) {
 				if (element < 0) {
 					signes.push(-1);
-				};
+				}
 				if (element > 0) {
 					signes.push(1);
-				};
+				}
 			})
 		}
 		catch (err) {
@@ -5335,7 +5333,7 @@ export function Relatif(...relatifs) {
 		finally {
 			return signes;
 		}
-	};
+	}
 
 	/** 
 	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
@@ -5348,13 +5346,13 @@ export function Relatif(...relatifs) {
 		signes.forEach(function (element) {
 			if (element == -1) {
 				signesString.push('négatif');
-			};
+			}
 			if (element == 1) {
 				signesString.push('positif');
-			};
+			}
 		});
 		return signesString;
-	};
+	}
 
 	/**
 	 * 	 
@@ -5370,30 +5368,30 @@ export function Relatif(...relatifs) {
 			n.forEach(function (element) {
 				if (typeof element == 'string') {
 					throw new TypeError(`${element} est un string !`);
-				};
+				}
 				if (element == 0) {
 					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
-				};
+				}
 			});
 			// Quoi faire sans nombres ?
 			if (n.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
-			};
+			}
 			n.forEach(function (element) {
 				produit = produit * element;
 			});
 			if (produit < 0) {
 				return -1;
-			};
+			}
 			if (produit > 0) {
 				return 1
-			};
+			}
 		}
 		catch (err) {
 			console.log(err.message);
 			console.log(err.stack);
-		};
-	};
+		}
+	}
 
 	/**
 	 * 	 
@@ -5406,11 +5404,11 @@ export function Relatif(...relatifs) {
 		let produit = getSigneProduitNumber(...n);
 		if (produit == -1) {
 			return 'négatif';
-		};
+		}
 		if (produit == 1) {
 			return 'positif'
-		};
-	};
+		}
+	}
 
 	/**
 	 * 	 
@@ -5428,26 +5426,26 @@ export function Relatif(...relatifs) {
 			n.forEach(function (element) {
 				if (typeof element == 'string') {
 					throw new TypeError(`${element} est un string !`);
-				};
+				}
 				if (element == 0) {
 					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
-				};
+				}
 			});
 			// Quoi faire sans nombres ?
 			if (n.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
-			};
+			}
 			n.forEach(function (element) {
 				if (element < 0) {
 					card = card + 1;
-				};
+				}
 			});
 			return card;
 		}
 		catch (err) {
 			console.log(err.message);
-		};
-	};
+		}
+	}
 
 	/**
 	 * Fonction locale
@@ -5461,8 +5459,8 @@ export function Relatif(...relatifs) {
 			return `facteurs négatifs`;
 		} else {
 			return `facteur négatif`;
-		};
-	};
+		}
+	}
 
 	/** 	 
 	 * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
@@ -5476,34 +5474,34 @@ export function Relatif(...relatifs) {
 			n.forEach(function (element) {
 				if (typeof element == 'string') {
 					throw new TypeError(`${element} est un string !`);
-				};
+				}
 			});
 			// Quoi faire sans nombres ?
 			if (n.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
-			};
+			}
 			if (n.length == 2) {
 				if (getCardNegatifs(n) % 2 == 0) {
 					return `Les deux facteurs ont le même signe donc le produit est positif.`;
 				} else {
 					return `Les deux facteurs ont un signe différent donc le produit est négatif.`;
-				};
+				}
 			} else if (n.length > 2) {
 				if (getCardNegatifs(n) % 2 == 0) {
 					if (getCardNegatifs(n) == 0) {
 						return `Tous les facteurs sont positifs donc le produit est positif.`;
 					} else {
 						return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
-					};
+					}
 				} else {
 					return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
-				};
-			};
+				}
+			}
 		}
 		catch (err) {
 			console.log(err.message);
-		};
-	};
+		}
+	}
 
 	/**
  * 	 
@@ -5519,18 +5517,18 @@ export function Relatif(...relatifs) {
 			n.forEach(function (element) {
 				if (typeof element == 'string') {
 					throw new TypeError(`${element} est un string !`);
-				};
+				}
 			});
 			// Quoi faire sans nombres ?
 			if (n.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
-			};
+			}
 			if (n.length == 2) {
 				if (getCardNegatifs(n) % 2 == 0) {
 					return `Le numérateur et le dénominateur ont le même signe donc le quotient est positif.`;
 				} else {
 					return `Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.`;
-				};
+				}
 			} else if (n.length > 2) {
 				if (getCardNegatifs(n) % 2 == 0) {
 					if (getCardNegatifs(n) == 0) {
@@ -5538,17 +5536,17 @@ export function Relatif(...relatifs) {
 					} else {
 						//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
 						return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
-					};
+					}
 				} else {
 					//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
 					return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
-				};
-			};
+				}
+			}
 		}
 		catch (err) {
 			console.log(err.message);
-		};
-	};
+		}
+	}
 
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
@@ -5558,7 +5556,7 @@ export function Relatif(...relatifs) {
 	this.setRegleSigneProduit = setRegleSigneProduit;
 	this.setRegleSigneQuotient = setRegleSigneQuotient;
 
-};
+}
 
 export function nombreEnLettres(nb, type = 1) {
 	let partie_entiere, partie_decimale, nbstring, nb_dec, decstring
@@ -6885,7 +6883,7 @@ export function telechargeFichier(text, filename) {
 * @param {string} Le titre de l'entête 
 * @author Rémi Angot
 */
-export function intro_LaTeX(entete = "Exercices", liste_packages) {
+export function intro_LaTeX(entete = "Exercices", liste_packages="") {
 	if (entete == '') { entete = 'Exercices' }
 	return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
@@ -6898,7 +6896,8 @@ export function intro_LaTeX(entete = "Exercices", liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
@@ -6968,7 +6967,8 @@ export function intro_LaTeX_coop(liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}			
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}			
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
@@ -8029,17 +8029,16 @@ export function export_QCM_AMC(tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation',type_entete="AMCcodeGrid" }) {
+export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation',type_entete="AMCcodeGrid"}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	// Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
 	// Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
 
 	let idExo = 0, code,index_of_code
-
+console.log(type_entete)
 	let nombre_de_questions_indefinie=[]
 	let graine = randint(1, 100000)
 	let groupeDeQuestions = [], tex_questions = [[]], titre_question = []
-	console.log(nb_exemplaires,type_entete,nb_questions)
 	for (let qcm of questions) {
 		code = export_QCM_AMC(qcm, idExo)
 		idExo++
@@ -8120,7 +8119,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
 	\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
-	\\usetkzobj{all}
+	%\\usetkzobj{all} %problème de compilation
 	
 	%%%%% PACKAGES MATHS %%%%%
 	 \\usepackage{ucs}
@@ -8135,9 +8134,9 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
 	 % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
 	 %  sous Ubuntu, paquet texlive-science à installer
-	 \\usepackage[autolanguage,np]{numprint}
+	 %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans intro_Latex
 	 \\usepackage{mathrsfs}  % Spécial math
-	 \\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+	 %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
 	 \\usepackage{pifont}						% Pour les symboles "ding"
 	 \\usepackage{bbding}						% Pour les symboles
 	 \\usepackage[misc]{ifsym}					% Pour les symboles
@@ -8165,7 +8164,7 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
 	 \\usepackage{tikzsymbols}
 	%\\usepackage{tasks}						% Pour les listes horizontales
-
+\\usepackage{csvsimple}
 	
 	%%%%% Librairies utilisées par Mathgraphe32 %%%% 
 	\\usepackage{fix-cm}
@@ -8240,8 +8239,49 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 
 // Variable qui contient l'entête d'une copie
 // A faire : Proposer différent type d'entête en fonction d'un paramètre ?
+	let entete_type_CodeGrid=	`\\begin{minipage}{10cm}
+	\\champnom{\\fbox{\\parbox{10cm}{    
+	  Écrivez vos nom, prénom et classe : \\\\
+	 \\\\
+	}}}
+	\\end{minipage}
+	
+	%\\\\
+	\\vspace{2mm}
+	
+	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
+	\\vspace{1mm}
+	
+	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
+	ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+	
+	\\vspace{2mm}
+	`
+	let entete_type_champnom_simple=	`\\begin{minipage}{10cm}
+	\\champnom{\\fbox{\\parbox{10cm}{    
+	  Écrivez vos nom, prénom et classe : \\\\
+	 \\\\
+	}}}
+	\\end{minipage}
+	
+	%\\\\
+	\\vspace{2mm}
+	`
+	let entete_type_preremplie=`\\begin{center}
+	\\noindent{}\\fbox{\\vspace*{3mm}
+			 \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}% 
+			  \\vspace*{3mm}
+		  }
+	\\end{center}\n`
 
-	let entete_copie = ` 
+	let entete_copie=''
+	if (type_entete=="AMCassociation"){
+	entete_copie+=`\\newcommand{\\sujet}{\n`
+	}
+	entete_copie +=` 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%% -II-b. MISE EN PAGE DU QCM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8266,29 +8306,18 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 		\\textbf{${titre}} 
 	\\end{center}
 	\\end{minipage}
-	\\hfill
-	\\begin{minipage}{10cm}
-	\\champnom{\\fbox{\\parbox{10cm}{    
-	  Écrivez vos nom, prénom et classe : \\\\
-	 \\\\
-	}}}
-	\\end{minipage}
-	
-	%\\\\
-	\\vspace{2mm}
-	
-	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
-	\\vspace{1mm}
-	
-	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ}
-	
-	\\vspace{2mm}
-	
-	{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
+	\\hfill\n`
+	if (type_entete=="AMCassociation"){
+		entete_copie+=entete_type_preremplie
+	}
+	else if (type_entete=="AMCcodeGrid"){
+		entete_copie+=entete_type_CodeGrid
+	}
+	else {
+		entete_copie+=entete_type_champnom_simple
+	}
+	entete_copie+=
+	`\n{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
 	
 	Les questions n'ont qu'une seule bonne réponse. Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
 	
@@ -8318,8 +8347,21 @@ export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 		}
 	}
 
+	if (type_entete=="AMCassociation"){
+		contenu_copie+=`\\AMCassociation{\id}\n
+	  }
+	}\n`
+	}
+	else {
+		contenu_copie+=`}\n`
+	}
+
 	// On assemble les différents morceaux et on retourne le résultat
-	code_latex = preambule + '\n' + debut_document + '\n' + entete_copie + contenu_copie + `}\n \\end{document}\n`
+	code_latex = preambule + '\n' + debut_document + '\n' + entete_copie + contenu_copie
+	if (type_entete=="AMCassociation"){
+		code_latex+=`\n \n \\csvreader[head to column names]{liste.csv}{}{\\sujet}\n`
+	}
+	code_latex+=`\\end{document}\n`
 	return code_latex
 }
 
