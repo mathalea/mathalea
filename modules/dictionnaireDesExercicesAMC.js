@@ -87,6 +87,10 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/5e/5N20.js",
         "titre":"Additionner ou soustraire deux fractions (dénominateurs multiples) (QCM)"
     },
+    "4C32": {
+        "titre": "Notation scientifique",
+        "url": "/exercices/4e/4C32.js"
+    },
     "4G40":{
         "url":"/exercices/4e/4G40.js",
         "titre":"Utiliser le cosinus pour calculer une longueur dans un triangle rectangle "

@@ -1,43 +1,43 @@
-import { texteParPosition, } from "/modules/2d.js"
-import { fraction, listeFractions } from "/modules/Fractions.js"
+import { texteParPosition, } from "/modules/2d.js";
+import { fraction } from "/modules/Fractions.js";
 
 // Fonctions diverses pour la création des exercices
 
 export function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = html_paragraphe(argument.consigne_correction) + html_enumerate(argument.liste_corrections, argument.spacing_corr)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions, argument.spacing);
+		argument.contenu_correction = html_paragraphe(argument.consigne_correction) + html_enumerate(argument.liste_corrections, argument.spacing_corr);
 	} else {
 		let vspace = '';
 		if (argument.vspace) {
-			vspace = `\\vspace{${argument.vspace} cm}\n`
+			vspace = `\\vspace{${argument.vspace} cm}\n`;
 		}
 		if (!mathalea.sortieAMC) {
 			if (document.getElementById('supprimer_reference').checked == true) {
-				argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
+				argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols);
 			} else {
-				argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
+				argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols);
 			}
 		}
-		argument.contenu_correction = tex_consigne('') + tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
+		argument.contenu_correction = tex_consigne('') + tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr);
 	}
 
 }
 export function liste_de_choses_a_imprimer(argument) {
 	if (sortie_html) {
-		argument.contenu = html_ligne(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = ""
+		argument.contenu = html_ligne(argument.liste_questions, argument.spacing);
+		argument.contenu_correction = "";
 	} else {
 		let vspace = '';
 		if (argument.vspace) {
-			vspace = `\\vspace{${argument.vspace} cm}\n`
+			vspace = `\\vspace{${argument.vspace} cm}\n`;
 		}
 		if (document.getElementById('supprimer_reference').checked == true) {
-			argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+			argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 		} else {
-			argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+			argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 		}
-		argument.contenu_correction = ""
+		argument.contenu_correction = "";
 	}
 
 }
@@ -51,16 +51,16 @@ export function liste_de_choses_a_imprimer(argument) {
 */
 export function liste_de_question_to_contenu_sans_numero(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections, argument.spacing_corr)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions, argument.spacing);
+		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections, argument.spacing_corr);
 	} else {
 		if (document.getElementById('supprimer_reference').checked == true) {
-			argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+			argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 		} else {
-			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 		}
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
-		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
+		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr);
 	}
 
 }
@@ -75,12 +75,12 @@ export function liste_de_question_to_contenu_sans_numero(argument) {
 */
 export function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 	if (document.getElementById('supprimer_reference').checked == true) {
-		argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+		argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 	} else {
-		argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
+		argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols);
 	}
 	// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
-	argument.contenu_correction = tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
+	argument.contenu_correction = tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr);
 
 
 }
@@ -101,7 +101,7 @@ export function deuxColonnes(cont1, cont2) {
 	 <div style="float:left;min-width: fit-content; max-width : 45%">
 		${cont2}
 	 </div>
-	 <div style="clear:both"></div>`
+	 <div style="clear:both"></div>`;
 	} else {
 		return `\\begin{minipage}{.5\\linewidth}
 		${cont1}
@@ -109,7 +109,7 @@ export function deuxColonnes(cont1, cont2) {
 		\\begin{minipage}{.5\\linewidth}
 		${cont2}
 		\\end{minipage}
-		`
+		`;
 	}
 }
 
@@ -124,54 +124,54 @@ export function deuxColonnes(cont1, cont2) {
  */
 const epsilon = 0.000001;
 export function egal(a, b, tolerance = epsilon) {
-	if (Math.abs(a - b) < tolerance) return true
-	else return false
+	if (Math.abs(a - b) < tolerance) return true;
+	else return false;
 }
 export function superieur(a, b, tolerance = epsilon) {
-	if (a - b > tolerance && (!egal(a, b, tolerance))) return true
-	else return false
+	if (a - b > tolerance && (!egal(a, b, tolerance))) return true;
+	else return false;
 }
 export function inferieur(a, b, tolerance = epsilon) {
-	if (b - a > tolerance && (!egal(a, b, tolerance))) return true
-	else return false
+	if (b - a > tolerance && (!egal(a, b, tolerance))) return true;
+	else return false;
 }
 export function superieurouegal(a, b, tolerance = epsilon) {
-	if (a - b > tolerance || egal(a, b, tolerance)) return true
-	else return false
+	if (a - b > tolerance || egal(a, b, tolerance)) return true;
+	else return false;
 }
 export function inferieurouegal(a, b, tolerance = epsilon) {
-	if (b - a > tolerance || egal(a, b, tolerance)) return true
-	else return false
+	if (b - a > tolerance || egal(a, b, tolerance)) return true;
+	else return false;
 }
 export function estentier(a, tolerance = epsilon) {
-	if (Math.abs(calcul(a - Math.round(a))) < tolerance) return true
-	else return false
+	if (Math.abs(calcul(a - Math.round(a))) < tolerance) return true;
+	else return false;
 }
 export function quotientier(a, b) {
 	if (Number.isInteger(a) && Number.isInteger(b)) {
-		let reste = a
-		let quotient = 0
+		let reste = a;
+		let quotient = 0;
 		while (reste >= b) {
-			reste -= b
-			quotient++
+			reste -= b;
+			quotient++;
 		}
-		return quotient
+		return quotient;
 	}
-	else return false
+	else return false;
 }
 export function carreParfait(x) {
-	if (estentier(Math.sqrt(x))) return true
-	else return false
+	if (estentier(Math.sqrt(x))) return true;
+	else return false;
 }
 
 // Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
 export function ecrireNombre2D(x, y, n) {
 	let nString = nombre_avec_espace(n);
-	let nombre2D = []
+	let nombre2D = [];
 	for (let k = 0; k < nString.length; k++) {
 		nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
 	}
-	return nombre2D
+	return nombre2D;
 }
 /*
 Pour l'instant, je commente... Faut que je réfléchisse et que je prenne mon temps (que je n'ai pas actuellement)
@@ -192,41 +192,42 @@ function ecrireAdditionPosee(x,y,...args){
 class NombreDecimal {
 	constructor(nombre) {
 		if (nombre < 0) {
-			this.signe = `-`
-			nombre = calcul(-nombre)
+			this.signe = `-`;
+			nombre = calcul(-nombre);
 		}
-		else this.signe = `+`
-		this.exposant = Math.floor(Math.log10(nombre))
-		nombre = nombre / 10 ** this.exposant
-		this.mantisse = []
+		else this.signe = `+`;
+		this.exposant = Math.floor(Math.log10(nombre));
+		nombre = nombre / 10 ** this.exposant;
+		this.mantisse = [];
 		for (let k = 0; k < 16; k++) {
 			if (egal(Math.ceil(nombre) - nombre, 0, 0.00001)) {
-				this.mantisse.push(Math.ceil(nombre))
-				nombre = (this.mantisse[k] - nombre) * 10
+				this.mantisse.push(Math.ceil(nombre));
+				nombre = (this.mantisse[k] - nombre) * 10;
 			}
 			else {
-				this.mantisse.push(Math.floor(nombre))
-				nombre = (nombre - this.mantisse[k]) * 10
+				this.mantisse.push(Math.floor(nombre));
+				nombre = (nombre - this.mantisse[k]) * 10;
 			}
-			if (egal(nombre, 0, 0.001)) break
+			if (egal(nombre, 0, 0.001)) 
+				break;
 		}
 
 	}
 	get valeur() {
-		return this.recompose()
+		return this.recompose();
 	}
 	recompose() {
-		let val = 0
+		let val = 0;
 		for (let i = 0; i < 10; i++)
-			val += this.mantisse[i] * 10 ** (-i)
-		val = val * 10 ** this.exposant
-		if (this.signe == `+`) return val
-		else return calcul(-val)
+			val += this.mantisse[i] * 10 ** (-i);
+		val = val * 10 ** this.exposant;
+		if (this.signe == `+`) return val;
+		else return calcul(-val);
 	}
 
 }
 export function decimal(n) {
-	return new NombreDecimal(n)
+	return new NombreDecimal(n);
 }
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
@@ -245,16 +246,16 @@ export function creer_couples(E1, E2, nombre_de_couples_min = 10) {
 	let result = [], temp = [];
 	for (let i in E1) {
 		for (let j in E2) {
-			result.push([E1[i], E2[j]])
+			result.push([E1[i], E2[j]]);
 		}
 	}
 
 	temp = shuffle(result).slice(0); // créer un clone du tableau result mélangé
 	result = temp.slice(0);
 	while (result.length < nombre_de_couples_min) {
-		result = result.concat(shuffle(temp))
+		result = result.concat(shuffle(temp));
 	}
-	return result
+	return result;
 }
 
 // Fonctions mathématiques
@@ -280,7 +281,7 @@ export function randint(min, max, liste_a_eviter = []) {
 	let range = max - min;
 	let rand = Math.floor(Math.random() * (range + 1));
 	if (Number.isInteger(liste_a_eviter)) {
-		liste_a_eviter = [liste_a_eviter]
+		liste_a_eviter = [liste_a_eviter];
 	}
 	if (liste_a_eviter.length > 0) {
 		while (liste_a_eviter.indexOf(min + rand) != -1) {
@@ -367,14 +368,14 @@ export function enleve_element(array, item) {
 export function enleve_element_bis(array, item = undefined) {
 	let tableaucopie = []
 	for (i = 0; i < array.length; i++) {
-		tableaucopie.push(array[i])
+		tableaucopie.push(array[i]);
 	}
 	for (var i = tableaucopie.length - 1; i >= 0; i--) {
 		if (tableaucopie[i] == item) {
 			tableaucopie.splice(i, 1);
 		}
 	}
-	return tableaucopie
+	return tableaucopie;
 }
 
 /**
@@ -382,19 +383,19 @@ export function enleve_element_bis(array, item = undefined) {
  * @Auteur Jean-Claude Lhote
  */
 export function enleve_element_No(array, index) {
-	array.splice(index, 1)
+	array.splice(index, 1);
 }
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
  * @Auteur Jean-Claude Lhote
  */
 export function enleve_element_No_bis(array, index) {
-	let tableaucopie = []
+	let tableaucopie = [];
 	for (i = 0; i < array.length; i++) {
-		tableaucopie.push(array[i])
+		tableaucopie.push(array[i]);
 	}
-	tableaucopie.splice(index, 1)
-	return tableaucopie
+	tableaucopie.splice(index, 1);
+	return tableaucopie;
 }
 
 
@@ -417,7 +418,7 @@ export function choice(liste, liste_a_eviter = []) {
 	let listebis = liste.slice();
 	// Supprime les éléments de liste à éviter
 	for (let i = 0; i < liste_a_eviter.length; i++) {
-		enleve_element(listebis, liste_a_eviter[i])
+		enleve_element(listebis, liste_a_eviter[i]);
 	}
 	var index = Math.floor(Math.random() * listebis.length);
 	return listebis[index];
@@ -439,9 +440,9 @@ export function range(max, liste_a_eviter = []) {
 	let nb_max = parseInt(max, 10);
 	let liste = [...Array(nb_max + 1).keys()];
 	for (let i = 0; i < liste_a_eviter.length; i++) {
-		enleve_element(liste, liste_a_eviter[i])
+		enleve_element(liste, liste_a_eviter[i]);
 	}
-	return liste
+	return liste;
 }
 
 /**
@@ -463,9 +464,9 @@ export function rangeMinMax(min, max, liste_a_eviter = [], step = 1) {
 		liste.push(i);
 	}
 	for (let i = 0; i < liste_a_eviter.length; i++) {
-		enleve_element(liste, liste_a_eviter[i])
+		enleve_element(liste, liste_a_eviter[i]);
 	}
-	return liste
+	return liste;
 }
 
 /**
@@ -480,12 +481,12 @@ export function range1(max, liste_a_eviter = []) {
 	let nb_max = parseInt(max, 10);
 	let liste = [];
 	for (let i = 1; i <= nb_max; i++) {
-		liste.push(i)
+		liste.push(i);
 	}
 	for (let i = 0; i < liste_a_eviter.length; i++) {
-		enleve_element(liste, liste_a_eviter[i])
+		enleve_element(liste, liste_a_eviter[i]);
 	}
-	return liste
+	return liste;
 }
 
 
@@ -502,7 +503,7 @@ export function compare_fractions(a, b) {
 	if ((a[0] / a[1]) < (b[0] / b[1]))
 		return -1;
 	// Sinon il y a égalité
-	return 0
+	return 0;
 }
 
 
@@ -521,8 +522,8 @@ export function compare_nombres(a, b) {
  */
 export function numTrie(arr) {
 	return arr.sort(function (a, b) {
-		return +a - +b
-	})
+		return a - b;
+	});
 }
 
 /*
@@ -772,7 +773,7 @@ export function ecriture_algebrique(a) {
 		result = tex_nombrec(a);
 	}
 	return result;
-};
+}
 
 /**
 * Ajoute le + devant les nombres positifs, n'écrit rien si 1
@@ -795,7 +796,7 @@ export function ecriture_algebrique_sauf1(a) {
 		result = '-';
 	}
 	return result;
-};
+}
 
 /**
  * Idem ecriture_algebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
@@ -825,7 +826,7 @@ export function ecriture_parenthese_si_negatif(a) {
 		result = `(${a})`;
 	}
 	return result;
-};
+}
 
 /**
 * Ajoute des parenthèses si une expression commence par un moins
@@ -841,7 +842,7 @@ export function ecriture_parenthese_si_moins(expr) {
 		result = expr;
 	}
 	return result;
-};
+}
 
 /**
  * 
@@ -851,12 +852,12 @@ export function ecriture_parenthese_si_moins(expr) {
  */
 
 export function calcul_aligne(numero, etapes) {
-	let script = `$\\begin{aligned}${mise_en_evidence(lettre_depuis_chiffre(numero))}&=${etapes[0]}`
+	let script = `$\\begin{aligned}${mise_en_evidence(lettre_depuis_chiffre(numero))}&=${etapes[0]}`;
 	for (let i = 1; i < etapes.length - 1; i++) {
-		script += `\\\\&=${etapes[i]}`
+		script += `\\\\&=${etapes[i]}`;
 	}
-	script += `\\\\${mise_en_evidence(lettre_depuis_chiffre(numero) + '&=' + etapes[etapes.length - 1])}$`
-	return script
+	script += `\\\\${mise_en_evidence(lettre_depuis_chiffre(numero) + '&=' + etapes[etapes.length - 1])}$`;
+	return script;
 }
 
 /**
@@ -866,21 +867,15 @@ export function calcul_aligne(numero, etapes) {
 */
 export function valeur_base(n) {
 	switch (n) {
-		case 'A': return 10
-			break
-		case 'B': return 11
-			break
-		case 'C': return 12
-			break
-		case 'D': return 13
-			break
-		case 'E': return 14
-			break
-		case 'F': return 15
-			break
-		default: return parseInt(n)
+		case 'A': return 10;
+		case 'B': return 11;
+		case 'C': return 12;
+		case 'D': return 13;
+		case 'E': return 14;
+		case 'F': return 15;
+		default: return parseInt(n);
 	}
-};
+}
 
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
@@ -892,8 +887,8 @@ Math.degres = function (radians) {
 	return radians * 180 / Math.PI;
 };
 Math.radians = function (degres) {
-	return degres * Math.PI / 180
-}
+	return degres * Math.PI / 180;
+};
 
 /**
  * 
@@ -905,13 +900,13 @@ Math.radians = function (degres) {
  */
 
 export function produit_matrice_vecteur_3x3(matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
-	let resultat = [0, 0, 0]
+	let resultat = [0, 0, 0];
 	for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice 
 		for (let i = 0; i < 3; i++) { // On traite la ligne i de la matrice -> résultat = coordonnée i du vecteur résultat
 			resultat[j] += matrice[j][i] * vecteur[i];
 		}
 	}
-	return resultat
+	return resultat;
 }
 /**
  * 
@@ -922,12 +917,12 @@ export function produit_matrice_vecteur_3x3(matrice, vecteur) { // matrice est u
  */
 
 export function produit_matrice_matrice_3x3(matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
-	let resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+	let resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	for (let j = 0; j < 3; j++)
 		for (let i = 0; i < 3; i++)
 			for (let k = 0; k < 3; k++)
-				resultat[j][i] += matrice1[j][k] * matrice2[k][i]
-	return resultat
+				resultat[j][i] += matrice1[j][k] * matrice2[k][i];
+	return resultat;
 }
 /**
  * 
@@ -937,7 +932,7 @@ export function produit_matrice_matrice_3x3(matrice1, matrice2) { // les deux ma
  */
 export function changement_de_base_ortho_tri(point) {
 	if (point.length == 2) point.push(1);
-	return produit_matrice_vecteur_3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
+	return produit_matrice_vecteur_3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point);
 }
 /**
  * 
@@ -947,7 +942,7 @@ export function changement_de_base_ortho_tri(point) {
  */
 export function changement_de_base_tri_ortho(point) {
 	if (point.length == 2) point.push(1);
-	return produit_matrice_vecteur_3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
+	return produit_matrice_vecteur_3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point);
 }
 
 /**
@@ -978,83 +973,83 @@ export function image_point_par_transformation(transformation, pointA, pointO, v
 	// nécessite d'être en repère orthonormal...
 	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
 
-	let matrice_sym_obl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
-	let matrice_sym_xxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-	let matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-	let matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-	let matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-	let matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-	let matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-	let matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-	let matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+	let matrice_sym_obl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]); //x'=y et y'=x
+	let matrice_sym_xxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]); // x'=x et y'=-y
+	let matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]); // x'=-x et y'=y
+	let matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]); // x'=-y et y'=-x
+	let matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]); // x'=-y et y'=x
+	let matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]); // x'=y et y'=-x
+	let matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]); // x'=-x et y'=-y
+	let matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]]);
+	let matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]]);
+	let matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]]);
+	let matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]]);
 
-	let x2, y2, u, v, k, pointA1 = [0, 0, 0], pointA2 = [0, 0, 0]
+	let x2, y2, u, v, k, pointA1 = [0, 0, 0], pointA2 = [0, 0, 0];
 
-	if (pointA.length == 2) pointA.push(1)
-	x2 = pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-	y2 = pointO[1]
-	u = vecteur[0] // (u,v) vecteur de translation.
-	v = vecteur[1]
-	k = rapport // rapport d'homothétie
+	if (pointA.length == 2) pointA.push(1);
+	x2 = pointO[0];  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+	y2 = pointO[1];
+	u = vecteur[0]; // (u,v) vecteur de translation.
+	v = vecteur[1];
+	k = rapport; // rapport d'homothétie
 
 
-	let matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-	let matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-	let matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-	let matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-	let matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
+	let matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]]);
+	let matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]]);
+	let matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]]);
+	let matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]]);
+	let matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]]);
 
-	let matrice
+	let matrice;
 
 	switch (transformation) {
 		case 1:
-			matrice = matrice_sym_obl1.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_sym_obl1.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 2:
-			matrice = matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 3:
-			matrice = matrice_sym_xxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_sym_xxprime.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 4:
-			matrice = matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 5:
-			matrice = matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 6:
-			matrice = matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 7:
-			matrice = matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 11:
-			matrice = matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 12:
-			matrice = matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 13:
-			matrice = matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 14:
-			matrice = matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 8:
-			matrice = matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 9:
-			matrice = matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 		case 10:
-			matrice = matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break
+			matrice = matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv);
+			break;
 	}
-	pointA1 = matrice.multiplieVecteur(pointA)
-	pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1)
-	return pointA2
+	pointA1 = matrice.multiplieVecteur(pointA);
+	pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1);
+	return pointA2;
 }
 
 /**
@@ -1071,7 +1066,7 @@ export function signe(a) { // + ou -
 		result = '-';
 	}
 	return result;
-};
+}
 
 /**
  * 
@@ -1090,12 +1085,12 @@ export function unSiPositifMoinsUnSinon(a) {
 * // 6
 * @Auteur Rémi Angot
 */export function somme_des_chiffre(n) {
-	let somme_string = ''
+	let somme_string = '';
 	for (let i = 0; i < n.length - 1; i++) {
-		somme_string += n[i] + '+'
+		somme_string += n[i] + '+';
 	}
-	somme_string += n[n.length - 1]
-	return somme_string
+	somme_string += n[n.length - 1];
+	return somme_string;
 }
 
 /**
@@ -1112,14 +1107,15 @@ export function arrondi(nombre, precision = 2) {
  * @Auteur Jean-Claude Lhote
  */
 export function troncature(nombre, precision) {
-	let signe, absolu, tronc
-	let tmp = Math.pow(10, precision)
-	if (nombre < 0) signe = -1
-	else signe = 1
-	absolu = Math.abs(nombre)
+	let absolu, tronc;
+	let tmp = Math.pow(10, precision);
+
+	absolu = Math.abs(nombre);
 	tronc = calcul(Math.floor(absolu * tmp) / tmp);
-	return signe * tronc;
+	if (nombre < 0) return -tronc;
+	else return tronc;
 }
+
 /**
 * Renvoie la valeur absolue
 * @Auteur Rémi Angot
@@ -1149,7 +1145,8 @@ export function pgcd(a, b) {
 * Renvoie le PPCM de deux nombres
 * @Auteur Rémi Angot
 */
-export const ppcm = (a, b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`)) }
+export const ppcm = (a, b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`));
+};
 
 
 /**
@@ -1162,10 +1159,10 @@ export function fraction_simplifiee(n, d) {
 	let ns = n / p;
 	let ds = d / p;
 	if (ns < 0 && ds < 0) {
-		[ns, ds] = [-ns, -ds]
+		[ns, ds] = [-ns, -ds];
 	}
 	if (ns > 0 && ds < 0) {
-		[ns, ds] = [-ns, -ds]
+		[ns, ds] = [-ns, -ds];
 	}
 	return [ns, ds];
 }
@@ -1176,7 +1173,7 @@ export function fraction_simplifiee(n, d) {
 */
 export function tex_fraction_reduite(n, d) {
 	if (Math.abs(n) % Math.abs(d) == 0) {
-		return n / d
+		return n / d;
 	} else {
 		return tex_fraction_signe(fraction_simplifiee(n, d)[0], fraction_simplifiee(n, d)[1]);
 	}
@@ -1187,27 +1184,27 @@ export function tex_fraction_reduite(n, d) {
  * Applique une simplification si le numérateur de l'une est égal au dénominateur de l'autre.
  */
 export function produit_de_deux_fractions(num1, den1, num2, den2) {
-	let num, den, tex_produit
+	let num, den, tex_produit;
 	if (num1 == den2) {
-		tex_produit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
-		num = num2
-		num1 = 1
-		den2 = 1
-		den = den1
+		tex_produit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`;
+		num = num2;
+		num1 = 1;
+		den2 = 1;
+		den = den1;
 	}
 	else if (num2 == den1) {
-		tex_produit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
-		num = num1
-		num2 = 1
-		den1 = 1
-		den = den2
+		tex_produit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`;
+		num = num1;
+		num2 = 1;
+		den1 = 1;
+		den = den2;
 	}
 	else {
-		num = num1 * num2
-		den = den1 * den2
-		tex_produit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+		num = num1 * num2;
+		den = den1 * den2;
+		tex_produit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`;
 	}
-	return [tex_fraction(num, den), tex_produit, [num1, den1, num2, den2]]
+	return [tex_fraction(num, den), tex_produit, [num1, den1, num2, den2]];
 }
 
 /**
@@ -1218,16 +1215,16 @@ export function produit_de_deux_fractions(num1, den1, num2, den2) {
 */
 export function simplification_de_fraction_avec_etapes(num, den) {
 	// Est-ce que le résultat est simplifiable ?
-	let result = ''
+	let result = '';
 	let s = pgcd(num, den);
 	if (s != 1) {
 		if ((num) % (den) == 0) { //si le résultat est entier
-			result = `=${(num) / (den)}`
+			result = `=${(num) / (den)}`;
 		} else {
-			result = `=${tex_fraction(Algebrite.eval((num) / s) + mise_en_evidence('\\times' + s), Algebrite.eval(den / s) + mise_en_evidence('\\times' + s))}=${tex_fraction_signe(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+			result = `=${tex_fraction(Algebrite.eval((num) / s) + mise_en_evidence('\\times' + s), Algebrite.eval(den / s) + mise_en_evidence('\\times' + s))}=${tex_fraction_signe(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`;
 		}
 	}
-	return result
+	return result;
 }
 
 /**
@@ -1237,9 +1234,9 @@ export function simplification_de_fraction_avec_etapes(num, den) {
  */
 
 export function produits_en_croix([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
-	let result = ``
-	result += `$${a}\\times${d}=${b}\\times${c}$`
-	return result
+	let result = ``;
+	result += `$${a}\\times${d}=${b}\\times${c}$`;
+	return result;
 }
 
 /**
@@ -1263,7 +1260,7 @@ export function quatrieme_proportionnelle(a, b, c, precision) { //calcul de b*c/
 		return result;
 	}
 	else {
-		return `\\dfrac{${b} \\times${c}}{${a}}`
+		return `\\dfrac{${b} \\times${c}}{${a}}`;
 	}
 }
 
@@ -1274,54 +1271,54 @@ export function quatrieme_proportionnelle(a, b, c, precision) { //calcul de b*c/
  * @param {number} b 
  */
 export function reduire_ax_plus_b(a, b) {
-	let result = ``
-	if (a != 0) if (a == 1) result = 'x'
-	else if (a == -1) result = '-x'
-	else result = `${tex_nombrec(a)}x`
-	if (b != 0) if (a != 0) result += `${ecriture_algebrique(b)}`
-	else result = tex_nombrec(b)
-	else if (a == 0) result = '0'
-	return result
+	let result = ``;
+	if (a != 0) if (a == 1) result = 'x';
+	else if (a == -1) result = '-x';
+	else result = `${tex_nombrec(a)}x`;
+	if (b != 0) if (a != 0) result += `${ecriture_algebrique(b)}`;
+	else result = tex_nombrec(b);
+	else if (a == 0) result = '0';
+	return result;
 }
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @Auteur Jean-Claude Lhote
  */
 export function reduire_polynome_degre3(a, b, c, d) {
-	let result = ""
+	let result = "";
 	if (a != 0) {
 		switch (a) {
 			case 1:
-				result += 'x^3'
-				break
+				result += 'x^3';
+				break;
 			case -1:
-				result += '-x^3'
-				break
+				result += '-x^3';
+				break;
 			default:
 				result += `${a}x^3`
-				break
+				break;
 		}
 		if (b != 0) {
 			switch (b) {
 				case 1:
-					result += '+x^2'
-					break
+					result += '+x^2';
+					break;
 				case -1:
-					result += '-x^2'
-					break
+					result += '-x^2';
+					break;
 				default:
-					result += `${ecriture_algebrique(b)}x^2`
-					break
+					result += `${ecriture_algebrique(b)}x^2`;
+					break;
 			}
 		}
 		if (c != 0) {
 			switch (c) {
 				case 1:
-					result += '+x'
+					result += '+x';
 					break;
 				case -1:
-					result += '-x'
-					break
+					result += '-x';
+					break;
 				default:
 					result += `${ecriture_algebrique(c)}x`
 					break
@@ -1335,55 +1332,55 @@ export function reduire_polynome_degre3(a, b, c, d) {
 		if (b != 0) {
 			switch (b) {
 				case 1:
-					result += 'x^2'
-					break
+					result += 'x^2';
+					break;
 				case -1:
-					result += '-x^2'
-					break
+					result += '-x^2';
+					break;
 				default:
-					result += `${b}x^2`
-					break
+					result += `${b}x^2`;
+					break;
 			}
 			if (c != 0) {
 				switch (c) {
 					case 1:
-						result += '+x'
+						result += '+x';
 						break;
 					case -1:
-						result += '-x'
-						break
+						result += '-x';
+						break;
 					default:
-						result += `${ecriture_algebrique(c)}x`
-						break
+						result += `${ecriture_algebrique(c)}x`;
+						break;
 				}
 			}
 			if (d != 0) {
-				result += `${ecriture_algebrique(d)}`
+				result += `${ecriture_algebrique(d)}`;
 			}
 		}
 		else  // degré 1 pas de degré 2 ni de degré 3
 			if (c != 0) {
 				switch (c) {
 					case 1:
-						result += 'x'
+						result += 'x';
 						break;
 					case -1:
-						result += '-x'
-						break
+						result += '-x';
+						break;
 					default:
-						result += `${c}x`
-						break
+						result += `${c}x`;
+						break;
 				}
 				if (d != 0) {
-					result += `${ecriture_algebrique(d)}`
+					result += `${ecriture_algebrique(d)}`;
 				}
 			}
 			else { // degré 0 a=0, b=0 et c=0
-				result += `${d}`
+				result += `${d}`;
 			}
 
 	}
-	return result
+	return result;
 }
 
 
@@ -1394,19 +1391,19 @@ export function reduire_polynome_degre3(a, b, c, d) {
 */
 export function obtenir_liste_facteurs_premiers(n) {
 	// Algorithme de base où l'on divise par chacun des nombres premiers 
-	let liste = []
-	let liste_nombres_premiers = obtenir_liste_nombres_premiers()
+	let liste = [];
+	let liste_nombres_premiers = obtenir_liste_nombres_premiers();
 	let i = 0;
 	while (n > 1 && liste_nombres_premiers[i] <= n) {
 		if (n % liste_nombres_premiers[i] == 0) {
-			liste.push(liste_nombres_premiers[i])
-			n /= liste_nombres_premiers[i]
+			liste.push(liste_nombres_premiers[i]);
+			n /= liste_nombres_premiers[i];
 		} else {
-			i++
+			i++;
 		}
 	}
 	if (liste.length == 0) { liste.push(n) }
-	return liste
+	return liste;
 }
 /**
  * 
@@ -1446,10 +1443,10 @@ export function extraire_racine_carree(n) {
 	let radical = 1, facteur = 1
 	for (let i = 0; i < facto.length; i++) {
 		if (facto[i][1] % 2 == 0) {
-			facteur *= facto[i][0] ** (calcul(facto[i][1] / 2))
+			facteur *= facto[i][0] ** (calcul(facto[i][1] / 2));
 		}
 		else if (facto[i][1] > 1) {
-			facteur *= facto[i][0] ** (calcul((facto[i][1] - 1) / 2))
+			facteur *= facto[i][0] ** (calcul((facto[i][1] - 1) / 2));
 			radical *= facto[i][0]
 		}
 		else radical *= facto[i][0]
@@ -1780,12 +1777,12 @@ class Personne {
 		this.prenom = ''
 		this.genre = ''
 		this.pronom = ''
-		if (prenom == '' || typeOf(prenom == 'undefined')) { // On le/la baptise
+		if (prenom == '' || ((typeof prenom) == 'undefined')) { // On le/la baptise
 			choix = prenomPronom()
 			this.prenom = choix[0]
 			this.pronom = choix[1]
 		}
-		else if (pronom = '') { // le pronom n'est pas précisé
+		else if (pronom == '') { // le pronom n'est pas précisé
 			this.pronom = 'on'
 		}
 		if (genre == '') {
@@ -2555,13 +2552,13 @@ export function itemize(tableau_de_texte) {
 	let texte = ''
 	if (sortie_html) {
 		texte = '<div>'
-		for (var i = 0; i < tableau_de_texte.length; i++) {
+		for (let i = 0; i < tableau_de_texte.length; i++) {
 			texte += '<div> − ' + tableau_de_texte[i] + '</div>'
 		}
 		texte += '</div>'
 	} else {
 		texte = '\t\\begin{itemize}\n'
-		for (var i = 0; i < tableau_de_texte.length; i++) {
+		for (let i = 0; i < tableau_de_texte.length; i++) {
 			texte += '\t\t\\item ' + tableau_de_texte[i] + '\n'
 		}
 		texte += '\t\\end{itemize}'
@@ -2793,11 +2790,11 @@ export function SVG_label(mon_svg, liste_d_abscisses, y, couleur, opacite) {
 		y = parseInt(y);
 		text.move(liste_d_abscisses[i][1], liste_d_abscisses[i][2]).font({
 			fill: couleur,
-			family: 'Helvetica'
-			, size: 14
-			, anchor: 'middle'
-			, leading: y
-			, opacity: opacite
+			family: 'Helvetica',
+			size: 14,
+			anchor: 'middle',
+			leading: y,
+			opacity: opacite
 		})
 	}
 }
@@ -3520,10 +3517,8 @@ export function simpExp(b, e) {
 	switch (e) {
 		case 1:
 			return ` ${b}`;
-			break;
 		case 0:
 			return ` 1`;
-			break;
 		default:
 			return ` `;
 	};
@@ -3540,17 +3535,13 @@ export function puissance(b, n) {
 	switch (b) {
 		case 0:
 			return `0`;
-			break;
 		case 1:
 			return `1`;
-			break;
 		case -1:
 			if (b % 2 == 0) {
 				return `1`;
-				break;
 			} else {
 				return `-1`;
-				break;
 			};
 		default:
 			if (b < 0) {
@@ -3558,7 +3549,6 @@ export function puissance(b, n) {
 			} else {
 				return `${b}^{${n}}`;
 			}
-			break;
 	}
 }
 
@@ -3566,10 +3556,8 @@ export function ecriturePuissance(a, b, n) {
 	switch (a) {
 		case 0:
 			return `$0$`;
-			break;
 		case 1:
 			return `$${puissance(b, n)}$`;
-			break;
 		default:
 			return `$${String(Math.round(a * 1000) / 1000).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}');
 	}
@@ -3595,18 +3583,14 @@ export function simpNotPuissance(b, e) {
 				return ` -1`;
 				//break;
 			};
-			break;
 		case 1: // si la base vaut 1 on renvoit toujours 1
 			return ` 1`;
-			break;
 		default: // sinon on switch sur l'exposant
 			switch (e) {
 				case 0: // si l'exposant vaut 0 on ranvoit toujours 1
 					return `1`;
-					break;
 				case 1: // si l'exposant vaut 1 on renvoit toujours la base 
 					return ` ${b}`;
-					break;
 				default: // sinon on teste le signe de la base et la parité de l'exposant
 					if (b < 0 && e % 2 == 0) { // si la base est négative et que l'exposant est pair, le signe est inutile
 						return ` ${b * -1}^{${e}}`;
@@ -3616,7 +3600,6 @@ export function simpNotPuissance(b, e) {
 						//return ` `;
 						//break;
 					};
-					break;
 			};
 	};
 };
@@ -3633,10 +3616,8 @@ export function eclatePuissance(b, e, couleur) {
 	switch (e) {
 		case 0:
 			return `\\mathbf{\\color{${couleur}}{1}}`;
-			break;
 		case 1:
 			return `\\mathbf{\\color{${couleur}}{${b}}}`;
-			break;
 		default:
 			let str = `\\mathbf{\\color{${couleur}}{${b}}} `;
 			for (let i = 1; i < e; i++) {
@@ -3657,10 +3638,8 @@ export function puissanceEnProduit(b, e) {
 	switch (e) {
 		case 0:
 			return `1`;
-			break;
 		case 1:
 			return `${b}`;
-			break;
 		default:
 			let str = `${b}`;
 			for (let i = 1; i < e; i++) {
@@ -3683,10 +3662,8 @@ export function reorganiseProduitPuissance(b1, b2, e, couleur1, couleur2) {
 	switch (e) {
 		case 0:
 			return `1`;
-			break;
 		case 1:
 			return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`;
-			break;
 		default:
 			let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
 			for (let i = 1; i < e; i++) {
@@ -4055,13 +4032,13 @@ export function tikz_machine_diag(nom, x_ant, etapes_expressions) {
 				`;
 				saut = saut + 3 * pas + w_etape / 4;
 			};
-		};
-	};
+		}
+	}
 	sortie += `
 	\\end{tikzpicture}
 	`;
 	return sortie;
-};
+}
 
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
@@ -4094,14 +4071,14 @@ export function katex_Popuptest(texte, titrePopup, textePopup) {
 		contenu += `<div class="ui special popup" >`;
 		if (titrePopup != '') {
 			contenu += `<div class="header">` + titrePopup + `</div>`;
-		};
+		}
 		contenu += `<div>` + textePopup + `</div>`;
 		contenu += `</div>`;
 		return contenu;
 	} else {
 		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 	}
-};
+}
 /**
  * Ecrit un string sans accents
  * @param {string} str
@@ -4111,13 +4088,13 @@ export function katex_Popuptest(texte, titrePopup, textePopup) {
 export function sansAccent(str) {
 	'use strict';
 	var accent = [
-		/[\300-\306]/g, /[\340-\346]/g, // A, a
-		/[\310-\313]/g, /[\350-\353]/g, // E, e
-		/[\314-\317]/g, /[\354-\357]/g, // I, i
-		/[\322-\330]/g, /[\362-\370]/g, // O, o
-		/[\331-\334]/g, /[\371-\374]/g, // U, u
-		/[\321]/g, /[\361]/g, // N, n
-		/[\307]/g, /[\347]/g, // C, c
+		/[\300-\306]/g, /[\340-\346]/g,
+		/[\310-\313]/g, /[\350-\353]/g,
+		/[\314-\317]/g, /[\354-\357]/g,
+		/[\322-\330]/g, /[\362-\370]/g,
+		/[\331-\334]/g, /[\371-\374]/g,
+		/[\321]/g, /[\361]/g,
+		/[\307]/g, /[\347]/g,
 	];
 	var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
 
@@ -4145,21 +4122,18 @@ export function katex_Popup2(numero, type, texte, titrePopup, textePopup) {
 	switch (type) {
 		case 0:
 			return katex_Popuptest(texte, titrePopup, textePopup);
-			break;
 		case 1:
 			if (sortie_html) {
 				return `${texte}` + modal_texte_long(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, "info circle")
 			} else {
 				return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 			};
-			break;
 		case 2:
 			if (sortie_html) {
 				return `${texte}` + modal_image(numero, textePopup, `${titrePopup}`, `${texte}`)
 			} else {
 				return `\\href{https://coopmaths.fr/images/${sansAccent(texte)}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
 			};
-			break;
 	};
 };
 
@@ -6924,7 +6898,8 @@ export function intro_LaTeX(entete = "Exercices", liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
@@ -6994,7 +6969,8 @@ export function intro_LaTeX_coop(liste_packages) {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}			
+%\\usepackage[autolanguage]{numprint}
+\\usepackage[autolanguage,np]{numprint}			
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
@@ -7863,6 +7839,8 @@ export function scratchTraductionFr() {
  * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
  * chaque tableau est élaboré dans le corps de l'exercice 
  * La fonction crée la partie préparation des groupes de questions du document AMC.
+ * Elle retourne un tableau hybride contenant dans cet ordre :
+ * Le code Latex du groupe de question, la référence du groupe (passée dans l'argument tabQCMs[0], le nombre de questions dans ce groupe (tabQCMs[1].length), et le titre du groupe passé dans l'argument tabQCM[2])
  */
 
 export function export_QCM_AMC(tabQCMs, idExo) {
@@ -7947,7 +7925,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				/********************************************************************/
 				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
 				// On pourra rajouter des options : les paramètres sont nommés.
-				// {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
+				// {digits=0,decimals=0,vertical=false,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
 				// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
 				// signe et exposant_signe sont des booléens
 				// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
@@ -7973,7 +7951,16 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				if (tabQCM[2].approx != 0) {
 					tex_QR += `approx=${tabQCM[2].approx},`
 				}
-				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,strict=true,Tpoint={,}}\n`
+				if (typeof tabQCM[2].vertical!='undefined'){	
+				tex_QR += `vertical=${tabQCM[2].vertical},`	
+				}
+				if (typeof tabQCM[2].strict!='undefined'){	
+					tex_QR += `strict=${tabQCM[2].strict},`	
+					}
+				if (typeof tabQCM[2].vhead!='undefined'){	
+					tex_QR += `vhead=${tabQCM[2].vhead},`	
+				}
+				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n`
 				tex_QR += `\\end{questionmultx}\n }\n`
 				id++
 				break
@@ -7989,7 +7976,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				// La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et 
 				/********************************************************************/
 				tex_QR += `\\element{${tabQCMs[0]}}{\n `
-				tex_QR+=`\\begin{minipage}{0.7 \\linewidth}\n`
+				tex_QR+=`\\begin{minipage}[b]{0.7 \\linewidth}\n`
 				tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}a} \n `
 				tex_QR += `		${tabQCM[0]} \n `
 				tex_QR += `\\explain{${tabQCM[1][0]}}\n`
@@ -8004,7 +7991,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 						tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
 					}
 				}
-				tex_QR+=`\\begin{minipage}{0.3 \\linewidth}\n`
+				tex_QR+=`\\begin{minipage}[b]{0.3 \\linewidth}\n`
 				tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}b} \n `
 				tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
 				if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -8013,7 +8000,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				if (tabQCM[2].approx != 0) {
 					tex_QR += `approx=${tabQCM[2].approx},`
 				}
-				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,strict=true,Tpoint={,},vertical=true}\n`
+				tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
 				tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
 				id++
 			break
@@ -8044,41 +8031,58 @@ export function export_QCM_AMC(tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation' }) {
+export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation',type_entete="AMCcodeGrid" }) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
-	let idExo = 0, code
+	// Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
+	// Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
+
+	let idExo = 0, code,index_of_code
+
+	let nombre_de_questions_indefinie=[]
 	let graine = randint(1, 100000)
-	let groupeDeQuestion = [], tex_questions = [[]], titre_question = []
+	let groupeDeQuestions = [], tex_questions = [[]], titre_question = []
+	console.log(nb_exemplaires,type_entete,nb_questions)
 	for (let qcm of questions) {
 		code = export_QCM_AMC(qcm, idExo)
 		idExo++
-		if (groupeDeQuestion.indexOf(code[1]) == -1) { //si le groupe n'existe pas
-			groupeDeQuestion.push(code[1])
-			tex_questions[groupeDeQuestion.indexOf(code[1])] = code[0]
-			nb_questions[groupeDeQuestion.indexOf(code[1])] = code[2]
-			titre_question[groupeDeQuestion.indexOf(code[1])] = code[3]
+		index_of_code=groupeDeQuestions.indexOf(code[1])
+		if (index_of_code == -1) { //si le groupe n'existe pas
+			groupeDeQuestions.push(code[1])
+			index_of_code=groupeDeQuestions.indexOf(code[1])
+			tex_questions[index_of_code] = code[0]
+	// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			if (typeof nb_questions[index_of_code] =='undefined' ) {
+				nombre_de_questions_indefinie[index_of_code]=true
+				nb_questions[index_of_code] = code[2]
+			}
+			else { // Si le nombre de question (à restituer pour ce groupe de question) a été défini par l'utilisateur, alors on le laisse !
+				nombre_de_questions_indefinie[index_of_code]=false
+			}
+			// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			titre_question[index_of_code] = code[3]
 		}
-		else {
-			tex_questions[groupeDeQuestion.indexOf(code[1])] += code[0]
-			nb_questions[groupeDeQuestion.indexOf(code[1])] += code[2]
+		else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
+		console.log(tex_questions[index_of_code].indexOf(code[0]))
+			if (tex_questions[index_of_code].indexOf(code[0])==-1){
+			tex_questions[index_of_code] += code[0]
+			// Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
+			if (nombre_de_questions_indefinie[index_of_code]) {
+				nb_questions[index_of_code] += code[2]
+			}
+			}
 		}
 
 	}
-	/*
-	`%%% fabrication des copies 
-	\\exemplaire{${nb_exemplaires}}{ %%% debut de l’en-tête des copies : 
-	\\noindent{\\bf QCM \\hfill TEST}
-	\\vspace*{.5cm} 
-	\\begin{minipage}{.4\\linewidth}
-	\\centering\\large\\bf ${matiere}\\\\
-	${titre}
-	\\end{minipage}
-	\\champnom{\\fbox{\\begin{minipage}{.5\\linewidth} Nom et prénom :
-	\\vspace*{.5cm}\\dotfill 
-	\\vspace*{1mm}
-	\\end{minipage}}} %%% fin de l’en-tête\n`
-*/
-	let code_latex = ''
+	// Fin de la préparation des groupes
+
+	//variable qui contiendra le code LaTeX pour AMC
+	let code_latex =''
+
+	// variable preambule à abonder le cas échéant si des packages sont nécessaires.
+	// Merci à Sébastien Lozano pour la vérification des dépendances
+	// Merci à Liouba Lerou pour ses documents qui ont servi de base
+	// A faire : abonder le preambule pour qu'il colle à tous les exos Mathalea_AMC
+
 	let preambule = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%% -I- PRÉAMBULE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8089,6 +8093,7 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{babel} % sans option => langue définie dans la classe du document
 	 \\usepackage[T1]{fontenc} 
 	 \\usepackage[utf8x]{inputenc}
+	 \\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
 	 \\usepackage{fp}
 	
 	%%%%% SPÉCIFICITÉS A.M.C. %%%%%
@@ -8101,21 +8106,30 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{multicol} 
 	 \\usepackage{wrapfig}  
 	 \\usepackage{fancybox}  % pour \\doublebox \\shadowbox  \\ovalbox \\Ovalbox
-	
+	 \\usepackage{calc} 						% Calculs 
+	 \\usepackage{enumerate}					% Pour modifier les numérotations
+	 \\usepackage{enumitem}
+	 \\usepackage{tabularx}					% Pour faire des tableaux
+
 	%%%%% PACKAGES FIGURES %%%%%
 	%\\usepackage{pstricks,pst-plot,pstricks-add}
 	%   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
 	%   MAIS ON PRÉFÉRERA UTILISER TIKZ...
 	\\usepackage{etex}	  % pour avoir plus de "registres" mémoires / tikz...
 	\\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
-	\\usepackage{tikz}
+	\\usepackage{pgf,tikz}
 	\\usepackage{graphicx} % pour inclure une image
+	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+	\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+	%\\usetkzobj{all} %problème de compilation
 	
 	%%%%% PACKAGES MATHS %%%%%
 	 \\usepackage{ucs}
 	 \\usepackage{amsmath}
 	 \\usepackage{amsfonts}
 	 \\usepackage{amssymb}
+	 \\usepackage{gensymb}
 	 \\usepackage{eurosym}
 	 \\usepackage{frcursive}
 	 \\newcommand{\\Vcurs}{\\begin{cursive}V\\end{cursive}}
@@ -8123,14 +8137,39 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	 \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
 	 % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
 	 %  sous Ubuntu, paquet texlive-science à installer
-	 \\usepackage[autolanguage,np]{numprint}
-	
+	 %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans intro_Latex
+	 \\usepackage{mathrsfs}  % Spécial math
+	 %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+	 \\usepackage{pifont}						% Pour les symboles "ding"
+	 \\usepackage{bbding}						% Pour les symboles
+	 \\usepackage[misc]{ifsym}					% Pour les symboles
+	 \\usepackage{cancel}						% Pour pouvoir barrer les nombres
+
+
 	%%%%% AUTRES %%%%%
 	 \\usepackage{ifthen}
-	
+	 \\usepackage{url} 			        		% Pour afficher correctement les url
+	 \\urlstyle{sf}                          	% qui s'afficheront en police sans serif
+	 \\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
+ 	 \\pagestyle{fancy}                      	% de pages personnalisés
+	 \\usepackage{fancybox}					% Pour les encadrés
+	 \\usepackage{xlop}						% Pour les calculs posés
+	%\\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+	 \\usepackage{multido}					% Pour faire des boucles
+	%\\usepackage{hyperref}					% Pour gérer les liens hyper-texte
+	 \\usepackage{fourier}
+	 \\usepackage{colortbl} 					% Pour des tableaux en couleur
+	 \\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
+	 \\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
+	%\\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+	%\\usepackage[]{qrcode}
+	%\\usepackage{pdflscape}
+	 \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
+	 \\usepackage{tikzsymbols}
+	%\\usepackage{tasks}						% Pour les listes horizontales
+
 	
 	%%%%% Librairies utilisées par Mathgraphe32 %%%% 
-	\\usetikzlibrary{patterns}
 	\\usepackage{fix-cm}
 	\\usepackage{textcomp}
 	
@@ -8177,13 +8216,17 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%%%% Fin du préambule %%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	`
-	let document = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+// Variable contenant la partie document
+// Celle-ci contient une partie statique et une partie variable (la zone de définition des groupes qui est construite à la volée à partir de la variable groupeDeQuestions alimentée au début)
+
+	let debut_document = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% -II-DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\begin{document}
-\\AMCrandomseed{458101}   % On choisit les "graines" pour initialiser le "hasard"
+\\AMCrandomseed{${graine}}   % On choisit les "graines" pour initialiser le "hasard"
 \\setdefaultgroupmode{withoutreplacement}\n
-\\FPseed=12345678
+\\FPseed=${graine}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% -II-a. CONCEPTION DU QCM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8192,11 +8235,13 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`;
 
-	for (let g of groupeDeQuestion) {
-		let i = groupeDeQuestion.indexOf(g)
-		document += tex_questions[i]
+	for (let g of groupeDeQuestions) {
+		let i = groupeDeQuestions.indexOf(g)
+		debut_document += tex_questions[i]
 	}
 
+// Variable qui contient l'entête d'une copie
+// A faire : Proposer différent type d'entête en fonction d'un paramètre ?
 
 	let entete_copie = ` 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8204,7 +8249,7 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\\exemplaire{${nb_exemplaires}}{   % <========================  /!\\ PENSER À ADAPTER /!\\  ==  %
+	\\exemplaire{${nb_exemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ==  %
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%% EN-TÊTE, IDENTIFICATION AUTOMATIQUE DE L'ÉLÈVE %%%%%
@@ -8253,13 +8298,13 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 	
 	`
 
-
-
-	code_latex += preambule + '\n' + document + '\n' + entete_copie
-
-	for (let g of groupeDeQuestion) {
-		let i = groupeDeQuestion.indexOf(g)
-		code_latex += `
+	// Ici On ajoute les commandes pour insérer les questions issues des groupes en quantité selon le nb_question[i]
+	// nb_question est un tableau passé en paramètre à la fonction creer_document_AMC pour déterminer le nombre de questions à restituer par groupe.
+	// si ce nombre est 0, on restitue toutes les questions du groupe
+	let contenu_copie=''
+	for (let g of groupeDeQuestions) {
+		let i = groupeDeQuestions.indexOf(g)
+		contenu_copie += `
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}
@@ -8268,51 +8313,15 @@ export function Creer_document_AMC({ questions, nb_questions = [], nb_exemplaire
 		\\hrule
 	\\end{center}\n`
 		if (nb_questions[i] > 0) {
-			code_latex += `\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
+			contenu_copie += `\\restituegroupe[${nb_questions[i]}]{${g}}\n\n`
 		}
 		else {
-			code_latex += `\\restituegroupe{${g}}\n\n`
+			contenu_copie += `\\restituegroupe{${g}}\n\n`
 		}
 	}
-	code_latex += `}\n \\end{document}\n`
+
+	// On assemble les différents morceaux et on retourne le résultat
+	code_latex = preambule + '\n' + debut_document + '\n' + entete_copie + contenu_copie + `}\n \\end{document}\n`
 	return code_latex
 }
 
-/*
-
-	`\\documentclass[a4paper]{article}
-	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage[french]{babel}
-\\usepackage{multicol}
-\\usepackage{calc}
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}
-\\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
-\\usepackage{cancel}
-\\usepackage{textcomp}
-\\usepackage{gensymb}
-\\usepackage{eurosym}
-%\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}
-\\pagestyle{fancy}
-\\usepackage{fancybox}
-\\usepackage{setspace}
-\\usepackage{xcolor}
-	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-	\\definecolor{geo}{cmyk}{.62,.1,0,0}
-	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}
-\\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
-
-\\usepackage[francais,bloc,completemulti]{automultiplechoice}\n
-*/

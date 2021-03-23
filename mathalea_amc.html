@@ -170,10 +170,11 @@
           <i class="setting icon"></i>
               Paramètres du fichier .tex
         </div> -->
+
           <div class="content">
             <form class="ui form">
               <div class="field">
-                <label>Nom du fichier</label>
+                <label>Nom du fichier et nombre d'exemplaires (1 si copies pré-remplies)</label>
               </div>
               <div class="two fields">
                 <div class="twelve wide field">
@@ -183,8 +184,45 @@
                     placeholder="Nom du fichier (sans extension)"
                   />
                 </div>
+                <div class="four wide field">
+                  <input type="number" id="nombre_d_exemplaires" placeholder="1" min="1" max="1000">
+                </div>
               </div>
             </form>
+            <div id="options_type_entete">
+              <div class="inline fields">
+                <label>Type d'entête :</label>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="type" id="type_code_grid" value="AMCcodeGrid" checked="" tabindex="0" class="hidden">
+                    <label>Grille de codage</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="type" id="type_preremplie" value="AMCassociation" tabindex="0" class="hidden">
+                    <label>Copies pré-remplies</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="type" id="type_manuel" value="champnom" tabindex="0" class="hidden">
+                    <label>Nom et prénom manuscrits</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 class="ui block header">Nombres de questions pour chaque groupe séparés par des virgules (un seul par groupe dans l'ordre des groupes)<br>Exemple : si la sélection est 3G30,3G30,3G30,5N20, on peut mettre 1,3 ce qui donnera une question 3G30 et trois questions 5N20</h4>
+
+            <div
+            class="ui fluid left icon input"
+            data-tooltip="Nombres séparés par des virgules"
+            data-inverted=""
+          >
+            <i class="edit icon"></i>
+            <!-- <span tooltip='Nombres séparés par des virgules'><input id='choix_des_exercices' type='text' size='50' ></span> -->
+            <input id="nb_questions_par_groupe" type="text" />
+          </div>
             <div class="ui hidden divider"></div>
             <div id="overleaf">
               <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >

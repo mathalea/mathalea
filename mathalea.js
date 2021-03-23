@@ -103,7 +103,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         //mise en évidence des exercices sélectionnés.
 		$(".exerciceactif").removeClass("exerciceactif");
 		for (let i = 0; i < liste_des_exercices.length; i++) {
-			$("a.lien_id_exercice[numero='"+liste_des_exercices[i]+"'").addClass("exerciceactif");
+			$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
             // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
             if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
                 // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
@@ -142,7 +142,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
                     contenuDesExercices +=`<section class="slider single-item" id="diaporama">`
                     for(let question of listeObjetsExercice[i].liste_questions){
-                        contenuDesExercices += `\n<div id="question_diap" style="font-size:${listeObjetsExercice[i].tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g,'...').replace(/\\\\/g,'<br>').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+                        contenuDesExercices += `\n<div id="question_diap" style="font-size:${listeObjetsExercice[i].tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g,'...').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
                     }
                     contenuDesExercices += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
                     if (listeObjetsExercice[i].type_exercice == "MG32") {    
