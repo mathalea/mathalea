@@ -39,7 +39,7 @@ export default function VuesEmpilementCubes() {
     }
     
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-    let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction ;
+    let objets_enonce,objets_correction,params_enonce,params_correction ;
     let longueur = 2+parseInt(this.sup2); // longueur de l'empilement
     let largeur = longueur; // largeur de l'empilement
     let hauteur = longueur; // hauteur de l'empilement
@@ -135,66 +135,100 @@ export default function VuesEmpilementCubes() {
         }
       return lstCoordonneesCubes;
       } 
-      let L;
-
-      // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      params_enonce = { xmin:-10, ymin: 0, xmax: 10, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
-
+      let L, alpha, beta, cosa, cosb, sina, sinb;      
       switch (liste_type_de_questions[i]) {
         case 1:
-          // GAUCHE
           texte += `Combien de petits cubes contient cet empilement de cubes ? <br>`
           L = empilementCubes(longueur, largeur, hauteur);
           objets_enonce = [] ;
+          // dessin 1
+          alpha =30;
+          beta = -25;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(L[i][0], L[i][1], L[i][2],30,-35)) {
+            for (let elm of cube(L[i][0], L[i][1], L[i][2], alpha, beta)) {
              objets_enonce.push(elm);
            }      
           }
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          
+          //dessin 2
           objets_enonce = [] ;
+          alpha =15;
+          beta = -30;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(L[i][0], L[i][1], L[i][2],15,-30)) {
+            for (let elm of cube(L[i][0], L[i][1], L[i][2], alpha, beta)) {
              objets_enonce.push(elm);
            }      
-          }  
-          texte += mathalea2d(params_enonce, objets_enonce) + " <br>";
+          }
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
+          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
           // correction :
           texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
-          params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
+          alpha =30;
+          beta = -25;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(3*L[i][0],L[i][1],L[i][2],30,-35)) {
+            for (let elm of cube(3*L[i][0],L[i][1],L[i][2],alpha,beta)) {
               objets_correction.push(elm);
             }
           }
+          params_correction = { xmin:-3*sina*largeur-0.5, ymin: -0.5, xmax: 3*cosa*longueur+0.5, ymax: -sina*sinb*3*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false};
           texte_corr += mathalea2d(params_correction, objets_correction)+ "<br>";   
-          texte_corr += `Il y a au total ${L.length} cubes.`       
+          texte_corr += `Il y a au total $${L.length}$ cubes.`       
         break;
 
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de largeur ${longueur} ? <br>`;
           L = empilementCubes(longueur, largeur, hauteur);
+          //dessin 1
           objets_enonce = [] ;
+          alpha =30;
+          beta = -25;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(L[i][0], L[i][1], L[i][2],30,-35)) {
+            for (let elm of cube(L[i][0], L[i][1], L[i][2], alpha, beta)) {
              objets_enonce.push(elm);
            }      
-          }  
+          }
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
           texte += mathalea2d(params_enonce, objets_enonce) + " ";
+          // dessin 2
           objets_enonce = [] ;
+          alpha =15;
+          beta = -30;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(L[i][0], L[i][1], L[i][2],15,-30)) {
+            for (let elm of cube(L[i][0], L[i][1], L[i][2], alpha, beta)) {
              objets_enonce.push(elm);
            }      
-          }  
-          texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
+          }
+          cosa = Math.cos(alpha*Math.PI/180);
+          sina = Math.sin(alpha*Math.PI/180);
+          cosb = Math.cos(beta*Math.PI/180);
+          sinb = Math.sin(beta*Math.PI/180);
+          params_enonce = { xmin:-sina*largeur-0.5, ymin: -0.5, xmax: cosa*longueur+0.5, ymax: -sina*sinb*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false} ;       
+          texte += mathalea2d(params_enonce, objets_enonce) + " ";
           // correction :
           texte_corr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
-          params_correction = { xmin:-longueur, ymin: 0, xmax: 3*longueur, ymax: 2.5*longueur, pixelsParCm: 20, scale: 1, mainlevee: false};
+          params_correction = { xmin:-3*sina*largeur-0.5, ymin: -0.5, xmax: 3*cosa*longueur+0.5, ymax: -sina*sinb*3*longueur-cosa*sinb*largeur+cosb*hauteur+0.5, pixelsParCm: 20, scale: 1, mainlevee: false};
           objets_correction = [];
+          alpha =30;
+          beta = -25;
           for (let i = 0; i < L.length; i++) {
-            for (let elm of cube(3*L[i][0],L[i][1],L[i][2],30,-35)) {
+            for (let elm of cube(3*L[i][0],L[i][1],L[i][2],alpha,beta)) {
               objets_correction.push(elm);
             }
           }
