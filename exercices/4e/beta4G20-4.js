@@ -12,10 +12,11 @@ export default function Calculer_une_expression_litterale_pythagore() {
   this.nb_questions = 2;
   this.nb_cols = 3;
   this.nb_cols_corr = 2;
-  this.tailleDiaporama = 5;
+  this.tailleDiaporama = 50;
   this.video = "" ;
 
   this.nouvelle_version = function () {
+
     this.liste_questions = []; 
     this.liste_corrections = []; 
     let a, b, n,s,d,racs,racd,miracs, miracd;

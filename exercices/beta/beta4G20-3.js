@@ -2,21 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
 import {mathalea2d} from "/modules/2d.js"
 
-export default function Exercice_zero_mathalea2d() {
+export default function Calculer_valeur_manquante_visuel_pythagore() {
     "use strict"
     Exercice.call(this)
     this.titre = "Calculer une valeur manquante avec l'égalité de Pythagore";
+    this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation.";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-    this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-    this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
     this.nouvelle_version = function () {
