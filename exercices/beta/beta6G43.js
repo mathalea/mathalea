@@ -12,7 +12,7 @@ import {cube} from "/modules/3d.js"
 * Compter des cubes dans un empilement de cubes
 */
 
-export default function VuesEmpilementCubes() {
+export default function DenombrerCubes() {
   "use strict"
   Exercice.call(this)
   this.titre = "Représentation de solides";
@@ -71,7 +71,7 @@ export default function VuesEmpilementCubes() {
     
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
-    let longueur = 2+parseInt(this.sup2); // longueur de l'empilement
+    let longueur = 2 + parseInt(this.sup2); // longueur de l'empilement
     let largeur = longueur; // largeur de l'empilement
     let hauteur = longueur; // hauteur de l'empilement
 
