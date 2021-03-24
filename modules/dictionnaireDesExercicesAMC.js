@@ -75,6 +75,14 @@ export let dictionnaireDesExercicesQCM = {
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
     },
+    "6N43": {
+        "titre": "Critères de divisibilité",
+        "url": "/exercices/6e/6N43.js"
+    },
+    "6N43-2": {
+        "titre": "Critères de divisibilité (plusieurs possibles)",
+        "url": "/exercices/6e/6N43-2.js"
+    },
     "5N13": {
         "url": "/exercices/5e/5N13.js",
         "titre": "Simplification de fractions"

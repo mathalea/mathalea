@@ -8096,7 +8096,7 @@ console.log(type_entete)
 	%%%%% SPÉCIFICITÉS A.M.C. %%%%%
 	%\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
 	%   remarque : avec completmulti => "aucune réponse ne convient" en +
-	 \\usepackage[francais,insidebox,bloc]{automultiplechoice}
+	 \\usepackage[francais,bloc]{automultiplechoice} %//,insidebox
 	
 	
 	%%%%% PACKAGES MISE EN PAGE %%%%%

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,somme_des_chiffre,calcul,tex_nombre} from "/modules/outils.js"
+import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,combinaison_listes,somme_des_chiffre,calcul,tex_nombre} from "/modules/outils.js"
 /**
  * Un nombre est-il divisible par :
  *
@@ -19,9 +19,19 @@ export default function Criteres_de_divisibilite() {
   this.spacing_corr = 1;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
+    this.QCM=['6N43',[],"Critères de divisibilité",1]
+    let tabrep,tabicone
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
+ this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_des_exercices_disponibles;
     if (this.sup == 1) {
@@ -54,12 +64,16 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $2$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $2$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
           break;
 
@@ -75,6 +89,8 @@ export default function Criteres_de_divisibilite() {
             )}$ est divisible par $3$ donc $${tex_nombre(
               n
             )}$ est divisible par $3$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0]
           } else {
             texte_corr = `$${somme_string}=${calcul(somme_string)}=3\\times${(calcul(somme_string) - (calcul(somme_string) % 3)) / 3
               }+${calcul(somme_string) % 3}$<br>`;
@@ -83,6 +99,8 @@ export default function Criteres_de_divisibilite() {
             )}$ n'est pas divisible par $3$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $3$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
           break;
 
@@ -98,6 +116,8 @@ export default function Criteres_de_divisibilite() {
             )}$ est divisible par $9$ donc $${tex_nombre(
               n
             )}$ est divisible par $9$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0]
           } else {
             texte_corr = `$${somme_string}=${calcul(somme_string)}=9\\times${(calcul(somme_string) - (calcul(somme_string) % 9)) / 9
               }+${calcul(somme_string) % 9}$<br>`;
@@ -106,6 +126,8 @@ export default function Criteres_de_divisibilite() {
             )}$ n'est pas divisible par $9$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $9$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
           break;
 
@@ -117,12 +139,16 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $5$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $5$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
           break;
 
@@ -134,12 +160,16 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $10$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $10$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
           break;
 
@@ -170,21 +200,42 @@ export default function Criteres_de_divisibilite() {
             texte_corr += `Le reste de la division euclidienne est nul donc $${tex_nombre(
               n
             )}$ est divisible par $${u}$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[1,0,0]
           } else {
             texte_corr += `$${tex_nombre(n)}=${u}\\times${(n - (n % u)) / u}+${n % u
               }$<br>`;
             texte_corr += `Le reste de la division euclidienne n'est pas nul donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $${u}$.`;
+            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabicone=[0,1,0]
           }
 
           break;
       }
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
+        texte_corr=''
+        texte+=`<br><br>  Réponses possibles : ${espace}  `
+        shuffle2tableaux(tabrep, tabicone);
+        for (let i=0; i<tabrep.length; i++) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+       }
+      }
+  
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
+        this.QCM[1].push([`${texte}. \n `,
+        tabrep,
+        tabicone]) 
       }
       cpt++;
     }
