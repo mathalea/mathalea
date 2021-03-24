@@ -1153,7 +1153,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/6e/6G42.js"
     },
     "6G43": {
-        "titre": "Connaître les propriétés du cube et du pavé droit",
+        "titre": "Représentation de solides",
         "url": "/exercices/6e/6G43.js"
     },
     "6M10": {
@@ -1624,9 +1624,9 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
-    "beta6G43": {
-        "titre": "Représentation de solides",
-        "url": "/exercices/beta/beta6G43.js"
+    "beta6C33-1": {
+        "titre": "Parenthèses manquantes",
+        "url": "/exercices/beta/beta6C33-1.js"
     },
     "beta6P11": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
