@@ -1592,6 +1592,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Déterminer un antécédent",
         "url": "/exercices/beta/beta3F23.js"
     },
+    "beta3G15": {
+        "titre": "Utiliser toutes les transformations",
+        "url": "/exercices/beta/beta3G15.js"
+    },
     "beta3G41": {
         "titre": "Représentation de solides",
         "url": "/exercices/beta/beta3G41.js"
@@ -1619,6 +1623,10 @@ export let dictionnaireDesExercicesAleatoires =
     "beta4N10": {
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
+    },
+    "beta6G43": {
+        "titre": "Représentation de solides",
+        "url": "/exercices/beta/beta6G43.js"
     },
     "beta6P11": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
