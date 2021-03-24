@@ -27,7 +27,6 @@ export default function Multiplication_mental_decimaux() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
        this.QCM_disponible=false
     this.ModeQCM=true;
-    this.codeAMC=[]
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   
@@ -75,11 +74,11 @@ export default function Multiplication_mental_decimaux() {
                texte += `Réponses possibles : <br>`;
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation
                for (let i=0; i<tabrep.length; i++) {
-                 texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                 texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                 if (tabicone[i]==1) {
-                  texte_corr += `$\\blacksquare\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                 } else {
-                  texte_corr += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                  texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
                 }
               }
             }
@@ -105,7 +104,7 @@ export default function Multiplication_mental_decimaux() {
               texte_corr += `Calcul : $${a} \\times ${b}$. <br>`
               shuffle2tableaux(tabrep, tabicone);
               for (let i=0; i<tabrep.length; i++) {
-                texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+                texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
                if (tabicone[i]==1) {
                  texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
                } else {
@@ -135,7 +134,7 @@ export default function Multiplication_mental_decimaux() {
             texte += `Réponses possibles : <br>`;
             shuffle2tableaux(tabrep, tabicone); 
             for (let i=0; i<tabrep.length; i++) {
-              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+              texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
              if (tabicone[i]==1) {
                texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
@@ -168,7 +167,7 @@ export default function Multiplication_mental_decimaux() {
   
             shuffle2tableaux(tabrep, tabicone);
             for (let i=0; i<tabrep.length; i++) {
-              texte += `$\\square\\; ${tex_nombre2(tabrep[i])}$` + espace ;
+              texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
              if (tabicone[i]==1) {
                texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
