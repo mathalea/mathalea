@@ -1810,13 +1810,20 @@ export function personne({ prenom = '', genre = '', pronom = '' } = {}) {
  * le 14/03/2021
  */
 export function personnes(n) {
-	let liste = [], essai
-	for (let i = 0; i < n; i++) {
+	let liste = [], essai,trouve
+	for (let i = 0; i < n;) {
 		essai = personne()
-		while (liste.indexOf(essai) != -1) {
-			essai = personne()
+		trouve=false
+		for (let j=0;j<liste.length;j++){
+			if (liste[j].prenom==essai.prenom) {
+				trouve=true
+				break
+			}
 		}
-		liste.push(essai)
+		if (trouve==false){
+			liste.push(essai)
+			i++
+		}
 	}
 	return liste
 }
