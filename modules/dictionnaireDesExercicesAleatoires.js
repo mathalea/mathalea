@@ -1636,6 +1636,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Exercice exemple",
         "url": "/exercices/beta/beta6exemple1.js"
     },
+    "beta6exemple1Matt": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/6e/beta6exemple1Matt.js"
+    },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
