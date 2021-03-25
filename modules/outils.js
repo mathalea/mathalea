@@ -7882,28 +7882,64 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes, id = 0, nb_chiffres_pe, nb_chiffres_pd, nb_chiffres, reponse
+	let params=tabQCMs[4]
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes = 0
 		switch (tabQCMs[3]) {
 			case 1: // question QCM 1 bonne réponse
-			case 2: // question QCM plusieurs bonnes réponses (on va vérifier ça ci-dessous)
+			tabQCM = elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
+			nbBonnes = 0
+			for (let b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
+				if (b == 1) nbBonnes++
+			}
+			if (nbBonnes == 1) {
+				type = 'question' // On est dans le cas 1 le type est question
+			}
+			else if (nbBonnes > 1) {
+				type = 'questionmult' // On est dans le cas 2 le type est questionmult
+			}
+			tex_QR += `\\element{${tabQCMs[0]}}{\n `
+			tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
+			tex_QR += `		${tabQCM[0]} \n `
+			tex_QR += `		\\begin{reponseshoriz}`
+			if (params.ordered==true){
+				tex_QR +=`[o]`
+			}
+			tex_QR +=`\n `
+			for (let i = 0; i < tabQCM[1].length; i++) {
+				if (params.lastChoices>0&&i==params.lastChoices){
+					tex_QR +=`\\lastchoices\n`
+				}
+				switch (tabQCM[2][i]) {
+					case 1:
+						tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
+						break
+					case 0:
+						tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
+						break
+				}
+			}
+			tex_QR += `		\\end{reponseshoriz}\n `
+			tex_QR += `	\\end{${type}}\n }\n `
+			id++
+			break
+
+			case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
 				tabQCM = elimineDoublons(tabQCM); // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-				nbBonnes = 0
-				for (let b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
-					if (b == 1) nbBonnes++
-				}
-				if (nbBonnes == 1) {
-					type = 'question' // On est dans le cas 1 le type est question
-				}
-				else if (nbBonnes > 1) {
-					type = 'questionmult' // On est dans le cas 2 le type est questionmult
-				}
+				type = 'questionmult' // On est dans le cas 2 le type est questionmult
 				tex_QR += `\\element{${tabQCMs[0]}}{\n `
 				tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
 				tex_QR += `		${tabQCM[0]} \n `
-				tex_QR += `		\\begin{reponseshoriz} \n `
+				tex_QR += `		\\begin{reponseshoriz}`
+				if (params.ordered==true){
+					tex_QR +=`[o]`
+				}
+				tex_QR+=` \n `
 				for (let i = 0; i < tabQCM[1].length; i++) {
+					if (params.lastChoices>0&&i==params.lastChoices){
+						tex_QR +=`\\lastchoices\n`
+					}
 					switch (tabQCM[2][i]) {
 						case 1:
 							tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
