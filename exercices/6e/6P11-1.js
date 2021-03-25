@@ -85,14 +85,14 @@ export default function Proportionnalite_par_linearite_bis() {
         n2 = temp;
       };
       let situations = [
-        { lieu: `la boulangerie "Au bon pain"`, achat_sing: `pain au chocolat`, achat_plur: `pains au chocolat`, prenom1: prenom(), prenom2: prenom(), prenom3: prenom(), prenom4: prenom(), prenom_max: prenom(), n1: n1, n2: n2, n3: n3, n4: n4, n_max: n_max, pu: 0.9 }
+        { lieu: `la boulangerie`, achat_sing: `pain au chocolat`, achat_plur: `pains au chocolat`, prenom1: prenom(), prenom2: prenom(), prenom3: prenom(), prenom4: prenom(), prenom_max: prenom(), n1: n1, n2: n2, n3: n3, n4: n4, n_max: n_max, pu: 0.9 }
       ]
       let enonces = [];
       let situation = situations[randint(0, situations.length - 1)];
 
       enonces.push({
         enonce: `
-          Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1, situation)} et paie $${tex_prix(situation.pu * situation.n1)}$ €.
+          À ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1, situation)} et paie $${tex_prix(situation.pu * situation.n1)}$ €.
           <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2, situation)} et paie $${tex_prix(situation.pu * situation.n2)}$ €.
           <br>
           <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3, situation)} ?
