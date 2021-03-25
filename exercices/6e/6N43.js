@@ -64,7 +64,7 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $2$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
@@ -72,7 +72,7 @@ export default function Criteres_de_divisibilite() {
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $2$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
           break;
@@ -89,7 +89,7 @@ export default function Criteres_de_divisibilite() {
             )}$ est divisible par $3$ donc $${tex_nombre(
               n
             )}$ est divisible par $3$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0]
           } else {
             texte_corr = `$${somme_string}=${calcul(somme_string)}=3\\times${(calcul(somme_string) - (calcul(somme_string) % 3)) / 3
@@ -99,7 +99,7 @@ export default function Criteres_de_divisibilite() {
             )}$ n'est pas divisible par $3$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $3$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
           break;
@@ -116,7 +116,7 @@ export default function Criteres_de_divisibilite() {
             )}$ est divisible par $9$ donc $${tex_nombre(
               n
             )}$ est divisible par $9$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0]
           } else {
             texte_corr = `$${somme_string}=${calcul(somme_string)}=9\\times${(calcul(somme_string) - (calcul(somme_string) % 9)) / 9
@@ -126,7 +126,7 @@ export default function Criteres_de_divisibilite() {
             )}$ n'est pas divisible par $9$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $9$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
           break;
@@ -139,7 +139,7 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $5$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
@@ -147,7 +147,7 @@ export default function Criteres_de_divisibilite() {
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $5$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
           break;
@@ -160,7 +160,7 @@ export default function Criteres_de_divisibilite() {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
               n
             )}$ est $${u}$ donc $${tex_nombre(n)}$ est divisible par $10$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0]
           } else {
             texte_corr = `Le chiffre des unités de $${tex_nombre(
@@ -168,7 +168,7 @@ export default function Criteres_de_divisibilite() {
             )}$ est $${u}$ donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $10$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
           break;
@@ -200,7 +200,7 @@ export default function Criteres_de_divisibilite() {
             texte_corr += `Le reste de la division euclidienne est nul donc $${tex_nombre(
               n
             )}$ est divisible par $${u}$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[1,0,0]
           } else {
             texte_corr += `$${tex_nombre(n)}=${u}\\times${(n - (n % u)) / u}+${n % u
@@ -208,7 +208,7 @@ export default function Criteres_de_divisibilite() {
             texte_corr += `Le reste de la division euclidienne n'est pas nul donc $${tex_nombre(
               n
             )}$ n'est pas divisible par $${u}$.`;
-            tabrep=[`Oui`,`Non`,`Je nesais pas`]
+            tabrep=[`Oui`,`Non`,`Je ne sais pas`]
             tabicone=[0,1,0]
           }
 

@@ -7882,7 +7882,13 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes, id = 0, nb_chiffres_pe, nb_chiffres_pd, nb_chiffres, reponse
-	let params=tabQCMs[4]
+	let params
+	if (tabQCMs.length>4) {
+		params=tabQCMs[4]
+	}
+	else {
+		params={ordered:false,lastChoices:0}
+	}
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
 		nbBonnes = 0
@@ -8072,7 +8078,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation',type_entete="AMCcodeGrid"}) {
+export function creer_document_AMC({ questions, nb_questions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation',type_entete="AMCcodeGrid",format='A4'}) {
 	// Attention questions est maintenant un tableau de tous les this.QCM des exos
 	// Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
 	// Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
@@ -8126,9 +8132,15 @@ console.log(type_entete)
 	let preambule = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%% -I- PRÉAMBULE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	 \\documentclass[10pt,a4paper,francais]{article}
-	 
+	\n`
+	if (format=='A3'){
+		preambule+=`	 \\documentclass[10pt,a3paper,landscape,francais]{article}\n`
+	}
+	else {
+		preambule+=`	 	 \\documentclass[10pt,a4paper,francais]{article}\n`
+	}
+
+preambule+=`	 
 	%%%%% PACKAGES LANGUE %%%%%
 	 \\usepackage{babel} % sans option => langue définie dans la classe du document
 	 \\usepackage[T1]{fontenc} 
@@ -8332,7 +8344,11 @@ console.log(type_entete)
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\\exemplaire{${nb_exemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ==  %
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+	\n`
+	if (format=='A3') {
+		entete_copie+=`\\begin{multicols}{2}\n`
+	}
+	entete_copie+=`
 	%%%%% EN-TÊTE, IDENTIFICATION AUTOMATIQUE DE L'ÉLÈVE %%%%%
 	
 	\\vspace*{-17mm}
@@ -8388,8 +8404,11 @@ console.log(type_entete)
 		else {
 			contenu_copie += `\\restituegroupe{${g}}\n\n`
 		}
-	}
 
+	}
+	if (format=='A3'){
+		contenu_copie+=`\\end{multicols}\n`
+	}
 	if (type_entete=="AMCassociation"){
 		contenu_copie+=`\\AMCassociation{\id}\n
 	  }

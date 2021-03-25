@@ -14,6 +14,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
  let nb_questions=[]
  let nom_fichier=''
  let type_entete='AMCcodeGrid'
+ let format='A4'
 
  menuDesExercicesQCMDisponibles();
 
@@ -125,7 +126,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                         listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
                     }
                 }
-                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:nb_questions,nb_exemplaires:nb_exemplaires,type_entete:type_entete}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+                    code_LaTeX = creer_document_AMC({questions:questions,nb_questions:nb_questions,nb_exemplaires:nb_exemplaires,type_entete:type_entete,format:format}).replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
@@ -830,6 +831,19 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         }
         mise_a_jour_du_code()
          });
+
+  // gestion du format
+  let form_format=document.getElementById("options_format");
+  form_format.value = 'A4'
+  $('#format_A4').show()
+  $('#format_A3').hide()
+  form_format.addEventListener("change",function (e) {
+  format=e.target.value;
+  console.log(format)
+  mise_a_jour_du_code()
+   });
+
+
          //gestion du nombre de questions par groupe
          let form_nb_questions=document.getElementById("nb_questions_par_groupe");
         form_nb_questions.value=[]
