@@ -28,7 +28,7 @@ export default function Tableau_criteres_de_divisibilite() {
       this.consigne =
         "mettre une croix dans la ou les cases qui conviennent.";
     }
-    this.QCM = ['6N43-2', [], "Critères de divisibilité", 1]
+    this.QCM = ['6N43-2', [], "Critères de divisibilité", 2,{ordered:true,lastChoices:4}]
     let tabrep, tabicone
     let espace = ``;
     if (sortie_html) {
