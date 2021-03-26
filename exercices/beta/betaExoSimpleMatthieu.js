@@ -2,14 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes } from "/modules/outils.js"
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @Matthieu_Devillers
  * Référence 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Exercice exemple";
-  this.consigne = "";
-  this.nb_questions_modifiable=false
+  this.titre = "Ceci est le titre de l'exercice BetaExosimpleMatthieu";
+  this.consigne = "Ceci est la consigne (en gras) de l'exercice.";
+  this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
+  this.nb_questions_modifiable=false // le nombre de questions est fixe dans cet exercice.
   //this.nb_questions = 10;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
