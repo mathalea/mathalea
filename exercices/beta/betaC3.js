@@ -11,8 +11,8 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, tex_nombrec,
 // texte = `\\dfrac{a}{10}`
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Transformer des fractions décimal en nombre décimal";
-  this.consigne = "Transformer les fractions ci-dessous en nombre décimal";
+  this.titre = "Donner l'écriture décimale à partir d'une décomposition partie entière et somme de fractions décimales ";
+  this.consigne = "Donner l'écriture décimale des nombres suivants.";
   this.nb_questions = 10;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
