@@ -7964,7 +7964,8 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
 				tex_QR += `		${tabQCM[0]} \n `
 				tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-				tex_QR += `\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+				tex_QR+=`\\notation{${tabQCM[2][0]}}\n`
+				//tex_QR += `\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
 				tex_QR += `\\end{question}\n }\n`
 				id++
 				break
@@ -8027,7 +8028,8 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}a} \n `
 				tex_QR += `		${tabQCM[0]} \n `
 				tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-				tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+				tex_QR+=`\\notation{${tabQCM[1][2]}}\n`
+				//tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
 				tex_QR += `\\end{question}\n\\end{minipage}\n`
 				if (tabQCM[2].exposant_nb_chiffres == 0) {
 					reponse = tabQCM[1][1]
@@ -8148,11 +8150,11 @@ preambule+=`
 	 \\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
 	 \\usepackage{fp}
 	
-	%%%%% SPÉCIFICITÉS A.M.C. %%%%%
+	%%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
 	%\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
 	%   remarque : avec completmulti => "aucune réponse ne convient" en +
 	 \\usepackage[francais,bloc]{automultiplechoice} %//,insidebox
-	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%% PACKAGES MISE EN PAGE %%%%%
 	 \\usepackage{multicol} 
@@ -8236,7 +8238,9 @@ preambule+=`
 	\\newcommand{\\collerVertic}{\\vspace{-3mm}} % évite un trop grand espace vertical
 	\\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
 	\\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
-	
+	\\newcommand{\\notation}[1]{
+		\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+		}
 	%%pour afficher ailleurs que dans une question
 	\\makeatletter
 	\\newcommand{\\AffichageSiCorrige}[1]{\\ifAMC@correc #1\\fi}
@@ -8248,8 +8252,8 @@ preambule+=`
 	 \\geometry{headsep=0.3cm, left=1.5cm,right=1.5cm,top=2.4cm,bottom=1.5cm}
 	 \\DecimalMathComma 
 	
-	 \\AMCcodeHspace=.4em % réduction de la taille des cases pour le code élève
-	 \\AMCcodeVspace=.4em 
+	 \\AMCcodeHspace=.3em % réduction de la taille des cases pour le code élève
+	 \\AMCcodeVspace=.3em 
 	% \\AMCcodeBoxSep=.1em
 	 
 	 \\def\\AMCotextReserved{\\emph{Ne rien cocher, réservé au prof !}}
@@ -8307,13 +8311,12 @@ preambule+=`
 	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
 	\\vspace{1mm}
 	
+	\\def\\AMCchoiceLabelFormat##1{\\textcolor{gray!90}{{\\tiny ##1}}} % pour alléger la couleur des lettres dans les cases et les réduire
 	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ}
-	
-	\\vspace{2mm}
 	`
 	let entete_type_champnom_simple=	`\\begin{minipage}{10cm}
 	\\champnom{\\fbox{\\parbox{10cm}{    
