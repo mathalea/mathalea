@@ -19,7 +19,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-
+    this.introduction = `Dans cet exercice...`
+    
     let question1 = `Question 1`;
     let correction1 = `Correction 1`;
 
