@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, combinaison_listes } from "/modules/outils.js"
+import { liste_de_question_to_contenu, combinaison_listes, randint } from "/modules/outils.js"
 /**
  * Description didactique de l'exercice
  * @Matthieu_Devillers
@@ -21,12 +21,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let question1,question2,correction1,correction2
-    question1=`texte de la question 1.`
+    let a = randint(1,10)
+    let b = randint(20,50)
+    question1=`Combien fait ${a} + ${b} ?`
     question1+=`<br>`
-    question2=`texte de la question 2.`
+    question2=`Combien fait ${a*10} + ${b*10} ?`
     question2+=`<br>`
-    correction1=`texte de la correction 1`
-    correction2=`texte de la correction2`
+    correction1=`${a} + ${b} = ${a+b}`
+    correction2=`${a*10} + ${b*10 = ${a*10 + b*10}`
         this.liste_questions.push(question1,question2);
         this.liste_corrections.push(correction1,correction2);
     liste_de_question_to_contenu(this);
