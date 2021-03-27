@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,tex_nombrec,creerNomDePolygone,tex_nombre,creerBoutonMathalea2d} from "/modules/outils.js"
 import {point,pointSurSegment,pointAdistance,polygone,triangle2points2longueurs,homothetie,similitude,texteParPoint,longueur,angle,angleOriente,mathalea2d} from "/modules/2d.js"
 
+
 /**
  * Calcul de longueurs avec le théorème de Thalès
  * @Auteur Rémi Angot
@@ -18,13 +19,15 @@ export default function Thales2D() {
   this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
 
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.QCM=['4G30',[],'Calcul de longueur avec Thales',4]
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_de_noms_de_polygones = [];
     let premiereQuestionPapillon = randint(0, 1); // Pour alterner les configurations et savoir par laquelle on commence
-
+let reponse
 
     for (let i = 0, texte = '', texte_corr = '', cpt = 0; i < this.nb_questions && cpt < 50;) {
+
       if ((i + 1) % 3 == 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         liste_de_noms_de_polygones = [];
       }
@@ -46,6 +49,7 @@ export default function Thales2D() {
       C.nom = nomC;
       let k = calcul(randint(3, 8, 5) / 10);
       if (this.sup == 2) {
+
         k *= -1;
         this.vspace = -.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
@@ -164,8 +168,9 @@ export default function Thales2D() {
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
-      }
-      cpt++;
+        this.QCM[1].push([texte, [texte_corr,calcul(bc)], {digits:4,decimals:2,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:10}])
+        }
+       cpt++;
     }
     liste_de_question_to_contenu(this);
   };
