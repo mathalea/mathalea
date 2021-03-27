@@ -1632,10 +1632,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
         "url": "/exercices/beta/beta6P11.js"
     },
-    "beta6exemple1": {
-        "titre": "Exercice exemple",
-        "url": "/exercices/beta/beta6exemple1.js"
-    },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
@@ -1644,9 +1640,33 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"
     },
+    "betaExemple1Type": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple1Type.js"
+    },
+    "betaExemple1TypeCalculLettre": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple1TypeCalculLettre.js"
+    },
+    "betaExemple3Types": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple3Types.js"
+    },
+    "betaExempleQuestionsDifferentes": {
+        "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+        "url": "/exercices/beta/betaExempleQuestionsDifferentes.js"
+    },
     "betaExercice_constructions_basiques": {
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
+    },
+    "betaProbabilites": {
+        "titre": "Probabilités simples",
+        "url": "/exercices/beta/betaProbabilites.js"
+    },
+    "betaPuissances": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaPuissances.js"
     },
     "betaXcas": {
         "titre": "Test de XCas",
@@ -1687,6 +1707,10 @@ export let dictionnaireDesExercicesAleatoires =
     "c3N10": {
         "titre": "Écrire un nombre en chiffres ou en lettres",
         "url": "/exercices/c3/c3N10.js"
+    },
+    "c3N20": {
+        "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
+        "url": "/exercices/c3/c3N20.js"
     },
     "c3N22": {
         "titre": "Lire abscisse décimale sous trois formes",
