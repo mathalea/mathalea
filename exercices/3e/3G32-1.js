@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, tex_nombrec } from "/modules/outils.js"
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from "/modules/3d.js"
+
 /**
  * propose de calculer la longueur d'un parallèle terrestre à partir de la latitde
  * @Auteur Jean-Claude Lhote
@@ -9,7 +10,7 @@ import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from
 */
 export default function Calculs_trigonometriques1() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Calcul d\'un parallèle terrestre";
+    this.titre = "Calcul d'un parallèle terrestre";
     this.consigne = "";
     this.nb_questions = 1;
     this.nb_cols = 1; // Uniquement pour la sortie LaTeX
@@ -18,8 +19,11 @@ export default function Calculs_trigonometriques1() {
     this.video = "" // Id YouTube ou url
     this.spacing_corr = 2
     this.spacing = 2
+    this.QCM_disponible=false
+	this.ModeQCM=false;
 
     this.nouvelle_version = function () {
+        this.QCM=['3G32-1',[],"Calcul d'un parallèle terrestre",3,{}]
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
         let alfa, baita, alpha, O, H, M, R, R2, Axe, normalV, normalH, P, HP, Sph, OP, PoleNord, PoleSud, objets = []
@@ -74,6 +78,7 @@ export default function Calculs_trigonometriques1() {
                 this.liste_questions.push(texte);
                 this.liste_corrections.push(texte_corr);
                 i++;
+                this.QCM[1].push([texte,[texte_corr],[3]])
             }
             cpt++;
         }

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Scan le répertoire /exercices puis ecris le fichier /module/dictionnaireDesExercicesAleatoires
 #
 
