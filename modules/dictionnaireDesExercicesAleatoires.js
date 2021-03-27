@@ -257,11 +257,11 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3G32.js"
     },
     "3G32-1": {
-        "titre": "Calcul d\\'un parallèle terrestre",
+        "titre": "Calcul d'un parallèle terrestre",
         "url": "/exercices/3e/3G32-1.js"
     },
     "3G32-2": {
-        "titre": "Calculer la hauteur d\\'un objet vu sous un angle donné",
+        "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
         "url": "/exercices/3e/3G32-2.js"
     },
     "3G32-3": {
@@ -269,7 +269,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3G32-3.js"
     },
     "3G32-4": {
-        "titre": "Calculer la hauteur d\\'une montagne",
+        "titre": "Calculer la hauteur d'une montagne",
         "url": "/exercices/3e/3G32-4.js"
     },
     "3G32-5": {
