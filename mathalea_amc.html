@@ -190,26 +190,34 @@
               </div>
             </form>
             <div id="options_type_entete">
+            <h4>  <label>Type d'entête :</label></h4>
               <div class="inline fields">
-                <label>Type d'entête :</label>
-                <div class="field">
                   <div class="ui radio checkbox">
                     <input type="radio" name="type" id="type_AMCcodeGrid" value="AMCcodeGrid" checked="" tabindex="0" class="hidden">
-                    <label>Grille de codage</label>
+                    <label>Grille de codage &nbsp;&nbsp;&nbsp  </label>
                   </div>
-                </div>
-                <div class="field">
                   <div class="ui radio checkbox">
                     <input type="radio" name="type" id="type_AMCassociation" value="AMCassociation" tabindex="0" class="hidden">
-                    <label>Copies pré-remplies</label>
+                    <label>Copies pré-remplies &nbsp;&nbsp;&nbsp  </label>
                   </div>
-                </div>
-                <div class="field">
                   <div class="ui radio checkbox">
                     <input type="radio" name="type" id="type_champnom" value="champnom" tabindex="0" class="hidden">
                     <label>Nom et prénom manuscrits</label>
                   </div>
-                </div>
+              </div>
+            </div>
+            <br>
+            <div id="options_format">
+              <h4><label>Format :</label></h4>
+              <div class="inline fields">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="format" id="format_A4" value="A4" checked="" tabindex="0" class="hidden">
+                    <label>Format A4 portrait &nbsp;&nbsp;&nbsp    </label>
+                  </div>
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="format" id="format_A3" value="A3" tabindex="0" class="hidden">
+                    <label>Format A3 paysage 2 colonnes</label>
+                  </div>
               </div>
             </div>
             <h4 class="ui block header">Nombres de questions pour chaque groupe séparés par des virgules (un seul par groupe dans l'ordre des groupes)<br>Exemple : si la sélection est 3G30,3G30,3G30,5N20, on peut mettre 1,3 ce qui donnera une question 3G30 et trois questions 5N20</h4>
@@ -245,6 +253,10 @@
                   <i class="download icon"></i> Images
                 </button></a
               >
+              <a href="fichiers/automultiplechoice.sty" class="lien_images">
+                <button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i>paquet AMC</button>
+              </a>
+
             </div>
           </div>
           <!-- </div> -->

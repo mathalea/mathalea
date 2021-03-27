@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
+import { liste_de_question_to_contenu, combinaison_listes } from "/modules/outils.js"
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -20,26 +20,25 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['type1','type2','type3']; // On créé 3 types de questions
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let type_de_questions_disponibles = ['type1', 'type2', 'type3']; // On créé 3 types de questions
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-        // Boucle principale où i+1 correspond au numéro de la question
+      // Boucle principale où i+1 correspond au numéro de la question
       switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1': 
-          texte = `Question ${i+1} de type 1`;
-          texte_corr = `Correction ${i+1} de type 1`;
+        case 'type1':
+          texte = `Question ${i + 1} de type 1`;
+          texte_corr = `Correction ${i + 1} de type 1`;
           break;
-        case 'type2': 
-            texte = `Question ${i+1} de type 2`;
-            texte_corr = `Correction ${i+1} de type 2`;
+        case 'type2':
+          texte = `Question ${i + 1} de type 2`;
+          texte_corr = `Correction ${i + 1} de type 2`;
           break;
         case 'type3': // Table de 200
-            texte = `Question ${i+1} de type 2`;
-            texte_corr = `Correction ${i+1} de type 2`;
+          texte = `Question ${i + 1} de type 2`;
+          texte_corr = `Correction ${i + 1} de type 2`;
           break;
-        
-      }
 
+      }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
@@ -50,7 +49,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  // this.besoin_formulaire_numerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
+
 }
 
 // python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu

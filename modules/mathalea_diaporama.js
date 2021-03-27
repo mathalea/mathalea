@@ -10,6 +10,7 @@ $(document).ready(function () {
         form_choix_de_la_duree.value = mathalea.duree;
     } else {
         form_choix_de_la_duree.value = 10;
+		mathalea.duree = 10;
     }
 
     form_choix_de_la_duree.addEventListener("change", function (e) {

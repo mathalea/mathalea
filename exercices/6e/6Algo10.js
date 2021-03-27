@@ -71,7 +71,7 @@ export default function Colorier_Deplacement() {
       lstY.push(lstY[lstY.length - 1] + lstAjoutXY[n][1]); // calcul de la nouvelle ordonnée
     }
     for (let j = 0; j < nbRepetition - 1; j++) {
-      for (i = 0; i < 2 * nbCommandes; i++) {
+      for (let i = 0; i < 2 * nbCommandes; i++) {
         lstX.push(lstX[lstX.length - 1] + lstAjoutXY[lstNumCommande[i]][0]);
         lstY.push(lstY[lstY.length - 1] + lstAjoutXY[lstNumCommande[i]][1]);
       }

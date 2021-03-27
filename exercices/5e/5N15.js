@@ -13,7 +13,7 @@ export default function Probleme_de_ratio() {
   this.pas_de_version_HMTL = false
   this.sup = 3
   this.spacing=2
-  this.spacing_corr=2.5
+  this.spacing_corr=3
 
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
@@ -90,10 +90,10 @@ export default function Probleme_de_ratio() {
 
           }
           else {
-            texte_corr += `Si les enfants se partageaient $${x}+${y}+${z}=${x + y + z}$ ${objets[index%5]} alors ${prenoms[0].prenom} en aurait $${x}$, ${prenoms[1].prenom} en aurait $${y}$ et ${prenoms[2]} en aurait $${z}$.`
+            texte_corr += `Si les enfants se partageaient $${x}+${y}+${z}=${x + y + z}$ ${objets[index%5]} alors ${prenoms[0].prenom} en aurait $${x}$, ${prenoms[1].prenom} en aurait $${y}$ et ${prenoms[2].prenom} en aurait $${z}$.`
             texte_corr += `<br>Mais il y a $${total}$ ${objets[index%5]}, soit $${mise_en_evidence(k)}\\times ${x + y + z}$ ${objets[index%5]}.<br>`
-            texte_corr += `Donc ${prenoms[0].prenom} en aura $${mise_en_evidence(k)}\\times ${x}=${k * x}$, ${prenoms[1].prenom} en aura $${mise_en_evidence(k)}\\times ${y}=${k * y}$ et  ${prenoms[2]} en aura $${mise_en_evidence(k)}\\times ${z}=${k * z}$.<br>`
-            texte_corr += `Conclusion : ${prenoms[0].prenom} aura $${k * x}$ ${objets[index%5]}, ${prenoms[1].prenom} en aura $${k * y}$ et  ${prenoms[2]} en aura $${k * z}$.`
+            texte_corr += `Donc ${prenoms[0].prenom} en aura $${mise_en_evidence(k)}\\times ${x}=${k * x}$, ${prenoms[1].prenom} en aura $${mise_en_evidence(k)}\\times ${y}=${k * y}$ et  ${prenoms[2].prenom} en aura $${mise_en_evidence(k)}\\times ${z}=${k * z}$.<br>`
+            texte_corr += `Conclusion : ${prenoms[0].prenom} aura $${k * x}$ ${objets[index%5]}, ${prenoms[1].prenom} en aura $${k * y}$ et  ${prenoms[2].prenom} en aura $${k * z}$.`
           }
           break
         case 'mélange':
