@@ -1632,10 +1632,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
         "url": "/exercices/beta/beta6P11.js"
     },
-    "beta6exemple1Matt": {
-        "titre": "Exercice exemple",
-        "url": "/exercices/6e/beta6exemple1Matt.js"
-    },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
