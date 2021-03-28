@@ -21,7 +21,7 @@ export default function Graphiques_et_proportionnalite2() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 1.5 : this.spacing = 1;
+  sortie_html ? this.spacing = 2 : this.spacing = 1;
   //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 
   let type_de_questions_disponibles;

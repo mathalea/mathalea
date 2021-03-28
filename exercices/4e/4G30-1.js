@@ -6,5 +6,5 @@ export default function Thales_4eme() {
   Exercice_Thales.call(this);
   this.titre = "Calculer des longueurs avec la propriété de Thalès (MG32)";
   this.quatrieme = true;
-  sortie_html ? this.spacing = 1.5 : this.spacing = 1;
+  sortie_html ? this.spacing = 2 : this.spacing = 1;
 }

@@ -13,7 +13,7 @@ export default function Agrandissement_reduction() {
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1.5;
-	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;

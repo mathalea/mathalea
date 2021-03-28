@@ -12,7 +12,7 @@ export default function Premier_escape_game_mathalea() {
 	this.consigne = "Trouver le mot de passe.";
 	this.nb_questions = 1;
 	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1.5;
-	sortie_html ? this.spacing = 1 : this.spacing = 1.5;
+	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
