@@ -11,7 +11,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.consigne = "";
   this.nb_questions_modifiable = false;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
+  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
   //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = ""; // Id YouTube ou url
