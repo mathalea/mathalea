@@ -8391,10 +8391,12 @@ preambule+=`
 	// nb_question est un tableau passé en paramètre à la fonction creer_document_AMC pour déterminer le nombre de questions à restituer par groupe.
 	// si ce nombre est 0, on restitue toutes les questions du groupe
 	let contenu_copie=''
+	if (type_entete=="AMCcodeGrid"){
+		contenu_copie +=`		\\def\\AMCchoiceLabel##1{}`
+		}
 	for (let g of groupeDeQuestions) {
 		let i = groupeDeQuestions.indexOf(g)
 		contenu_copie += `
-		\\def\\AMCchoiceLabel##1{}
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}
