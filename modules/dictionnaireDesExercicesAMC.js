@@ -71,9 +71,21 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/6e/6G33.js",
         "titre":"Reconnaitre un quadrilatère particulier à partir de ses propriétés (QCM)"
     },
+    "5L10": {
+        "titre": "Écrire une expression littérale",
+        "url": "/exercices/5e/5L10.js"
+    },
     "6N23-5":{
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
+    },
+    "6N43": {
+        "titre": "Critères de divisibilité",
+        "url": "/exercices/6e/6N43.js"
+    },
+    "6N43-2": {
+        "titre": "Critères de divisibilité (plusieurs possibles)",
+        "url": "/exercices/6e/6N43-2.js"
     },
     "5N13": {
         "url": "/exercices/5e/5N13.js",
@@ -87,9 +99,17 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/5e/5N20.js",
         "titre":"Additionner ou soustraire deux fractions (dénominateurs multiples) (QCM)"
     },
+    "5R20": {
+        "titre": "Addition de deux entiers relatifs (QCM)",
+        "url": "/exercices/5e/5R20.js"
+    },
     "4C32": {
         "titre": "Notation scientifique",
         "url": "/exercices/4e/4C32.js"
+    },
+    "4G30": {
+        "titre": "Calculer des longueurs avec la propriété de Thalès (NC+)",
+        "url": "/exercices/4e/4G30.js"
     },
     "4G40":{
         "url":"/exercices/4e/4G40.js",
@@ -102,6 +122,10 @@ export let dictionnaireDesExercicesQCM = {
     "3G31":{
         "url":"/exercices/3e/3G31.js",
         "titre":"Déterminer un angle grâce à la trigonométrie "
+    },
+    "3G32-1": {
+        "titre": "Calcul d'un parallèle terrestre",
+        "url": "/exercices/3e/3G32-1.js"
     },
      
     };

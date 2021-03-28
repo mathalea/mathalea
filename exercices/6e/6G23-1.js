@@ -93,9 +93,9 @@ export default function Mesurer_un_angle() {
         texte_corr=''
         shuffle2tableaux(tabrep, tabicone);
         for (let i=0; i<tabrep.length; i++) {
-          texte += `$\\square\\; ${tex_nombre2(tabrep[i])}\\degree$` + espace ;
+          texte += `$\\square\\;$ ${tabrep[i]} ` + espace ;
          if (tabicone[i]==1) {
-           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]} ` + espace ;
          } else {
            texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
          }

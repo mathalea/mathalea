@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint,tex_fraction,calcul,choice,tex_nombre2,shuffle2tableaux} from "/modules/outils.js"
 import {fraction} from "/modules/Fractions.js"
+import { creerBoutonMathalea2d } from '../../modules/outils.js';
 
 /**
  * Donner la fraction correspondant à un nombre ou à un calcul
@@ -101,7 +102,7 @@ export default function Sens_de_la_fraction() {
           break  
             
         }
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
           texte_corr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);

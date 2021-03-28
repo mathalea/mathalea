@@ -257,11 +257,11 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3G32.js"
     },
     "3G32-1": {
-        "titre": "Calcul d\\'un parallèle terrestre",
+        "titre": "Calcul d'un parallèle terrestre",
         "url": "/exercices/3e/3G32-1.js"
     },
     "3G32-2": {
-        "titre": "Calculer la hauteur d\\'un objet vu sous un angle donné",
+        "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
         "url": "/exercices/3e/3G32-2.js"
     },
     "3G32-3": {
@@ -269,7 +269,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3G32-3.js"
     },
     "3G32-4": {
-        "titre": "Calculer la hauteur d\\'une montagne",
+        "titre": "Calculer la hauteur d'une montagne",
         "url": "/exercices/3e/3G32-4.js"
     },
     "3G32-5": {
@@ -1153,7 +1153,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/6e/6G42.js"
     },
     "6G43": {
-        "titre": "Connaître les propriétés du cube et du pavé droit",
+        "titre": "Représentation de solides",
         "url": "/exercices/6e/6G43.js"
     },
     "6M10": {
@@ -1592,6 +1592,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Déterminer un antécédent",
         "url": "/exercices/beta/beta3F23.js"
     },
+    "beta3G15": {
+        "titre": "Utiliser toutes les transformations",
+        "url": "/exercices/beta/beta3G15.js"
+    },
     "beta3G41": {
         "titre": "Représentation de solides",
         "url": "/exercices/beta/beta3G41.js"
@@ -1620,25 +1624,57 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
+    "beta6C33-1": {
+        "titre": "Parenthèses manquantes",
+        "url": "/exercices/beta/beta6C33-1.js"
+    },
     "beta6P11": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
         "url": "/exercices/beta/beta6P11.js"
-    },
-    "beta6exemple1": {
-        "titre": "Exercice exemple",
-        "url": "/exercices/beta/beta6exemple1.js"
     },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
     },
+    "betaC3": {
+        "titre": "Transformer des fractions décimal en nombre décimal",
+        "url": "/exercices/beta/betaC3.js"
+    },
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"
     },
+    "betaExemple1Type": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple1Type.js"
+    },
+    "betaExemple1TypeCalculLettre": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple1TypeCalculLettre.js"
+    },
+    "betaExemple3Types": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple3Types.js"
+    },
+    "betaExempleQuestionsDifferentes": {
+        "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+        "url": "/exercices/beta/betaExempleQuestionsDifferentes.js"
+    },
     "betaExercice_constructions_basiques": {
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
+    },
+    "betaExoSimpleMatthieu": {
+        "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
+        "url": "/exercices/beta/betaExoSimpleMatthieu.js"
+    },
+    "betaProbabilites": {
+        "titre": "Probabilités simples",
+        "url": "/exercices/beta/betaProbabilites.js"
+    },
+    "betaPuissances": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaPuissances.js"
     },
     "betaXcas": {
         "titre": "Test de XCas",
@@ -1679,6 +1715,10 @@ export let dictionnaireDesExercicesAleatoires =
     "c3N10": {
         "titre": "Écrire un nombre en chiffres ou en lettres",
         "url": "/exercices/c3/c3N10.js"
+    },
+    "c3N20": {
+        "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
+        "url": "/exercices/c3/c3N20.js"
     },
     "c3N22": {
         "titre": "Lire abscisse décimale sous trois formes",

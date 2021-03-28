@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,itemize} from "/modules/outils.js"
+import {shuffle2tableaux,liste_de_question_to_contenu,randint,combinaison_listes,itemize} from "/modules/outils.js"
 
 
 /**
@@ -16,8 +16,18 @@ export default function Traduire_un_programme_de_calcul() {
 	this.nb_cols_corr = 1;
 	this.spacing_corr = 1;
 	this.spacing = 1;
+	this.QCM_disponible=true
+	this.ModeQCM=false
 
 	this.nouvelle_version = function () {
+		this.QCM=['5L10-2',[],"Traduire un programme de calcul par une expression littérale",1,{ordered:false,lastChoices:0}]
+		let espace =``;
+		if (sortie_html) {
+		  espace = `&emsp;`;
+		} else {
+		  espace = `\\qquad`;
+		}
+		let tabrep,tabicone
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -37,6 +47,8 @@ export default function Traduire_un_programme_de_calcul() {
 					texte_corr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}=${b}x+${a * b}\\xrightarrow{+${c}}${b}x+${a * b + c}$`;
 					texte_corr += '<br>';
 					texte_corr += `Le résultat du programme est donc $${b}x+${a * b + c}$.`;
+					tabrep=[`$${b}x+${a * b + c}$`,`$${b}x+${a + c}$`,`$${b}x+${a*c}$`,`$${b*a}x+${c}$`]
+					tabicone=[1,0,0,0]
 					break;
 				case 2: // (ax+b)*c
 					texte = `Voici un programme de calcul : \n`;
@@ -45,6 +57,8 @@ export default function Traduire_un_programme_de_calcul() {
 					texte_corr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}=${a * c}y+${b * c}$`;
 					texte_corr += '<br>';
 					texte_corr += `Le résultat du programme est donc $${a * c}y+${b * c}$.`;
+					tabrep=[`$${a * c}y+${b * c}$`,`$${a}y+${b * c}$`,`$${b*a}x+${c}$`,`$${b}x+${a*c}$`]
+					tabicone=[1,0,0,0]
 					break;
 				case 3: // ax+b-2x
 					texte = `Voici un programme de calcul : \n`;
@@ -53,6 +67,8 @@ export default function Traduire_un_programme_de_calcul() {
 					texte_corr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a - 2}a+${b}$`;
 					texte_corr += '<br>';
 					texte_corr += `Le résultat du programme est donc $${a - 2}a+${b}$.`;
+					tabrep=[`$${a - 2}a+${b}$`,`$${a+b-2}a$`,`$${a}a+${b-2}$`,`$${a+b}-2a$`]
+					tabicone=[1,0,0,0]
 					break;
 				case 4: // ax+b+3x
 					texte = `Voici un programme de calcul : \n`;
@@ -61,6 +77,9 @@ export default function Traduire_un_programme_de_calcul() {
 					texte_corr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a + 3}t+${b}$`;
 					texte_corr += '<br>';
 					texte_corr += `Le résultat du programme est donc $${a + 3}t+${b}$.`;
+					tabrep=[`$${a + 3}t+${b}$`,`$${a+b+3}t$`,`$${a+b}t+3t$`,`$${a+b}t-3t$`]
+					tabicone=[1,0,0,0]
+
 					break;
 				case 5: // (ax+b)*c-d
 					texte = `Voici un programme de calcul : \n`;

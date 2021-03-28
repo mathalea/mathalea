@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,tex_nombre} from "/modules/outils.js"
+import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,tex_nombre} from "/modules/outils.js"
 
 
 /**
@@ -16,8 +16,19 @@ export default function Exercice_additions_relatifs(max = 20) {
 	this.titre = "Addition de deux entiers relatifs";
 	this.consigne = 'Calculer';
 	this.spacing = 2;
+	this.QCM_disponible=true
+	this.ModeQCM=false
 
 	this.nouvelle_version = function () {
+		this.QCM=['5R20',[],"tables et multiples de 10,100 et 1000",1]
+		let espace =``;
+		if (sortie_html) {
+		  espace = `&emsp;`;
+		} else {
+		  espace = `\\qquad`;
+		}
+		let tabrep,tabicone
+
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, k, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -33,10 +44,28 @@ export default function Exercice_additions_relatifs(max = 20) {
 				texte = '$ ' + ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
 				texte_corr = '$ ' + ecriture_nombre_relatifc(a) + ' + ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a + b) + ' $';
 			}
+			tabrep=[`$${a+b}$`,`$${a-b}$`,`$${-a+b}$`,`$${-a-b}$`]
+			tabicone=[1,0,0,0]
+			if (this.ModeQCM) {
+				texte_corr=''
+				texte+=`<br>  Réponses possibles : ${espace}  `
+				shuffle2tableaux(tabrep, tabicone);
+				for (let i=0; i<tabrep.length; i++) {
+				  texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+				 if (tabicone[i]==1) {
+				   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+				 } else {
+				   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+				 }
+			   }
+			  }
 
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
+				this.QCM[1].push([`${texte}\n`,
+				tabrep,
+				tabicone]) 
 				i++;
 			}
 			cpt++;
