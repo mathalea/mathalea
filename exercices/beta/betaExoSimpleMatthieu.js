@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, combinaison_listes, randint } from "/modules/outils.js"
+import { liste_de_question_to_contenu, combinaison_listes, calcul, randint } from "/modules/outils.js"
 /**
  * Description didactique de l'exercice
  * @Matthieu_Devillers
