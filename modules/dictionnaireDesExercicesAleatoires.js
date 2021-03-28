@@ -1636,13 +1636,13 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
     },
-    "betaC3": {
-        "titre": "Transformer des fractions décimal en nombre décimal",
-        "url": "/exercices/beta/betaC3.js"
-    },
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"
+    },
+    "betaExemple": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple.js"
     },
     "betaExemple1Type": {
         "titre": "Exercice exemple",
@@ -1691,10 +1691,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betarotation3d": {
         "titre": "Rotation 3d de polygones",
         "url": "/exercices/beta/betarotation3d.js"
-    },
-    "betatableaux_variation": {
-        "titre": "étude de fonction de degré 3",
-        "url": "/exercices/beta/betatableaux_variation.js"
     },
     "c3C10-1": {
         "titre": "Tables de multiplications",
