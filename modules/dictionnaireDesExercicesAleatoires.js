@@ -1660,6 +1660,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
     },
+    "betaExoSimpleMatthieu": {
+        "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
+        "url": "/exercices/beta/betaExoSimpleMatthieu.js"
+    },
     "betaProbabilites": {
         "titre": "Probabilités simples",
         "url": "/exercices/beta/betaProbabilites.js"
