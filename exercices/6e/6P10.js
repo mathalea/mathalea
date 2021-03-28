@@ -10,7 +10,7 @@ export default function Proportionnalite_pas_proportionnalite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Reconnaître une situation de proportionnalité";
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortie_html ? this.spacing = 1.5 : this.spacing = 1.4;
+  sortie_html ? this.spacing = 2 : this.spacing = 1.4;
   sortie_html ? this.spacing_corr = 1.5 : this.spacing_corr = 1;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
