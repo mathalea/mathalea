@@ -8153,7 +8153,7 @@ preambule+=`
 	%%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
 	%\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
 	%   remarque : avec completmulti => "aucune réponse ne convient" en +
-	 \\usepackage[francais,bloc]{automultiplechoice} %//,insidebox
+	 \\usepackage[francais,bloc,insidebox]{automultiplechoice} %//,insidebox
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%% PACKAGES MISE EN PAGE %%%%%
@@ -8311,7 +8311,7 @@ preambule+=`
 	Puis remplir les cases des trois premières lettres de votre \\textbf{nom de famille} PUIS des deux premières lettres de votre \\textbf{prénom}
 	\\vspace{1mm}
 	
-	\\def\\AMCchoiceLabelFormat##1{\\textcolor{gray!90}{{\\tiny ##1}}} % pour alléger la couleur des lettres dans les cases et les réduire
+	\\def\\AMCchoiceLabelFormat##1{\\textcolor{black!70}{{\\tiny ##1}}}  % pour alléger la couleur des lettres dans les cases et les réduire
 	\\AMCcodeGrid[h]{ID}{ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
 	ABCDEFGHIJKLMNOPQRSTUVWXYZ,
@@ -8381,7 +8381,7 @@ preambule+=`
 	entete_copie+=
 	`\n{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
 	
-	Les questions n'ont qu'une seule bonne réponse. Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
+	Les questions précédées de \\multiSymbole peuvent avoir plusieurs réponses.\\\\ Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
 	
 	→ Il est fortement conseillé de faire les calculs dans sa tête ou sur la partie blanche de la feuille sans regarder les solutions proposées avant de remplir la bonne case plutôt que d'essayer de choisir entre les propositions (ce qui demande de toutes les examiner et prend donc plus de temps) ←}
 	
@@ -8394,6 +8394,7 @@ preambule+=`
 	for (let g of groupeDeQuestions) {
 		let i = groupeDeQuestions.indexOf(g)
 		contenu_copie += `
+		\\def\\AMCchoiceLabel##1{}
 	\\begin{center}
 		\\hrule
 		\\vspace{2mm}

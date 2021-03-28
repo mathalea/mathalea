@@ -9,7 +9,7 @@ import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d
 */
 export default function Calculs_trigonometriques2() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la hauteur d\'un objet vu sous un angle donné";
+  this.titre = "Calculer la hauteur d'un objet vu sous un angle donné";
   this.consigne = "";
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
