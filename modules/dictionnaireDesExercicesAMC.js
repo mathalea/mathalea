@@ -71,6 +71,10 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/6e/6G33.js",
         "titre":"Reconnaitre un quadrilatère particulier à partir de ses propriétés (QCM)"
     },
+    "5L10": {
+        "titre": "Écrire une expression littérale",
+        "url": "/exercices/5e/5L10.js"
+    },
     "6N23-5":{
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
@@ -120,7 +124,7 @@ export let dictionnaireDesExercicesQCM = {
         "titre":"Déterminer un angle grâce à la trigonométrie "
     },
     "3G32-1": {
-        "titre": "Calcul d\\'un parallèle terrestre",
+        "titre": "Calcul d'un parallèle terrestre",
         "url": "/exercices/3e/3G32-1.js"
     },
      

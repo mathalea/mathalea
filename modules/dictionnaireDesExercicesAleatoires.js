@@ -1636,6 +1636,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
     },
+    "betaC3": {
+        "titre": "Transformer des fractions décimal en nombre décimal",
+        "url": "/exercices/beta/betaC3.js"
+    },
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"

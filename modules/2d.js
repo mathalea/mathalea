@@ -6408,6 +6408,7 @@ export function traceGraphiqueCartesien(...args) {
  * tabInit:[[[texte1,taille1,long1],[texte2,taille2,long2]...],[valeur1,long1,valeur2,long2,valeur3,long3...]]
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0 
+ * @Auteur Jean-Claude Lhote
  */
 function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
 
@@ -7303,6 +7304,22 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
     return code
   }
 }
+// tableau_de_variation crée une instance de la classe. voici le détail des paramètres.
+        // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
+        // lgt = taille de la première colonne tout est en cm
+        // tabInit contient 2 tableaux
+        // le premier contient des triplets [chaine d'entête,hauteur de ligne,nombre de pixels de largeur estimée du texte pour le centrage]
+        // le deuxième contient une succession de chaines et de largeurs en pixels : ce sont les antécédent de la ligne d'entête
+        // tabLines contient des tableaux de la forme ['type',...] 
+        // type est 'Line' pour une ligne de signes et valeurs. Les valeurs sont données avec à la suite leur largeur estimée en pixels.
+        // type est 'Var' pour une ligne de variations. Les variations sont des chaines respectant une syntaxe particulière.
+        // On intercale une largeur estimée pour le texte éventuel
+        // type est 'Ima' il faut 4 paramètres numériques : le 1er et le 2e sont les N° des antécédents entre lesquels on veut placer l'image
+        // le 3e est la valeur de l'image et le 4e est la largeur estimée en pixels 
+        // type est 'Val' il faut 5 paramètres : Idem Ima pour les deux premiers, le 3e est l'antécédent à ajouter, le 4e son image et le 5e sa taille
+        // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
+       // reste à faire les types  'Slope"
+
 export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [], colorBackground = 'gray' }) {
   return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes, colorBackground: colorBackground })
 }

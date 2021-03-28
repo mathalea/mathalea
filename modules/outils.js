@@ -8414,7 +8414,7 @@ preambule+=`
 		contenu_copie+=`\\end{multicols}\n`
 	}
 	if (type_entete=="AMCassociation"){
-		contenu_copie+=`\\AMCassociation{\id}\n
+		contenu_copie+=`\\AMCassociation{\\id}\n
 	  }
 	}\n`
 	}
