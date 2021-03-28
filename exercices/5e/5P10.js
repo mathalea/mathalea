@@ -23,7 +23,7 @@ export default function Tableaux_et_proportionnalite() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
 	let type_de_questions_disponibles;

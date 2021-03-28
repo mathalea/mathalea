@@ -17,7 +17,7 @@ export default function Proportionnalite_par_linearite_bis() {
 
   this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
   this.consigne = "";
-  sortie_html ? this.spacing = 1.5 : this.spacing = 1;
+  sortie_html ? this.spacing = 2 : this.spacing = 1;
 
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

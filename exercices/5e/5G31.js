@@ -25,7 +25,7 @@ export default function Exercice_angles_triangles() {
 	this.titre = "Somme des angles dans un triangle";
 	this.consigne = '';
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1.5;
-	sortie_html ? this.spacing = 2 : this.spacing = 1.5;
+	sortie_html ? this.spacing = 2 : this.spacing = 2;
 	this.nb_questions = 5;
 	this.consigne_modifiable = false;
 	this.correction_detaillee_disponible = true;
