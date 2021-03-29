@@ -8486,6 +8486,55 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
   }
 }
 
+export const codesScratch = {
+  "Aller à droite": {
+    "svg": "Aller à droite",
+    "tikz": "\\blockmove{Aller à droite}"
+  },
+  "Aller à gauche": {
+    "svg": "Aller à gauche",
+    "tikz": "\\blockmove{Aller à gauche}"
+  },
+  "Aller en haut": {
+    "svg": "Aller en haut",
+    "tikz": "\\blockmove{Aller en haut}"
+  },
+  "Aller en bas": {
+    "svg": "Aller en bas",
+    "tikz": "\\blockmove{Aller en bas}"
+  }
+}
+function ScratchBlock(listeDeCommandes) {
+  ObjetMathalea2D.call(this);
+  
+  this.svg = function (coeff) {
+    let commande
+    let code = `<pre class='blocks'>`;
+    for (let i = 0; i < listeDeCommandes.length; i++) {
+      commande = listeDeCommandes[i]
+      code += codesScratch[commande].svg + '<br>'
+    }
+    code += `</pre>`;
+    return code
+  }
+
+  this.tikz = function () {
+    let commande
+    let code = `\\medskip \n \\begin{scratch} \n`;
+    for (let i = 0; i < listeDeCommandes.length; i++) {
+      commande = listeDeCommandes[i]
+      code += codesScratch[commande].tikz + '\n'
+    }
+    code += `\\end{scratch}\n`;
+    return code
+  }
+
+}
+
+export function scratchblock(listeDeCommandes) {
+  return new ScratchBlock(listeDeCommandes);
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
