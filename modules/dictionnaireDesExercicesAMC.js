@@ -75,6 +75,10 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Écrire une expression littérale",
         "url": "/exercices/5e/5L10.js"
     },
+    "5L10-2": {
+        "titre": "Traduire un programme de calcul par une expression littérale",
+        "url": "/exercices/5e/5L10-2.js"
+    },
     "6N23-5":{
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
