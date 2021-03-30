@@ -10,6 +10,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
     let liste_des_exercices = []; // Liste des identifiants des exercices
     let code_LaTeX = "";
     let liste_packages = new Set();
+    window.listeIEP = [];
     // création des figures MG32 (géométrie dynamique)	
 
     menuDesExercicesDisponibles();
@@ -176,12 +177,16 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             });
             let besoinMG32 = false;
             let besoinScratch = false;
+            let besoinIEP = false;
               for (let i = 0; i < liste_des_exercices.length; i++) {
                 if (listeObjetsExercice[i].type_exercice == "MG32") {
                  besoinMG32 = true
                 }
                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
                  besoinScratch = true
+                }
+                if (listeObjetsExercice[i].type_exercice == "IEP") {
+                 besoinIEP = true
                 }
               }
               if (besoinMG32){
@@ -212,6 +217,29 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     mathalea.listeDesScriptsCharges.push('Scratch')
                   })
               }
+              if (besoinIEP){
+                loadScript("/modules/iepjsmin.js")
+                .then(()=>{
+                  loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
+                })
+                .then(()=>{
+                    // MathJax.Hub.Config({
+                    //     tex2jax: {
+                    //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
+                    //     },
+                    //     jax: ["input/TeX", "output/SVG"],
+                    //     TeX: { extensions: ["color.js"] },
+                    //     messageStyle: 'none'
+                    // });
+                    let iepApp = new iep.iepApp()
+                    for (let id of window.listeIEP){
+                        loadIEP(id,iepApp)
+                    }
+                    //mathalea.listeDesScriptsCharges.push('IEP')
+                    
+                })
+
+            }
         }
 
 
@@ -286,6 +314,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
               
               let besoinMG32 = false;
               let besoinScratch = false;
+              let besoinIEP = false;
               for (let i = 0; i < liste_des_exercices.length; i++) {
                 if (listeObjetsExercice[i].type_exercice == "MG32") {
                  besoinMG32 = true
@@ -293,6 +322,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
                  besoinScratch = true
                 }
+                if (listeObjetsExercice[i].type_exercice == "IEP") {
+                    besoinIEP = true
+                   }
                
               }
               
@@ -324,6 +356,28 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     mathalea.listeDesScriptsCharges.push('Scratch')
                   })
               }
+              if (besoinIEP){
+                loadScript("/modules/iepjsmin.js")
+                .then(()=>{
+                  loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
+                })
+                .then(()=>{
+                    // MathJax.Hub.Config({
+                    //     tex2jax: {
+                    //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
+                    //     },
+                    //     jax: ["input/TeX", "output/SVG"],
+                    //     TeX: { extensions: ["color.js"] },
+                    //     messageStyle: 'none'
+                    // });
+                    let iepApp = new iep.iepApp()
+                    for (let id of window.listeIEP){
+                        loadIEP(id,iepApp)
+                    }
+                    
+                })
+
+            }
         } 
         if (!sortie_html) {
             // Sortie LaTeX
@@ -687,6 +741,21 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         }
                 }, 500);
           })
+    }
+    
+    function loadIEP(id,iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
+        if (sortie_html) {
+            let xml = document.getElementById(`figurexml${id}`).innerHTML
+            let container = document.getElementById(`IEPContainer${id}`)
+            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            let width = Math.max((window.outerWidth*0.625) || 0, 800)
+            let height = Math.max((window.outerHeight*0.8) || 0, 600)
+            svg.setAttributeNS(null, "width", width);
+            svg.setAttributeNS(null, "height", height);
+            svg.setAttributeNS(null, "id", "svg");
+            container.appendChild(svg);
+            iepApp.addDoc(svg, xml, false /* autostart */)
+        }
     }
 
     // GESTION DE MG32

@@ -1,5 +1,5 @@
-import { tableau_de_variation, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, polygoneRegulierIndirect, carre, carreIndirect, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, segmentMainLevee, cercleMainLevee, droiteMainLevee, polygoneMainLevee, arcMainLevee, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sens_de_rotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, CodageHauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, print2d, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage } from "/modules/2d.js"
-import {calcul} from "/modules/outils.js"
+import {point,pointAdistance,droite,segment,triangle2points2longueurs,longueur,angle} from "/modules/2d.js"
+import { calcul, randint, creer_modal } from "/modules/outils.js"
 
 
 /*
@@ -18,37 +18,37 @@ export function Alea2iep() {
 
     // Sauvegarde de l'état des instruments
     this.regle = {
-        visibilite : false,
-        position : point(0,0),
-        angle : 0,
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
     }
-    
-    this.crayon = {
-        visibilite : false,
-        position : point(0,0),
-        angle : 0,
-    }
-    
-    this.equerre = {
-        visibilite : false,
-        position : point(0,0),
-        angle : 0,
-    }
-    
-    this.rapporteur = {
-        visibilite : false,
-        position : point(0,0),
-        angle : 0,
-    }
-    
 
-    this.compas = { 
-        visibilite : false,
-        position : point(0,0),
-        angle : 0,
-        orientation : "droite",
-        ecartement : 0,
-        leve : false,
+    this.crayon = {
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
+    }
+
+    this.equerre = {
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
+    }
+
+    this.rapporteur = {
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
+    }
+
+
+    this.compas = {
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
+        orientation: "droite",
+        ecartement: 0,
+        leve: false,
     }
 
     this.script = function () {
@@ -58,6 +58,20 @@ export function Alea2iep() {
         codeXML += `\n</INSTRUMENPOCHE>`
         return codeXML
     }
+    this.html = function (numero_de_l_exercice, i) {
+        if (sortie_html) {
+            window.listeIEP.push(`${numero_de_l_exercice}_${i}`) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+            let codeHTML = `<div id="IEPContainer${numero_de_l_exercice}_${i}"></div>
+            <script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
+                ${this.script()}
+            </script>`
+    
+            // return codeHTML
+            return creer_modal(numero_de_l_exercice, codeHTML, "Correction animée", "play circle")
+        }
+    }
+
+
 }
 
 /**
@@ -75,7 +89,7 @@ Alea2iep.prototype.montrer = function (objet, A, tempo = this.tempo) {
         }
         let A1;
         if (typeof A == 'undefined') { // A1 est une copie de A ou (0,0) si A n'est pas défini
-             A1 = this[objet].position
+            A1 = this[objet].position
         } else {
             A1 = A
         }
@@ -153,7 +167,7 @@ Alea2iep.prototype.rapporteurMasquer = function (tempo) {
 */
 
 Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, couleur = this.couleur) {
-    this.idIEP ++
+    this.idIEP++
     let tempoTexte = ''
     if (tempo) {
         tempoTexte = `tempo="${tempo}"`
@@ -196,19 +210,19 @@ Alea2iep.prototype.compasEcarter = function (l, tempo = this.tempo) {
     if (tempo) {
         tempoTexte = `tempo="${tempo}"`
     }
-    let codeXML = `<action ecart="${calcul(l*30,1)}" mouvement="ecarter" objet="compas" ${tempoTexte} />`
+    let codeXML = `<action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" ${tempoTexte} />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
 }
 
 
 Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
-    this.regleRotation(0,0)
-    this.regleMontrer(this.compas.position,0)
-    this.regleDeplacer(this.compas.position,0)
+    this.regleRotation(0, 0)
+    this.regleMontrer(this.compas.position, 0)
+    this.regleDeplacer(this.compas.position, 0)
     this.compasMontrer()
-    this.compasRotation(0,0)
-    this.compasEcarter(l,tempo)
+    this.compasRotation(0, 0)
+    this.compasEcarter(l, tempo)
 }
 
 
@@ -218,14 +232,14 @@ Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasEcarter2Points = function (A , B, tempo = this.tempo) {
+Alea2iep.prototype.compasEcarter2Points = function (A, B, tempo = this.tempo) {
     this.compas.montrer(A)
     this.compas.deplacer(A)
-    let s = segment(A,B)
+    let s = segment(A, B)
     s.isVisible = false
     let angle = s.angleAvecHorizontale
     this.compas.rotation(angle)
-    this.compas.ecarter(longueur(A,B))
+    this.compas.ecarter(longueur(A, B))
 }
 
 /**
@@ -283,7 +297,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
         pointillesTexte = 'pointille="tiret"'
     }
     this.idIEP += 1
-    if (Math.abs(this.compas.angle-angle1) > Math.abs(this.compas.angle-angle2) ) { // On cherche à commencer par le point le plus proche de la position courante du compas
+    if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
         [angle1, angle2] = [angle2, angle1]
     }
     let codeXML = `<action sens="5" angle="${-angle1}" mouvement="rotation" objet="compas" ${tempoTexte} />\n`
@@ -291,7 +305,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
     codeXML += `<action sens="5" angle="${-angle1}" mouvement="rotation" objet="compas" />\n`
     let sensTexte
     if (angle2 > angle1) {
-        sensTexte = vitesse        
+        sensTexte = vitesse
     } else {
         sensTexte = -1 * vitesse
     }
@@ -308,16 +322,16 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
 Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
     this.compasMontrer()
     this.compasDeplacer(centre)
-    let s = segment(centre,point)
+    let s = segment(centre, point)
     s.visibility = false
     let angle1 = s.angleAvecHorizontale - delta
     let angle2 = s.angleAvecHorizontale + delta
-    if ((Math.abs(this.compas.ecartement - longueur(this.compas.position,point))) > .1) {
-        this.compasEcarter(longueur(centre,point))
+    if ((Math.abs(this.compas.ecartement - longueur(this.compas.position, point))) > .1) {
+        this.compasEcarter(longueur(centre, point))
     }
     this.compasTracerArc2Angles(angle1, angle2, tempo, vitesse, epaisseur, couleur, pointilles)
 }
-  
+
 
 
 /**
@@ -441,5 +455,37 @@ Alea2iep.prototype.polygoneTracer = function (...sommets) {
         this.segmentTracer(sommets[i], sommets[i + 1])
     }
     this.segmentTracer(sommets[sommets.length - 1], sommets[0])
+}
+
+Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC) {
+    let A = point(6, 0)
+    let B = pointAdistance(A, AB, randint(-20, 20))
+    let p = triangle2points2longueurs(A, B, AC, BC)
+    let C = p.listePoints[2]
+    A.nom = ABC[0]
+    B.nom = ABC[1]
+    C.nom = ABC[2]
+
+    this.pointCreer(A)
+    this.regleMontrer(A)
+    this.segmentTracer(A, B)
+    this.pointCreer(B)
+    this.crayonMasquer()
+    this.couleur = "forestgreen"
+    this.epaisseur = 2
+    this.compasMontrer(A)
+    this.compasEcarterAvecRegle(AC)
+    this.compasTracerArcCentrePoint(A, C, 40)
+    this.compasDeplacer(B)
+    this.compasEcarterAvecRegle(BC)
+    this.compasTracerArcCentrePoint(B, C)
+    this.compasMasquer()
+    this.couleur = "blue"
+    this.epaisseur = 3
+    this.pointCreer(C)
+    this.segmentTracer(B, C)
+    this.segmentTracer(C, A)
+    this.crayonMasquer()
+    this.regleMasquer()
 }
 
