@@ -747,7 +747,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         if (sortie_html) {
             let xml = document.getElementById(`figurexml${id}`).innerHTML
             let container = document.getElementById(`IEPContainer${id}`)
-            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            container.innerHTML = ''
+            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
             let width = Math.max((window.outerWidth*0.625) || 0, 800)
             let height = Math.max((window.outerHeight*0.8) || 0, 600)
             svg.setAttributeNS(null, "width", width);

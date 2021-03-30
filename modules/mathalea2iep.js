@@ -11,7 +11,8 @@ export function Alea2iep() {
     this.idIEP = 0; // Identifiant pour les tracés
     this.tempo = 10; // Pause par défaut après une instruction
     this.vitesse = 10; // Vitesse par défaut pour les déplacements d'instruments
-    this.couleur = "blue"; // Couleur par défaut 
+    this.couleur = "blue"; // Couleur par défaut
+    this.couleurTexte = "black";
     this.couleurLabelPoint = "black"; // Couleur du nom des points
     this.epaisseur = 3;
     this.liste_script = []; // Liste des instructions xml mise à jour par les méthodes
@@ -67,7 +68,7 @@ export function Alea2iep() {
             </script>`
     
             // return codeHTML
-            return creer_modal(numero_de_l_exercice, codeHTML, "Correction animée", "play circle")
+            return creer_modal(`${numero_de_l_exercice}_${i}`, codeHTML, "Correction animée", "play circle")
         }
     }
 
@@ -455,6 +456,22 @@ Alea2iep.prototype.polygoneTracer = function (...sommets) {
         this.segmentTracer(sommets[i], sommets[i + 1])
     }
     this.segmentTracer(sommets[sommets.length - 1], sommets[0])
+}
+
+Alea2iep.prototype.textePosition = function (x, y, texte, police, tempo = this.tempo, couleur = this.couleurTexte) {
+    this.idIEP++
+    let tempoTexte = ''
+    if (tempo) {
+        tempoTexte = `tempo="${tempo}"`
+    }
+    let policeTexte = ''
+    if (police) {
+        policeTexte = `police="${police}"`
+    }
+    let A = point(x,y)
+    let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
+    codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" />`
+    this.liste_script.push(codeXML)
 }
 
 Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC) {
