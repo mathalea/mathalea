@@ -8488,26 +8488,28 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
 
 export const codesScratch = {
   "Aller à droite": {
+    "type":"move",
     "svg": "Aller à droite",
     "tikz": "\\blockmove{Aller à droite}"
   },
   "Aller à gauche": {
+    "type":"move",
     "svg": "Aller à gauche",
     "tikz": "\\blockmove{Aller à gauche}"
   },
   "Aller en haut": {
+    "type":"move",
     "svg": "Aller en haut",
     "tikz": "\\blockmove{Aller en haut}"
   },
   "Aller en bas": {
+    "type":"move",
     "svg": "Aller en bas",
     "tikz": "\\blockmove{Aller en bas}"
   }
 }
-function ScratchBlock(listeDeCommandes) {
-  ObjetMathalea2D.call(this);
-  
-  this.svg = function (coeff) {
+export function scratchblock(listeDeCommandes) {
+  let code_svg = function (listeDeCommandes) {
     let commande
     let code = `<pre class='blocks'>`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
@@ -8518,7 +8520,7 @@ function ScratchBlock(listeDeCommandes) {
     return code
   }
 
-  this.tikz = function () {
+  let code_latex = function (listeDeCommandes) {
     let commande
     let code = `\\medskip \n \\begin{scratch} \n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
@@ -8528,12 +8530,15 @@ function ScratchBlock(listeDeCommandes) {
     code += `\\end{scratch}\n`;
     return code
   }
+  if (sortie_html){
+    return code_svg(listeDeCommandes)
+  }
+  else {
+    return code_latex(listeDeCommandes)
+  }
 
 }
 
-export function scratchblock(listeDeCommandes) {
-  return new ScratchBlock(listeDeCommandes);
-}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

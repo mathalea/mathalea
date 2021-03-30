@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js";
-import {mathalea2d} from "/modules/2d.js";
+import {mathalea2d,scratchblock} from "/modules/2d.js";
 
 class NoteLaCouleur{
     constructor(){
@@ -19,11 +19,11 @@ class NoteLaCouleur{
     }
 }
 
-export default function NoteLaCouleur() {
+export default function Note_la_couleur() {
     "use strict";
     Exercice.call(this);
     this.titre = "Note la couleur";
-    this.nb_questions = 4; 
+    this.nb_questions = 1; 
     this.nb_questions_modifiable=true ;
     this.nb_cols = 1; 
     this.nb_cols_corr = 1;
@@ -53,6 +53,7 @@ export default function NoteLaCouleur() {
 
         switch (liste_type_de_questions[i]) { 
           case 1:
+               texte=scratchblock(["Aller en haut","Aller en bas"])
                
    
           break;
@@ -70,14 +71,14 @@ export default function NoteLaCouleur() {
           break ; 
             
         }
-    objets_enonce.push ();
-    objets_correction.push();
+  //  objets_enonce.push ();
+    //objets_correction.push();
   
 
-        params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-        params_correction = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 };
-        texte += mathalea2d(params_enonce, objets_enonce);
-        texte_corr += mathalea2d(params_correction, objets_correction);
+  //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
+    //    params_correction = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 };
+    //    texte += mathalea2d(params_enonce, objets_enonce);
+      //  texte_corr += mathalea2d(params_correction, objets_correction);
         if (this.liste_questions.indexOf(texte) == -1) {
           this.liste_questions.push(texte);
           this.liste_corrections.push(texte_corr);
