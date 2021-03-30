@@ -8487,34 +8487,22 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
 }
 
 export const codesScratch = {
-  "Aller à droite": {
-    "type":"move",
-    "svg": "Aller à droite",
-    "tikz": "\\blockmove{Aller à droite}"
-  },
-  "Aller à gauche": {
-    "type":"move",
-    "svg": "Aller à gauche",
-    "tikz": "\\blockmove{Aller à gauche}"
-  },
-  "Aller en haut": {
-    "type":"move",
-    "svg": "Aller en haut",
-    "tikz": "\\blockmove{Aller en haut}"
-  },
-  "Aller en bas": {
-    "type":"move",
-    "svg": "Aller en bas",
-    "tikz": "\\blockmove{Aller en bas}"
+  "Aller à droite":"\\blockmove{Aller à droite}"
+  ,
+  "Aller à gauche":"\\blockmove{Aller à gauche}"
+  ,
+  "Aller en haut":"\\blockmove{Aller en haut}"
+  ,
+  "Aller en bas":"\\blockmove{Aller en bas}"
+  ,
+  "avancer de %1 pas":"\\blockmove{avancer de \\ovalnum{%1} pas}"
   }
-}
+
 export function scratchblock(listeDeCommandes) {
   let code_svg = function (listeDeCommandes) {
-    let commande
     let code = `<pre class='blocks'>`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
-      commande = listeDeCommandes[i]
-      code += codesScratch[commande].svg + '<br>'
+      code += listeDeCommandes[i]+ '<br>'
     }
     code += `</pre>`;
     return code
@@ -8525,11 +8513,12 @@ export function scratchblock(listeDeCommandes) {
     let code = `\\medskip \n \\begin{scratch} \n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
       commande = listeDeCommandes[i]
-      code += codesScratch[commande].tikz + '\n'
+      code += codesScratch[commande]+ '\n'
     }
     code += `\\end{scratch}\n`;
     return code
   }
+  console.log( "code html :\n", code_svg(listeDeCommandes),"\n \ncode latex :\n",code_latex(listeDeCommandes))
   if (sortie_html){
     return code_svg(listeDeCommandes)
   }

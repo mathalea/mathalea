@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js";
+import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js";
 import {mathalea2d,scratchblock} from "/modules/2d.js";
 
 class NoteLaCouleur{
@@ -53,7 +53,7 @@ export default function Note_la_couleur() {
 
         switch (liste_type_de_questions[i]) { 
           case 1:
-               texte=scratchblock(["Aller en haut","Aller en bas"])
+               texte=scratchblock(["Aller en haut","Aller en bas",`avancer de (${randint(10,30)}) pas`])
                
    
           break;
