@@ -61,19 +61,36 @@ export function Alea2iep() {
     }
     this.html = function (numero_de_l_exercice, i) {
         if (sortie_html) {
-            window.listeIEP.push(`${numero_de_l_exercice}_${i}`) // Sauvegard le liste de toutes les animations à ajouter aux exercices
-            let codeHTML = `<div id="IEPContainer${numero_de_l_exercice}_${i}"></div>
-            <script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
+            let id = `${numero_de_l_exercice}_${i}`
+            window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+            let codeHTML = `<script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
                 ${this.script()}
-            </script>`
-    
-            // return codeHTML
-            return creer_modal(`${numero_de_l_exercice}_${i}`, codeHTML, "Correction animée", "play circle")
+            </script>
+            <br>
+            <button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP(IEPContainer${id},btnAnimation${id})""><i class="large play circle outline icon"></i>Voir animation</button>
+            <div id="IEPContainer${id}" style="display: none;" ></div>`
+
+            window.toggleVisibilityIEP = function(idElement, idBtn) {
+                // Pourquoi un string se transforme en élément du DOM !?
+                //let element = document.getElementById(idElement)
+                //let elementBtn = document.getElementById(idBtn)
+                if (idElement.style.display === "none") {
+                    idElement.style.display = "block";
+                    idBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
+                } else {
+                    idElement.style.display = "none";
+                    idBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+                }
+            }
+
+            return codeHTML
         }
     }
 
 
 }
+
+
 
 /**
 * montrer(objet, A, 10) |montrerRegle(A) | montrerCrayon(A) | montrerEquerre(A) | montrerCompas(A) | montrerRapporteur(A)
