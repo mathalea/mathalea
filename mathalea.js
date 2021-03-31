@@ -231,7 +231,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     //     TeX: { extensions: ["color.js"] },
                     //     messageStyle: 'none'
                     // });
-                    let iepApp = new iep.iepApp()
+                    if (typeof window.iepApp == 'undefined') {
+                        window.iepApp = new iep.iepApp()
+                    }
+                    console.log(window.listeIEP)
                     for (let id of window.listeIEP){
                         loadIEP(id,iepApp)
                     }
@@ -370,11 +373,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     //     TeX: { extensions: ["color.js"] },
                     //     messageStyle: 'none'
                     // });
-                    let iepApp = new iep.iepApp()
-                    for (let id of window.listeIEP){
-                        loadIEP(id,iepApp)
+                    if (typeof window.appIEP == 'undefined') {
+                        window.appIEP = new iep.iepApp()
                     }
-                    
+                    for (let id of window.listeIEP){
+                        loadIEP(id,window.appIEP)
+                    }
                 })
 
             }
@@ -750,10 +754,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             container.innerHTML = ''
             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
             let width = Math.max((window.outerWidth*0.625) || 0, 800)
-            let height = Math.max((window.outerHeight*0.8) || 0, 600)
+            let height = Math.max((window.outerHeight*0.6) || 0, 600)
             svg.setAttributeNS(null, "width", width);
             svg.setAttributeNS(null, "height", height);
-            svg.setAttributeNS(null, "id", "svg");
+            svg.setAttributeNS(null, "id", `svg${id}`);
             container.appendChild(svg);
             iepApp.addDoc(svg, xml, false /* autostart */)
         }
