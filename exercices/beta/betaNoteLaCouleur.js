@@ -53,7 +53,19 @@ export default function Note_la_couleur() {
 
         switch (liste_type_de_questions[i]) { 
           case 1:
-               texte=scratchblock(["Aller en haut","Aller en bas",`avancer de (${randint(10,30)}) pas`])
+               texte=scratchblock([
+                 "aller à x: (5) y: (7)",
+                 `s'orienter à (${randint(0,3)*90})`,
+                 `avancer de (${randint(10,30)}) pas`,
+                 `mettre x: à (25)`,
+                 `mettre y: à (15)`,
+                 `mettre [numéro v] à (63)`,
+                `ajouter (${randint(-10,10,0)}) à x`,
+                `ajouter (${randint(-10,10,0)}) à y`,
+                `ajouter (${randint(-10,10,0)}) à [numéro v]`,
+                `dire (Hello world)`,
+                `dire (J'attends) pendant (10) secondes`
+                ]);
                
    
           break;
