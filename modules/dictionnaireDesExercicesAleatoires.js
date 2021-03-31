@@ -1628,6 +1628,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
     },
+    "beta6G21": {
+        "titre": "Construire un triangle aux instruments",
+        "url": "/exercices/beta/beta6G21.js"
+    },
     "beta6P11": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
         "url": "/exercices/beta/beta6P11.js"
@@ -1639,6 +1643,10 @@ export let dictionnaireDesExercicesAleatoires =
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"
+    },
+    "betaExemple": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/betaExemple.js"
     },
     "betaExemple1Type": {
         "titre": "Exercice exemple",
@@ -1659,6 +1667,10 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExercice_constructions_basiques": {
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
+    },
+    "betaExoSimpleMatthieu": {
+        "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
+        "url": "/exercices/beta/betaExoSimpleMatthieu.js"
     },
     "betaProbabilites": {
         "titre": "Probabilités simples",
@@ -1683,10 +1695,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betarotation3d": {
         "titre": "Rotation 3d de polygones",
         "url": "/exercices/beta/betarotation3d.js"
-    },
-    "betatableaux_variation": {
-        "titre": "étude de fonction de degré 3",
-        "url": "/exercices/beta/betatableaux_variation.js"
     },
     "c3C10-1": {
         "titre": "Tables de multiplications",

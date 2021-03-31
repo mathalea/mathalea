@@ -27,7 +27,7 @@ export default function beta_rotation3d() {
         Axex.p2d.isVisible=true
         Axey.p2d.isVisible=true
         Axez.p2d.isVisible=true
-        for (let a=0;a<=360;a+=1) {
+        for (let a=0;a<=360;a+=10) {
         p.push(rotation3d(P,Axey,a,texcolors(a)))
         }
         console.log(p[1].p2d)
@@ -38,16 +38,7 @@ export default function beta_rotation3d() {
         }
         objets.push(Axex.p2d,Axey.p2d,Axez.p2d)
         this.contenu = mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
-        O = point(0,0)
-        A = point(5,0)
-        let points = []
-        let textes = []
-        for (let i=0 ; i<24 ; i++){
-          points[i] = rotation(A,O,i*15+30)
-          console.log(i,points)
-          textes[i] = latexParPoint('$\\dfrac{\\pi^2}{4x}$',points[i])
-        }
-        this.contenu +=mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, textes)
+     
     }
 };
 
