@@ -81,9 +81,9 @@ export default function Divisions_euclidiennes() {
       a = b * q + r;
       texte = `$${tex_nombre(a)}\\div${b}$`;
       if (r == 0) {
-        texte_corr = `${Operation({operande1:a,operande2:b,type:'division'})}$${tex_nombre(a)}\\div${b}=${q}$`;
+        texte_corr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${tex_nombre(a)}\\div${b}=${q}$`;
       } else {
-        texte_corr = `${Operation({operande1:a,operande2:b,type:'division'})}$${tex_nombre(a)}=${b}\\times${q}+${r}$`;
+        texte_corr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${tex_nombre(a)}=${b}\\times${q}+${r}$`;
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {

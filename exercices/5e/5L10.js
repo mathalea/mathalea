@@ -125,14 +125,14 @@ export default function Ecrire_une_expression_litterale() {
 				case 13: // k/x
 					texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`;
 					texte_corr = `Le quotient de ${k} par $${x}$ se note : $${tex_fraction(k, x)}$.`;
-					tabrep=[`$${x}\\div ${k}$`,`$${k}\\div ${x}$`,`$\\dfrac{${k}}{${x}}$`,`$${k}\\times ${x}$`,`$${k}-${x}$`,`$${k}\\times ${x}$`]
+					tabrep=[`$${x}\\div ${k}$`,`$${k}\\div ${x}$`,`$\\dfrac{${k}}{${x}}$`,`$${k}\\times ${x}$`,`$${k}-${x}$`,`$${x}\\times ${k}$`]
 					tabicone=[0,1,1,0,0,0]
 					break;
 				case 14: //xy
 					texte = `Comment se note le produit de $${x}$ par $${y}$ ?`;
 					texte_corr = `Le produit de $${x}$ par $${y}$ se note $${x}${y}$.`;
 					tabrep=[`$${y}+${x}$`,`$${x}+${y}$`,`$${y}${x}$`,`$${x}${y}$`,`$${x}-${y}$`,`$${y}\\times ${x}$`]
-					tabicone=[0,0,1,0,0,1]	
+					tabicone=[0,0,1,1,0,1]	
 					break;
 				case 15: //pair
 					texte = `Écrire une expression littérale qui permet de représenter un nombre pair.`;
