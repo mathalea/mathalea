@@ -8486,23 +8486,36 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
   }
 }
 
-export const codesScratch = {
-  "Aller à droite":"\\blockmove{Aller à droite}"
-  ,
-  "Aller à gauche":"\\blockmove{Aller à gauche}"
-  ,
-  "Aller en haut":"\\blockmove{Aller en haut}"
-  ,
-  "Aller en bas":"\\blockmove{Aller en bas}"
-  ,
-  "avancer de %1 pas":"\\blockmove{avancer de \\ovalnum{%1} pas}"
+export function scratchToTex(commande){
+  let part=commande.split(' ')
+  let code_latex,param1,param2
+  console.log(part)
+  switch (part[0]){
+    case "Aller":
+      code_latex=`\\blockmove{Aller ${part[1]} ${part[2]}}`
+    break
+    case "avancer":
+      param1=part[2].replace('(','').replace(')','')
+      code_latex=`\\blockmove{avancer de \\ovalnum{${param1}} pas}`
+    break
+    case "tourner":
+      param1=part[1]
+      param2=part[3].replace('(','').replace(')','')
+      if (param1=='@turnRight'){
+        code_latex=`\\blockmove{tourner \\turnright{} de ${param2} degrés}`
+      }
+      else {
+        code_latex=`\\blockmove{tourner \\turnleft{} de ${param2} degrés}`
+      }
   }
+  return code_latex
+}
 
 export function scratchblock(listeDeCommandes) {
   let code_svg = function (listeDeCommandes) {
-    let code = `<pre class='blocks'>`;
+    let code = `<pre class='blocks'>\n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
-      code += listeDeCommandes[i]+ '<br>'
+      code += '\t'+listeDeCommandes[i]+ '<br>\n'
     }
     code += `</pre>`;
     return code
@@ -8513,12 +8526,12 @@ export function scratchblock(listeDeCommandes) {
     let code = `\\medskip \n \\begin{scratch} \n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
       commande = listeDeCommandes[i]
-      code += codesScratch[commande]+ '\n'
+      code += scratchToTex(commande)+ '\n'
     }
     code += `\\end{scratch}\n`;
     return code
   }
-  console.log( "code html :\n", code_svg(listeDeCommandes),"\n \ncode latex :\n",code_latex(listeDeCommandes))
+  console.log( "code html :\n",code_svg(listeDeCommandes),"\n \ncode latex :\n",code_latex(listeDeCommandes))
   if (sortie_html){
     return code_svg(listeDeCommandes)
   }
