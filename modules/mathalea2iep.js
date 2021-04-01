@@ -576,9 +576,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
 
     if (longueur(A,C)>8) this.equerreZoom(150)
     if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
-    //this.regleRotation(dAB.angleAvecHorizontale)
-    //this.equerreRotation(dAB.angleAvecHorizontale)
-    //this.regleMontrer(A)
+    this.equerreRotation(dAB.angleAvecHorizontale)
     this.pointCreer(A)
     this.segmentTracer(A, B)
     this.pointCreer(B)
