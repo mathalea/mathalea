@@ -276,8 +276,8 @@ Alea2iep.prototype.compasEcarter2Points = function (A, B, tempo = this.tempo) {
     let s = segment(A, B)
     s.isVisible = false
     let angle = s.angleAvecHorizontale
-    this.compas.rotation(angle)
-    this.compas.ecarter(longueur(A, B))
+    this.compasRotation(angle)
+    this.compasEcarter(longueur(A, B))
 }
 
 /**
@@ -433,8 +433,12 @@ Alea2iep.prototype.rotation = function (objet, angle, tempo = this.tempo, sens =
     }
     // Les angles de MathALEA2D et de IEP sont opposés !!!!!
     let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
-    this.liste_script.push(codeXML)
     this[objet].angle = angle
+    if (typeof angle === 'number' && isFinite(angle)) {
+        this.liste_script.push(codeXML)
+    } else {
+        console.log ("Angle de rotation non défini.")
+    }
 }
 
 Alea2iep.prototype.regleRotation = function (angle, tempo, sens) {
@@ -453,7 +457,7 @@ Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
     this.rotation('compas', angle, tempo, sens)
 }
 
-Alea2iep.prototype.rapporteurRotation = function (tempo, vitesse) {
+Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
     this.rotation('rapporteur', angle, tempo, vitesse)
 }
 
@@ -479,6 +483,10 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
     let codeXML = `<action abscisse="${B.xIEP()}" ordonnee="${B.yIEP()}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
     this.crayon.position = B
     this.liste_script.push(codeXML)
+}
+Alea2iep.prototype.trait = function (A, B, tempo = 0, vitesse = this.vitesse*100, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+    this.crayonDeplacer(A, tempo, vitesse)
+    this.tracer(B, tempo, vitesse)
 }
 
 Alea2iep.prototype.segmentTracer = function (A, B) {
@@ -519,6 +527,12 @@ Alea2iep.prototype.textePosition = function (texte, x, y, police, tempo = this.t
     let A = point(x,y);
     return this.textePoint(texte, A, police, tempo = this.tempo, couleur = this.couleurTexte)
 }
+Alea2iep.prototype.pause = function () {
+    this.liste_script.push('<action mouvement="pause" />')
+}
+
+
+
 
 Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
     let A = point(6, 0)
