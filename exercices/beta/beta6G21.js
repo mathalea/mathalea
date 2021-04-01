@@ -20,14 +20,14 @@ export default function Construire_un_triangle() {
     this.nouvelle_version = function (numero_de_l_exercice) {
         this.liste_questions = []
         this.liste_corrections = []
-        let IEP
+        let IEP;
         let type_de_questions_disponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonce, objets_correction, params_enonce, params_correction, nom, sommets
-        // if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-        if (this.classe == 6) type_de_questions_disponibles = [1]
+        if (this.classe == 6) type_de_questions_disponibles = [1, 2]
         // else type_de_questions_disponibles = [1, 2, 3]
         else type_de_questions_disponibles = [1]
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
         for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+            IEP = new Alea2iep()
             objets_enonce = []
             objets_correction = []
             texte = `Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>`
@@ -54,6 +54,8 @@ export default function Construire_un_triangle() {
                     objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
                     objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
                     texte_corr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
+                   
+                    IEP.triangle3longueurs(sommets,lAB,lAC,lBC)
                     break;
 
                 case 2: // triangle rectangle donné par longueur hypoténuse et un côté de l'angle droit.
@@ -69,6 +71,8 @@ export default function Construire_un_triangle() {
                     objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
                     objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
                     texte_corr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
+                   
+                    IEP.triangleRectangleCoteHypotenuse(sommets,lAB,lAC)
                     break
 
                 case 3:
@@ -84,8 +88,6 @@ export default function Construire_un_triangle() {
             texte += mathalea2d(params_enonce, objets_enonce)
             texte_corr += mathalea2d(params_correction, objets_correction)
 
-            IEP = new Alea2iep()
-            IEP.triangle3longueurs(sommets,lAB,lAC,lBC)
             texte_corr += IEP.htmlBouton(numero_de_l_exercice, i)
 
             if (this.liste_questions.indexOf(texte) == -1) {

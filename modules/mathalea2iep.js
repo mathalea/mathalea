@@ -1,5 +1,5 @@
-import {point,pointAdistance,droite,segment,triangle2points2longueurs,longueur,angle} from "/modules/2d.js"
-import { calcul, randint, creer_modal } from "/modules/outils.js"
+import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle} from "/modules/2d.js"
+import { calcul, randint, tex_nombre } from "/modules/outils.js"
 
 
 /*
@@ -406,6 +406,11 @@ Alea2iep.prototype.crayonDeplacer = function (A, tempo = this.tempo, vitesse = t
 Alea2iep.prototype.equerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
     this.deplacer('equerre', A, tempo, vitesse)
 }
+Alea2iep.prototype.equerreZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
+}
+
+
 
 Alea2iep.prototype.compasDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
     this.deplacer('compas', A, tempo, vitesse)
@@ -477,14 +482,14 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
 }
 
 Alea2iep.prototype.segmentTracer = function (A, B) {
-    this.regleMontrer()
-    this.crayonMontrer(A)
-    this.regleDeplacer(A)
-    this.crayonDeplacer(A)
     let d = droite(A, B)
     d.isVisible = false
     let angle = d.angleAvecHorizontale
     this.regleRotation(angle)
+    this.regleMontrer()
+    this.crayonMontrer(A)
+    this.regleDeplacer(A)
+    this.crayonDeplacer(A)
     this.tracer(B)
 }
 
@@ -495,7 +500,7 @@ Alea2iep.prototype.polygoneTracer = function (...sommets) {
     this.segmentTracer(sommets[sommets.length - 1], sommets[0])
 }
 
-Alea2iep.prototype.textePosition = function (x, y, texte, police, tempo = this.tempo, couleur = this.couleurTexte) {
+Alea2iep.prototype.textePoint = function (texte, A, police=false, tempo = this.tempo, couleur = this.couleurTexte) {
     this.idIEP++
     let tempoTexte = ''
     if (tempo) {
@@ -505,13 +510,17 @@ Alea2iep.prototype.textePosition = function (x, y, texte, police, tempo = this.t
     if (police) {
         policeTexte = `police="${police}"`
     }
-    let A = point(x,y)
     let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" />`
     this.liste_script.push(codeXML)
 }
 
-Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC) {
+Alea2iep.prototype.textePosition = function (texte, x, y, police, tempo = this.tempo, couleur = this.couleurTexte) {
+    let A = point(x,y);
+    return this.textePoint(texte, A, police, tempo = this.tempo, couleur = this.couleurTexte)
+}
+
+Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
     let A = point(6, 0)
     let B = pointAdistance(A, AB, randint(-20, 20))
     let p = triangle2points2longueurs(A, B, AC, BC)
@@ -520,22 +529,27 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC) {
     B.nom = ABC[1]
     C.nom = ABC[2]
 
+    if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
     this.pointCreer(A)
-    this.regleMontrer(A)
+   // this.regleRotation(droite(A,B).angleAvecHorizontale)
+   // this.regleMontrer(A)
     this.segmentTracer(A, B)
     this.pointCreer(B)
     this.crayonMasquer()
+    if (description) this.textePosition(`${A.nom + C.nom} = ${tex_nombre(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${tex_nombre(AC)} cm.`, 0, -3)
     this.couleur = "forestgreen"
     this.epaisseur = 2
     this.compasMontrer(A)
     this.compasEcarterAvecRegle(AC)
     this.compasTracerArcCentrePoint(A, C, 40)
+    if (description) this.textePosition(`${B.nom + C.nom} = ${tex_nombre(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${tex_nombre(BC)} cm.`, 0, -4)
     this.compasDeplacer(B)
     this.compasEcarterAvecRegle(BC)
     this.compasTracerArcCentrePoint(B, C)
     this.compasMasquer()
     this.couleur = "blue"
     this.epaisseur = 3
+    if (description) this.textePosition(`Le point ${C.nom} est à une intersection des deux cercles.`, 0, -5)
     this.pointCreer(C)
     this.segmentTracer(B, C)
     this.segmentTracer(C, A)
@@ -543,3 +557,48 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC) {
     this.regleMasquer()
 }
 
+
+Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, description = true) { // Triangle rectangle en B
+    let A = point(6, 0)
+    let B = pointAdistance(A, AB, randint(-20, 20))
+    let dAB = droite(A, B)
+    dAB.isVisible = false
+    let dBC = droiteParPointEtPerpendiculaire(B, dAB)
+    dBC.isVisible = false
+    let cAC = cercle(A, AC)
+    cAC.isVisible = false
+    let C = pointIntersectionLC(dBC, cAC)
+    let c = homothetie(C, B, 1.2)
+    let p = polygone(A, B, C)
+    A.nom = ABC[0]
+    B.nom = ABC[1]
+    C.nom = ABC[2]
+
+    if (longueur(A,C)>8) this.equerreZoom(150)
+    if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
+    //this.regleRotation(dAB.angleAvecHorizontale)
+    //this.equerreRotation(dAB.angleAvecHorizontale)
+    //this.regleMontrer(A)
+    this.pointCreer(A)
+    this.segmentTracer(A, B)
+    this.pointCreer(B)
+    if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
+    this.equerreMontrer(A)
+    this.equerreDeplacer(B)
+    this.tracer(c)
+    this.equerreMasquer()
+    if (description) this.textePosition(`${A.nom + C.nom} = ${tex_nombre(AC)} cm donc C appartient au cercle de centre A et de rayon ${tex_nombre(AC)} cm.`, 0, -4)
+    this.compasMontrer(A)
+    this.compasEcarterAvecRegle(AC)
+    this.couleur = "forestgreen"
+    this.epaisseur = 2
+    this.compasTracerArcCentrePoint(A, C)
+    this.couleur = "blue"
+    this.epaisseur = 2
+    if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
+    this.pointCreer(C)
+    this.compasMasquer()
+    this.segmentTracer(A, C)
+    this.regleMasquer()
+    this.crayonMasquer()
+}
