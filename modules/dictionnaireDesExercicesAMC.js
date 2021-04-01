@@ -71,6 +71,10 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/6e/6G33.js",
         "titre":"Reconnaitre un quadrilatère particulier à partir de ses propriétés (QCM)"
     },
+    "6G41": {
+        "titre": "Compléter une représentation en perspective cavalière",
+        "url": "/exercices/6e/6G41.js"
+    },
     "5L10": {
         "titre": "Écrire une expression littérale",
         "url": "/exercices/5e/5L10.js"
@@ -82,6 +86,10 @@ export let dictionnaireDesExercicesQCM = {
     "6N23-5":{
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
+    },
+    "6N31-3": {
+        "titre": "Arrondir une valeur",
+        "url": "/exercices/6e/6N31-3.js"
     },
     "6N43": {
         "titre": "Critères de divisibilité",
@@ -110,6 +118,10 @@ export let dictionnaireDesExercicesQCM = {
     "4C32": {
         "titre": "Notation scientifique",
         "url": "/exercices/4e/4C32.js"
+    },
+    "4C34": {
+        "titre": "Calculs utilisant les priorités opératoires et les puissances",
+        "url": "/exercices/4e/4C34.js"
     },
     "4G30": {
         "titre": "Calculer des longueurs avec la propriété de Thalès (NC+)",

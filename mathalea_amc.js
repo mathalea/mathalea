@@ -635,7 +635,13 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         }
 
         for (let i = 0; i < exercice.length; i++) {
-
+                // Gestion de la suppression des identifiants
+                let form_supprimer_reference = document.getElementById("supprimer_reference");
+                form_supprimer_reference.addEventListener("change", function (e) {
+                    // Dès que le statut change, on met à jour
+                    // nouvelles_donnees();
+                    mise_a_jour_du_code();
+                });
             // Gestion du nombre de questions
             if (exercice[i].nb_questions_modifiable) {
                 form_nb_questions[i] = document.getElementById("form_nb_questions" + i);

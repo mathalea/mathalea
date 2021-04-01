@@ -29,7 +29,7 @@ export default function Additions_soustractions_multiplications_posees() {
   this.nouvelle_version = function () {
         /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4]
+this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
@@ -128,9 +128,9 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4]
           texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
         } // espacement entre les questions
         this.liste_corrections.push(texte_corr);
-            /*****************************************************/
-    // Pour AMC
-    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+            /********************* AMCnumericChoices ********************************/
+    this.QCM[1].push([texte, [texte_corr,reponse], {digits:5,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+    // [question,[réponse,réponse numérique],{paramètres réponse numérique}] (voir doc AMC \AMCnumericChoices)
     /****************************************************/
 
         i++;
