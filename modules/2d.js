@@ -74,7 +74,7 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     return -arrondi(this.y * coeff, 2);
   };
   this.xIEP = function() {
-		return (this.x+5)*30;
+		return (this.x)*30;
 	}
 	this.yIEP = function() {
 		return (-this.y+10)*30;
