@@ -8486,6 +8486,109 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
   }
 }
 
+export function scratchToTex(commande){
+  let part=commande.split(' ')
+  let code_latex,param1,param2
+  console.log(part);
+  switch (part[0]){
+    case "Aller": // instructions mathalea @Erwan Duplessy : Aller en haut, Aller en bas, Aller à droite et Aller à gauche
+      code_latex=`\\blockmove{Aller ${part[1]} ${part[2]}}`;
+    break;
+    case "aller":
+      param1=part[3].replace('(','').replace(')','');
+      param2=part[5].replace('(','').replace(')','');
+      code_latex=`\\blockmove{aller à x: \\ovalnum{${param1}} y: \\ovalnum{${param2}}}`;
+    break;
+    case "avancer":
+      param1=part[2].replace('(','').replace(')','');
+      code_latex=`\\blockmove{avancer de \\ovalnum{${param1}} pas}`;
+    break;
+    case "tourner":
+      param1=part[1];
+      param2=part[3].replace('(','').replace(')','');
+      if (param1=='@turnRight'){
+        code_latex=`\\blockmove{tourner \\turnright{} de ${param2} degrés}`;
+      }
+      else {
+        code_latex=`\\blockmove{tourner \\turnleft{} de ${param2} degrés}`;
+      }
+    break;
+    case "s'orienter":
+      param1=part[2].replace('(','').replace(')','');
+      code_latex=`\\blockmove{s'orienter à \\ovalnum{${param1}}}`;
+    break;
+    case "mettre":
+      if (part[1][0]=='['&&part[2][0]=="v"){
+        part[1]=part[1]+part[2]
+        part.splice(2,1)
+        param1=part[3].replace('(','').replace(')','');
+        code_latex=`\\blockvariable{mettre \\selectmenu{${part[1].substring(1,part[1].length-2)}} à \\ovalnum{${param1}}}`;
+      }
+      else {
+      param1=part[3].replace('(','').replace(')','');
+        code_latex=`\\blockmove{mettre ${part[1]} à \\ovalnum{${param1}}}`;
+      }
+    break;
+    case "ajouter":
+      if (part[3][0]=='['&&part[4][0]=="v"){
+        part[3]=part[3]+part[4]
+        part.splice(4,1)
+        param1=part[1].replace('(','').replace(')','');
+        code_latex=`\\blockvariable{ajouter \\ovalnum{${param1}} à \\selectmenu{${part[3].substring(1,part[1].length-2)}}}`;
+      }
+      else {
+      param1=part[1].replace('(','').replace(')','');
+        code_latex=`\\blockmove{ajouter \\ovalnum{${param1}} à ${part[3]}}`;
+      }
+    break;
+    case "dire":
+      while (part[1].charAt(part[1].length-1)!=')'){
+        part[1]=part[1]+' '+part[2]
+        part.splice(2,1)
+      }
+      param1=part[1].replace('(','').replace(')','');
+    if (part.length>2){
+        param2=part[3].replace('(','').replace(')','');
+        code_latex=`\\blocklook{dire \\ovalnum{${param1}} pendant \\ovalnum{${param2}} secondes}`;
+      }
+      else {
+        code_latex=`\\blocklook{dire \\ovalnum{${param1}}}`;
+      }
+  }
+  return code_latex
+}
+
+export function scratchblock(listeDeCommandes) {
+  let code_svg = function (listeDeCommandes) {
+    let code = `<pre class='blocks'>\n`;
+    for (let i = 0; i < listeDeCommandes.length; i++) {
+      code += '\t'+listeDeCommandes[i]+ '<br>\n'
+    }
+    code += `</pre>`;
+    return code
+  }
+
+  let code_latex = function (listeDeCommandes) {
+    let commande
+    let code = `\\medskip \n \\begin{scratch} \n`;
+    for (let i = 0; i < listeDeCommandes.length; i++) {
+      commande = listeDeCommandes[i]
+      code += scratchToTex(commande)+ '\n'
+    }
+    code += `\\end{scratch}\n`;
+    return code
+  }
+  console.log( "code html :\n",code_svg(listeDeCommandes),"\n \ncode latex :\n",code_latex(listeDeCommandes))
+  if (sortie_html){
+    return code_svg(listeDeCommandes)
+  }
+  else {
+    return code_latex(listeDeCommandes)
+  }
+
+}
+
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
