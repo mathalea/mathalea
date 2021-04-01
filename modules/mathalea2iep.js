@@ -9,6 +9,7 @@ import { calcul, randint, creer_modal } from "/modules/outils.js"
  */
 export function Alea2iep() {
     this.idIEP = 0; // Identifiant pour les tracés
+    this.idHTML = 0; // Identifiant pour les div et le svg
     this.tempo = 10; // Pause par défaut après une instruction
     this.vitesse = 10; // Vitesse par défaut pour les déplacements d'instruments
     this.couleur = "blue"; // Couleur par défaut
@@ -52,14 +53,34 @@ export function Alea2iep() {
         leve: false,
     }
 
+    this.xml = '';
+
     this.script = function () {
-        let codeXML = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-        codeXML += `<INSTRUMENPOCHE version="2">\n`
-        codeXML += this.liste_script.join('\n');
-        codeXML += `\n</INSTRUMENPOCHE>`
-        return codeXML
+        if (this.xml.length>1) {
+            return this.xml
+        } else {
+            let codeXML = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+            codeXML += `<INSTRUMENPOCHE version="2">\n`
+            codeXML += this.liste_script.join('\n');
+            codeXML += `\n</INSTRUMENPOCHE>`
+            return codeXML
+        }
     }
+
     this.html = function (numero_de_l_exercice, i) {
+        if (sortie_html) {
+            let id = `${numero_de_l_exercice}_${i}`
+            window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+            let codeHTML = `<script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
+                ${this.script()}
+            </script>
+            <br>
+            <div id="IEPContainer${id}" ></div>`
+            return codeHTML
+        }
+    }
+
+    this.htmlBouton = function (numero_de_l_exercice, i) {
         if (sortie_html) {
             let id = `${numero_de_l_exercice}_${i}`
             window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
@@ -85,11 +106,10 @@ export function Alea2iep() {
 
             return codeHTML
         }
+
+
     }
-
-
 }
-
 
 
 /**

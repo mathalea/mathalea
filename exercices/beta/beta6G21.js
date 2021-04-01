@@ -85,8 +85,8 @@ export default function Construire_un_triangle() {
             texte_corr += mathalea2d(params_correction, objets_correction)
 
             IEP = new Alea2iep()
-            IEP.triangle3longueurs(sommets,lAB,lBC,lAC)
-            texte_corr += IEP.html(numero_de_l_exercice, i)
+            IEP.triangle3longueurs(sommets,lAB,lAC,lBC)
+            texte_corr += IEP.htmlBouton(numero_de_l_exercice, i)
 
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en crée une autre
