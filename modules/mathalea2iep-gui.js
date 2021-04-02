@@ -10,7 +10,7 @@ mathalea.lutin = creerLutin();
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
 
-window.onload = function () {
+window.addEventListener('load', function()  {
 	$('.ui.dropdown').dropdown(); //Pour les menus
 	let divEditeur = document.getElementById("editeur");
 	let divSvg = document.getElementById("svg");
@@ -262,7 +262,7 @@ window.onload = function () {
 	document.getElementById('submit').click()
 
 
-};
+})
 
 function executeCode(txt) {
 	return eval(txt);
