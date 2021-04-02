@@ -232,7 +232,7 @@ export default function Reconnaitre_quadrilatere_particulier() {
               texte_corr += "C'est un carré."
               break;
       }
-      if (this.ModeQCM) {
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
         texte+=`<br>  Réponses possibles : ${espace}  `
         shuffle2tableaux(tabrep, tabicone);
         texte_corr=''

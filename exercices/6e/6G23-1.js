@@ -88,7 +88,7 @@ export default function Mesurer_un_angle() {
       tabrep,
       tabicone]) 
    /********************************************/
-      if (this.ModeQCM) {
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
         texte+=`<br>  Réponses possibles : ${espace}  `
         texte_corr=''
         shuffle2tableaux(tabrep, tabicone);

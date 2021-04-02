@@ -113,7 +113,7 @@ let reponse
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
-				this.QCM[1].push([texte, [texte_corr,reponse], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+				this.QCM[1].push([texte+'\\\\'+this.consigne, [texte_corr,reponse], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
 				i++;
 			}
 			cpt++;

@@ -106,7 +106,7 @@ export default function Egalites_entre_fractions() {
         this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
         tabicone]) 
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
           texte_corr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
@@ -134,7 +134,7 @@ export default function Egalites_entre_fractions() {
           this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,
           tabicone]) 
-          if (this.ModeQCM) {
+          if (this.ModeQCM&&!mathalea.sortieAMC) {
             texte_corr=''
             texte+=`<br><br>  Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone);
@@ -153,7 +153,7 @@ export default function Egalites_entre_fractions() {
       } else {
         //écrire un entier sous la forme d'une fraction
         a = randint(1, 9);
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
           d=randint(3,9,[a,2*a])
         }
         else {
@@ -181,7 +181,7 @@ export default function Egalites_entre_fractions() {
         this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
         tabicone]) 
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
           texte_corr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
@@ -209,7 +209,7 @@ export default function Egalites_entre_fractions() {
           this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,
           tabicone]) 
-          if (this.ModeQCM) {
+          if (this.ModeQCM&&!mathalea.sortieAMC) {
             texte_corr=''
             texte+=`<br><br>  Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone);
