@@ -7,7 +7,7 @@ import { calcul, randint, tex_nombre } from "/modules/outils.js"
  *
  * @Auteur Rémi Angot
  */
-export function Alea2iep() {
+export default function Alea2iep() {
     this.idIEP = 0; // Identifiant pour les tracés
     this.idHTML = 0; // Identifiant pour les div et le svg
     this.tempo = 10; // Pause par défaut après une instruction
