@@ -137,7 +137,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
           texte_corr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${tex_nombre(a)}$`
           texte_corr += justification(N,a,true)
           tabrep=["Vrai","Faux","Je ne sais pas"];
-          tabicone=[1,0,0]
+          tabicone=[0,1,0]
           break;
         case 'divisibleParNEnvers': 
           texte = `$${N}$ est divisible par $${tex_nombre(a)}$.`;
@@ -145,7 +145,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
           texte_corr += `, il faudrait plutôt dire $${tex_nombre(a)}$ est divisible par $${N}$`
           texte_corr += justification(N,a,true)
           tabrep=["Vrai","Faux","Je ne sais pas"];
-          tabicone=[1,0,0]
+          tabicone=[0,1,0]
           break;
         case 'multipleDeNEnvers': 
           texte = `$${N}$ est un multiple de $${tex_nombre(a)}$.`;
@@ -153,7 +153,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
           texte_corr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
           texte_corr += justification(N,a,true)
           tabrep=["Vrai","Faux","Je ne sais pas"];
-          tabicone=[1,0,0]
+          tabicone=[0,1,0]
            break;
       }
       if (this.ModeQCM&&!mathalea.sortieAMC) {
