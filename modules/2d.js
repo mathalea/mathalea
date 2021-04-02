@@ -72,13 +72,7 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
   };
   this.ySVG = function (coeff) {
     return -arrondi(this.y * coeff, 2);
-  };
-  this.xIEP = function() {
-		return (this.x)*30;
-	}
-	this.yIEP = function() {
-		return (-this.y+10)*30;
-	}
+  }
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement

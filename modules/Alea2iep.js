@@ -18,6 +18,16 @@ export default function Alea2iep() {
     this.epaisseur = 3;
     this.liste_script = []; // Liste des instructions xml mise à jour par les méthodes
 
+    this.translationX = 0;
+    this.translationY = 10; // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
+    // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
+    this.x = function (A) {
+       return (A.x+this.translationX)*30
+    }
+    this.y = function (A) {
+       return (-A.y+this.translationY)*30
+    }
+
     // Sauvegarde de l'état des instruments
     this.regle = {
         visibilite: false,
@@ -130,7 +140,7 @@ Alea2iep.prototype.montrer = function (objet, A, tempo = this.tempo) {
         } else {
             A1 = A
         }
-        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${A1.xIEP()}" ordonnee="${A1.yIEP()}" ${tempoTexte} />`
+        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" ${tempoTexte} />`
         this[objet].visibilite = true
         this[objet].position = A1
         this.liste_script.push(codeXML)
@@ -206,7 +216,7 @@ Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, 
     if (tempo) {
         tempoTexte = `tempo="${tempo}"`
     }
-    let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
     if (label) {
         codeXML += `\n<action couleur="${this.couleurLabelPoint}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" />`
     }
@@ -363,7 +373,7 @@ Alea2iep.prototype.deplacer = function (objet, A, tempo = this.tempo, vitesse = 
     if (this[objet].position != A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
         const tempoTexte = tempo ? `tempo="${tempo}"` : ''
         const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
-        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" ${tempoTexte} ${vitesseTexte} />`
+        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" ${tempoTexte} ${vitesseTexte} />`
         this[objet].position = A
         this.liste_script.push(codeXML)
     }
@@ -444,7 +454,7 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
     const pointillesTexte = pointilles ? `pointilles="${tiret}"` : ''
     
     this.idIEP += 1
-    let codeXML = `<action abscisse="${B.xIEP()}" ordonnee="${B.yIEP()}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
+    let codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
     this.crayon.position = B
     this.liste_script.push(codeXML)
 }
@@ -476,7 +486,7 @@ Alea2iep.prototype.textePoint = function (texte, A, police=false, tempo = this.t
     this.idIEP++
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const policeTexte = police ? `police="${police}"` : ''
-    let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" />`
     this.liste_script.push(codeXML)
 }
