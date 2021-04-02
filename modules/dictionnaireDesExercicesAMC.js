@@ -75,14 +75,6 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Compléter une représentation en perspective cavalière",
         "url": "/exercices/6e/6G41.js"
     },
-    "5L10": {
-        "titre": "Écrire une expression littérale",
-        "url": "/exercices/5e/5L10.js"
-    },
-    "5L10-2": {
-        "titre": "Traduire un programme de calcul par une expression littérale",
-        "url": "/exercices/5e/5L10-2.js"
-    },
     "6N23-5":{
         "url": "/exercices/6e/6N23-5.js",
         "titre": "Sens de l'écriture fractionnaire"
@@ -91,6 +83,10 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Arrondir une valeur",
         "url": "/exercices/6e/6N31-3.js"
     },
+    "6N33-1": {
+        "titre": "Calculer le pourcentage d'un nombre de tête",
+        "url": "/exercices/6e/6N33-1.js"
+    },
     "6N43": {
         "titre": "Critères de divisibilité",
         "url": "/exercices/6e/6N43.js"
@@ -98,6 +94,18 @@ export let dictionnaireDesExercicesQCM = {
     "6N43-2": {
         "titre": "Critères de divisibilité (plusieurs possibles)",
         "url": "/exercices/6e/6N43-2.js"
+    },
+    "6N43-3": {
+        "titre": "Diviseur, multiple, divisible - Vrai ou faux",
+        "url": "/exercices/6e/6N43-3.js"
+    },
+    "5L10": {
+        "titre": "Écrire une expression littérale",
+        "url": "/exercices/5e/5L10.js"
+    },
+    "5L10-2": {
+        "titre": "Traduire un programme de calcul par une expression littérale",
+        "url": "/exercices/5e/5L10-2.js"
     },
     "5N13": {
         "url": "/exercices/5e/5N13.js",
