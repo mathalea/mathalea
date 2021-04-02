@@ -50,7 +50,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         (function gestionURL() {
             if (liste_des_exercices.length > 0) {
                 let fin_de_l_URL = "";
-                if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html')<0 && window.location.pathname.indexOf('beta.html')<0) {
+                if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0 && window.location.pathname.indexOf('beta.html') < 0) {
                     fin_de_l_URL += "exercice.html";
                 }
                 fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -66,10 +66,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (listeObjetsExercice[0].nb_questions_modifiable) {
                     fin_de_l_URL += `,nb_questions=${listeObjetsExercice[0].nb_questions}`;
                 }
-                if (listeObjetsExercice[0].video.length>1) {
+                if (listeObjetsExercice[0].video.length > 1) {
                     fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`;
                 }
-                
+
                 for (let i = 1; i < liste_des_exercices.length; i++) {
                     fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
                     if (typeof listeObjetsExercice[i].sup !== 'undefined') {
@@ -84,12 +84,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     if (listeObjetsExercice[i].nb_questions_modifiable) {
                         fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`;
                     }
-                    if (listeObjetsExercice[i].video.length>1) {
+                    if (listeObjetsExercice[i].video.length > 1) {
                         fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`;
-                     }
+                    }
                 }
-                if (typeof mathalea.duree !== 'undefined'){
-                    fin_de_l_URL +=`&duree=${mathalea.duree}`
+                if (typeof mathalea.duree !== 'undefined') {
+                    fin_de_l_URL += `&duree=${mathalea.duree}`
                 }
                 fin_de_l_URL += `&serie=${mathalea.graine}`;
                 window.history.pushState("", "", fin_de_l_URL);
@@ -102,31 +102,31 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             }
         })();
         //mise en évidence des exercices sélectionnés.
-		$(".exerciceactif").removeClass("exerciceactif");
-		for (let i = 0; i < liste_des_exercices.length; i++) {
-			$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
+        $(".exerciceactif").removeClass("exerciceactif");
+        for (let i = 0; i < liste_des_exercices.length; i++) {
+            $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
             // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-            if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
+            if (compteOccurences(liste_des_exercices, liste_des_exercices[i]) > 1) {
                 // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
                 let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-                let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
+                let txt = ancienTexte.split('✖︎')[0] + ` ✖︎ ${compteOccurences(liste_des_exercices, liste_des_exercices[i])}`
                 $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
             } else {
                 let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
                 let txt = ancienTexte.split('✖︎')[0]
                 $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
             }
-		}
-		
-		if (sortie_html && est_diaporama) {
-            if (liste_des_exercices.length>0) { // Pour les diaporamas tout cacher quand un exercice est choisi
+        }
+
+        if (sortie_html && est_diaporama) {
+            if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
                 $("#liste_des_exercices").hide();
                 $("#parametres_generaux").show();
             } else {
                 $("#liste_des_exercices").show();
                 $("h3").show();
                 $("#formulaire_choix_de_la_duree").show();
-        
+
             }
             document.getElementById("exercices").innerHTML = "";
             document.getElementById("corrections").innerHTML = "";
@@ -141,12 +141,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         console.log(error);
                     }
 
-                    contenuDesExercices +=`<section class="slider single-item" id="diaporama">`
-                    for(let question of listeObjetsExercice[i].liste_questions){
-                        contenuDesExercices += `\n<div id="question_diap" style="font-size:${listeObjetsExercice[i].tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g,'...').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+                    contenuDesExercices += `<section class="slider single-item" id="diaporama">`
+                    for (let question of listeObjetsExercice[i].liste_questions) {
+                        contenuDesExercices += `\n<div id="question_diap" style="font-size:${listeObjetsExercice[i].tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
                     }
                     contenuDesExercices += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
-                    if (listeObjetsExercice[i].type_exercice == "MG32") {    
+                    if (listeObjetsExercice[i].type_exercice == "MG32") {
                         contenuDesExercices += `<div id="MG32div${i}" class="MG32"></div>`;
                     }
                     contenuDesCorrections += listeObjetsExercice[i].contenu_correction;
@@ -178,69 +178,67 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             let besoinMG32 = false;
             let besoinScratch = false;
             let besoinIEP = false;
-              for (let i = 0; i < liste_des_exercices.length; i++) {
+            for (let i = 0; i < liste_des_exercices.length; i++) {
                 if (listeObjetsExercice[i].type_exercice == "MG32") {
-                 besoinMG32 = true
+                    besoinMG32 = true
                 }
                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
-                 besoinScratch = true
+                    besoinScratch = true
                 }
                 if (listeObjetsExercice[i].type_exercice == "IEP") {
-                 besoinIEP = true
+                    besoinIEP = true
                 }
-              }
-              if (besoinMG32){
+            }
+            if (besoinMG32) {
                 loadScript("https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js")
-                .then(()=>{
-                    //Ajoute figures MG32
-                    for (let i = 0; i < liste_des_exercices.length; i++) {
-                        if (listeObjetsExercice[i].type_exercice == "MG32") {
-                          MG32_ajouter_figure(i);
+                    .then(() => {
+                        //Ajoute figures MG32
+                        for (let i = 0; i < liste_des_exercices.length; i++) {
+                            if (listeObjetsExercice[i].type_exercice == "MG32") {
+                                MG32_ajouter_figure(i);
+                            }
                         }
-                      }
-                      MG32_tracer_toutes_les_figures();
-                })
-              }
-              if (besoinScratch){
-                  loadScript("include/scratchblocks-v3.5-min.js")
-                  .then(()=>{
-                    scratchTraductionFr();
-                    scratchblocks.renderMatching("pre.blocks", {
-                        style: "scratch3",
-                        languages: ["fr"],
-                    });
-                    scratchblocks.renderMatching("code.b", {
-                        inline: true,
-                        style: "scratch3",
-                        languages: ["fr"],
-                    });
-                    mathalea.listeDesScriptsCharges.push('Scratch')
-                  })
-              }
-              if (besoinIEP){
+                        MG32_tracer_toutes_les_figures();
+                    })
+            }
+            if (besoinScratch) {
+                loadScript("include/scratchblocks-v3.5-min.js")
+                    .then(() => {
+                        scratchTraductionFr();
+                        scratchblocks.renderMatching("pre.blocks", {
+                            style: "scratch3",
+                            languages: ["fr"],
+                        });
+                        scratchblocks.renderMatching("code.b", {
+                            inline: true,
+                            style: "scratch3",
+                            languages: ["fr"],
+                        });
+                        mathalea.listeDesScriptsCharges.push('Scratch')
+                    })
+            }
+            if (besoinIEP) {
                 loadScript("/modules/iepjsmin.js")
-                .then(()=>{
-                  loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
-                })
-                .then(()=>{
-                    // MathJax.Hub.Config({
-                    //     tex2jax: {
-                    //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
-                    //     },
-                    //     jax: ["input/TeX", "output/SVG"],
-                    //     TeX: { extensions: ["color.js"] },
-                    //     messageStyle: 'none'
-                    // });
-                    if (typeof window.iepApp == 'undefined') {
-                        window.iepApp = new iep.iepApp()
-                    }
-                    console.log(window.listeIEP)
-                    for (let id of window.listeIEP){
-                        loadIEP(id,iepApp)
-                    }
-                    //mathalea.listeDesScriptsCharges.push('IEP')
-                    
-                })
+                    .then(() => {
+                        loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
+                    })
+                    .then(() => {
+                        MathJax.Hub.Config({
+                            tex2jax: {
+                                inlineMath: [["$", "$"], ["\\(", "\\)"]]
+                            },
+                            jax: ["input/TeX", "output/SVG"],
+                            TeX: { extensions: ["color.js"] },
+                            messageStyle: 'none'
+                        });
+                        if (typeof window.iepApp == 'undefined') {
+                            window.iepApp = new iep.iepApp()
+                        }
+                        for (let id of window.listeIEP) {
+                            loadIEP(id, iepApp)
+                        }
+
+                    })
 
             }
         }
@@ -248,7 +246,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         // Ajoute le contenu dans les div #exercices et #corrections
         if (sortie_html && !est_diaporama) {
-			document.getElementById("exercices").innerHTML = "";
+            document.getElementById("exercices").innerHTML = "";
             document.getElementById("corrections").innerHTML = "";
             let contenuDesExercices = "",
                 contenuDesCorrections = "";
@@ -269,8 +267,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                             console.log(error);
                         }
                         contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                        if (listeObjetsExercice[i].video.length>3) {
-                            contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide","youtube") + `</div>`;
+                        if (listeObjetsExercice[i].video.length > 3) {
+                            contenuDesExercices += `<div id=video${i}>` + modal_youtube(i, listeObjetsExercice[i].video, '', "Aide", "youtube") + `</div>`;
                         }
                         if (listeObjetsExercice[i].bouton_aide) {
                             contenuDesExercices += `<div id=aide${i}> ${listeObjetsExercice[i].bouton_aide}</div>`;
@@ -308,81 +306,81 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 strict: "warn",
                 trust: false,
             });
-              $(".katexPopup").popup({
+            $(".katexPopup").popup({
                 popup: ".special.popup",
                 on: "hover",
                 variation: "inverted",
                 inline: true,
-              });
-              
-              let besoinMG32 = false;
-              let besoinScratch = false;
-              let besoinIEP = false;
-              for (let i = 0; i < liste_des_exercices.length; i++) {
+            });
+
+            let besoinMG32 = false;
+            let besoinScratch = false;
+            let besoinIEP = false;
+            for (let i = 0; i < liste_des_exercices.length; i++) {
                 if (listeObjetsExercice[i].type_exercice == "MG32") {
-                 besoinMG32 = true
+                    besoinMG32 = true
                 }
                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
-                 besoinScratch = true
+                    besoinScratch = true
                 }
                 if (listeObjetsExercice[i].type_exercice == "IEP") {
                     besoinIEP = true
-                   }
-               
-              }
-              
-              if (besoinMG32){
-                loadScript("https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js")
-                .then(()=>{
-                    //Ajoute figures MG32
-                    for (let i = 0; i < liste_des_exercices.length; i++) {
-                        if (listeObjetsExercice[i].type_exercice == "MG32") {
-                          MG32_ajouter_figure(i);
-                        }
-                      }
-                      MG32_tracer_toutes_les_figures();
-                })
-              }
-              if (besoinScratch){
-                  loadScript("include/scratchblocks-v3.5-min.js")
-                  .then(()=>{
-                    scratchTraductionFr();
-                    scratchblocks.renderMatching("pre.blocks", {
-                        style: "scratch3",
-                        languages: ["fr"],
-                    });
-                    scratchblocks.renderMatching("code.b", {
-                        inline: true,
-                        style: "scratch3",
-                        languages: ["fr"],
-                    });
-                    mathalea.listeDesScriptsCharges.push('Scratch')
-                  })
-              }
-              if (besoinIEP){
-                loadScript("/modules/iepjsmin.js")
-                .then(()=>{
-                  loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
-                })
-                .then(()=>{
-                    // MathJax.Hub.Config({
-                    //     tex2jax: {
-                    //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
-                    //     },
-                    //     jax: ["input/TeX", "output/SVG"],
-                    //     TeX: { extensions: ["color.js"] },
-                    //     messageStyle: 'none'
-                    // });
-                    if (typeof window.appIEP == 'undefined') {
-                        window.appIEP = new iep.iepApp()
-                    }
-                    for (let id of window.listeIEP){
-                        loadIEP(id,window.appIEP)
-                    }
-                })
+                }
 
             }
-        } 
+
+            if (besoinMG32) {
+                loadScript("https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js")
+                    .then(() => {
+                        //Ajoute figures MG32
+                        for (let i = 0; i < liste_des_exercices.length; i++) {
+                            if (listeObjetsExercice[i].type_exercice == "MG32") {
+                                MG32_ajouter_figure(i);
+                            }
+                        }
+                        MG32_tracer_toutes_les_figures();
+                    })
+            }
+            if (besoinScratch) {
+                loadScript("include/scratchblocks-v3.5-min.js")
+                    .then(() => {
+                        scratchTraductionFr();
+                        scratchblocks.renderMatching("pre.blocks", {
+                            style: "scratch3",
+                            languages: ["fr"],
+                        });
+                        scratchblocks.renderMatching("code.b", {
+                            inline: true,
+                            style: "scratch3",
+                            languages: ["fr"],
+                        });
+                        mathalea.listeDesScriptsCharges.push('Scratch')
+                    })
+            }
+            if (besoinIEP) {
+                loadScript("/modules/iepjsmin.js")
+                    .then(() => {
+                        loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
+                    })
+                    .then(() => {
+                        // MathJax.Hub.Config({
+                        //     tex2jax: {
+                        //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
+                        //     },
+                        //     jax: ["input/TeX", "output/SVG"],
+                        //     TeX: { extensions: ["color.js"] },
+                        //     messageStyle: 'none'
+                        // });
+                        if (typeof window.appIEP == 'undefined') {
+                            window.appIEP = new iep.iepApp()
+                        }
+                        for (let id of window.listeIEP) {
+                            loadIEP(id, window.appIEP)
+                        }
+                    })
+
+            }
+        }
         if (!sortie_html) {
             // Sortie LaTeX
             // code pour la sortie LaTeX
@@ -418,7 +416,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         }
                     }
                 }
- 
+
                 if ($("#supprimer_correction:checked").val()) {
                     code_LaTeX = codeEnonces;
                 } else {
@@ -427,7 +425,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 }
                 $("#message_liste_exercice_vide").hide();
                 $("#cache").show();
-         
+
 
 
                 // Gestion du nombre de versions
@@ -472,7 +470,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         if (!sortie_html) {
             // Gestion du téléchargement
-            $("#btn_telechargement").off("click").on("click",function () {
+            $("#btn_telechargement").off("click").on("click", function () {
                 // Gestion du style pour l'entête du fichier
                 let contenu_fichier = `
     
@@ -506,8 +504,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     telechargeFichier(contenu_fichier, "mathalea.tex");
                 }
             });
-			
-			$("#btn_overleaf").off("click").on("click", function () {
+
+            $("#btn_overleaf").off("click").on("click", function () {
                 // Gestion du style pour l'entête du fichier
 
                 let contenu_fichier = `
@@ -536,7 +534,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
                 $("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
-                if (liste_packages.has('dnb')){ // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+                if (liste_packages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
                     $("input[name=engine]").val("xelatex");
                 }
                 if ($("#nom_du_fichier").val()) {
@@ -588,44 +586,44 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             if (dictionnaireDesExercices[id].type_exercice == "dnb") {
                 listeObjetsExercice[i] = dictionnaireDesExercices[id];
                 promises.push(
-                fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    listeObjetsExercice[i].nb_questions_modifiable = false;
-                    listeObjetsExercice[i].video = '';
-                    listeObjetsExercice[i].titre = id;
-                    listeObjetsExercice[i].contenu = data;
-                })
+                    fetch(url)
+                        .then(response => response.text())
+                        .then(data => {
+                            listeObjetsExercice[i].nb_questions_modifiable = false;
+                            listeObjetsExercice[i].video = '';
+                            listeObjetsExercice[i].titre = id;
+                            listeObjetsExercice[i].contenu = data;
+                        })
                 )
                 promises.push(
-                fetch(dictionnaireDesExercices[id].urlcor)
-                .then(response => response.text())
-                .then(data => {
-                    
-                    listeObjetsExercice[i].contenu_correction = data;
-                })
+                    fetch(dictionnaireDesExercices[id].urlcor)
+                        .then(response => response.text())
+                        .then(data => {
+
+                            listeObjetsExercice[i].contenu_correction = data;
+                        })
                 )
             } else {
                 promises.push(
                     import(url)
-                    .catch((error) => {
-                        console.log(error)
+                        .catch((error) => {
+                            console.log(error)
                             listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: "", contenu_correction: "" }; // Un exercice vide pour l'exercice qui n'existe pas
                         })
                         .then((module) => {
                             if (module) {
                                 listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
-                                if (dictionnaireDesExercices[id].sup!=undefined){
-                                    listeObjetsExercice[i].sup=dictionnaireDesExercices[id].sup
+                                if (dictionnaireDesExercices[id].sup != undefined) {
+                                    listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
                                 }
-                                if (dictionnaireDesExercices[id].sup2!=undefined){
-                                    listeObjetsExercice[i].sup2=dictionnaireDesExercices[id].sup2
+                                if (dictionnaireDesExercices[id].sup2 != undefined) {
+                                    listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
                                 }
-                                if (dictionnaireDesExercices[id].sup3!=undefined){
-                                    listeObjetsExercice[i].sup3=dictionnaireDesExercices[id].sup3
+                                if (dictionnaireDesExercices[id].sup3 != undefined) {
+                                    listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
                                 }
-                                if (dictionnaireDesExercices[id].nb_questions!=undefined){
-                                    listeObjetsExercice[i].nb_questions=dictionnaireDesExercices[id].nb_questions
+                                if (dictionnaireDesExercices[id].nb_questions != undefined) {
+                                    listeObjetsExercice[i].nb_questions = dictionnaireDesExercices[id].nb_questions
                                 }
                                 if (listeObjetsExercice[i].type_exercice == 'XCas') {
                                     besoinXCas = true;
@@ -642,13 +640,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             .then(() => {
                 // Récupère les paramètres passés dans l'URL
                 let urlVars = getUrlVars();
-				//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-				//	=> évite les erreurs lors de la suppression de question dans la liste.
-				for (let i = 0; i < urlVars.length; i++) {
-					if (urlVars[i].id != liste_des_exercices[i]) {
-						urlVars.splice(i,1);
-					}	
-				}
+                //trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+                //	=> évite les erreurs lors de la suppression de question dans la liste.
+                for (let i = 0; i < urlVars.length; i++) {
+                    if (urlVars[i].id != liste_des_exercices[i]) {
+                        urlVars.splice(i, 1);
+                    }
+                }
                 for (let i = 0; i < urlVars.length; i++) {
                     // récupère les éventuels paramètres dans l'URL
                     // et les recopie dans les formulaires des paramètres
@@ -664,7 +662,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         listeObjetsExercice[i].sup = urlVars[i].sup;
                         // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
                         try {
-                            
+
                             form_sup[i].value = listeObjetsExercice[i].sup;
                         } catch {
                         }
@@ -681,17 +679,17 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         try {
                             form_sup3[i].value = listeObjetsExercice[i].sup3;
                         } catch (error) {
-                            
+
                         }
                     }
-                    
+
                 }
             })
             .then(() => {
-                if (besoinXCas){
+                if (besoinXCas) {
                     // On charge le javascript de XCas
                     let div // le div dans lequel on fera apparaitre le cercle de chargement
-                    if (sortie_html){
+                    if (sortie_html) {
                         div = document.getElementById("exercices")
                     } else {
                         div = document.getElementById("div_code_LaTeX")
@@ -707,11 +705,11 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
                 }
             })
-            .then((resolve,reject) => {
+            .then((resolve, reject) => {
                 if (besoinXCas) {
                     // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
                     return checkXCas();
-                    }
+                }
             })
             .then(() => {
                 mise_a_jour_du_code();
@@ -720,41 +718,41 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
     const loadScript = src => {
         return new Promise((resolve, reject) => {
-              if (mathalea.listeDesScriptsCharges.indexOf(src)<0){
-                  const script = document.createElement('script')
-                  script.type = 'text/javascript'
-                  script.onload = resolve
-                  script.onerror = reject
-                  script.src = src
-                  document.head.append(script)
-                  mathalea.listeDesScriptsCharges.push(src)
-              } else {
-                  resolve()
-              }
-          })
-          
+            if (mathalea.listeDesScriptsCharges.indexOf(src) < 0) {
+                const script = document.createElement('script')
+                script.type = 'text/javascript'
+                script.onload = resolve
+                script.onerror = reject
+                script.src = src
+                document.head.append(script)
+                mathalea.listeDesScriptsCharges.push(src)
+            } else {
+                resolve()
+            }
+        })
+
     }
     const checkXCas = () => {
         return new Promise((resolve, reject) => {
-                const monInterval = setInterval(() => {
-                    if (typeof(Module)!= 'undefined'){
-                            if (Module.ready == true){
-                                resolve();
-                                clearInterval(monInterval);
-                            }
-                        }
-                }, 500);
-          })
+            const monInterval = setInterval(() => {
+                if (typeof (Module) != 'undefined') {
+                    if (Module.ready == true) {
+                        resolve();
+                        clearInterval(monInterval);
+                    }
+                }
+            }, 500);
+        })
     }
-    
-    function loadIEP(id,iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
+
+    function loadIEP(id, iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
         if (sortie_html) {
             let xml = document.getElementById(`figurexml${id}`).innerHTML
             let container = document.getElementById(`IEPContainer${id}`)
             container.innerHTML = ''
             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-            let width = Math.max((window.outerWidth*0.625) || 0, 800)
-            let height = Math.max((window.outerHeight*0.6) || 0, 600)
+            let width = Math.max((window.outerWidth * 0.625) || 0, 800)
+            let height = Math.max((window.outerHeight * 0.6) || 0, 600)
             svg.setAttributeNS(null, "width", width);
             svg.setAttributeNS(null, "height", height);
             svg.setAttributeNS(null, "id", `svg${id}`);
@@ -768,70 +766,70 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
     * Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
     * @Auteur Rémi Angot
     */
-   function  MG32_modifie_figure(numero_figure) {
-    let code_pour_modifier_la_figure =  listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
-    if (window.mtg32App.docs.length==1){
-        code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace("display","updateDisplay")
-    }
-    let modification = new Function ('numero_figure',code_pour_modifier_la_figure)
-    modification(numero_figure);
+    function MG32_modifie_figure(numero_figure) {
+        let code_pour_modifier_la_figure = listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
+        if (window.mtg32App.docs.length == 1) {
+            code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace("display", "updateDisplay")
+        }
+        let modification = new Function('numero_figure', code_pour_modifier_la_figure)
+        modification(numero_figure);
     }
 
     /**
     * Actualise toutes les figures MG32 avec les nouvelles valeurs
     * @Auteur Rémi Angot
     */
-    function  MG32_modifie_toutes_les_figures() {
-    for (let i = 0; i < liste_des_exercices.length; i++) {
-        if ( listeObjetsExercice[i].type_exercice=='MG32'){
-            MG32_modifie_figure(i)
+    function MG32_modifie_toutes_les_figures() {
+        for (let i = 0; i < liste_des_exercices.length; i++) {
+            if (listeObjetsExercice[i].type_exercice == 'MG32') {
+                MG32_modifie_figure(i)
+            }
         }
-    }
     }
 
     /**
     * Ajoute une figure MG32 dans le code HTML de la page
     * @Auteur Rémi Angot
     */
-    function  MG32_ajouter_figure(numero_de_l_exercice) {
-    if (window.mtg32App) {
-        for (var i = 0; i < mtg32App.docs.length; i++) {
-            mtg32App.removeDoc(mtg32App.docs[i].idDoc)
-        }	
-    }
-    MG32_tableau_de_figures.push(
-    // pour chaque figure on précise ici ses options
-    {
-    idContainer: `MG32div${numero_de_l_exercice}`,
-    svgOptions: {
-        width: `${ listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[0]}`, 
-        height: `${ listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[1]}`, 
-        idSvg: `MG32svg${numero_de_l_exercice}`
-    },
-    mtgOptions: {
-            fig:  listeObjetsExercice[numero_de_l_exercice].MG32codeBase64,
-            isEditable:  listeObjetsExercice[numero_de_l_exercice].MG32editable
+    function MG32_ajouter_figure(numero_de_l_exercice) {
+        if (window.mtg32App) {
+            for (var i = 0; i < mtg32App.docs.length; i++) {
+                mtg32App.removeDoc(mtg32App.docs[i].idDoc)
+            }
         }
-    }
-    )	
-
-    if ( listeObjetsExercice[numero_de_l_exercice].MG32codeBase64corr) {
         MG32_tableau_de_figures.push(
-    // pour chaque figure on précise ici ses options
-    {
-    idContainer: `MG32divcorr${numero_de_l_exercice}`,
-    svgOptions: {
-        width: `${ listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[0]}`, 
-        height: `${ listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[1]}`, 
-        idSvg: `MG32svgcorr${numero_de_l_exercice}`
-    },
-    mtgOptions: {
-        fig:  listeObjetsExercice[numero_de_l_exercice].MG32codeBase64corr,
-        isEditable: false
-    }
-    }
-    )		
-    }
+            // pour chaque figure on précise ici ses options
+            {
+                idContainer: `MG32div${numero_de_l_exercice}`,
+                svgOptions: {
+                    width: `${listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[0]}`,
+                    height: `${listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[1]}`,
+                    idSvg: `MG32svg${numero_de_l_exercice}`
+                },
+                mtgOptions: {
+                    fig: listeObjetsExercice[numero_de_l_exercice].MG32codeBase64,
+                    isEditable: listeObjetsExercice[numero_de_l_exercice].MG32editable
+                }
+            }
+        )
+
+        if (listeObjetsExercice[numero_de_l_exercice].MG32codeBase64corr) {
+            MG32_tableau_de_figures.push(
+                // pour chaque figure on précise ici ses options
+                {
+                    idContainer: `MG32divcorr${numero_de_l_exercice}`,
+                    svgOptions: {
+                        width: `${listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[0]}`,
+                        height: `${listeObjetsExercice[numero_de_l_exercice].taille_div_MG32[1]}`,
+                        idSvg: `MG32svgcorr${numero_de_l_exercice}`
+                    },
+                    mtgOptions: {
+                        fig: listeObjetsExercice[numero_de_l_exercice].MG32codeBase64corr,
+                        isEditable: false
+                    }
+                }
+            )
+        }
     }
 
     /**
@@ -840,20 +838,20 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
     * et quand toutes seront résolues on continue
     * @Auteur Rémi Angot
     */
-    function  MG32_tracer_toutes_les_figures() {
-        (function  verifie_div_MG32() {
+    function MG32_tracer_toutes_les_figures() {
+        (function verifie_div_MG32() {
             const el = document.getElementsByClassName('MG32');
             // Sélectionne les div de classe MG32
             if (el.length) { // S'ils existent, on peut appeler MG32
-                Promise.all(MG32_tableau_de_figures.map(({idContainer, svgOptions, mtgOptions}) => mtgLoad(idContainer, svgOptions, mtgOptions)))
-            .then(results => {
+                Promise.all(MG32_tableau_de_figures.map(({ idContainer, svgOptions, mtgOptions }) => mtgLoad(idContainer, svgOptions, mtgOptions)))
+                    .then(results => {
                         // results est le tableau des valeurs des promesses résolues, avec la même instance du player pour chacune, la 1re valeur nous suffit donc
                         window.mtg32App = results[0]
                         // on peut l'utiliser…
                         MG32_modifie_toutes_les_figures()
                     })
-            .catch(error => console.error(error))
-        } else {
+                    .catch(error => console.error(error))
+            } else {
                 setTimeout(verifie_div_MG32, 300); // retente dans 300 milliseconds
             }
         })();
@@ -881,7 +879,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         form_sup = [],
         form_sup2 = [],
         form_sup3 = [],
-        form_ModeQCM= []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
+        form_ModeQCM = []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
     function parametres_exercice(exercice) {
         /* Pour l'exercice i, on rajoute un formulaire avec 5 inputs : 
@@ -907,7 +905,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nb_questions' + i + '">Nombre de questions : </label> <input id="form_nb_questions' + i + '" type="number"  min="1" max="99"></div>';
                 }
-                if (!est_diaporama){
+                if (!est_diaporama) {
                     div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>';
                 }
                 if (exercice[i].correction_detaillee_disponible) {
@@ -918,7 +916,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_ModeQCM' + i + '">Mode QCM : </label> <input id="form_ModeQCM' + i + '" type="checkbox" ></div>';
                 }
-                
+
                 if (!exercice[i].nb_questions_modifiable && !exercice[i].correction_detaillee_disponible && !exercice[i].besoin_formulaire_numerique && !exercice[i].besoin_formulaire_texte && !exercice[i].QCM_disponible) {
                     div_parametres_generaux.innerHTML += "<p><em>Cet exercice ne peut pas être paramétré.</em></p>";
                 }
@@ -1188,7 +1186,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     });
                 }
 
-       
+
                 // Gestion du nombre de colones
                 if (exercice[i].nb_cols_modifiable) {
                     form_nb_cols[i] = document.getElementById("form_nb_cols" + i);
@@ -1239,16 +1237,16 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     // Dès que le statut change, on met à jour
                     mise_a_jour_du_code();
                 });
-                
+
                 // Gestion du mode N&B pour les remplissages
                 let form_ModeNB = document.getElementById("ModeNB");
                 form_ModeNB.addEventListener("change", function (e) {
                     // Dès que le statut change, on met à jour
                     if ($("#ModeNB:checked").val()) {
-                        mathalea.sortieNB=true;
+                        mathalea.sortieNB = true;
                     }
                     else {
-                        mathalea.sortieNB=false;
+                        mathalea.sortieNB = false;
                     }
                     mise_a_jour_du_code();
                 });
@@ -1278,7 +1276,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     mise_a_jour_du_code();
                 });
             }
-            
+
             // Gestion de la vidéo
             if (sortie_html && !est_diaporama) {
                 form_video[i] = document.getElementById("form_video" + i);
@@ -1301,16 +1299,16 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 });
             }
 
-         // Gestion du mode QCM
-         if (exercice[i].QCM_disponible) {
-            form_ModeQCM[i] = document.getElementById("form_ModeQCM" + i);
-            form_ModeQCM[i].checked = exercice[i].ModeQCM; // Rempli le formulaire avec la valeur par défaut
-            form_ModeQCM[i].addEventListener("change", function (e) {
-                // Dès que le statut change, on met à jour
-                exercice[i].ModeQCM = e.target.checked;
-                mise_a_jour_du_code();
-            });
-        }
+            // Gestion du mode QCM
+            if (exercice[i].QCM_disponible) {
+                form_ModeQCM[i] = document.getElementById("form_ModeQCM" + i);
+                form_ModeQCM[i].checked = exercice[i].ModeQCM; // Rempli le formulaire avec la valeur par défaut
+                form_ModeQCM[i].addEventListener("change", function (e) {
+                    // Dès que le statut change, on met à jour
+                    exercice[i].ModeQCM = e.target.checked;
+                    mise_a_jour_du_code();
+                });
+            }
             // Gestion de l'identifiant de la série
             if (exercice.length > 0) {
                 let form_serie = document.getElementById("form_serie");
@@ -1464,7 +1462,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         // Gestion du bouton « Nouvelles données »
         let btn_mise_a_jour_code = document.getElementById("btn_mise_a_jour_code");
-        if (btn_mise_a_jour_code){
+        if (btn_mise_a_jour_code) {
             btn_mise_a_jour_code.addEventListener("click", nouvelles_donnees);
         }
         function nouvelles_donnees() {
@@ -1497,42 +1495,42 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
         if (sortie_html && !est_diaporama) {
             // Gestion du bouton de zoom
-                let zoom = 1;
-                $( "#btn_zoom_plus").click(function() {
-                    zoom+=0.5;
-                    $("#affichage_exercices").css("transform", `scale(${zoom})`);
-                    $("#affichage_exercices").css("transform-origin", "0 0px");
-                      //window.location.hash = 'section';
-                  });
-                $( "#btn_zoom_moins").click(function() {
-                    if (zoom>1) {
-                        zoom-=0.5;
-                    }
-                    $("#affichage_exercices").css("transform", `scale(${zoom})`);
-                    $("#affichage_exercices").css("transform-origin", "0 0px");
-                });
+            let zoom = 1;
+            $("#btn_zoom_plus").click(function () {
+                zoom += 0.5;
+                $("#affichage_exercices").css("transform", `scale(${zoom})`);
+                $("#affichage_exercices").css("transform-origin", "0 0px");
+                //window.location.hash = 'section';
+            });
+            $("#btn_zoom_moins").click(function () {
+                if (zoom > 1) {
+                    zoom -= 0.5;
+                }
+                $("#affichage_exercices").css("transform", `scale(${zoom})`);
+                $("#affichage_exercices").css("transform-origin", "0 0px");
+            });
         }
 
         // Gestion de la redirection vers MathaleaLaTeX
-        $( "#btnLaTeX").click(function() {
-            window.location.href=window.location.href.replace('exercice.html','mathalealatex.html');
+        $("#btnLaTeX").click(function () {
+            window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html');
         });
-        
-        if (document.getElementById('btnQRcode')){
-			document.getElementById('btnQRcode').addEventListener('click',function () {
-				$('#ModalQRcode').html('');
-				let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
-					text: window.location.href,
-					width: Math.min(window.innerHeight,window.innerWidth)*0.9,
-					height: Math.min(window.innerHeight,window.innerWidth)*0.9,
-					colorDark : "#000000",
-					colorLight : "#ffffff",
-					correctLevel : QRCode.CorrectLevel.H
-				});
-				qrcode.makeCode(window.location.href)
-				$('#ModalQRcode').modal('show')
-			})
-		}
+
+        if (document.getElementById('btnQRcode')) {
+            document.getElementById('btnQRcode').addEventListener('click', function () {
+                $('#ModalQRcode').html('');
+                let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
+                    text: window.location.href,
+                    width: Math.min(window.innerHeight, window.innerWidth) * 0.9,
+                    height: Math.min(window.innerHeight, window.innerWidth) * 0.9,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                qrcode.makeCode(window.location.href)
+                $('#ModalQRcode').modal('show')
+            })
+        }
 
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;
