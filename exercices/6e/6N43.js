@@ -23,7 +23,7 @@ export default function Criteres_de_divisibilite() {
   this.ModeQCM=false
 
   this.nouvelle_version = function () {
-    this.QCM=['6N43',[],"Critères de divisibilité",1]
+    this.QCM=['6N43',[],"Critères de divisibilité",1,{ordered:true,lastChoices:2}]
     let tabrep,tabicone
     let espace =``;
     if (sortie_html) {

@@ -63,7 +63,7 @@ export default function Priorites_et_relatifs_et_puissances() {
   this.spacing_corr = sortie_html ? 3 : 1;
 
   this.nouvelle_version = function () {
-    this.QCM=['4C34',[],'Calculs utilisant les priorités opératoires et les puissances',4,{}]
+    this.QCM=['4C34',[],'Calculs utilisant les priorités opératoires et les puissances',5,{}]
  
     let reponse;
     this.liste_questions = []; // Liste de questions
@@ -164,7 +164,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
-        this.QCM[1].push([texte, [texte_corr,reponse], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+        this.QCM[1].push([texte, [texte_corr,reponse,3], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;

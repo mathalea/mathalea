@@ -7,6 +7,7 @@ import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombr
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */
 export default function Pourcentage_d_un_nombre() {
+
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculer le pourcentage d'un nombre de tête";
   this.nb_questions = 5;
@@ -17,6 +18,8 @@ export default function Pourcentage_d_un_nombre() {
   this.nb_cols_corr = 1;
   this.sup = 1;
   this.nouvelle_version = function () {
+	this.QCM=['6N33-1',[],"Calculer le pourcentage d'un nombre de tête",4,{}]
+let reponse;
     var liste_pourcentages = [];
 	this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -79,10 +82,12 @@ export default function Pourcentage_d_un_nombre() {
 					}
 				}
       }
+	  let reponse=calcul(n*p/100)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+		this.QCM[1].push([texte, [texte_corr,reponse], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;

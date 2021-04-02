@@ -82,7 +82,7 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
         tabrep,
         tabicone]) 
      
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
           texte_corr=''
           texte+=`<br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);

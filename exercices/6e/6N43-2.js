@@ -237,7 +237,7 @@ export default function Tableau_criteres_de_divisibilite() {
       }
       if (!mathalea.sortieAMC) {
 
-        if (this.ModeQCM) {
+        if (this.ModeQCM&&!mathalea.sortieAMC) {
 
           texte += `$${tex_nombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
           texte_corr += `$${tex_nombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
