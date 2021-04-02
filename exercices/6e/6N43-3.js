@@ -17,7 +17,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   this.video = "" // Id YouTube ou url
   this.QCM_disponible=true
   this.ModeQCM=false
-  this.QCM=['6N43-3',[],"Diviseur, multiple, divisible - Vrai ou faux",1]
   
   function justification(N,a,booleen) {
 
@@ -54,6 +53,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   }
 
   this.nouvelle_version = function () {
+    this.QCM=['6N43-3',[],"Diviseur, multiple, divisible - Vrai ou faux",1,{ordered:true,lastChoices:2}]
     let tabrep,tabicone
     let espace =``;
     if (sortie_html) {
@@ -90,70 +90,70 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
           texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
           texte_corr += justification(N,a,true);
-          tabrep=["Vrai","Faux"];
-          tabicone=[1,0]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
           break;
         case 'divisibleParN': 
           texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
           texte_corr += justification(N,a,true)
-          tabrep=["Vrai","Faux"];
-          tabicone=[1,0]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
          break;
         case 'multipleDeN': 
           texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
           texte_corr += justification(N,a,true)
-          tabrep=["Vrai","Faux"];
-          tabicone=[1,0]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
          break;
         case 'NdiviseurF':
           a += randint(1,N-1) 
           texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
          break;
         case 'divisibleParNF': 
           a += randint(1,N-1) 
           texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'multipleDeNF': 
           a += randint(1,N-1) 
           texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'NdiviseurEnvers': 
           texte = `$${tex_nombre(a)}$ est un diviseur de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${tex_nombre(a)}$`
           texte_corr += justification(N,a,true)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
           break;
         case 'divisibleParNEnvers': 
           texte = `$${N}$ est divisible par $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${tex_nombre(a)}$ est divisible par $${N}$`
           texte_corr += justification(N,a,true)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
           break;
         case 'multipleDeNEnvers': 
           texte = `$${N}$ est un multiple de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
           texte_corr += justification(N,a,true)
-          tabrep=["Vrai","Faux"];
-          tabicone=[0,1]
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
            break;
       }
       if (this.ModeQCM&&!mathalea.sortieAMC) {
