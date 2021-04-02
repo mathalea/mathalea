@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,troncature,calcul,tex_nombre,mise_en_evidence,tex_fraction} from "/modules/outils.js"
+import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,troncature,calcul,tex_nombre,mise_en_evidence,tex_fraction} from "/modules/outils.js"
 /** 
  * * Encadrer_puis_arrondir_une_valeur
  * * 6N31-3
@@ -16,10 +16,19 @@ export default function Arrondir_une_valeur() {
   this.nb_cols_corr = 1;
   this.sup = 1;
   this.sup2 = false;
-
+  this.QCM=['6N31-3',[],"Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.",2]
+	this.QCM_disponible=true
+	this.ModeQCM=false;
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 3.5);
 
   this.nouvelle_version = function () {
+    let tabrep=[],tabicone=[1,0,1,0,1,0]
+		let espace =``;
+		if (sortie_html) {
+		  espace = `&emsp;`;
+		} else {
+		  espace = `\\qquad`;
+		}
     this.liste_questions = [];
     this.liste_corrections = [];
     let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac;
@@ -64,28 +73,51 @@ export default function Arrondir_une_valeur() {
       texte_corr = "Encadrement et arrondi à l'unité : ";
       if (di < 5) {
         texte_corr += `$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`;
+      tabrep.push(`$${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`,`${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`)
       } else {
         texte_corr += `$\\phantom{1234567}${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`;
+        tabrep.push(`$${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`, `$${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`)
       }
 
       texte_corr += "<br>Encadrement et arrondi au dixième : ";
       if (ci < 5) {
         texte_corr += `$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`;
+     tabrep.push( `$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`,`$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`)
       } else {
         texte_corr += `$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`;
+     tabrep.push(`$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`,`$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`)
       }
 
       texte_corr += "<br>Encadrement et arrondi au centième : $~$";
       if (mi < 5) {
         texte_corr += `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`;
+      tabrep.push(`$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`,`$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`)
       } else {
         texte_corr += `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`;
+     tabrep.push(`$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`,`$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`)
       }
-
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
+        texte+=`<br><br>Réponses possibles : ${espace}  `
+        texte_corr=''
+        shuffle2tableaux(tabrep, tabicone);
+        for (let i=0; i<4; i++) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+         }
+      }
+  
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
         this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+        this.QCM[1].push([`${texte}\\\\ \n Réponses possibles`,
+        tabrep,
+        tabicone]) 
+
         i++; // On passe à la question suivante
       }
       cpt++;

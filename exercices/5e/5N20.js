@@ -24,8 +24,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 	this.sup2 = 3;
+	/************** ModeQCM disponible dans Mathalea ***********************/
 	this.QCM_disponible=true
 	this.ModeQCM=false;
+	/***********************************************************************/
+
 	this.nouvelle_version = function () {
 		this.QCM=['5N20',[],"Additionner ou soustraire deux fractions (dénominateurs multiples)",1]
 		if (this.level==6) this.QCM[0]='6C23'
@@ -41,15 +44,17 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 		if (this.sup2 == 3) {
 			liste_type_de_questions = combinaison_listes(['+', '-'], this.nb_questions);
 		}
+
+		/*************** Pour QCM html/latex hors AMC *****************************/
 		let tabrep,tabicone=[1,0,0,0]
-	this.QCM[1]=[]
 		let espace =``;
 		if (sortie_html) {
 		  espace = `&emsp;`;
 		} else {
 		  espace = `\\qquad`;
 		}
-	
+		/**************************************************************************/
+
 		for (let i = 0, a, b, c, d, k, texte, texte_corr; i < this.nb_questions; i++) {
 			texte_corr=''
 			// les numérateurs
@@ -70,24 +75,29 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 				c = randint(1, 19, d);
 			}
 			if (liste_type_de_questions[i] == '+') { //une addition
+				/******************* Choix des réponses du QCM ***********************************/
 				tabrep=[`$${tex_fraction_reduite(a*d+c*b,b*d)}$`,`$${tex_fraction(a+c,b+d)}$`,`$${tex_fraction(a+c,b*d)}$`,`$${tex_fraction(a*c,b*d)}$`]
 				tabicone=[1,0,0,0]
+				/*************************************************************************/
 				let ordre_des_fractions = randint(1, 2);
 				if (ordre_des_fractions == 1) {
 					texte = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$`;
+					/******************** AMC question/questionmult ********************************/
 					this.QCM[1].push([`$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
 					tabrep,
 					tabicone]) 
-		
+					/*******************************************************************************/
 	
 				} else {
 					texte = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$`;
+					/******************** AMC question/questionmult ******************************/
 					this.QCM[1].push([`$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
 					tabrep,
 					tabicone]) 
-		
+					/*******************************************************************************/
 				}
-				if (this.ModeQCM) {
+
+				if (this.ModeQCM&&!mathalea.sortieAMC) {      //  pour Mathalea & Mathalealatex pas pour AMC ******/
 					texte+=`<br><br>Réponses possibles : ${espace}  `
 					shuffle2tableaux(tabrep, tabicone);
 					for (let i=0; i<4; i++) {
@@ -120,9 +130,10 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 				}
 			}
 			} else { //une soustraction
+			/******************* Choix des réponses du QCM ***********************************/
 				tabrep=[`$${tex_fraction_reduite(Math.abs(a*d-c*b),Math.abs(b*d))}$`,`$${tex_fraction(Math.abs(a-c),Math.abs(b-d))}$`,`$${tex_fraction(Math.abs(a-c),b*d)}$`,`$${tex_fraction(a*c,b*d)}$`]
 			tabicone=[1,0,0,0]
-			
+			/*********************************************************************************/
 				if ((a / b) > (c / d)) {
 					texte = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$`;
 					this.QCM[1].push([`$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
@@ -131,12 +142,14 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 	
 				} else {
 					texte = texte = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$`;
+					/******************** AMC question/questionmult ******************************/
 					this.QCM[1].push([`$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
 					tabrep,
 					tabicone]) 
-				}
+					/*****************************************************************************/
+			}
 				if ((a / b) > (c / d)) {
-					if (this.ModeQCM) {
+					if (this.ModeQCM&&!mathalea.sortieAMC) {
 						texte+=`<br><br>Réponses possibles : ${espace}  `
 						shuffle2tableaux(tabrep, tabicone);
 						for (let i=0; i<4; i++) {
@@ -156,7 +169,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e(max 
 					texte_corr += `${tex_fraction(a * k + `-` + c, d)}=${tex_fraction(a * k - c, d)}$`;
 				}
 				} else {
-					if (this.ModeQCM) {
+					if (this.ModeQCM&&!mathalea.sortieAMC) {
 						texte+=`<br>	Réponses possibles : ${espace}  `
 						shuffle2tableaux(tabrep, tabicone);
 						for (let i=0; i<4; i++) {
