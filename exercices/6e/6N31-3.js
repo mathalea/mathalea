@@ -16,12 +16,12 @@ export default function Arrondir_une_valeur() {
   this.nb_cols_corr = 1;
   this.sup = 1;
   this.sup2 = false;
-  this.QCM=['6N31-3',[],"Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.",2]
 	this.QCM_disponible=true
 	this.ModeQCM=false;
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 3.5);
 
   this.nouvelle_version = function () {
+    this.QCM=['6N31-3',[],"Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.",2]
     let tabrep=[],tabicone=[1,0,1,0,1,0]
 		let espace =``;
 		if (sortie_html) {

@@ -104,7 +104,7 @@ export default function Traduire_un_programme_de_calcul() {
 					tabicone=[1,0,0,0]
 					break;
 			}
-			if (this.ModeQCM) {
+			if (this.ModeQCM&&!mathalea.sortieAMC) {
 				texte_corr=''
 				texte+=`<br>  Réponses possibles : ${espace}  `
 				shuffle2tableaux(tabrep, tabicone);

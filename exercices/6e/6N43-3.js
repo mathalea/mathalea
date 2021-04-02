@@ -15,8 +15,11 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-
+  this.QCM_disponible=true
+  this.ModeQCM=false
+  
   function justification(N,a,booleen) {
+
     let result
     if (booleen == true){
       if (N == 2) {
@@ -50,6 +53,15 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   }
 
   this.nouvelle_version = function () {
+    this.QCM=['6N43-3',[],"Diviseur, multiple, divisible - Vrai ou faux",1,{ordered:true,lastChoices:2}]
+    let tabrep,tabicone
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
+
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
@@ -77,62 +89,93 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
         case 'Ndiviseur': 
           texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
-          texte_corr += justification(N,a,true)
+          texte_corr += justification(N,a,true);
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
           break;
         case 'divisibleParN': 
           texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
           texte_corr += justification(N,a,true)
-          break;
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
+         break;
         case 'multipleDeN': 
           texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
           texte_corr += justification(N,a,true)
-          break;
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[1,0,0]
+         break;
         case 'NdiviseurF':
           a += randint(1,N-1) 
           texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
-          break;
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
+         break;
         case 'divisibleParNF': 
           a += randint(1,N-1) 
           texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'multipleDeNF': 
           a += randint(1,N-1) 
           texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += justification(N,a,false)
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'NdiviseurEnvers': 
           texte = `$${tex_nombre(a)}$ est un diviseur de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${tex_nombre(a)}$`
           texte_corr += justification(N,a,true)
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'divisibleParNEnvers': 
           texte = `$${N}$ est divisible par $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${tex_nombre(a)}$ est divisible par $${N}$`
           texte_corr += justification(N,a,true)
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
           break;
         case 'multipleDeNEnvers': 
           texte = `$${N}$ est un multiple de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
           texte_corr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
           texte_corr += justification(N,a,true)
-          break;
-        
-        
+          tabrep=["Vrai","Faux","Je ne sais pas"];
+          tabicone=[0,1,0]
+           break;
       }
-
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
+        texte_corr=`${texte}..`
+        texte+=`<br><br>  Réponses possibles : ${espace}  `
+        //shuffle2tableaux(tabrep, tabicone);
+        for (let i=0; i<tabrep.length; i++) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+       }
+      }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([`${texte}.\\\\ \n `,
+        tabrep,
+        tabicone]) 
         i++;
       }
       cpt++;

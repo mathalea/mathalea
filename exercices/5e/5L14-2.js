@@ -28,9 +28,11 @@ export default function Exercice_substituer(difficulte = 1) {
 
 
 	this.nouvelle_version = function () {
+		this.QCM=['5L14-2',[],'Substitution',4,{}]
+
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-
+let reponse
 		let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let k = randint(2, 9);
@@ -58,42 +60,52 @@ export default function Exercice_substituer(difficulte = 1) {
 				case 1:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=${k}x$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${k}x=${k}\\times  ${x}=${k * x}$`;
+					reponse=k*x
 					break;
 				case 2:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=${k}x-y$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${k}x-y=${k}\\times  ${x}-${y}=${k * x - y}$`;
+					reponse=k*x-y
 					break;
 				case 3:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=xy$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=xy=${x}\\times  ${y}=${x * y}$`;
+					reponse=x*y
 					break;
 				case 4:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=x+y$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=x+y=${x}+${y}=${x + y}$`;
+					reponse=x+y
 					break;
 				case 5:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=xy+z$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=xy+z=${x}\\times  ${y}+${z}=${x * y + z}$`;
+					reponse=x*y+z
 					break;
 				case 6:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=x(y+z)$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=x(y+z)=${x}\\times (${y}+${z})=${x * (y + z)}$`;
+					reponse=x*(y+z)
 					break;
 				case 7:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=x^2+${ecriture_parenthese_si_negatif(k)}y$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=x^2+${ecriture_parenthese_si_negatif(k)}y=${x}^2+${ecriture_parenthese_si_negatif(k)}\\times  ${y}=${x * x}+${ecriture_parenthese_si_negatif(k)}\\times  ${y}=${x * x + k * y}$`;
+					reponse =x*x+y
 					break;
 				case 8:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=x^2+y^2$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=x^2+y^2=${x}^2+${y}^2=${x * x}+${y * y}=${x * x + y * y}$`;
+					reponse=x*x+y*y
 					break;
 				case 9:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=${k}x^2+y^2$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${k}x^2+y^2=${k}\\times  ${x}^2+${y}^2=${k}\\times  ${x * x}+${y * y}=${k * x * x + y * y}$`;
+					reponse=k*x*x+y*y
 					break;
 				case 10:
 					texte = `$${lettre_depuis_chiffre(i + 1)}=${k}x^2+${ecriture_parenthese_si_negatif(k2)}x+${ecriture_parenthese_si_negatif(k3)}$`;
 					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${k}x^2+${ecriture_parenthese_si_negatif(k2)}x+${ecriture_parenthese_si_negatif(k3)}=${k}\\times  ${x}^2+${ecriture_parenthese_si_negatif(k2)}\\times  ${ecriture_parenthese_si_negatif(x)}+${ecriture_parenthese_si_negatif(k3)}=${k}\\times  ${x * x}+${ecriture_parenthese_si_negatif(k2)}\\times  ${x}+${ecriture_parenthese_si_negatif(k3)}=${k * x * x + k2 * x + k3}$`;
+					reponse=k*x*x+k2*x+k3
 					break;
 
 			}
@@ -101,6 +113,7 @@ export default function Exercice_substituer(difficulte = 1) {
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
+				this.QCM[1].push([texte+'\\\\'+this.consigne, [texte_corr,reponse], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
 				i++;
 			}
 			cpt++;
