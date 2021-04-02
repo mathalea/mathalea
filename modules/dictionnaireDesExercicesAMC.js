@@ -115,6 +115,10 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/5e/5N13-2.js",
         "titre":"Égalités entre fractions simples (QCM)"
     },
+    "5L14-2": {
+        "titre": "Substitution",
+        "url": "/exercices/5e/5L14-2.js"
+    },
     "5N20":{
         "url":"/exercices/5e/5N20.js",
         "titre":"Additionner ou soustraire deux fractions (dénominateurs multiples) (QCM)"
