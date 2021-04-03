@@ -13,6 +13,7 @@ export default function Alea2iep() {
     this.tempo = 10; // Pause par défaut après une instruction
     this.vitesse = 10; // Vitesse par défaut pour les déplacements d'instruments
     this.couleur = "blue"; // Couleur par défaut
+    this.couleurCompas = "forestgreen";
     this.couleurTexte = "black";
     this.couleurPoint = "black"; // Couleur du nom des points
     this.couleurCodage = "#f15929"; 
@@ -470,7 +471,7 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="tiret"` : ''
@@ -497,7 +498,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
     this.compasMontrer()
     this.compasDeplacer(centre)
     let s = segment(centre, point)
