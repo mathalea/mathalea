@@ -1,12 +1,13 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, shuffle, combinaison_listes, calcul, creerNomDePolygone } from "/modules/outils.js"
 import { triangle2points2longueurs, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment, mathalea2d } from "/modules/2d.js"
-import {Alea2iep} from "/modules/mathalea2iep.js";
+import Alea2iep from "/modules/Alea2iep.js"
 
 /**
  * Publié le 30/08/202
- * @Auteur Jean-Claude Lhote
+ * @Auteur Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
  * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
+ * Modifié 2021/04/02
  */
 export default function Construire_un_triangle() {
     "use strict"

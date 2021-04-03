@@ -6,9 +6,9 @@ import{fraction,listeFractions} from "/modules/Fractions.js"
 let divSvg = "";
 let script = "";
 let url = new URL(window.location.href);
-window.onload = function () {
+window.addEventListener('load', function()  {
+  
   divSvg = document.getElementById("svg");
-
   if (url.searchParams.get("url")) { // Si on spécifie une url
 	  fetch(`/m2d/${url.searchParams.get("url")}.m2d`)
       .then(function (response) {
@@ -24,7 +24,7 @@ window.onload = function () {
     afficheSVG(script)
 	}
 
-};
+})
 
 function executeCode(txt) {
   return eval(txt);

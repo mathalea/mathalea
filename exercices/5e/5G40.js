@@ -4,8 +4,8 @@ import { cercleCentrePoint,cercle, codeSegments, pointAdistance, pointIntersecti
 
 
 /**
- * Construction de symétrique avec dispositif d'auto-correction aléatoire
- * Ref 5G11-3
+ * Terminer la construction d'un parallélogramme
+ * Ref 5G40
  * @Auteur Jean-Claude Lhote
  * Publié le 30/11/2020
  */
@@ -17,7 +17,7 @@ export default function Constructions_parallelogrammes() {
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-    this.sup = 1;
+    this.sup = 5;
     this.correction_detaillee=false
     this.correction_detaillee_disponible=true
 	this.nouvelle_version = function () {

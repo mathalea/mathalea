@@ -85,82 +85,88 @@
 
 <body>
 
-  <nav>
+    <nav>
 
-    <div class="ui top attached five item stackable container menu  ">
-      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i> 
-        <div class="menu">
-          <a href="/" class="item">Accueil</a>
-          <a href="/6e" class="item">Sixième</a>
-          <a href="/5e" class="item">Cinquième</a>
-          <a href="/4e" class="item">Quatrième</a>
-          <a href="/3e" class="item">Troisième</a>
-          <a href="/2e" class="item">Seconde</a>
-          <a href="/twitter" class="item">Actualités</a>
+        <div class="ui top attached five item stackable container menu  ">
+          <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i> 
+            <div class="menu">
+              <a href="/" class="item">Accueil</a>
+              <a href="/6e" class="item">Sixième</a>
+              <a href="/5e" class="item">Cinquième</a>
+              <a href="/4e" class="item">Quatrième</a>
+              <a href="/3e" class="item">Troisième</a>
+              <a href="/2e" class="item">Seconde</a>
+              <a href="/twitter" class="item">Actualités</a>
+            </div>
+          </div> 
+        <a  href="/a_propos/" class="ui simple  item">À propos</a>
+        <a  href="/telechargements"class="ui simple  item">Téléchargements</a> 
+        <a  href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+        <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i> 
+          <div class="menu">
+            <a href="/mathalea.html" class="item">Exercices en ligne</a>
+            <a href="/cm.html" class="item">Exercices chronométrés</a>
+            <a href="/mathalealatex.html"class="item">Générateur LaTeX/PDF</a>
+            <a href="/alacarte"class="item">Évaluation à la carte</a>
+            <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+            <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+            <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+            <a href="/mathalea_a_propos" class="item">À propos</a>
+          </div>
         </div>
-      </div> 
-    <a  href="/a_propos/" class="ui simple  item">À propos</a>
-    <a  href="/telechargements"class="ui simple  item">Téléchargements</a> 
-    <a  href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
-    <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i> 
-      <div class="menu">
-        <a href="/mathalea.html" class="item">Exercices en ligne</a>
-        <a href="/cm.html" class="item">Exercices chronométrés</a>
-        <a href="/mathalealatex.html"class="item">Générateur LaTeX/PDF</a>
-        <a href="/alacarte"class="item">Évaluation à la carte</a>
-        <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
-        <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
-        <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
-        <a href="/mathalea_a_propos" class="item">À propos</a>
-      </div>
-    </div>
-  
-    <script type="text/javascript">
-     $(document).ready(function(){
-      $('.ui.dropdown') .dropdown();
-    });     
-  </script>
-  
-  </nav>
-  <div class="ui hidden divider"></div>
+      
+        <script type="text/javascript">
+         $(document).ready(function(){
+          $('.ui.dropdown') .dropdown();
+        });     
+      </script>
+      
+      </nav>
+	<button class="btn ui icon button"  id="buttonEdit" onclick="window.open(window.location.href.replace('/iep.html','/mathalea2iep.html'))"><i class="alternate pencil icon"></i></button>
 
-  <div class="ui hidden divider"></div>
+  <div id="display"></div>
 
-  <div class="stackable ui grid">
-    <div class="two column row">
-      <div class="column">
-        <h3>MathALEA 2D</h3>
-        <div id="editeur"></div>
-        <button class="btn ui labeled icon button" id="submit" style="margin:10px"><i
-            class="redo icon"></i>Actualiser</button> <button class="btn ui labeled icon button" style="margin:10px"
-          onclick="window.open('/docMathalea2d/presentation/')"><i class="info circle icon"></i>Aide</button>
-        <button class="btn ui icon button" style="margin:10px;visibility: hidden;" id="url"><i
-            class="linkify icon"></i></button>
-      </div>
-      <div class="column">
-        <h3>Animation Instrumenpoche</h3>
-        <div id="display"></div>
-      </div>
-    </div>
+  <div style="display: none;">
+      <div class="stackable ui grid">
+          <div class="two column row">
+          <div class="column">
+              <h3>MathALEA 2D</h3>
+              <div id="editeur"></div>
+              <button class="btn ui labeled icon button" id="submit" style="margin:10px"><i
+                  class="redo icon"></i>Actualiser</button> <button class="btn ui labeled icon button" style="margin:10px"
+              onclick="window.open('/docMathalea2d/presentation/')"><i class="info circle icon"></i>Aide</button>
+              <button class="btn ui icon button" style="margin:10px;visibility: hidden;" id="url"><i
+                  class="linkify icon"></i></button>
+          </div>
+          <div class="column">
+              <h3>Animation Instrumenpoche</h3>
+              
+          </div>
+          </div>
+    
+    
+          <div class="two column row">
+          <div class="column">
+              <h3>Aperçu SVG</h3>
+              <div id="svg" style="cursor: move;"></div>
+          </div>
+          <div class="column">
+              <div id="errors"></div>
+    
+              <form id="iepForm">
+                  <h3>Script IEP</h3>
+              <textarea id="xmlSrc" width="100%" rows="10"></textarea>
+              <br />
+              <button id="previewBtn">Aperçu</button>
+              </form>
+    
+          </div>
+          </div>
+
+  </div>
 
 
-    <div class="two column row">
-      <div class="column">
-        <h3>Aperçu SVG</h3>
-        <div id="svg" style="cursor: move;"></div>
-      </div>
-      <div class="column">
-        <div id="errors"></div>
 
-        <form id="iepForm">
-            <h3>Script IEP</h3>
-          <textarea id="xmlSrc" width="100%" rows="10"></textarea>
-          <br />
-          <button id="previewBtn">Aperçu</button>
-        </form>
-
-      </div>
-    </div>
 
   </div>
 
@@ -206,10 +212,6 @@
       margin: 0 auto;
     }
   </style>
-
-
-
-
 
 </body>
 

@@ -7,7 +7,7 @@ import { calcul, randint, tex_nombre } from "/modules/outils.js"
  *
  * @Auteur Rémi Angot
  */
-export function Alea2iep() {
+export default function Alea2iep() {
     this.idIEP = 0; // Identifiant pour les tracés
     this.idHTML = 0; // Identifiant pour les div et le svg
     this.tempo = 10; // Pause par défaut après une instruction
@@ -17,6 +17,16 @@ export function Alea2iep() {
     this.couleurLabelPoint = "black"; // Couleur du nom des points
     this.epaisseur = 3;
     this.liste_script = []; // Liste des instructions xml mise à jour par les méthodes
+
+    this.translationX = 0;
+    this.translationY = 10; // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
+    // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
+    this.x = function (A) {
+       return (A.x+this.translationX)*30
+    }
+    this.y = function (A) {
+       return (-A.y+this.translationY)*30
+    }
 
     // Sauvegarde de l'état des instruments
     this.regle = {
@@ -105,6 +115,8 @@ export function Alea2iep() {
             }
 
             return codeHTML
+        } else {
+            return ''
         }
 
 
@@ -121,17 +133,14 @@ export function Alea2iep() {
 Alea2iep.prototype.montrer = function (objet, A, tempo = this.tempo) {
     if (!this[objet].visibilite) { // On ajoute une ligne xml que si l'objet est caché
         let codeXML = ''
-        let tempoTexte = ''
-        if (tempo) {
-            tempoTexte = `tempo="${tempo}"`
-        }
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
         let A1;
         if (typeof A == 'undefined') { // A1 est une copie de A ou (0,0) si A n'est pas défini
             A1 = this[objet].position
         } else {
             A1 = A
         }
-        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${A1.xIEP()}" ordonnee="${A1.yIEP()}" ${tempoTexte} />`
+        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" ${tempoTexte} />`
         this[objet].visibilite = true
         this[objet].position = A1
         this.liste_script.push(codeXML)
@@ -168,10 +177,7 @@ Alea2iep.prototype.rapporteurMontrer = function (A, tempo) {
 
 Alea2iep.prototype.masquer = function (objet, tempo = this.tempo) {
     if (this[objet].visibilite) { // On ajoute une ligne xml que si l'objet est visible
-        let tempoTexte = ''
-        if (tempo) {
-            tempoTexte = `tempo="${tempo}"`
-        }
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
         let codeXML = `<action objet="${objet}" mouvement="masquer" ${tempoTexte} />`
         this[objet].visibilite = false;
         this.liste_script.push(codeXML)
@@ -210,7 +216,7 @@ Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, 
     if (tempo) {
         tempoTexte = `tempo="${tempo}"`
     }
-    let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
     if (label) {
         codeXML += `\n<action couleur="${this.couleurLabelPoint}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" />`
     }
@@ -271,13 +277,13 @@ Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
 */
 
 Alea2iep.prototype.compasEcarter2Points = function (A, B, tempo = this.tempo) {
-    this.compas.montrer(A)
-    this.compas.deplacer(A)
+    this.compasMontrer(A)
+    this.compasDeplacer(A)
     let s = segment(A, B)
     s.isVisible = false
     let angle = s.angleAvecHorizontale
-    this.compas.rotation(angle)
-    this.compas.ecarter(longueur(A, B))
+    this.compasRotation(angle)
+    this.compasEcarter(longueur(A, B))
 }
 
 /**
@@ -288,10 +294,7 @@ Alea2iep.prototype.compasEcarter2Points = function (A, B, tempo = this.tempo) {
 
 Alea2iep.prototype.compasLever = function (tempo = this.tempo) {
     if (!this.compas.leve) { // On ne fait rien si le compas est déjà levé
-        let tempoTexte = ''
-        if (tempo) {
-            tempoTexte = `tempo="${tempo}"`
-        }
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
         let codeXML = `<action mouvement="lever" objet="compas" ${tempoTexte} />`
         this.compas.leve = true
         this.liste_script.push(codeXML)
@@ -306,10 +309,7 @@ Alea2iep.prototype.compasLever = function (tempo = this.tempo) {
 
 Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
     if (this.compas.leve) { // On ne fait rien si le compas est déjà levé
-        let tempoTexte = ''
-        if (tempo) {
-            tempoTexte = `tempo="${tempo}"`
-        }
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
         let codeXML = `<action mouvement="coucher" objet="compas" ${tempoTexte} />`
         this.compas.leve = false
         this.liste_script.push(codeXML)
@@ -322,18 +322,9 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 */
 
 Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
-    let vitesseTexte = ''
-    if (vitesse) {
-        vitesseTexte = `vitesse="${vitesse}"`
-    }
-    let pointillesTexte = ''
-    if (pointilles) {
-        pointillesTexte = 'pointille="tiret"'
-    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
+    const pointillesTexte = pointilles ? `pointilles="tiret"` : ''
     this.idIEP += 1
     if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
         [angle1, angle2] = [angle2, angle1]
@@ -380,15 +371,9 @@ Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta =
 
 Alea2iep.prototype.deplacer = function (objet, A, tempo = this.tempo, vitesse = this.vitesse) {
     if (this[objet].position != A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
-        let tempoTexte = ''
-        if (tempo) {
-            tempoTexte = `tempo="${tempo}"`
-        }
-        let vitesseTexte = ''
-        if (vitesse) {
-            vitesseTexte = `vitesse="${vitesse}"`
-        }
-        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" ${tempoTexte} ${vitesseTexte} />`
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+        const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
+        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" ${tempoTexte} ${vitesseTexte} />`
         this[objet].position = A
         this.liste_script.push(codeXML)
     }
@@ -427,14 +412,15 @@ Alea2iep.prototype.rapporteurDeplacer = function (A, tempo = this.tempo, vitesse
 */
 
 Alea2iep.prototype.rotation = function (objet, angle, tempo = this.tempo, sens = this.vitesse) {
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     // Les angles de MathALEA2D et de IEP sont opposés !!!!!
     let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
-    this.liste_script.push(codeXML)
     this[objet].angle = angle
+    if (typeof angle === 'number' && isFinite(angle)) {
+        this.liste_script.push(codeXML)
+    } else {
+        console.log ("Angle de rotation non défini.")
+    }
 }
 
 Alea2iep.prototype.regleRotation = function (angle, tempo, sens) {
@@ -453,7 +439,7 @@ Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
     this.rotation('compas', angle, tempo, sens)
 }
 
-Alea2iep.prototype.rapporteurRotation = function (tempo, vitesse) {
+Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
     this.rotation('rapporteur', angle, tempo, vitesse)
 }
 
@@ -463,32 +449,28 @@ Alea2iep.prototype.rapporteurRotation = function (tempo, vitesse) {
 */
 
 Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
-    let vitesseTexte = ''
-    if (vitesse) {
-        vitesseTexte = `vitesse="${vitesse}"`
-    }
-    let pointillesTexte = ''
-    if (pointilles) {
-        pointillesTexte = 'pointille="tiret"'
-    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
+    const pointillesTexte = pointilles ? `pointilles="${tiret}"` : ''
+    
     this.idIEP += 1
-    let codeXML = `<action abscisse="${B.xIEP()}" ordonnee="${B.yIEP()}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
+    let codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
     this.crayon.position = B
     this.liste_script.push(codeXML)
+}
+Alea2iep.prototype.trait = function (A, B, tempo = 0, vitesse = this.vitesse*100, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+    this.crayonDeplacer(A, tempo, vitesse)
+    this.tracer(B, tempo, vitesse)
 }
 
 Alea2iep.prototype.segmentTracer = function (A, B) {
     let d = droite(A, B)
     d.isVisible = false
     let angle = d.angleAvecHorizontale
-    this.regleRotation(angle)
     this.regleMontrer()
-    this.crayonMontrer(A)
     this.regleDeplacer(A)
+    this.regleRotation(angle)
+    this.crayonMontrer(A)
     this.crayonDeplacer(A)
     this.tracer(B)
 }
@@ -502,15 +484,9 @@ Alea2iep.prototype.polygoneTracer = function (...sommets) {
 
 Alea2iep.prototype.textePoint = function (texte, A, police=false, tempo = this.tempo, couleur = this.couleurTexte) {
     this.idIEP++
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
-    let policeTexte = ''
-    if (police) {
-        policeTexte = `police="${police}"`
-    }
-    let codeXML = `<action abscisse="${A.xIEP()}" ordonnee="${A.yIEP()}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    const policeTexte = police ? `police="${police}"` : ''
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" />`
     this.liste_script.push(codeXML)
 }
@@ -519,6 +495,12 @@ Alea2iep.prototype.textePosition = function (texte, x, y, police, tempo = this.t
     let A = point(x,y);
     return this.textePoint(texte, A, police, tempo = this.tempo, couleur = this.couleurTexte)
 }
+Alea2iep.prototype.pause = function () {
+    this.liste_script.push('<action mouvement="pause" />')
+}
+
+
+
 
 Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
     let A = point(6, 0)
