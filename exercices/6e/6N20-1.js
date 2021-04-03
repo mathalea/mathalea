@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import { combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
 import {mathalea2d} from "/modules/2d.js"
 import {fraction} from "/modules/Fractions.js"
+import { modal_texte_court } from '../../modules/outils.js';
 
 
 
@@ -13,7 +14,8 @@ import {fraction} from "/modules/Fractions.js"
 export default function Encadrer_fraction_entre_2_entiers() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Encadrer une fraction entre deux nombres entiers";
-  this.consigne = "Compléter avec deux entiers consécutifs";
+  this.consigne = "Compléter avec deux nombres entiers consécutifs"+modal_texte_court(1,"Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.",'Consécutifs');
+  this.introduction=`Exemple : $2 < \\dfrac{9}{4} < 3$`
   this.nb_questions = 6;
   this.nb_cols = 2;
   this.nb_cols_corr = 1;
