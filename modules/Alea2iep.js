@@ -1,4 +1,4 @@
-import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu} from "/modules/2d.js"
+import {point,pointSurSegment,rotation,pointIntersectionDD,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu} from "/modules/2d.js"
 import { calcul, randint, tex_nombre } from "/modules/outils.js"
 
 
@@ -990,4 +990,58 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     this.regleSegment(A, C)
     this.regleMasquer()
     this.crayonMasquer()
+}
+
+
+Alea2iep.prototype.triangle1cote2angles = function (NOM, AB, BAC,CBA, description = true) { // Triangle dont on connait AB et les deux angles adjacents
+let angle=randint(-20,20)
+let a1=BAC
+let a2=CBA
+let A=point(2,0)
+let B=pointAdistance(A,AB,angle)
+let D=pointAdistance(A,5.2,a1+angle)
+let D2=pointSurSegment(A,D,10)
+let E=pointAdistance(B,3,180-a2+angle)
+let E2=pointSurSegment(B,E,10)
+let d=rotation(droite(A,B),A,a1)
+D.isVisible=false
+let d2=rotation(droite(B,A),B,-a2)
+d2.isVisible=false
+let C=pointIntersectionDD(d,d2)
+A.nom = NOM[0]
+B.nom = NOM[1]
+C.nom = NOM[2]
+
+let tri=polygone(A,B,C)
+tri.isVisible=false
+IEP.couleur = "blue"
+IEP.epaisseur = 3
+IEP.pointCreer(A)
+if (description) this.textePosition(`On trace le côté [AB] de ${AB} cm.`, 0, -2)
+IEP.regleSegment(A,B)
+IEP.pointCreer(B)
+IEP.couleur = "grey"
+IEP.epaisseur = 1
+IEP.rapporteurMontrer(A)
+IEP.rapporteurDeplacer(A)
+IEP.rapporteurRotation(angle)
+if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom+C.nom}).`, 0, -3)
+IEP.pointCreer(D)
+IEP.rapporteurMasquer()
+IEP.regleSegment(A,D2)
+IEP.regleMasquer()
+IEP.rapporteurMontrer(A)
+IEP.rapporteurDeplacer(B)
+if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom+C.nom}).`, 0, -4)
+IEP.pointCreer(E)
+IEP.rapporteurMasquer()
+IEP.regleMontrer(B)
+IEP.regleSegment(B,E2)
+IEP.pointCreer(C)
+IEP.couleur = "blue"
+IEP.epaisseur = 3
+IEP.regleSegment(B,C)
+IEP.regleSegment(C,A)
+IEP.regleMasquer()
+IEP.crayonMasquer()
 }

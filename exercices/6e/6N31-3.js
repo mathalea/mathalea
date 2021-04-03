@@ -32,14 +32,14 @@ export default function Arrondir_une_valeur() {
 		let espace =``;
 		if (sortie_html) {
 		 if (this.QCM[4].vertical===true){
-       espace=`<br>`
+       espace=`<br>`;
      } 
      else {
        espace = `&emsp;`;
      }
 		} else {
       if (this.QCM[4].vertical===true){
-        space = `\\\\`
+        space = `\\\\`;
       }
       else {
 		  espace = `\\qquad`;
