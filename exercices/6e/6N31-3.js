@@ -31,9 +31,19 @@ export default function Arrondir_une_valeur() {
     let tabrep=[],tabicone=[],pre_tabrep=[],pre_tabicone=[];
 		let espace =``;
 		if (sortie_html) {
-		  espace = `&emsp;`;
+		 if (this.QCM[4].vertical===true){
+       espace=`<br>`
+     } 
+     else {
+       espace = `&emsp;`;
+     }
 		} else {
+      if (this.QCM[4].vertical===true){
+        space = `\\\\`
+      }
+      else {
 		  espace = `\\qquad`;
+      }
 		}
     this.liste_questions = [];
     this.liste_corrections = [];
@@ -150,11 +160,11 @@ export default function Arrondir_une_valeur() {
         texte_corr='';
         // shuffle2tableaux(tabrep, tabicone);
         for (let i=0; i<6; i++) {
-          texte += `$\\square\\;$ ${tabrep[i]}` +'<br>'  ;
+          texte += `$\\square\\;$ ${tabrep[i]}` +espace  ;
          if (tabicone[i]==1) {
-           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` +'<br>' ;
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` +espace;
          } else {
-           texte_corr += `$\\square\\;$ ${tabrep[i]}` + '<br>' ;
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace;
          }
          }
       }
