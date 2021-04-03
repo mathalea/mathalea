@@ -1,5 +1,5 @@
 import {point,pointSurSegment,rotation,pointIntersectionDD,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu} from "/modules/2d.js"
-import { calcul, randint, tex_nombre } from "/modules/outils.js"
+import { calcul, randint, tex_nombre,nombre_avec_espace } from "/modules/outils.js"
 
 
 /*
@@ -1017,7 +1017,7 @@ tri.isVisible=false
 this.couleur = "blue"
 this.epaisseur = 3
 this.pointCreer(A)
-if (description) this.textePosition(`On trace le côté [AB] de ${AB} cm.`, 0, -2)
+if (description) this.textePosition(`On trace le côté [${A.nom+C.nom}] de ${nombre_avec_espace(AB)} cm.`, 0, -2)
 this.regleSegment(A,B)
 this.pointCreer(B)
 this.couleur = "grey"

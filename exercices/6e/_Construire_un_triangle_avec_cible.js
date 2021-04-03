@@ -17,9 +17,10 @@ export default function Construire_un_triangle_avec_cible() {
   this.nb_cols_corr = 1;
   this.sup = false;
   this.classe = 6;
+  this.type_exercice = "IEP";
   this.nouvelle_version = function (numero_de_l_exercice) {
     let IEP = new Alea2iep()
-
+let animation=''
     this.liste_questions = []
     this.liste_corrections = []
     let celluleAleaRonde = function (rang) {
@@ -179,7 +180,7 @@ export default function Construire_un_triangle_avec_cible() {
           texte_corr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
           IEP.triangle1cote2angles(sommets,lAB,Math.round(angle(B, A, C)),Math.round(angle(A, B, C)))
-          texte_corr += IEP.htmlBouton(numero_de_l_exercice, i)
+          animation= IEP.htmlBouton(numero_de_l_exercice, i)
           break
         case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC 
           lAC = randint(70, 80) / 10
@@ -232,6 +233,7 @@ export default function Construire_un_triangle_avec_cible() {
       params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
       texte_corr += mathalea2d(params_correction, objets_correction)
+      texte_corr+='<br>'+animation
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
