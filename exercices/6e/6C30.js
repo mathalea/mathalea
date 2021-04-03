@@ -66,7 +66,7 @@ let type_de_questions,reponse
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
             // Pour AMC
-    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+      this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;

@@ -26,6 +26,7 @@ export default function Reciproque_Thales() {
   // let s1='A',s2='B',s3='C',s4='M',s5='N'
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.QCM = ['3G21', [], "Contrôler si deux droites sont parallèles",3,{}]
     this.liste_questions = [];
     this.liste_corrections = [];
     let lettre1 = randint(1, 26); // aleatoirisation du nom des points
@@ -351,7 +352,9 @@ export default function Reciproque_Thales() {
           texte_corr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`;
         texte_corr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
       }
-
+     
+      this.QCM[1][0] = [texte, [texte_corr], [6]]
+  
       this.liste_corrections.push(texte_corr);
 
       liste_de_question_to_contenu_sans_numero(this);

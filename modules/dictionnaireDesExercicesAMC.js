@@ -123,6 +123,10 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/5e/5N20.js",
         "titre":"Additionner ou soustraire deux fractions (dénominateurs multiples) (QCM)"
     },
+    "5R10": {
+        "titre": "Trouver le terme manquant d'une somme de nombres relatifs (NC)",
+        "url": "/exercices/5e/5R10.js"
+    },
     "5R20": {
         "titre": "Addition de deux entiers relatifs (QCM)",
         "url": "/exercices/5e/5R20.js"
@@ -130,6 +134,10 @@ export let dictionnaireDesExercicesQCM = {
     "4C32": {
         "titre": "Notation scientifique (NC)",
         "url": "/exercices/4e/4C32.js"
+    },
+    "4C32-1": {
+        "titre": "Calcul avec les puissances de dix (QCM)",
+        "url": "/exercices/4e/4C32-1.js"
     },
     "4C34": {
         "titre": "Calculs utilisant les priorités opératoires et les puissances (NC+)",
@@ -143,13 +151,17 @@ export let dictionnaireDesExercicesQCM = {
         "url":"/exercices/4e/4G40.js",
         "titre":"Utiliser le cosinus pour calculer une longueur dans un triangle rectangle (NC+)"
     },
+    "3G21": {
+        "titre": "Contrôler si deux droites sont parallèles",
+        "url": "/exercices/3e/3G21.js"
+    },
     "3G30":{
         "url":"/exercices/3e/3G30.js",
         "titre":"Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie (NC+)"
     },
     "3G31":{
         "url":"/exercices/3e/3G31.js",
-        "titre":"Déterminer un angle grâce à la trigonométrie "
+        "titre":"Déterminer un angle grâce à la trigonométrie (NC+)"
     },
     "3G32-1": {
         "titre": "Calcul d'un parallèle terrestre",

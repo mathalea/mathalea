@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,ecriture_parenthese_si_moins,tex_nombrec,tex_nombre,arrondi,choice,combinaison_listes} from "/modules/outils.js"
+import {calcul,liste_de_question_to_contenu,randint,ecriture_parenthese_si_moins,tex_nombrec,tex_nombre,arrondi,choice,combinaison_listes} from "/modules/outils.js"
 
 /**
  * Additions à trou dans les relatifs
@@ -19,6 +19,8 @@ export default function Terme_inconnu_de_somme() {
   this.spacing = 2;
 
   this.nouvelle_version = function () {
+    this.QCM=['5R10',[],"Trouver le terme manquant d'une somme de nombres relatifs",4];
+
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles=[1,2,3,4]
@@ -32,8 +34,15 @@ export default function Terme_inconnu_de_somme() {
         decimal=10
     }
     for (let i = 0, a, b, texte, texte_corr,cpt=0; i < this.nb_questions;) {
+      if (!mathalea.sortieAMC){
       a = arrondi(randint(4*decimal, this.sup2*decimal)/decimal,1);
       b = arrondi(randint(2*decimal, this.sup2*decimal)/decimal,1);
+      }
+      else {
+        a = arrondi(randint(4*decimal, 20*decimal)/decimal,1);
+        b = arrondi(randint(2*decimal, 20*decimal)/decimal,1);
+    
+      }
       if (this.sup3==1) {
         inconnue=` \\ldots\\ldots `
       }
@@ -44,7 +53,8 @@ export default function Terme_inconnu_de_somme() {
         case 1:
           texte = `$${tex_nombre(a)} + ${inconnue} = ${tex_nombre(b)}$`;
           texte_corr = `$${tex_nombre(a)} + ${ecriture_parenthese_si_moins(tex_nombrec( b-a))} = ${tex_nombre(b)}$`;
-          texte_corr +=`. En effet : $${tex_nombre(b)}-${tex_nombre(a)}=${tex_nombrec( b-a)}$`
+          texte_corr +=`. En effet : $${tex_nombre(b)}-${tex_nombre(a)}=${tex_nombrec( b-a)}$`;
+
         break
 
         case 2:
@@ -66,13 +76,14 @@ export default function Terme_inconnu_de_somme() {
         break
 
       }
-
+    
       if (est_diaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([this.consigne+'\\\\'+texte, [texte_corr,calcul(b-a)], {digits:2+Math.log10(decimal),decimals:Math.log10(decimal),signe:true,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
 				i++;
 			}
 			cpt++;
