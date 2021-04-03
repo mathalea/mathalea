@@ -1485,7 +1485,7 @@ export function calcul(expression, arrondir = false) {
 	if (!arrondir) {
 		return parseFloat(Algebrite.eval('float(' + expression + ')'))
 	} else {
-		return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir)
+		return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir);
 	}
 }
 
@@ -1498,7 +1498,7 @@ export function nombreDecimal(expression, arrondir = false) {
 	if (!arrondir) {
 		return string_nombre(calcul(expression))
 	} else {
-		return string_nombre(calcul(expression, 1))
+		return string_nombre(calcul(expression, 1));
 	}
 }
 
@@ -1509,7 +1509,7 @@ export function nombreDecimal(expression, arrondir = false) {
 * @Auteur Rémi Angot
 */
 export function tex_nombrec(expression) {
-	return tex_nombre(parseFloat(Algebrite.eval(expression)))
+	return tex_nombre(parseFloat(Algebrite.eval(expression)));
 }
 /**
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
@@ -1517,8 +1517,8 @@ export function tex_nombrec(expression) {
  */
 export function tex_nombrecoul(nombre) {
 	if (nombre > 0) return mise_en_evidence(tex_nombrec(nombre), 'green')
-	else if (nombre < 0) return mise_en_evidence(tex_nombrec(nombre), 'red')
-	else return mise_en_evidence(tex_nombrec(0), 'black')
+	else if (nombre < 0) return mise_en_evidence(tex_nombrec(nombre), 'red');
+	else return mise_en_evidence(tex_nombrec(0), 'black');
 }
 
 /**
@@ -7882,12 +7882,19 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 
 	let tex_QR = ``, type = '', tabQCM
 	let nbBonnes, id = 0, nb_chiffres_pe, nb_chiffres_pd, nb_chiffres, reponse
-	let params
+	let params,horizontalite
 	if (tabQCMs.length>4) {
 		params=tabQCMs[4]
+		if (params.vertical==='undefined') {
+			horizontalite='reponseshoriz'
+		}
+		else {
+			horizontalite='reponses'
+		}
 	}
 	else {
 		params={ordered:false,lastChoices:0}
+		horizontalite='reponseshoriz'
 	}
 	for (let j = 0; j < tabQCMs[1].length; j++) {
 		tabQCM = tabQCMs[1][j].slice(0)
@@ -7908,7 +7915,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 			tex_QR += `\\element{${tabQCMs[0]}}{\n `
 			tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
 			tex_QR += `		${tabQCM[0]} \n `
-			tex_QR += `		\\begin{reponseshoriz}`
+			tex_QR += `		\\begin{${horizontalite}}`
 			if (params.ordered==true){
 				tex_QR +=`[o]`
 			}
@@ -7926,7 +7933,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 						break
 				}
 			}
-			tex_QR += `		\\end{reponseshoriz}\n `
+			tex_QR += `		\\end{${horizontalite}}\n `
 			tex_QR += `	\\end{${type}}\n }\n `
 			id++
 			break
@@ -7937,7 +7944,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				tex_QR += `\\element{${tabQCMs[0]}}{\n `
 				tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
 				tex_QR += `		${tabQCM[0]} \n `
-				tex_QR += `		\\begin{reponseshoriz}`
+				tex_QR += `		\\begin{${horizontalite}}`
 				if (params.ordered==true){
 					tex_QR +=`[o]`
 				}
@@ -7955,7 +7962,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 							break
 					}
 				}
-				tex_QR += `		\\end{reponseshoriz}\n `
+				tex_QR += `		\\end{${horizontalite}}\n `
 				tex_QR += `	\\end{${type}}\n }\n `
 				id++
 				break
@@ -8136,10 +8143,10 @@ console.log(type_entete)
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\n`
 	if (format=='A3'){
-		preambule+=`	 \\documentclass[10pt,a3paper,landscape,francais]{article}\n`
+		preambule+=`	 \\documentclass[10pt,a3paper,landscape,french]{article}\n`
 	}
 	else {
-		preambule+=`	 	 \\documentclass[10pt,a4paper,francais]{article}\n`
+		preambule+=`	 	 \\documentclass[10pt,a4paper,french]{article}\n`
 	}
 
 preambule+=`	 

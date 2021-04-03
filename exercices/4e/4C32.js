@@ -58,7 +58,6 @@ export default function Notation_scientifique() {
           if (randint(0, 1) == 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
           else mantisse = calcul(randint(1111, 9999) / 1000)
           exp = randint(3, 7) * choice([-1, 1])
-          console.log(mantisse)
           break;
       }
       reponse=calcul(mantisse * 10 ** exp)

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence} from "/modules/outils.js"
+import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence} from "/modules/outils.js"
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
@@ -14,9 +14,20 @@ export default function Calculs_avec_puissances_de_dix() {
   this.titre = `Calcul avec les puissances de dix`;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.nb_questions = 5
+  this.nb_questions = 5;
+  this.QCM_disponible=true
+  this.ModeQCM=false
 
   this.nouvelle_version = function () {
+    this.QCM=['4C32-1',[],"Calcul avec les puissances de dix",1]
+    let espace =``;
+    if (sortie_html) {
+      espace = `&emsp;`;
+    } else {
+      espace = `\\qquad`;
+    }
+    let tabrep=[],tabicone=[1,0,0,0]
+
     if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
     else this.consigne = `Compléter l'égalité des nombres suivants.`;
     let type_de_questions_disponibles;
@@ -65,15 +76,31 @@ export default function Calculs_avec_puissances_de_dix() {
       if (this.sup == 1) {
         texte = `$${decimalstring}$`
         texte_corr = `$${mise_en_evidence(`${tex_nombrec(mantisse1)}`, 'blue')}\\times ${mise_en_evidence(`10^{${exp1}}`)} = ${mise_en_evidence(`${tex_nombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
+        tabrep=[`$${scientifiquestring}$`,`$${tex_nombre(mantisse)} \\times 10^{${exp-1}}$`,`$${tex_nombre(mantisse)} \\times 10^{${exp+1}}$`,`$${tex_nombre(mantisse)} \\times 10^{${-exp}}$`]
       }
       else {
         texte_corr = `$${mise_en_evidence(tex_nombre(mantisse1), 'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)}=${mise_en_evidence(tex_nombre(mantisse) + `\\times 10^{${decalage}}`, 'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} =${scientifiquestring}$`
         texte = `$${tex_nombre(mantisse1)}\\times 10^{${mise_en_evidence(`....`)}}=${scientifiquestring}$`
+        tabrep=[`$${exp1}$`,`$${exp1-1}$`,`$${exp1+1}$`,`$${-exp1}$`]
+      }
 
+      if (this.ModeQCM&&!mathalea.sortieAMC) {
+        texte_corr=''
+        texte+=`<br>  Réponses possibles : ${espace}  `
+        shuffle2tableaux(tabrep, tabicone);
+        for (let i=0; i<tabrep.length; i++) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         if (tabicone[i]==1) {
+           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+         } else {
+           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+         }
+       }
       }
       if (this.liste_questions.indexOf(texte) == -1) {
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([`${texte}\n`,tabrep,tabicone]) 
         i++;
       }
       cpt++;

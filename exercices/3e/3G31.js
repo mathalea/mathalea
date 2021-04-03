@@ -36,10 +36,10 @@ export default function Calcul_de_longueur() {
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (this.level!=4){
-    this.QCM = ['3G31', [], "Calculs d'angle avec la trigonométrie",3]
+    this.QCM = ['3G31', [], "Calculs d'angle avec la trigonométrie",5]
     }
     else {
-        this.QCM = ['4G41', [], "Calculs d'angle avec la trigonométrie",3]  
+        this.QCM = ['4G41', [], "Calculs d'angle avec la trigonométrie",5]  
     }
     /**********************************************************/
 let mEp,mEp2
@@ -237,7 +237,7 @@ console.log(texte_corr)
 
         /*****************************************************/
         // Pour AMC
-        this.QCM[1][0] = [texte, [texte_corr], [4]]
+        this.QCM[1][0] = [texte, [texte_corr,angleABC,4],{digits:2,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
         /****************************************************/
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
@@ -246,3 +246,5 @@ console.log(texte_corr)
 
     this.besoin_formulaire_case_a_cocher = ['Figure à main levée', false];
 }  
+
+    
