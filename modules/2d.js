@@ -56,6 +56,8 @@ export function ObjetMathalea2D() {
 function Point(arg1, arg2, arg3, positionLabel = "above") {
   // ObjetMathalea2D.call(this);
   this.typeObjet = "point";
+  numId++
+  this.id = numId
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {

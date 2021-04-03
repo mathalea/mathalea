@@ -13,6 +13,7 @@ export default function Alea2iep() {
     this.tempo = 10; // Pause par défaut après une instruction
     this.vitesse = 10; // Vitesse par défaut pour les déplacements d'instruments
     this.couleur = "blue"; // Couleur par défaut
+    this.couleurCompas = "forestgreen";
     this.couleurTexte = "black";
     this.couleurPoint = "black"; // Couleur du nom des points
     this.couleurCodage = "#f15929"; 
@@ -43,6 +44,12 @@ export default function Alea2iep() {
     }
 
     this.equerre = {
+        visibilite: false,
+        position: point(0, 0),
+        angle: 0,
+    }
+    
+    this.requerre = {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
@@ -166,6 +173,10 @@ Alea2iep.prototype.equerreMontrer = function (A, tempo) {
     this.montrer('equerre', A, tempo)
 }
 
+Alea2iep.prototype.requerreMontrer = function (A, tempo) {
+    this.montrer('requerre', A, tempo)
+}
+
 Alea2iep.prototype.compasMontrer = function (A, tempo) {
     this.montrer('compas', A, tempo)
 }
@@ -201,6 +212,10 @@ Alea2iep.prototype.crayonMasquer = function (tempo) {
 
 Alea2iep.prototype.equerreMasquer = function (tempo) {
     this.masquer('equerre', tempo)
+}
+
+Alea2iep.prototype.requerreMasquer = function (tempo) {
+    this.masquer('requerre', tempo)
 }
 
 Alea2iep.prototype.compasMasquer = function (tempo) {
@@ -239,8 +254,22 @@ Alea2iep.prototype.crayonDeplacer = function (A, tempo = this.tempo, vitesse = t
 Alea2iep.prototype.equerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
     this.deplacer('equerre', A, tempo, vitesse)
 }
+
+Alea2iep.prototype.requerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('requerre', A, tempo, vitesse)
+}
+
 Alea2iep.prototype.equerreZoom = function (k) {
     this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
+}
+
+Alea2iep.prototype.requerreZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" />`)
+}
+
+Alea2iep.prototype.requerreGlisserEquerre = function (a, tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action abscisse="${a*30}" mouvement="glisser" objet="requerre" ${tempoTexte} />`)
 }
 
 
@@ -283,6 +312,10 @@ Alea2iep.prototype.equerreRotation = function (angle, tempo, sens) {
     this.rotation('equerre', angle, tempo, sens)
 }
 
+Alea2iep.prototype.requerreRotation = function (angle, tempo, sens) {
+    this.rotation('requerre', angle, tempo, sens)
+}
+
 Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
     this.rotation('compas', angle, tempo, sens)
 }
@@ -309,7 +342,7 @@ Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, 
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
     if (label) {
-        codeXML += `\n<action couleur="${couleur}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" />`
+        codeXML += `\n<action couleur="${couleur}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" ${tempoTexte}  />`
     }
     this.liste_script.push(codeXML)
 }
@@ -438,7 +471,7 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="tiret"` : ''
@@ -465,7 +498,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
     this.compasMontrer()
     this.compasDeplacer(centre)
     let s = segment(centre, point)
@@ -639,7 +672,6 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="${tiret}"` : ''
     const vecteurTexte = vecteur ? `style="vecteur"` : ''
-    
     this.idIEP += 1
     let codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" ${tempoTexte}  ${pointillesTexte} ${vecteurTexte} ${vitesseTexte} id="${this.idIEP}" />`
     this.crayon.position = B
@@ -837,6 +869,38 @@ Alea2iep.prototype.segmentCodageMasquer = function(s, tempo = this.tempo){
 Alea2iep.prototype.segmentCodageMontrer = function(s, tempo = this.tempo){
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     this.liste_script.push(`<action id="${s.id}" mouvement="montrer" objet="longueur" />`)
+}
+
+/**
+ * 
+ * formes = "simple", "/", "//", "///", "O"
+ * "double", "double/", "double//", "double///", "doubleO"
+ * "triple", "triple/", "triple//", "triple///", "tripleO"
+ * "plein", "plein/", "plein//", "plein///", "pleinO"
+ */
+Alea2iep.prototype.angleCodage = function(B, A, C, couleur=this.couleurCodage, codage='plein', r = 1, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    let id = B.id + '_' + A.id + '_' + C.id
+    let d1 = droite(A,B)
+    let d2 = droite(A,C)
+    d1.isVisible = false
+    d2.isVisible = false
+    let angle1 = -d1.angleAvecHorizontale
+    let angle2 = -d2.angleAvecHorizontale
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" rayon="${r*30}" angle1="${angle1}" angle2="${angle2}" forme="${codage}"  couleur="${couleur}" id="${id}" ${tempoTexte} mouvement="creer" objet="angle" />`
+    this.liste_script.push(codeXML)
+}
+
+
+Alea2iep.prototype.angleCodageMasquer = function(B, A, C, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    let id = B.id + '_' + A.id + '_' + C.id
+    this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="angle" ${tempoTexte} />`)
+}
+Alea2iep.prototype.angleCodageMontrer = function(B, A, C, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    let id = B.id + '_' + A.id + '_' + C.id
+    this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="angle" />`)
 }
 
 
