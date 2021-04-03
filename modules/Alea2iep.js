@@ -1,9 +1,9 @@
-import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle} from "/modules/2d.js"
+import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu} from "/modules/2d.js"
 import { calcul, randint, tex_nombre } from "/modules/outils.js"
 
 
 /*
- * Classe parente de tous les objets de MathALEA2D
+ * Classe parente de tous les objets Alea2iep
  *
  * @Auteur Rémi Angot
  */
@@ -14,7 +14,8 @@ export default function Alea2iep() {
     this.vitesse = 10; // Vitesse par défaut pour les déplacements d'instruments
     this.couleur = "blue"; // Couleur par défaut
     this.couleurTexte = "black";
-    this.couleurLabelPoint = "black"; // Couleur du nom des points
+    this.couleurPoint = "black"; // Couleur du nom des points
+    this.couleurCodage = "#f15929"; 
     this.epaisseur = 3;
     this.liste_script = []; // Liste des instructions xml mise à jour par les méthodes
 
@@ -123,6 +124,12 @@ export default function Alea2iep() {
     }
 }
 
+/**
+ **************************
+ *** FONCTIONS COMMUNES *** 
+ **************************
+ */
+
 
 /**
 * montrer(objet, A, 10) |montrerRegle(A) | montrerCrayon(A) | montrerEquerre(A) | montrerCompas(A) | montrerRapporteur(A)
@@ -170,7 +177,7 @@ Alea2iep.prototype.rapporteurMontrer = function (A, tempo) {
 
 
 /**
-* masquer(objet, A, 10) |masquerRegle(A) | masquerCrayon(A) | masquerEquerre(A) | masquerCompas(A) | masquerRapporteur(A)
+* masquer(objet, A, 10) | regleMasquer(A) | crayonMasquer(A) | equerreMasquer(A) | compasMasquer(A) | rapporteurMasquer(A)
 * 
 * @Auteur Rémi Angot
 */
@@ -205,35 +212,144 @@ Alea2iep.prototype.rapporteurMasquer = function (tempo) {
 }
 
 /**
-* creerPoint(A, nom, tempo)
+* regleDeplacer(A,tempo,vitesse) | crayonDeplacer(A,tempo,vitesse) | equerreDeplacer(A,tempo,vitesse) | compasDeplacer(A,tempo,vitesse) | rapporteurDeplacer(A,tempo,vitesse)
 * 
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, couleur = this.couleur) {
-    this.idIEP++
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
+Alea2iep.prototype.deplacer = function (objet, A, tempo = this.tempo, vitesse = this.vitesse) {
+    if (this[objet].position != A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+        const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
+        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" ${tempoTexte} ${vitesseTexte} />`
+        this[objet].position = A
+        this.liste_script.push(codeXML)
     }
+}
+
+
+Alea2iep.prototype.regleDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('regle', A, tempo, vitesse)
+}
+
+Alea2iep.prototype.crayonDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('crayon', A, tempo, vitesse)
+}
+
+Alea2iep.prototype.equerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('equerre', A, tempo, vitesse)
+}
+Alea2iep.prototype.equerreZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
+}
+
+
+
+Alea2iep.prototype.compasDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('compas', A, tempo, vitesse)
+}
+
+Alea2iep.prototype.rapporteurDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
+    this.deplacer('rapporteur', A, tempo, vitesse)
+}
+
+/**
+* regleRotation(angle,tempo,vitesse) | crayonRotation(angle,tempo,vitesse) | equerreRotation(angle, tempo,vitesse) | compasRotation(angle,tempo,vitesse) | rapporteurRotation(angle,tempo,vitesse)
+* Pour IEP un angle positif est indirect
+* @Auteur Rémi Angot
+*/
+
+Alea2iep.prototype.rotation = function (objet, angle, tempo = this.tempo, sens = this.vitesse) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    // Les angles de MathALEA2D et de IEP sont opposés !!!!!
+    let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
+    this[objet].angle = angle
+    if (typeof angle === 'number' && isFinite(angle)) {
+        this.liste_script.push(codeXML)
+    } else {
+        console.log ("Angle de rotation non défini.")
+    }
+}
+
+Alea2iep.prototype.regleRotation = function (angle, tempo, sens) {
+    this.rotation('regle', angle, tempo, sens)
+}
+
+Alea2iep.prototype.crayonRotation = function (angle, tempo, sens) {
+    this.rotation('crayon', angle, tempo, sens)
+}
+
+Alea2iep.prototype.equerreRotation = function (angle, tempo, sens) {
+    this.rotation('equerre', angle, tempo, sens)
+}
+
+Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
+    this.rotation('compas', angle, tempo, sens)
+}
+
+Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
+    this.rotation('rapporteur', angle, tempo, vitesse)
+}
+
+/**
+ **************************
+ ********* POINT **********
+ **************************
+ */
+
+/**
+* pointCreer(A, nom, tempo)
+* 
+* @Auteur Rémi Angot
+*/
+
+Alea2iep.prototype.pointCreer = function (A, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint) {
+    this.idIEP++
+    A.id = this.idIEP
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${this.couleur}" id="${this.idIEP}" mouvement="creer" objet="point" ${tempoTexte} />`
     if (label) {
-        codeXML += `\n<action couleur="${this.couleurLabelPoint}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" />`
+        codeXML += `\n<action couleur="${couleur}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" />`
     }
     this.liste_script.push(codeXML)
 }
 
+Alea2iep.prototype.pointMasquer = function(A){
+    this.liste_script.push(`<action id="${A.id}" mouvement="masquer" objet="point" />`)
+}
+Alea2iep.prototype.pointMontrer = function(A){
+    this.liste_script.push(`<action id="${A.id}" mouvement="montrer" objet="point" />`)
+}
+Alea2iep.prototype.pointDeplacer = function(A, x, y, tempo = this.tempo, vitesse = this.vitesse){
+    let B = point(x,y)
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
+    this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" ${tempoTexte} ${vitesseTexte} />`)
+}
+Alea2iep.prototype.pointNommer = function(A, nom, dx, dy, couleur = this.couleurPoint, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    let coordonneesTexte = ''
+    if (typeof dy!= 'undefined') {
+        coordonneesTexte = `abscisse="${dx*30}" ordonnee="${-dy*30}"`
+    }
+    this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" ${tempoTexte} ${coordonneesTexte} />`)
+}
+
+
 /**
-* retournerCompas()
+ **************************
+ ********* COMPAS *********
+ **************************
+ */
+
+/**
+* compasRetourner(tempo)
 * 
 * @Auteur Rémi Angot
 */
 
 Alea2iep.prototype.compasRetourner = function (tempo = this.tempo) {
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     let codeXML = `<action mouvement="retourner" objet="compas" ${tempoTexte} />`
     if (this.compas.orientation == "droite") {
         this.compas.orientation = "gauche";
@@ -244,22 +360,24 @@ Alea2iep.prototype.compasRetourner = function (tempo = this.tempo) {
     this.liste_script.push(codeXML)
 }
 /**
-* ecarterCompas(l)
+* compasEcarter(l, tempo)
 * 
 * @Auteur Rémi Angot
 */
-
 Alea2iep.prototype.compasEcarter = function (l, tempo = this.tempo) {
-    let tempoTexte = ''
-    if (tempo) {
-        tempoTexte = `tempo="${tempo}"`
-    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     let codeXML = `<action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" ${tempoTexte} />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
 }
 
 
+
+/**
+* compasEcarterAvecRegle(l, tempo)
+* 
+* @Auteur Rémi Angot
+*/
 Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
     this.regleRotation(0, 0)
     this.regleMontrer(this.compas.position, 0)
@@ -271,7 +389,7 @@ Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
 
 
 /**
-* ecarterCompasSegment(A,B)
+* compasEcarter2Points(A, B, tempo)
 * 
 * @Auteur Rémi Angot
 */
@@ -287,7 +405,7 @@ Alea2iep.prototype.compasEcarter2Points = function (A, B, tempo = this.tempo) {
 }
 
 /**
-* leverCompas()
+* compasLever(tempo)
 * 
 * @Auteur Rémi Angot
 */
@@ -302,11 +420,10 @@ Alea2iep.prototype.compasLever = function (tempo = this.tempo) {
 }
 
 /**
-* coucherCompas()
+* compasCoucher(tempo)
 * 
 * @Auteur Rémi Angot
 */
-
 Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
     if (this.compas.leve) { // On ne fait rien si le compas est déjà levé
         const tempoTexte = tempo ? `tempo="${tempo}"` : ''
@@ -317,7 +434,7 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 }
 
 /**
-* tracerCompasArc2Angles(angle1, angle2, tempo=tempoIEP ,vitesse=10,epaisseur=0,couleur=0) // Trace le segment du point courant vers B
+* compasTracerArc2Angles(angle1, angle2, tempo, vitesse, epaisseur, couleur, pointilles)
 * @Auteur Rémi Angot
 */
 
@@ -344,7 +461,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
 }
 
 /**
-* tracerCompasArcAutourPoint(point, delta, tempo=tempoIEP ,vitesse=10,epaisseur=0,couleur=0) // Trace le segment du point courant vers B
+* compasTracerArcCentrePoint(centre, point, delta, tempo, vitesse, epaisseur, couleur)
 * @Auteur Rémi Angot
 */
 
@@ -391,11 +508,6 @@ Alea2iep.prototype.crayonDeplacer = function (A, tempo = this.tempo, vitesse = t
 Alea2iep.prototype.equerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
     this.deplacer('equerre', A, tempo, vitesse)
 }
-Alea2iep.prototype.equerreZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
-}
-
-
 
 Alea2iep.prototype.compasDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
     this.deplacer('compas', A, tempo, vitesse)
@@ -443,18 +555,93 @@ Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
     this.rotation('rapporteur', angle, tempo, vitesse)
 }
 
+
+
+Alea2iep.prototype.regleZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" />`)
+}
+Alea2iep.prototype.equerreZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
+}
+Alea2iep.prototype.rapporteurZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" />`)
+}
+Alea2iep.prototype.compasZoom = function (k) {
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
+}
+
+
+/**
+ **************************
+ ******* RAPPORTEUR *******
+ **************************
+ */
+
+// Non pris en charge par le lecteur JS
+// Alea2iep.prototype.rapporteurCirculaire = function (tempo=this.tempo) {
+//     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+//     this.liste_script.push(`<action mouvement="circulaire" objet="rapporteur" ${tempoTexte}/>`)
+// }
+// Alea2iep.prototype.rapporteurSemiCirculaire = function (tempo=this.tempo) {
+//     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+//     this.liste_script.push(`<action mouvement="semicirculaire" objet="rapporteur" ${tempoTexte}/>`)
+// }
+Alea2iep.prototype.rapporteurMasquerGraduationsExterieures = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" ${tempoTexte}/>`)
+}
+Alea2iep.prototype.rapporteurMontrerGraduationsExterieures = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="montrer_nombres" objet="rapporteur" ${tempoTexte}/>`)
+}
+Alea2iep.prototype.rapporteurMasquerGraduationsInterieures = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="vide" objet="rapporteur" ${tempoTexte}/>`)
+}
+Alea2iep.prototype.rapporteurMontrerGraduationsInterieures = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="graduations" objet="rapporteur" ${tempoTexte}/>`)
+}
+
+/**
+ **************************
+ ********* REGLE **********
+ **************************
+ */
+
+ Alea2iep.prototype.regleMasquerGraduations = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="vide" objet="regle" ${tempoTexte}/>`)
+}
+ Alea2iep.prototype.regleMontrerGraduations = function (tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="graduations" objet="regle" ${tempoTexte}/>`)
+}
+ Alea2iep.prototype.regleModifierLongueur = function (l = 20, tempo=this.tempo) {
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${l}" ${tempoTexte}/>`)
+}
+
+
+/**
+ **************************
+ ********* TRAITS *********
+ **************************
+ */
+
 /**
 * tracer(B,tempo=tempoIEP ,vitesse=10,epaisseur=0,couleur=0) // Trace le segment du point courant vers B
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false, vecteur = false) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="${tiret}"` : ''
+    const vecteurTexte = vecteur ? `style="vecteur"` : ''
     
     this.idIEP += 1
-    let codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon"  ${pointillesTexte} ${vitesseTexte} id="${this.idIEP}" />`
+    let codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" ${tempoTexte}  ${pointillesTexte} ${vecteurTexte} ${vitesseTexte} id="${this.idIEP}" />`
     this.crayon.position = B
     this.liste_script.push(codeXML)
 }
@@ -463,7 +650,55 @@ Alea2iep.prototype.trait = function (A, B, tempo = 0, vitesse = this.vitesse*100
     this.tracer(B, tempo, vitesse)
 }
 
-Alea2iep.prototype.segmentTracer = function (A, B) {
+/**
+ * segmetTracer(A,B)
+ * regleSegment(s)
+ * regleSegment(A,B,tempo, vitesse, epaisseur, couleur, pointilles)
+ */
+
+
+Alea2iep.prototype.regleSegment = function (...args) {
+    let A,B,tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false
+
+    if (args[0].typeObjet == 'segment') {
+        A = args[0].extremite1
+        B = args[0].extremite2
+        if (typeof args[1] !== 'undefined') {
+            tempo = args[1]
+        }
+        if (typeof args[2] !== 'undefined') {
+            vitesse = args[2]
+        }
+        if (typeof args[3] !== 'undefined') {
+            epaisseur = args[3]
+        }
+        if (typeof args[4] !== 'undefined') {
+            couleur = args[4]
+        }
+        if (typeof args[5] !== 'undefined') {
+            pointilles = args[5]
+        }
+    }
+    if (args[0].typeObjet == 'point' && args[1].typeObjet == 'point' ) {
+        A = args[0]
+        B = args[1]
+        if (typeof args[2] !== 'undefined') {
+            tempo = args[2]
+        }
+        if (typeof args[3] !== 'undefined') {
+            vitesse = args[3]
+        }
+        if (typeof args[4] !== 'undefined') {
+            epaisseur = args[4]
+        }
+        if (typeof args[5] !== 'undefined') {
+            couleur = args[5]
+        }
+        if (typeof args[6] !== 'undefined') {
+            pointilles = args[6]
+        }
+    }
+
     let d = droite(A, B)
     d.isVisible = false
     let angle = d.angleAvecHorizontale
@@ -472,22 +707,56 @@ Alea2iep.prototype.segmentTracer = function (A, B) {
     this.regleRotation(angle)
     this.crayonMontrer(A)
     this.crayonDeplacer(A)
-    this.tracer(B)
+    this.tracer(B, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 
 Alea2iep.prototype.polygoneTracer = function (...sommets) {
     for (let i = 0; i < sommets.length - 1; i++) {
-        this.segmentTracer(sommets[i], sommets[i + 1])
+        this.regleSegment(sommets[i], sommets[i + 1])
     }
-    this.segmentTracer(sommets[sommets.length - 1], sommets[0])
+    this.regleSegment(sommets[sommets.length - 1], sommets[0])
 }
 
-Alea2iep.prototype.textePoint = function (texte, A, police=false, tempo = this.tempo, couleur = this.couleurTexte) {
+/**
+ **************************
+ ********* TEXTE **********
+ **************************
+ */
+
+Alea2iep.prototype.textePoint = function (texte, A, tempo = this.tempo, police=false, couleur = this.couleurTexte, couleur_fond, opacite_fond, couleur_cadre, epaisseur_cadre, marge, marge_gauche, marge_droite, marge_haut, marge_bas) {
     this.idIEP++
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const policeTexte = police ? `police="${police}"` : ''
-    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" ${tempoTexte} />`
-    codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" />`
+    let options = ''
+    if (typeof couleur_fond!='undefined') {
+        options += ` couleur_fond="${couleur_fond}"`
+    }
+    if (typeof opacite_fond!='undefined') {
+        options += ` opacite_fond="${opacite_fond}"`
+    }
+    if (typeof couleur_cadre!='undefined') {
+        options += ` couleur_cadre="${couleur_cadre}"`
+    }
+    if (typeof epaisseur_cadre!='undefined') {
+        options += ` epaisseur_cadre="${epaisseur_cadre}"`
+    }
+    if (typeof marge!='undefined') {
+        options += ` marge="${marge}"`
+    }
+    if (typeof marge_gauche!='undefined') {
+        options += ` marge_gauche="${marge_gauche}"`
+    }
+    if (typeof marge_droite!='undefined') {
+        options += ` marge_droite="${marge_droite}"`
+    }
+    if (typeof marge_bas!='undefined') {
+        options += ` marge_bas="${marge_bas}"`
+    }
+    if (typeof marge_haut!='undefined') {
+        options += ` marge_haut="${marge_haut}"`
+    }
+    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
+    codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} ${tempoTexte} />`
     this.liste_script.push(codeXML)
 }
 
@@ -495,12 +764,88 @@ Alea2iep.prototype.textePosition = function (texte, x, y, police, tempo = this.t
     let A = point(x,y);
     return this.textePoint(texte, A, police, tempo = this.tempo, couleur = this.couleurTexte)
 }
+
+/**
+ **************************
+ ********* PAUSE **********
+ **************************
+ */
+
 Alea2iep.prototype.pause = function () {
     this.liste_script.push('<action mouvement="pause" />')
 }
 
+/**
+ **************************
+ ******* CODAGES **********
+ **************************
+ */
+
+ /**
+  * segmentCodage(s, codage='\\', couleur = this.couleurCodage, tempo = this.tempo))
+  * @param {*} s 
+  * @param {*} codage 
+  * @param {*} couleur 
+  * @param {*} tempo 
+  */
+
+ Alea2iep.prototype.segmentCodage = function (...args) {
+    let s, codage='\\', couleur=this.couleurCodage, tempo=this.tempo
+    if (args[0].typeObjet == 'segment'){
+        s = args[0]
+        if (typeof args[1]!== 'undefined') {
+            codage = args[1]
+        }
+        if (typeof args[2]!== 'undefined') {
+            couleur = args[2]
+        }
+        if (typeof args[3]!== 'undefined') {
+            tempo = args[3]
+        }
+    }
+    if (args[0].typeObjet == 'point' && args[1].typeObjet == 'point' ){
+        s = segment(args[0],args[1])
+        if (typeof args[2]!== 'undefined') {
+            codage = args[2]
+        }
+        if (typeof args[3]!== 'undefined') {
+            couleur = args[3]
+        }
+        if (typeof args[4]!== 'undefined') {
+            tempo = args[4]
+        }
+    }
+    let id
+    if (s.id) {
+        id = s.id
+    } else {
+        this.idIEP++
+        id = this.idIEP
+
+    }
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    let M = milieu(s.extremite1,s.extremite2)
+    
+    let codeXML = `<action abscisse="${this.x(M)}" ordonnee="${this.y(M)}" forme="${codage}"  couleur="${couleur}" id="${id}" ${tempoTexte} mouvement="creer" objet="longueur" />`
+    this.liste_script.push(codeXML)
+}
+
+Alea2iep.prototype.segmentCodageMasquer = function(s, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action id="${s.id}" mouvement="masquer" objet="longueur" ${tempoTexte} />`)
+}
+Alea2iep.prototype.segmentCodageMontrer = function(s, tempo = this.tempo){
+    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.liste_script.push(`<action id="${s.id}" mouvement="montrer" objet="longueur" />`)
+}
 
 
+
+/**
+ *****************************************
+ ********* MACROS-CONSTRUCTIONS **********
+ *****************************************
+ */
 
 Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
     let A = point(6, 0)
@@ -515,7 +860,7 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
     this.pointCreer(A)
    // this.regleRotation(droite(A,B).angleAvecHorizontale)
    // this.regleMontrer(A)
-    this.segmentTracer(A, B)
+    this.regleSegment(A, B)
     this.pointCreer(B)
     this.crayonMasquer()
     if (description) this.textePosition(`${A.nom + C.nom} = ${tex_nombre(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${tex_nombre(AC)} cm.`, 0, -3)
@@ -533,8 +878,8 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
     this.epaisseur = 3
     if (description) this.textePosition(`Le point ${C.nom} est à une intersection des deux cercles.`, 0, -5)
     this.pointCreer(C)
-    this.segmentTracer(B, C)
-    this.segmentTracer(C, A)
+    this.regleSegment(B, C)
+    this.regleSegment(C, A)
     this.crayonMasquer()
     this.regleMasquer()
 }
@@ -560,7 +905,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
     this.equerreRotation(dAB.angleAvecHorizontale)
     this.pointCreer(A)
-    this.segmentTracer(A, B)
+    this.regleSegment(A, B)
     this.pointCreer(B)
     if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
     this.equerreMontrer(A)
@@ -578,7 +923,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
     this.pointCreer(C)
     this.compasMasquer()
-    this.segmentTracer(A, C)
+    this.regleSegment(A, C)
     this.regleMasquer()
     this.crayonMasquer()
 }
