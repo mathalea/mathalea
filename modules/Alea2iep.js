@@ -1014,34 +1014,34 @@ C.nom = NOM[2]
 
 let tri=polygone(A,B,C)
 tri.isVisible=false
-IEP.couleur = "blue"
-IEP.epaisseur = 3
-IEP.pointCreer(A)
+this.couleur = "blue"
+this.epaisseur = 3
+this.pointCreer(A)
 if (description) this.textePosition(`On trace le côté [AB] de ${AB} cm.`, 0, -2)
-IEP.regleSegment(A,B)
-IEP.pointCreer(B)
-IEP.couleur = "grey"
-IEP.epaisseur = 1
-IEP.rapporteurMontrer(A)
-IEP.rapporteurDeplacer(A)
-IEP.rapporteurRotation(angle)
+this.regleSegment(A,B)
+this.pointCreer(B)
+this.couleur = "grey"
+this.epaisseur = 1
+this.rapporteurMontrer(A)
+this.rapporteurDeplacer(A)
+this.rapporteurRotation(angle)
 if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom+C.nom}).`, 0, -3)
-IEP.pointCreer(D)
-IEP.rapporteurMasquer()
-IEP.regleSegment(A,D2)
-IEP.regleMasquer()
-IEP.rapporteurMontrer(A)
-IEP.rapporteurDeplacer(B)
+this.pointCreer(D)
+this.rapporteurMasquer()
+this.regleSegment(A,D2)
+this.regleMasquer()
+this.rapporteurMontrer(A)
+this.rapporteurDeplacer(B)
 if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom+C.nom}).`, 0, -4)
-IEP.pointCreer(E)
-IEP.rapporteurMasquer()
-IEP.regleMontrer(B)
-IEP.regleSegment(B,E2)
-IEP.pointCreer(C)
-IEP.couleur = "blue"
-IEP.epaisseur = 3
-IEP.regleSegment(B,C)
-IEP.regleSegment(C,A)
-IEP.regleMasquer()
-IEP.crayonMasquer()
+this.pointCreer(E)
+this.rapporteurMasquer()
+this.regleMontrer(B)
+this.regleSegment(B,E2)
+this.pointCreer(C)
+this.couleur = "blue"
+this.epaisseur = 3
+this.regleSegment(B,C)
+this.regleSegment(C,A)
+this.regleMasquer()
+this.crayonMasquer()
 }
