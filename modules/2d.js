@@ -55,6 +55,7 @@ export function ObjetMathalea2D() {
  */
 function Point(arg1, arg2, arg3, positionLabel = "above") {
   // ObjetMathalea2D.call(this);
+  this.typeObjet = "point";
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {
@@ -1422,6 +1423,7 @@ export function nomVecteurParPosition(nom, x, y, taille = 1, angle = 0, color = 
  */
 function Segment(arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this);
+  this.typeObjet = "segment";
   this.styleExtremites = "";
   this.tailleExtremites = 4;
   if (arguments.length == 2) {
