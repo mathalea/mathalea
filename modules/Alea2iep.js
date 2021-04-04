@@ -1,5 +1,5 @@
-import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu} from "/modules/2d.js"
-import { calcul, randint, tex_nombre } from "/modules/outils.js"
+import {point,pointAdistance,droite,droiteParPointEtPerpendiculaire,segment,polygone,triangle2points2longueurs,cercle,pointIntersectionLC,homothetie,longueur,angle,milieu,pointSurSegment, rotation, pointIntersectionDD} from "/modules/2d.js"
+import { calcul, randint, nombre_avec_espace} from "/modules/outils.js"
 
 
 /*
@@ -17,7 +17,10 @@ export default function Alea2iep() {
     this.couleurTexte = "black";
     this.couleurPoint = "black"; // Couleur du nom des points
     this.couleurCodage = "#f15929"; 
+    this.couleurTraitsDeConstruction = "gray"; 
     this.epaisseur = 3;
+    this.epaisseurTraitsDeConstruction = 1;
+    this.pointilles = this.pointilles
     this.liste_script = []; // Liste des instructions xml mise à jour par les méthodes
 
     this.translationX = 0;
@@ -35,30 +38,36 @@ export default function Alea2iep() {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
+        longueur : 15,
+        zoom : 100,
     }
 
     this.crayon = {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
+        zoom : 100,
     }
 
     this.equerre = {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
+        zoom : 100,
     }
     
     this.requerre = {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
+        zoom : 100,
     }
 
     this.rapporteur = {
         visibilite: false,
         position: point(0, 0),
         angle: 0,
+        zoom : 100,
     }
 
 
@@ -69,6 +78,7 @@ export default function Alea2iep() {
         orientation: "droite",
         ecartement: 0,
         leve: false,
+        zoom : 100,
     }
 
     this.xml = '';
@@ -259,19 +269,6 @@ Alea2iep.prototype.requerreDeplacer = function (A, tempo = this.tempo, vitesse =
     this.deplacer('requerre', A, tempo, vitesse)
 }
 
-Alea2iep.prototype.equerreZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
-}
-
-Alea2iep.prototype.requerreZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" />`)
-}
-
-Alea2iep.prototype.requerreGlisserEquerre = function (a, tempo) {
-    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
-    this.liste_script.push(`<action abscisse="${a*30}" mouvement="glisser" objet="requerre" ${tempoTexte} />`)
-}
-
 
 
 Alea2iep.prototype.compasDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
@@ -288,15 +285,24 @@ Alea2iep.prototype.rapporteurDeplacer = function (A, tempo = this.tempo, vitesse
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.rotation = function (objet, angle, tempo = this.tempo, sens = this.vitesse) {
-    const tempoTexte = tempo ? `tempo="${tempo}"` : ''
-    // Les angles de MathALEA2D et de IEP sont opposés !!!!!
-    let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
-    this[objet].angle = angle
-    if (typeof angle === 'number' && isFinite(angle)) {
-        this.liste_script.push(codeXML)
+Alea2iep.prototype.rotation = function (objet, a, tempo = this.tempo, sens = this.vitesse) {
+    let angle
+    if (a.typeObjet == 'point'){
+        let d = droite(this[objet].position,a)
+        angle = d.angleAvecHorizontale
     } else {
-        console.log ("Angle de rotation non défini.")
+        angle = a
+    }
+    if (this[objet].angle != a) { // Si la rotation est inutile, on ne la fait pas
+        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+        // Les angles de MathALEA2D et de IEP sont opposés !!!!!
+        let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
+        this[objet].angle = angle
+        if (typeof angle === 'number' && isFinite(angle)) {
+            this.liste_script.push(codeXML)
+        } else {
+            console.log ("Angle de rotation non défini.")
+        }
     }
 }
 
@@ -323,6 +329,32 @@ Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
 Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
     this.rotation('rapporteur', angle, tempo, vitesse)
 }
+
+
+
+
+Alea2iep.prototype.regleZoom = function (k) {
+    this.regle.zoom = k
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" />`)
+}
+Alea2iep.prototype.equerreZoom = function (k) {
+    this.equerre.zoom = k
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
+}
+Alea2iep.prototype.requerreZoom = function (k) {
+    this.requerre.zoom = k
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" />`)
+}
+Alea2iep.prototype.rapporteurZoom = function (k) {
+    this.rapporteur.zoom = k
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" />`)
+}
+Alea2iep.prototype.compasZoom = function (k) {
+    this.compas.zoom = k
+    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
+}
+
+
 
 /**
  **************************
@@ -471,7 +503,7 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
+Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="tiret"` : ''
@@ -498,7 +530,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = false) {
+Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta = 10, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles) {
     this.compasMontrer()
     this.compasDeplacer(centre)
     let s = segment(centre, point)
@@ -512,97 +544,16 @@ Alea2iep.prototype.compasTracerArcCentrePoint = function (centre, point, delta =
 }
 
 
-
 /**
-* deplacerRegle(A,tempo,vitesse) | deplacerCrayon(A,tempo,vitesse) | deplacerEquerre(A,tempo,vitesse) | deplacerCompas(A,tempo,vitesse) | deplacerRapporteur(A,tempo,vitesse)
-* 
-* @Auteur Rémi Angot
-*/
+ **************************
+ ******** REQUERRE ********
+ **************************
+ */
 
-Alea2iep.prototype.deplacer = function (objet, A, tempo = this.tempo, vitesse = this.vitesse) {
-    if (this[objet].position != A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
-        const tempoTexte = tempo ? `tempo="${tempo}"` : ''
-        const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
-        let codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" ${tempoTexte} ${vitesseTexte} />`
-        this[objet].position = A
-        this.liste_script.push(codeXML)
-    }
-}
-
-
-Alea2iep.prototype.regleDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
-    this.deplacer('regle', A, tempo, vitesse)
-}
-
-Alea2iep.prototype.crayonDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
-    this.deplacer('crayon', A, tempo, vitesse)
-}
-
-Alea2iep.prototype.equerreDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
-    this.deplacer('equerre', A, tempo, vitesse)
-}
-
-Alea2iep.prototype.compasDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
-    this.deplacer('compas', A, tempo, vitesse)
-}
-
-Alea2iep.prototype.rapporteurDeplacer = function (A, tempo = this.tempo, vitesse = this.vitesse) {
-    this.deplacer('rapporteur', A, tempo, vitesse)
-}
-
-/**
-* rotationRegle(A,tempo,vitesse) | rotationCrayon(A,tempo,vitesse) | rotationEquerre(A,tempo,vitesse) | rotationCompas(A,tempo,vitesse) | rotationRapporteur(A,tempo,vitesse)
-* Pour IEP un angle positif est indirect
-* @Auteur Rémi Angot
-*/
-
-Alea2iep.prototype.rotation = function (objet, angle, tempo = this.tempo, sens = this.vitesse) {
+ Alea2iep.prototype.requerreGlisserEquerre = function (a, tempo) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
-    // Les angles de MathALEA2D et de IEP sont opposés !!!!!
-    let codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
-    this[objet].angle = angle
-    if (typeof angle === 'number' && isFinite(angle)) {
-        this.liste_script.push(codeXML)
-    } else {
-        console.log ("Angle de rotation non défini.")
-    }
+    this.liste_script.push(`<action abscisse="${a*30}" mouvement="glisser" objet="requerre" ${tempoTexte} />`)
 }
-
-Alea2iep.prototype.regleRotation = function (angle, tempo, sens) {
-    this.rotation('regle', angle, tempo, sens)
-}
-
-Alea2iep.prototype.crayonRotation = function (angle, tempo, sens) {
-    this.rotation('crayon', angle, tempo, sens)
-}
-
-Alea2iep.prototype.equerreRotation = function (angle, tempo, sens) {
-    this.rotation('equerre', angle, tempo, sens)
-}
-
-Alea2iep.prototype.compasRotation = function (angle, tempo, sens) {
-    this.rotation('compas', angle, tempo, sens)
-}
-
-Alea2iep.prototype.rapporteurRotation = function (angle, tempo, vitesse) {
-    this.rotation('rapporteur', angle, tempo, vitesse)
-}
-
-
-
-Alea2iep.prototype.regleZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" />`)
-}
-Alea2iep.prototype.equerreZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" />`)
-}
-Alea2iep.prototype.rapporteurZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" />`)
-}
-Alea2iep.prototype.compasZoom = function (k) {
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
-}
-
 
 /**
  **************************
@@ -636,6 +587,33 @@ Alea2iep.prototype.rapporteurMontrerGraduationsInterieures = function (tempo=thi
     this.liste_script.push(`<action mouvement="graduations" objet="rapporteur" ${tempoTexte}/>`)
 }
 
+Alea2iep.prototype.rapporteurDeplacerRotation2Points = function (A, B, tempo, vitesse) {
+    let d = droite(A,B)
+    d.isVisible = false
+    this.rapporteurMontrer()
+    this.rapporteurDeplacer(A,tempo, vitesse)
+    this.rapporteurRotation(d.angleAvecHorizontale,tempo, vitesse)
+}
+
+Alea2iep.prototype.rapporteurCrayonMarqueAngle = function (angle, tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction) {
+    let O = this.rapporteur.position
+    let M = pointAdistance(O,5.2,angle+this.rapporteur.angle)
+    let N = pointAdistance(O,5.5,angle+this.rapporteur.angle)
+    this.crayonMontrer()
+    this.crayonDeplacer(M)
+    this.tracer(N, tempo, vitesse, couleur)
+}
+
+Alea2iep.prototype.rapporteurTracerDemiDroiteAngle = function (A,B,angle,longueur = 0.9 * this.regle.longueur, couleur=this.couleur, tempo=this.tempo, vitesse=this.vitesse, epaisseur=this.epaisseur, pointilles=this.pointilles) {
+    this.rapporteurDeplacerRotation2Points(A,B)
+    this.rapporteurCrayonMarqueAngle(angle)
+    let d = droite(A,B)
+    d.isVisible = false
+    let M = pointAdistance(A,calcul(5.2*this.rapporteur.zoom/100,1),d.angleAvecHorizontale+angle)
+    this.rapporteurMasquer()
+    this.regleDemiDroiteOriginePoint(A,M,longueur, couleur, tempo, vitesse, epaisseur, pointilles)
+}
+
 /**
  **************************
  ********* REGLE **********
@@ -652,7 +630,21 @@ Alea2iep.prototype.rapporteurMontrerGraduationsInterieures = function (tempo=thi
 }
  Alea2iep.prototype.regleModifierLongueur = function (l = 20, tempo=this.tempo) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
+    this.regle.longueur = l
     this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${l}" ${tempoTexte}/>`)
+}
+
+Alea2iep.prototype.regleDemiDroiteOriginePoint = function (O, A, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles){
+    let M = homothetie(A,O,calcul(0.9*l/longueur(O,A)))
+    this.regleSegment(O,M,tempo, vitesse, epaisseur, couleur, pointilles)
+}
+Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse){
+    let M = homothetie(B,A,calcul( (-l*0.5 + longueur(A,B)*0.5) / longueur(A,B)))
+    let N = homothetie(A,B,calcul( (-l*0.5 + longueur(A,B)*0.5) / longueur(A,B)))
+    this.regleMontrer()
+    this.regleDeplacer(A)
+    this.regleRotation(N)
+    this.regleSegment(M,N)
 }
 
 
@@ -667,7 +659,7 @@ Alea2iep.prototype.rapporteurMontrerGraduationsInterieures = function (tempo=thi
 * @Auteur Rémi Angot
 */
 
-Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false, vecteur = false) {
+Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles, vecteur = false) {
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
     const pointillesTexte = pointilles ? `pointilles="${tiret}"` : ''
@@ -677,7 +669,11 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
     this.crayon.position = B
     this.liste_script.push(codeXML)
 }
-Alea2iep.prototype.trait = function (A, B, tempo = 0, vitesse = this.vitesse*100, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false) {
+Alea2iep.prototype.trait = function (A, B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles) {
+    this.crayonDeplacer(A, tempo, vitesse)
+    this.tracer(B, tempo, vitesse)
+}
+Alea2iep.prototype.traitRapide = function (A, B, tempo = 0, vitesse = this.vitesse*100, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles) {
     this.crayonDeplacer(A, tempo, vitesse)
     this.tracer(B, tempo, vitesse)
 }
@@ -690,7 +686,7 @@ Alea2iep.prototype.trait = function (A, B, tempo = 0, vitesse = this.vitesse*100
 
 
 Alea2iep.prototype.regleSegment = function (...args) {
-    let A,B,tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = false
+    let A,B,tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles
 
     if (args[0].typeObjet == 'segment') {
         A = args[0].extremite1
@@ -920,20 +916,20 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
     B.nom = ABC[1]
     C.nom = ABC[2]
 
-    if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
+    if (description) this.textePosition(`${A.nom + B.nom} = ${nombre_avec_espace(AB)} cm`, 0, -2)
     this.pointCreer(A)
    // this.regleRotation(droite(A,B).angleAvecHorizontale)
    // this.regleMontrer(A)
     this.regleSegment(A, B)
     this.pointCreer(B)
     this.crayonMasquer()
-    if (description) this.textePosition(`${A.nom + C.nom} = ${tex_nombre(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${tex_nombre(AC)} cm.`, 0, -3)
+    if (description) this.textePosition(`${A.nom + C.nom} = ${nombre_avec_espace(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombre_avec_espace(AC)} cm.`, 0, -3)
     this.couleur = "forestgreen"
     this.epaisseur = 2
     this.compasMontrer(A)
     this.compasEcarterAvecRegle(AC)
     this.compasTracerArcCentrePoint(A, C, 40)
-    if (description) this.textePosition(`${B.nom + C.nom} = ${tex_nombre(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${tex_nombre(BC)} cm.`, 0, -4)
+    if (description) this.textePosition(`${B.nom + C.nom} = ${nombre_avec_espace(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombre_avec_espace(BC)} cm.`, 0, -4)
     this.compasDeplacer(B)
     this.compasEcarterAvecRegle(BC)
     this.compasTracerArcCentrePoint(B, C)
@@ -966,7 +962,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     C.nom = ABC[2]
 
     if (longueur(A,C)>8) this.equerreZoom(150)
-    if (description) this.textePosition(`${A.nom + B.nom} = ${tex_nombre(AB)} cm`, 0, -2)
+    if (description) this.textePosition(`${A.nom + B.nom} = ${nombre_avec_espace(AB)} cm`, 0, -2)
     this.equerreRotation(dAB.angleAvecHorizontale)
     this.pointCreer(A)
     this.regleSegment(A, B)
@@ -976,7 +972,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     this.equerreDeplacer(B)
     this.tracer(c)
     this.equerreMasquer()
-    if (description) this.textePosition(`${A.nom + C.nom} = ${tex_nombre(AC)} cm donc C appartient au cercle de centre A et de rayon ${tex_nombre(AC)} cm.`, 0, -4)
+    if (description) this.textePosition(`${A.nom + C.nom} = ${nombre_avec_espace(AC)} cm donc C appartient au cercle de centre A et de rayon ${nombre_avec_espace(AC)} cm.`, 0, -4)
     this.compasMontrer(A)
     this.compasEcarterAvecRegle(AC)
     this.couleur = "forestgreen"
@@ -991,3 +987,68 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
     this.regleMasquer()
     this.crayonMasquer()
 }
+
+
+Alea2iep.prototype.triangle1longueur2angles = function (NOM, AB, BAC,CBA, description = true) { // Triangle dont on connait AB et les deux angles adjacents
+    let angle = randint(-20,20);
+    let a1 = BAC;
+    let a2 = CBA;
+    let A = point(2,0);
+    let B = pointAdistance(A,AB,angle);
+    let D = pointAdistance(A,5.2,a1+angle);
+    let D2 = pointSurSegment(A,D,10);
+    let D1 = pointSurSegment(D,D2,0.4);
+    let E = pointAdistance(B,3,180-a2+angle);
+    let E2 = pointSurSegment(B,E,10);
+    let E1 = pointSurSegment(E,E2,-0.4);
+    let F = pointAdistance(B,5.2,180-a2+angle);
+    let F1 = pointSurSegment(F,E2,0.4);
+    let d = rotation(droite(A,B),A,a1);
+    D.isVisible=false;
+    let d2 = rotation(droite(B,A),B,-a2);
+    d2.isVisible = false;
+    let C = pointIntersectionDD(d,d2);
+    A.nom = NOM[0];
+    B.nom = NOM[1];
+    C.nom = NOM[2];
+    let tri = polygone(A,B,C);
+    tri.isVisible = false;
+    this.couleur = "blue";
+    this.epaisseur = 3;
+    this.pointCreer(A);
+    if (description) this.textePosition(`On trace le côté [${A.nom+B.nom}] de ${nombre_avec_espace(AB)} cm.`, 0, -4);
+    this.regleSegment(A,B);
+    this.pointCreer(B);
+    this.couleur = "grey";
+    this.epaisseur = 1;
+    this.rapporteurMontrer(A);
+    this.rapporteurDeplacer(A);
+    this.rapporteurRotation(angle);
+    if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom+C.nom}).`, 0, -5);
+    this.epaisseur = 3;
+    this.trait(D,D1,20);
+    this.epaisseur = 1;
+    this.rapporteurMasquer();
+    this.regleSegment(A,D2);
+    this.regleMasquer();
+    this.angleCodage(B,A,C);
+    this.rapporteurMontrer(A);
+    this.rapporteurDeplacer(B);
+    if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom+C.nom}).`, 0, -6);
+    this.epaisseur = 3;
+    this.trait(E,E1,10);
+    this.trait(F,F1,20);
+    this.epaisseur = 1;
+    this.rapporteurMasquer();
+    this.regleMontrer(B);
+    this.regleSegment(B,E2);
+    this.angleCodage(C,B,A);
+    this.pointCreer(C,'',0);
+    this.pointNommer(C,C.nom,-.5,1)
+    this.couleur = "blue";
+    this.epaisseur = 3;
+    this.regleSegment(B,C);
+    this.regleSegment(C,A);
+    this.regleMasquer();
+    this.crayonMasquer();
+    };
