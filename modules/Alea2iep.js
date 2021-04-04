@@ -93,11 +93,11 @@ export default function Alea2iep () {
     }
   }
 
-  this.html = function (numero_de_l_exercice, i) {
+  this.html = function (numeroExercice, i) {
     if (window.sortie_html) {
-      const id = `${numero_de_l_exercice}_${i}`
+      const id = `${numeroExercice}_${i}`
       window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
-      const codeHTML = `<script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
+      const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
                 ${this.script()}
             </script>
             <br>
@@ -106,11 +106,11 @@ export default function Alea2iep () {
     }
   }
 
-  this.htmlBouton = function (numero_de_l_exercice, i) {
+  this.htmlBouton = function (numeroExercice, i) {
     if (window.sortie_html) {
-      const id = `${numero_de_l_exercice}_${i}`
+      const id = `${numeroExercice}_${i}`
       window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
-      const codeHTML = `<script id="figurexml${numero_de_l_exercice}_${i}" type="text/xml">
+      const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
                 ${this.script()}
             </script>
             <br>
@@ -727,37 +727,37 @@ Alea2iep.prototype.polygoneTracer = function (...sommets) {
  **************************
  */
 
-Alea2iep.prototype.textePoint = function (texte, A, tempo = this.tempo, police = false, couleur = this.couleurTexte, couleur_fond, opacite_fond, couleur_cadre, epaisseur_cadre, marge, marge_gauche, marge_droite, marge_haut, marge_bas) {
+Alea2iep.prototype.textePoint = function (texte, A, tempo = this.tempo, police = false, couleur = this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas) {
   this.idIEP++
   const tempoTexte = tempo ? `tempo="${tempo}"` : ''
   const policeTexte = police ? `police="${police}"` : ''
   let options = ''
-  if (typeof couleur_fond !== 'undefined') {
-    options += ` couleur_fond="${couleur_fond}"`
+  if (typeof couleurFond !== 'undefined') {
+    options += ` couleur_fond="${couleurFond}"`
   }
-  if (typeof opacite_fond !== 'undefined') {
-    options += ` opacite_fond="${opacite_fond}"`
+  if (typeof opaciteFond !== 'undefined') {
+    options += ` opacite_fond="${opaciteFond}"`
   }
-  if (typeof couleur_cadre !== 'undefined') {
-    options += ` couleur_cadre="${couleur_cadre}"`
+  if (typeof couleurCadre !== 'undefined') {
+    options += ` couleur_cadre="${couleurCadre}"`
   }
-  if (typeof epaisseur_cadre !== 'undefined') {
-    options += ` epaisseur_cadre="${epaisseur_cadre}"`
+  if (typeof epaisseurCadre !== 'undefined') {
+    options += ` epaisseur_cadre="${epaisseurCadre}"`
   }
   if (typeof marge !== 'undefined') {
     options += ` marge="${marge}"`
   }
-  if (typeof marge_gauche !== 'undefined') {
-    options += ` marge_gauche="${marge_gauche}"`
+  if (typeof margeGauche !== 'undefined') {
+    options += ` marge_gauche="${margeGauche}"`
   }
-  if (typeof marge_droite !== 'undefined') {
-    options += ` marge_droite="${marge_droite}"`
+  if (typeof margeDroite !== 'undefined') {
+    options += ` marge_droite="${margeDroite}"`
   }
-  if (typeof marge_bas !== 'undefined') {
-    options += ` marge_bas="${marge_bas}"`
+  if (typeof margeBas !== 'undefined') {
+    options += ` marge_bas="${margeBas}"`
   }
-  if (typeof marge_haut !== 'undefined') {
-    options += ` marge_haut="${marge_haut}"`
+  if (typeof margeHaut !== 'undefined') {
+    options += ` marge_haut="${margeHaut}"`
   }
   let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
   codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} ${tempoTexte} />`
