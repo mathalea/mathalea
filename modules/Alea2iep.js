@@ -1,5 +1,5 @@
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD } from './2d.js'
-import { calcul, randint, nombre_avec_espace } from './outils.js'
+import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude } from './2d.js'
+import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
  * Classe parente de tous les objets Alea2iep
@@ -24,6 +24,12 @@ export default function Alea2iep () {
 
   this.translationX = 0
   this.translationY = 10 // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
+
+  this.recadre = function (xmin, ymax) {
+    this.translationX = 1 - xmin
+    this.translationY = ymax + 3
+  }
+
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
     return (A.x + this.translationX) * 30
@@ -485,7 +491,7 @@ Alea2iep.prototype.compasCoucher = function (tempo = this.tempo) {
 
 Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles) {
   const tempoTexte = tempo ? `tempo="${tempo}"` : ''
-  const pointillesTexte = pointilles ? 'pointilles="tiret"' : ''
+  const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
   this.idIEP += 1
   if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
     [angle1, angle2] = [angle2, angle1]
@@ -616,13 +622,13 @@ Alea2iep.prototype.regleDemiDroiteOriginePoint = function (O, A, l = this.regle.
   const M = homothetie(A, O, calcul(0.9 * l / longueur(O, A)))
   this.regleSegment(O, M, tempo, vitesse, epaisseur, couleur, pointilles)
 }
-Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse) {
+Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles) {
   const M = homothetie(B, A, calcul((-l * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
   const N = homothetie(A, B, calcul((-l * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
   this.regleMontrer()
   this.regleDeplacer(A)
   this.regleRotation(N)
-  this.regleSegment(M, N)
+  this.regleSegment(M, N, tempo, vitesse, couleur, pointilles)
 }
 
 /**
@@ -639,7 +645,7 @@ Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleu
 Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles, vecteur = false) {
   const tempoTexte = tempo ? `tempo="${tempo}"` : ''
   const vitesseTexte = vitesse ? `vitesse="${vitesse}"` : ''
-  const pointillesTexte = pointilles ? 'pointilles="tiret"' : ''
+  const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
   const vecteurTexte = vecteur ? 'style="vecteur"' : ''
   this.idIEP += 1
   const codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" ${tempoTexte}  ${pointillesTexte} ${vecteurTexte} ${vitesseTexte} id="${this.idIEP}" />`
@@ -879,6 +885,31 @@ Alea2iep.prototype.angleCodageMontrer = function (B, A, C, tempo = this.tempo) {
  *****************************************
  */
 
+Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C) {
+  const M = similitude(B, A, 90, 2 / longueur(A, B))
+  const N = pointIntersectionDD(droite(M, A), droiteParPointEtParallele(C, droite(A, B)))
+  const N2 = pointSurSegment(N, C, 7)
+  const d = droite(A, B)
+  this.equerreMontrer(A)
+  this.equerreRotation(d.angleAvecHorizontale - 90)
+  this.regleDeplacer(M)
+  this.regleRotation(A)
+  this.regleMontrer()
+  this.equerreDeplacer(N)
+  // this.regleDeplacer(N) // On trace le long de la règle ou le long de l'équerre
+  // this.regleRotation(C)
+  // this.equerreMasquer()
+  this.crayonMontrer()
+  this.crayonDeplacer(N)
+  this.tracer(N2)
+}
+
+/**
+ *****************************************
+ ************** TRIANGLES ****************
+ *****************************************
+ */
+
 Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
@@ -888,20 +919,20 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
   B.nom = ABC[1]
   C.nom = ABC[2]
 
-  if (description) this.textePosition(`${A.nom + B.nom} = ${nombre_avec_espace(AB)} cm`, 0, -2)
+  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
   this.pointCreer(A)
   // this.regleRotation(droite(A,B).angleAvecHorizontale)
   // this.regleMontrer(A)
   this.regleSegment(A, B)
   this.pointCreer(B)
   this.crayonMasquer()
-  if (description) this.textePosition(`${A.nom + C.nom} = ${nombre_avec_espace(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombre_avec_espace(AC)} cm.`, 0, -3)
+  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3)
   this.couleur = 'forestgreen'
   this.epaisseur = 2
   this.compasMontrer(A)
   this.compasEcarterAvecRegle(AC)
   this.compasTracerArcCentrePoint(A, C, 40)
-  if (description) this.textePosition(`${B.nom + C.nom} = ${nombre_avec_espace(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombre_avec_espace(BC)} cm.`, 0, -4)
+  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
   this.compasDeplacer(B)
   this.compasEcarterAvecRegle(BC)
   this.compasTracerArcCentrePoint(B, C)
@@ -932,7 +963,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
   C.nom = ABC[2]
 
   if (longueur(A, C) > 8) this.equerreZoom(150)
-  if (description) this.textePosition(`${A.nom + B.nom} = ${nombre_avec_espace(AB)} cm`, 0, -2)
+  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
   this.equerreRotation(dAB.angleAvecHorizontale)
   this.pointCreer(A)
   this.regleSegment(A, B)
@@ -942,7 +973,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
   this.equerreDeplacer(B)
   this.tracer(c)
   this.equerreMasquer()
-  if (description) this.textePosition(`${A.nom + C.nom} = ${nombre_avec_espace(AC)} cm donc C appartient au cercle de centre A et de rayon ${nombre_avec_espace(AC)} cm.`, 0, -4)
+  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc C appartient au cercle de centre A et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
   this.compasMontrer(A)
   this.compasEcarterAvecRegle(AC)
   this.couleur = 'forestgreen'
@@ -983,7 +1014,7 @@ Alea2iep.prototype.triangle1longueur2angles = function (NOM, AB, BAC, CBA, descr
   this.couleur = 'blue'
   this.epaisseur = 3
   this.pointCreer(A)
-  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombre_avec_espace(AB)} cm.`, 0, -4)
+  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
   this.regleSegment(A, B)
   this.pointCreer(B)
   this.couleur = 'grey'
@@ -1018,4 +1049,119 @@ Alea2iep.prototype.triangle1longueur2angles = function (NOM, AB, BAC, CBA, descr
   this.regleSegment(C, A)
   this.regleMasquer()
   this.crayonMasquer()
+}
+
+Alea2iep.prototype.triangleEquilateral2Sommets = function (A, B, nomC = '') {
+  const C = rotation(B, A, 60)
+  C.nom = nomC
+  this.traitRapide(A, B)
+  this.pointCreer(A, A.nom, 0)
+  this.pointCreer(B, B.nom, 0)
+  this.compasEcarter2Points(A, B)
+  this.compasTracerArcCentrePoint(A, C)
+  this.compasTracerArcCentrePoint(B, C)
+  this.pointCreer(C)
+  this.compasMasquer()
+  this.regleSegment(A, C)
+  this.regleSegment(C, B)
+  this.regleMasquer()
+  this.crayonMasquer()
+  this.segmentCodage(A, B)
+  this.segmentCodage(A, C)
+  this.segmentCodage(B, C)
+}
+
+/**
+ ************************************************
+ ************** PARALLELOGRAMMES ****************
+ ************************************************
+ */
+
+Alea2iep.prototype.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true) {
+  const D = translation2Points(C, B, A)
+  D.nom = nomD
+  const xMin = Math.min(A.x, B.x, C.x, D.x)
+  const yMin = Math.min(A.y, B.y, C.y, D.y)
+  // const xMax = Math.max(A.x, B.x, C.x, D.x)
+  const yMax = Math.max(A.y, B.y, C.y, D.y)
+  this.recadre(xMin, yMax)
+  this.traitRapide(A, B)
+  this.traitRapide(B, C)
+  this.pointCreer(A, A.nom, 0)
+  this.pointCreer(B, B.nom, 0)
+  this.pointCreer(C, C.nom, 0)
+  this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses côtés opposés sont de même longueur.`, xMin - 1, yMin - 1)
+  this.compasEcarter2Points(B, A)
+  this.textePosition(`${B.nom + A.nom} = ${C.nom + D.nom}`, xMin - 1, yMin - 2)
+  this.compasTracerArcCentrePoint(C, D)
+  this.compasEcarter2Points(B, C)
+  this.textePosition(`${B.nom + C.nom} = ${A.nom + D.nom}`, xMin - 1, yMin - 3)
+  this.compasTracerArcCentrePoint(A, D, 10)
+  this.pointCreer(D)
+  this.compasMasquer()
+  this.regleSegment(C, D)
+  this.regleSegment(D, A)
+  this.regleMasquer()
+  this.crayonMasquer()
+  this.segmentCodage(A, B, '//', this.couleurCodage, 0)
+  this.segmentCodage(D, C, '//', this.couleurCodage, 0)
+  this.segmentCodage(B, C, 'O', this.couleurCodage, 0)
+  this.segmentCodage(A, D, 'O')
+}
+
+Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O, nomC = '', nomD = '', description = true) {
+  const C = translation2Points(O, A, O)
+  C.nom = nomC
+  const D = translation2Points(O, B, O)
+  D.nom = nomD
+  const nom = A.nom + B.nom + C.nom + D.nom
+  const xMin = Math.min(A.x, B.x, C.x, D.x)
+  const yMin = Math.min(A.y, B.y, C.y, D.y)
+  // const xMax = Math.max(A.x, B.x, C.x, D.x)
+  const yMax = Math.max(A.y, B.y, C.y, D.y)
+  this.recadre(xMin, yMax)
+  this.traitRapide(A, B)
+  this.pointCreer(A, A.nom, 0)
+  this.pointCreer(B, B.nom, 0)
+  this.pointCreer(O, O.nom, 0)
+  if (description && nom.length === 4) {
+    this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
+  }
+  this.pointilles = true
+  this.epaisseur = 1
+  this.couleur = this.couleurTraitsDeConstruction
+  this.regleDemiDroiteOriginePoint(A, O, longueur(A, D) + 3)
+  this.regleMasquer()
+  this.crayonMasquer()
+  this.compasEcarter2Points(A, O)
+  if (description && nom.length === 4) {
+    this.textePosition(`${A.nom + O.nom} = ${O.nom + C.nom}`, xMin - 1, yMin - 2)
+  }
+  this.pointilles = false
+  this.compasTracerArcCentrePoint(O, C)
+  this.compasMasquer()
+  this.pointilles = true
+  this.regleDemiDroiteOriginePoint(B, O, longueur(B, D) + 3)
+  this.regleMasquer()
+  this.crayonMasquer()
+  this.pointilles = false
+  this.compasEcarter2Points(B, O)
+  if (description && nom.length === 4) {
+    this.textePosition(`${B.nom + O.nom} = ${O.nom + D.nom}`, xMin - 1, yMin - 3)
+  }
+  this.compasTracerArcCentrePoint(O, D)
+  this.compasMasquer()
+  this.couleur = 'blue'
+  this.epaisseur = 3
+  this.pointCreer(D)
+  this.regleSegment(A, D)
+  this.regleSegment(D, C)
+  this.regleSegment(C, B)
+  this.regleMasquer()
+  this.compasMasquer()
+  this.crayonMasquer()
+  this.segmentCodage(A, O, '//', this.couleurCodage, 0)
+  this.segmentCodage(O, C, '//', this.couleurCodage, 0)
+  this.segmentCodage(B, O, 'O', this.couleurCodage, 0)
+  this.segmentCodage(O, D, 'O')
 }
