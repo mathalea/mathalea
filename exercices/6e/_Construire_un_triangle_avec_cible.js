@@ -179,7 +179,7 @@ let animation=''
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1))
           texte_corr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
-          IEP.triangle1cote2angles(sommets,lAB,Math.round(angle(B, A, C)),Math.round(angle(A, B, C)))
+          IEP.triangle1longueure2angles(sommets,lAB,Math.round(angle(B, A, C)),Math.round(angle(A, B, C)))
           animation= IEP.htmlBouton(numero_de_l_exercice, i)
           break
         case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC 
