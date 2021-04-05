@@ -73,15 +73,20 @@ export default function Note_la_couleur() {
           case 2:
               texte=scratchblock2(`
                 \\begin{scratch}
+                \\blockinit{quand \\greenflag est cliqué}
+                \\blockspace
+                \\blocinit{quand je commence comme un clone}
+                \\blockspace
+                \\blockinit{quand je reçois \\selectmenu{Vas-y}}
                 \\blockmove{avancer de \\ovalnum{5} pas}
                 \\blockmove{aller à x: \\ovalnum{10} y: \\ovalnum{15}}
                 \\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}
-                \\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}
                 \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalvariable*{Xlutin} y: \\ovalnum{93}}
                 \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalvariable{position aléatoire}}
                 \\blockmove{ajouter \\ovalnum{25} à x}
                 \\blocklook{dire \\ovalnum{Bonjour} pendant \\ovalnum{7} secondes}}
                 \\blocksound{jouer le son \\ovalsound*{Meow}}
+                \\blockmove{glisser en \\ovalnum{2} secondes à x: \\ovaloperator{\\ovaloperator{\\ovalvariable{xLutin} + \\ovalnum{5}} / \\ovalnum{5}} y: \\ovaloperator{\\ovalnum{12} - \\ovalnum{7}}}
                 \\end{scratch}
                 `);
 

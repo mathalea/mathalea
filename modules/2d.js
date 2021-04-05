@@ -8603,23 +8603,47 @@ export function scratchblock2(stringLatex) {
   let regex1 = /[\\\{\}]/
   let regex2 = /[\{\}]/
   let regex3 = /[\[\]<>]/
+  let regex4 = /[\{ ]/
   let fin = false, result = [], index;
   let translatex = function (chaine, index) {
-    let resultat = [], commande, texte = [], taille, string, fleche;
+    let resultat = [], commande, texte = [],texte2=[],texte3=[], taille, string, fleche;
     let souschaine = chaine.substring(index)
     let litcommande = function (souschaine) {
       if (souschaine[0] == '}') {
         return '}'
       }
       else
-        return souschaine.split('{')[0];
+        return souschaine.split(regex4)[0];
     }
     commande = litcommande(souschaine)
     switch (commande.substring(0, 5)) {
       case '\\bloc':
-        taille = commande.split('{')[0].length
-        texte = translatex(chaine, index + taille + 1)
-        resultat = [texte[0], texte[1], false]
+        string = commande.split('{')[0]
+        taille = string.length
+        string = string.substring(6)
+        console.log(string)
+        switch (string){
+          case 'move':
+            texte = translatex(chaine, index + taille + 1)
+            resultat = [texte[0], texte[1], false]
+          break;
+          case 'control':
+            texte = translatex(chaine, index + taille + 1)
+            resultat = [texte[0], texte[1], false]
+          break;
+          case 'init':
+            texte = translatex(chaine, index + taille + 1)
+            resultat = [texte[0], texte[1], false]
+          break;
+          case 'space':
+            resultat = ['\n', 11+index, false]
+          break;
+          default :
+          texte = translatex(chaine, index + taille + 1)
+          resultat = [texte[0], texte[1], false]
+          break;
+        }
+
         break;
       case '\\oval':
         string = commande.split('{')[0]
@@ -8633,30 +8657,45 @@ export function scratchblock2(stringLatex) {
         switch (string) {
           case 'num':
             texte = translatex(chaine, index + taille + 1)
-            console.log(texte[0], isNaN(texte[0]), !texte[0].indexOf(regex3))
             if (isNaN(texte[0]) && texte[0].indexOf(regex3)) {
-              resultat = [`[${texte[0]}]`, texte[1] + 1, texte[2]]
+              resultat = [`[${texte[0]}]`, texte[1] + 1, false]
             }
             else {
-              resultat = [`(${texte[0]})`, texte[1] + 1, texte[2]]
+              resultat = [`(${texte[0]})`, texte[1] + 1, false]
             }
             break;
-          case 'variable':
+       case 'variable':
             texte = translatex(chaine, index + taille + 1)
             if (fleche) {
-              resultat = [`(${texte[0]} v)`, texte[1] + 1, texte[2]]
+              resultat = [`(${texte[0]} v)`, texte[1] + 1, false]
             }
             else {
-              resultat = [`(${texte[0]})`, texte[1] + 1, texte[2]]
+              resultat = [`(${texte[0]})`, texte[1] + 1, false]
             }
             break;
             case 'sound':
               texte = translatex(chaine, index + taille + 1)
               if (fleche) {
-                resultat = [`(${texte[0]} v)`, texte[1] + 1, texte[2]]
+                resultat = [`(${texte[0]} v)`, texte[1] + 1, false]
               }
               else {
-                resultat = [`(${texte[0]})`, texte[1] + 1, texte[2]]
+                resultat = [`(${texte[0]})`, texte[1] + 1, false]
+              }
+              break;
+            case 'operator':
+              texte = translatex(chaine, index + taille + 1)
+              texte2 = translatex(chaine,texte[1])
+              texte3 = translatex(chaine,texte2[1])
+              resultat = [`(${texte[0]} ${texte2[0]} ${texte3[0]})`, texte3[1] + 1, false]
+              break;
+  
+              default :
+              texte = translatex(chaine, index + taille + 1)
+              if (fleche) {
+                resultat = [`(${texte[0]} v)`, texte[1] + 1, false]
+              }
+              else {
+                resultat = [`(${texte[0]})`, texte[1] + 1, false]
               }
               break;
         }
@@ -8675,11 +8714,18 @@ export function scratchblock2(stringLatex) {
             resultat = [` <!-- Fin du Code Scratch  -->\n`, 13 + index, true]
             break;
           case '\\turnleft':
-            resultat = [' @turnleft ', 11 + index, false]
+            resultat = ['gauche ', 11 + index, false]
             break;
           case '\\turnright':
-            resultat = [' @turnright ', 12 + index, false]
+            resultat = ['droite ', 12 + index, false]
             break;
+          case '\\greenflag':
+            resultat = [' @greenFlag ', 11 + index, false] 
+          break;
+          case '\\selectmenu':
+            texte = translatex(chaine, 12+index)
+            resultat = [`[${texte[0]} v]`, texte[1], false]
+          break;
           default:
             string = chaine.substring(index).split(regex1)[0]
             resultat = [string, string.length + index, false]
