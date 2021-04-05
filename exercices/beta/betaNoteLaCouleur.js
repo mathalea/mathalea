@@ -53,47 +53,55 @@ export default function Note_la_couleur() {
 
         switch (liste_type_de_questions[i]) { 
           case 1:
-               texte=scratchblock([
-                 "aller à x: (5) y: (7)",
-                 `s'orienter à (${randint(0,3)*90})`,
-                 `avancer de (${randint(10,30)}) pas`,
-                 `mettre x: à (25)`,
-                 `mettre y: à (15)`,
-                 `mettre [numéro v] à (63)`,
-                `ajouter (${randint(-10,10,0)}) à x`,
-                `ajouter (${randint(-10,10,0)}) à y`,
-                `ajouter (${randint(-10,10,0)}) à [numéro v]`,
-                `dire (Hello world)`,
-                `dire (J'attends) pendant (10) secondes`
-                ]);
+               texte=scratchblock2(`\\begin{scratch}
+               \\blockif{si \\booloperator{\\ovalvariable{a} < \\ovalvariable{b}} alors}
+                {
+                  \\blockmove{tourner \\turnleft de \\ovalnum{90} degrés} 
+                  \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalvariable*{Xlutin} y: \\ovalnum{93} } 
+                  \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalvariable{position aléatoire}} 
+                  \\blockmove{ajouter \\ovalnum{25} à x} 
+                }
+               \\end{scratch}
+                `);
                
    
           break;
   
           case 2:
-              texte=scratchblock2(`
-                \\begin{scratch}
-                \\blockinit{quand \\greenflag est cliqué}
-                \\blockspace
-                \\blocinit{quand je commence comme un clone}
-                \\blockspace
-                \\blockinit{quand je reçois \\selectmenu{Vas-y}}
-                \\blockmove{avancer de \\ovalnum{5} pas}
+              texte=scratchblock2(`\\begin{scratch}
+              \\blockinit{quand je reçois \\selectmenu{Vas-y}}
+              \\blockinit{quand \\greenflag est cliqué}
+              \\blockinit{quand je commence comme un clone}
+              \\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}
+              \\blockspace
                 \\blockmove{aller à x: \\ovalnum{10} y: \\ovalnum{15}}
-                \\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}
-                \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalvariable*{Xlutin} y: \\ovalnum{93}}
-                \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalvariable{position aléatoire}}
-                \\blockmove{ajouter \\ovalnum{25} à x}
-                \\blocklook{dire \\ovalnum{Bonjour} pendant \\ovalnum{7} secondes}}
-                \\blocksound{jouer le son \\ovalsound*{Meow}}
-                \\blockmove{glisser en \\ovalnum{2} secondes à x: \\ovaloperator{\\ovaloperator{\\ovalvariable{xLutin} + \\ovalnum{5}} / \\ovalnum{5}} y: \\ovaloperator{\\ovalnum{12} - \\ovalnum{7}}}
-                \\end{scratch}
-                `);
+                \\blockif{si \\booloperator{\\ovalvariable{a} < \\ovalvariable{b}} alors}
+                {
+                  \\blocklook{dire \\ovalnum{Bonjour} pendant \\ovalnum{7} secondes}
+                  \\blockmove{ajouter \\ovalnum{25} à x}
+                  \\blocksound{jouer le son \\ovalsound*{Meow}}
+                  \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalvariable*{Xlutin} y: \\ovalnum{93}}
+                  \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalvariable{position aléatoire}}
+                  \\blockmove{glisser en \\ovalnum{2} secondes à x: \\ovaloperator{\\ovaloperator{\\ovalvariable{xLutin} + \\ovalnum{5}} / \\ovalnum{5}} y: \\ovaloperator{\\ovalnum{12} - \\ovalnum{7}}}
+                  \\blockmove{avancer de \\ovalnum{5} pas}
+                }
+                \\end{scratch}`);
 
           break;
   
           case 3:
-            
+          /*  
+
+
+
+ 
+                               
+           
+
+                            
+                              
+  
+                                 */
           break;
             
           case 4:
