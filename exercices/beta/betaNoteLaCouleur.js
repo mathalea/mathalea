@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js";
-import {mathalea2d,scratchblock} from "/modules/2d.js";
+import {mathalea2d,scratchblock,scratchblock2 } from "/modules/2d.js";
 
 class NoteLaCouleur{
     constructor(){
@@ -39,7 +39,7 @@ export default function Note_la_couleur() {
   
     this.liste_questions = [] ;
     this.liste_corrections = [];
-    let type_de_questions_disponibles=[1];
+    let type_de_questions_disponibles=[2];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
 
       let objets_enonce,objets_correction,params_enonce,params_correction;
@@ -71,6 +71,17 @@ export default function Note_la_couleur() {
           break;
   
           case 2:
+                texte=scratchblock2(`
+                \\begin{scratch}
+                \\blockmove{avancer de \\ovalnum{5} pas}
+                \\blockmove{aller à x: \\ovalnum{10} y: \\ovalnum{15}}
+                \\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}
+                \\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}
+                \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalnum{125} y: \\ovalnum{93}}
+                \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalnum{position aléatoire}}
+                \\blockmove{ajouter \\ovalnum{25} à x}
+                \\end{scratch}
+                `);
 
           break;
   
