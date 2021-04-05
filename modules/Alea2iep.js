@@ -32,10 +32,10 @@ export default function Alea2iep () {
 
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
-    return (A.x + this.translationX) * 30
+    return calcul((A.x + this.translationX) * 30, 0)
   }
   this.y = function (A) {
-    return (-A.y + this.translationY) * 30
+    return calcul((-A.y + this.translationY) * 30, 0)
   }
 
   // Sauvegarde de l'état des instruments
@@ -619,7 +619,7 @@ Alea2iep.prototype.regleModifierLongueur = function (l = 20, tempo = this.tempo)
 }
 
 Alea2iep.prototype.regleDemiDroiteOriginePoint = function (O, A, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles) {
-  const M = homothetie(A, O, calcul(0.9 * l / longueur(O, A)))
+  const M = pointSurSegment(O, A, l) // homothetie(A, O, calcul(l / longueur(O, A)))
   this.regleSegment(O, M, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles) {
@@ -628,7 +628,7 @@ Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleu
   this.regleMontrer()
   this.regleDeplacer(A)
   this.regleRotation(N)
-  this.regleSegment(M, N, tempo, vitesse, couleur, pointilles)
+  this.regleSegment(M, N, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 
 /**
@@ -890,7 +890,8 @@ Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C) {
   const N = pointIntersectionDD(droite(M, A), droiteParPointEtParallele(C, droite(A, B)))
   const N2 = pointSurSegment(N, C, 7)
   const d = droite(A, B)
-  this.equerreMontrer(A)
+  this.equerreMontrer()
+  this.equerreDeplacer(A)
   this.equerreRotation(d.angleAvecHorizontale - 90)
   this.regleDeplacer(M)
   this.regleRotation(A)
@@ -1077,14 +1078,13 @@ Alea2iep.prototype.triangleEquilateral2Sommets = function (A, B, nomC = '') {
  ************************************************
  */
 
-Alea2iep.prototype.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true) {
+Alea2iep.prototype.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, cotesDejaTraces = true) {
   const D = translation2Points(C, B, A)
   D.nom = nomD
   const xMin = Math.min(A.x, B.x, C.x, D.x)
   const yMin = Math.min(A.y, B.y, C.y, D.y)
   // const xMax = Math.max(A.x, B.x, C.x, D.x)
-  const yMax = Math.max(A.y, B.y, C.y, D.y)
-  this.recadre(xMin, yMax)
+  // const yMax = Math.max(A.y, B.y, C.y, D.y)
   this.traitRapide(A, B)
   this.traitRapide(B, C)
   this.pointCreer(A, A.nom, 0)
@@ -1115,11 +1115,13 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   const D = translation2Points(O, B, O)
   D.nom = nomD
   const nom = A.nom + B.nom + C.nom + D.nom
+  if (longueur(A, C) > 12 || longueur(B, D) > 12) {
+    this.regleModifierLongueur(30)
+  }
   const xMin = Math.min(A.x, B.x, C.x, D.x)
   const yMin = Math.min(A.y, B.y, C.y, D.y)
   // const xMax = Math.max(A.x, B.x, C.x, D.x)
-  const yMax = Math.max(A.y, B.y, C.y, D.y)
-  this.recadre(xMin, yMax)
+  // const yMax = Math.max(A.y, B.y, C.y, D.y)
   this.traitRapide(A, B)
   this.pointCreer(A, A.nom, 0)
   this.pointCreer(B, B.nom, 0)
@@ -1130,7 +1132,7 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   this.pointilles = true
   this.epaisseur = 1
   this.couleur = this.couleurTraitsDeConstruction
-  this.regleDemiDroiteOriginePoint(A, O, longueur(A, D) + 3)
+  this.regleDemiDroiteOriginePoint(A, O, longueur(A, C) + 3)
   this.regleMasquer()
   this.crayonMasquer()
   this.compasEcarter2Points(A, O)
@@ -1164,4 +1166,40 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   this.segmentCodage(O, C, '//', this.couleurCodage, 0)
   this.segmentCodage(B, O, 'O', this.couleurCodage, 0)
   this.segmentCodage(O, D, 'O')
+}
+
+Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
+  const B1 = pointSurSegment(A, B, longueur(A, B) + 2)
+  const D1 = pointSurSegment(A, D, longueur(A, D) + 2)
+  const C = translation2Points(B, A, D)
+  this.traitRapide(A, B1)
+  this.traitRapide(A, D1)
+  this.pointCreer(O, O.nom, 0)
+  this.pointCreer(A, A.nom, 0)
+  this.pointilles = true
+  this.couleur = 'gray'
+  this.epaisseur = 1
+  this.regleDemiDroiteOriginePoint(A, O)
+  this.pointilles = false
+  this.regleMasquer(0)
+  this.crayonMasquer(0)
+  this.compasEcarter2Points(A, O)
+  this.compasTracerArcCentrePoint(O, C)
+  this.compasMasquer()
+  this.paralleleRegleEquerre2points3epoint(A, B, C)
+  this.equerreMasquer()
+  this.regleDroite(C, D)
+  this.paralleleRegleEquerre2points3epoint(D, A, C)
+  this.equerreMasquer()
+  this.regleDroite(C, B)
+  this.pointCreer(D, D.nom, 0)
+  this.pointCreer(B, B.nom, 0)
+  this.pointCreer(C, C.nom, 0)
+  this.epaisseur = 3
+  this.couleur = 'blue'
+  this.regleSegment(B, C)
+  this.regleSegment(C, D)
+  this.regleMasquer()
+  this.crayonMasquer()
+
 }
