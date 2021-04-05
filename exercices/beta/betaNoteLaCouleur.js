@@ -71,15 +71,17 @@ export default function Note_la_couleur() {
           break;
   
           case 2:
-                texte=scratchblock2(`
+              texte=scratchblock2(`
                 \\begin{scratch}
                 \\blockmove{avancer de \\ovalnum{5} pas}
                 \\blockmove{aller à x: \\ovalnum{10} y: \\ovalnum{15}}
                 \\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}
                 \\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}
-                \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalnum{125} y: \\ovalnum{93}}
-                \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalnum{position aléatoire}}
+                \\blockmove{glisser en \\ovalnum{5} secondes à x: \\ovalvariable*{Xlutin} y: \\ovalnum{93}}
+                \\blockmove{glisser en \\ovalnum{5} secondes à \\ovalvariable{position aléatoire}}
                 \\blockmove{ajouter \\ovalnum{25} à x}
+                \\blocklook{dire \\ovalnum{Bonjour} pendant \\ovalnum{7} secondes}}
+                \\blocksound{jouer le son \\ovalsound*{Meow}}
                 \\end{scratch}
                 `);
 
