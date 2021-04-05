@@ -619,7 +619,7 @@ Alea2iep.prototype.regleModifierLongueur = function (l = 20, tempo = this.tempo)
 }
 
 Alea2iep.prototype.regleDemiDroiteOriginePoint = function (O, A, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles) {
-  const M = homothetie(A, O, calcul(0.9 * l / longueur(O, A)))
+  const M = pointSurSegment(O, A, l) // homothetie(A, O, calcul(l / longueur(O, A)))
   this.regleSegment(O, M, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles) {
@@ -1115,7 +1115,7 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   const D = translation2Points(O, B, O)
   D.nom = nomD
   const nom = A.nom + B.nom + C.nom + D.nom
-  if (longueur(A, C) > 15 || longueur(B, D) > 15) {
+  if (longueur(A, C) > 12 || longueur(B, D) > 12) {
     this.regleModifierLongueur(30)
   }
   const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -1132,7 +1132,7 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   this.pointilles = true
   this.epaisseur = 1
   this.couleur = this.couleurTraitsDeConstruction
-  this.regleDemiDroiteOriginePoint(A, O, longueur(A, D) + 3)
+  this.regleDemiDroiteOriginePoint(A, O, longueur(A, C) + 3)
   this.regleMasquer()
   this.crayonMasquer()
   this.compasEcarter2Points(A, O)
