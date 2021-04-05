@@ -165,7 +165,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3F13.js"
     },
     "3F13-1": {
-        "titre": "Lecture graphique d'images et d'antécédents.",
+        "titre": "Lecture graphique d'images et d'antécédents",
         "url": "/exercices/3e/3F13-1.js"
     },
     "3F13-2": {
@@ -605,7 +605,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/4e/4S11.js"
     },
     "5A10": {
-        "titre": "Écrire la liste de tous les diviseurs d'un entier.",
+        "titre": "Écrire la liste de tous les diviseurs d'un entier",
         "url": "/exercices/5e/5A10.js"
     },
     "5A11": {
@@ -715,6 +715,14 @@ export let dictionnaireDesExercicesAleatoires =
     "5G40": {
         "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
         "url": "/exercices/5e/5G40.js"
+    },
+    "5G40-1": {
+        "titre": "Citer les propriétés des parallélogrammes",
+        "url": "/exercices/5e/5G40-1.js"
+    },
+    "5G40-2": {
+        "titre": "Reconnaitre un parallélogramme à partir du codage d'une figure",
+        "url": "/exercices/5e/5G40-2.js"
     },
     "5G41": {
         "titre": "Construire des quadrilatères particuliers",
