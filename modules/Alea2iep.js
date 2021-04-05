@@ -1189,7 +1189,7 @@ Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
   this.paralleleRegleEquerre2points3epoint(A, B, C)
   this.equerreMasquer()
   this.regleDroite(C, D)
-  this.paralleleRegleEquerre2points3epoint(A, D, C)
+  this.paralleleRegleEquerre2points3epoint(D, A, C)
   this.equerreMasquer()
   this.regleDroite(C, B)
   this.pointCreer(D, D.nom, 0)
