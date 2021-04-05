@@ -8483,7 +8483,14 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
-
+/**
+ * Première version d'un traducteur simpliste scratchblock -> latex
+ * Fonction appelée par la fonction scratchblock() si l'on est en contexte Latex.
+ * Sens de traduction abandonné devant la complexité de l'analyse de scratchblock.
+ * On va lui préférer le sens Latex -> scratchblock
+ * @param {*} commande 
+ * @returns 
+ */
 export function scratchToTex(commande){
   let part=commande.split(' ')
   let code_latex,param1,param2
@@ -8560,7 +8567,7 @@ export function scratchblock(listeDeCommandes) {
   let code_svg = function (listeDeCommandes) {
     let code = `<pre class='blocks'>\n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
-      code += '\t'+listeDeCommandes[i]+ '<br>\n'
+      code += '\t' + listeDeCommandes[i] + '<br>\n'
     }
     code += `</pre>`;
     return code
@@ -8571,19 +8578,90 @@ export function scratchblock(listeDeCommandes) {
     let code = `\\medskip \n \\begin{scratch} \n`;
     for (let i = 0; i < listeDeCommandes.length; i++) {
       commande = listeDeCommandes[i]
-      code += scratchToTex(commande)+ '\n'
+      code += scratchToTex(commande) + '\n'
     }
     code += `\\end{scratch}\n`;
     return code
   }
-  console.log( "code html :\n",code_svg(listeDeCommandes),"\n \ncode latex :\n",code_latex(listeDeCommandes))
-  if (sortie_html){
+  console.log("code html :\n", code_svg(listeDeCommandes), "\n \ncode latex :\n", code_latex(listeDeCommandes))
+  if (sortie_html) {
     return code_svg(listeDeCommandes)
   }
   else {
     return code_latex(listeDeCommandes)
   }
 
+}
+
+/**
+ * Traducteur scratch3 (Latex) -> scratchblock
+ * @param {} A 
+ */
+
+export function scratchblock2(stringLatex) {
+  let codeScratch;
+  let regex1 = /[\\\{\}]/
+  let regex2 = /[\{\}]/
+  let fin = false, result = [], index;
+  let translatex = function (chaine, index) {
+    let resultat = [], commande, texte = [];
+    let souschaine = chaine.substring(index)
+    let litcommande = function (souschaine) {
+      if (souschaine[0] == '}') {
+        return '}'
+      }
+      else
+        return souschaine.split('{')[0];
+    }
+    commande = litcommande(souschaine)
+    switch (commande) {
+      case '}':
+        resultat = [' ', 1 + index, false]
+        break;
+      case '\\begin':
+        resultat = [` <!-- Code Scratch  -->`, 15 + index, false]
+        break;
+      case '\\end':
+        resultat = [` <!-- Fin du Code Scratch  -->\n`, 13 + index, true]
+        break;
+      case '\\blockmove':
+        texte = translatex(chaine, index + 11)
+        resultat = [texte[0], texte[1], false]
+        break;
+      case '\\ovalnum':
+        texte = translatex(chaine, index + 9)
+        resultat = [`(${texte[0]})`, texte[1] + 1, texte[2]]
+        break;
+      case '\\turnleft':
+        resultat= [' @turnleft ',11+index,false]
+      break;
+      case '\\turnright':
+        resultat=[' @turnright ',12+index,false]
+      break;
+      default:
+        texte = chaine.substring(index).split(regex1)[0]
+        resultat = [texte, texte.length + index, false]
+      break;
+    }
+    return resultat
+  }
+  if (!sortie_html) {
+    codeScratch = stringLatex;
+  }
+  else {
+    codeScratch = `<pre class='blocks'>`;
+    index = 0;
+    while (!fin) {
+      result = translatex(stringLatex, index);
+      codeScratch += result[0];
+      index = result[1];
+      fin = result[2];
+      // stringLatex.substring(0,result[1])
+    }
+    codeScratch +=`</pre>\n`
+  }
+  console.log(codeScratch + '\n' + stringLatex);
+  return codeScratch;
 }
 
 
