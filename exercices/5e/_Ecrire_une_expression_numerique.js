@@ -20,7 +20,7 @@ export default function Ecrire_une_expression_numerique() {
 	this.version = 1; // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
 	this.nouvelle_version = function () {
-		let type_de_questions_disponibles
+		let type_de_questions_disponibles = [];
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune liste n'est saisie
@@ -29,10 +29,8 @@ export default function Ecrire_une_expression_numerique() {
 		else {
 			if (typeof (this.sup) == 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
 				type_de_questions_disponibles[0] = this.sup
-				this.nb_questions = 1
 			} else {
 				type_de_questions_disponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
-				this.nb_questions = type_de_questions_disponibles.length
 			}
 		}
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats
