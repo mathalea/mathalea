@@ -15,7 +15,7 @@ class NoteLaCouleur{
         ['Bleu','Jaune','Orange','Vert','Gris','Jaune','Gris','Orange','Gris','Rose','Bleu','Rouge','Bleu'],
         ['Rose','Bleu','Jaune','Rose','Orange','Rouge','Bleu','Noir','Jaune','Gris','Vert','Jaune','Noir']];
         this.currentPos={x:15,y:15};
-        this.nextStepLatex
+        this.nextStepLatex='';
         this.nlc = function(){
           return this.plateau[Math.ceil((135-this.currentPos.y)/30)][Math.ceil((195+this.currentPos.x)/30)];
         };
