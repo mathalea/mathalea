@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js";
+import {liste_de_question_to_contenu,combinaison_listes,randint,choice} from "/modules/outils.js";
 import {mathalea2d,scratchblock } from "/modules/2d.js";
 
 class NoteLaCouleur{
@@ -15,10 +15,82 @@ class NoteLaCouleur{
         ['Bleu','Jaune','Orange','Vert','Gris','Jaune','Gris','Orange','Gris','Rose','Bleu','Rouge','Bleu'],
         ['Rose','Bleu','Jaune','Rose','Orange','Rouge','Bleu','Noir','Jaune','Gris','Vert','Jaune','Noir']];
         this.currentPos={x:15,y:15};
-        this.nextStepLatex='';
+        this.currentOrientation=90;
+        this.codeScratch='';
+        this.currentIndex=0;
         this.nlc = function(){
           return this.plateau[Math.ceil((135-this.currentPos.y)/30)][Math.ceil((195+this.currentPos.x)/30)];
         };
+        this.testInstruction =function(code){
+          let testCoords=function(x,y){
+            if ((x<-195)||(x>195)||(y<-135)||(y>135)) return false;
+            return true;
+          }
+          let avance=function(d,x,y,s){
+            switch (s){
+              case 0:
+              case 360:
+                y+=d;
+              break;
+              case 90:
+              case -270:
+                x+=d;
+              break;
+              case 180:
+              case -180:
+                y-=d;
+              break;
+              case 270:
+              case -90:
+                x-=d;
+              break;
+            }
+            return [x,y]
+          }
+          let x=this.currentPos.x;
+          let y=this.currentPos.y;
+          let orientation=this.currentOrientation;
+          let latex
+          switch (code){
+            case 'AV30':
+              [x,y]=avance(30,x,y,orientation)
+              latex=`\\blockmove{avancer de \\ovalnum{30} pas}`
+            break;
+            case 'AV60':
+              [x,y]=avance(60,x,y,orientation)
+              latex=`\\blockmove{avancer de \\ovalnum{60} pas}`
+              break;
+            case 'AV90':
+              [x,y]=avance(90,x,y,orientation)
+              latex=`\\blockmove{avancer de \\ovalnum{90} pas}`
+              break;
+            case 'TD90':
+              if (orientation==180) orientation=-90;
+              else orientation+=90;
+              latex=`\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}`
+            break;
+            case 'TG90':
+              if (orientation==-90) orientation=180;
+              else orientation-=90;
+              latex=`\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}`
+              break;
+            case 'TD180':
+              orientation=-orientation
+              latex=`\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}`
+              break;
+            case 'TG180':
+              orientation=-orientation
+              latex=`\\blockmove{tourner \\turnleft{} de \\ovalnum{180} degrés}`
+              break;
+            case 'NLC':
+              latex=`\\blocklist{Note la couleur}`
+            break;
+          }
+          if (testCoords(x,y)){
+            return [true,x,y,orientation,latex]
+          }
+          else return [false,this.currentPos.x,this.currentPos.y,this.currentOrientation,latex]
+        }
     }
 }
 
@@ -39,21 +111,15 @@ export default function Note_la_couleur() {
  
     this.nouvelle_version = function () {
 
-    let dansLaGrille=function(instruction,pion){
-
-
-
-    };
-
     this.liste_questions = [] ;
     this.liste_corrections = [];
-    let type_de_questions_disponibles=[2];
+    let type_de_questions_disponibles=[1];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
 
       let objets_enonce,objets_correction,params_enonce,params_correction;
-      let commandes_disponibles,nb_couleurs,instruction;
+      let commandes_disponibles,nb_couleurs,instruction,couleurs,nb_instructions,liste_instructions;
       let pion=new NoteLaCouleur();
-      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      for (let i = 0, texte,test,j, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
         objets_enonce = [];
         objets_correction = [];
   
@@ -61,25 +127,44 @@ export default function Note_la_couleur() {
         texte_corr = ``;
         switch (liste_type_de_questions[i]) { 
           case 1:
-              nb_couleurs=4;
-              commandes_disponibles=[`AV30`,'AV60','AV90',`TD90`,`TG90`,`TD180`,`TG180`,`NLC`]
+            couleurs=[];
+              nb_couleurs=3;;
+              liste_instructions=[]
+              nb_instructions=-1
+              j=0;
+              commandes_disponibles=[`AV30`,'AV60','AV90',`TD90`,`TG90`,`TD180`,`TG180`,`NLC`,`NLC`,`NLC`]
               pion.currentPos.x=15;
               pion.currentPos.y=15;
-              while (nb_couleurs>0){
-                instruction=choice(commandes_disponibles)
-                while (dansLaGrille(instruction,pion)[0]){
-
+              pion.codeScratch=`\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+              while (nb_couleurs>j){
+                instruction=choice(commandes_disponibles);
+                test=pion.testInstruction(instruction);
+                  while (test[0]&&nb_couleurs>j){
+                    if (instruction=='NLC'){
+                      liste_instructions.push(instruction)
+                      nb_instructions++
+                      couleurs.push(test[0]);
+                      j++;
+                      pion.codeScratch+=test[4]+'\n';
+                      pion.currentIndex+=test[4].length+1
+                      instruction=choice(commandes_disponibles,liste_instructions[nb_instructions])
+                      test=pion.testInstruction(instruction);
+                    }
+                    else{
+                      nb_instructions++
+                      liste_instructions.push(instruction)
+                      pion.currentPos.x=test[1];
+                      pion.currentPos.y=test[2];
+                      pion.currentOrientation=test[3];
+                      pion.codeScratch+=test[4]+'\n';
+                      pion.currentIndex+=test[4].length+1
+                      instruction=choice(commandes_disponibles,liste_instructions[nb_instructions])
+                      test=pion.testInstruction(instruction);
+                    }
                 }
               }
-              
-               texte=scratchblock(`\\begin{scratch}
-              \\initmoreblocks{définir \\nameblocks{trace_carré \\ovalmoreblocks{coté_carré}}}
-              \\blockrepeat{répéter \\ovalnum{4} fois}
-              {
-                \\blockmove{avancer de \\ovalmoreblocks{coté_carré} pas }
-                \\blockmove{tourner \\turnleft{} de \\ovalnnum{90} degrés}
-              }
-                \\end{scratch}`);
+              pion.codeScratch+=`\\end{scratch}`
+               texte=scratchblock(pion.codeScratch);
 
                 /* dépotoir à instructions scratch
               \\blockif{si \\booloperator{\\ovalvariable{a} < \\ovalvariable{b}} alors}
