@@ -234,8 +234,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         if (typeof window.iepApp == 'undefined') {
                             window.iepApp = new iep.iepApp()
                         }
-                        for (let id of window.listeIEP) {
-                            loadIEP(id, iepApp)
+                        for (let anim of window.listeIEP) {
+                            loadIEP(anim, iepApp)
                         }
 
                     })
@@ -374,8 +374,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         if (typeof window.appIEP == 'undefined') {
                             window.appIEP = new iep.iepApp()
                         }
-                        for (let id of window.listeIEP) {
-                            loadIEP(id, window.appIEP)
+                        for (let anim of window.listeIEP) {
+                            loadIEP(anim, window.appIEP)
                         }
                     })
 
@@ -745,14 +745,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         })
     }
 
-    function loadIEP(id, iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
+    function loadIEP(anim, iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
+        const id = anim[0]
+        const xSize = (Math.ceil(anim[1] / 10) + 2 )* 10 // Arrondi au multiple de 10 par excès de xSize + 20
+        const ySize = (Math.ceil(anim[2] / 10) + 2 )* 10
+        console.log(id, xSize, ySize)
         if (sortie_html) {
             let xml = document.getElementById(`figurexml${id}`).innerHTML
             let container = document.getElementById(`IEPContainer${id}`)
             container.innerHTML = ''
             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-            let width = Math.max((window.outerWidth * 0.625) || 0, 800)
-            let height = Math.max((window.outerHeight * 0.6) || 0, 600)
+            let width = Math.max((window.outerWidth * 0.625) || 0, xSize, 800)
+            let height = Math.max((window.outerHeight * 0.6) || 0, ySize, 600)
             svg.setAttributeNS(null, "width", width);
             svg.setAttributeNS(null, "height", height);
             svg.setAttributeNS(null, "id", `svg${id}`);
