@@ -8483,132 +8483,28 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
-/**
- * Première version d'un traducteur simpliste scratchblock -> latex
- * Fonction appelée par la fonction scratchblock() si l'on est en contexte Latex.
- * Sens de traduction abandonné devant la complexité de l'analyse de scratchblock.
- * On va lui préférer le sens Latex -> scratchblock
- * @param {*} commande 
- * @returns 
- */
-export function scratchToTex(commande) {
-  let part = commande.split(' ')
-  let code_latex, param1, param2
-  console.log(part);
-  switch (part[0]) {
-    case "Aller": // instructions mathalea @Erwan Duplessy : Aller en haut, Aller en bas, Aller à droite et Aller à gauche
-      code_latex = `\\blockmove{Aller ${part[1]} ${part[2]}}`;
-      break;
-    case "aller":
-      param1 = part[3].replace('(', '').replace(')', '');
-      param2 = part[5].replace('(', '').replace(')', '');
-      code_latex = `\\blockmove{aller à x: \\ovalnum{${param1}} y: \\ovalnum{${param2}}}`;
-      break;
-    case "avancer":
-      param1 = part[2].replace('(', '').replace(')', '');
-      code_latex = `\\blockmove{avancer de \\ovalnum{${param1}} pas}`;
-      break;
-    case "tourner":
-      param1 = part[1];
-      param2 = part[3].replace('(', '').replace(')', '');
-      if (param1 == '@turnRight') {
-        code_latex = `\\blockmove{tourner \\turnright{} de ${param2} degrés}`;
-      }
-      else {
-        code_latex = `\\blockmove{tourner \\turnleft{} de ${param2} degrés}`;
-      }
-      break;
-    case "s'orienter":
-      param1 = part[2].replace('(', '').replace(')', '');
-      code_latex = `\\blockmove{s'orienter à \\ovalnum{${param1}}}`;
-      break;
-    case "mettre":
-      if (part[1][0] == '[' && part[2][0] == "v") {
-        part[1] = part[1] + part[2]
-        part.splice(2, 1)
-        param1 = part[3].replace('(', '').replace(')', '');
-        code_latex = `\\blockvariable{mettre \\selectmenu{${part[1].substring(1, part[1].length - 2)}} à \\ovalnum{${param1}}}`;
-      }
-      else {
-        param1 = part[3].replace('(', '').replace(')', '');
-        code_latex = `\\blockmove{mettre ${part[1]} à \\ovalnum{${param1}}}`;
-      }
-      break;
-    case "ajouter":
-      if (part[3][0] == '[' && part[4][0] == "v") {
-        part[3] = part[3] + part[4]
-        part.splice(4, 1)
-        param1 = part[1].replace('(', '').replace(')', '');
-        code_latex = `\\blockvariable{ajouter \\ovalnum{${param1}} à \\selectmenu{${part[3].substring(1, part[1].length - 2)}}}`;
-      }
-      else {
-        param1 = part[1].replace('(', '').replace(')', '');
-        code_latex = `\\blockmove{ajouter \\ovalnum{${param1}} à ${part[3]}}`;
-      }
-      break;
-    case "dire":
-      while (part[1].charAt(part[1].length - 1) != ')') {
-        part[1] = part[1] + ' ' + part[2]
-        part.splice(2, 1)
-      }
-      param1 = part[1].replace('(', '').replace(')', '');
-      if (part.length > 2) {
-        param2 = part[3].replace('(', '').replace(')', '');
-        code_latex = `\\blocklook{dire \\ovalnum{${param1}} pendant \\ovalnum{${param2}} secondes}`;
-      }
-      else {
-        code_latex = `\\blocklook{dire \\ovalnum{${param1}}}`;
-      }
-  }
-  return code_latex
-}
-
-export function scratchblock(listeDeCommandes) {
-  let code_svg = function (listeDeCommandes) {
-    let code = `<pre class='blocks'>\n`;
-    for (let i = 0; i < listeDeCommandes.length; i++) {
-      code += '\t' + listeDeCommandes[i] + '<br>\n'
-    }
-    code += `</pre>`;
-    return code
-  }
-
-  let code_latex = function (listeDeCommandes) {
-    let commande
-    let code = `\\medskip \n \\begin{scratch} \n`;
-    for (let i = 0; i < listeDeCommandes.length; i++) {
-      commande = listeDeCommandes[i]
-      code += scratchToTex(commande) + '\n'
-    }
-    code += `\\end{scratch}\n`;
-    return code
-  }
-  console.log("code html :\n", code_svg(listeDeCommandes), "\n \ncode latex :\n", code_latex(listeDeCommandes))
-  if (sortie_html) {
-    return code_svg(listeDeCommandes)
-  }
-  else {
-    return code_latex(listeDeCommandes)
-  }
-
-}
 
 /**
  * Traducteur scratch3 (Latex) -> scratchblock
- * @param {} A 
+ * @Auteur Jean-Claude Lhote. 
  */
 
-export function scratchblock2(stringLatex) {
+export function scratchblock(stringLatex) {
   let regex1 = /[\\\{\}]/
   let regex2 = /[\{\}]/
   let regex3 = /[\[\]<>]/
-  let regex4 = /[\{ ]/
+  let regex4 = /[\{\ ]/
   let litcommande = function (souschaine) {
+    let extrait
     if (souschaine[0] == '}') {
+      console.log ('un seul }')
       return '}'
     }
-    else
-      return souschaine.split(regex4)[0];
+    else {
+      extrait=souschaine.split(regex4)[0];
+      console.log(extrait)
+      return extrait
+    }
   }
 
   /*****************************************************/
@@ -8619,7 +8515,6 @@ export function scratchblock2(stringLatex) {
     let resultat = [], commande, texte = [], texte2 = [], texte3 = [], taille, string, fleche;
     let compteur, debut, fin // pour les boucles et les if
     let souschaine = chaine.substring(index)
-
     commande = litcommande(souschaine)
     switch (commande.substring(0, 5)) {
       case '\\bloc':
@@ -8628,6 +8523,11 @@ export function scratchblock2(stringLatex) {
         string = string.substring(6)
         compteAccolades++
         switch (string) {
+          case 'stop':
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            texte2 =translatex(chaine, texte[1], texte[2])
+            resultat = [`${texte[0]} ${texte2[0]} `, texte2[1], texte2[2]]
+          break;
           case 'move':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             resultat = [texte[0], texte[1], texte[2]]
@@ -8664,10 +8564,64 @@ export function scratchblock2(stringLatex) {
             break;
 
           case 'ifelse':
-            //to do
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            texte2 = translatex(chaine, texte[1], texte[2])
+            texte3 = translatex(chaine, texte2[1], texte2[2])
+            resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1]
+            compteAccolades = resultat[2]
+            compteur = compteAccolades + 1
+            debut = chaine.substring(resultat[1]).indexOf('{') + resultat[1]
+            resultat[1] = debut + 1
+            resultat[0] += '\n'
+            while (compteur > compteAccolades) {
+              texte = translatex(chaine, resultat[1], compteur)
+              resultat[0] += ' ' + texte[0]
+              resultat[1] = texte[1]
+              compteur = texte[2]
+            }
+            resultat[0] += ' sinon'
+            compteur = compteAccolades + 1
+            debut = chaine.substring(resultat[1]).indexOf('{') + resultat[1]
+            resultat[1] = debut + 1
+            resultat[0] += '\n'
+            while (compteur > compteAccolades) {
+              texte = translatex(chaine, resultat[1], compteur)
+              resultat[0] += ' ' + texte[0]
+              resultat[1] = texte[1]
+              compteur = texte[2]
+            }
+            resultat[0] += ' fin'
             break;
           case 'repeat':
-            //to do
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            if (texte[0].split(' ')[1]!='indéfiniment'){
+              if (texte[0].split(' ')[1]!="jusqu'à"){
+              texte2 = translatex(chaine, texte[1], texte[2])
+              texte3 = translatex(chaine, texte2[1], texte2[2])
+              resultat = [`${texte[0]} ${texte2[0]} ${texte3[0]}`, texte3[1] + 1, texte3[2] - 1]
+              compteAccolades = resultat[2]
+              }
+              else {
+                texte2 = translatex(chaine, texte[1], texte[2])
+                resultat = [`${texte[0]} ${texte2[0]} `, texte2[1]+1, texte2[2]-1]
+              compteAccolades = resultat[2]
+              }
+            }
+            else {
+              resultat = [`${texte[0]} `, texte[1] + 1, texte[2] - 1]
+              compteAccolades = resultat[2]
+            }
+            compteur = compteAccolades + 1
+            debut = chaine.substring(resultat[1]).indexOf('{') + resultat[1]
+            resultat[1] = debut + 1
+            resultat[0] += '\n'
+            while (compteur > compteAccolades) {
+              texte = translatex(chaine, resultat[1], compteur)
+              resultat[0] += ' ' + texte[0]
+              resultat[1] = texte[1]
+              compteur = texte[2]
+            }
+            resultat[0] += ' fin'
             break;
           default:
             texte = translatex(chaine, index + taille + 1, compteAccolades)
@@ -8696,6 +8650,15 @@ export function scratchblock2(stringLatex) {
               resultat = [`(${texte[0]})`, texte[1] + 1, texte[2] - 1]
             }
             break;
+          case 'moreblocks':
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            if (fleche) {
+              resultat = [`(${texte[0]} v)`, texte[1], texte[2]]
+            }
+            else {
+              resultat = [`(${texte[0]})`, texte[1], texte[2]]
+            }
+          break;
           case 'variable':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             if (fleche) {
@@ -8706,19 +8669,34 @@ export function scratchblock2(stringLatex) {
             }
             break;
           case 'sound':
-            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
             if (fleche) {
-              resultat = [`(${texte[0]} v)`, texte[1] + 1, texte[2] - 1]
+              resultat = [`(${texte[0]} v :: sound)`, texte[1] + 1, texte[2] - 1];
             }
             else {
-              resultat = [`(${texte[0]})`, texte[1] + 1, texte[2] - 1]
+              resultat = [`(${texte[0]} :: sound)`, texte[1] + 1, texte[2] - 1];
             }
             break;
+          case 'sensing':
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
+            if (fleche) {
+              resultat = [`(${texte[0]} v :: sensing)`, texte[1] + 1, texte[2] - 1];
+            }
+            else {
+              resultat = [`(${texte[0]} :: sensing)`, texte[1] + 1, texte[2] - 1];
+            }
+          break;
           case 'operator':
-            texte = translatex(chaine, index + taille + 1, compteAccolades)
-            texte2 = translatex(chaine, texte[1], texte[2])
-            texte3 = translatex(chaine, texte2[1], texte2[2])
-            resultat = [`(${texte[0]} ${texte2[0]} ${texte3[0]})`, texte3[1] + 1, texte3[2] - 1]
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
+            texte2 = translatex(chaine, texte[1], texte[2]);
+            resultat = [`(${texte[0]} ${texte2[0]}`, texte2[1], texte2[2]];
+            while (chaine.charAt(texte2[1])!='}'){
+              texte2 =translatex(chaine, texte2[1], texte2[2]);
+              resultat[0]+=' '+texte2[0];
+            }
+            resultat[0]+=')'
+            resultat[1]=texte2[1]+1
+            resultat[2]=texte2[2]-1
             break;
 
           default:
@@ -8740,20 +8718,46 @@ export function scratchblock2(stringLatex) {
         switch (string) {
           case 'oper':
             compteAccolades++
-            texte = translatex(chaine, index + taille + 1, compteAccolades)
-            texte2 = translatex(chaine, texte[1], texte[2])
-            texte3 = translatex(chaine, texte2[1], texte2[2])
-            texte2[0] = texte2[0].replace('<', '\\<').replace('>', '\\>')
-            resultat = [`<${texte[0]} ${texte2[0]} ${texte3[0]}>`, texte3[1] + 1, texte3[2] - 1]
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
+            texte2 = translatex(chaine, texte[1], texte[2]);
+            resultat = [`<${texte[0]} ${texte2[0]}`, texte2[1], texte2[2]];
+            while (chaine.charAt(texte2[1])!='}'){
+              texte2 =translatex(chaine, texte2[1], texte2[2]);
+              resultat[0]+=' '+texte2[0];
+            }
+            resultat[0]+=' :: operators boolean>'
+            resultat[1]=texte2[1]+1
+            resultat[2]=texte2[2]-1
             break;
           case 'empt':
-            resultat = [`< vide >`, index + taille + 1, compteAccolades]
+            resultat = [`< vide :: operators boolean>`, index + taille + 1, compteAccolades]
             break;
           case 'sens':
-            // to do
+            compteAccolades++
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
+            texte2 = translatex(chaine, texte[1], texte[2]);
+            resultat = [`<${texte[0]} ${texte2[0]}`, texte2[1], texte2[2]];
+            while (chaine.charAt(texte2[1])!='}'){
+              texte2 =translatex(chaine, texte2[1], texte2[2]);
+              resultat[0]+=' '+texte2[0];
+            }
+            resultat[0]+=' :: sensing>'
+            resultat[1]=texte2[1]+1
+            resultat[2]=texte2[2]-1
             break;
           case 'list':
-          // to do
+            compteAccolades++
+            texte = translatex(chaine, index + taille + 1, compteAccolades);
+            texte2 = translatex(chaine, texte[1], texte[2]);
+            resultat = [`<${texte[0]} ${texte2[0]}`, texte2[1], texte2[2]];
+            while (chaine.charAt(texte2[1])!='}'){
+              texte2 =translatex(chaine, texte2[1], texte2[2]);
+              resultat[0]+=' '+texte2[0];
+            }
+            resultat[0]+=' :: list>'
+            resultat[1]=texte2[1]+1
+            resultat[2]=texte2[2]-1
+            break;
           default:
             texte = translatex(chaine, index + taille + 1,compteAccolades)
             resultat = [`<${texte[0]}>`, texte[1], texte[2]]
@@ -8761,7 +8765,28 @@ export function scratchblock2(stringLatex) {
 
         }
         break;
-
+      case '\\init':
+        string = commande.split('{')[0]
+        taille = string.length
+        compteAccolades++
+        texte = translatex(chaine, index + taille + 1, compteAccolades)
+        texte2 = translatex(chaine,texte[1],texte[2])
+        resultat = [`${texte[0]} ${texte2[0]} `,texte2[1],texte2[2]]
+      break;
+      case '\\name':
+        string = commande.split('{')[0]
+        taille = string.length
+        compteAccolades++
+        texte = translatex(chaine, index + taille + 1, compteAccolades)
+        texte2 = translatex(chaine, texte[1], texte[2]);
+        resultat = [`${texte[0]} ${texte2[0]}`, texte2[1], texte2[2]];
+        while (chaine.charAt(texte2[1])!='}'){
+          texte2 =translatex(chaine, texte2[1], texte2[2]);
+          resultat[0]+=' '+texte2[0];
+        }
+        resultat[1]=texte2[1]+1
+        resultat[2]=texte2[2]-1
+        break;
       default:
         switch (commande) {
           case '}':
@@ -8770,7 +8795,13 @@ export function scratchblock2(stringLatex) {
             break;
           case '\\begin':
             compteAccolades++
-            resultat = [` <!-- Code Scratch  -->`, 15 + index, compteAccolades]
+            if (chaine.substring(15+index)[0]=='['){
+              index=chaine.substring(15+index).indexOf(']')+16+index
+            }
+            else {
+              index +=15
+            }
+              resultat = [` <!-- Code Scratch  -->`, index, compteAccolades]
             break;
           case '\\end':
             compteAccolades--
@@ -8793,6 +8824,7 @@ export function scratchblock2(stringLatex) {
           default:
             string = chaine.substring(index).split(regex1)[0]
             resultat = [string, string.length + index, compteAccolades]
+            console.log(litcommande(chaine.substring(resultat[1])))
             break;
         }
         break;
