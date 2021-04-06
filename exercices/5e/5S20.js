@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,texte_en_couleur_et_gras,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,texte_en_couleur_et_gras} from "/modules/outils.js"
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from "/modules/2d.js"
-
+import {fraction} from "/modules/Fractions.js"
 
 /**
  * Placer un événement sur une échelle de probabilités.
