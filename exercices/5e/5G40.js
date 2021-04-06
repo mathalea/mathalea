@@ -123,6 +123,8 @@ export default function Constructions_parallelogrammes () {
         animIEP.pointCreer(B, B.nom, 0)
         animIEP.regleSegment(D, A)
         animIEP.regleSegment(A, B)
+        animIEP.regleMasquer(0)
+        animIEP.crayonMasquer(0)
         animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
         objets_enonce.push(tracePoint(A, B, D), P[1], cible)
         objets_correction.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))

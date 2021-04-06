@@ -30,12 +30,31 @@ export default function Alea2iep () {
     this.translationY = ymax + 3
   }
 
+  // Garde en mémoire les coordonnées extrêmes des objets créés
+  this.xMin = 0
+  this.yMin = 0
+  this.xMax = 0
+  this.yMax = 0
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
-    return calcul((A.x + this.translationX) * 30, 0)
+    const x = calcul((A.x + this.translationX) * 30, 0)
+    if (x > this.xMax) {
+      this.xMax = x
+    }
+    if (x < this.xMin) {
+      this.xMin = x
+    }
+    return x
   }
   this.y = function (A) {
-    return calcul((-A.y + this.translationY) * 30, 0)
+    const y = calcul((-A.y + this.translationY) * 30, 0)
+    if (y < this.yMin) {
+      this.yMin = y
+    }
+    if (y > this.yMax) {
+      this.yMax = y
+    }
+    return y
   }
 
   // Sauvegarde de l'état des instruments
@@ -102,7 +121,7 @@ export default function Alea2iep () {
   this.html = function (numeroExercice, i) {
     if (window.sortie_html) {
       const id = `${numeroExercice}_${i}`
-      window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+      window.listeIEP.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
       const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
                 ${this.script()}
             </script>
@@ -115,7 +134,7 @@ export default function Alea2iep () {
   this.htmlBouton = function (numeroExercice, i) {
     if (window.sortie_html) {
       const id = `${numeroExercice}_${i}`
-      window.listeIEP.push(id) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+      window.listeIEP.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
       const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
                 ${this.script()}
             </script>
@@ -708,16 +727,25 @@ Alea2iep.prototype.regleSegment = function (...args) {
       pointilles = args[6]
     }
   }
+  if (B.x < A.x) { // Toujours tracer le segment de la gauche vers la droite
+    this.regleSegment(B, A, tempo, vitesse, epaisseur, couleur, pointilles)
+  } else {
+    const d = droite(A, B)
+    d.isVisible = false
+    const angle = d.angleAvecHorizontale
+    this.regleMontrer()
+    this.regleDeplacer(A)
+    this.regleRotation(angle)
+    this.crayonMontrer(A)
 
-  const d = droite(A, B)
-  d.isVisible = false
-  const angle = d.angleAvecHorizontale
-  this.regleMontrer()
-  this.regleDeplacer(A)
-  this.regleRotation(angle)
-  this.crayonMontrer(A)
-  this.crayonDeplacer(A)
-  this.tracer(B, tempo, vitesse, epaisseur, couleur, pointilles)
+    if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
+      this.crayonDeplacer(A)
+      this.tracer(B, tempo, vitesse, epaisseur, couleur, pointilles)
+    } else {
+      this.crayonDeplacer(B)
+      this.tracer(A, tempo, vitesse, epaisseur, couleur, pointilles)
+    }
+  }
 }
 
 Alea2iep.prototype.polygoneTracer = function (...sommets) {
@@ -897,9 +925,6 @@ Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C) {
   this.regleRotation(A)
   this.regleMontrer()
   this.equerreDeplacer(N)
-  // this.regleDeplacer(N) // On trace le long de la règle ou le long de l'équerre
-  // this.regleRotation(C)
-  // this.equerreMasquer()
   this.crayonMontrer()
   this.crayonDeplacer(N)
   this.tracer(N2)
@@ -1201,5 +1226,4 @@ Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
   this.regleSegment(C, D)
   this.regleMasquer()
   this.crayonMasquer()
-
 }
