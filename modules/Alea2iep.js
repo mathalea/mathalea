@@ -1179,6 +1179,7 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
   this.regleSegment(C, A)
   this.crayonMasquer()
   this.regleMasquer()
+  return [A, B, C]
 }
 
 Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, description = true) { // Triangle rectangle en B
