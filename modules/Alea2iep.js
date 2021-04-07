@@ -1,4 +1,4 @@
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude } from './2d.js'
+import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude, angle } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -645,9 +645,15 @@ Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleu
   const M = homothetie(B, A, calcul((-l * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
   const N = homothetie(A, B, calcul((-l * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
   this.regleMontrer()
-  this.regleDeplacer(A)
-  this.regleRotation(N)
-  this.regleSegment(M, N, tempo, vitesse, epaisseur, couleur, pointilles)
+  if (this.x(A) < this.x(B)) {
+    this.regleDeplacer(A)
+    this.regleRotation(N)
+    this.regleSegment(M, N, tempo, vitesse, epaisseur, couleur, pointilles)
+  } else {
+    this.regleDeplacer(B)
+    this.regleRotation(M)
+    this.regleSegment(N, M, tempo, vitesse, epaisseur, couleur, pointilles)
+  }
 }
 
 /**
@@ -673,11 +679,11 @@ Alea2iep.prototype.tracer = function (B, tempo = this.tempo, vitesse = this.vite
 }
 Alea2iep.prototype.trait = function (A, B, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles) {
   this.crayonDeplacer(A, tempo, vitesse)
-  this.tracer(B, tempo, vitesse)
+  this.tracer(B, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 Alea2iep.prototype.traitRapide = function (A, B, tempo = 0, vitesse = this.vitesse * 100, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles) {
   this.crayonDeplacer(A, tempo, vitesse)
-  this.tracer(B, tempo, vitesse)
+  this.tracer(B, tempo, vitesse, epaisseur, couleur, pointilles)
 }
 
 /**
@@ -876,6 +882,14 @@ Alea2iep.prototype.segmentCodageMontrer = function (s, tempo = this.tempo) {
   this.liste_script.push(`<action id="${s.id}" mouvement="montrer" objet="longueur" ${tempoTexte} />`)
 }
 
+Alea2iep.prototype.codageAngleDroit = function (A, B, C, taille = 0.3, couelur = this.couleurCodage, tempo = this.tempo) {
+  const C1 = pointSurSegment(B, C, 0.3)
+  const A1 = pointSurSegment(B, A, 0.3)
+  const M = rotation(B, C1, -1 * angle(A, B, C))
+  this.trait(C1, M, 0, this.vitesse, this.epaisseur, this.couleurCodage)
+  this.trait(M, A1, 0, this.vitesse, this.epaisseur, this.couleurCodage)
+}
+
 /**
  *
  * formes = "simple", "/", "//", "///", "O"
@@ -928,6 +942,83 @@ Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C) {
   this.crayonMontrer()
   this.crayonDeplacer(N)
   this.tracer(N2)
+}
+
+/**
+ *****************************************
+ ********* DROITES REMARQUABLES **********
+ *****************************************
+ */
+
+/**
+ * le paramétrage des longueurs correspond à la distance entre le milieu du segment et le point d'intersection des arcs de cercles
+ *
+ * @param {point} A
+ * @param {point} B
+ * @param {booléen} codage
+ * @param {int} l1
+ * @param {int} l2
+ */
+Alea2iep.prototype.mediatriceAuCompas = function (A, B, codage = true, l1 = 3, l2 = -3) {
+  const O = milieu(A, B)
+  const O2 = rotation(A, O, -90)
+  const M = pointSurSegment(O, O2, l1)
+  const N = pointSurSegment(O, O2, l2)
+  this.compasMontrer()
+  this.compasDeplacer(A)
+  if (l1 === -1 * l2) { // Si la distance est la même des deux côtés, on peut faire les arcs de part et d'autre
+    this.compasEcarter(longueur(A, M))
+    this.compasTracerArcCentrePoint(A, M)
+    this.compasTracerArcCentrePoint(A, N)
+    this.compasTracerArcCentrePoint(B, M)
+    this.compasTracerArcCentrePoint(B, N)
+  } else {
+    this.compasEcarter(longueur(A, M))
+    this.compasTracerArcCentrePoint(A, M)
+    this.compasTracerArcCentrePoint(B, M)
+    this.compasTracerArcCentrePoint(B, N)
+    this.compasTracerArcCentrePoint(A, N)
+  }
+  this.compasMasquer()
+  this.regleDroite(M, N)
+  this.regleMasquer()
+  this.segmentCodage(A, O, 'X')
+  this.segmentCodage(O, B, 'X')
+  this.codageAngleDroit(A, O, O2)
+}
+
+Alea2iep.prototype.mediatriceRegleEquerre = function (A, B, codage = true) {
+  const O = milieu(A, B)
+  this.regleMontrer()
+  this.regleDeplacer(A)
+  this.regleRotation(B)
+  this.crayonMontrer()
+  const O2 = rotation(A, O, -90)
+  const O3 = rotation(A, O, 90)
+  const M = pointSurSegment(O, O2, 0.2)
+  const N = pointSurSegment(O, O2, 0.2)
+  if (this.y(M) > this.y(N)) {
+    this.trait(O, M)
+  } else {
+    this.trait(O, N)
+  }
+  this.regleMasquer()
+  if (this.x(A) < this.x(B)) {
+    this.equerreDeplacer(A)
+    this.equerreMontrer()
+    this.equerreRotation(B)
+  } else {
+    this.equerreDeplacer(B)
+    this.equerreMontrer()
+    this.equerreRotation(A)
+  }
+  this.equerreDeplacer(O)
+  this.crayonDeplacer(O)
+  this.trait(O, O2)
+  this.equerreMasquer()
+  this.regleDroite(O2, O3)
+  this.regleMasquer()
+  this.codageAngleDroit(A, O, O2)
 }
 
 /**
