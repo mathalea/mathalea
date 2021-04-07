@@ -348,6 +348,19 @@ export function appartientSegment(C,A,B){
   else return false
 }
 
+export function appartientDroite(C,A,B){
+  let prodvect=(B.x-A.x)*(C.y-A.y)-(C.x-A.x)*(B.y-A.y)
+  if (prodvect==0) return true
+  else return false
+}
+
+export function appartientDemiDroite(C,A,B){
+  let prodvect=(B.x-A.x)*(C.y-A.y)-(C.x-A.x)*(B.y-A.y)
+  let prodscal=(C.x-A.x)*(B.x-A.x)+(C.y-A.y)*(B.y-A.y)
+  if (prodvect==0&&prodscal>0) return true
+  else return false
+}
+
 /**
  *
  * @param {Cercle} c
