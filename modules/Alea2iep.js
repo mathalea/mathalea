@@ -1,4 +1,4 @@
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude, angle } from './2d.js'
+import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude, angle, projectionOrtho } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -656,6 +656,18 @@ Alea2iep.prototype.regleDroite = function (A, B, l = this.regle.longueur, couleu
   }
 }
 
+Alea2iep.prototype.regleProlongerSegment = function (A, B, l, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseurTraitsDeConstruction, pointilles = true) {
+  if (l > 0) {
+    const B1 = pointSurSegment(B, A, 3)
+    const B2 = pointSurSegment(B, A, -1 * l)
+    this.regleSegment(B1, B2, tempo, vitesse, epaisseur, couleur, pointilles)
+  } else {
+    const A1 = pointSurSegment(A, B, 3)
+    const A2 = pointSurSegment(A, B, l)
+    this.regleSegment(A1, A2, tempo, vitesse, epaisseur, couleur, pointilles)
+  }
+}
+
 /**
  **************************
  ********* TRAITS *********
@@ -885,7 +897,7 @@ Alea2iep.prototype.segmentCodageMontrer = function (s, tempo = this.tempo) {
 Alea2iep.prototype.codageAngleDroit = function (A, B, C, taille = 0.3, couelur = this.couleurCodage, tempo = this.tempo) {
   const C1 = pointSurSegment(B, C, 0.3)
   const A1 = pointSurSegment(B, A, 0.3)
-  const M = rotation(B, C1, -1 * angle(A, B, C))
+  const M = translation2Points(A1, B, C1)
   this.trait(C1, M, 0, this.vitesse, this.epaisseur, this.couleurCodage)
   this.trait(M, A1, 0, this.vitesse, this.epaisseur, this.couleurCodage)
 }
@@ -959,7 +971,7 @@ Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C) {
  * @param {int} l1
  * @param {int} l2
  */
-Alea2iep.prototype.mediatriceAuCompas = function (A, B, codage = true, l1 = 3, l2 = -3) {
+Alea2iep.prototype.mediatriceAuCompas = function (A, B, codage = 'X', l1 = 3, l2 = -3) {
   const O = milieu(A, B)
   const O2 = rotation(A, O, -90)
   const M = pointSurSegment(O, O2, l1)
@@ -982,12 +994,12 @@ Alea2iep.prototype.mediatriceAuCompas = function (A, B, codage = true, l1 = 3, l
   this.compasMasquer()
   this.regleDroite(M, N)
   this.regleMasquer()
-  this.segmentCodage(A, O, 'X')
-  this.segmentCodage(O, B, 'X')
+  this.segmentCodage(A, O, codage)
+  this.segmentCodage(O, B, codage)
   this.codageAngleDroit(A, O, O2)
 }
 
-Alea2iep.prototype.mediatriceRegleEquerre = function (A, B, codage = true) {
+Alea2iep.prototype.mediatriceRegleEquerre = function (A, B, codage = 'X') {
   const O = milieu(A, B)
   this.regleMontrer()
   this.regleDeplacer(A)
@@ -1018,7 +1030,47 @@ Alea2iep.prototype.mediatriceRegleEquerre = function (A, B, codage = true) {
   this.equerreMasquer()
   this.regleDroite(O2, O3)
   this.regleMasquer()
+  this.segmentCodage(A, O, codage)
+  this.segmentCodage(O, B, codage)
   this.codageAngleDroit(A, O, O2)
+}
+Alea2iep.prototype.equerreHauteur = function (A, B, C, codage = true) {
+  const d = droite(A, B)
+  d.isVisible = false
+  const H = projectionOrtho(C, d)
+  let G, D
+  if (this.x(A) < this.x(B)) {
+    G = A
+    D = B
+  } else {
+    G = B
+    D = A
+  }
+  if (this.x(H) < this.x(G)) { // si le pied de la hauteur est trop à gauche
+    this.regleProlongerSegment(D, G, longueur(G, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
+  }
+  if (this.x(H) > this.x(D)) { // si le pied de la hauteur est trop à droite
+    this.regleProlongerSegment(G, D, longueur(D, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
+  }
+  if (this.x(H) < this.x(G) || this.x(H) > this.x(D)) {
+    this.regleMasquer()
+  }
+  if (this.x(A) < this.x(B)) {
+    this.equerreDeplacer(A)
+    this.equerreMontrer()
+    this.equerreRotation(B)
+  } else {
+    this.equerreDeplacer(B)
+    this.equerreMontrer()
+    this.equerreRotation(A)
+  }
+  this.equerreDeplacer(H)
+  this.crayonMontrer()
+  this.crayonDeplacer(H)
+  this.trait(H, C)
+  this.equerreMasquer()
+  this.codageAngleDroit(A, H, C)
+  this.crayonMasquer()
 }
 
 /**
