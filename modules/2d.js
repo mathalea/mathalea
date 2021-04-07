@@ -332,6 +332,22 @@ export function pointSurSegment(A, B, l, nom = "", positionLabel = "above") {
   }
   return homothetie(B, A, calcul(l / longueur(A, B)), nom, positionLabel);
 }
+
+/**
+ * 
+ * Est-ce que le point C appartien au segment [AB]
+ * C'est ce que dira cette fonction
+ * @Auteur Jean-Claude Lhote
+ */
+
+export function appartientSegment(C,A,B){
+  let prodvect=(B.x-A.x)*(C.y-A.y)-(C.x-A.x)*(B.y-A.y)
+  let prodscal=(C.x-A.x)*(B.x-A.x)+(C.y-A.y)*(B.y-A.y)
+  let prodscalABAB=(B.x-A.x)**2+(B.y-A.y)**2
+  if (prodvect==0&&prodscal>0&&prodscal<prodscalABAB) return true
+  else return false
+}
+
 /**
  *
  * @param {Cercle} c
