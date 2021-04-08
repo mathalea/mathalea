@@ -308,7 +308,7 @@ Alea2iep.prototype.rotation = function (objet, a, tempo = this.tempo, sens = thi
   } else {
     angle = a
   }
-  if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
+  if (this[objet].angle !=a) { // Si la rotation est inutile, on ne la fait pas
     const tempoTexte = tempo ? `tempo="${tempo}"` : ''
     // Les angles de MathALEA2D et de IEP sont opposés !!!!!
     const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" ${tempoTexte} sens="${sens}" />`
@@ -454,7 +454,7 @@ Alea2iep.prototype.compasEcarterAvecRegle = function (l, tempo = this.tempo) {
   this.regleMontrer(this.compas.position, 0)
   this.regleDeplacer(this.compas.position, 0)
   this.compasMontrer()
-  this.compasRotation(0, 0)
+  this.compasRotation(0, 0, tempo)
   this.compasEcarter(l, tempo)
 }
 
