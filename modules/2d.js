@@ -39,6 +39,22 @@ export function ObjetMathalea2D() {
   mathalea.objets2D.push(this)
 }
 
+
+function Fond_ecran(url,x,y,largeur,hauteur){
+  ObjetMathalea2D.call(this);
+  this.svg=function(coeff){
+    return `<image xlink:href="${url}" x="${x}" y="${y}" height="${hauteur}" width="${largeur}" />`
+  }
+  this.tikz=function(){
+    return `\node[inner sep=0pt] at (${x},${y})
+    {\includegraphics[width= l cm]{url}};`
+  }
+}
+
+export function fond_ecran(url,x=0,y=0,largeur=mathalea.fenetreMathalea2d.xMax-mathalea.fenetreMathalea2d.xMin,hauteur=mathalea.fenetreMathalea2d.yMax-mathalea.fenetreMathalea2d.yMin){
+  return new Fond_ecran(url,x,y,largeur,hauteur)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% LES POINTS %%%%%%%%%%%%%%
@@ -8889,7 +8905,6 @@ export function scratchblock(stringLatex) {
     }
     codeScratch += `</pre>\n`
   }
-  console.log(codeScratch + '\n' + stringLatex, "    ");
   return codeScratch;
 }
 
