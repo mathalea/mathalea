@@ -731,23 +731,20 @@ Alea2iep.prototype.regleSegment = function (arg1, arg2, arg3) {
     B = arg2
     options = arg3
   }
-  if (B.x < A.x) { // Toujours tracer le segment de la gauche vers la droite
-    this.regleSegment(B, A, options)
-  } else {
-    const d = droite(A, B)
-    d.isVisible = false
-    const angle = d.angleAvecHorizontale
-    this.regleMontrer(A, options)
-    this.regleRotation(angle, options)
-    this.crayonMontrer(A, options)
 
-    if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
-      this.crayonDeplacer(A, options)
-      this.tracer(B, options)
-    } else {
-      this.crayonDeplacer(B, options)
-      this.tracer(A, options)
-    }
+  if (A.x < B.x) { // Toujours avoir la règle de gauche à droite
+    this.regleMontrer(A, options)
+    this.regleRotation(B, options)
+  } else {
+    this.regleMontrer(B, options)
+    this.regleRotation(A, options)
+  }
+  if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
+    this.crayonMontrer(A, options)
+    this.tracer(B, options)
+  } else {
+    this.crayonMontrer(B, options)
+    this.tracer(A, options)
   }
 }
 
@@ -960,18 +957,31 @@ Alea2iep.prototype.paralleleRegleEquerre2points3epoint = function (A, B, C, opti
   }
   if (H.x > D.x && longueur(H, D) > 3) { // Si le pied de la hauteur est trop à gauche
     this.regleProlongerSegment(G, D)
-    this.regleMasquer()
   }
 
   this.equerreMontrer(H1)
-  this.equerreRotation(d.angleAvecHorizontale - 90)
+  if (M.x > C1.x) {
+    this.equerreRotation(d.angleAvecHorizontale - 90)
+  } else {
+    this.equerreRotation(d.angleAvecHorizontale + 90)
+  }
   if (H1.y > C1.y) {
-    this.regleDeplacer(H1, { vitesse: 1000, tempo: 0 })
-    this.regleRotation(C1, { sens: 1000, tempo: 0 })
+    if (this.regle.visibilite) {
+      this.regleDeplacer(H1, { vitesse: this.vitesse, tempo: 0 })
+      this.regleRotation(C1, { sens: this.vitesse / 2, tempo: 0 })
+    } else {
+      this.regleDeplacer(H1, { vitesse: 1000, tempo: 0 })
+      this.regleRotation(C1, { sens: 1000, tempo: 0 })
+    }
   } else {
     const C12 = pointSurSegment(C1, H1, -2) // On monte un peu plus la règle pour que ça soit plus crédible
-    this.regleDeplacer(C12, { vitesse: 1000, tempo: 0 })
-    this.regleRotation(H1, { sens: 1000, tempo: 0 })
+    if (this.regle.visibilite) {
+      this.regleDeplacer(C12, { vitesse: this.vitesse, tempo: 0 })
+      this.regleRotation(H1, { sens: this.vitesse / 2, tempo: 0 })
+    } else {
+      this.regleDeplacer(C12, { vitesse: 1000, tempo: 0 })
+      this.regleRotation(H1, { sens: 1000, tempo: 0 })
+    }
   }
   this.regleMontrer()
   this.equerreDeplacer(C1, options)
@@ -1501,10 +1511,10 @@ Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
   this.compasEcarter2Points(A, O)
   this.compasTracerArcCentrePoint(O, C)
   this.compasMasquer()
-  this.paralleleRegleEquerre2points3epoint(B, A, C)
+  this.paralleleRegleEquerre2points3epoint(B1, A, C)
   this.equerreMasquer()
   this.regleDroite(C, D)
-  this.paralleleRegleEquerre2points3epoint(A, D, C)
+  this.paralleleRegleEquerre2points3epoint(A, D1, C)
   this.equerreMasquer()
   this.regleDroite(C, B)
   this.pointCreer(D, { tempo: 0 })
