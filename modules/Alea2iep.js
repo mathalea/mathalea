@@ -1233,13 +1233,13 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
   this.regleSegment(A, B)
   this.pointCreer(B)
   this.crayonMasquer()
-  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3)
+  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3)
   this.couleur = 'forestgreen'
   this.epaisseur = 2
   this.compasMontrer(A)
   this.compasEcarterAvecRegle(AC)
   this.compasTracerArcCentrePoint(A, C, 40)
-  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${C.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
+  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
   this.compasDeplacer(B)
   this.compasEcarterAvecRegle(BC)
   this.compasTracerArcCentrePoint(B, C)

@@ -1612,6 +1612,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Stabilisation des fréquences",
         "url": "/exercices/beta/beta3s21.js"
     },
+    "beta4C10-6": {
+        "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
+        "url": "/exercices/beta/beta4C10-6.js"
+    },
     "beta4C25-00": {
         "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
         "url": "/exercices/beta/beta4C25-00.js"
@@ -1639,10 +1643,6 @@ export let dictionnaireDesExercicesAleatoires =
     "beta6G21": {
         "titre": "Construire un triangle aux instruments",
         "url": "/exercices/beta/beta6G21.js"
-    },
-    "beta6P11": {
-        "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
-        "url": "/exercices/beta/beta6P11.js"
     },
     "beta6test2": {
         "titre": "Mon test",
