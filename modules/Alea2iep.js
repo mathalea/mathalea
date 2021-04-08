@@ -1,4 +1,4 @@
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude, projectionOrtho, centreCercleCirconscrit } from './2d.js'
+import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, similitude, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -526,6 +526,7 @@ Alea2iep.prototype.compasTracerArc2Angles = function (angle1, angle2, tempo = th
   }
   codeXML += `<action couleur="${couleur}" epaisseur="${epaisseur}" sens="${sensTexte}" debut="${-angle1}" fin="${-angle2}" mouvement="tracer" objet="compas"  ${pointillesTexte} id="${this.idIEP}" ${tempoTexte} />\n`
   codeXML += `<action mouvement="coucher" objet="compas" ${tempoTexte}/>`
+  this.compas.angle = angle2
   this.liste_script.push(codeXML)
   return this.idIEP
 }
@@ -1055,7 +1056,7 @@ Alea2iep.prototype.mediatriceRegleEquerre = function (A, B, codage = 'X') {
   this.segmentCodage(O, B, codage)
   this.codageAngleDroit(A, O, O2)
 }
-Alea2iep.prototype.equerreHauteur = function (A, B, C, codage = true) {
+Alea2iep.prototype.hauteur = function (A, B, C, codage = true) {
   const d = droite(A, B)
   d.isVisible = false
   const H = projectionOrtho(C, d)
@@ -1116,6 +1117,33 @@ Alea2iep.prototype.mediane = function (A, B, C, codage = 'X') {
     this.segmentCodage(A, O, codage)
     this.segmentCodage(O, B, codage)
   }
+}
+
+Alea2iep.prototype.bissectriceAuCompas = function (A, B, C, codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, pointilles = this.pointilles, masquerTraitsDeConstructions = true) {
+  const A1 = pointSurSegment(B, A, l)
+  const C1 = pointSurSegment(B, C, l)
+  // const demiangle = calcul(angleOriente(A, B, C) / 2);
+  const angle = angleOriente(A, B, C)
+  const M = rotation(B, A1, -(180 - angle))
+  const arc1 = this.compasTracerArcCentrePoint(B, A1)
+  const arc2 = this.compasTracerArcCentrePoint(B, C1)
+  const arc3 = this.compasTracerArcCentrePoint(A1, M)
+  const arc4 = this.compasTracerArcCentrePoint(C1, M)
+  this.compasMasquer()
+  this.regleDemiDroiteOriginePoint(B, M, longueur(B, A), couleur, tempo, vitesse, epaisseur, pointilles)
+  this.regleMasquer()
+  this.crayonMasquer()
+  if (codage) {
+    this.angleCodage(A, B, M, this.couleurCodage, codage)
+    this.angleCodage(M, B, C, this.couleurCodage, codage)
+  }
+  if (masquerTraitsDeConstructions) {
+    this.traitMasquer(arc1)
+    this.traitMasquer(arc2)
+    this.traitMasquer(arc3)
+    this.traitMasquer(arc4)
+  }
+  return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
 }
 
 Alea2iep.prototype.cercleCirconscrit = function (A, B, C) {
