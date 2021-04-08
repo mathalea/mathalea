@@ -8526,12 +8526,10 @@ export function scratchblock(stringLatex) {
   let litcommande = function (souschaine) {
     let extrait
     if (souschaine[0] == '}') {
-      console.log ('un seul }')
       return '}'
     }
     else {
       extrait=souschaine.split(regex4)[0];
-      console.log(extrait)
       return extrait
     }
   }
@@ -8857,7 +8855,6 @@ export function scratchblock(stringLatex) {
           default:
             string = chaine.substring(index).split(regex1)[0]
             resultat = [string, string.length + index, compteAccolades]
-            console.log(litcommande(chaine.substring(resultat[1])))
             break;
         }
         break;
