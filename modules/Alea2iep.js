@@ -1221,6 +1221,7 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
   const C = p.listePoints[2]
   if (ABC.length !== 3) {
     description = false
+  } else {
     A.nom = ABC[0]
     B.nom = ABC[1]
     C.nom = ABC[2]
@@ -1268,6 +1269,7 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
   const c = homothetie(C, B, 1.2)
   if (ABC.length !== 3) {
     description = false
+  } else {
     A.nom = ABC[0]
     B.nom = ABC[1]
     C.nom = ABC[2]
