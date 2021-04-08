@@ -1219,9 +1219,12 @@ Alea2iep.prototype.triangle3longueurs = function (ABC, AB, AC, BC, description =
   const B = pointAdistance(A, AB, randint(-20, 20))
   const p = triangle2points2longueurs(A, B, AC, BC)
   const C = p.listePoints[2]
-  A.nom = ABC[0]
-  B.nom = ABC[1]
-  C.nom = ABC[2]
+  if (ABC.length !== 3) {
+    description = false
+    A.nom = ABC[0]
+    B.nom = ABC[1]
+    C.nom = ABC[2]
+  }
 
   if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
   this.pointCreer(A)
@@ -1263,9 +1266,12 @@ Alea2iep.prototype.triangleRectangleCoteHypotenuse = function (ABC, AB, AC, desc
   cAC.isVisible = false
   const C = pointIntersectionLC(dBC, cAC)
   const c = homothetie(C, B, 1.2)
-  A.nom = ABC[0]
-  B.nom = ABC[1]
-  C.nom = ABC[2]
+  if (ABC.length !== 3) {
+    description = false
+    A.nom = ABC[0]
+    B.nom = ABC[1]
+    C.nom = ABC[2]
+  }
 
   if (longueur(A, C) > 8) this.equerreZoom(150)
   if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
@@ -1313,9 +1319,12 @@ Alea2iep.prototype.triangle1longueur2angles = function (NOM, AB, BAC, CBA, descr
   const d2 = rotation(droite(B, A), B, -a2)
   d2.isVisible = false
   const C = pointIntersectionDD(d, d2)
-  A.nom = NOM[0]
-  B.nom = NOM[1]
-  C.nom = NOM[2]
+  if (NOM.length !== 3) {
+    description = false
+    A.nom = NOM[0]
+    B.nom = NOM[1]
+    C.nom = NOM[2]
+  }
   this.couleur = 'blue'
   this.epaisseur = 3
   this.pointCreer(A)
@@ -1407,10 +1416,10 @@ Alea2iep.prototype.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD 
   this.regleSegment(D, A)
   this.regleMasquer()
   this.crayonMasquer()
-  this.segmentCodage(A, B, '//', this.couleurCodage, 0)
-  this.segmentCodage(D, C, '//', this.couleurCodage, 0)
-  this.segmentCodage(B, C, 'O', this.couleurCodage, 0)
-  this.segmentCodage(A, D, 'O')
+  this.segmentCodage(A, B, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(D, C, { codage: '///', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(B, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(A, D, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
 }
 
 Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O, nomC = '', nomD = '', description = true) {
@@ -1427,16 +1436,16 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   // const xMax = Math.max(A.x, B.x, C.x, D.x)
   // const yMax = Math.max(A.y, B.y, C.y, D.y)
   this.traitRapide(A, B)
-  this.pointCreer(A, A.nom, 0)
-  this.pointCreer(B, B.nom, 0)
-  this.pointCreer(O, O.nom, 0)
+  this.pointCreer(A, { tempo: 0 })
+  this.pointCreer(B, { tempo: 0 })
+  this.pointCreer(O, { tempo: 0 })
   if (description && nom.length === 4) {
     this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
   }
   this.pointilles = true
   this.epaisseur = 1
   this.couleur = this.couleurTraitsDeConstruction
-  this.regleDemiDroiteOriginePoint(A, O, longueur(A, C) + 3)
+  this.regleDemiDroiteOriginePoint(A, O, { longueur: longueur(A, C) + 3 })
   this.regleMasquer()
   this.crayonMasquer()
   this.compasEcarter2Points(A, O)
@@ -1447,7 +1456,7 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   this.compasTracerArcCentrePoint(O, C)
   this.compasMasquer()
   this.pointilles = true
-  this.regleDemiDroiteOriginePoint(B, O, longueur(B, D) + 3)
+  this.regleDemiDroiteOriginePoint(B, O, { longueur: longueur(B, D) + 3 })
   this.regleMasquer()
   this.crayonMasquer()
   this.pointilles = false
@@ -1466,10 +1475,10 @@ Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = function (A, B, O,
   this.regleMasquer()
   this.compasMasquer()
   this.crayonMasquer()
-  this.segmentCodage(A, O, '//', this.couleurCodage, 0)
-  this.segmentCodage(O, C, '//', this.couleurCodage, 0)
-  this.segmentCodage(B, O, 'O', this.couleurCodage, 0)
-  this.segmentCodage(O, D, 'O')
+  this.segmentCodage(A, O, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(O, C, { codage: '//', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(B, O, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
+  this.segmentCodage(O, D, { codage: 'O', couleur: this.couleurCodage, tempo: 0 })
 }
 
 Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
@@ -1478,27 +1487,27 @@ Alea2iep.prototype.parallelogrammeAngleCentre = function (D, A, B, O) {
   const C = translation2Points(B, A, D)
   this.traitRapide(A, B1)
   this.traitRapide(A, D1)
-  this.pointCreer(O, O.nom, 0)
-  this.pointCreer(A, A.nom, 0)
+  this.pointCreer(O, { tempo: 0 })
+  this.pointCreer(A, { tempo: 0 })
   this.pointilles = true
   this.couleur = 'gray'
   this.epaisseur = 1
   this.regleDemiDroiteOriginePoint(A, O)
   this.pointilles = false
-  this.regleMasquer(0)
-  this.crayonMasquer(0)
+  this.regleMasquer()
+  this.crayonMasquer()
   this.compasEcarter2Points(A, O)
   this.compasTracerArcCentrePoint(O, C)
   this.compasMasquer()
-  this.paralleleRegleEquerre2points3epoint(A, B, C)
+  this.paralleleRegleEquerre2points3epoint(B, A, C)
   this.equerreMasquer()
   this.regleDroite(C, D)
-  this.paralleleRegleEquerre2points3epoint(D, A, C)
+  this.paralleleRegleEquerre2points3epoint(A, D, C)
   this.equerreMasquer()
   this.regleDroite(C, B)
-  this.pointCreer(D, D.nom, 0)
-  this.pointCreer(B, B.nom, 0)
-  this.pointCreer(C, C.nom, 0)
+  this.pointCreer(D, { tempo: 0 })
+  this.pointCreer(B, { tempo: 0 })
+  this.pointCreer(C, { tempo: 0 })
   this.epaisseur = 3
   this.couleur = 'blue'
   this.regleSegment(B, C)
