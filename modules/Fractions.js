@@ -188,13 +188,13 @@ class Fraction {
             return fraction(-this.num, this.den);
         };
         /**
-         * @return {object]} L'opposé de la fracion réduite
+         * @return {object} L'opposé de la fracion réduite
          */
         this.opposeIrred = function () {
             return fraction(-this.numIrred, this.denIrred);
         };
         /**
-         * @return {object]} L'inverse de la fraction
+         * @return {object} L'inverse de la fraction
          */
         this.inverse = function () {
             return fraction(this.den, this.num);

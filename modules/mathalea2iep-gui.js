@@ -99,7 +99,7 @@ window.addEventListener('load', function()  {
 			buttonURL.style.visibility = "visible";
 		}
 		executeCode(
-			`mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; window.IEP = new Alea2iep() ; ${myCodeMirror.getValue()}`
+			`mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; window.IEP = new Alea2iep() ; window.anim = window.IEP ; ${myCodeMirror.getValue()}`
 		);
 		divXmlIep.value = window.IEP.script();
 		document.getElementById('previewBtn').click()

@@ -749,7 +749,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         const id = anim[0]
         const xSize = (Math.ceil(anim[1] / 10) + 2 )* 10 // Arrondi au multiple de 10 par excès de xSize + 20
         const ySize = (Math.ceil(anim[2] / 10) + 2 )* 10
-        console.log(id, xSize, ySize)
         if (sortie_html) {
             let xml = document.getElementById(`figurexml${id}`).innerHTML
             let container = document.getElementById(`IEPContainer${id}`)
