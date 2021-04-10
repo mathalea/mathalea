@@ -683,7 +683,7 @@ class Cube{
     };
   }
 }
-export function cube(x=0,y=0,z=0,alpha=45,beta=-35,{colorD="#A5C400",colorT="#FFFFFF",colorG="#A9A9A9"}={}){
+export function cube(x=0,y=0,z=0,alpha=45,beta=-35,{colorD="green",colorT="white",colorG="gray"}={}){
   return new Cube(x,y,z,alpha,beta,colorD,colorG,colorT)
 }
 
