@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu, randint, calcul, choisit_lettres_differentes, lettre_depuis_chiffre, choice } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '/modules/2d.js'
-import Alea2iep from "/modules/Alea2iep.js"
+import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
+import Alea2iep from '../../modules/Alea2iep.js'
 
 /**
  * Terminer la construction d'un parallélogramme
@@ -165,11 +165,11 @@ export default function Constructions_parallelogrammes () {
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce)
     texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)
-    texte_corr += animIEP.htmlBouton(numeroExercice, 0)
+    texte_corr += animIEP.htmlBouton()
     this.liste_questions.push(texte)
     this.liste_corrections.push(texte_corr)
     liste_de_question_to_contenu(this)
   }
-    this.besoin_formulaire_numerique = ['Type de questions', 5, '1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Une des configuration au hasard']
+  this.besoin_formulaire_numerique = ['Type de questions', 5, '1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Une des configuration au hasard']
   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
 }
