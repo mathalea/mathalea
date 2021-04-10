@@ -165,7 +165,7 @@ export default function Constructions_parallelogrammes () {
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce)
     texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)
-    texte_corr += animIEP.htmlBouton()
+    texte_corr += animIEP.htmlBouton(numeroExercice, i)
     this.liste_questions.push(texte)
     this.liste_corrections.push(texte_corr)
     liste_de_question_to_contenu(this)

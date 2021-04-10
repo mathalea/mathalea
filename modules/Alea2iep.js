@@ -129,12 +129,12 @@ export default function Alea2iep () {
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
-  this.html = function (numeroExercice, i) {
+  this.html = function (id1, id2) {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<div id="IEPContainer${indiceXML}" ></div>`
-      window.listeIndicesAnimationsIepACharger.push(indiceXML) // On ajoute le script
+      const id = `IEP_${id1}_${id2}`
+      window.listeScriptsIep[id] = this.script() // On ajoute le script
+      const codeHTML = `<div id="IEPContainer${id}" ></div>`
+      window.listeAnimationsIepACharger.push(id)
       return codeHTML
     }
   }
@@ -145,18 +145,17 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
-  this.htmlBouton = function () {
+  this.htmlBouton = function (id1, id2 = '') {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${indiceXML}" onclick="toggleVisibilityIEP(${indiceXML})"><i class="large play circle outline icon"></i>Voir animation</button>
-            <div id="IEPContainer${indiceXML}" style="display: none;" ></div>`
-
+      const id = `IEP_${id1}_${id2}`
+      window.listeScriptsIep[id] = this.script() // On ajoute le script
+      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')"><i class="large play circle outline icon"></i>Voir animation</button>
+            <div id="IEPContainer${id}" style="display: none;" ></div>`
       if (!window.toggleVisibilityIEP) {
         window.toggleVisibilityIEP = function (id) {
           const element = document.getElementById(`IEPContainer${id}`)
           const elementBtn = document.getElementById(`btnAnimation${id}`)
-          const xml = window.listeScriptsIep[indiceXML]
+          const xml = window.listeScriptsIep[id]
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
@@ -329,6 +328,15 @@ export default function Alea2iep () {
    */
   this.regleDeplacer = function (A, options) {
     this.deplacer('regle', A, options)
+  }
+  /**
+   *
+   * @param {point} A
+   * @param {objet} options
+   */
+  this.texteDeplacer = function (id, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+    const codeXML = `<action objet="texte" id="${id}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
+    this.liste_script.push(codeXML)
   }
   /**
    *

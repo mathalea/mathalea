@@ -11,8 +11,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
   let liste_des_exercices = [] // Liste des identifiants des exercices
   let code_LaTeX = ''
   let liste_packages = new Set()
-  window.listeScriptsIep = [] // Liste de tous les scripts IEP
-  window.listeIndicesAnimationsIepACharger = [] // Liste des indices des scripts qui doivent être chargés une fois le code HTML mis à jour
+  window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
+  window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
+
   // création des figures MG32 (géométrie dynamique)
 
   menuDesExercicesDisponibles()
@@ -221,7 +222,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
       if (besoinIEP) {
         loadScript('https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js')
           .then(() => {
-            for (const id of window.listeIndicesAnimationsIepACharger) {
+            for (const id of window.listeAnimationsIepACharger) {
               const element = document.getElementById(`IEPContainer${id}`)
               const xml = window.listeScriptsIep[id]
               iepLoad(element, xml, { zoom: true, autostart: false })
@@ -345,11 +346,11 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
       if (besoinIEP) {
         loadScript('https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js')
           .then(() => {
-            for (const id of window.listeIndicesAnimationsIepACharger) {
+            for (const id of window.listeAnimationsIepACharger) {
               const element = document.getElementById(`IEPContainer${id}`)
               const xml = window.listeScriptsIep[id]
               iepLoad(element, xml, { zoom: true, autostart: false })
-              // 2021-04 autostart semble non fonctionnel
+            // 2021-04 autostart semble non fonctionnel
             }
           })
       }
