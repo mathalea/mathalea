@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes, randint, choice } from "/modules/outils.js";
-import { mathalea2d, scratchblock,fond_ecran} from "/modules/2d.js";
+import { mathalea2d, scratchblock,fond_ecran,creerLutin,  avance,tournerD,tournerG,baisseCrayon,leveCrayon,allerA} from "/modules/2d.js";
 /**
  * Classe NoteLaCouleur (objet Pion) 
  * this.plateau est le tableau des couleurs de cases.
@@ -151,11 +151,14 @@ export default function Note_la_couleur() {
   this.pas_de_version_HMTL = false;
   this.type_exercice = "Scratch";
   this.liste_packages = `scratch3`;
+  this.sup=true;
 
 
 
   this.nouvelle_version = function () {
-
+    let nlcToSVG=function(x,y){
+      return [x/37*20,y/37*20]
+    }
     this.liste_questions = [];
     this.liste_corrections = [];
     let type_de_questions_disponibles = [1];
@@ -164,10 +167,16 @@ export default function Note_la_couleur() {
     let objets_enonce, objets_correction, params_enonce, params_correction;
     let commandes_disponibles, sequence,result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
     let pion = new NoteLaCouleur();
+    let lutin=creerLutin()
+    allerA(15,15,lutin)
     for (let i = 0, texte, test, j, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       objets_enonce = [];
-      objets_correction = [fond_ecran("/images/plateauNLC.png",0,-520,640,511)];
-
+      if (this.sup){
+        objets_correction = [fond_ecran("/images/plateauNLCan.png",0,-680,900,680)];
+      }
+      else {
+        objets_correction = [fond_ecran("/images/plateauNLCsn.png",0,-680,900,680)];
+      }
       texte = ``;
       texte_corr = ``;
       switch (liste_type_de_questions[i]) {
@@ -234,7 +243,7 @@ export default function Note_la_couleur() {
 
 
       //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-      params_correction = { xmin: 0, ymin: 0, xmax: 32, ymax: 26, pixelsParCm: 20, scale: 1 };
+      params_correction = { xmin: 0, ymin: 0, xmax: 45, ymax: 34, pixelsParCm: 20, scale: 1 };
       //    texte += mathalea2d(params_enonce, objets_enonce);
       //  texte_corr += mathalea2d(params_correction, objets_correction);
       pion.codeScratch += `\\end{scratch}`
@@ -258,6 +267,6 @@ export default function Note_la_couleur() {
     }
     liste_de_question_to_contenu(this);
   };
-
+this.besoin_formulaire_case_a_cocher=['Plateau avec numéros',true]
 
 }

@@ -1117,6 +1117,7 @@ export default function Alea2iep () {
     if (options.codage === undefined) {
       options.codage = '\\'
     }
+    console.log(options.codage)
     this.idIEP++
     const id = this.idIEP
     const M = milieu(s.extremite1, s.extremite2)
