@@ -129,12 +129,12 @@ export default function Alea2iep () {
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
-  this.html = function (numeroExercice, i) {
+  this.html = function (id1, id2) {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<div id="IEPContainer${indiceXML}" ></div>`
-      window.listeIndicesAnimationsIepACharger.push(indiceXML) // On ajoute le script
+      const id = `IEP_${id1}_${id2}`
+      window.listeScriptsIep[id] = this.script() // On ajoute le script
+      const codeHTML = `<div id="IEPContainer${id}" ></div>`
+      window.listeAnimationsIepACharger.push(id)
       return codeHTML
     }
   }
@@ -145,18 +145,17 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
-  this.htmlBouton = function () {
+  this.htmlBouton = function (id1, id2 = '') {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${indiceXML}" onclick="toggleVisibilityIEP(${indiceXML})"><i class="large play circle outline icon"></i>Voir animation</button>
-            <div id="IEPContainer${indiceXML}" style="display: none;" ></div>`
-
+      const id = `IEP_${id1}_${id2}`
+      window.listeScriptsIep[id] = this.script() // On ajoute le script
+      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')"><i class="large play circle outline icon"></i>Voir animation</button>
+            <div id="IEPContainer${id}" style="display: none;" ></div>`
       if (!window.toggleVisibilityIEP) {
         window.toggleVisibilityIEP = function (id) {
           const element = document.getElementById(`IEPContainer${id}`)
           const elementBtn = document.getElementById(`btnAnimation${id}`)
-          const xml = window.listeScriptsIep[indiceXML]
+          const xml = window.listeScriptsIep[id]
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
@@ -335,6 +334,15 @@ export default function Alea2iep () {
    * @param {point} A
    * @param {objet} options
    */
+  this.texteDeplacer = function (id, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+    const codeXML = `<action objet="texte" id="${id}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
+    this.liste_script.push(codeXML)
+  }
+  /**
+   *
+   * @param {point} A
+   * @param {objet} options
+   */
   this.crayonDeplacer = function (A, options) {
     this.deplacer('crayon', A, options)
   }
@@ -387,8 +395,7 @@ export default function Alea2iep () {
     }
     if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
       // Les angles de MathALEA2D et de IEP sont opposés !!!!!
-      angle = Math.round(angle, 2)
-      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" tempo="${tempo}" sens="${sens}" />`
+      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-1 * angle}" tempo="${tempo}" sens="${sens}" />`
       this[objet].angle = angle
       if (typeof angle === 'number' && isFinite(angle)) {
         this.liste_script.push(codeXML)
@@ -1009,8 +1016,9 @@ export default function Alea2iep () {
    * @param {string} texte
    * @param {point} A
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
+   * @return {id}
    */
-  this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
+  this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, taille, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
     this.idIEP++
     const policeTexte = police ? `police="${police}"` : ''
     let options = ''
@@ -1041,9 +1049,13 @@ export default function Alea2iep () {
     if (typeof margeHaut !== 'undefined') {
       options += ` marge_haut="${margeHaut}"`
     }
+    if (typeof taille !== 'undefined') {
+      options += ` taille="${taille}"`
+    }
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
     this.liste_script.push(codeXML)
+    return this.idIEP
   }
   /**
    * Ecris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
@@ -1054,7 +1066,16 @@ export default function Alea2iep () {
    */
   this.textePosition = function (texte, x, y, options) {
     const A = point(x, y)
-    this.textePoint(texte, A, options)
+    return this.textePoint(texte, A, options)
+  }
+
+  /**
+ * Masque le trait d'id fourni
+ * @param {int} id
+ * @param {objet} options Défaut : { tempo: 0 }
+ */
+  this.texteMasquer = function (id, { tempo = 0 } = {}) {
+    this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${id}"  />`)
   }
 
   /**
