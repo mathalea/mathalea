@@ -6,7 +6,7 @@ import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outil
  *
  * @Auteur Rémi Angot
  */
-export default function Alea2iep () {
+export default function Alea2iep() {
   this.idIEP = 0 // Identifiant pour les tracés
   this.idHTML = 0 // Identifiant pour les div et le svg
   this.tempo = 5 // Pause par défaut après une instruction
@@ -129,13 +129,10 @@ export default function Alea2iep () {
    */
   this.html = function (numeroExercice, i) {
     if (window.sortie_html) {
-      const id = `${numeroExercice}_${i}`
-      window.listeIEP.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
-      const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
-                ${this.script()}
-            </script>
-            <br>
-            <div id="IEPContainer${id}" ></div>`
+      window.listeScriptsIep.push(this.script()) // On ajoute le script
+      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
+      const codeHTML = `<div id="IEPContainer${indiceXML}" ></div>`
+      window.listeIndicesAnimationsIepACharger.push(indiceXML) // On ajoute le script
       return codeHTML
     }
   }
@@ -146,27 +143,26 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
-  this.htmlBouton = function (numeroExercice, i) {
+  this.htmlBouton = function () {
     if (window.sortie_html) {
-      const id = `${numeroExercice}_${i}`
-      window.listeIEP.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
-      const codeHTML = `<script id="figurexml${numeroExercice}_${i}" type="text/xml">
-                ${this.script()}
-            </script>
-            <br>
-            <button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP(IEPContainer${id},btnAnimation${id})""><i class="large play circle outline icon"></i>Voir animation</button>
-            <div id="IEPContainer${id}" style="display: none;" ></div>`
+      window.listeScriptsIep.push(this.script()) // On ajoute le script
+      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
+      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${indiceXML}" onclick="toggleVisibilityIEP(${indiceXML})"><i class="large play circle outline icon"></i>Voir animation</button>
+            <div id="IEPContainer${indiceXML}" style="display: none;" ></div>`
 
-      window.toggleVisibilityIEP = function (idElement, idBtn) {
-        // Pourquoi un string se transforme en élément du DOM !?
-        // let element = document.getElementById(idElement)
-        // let elementBtn = document.getElementById(idBtn)
-        if (idElement.style.display === 'none') {
-          idElement.style.display = 'block'
-          idBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-        } else {
-          idElement.style.display = 'none'
-          idBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+      if (!window.toggleVisibilityIEP) {
+        window.toggleVisibilityIEP = function (id) {
+          const element = document.getElementById(`IEPContainer${id}`)
+          const elementBtn = document.getElementById(`btnAnimation${id}`)
+          const xml = window.listeScriptsIep[indiceXML]
+          if (element.style.display === 'none') {
+            element.style.display = 'block'
+            elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
+            iepLoad(element, xml, { zoom: true })
+          } else {
+            element.style.display = 'none'
+            elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+          }
         }
       }
       return codeHTML
@@ -388,7 +384,7 @@ export default function Alea2iep () {
       angle = a
     }
     if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
-    // Les angles de MathALEA2D et de IEP sont opposés !!!!!
+      // Les angles de MathALEA2D et de IEP sont opposés !!!!!
       angle = Math.round(angle, 2)
       const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" tempo="${tempo}" sens="${sens}" />`
       this[objet].angle = angle
@@ -1471,7 +1467,7 @@ export default function Alea2iep () {
     return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
   }
 
-  this.cercleCirconscrit = function (A, B, C, options) {
+  this.cercleCirconscrit = function (A, B, C, options = {}) {
     if (options.couleur === undefined) {
       options.couleur = this.couleur
     }
@@ -1646,6 +1642,7 @@ export default function Alea2iep () {
     const C = pointIntersectionDD(d, d2)
     if (NOM.length !== 3) {
       description = false
+    } else {
       A.nom = NOM[0]
       B.nom = NOM[1]
       C.nom = NOM[2]

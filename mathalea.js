@@ -10,7 +10,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
     let liste_des_exercices = []; // Liste des identifiants des exercices
     let code_LaTeX = "";
     let liste_packages = new Set();
-    window.listeIEP = [];
+    window.listeScriptsIep = []; // Liste de tous les scripts IEP
+    window.listeIndicesAnimationsIepACharger = []; // Liste des indices des scripts qui doivent être chargés une fois le code HTML mis à jour
     // création des figures MG32 (géométrie dynamique)	
 
     menuDesExercicesDisponibles();
@@ -218,26 +219,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     })
             }
             if (besoinIEP) {
-                loadScript("/modules/iepjsmin.js")
+                loadScript("https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js")
                     .then(() => {
-                        loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
-                    })
-                    .then(() => {
-                        MathJax.Hub.Config({
-                            tex2jax: {
-                                inlineMath: [["$", "$"], ["\\(", "\\)"]]
-                            },
-                            jax: ["input/TeX", "output/SVG"],
-                            TeX: { extensions: ["color.js"] },
-                            messageStyle: 'none'
-                        });
-                        if (typeof window.iepApp == 'undefined') {
-                            window.iepApp = new iep.iepApp()
+                        for (const id of window.listeIndicesAnimationsIepACharger) {
+                            const element = document.getElementById(`IEPContainer${id}`)
+                            const elementBtn = document.getElementById(`btnAnimation${id}`)
+                            const xml = window.listeScriptsIep[id]
+                            iepLoad(element, xml, { zoom: true, autostart: false })
+                            //2021-04 autostart semble non fonctionnel
                         }
-                        for (let anim of window.listeIEP) {
-                            loadIEP(anim, iepApp)
-                        }
-
                     })
 
             }
@@ -358,24 +348,14 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     })
             }
             if (besoinIEP) {
-                loadScript("/modules/iepjsmin.js")
+                loadScript("https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js")
                     .then(() => {
-                        loadScript("/modules/MathJax/MathJax.js?config=TeX-AMS-MML_SVG-full.js")
-                    })
-                    .then(() => {
-                        // MathJax.Hub.Config({
-                        //     tex2jax: {
-                        //         inlineMath: [["$", "$"], ["\\(", "\\)"]]
-                        //     },
-                        //     jax: ["input/TeX", "output/SVG"],
-                        //     TeX: { extensions: ["color.js"] },
-                        //     messageStyle: 'none'
-                        // });
-                        if (typeof window.appIEP == 'undefined') {
-                            window.appIEP = new iep.iepApp()
-                        }
-                        for (let anim of window.listeIEP) {
-                            loadIEP(anim, window.appIEP)
+                        for (const id of window.listeIndicesAnimationsIepACharger) {
+                            const element = document.getElementById(`IEPContainer${id}`)
+                            const elementBtn = document.getElementById(`btnAnimation${id}`)
+                            const xml = window.listeScriptsIep[id]
+                            iepLoad(element, xml, { zoom: true, autostart: false })
+                            //2021-04 autostart semble non fonctionnel
                         }
                     })
 
@@ -745,24 +725,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
         })
     }
 
-    function loadIEP(anim, iepApp) { // Introduit l'animation contenu dans le script `figurexml${id}` dans le div IEPContainer${id}
-        const id = anim[0]
-        const xSize = (Math.ceil(anim[1] / 10) + 2 )* 10 // Arrondi au multiple de 10 par excès de xSize + 20
-        const ySize = (Math.ceil(anim[2] / 10) + 2 )* 10
-        if (sortie_html) {
-            let xml = document.getElementById(`figurexml${id}`).innerHTML
-            let container = document.getElementById(`IEPContainer${id}`)
-            container.innerHTML = ''
-            let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-            let width = Math.max((window.outerWidth * 0.625) || 0, xSize, 800)
-            let height = Math.max((window.outerHeight * 0.6) || 0, ySize, 600)
-            svg.setAttributeNS(null, "width", width);
-            svg.setAttributeNS(null, "height", height);
-            svg.setAttributeNS(null, "id", `svg${id}`);
-            container.appendChild(svg);
-            iepApp.addDoc(svg, xml, false /* autostart */)
-        }
-    }
 
     // GESTION DE MG32
     /**
