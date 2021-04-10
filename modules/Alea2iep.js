@@ -1,3 +1,5 @@
+/* global iepLoad */
+
 import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
@@ -6,7 +8,7 @@ import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outil
  *
  * @Auteur Rémi Angot
  */
-export default function Alea2iep() {
+export default function Alea2iep () {
   this.idIEP = 0 // Identifiant pour les tracés
   this.idHTML = 0 // Identifiant pour les div et le svg
   this.tempo = 5 // Pause par défaut après une instruction
