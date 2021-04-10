@@ -387,8 +387,7 @@ export default function Alea2iep () {
     }
     if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
       // Les angles de MathALEA2D et de IEP sont opposés !!!!!
-      angle = Math.round(angle, 2)
-      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" tempo="${tempo}" sens="${sens}" />`
+      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-1 * angle}" tempo="${tempo}" sens="${sens}" />`
       this[objet].angle = angle
       if (typeof angle === 'number' && isFinite(angle)) {
         this.liste_script.push(codeXML)
@@ -1009,8 +1008,9 @@ export default function Alea2iep () {
    * @param {string} texte
    * @param {point} A
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
+   * @return {id}
    */
-  this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
+  this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, taille, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
     this.idIEP++
     const policeTexte = police ? `police="${police}"` : ''
     let options = ''
@@ -1041,9 +1041,13 @@ export default function Alea2iep () {
     if (typeof margeHaut !== 'undefined') {
       options += ` marge_haut="${margeHaut}"`
     }
+    if (typeof taille !== 'undefined') {
+      options += ` taille="${taille}"`
+    }
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
     this.liste_script.push(codeXML)
+    return this.idIEP
   }
   /**
    * Ecris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
@@ -1054,7 +1058,16 @@ export default function Alea2iep () {
    */
   this.textePosition = function (texte, x, y, options) {
     const A = point(x, y)
-    this.textePoint(texte, A, options)
+    return this.textePoint(texte, A, options)
+  }
+
+  /**
+ * Masque le trait d'id fourni
+ * @param {int} id
+ * @param {objet} options Défaut : { tempo: 0 }
+ */
+  this.texteMasquer = function (id, { tempo = 0 } = {}) {
+    this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${id}"  />`)
   }
 
   /**
