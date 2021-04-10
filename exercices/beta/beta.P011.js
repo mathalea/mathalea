@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
-import {mathalea2d,polygoneAvecNom,codeSegments,codageAngleDroit} from "/modules/2d.js"
+import {mathalea2d,polygoneAvecNom,codeSegments,codageAngleDroit,afficheMesureAngle,codeAngle,afficheLongueurSegment} from "/modules/2d.js"
 import Alea2iep from '/modules/Alea2iep.js';
 
 export default function Exercice_zero_mathalea2d() {
@@ -32,27 +32,28 @@ export default function Exercice_zero_mathalea2d() {
           case 1:
             
             triangle=anim.triangle3longueurs(nom, params[0], params[1], params[2], true, true) 
-
+            objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),afficheLongueurSegment(triangle[2],triangle[1]),afficheLongueurSegment(triangle[0],triangle[2]))
           break;
   
           case 2:
             triangle=anim.triangle1longueur2angles(nom, params[0], params[1], params[2], true, true)
-
+            objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),afficheMesureAngle(triangle[2],triangle[0],triangle[1]),afficheMesureAngle(triangle[0],triangle[1],triangle[2]))
+ 
           break
   
           case 3:
             triangle=anim.triangleRectangle2Cotes(nom, params[0], params[1], true)
-            objets_enonceml.push(codageAngleDroit(triangle[0],triangle[1],triangle[2]))
+            objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),afficheLongueurSegment(triangle[2],triangle[1]),codageAngleDroit(triangle[0],triangle[1],triangle[2]))
           break
             
           case 4:
             triangle=anim.triangleRectangleCoteHypotenuse(nom, params[0], params[1], true)
-            objets_enonceml.push(codageAngleDroit(triangle[0],triangle[1],triangle[2]))
+            objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),afficheLongueurSegment(triangle[0],triangle[2]),codageAngleDroit(triangle[0],triangle[1],triangle[2]))
             break  
 
           case 5:
             triangle=anim.triangleEquilateral(nom, params[0], true)
-          objets_enonceml.push(codeSegments('||','red',triangle[0],triangle[1],triangle[2],triangle[0],triangle[1],triangle[2]))
+          objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),codeSegments('||','red',triangle[0],triangle[1],triangle[2],triangle[0],triangle[1],triangle[2]))
             break
             
         }
