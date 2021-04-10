@@ -12,10 +12,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
   let liste_des_exercices = [] // Liste des identifiants des exercices
   let code_LaTeX = ''
   let liste_packages = new Set()
-  window.listeScriptsIep = [] // Liste de tous les scripts IEP
-  window.listeIndicesAnimationsIepACharger = [] // Liste des indices des scripts qui doivent être chargés une fois le code HTML mis à jour
   // création des figures MG32 (géométrie dynamique)
-
+  window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
+  window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
   menuDesExercicesDisponibles()
   //fonctions de gestion de la liste des exercices cg 04-2021 ****
 	
@@ -188,7 +187,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 			if (besoinIEP) {
 				loadScript("https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js")
                 .then(() => {
-                    for (const id of window.listeIndicesAnimationsIepACharger) {
+                    for (const id of window.listeAnimationsIepACharger) {
                             const element = document.getElementById(`IEPContainer${id}`)
                             const elementBtn = document.getElementById(`btnAnimation${id}`)
                             const xml = window.listeScriptsIep[id]
@@ -291,7 +290,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         if (listeObjetsExercice[0].video.length > 1) {
                     fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`;
     }
-
                 for (let i = 1; i < liste_des_exercices.length; i++) {
                     fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
                     if (typeof listeObjetsExercice[i].sup !== 'undefined') {
@@ -792,7 +790,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 					}
 					sortie_html = output;
 					mise_a_jour_du_code(); //permet de gérer les popup avec module.
-					MG32_tableau_de_figures.pop();					
 				} else {
 					mise_a_jour_du_code();
 				}
@@ -1574,7 +1571,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
     function afficher_popup() {
 		if ($(".popuptext").is(":visible")) {
 			$(".popuptext").html('');
-			$(".popuptext").hide();  
+			$(".popuptext").hide(); 
 		} else {
 			mise_a_jour_de_la_liste_des_exercices(event.target.id)
 		}
@@ -1591,11 +1588,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 	});
 	
 	$(document).click(function(event) { 
-			$(".popuptext").hide();
-			$(".popuptext").html('');
-			$(".icone_preview").off("click").on("click", function (e) {
-				afficher_popup();
-			});
+			if ($(".popuptext").is(":visible")) {
+				$(".popuptext").hide();
+				$(".popuptext").html('');
+				$(".icone_preview").off("click").on("click", function (e) {
+					afficher_popup();
+				});
+      }
 	});
 		
     if (document.getElementById('btnQRcode')) {
