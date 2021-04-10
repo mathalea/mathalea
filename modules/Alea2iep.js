@@ -1623,7 +1623,7 @@ export default function Alea2iep () {
    * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
    * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
    */
-  this.triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true) {
+  this.triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true, mesure = false) {
     const angle = randint(-20, 20)
     const a1 = BAC
     const a2 = CBA
@@ -1687,6 +1687,8 @@ export default function Alea2iep () {
     this.regleSegment(C, A)
     this.regleMasquer()
     this.crayonMasquer()
+    if (description && mesure) this.textePosition(`On peut mesurer ${A.nom + C.nom} ≈ ${nombreAvecEspace(longueur(A, C, 1))} cm et ${B.nom + C.nom} ≈ ${nombreAvecEspace(longueur(B, C, 1))} cm.`, 0, -7)
+
     return [A, B, C]
   }
   /**
