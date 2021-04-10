@@ -1620,6 +1620,8 @@ export default function Alea2iep () {
     this.equerreDeplacer(B)
     this.tracer(c)
     this.equerreMasquer()
+    this.codageAngleDroit(A,B,C)
+    this.crayonMasquer()
     if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
     this.compasMontrer(A)
     this.compasEcarterAvecRegle(AC)
@@ -1629,6 +1631,7 @@ export default function Alea2iep () {
     this.couleur = 'blue'
     this.epaisseur = 2
     if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
+    this.crayonMontrer(C)
     this.pointCreer(C)
     this.compasMasquer()
     this.regleSegment(A, C)
@@ -1783,6 +1786,41 @@ export default function Alea2iep () {
     this.traitRapide(A, B)
     this.pointCreer(A, A.nom, 0)
     this.pointCreer(B, B.nom, 0)
+    this.compasEcarter2Points(A, B)
+    this.compasTracerArcCentrePoint(A, C)
+    this.compasTracerArcCentrePoint(B, C)
+    this.pointCreer(C)
+    this.compasMasquer()
+    this.regleSegment(A, C)
+    this.regleSegment(C, B)
+    this.regleMasquer()
+    this.crayonMasquer()
+    this.segmentCodage(A, B)
+    this.segmentCodage(A, C)
+    this.segmentCodage(B, C)
+    return [A, B, C]
+  }
+/**
+   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté
+   * @param {string} NOM
+   * @param {number} AB
+   * @return {array} [A, B, C]
+   */
+  
+  this.triangleEquilateral = function (NOM, AB) {
+    const A = point(6, 0)
+    const B = pointAdistance(A, AB, randint(-20, 20))
+    const C = rotation(B, A, 60)
+    if (NOM.length !== 3) {
+      description = false
+    } else {
+      A.nom = NOM[0]
+      B.nom = NOM[1]
+      C.nom = NOM[2]
+    }
+    this.regleSegment(A, B)
+    this.pointCreer(A)
+    this.pointCreer(B)
     this.compasEcarter2Points(A, B)
     this.compasTracerArcCentrePoint(A, C)
     this.compasTracerArcCentrePoint(B, C)

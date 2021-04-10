@@ -43,8 +43,12 @@ export default function Exercice_zero_mathalea2d() {
           break
             
           case 4:
-          
+            triangle=anim.triangleRectangleCoteHypotenuse(nom, params[0], params[1], true)
           break  
+
+          case 5:
+            triangle=anim.triangleEquilateral(nom, params[0], true)
+          break
             
         }
         let poly=polygoneAvecNom(triangle)
@@ -57,7 +61,7 @@ export default function Exercice_zero_mathalea2d() {
         let texte = mathalea2d(params_enonce, poly)+'<br>'+anim.htmlBouton()
         this.contenu=texte;
     }
-  this.besoin_formulaire_numerique = ['Type de triangle', 3, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit`]
+  this.besoin_formulaire_numerique = ['Type de triangle', 5, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral`]
   this.besoin_formulaire2_texte = ["Nom du triangle",`ABC par exemple`];
   this.besoin_formulaire3_texte =['paramètres séparés par des espaces','3 4 5']
   
