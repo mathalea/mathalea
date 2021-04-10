@@ -1,6 +1,32 @@
-/* global iepLoad */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Alea2iep.js</title>
 
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Alea2iep.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -43,14 +69,14 @@ export default function Alea2iep () {
     if (x > this.xMax) {
       this.xMax = x
     }
-    if (x < this.xMin) {
+    if (x &lt; this.xMin) {
       this.xMin = x
     }
     return x
   }
   this.y = function (A) {
     const y = calcul((-A.y + this.translationY) * 30, 0)
-    if (y < this.yMin) {
+    if (y &lt; this.yMin) {
       this.yMin = y
     }
     if (y > this.yMax) {
@@ -116,10 +142,10 @@ export default function Alea2iep () {
     if (this.xml.length > 1) {
       return this.xml
     } else {
-      let codeXML = '<?xml version="1.0" encoding="UTF-8"?>\n'
-      codeXML += '<INSTRUMENPOCHE version="2">\n'
+      let codeXML = '&lt;?xml version="1.0" encoding="UTF-8"?>\n'
+      codeXML += '&lt;INSTRUMENPOCHE version="2">\n'
       codeXML += this.liste_script.join('\n')
-      codeXML += '\n</INSTRUMENPOCHE>'
+      codeXML += '\n&lt;/INSTRUMENPOCHE>'
       return codeXML
     }
   }
@@ -131,10 +157,13 @@ export default function Alea2iep () {
    */
   this.html = function (numeroExercice, i) {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<div id="IEPContainer${indiceXML}" ></div>`
-      window.listeIndicesAnimationsIepACharger.push(indiceXML) // On ajoute le script
+      const id = `${numeroExercice}_${i}`
+      window.listeScriptsIep.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+      const codeHTML = `&lt;script id="figurexml${numeroExercice}_${i}" type="text/xml">
+                ${this.script()}
+            &lt;/script>
+            &lt;br>
+            &lt;div id="IEPContainer${id}" >&lt;/div>`
       return codeHTML
     }
   }
@@ -145,26 +174,27 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
-  this.htmlBouton = function () {
+  this.htmlBouton = function (numeroExercice, i) {
     if (window.sortie_html) {
-      window.listeScriptsIep.push(this.script()) // On ajoute le script
-      const indiceXML = window.listeScriptsIep.length - 1 // On sauvegarde son indice (le dernier)
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${indiceXML}" onclick="toggleVisibilityIEP(${indiceXML})"><i class="large play circle outline icon"></i>Voir animation</button>
-            <div id="IEPContainer${indiceXML}" style="display: none;" ></div>`
+      const id = `${numeroExercice}_${i}`
+      window.listeScriptsIep.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
+      const codeHTML = `&lt;script id="figurexml${numeroExercice}_${i}" type="text/xml">
+                ${this.script()}
+            &lt;/script>
+            &lt;br>
+            &lt;button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP(IEPContainer${id},btnAnimation${id})"">&lt;i class="large play circle outline icon">&lt;/i>Voir animation&lt;/button>
+            &lt;div id="IEPContainer${id}" style="display: none;" >&lt;/div>`
 
-      if (!window.toggleVisibilityIEP) {
-        window.toggleVisibilityIEP = function (id) {
-          const element = document.getElementById(`IEPContainer${id}`)
-          const elementBtn = document.getElementById(`btnAnimation${id}`)
-          const xml = window.listeScriptsIep[indiceXML]
-          if (element.style.display === 'none') {
-            element.style.display = 'block'
-            elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            iepLoad(element, xml, { zoom: true })
-          } else {
-            element.style.display = 'none'
-            elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
-          }
+      window.toggleVisibilityIEP = function (idElement, idBtn) {
+        // Pourquoi un string se transforme en élément du DOM !?
+        // let element = document.getElementById(idElement)
+        // let elementBtn = document.getElementById(idBtn)
+        if (idElement.style.display === 'none') {
+          idElement.style.display = 'block'
+          idBtn.innerHTML = '&lt;i class="large stop circle outline icon">&lt;/i>Masquer animation'
+        } else {
+          idElement.style.display = 'none'
+          idBtn.innerHTML = '&lt;i class="large play circle outline icon">&lt;/i>Voir animation'
         }
       }
       return codeHTML
@@ -197,7 +227,7 @@ export default function Alea2iep () {
       if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplcer
         this.deplacer(objet, A1, { tempo: tempo, vitesse: vitesse })
       } else {
-        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
+        codeXML = `&lt;action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
         this[objet].visibilite = true
       }
       this[objet].position = A1
@@ -261,7 +291,7 @@ export default function Alea2iep () {
    */
   this.masquer = function (objet, { tempo = this.tempo } = {}) {
     if (this[objet].visibilite) { // On ajoute une ligne xml que si l'objet est visible
-      const codeXML = `<action objet="${objet}" mouvement="masquer" tempo="${tempo}" />`
+      const codeXML = `&lt;action objet="${objet}" mouvement="masquer" tempo="${tempo}" />`
       this[objet].visibilite = false
       this.liste_script.push(codeXML)
     }
@@ -317,7 +347,7 @@ export default function Alea2iep () {
  */
   this.deplacer = function (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     if (this[objet].position !== A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
-      const codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
+      const codeXML = `&lt;action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
       this[objet].position = A
       this.liste_script.push(codeXML)
     }
@@ -386,11 +416,11 @@ export default function Alea2iep () {
       angle = a
     }
     if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
-      // Les angles de MathALEA2D et de IEP sont opposés !!!!!
+    // Les angles de MathALEA2D et de IEP sont opposés !!!!!
       angle = Math.round(angle, 2)
-      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-angle}" tempo="${tempo}" sens="${sens}" />`
+      const codeXML = `&lt;action objet="${objet}" mouvement="rotation" angle="${-angle}" tempo="${tempo}" sens="${sens}" />`
       this[objet].angle = angle
-      if (typeof angle === 'number' && isFinite(angle)) {
+      if (typeof angle === 'number' &amp;&amp; isFinite(angle)) {
         this.liste_script.push(codeXML)
       } else {
         console.log('Angle de rotation non défini.')
@@ -452,7 +482,7 @@ export default function Alea2iep () {
  */
   this.regleZoom = function (k, { tempo = 0 } = {}) {
     this.regle.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action echelle="${k}" mouvement="zoom" objet="regle" tempo="${tempo}" />`)
   }
   /**
  *
@@ -461,7 +491,7 @@ export default function Alea2iep () {
  */
   this.equerreZoom = function (k, { tempo = 0 } = {}) {
     this.equerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action echelle="${k}" mouvement="zoom" objet="equerre" tempo="${tempo}" />`)
   }
   /**
  *
@@ -470,7 +500,7 @@ export default function Alea2iep () {
  */
   this.requerreZoom = function (k, { tempo = 0 } = {}) {
     this.requerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action echelle="${k}" mouvement="zoom" objet="requerre" tempo="${tempo}" />`)
   }
   /**
  *
@@ -479,7 +509,7 @@ export default function Alea2iep () {
  */
   this.rapporteurZoom = function (k, { tempo = 0 } = {}) {
     this.rapporteur.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action echelle="${k}" mouvement="zoom" objet="rapporteur" tempo="${tempo}" />`)
   }
   /**
  *
@@ -488,7 +518,7 @@ export default function Alea2iep () {
  */
   this.compasZoom = function (k, { tempo = 0 } = {}) {
     this.compas.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
+    this.liste_script.push(`&lt;action echelle="${k}" mouvement="zoom" objet="compas" />`)
   }
 
   /**
@@ -512,10 +542,10 @@ export default function Alea2iep () {
     }
     let codeXML
     if (label) {
-      codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
-      codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
+      codeXML = `&lt;action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
+      codeXML += `\n&lt;action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
     } else {
-      codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
+      codeXML = `&lt;action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
     }
     this.liste_script.push(codeXML)
   }
@@ -535,7 +565,7 @@ export default function Alea2iep () {
  * @param {objet} options Défaut : { tempo: 0 }
  */
   this.pointMasquer = function (A, { tempo = 0 } = {}) {
-    this.liste_script.push(`<action id="${A.id}" mouvement="masquer" objet="point" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${A.id}" mouvement="masquer" objet="point" tempo="${tempo}" />`)
   }
   /**
    * Montrer un point qui aurait été caché
@@ -543,7 +573,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut ; { tempo : this.tempo }
    */
   this.pointMontrer = function (A, { tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action id="${A.id}" mouvement="montrer" objet="point" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${A.id}" mouvement="montrer" objet="point" tempo="${tempo}" />`)
   }
   /**
    * Anime la translation d'un point
@@ -554,7 +584,7 @@ export default function Alea2iep () {
    */
   this.pointDeplacer = function (A, x, y, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     const B = point(x, y)
-    this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse} />`)
+    this.liste_script.push(`&lt;action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse} />`)
   }
   /**
    * Ajoute un label au point
@@ -564,10 +594,10 @@ export default function Alea2iep () {
    */
   this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
     let coordonneesTexte = ''
-    if (typeof dx !== 'undefined' && typeof dy !== 'undefined') {
+    if (typeof dx !== 'undefined' &amp;&amp; typeof dy !== 'undefined') {
       coordonneesTexte = `abscisse="${dx * 30}" ordonnee="${-dy * 30}"`
     }
-    this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
+    this.liste_script.push(`&lt;action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
   }
 
   /**
@@ -581,7 +611,7 @@ export default function Alea2iep () {
 * @param {objet} options Défaut : { tempo: this.tempo}
 */
   this.compasRetourner = function ({ tempo = this.tempo } = {}) {
-    const codeXML = `<action mouvement="retourner" objet="compas" tempo="${tempo}" />`
+    const codeXML = `&lt;action mouvement="retourner" objet="compas" tempo="${tempo}" />`
     if (this.compas.orientation === 'droite') {
       this.compas.orientation = 'gauche'
     } else {
@@ -595,7 +625,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
   this.compasEcarter = function (l, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    const codeXML = `<action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
+    const codeXML = `&lt;action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
   }
@@ -633,7 +663,7 @@ export default function Alea2iep () {
  */
   this.compasLever = function ({ tempo = this.tempo } = {}) {
     if (!this.compas.leve) { // On ne fait rien si le compas est déjà levé
-      const codeXML = `<action mouvement="lever" objet="compas" tempo="${tempo} />`
+      const codeXML = `&lt;action mouvement="lever" objet="compas" tempo="${tempo} />`
       this.compas.leve = true
       this.liste_script.push(codeXML)
     }
@@ -644,7 +674,7 @@ export default function Alea2iep () {
  */
   this.compasCoucher = function ({ tempo = this.tempo } = {}) {
     if (this.compas.leve) { // On ne fait rien si le compas est déjà levé
-      const codeXML = `<action mouvement="coucher" objet="compas" tempo="${tempo}" />`
+      const codeXML = `&lt;action mouvement="coucher" objet="compas" tempo="${tempo}" />`
       this.compas.leve = false
       this.liste_script.push(codeXML)
     }
@@ -662,17 +692,17 @@ export default function Alea2iep () {
     if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
       [angle1, angle2] = [angle2, angle1]
     }
-    let codeXML = `<action sens="${sens}" angle="${-angle1}" mouvement="rotation" objet="compas" tempo="${tempo}" />\n`
-    codeXML += '<action mouvement="lever" objet="compas" />\n'
-    codeXML += `<action sens="${sens}" angle="${-angle1}" mouvement="rotation" objet="compas" />\n`
+    let codeXML = `&lt;action sens="${sens}" angle="${-angle1}" mouvement="rotation" objet="compas" tempo="${tempo}" />\n`
+    codeXML += '&lt;action mouvement="lever" objet="compas" />\n'
+    codeXML += `&lt;action sens="${sens}" angle="${-angle1}" mouvement="rotation" objet="compas" />\n`
     let sensTexte
     if (angle2 > angle1) {
       sensTexte = sens
     } else {
       sensTexte = -1 * sens
     }
-    codeXML += `<action couleur="${couleur}" epaisseur="${epaisseur}" sens="${sensTexte}" debut="${-angle1}" fin="${-angle2}" mouvement="tracer" objet="compas"  ${pointillesTexte} id="${this.idIEP}" />\n`
-    codeXML += `<action mouvement="coucher" objet="compas" tempo="${tempo}"/>`
+    codeXML += `&lt;action couleur="${couleur}" epaisseur="${epaisseur}" sens="${sensTexte}" debut="${-angle1}" fin="${-angle2}" mouvement="tracer" objet="compas"  ${pointillesTexte} id="${this.idIEP}" />\n`
+    codeXML += `&lt;action mouvement="coucher" objet="compas" tempo="${tempo}"/>`
     this.compas.angle = angle2
     this.liste_script.push(codeXML)
     return this.idIEP
@@ -721,7 +751,7 @@ export default function Alea2iep () {
    * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
   this.requerreGlisserEquerre = function (a, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    this.liste_script.push(`<action abscisse="${a * 30}" mouvement="glisser" objet="requerre" tempo="${tempo}" vitesse="${vitesse}" />`)
+    this.liste_script.push(`&lt;action abscisse="${a * 30}" mouvement="glisser" objet="requerre" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
 
   /**
@@ -732,10 +762,10 @@ export default function Alea2iep () {
 
   // Non pris en charge par le lecteur JS
   // this.rapporteurCirculaire = function (tempo=this.tempo) {
-  // //     this.liste_script.push(`<action mouvement="circulaire" objet="rapporteur" tempo="${tempo}"/>`)
+  // //     this.liste_script.push(`&lt;action mouvement="circulaire" objet="rapporteur" tempo="${tempo}"/>`)
   // }
   // this.rapporteurSemiCirculaire = function (tempo=this.tempo) {
-  // //     this.liste_script.push(`<action mouvement="semicirculaire" objet="rapporteur" tempo="${tempo}"/>`)
+  // //     this.liste_script.push(`&lt;action mouvement="semicirculaire" objet="rapporteur" tempo="${tempo}"/>`)
   // }
 
   /**
@@ -743,28 +773,28 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.rapporteurMasquerGraduationsExterieures = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
   /**
    * Montre la graduation extérieure si elle avait été précédemment cachée
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.rapporteurMontrerGraduationsExterieures = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="montrer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="montrer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
   /**
    * Masque la graduation interne du rapporteur (laisse l'autre graduation visible)
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.rapporteurMasquerGraduationsInterieures = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="vide" objet="rapporteur" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="vide" objet="rapporteur" tempo="${tempo}"/>`)
   }
   /**
    * Montre la graduation interne si elle avait été précédemment cachée
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.rapporteurMontrerGraduationsInterieures = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="graduations" objet="rapporteur" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="graduations" objet="rapporteur" tempo="${tempo}"/>`)
   }
   /**
  * Met le rapporteur en position avec le centre en A et le 0 de droite alogné avec le point B
@@ -820,14 +850,14 @@ export default function Alea2iep () {
  * @param {objet} options Défaut : { tempo: this.tempo }
  */
   this.regleMasquerGraduations = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="vide" objet="regle" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="vide" objet="regle" tempo="${tempo}"/>`)
   }
   /**
  * Montrer les graduations sur la règle si elles avaient été masquées
  * @param {objet} options Défaut : { tempo: this.tempo }
  */
   this.regleMontrerGraduations = function ({ tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action mouvement="graduations" objet="regle" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="graduations" objet="regle" tempo="${tempo}"/>`)
   }
   /**
    * Modifie la taille de la règle
@@ -836,7 +866,7 @@ export default function Alea2iep () {
    */
   this.regleModifierLongueur = function (longueur = 20, { tempo = this.tempo } = {}) {
     this.regle.longueur = longueur
-    this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${longueur}" tempo="${tempo}"/>`)
+    this.liste_script.push(`&lt;action mouvement="modifier_longueur" objet="regle" longueur="${longueur}" tempo="${tempo}"/>`)
   }
   /**
  * Trace une demi-droite d'origine O passant par A (ou en direction de A si les points sont trop éloignés)
@@ -858,7 +888,7 @@ export default function Alea2iep () {
     const M = homothetie(B, A, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
     const N = homothetie(A, B, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
     this.regleMontrer()
-    if (this.x(A) < this.x(B)) {
+    if (this.x(A) &lt; this.x(B)) {
       this.regleDeplacer(A, options)
       this.regleRotation(N, options)
       this.regleSegment(M, N, options)
@@ -905,7 +935,7 @@ export default function Alea2iep () {
     const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
     const vecteurTexte = vecteur ? 'style="vecteur"' : ''
     this.idIEP += 1
-    const codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" tempo="${tempo}" vitesse="${vitesse}"  ${pointillesTexte} ${vecteurTexte} id="${this.idIEP}" />`
+    const codeXML = `&lt;action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" tempo="${tempo}" vitesse="${vitesse}"  ${pointillesTexte} ${vecteurTexte} id="${this.idIEP}" />`
     this.crayon.position = B
     this.liste_script.push(codeXML)
     return this.idIEP
@@ -940,7 +970,7 @@ export default function Alea2iep () {
  * @param {objet} options Défaut : { tempo: 0, vitesse: 200 }
  */
   this.traitMasquer = function (id, { tempo = 0, vitesse = 200 } = {}) {
-    this.liste_script.push(`<action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
+    this.liste_script.push(`&lt;action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
   }
   /**
    *
@@ -960,14 +990,14 @@ export default function Alea2iep () {
       B = arg2
       options = arg3
     }
-    if (A.x < B.x) { // Toujours avoir la règle de gauche à droite
+    if (A.x &lt; B.x) { // Toujours avoir la règle de gauche à droite
       this.regleMontrer(A, options)
       this.regleRotation(B, options)
     } else {
       this.regleMontrer(B, options)
       this.regleRotation(A, options)
     }
-    if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
+    if (longueur(this.crayon.position, A) &lt; longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
       this.crayonMontrer(A, options)
       id = this.tracer(B, options)
     } else {
@@ -981,7 +1011,7 @@ export default function Alea2iep () {
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
   this.polygoneTracer = function (...sommets) {
-    for (let i = 0; i < sommets.length - 1; i++) {
+    for (let i = 0; i &lt; sommets.length - 1; i++) {
       this.regleSegment(sommets[i], sommets[i + 1])
     }
     this.regleSegment(sommets[sommets.length - 1], sommets[0])
@@ -992,7 +1022,7 @@ export default function Alea2iep () {
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
   this.polygoneRapide = function (...sommets) {
-    for (let i = 0; i < sommets.length - 1; i++) {
+    for (let i = 0; i &lt; sommets.length - 1; i++) {
       this.traitRapide(sommets[i], sommets[i + 1])
     }
     this.traitRapide(sommets[sommets.length - 1], sommets[0])
@@ -1041,8 +1071,8 @@ export default function Alea2iep () {
     if (typeof margeHaut !== 'undefined') {
       options += ` marge_haut="${margeHaut}"`
     }
-    let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
-    codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
+    let codeXML = `&lt;action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
+    codeXML += `\n&lt;action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
     this.liste_script.push(codeXML)
   }
   /**
@@ -1061,7 +1091,7 @@ export default function Alea2iep () {
    * Met l'animation en pause forçant l'utilisateur à appuyer sur lecture pour voir la suite
    */
   this.pause = function () {
-    this.liste_script.push('<action mouvement="pause" />')
+    this.liste_script.push('&lt;action mouvement="pause" />')
   }
 
   /**
@@ -1099,7 +1129,7 @@ export default function Alea2iep () {
     this.idIEP++
     const id = this.idIEP
     const M = milieu(s.extremite1, s.extremite2)
-    const codeXML = `<action abscisse="${this.x(M)}" ordonnee="${this.y(M)}" forme="${options.codage}"  couleur="${options.couleur}" id="${id}" tempo="${options.tempo}" mouvement="creer" objet="longueur" />`
+    const codeXML = `&lt;action abscisse="${this.x(M)}" ordonnee="${this.y(M)}" forme="${options.codage}"  couleur="${options.couleur}" id="${id}" tempo="${options.tempo}" mouvement="creer" objet="longueur" />`
     this.liste_script.push(codeXML)
     return id
   }
@@ -1109,7 +1139,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.segmentCodageMasquer = function (id, { tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="longueur" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${id}" mouvement="masquer" objet="longueur" tempo="${tempo}" />`)
   }
   /**
    *
@@ -1117,7 +1147,7 @@ export default function Alea2iep () {
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
   this.segmentCodageMontrer = function (id, { tempo = this.tempo } = {}) {
-    this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="longueur" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${id}" mouvement="montrer" objet="longueur" tempo="${tempo}" />`)
   }
   /**
    * Trace le petit carré au crayon
@@ -1173,7 +1203,7 @@ export default function Alea2iep () {
     d2.isVisible = false
     const angle1 = -d1.angleAvecHorizontale
     const angle2 = -d2.angleAvecHorizontale
-    const codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" rayon="${rayon * 30}" angle1="${angle1}" angle2="${angle2}" forme="${codage}"  couleur="${couleur}" id="${id}" tempo="${tempo}" mouvement="creer" objet="angle" />`
+    const codeXML = `&lt;action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" rayon="${rayon * 30}" angle1="${angle1}" angle2="${angle2}" forme="${codage}"  couleur="${couleur}" id="${id}" tempo="${tempo}" mouvement="creer" objet="angle" />`
     this.liste_script.push(codeXML)
     return id
   }
@@ -1187,7 +1217,7 @@ export default function Alea2iep () {
    */
   this.angleCodageMasquer = function (B, A, C, { tempo = 0 } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
-    this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="angle" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${id}" mouvement="masquer" objet="angle" tempo="${tempo}" />`)
   }
   /**
    * Montre un codage préalablement créé
@@ -1198,7 +1228,7 @@ export default function Alea2iep () {
    */
   this.angleCodageMontrer = function (B, A, C, { tempo = 0 } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
-    this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="angle" tempo="${tempo}" />`)
+    this.liste_script.push(`&lt;action id="${id}" mouvement="montrer" objet="angle" tempo="${tempo}" />`)
   }
 
   /**
@@ -1218,7 +1248,7 @@ export default function Alea2iep () {
     let G, D, H1
     // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
     // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
-    if (A.x < B.x) {
+    if (A.x &lt; B.x) {
       G = A
       D = B
     } else {
@@ -1227,7 +1257,7 @@ export default function Alea2iep () {
     }
     const d = droite(A, B)
     const H = projectionOrtho(C, d)
-    if (H.x < D.x) {
+    if (H.x &lt; D.x) {
       H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
     } else {
       H1 = pointSurSegment(H, D, 2)
@@ -1237,11 +1267,11 @@ export default function Alea2iep () {
     const M = pointSurSegment(C1, C, 6)
     // Le tracé de la parallèle ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
 
-    if (H.x < G.x && longueur(H, G) > 3) { // Si le pied de la hauteur est trop à gauche
+    if (H.x &lt; G.x &amp;&amp; longueur(H, G) > 3) { // Si le pied de la hauteur est trop à gauche
       this.regleProlongerSegment(D, G)
       this.regleMasquer()
     }
-    if (H.x > D.x && longueur(H, D) > 3) { // Si le pied de la hauteur est trop à gauche
+    if (H.x > D.x &amp;&amp; longueur(H, D) > 3) { // Si le pied de la hauteur est trop à gauche
       this.regleProlongerSegment(G, D)
     }
 
@@ -1351,7 +1381,7 @@ export default function Alea2iep () {
       this.trait(O, N)
     }
     this.regleMasquer()
-    if (this.x(A) < this.x(B)) {
+    if (this.x(A) &lt; this.x(B)) {
       this.equerreDeplacer(A)
       this.equerreMontrer()
       this.equerreRotation(B)
@@ -1375,23 +1405,23 @@ export default function Alea2iep () {
     d.isVisible = false
     const H = projectionOrtho(C, d)
     let G, D
-    if (this.x(A) < this.x(B)) {
+    if (this.x(A) &lt; this.x(B)) {
       G = A
       D = B
     } else {
       G = B
       D = A
     }
-    if (this.x(H) < this.x(G)) { // si le pied de la hauteur est trop à gauche
+    if (this.x(H) &lt; this.x(G)) { // si le pied de la hauteur est trop à gauche
       this.regleProlongerSegment(D, G, longueur(G, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
     }
     if (this.x(H) > this.x(D)) { // si le pied de la hauteur est trop à droite
       this.regleProlongerSegment(G, D, longueur(D, H) + 2, this.couleur, this.tempo, this.vitesse, this.epaisseurTraitsDeConstruction, true)
     }
-    if (this.x(H) < this.x(G) || this.x(H) > this.x(D)) {
+    if (this.x(H) &lt; this.x(G) || this.x(H) > this.x(D)) {
       this.regleMasquer()
     }
-    if (this.x(A) < this.x(B)) {
+    if (this.x(A) &lt; this.x(B)) {
       this.equerreDeplacer(A)
       this.equerreMontrer()
       this.equerreRotation(B)
@@ -1469,7 +1499,7 @@ export default function Alea2iep () {
     return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
   }
 
-  this.cercleCirconscrit = function (A, B, C, options = {}) {
+  this.cercleCirconscrit = function (A, B, C, options) {
     if (options.couleur === undefined) {
       options.couleur = this.couleur
     }
@@ -1623,7 +1653,7 @@ export default function Alea2iep () {
    * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
    * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
    */
-  this.triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true, mesure = false) {
+  this.triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true) {
     const angle = randint(-20, 20)
     const a1 = BAC
     const a2 = CBA
@@ -1644,7 +1674,6 @@ export default function Alea2iep () {
     const C = pointIntersectionDD(d, d2)
     if (NOM.length !== 3) {
       description = false
-    } else {
       A.nom = NOM[0]
       B.nom = NOM[1]
       C.nom = NOM[2]
@@ -1687,8 +1716,6 @@ export default function Alea2iep () {
     this.regleSegment(C, A)
     this.regleMasquer()
     this.crayonMasquer()
-    if (description && mesure) this.textePosition(`On peut mesurer ${A.nom + C.nom} ≈ ${nombreAvecEspace(longueur(A, C, 1))} cm et ${B.nom + C.nom} ≈ ${nombreAvecEspace(longueur(B, C, 1))} cm.`, 0, -7)
-
     return [A, B, C]
   }
   /**
@@ -1790,7 +1817,7 @@ export default function Alea2iep () {
     this.pointCreer(A, { tempo: 0 })
     this.pointCreer(B, { tempo: 0 })
     this.pointCreer(O, { tempo: 0 })
-    if (description && nom.length === 4) {
+    if (description &amp;&amp; nom.length === 4) {
       this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
     }
     this.pointilles = true
@@ -1800,7 +1827,7 @@ export default function Alea2iep () {
     this.regleMasquer()
     this.crayonMasquer()
     this.compasEcarter2Points(A, O)
-    if (description && nom.length === 4) {
+    if (description &amp;&amp; nom.length === 4) {
       this.textePosition(`${A.nom + O.nom} = ${O.nom + C.nom}`, xMin - 1, yMin - 2)
     }
     this.pointilles = false
@@ -1812,7 +1839,7 @@ export default function Alea2iep () {
     this.crayonMasquer()
     this.pointilles = false
     this.compasEcarter2Points(B, O)
-    if (description && nom.length === 4) {
+    if (description &amp;&amp; nom.length === 4) {
       this.textePosition(`${B.nom + O.nom} = ${O.nom + D.nom}`, xMin - 1, yMin - 3)
     }
     this.compasTracerArcCentrePoint(O, D)
@@ -1868,3 +1895,26 @@ export default function Alea2iep () {
     this.crayonMasquer()
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#angleCodage">angleCodage</a></li><li><a href="global.html#angleCodageMasquer">angleCodageMasquer</a></li><li><a href="global.html#angleCodageMontrer">angleCodageMontrer</a></li><li><a href="global.html#codageAngleDroit">codageAngleDroit</a></li><li><a href="global.html#codageAngleDroitMasquer">codageAngleDroitMasquer</a></li><li><a href="global.html#compasCercleCentrePoint">compasCercleCentrePoint</a></li><li><a href="global.html#compasCoucher">compasCoucher</a></li><li><a href="global.html#compasDeplacer">compasDeplacer</a></li><li><a href="global.html#compasEcarter">compasEcarter</a></li><li><a href="global.html#compasEcarter2Points">compasEcarter2Points</a></li><li><a href="global.html#compasEcarterAvecRegle">compasEcarterAvecRegle</a></li><li><a href="global.html#compasLever">compasLever</a></li><li><a href="global.html#compasMasquer">compasMasquer</a></li><li><a href="global.html#compasMontrer">compasMontrer</a></li><li><a href="global.html#compasRetourner">compasRetourner</a></li><li><a href="global.html#compasRotation">compasRotation</a></li><li><a href="global.html#compasTracerArc2Angles">compasTracerArc2Angles</a></li><li><a href="global.html#compasTracerArcCentrePoint">compasTracerArcCentrePoint</a></li><li><a href="global.html#compasZoom">compasZoom</a></li><li><a href="global.html#crayonDeplacer">crayonDeplacer</a></li><li><a href="global.html#crayonMasquer">crayonMasquer</a></li><li><a href="global.html#crayonMontrer">crayonMontrer</a></li><li><a href="global.html#crayonRotation">crayonRotation</a></li><li><a href="global.html#deplacer">deplacer</a></li><li><a href="global.html#equerreDeplacer">equerreDeplacer</a></li><li><a href="global.html#equerreMasquer">equerreMasquer</a></li><li><a href="global.html#equerreMontrer">equerreMontrer</a></li><li><a href="global.html#equerreRotation">equerreRotation</a></li><li><a href="global.html#equerreZoom">equerreZoom</a></li><li><a href="global.html#html">html</a></li><li><a href="global.html#htmlBouton">htmlBouton</a></li><li><a href="global.html#masquer">masquer</a></li><li><a href="global.html#mediatriceAuCompas">mediatriceAuCompas</a></li><li><a href="global.html#montrer">montrer</a></li><li><a href="global.html#paralleleRegleEquerre2points3epoint">paralleleRegleEquerre2points3epoint</a></li><li><a href="global.html#parallelogramme2sommetsConsecutifsCentre">parallelogramme2sommetsConsecutifsCentre</a></li><li><a href="global.html#parallelogramme3sommetsConsecutifs">parallelogramme3sommetsConsecutifs</a></li><li><a href="global.html#parallelogrammeAngleCentre">parallelogrammeAngleCentre</a></li><li><a href="global.html#pause">pause</a></li><li><a href="global.html#pointCreer">pointCreer</a></li><li><a href="global.html#pointDeplacer">pointDeplacer</a></li><li><a href="global.html#pointMasquer">pointMasquer</a></li><li><a href="global.html#pointMontrer">pointMontrer</a></li><li><a href="global.html#pointNommer">pointNommer</a></li><li><a href="global.html#pointsCreer">pointsCreer</a></li><li><a href="global.html#polygoneRapide">polygoneRapide</a></li><li><a href="global.html#polygoneTracer">polygoneTracer</a></li><li><a href="global.html#rapporteurCrayonMarqueAngle">rapporteurCrayonMarqueAngle</a></li><li><a href="global.html#rapporteurDeplacer">rapporteurDeplacer</a></li><li><a href="global.html#rapporteurDeplacerRotation2Points">rapporteurDeplacerRotation2Points</a></li><li><a href="global.html#rapporteurMasquer">rapporteurMasquer</a></li><li><a href="global.html#rapporteurMasquerGraduationsExterieures">rapporteurMasquerGraduationsExterieures</a></li><li><a href="global.html#rapporteurMasquerGraduationsInterieures">rapporteurMasquerGraduationsInterieures</a></li><li><a href="global.html#rapporteurMontrer">rapporteurMontrer</a></li><li><a href="global.html#rapporteurMontrerGraduationsExterieures">rapporteurMontrerGraduationsExterieures</a></li><li><a href="global.html#rapporteurMontrerGraduationsInterieures">rapporteurMontrerGraduationsInterieures</a></li><li><a href="global.html#rapporteurRotation">rapporteurRotation</a></li><li><a href="global.html#rapporteurTracerDemiDroiteAngle">rapporteurTracerDemiDroiteAngle</a></li><li><a href="global.html#rapporteurZoom">rapporteurZoom</a></li><li><a href="global.html#regleDemiDroiteOriginePoint">regleDemiDroiteOriginePoint</a></li><li><a href="global.html#regleDeplacer">regleDeplacer</a></li><li><a href="global.html#regleMasquer">regleMasquer</a></li><li><a href="global.html#regleMasquerGraduations">regleMasquerGraduations</a></li><li><a href="global.html#regleModifierLongueur">regleModifierLongueur</a></li><li><a href="global.html#regleMontrer">regleMontrer</a></li><li><a href="global.html#regleMontrerGraduations">regleMontrerGraduations</a></li><li><a href="global.html#regleProlongerSegment">regleProlongerSegment</a></li><li><a href="global.html#regleRotation">regleRotation</a></li><li><a href="global.html#regleSegment">regleSegment</a></li><li><a href="global.html#regleZoom">regleZoom</a></li><li><a href="global.html#requerreDeplacer">requerreDeplacer</a></li><li><a href="global.html#requerreGlisserEquerre">requerreGlisserEquerre</a></li><li><a href="global.html#requerreMasquer">requerreMasquer</a></li><li><a href="global.html#requerreMontrer">requerreMontrer</a></li><li><a href="global.html#requerreRotation">requerreRotation</a></li><li><a href="global.html#requerreZoom">requerreZoom</a></li><li><a href="global.html#rotation">rotation</a></li><li><a href="global.html#script">script</a></li><li><a href="global.html#segmentCodage">segmentCodage</a></li><li><a href="global.html#segmentCodageMasquer">segmentCodageMasquer</a></li><li><a href="global.html#segmentCodageMontrer">segmentCodageMontrer</a></li><li><a href="global.html#textePoint">textePoint</a></li><li><a href="global.html#textePosition">textePosition</a></li><li><a href="global.html#tracer">tracer</a></li><li><a href="global.html#trait">trait</a></li><li><a href="global.html#traitMasquer">traitMasquer</a></li><li><a href="global.html#traitRapide">traitRapide</a></li><li><a href="global.html#triangle1longueur2angles">triangle1longueur2angles</a></li><li><a href="global.html#triangle3longueurs">triangle3longueurs</a></li><li><a href="global.html#triangleEquilateral2Sommets">triangleEquilateral2Sommets</a></li><li><a href="global.html#triangleRectangleCoteHypotenuse">triangleRectangleCoteHypotenuse</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 09 2021 13:39:37 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
