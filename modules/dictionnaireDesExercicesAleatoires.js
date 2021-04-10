@@ -1564,6 +1564,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
         "url": "/exercices/PE/PEA11-1.js"
     },
+    "beta.P011": {
+        "titre": "Construis mon triangle",
+        "url": "/exercices/beta/beta.P011.js"
+    },
     "beta1F10": {
         "titre": "Calculs de dérivés",
         "url": "/exercices/beta/beta1F10.js"
