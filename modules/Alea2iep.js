@@ -1009,6 +1009,7 @@ export default function Alea2iep () {
    * @param {string} texte
    * @param {point} A
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
+   * @return {id}
    */
   this.textePoint = function (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
     this.idIEP++
@@ -1044,6 +1045,7 @@ export default function Alea2iep () {
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
     codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
     this.liste_script.push(codeXML)
+    return this.idIEP
   }
   /**
    * Ecris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
@@ -1054,7 +1056,16 @@ export default function Alea2iep () {
    */
   this.textePosition = function (texte, x, y, options) {
     const A = point(x, y)
-    this.textePoint(texte, A, options)
+    return this.textePoint(texte, A, options)
+  }
+
+  /**
+ * Masque le trait d'id fourni
+ * @param {int} id
+ * @param {objet} options Défaut : { tempo: 0 }
+ */
+  this.texteMasquer = function (id, { tempo = 0 } = {}) {
+    this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${id}"  />`)
   }
 
   /**
