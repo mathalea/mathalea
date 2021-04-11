@@ -1,6 +1,16 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul } from "/modules/outils.js";
-import { mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+import {angleScratchTo2d,orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+/**
+ * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
+ * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
+ * Ref : 6Algo11
+ * Publié le 11/04/2021
+ * @Auteur Jean-Claude Lhote
+ * A faire : ajouter d'autres niveaux avec des boucles, des instructions conditionnelles, des blocs définis...
+ * Ajouter un pion et la correction animée.
+ */
+
 /**
  * Classe NoteLaCouleur (objet Pion) 
  * this.plateau est le tableau des couleurs de cases.
@@ -14,7 +24,7 @@ import { mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tou
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 class NoteLaCouleur {
-  constructor() {
+  constructor(x=15,y=15,orientation=90) {
     this.plateau = [['Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir'],
     ['Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris'],
     ['Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert'],
@@ -25,8 +35,8 @@ class NoteLaCouleur {
     ['Orange', 'Gris', 'Rouge', 'Jaune', 'Noir', 'Vert', 'Rouge', 'Rose', 'Noir', 'Bleu', 'Vert', 'Jaune', 'Orange'],
     ['Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Gris', 'Rose', 'Bleu', 'Rouge', 'Bleu'],
     ['Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Jaune', 'Gris', 'Vert', 'Jaune', 'Noir']];
-    this.currentPos = { x: 15, y: 15 };
-    this.currentOrientation = 90;
+    this.currentPos = { x: x, y: y };
+    this.currentOrientation = orientation;
     this.codeScratch = '';
     this.currentIndex = 0;
     this.nlc = function () {
@@ -116,6 +126,14 @@ class NoteLaCouleur {
             avance(90, lutin)
           }
           break;
+          case 'AV120':
+            [x, y] = avancepion(120, x, y, orientation)
+            latex = `\\blockmove{avancer de \\ovalnum{120} pas}`
+            if (lutin !== undefined) {
+              avance(120, lutin)
+            }
+            break;
+  
         case 'TD90':
           if (orientation == 180) orientation = -90;
           else orientation += 90;
@@ -171,6 +189,7 @@ export default function Note_la_couleur() {
   this.liste_packages = `scratch3`;
   this.sup = true;
   this.sup2=1
+  this.sup3=4
 
 
 
@@ -181,15 +200,18 @@ export default function Note_la_couleur() {
      let j,test
     let objets_enonce, objets_correction, params_enonce, params_correction;
     let commandes_disponibles, sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
-    let pion = new NoteLaCouleur();
-    let lutin = creerLutin()
-  
+     let lutin = creerLutin()
+     let angledepart=choice([90,0,-90,180])
+let xdepart=-195+randint(2,11)*30
+let ydepart=-135+randint(2,7)*30
     mathalea.unitesLutinParCm = 20*30/52
     mathalea.pixelsParCm = 20
     lutin.color = 'green'
     lutin.epaisseur = 3
     lutin.pointilles = 2
-    allerA(15, 15, lutin)
+    allerA(xdepart, ydepart, lutin)
+    orienter(angleScratchTo2d( angledepart),lutin)
+    let pion = new NoteLaCouleur(xdepart,ydepart,angledepart);
     baisseCrayon(lutin)
     objets_enonce = [];
     if (this.sup) {
@@ -200,17 +222,16 @@ export default function Note_la_couleur() {
     }
     let texte = ``;
     let texte_corr = ``;
-    switch (parseInt(this.sup2)) {
+     switch (parseInt(this.sup2)) {
       case 1:
         couleurs = [];
-        nb_couleurs = 4;
+        nb_couleurs = parseInt(this.sup3);
         liste_instructions = []
         nb_instructions = -1
         j = 0;
-        commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD180', 'TD90', 'TG90', 'TG180']]
-        pion.currentPos.x = 15;
-        pion.currentPos.y = 15;
-        pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+        commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90','AV120'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD90', 'TG90', 'TG180']]
+         pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+        pion.codeScratch +=`\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
         pion.currentIndex += pion.codeScratch.length
         while (nb_couleurs > j) {
           sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
@@ -286,4 +307,5 @@ export default function Note_la_couleur() {
   };
   this.besoin_formulaire_case_a_cocher = ['Plateau avec numéros', true]
   this.besoin_formulaire2_numerique = ['Type de programme',1,'1 : Avancer et tourner']
+  this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)',6]
 }
