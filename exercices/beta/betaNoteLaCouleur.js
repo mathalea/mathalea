@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, combinaison_listes, randint, choice } from "/modules/outils.js";
-import { mathalea2d, scratchblock,fond_ecran} from "/modules/2d.js";
+import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul } from "/modules/outils.js";
+import { mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Classe NoteLaCouleur (objet Pion) 
  * this.plateau est le tableau des couleurs de cases.
@@ -68,8 +68,8 @@ class NoteLaCouleur {
      * - son orientation après l'instruction
      * - le code Latex de l'instruction
      */
-    this.testInstruction = function (code) {
-      let avance = function (d, x, y, s) {
+    this.testInstruction = function (code, lutin) {
+      let avancepion = function (d, x, y, s) {
         switch (s) {
           case 0:
           case 360:
@@ -96,40 +96,58 @@ class NoteLaCouleur {
       let latex
       switch (code) {
         case 'AV30':
-          [x, y] = avance(30, x, y, orientation)
+          [x, y] = avancepion(30, x, y, orientation)
           latex = `\\blockmove{avancer de \\ovalnum{30} pas}`
+          if (lutin !== undefined) {
+            avance(30, lutin)
+          }
           break;
         case 'AV60':
-          [x, y] = avance(60, x, y, orientation)
+          [x, y] = avancepion(60, x, y, orientation)
           latex = `\\blockmove{avancer de \\ovalnum{60} pas}`
+          if (lutin !== undefined) {
+            avance(60, lutin)
+          }
           break;
         case 'AV90':
-          [x, y] = avance(90, x, y, orientation)
+          [x, y] = avancepion(90, x, y, orientation)
           latex = `\\blockmove{avancer de \\ovalnum{90} pas}`
+          if (lutin !== undefined) {
+            avance(90, lutin)
+          }
           break;
         case 'TD90':
           if (orientation == 180) orientation = -90;
           else orientation += 90;
           latex = `\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}`
+          if (lutin !== undefined) {
+            tournerD(90, lutin)
+          }
           break;
         case 'TG90':
           if (orientation == -90) orientation = 180;
           else orientation -= 90;
           latex = `\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}`
+          if (lutin !== undefined) {
+            tournerG(90, lutin)
+          }
           break;
         case 'TD180':
         case 'TG180':
           if (orientation == 0) orientation = 180;
-          else if (orientation==-90) orientation = 90;
-          else orientation-=180;
+          else if (orientation == -90) orientation = 90;
+          else orientation -= 180;
           latex = `\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}`
+          if (lutin !== undefined) {
+            tournerD(180, lutin)
+          }
           break;
         case 'NLC':
           latex = `\\blocklist{Note la couleur}`
           break;
       }
       if (this.testCoords(x, y)) {
-        return [true, x, y, orientation, latex]
+        return [true, x, y, orientation, latex, lutin]
       }
       else return [false, this.currentPos.x, this.currentPos.y, this.currentOrientation, latex]
     }
@@ -151,113 +169,121 @@ export default function Note_la_couleur() {
   this.pas_de_version_HMTL = false;
   this.type_exercice = "Scratch";
   this.liste_packages = `scratch3`;
+  this.sup = true;
+  this.sup2=1
 
 
 
   this.nouvelle_version = function () {
-
     this.liste_questions = [];
     this.liste_corrections = [];
     let type_de_questions_disponibles = [1];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-
+     let j,test
     let objets_enonce, objets_correction, params_enonce, params_correction;
-    let commandes_disponibles, sequence,result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
+    let commandes_disponibles, sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
     let pion = new NoteLaCouleur();
-    for (let i = 0, texte, test, j, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-      objets_enonce = [];
-      objets_correction = [fond_ecran("/images/plateauNLC.png",0,-520,640,511)];
-
-      texte = ``;
-      texte_corr = ``;
-      switch (liste_type_de_questions[i]) {
-        case 1:
-          couleurs = [];
-          nb_couleurs = 4;
-          liste_instructions = []
-          nb_instructions = -1
-          j = 0;
-          commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90'], ['TD90','TD90', 'TG90', 'TG90', 'TD180','TD90', 'TG90', 'TG180']]
-          pion.currentPos.x = 15;
-          pion.currentPos.y = 15;
-          pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
-          pion.currentIndex += pion.codeScratch.length
-          while (nb_couleurs > j) {
+    let lutin = creerLutin()
+  
+    mathalea.unitesLutinParCm = 20*30/52
+    mathalea.pixelsParCm = 20
+    lutin.color = 'green'
+    lutin.epaisseur = 3
+    lutin.pointilles = 2
+    allerA(15, 15, lutin)
+    baisseCrayon(lutin)
+    objets_enonce = [];
+    if (this.sup) {
+      objets_correction = [fond_ecran("/images/plateauNLCan.png", -450, -345, 900, 690)];
+    }
+    else {
+      objets_correction = [fond_ecran("/images/plateauNLCsn.png", -450, -345, 900, 690)];
+    }
+    let texte = ``;
+    let texte_corr = ``;
+    switch (parseInt(this.sup2)) {
+      case 1:
+        couleurs = [];
+        nb_couleurs = 4;
+        liste_instructions = []
+        nb_instructions = -1
+        j = 0;
+        commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD180', 'TD90', 'TG90', 'TG180']]
+        pion.currentPos.x = 15;
+        pion.currentPos.y = 15;
+        pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+        pion.currentIndex += pion.codeScratch.length
+        while (nb_couleurs > j) {
+          sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
+          test = pion.testSequence(sequence);
+          while (!test) {
             sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
             test = pion.testSequence(sequence);
-            while (!test) {
-              sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
-              test = pion.testSequence(sequence);
+          }
+          for (let i = 0; i < sequence.length; i++) {
+            instruction = sequence[i]
+            result = pion.testInstruction(instruction, lutin)
+            if (instruction == 'NLC') {
+              liste_instructions.push(instruction)
+              nb_instructions++
+              couleurs.push(pion.nlc());
+              j++;
+              pion.codeScratch += result[4] + '\n';
+              pion.currentIndex += result[4].length + 1
+              lutin = result[5]
             }
-            for (let i = 0; i < sequence.length; i++) {
-              instruction = sequence[i]
-              result=pion.testInstruction(instruction)
-              if (instruction == 'NLC') {
-                liste_instructions.push(instruction)
-                nb_instructions++
-                couleurs.push(pion.nlc());
-                j++;
-                pion.codeScratch += result[4] + '\n';
-                pion.currentIndex += result[4].length + 1
-              }
-              else {
-                nb_instructions++
-                liste_instructions.push(instruction)
-                pion.currentPos.x = result[1];
-                pion.currentPos.y = result[2];
-                pion.currentOrientation = result[3];
-                pion.codeScratch += result[4] + '\n';
-                pion.currentIndex += result[4].length + 1
-              }
+            else {
+              nb_instructions++
+              liste_instructions.push(instruction)
+              pion.currentPos.x = result[1];
+              pion.currentPos.y = result[2];
+              pion.currentOrientation = result[3];
+              pion.codeScratch += result[4] + '\n';
+              pion.currentIndex += result[4].length + 1
+              lutin = result[5]
             }
           }
-          console.log(pion.currentPos.x,pion.currentPos.y)
+        }
 
 
-          break;
+        break;
 
-        case 2:
+      case 2:
 
-          break;
+        break;
 
-        case 3:
+      case 3:
 
-          break;
+        break;
 
-        case 4:
+      case 4:
 
-          break;
+        break;
 
-      }
-      //  objets_enonce.push ();
-      //objets_correction.push();
-
-
-      //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-      params_correction = { xmin: 0, ymin: 0, xmax: 32, ymax: 26, pixelsParCm: 20, scale: 1 };
-      //    texte += mathalea2d(params_enonce, objets_enonce);
-      //  texte_corr += mathalea2d(params_correction, objets_correction);
-      pion.codeScratch += `\\end{scratch}`
-      texte = `<table><tr><td>`
-      +scratchblock(pion.codeScratch)+
-      `</td><td>`
-      +mathalea2d(params_correction,objets_correction)+
-      `</td></tr></table>`
-      texte_corr = 'On obtient la série de couleurs suivante : '
-      texte_corr +=`${couleurs[0]} `;
-      for (let i = 1; i< couleurs.length;i++){
-        texte_corr+=`- ${couleurs[i]} `;
-      }
-      texte_corr+='<br>'+mathalea2d(params_correction,objets_correction)
-      if (this.liste_questions.indexOf(texte) == -1) {
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        i++;
-      }
-      cpt++;
     }
-    liste_de_question_to_contenu(this);
+    //  objets_enonce.push ();
+    //objets_correction.push();
+
+
+    //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
+    params_correction = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 };
+    //    texte += mathalea2d(params_enonce, objets_enonce);
+    //  texte_corr += mathalea2d(params_correction, objets_correction);
+    pion.codeScratch += `\\end{scratch}`
+    texte = `<table><tr><td>`
+      + scratchblock(pion.codeScratch) +
+      `</td><td>`
+      + mathalea2d(params_correction, objets_correction) +
+      `</td></tr></table>`
+    texte_corr = 'On obtient la série de couleurs suivante : '
+    texte_corr += `${couleurs[0]} `;
+    for (let i = 1; i < couleurs.length; i++) {
+      texte_corr += `- ${couleurs[i]} `;
+    }
+    texte_corr += '<br>' + mathalea2d(params_correction, objets_correction, lutin)
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu_sans_numero(this);
   };
-
-
+  this.besoin_formulaire_case_a_cocher = ['Plateau avec numéros', true]
+  this.besoin_formulaire2_numerique = ['Type de programme',1,'1 : Avancer et tourner']
 }

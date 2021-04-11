@@ -15,7 +15,7 @@ export default function Exercice_zero_mathalea2d() {
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
     this.sup=1;
     this.sup2='ABC'
-    this.sup3='3-4-5'
+    this.sup3='3 4 5'
     this.type_exercice = 'IEP'
   
     this.nouvelle_version = function () {
