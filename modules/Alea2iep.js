@@ -159,7 +159,8 @@ export default function Alea2iep () {
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            iepLoad(element, xml, { zoom: true })
+            console.log(element, xml)
+            iepLoad(element, xml, { zoom: true }, (error)=>{console.log(error)})
           } else {
             element.style.display = 'none'
             elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
@@ -1621,7 +1622,7 @@ export default function Alea2iep () {
     this.equerreDeplacer(B)
     this.tracer(c)
     this.equerreMasquer()
-    this.codageAngleDroit(A,B,C)
+    this.codageAngleDroit(A, B, C)
     this.crayonMasquer()
     if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
     this.compasMontrer(A)
@@ -1640,7 +1641,7 @@ export default function Alea2iep () {
     this.crayonMasquer()
     return [A, B, C]
   }
-  
+
   /**
    * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
    *  à partir de la donnée de la longueur d'un côté et de la longueur de l'hypoténuse.
@@ -1681,7 +1682,7 @@ export default function Alea2iep () {
     this.equerreDeplacer(B)
     this.tracer(c)
     this.equerreMasquer()
-    this.codageAngleDroit(A,B,C)
+    this.codageAngleDroit(A, B, C)
     if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} est à ${nombreAvecEspace(BC)} cm de ${B.nom} sur la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -4)
     this.regleMontrer(B)
     this.regleRotation(C)
@@ -1712,7 +1713,7 @@ export default function Alea2iep () {
     const A = point(6, 0)
     const B = pointAdistance(A, AB, angle)
     const D = pointAdistance(A, 5.2, a1 + angle)
-    console.log(a1+angle)
+    console.log(a1 + angle)
     const D2 = pointSurSegment(A, D, 10)
     const D1 = pointSurSegment(D, D2, 0.4)
     const E = pointAdistance(B, 3, 180 - a2 + angle)
@@ -1801,20 +1802,18 @@ export default function Alea2iep () {
     this.segmentCodage(B, C)
     return [A, B, C]
   }
-/**
+  /**
    * Trace un triangle équilatéral à partir de la donnée de la longueur du côté
    * @param {string} NOM
    * @param {number} AB
    * @return {array} [A, B, C]
    */
-  
+
   this.triangleEquilateral = function (NOM, AB) {
     const A = point(6, 0)
     const B = pointAdistance(A, AB, randint(-20, 20))
     const C = rotation(B, A, 60)
-    if (NOM.length !== 3) {
-      description = false
-    } else {
+    if (NOM.length === 3) {
       A.nom = NOM[0]
       B.nom = NOM[1]
       C.nom = NOM[2]
