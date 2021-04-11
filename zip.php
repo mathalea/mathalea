@@ -30,8 +30,8 @@
                     // On nettoie la chaine du formulaire pour éviter les injections
                     $encoded_snip = $_POST['encoded_snip'];
                     $encoded_snip = trim($encoded_snip);
-                    //$encoded_snip = stripslashes($encoded_snip);
-                    //$encoded_snip = htmlspecialchars($encoded_snip);
+                    // $encoded_snip = stripslashes($encoded_snip);
+                    // $encoded_snip = htmlspecialchars($encoded_snip);
 
                     $zip->addFromString("fichier" . time().".tex", $encoded_snip);                   
                     $zip->addFile($thisdir."/automultiplechoice.sty","/automultiplechoice.sty");
@@ -47,9 +47,9 @@
                     header('Content-Length: '.filesize($thisdir.'/'.$filename)); // taille de l'archive
                     header('Pragma: no-cache'); 
                     header('Expires: 0');
-                    header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive pouyr le moment                    
+                    //header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive pouyr le moment                    
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
-                    //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
+                    header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
                     };
 
                   } else {
