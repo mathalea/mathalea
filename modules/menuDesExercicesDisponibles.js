@@ -449,7 +449,12 @@ export function menuDesExercicesDisponibles(){
 	} );
 	
 	function afficher_niveau() {
-		var elem = event.target, evenement;
+		var elem , evenement;
+		if ($(event.target).hasClass('dropdown')) {
+			elem = event.target.parentElement;
+		} else {
+			elem = event.target;
+		}
 		$('.fermer_niveau').trigger('click');
 		$(elem).replaceWith(div_niveau(obj_exercices_disponibles[elem.id],"active",elem.id));
 		$(elem).removeClass("ouvrir_niveau");
@@ -488,8 +493,6 @@ export function menuDesExercicesDisponibles(){
 	$(".fermer_niveau").off("click").on("click",function () {
 		masquer_niveau();
 	});
-	
-
 	
 	//Gestion d'affichage de l'un ou l'autre des modes.
 	$("#mode_choix_liste").off("click").on("click",function () {
