@@ -1082,10 +1082,12 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
             // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-            $("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+            //$("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+            $("input[name=encoded_snip]").val(contenu_fichier);
             if ($("#nom_du_fichier").val()) {
                 $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
             }
+            
         });
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;

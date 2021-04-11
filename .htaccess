@@ -1,0 +1,16 @@
+#--------------------------------------------------
+# Répertoire : ...
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+# Redirection mathalea_amc.html vers mathalea_amc.php
+RewriteRule ^mathalea_amc.html$ mathalea_amc.php
