@@ -156,9 +156,13 @@ export default function Note_la_couleur() {
 
 
   this.nouvelle_version = function () {
-    let nlcToSVG=function(x,y){
-      return [x/37*20,y/37*20]
+    let nlcXtoSVG=function(x){
+      return x*52/600+450/20
     }
+    let nlcYtoSVG=function(y){
+      return y*52/600+340/20
+    }
+
     this.liste_questions = [];
     this.liste_corrections = [];
     let type_de_questions_disponibles = [1];
@@ -168,14 +172,23 @@ export default function Note_la_couleur() {
     let commandes_disponibles, sequence,result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
     let pion = new NoteLaCouleur();
     let lutin=creerLutin()
-    allerA(15,15,lutin)
+    mathalea.unitesLutinParCm = 52/30
+    mathalea.pixelsParCm=20
+    lutin.color='green'
+    lutin.epaisseur=3
+    lutin.pointilles=2
+    allerA(nlcXtoSVG(0),nlcYtoSVG(0),lutin)
+    console.log(nlcXtoSVG(0),nlcYtoSVG(0))
+    baisseCrayon(lutin)
+    allerA(nlcXtoSVG(45),nlcYtoSVG(15),lutin)
+    console.log(nlcXtoSVG(135),nlcYtoSVG(75),lutin)
     for (let i = 0, texte, test, j, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       objets_enonce = [];
       if (this.sup){
-        objets_correction = [fond_ecran("/images/plateauNLCan.png",0,-680,900,680)];
+        objets_correction = [fond_ecran("/images/plateauNLCan.png",0,-690,900,690)];
       }
       else {
-        objets_correction = [fond_ecran("/images/plateauNLCsn.png",0,-680,900,680)];
+        objets_correction = [fond_ecran("/images/plateauNLCsn.png",0,-690,900,690)];
       }
       texte = ``;
       texte_corr = ``;
@@ -243,7 +256,7 @@ export default function Note_la_couleur() {
 
 
       //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-      params_correction = { xmin: 0, ymin: 0, xmax: 45, ymax: 34, pixelsParCm: 20, scale: 1 };
+      params_correction = { xmin: 0, ymin: 0, xmax: 45, ymax: 34.5, pixelsParCm: 20, scale: 1 };
       //    texte += mathalea2d(params_enonce, objets_enonce);
       //  texte_corr += mathalea2d(params_correction, objets_correction);
       pion.codeScratch += `\\end{scratch}`
@@ -257,7 +270,7 @@ export default function Note_la_couleur() {
       for (let i = 1; i< couleurs.length;i++){
         texte_corr+=`- ${couleurs[i]} `;
       }
-      texte_corr+='<br>'+mathalea2d(params_correction,objets_correction)
+      texte_corr+='<br>'+mathalea2d(params_correction,objets_correction,lutin)
       if (this.liste_questions.indexOf(texte) == -1) {
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
