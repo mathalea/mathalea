@@ -8397,7 +8397,10 @@ function ObjetLutin() {
   this.historiquePositions = [];
   this.crayonBaisse = false;
   this.isVisible = true;
-  this.costume = "";
+  this.costume = `<radialGradient id="Ball" cx="29.7275" cy="-13.1396" r="38.5299" gradientUnits="userSpaceOnUse">
+  <stop offset="0" style="stop-color:#FFFF99"/>
+  <stop offset="1" style="stop-color:#FF9400"/>
+</radialGradient> <circle fill="url(#Ball)"  r="22.5" stroke-width="1" `;
   this.listeTraces = []; // [[x0,y0,x1,y1,style]...]
   this.color = "black";
   this.epaisseur = 2;
@@ -8426,7 +8429,18 @@ function ObjetLutin() {
       code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
         coeff
       )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color}" ${style}  />`;
+  }
+  if (this.isVisible){
+    code+=`\n<g>${this.costume} x="${this.listeTraces[0][0]*coeff}" y="${-this.listeTraces[0][1]*coeff}">\n<animateMotion path="M ${this.listeTraces[0][0]*coeff} ${-this.listeTraces[0][1]*coeff} L`;
+    for (let i=0;i<this.listeTraces.length;i++) {
+      let B = point(this.listeTraces[i][2], this.listeTraces[i][3]);
+   code+= ` ${B.xSVG(coeff)} ${B.ySVG(coeff)} `
     }
+    code+= `" 'begin="10s" dur="5s" repeatCount="1"' />;
+    </circle>
+    </g>`;
+}
+  console.log(code)
     return code;
   };
   this.tikz = function () {
