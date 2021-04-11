@@ -9065,8 +9065,6 @@ export function mathalea2d(
     code = `<svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${(ymax - ymin) * pixelsParCm
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
-      console.log(`${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-      } ${(ymax - ymin) * pixelsParCm}`)
     //code += codeSvg(...objets);
     for (let objet of objets) {
       if (Array.isArray(objet)) {
