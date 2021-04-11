@@ -1620,7 +1620,9 @@ export default function Alea2iep () {
     this.equerreDeplacer(B)
     this.tracer(c)
     this.equerreMasquer()
-    if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc C appartient au cercle de centre A et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
+    this.codageAngleDroit(A,B,C)
+    this.crayonMasquer()
+    if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
     this.compasMontrer(A)
     this.compasEcarterAvecRegle(AC)
     this.couleur = 'forestgreen'
@@ -1629,11 +1631,69 @@ export default function Alea2iep () {
     this.couleur = 'blue'
     this.epaisseur = 2
     if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
+    this.crayonMontrer(C)
     this.pointCreer(C)
     this.compasMasquer()
     this.regleSegment(A, C)
     this.regleMasquer()
     this.crayonMasquer()
+    return [A, B, C]
+  }
+  
+  /**
+   * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
+   *  à partir de la donnée de la longueur d'un côté et de la longueur de l'hypoténuse.
+   *  Le premier sommet aura pour coordonnées (6, 0)
+   * @param {string} ABC Une chaine de caractère de 3 lettre
+   * @param {*} AB Distance entre le 1er et le 2e sommet
+   * @param {*} AC Distance entre le 1er et le 3e sommet (hypoténuse)
+   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
+   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
+   */
+  this.triangleRectangle2Cotes = function (ABC, AB, BC, description = true) { // Triangle rectangle en B
+    const A = point(6, 0)
+    const B = pointAdistance(A, AB, randint(-20, 20))
+    const dAB = droite(A, B)
+    dAB.isVisible = false
+    const dBC = droiteParPointEtPerpendiculaire(B, dAB)
+    dBC.isVisible = false
+    const cBC = cercle(B, BC)
+    cBC.isVisible = false
+    const C = pointIntersectionLC(dBC, cBC)
+    const c = homothetie(C, B, 1.2)
+    if (ABC.length !== 3) {
+      description = false
+    } else {
+      A.nom = ABC[0]
+      B.nom = ABC[1]
+      C.nom = ABC[2]
+    }
+
+    if (longueur(A, C) > 8) this.equerreZoom(150)
+    if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
+    this.equerreRotation(dAB.angleAvecHorizontale)
+    this.pointCreer(A)
+    this.regleSegment(A, B)
+    this.pointCreer(B)
+    if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
+    this.equerreMontrer(A)
+    this.equerreDeplacer(B)
+    this.tracer(c)
+    this.equerreMasquer()
+    this.codageAngleDroit(A,B,C)
+    if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} est à ${nombreAvecEspace(BC)} cm de ${B.nom} sur la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -4)
+    this.regleMontrer(B)
+    this.regleRotation(C)
+    this.crayonDeplacer(C)
+    this.pointCreer(C)
+    this.couleur = 'blue'
+    this.epaisseur = 2
+    this.compasMasquer()
+    this.regleSegment(A, C)
+    this.regleMasquer()
+    this.crayonMasquer()
+
+    return [A, B, C]
   }
   /**
    * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (2,0).
@@ -1648,9 +1708,10 @@ export default function Alea2iep () {
     const angle = randint(-20, 20)
     const a1 = BAC
     const a2 = CBA
-    const A = point(2, 0)
+    const A = point(6, 0)
     const B = pointAdistance(A, AB, angle)
     const D = pointAdistance(A, 5.2, a1 + angle)
+    console.log(a1+angle)
     const D2 = pointSurSegment(A, D, 10)
     const D1 = pointSurSegment(D, D2, 0.4)
     const E = pointAdistance(B, 3, 180 - a2 + angle)
@@ -1725,6 +1786,41 @@ export default function Alea2iep () {
     this.traitRapide(A, B)
     this.pointCreer(A, A.nom, 0)
     this.pointCreer(B, B.nom, 0)
+    this.compasEcarter2Points(A, B)
+    this.compasTracerArcCentrePoint(A, C)
+    this.compasTracerArcCentrePoint(B, C)
+    this.pointCreer(C)
+    this.compasMasquer()
+    this.regleSegment(A, C)
+    this.regleSegment(C, B)
+    this.regleMasquer()
+    this.crayonMasquer()
+    this.segmentCodage(A, B)
+    this.segmentCodage(A, C)
+    this.segmentCodage(B, C)
+    return [A, B, C]
+  }
+/**
+   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté
+   * @param {string} NOM
+   * @param {number} AB
+   * @return {array} [A, B, C]
+   */
+  
+  this.triangleEquilateral = function (NOM, AB) {
+    const A = point(6, 0)
+    const B = pointAdistance(A, AB, randint(-20, 20))
+    const C = rotation(B, A, 60)
+    if (NOM.length !== 3) {
+      description = false
+    } else {
+      A.nom = NOM[0]
+      B.nom = NOM[1]
+      C.nom = NOM[2]
+    }
+    this.regleSegment(A, B)
+    this.pointCreer(A)
+    this.pointCreer(B)
     this.compasEcarter2Points(A, B)
     this.compasTracerArcCentrePoint(A, C)
     this.compasTracerArcCentrePoint(B, C)

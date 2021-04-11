@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes, randint, choice } from "/modules/outils.js";
-import { mathalea2d, scratchblock } from "/modules/2d.js";
+import { mathalea2d, scratchblock,fond_ecran} from "/modules/2d.js";
 /**
  * Classe NoteLaCouleur (objet Pion) 
  * this.plateau est le tableau des couleurs de cases.
@@ -166,7 +166,7 @@ export default function Note_la_couleur() {
     let pion = new NoteLaCouleur();
     for (let i = 0, texte, test, j, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       objets_enonce = [];
-      objets_correction = [];
+      objets_correction = [fond_ecran("/images/plateauNLC.png",0,-520,640,511)];
 
       texte = ``;
       texte_corr = ``;
@@ -234,16 +234,21 @@ export default function Note_la_couleur() {
 
 
       //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-      //    params_correction = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 };
+      params_correction = { xmin: 0, ymin: 0, xmax: 32, ymax: 26, pixelsParCm: 20, scale: 1 };
       //    texte += mathalea2d(params_enonce, objets_enonce);
       //  texte_corr += mathalea2d(params_correction, objets_correction);
       pion.codeScratch += `\\end{scratch}`
-      texte = scratchblock(pion.codeScratch);
+      texte = `<table><tr><td>`
+      +scratchblock(pion.codeScratch)+
+      `</td><td>`
+      +mathalea2d(params_correction,objets_correction)+
+      `</td></tr></table>`
       texte_corr = 'On obtient la série de couleurs suivante : '
       texte_corr +=`${couleurs[0]} `;
       for (let i = 1; i< couleurs.length;i++){
         texte_corr+=`- ${couleurs[i]} `;
       }
+      texte_corr+='<br>'+mathalea2d(params_correction,objets_correction)
       if (this.liste_questions.indexOf(texte) == -1) {
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
