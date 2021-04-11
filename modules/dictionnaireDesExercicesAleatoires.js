@@ -948,6 +948,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Programmer des déplacements",
         "url": "/exercices/6e/6Algo10.js"
     },
+    "6Algo11": {
+        "titre": "Note la couleur",
+        "url": "/exercices/6e/6Algo11.js"
+    },
     "6C10": {
         "titre": "Additions, soustractions et multiplications posées de nombres entiers",
         "url": "/exercices/6e/6C10.js"
@@ -1679,10 +1683,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
-    },
-    "betaNoteLaCouleur": {
-        "titre": "Note la couleur",
-        "url": "/exercices/beta/betaNoteLaCouleur.js"
     },
     "betaP011": {
         "titre": "Construis mon triangle",

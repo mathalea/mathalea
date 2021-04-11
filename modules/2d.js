@@ -8367,6 +8367,20 @@ export function angleradian(A, O, B) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+/**
+ * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
+ * Et que le 0 angulaire de 2d est celui du cercle trigonométrique...
+ * @param {number} x angle Scratch 
+ * @returns angle2d
+ */
+export function angleScratchTo2d(x){
+  let angle2d=90-x
+  if (angle2d<-180) {
+     angle2d+=360
+  }
+  return angle2d
+  }
+
 function ObjetLutin() {
   //let mesObjets
   //mesObjets.push(this);
