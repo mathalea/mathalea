@@ -562,7 +562,7 @@ export default function Alea2iep () {
    */
   this.pointDeplacer = function (A, x, y, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
     const B = point(x, y)
-    this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse} />`)
+    this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
   /**
    * Ajoute un label au point
