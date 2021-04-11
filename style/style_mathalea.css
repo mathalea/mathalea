@@ -379,9 +379,14 @@ i.icone_preview {
 	cursor:context-menu;
 }
 
+i.eye, i.minus {
+	cursor:pointer !important;
+}
+
 i.icone_moins, i.icone_up, i.icone_down {
 	display:inline !important;
 	font-size:1em !important;
+	cursor:pointer !important;
 }
 
 body.dragging, body.dragging * {
@@ -398,6 +403,7 @@ body.dragging, body.dragging * {
   display: inline-block;
   cursor: pointer;
 }
+
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
@@ -468,7 +474,7 @@ body.dragging, body.dragging * {
 a.lien_id_exercice {
   text-decoration: none;
   color : black;
-
+  cursor:pointer;
 }
 
 a.lien_id_exercice:hover {
