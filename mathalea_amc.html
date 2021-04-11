@@ -34,6 +34,10 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
+	 <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 
     <!-- Semantic UI-->
     <link
@@ -73,6 +77,10 @@
       crossorigin="anonymous"
     ></script>
 
+  <script type="text/javascript" src="modules/datatables/datatables.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.24/filtering/type-based/accent-neutralise.js"></script>
+  <link rel="stylesheet" href="modules/datatables/jquery.dataTables.min.css" />
+  
     <script>
       // Les variables globales nécessaires aux exercices (pas terrible...)
       window.mathalea = {
@@ -129,13 +137,28 @@
             <!-- <span tooltip='Nombres séparés par des virgules'><input id='choix_des_exercices' type='text' size='50' ></span> -->
             <input id="choix_des_exercices" type="text" />
           </div>
-
+			<div id="choix_exercices_div" data-tooltip="Identifiants des exercices" >
+		<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
+	</div>
           <div id="parametres_generaux"></div>
         </div>
       </div>
 
       <div id="droite" class="ui left aligned segment">
-        <div id="liste_des_exercices"></div>
+        <div id="exercices_disponibles">
+			<h3 class="ui block header">Exercices disponibles 
+				<span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+				<span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
+				<span class="replier" id="replier" > - </span>
+			</h3>
+			</div>
+			<div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+		<div id="liste_des_exercices" >    
+				<!-- Liste mise à jour en JS -->
+		</div>
+			<div id="liste_des_exercices_tableau" >
+			<!-- Liste mise à jour en JS -->
+		</div>
 
         <div class="ui hidden divider"></div>
 

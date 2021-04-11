@@ -1684,6 +1684,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Note la couleur",
         "url": "/exercices/beta/betaNoteLaCouleur.js"
     },
+    "betaP011": {
+        "titre": "Construis mon triangle",
+        "url": "/exercices/beta/betaP011.js"
+    },
     "betaProbabilites": {
         "titre": "Probabilités simples",
         "url": "/exercices/beta/betaProbabilites.js"

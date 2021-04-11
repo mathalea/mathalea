@@ -16,6 +16,94 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
  let type_entete='AMCcodeGrid'
  let format='A4'
 
+ //fonctions de gestion de la liste des exercices cg 04-2021 ****
+	
+	function copier_vers_exercice_form() {
+		//envoie des informations vers le formulaire et déclenchement de l'evt change.
+		var i, liste_tag, liste_tag_length, texte_code, evenement;
+		liste_tag = $('.choix_exercices.valide');
+		liste_tag_length = liste_tag.length;
+		texte_code ="";
+		for (i=0; i < liste_tag_length; i++) {
+			if (i==0) {
+				texte_code += liste_tag[i].textContent;
+			} else {
+				texte_code += ','+liste_tag[i].textContent;
+			}
+		}
+		document.getElementById("choix_des_exercices").value = texte_code;
+		evenement = new Event('change');
+		document.getElementById('choix_des_exercices').dispatchEvent(evenement);
+	}
+	
+	function selectionner_code(elem) {
+		var range, sel;
+		range = document.createRange();
+		range.selectNodeContents(elem);
+		sel = window.getSelection();
+		sel.removeAllRanges();
+		sel.addRange(range);
+	}
+
+	function ajout_handlers_etiquette_exo() {
+		$(".choix_exercices").off("input").on("input", function (e) {
+			gestion_span_choix_exercice(event.target);		
+		});	
+		$(".choix_exercices").off("keyup").on("keyup", function (e) {
+			if( e.which == 9 || e.which == 13) { //validation de l'étiquette sur tab ou entrée.
+				copier_vers_exercice_form();
+				$(".choix_exercices:last").focus();				
+			}
+		});
+		$("#choix_exercices_div").sortable({cancel: 'i',placeholder: "sortableplaceholder",update: function() {copier_vers_exercice_form();}});
+		$('.choix_exercices').off("mousedown").on("mousedown", function() { 
+		//nécessaire car le sortable ne permet plus la sélection des contenteditable une fois activé
+			this.focus();
+			selectionner_code(this);
+		});
+	}
+	
+	function gestion_span_choix_exercice(elem) {
+		//quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
+			let liste_codes_exercices = Object.keys(dictionnaireDesExercicesQCM);
+			if (liste_codes_exercices.indexOf($(event.target).text())>=0 && !$(event.target).hasClass("valide") ) {
+				$(event.target).addClass("valide");
+				if ($(".choix_exercices:last").hasClass("valide")) { //si le dernier élément n'est pas valide on n'en créé pas un nouveau.
+					$(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>');
+				}
+				ajout_handlers_etiquette_exo();
+				//sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
+			} else if (liste_codes_exercices.indexOf($(event.target).text())<0 && $(event.target).hasClass("valide") ) {
+				//si on change le contenteditable et que l'exercice n'est plus un code valide
+				$(event.target).removeClass("valide");
+			}
+	}
+	
+	if (document.getElementById("choix_exercices_div")) {
+		ajout_handlers_etiquette_exo();	
+	}
+	
+	function copier_exercices_form_vers_affichage(exliste) {
+		var tagexercices, liste_length, i, div_exercice;
+		liste_length = exliste.length;
+		tagexercices = "";
+		div_exercice = document.getElementById("choix_exercices_div");
+		if (liste_length>0 && div_exercice) {
+			for (i=0; i<liste_length; i++) {
+				tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`;
+			}		
+		} 
+		tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>`;
+		if (div_exercice) {
+			div_exercice.innerHTML = tagexercices;
+			ajout_handlers_etiquette_exo();
+		}
+	}
+	
+	if (document.getElementById("choix_exercices_div")) {
+		$('#choix_des_exercices').parent().hide()
+	}
+	//********	
  menuDesExercicesQCMDisponibles();
 
     // Mise à jour du formulaire de la liste des exercices
@@ -31,7 +119,8 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             liste_des_exercices = e.target.value.replace(/\s/g, "").replace(";", ",").split(","); // Récupère  la saisie de l'utilisateur
             //en supprimant les espaces et en remplaçant les points-virgules par des virgules.
         }
-        mise_a_jour_de_la_liste_des_exercices();
+        copier_exercices_form_vers_affichage(liste_des_exercices);
+		mise_a_jour_de_la_liste_des_exercices();
     });
 
     function mise_a_jour_du_code() {
@@ -97,22 +186,22 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                 });
             }
         })();
- //mise en évidence des exercices sélectionnés.
- $(".exerciceactif").removeClass("exerciceactif");
- for (let i = 0; i < liste_des_exercices.length; i++) {
-     $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
-     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-     if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
-         // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-         let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-         let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
-         $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-     } else {
-         let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-         let txt = ancienTexte.split('✖︎')[0]
-         $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-     }
- }
+			//mise en évidence des exercices sélectionnés.
+			$(".exerciceactif").removeClass("exerciceactif");
+			for (let i = 0; i < liste_des_exercices.length; i++) {
+				$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass("exerciceactif");
+				// Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
+				if (compteOccurences(liste_des_exercices,liste_des_exercices[i])>1) {
+					// Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+					let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+					let txt = ancienTexte.split('✖︎')[0]+` ✖︎ ${compteOccurences(liste_des_exercices,liste_des_exercices[i])}`
+					$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+				} else {
+					let ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
+					let txt = ancienTexte.split('✖︎')[0]
+					$(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
+				}
+			}
             // Sortie LaTeX quoi qu'il advienne !
             // code pour la sortie LaTeX
 
@@ -202,8 +291,56 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                 }*/
             });
 
-   
-    }
+    //cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.				
+			
+		function supprimerExo(num) {
+			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
+			liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, "").replace(";", ",").split(",");
+			num = parseInt(num);
+			liste_des_exercices.splice(num,1);
+			form_choix_des_exercices.value = liste_des_exercices.toString();
+			copier_exercices_form_vers_affichage(liste_des_exercices);
+			mise_a_jour_de_la_liste_des_exercices();
+		}
+		
+		$(".icone_moins").off("click").on("click", function (e) {
+			supprimerExo(event.target.id);
+		});
+		
+		function monterExo (num) {
+			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
+			liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, "").replace(";", ",").split(",");
+			num = parseInt(num);
+			if (num != 0) {
+				[liste_des_exercices[num-1], liste_des_exercices[num]] = [liste_des_exercices[num], liste_des_exercices[num-1]];
+				form_choix_des_exercices.value = liste_des_exercices.toString();
+				copier_exercices_form_vers_affichage(liste_des_exercices);
+				mise_a_jour_de_la_liste_des_exercices();
+			}
+		}
+		
+		$(".icone_up").off("click").on("click", function (e) {
+			monterExo(event.target.id);
+		});
+		
+		function descendreExo (num) {
+			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
+			liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, "").replace(";", ",").split(",");
+			num = parseInt(num);
+			if (num != liste_des_exercices.length-1) {
+				[liste_des_exercices[num], liste_des_exercices[num+1]] = [liste_des_exercices[num+1], liste_des_exercices[num]];
+				form_choix_des_exercices.value = liste_des_exercices.toString();
+				copier_exercices_form_vers_affichage(liste_des_exercices);
+				mise_a_jour_de_la_liste_des_exercices();
+			}
+		}
+					
+		$(".icone_down").off("click").on("click", function (e) {
+			descendreExo(event.target.id);
+		});
+		//****************
+    
+	}
 
     /**
      * Fonction à lancer une fois que la liste des exercices a été mise à jour.
@@ -213,13 +350,21 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
      * Enfin, elle délègue à mise_a_jour du code l'affichage
      *
      */
-    function mise_a_jour_de_la_liste_des_exercices() {
-        let besoinXCas = false
-        mathalea.listeDesScriptsCharges = [];
+    function mise_a_jour_de_la_liste_des_exercices(preview) {
+        let besoinXCas = false;
+        let liste_exercices;
+		mathalea.listeDesScriptsCharges = [];
         let promises = [];
-        for (let i = 0, id; i < liste_des_exercices.length; i++) {
-            id = liste_des_exercices[i];
-            let url;
+        listeObjetsExercice = [];
+		liste_des_exercices = document.getElementById("choix_des_exercices").value.replace(/\s/g, "").replace(";", ",").split(",");
+		if (preview) {
+			liste_exercices = [preview];
+		} else {
+			liste_exercices = liste_des_exercices;
+		}
+		for (let i = 0, id; i < liste_exercices.length; i++) {
+            id = liste_exercices[i];
+			let url;
             try {
                 url = dictionnaireDesExercicesQCM[id].url;
             } catch (error) {
@@ -229,7 +374,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             promises.push(
                 import(url).catch((error) => {
  
-    console.log(error)
+					console.log(error)
                         listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: "", contenu_correction: "" }; // Un exercice vide pour l'exercice qui n'existe pas
                     })
                     .then((module) => {
@@ -245,59 +390,64 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         }
         Promise.all(promises)
             .then(() => {
-                parametres_exercice(listeObjetsExercice);
+                if (!preview) {
+					parametres_exercice(listeObjetsExercice);
+				}
             })
             .then(() => {
-                                // Récupère les paramètres passés dans l'URL
-                                let urlVars = getUrlVars();
-                                //trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-                                //	=> évite les erreurs lors de la suppression de question dans la liste.
-                                for (var i = 0; i < urlVars.length; i++) {
-                                    if (urlVars[i].id != liste_des_exercices[i]) {
-                                        urlVars.splice(i,1);
-                                    }	
-                                }
-                for (let i = 0; i < urlVars.length; i++) {
-                    // récupère les éventuels paramètres dans l'URL
-                    // et les recopie dans les formulaires des paramètres
-                    if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
-                        listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions;
-                        form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
-                    }
-                       if (typeof urlVars[i].sup !== 'undefined') {
-                        listeObjetsExercice[i].sup = urlVars[i].sup;
-                        // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
-                        try {
-                            
-                            form_sup[i].value = listeObjetsExercice[i].sup;
-                        } catch {
-                        }
-                    }
-                    if (typeof urlVars[i].sup2 !== 'undefined') {
-                        listeObjetsExercice[i].sup2 = urlVars[i].sup2;
-                        try {
-                            form_sup2[i].value = listeObjetsExercice[i].sup2;
-                        } catch (error) {
-                        }
-                    }
-                    if (typeof urlVars[i].sup3 !== 'undefined') {
-                        listeObjetsExercice[i].sup3 = urlVars[i].sup3;
-                        try {
-                            form_sup3[i].value = listeObjetsExercice[i].sup3;
-                        } catch (error) {
-                            
-                        }
-                    }
-                    if (typeof urlVars[i].ModeQCM !== 'undefined') {
-                        listeObjetsExercice[i].ModeQCM = urlVars[i].ModeQCM;
-                        try {
-                            form_ModeQCM[i].value = listeObjetsExercice[i].ModeQCM;
-                        } catch (error) {
-                            
-                        }
-                    }
-                    
-                }
+                if (!preview) {
+					// Récupère les paramètres passés dans l'URL
+					let urlVars = getUrlVars();
+					//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+					//	=> évite les erreurs lors de la suppression de question dans la liste.
+					for (var i = 0; i < urlVars.length; i++) {
+						if (urlVars[i].id != listeObjetsExercice[i]) {
+							urlVars.splice(i,1);
+						}	
+					}
+					for (let i = 0; i < urlVars.length; i++) {
+						// récupère les éventuels paramètres dans l'URL
+						// et les recopie dans les formulaires des paramètres
+						
+						if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
+							listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions;
+							form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
+						}
+						if (typeof urlVars[i].sup !== 'undefined') {
+							listeObjetsExercice[i].sup = urlVars[i].sup;
+							// Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+							try {
+								
+								form_sup[i].value = listeObjetsExercice[i].sup;
+							} catch {
+							}
+						}
+						if (typeof urlVars[i].sup2 !== 'undefined') {
+							listeObjetsExercice[i].sup2 = urlVars[i].sup2;
+							try {
+								form_sup2[i].value = listeObjetsExercice[i].sup2;
+							} catch (error) {
+							}
+						}
+						if (typeof urlVars[i].sup3 !== 'undefined') {
+							listeObjetsExercice[i].sup3 = urlVars[i].sup3;
+							try {
+								form_sup3[i].value = listeObjetsExercice[i].sup3;
+							} catch (error) {
+								
+							}
+						}
+						if (typeof urlVars[i].ModeQCM !== 'undefined') {
+							listeObjetsExercice[i].ModeQCM = urlVars[i].ModeQCM;
+							try {
+								form_ModeQCM[i].value = listeObjetsExercice[i].ModeQCM;
+							} catch (error) {
+								
+							}
+						}
+						
+					}
+				}
             })
             .then(() => {
                 if (besoinXCas){
@@ -320,7 +470,32 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                     }
             })
             .then(() => {
-                mise_a_jour_du_code();
+                if (preview) {
+					let output = sortie_html; 
+					sortie_html = true; //pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+					try {
+                        listeObjetsExercice[0].nouvelle_version(0);
+                    } catch (error) {
+                        console.log(error);
+                    }
+					sortie_html = output;
+					$("#popup_preview").html(listeObjetsExercice[0].contenu);
+					renderMathInElement(document.body, {
+						delimiters: [
+						{ left: "\\[", right: "\\]", display: true },
+						{ left: "$", right: "$", display: false },
+						],
+						throwOnError: true,
+						errorColor: "#CC0000",
+						strict: "warn",
+						trust: false,
+					});
+					$(".popup").addClass("show");
+					$(".popuptext").css({top: document.documentElement.scrollTop -20});
+					$(".popuptext").show();					
+				} else {
+					mise_a_jour_du_code();
+				}
             });
     }
 
@@ -370,8 +545,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
     // FIN DE GESTION DE MG32
 
     // Gestion des paramètres
-    let div = document.getElementById("div_code_LaTeX"); // Récupère le div dans lequel le code va être affiché
-    let div_parametres_generaux = document.getElementById("parametres_generaux"); // Récupère le div dans lequel seront inscrit les paramètres
+    let div = document.getElementById("div_code_LaTeX"); // Récupère le div dans lequel le code va être affiché  
     let form_nb_questions = [],
         form_sup = [],
         form_sup2 = [],
@@ -385,7 +559,8 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         espacement et espacement dans le corrigé.
         Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX est mis à jour
         */
-        div_parametres_generaux.innerHTML = ""; // Vide le div parametres_generaux
+		let div_parametres_generaux = document.getElementById("parametres_generaux"); // Récupère le div dans lequel seront inscrit les paramètres
+		div_parametres_generaux.innerHTML = ""; // Vide le div parametres_generaux
         if (exercice.length > 0) {
             div_parametres_generaux.innerHTML += '<div class="ui hidden divider"></div>';
 
@@ -395,7 +570,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
         for (let i = 0; i < exercice.length; i++) {
             exercice[i].ModeQCM=true
-                div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + " : " + exercice[i].titre + "</h4>";
+                div_parametres_generaux.innerHTML += `<h4 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>Exercice n°` + (i + 1) + " : " + exercice[i].titre + "</h4>";
 
                 if (exercice[i].consigne_modifiable) {
                     div_parametres_generaux.innerHTML += '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>';
@@ -920,11 +1095,27 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         }
         let urlVars = getUrlVars();
         if (urlVars.length > 0) {
-            for (let i = 0; i < urlVars.length; i++) {
+            liste_des_exercices =[];
+			for (let i = 0; i < urlVars.length; i++) {
                 liste_des_exercices.push(urlVars[i].id);
             }
             form_choix_des_exercices.value = liste_des_exercices.join(",");
-            mise_a_jour_de_la_liste_des_exercices();
+            copier_exercices_form_vers_affichage(liste_des_exercices);
+			mise_a_jour_de_la_liste_des_exercices();
         }
     });
+	//handlers pour la prévisualisation des exercices cg 04-20201
+    $(".icone_preview").off("click").on("click", function (e) {
+		if ($(".popuptext").is(":visible")) {
+			$(".popuptext").hide();  
+		} else {
+			mise_a_jour_de_la_liste_des_exercices(event.target.id)
+		}
+	});
+	$(".popuptext").off("click").on("click", function (e) {
+		$(".popuptext").hide();
+	});
+	$(document).click(function(event) { 
+			$(".popuptext").hide();
+	});
 })();
