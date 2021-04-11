@@ -5,7 +5,7 @@
                     
                     $zip = new ZipArchive();
                     $thisdir = "./fichierszip";
-                    $filename = "test".time().".zip";
+                    $filename = "CoopmathsAMC".time().".zip";
 
                     // On supprime tout ce qui a plus de 1 minute
                     $sec = 60; // Nombre de secondes                      
@@ -48,8 +48,8 @@
                     header('Pragma: no-cache'); 
                     header('Expires: 0');
                     //header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive pouyr le moment                    
-                    //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
-                    header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
+                    header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
+                    //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
                     };
 
                   } else {
