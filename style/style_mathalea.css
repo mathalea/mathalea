@@ -251,6 +251,19 @@ div#gauche
   position: relative;
 }
 
+#liste_des_exercices {
+	line-height: 0.7;	
+}
+
+#choix_exercices_menu {
+	position: -webkit-sticky; 
+	position: sticky;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+	top: 0;
+}
+
 #liste_des_exercices ol li:before {
   color: #f15929;
   content: counter(list) ".";
@@ -300,6 +313,158 @@ div#gauche
   opacity: 0.4;
 }
 
+.sortableplaceholder {
+  display: inline-block;
+  width: 80px;
+  height:20px;
+  border: 1px solid #eee;
+  background-color:#f15929;
+  opacity:0.3;
+}
+
+#recherche {
+    width: 100%;
+    clear: both;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#recherche input {
+    width: 60%;
+    padding: 2px;
+    margin-left: 20px;
+}
+
+#replier {
+	margin-left: 50px;
+	font-size: xx-large;
+	font-style: bold;
+	cursor:pointer;
+}
+
+#choix_exercices_div {
+	display:inline-block;
+	width:90%;
+	border-style:solid;
+	border-color: #eee;
+    border-width: 1px;
+	padding:5px;
+	margin:5px;
+}
+
+div.choix_exo {
+	display: inline;
+}
+span.choix_exercices {
+	border-radius:10px;
+	display: inline-block;
+    width: 100px;
+    padding: 3px;
+    padding-left: 10px;
+	padding-right: 10px;
+	border-style:solid;
+	border-color: #eee;
+    border-width: 1px;
+	text-align:center;
+}
+
+span.choix_exercices.valide {
+	background-color: #f15929;
+    color: white;
+	width: auto;
+	cursor:pointer;
+}
+
+i.icone_preview {
+	margin-left: 10px;
+	cursor:context-menu;
+}
+
+i.icone_moins, i.icone_up, i.icone_down {
+	display:inline !important;
+	font-size:1em !important;
+}
+
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  min-width:400px;
+  display: inline-block;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  margin-left: -80px;
+  padding:10px;
+  text-align:left;
+  line-height: 1.2;
+}
+
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+  padding:10px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+.mode_choix {
+	margin-left: 50px;
+	cursor:pointer;
+	background-color: white;
+    text-align: center;
+    color: #f15929;
+    border-radius: 20px;
+    padding: 5px;
+	white-space:nowrap;
+}
+
+}
+.colonnecode {
+	width:20px !important;
+}
+
 a.lien_id_exercice {
   text-decoration: none;
   color : black;
@@ -313,6 +478,7 @@ a.lien_id_exercice:hover {
 
 a.lien_id_exercice.exerciceactif {
   font-weight: bold;
+  margin-right:10px;
 }
 
 [data-tooltip]:after

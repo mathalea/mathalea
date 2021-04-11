@@ -1,8 +1,9 @@
 /* global mathalea sortie_html est_diaporama renderMathInElement scratchblocks iepLoad Clipboard Prism fetch mtg32App mtgLoad QRCode MG32_tableau_de_figures Module $  */
 
-import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube, compteOccurences } from './modules/outils.js'
+import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules/menuDesExercicesDisponibles.js'
+import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo  } from './modules/menuDesExercicesDisponibles.js'
+
 
 (function () {
   // IIFE principal
@@ -11,13 +12,96 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
   let liste_des_exercices = [] // Liste des identifiants des exercices
   let code_LaTeX = ''
   let liste_packages = new Set()
+  // création des figures MG32 (géométrie dynamique)
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
-
-  // création des figures MG32 (géométrie dynamique)
-
   menuDesExercicesDisponibles()
-
+  //fonctions de gestion de la liste des exercices cg 04-2021 ****
+	
+  function copier_vers_exercice_form() {
+  	//envoie des informations vers le formulaire et déclenchement de l'evt change.
+  	var i, liste_tag, liste_tag_length, texte_code, evenement;
+  	liste_tag = $('.choix_exercices.valide');
+  	liste_tag_length = liste_tag.length;
+  	texte_code ="";
+  	for (i=0; i < liste_tag_length; i++) {
+  		if (i==0) {
+  			texte_code += liste_tag[i].textContent;
+  		} else {
+  			texte_code += ','+liste_tag[i].textContent;
+  		}
+  	}
+  	document.getElementById("choix_des_exercices").value = texte_code;
+  	evenement = new Event('change');
+  	document.getElementById('choix_des_exercices').dispatchEvent(evenement);
+  }
+  
+  function selectionner_code(elem) {
+  	var range, sel;
+  	range = document.createRange();
+  	range.selectNodeContents(elem);
+  	sel = window.getSelection();
+  	sel.removeAllRanges();
+  	sel.addRange(range);
+  }
+  
+  function ajout_handlers_etiquette_exo() {
+  	$(".choix_exercices").off("input").on("input", function (e) {
+  		gestion_span_choix_exercice(event.target);		
+  	});	
+  	$(".choix_exercices").off("keyup").on("keyup", function (e) {
+  		if( e.which == 9 || e.which == 13) { //validation de l'étiquette sur tab ou entrée.
+  			copier_vers_exercice_form();
+  			$(".choix_exercices:last").focus();				
+  		}
+  	});
+  	$("#choix_exercices_div").sortable({cancel: 'i',placeholder: "sortableplaceholder",update: function() {copier_vers_exercice_form();}});
+  	$('.choix_exercices').off("mousedown").on("mousedown", function() { 
+  	//nécessaire car le sortable ne permet plus la sélection des contenteditable une fois activé
+  		this.focus();
+  		selectionner_code(this);
+  	});
+  }
+  
+  function gestion_span_choix_exercice(elem) {
+  	//quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
+  		let liste_codes_exercices = Object.keys(dictionnaireDesExercices);
+  		if (liste_codes_exercices.indexOf($(event.target).text())>=0 && !$(event.target).hasClass("valide") ) {
+  			$(event.target).addClass("valide");
+  			if ($(".choix_exercices:last").hasClass("valide")) { //si le dernier élément n'est pas valide on n'en créé pas un nouveau.
+  				$(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>');
+  			}
+  			ajout_handlers_etiquette_exo();
+  			//sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
+  		} else if (liste_codes_exercices.indexOf($(event.target).text())<0 && $(event.target).hasClass("valide") ) {
+  			//si on change le contenteditable et que l'exercice n'est plus un code valide
+  			$(event.target).removeClass("valide");
+  		}
+  }
+  
+  if (document.getElementById("choix_exercices_div")) {
+  	ajout_handlers_etiquette_exo();	
+  }
+  
+  function copier_exercices_form_vers_affichage(exliste) {
+  	var tagexercices, liste_length, i, div_exercice;
+  	liste_length = exliste.length;
+  	tagexercices = "";
+  	div_exercice = document.getElementById("choix_exercices_div");
+  	if (liste_length>0 && div_exercice) {
+  		for (i=0; i<liste_length; i++) {
+  			tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`;
+  		}		
+  	} 
+  	tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>`; //ajout du <br> pour alignement dans firefox
+  	if (div_exercice) {
+  		div_exercice.innerHTML = tagexercices;
+  		ajout_handlers_etiquette_exo();
+  	}
+  }
+  
+  //********	
+	
   // Mise à jour du formulaire de la liste des exercices
   const form_choix_des_exercices = document.getElementById('choix_des_exercices')
   form_choix_des_exercices.addEventListener('change', function (e) {
@@ -31,9 +115,141 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
       liste_des_exercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
       // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
     }
+	copier_exercices_form_vers_affichage(liste_des_exercices);
     mise_a_jour_de_la_liste_des_exercices()
   })
 
+  if (document.getElementById("choix_exercices_div")) {
+		$('#choix_des_exercices').parent().hide()
+  }
+  
+  function gestion_modules(isdiaporama,listeObjetsExercice) { // besoin katex, iep, scratch
+			renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "\\[", right: "\\]", display: true },
+                    { left: "$", right: "$", display: false },
+                ],
+                throwOnError: true,
+                errorColor: "#CC0000",
+                strict: "warn",
+                trust: false,
+            });
+			$(".katexPopup").popup({
+                popup: ".special.popup",
+                on: "hover",
+                variation: "inverted",
+                inline: true,
+              }); 
+			let besoinScratch = false;
+			let besoinIEP = false;
+            let besoinMG32 = false;
+              for (let i = 0; i < listeObjetsExercice.length; i++) {
+                if (listeObjetsExercice[i].type_exercice == "MG32") {
+					besoinMG32 = true
+				}
+              }
+              if (besoinMG32){
+                loadScript("https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js")
+                .then(()=>{
+                    //Ajoute figures MG32
+                    for (let i = 0; i < listeObjetsExercice.length; i++) {
+                        if (listeObjetsExercice[i].type_exercice == "MG32") {
+                          MG32_ajouter_figure(i);
+                        }
+                      }
+                      MG32_tracer_toutes_les_figures();
+                })
+              }
+			for (let i = 0; i < listeObjetsExercice.length; i++) {			
+                 if (listeObjetsExercice[i].type_exercice == "Scratch") {
+                    besoinScratch = true
+                }
+                if (listeObjetsExercice[i].type_exercice == "IEP") {
+                    besoinIEP = true
+                }
+			}
+            if (besoinScratch) {
+				loadScript("include/scratchblocks-v3.5-min.js")
+                .then(() => {
+                    scratchTraductionFr();
+                    scratchblocks.renderMatching("pre.blocks", {
+                        style: "scratch3",
+                        languages: ["fr"],
+                    });
+                    scratchblocks.renderMatching("code.b", {
+                        inline: true,
+                        style: "scratch3",
+                        languages: ["fr"],
+                    });
+                    mathalea.listeDesScriptsCharges.push('Scratch')
+                })
+			}
+			if (besoinIEP) {
+				loadScript("https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js")
+                .then(() => {
+                    for (const id of window.listeAnimationsIepACharger) {
+                            const element = document.getElementById(`IEPContainer${id}`)
+                            const elementBtn = document.getElementById(`btnAnimation${id}`)
+                            const xml = window.listeScriptsIep[id]
+                            iepLoad(element, xml, { zoom: true, autostart: false })
+						//2021-04 autostart semble non fonctionnel
+					}
+                })
+			}
+  	}
+
+	function contenu_exercice_html(obj,num_exercice,isdiaporama) {
+		var contenu_un_exercice ='', contenu_une_correction='';
+		if (isdiaporama) {
+			contenu_un_exercice += `<section class="slider single-item" id="diaporama">`
+			for (let question of obj.liste_questions) {
+				contenu_un_exercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+			}
+			contenu_un_exercice += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
+			if (obj.type_exercice == "MG32") {
+				contenu_un_exercice += `<div id="MG32div${num_exercice-1}" class="MG32"></div>`;
+			}
+			contenu_une_correction += obj.contenu_correction;
+			if (obj.type_exercice == "MG32" && obj.MG32codeBase64corr) {
+				contenuDesCorrections += `<div id="MG32divcorr${num_exercice-1}" class="MG32"></div>`;
+			}
+		}
+		if (!isdiaporama) {
+			if (obj.type_exercice == "dnb") {
+                contenu_un_exercice += ` Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`;
+                     contenu_un_exercice += `<img width="90%" src="${obj.png}">`
+					contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice},'${num_exercice-1}')</h3>`;
+					contenu_une_correction += `<img width="90%" src="${obj.pngcor}">`
+					obj.video = false
+				} else {
+					try {
+						obj.nouvelle_version(num_exercice-1);
+					} catch (error) {
+						console.log(error);
+					}
+					contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id}</h3>`;
+					if (obj.video.length > 3) {
+						contenu_un_exercice += `<div id=video${num_exercice-1}>` + modal_youtube(num_exercice-1, obj.video, '', "Aide", "youtube") + `</div>`;
+					}
+					if (obj.bouton_aide) {
+						contenu_un_exercice += `<div id=aide${num_exercice-1}> ${obj.bouton_aide}</div>`;
+					}
+					contenu_un_exercice += obj.contenu;
+					if (obj.type_exercice == "MG32") {
+						contenu_un_exercice += `<div id="MG32div${num_exercice-1}" class="MG32"></div>`;
+					}
+					contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice}</h3>`;
+					contenu_une_correction += obj.contenu_correction;
+					if (obj.type_exercice == "MG32" && obj.MG32codeBase64corr) {
+						contenu_une_correction += `<div id="MG32divcorr${num_exercice-1}" class="MG32"></div>`;
+					}
+				}			
+		}
+		return {contenu_un_exercice : contenu_un_exercice,
+			contenu_une_correction: contenu_une_correction}
+	}
+	
+	
   function mise_a_jour_du_code () {
     window.MG32_tableau_de_figures = []
     // Fixe la graine pour les fonctions aléatoires
@@ -45,7 +261,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
         startsWithLowerCase: false
       })
       // Saisi le numéro de série dans le formulaire
-      document.getElementById('form_serie').value = mathalea.graine
+      if (document.getElementById("form_serie")) { //pas de formulaire existant si premier preview
+		document.getElementById("form_serie").value = mathalea.graine;
+	  }
     }
     // Contrôle l'aléatoire grâce à SeedRandom
     Math.seedrandom(mathalea.graine);
@@ -70,373 +288,188 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
           fin_de_l_URL += `,nb_questions=${listeObjetsExercice[0].nb_questions}`
         }
         if (listeObjetsExercice[0].video.length > 1) {
-          fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`
-        }
-
-        for (let i = 1; i < liste_des_exercices.length; i++) {
-          fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
-          if (typeof listeObjetsExercice[i].sup !== 'undefined') {
-            fin_de_l_URL += `,sup=${listeObjetsExercice[i].sup}`
-          }
-          if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
-            fin_de_l_URL += `,sup2=${listeObjetsExercice[i].sup2}`
-          }
-          if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
-            fin_de_l_URL += `,sup3=${listeObjetsExercice[i].sup3}`
-          }
-          if (listeObjetsExercice[i].nb_questions_modifiable) {
-            fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`
-          }
-          if (listeObjetsExercice[i].video.length > 1) {
-            fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`
-          }
-        }
-        if (typeof mathalea.duree !== 'undefined') {
-          fin_de_l_URL += `&duree=${mathalea.duree}`
-        }
-        fin_de_l_URL += `&serie=${mathalea.graine}`
-        window.history.pushState('', '', fin_de_l_URL)
-        const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
-        new Clipboard('.url', {
-          text: function () {
-            return url
-          }
-        })
-      }
-    })()
-    // mise en évidence des exercices sélectionnés.
-    $('.exerciceactif').removeClass('exerciceactif')
-    for (let i = 0; i < liste_des_exercices.length; i++) {
-      $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass('exerciceactif')
-      // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-      if (compteOccurences(liste_des_exercices, liste_des_exercices[i]) > 1) {
-        // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-        const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-        const txt = ancienTexte.split('✖︎')[0] + ` ✖︎ ${compteOccurences(liste_des_exercices, liste_des_exercices[i])}`
-        $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-      } else {
-        const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-        const txt = ancienTexte.split('✖︎')[0]
-        $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-      }
+                    fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`;
     }
-
-    if (sortie_html && est_diaporama) {
-      if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
-        $('#liste_des_exercices').hide()
-        $('#parametres_generaux').show()
-      } else {
-        $('#liste_des_exercices').show()
-        $('h3').show()
-        $('#formulaire_choix_de_la_duree').show()
-      }
-      document.getElementById('exercices').innerHTML = ''
-      document.getElementById('corrections').innerHTML = ''
-      let contenuDesExercices = ''
-      let contenuDesCorrections = ''
-      if (liste_des_exercices.length > 0) {
-        for (let i = 0; i < liste_des_exercices.length; i++) {
-          listeObjetsExercice[i].id = liste_des_exercices[i]
-          try {
-            listeObjetsExercice[i].nouvelle_version(i)
-          } catch (error) {
-            console.log(error)
-          }
-
-          contenuDesExercices += '<section class="slider single-item" id="diaporama">'
-          for (const question of listeObjetsExercice[i].liste_questions) {
-            contenuDesExercices += `\n<div id="question_diap" style="font-size:${listeObjetsExercice[i].tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-          }
-          contenuDesExercices += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
-          if (listeObjetsExercice[i].type_exercice === 'MG32') {
-            contenuDesExercices += `<div id="MG32div${i}" class="MG32"></div>`
-          }
-          contenuDesCorrections += listeObjetsExercice[i].contenu_correction
-          if (listeObjetsExercice[i].type_exercice === 'MG32' && listeObjetsExercice[i].MG32codeBase64corr) {
-            contenuDesCorrections += `<div id="MG32divcorr${i}" class="MG32"></div>`
-          }
-        }
-        contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
-        $('#message_liste_exercice_vide').hide()
-        $('#cache').dimmer('hide')
-      } else {
-        $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
-        $('#cache').dimmer('show') // Cache au dessus du code LaTeX
-      }
-
-      document.getElementById('exercices').innerHTML = contenuDesExercices
-      document.getElementById('corrections').innerHTML = contenuDesCorrections
-      // KaTeX
-      renderMathInElement(document.body, {
-        delimiters: [
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false }
-        ],
-        throwOnError: true,
-        errorColor: '#CC0000',
-        strict: 'warn',
-        trust: false
-      })
-      let besoinMG32 = false
-      let besoinScratch = false
-      let besoinIEP = false
-      for (let i = 0; i < liste_des_exercices.length; i++) {
-        if (listeObjetsExercice[i].type_exercice === 'MG32') {
-          besoinMG32 = true
-        }
-        if (listeObjetsExercice[i].type_exercice === 'Scratch') {
-          besoinScratch = true
-        }
-        if (listeObjetsExercice[i].type_exercice === 'IEP') {
-          besoinIEP = true
-        }
-      }
-      if (besoinMG32) {
-        loadScript('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js')
-          .then(() => {
-            // Ajoute figures MG32
-            for (let i = 0; i < liste_des_exercices.length; i++) {
-              if (listeObjetsExercice[i].type_exercice === 'MG32') {
-                MG32_ajouter_figure(i)
-              }
+                for (let i = 1; i < liste_des_exercices.length; i++) {
+                    fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
+                    if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+                        fin_de_l_URL += `,sup=${listeObjetsExercice[i].sup}`;
+                    }
+                    if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+                        fin_de_l_URL += `,sup2=${listeObjetsExercice[i].sup2}`;
+                    }
+                    if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
+                        fin_de_l_URL += `,sup3=${listeObjetsExercice[i].sup3}`;
+                    }
+                    if (listeObjetsExercice[i].nb_questions_modifiable) {
+                        fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`;
+                    }
+                    if (listeObjetsExercice[i].video.length > 1) {
+                        fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`;
+                    }
+                }
+                if (typeof mathalea.duree !== 'undefined') {
+                    fin_de_l_URL += `&duree=${mathalea.duree}`
+                }
+                fin_de_l_URL += `&serie=${mathalea.graine}`;
+                window.history.pushState("", "", fin_de_l_URL);
+                let url = window.location.href.split("&serie")[0]; //met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
+                new Clipboard(".url", {
+                    text: function () {
+                        return url;
+                    },
+                });
             }
-            MG32_tracer_toutes_les_figures()
-          })
-      }
-      if (besoinScratch) {
-        loadScript('include/scratchblocks-v3.5-min.js')
-          .then(() => {
-            scratchTraductionFr()
-            scratchblocks.renderMatching('pre.blocks', {
-              style: 'scratch3',
-              languages: ['fr']
-            })
-            scratchblocks.renderMatching('code.b', {
-              inline: true,
-              style: 'scratch3',
-              languages: ['fr']
-            })
-            mathalea.listeDesScriptsCharges.push('Scratch')
-          })
-      }
-      if (besoinIEP) {
-        loadScript('https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js')
-          .then(() => {
-            for (const id of window.listeAnimationsIepACharger) {
-              const element = document.getElementById(`IEPContainer${id}`)
-              const xml = window.listeScriptsIep[id]
-              iepLoad(element, xml, { zoom: true, autostart: false })
-              // 2021-04 autostart semble non fonctionnel
-            }
-          })
-      }
-    }
-
-    // Ajoute le contenu dans les div #exercices et #corrections
-    if (sortie_html && !est_diaporama) {
-      document.getElementById('exercices').innerHTML = ''
-      document.getElementById('corrections').innerHTML = ''
-      let contenuDesExercices = ''
-      let contenuDesCorrections = ''
-      if (liste_des_exercices.length > 0) {
-        for (let i = 0; i < liste_des_exercices.length; i++) {
-          listeObjetsExercice[i].id = liste_des_exercices[i]
-          if (listeObjetsExercice[i].type_exercice === 'dnb') {
-            contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i].mois} ${listeObjetsExercice[i].annee} - ${listeObjetsExercice[i].lieu} (ex ${listeObjetsExercice[i].numeroExercice})</h3>`
-            contenuDesExercices += `<img width="90%" src="${listeObjetsExercice[i].png}">`
-            contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1} − DNB ${listeObjetsExercice[i].mois} ${listeObjetsExercice[i].annee} - ${listeObjetsExercice[i].lieu} (ex ${listeObjetsExercice[i].numeroExercice})</h3>`
-            contenuDesCorrections += `<img width="90%" src="${listeObjetsExercice[i].pngcor}">`
-            listeObjetsExercice[i].video = false
-          } else {
-            try {
-              listeObjetsExercice[i].nouvelle_version(i)
-            } catch (error) {
-              console.log(error)
-            }
-            contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`
-            if (listeObjetsExercice[i].video.length > 3) {
-              contenuDesExercices += `<div id=video${i}>` + modal_youtube(i, listeObjetsExercice[i].video, '', 'Aide', 'youtube') + '</div>'
-            }
-            if (listeObjetsExercice[i].bouton_aide) {
-              contenuDesExercices += `<div id=aide${i}> ${listeObjetsExercice[i].bouton_aide}</div>`
-            }
-            contenuDesExercices += listeObjetsExercice[i].contenu
-            if (listeObjetsExercice[i].type_exercice === 'MG32') {
-              contenuDesExercices += `<div id="MG32div${i}" class="MG32"></div>`
-            }
-            contenuDesCorrections += `<h3 class="ui dividing header">Exercice ${i + 1}</h3>`
-            contenuDesCorrections += listeObjetsExercice[i].contenu_correction
-            if (listeObjetsExercice[i].type_exercice === 'MG32' && listeObjetsExercice[i].MG32codeBase64corr) {
-              contenuDesCorrections += `<div id="MG32divcorr${i}" class="MG32"></div>`
-            }
-          }
-        }
-        contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
-        contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
-        $('#message_liste_exercice_vide').hide()
-        $('#cache').dimmer('hide')
-      } else {
-        $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
-        $('#cache').dimmer('show') // Cache au dessus du code LaTeX
-      }
-
-      document.getElementById('exercices').innerHTML = contenuDesExercices
-      document.getElementById('corrections').innerHTML = contenuDesCorrections
-      // KaTeX
-      renderMathInElement(document.body, {
-        delimiters: [
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false }
-        ],
-        throwOnError: true,
-        errorColor: '#CC0000',
-        strict: 'warn',
-        trust: false
-      })
-      $('.katexPopup').popup({
-        popup: '.special.popup',
-        on: 'hover',
-        variation: 'inverted',
-        inline: true
-      })
-
-      let besoinMG32 = false
-      let besoinScratch = false
-      let besoinIEP = false
-      for (let i = 0; i < liste_des_exercices.length; i++) {
-        if (listeObjetsExercice[i].type_exercice === 'MG32') {
-          besoinMG32 = true
-        }
-        if (listeObjetsExercice[i].type_exercice === 'Scratch') {
-          besoinScratch = true
-        }
-        if (listeObjetsExercice[i].type_exercice === 'IEP') {
-          besoinIEP = true
-        }
-      }
-
-      if (besoinMG32) {
-        loadScript('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js')
-          .then(() => {
-            // Ajoute figures MG32
-            for (let i = 0; i < liste_des_exercices.length; i++) {
-              if (listeObjetsExercice[i].type_exercice === 'MG32') {
-                MG32_ajouter_figure(i)
-              }
-            }
-            MG32_tracer_toutes_les_figures()
-          })
-      }
-      if (besoinScratch) {
-        loadScript('include/scratchblocks-v3.5-min.js')
-          .then(() => {
-            scratchTraductionFr()
-            scratchblocks.renderMatching('pre.blocks', {
-              style: 'scratch3',
-              languages: ['fr']
-            })
-            scratchblocks.renderMatching('code.b', {
-              inline: true,
-              style: 'scratch3',
-              languages: ['fr']
-            })
-            mathalea.listeDesScriptsCharges.push('Scratch')
-          })
-      }
-      if (besoinIEP) {
-        loadScript('https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js')
-          .then(() => {
-            for (const id of window.listeAnimationsIepACharger) {
-              const element = document.getElementById(`IEPContainer${id}`)
-              const xml = window.listeScriptsIep[id]
-              iepLoad(element, xml, { zoom: true, autostart: false })
-            // 2021-04 autostart semble non fonctionnel
-            }
-          })
-      }
-    }
-    if (!sortie_html) {
-      // Sortie LaTeX
-      // code pour la sortie LaTeX
-      let codeEnonces = ''
-      let codeCorrections = ''
-      code_LaTeX = ''
-      liste_packages = new Set()
-      if (liste_des_exercices.length > 0) {
-        for (let i = 0; i < liste_des_exercices.length; i++) {
-          listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
-          if (listeObjetsExercice[i].type_exercice === 'dnb') {
-            liste_packages.add('dnb')
-            codeEnonces += '\n\n\\exo{}\n\n'
-            codeEnonces += listeObjetsExercice[i].contenu
-            codeEnonces += '\n\n'
-            codeCorrections += '\n\n\\exo{}\n\n'
-            codeCorrections += listeObjetsExercice[i].contenu_correction
-            codeCorrections += '\n\n'
-          } else {
-            listeObjetsExercice[i].nouvelle_version()
-            // if (listeObjetsExercice[i].titre === 'Fichier statique') {
-            //   liste_des_exercices_statiques.push(listeObjetsExercice[i].sup)
-            // }
-            codeEnonces += listeObjetsExercice[i].contenu
-            codeEnonces += '\n\n'
-            codeCorrections += listeObjetsExercice[i].contenu_correction
-            codeCorrections += '\n\n'
-            if (typeof listeObjetsExercice[i].liste_packages === 'string') {
-              liste_packages.add(listeObjetsExercice[i].liste_packages)
+        })();
+        //mise en évidence des exercices sélectionnés.
+        apparence_exercice_actif();
+		let contenu , contenuDesExercices, contenuDesCorrections;
+        if (sortie_html && est_diaporama) {
+            if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
+                $("#exercices_disponibles").hide();
+                $("#parametres_generaux").show();
             } else {
-              // si c'est un tableau
-              listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages)
+                $("#exercices_disponibles").show();
+                $("h3").show();
+                $("#formulaire_choix_de_la_duree").show();
             }
-          }
+            document.getElementById("exercices").innerHTML = "";
+            document.getElementById("corrections").innerHTML = "";           
+            if (liste_des_exercices.length > 0) {
+                for (let i = 0; i < liste_des_exercices.length; i++) {
+                    listeObjetsExercice[i].id = liste_des_exercices[i];
+                    try {
+                        listeObjetsExercice[i].nouvelle_version(i);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    contenu = contenu_exercice_html(listeObjetsExercice[i],i+1,true);
+                }
+                contenuDesExercices = contenu.contenu_un_exercice;
+				contenuDesCorrections = `<ol>\n${contenu.contenu_une_correction}\n</ol>`;
+                $("#message_liste_exercice_vide").hide();
+                $("#cache").dimmer("hide");
+            } else {
+                $("#message_liste_exercice_vide").show(); // Message au dessus de la liste des exercices
+                $("#cache").dimmer("show"); // Cache au dessus du code LaTeX
+            }
+            document.getElementById("exercices").innerHTML = contenuDesExercices;
+            document.getElementById("corrections").innerHTML = contenuDesCorrections;           
+            gestion_modules(true,listeObjetsExercice);
         }
 
-        if ($('#supprimer_correction:checked').val()) {
-          code_LaTeX = codeEnonces
-        } else {
-          code_LaTeX =
-                        codeEnonces + '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + codeCorrections + '\\end{correction}'
-        }
-        $('#message_liste_exercice_vide').hide()
-        $('#cache').show()
 
-        // Gestion du nombre de versions
-        if ($('#nombre_de_versions').val() > 1) {
-          code_LaTeX = ''
-          let code_exercices = ''
-          let code_correction = ''
-          for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
-            code_exercices += '\\version{' + (v + 1) + '}\n\n'
-            code_correction += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
-            for (let i = 0; i < liste_des_exercices.length; i++) {
-              listeObjetsExercice[i].nouvelle_version()
-              code_exercices += listeObjetsExercice[i].contenu
-              code_exercices += '\n\n'
-              code_correction += listeObjetsExercice[i].contenu_correction
-              code_correction += '\n\n'
+        // Ajoute le contenu dans les div #exercices et #corrections
+        if (sortie_html && !est_diaporama) {
+            document.getElementById("exercices").innerHTML = "";
+            document.getElementById("corrections").innerHTML = "";
+            let contenuDesExercices = "",
+                contenuDesCorrections = "";
+            if (liste_des_exercices.length > 0) {
+                for (let i = 0; i < liste_des_exercices.length; i++) {
+                    let contenu_un_exercice = "", contenu_une_correction= "";
+					listeObjetsExercice[i].id = liste_des_exercices[i];
+                    contenu = contenu_exercice_html(listeObjetsExercice[i],i+1,false);			
+					if ($('#liste_des_exercices').is(":visible") || $('#exercices_disponibles').is(":visible")) { //si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
+						contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`;
+					} else {
+						contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`;
+					}
+					contenuDesCorrections += `<div id="divexcorr${i}"> ${contenu.contenu_une_correction} </div>`;	
+				}
+				contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`;
+                contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`;
+                $("#message_liste_exercice_vide").hide();
+                $("#cache").dimmer("hide");
+            } else {
+                $("#message_liste_exercice_vide").show(); // Message au dessus de la liste des exercices
+                $("#cache").dimmer("show"); // Cache au dessus du code LaTeX
             }
-            if (v < $('#nombre_de_versions').val() - 1) {
-              if ($('#style_classique:checked').val()) {
-                code_exercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
-              } else {
-                code_exercices += '\n\\newpage\n\\setcounter{section}{0}\n'
-              }
-            }
-            code_correction += '\n\\end{correction}'
-          }
-          code_LaTeX = code_exercices + code_correction
+            document.getElementById("exercices").innerHTML = contenuDesExercices;
+            document.getElementById("corrections").innerHTML = contenuDesCorrections;        
+			gestion_modules(false,listeObjetsExercice);
         }
-        // for (let i = 0; i < liste_des_exercices_statiques.length; i++) {
-        // ajout_de_LaTeX_statique(liste_des_exercices_statiques[i])
-        // }
+        if (!sortie_html) {
+            // Sortie LaTeX
+            // code pour la sortie LaTeX
+            let codeEnonces = "",
+                codeCorrections = "",
+				length_liste_exercices = liste_des_exercices.length;
+            code_LaTeX = "";
+            liste_packages = new Set();
+            if (length_liste_exercices > 0) {
+                for (let i = 0; i < length_liste_exercices; i++) {
+                    listeObjetsExercice[i].id = liste_des_exercices[i]; // Pour récupérer l'id qui a appelé l'exercice
+                    if (listeObjetsExercice[i].type_exercice == "dnb") {
+                        liste_packages.add('dnb')
+                        codeEnonces += '\n\n\\exo{}\n\n';
+                        codeEnonces += listeObjetsExercice[i].contenu;
+                        codeEnonces += "\n\n";
+                        codeCorrections += '\n\n\\exo{}\n\n';
+                        codeCorrections += listeObjetsExercice[i].contenu_correction;
+                        codeCorrections += "\n\n";
+                    } else {
+                        listeObjetsExercice[i].nouvelle_version();
+                        if (listeObjetsExercice[i].titre == "Fichier statique") {
+                            liste_des_exercices_statiques.push(listeObjetsExercice[i].sup);
+                        }
+                        codeEnonces += listeObjetsExercice[i].contenu;
+                        codeEnonces += "\n\n";
+                        codeCorrections += listeObjetsExercice[i].contenu_correction;
+                        codeCorrections += "\n\n";
+                        if (typeof listeObjetsExercice[i].liste_packages === "string") {
+                            liste_packages.add(listeObjetsExercice[i].liste_packages);
+                        } else {
+                            // si c'est un tableau
+                            listeObjetsExercice[i].liste_packages.forEach(liste_packages.add, liste_packages);
+                        }
+                    }
+                }
 
-        div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + '</code></pre>'
-        Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
-      } else {
-        code_LaTeX = ''
-        $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
-        $('#cache').hide() // Cache au dessus du code LaTeX
-        div.innerHTML = ''
+                if ($("#supprimer_correction:checked").val()) {
+                    code_LaTeX = codeEnonces;
+                } else {
+                    code_LaTeX =
+                        codeEnonces + "\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n" + codeCorrections + "\\end{correction}";
+                }
+                $("#message_liste_exercice_vide").hide();
+				copier_exercices_form_vers_affichage(liste_des_exercices);
+				$(".choix_exercices:last").focus();
+                $("#cache").show();
+
+                // Gestion du nombre de versions
+                if ($("#nombre_de_versions").val() > 1) {
+                    code_LaTeX = "";
+                    let code_exercices = "",
+                        code_correction = "";
+                    for (let v = 0; v < $("#nombre_de_versions").val(); v++) {
+                        code_exercices += "\\version{" + (v + 1) + "}\n\n";
+                        code_correction += "\n\n\\newpage\n\\version{" + (v + 1) + "}\n\\begin{correction}";
+                        for (let i = 0; i < liste_des_exercices.length; i++) {
+                            listeObjetsExercice[i].nouvelle_version();
+                            code_exercices += listeObjetsExercice[i].contenu;
+                            code_exercices += "\n\n";
+                            code_correction += listeObjetsExercice[i].contenu_correction;
+                            code_correction += "\n\n";
+                        }
+                        if (v < $("#nombre_de_versions").val() - 1) {
+                            if ($("#style_classique:checked").val()) {
+                                code_exercices += "\n\\newpage\n\\setcounter{exo}{0}\n";
+                            } else {
+                                code_exercices += "\n\\newpage\n\\setcounter{section}{0}\n";
+                            }
+                        }
+                        code_correction += "\n\\end{correction}";
+                    }
+                    code_LaTeX = code_exercices + code_correction;
+                }
+                div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
+                Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
+            } else {
+                code_LaTeX = "";
+                $("#message_liste_exercice_vide").show(); // Message au dessus de la liste des exercices
+                $("#cache").hide(); // Cache au dessus du code LaTeX
+                div.innerHTML = "";
       }
     }
 
@@ -532,22 +565,73 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
         })
       })
     }
-  }
 
-  /**
+  	
+		
+    	//cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.					
+				
+		$(".icone_moins").off("click").on("click", function (e) {
+			supprimerExo(event.target.id);
+		});
+		
+		function monterExo (num) {
+			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
+			liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, "").replace(";", ",").split(",");
+			num = parseInt(num);
+			if (num != 0) {
+				[liste_des_exercices[num-1], liste_des_exercices[num]] = [liste_des_exercices[num], liste_des_exercices[num-1]];
+				form_choix_des_exercices.value = liste_des_exercices.toString();
+				copier_exercices_form_vers_affichage(liste_des_exercices);
+				mise_a_jour_de_la_liste_des_exercices();
+			}
+		}
+		
+		$(".icone_up").off("click").on("click", function (e) {
+			monterExo(event.target.id);
+		});
+		
+		function descendreExo (num) {
+			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
+			liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, "").replace(";", ",").split(",");
+			num = parseInt(num);
+			if (num != liste_des_exercices.length-1) {
+				[liste_des_exercices[num], liste_des_exercices[num+1]] = [liste_des_exercices[num+1], liste_des_exercices[num]];
+				form_choix_des_exercices.value = liste_des_exercices.toString();
+				copier_exercices_form_vers_affichage(liste_des_exercices);
+				mise_a_jour_de_la_liste_des_exercices();
+			}
+		}
+					
+		$(".icone_down").off("click").on("click", function (e) {
+			descendreExo(event.target.id);
+		});
+		//****************
+	}
+
+	
+	
+    /**
      * Fonction à lancer une fois que la liste des exercices a été mise à jour.
      * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
      * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
      * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
      * Enfin, elle délègue à mise_a_jour du code l'affichage
      *
+	 * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
+	 * sans l'ajouter à la liste
+	 *
      */
-  function mise_a_jour_de_la_liste_des_exercices () {
+  function mise_a_jour_de_la_liste_des_exercices (preview) {
     let besoinXCas = false
     mathalea.listeDesScriptsCharges = []
     const promises = []
-    for (let i = 0, id; i < liste_des_exercices.length; i++) {
-      id = liste_des_exercices[i]
+	let liste_exercices = liste_des_exercices
+	if (preview) {
+		liste_exercices.push(preview)
+	} 
+	listeObjetsExercice = []
+    for (let i = 0, id; i < liste_exercices.length; i++) {
+      id = liste_exercices[i]
       let url
       try {
         url = dictionnaireDesExercices[id].url
@@ -606,54 +690,58 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
     }
     Promise.all(promises)
       .then(() => {
-        parametres_exercice(listeObjetsExercice)
+		if (!preview) {
+			parametres_exercice(listeObjetsExercice)
+		}
       })
       .then(() => {
-        // Récupère les paramètres passés dans l'URL
-        const urlVars = getUrlVars()
-        // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-        // => évite les erreurs lors de la suppression de question dans la liste.
-        for (let i = 0; i < urlVars.length; i++) {
-          if (urlVars[i].id !== liste_des_exercices[i]) {
-            urlVars.splice(i, 1)
+        if (!preview) {
+		// Récupère les paramètres passés dans l'URL
+			const urlVars = getUrlVars()
+			// trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+			// => évite les erreurs lors de la suppression de question dans la liste.
+			for (let i = 0; i < urlVars.length; i++) {
+			  if (urlVars[i].id !== liste_exercices[i]) {
+			  	urlVars.splice(i, 1)
+			  }
+			}
+			for (let i = 0; i < urlVars.length; i++) {
+			// récupère les éventuels paramètres dans l'URL
+			// et les recopie dans les formulaires des paramètres
+				if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
+					listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions
+					form_nb_questions[i].value = listeObjetsExercice[i].nb_questions
+				}
+				if (urlVars[i].video && sortie_html && !est_diaporama) {
+					listeObjetsExercice[i].video = urlVars[i].video
+					form_video[i].value = listeObjetsExercice[i].video
+				}
+				if (typeof urlVars[i].sup !== 'undefined') {
+					listeObjetsExercice[i].sup = urlVars[i].sup
+					// Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+				try {
+				form_sup[i].value = listeObjetsExercice[i].sup
+				} catch {
+				}
+			}
+			if (typeof urlVars[i].sup2 !== 'undefined') {
+				listeObjetsExercice[i].sup2 = urlVars[i].sup2
+				try {
+				form_sup2[i].value = listeObjetsExercice[i].sup2
+				} catch (error) {
+				}
+			}
+			if (typeof urlVars[i].sup3 !== 'undefined') {
+				listeObjetsExercice[i].sup3 = urlVars[i].sup3
+				try {
+				form_sup3[i].value = listeObjetsExercice[i].sup3
+				} catch (error) {
+	
+				}
+			}
           }
-        }
-        for (let i = 0; i < urlVars.length; i++) {
-          // récupère les éventuels paramètres dans l'URL
-          // et les recopie dans les formulaires des paramètres
-          if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
-            listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions
-            form_nb_questions[i].value = listeObjetsExercice[i].nb_questions
-          }
-          if (urlVars[i].video && sortie_html && !est_diaporama) {
-            listeObjetsExercice[i].video = urlVars[i].video
-            form_video[i].value = listeObjetsExercice[i].video
-          }
-          if (typeof urlVars[i].sup !== 'undefined') {
-            listeObjetsExercice[i].sup = urlVars[i].sup
-            // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
-            try {
-              form_sup[i].value = listeObjetsExercice[i].sup
-            } catch {
-            }
-          }
-          if (typeof urlVars[i].sup2 !== 'undefined') {
-            listeObjetsExercice[i].sup2 = urlVars[i].sup2
-            try {
-              form_sup2[i].value = listeObjetsExercice[i].sup2
-            } catch (error) {
-            }
-          }
-          if (typeof urlVars[i].sup3 !== 'undefined') {
-            listeObjetsExercice[i].sup3 = urlVars[i].sup3
-            try {
-              form_sup3[i].value = listeObjetsExercice[i].sup3
-            } catch (error) {
-
-            }
-          }
-        }
-      })
+		}
+     })
       .then(() => {
         if (besoinXCas) {
           // On charge le javascript de XCas
@@ -670,47 +758,74 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
                       </svg>
                     </div>
                   </div>`
-          return loadScript('modules/giacsimple.js')
-        }
-      })
-      .then((resolve, reject) => {
-        if (besoinXCas) {
-          // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-          return checkXCas()
-        }
-      })
-      .then(() => {
-        mise_a_jour_du_code()
-      })
-  }
+         return loadScript("modules/giacsimple.js")
 
-  const loadScript = src => {
-    return new Promise((resolve, reject) => {
-      if (mathalea.listeDesScriptsCharges.indexOf(src) < 0) {
-        const script = document.createElement('script')
-        script.type = 'text/javascript'
-        script.onload = resolve
-        script.onerror = reject
-        script.src = src
-        document.head.append(script)
-        mathalea.listeDesScriptsCharges.push(src)
-      } else {
-        resolve()
-      }
-    })
-  }
-  const checkXCas = () => {
-    return new Promise((resolve, reject) => {
-      const monInterval = setInterval(() => {
-        if (typeof (Module) !== 'undefined') {
-          if (Module.ready === true) {
-            resolve()
-            clearInterval(monInterval)
-          }
-        }
-      }, 500)
-    })
-  }
+                }
+            })
+            .then((resolve, reject) => {
+                if (besoinXCas) {
+                    // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
+                    return checkXCas();
+                }
+            })
+            .then(() => {
+                if (preview) {
+					let output = sortie_html; 
+					let contenu;
+					sortie_html = true; //pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+					try {
+                        listeObjetsExercice[liste_exercices.length-1].nouvelle_version(0);
+                    } catch (error) {
+                        console.log(error);
+                    }
+					listeObjetsExercice[liste_exercices.length-1].id = liste_exercices[liste_exercices.length-1];
+					contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length-1],liste_exercices.length,false); 
+					$("#popup_preview").html(contenu.contenu_un_exercice);
+					$(".popup").addClass("show");
+					$(".popuptext").css({top: document.documentElement.scrollTop -20});
+					$(".popuptext").show();	
+					liste_des_exercices.pop();
+					if (!output) {
+						gestion_modules(false,listeObjetsExercice);
+					}
+					sortie_html = output;
+					mise_a_jour_du_code(); //permet de gérer les popup avec module.
+				} else {
+					mise_a_jour_du_code();
+				}
+            });
+    }
+
+			
+    const loadScript = src => {
+        return new Promise((resolve, reject) => {
+            if (mathalea.listeDesScriptsCharges.indexOf(src) < 0) {
+                const script = document.createElement('script')
+                script.type = 'text/javascript'
+                script.onload = resolve
+                script.onerror = reject
+                script.src = src
+                document.head.append(script)
+                mathalea.listeDesScriptsCharges.push(src)
+            } else {
+                resolve()
+            }
+        })
+
+    }
+    const checkXCas = () => {
+        return new Promise((resolve, reject) => {
+            const monInterval = setInterval(() => {
+                if (typeof (Module) != 'undefined') {
+                    if (Module.ready == true) {
+                        resolve();
+                        clearInterval(monInterval);
+                    }
+                }
+            }, 500);
+        })
+    }
+
 
   // GESTION DE MG32
   /**
@@ -1452,6 +1567,36 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from './modules
       window.location.href = window.location.href.replace('exercice.html', 'mathalealatex.html')
     })
 
+	//handlers pour la prévisualisation des exercices cg 04-20201
+    function afficher_popup() {
+		if ($(".popuptext").is(":visible")) {
+			$(".popuptext").html('');
+			$(".popuptext").hide(); 
+		} else {
+			mise_a_jour_de_la_liste_des_exercices(event.target.id)
+		}
+	}
+	
+	$(".popup").off("click").on("click", function (e) {
+		$(".icone_preview").off("click").on("click", function (e) {
+			afficher_popup();
+		});
+	});
+
+	$(".icone_preview").off("click").on("click", function (e) {
+		afficher_popup();
+	});
+	
+	$(document).click(function(event) { 
+			if ($(".popuptext").is(":visible")) {
+				$(".popuptext").hide();
+				$(".popuptext").html('');
+				$(".icone_preview").off("click").on("click", function (e) {
+					afficher_popup();
+				});
+      }
+	});
+		
     if (document.getElementById('btnQRcode')) {
       document.getElementById('btnQRcode').addEventListener('click', function () {
         $('#ModalQRcode').html('')
