@@ -8,3 +8,6 @@ dnb/
 
 #ignorer le fichier de config de jshintrc
 .jshintrc
+
+#ignorer les zip du dossier fichierszip/
+fichierszip/*.zip
