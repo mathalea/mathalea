@@ -403,7 +403,7 @@ console.log(objets_correction)
     texte = `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
-      + mathalea2d(params_correction, objets_correction, lutin) +
+      + mathalea2d(params_correction, objets_correction) +
       `</td></tr></table>`
     texte_corr = 'On obtient la série de couleurs suivante :<br> '
     texte_corr += `${texte_gras(couleurs[0])} `;
