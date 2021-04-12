@@ -788,6 +788,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 		  if (document.getElementById("left")) {
 			$('.popuptext').css({ top: document.getElementById("left").scrollTop - 10 })
 			$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+			if (window.innerWidth < 765) {
+				$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+				$('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
+			}
 		  }
 		  else {
 			  $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })

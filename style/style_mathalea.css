@@ -414,6 +414,11 @@ body.dragging, body.dragging * {
 }
 }
 
+@media only screen and (max-width: 765px) {
+#left {
+	height: auto !important;
+}
+}
 
 @media only screen and (min-width: 1200px) and (max-width: 1400px) {
   .ui.container {
