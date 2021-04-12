@@ -19,8 +19,28 @@ enleve_element(tableauTags,"Hors programme")
 export let dictionnaireDesExercices = {...dictionnaireDesExercicesAleatoires,...dictionnaireDNB, ...dictionnaireC3};
 let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices);
 
+function coupe_chaine(titre,max_length) {
+	for (var i=max_length ; i>5 ; i--) {
+		if (titre[i] == ' ') {
+			return titre.substr(0,i) + '\n' + titre.substr(i+1, titre.length)
+		}
+	}
+}
+
 function span_exercice(id,titre) {
-	return `<span class="id_exercice">${id}</span> - <a class="lien_id_exercice" numero="${id}">${titre}</a></a><span data-tooltip="Prévisualiser l\'exercice."><i id="${id}" class="eye icon icone_preview"></i></span></br>\n</br>\n`
+	var max_length,tooltip, titre_tronque;
+	if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 600) {
+		max_length = 80;		
+	} else if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 490) {
+		max_length = 60;
+	} else {
+		max_length = 50;
+	}
+	tooltip = titre.length > max_length ? 
+		'data-tooltip="' + coupe_chaine(titre,max_length+20) + '"'
+		: "";
+	titre_tronque = titre.length > max_length ? titre.substr(0,max_length) + '...' : titre;
+	return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} numero="${id}">${titre_tronque}</a></a><span data-content="Prévisualiser l\'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function liste_html_des_exercices_d_un_theme(theme){
@@ -449,7 +469,12 @@ export function menuDesExercicesDisponibles(){
 	} );
 	
 	function afficher_niveau() {
-		var elem = event.target, evenement;
+		var elem , evenement;
+		if ($(event.target).hasClass('dropdown')) {
+			elem = event.target.parentElement;
+		} else {
+			elem = event.target;
+		}
 		$('.fermer_niveau').trigger('click');
 		$(elem).replaceWith(div_niveau(obj_exercices_disponibles[elem.id],"active",elem.id));
 		$(elem).removeClass("ouvrir_niveau");
@@ -488,8 +513,6 @@ export function menuDesExercicesDisponibles(){
 	$(".fermer_niveau").off("click").on("click",function () {
 		masquer_niveau();
 	});
-	
-
 	
 	//Gestion d'affichage de l'un ou l'autre des modes.
 	$("#mode_choix_liste").off("click").on("click",function () {

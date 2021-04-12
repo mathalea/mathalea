@@ -251,10 +251,6 @@ div#gauche
   position: relative;
 }
 
-#liste_des_exercices {
-	line-height: 0.7;	
-}
-
 #choix_exercices_menu {
 	position: -webkit-sticky; 
 	position: sticky;
@@ -325,8 +321,8 @@ div#gauche
 #recherche {
     width: 100%;
     clear: both;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 #recherche input {
     width: 60%;
@@ -335,7 +331,7 @@ div#gauche
 }
 
 #replier {
-	margin-left: 50px;
+	margin-left: 10px;
 	font-size: xx-large;
 	font-style: bold;
 	cursor:pointer;
@@ -379,9 +375,14 @@ i.icone_preview {
 	cursor:context-menu;
 }
 
+i.eye, i.minus {
+	cursor:pointer !important;
+}
+
 i.icone_moins, i.icone_up, i.icone_down {
 	display:inline !important;
 	font-size:1em !important;
+	cursor:pointer !important;
 }
 
 body.dragging, body.dragging * {
@@ -509,7 +510,7 @@ body.dragging, body.dragging * {
 }
 
 .mode_choix {
-	margin-left: 50px;
+	margin: 10px;
 	cursor:pointer;
 	background-color: white;
     text-align: center;
@@ -519,7 +520,10 @@ body.dragging, body.dragging * {
 	white-space:nowrap;
 }
 
+h3 i.double {
+	cursor:pointer !important;
 }
+
 .colonnecode {
 	width:20px !important;
 }
@@ -527,7 +531,7 @@ body.dragging, body.dragging * {
 a.lien_id_exercice {
   text-decoration: none;
   color : black;
-
+  cursor:pointer;
 }
 
 a.lien_id_exercice:hover {
@@ -544,7 +548,6 @@ a.lien_id_exercice.exerciceactif {
 {
 	white-space: pre;
 }
-
 
 .ui.dividing.header, .ui.block.header
 {

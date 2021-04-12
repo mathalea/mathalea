@@ -268,7 +268,7 @@ let ydepart=-135+randint(2,7)*30
 
         break;
 
-      case 2:
+      case 2: // programmes à boucles
 
         break;
 
