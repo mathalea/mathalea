@@ -53,7 +53,7 @@
             $filetex = file_put_contents($thisdir."/".$filename, $encoded_snip);
 
             if(file_exists($thisdir.'/'.$filename)){
-                echo "file exist";            
+                //echo "file exist";            
                 if (get_ip()=='127.0.0.1') { // Si on est en local , on lance la routine de téléchargement
                     header('Content-type: application/zip'); // on indique que c'est une archive
                     header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
@@ -64,8 +64,8 @@
                     header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive en local
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
                 } else {
-                    $domaine = "https://coopmaths.fr";
-                    //$domaine = "http://mathalea.mathslozano.fr";
+                    //$domaine = "https://coopmaths.fr";
+                    $domaine = "http://mathalea.mathslozano.fr";
                     // header('Content-type: application/zip'); // on indique que c'est une archive
                     // header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
                     // header('Content-Disposition: attachment; filename="'.$thisdir.'/'.$filename.'"'); // nom de l'archive
@@ -82,5 +82,4 @@
     } else {
         $error .= "KO";
     }
-
 ?>

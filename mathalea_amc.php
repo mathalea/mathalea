@@ -275,7 +275,11 @@
                 <?php } ?>
                 <!-- Création du zip -->
                 <input type="hidden" name="encoded_snip" value="" autocomplete="off">
-                <input type="submit" name="createzip" id="btn_overleaf" style="border:0px; background-color:#800040; color:#FFF; padding:10px; cursor:pointer; font-weight:bold; border-radius:5px;" value="Créer le ZIP temp sur le serveur" /> 
+                <!-- <input type="submit" name="createzip" id="btn_overleaf" style="border:0px; background-color:#800040; color:#FFF; padding:10px; cursor:pointer; font-weight:bold; border-radius:5px;" value="Créer le ZIP temp sur le serveur" />  -->
+                <button class="btn-success btn btn-smclass ui labeled icon button" type="submit" name="createzip" id="btn_overleaf"> 
+                  <i class="cogs icon"></i>Compiler sur Overleaf.com
+                </button>
+
               </form>
  
             </div>
