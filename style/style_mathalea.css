@@ -251,10 +251,6 @@ div#gauche
   position: relative;
 }
 
-#liste_des_exercices {
-	line-height: 0.7;	
-}
-
 #choix_exercices_menu {
 	position: -webkit-sticky; 
 	position: sticky;
@@ -325,8 +321,8 @@ div#gauche
 #recherche {
     width: 100%;
     clear: both;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 #recherche input {
     width: 60%;
@@ -335,7 +331,7 @@ div#gauche
 }
 
 #replier {
-	margin-left: 50px;
+	margin-left: 10px;
 	font-size: xx-large;
 	font-style: bold;
 	cursor:pointer;
@@ -404,6 +400,56 @@ body.dragging, body.dragging * {
   cursor: pointer;
 }
 
+#exercices_disponibles h3.header {
+	text-align:center !important;
+	line-height: 1.5;
+}
+
+@media only screen and (min-width: 765px) {
+#replier { /*pas besoin de replier car en 2 colonnes*/
+		display:none;
+}
+#left {
+	overflow-y: auto;
+}
+}
+
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+  .ui.container {
+    width: 1180px;
+  }
+
+  .ui.grid.container {
+    width: calc( 1180px  +  2rem ) !important;
+  }
+
+  .ui.relaxed.grid.container {
+    width: calc( 1180px  +  3rem ) !important;
+  }
+
+  .ui.very.relaxed.grid.container {
+    width: calc( 1180px  +  5rem ) !important;
+  }
+}
+
+@media only screen and (min-width: 1401px) and (max-width: 1900px) {
+  .ui.container {
+    width: 1340px;
+  }
+
+  .ui.grid.container {
+    width: calc( 1340px  +  2rem ) !important;
+  }
+
+  .ui.relaxed.grid.container {
+    width: calc( 1340px  +  3rem ) !important;
+  }
+
+  .ui.very.relaxed.grid.container {
+    width: calc( 1340px  +  5rem ) !important;
+  }
+}
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
@@ -456,7 +502,7 @@ body.dragging, body.dragging * {
 }
 
 .mode_choix {
-	margin-left: 50px;
+	margin: 10px;
 	cursor:pointer;
 	background-color: white;
     text-align: center;
@@ -466,7 +512,10 @@ body.dragging, body.dragging * {
 	white-space:nowrap;
 }
 
+h3 i.double {
+	cursor:pointer !important;
 }
+
 .colonnecode {
 	width:20px !important;
 }
@@ -491,7 +540,6 @@ a.lien_id_exercice.exerciceactif {
 {
 	white-space: pre;
 }
-
 
 .ui.dividing.header, .ui.block.header
 {
