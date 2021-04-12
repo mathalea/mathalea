@@ -211,7 +211,7 @@ export default function Note_la_couleur() {
   this.type_exercice = "Scratch";
   this.liste_packages = `scratch3`;
   this.sup = true;
-  this.sup2 = 2
+  this.sup2 = 1
   this.sup3 = 4
 
 
@@ -219,7 +219,6 @@ export default function Note_la_couleur() {
   this.nouvelle_version = function () {
     this.liste_questions = [];
     this.liste_corrections = [];
-    let type_de_questions_disponibles = [1];
     let j, test
     let objets_enonce, objets_correction, params_enonce, params_correction;
     let commandes_disponibles, sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
