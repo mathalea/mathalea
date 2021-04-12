@@ -1652,6 +1652,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
     },
+    "beta6test2021": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/beta6test2021.js"
+    },
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
         "url": "/exercices/beta/betaClasseTableauVariations.js"
