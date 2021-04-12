@@ -53,7 +53,7 @@
             $filetex = file_put_contents($thisdir."/".$filename, $encoded_snip);
 
             if(file_exists($thisdir.'/'.$filename)){
-                echo "file exist";            
+                //echo "file exist";            
                 if (get_ip()=='127.0.0.1') { // Si on est en local , on lance la routine de téléchargement
                     header('Content-type: application/zip'); // on indique que c'est une archive
                     header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
@@ -82,5 +82,4 @@
     } else {
         $error .= "KO";
     }
-
 ?>
