@@ -1,0 +1,106 @@
+#--------------------------------------------------
+# Répertoire : ...
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+# Redirection mathalea_amc.html vers mathalea_amc.php
+RewriteRule ^mathalea_amc.html$ mathalea_amc.php
+
+# Accès interdit à évaluation à la carte
+#<Files alacarte>
+
+#AuthUserFile /homez.41/clarensa/.motdepasseprof
+#AuthGroupFile /dev/null
+#AuthName "Accès réservé aux professeurs"
+#AuthType basic
+#require valid-user
+
+#</Files>
+
+
+# Erreur 404
+ErrorDocument 404 /404.html
+
+# UTF8
+AddDefaultCharset utf-8
+
+
+# http -> https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE,QSA]
+
+
+# Redirection pour les exercices
+# Une URL qui se termine par ex + 0 ou 1 chiffre + 1 ou 2 lettres + des chiffres + 0 ou 1 tiret + 0 ou 1 tiret bas + 0 ou des chiffres 
+
+#RedirectMatch 301 ex([0-9]?[A-Za-z]{1,2}[0-9]+-?_?[0-9]*)$ https://coopmaths.fr/exercice.html?ex=$1
+
+RedirectMatch 301 /ex([0-9a-zA-Z,=\-&]*)$ https://coopmaths.fr/exercice.html?ex=$1
+
+# Redirection pour les pdf
+# Une URL qui se termine par pdf + 0 ou 1 chiffre + 1 ou 2 lettres + des chiffres + 0 ou 1 tiret + 0 ou 1 tiret bas + 0 ou des chiffres 
+
+RedirectMatch 301 pdf([0-9]?[A-Za-z]{1,2}[0-9]+-?_?[0-9]*-?c?o?r?r?)$ /pdf/$1.pdf
+
+# Redirection pour les IEP
+
+RedirectMatch 301 /iep([0-9]*[A-Za-z]*[0-9]*-*_*[0-9]*)$ https://instrumenpoche.sesamath.net/iep/figures_html/scr_iep_$1.html
+
+
+# Référentiel
+Redirect permanent /referentiel https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf
+
+
+### URL Raccourcies pour les vidéos
+
+# Vocabulaire géométrie Labouche
+Redirect permanent /video6G10 https://www.youtube-nocookie.com/embed/58ZI3W-efDg?rel=0&showinfo=0
+# Tracer parallele Labouche
+Redirect permanent /video6G12 https://www.youtube-nocookie.com/embed/2nmN4KSYBJk?rel=0&showinfo=0
+# Vocabulaire des angles Labouche
+Redirect permanent /video6G22 https://www.youtube-nocookie.com/embed/yfCIOM1tqEw?rel=0&showinfo=0
+# Mesurer un angle Labouche
+Redirect permanent /video6G23 https://www.youtube-nocookie.com/embed/YqUMin1FQ2c?rel=0&showinfo=0 
+# Tracer un angle Labouche
+Redirect permanent /video6G23-1 https://www.youtube-nocookie.com/embed/CIrYkaNIBKE?rel=0&showinfo=0
+# Estimer un angle MEP
+Redirect permanent /video6G23-2 https://www.youtube-nocookie.com/embed/BqY49LPQyAg?rel=0&showinfo=0
+
+# Multiplier par 100 Bringard
+Redirect permanent /video6N12 https://www.youtube-nocookie.com/embed/LR_ZwBNZVmg?rel=0&showinfo=0
+# Multiplier par 100 Bringard
+Redirect permanent /video6C10-2 https://www.youtube-nocookie.com/embed/LR_ZwBNZVmg?rel=0&showinfo=0
+# Poser une division euclidienne Monka
+Redirect permanent /video6C11 https://www.youtube-nocookie.com/embed/2Ocfhucc58g?rel=0&showinfo=0
+
+# Additions de décimaux Monka
+Redirect permanent /video6C20 https://www.youtube-nocookie.com/embed/ytLe8aUq2ZM
+
+# Soustractions de décimaux Monka
+Redirect permanent /video6C20-2 https://www.youtube-nocookie.com/embed/CFKUxlh6R9s
+
+# Multiplications de décimaux Monka
+Redirect permanent /video6C30 https://www.youtube-nocookie.com/embed/4YQi_icWTTI
+
+# Longueur du cercle Monka
+Redirect permanent /video6M22 https://www.youtube-nocookie.com/embed/iKyAfCzKnu4
+
+# Aire du disque Monka
+Redirect permanent /video6M22-1 https://www.youtube-nocookie.com/embed/0E8h5WWf4NM
+
+
+
+
+
+
+
