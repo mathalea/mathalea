@@ -47,10 +47,16 @@
             // On nettoie la chaine du formulaire pour éviter les injections
             $encoded_snip = $_POST['encoded_snip'];
             $encoded_snip = trim($encoded_snip);
+            //$encoded_snip = htmlentities($encoded_snip);
             // $encoded_snip = stripslashes($encoded_snip);
             // $encoded_snip = htmlspecialchars($encoded_snip);
             $filename = "mathalea".time().".tex";
             $filetex = file_put_contents($thisdir."/".$filename, $encoded_snip);
+
+            // $genericFilename = $_POST['snip_name'];
+            // $genericFilename = trim($genericFilename);
+            // $genericFilename = stripslashes($genericFilename);            
+            // $genericFilename = htmlspecialchars($genericFilename);
 
             if(file_exists($thisdir.'/'.$filename)){
                 //echo "file exist";            
@@ -65,14 +71,8 @@
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
                 } else {
                     $domaine = "https://coopmaths.fr";
-                    //$domaine = "http://mathalea.mathslozano.fr";
-                    // header('Content-type: application/zip'); // on indique que c'est une archive
-                    // header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
-                    // header('Content-Disposition: attachment; filename="'.$thisdir.'/'.$filename.'"'); // nom de l'archive
-                    // header('Content-Length: '.filesize($thisdir.'/'.$filename)); // taille de l'archive
-                    // header('Pragma: no-cache'); 
-                    // header('Expires: 0');
-                    //header("location:https://www.overleaf.com/docs?snip_uri=$domaine/$thisdir/$filename"); // pour passer à overleaf
+                    //$domaine = "https://mathalea.mathslozano.fr";
+                          
                     header("location:https://www.overleaf.com/docs?snip_uri[]=$domaine/$thisdir/$filename&snip_uri[]=$domaine/$thisdir/automultiplechoice.sty"); // pour passer à overleaf
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichierszip/Projet.zip"); // pour tester avec l'existant
                 }
