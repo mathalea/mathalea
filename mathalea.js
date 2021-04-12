@@ -778,7 +778,17 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
           contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false) 
           $('#popup_preview').html(contenu.contenu_un_exercice)
           $('.popup').addClass('show')
-          $('.popuptext').css({ top: document.documentElement.scrollTop - 20 })
+		  if (document.getElementById("left")) {
+			$('.popuptext').css({ top: document.getElementById("left").scrollTop - 10 })
+			$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+			if (window.innerWidth < 765) {
+				$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+				$('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
+			}
+		  }
+		  else {
+			  $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+		  }
           $('.popuptext').show()	
           liste_des_exercices.pop()
           if (!output) {

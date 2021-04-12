@@ -215,10 +215,10 @@ let ydepart=-135+randint(2,7)*30
     baisseCrayon(lutin)
     objets_enonce = [];
     if (this.sup) {
-      objets_correction = [fond_ecran("/images/plateauNLCan.png", -450, -345, 900, 690)];
+      objets_correction = [fond_ecran("../../images/plateauNLCan.png", -450, -345, 900, 690)];
     }
     else {
-      objets_correction = [fond_ecran("/images/plateauNLCsn.png", -450, -345, 900, 690)];
+      objets_correction = [fond_ecran("../../images/plateauNLCsn.png", -450, -345, 900, 690)];
     }
     let texte = ``;
     let texte_corr = ``;
