@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul } from "/modules/outils.js";
-import {angleScratchTo2d,orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul,texte_gras } from "/modules/outils.js";
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
@@ -24,7 +24,7 @@ import {angleScratchTo2d,orienter, mathalea2d, scratchblock, fond_ecran, creerLu
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 class NoteLaCouleur {
-  constructor(x=15,y=15,orientation=90) {
+  constructor(x = 15, y = 15, orientation = 90) {
     this.plateau = [['Noir', 'Jaune', 'Bleu', 'Vert', 'Orange', 'Rouge', 'Orange', 'Noir', 'Jaune', 'Gris', 'Vert', 'Rose', 'Noir'],
     ['Rouge', 'Bleu', 'Orange', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Rose', 'Gris', 'Jaune', 'Bleu', 'Rouge', 'Gris'],
     ['Rose', 'Vert', 'Gris', 'Rouge', 'Noir', 'Bleu', 'Vert', 'Noir', 'Vert', 'Bleu', 'Rose', 'Gris', 'Vert'],
@@ -68,7 +68,29 @@ class NoteLaCouleur {
           pionfantome.currentOrientation = test[3];
         }
       }
-      return !sorti;
+      return [!sorti, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation];
+    }
+
+    this.testBoucle = function (repetitions, codes) {
+      let sortiboucle = false;
+      let test;
+      let pionfantome = new NoteLaCouleur();
+      pionfantome.currentPos.x = this.currentPos.x;
+      pionfantome.currentPos.y = this.currentPos.y
+      pionfantome.currentOrientation = this.currentOrientation;
+      for (let i = 0; i < repetitions; i++) {
+        test = pionfantome.testSequence(codes);
+        if (!test[0]) {
+          sortiboucle = true
+          break;
+        }
+        else {
+          pionfantome.currentPos.x = test[1];
+          pionfantome.currentPos.y = test[2];
+          pionfantome.currentOrientation = test[3];
+        }
+      }
+      return [!sortiboucle, pionfantome.currentPos.x, pionfantome.currentPos.y, pionfantome.currentOrientation];
     }
     /**
      * méthode pour tester une instruction : retourne un tableau dont le premier élément indique si l'instruction est valide.
@@ -126,16 +148,16 @@ class NoteLaCouleur {
             avance(90, lutin)
           }
           break;
-          case 'AV120':
-            [x, y] = avancepion(120, x, y, orientation)
-            latex = `\\blockmove{avancer de \\ovalnum{120} pas}`
-            if (lutin !== undefined) {
-              avance(120, lutin)
-            }
-            break;
-  
+        case 'AV120':
+          [x, y] = avancepion(120, x, y, orientation)
+          latex = `\\blockmove{avancer de \\ovalnum{120} pas}`
+          if (lutin !== undefined) {
+            avance(120, lutin)
+          }
+          break;
+
         case 'TD90':
-          if (orientation == 180) orientation = -90;
+          if (orientation === 180) orientation = -90;
           else orientation += 90;
           latex = `\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}`
           if (lutin !== undefined) {
@@ -143,7 +165,7 @@ class NoteLaCouleur {
           }
           break;
         case 'TG90':
-          if (orientation == -90) orientation = 180;
+          if (orientation === -90) orientation = 180;
           else orientation -= 90;
           latex = `\\blockmove{tourner \\turnleft{} de \\ovalnum{90} degrés}`
           if (lutin !== undefined) {
@@ -152,9 +174,10 @@ class NoteLaCouleur {
           break;
         case 'TD180':
         case 'TG180':
-          if (orientation == 0) orientation = 180;
-          else if (orientation == -90) orientation = 90;
-          else orientation -= 180;
+          if (orientation === 0) orientation = 180;
+          else if (orientation === -90) orientation = 90;
+          else if (orientation===90) orientation=-90;
+          else orientation=0;
           latex = `\\blockmove{tourner \\turnright{} de \\ovalnum{180} degrés}`
           if (lutin !== undefined) {
             tournerD(180, lutin)
@@ -167,7 +190,7 @@ class NoteLaCouleur {
       if (this.testCoords(x, y)) {
         return [true, x, y, orientation, latex, lutin]
       }
-      else return [false, this.currentPos.x, this.currentPos.y, this.currentOrientation, latex]
+      else return [false, this.currentPos.x, this.currentPos.y, this.currentOrientation, latex,lutin]
     }
   }
 }
@@ -188,8 +211,8 @@ export default function Note_la_couleur() {
   this.type_exercice = "Scratch";
   this.liste_packages = `scratch3`;
   this.sup = true;
-  this.sup2=1
-  this.sup3=4
+  this.sup2 = 2
+  this.sup3 = 4
 
 
 
@@ -197,21 +220,21 @@ export default function Note_la_couleur() {
     this.liste_questions = [];
     this.liste_corrections = [];
     let type_de_questions_disponibles = [1];
-     let j,test
+    let j, test
     let objets_enonce, objets_correction, params_enonce, params_correction;
     let commandes_disponibles, sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
-     let lutin = creerLutin()
-     let angledepart=choice([90,0,-90,180])
-let xdepart=-195+randint(2,11)*30
-let ydepart=-135+randint(2,7)*30
-    mathalea.unitesLutinParCm = 20*30/52
+    let lutin = creerLutin()
+     let angledepart = choice([90, 0, -90, 180])
+    let xdepart = -195 + randint(2, 11) * 30
+    let ydepart = -135 + randint(2, 7) * 30
+    mathalea.unitesLutinParCm = 20 * 30 / 52
     mathalea.pixelsParCm = 20
     lutin.color = 'green'
     lutin.epaisseur = 3
     lutin.pointilles = 2
     allerA(xdepart, ydepart, lutin)
-    orienter(angleScratchTo2d( angledepart),lutin)
-    let pion = new NoteLaCouleur(xdepart,ydepart,angledepart);
+    orienter(angleScratchTo2d(angledepart), lutin)
+    let pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
     baisseCrayon(lutin)
     objets_enonce = [];
     if (this.sup) {
@@ -222,21 +245,21 @@ let ydepart=-135+randint(2,7)*30
     }
     let texte = ``;
     let texte_corr = ``;
-     switch (parseInt(this.sup2)) {
+    switch (parseInt(this.sup2)) {
       case 1:
         couleurs = [];
         nb_couleurs = parseInt(this.sup3);
         liste_instructions = []
         nb_instructions = -1
         j = 0;
-        commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90','AV120'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD90', 'TG90', 'TG180']]
-         pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
-        pion.codeScratch +=`\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
+        commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90', 'AV120'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD90', 'TG90', 'TG180']]
+        pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+        pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
         pion.currentIndex += pion.codeScratch.length
         while (nb_couleurs > j) {
           sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
           test = pion.testSequence(sequence);
-          while (!test) {
+          while (!test[0]) {
             sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
             test = pion.testSequence(sequence);
           }
@@ -269,7 +292,95 @@ let ydepart=-135+randint(2,7)*30
         break;
 
       case 2: // programmes à boucles
-
+        couleurs = [];
+        nb_couleurs = parseInt(this.sup3);
+        let repetitions = nb_couleurs - 1
+        liste_instructions = []
+        nb_instructions = -1
+        j = 0;
+        commandes_disponibles = [['AV30', 'AV60'], ['TD90', 'TG90', 'TG180']]
+        pion.codeScratch = `\\begin{scratch}[print,fill,blocks]\n \\blockinit{quand \\greenflag est cliqué}\n `;
+        pion.codeScratch += `\\blockmove{aller à x: \\ovalnum{${xdepart}} y: \\ovalnum{${ydepart}}}\n \\blockmove{s'orienter à \\ovalnum{${angledepart}}}\n`
+        pion.currentIndex += pion.codeScratch.length
+        // On choisit le code à l'intérieur de la boucle
+        sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), choice(commandes_disponibles[0]), 'NLC', choice(commandes_disponibles[1]), choice(commandes_disponibles[0])];
+        test = pion.testBoucle(repetitions, sequence);
+        while (!test[0]) {
+          sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), choice(commandes_disponibles[0]), 'NLC', choice(commandes_disponibles[1]), choice(commandes_disponibles[0])];
+          test = pion.testBoucle(repetitions, sequence);
+        }
+        pion.codeScratch += `\\blockrepeat{répéter \\ovalnum{${repetitions}} fois}{\n`
+        liste_instructions.push('début de boucle')
+        for (let i = 0; i < sequence.length; i++) {
+          instruction = sequence[i]
+          result = pion.testInstruction(instruction,lutin)
+          if (instruction == 'NLC') {
+            liste_instructions.push(instruction)
+            nb_instructions++
+            couleurs.push(pion.nlc());
+            pion.codeScratch += result[4] + '\n';
+            pion.currentIndex += result[4].length + 1
+            lutin = result[5]
+          }
+          else {
+            nb_instructions++
+            liste_instructions.push(instruction)
+            pion.currentPos.x = result[1];
+            pion.currentPos.y = result[2];
+            pion.currentOrientation = result[3];
+            pion.codeScratch += result[4] + '\n';
+            pion.currentIndex += result[4].length + 1
+            lutin = result[5]
+          }
+        }
+        liste_instructions.push('fin de boucle')
+        pion.codeScratch += `} \n`
+      // on recommence n-1 fois pour faire avancer le pion et le lutin
+      for (let j=1;j<repetitions;j++){
+      for (let i = 0; i < sequence.length; i++) {
+        instruction = sequence[i]
+        result = pion.testInstruction(instruction,lutin)
+        if (instruction == 'NLC') {
+          couleurs.push(pion.nlc());
+          lutin = result[5]
+        }
+        else {
+          nb_instructions++
+          pion.currentPos.x = result[1];
+          pion.currentPos.y = result[2];
+          pion.currentOrientation = result[3];
+          lutin = result[5]
+        }
+      }
+    }
+        sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), choice(commandes_disponibles[0]), 'NLC'];
+        test = pion.testSequence(sequence);
+        while (!test[0]) {
+          sequence = [choice(commandes_disponibles[0]), choice(commandes_disponibles[1]), 'NLC'];
+          test = pion.testSequence(sequence);
+        }
+        for (let i = 0; i < sequence.length; i++) {
+          instruction = sequence[i]
+          result = pion.testInstruction(instruction, lutin)
+          if (instruction == 'NLC') {
+          liste_instructions.push(instruction)
+            nb_instructions++
+            couleurs.push(pion.nlc());
+            pion.codeScratch += result[4] + '\n';
+            pion.currentIndex += result[4].length + 1
+            lutin = result[5]
+          }
+          else {
+            nb_instructions++
+            liste_instructions.push(instruction)
+            pion.currentPos.x = result[1];
+            pion.currentPos.y = result[2];
+            pion.currentOrientation = result[3];
+            pion.codeScratch += result[4] + '\n';
+            pion.currentIndex += result[4].length + 1
+            lutin = result[5]
+          }
+        }
         break;
 
       case 3:
@@ -283,7 +394,7 @@ let ydepart=-135+randint(2,7)*30
     }
     //  objets_enonce.push ();
     //objets_correction.push();
-
+console.log(objets_correction)
 
     //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
     params_correction = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 };
@@ -293,19 +404,19 @@ let ydepart=-135+randint(2,7)*30
     texte = `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
-      + mathalea2d(params_correction, objets_correction) +
+      + mathalea2d(params_correction, objets_correction, lutin) +
       `</td></tr></table>`
-    texte_corr = 'On obtient la série de couleurs suivante : '
-    texte_corr += `${couleurs[0]} `;
+    texte_corr = 'On obtient la série de couleurs suivante :<br> '
+    texte_corr += `${texte_gras(couleurs[0])} `;
     for (let i = 1; i < couleurs.length; i++) {
-      texte_corr += `- ${couleurs[i]} `;
+      texte_corr += `- ${texte_gras(couleurs[i])} `;
     }
-    texte_corr += '<br>' + mathalea2d(params_correction, objets_correction, lutin)
+    texte_corr += '<br><br>' + mathalea2d(params_correction,objets_correction, lutin)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu_sans_numero(this);
   };
   this.besoin_formulaire_case_a_cocher = ['Plateau avec numéros', true]
-  this.besoin_formulaire2_numerique = ['Type de programme',1,'1 : Avancer et tourner']
-  this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)',6]
+  this.besoin_formulaire2_numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
+  this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)', 6]
 }

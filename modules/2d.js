@@ -8206,6 +8206,7 @@ function LatexParCoordonnees(texte, x, y, color = 'black', size = 200, hauteurLi
     else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${this.color}}{${this.texte}}$</div></foreignObject>`;
+
     }
   };
   this.tikz = function () {
@@ -8378,8 +8379,14 @@ export function angleScratchTo2d(x){
   if (angle2d<-180) {
      angle2d+=360
   }
-  return angle2d
+  return angleModulo(angle2d)
   }
+
+export function angleModulo(a){
+if (a<-180) return a+360
+else if (a>180) return a-360
+else return a
+}
 
 function ObjetLutin() {
   //let mesObjets
@@ -8436,11 +8443,10 @@ function ObjetLutin() {
       let B = point(this.listeTraces[i][2], this.listeTraces[i][3]);
    code+= ` ${B.xSVG(coeff)} ${B.ySVG(coeff)} `
     }
-    code+= `" 'begin="10s" dur="5s" repeatCount="1"' />;
+    code+= `" 'begin="10s" dur="10s" repeatCount="indefinite"' />;
     </circle>
     </g>`;
 }
-  console.log(code)
     return code;
   };
   this.tikz = function () {
@@ -8479,6 +8485,7 @@ export function creerLutin(...args) {
   return new ObjetLutin(...args);
 }
 
+
 export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
@@ -8499,15 +8506,15 @@ export function leveCrayon(lutin = mathalea.lutin) {
 }
 
 export function orienter(a, lutin = mathalea.lutin) {
-  lutin.orientation = a
+  lutin.orientation = angleModulo(a)
 }
 
 export function tournerG(a, lutin = mathalea.lutin) {
-  lutin.orientation += a
+  lutin.orientation = angleModulo(lutin.orientation+a)
 }
 
 export function tournerD(a, lutin = mathalea.lutin) {
-  lutin.orientation -= a
+  lutin.orientation =angleModulo(lutin.orientation-a)
 }
 
 export function allerA(x, y, lutin = mathalea.lutin) {
