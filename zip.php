@@ -83,7 +83,7 @@
                 header('Pragma: no-cache'); 
                 header('Expires: 0');
                 header("location:https://www.overleaf.com/docs?snip_uri=$domaine/$thisdir/$filename"); // pour passer à overleaf
-                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
+                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichierszip/Projet.zip"); // pour tester avec l'existant
             }
         };
 
