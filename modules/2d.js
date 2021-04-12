@@ -4045,11 +4045,7 @@ export function similitude(A, O, a, k, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot
  */
-function TranslationAnimee(
-  liste,
-  v,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
+function TranslationAnimee(liste,v,animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
     let code = `<g> `;
@@ -4061,9 +4057,15 @@ function TranslationAnimee(
       //si ce n'est pas une liste
       code += "\n" + liste.svg(coeff);
     }
-    code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(
-      coeff
-    )} " ${animation} />`;
+    if (Array.isArray(v)){
+      code += `<animateMotion path="M 0 0 l`
+      for (const vecteur of v){
+        code +=  ` ${vecteur.xSVG(coeff)} ${vecteur.ySVG(coeff)} ` 
+      }
+      code += `${animation} />`
+    } else {
+      code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`;
+    }
     code += `</g>`;
     return code;
   };
