@@ -243,55 +243,55 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 
                 let contenu_fichier = `
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Document généré avec MathALEA sous licence CC-BY-SA
-    %
-    % ${window.location.href}
-    %
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    `;
-    let  load =function(monFichier) {
-        var request;
-        
-        if (window.XMLHttpRequest) { // Firefox
-            request = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) { // IE
-            request = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        else {
-            return; // Non supporte
-        }	
-        
-        request.open('GET', monFichier, false); // Synchro
-        request.send(null);
-        
-        return request.responseText;
-        }
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % Document généré avec MathALEA sous licence CC-BY-SA
+                %
+                % ${window.location.href}
+                %
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                
+                `;
+                let  load =function(monFichier) {
+                    var request;
+                    
+                    if (window.XMLHttpRequest) { // Firefox
+                        request = new XMLHttpRequest();
+                    }
+                    else if (window.ActiveXObject) { // IE
+                        request = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    else {
+                        return; // Non supporte
+                    }	
+                    
+                    request.open('GET', monFichier, false); // Synchro
+                    request.send(null);
+                    
+                    return request.responseText;
+                }
 
-    contenu_fichier+=code_LaTeX
-    let monzip= new JSZip()
-    if ($("#nom_du_fichier").val()!="") {
-        nom_fichier=$("#nom_du_fichier").val() + ".tex"                               ;
-    } else {
-        nom_fichier= "mathalea.tex";
-    }
-    monzip.file(`${nom_fichier}`,code_LaTeX)
-    monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
-    monzip.generateAsync({type:"blob"})
-.then(function(content) {
-    // see FileSaver.js
-    saveAs(content, "Projet.zip");
-});
-         /*         if ($("#nom_du_fichier").val()) {
+                contenu_fichier+=code_LaTeX
+                let monzip= new JSZip()
+                if ($("#nom_du_fichier").val()!="") {
+                    nom_fichier=$("#nom_du_fichier").val() + ".tex"                               ;
+                } else {
+                    nom_fichier= "mathalea.tex";
+                }
+                monzip.file(`${nom_fichier}`,code_LaTeX)
+                monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
+                monzip.generateAsync({type:"blob"})
+                .then(function(content) {
+                    // see FileSaver.js
+                    saveAs(content, "Projet.zip");
+                });
+              /*if ($("#nom_du_fichier").val()) {
                     telechargeFichier(contenu_fichier, $("#nom_du_fichier").val() + ".tex");
                 } else {
                     telechargeFichier(contenu_fichier, "mathalea.tex");
                 }*/
             });
 
-    //cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.				
+        //cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.				
 			
 		function supprimerExo(num) {
 			var form_choix_des_exercices = document.getElementById("choix_des_exercices");
@@ -533,13 +533,13 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
     * Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
     * @Auteur Rémi Angot
     */
-   function  MG32_modifie_figure(numero_figure) {
-    let code_pour_modifier_la_figure =  listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
-    if (window.mtg32App.docs.length==1){
-        code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace("display","updateDisplay")
-    }
-    let modification = new Function ('numero_figure',code_pour_modifier_la_figure)
-    modification(numero_figure);
+    function  MG32_modifie_figure(numero_figure) {
+        let code_pour_modifier_la_figure =  listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
+        if (window.mtg32App.docs.length==1){
+            code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace("display","updateDisplay")
+        }
+        let modification = new Function ('numero_figure',code_pour_modifier_la_figure)
+        modification(numero_figure);
     }
 
     // FIN DE GESTION DE MG32
@@ -564,8 +564,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         if (exercice.length > 0) {
             div_parametres_generaux.innerHTML += '<div class="ui hidden divider"></div>';
 
-            div_parametres_generaux.innerHTML += `<div><label for="form_serie">Clé de la série d'exercice : </label> <input id="form_serie" type="text" style="padding: 5px;
-  border: 1px solid #ccc;border-radius: 4px;"></div>`;
+            div_parametres_generaux.innerHTML += `<div><label for="form_serie">Clé de la série d'exercice : </label> <input id="form_serie" type="text" style="padding: 5px;  border: 1px solid #ccc;border-radius: 4px;"></div>`;
         }
 
         for (let i = 0; i < exercice.length; i++) {
@@ -810,13 +809,13 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         }
 
         for (let i = 0; i < exercice.length; i++) {
-                // Gestion de la suppression des identifiants
-                let form_supprimer_reference = document.getElementById("supprimer_reference");
-                form_supprimer_reference.addEventListener("change", function (e) {
-                    // Dès que le statut change, on met à jour
-                    // nouvelles_donnees();
-                    mise_a_jour_du_code();
-                });
+            // Gestion de la suppression des identifiants
+            let form_supprimer_reference = document.getElementById("supprimer_reference");
+            form_supprimer_reference.addEventListener("change", function (e) {
+                // Dès que le statut change, on met à jour
+                // nouvelles_donnees();
+                mise_a_jour_du_code();
+            });
             // Gestion du nombre de questions
             if (exercice[i].nb_questions_modifiable) {
                 form_nb_questions[i] = document.getElementById("form_nb_questions" + i);
@@ -828,11 +827,11 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
                 });
             }
 
-         // Gestion du mode QCM
-        // exercice[i].ModeQCM=true
-        //mise_a_jour_du_code();
+            // Gestion du mode QCM
+            // exercice[i].ModeQCM=true
+            //mise_a_jour_du_code();
 
-         // Gestion de l'identifiant de la série
+            // Gestion de l'identifiant de la série
             if (exercice.length > 0) {
                 let form_serie = document.getElementById("form_serie");
                 form_serie.value = mathalea.graine; // Rempli le formulaire avec la graine
@@ -1025,7 +1024,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             }
             mise_a_jour_du_code();
         });
-// Gestion des paramètres du fichier LaTeX
+        // Gestion des paramètres du fichier LaTeX
         // gestion de l'entête
         let form_entete=document.getElementById("options_type_entete");
         form_entete.value = 'AMCcodeGrid'
@@ -1041,26 +1040,26 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
         mise_a_jour_du_code()
          });
 
-  // gestion du format
-  let form_format=document.getElementById("options_format");
-  form_format.value = 'A4'
-  $('#format_A4').show()
-  $('#format_A3').hide()
-  form_format.addEventListener("change",function (e) {
-  format=e.target.value;
-  console.log(format)
-  mise_a_jour_du_code()
-   });
+        // gestion du format
+        let form_format=document.getElementById("options_format");
+        form_format.value = 'A4'
+        $('#format_A4').show()
+        $('#format_A3').hide()
+        form_format.addEventListener("change",function (e) {
+        format=e.target.value;
+        console.log(format)
+        mise_a_jour_du_code()
+        });
 
 
-         //gestion du nombre de questions par groupe
-         let form_nb_questions=document.getElementById("nb_questions_par_groupe");
+        //gestion du nombre de questions par groupe
+        let form_nb_questions=document.getElementById("nb_questions_par_groupe");
         form_nb_questions.value=[]
-         form_nb_questions.addEventListener("change",function (e) {
-             let saisie=e.target.value;
-         nb_questions=saisie.split(',');
-         mise_a_jour_du_code()
-          });         
+        form_nb_questions.addEventListener("change",function (e) {
+            let saisie=e.target.value;
+            nb_questions=saisie.split(',');
+            mise_a_jour_du_code()
+         });         
 
         $("#btn_overleaf").click(function () {
             // Gestion du style pour l'entête du fichier
@@ -1089,6 +1088,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
             }
             
         });
+
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;
         let serie = params.get("serie");
@@ -1106,6 +1106,7 @@ import {dictionnaireDesExercicesQCM} from "./modules/dictionnaireDesExercicesAMC
 			mise_a_jour_de_la_liste_des_exercices();
         }
     });
+    
 	//handlers pour la prévisualisation des exercices cg 04-20201
     $(".icone_preview").off("click").on("click", function (e) {
 		if ($(".popuptext").is(":visible")) {
