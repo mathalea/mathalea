@@ -38,7 +38,7 @@
         if (is_dir($thisdir) ) {
             $handle=opendir($thisdir);
             while (false!==($file = readdir($handle))) {
-                if ($file != "." && $file != ".." && $file != "automultiplechoice.sty") { 
+                if ($file != "." && $file != ".." && $file != "automultiplechoice.sty" && $file != "Projet.zip") { 
                     $Diff = (time() - filectime("$thisdir/$file"));
                     if ($Diff > $sec) unlink("$thisdir/$file");
                 }
@@ -74,8 +74,16 @@
                 header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive en local
                 //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
             } else {
-                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
-                header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
+                $domaine = "https://coopmaths.fr";
+                //$domaine = "http://mathalea.mathslozano.fr";
+                header('Content-type: application/zip'); // on indique que c'est une archive
+                header('Content-Transfer-Encoding: fichier'); // transfert en binaire (fichier)
+                header('Content-Disposition: attachment; filename="'.$thisdir.'/'.$filename.'"'); // nom de l'archive
+                header('Content-Length: '.filesize($thisdir.'/'.$filename)); // taille de l'archive
+                header('Pragma: no-cache'); 
+                header('Expires: 0');
+                header("location:https://www.overleaf.com/docs?snip_uri=$domaine/$thisdir/$filename"); // pour passer à overleaf
+                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
             }
         };
 
