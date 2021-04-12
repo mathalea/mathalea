@@ -74,8 +74,8 @@
                 header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive en local
                 //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
             } else {
-                header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
-                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
+                //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/$thisdir/$filename"); // pour passer à overleaf
+                header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
             }
         };
 
