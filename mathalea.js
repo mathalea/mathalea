@@ -362,7 +362,11 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 
     // Ajoute le contenu dans les div #exercices et #corrections
     if (sortie_html && !est_diaporama) {
-      document.getElementById('exercices').innerHTML = '';
+      let scroll_level;
+	  if (document.getElementById('right')) {
+		scroll_level = document.getElementById('right').scrollTop
+	  }
+	  document.getElementById('exercices').innerHTML = '';
       document.getElementById('corrections').innerHTML = '';
       let contenuDesExercices = '';
       let contenuDesCorrections = '';
@@ -386,7 +390,11 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
         $('#cache').dimmer('show') // Cache au dessus du code LaTeX
       }
+	  
       document.getElementById('exercices').innerHTML = contenuDesExercices
+	  if (scroll_level) {
+		document.getElementById('right').scrollTop = scroll_level;
+	  }
       document.getElementById('corrections').innerHTML = contenuDesCorrections        
       gestion_modules(false, listeObjetsExercice)
     }
@@ -435,7 +443,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         }
         $('#message_liste_exercice_vide').hide()
         copier_exercices_form_vers_affichage(liste_des_exercices)
-        $('.choix_exercices:last').focus()
         $('#cache').show()
 
         // Gestion du nombre de versions
@@ -778,7 +785,13 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
           contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false) 
           $('#popup_preview').html(contenu.contenu_un_exercice)
           $('.popup').addClass('show')
-          $('.popuptext').css({ top: document.documentElement.scrollTop - 20 })
+		  if (document.getElementById("left")) {
+			$('.popuptext').css({ top: document.getElementById("left").scrollTop - 10 })
+			$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+		  }
+		  else {
+			  $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+		  }
           $('.popuptext').show()	
           liste_des_exercices.pop()
           if (!output) {
@@ -1563,7 +1576,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
     // handlers pour la prévisualisation des exercices cg 04-20201
     function afficher_popup () {
       if ($('.popuptext').is(':visible')) {
-        $('.popuptext').html('')
+        $('.popuptext').empty()
         $('.popuptext').hide() 
       } else {
         mise_a_jour_de_la_liste_des_exercices(event.target.id)
@@ -1583,11 +1596,28 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
     $(document).click(function (event) {
       if ($('.popuptext').is(':visible')) {
         $('.popuptext').hide()
-        $('.popuptext').html('')
+        $('.popuptext').empty()
         $('.icone_preview').off('click').on('click', function (e) {
           afficher_popup()
         })
       }
+    })
+	
+	$("#exo_plein_ecran").click(function (event) {
+      if ($('#exo_plein_ecran').hasClass("left")) {
+        $('#left').hide()
+		$('#right').removeClass('column')
+		$('#right').css("width","100%")
+		$('#exo_plein_ecran').removeClass("left")
+		$('#exo_plein_ecran').addClass("right")
+      }
+	  else {
+		$('#left').show()
+		$('#right').addClass('column')
+		$('#right').css("width",$('#left').css("width"))
+		$('#exo_plein_ecran').removeClass("right")
+		$('#exo_plein_ecran').addClass("left")
+	  }
     })
 		
     if (document.getElementById('btnQRcode')) {
