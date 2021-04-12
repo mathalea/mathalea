@@ -11,3 +11,8 @@ dnb/
 
 #ignorer les zip du dossier fichierszip/
 fichierszip/*.zip
+!/fichierszip/Projet.zip
+!/fichierszip/ProjetCrashed.zip
+
+#ignorer le fichier index.php utile que pour le sous domaine de test de Seb
+index.php
