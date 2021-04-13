@@ -36,7 +36,7 @@ this.sup3 = 3
     this.liste_questions=[]
     /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10-5',[],'Labyrinthe de multiples',3]
+this.QCM=['6C10-5',[],'Labyrinthe de multiples',3,{}]
 /**********************************************************/
 
     let params, texte, texte_corr, trouve
@@ -80,9 +80,8 @@ this.QCM=['6C10-5',[],'Labyrinthe de multiples',3]
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
 
-    /*****************************************************/
-    // Pour AMC
-    this.QCM[1][0]=[texte,[texte_corr],[3]]
+    /************************ AMC Open *****************************/
+    this.QCM[1][0]=[texte,[texte_corr],[3]]      // [question,[reponse],[nb_lignes_cadre]]
     /****************************************************/
 
     this.liste_questions.push(texte);

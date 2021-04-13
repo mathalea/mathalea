@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import { combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
-import {mathalea2d} from "/modules/2d.js"
-import {fraction} from "/modules/Fractions.js"
+import {modal_texte_court, combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
+import {mathalea2d} from "/modules/2d.js";
+import {fraction} from "/modules/Fractions.js";
 
 
 
@@ -13,7 +13,8 @@ import {fraction} from "/modules/Fractions.js"
 export default function Encadrer_fraction_entre_2_entiers() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Encadrer une fraction entre deux nombres entiers";
-  this.consigne = "Compléter avec deux entiers consécutifs";
+  this.consigne = "Compléter avec deux nombres entiers consécutifs"+modal_texte_court(1,"Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.",'Consécutifs');
+  this.introduction=`Exemple : $2 < \\dfrac{9}{4} < 3$ car  $2=\\dfrac{8}{4}$ et $3=\\dfrac{12}{4}$`;
   this.nb_questions = 6;
   this.nb_cols = 2;
   this.nb_cols_corr = 1;
@@ -36,7 +37,7 @@ export default function Encadrer_fraction_entre_2_entiers() {
       if (this.correction_detaillee) {
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `;
         texte_corr += `<br><br>`;
-        texte_corr += mathalea2d({ xmin: -.5, xmax: 24, ymax: 1.5, scale: .6 }, fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
+        texte_corr += mathalea2d({ xmin: -0.5, xmax: 24, ymax: 1.5, scale: 0.6 }, fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
         );
       }
 

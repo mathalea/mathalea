@@ -165,7 +165,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3F13.js"
     },
     "3F13-1": {
-        "titre": "Lecture graphique d'images et d'antécédents.",
+        "titre": "Lecture graphique d'images et d'antécédents",
         "url": "/exercices/3e/3F13-1.js"
     },
     "3F13-2": {
@@ -605,7 +605,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/4e/4S11.js"
     },
     "5A10": {
-        "titre": "Écrire la liste de tous les diviseurs d'un entier.",
+        "titre": "Écrire la liste de tous les diviseurs d'un entier",
         "url": "/exercices/5e/5A10.js"
     },
     "5A11": {
@@ -715,6 +715,14 @@ export let dictionnaireDesExercicesAleatoires =
     "5G40": {
         "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
         "url": "/exercices/5e/5G40.js"
+    },
+    "5G40-1": {
+        "titre": "Citer les propriétés des parallélogrammes",
+        "url": "/exercices/5e/5G40-1.js"
+    },
+    "5G40-2": {
+        "titre": "Reconnaitre un parallélogramme à partir du codage d'une figure",
+        "url": "/exercices/5e/5G40-2.js"
     },
     "5G41": {
         "titre": "Construire des quadrilatères particuliers",
@@ -939,6 +947,10 @@ export let dictionnaireDesExercicesAleatoires =
     "6Algo10": {
         "titre": "Programmer des déplacements",
         "url": "/exercices/6e/6Algo10.js"
+    },
+    "6Algo11": {
+        "titre": "Note la couleur",
+        "url": "/exercices/6e/6Algo11.js"
     },
     "6C10": {
         "titre": "Additions, soustractions et multiplications posées de nombres entiers",
@@ -1604,6 +1616,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Stabilisation des fréquences",
         "url": "/exercices/beta/beta3s21.js"
     },
+    "beta4C10-6": {
+        "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
+        "url": "/exercices/beta/beta4C10-6.js"
+    },
     "beta4C25-00": {
         "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
         "url": "/exercices/beta/beta4C25-00.js"
@@ -1632,13 +1648,13 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Construire un triangle aux instruments",
         "url": "/exercices/beta/beta6G21.js"
     },
-    "beta6P11": {
-        "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
-        "url": "/exercices/beta/beta6P11.js"
-    },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
+    },
+    "beta6test2021": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/beta/beta6test2021.js"
     },
     "betaClasseTableauVariations": {
         "titre": "Tests tableaux fonctions",
@@ -1672,9 +1688,9 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
     },
-    "betaNoteLaCouleur": {
-        "titre": "Note la couleur",
-        "url": "/exercices/beta/betaNoteLaCouleur.js"
+    "betaP011": {
+        "titre": "Construis mon triangle",
+        "url": "/exercices/beta/betaP011.js"
     },
     "betaProbabilites": {
         "titre": "Probabilités simples",

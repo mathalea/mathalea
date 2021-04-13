@@ -8,7 +8,7 @@ import {repere2,graphiqueInterpole,mathalea2d,} from "/modules/2d.js"
 */
 export default function Antecedent_et_image_graphique() {
 	Exercice.call(this);
-	this.titre = "Lecture graphique d'images et d'antécédents.";
+	this.titre = "Lecture graphique d'images et d'antécédents";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;

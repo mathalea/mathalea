@@ -69,7 +69,7 @@ export default function Multiplication_mental_decimaux() {
 
                texte += `Calcul : $${a} + ${b}$. <br>`;
          
-               if (this.ModeQCM){
+               if (this.ModeQCM&&!mathalea.sortieAMC){
                 texte_corr += `Calcul : $${a} + ${b}$. <br>`;
                texte += `Réponses possibles : <br>`;
                shuffle2tableaux(tabrep, tabicone); // on mélange les deux tableaux avec la même permutation

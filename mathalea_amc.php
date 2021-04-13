@@ -34,6 +34,10 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
+	 <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 
     <!-- Semantic UI-->
     <link
@@ -73,6 +77,10 @@
       crossorigin="anonymous"
     ></script>
 
+  <script type="text/javascript" src="modules/datatables/datatables.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.24/filtering/type-based/accent-neutralise.js"></script>
+  <link rel="stylesheet" href="modules/datatables/jquery.dataTables.min.css" />
+  
     <script>
       // Les variables globales nécessaires aux exercices (pas terrible...)
       window.mathalea = {
@@ -116,7 +124,10 @@
               >
             </p>
           </div>
-
+          <div class="ui checkbox">
+            <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden">
+            <label>Cacher les identifiants des exercices&nbsp;&nbsp;&nbsp</label>
+          </div>
           <div
             class="ui fluid left icon input"
             data-tooltip="Nombres séparés par des virgules"
@@ -126,13 +137,28 @@
             <!-- <span tooltip='Nombres séparés par des virgules'><input id='choix_des_exercices' type='text' size='50' ></span> -->
             <input id="choix_des_exercices" type="text" />
           </div>
-
+			<div id="choix_exercices_div" data-tooltip="Identifiants des exercices" >
+		<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
+	</div>
           <div id="parametres_generaux"></div>
         </div>
       </div>
 
       <div id="droite" class="ui left aligned segment">
-        <div id="liste_des_exercices"></div>
+        <div id="exercices_disponibles">
+			<h3 class="ui block header">Exercices disponibles 
+				<span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+				<span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
+				<span class="replier" id="replier" > - </span>
+			</h3>
+			</div>
+			<div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+		<div id="liste_des_exercices" >    
+				<!-- Liste mise à jour en JS -->
+		</div>
+			<div id="liste_des_exercices_tableau" >
+			<!-- Liste mise à jour en JS -->
+		</div>
 
         <div class="ui hidden divider"></div>
 
@@ -233,13 +259,27 @@
           </div>
             <div class="ui hidden divider"></div>
             <div id="overleaf">
-              <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
-              <div class="form-group text-center">
-              <input type="hidden" name="encoded_snip" value="" autocomplete="off">
-              <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
-              <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
-              <i class="cogs icon"></i>Compiler sur Overleaf.com</button></div></form>
-        
+              <!-- <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
+                <div class="form-group text-center">
+                  <input type="hidden" name="encoded_snip" value="" autocomplete="off">
+                  <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
+                  <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
+                    <i class="cogs icon"></i>Compiler sur Overleaf.com
+                  </button>
+                </div>
+              </form>        -->
+              <form name="zips" method="post" action="zip.php" target="_blank">
+                <!-- champ erreur -->
+                <?php if(!empty($error)) { ?>
+                <p style=" border:#C10000 1px solid; background-color:#FFA8A8; color:#B00000;padding:8px; width:588px; margin:0 auto 10px;"><?php echo $error; ?></p>
+                <?php } ?>                
+                <input type="hidden" name="encoded_snip" value="" autocomplete="off">
+                <!-- <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">                 -->
+                <button class="btn-success btn btn-smclass ui labeled icon button" type="submit" name="createzip" id="btn_overleaf"> 
+                  <i class="cogs icon"></i>Compiler sur Overleaf.com
+                </button>
+              </form>
+ 
             </div>
 
             <div>

@@ -80,6 +80,15 @@
   <!-- Download-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" type="text/javascript"></script>
 
+  <!-- Instrumenpoche-->
+  <script src="https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js" type="text/javascript" ></script>
+
+  <style>
+    #display, #xmlSrc, #svg {
+      border : solid !important;
+    }
+  </style>
+
 
 </head>
 
@@ -88,57 +97,39 @@
   <nav>
 
     <div class="ui top attached five item stackable container menu  ">
-      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i> 
         <div class="menu">
-          <a href="/" class="item">Sixième</a>
-          <a href="/5e" class="item">Cinquième (en construction)</a>
-          <a href="/4e" class="item">Quatrième (prochainement)</a>
-          <a href="/3e" class="item">Troisième (en construction)</a>
+          <a href="/" class="item">Accueil</a>
+          <a href="/6e" class="item">Sixième</a>
+          <a href="/5e" class="item">Cinquième</a>
+          <a href="/4e" class="item">Quatrième</a>
+          <a href="/3e" class="item">Troisième</a>
+          <a href="/2e" class="item">Seconde</a>
           <a href="/twitter" class="item">Actualités</a>
         </div>
+      </div> 
+    <a  href="/a_propos/" class="ui simple  item">À propos</a>
+    <a  href="/telechargements"class="ui simple  item">Téléchargements</a> 
+    <a  href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+    <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i> 
+      <div class="menu">
+        <a href="/mathalea.html" class="item">Exercices en ligne</a>
+        <a href="/cm.html" class="item">Exercices chronométrés</a>
+        <a href="/mathalealatex.html"class="item">Générateur LaTeX/PDF</a>
+        <a href="/alacarte"class="item">Évaluation à la carte</a>
+        <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+        <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+        <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+        <a href="/mathalea_a_propos" class="item">À propos</a>
       </div>
-      <a href="/a_propos/" class="ui simple  item">À propos</a>
-      <a href="/telechargements" class="ui simple  item">Téléchargements</a>
-      <a href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
-      <div class="ui  dropdown item" class="blanc">MathALEA <i class="dropdown icon"></i>
-        <div class="menu">
-          <a href="/mathalea.html" class="item">Exercices en ligne</a>
-          <a href="/cm.html" class="item">Diaporama</a>
-          <a href="/mathalealatex.html" class="item">Générateur LaTeX</a>
-          <a href="/alacarte" class="item">Évaluation à la carte</a>
-          <a href="/mathalea_tuto" class="item">Comment l'utiliser ?</a>
-          <a href="/mathalea_a_propos" class="item">À propos</a>
-          <div class="item">
-            <i class="dropdown left icon"></i>
-            <span class="text">MathALEA 2D</span>
-            <div class="left menu">
-              <a href="/mathalea2d.html" class="item">Utiliser en ligne</a>
-              <a href="/docMathalea2d/presentation" class="item">Présentation</a>
-              <div class="item">
-                <i class="dropdown left icon"></i>
-                <span class="text">Documentation</span>
-                <div class="left menu">
-                  <a href="/docMathalea2d/points" class="item">Points</a>
-                  <a href="/docMathalea2d/segments" class="item">Segments, droites...</a>
-                  <a href="/docMathalea2d/cercles" class="item">Cercles et arcs de cercles</a>
-                  <a href="/docMathalea2d/polygones" class="item">Polygones</a>
-                  <a href="/docMathalea2d/transformations" class="item">Transformations</a>
-                  <a href="/docMathalea2d/remarquables" class="item">Droites remarquables</a>
-                  <a href="/docMathalea2d/codages" class="item">Codages</a>
-                  <a href="/docMathalea2d/programmation" class="item">Programmation</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <script type="text/javascript">
-        $(document).ready(function () {
-          $('.ui.dropdown').dropdown();
-        });
-      </script>
-
+    </div>
+  
+    <script type="text/javascript">
+     $(document).ready(function(){
+      $('.ui.dropdown') .dropdown();
+    });     
+  </script>
+  
   </nav>
   <div class="ui hidden divider"></div>
 
@@ -148,19 +139,47 @@
     <div class="two column row">
       <div class="column">
         <h3>MathALEA 2D</h3>
-        <div id="editeur"></div>
+        <div id="editeur" style="height: 600px;"></div>
         <button class="btn ui labeled icon button" id="submit" style="margin:10px"><i
             class="redo icon"></i>Actualiser</button> <button class="btn ui labeled icon button" style="margin:10px"
-          onclick="window.location.href='https://coopmaths.fr/mathalea2d_tuto/'"><i
-            class="info circle icon"></i>Aide</button>
+          onclick="window.open('/docMathalea2d/InstrumEnPoche/')"><i class="info circle icon"></i>Aide</button>
+        <button class="btn ui icon button" style="margin:10px;visibility: hidden;" id="url"><i
+            class="linkify icon"></i></button><button class="btn ui labeled icon button"  style="margin:10px;visibility: hidden;" id="telecharger"><i class="download icon"></i>Télécharger</button>
       </div>
+      <div class="column">
+        <h3>Animation Instrumenpoche</h3>
+        <div id="display" ></div>
+      </div>
+    </div>
+
+
+    <div class="two column row">
       <div class="column">
         <h3>Aperçu SVG</h3>
         <div id="svg" style="cursor: move;"></div>
       </div>
+      <div class="column">
+        <div id="errors"></div>
+
+        <form id="iepForm">
+            <h3>Script IEP</h3>
+          <textarea id="xmlSrc" width="100%" rows="10"></textarea>
+          <br />
+          <button id="previewBtn">Aperçu</button>
+        </form>
+
+      </div>
     </div>
 
   </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -183,7 +202,7 @@
 
     #xmlSrc {
       resize: both;
-      width: 50%;
+      width: 90%;
       overflow: auto;
     }
 
@@ -196,106 +215,6 @@
       margin: 0 auto;
     }
   </style>
-
-  <div id="errors"></div>
-  <div class="ui hidden divider"></div>
-
-  <div class="ui hidden divider"></div>
-  <form id="iepForm">
-    <label for="xmlSrc">
-      <h3>Script IEP</h3>
-    </label>
-    <textarea id="xmlSrc" width="50%" rows="10"></textarea>
-    <br />
-    <button id="previewBtn">Aperçu</button>
-  </form>
-
-  <div class="ui hidden divider"></div>
-
-  <div class="ui hidden divider"></div>
-  <h3>Animation Instrumenpoche</h3>
-  <div id="display"></div>
-
-  <script type="text/javascript">
-
-    function displayError(error) {
-      console.error(error)
-      var pre = document.createElement('pre')
-      var txt = document.createTextNode(error.toString())
-      pre.appendChild(txt);
-      document.getElementById('errors').appendChild(pre)
-      window.scrollTo(0)
-    }
-
-    function display(event) {
-      try {
-        event.preventDefault()
-        event.stopPropagation()
-        var display = document.getElementById("display")
-        // on nettoie
-        for (var i = 0; i < display.childNodes.length; ++i) {
-          var item = display.childNodes[i]
-          display.removeChild(item)
-        }
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-        svg.id = 'svgIEP'
-        var largeur = Math.max(display.offsetWidth - 20 || 0, 800)
-        svg.style.width = largeur + 'px'
-        svg.setAttribute('width', largeur)
-        var hTot = window.innerHeight || 400
-        var hForm = document.getElementById('iepForm').offsetHeight || 200
-        var hauteur = Math.max(hTot - hForm - 40, 700)
-        svg.style.height = hauteur + 'px'
-        svg.setAttribute('height', hauteur)
-        display.appendChild(svg)
-        var iepApp = new iep.iepApp()
-        var xmlElt = document.getElementById('xmlSrc')
-        iepApp.addDoc("svgIEP", xmlElt.value, true)
-      } catch (error) {
-        displayError("Plantage à l'affichage, xml probablement malformé")
-        console.error(error)
-      }
-    }
-
-    function dropHandler(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      try {
-        var files = event.dataTransfer.files; // FileList object.
-        if (files && files[0]) {
-          var file = files[0]
-          console.log("On récupère le fichier ", file.name)
-          if (file.name.substr(-4) === '.xml') {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-              document.getElementById("xmlSrc").value = event.target.result
-              display(event)
-            };
-            reader.readAsText(file);
-          } else {
-            displayError("On ne gère que les fichiers xml");
-          }
-        }
-      } catch (error) {
-        displayError("Plantage à la récupération du fichier")
-        displayError(error)
-      }
-    }
-
-    function dragOverHandler(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      // faut préciser ça explicitement
-      event.dataTransfer.dropEffect = 'copy';
-    }
-
-    // et on ajoute les listener
-    var previewBtn = document.getElementById('previewBtn')
-    previewBtn.addEventListener('click', display, false)
-    var textarea = document.getElementById('xmlSrc')
-    textarea.addEventListener('dragover', dragOverHandler, false);
-    textarea.addEventListener('drop', dropHandler, false);
-  </script>
 
 
 

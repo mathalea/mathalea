@@ -177,7 +177,7 @@ function updateMessageErreur(text) {
 
 
 
-window.onload = function () {
+window.addEventListener('load', function()  {
 
     jQuery.ajaxSetup({ async: false }); // Tout le traitement se fait de manière synchrone. 
     // On attend le résultat des requetes url vers les fichiers statiques pour bien avoir les exercices dans l'ordre
@@ -414,7 +414,7 @@ window.onload = function () {
         });
     });
 
-};
+})
 
 function creer_fichier() {
     // Gestion du style pour l'entête du fichier

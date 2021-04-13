@@ -46,7 +46,7 @@ export default function Exercice_additions_relatifs(max = 20) {
 			}
 			tabrep=[`$${a+b}$`,`$${a-b}$`,`$${-a+b}$`,`$${-a-b}$`]
 			tabicone=[1,0,0,0]
-			if (this.ModeQCM) {
+			if (this.ModeQCM&&!mathalea.sortieAMC) {
 				texte_corr=''
 				texte+=`<br>  Réponses possibles : ${espace}  `
 				shuffle2tableaux(tabrep, tabicone);

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, shuffle, combinaison_listes, calcul, creerNomDePolygone, lettre_depuis_chiffre, nombre_avec_espace, range1 } from "/modules/outils.js"
-import { codeSegments, point, pointIntersectionDD, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codeAngle, texteParPoint, angle, mathalea2d } from "/modules/2d.js"
+import { codeSegments, point, pointIntersectionDD, longueur,pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codeAngle, texteParPoint, angle, mathalea2d } from "/modules/2d.js"
+import Alea2iep from "/modules/Alea2iep.js";
+
 /**
  * publié le 1/12/2020
  * @Auteur Jean-Claude Lhote
@@ -15,7 +17,10 @@ export default function Construire_un_triangle_avec_cible() {
   this.nb_cols_corr = 1;
   this.sup = false;
   this.classe = 6;
-  this.nouvelle_version = function () {
+  this.type_exercice = "IEP";
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    let IEP = new Alea2iep()
+let animation=''
     this.liste_questions = []
     this.liste_corrections = []
     let celluleAleaRonde = function (rang) {
@@ -174,6 +179,8 @@ export default function Construire_un_triangle_avec_cible() {
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1))
           texte_corr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          IEP.triangle1longueur2angles(sommets,lAB,Math.round(angle(B, A, C)),Math.round(angle(A, B, C)))
+          animation= IEP.htmlBouton(numero_de_l_exercice, i)
           break
         case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC 
           lAC = randint(70, 80) / 10
@@ -203,6 +210,7 @@ export default function Construire_un_triangle_avec_cible() {
           dAC = rotation(dAB, A, randint(8, 14) * 5)
           dBC = rotation(dAB, B, -randint(8, 12) * 5)
           C = pointIntersectionDD(dAC, dBC, sommets[2])
+          lAC=longueur(A,C)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
           cellule = celluleAleaRonde(5)
@@ -220,11 +228,12 @@ export default function Construire_un_triangle_avec_cible() {
       TT = polygoneAvecNom(A, B, CC)
       objets_enonceml.push(TT[0], TT[1])
       objets_correction.push(T[0], T[1])
-      params_enonceml = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 0.58, mainlevee: true, amplitude: 0.3 }
+      params_enonceml = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 20, scale: 0.58, mainlevee: true, amplitude: 0.3 }
       params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }
       params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
       texte_corr += mathalea2d(params_correction, objets_correction)
+      texte_corr+='<br>'+animation
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);

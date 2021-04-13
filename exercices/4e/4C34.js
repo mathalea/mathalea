@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,lettre_depuis_chiffre,randint,sp,choice,range1,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,mise_en_evidence,liste_des_diviseurs} from "/modules/outils.js"
+import {calcul,liste_de_question_to_contenu_sans_numero,lettre_depuis_chiffre,randint,sp,choice,range1,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,mise_en_evidence,liste_des_diviseurs} from "/modules/outils.js"
 /**
  * Plusieurs type de calcul avec priorités opératoires/ relatifs/ puissances
  *
@@ -63,6 +63,9 @@ export default function Priorites_et_relatifs_et_puissances() {
   this.spacing_corr = sortie_html ? 3 : 1;
 
   this.nouvelle_version = function () {
+    this.QCM=['4C34',[],'Calculs utilisant les priorités opératoires et les puissances',5,{}]
+ 
+    let reponse;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
   
@@ -92,6 +95,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         \\\\&=${a*a} + ${mise_en_evidence((ecriture_parenthese_si_negatif(b) + "\\times" + ecriture_parenthese_si_negatif(c)),'blue')}
         \\\\&=${a*a} ${ecriture_algebrique(b*c)}\\end{aligned}
         \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ( a*a + b*c))}\\\\$`;
+        reponse=calcul( a*a + b*c)
           break;
         
         case 2: //a + b²*c   
@@ -101,6 +105,7 @@ export default function Priorites_et_relatifs_et_puissances() {
           \\\\&=${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p*p) + '\\times' + ecriture_parenthese_si_negatif(c), 'blue')}
           \\\\&=${a + ecriture_algebrique(p*p*c)}\\end{aligned}
           \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a + p*p*c))}\\\\$`;
+          reponse=calcul(a + p*p*c)
             break;     
 
         case 3: //a²+b+c*d 
@@ -110,6 +115,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         \\\\&=${a*a} ${ecriture_algebrique(b)} +  ${mise_en_evidence((ecriture_parenthese_si_negatif(c) + "\\times" + ecriture_parenthese_si_negatif(d)),'blue') }
         \\\\&=${a*a + ecriture_algebrique(b)+ecriture_algebrique(c*d)}\\end{aligned}
         \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a*a + b + c * d))}\\\\$`;
+        reponse=calcul(a*a + b + c * d)
           break;              
 
         case 4: //a²*(b+c)
@@ -119,6 +125,7 @@ export default function Priorites_et_relatifs_et_puissances() {
           \\\\&=${n*n} \\times ( ${mise_en_evidence(b + ecriture_algebrique(c), 'blue')})
           \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(b+c)}\\end{aligned}
           \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(b+c)))}\\\\$`;
+          reponse=calcul(n*n*(b+c)) 
             break;      
 
         case 5: //m*(n²+p*n)
@@ -129,6 +136,7 @@ export default function Priorites_et_relatifs_et_puissances() {
             \\\\&=${m}\\times ( ${mise_en_evidence((n*n + ecriture_algebrique(p*n)),'blue') })
             \\\\&=${m}\\times ${ecriture_parenthese_si_negatif( n*n + p*n)}\\end{aligned}
             \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (m*(n*n+p*n)))}\\\\$`;
+            reponse=calcul(m*(n*n+p*n))
               break;    
 
         case 6: //(a+b+n²)*d 
@@ -138,6 +146,7 @@ export default function Priorites_et_relatifs_et_puissances() {
               \\\\&=(${mise_en_evidence((a + ecriture_algebrique(b) + ecriture_algebrique(n*n)),'blue') }) \\times ${ecriture_parenthese_si_negatif(d)}
               \\\\&=${a + b + n*n} \\times ${ecriture_parenthese_si_negatif(d)}\\end{aligned}
               \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ((a+b+n*n)*d))}\\\\$`;
+              reponse=calcul((a+b+n*n)*d)
                 break;   
 
         case 7: //n²*(a+b+c)
@@ -147,6 +156,7 @@ export default function Priorites_et_relatifs_et_puissances() {
                 \\\\&=${n*n} \\times ( ${mise_en_evidence(a + ecriture_algebrique(b) + ecriture_algebrique(c),'blue')})
                 \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(a+b+c)}\\end{aligned}
                 \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(a+b+c)))}\\\\$`;
+                reponse=calcul(n*n*(a+b+c))
                   break;   
 
       }     
@@ -154,6 +164,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
+        this.QCM[1].push([texte, [texte_corr,reponse,3], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;

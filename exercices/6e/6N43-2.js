@@ -126,9 +126,9 @@ export default function Tableau_criteres_de_divisibilite() {
       switch (liste_des_types_de_nombres[i]) {
         case "div2":
           tableau_de_nombres[i] = 2 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\color{blue} \\text{oui} & \\text{non} & \\text{non} & \\text{non} \\\\`;
+          )} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [1, 0, 0, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -137,9 +137,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div3":
           tableau_de_nombres[i] = 3 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`;
+          )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [0, 1, 0, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -148,9 +148,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div39":
           tableau_de_nombres[i] = 9 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`;
+          )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [0, 1, 0, 1, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -159,9 +159,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div5":
           tableau_de_nombres[i] = 5 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\text{non} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
+          )} & \\text{non} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [0, 0, 1, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -170,9 +170,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div25":
           tableau_de_nombres[i] = 10 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
+          )} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [1, 0, 1, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -181,9 +181,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div23":
           tableau_de_nombres[i] = 6 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`;
+          )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [1, 1, 0, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -192,9 +192,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div239":
           tableau_de_nombres[i] = 18 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`;
+          )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [1, 1, 0, 1, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -203,9 +203,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div35":
           tableau_de_nombres[i] = 15 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\text{non} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
+          )} & \\text{non} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [0, 1, 1, 0, 0]
           this.QCM[1].push([`$${tex_nombre2(tableau_de_nombres[i])}$ est divisible \n `,
@@ -214,9 +214,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "div2359":
           tableau_de_nombres[i] = 90 * choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\color{blue} \\text{oui} & \\text{oui} & \\text{oui} & \\text{oui} \\\\`;
+          )} & \\color{blue} \\text{oui} & \\text{oui} & \\text{oui} & \\text{oui} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [1, 1, 1, 1, 0]
           this.QCM[1].push([`${tex_nombre2(tableau_de_nombres[i])} est divisible \n `,
@@ -225,9 +225,9 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
         case "divrien":
           tableau_de_nombres[i] = choice(liste_de_facteurs);
-          tableau_de_nombres_avec_correction[i] = `$${tex_nombre2(
+          tableau_de_nombres_avec_correction[i] = `${tex_nombre2(
             tableau_de_nombres[i]
-          )}$ & \\text{non} & \\text{non} & \\text{non} & \\text{non} \\\\`;
+          )} & \\text{non} & \\text{non} & \\text{non} & \\text{non} \\\\`;
           tabrep = [`par $2$`, `par $3$`, `par $5$`, `par $9$`, `par aucun`]
           tabicone = [0, 0, 0, 0, 1]
           this.QCM[1].push([`${tex_nombre2(tableau_de_nombres[i])} est divisible \n `,
@@ -236,9 +236,7 @@ export default function Tableau_criteres_de_divisibilite() {
           break;
       }
       if (!mathalea.sortieAMC) {
-
         if (this.ModeQCM) {
-
           texte += `$${tex_nombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
           texte_corr += `$${tex_nombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
           for (let j = 0; j < tabrep.length; j++) {
@@ -255,38 +253,33 @@ export default function Tableau_criteres_de_divisibilite() {
       }
     }
     if (sortie_html&&!this.ModeQCM) {
-      texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
+           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
+      texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
     }
     else
       if (!mathalea.sortieAMC&&!this.ModeQCM) {
-        texte = `$\\begin{array}{|l|c|c|c|c|}\n`;
-      }
-    if (!mathalea.sortieAMC&&!this.ModeQCM) {
-      texte += `\\hline\n`;
-      texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`;
-      texte += `\\hline\n`;
-      for (let k = 0; k < this.nb_questions; k++) {
-        texte += `${tex_nombre2(tableau_de_nombres[k])} & & & & \\\\\n`;
-        texte += `\\hline\n`;
-      }
-
-      texte += `\\end{array}\n$`;
-
-      if (sortie_html) {
-        texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
-      } else {
+             texte = `$\\begin{array}{|l|c|c|c|c|}\n`;
         texte_corr = `$\\begin{array}{|l|c|c|c|c|}\n`;
       }
-      texte_corr += `\\hline\n`;
-      texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`;
-      texte_corr += `\\hline\n`;
+    if (!mathalea.sortieAMC&&!this.ModeQCM) {
+          texte += `\\hline\n`;
+     texte_corr += `\\hline\n`;
+          texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`;
+     texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`;
+          texte += `\\hline\n`;
+     texte_corr += `\\hline\n`;
+      for (let k = 0; k < this.nb_questions; k++) {
+        texte += `${tex_nombre2(tableau_de_nombres[k])} & & & & \\\\\n`;
+            texte += `\\hline\n`;
+      }
       for (let l = 0; l < this.nb_questions; l++) {
         texte_corr += tableau_de_nombres_avec_correction[l];
         texte_corr += `\\hline\n`;
       }
-
+           texte += `\\end{array}\n$`;
       texte_corr += `\\end{array}$\n`;
-    }
+     }
+     console.log(texte,'\n',texte_corr)
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
       if (!mathalea.sortieAMC){

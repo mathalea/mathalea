@@ -17,7 +17,9 @@ export default function Representer_un_solide() {
   this.sup = 1;
   this.sup2 = 1;
   this.classe=6;
+
   this.nouvelle_version = function () {
+    this.QCM=['6G41',[],'Compléter une représentation en perspective cavalière',3,{}]
     let type_de_questions_disponibles;
 
     if (this.sup == 3)
@@ -361,6 +363,7 @@ export default function Representer_un_solide() {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(enonce + "<br>");
         this.liste_corrections.push(correction + "<br>");
+        this.QCM[1][0]=[enonce,[correction],[5]] 
         i++;
       }
       cpt++;

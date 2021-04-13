@@ -43,16 +43,22 @@
   <!-- SVG.JS -->
   <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
 
-  <!-- Seedrandom -->
+  <!-- Seedrandom pour le numéro de série -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
 
  <!-- Math.js-->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js" integrity="sha512-jZKoHppj8aIM7qVRs9BUkS+YUtEbw7tJ7oKu0+g3rKCzRJyMWzaAdukppHp4ubV3HPxzrG03iExbMTnlbySPKA==" crossorigin="anonymous"></script>
+ 
+ <!-- Datatables pour le moteur de recherche -->
+  <script type="text/javascript" src="modules/datatables/datatables.min.js"></script>
+  <script src="//cdn.datatables.net/plug-ins/1.10.24/filtering/type-based/accent-neutralise.js"></script>
+  <link rel="stylesheet" href="modules/datatables/jquery.dataTables.min.css" />
 
-
+  <!-- Slick pour les diaporamas-->
   <link rel="stylesheet" type="text/css" href="/modules/slick/slick.css">
   <link rel="stylesheet" type="text/css" href="/modules/slick/slick-theme.css">
   <script type="text/javascript" src="/modules/slick/slick.min.js"></script>
+  
   <script>
 		// Les variables globales nécessaires aux exercices (pas terrible...)
     window.mathalea={sortieAMC:false,
@@ -126,13 +132,22 @@
       </div>
 
       <div class="ui hidden divider"></div>
-
-      <div id="liste_des_exercices" style="margin-top: 20px">
-        <h3 class="ui dividing header">Exercices disponibles</h3>
-        <!-- Liste mise à jour en JS -->
-      </div>
-      <div class="ui hidden divider"></div>
-
+	  <div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+      <div id="exercices_disponibles">
+			<h3 class="ui block header">Exercices disponibles 
+				<span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+				<span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
+				<span class="replier" id="replier" > - </span>
+			</h3>
+			<div id="liste_des_exercices" >    
+			<!-- Liste mise à jour en JS -->
+			</div>
+			<div id="liste_des_exercices_tableau" >
+			<!-- Liste mise à jour en JS -->
+			</div>
+	  </div>
+	  <div class="ui hidden divider"></div>
+	  
       <!-- <h3 class="ui block header">Exercices</h3> -->
 
       <div id="icones">
