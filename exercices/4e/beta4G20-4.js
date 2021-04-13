@@ -8,7 +8,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,troncature,calcu
 export default function Calculer_une_expression_litterale_pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculer la racine carrée de (x² +/- y²)";
-  this.consigne = "Dans chaque cas, calculer a² + b² et a² - b²; puis donner la racine carrée de chaque résultat, en valeur exacte puis en valeur arrondie au centième.";
+  this.consigne = "Dans chaque cas, calculer a² + b² et a² - b²; puis donner la racine carrée de chaque résultat en valeur arrondie au centième.";
   this.nb_questions = 2;
   this.nb_cols = 3;
   this.nb_cols_corr = 2;
