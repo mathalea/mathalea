@@ -8160,7 +8160,7 @@ preambule+=`
 	%%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
 	%\\usepackage[francais,bloc,completemulti]{automultiplechoice} 
 	%   remarque : avec completmulti => "aucune réponse ne convient" en +
-	 \\usepackage[francais,bloc,insidebox]{automultiplechoice} %//,insidebox
+	 \\usepackage[francais,bloc,insidebox,nowatermark]{automultiplechoice} %//,insidebox
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%% PACKAGES MISE EN PAGE %%%%%
