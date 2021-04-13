@@ -40,6 +40,7 @@ class NoteLaCouleur {
     this.codeScratch = '';
     this.currentIndex = 0;
     this.nlc = function () {
+      console.log(this.currentPos.x,this.currentPos.y,this.plateau[Math.ceil((135 - this.currentPos.y) / 30)][Math.ceil((195 + this.currentPos.x) / 30)])
       return this.plateau[Math.ceil((135 - this.currentPos.y) / 30)][Math.ceil((195 + this.currentPos.x) / 30)];
     };
     this.testCoords = function (x, y) {
@@ -224,8 +225,8 @@ export default function Note_la_couleur() {
     let commandes_disponibles, sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
     let lutin = creerLutin()
      let angledepart = choice([90, 0, -90, 180])
-    let xdepart = -195 + randint(2, 11) * 30
-    let ydepart = -135 + randint(2, 7) * 30
+    let xdepart = -195 + randint(4, 9) * 30
+    let ydepart = -135 + randint(3, 6) * 30
     mathalea.unitesLutinParCm = 20 * 30 / 52
     mathalea.pixelsParCm = 20
     lutin.color = 'green'
