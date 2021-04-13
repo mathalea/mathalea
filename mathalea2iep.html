@@ -80,6 +80,15 @@
   <!-- Download-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" type="text/javascript"></script>
 
+  <!-- Instrumenpoche-->
+  <script src="https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js" type="text/javascript" ></script>
+
+  <style>
+    #display, #xmlSrc, #svg {
+      border : solid !important;
+    }
+  </style>
+
 
 </head>
 
@@ -130,7 +139,7 @@
     <div class="two column row">
       <div class="column">
         <h3>MathALEA 2D</h3>
-        <div id="editeur"></div>
+        <div id="editeur" style="height: 600px;"></div>
         <button class="btn ui labeled icon button" id="submit" style="margin:10px"><i
             class="redo icon"></i>Actualiser</button> <button class="btn ui labeled icon button" style="margin:10px"
           onclick="window.open('/docMathalea2d/InstrumEnPoche/')"><i class="info circle icon"></i>Aide</button>
@@ -139,7 +148,7 @@
       </div>
       <div class="column">
         <h3>Animation Instrumenpoche</h3>
-        <div id="display"></div>
+        <div id="display" ></div>
       </div>
     </div>
 
