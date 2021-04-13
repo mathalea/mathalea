@@ -81,6 +81,7 @@ export default function Arrondir_une_valeur() {
         mi = 1000*(troncature(n - troncature(n, 2), 3));
       }
 
+      texte = `$${nb}$`;
       if (this.sup2) {
         if (this.sup == 1) texte += ``;
         else if (this.sup == 2) texte += `$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle affiche : $${tex_nombre(n)}$.]`;
