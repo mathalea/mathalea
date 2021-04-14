@@ -40,17 +40,18 @@ export default function Representer_un_solide() {
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
 
+    // sixième : cube et pavé droit
     if (this.classe == 6)
       type_de_questions_disponibles = [1, 2];
 
-    // sixième : cube et pavé droit
+    // cinquième : on ajoute le prisme
     else if (this.classe == 5)
       type_de_questions_disponibles = [1, 2, 4];
 
-    // cinquième : on ajoute le prisme
+    // Quatrième : on ajoute la pyramide
     else if (this.classe == 4)
       type_de_questions_disponibles = [1, 2, 4, 6];
-    // Quatrième : on ajoute la pyramide
+
     if (this.sup2 == 1)
       sc = 0.5;
     else
