@@ -129,7 +129,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
         } // espacement entre les questions
         this.liste_corrections.push(texte_corr);
             /********************* AMCnumericChoices ********************************/
-    this.QCM[1].push([texte, [texte_corr,reponse], {digits:6,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
     // [question,[réponse,réponse numérique],{paramètres réponse numérique}] (voir doc AMC \AMCnumericChoices)
     /****************************************************/
 
