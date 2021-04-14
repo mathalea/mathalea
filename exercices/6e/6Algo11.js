@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras } from "/modules/outils.js";
+import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url } from "/modules/outils.js";
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
@@ -229,7 +229,7 @@ export default function Note_la_couleur() {
 
 
 
-  this.nouvelle_version = function () {
+  this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = [];
     this.liste_corrections = [];
     let j, test
@@ -469,7 +469,10 @@ export default function Note_la_couleur() {
     //    texte += mathalea2d(params_enonce, objets_enonce);
     //  texte_corr += mathalea2d(params_correction, objets_correction);
     pion.codeScratch += `\\end{scratch}`
-    texte = `<table><tr><td>`
+    texte =`Cet exercice est tiré de l'excellente activité débranchée ${modal_url(numero_de_l_exercice,"https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/","Note la couleur","info circle")} de Jean-Yves Labouche.<br>`
+    texte +=`Il a été conçu pour étendre les possibilités de fiches proposées.<br>`
+    texte +=`N'hésitez pas à vous rendre sur le site ${modal_url(numero_de_l_exercice+1,"https://www.monclasseurdemaths.fr","Mon classeur de Maths.fr","info circle")} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+    texte += `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
       + mathalea2d(params_correction, objets_correction) +
