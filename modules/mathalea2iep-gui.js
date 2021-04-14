@@ -61,6 +61,8 @@ window.addEventListener('load', function()  {
 		readOnly: true,
 		lineNumbers: true,
 	});
+	
+	myCodeMirror.setSize(document.getElementById('editeur').offsetWidth*0.9,600)
 
 	let url = new URL(window.location.href);
 	if (url.searchParams.get("url")) { // Si on spécifie une url
@@ -284,33 +286,8 @@ function display(event) {
 	try {
 		event.preventDefault()
 		event.stopPropagation()
-		var display = document.getElementById("display")
-		// on nettoie
-		for (var i = 0; i < display.childNodes.length; ++i) {
-			var item = display.childNodes[i]
-			display.removeChild(item)
-		}
-		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-		svg.id = 'svgIEP'
-		var largeur = Math.max(display.offsetWidth - 20 || 0, 800)
-		var hTot = window.innerHeight || 400
-		var hForm = document.getElementById('iepForm').offsetHeight || 200
-		if (window.location.href.indexOf('/iep.html')>0) {
-			svg.style.width = largeur + 'px'
-			var hauteur = Math.max(hTot - hForm - 40, 700)
-			svg.style.height = hauteur + 'px'
-			
-		} else {
-			svg.style.width = '90%'
-			var hauteur = 400
-			svg.style.height = '400 px'
-		}
-		svg.setAttribute('width', largeur)
-		svg.setAttribute('height', hauteur)
-		display.appendChild(svg)
-		var iepApp = new iep.iepApp()
-		var xmlElt = document.getElementById('xmlSrc')
-		iepApp.addDoc("svgIEP", xmlElt.value, true)
+		let divXmlIep = document.getElementById("xmlSrc");
+		iepLoad("display", divXmlIep.value)
 	} catch (error) {
 		console.log("Plantage à l'affichage, xml probablement malformé")
 		console.error(error)

@@ -43,8 +43,8 @@ export default function Appliquer_un_pourcentage() {
           break;
         case 2:
           masse[i] = randint(legume[index[i]][1], article[index[i]][2])
-          texte = `${legume[index[i]][0]} pesant $${masse[i]}$ grammes a subit une croissance de $${pourcent[i]} \\%$.<br>`
-          texte += `Quel est la masse supplémentaire en grammes correspondant à cette croissance ?`
+          texte = `${legume[index[i]][0]} pesant $${masse[i]}$ grammes a eu une croissance de $${pourcent[i]} \\%$.<br>`
+          texte += `Quelle est la masse supplémentaire en grammes correspondant à cette croissance ?`
           texte_corr = `On doit calculer $${pourcent[i]}\\%$ de $${masse[i]}$ grammes :<br>`
           texte_corr += `$${pourcent[i]}\\%\\text{ de }${masse[i]}=${tex_fraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${tex_nombre(pourcent[i] * masse[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
           texte_corr += `La masse a augmenté de $${tex_nombre(calcul(masse[i] * pourcent[i] / 100))}$ g.`

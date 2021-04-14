@@ -1636,6 +1636,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Calculer la racine carrée de (x² +/- y²)",
         "url": "/exercices/4e/beta4G20-4.js"
     },
+    "beta4G20-5": {
+        "titre": "Trouver la valeur arrondie d'une racine carrée",
+        "url": "/exercices/beta/beta4G20-5.js"
+    },
     "beta4N10": {
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"

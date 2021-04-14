@@ -37,6 +37,10 @@ export default function Alea2iep () {
   this.yMin = 0
   this.xMax = 0
   this.yMax = 0
+
+  this.taille = function (width, height) {
+    this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
+  }
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
     const x = calcul((A.x + this.translationX) * 30, 0)
@@ -160,7 +164,7 @@ export default function Alea2iep () {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
             console.log(element, xml)
-            iepLoad(element, xml, { zoom: true }, (error)=>{console.log(error)})
+            iepLoad(element, xml, { zoom: true }, (error) => { console.log(error) })
           } else {
             element.style.display = 'none'
             elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
@@ -1222,6 +1226,20 @@ export default function Alea2iep () {
   this.angleCodageMontrer = function (B, A, C, { tempo = 0 } = {}) {
     const id = B.id + '_' + A.id + '_' + C.id
     this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="angle" tempo="${tempo}" />`)
+  }
+
+  /**
+   *
+   * @param {string} url
+   * @returns {id}
+   */
+  this.image = function (url, A = point(0, 0)) {
+    this.idIEP++
+    let codeXML
+    codeXML = `<action id="${this.idIEP}" url="${url}" mouvement="chargement" objet="image" />`
+    codeXML += `\n<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="translation" objet="image" vitesse="100000" />`
+    this.liste_script.push(codeXML)
+    return this.idIEP
   }
 
   /**
