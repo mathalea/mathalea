@@ -12,25 +12,14 @@ export default function Calculer_valeur_manquante_visuel_pythagore() {
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
   
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
+  
     this.nouvelle_version = function () {
-    // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+    this.liste_questions = []; // tableau contenant la liste des questions 
+    this.liste_corrections = [];
+    let type_de_questions_disponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
   
-    this.liste_questions = [] // tableau contenant la liste des questions 
-    this.liste_corrections = []
-    let type_de_questions_disponibles=[1] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-  // Ci-dessus On crée une liste aléatoire comprenant nb_questions parmi les types disponibles.
-  /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
-  if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-      else type_de_questions_disponibles = [1, 2, 3,4]
-  liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-  */
-  // boucle pour fabriquer les nb_questions questions en s'assurant que si il n'y a pas nb_questions différentes
-  // La boucle s'arrête après 50 tentatives.
-  
-      let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
+    let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
       mathalea.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]
 let A=point(4,0,'A')
 let B=point(0,3,'B')
