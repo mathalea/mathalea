@@ -16,8 +16,8 @@ import {repere,courbe,mathalea2d,} from "/modules/2d.js"
     this.titre = "Trouver l'équation d'une parabole";
     this.consigne = "Trouver l'expression de la fonction f.";
     this.nb_questions = 5;
-    this.nb_cols = 2;
-    this.nb_cols_corr = 2;
+    this.nb_cols = 1;
+    this.nb_cols_corr = 1;
     this.spacing_corr = 3;
     this.sup = 4;
     this.correction_detaillee_disponible=true
