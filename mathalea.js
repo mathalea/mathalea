@@ -236,7 +236,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 			if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
 				param_tooltip += (obj.besoin_formulaire2_numerique[0] +': \n' + obj.besoin_formulaire2_numerique[2]);		
 			}
-			param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}"` : '' ;
+			param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : '' ;
 			contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
 		}
         if (obj.video.length > 3) {
@@ -411,7 +411,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
         $('#cache').dimmer('show') // Cache au dessus du code LaTeX
       }
-	  
+	  $("#popup_preview .icone_param").remove() //dans l'aperçu pas d'engrenage pour les paramètres.
       document.getElementById('exercices').innerHTML = contenuDesExercices
 	  if (scroll_level) {
 		document.getElementById('right').scrollTop = scroll_level;
