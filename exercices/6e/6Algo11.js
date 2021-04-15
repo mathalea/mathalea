@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url } from "/modules/outils.js";
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url,modal_pdf } from "/modules/outils.js";
+import { angleScratchTo2d,clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
@@ -235,25 +235,21 @@ export default function Note_la_couleur() {
     let j, test
     let objets_enonce, objets_correction, params_enonce, params_correction;
     let commandes_disponibles,sequences_disponibles=[], sequence, result, nb_couleurs, instruction, couleurs, nb_instructions, liste_instructions;
-    let lutin = creerLutin()
-    let angledepart = choice([90, 0, -90, 180])
-    let xdepart = -195 + randint(4, 9) * 30
-    let ydepart = -135 + randint(3, 6) * 30
+    
+    let lutin,lutindepart;
+    let angledepart 
+    let xdepart 
+    let ydepart 
     mathalea.unitesLutinParCm = 20 * 30 / 52
     mathalea.pixelsParCm = 20
-    lutin.color = 'green'
-    lutin.epaisseur = 3
-    lutin.pointilles = 2
-    allerA(xdepart, ydepart, lutin)
-    orienter(angleScratchTo2d(angledepart), lutin)
     let pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
-    baisseCrayon(lutin)
-    objets_enonce = [];
     if (this.sup) {
       objets_correction = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
     }
     else {
       objets_correction = [fond_ecran("../../images/nlc_sn.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("../../images/nlc_sn.png", -450, -345, 900, 690)];
     }
     let texte = ``;
     let texte_corr = ``;
@@ -273,6 +269,22 @@ export default function Note_la_couleur() {
         }
         retour_a_la_case_depart = true;
         while (retour_a_la_case_depart) {
+          objets_enonce.length=1
+          lutin = creerLutin()
+          angledepart = choice([90, 0, -90, 180])
+          xdepart = -195 + randint(4, 9) * 30
+          ydepart = -135 + randint(3, 6) * 30
+          lutin.color = 'green'
+          lutin.epaisseur = 3
+          lutin.pointilles = 2
+          allerA(xdepart, ydepart, lutin)
+          orienter(angleScratchTo2d(angledepart), lutin)
+          lutindepart = clone(lutin);
+          baisseCrayon(lutindepart)
+          allerA(xdepart, ydepart, lutindepart)
+          console.log(lutindepart)
+          objets_enonce.push(lutindepart)
+          baisseCrayon(lutin)
           compteur++;
           if (compteur>5) break;
         pion.codeScratch = "";
@@ -353,6 +365,20 @@ export default function Note_la_couleur() {
         liste_instructions = []
         nb_instructions = -1
         while (retour_a_la_case_depart) {
+          objets_enonce.length=1
+          lutin = creerLutin()
+          angledepart = choice([90, 0, -90, 180])
+          xdepart = -195 + randint(4, 9) * 30
+          ydepart = -135 + randint(3, 6) * 30
+          lutin.color = 'green'
+          lutin.epaisseur = 3
+          lutin.pointilles = 2
+          allerA(xdepart, ydepart, lutin)
+          orienter(angleScratchTo2d(angledepart), lutin)
+          lutindepart = clone(lutin);
+
+          objets_enonce.push(lutindepart)
+                baisseCrayon(lutin)
           compteur++;
           if (compteur > 5) break; // 5 tentatives infructueuses -> On sort de la boucle.
           compteur_essais_boucle = 0;
@@ -462,7 +488,7 @@ export default function Note_la_couleur() {
     }
     //  objets_enonce.push ();
     //objets_correction.push();
-    console.log(objets_correction)
+
 
     //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
     params_correction = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 };
@@ -472,10 +498,12 @@ export default function Note_la_couleur() {
     texte =`Cet exercice est tiré de l'excellente activité débranchée ${modal_url(numero_de_l_exercice,"https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/","Note la couleur","info circle")} de Jean-Yves Labouche.<br>`
     texte +=`Il a été conçu pour étendre les possibilités de fiches proposées.<br>`
     texte +=`N'hésitez pas à vous rendre sur le site ${modal_url(numero_de_l_exercice+1,"https://www.monclasseurdemaths.fr","Mon classeur de Maths.fr","info circle")} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+    texte +=`Pour jouer, regarder les règles du jeu${modal_pdf(numero_de_l_exercice+2,"../../pdf/reglesnlc.pdf","Règles du jeu", "Règles - PDF", "file pdf")} .<br>`
+    texte +=`Exécute le programme et trouve la succession de couleur.<br>`
     texte += `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
-      + mathalea2d(params_correction, objets_correction) +
+      + mathalea2d(params_correction, objets_enonce) +
       `</td></tr></table>`
     texte_corr = 'On obtient la série de couleurs suivante :<br> '
     texte_corr += `${texte_gras(couleurs[0])} `;
