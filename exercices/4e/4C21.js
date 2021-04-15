@@ -24,7 +24,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 	this.nb_cols_corr = 1;
 
 	this.nouvelle_version = function () {
-		//this.QCM=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
+		this.QCM=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles;
@@ -158,10 +158,16 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 			texte_corr += `=${tex_fraction(num, den)}`;
 			texte_corr += simplification_de_fraction_avec_etapes(num, den) + '$';
 			// Pour l'instant pour tester je mets num et den dans reponse
-			//let reponse = 123;
+			let reponse = {num:num,den:den};
+			// console.log('reponse : '+reponse.den)
+			// console.log('reponse lll : '+reponse.den.toString().length)
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
-			//this.QCM[1].push([texte, [texte_corr,reponse,3], {digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+			this.QCM[1].push([
+				texte,
+				[[texte_corr,reponse.num,3],[texte_corr,reponse.den,3]],
+				[{texte:'numérateur',digits:reponse.num.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0},{texte:'dénominateur',digits:reponse.den.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}]				
+			]);			
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	};
