@@ -7978,13 +7978,13 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				break
 			case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
 				/********************************************************************/
-				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
+				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
 				// On pourra rajouter des options : les paramètres sont nommés.
 				// {digits=0,decimals=0,vertical=false,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
 				// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
 				// signe et exposant_signe sont des booléens
 				// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-				// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
+				// La correction est dans tabQCM[1][0] et la réponse numérique est dans tabQCM[1][1]
 				/********************************************************************/
 				if (tabQCM[2].exposant_nb_chiffres == 0) {
 					reponse = tabQCM[1][1]
@@ -8048,6 +8048,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 					}
 				}
 				tex_QR+=`\\begin{minipage}[b]{0.3 \\linewidth}\n`
+				tex_QR +=`\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse`
 				tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}b} \n `
 				tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
 				if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -8060,6 +8061,72 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
 				id++
 			break
+		case 6 : // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+			/********************************************************************/
+			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
+			// On pourra rajouter des options : les paramètres sont nommés.
+			// {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
+			// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
+			//===================================================================================
+			// digits et decimals peuvent servir à coder ce qu'on veut par exemple 
+			// numerateur et dénominateur ...
+			//===================================================================================
+			// signe et exposant_signe sont des booléens
+			// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
+			// La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et 
+			/********************************************************************/
+			tex_QR += `\\element{${tabQCMs[0]}}{\n `
+			// premier champ de codage
+			tex_QR+=`\\begin{minipage}[b]{0.7 \\linewidth}\n`
+			tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}a} \n `
+			tex_QR += `		${tabQCM[0]} \n `
+			tex_QR += `\\explain{${tabQCM[1][0]}}\n`
+			tex_QR+=`\\notation{${tabQCM[1][2]}}\n`
+			//tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+			tex_QR += `\\end{question}\n\\end{minipage}\n`
+			// Pour les deux champs supplémentaires
+			if (tabQCM[2].exposant_nb_chiffres == 0) {
+				reponse = tabQCM[1][1]
+				if (tabQCM[2].digits == 0) {
+					nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
+					tabQCM[2].decimals = nb_chiffres_pd
+					nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
+					tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+				}
+			}
+			//deuxième champ de codage numérique
+			tex_QR+=`\\begin{minipage}[b]{0.15 \\linewidth}\n`
+			tex_QR +=`\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse`
+			tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}b} \n `
+			//tex_QR += `\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+			tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
+			if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+				tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+			}
+			if (tabQCM[2].approx != 0) {
+				tex_QR += `approx=${tabQCM[2].approx},`
+			}
+			tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
+			tex_QR += `\\end{questionmultx}\n\\end{minipage}\n`
+
+			//troisième champ de codage numérique
+			tex_QR+=`\\begin{minipage}[b]{0.15 \\linewidth}\n`
+			tex_QR +=`\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse`
+			tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}c} \n `
+			//tex_QR += `\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+			tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
+			if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+				tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+			}
+			if (tabQCM[2].approx != 0) {
+				tex_QR += `approx=${tabQCM[2].approx},`
+			}
+			tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
+			tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
+
+			id++
+		break
+
 		}
 
 

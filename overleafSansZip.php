@@ -70,8 +70,8 @@
                     header("location:$thisdir/$filename"); // redirection vers le téléchargement de l'archive en local
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichiers/images.zip"); // pour tester avec l'existant
                 } else {
-                    $domaine = "https://coopmaths.fr";
-                    //$domaine = "https://mathalea.mathslozano.fr";
+                    //$domaine = "https://coopmaths.fr";
+                    $domaine = "https://mathalea.mathslozano.fr";
                           
                     header("location:https://www.overleaf.com/docs?snip_uri[]=$domaine/$thisdir/$filename&snip_uri[]=$domaine/$thisdir/automultiplechoice.sty"); // pour passer à overleaf
                     //header("location:https://www.overleaf.com/docs?snip_uri=https://coopmaths.fr/fichierszip/Projet.zip"); // pour tester avec l'existant

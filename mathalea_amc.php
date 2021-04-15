@@ -268,7 +268,7 @@
                   </button>
                 </div>
               </form>        -->
-              <form name="zips" method="post" action="zip.php" target="_blank">
+              <form name="zips" method="post" action="overleafSansZip.php" target="_blank">
                 <!-- champ erreur -->
                 <?php if(!empty($error)) { ?>
                 <p style=" border:#C10000 1px solid; background-color:#FFA8A8; color:#B00000;padding:8px; width:588px; margin:0 auto 10px;"><?php echo $error; ?></p>
