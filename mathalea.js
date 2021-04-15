@@ -197,8 +197,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
   	}
 
   function contenu_exercice_html (obj, num_exercice, isdiaporama) {
-    let contenu_un_exercice = ''; var contenu_une_correction = ''
-    if (isdiaporama) {
+    let contenu_un_exercice = ''; 
+	var contenu_une_correction = ''
+    var param_tooltip = ''
+	if (isdiaporama) {
       contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
       for (const question of obj.liste_questions) {
         contenu_un_exercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
@@ -225,7 +227,18 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         } catch (error) {
           console.log(error)
         }
-        contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id}</h3>`
+        if ((!obj.nb_questions_modifiable && !obj.besoin_formulaire_numerique && !obj.besoin_formulaire_texte && !obj.QCM_disponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
+			contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
+		} else {
+			if (obj.besoin_formulaire_numerique && obj.besoin_formulaire_numerique[2]) {
+				param_tooltip += (obj.besoin_formulaire_numerique[0] +': \n' + obj.besoin_formulaire_numerique[2]) + '\n';		
+			}
+			if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
+				param_tooltip += (obj.besoin_formulaire2_numerique[0] +': \n' + obj.besoin_formulaire2_numerique[2]);		
+			}
+			param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}"` : '' ;
+			contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+		}
         if (obj.video.length > 3) {
           contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modal_youtube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>';
         }
@@ -376,7 +389,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
           listeObjetsExercice[i].id = liste_des_exercices[i]
           contenu = contenu_exercice_html(listeObjetsExercice[i], i + 1, false)			
           if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible')) { // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            if (liste_des_exercices.length === 1) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === 0) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === liste_des_exercices.length-1) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			} else {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			}
           } else {
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
           }
@@ -574,6 +595,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
       })
     }
 
+	//cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
+	$('.icone_param').off('click').on('click', function (e) {
+       $("#accordeon_parametres >div").addClass('active');
+	   var num_ex = event.target.parentElement.parentElement.parentElement.id;
+	   $(`.${num_ex} + div :input`).focus();
+    })
     	// cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.
 
     $('.icone_moins').off('click').on('click', function (e) {
@@ -968,7 +995,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 
     for (let i = 0; i < exercice.length; i++) {
       if (sortie_html) {
-        div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
+        div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice'+i+'">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
         if (exercice[i].pas_de_version_LaTeX) {
           div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
         }

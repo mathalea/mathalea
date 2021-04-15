@@ -379,10 +379,14 @@ i.eye, i.minus {
 	cursor:pointer !important;
 }
 
-i.icone_moins, i.icone_up, i.icone_down {
+i.icone_moins, i.icone_up, i.icone_down, i.icone_param {
 	display:inline !important;
 	font-size:1em !important;
 	cursor:pointer !important;
+}
+
+i.icone_param {
+	margin-left:30px;
 }
 
 body.dragging, body.dragging * {
