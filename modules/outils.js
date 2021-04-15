@@ -8063,48 +8063,57 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 			break
 		case 6 : // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
 			/********************************************************************/
+			// /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
+			// Pour ce type :
+			// =======tabQCM[0] contient toujours le texte de l'énoncé
+			// =======tabQCM[1] est un tableau de tableau avec :
+			// ===================tabQCM[1][0] qui contient ce qu'il faut pour le 1er numericchoice ['question 1','réponse1',réponse1 num]
+			// ===================tabQCM[1][1] qui contient ce qu'il faut pour le 2e numericchoice ['question 2','réponse2',réponse2 num]
+			// =======tabQCM[2] est un tableau de tableau avec :
+			// ===================tabQCM[2][0] qui contient les paramètres pour la réponse1 avec un texte en plus qui est inscrit au dessus du champ de code de la reponse 1
+			// =============================== {texte:'numérateur',digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}
+			// ===================tabQCM[2][1] qui contient les paramètres pour la réponse2 avec un texte en plus qui est inscrit au dessus du champ de code de la reponse 2
+			// =============================== {texte:'dénominateur',digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}
+			//===================================================================================
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
 			// On pourra rajouter des options : les paramètres sont nommés.
 			// {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
 			// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
-			//===================================================================================
-			// digits et decimals peuvent servir à coder ce qu'on veut par exemple 
-			// numerateur et dénominateur ...
-			//===================================================================================
 			// signe et exposant_signe sont des booléens
 			// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
 			// La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et 
 			/********************************************************************/
+			
 			tex_QR += `\\element{${tabQCMs[0]}}{\n `
 			// premier champ de codage
 			tex_QR+=`\\begin{minipage}[b]{0.7 \\linewidth}\n`
 			tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}a} \n `
 			tex_QR += `		${tabQCM[0]} \n `
-			tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-			tex_QR+=`\\notation{${tabQCM[1][2]}}\n`
+			tex_QR += `\\explain{${tabQCM[1][0][0]}}\n`
+			tex_QR+=`\\notation{${tabQCM[1][0][2]}}\n`
 			//tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
 			tex_QR += `\\end{question}\n\\end{minipage}\n`
 			// Pour les deux champs supplémentaires
-			if (tabQCM[2].exposant_nb_chiffres == 0) {
-				reponse = tabQCM[1][1]
-				if (tabQCM[2].digits == 0) {
-					nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-					tabQCM[2].decimals = nb_chiffres_pd
-					nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-					tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
-				}
-			}
+			// if (tabQCM[2].exposant_nb_chiffres == 0) {
+			// 	reponse = tabQCM[1][1]
+			// 	if (tabQCM[2].digits == 0) {
+			// 		nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
+			// 		tabQCM[2].decimals = nb_chiffres_pd
+			// 		nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
+			// 		tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+			// 	}
+			// }
 			//deuxième champ de codage numérique
 			tex_QR+=`\\begin{minipage}[b]{0.15 \\linewidth}\n`
 			tex_QR +=`\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse`
 			tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}b} \n `
-			//tex_QR += `\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-			tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
-			if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-				tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+			tex_QR += `${tabQCM[2][0].texte}\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut			
+			tex_QR += `\\AMCnumericChoices{${tabQCM[1][0][1]}}{digits=${tabQCM[2][0].digits},decimals=${tabQCM[2][0].decimals},sign=${tabQCM[2][0].signe},`
+			if (tabQCM[2][0][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+				tex_QR += `exponent=${tabQCM[2][0].exposant_nb_chiffres},exposign=${tabQCM[2][0].exposant_signe},`
 			}
-			if (tabQCM[2].approx != 0) {
-				tex_QR += `approx=${tabQCM[2].approx},`
+			if (tabQCM[2][0].approx != 0) {
+				tex_QR += `approx=${tabQCM[2][0].approx},`
 			}
 			tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
 			tex_QR += `\\end{questionmultx}\n\\end{minipage}\n`
@@ -8113,13 +8122,13 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 			tex_QR+=`\\begin{minipage}[b]{0.15 \\linewidth}\n`
 			tex_QR +=`\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse`
 			tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}c} \n `
-			//tex_QR += `\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-			tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
-			if (tabQCM[2][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-				tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+			tex_QR += `${tabQCM[2][1].texte}\n` //pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+			tex_QR += `\\AMCnumericChoices{${tabQCM[1][1][1]}}{digits=${tabQCM[2][1].digits},decimals=${tabQCM[2][1].decimals},sign=${tabQCM[2][1].signe},`
+			if (tabQCM[2][1][3] != 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+				tex_QR += `exponent=${tabQCM[2][1].exposant_nb_chiffres},exposign=${tabQCM[2][1].exposant_signe},`
 			}
-			if (tabQCM[2].approx != 0) {
-				tex_QR += `approx=${tabQCM[2].approx},`
+			if (tabQCM[2][1].approx != 0) {
+				tex_QR += `approx=${tabQCM[2][1].approx},`
 			}
 			tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
 			tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
