@@ -389,7 +389,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
           listeObjetsExercice[i].id = liste_des_exercices[i]
           contenu = contenu_exercice_html(listeObjetsExercice[i], i + 1, false)			
           if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible')) { // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            if (liste_des_exercices.length === 1) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === 0) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === liste_des_exercices.length-1) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			} else {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			}
           } else {
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
           }
