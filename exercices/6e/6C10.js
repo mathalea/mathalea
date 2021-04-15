@@ -1,6 +1,6 @@
 import Operation from '/modules/operations.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,calcul} from "/modules/outils.js"
 
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
@@ -64,7 +64,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
             randint(1, 9);
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9);
           texte = `$${tex_nombre(a)}+${b}$`;
-          reponse=a+b
+          reponse=calcul(a+b)
           texte_corr = Operation({operande1:a,operande2:b,type:'addition'})
           break;
         case 2: // abc0-efg
@@ -77,7 +77,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           x = a * 1000 + b * 100 + c * 10;
           y = e * 100 + f * 10 + g;
           texte = `$${tex_nombre(x)}-${y}$`;
-          reponse=x-y
+          reponse=calcul(x-y)
           texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 3: // 1abc-def
@@ -90,7 +90,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           x = 1000 + a * 100 + b * 10 + c;
           y = d * 100 + e * 10 + f;
           texte = `$${tex_nombre(x)}-${y}$`;
-          reponse=x-y
+          reponse=calcul(x-y)
 
           texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
@@ -103,7 +103,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           x = 100 * a + 10 * b + c;
           y = d * 100 + e;
           texte = `$${tex_nombre(x)}\\times${y}$`;
-          reponse=x*y
+          reponse=calcul(x*y)
 
           texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
@@ -116,7 +116,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           x = 100 * a + 10 * b + c;
           y = 10 * d + e;
           texte = `$${x}\\times${y}$`;
-          reponse=x*y
+          reponse=calcul(x*y)
           texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
       }
@@ -129,7 +129,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
         } // espacement entre les questions
         this.liste_corrections.push(texte_corr);
             /********************* AMCnumericChoices ********************************/
-    this.QCM[1].push([texte, [texte_corr,reponse], {digits:5,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
     // [question,[réponse,réponse numérique],{paramètres réponse numérique}] (voir doc AMC \AMCnumericChoices)
     /****************************************************/
 

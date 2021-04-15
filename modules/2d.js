@@ -39,7 +39,14 @@ export function ObjetMathalea2D() {
   mathalea.objets2D.push(this)
 }
 
-
+/**
+ * 
+ * @param {url} url de l'image 
+ * @param {number} x tous ces nombres sont en pixels
+ * @param {number} y Attention à l'orientation de l'axe SVG
+ * @param {number} largeur 
+ * @param {number} hauteur 
+ */
 function Fond_ecran(url,x,y,largeur,hauteur){
   ObjetMathalea2D.call(this);
   this.svg=function(coeff){
@@ -54,7 +61,30 @@ function Fond_ecran(url,x,y,largeur,hauteur){
 export function fond_ecran(url,x=0,y=0,largeur=mathalea.fenetreMathalea2d.xMax-mathalea.fenetreMathalea2d.xMin,hauteur=mathalea.fenetreMathalea2d.yMax-mathalea.fenetreMathalea2d.yMin){
   return new Fond_ecran(url,x,y,largeur,hauteur)
 }
-
+/**
+ * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
+ * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
+ * @param {ObjetMathalea2D} originalObject 
+ * @returns copie de cet objet.
+ */
+ export function clone(obj) {
+  if (null == obj || "object" != typeof obj) return obj;
+  if (obj instanceof Array) {
+      var copy = [];
+      for (var i = 0, len = obj.length; i < len; i++) {
+          copy[i] = clone(obj[i]);
+      }
+      return copy;
+  }
+  if (obj instanceof Object) {
+      var copy = {};
+      for (var attr in obj) {
+          if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+      }
+      return copy;
+  }
+  throw new Error("Unable to copy obj this object.");
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% LES POINTS %%%%%%%%%%%%%%
