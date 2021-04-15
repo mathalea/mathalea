@@ -7978,13 +7978,13 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				break
 			case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
 				/********************************************************************/
-				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
+				// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
 				// On pourra rajouter des options : les paramètres sont nommés.
 				// {digits=0,decimals=0,vertical=false,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
 				// si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
 				// signe et exposant_signe sont des booléens
 				// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-				// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
+				// La correction est dans tabQCM[1][0] et la réponse numérique est dans tabQCM[1][1]
 				/********************************************************************/
 				if (tabQCM[2].exposant_nb_chiffres == 0) {
 					reponse = tabQCM[1][1]
@@ -8107,7 +8107,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 				tex_QR += `approx=${tabQCM[2].approx},`
 			}
 			tex_QR += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n`
-			tex_QR += `\\end{questionmultx}\n\\end{minipage}}\n`
+			tex_QR += `\\end{questionmultx}\n\\end{minipage}\n`
 
 			//troisième champ de codage numérique
 			tex_QR+=`\\begin{minipage}[b]{0.15 \\linewidth}\n`
