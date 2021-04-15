@@ -8083,7 +8083,7 @@ export function export_QCM_AMC(tabQCMs, idExo) {
 			// approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
 			// La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et 
 			/********************************************************************/
-			console.log(tabQCM)
+			
 			tex_QR += `\\element{${tabQCMs[0]}}{\n `
 			// premier champ de codage
 			tex_QR+=`\\begin{minipage}[b]{0.7 \\linewidth}\n`
