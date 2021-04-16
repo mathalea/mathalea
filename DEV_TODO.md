@@ -9,6 +9,9 @@ Pour tous les autres js qui utilisent jQuery il faudrait ajouter un `import $ fr
 
 À noter que l'on peut se passer de jQuery la plupart du temps, en tout cas pour tout ce qui est de la sélection d'éléments dans le dom un `element.querySelectorAll(selector)` (cf [doc](https://developer.mozilla.org/fr/docs/Web/API/Document/querySelectorAll)) sera plus efficace (attention ça retourne des HTMLElement, pas des objets jQuery)
 
+### dossier dnb
+Attention, pour le moment il faut créer un dossier dnb dans le projet (éventuellement vide), sinon la compilation webpack plante (il veut compiler les js qui sont dedans puisque mathalea.js les charge).
+
 ## autres améliorations possibles
 * Ajouter jsdoc pour générer automatiquement la documentation
 * Ajouter des tests unitaires (avec mocha/chai ou un autre moteur de tests)
