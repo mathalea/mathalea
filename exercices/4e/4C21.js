@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_nombre_relatif,ecriture_parenthese_si_negatif,pgcd,simplification_de_fraction_avec_etapes,calcul,mise_en_evidence,tex_fraction,ppcm} from "/modules/outils.js"
+import {fraction_simplifiee,tex_fraction_reduite} from "/modules/outils.js"
 
 
 /**
@@ -24,6 +25,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 	this.nb_cols_corr = 1;
 
 	this.nouvelle_version = function () {
+		this.QCM=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles;
@@ -155,9 +157,16 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 				den = b;
 			}
 			texte_corr += `=${tex_fraction(num, den)}`;
-			texte_corr += simplification_de_fraction_avec_etapes(num, den) + '$';
+			texte_corr += simplification_de_fraction_avec_etapes(num, den) + '$';			
+			// Pour l'instant pour tester je mets num et den dans reponse
+			let reponse = {num:fraction_simplifiee(num,den)[0],den:fraction_simplifiee(num,den)[1]};
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
+			this.QCM[1].push([
+				`Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
+				[[texte_corr,reponse.num,3],[texte_corr,reponse.den,3]],
+				[{texte:'numérateur',digits:reponse.num.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0},{texte:'dénominateur',digits:reponse.den.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}]				
+			]);			
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	};

@@ -131,6 +131,10 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Addition de deux entiers relatifs (QCM)",
         "url": "/exercices/5e/5R20.js"
     },
+    "4C21": {
+        "titre": "Additionner ou soustraire deux fractions (Open + double NC)",
+        "url": "/exercices/4e/4C21.js"
+    },
     "4C32": {
         "titre": "Notation scientifique (NC)",
         "url": "/exercices/4e/4C32.js"
