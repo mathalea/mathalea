@@ -10,7 +10,7 @@ import {tracePoint,vecteur,segment,translation,translationAnimee,codeSegment,tex
 export default function Pavage_et_translation2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Trouver l\'image d'une figure par une translation dans un pavage";
+  this.titre = "Trouver l'image d'une figure par une translation dans un pavage";
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;
