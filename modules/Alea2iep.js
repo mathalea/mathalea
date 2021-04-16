@@ -812,8 +812,14 @@ export default function Alea2iep () {
  * @param {objet} options { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
   this.rapporteurTracerDemiDroiteAngle = function (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
-    this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
-    this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
+    if (angle > 0) {
+      this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
+      this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
+    } else {
+      const B2 = rotation(B, A, 180)
+      this.rapporteurDeplacerRotation2Points(A, B2, { tempo: tempo, vitesse: vitesse, sens: sens })  
+      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), { tempo: tempo, vitesse: vitesse, sens: sens })
+    }
     const d = droite(A, B)
     d.isVisible = false
     const M = pointAdistance(A, calcul(5.2 * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)

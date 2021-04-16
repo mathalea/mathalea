@@ -485,7 +485,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/4e/4G10.js"
     },
     "4G11": {
-        "titre": "Trouver l\\'image d'une figure par une translation dans un pavage",
+        "titre": "Trouver l'image d'une figure par une translation dans un pavage",
         "url": "/exercices/4e/4G11.js"
     },
     "4G11-1": {
