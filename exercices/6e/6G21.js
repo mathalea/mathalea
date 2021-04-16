@@ -18,6 +18,7 @@ export default function Construire_un_triangle() {
     this.nb_cols_corr = 1;
     this.classe = 6
     this.type_exercice = "IEP";
+    
     this.nouvelle_version = function (numero_de_l_exercice) {
         this.liste_questions = []
         this.liste_corrections = []
