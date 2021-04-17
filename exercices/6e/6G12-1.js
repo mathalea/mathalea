@@ -171,7 +171,7 @@ let anim;
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) + 1)
           anim.recadre(Xmin - 3, Ymax)
-          anim.pointsCreer(A,B,C,D,E)
+          anim.pointsCreer(A,B,C,D)
           anim.regleDemiDroiteOriginePoint(A,B)
           anim.perpendiculaireRegleEquerre2points3epoint(A,B,B)
           anim.perpendiculaireRegleEquerre2points3epoint(A,B,C)
