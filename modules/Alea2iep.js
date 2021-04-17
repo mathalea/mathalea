@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
+import { appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -898,7 +898,7 @@ export default function Alea2iep () {
     }
     if (options.longueur > 0) {
       const B1 = pointSurSegment(B, A, 3)
-      const B2 = pointSurSegment(B, A, -1 * options.longueur)
+      const B2 = pointSurSegment(B, A, -options.longueur)
       this.regleSegment(B1, B2, options)
     } else {
       const A1 = pointSurSegment(A, B, 3)
@@ -1322,6 +1322,65 @@ export default function Alea2iep () {
     this.crayonDeplacer(C1, options)
     this.tracer(M, options)
   }
+/**
+   * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {*} options
+   */
+ this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
+  let G, D, H1,M,H
+  // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
+  // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
+  if (A.x < B.x) {
+    G = A
+    D = B
+  } else {
+    G = B
+    D = A
+  }
+  this.equerreZoom(125)
+  const d = droite(A, B)
+  if (appartientDroite(C,A,B)){
+    H=homothetie(C,C,1)
+    M=rotation(pointSurSegment(H,G,8),H,-90)
+    H1=homothetie(M,H,-1)
+  }
+  else{
+    H = projectionOrtho(C, d)
+  H1 = homothetie(H,C,1+2/longueur(C,H)) 
+ M = pointSurSegment(H, C, 8)
+  }
+  // Le tracé de la perpendiculaire ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
+
+  if (H.x < G.x ) { // Si le pied de la hauteur est trop à gauche
+    this.regleProlongerSegment(D, G)
+ 
+  }
+  if (H.x > D.x ) { // Si le pied de la hauteur est trop à droite
+    this.regleProlongerSegment(G, D)
+  }
+  this.regleMasquer()
+  if (H.y > C.y) {
+    this.equerreMontrer(G)
+  this.equerreRotation(d.angleAvecHorizontale-180)
+  } else {
+     this.equerreRotation(d.angleAvecHorizontale )
+    this.equerreMontrer(D)
+  
+  }
+  this.equerreDeplacer(H)
+
+  this.crayonMontrer(M)
+  this.tracer(H, options)
+  this.equerreMasquer()
+  this.codageAngleDroit(M,H,G)
+  this.regleMontrer(M)
+  this.regleRotation(H)
+  this.trait(M,H1)
+  this.regleMasquer()
+}
 
   /**
  *****************************************
