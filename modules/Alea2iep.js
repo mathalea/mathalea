@@ -869,6 +869,13 @@ export default function Alea2iep () {
     const M = pointSurSegment(O, A, options.longueur)
     this.regleSegment(O, M, options)
   }
+
+  /**
+   * Trace une droite passanrt par les points A et B
+   * @param {point} A 
+   * @param {point} B 
+   * @param {objet} options Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
+   */
   this.regleDroite = function (A, B, options = {}) {
     if (!options.longueur) {
       options.longueur = this.regle.longueur
@@ -1234,7 +1241,7 @@ export default function Alea2iep () {
   }
 
   /**
-   *
+   * Affiche une image (donnée par son URL) au point A
    * @param {string} url
    * @returns {id}
    */
@@ -1329,7 +1336,7 @@ export default function Alea2iep () {
    * @param {*} options
    */
  this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
-  let G, D, H1,M,H
+  let G, D, H1,M,H,zoomEquerre=this.equerre.zoom,dist,longueurRegle=this.regle.longueur
   // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
   // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
   if (A.x < B.x) {
@@ -1339,26 +1346,30 @@ export default function Alea2iep () {
     G = B
     D = A
   }
-  this.equerreZoom(125)
   const d = droite(A, B)
   if (appartientDroite(C,A,B)){
     H=homothetie(C,C,1)
-    M=rotation(pointSurSegment(H,G,8),H,-90)
-    H1=homothetie(M,H,-1)
+    dist=7.5
+    M=rotation(pointSurSegment(H,G,dist),H,-90)
+    H1=homothetie(H,M,1.6)
   }
   else{
     H = projectionOrtho(C, d)
-  H1 = homothetie(H,C,1+2/longueur(C,H)) 
- M = pointSurSegment(H, C, 8)
+    dist=longueur(H,C)+2
+     M = pointSurSegment(H, C, dist)
+  H1 = homothetie(H,M,1+4/longueur(H,M)) 
   }
+  
+  this.equerreZoom(calcul(dist*100/7.5))
+  this.regleModifierLongueur(Math.max(15,Math.ceil((dist+1)*(1+4/longueur(H,M)))))
   // Le tracé de la perpendiculaire ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
 
   if (H.x < G.x ) { // Si le pied de la hauteur est trop à gauche
-    this.regleProlongerSegment(D, G)
+    this.regleProlongerSegment(D, G,{longueur:longueur(G,H)+4})
  
   }
   if (H.x > D.x ) { // Si le pied de la hauteur est trop à droite
-    this.regleProlongerSegment(G, D)
+    this.regleProlongerSegment(G, D,{longueur:longueur(D,H)+4})
   }
   this.regleMasquer()
   if (H.y > C.y) {
@@ -1379,6 +1390,8 @@ export default function Alea2iep () {
   this.regleRotation(H)
   this.trait(M,H1)
   this.regleMasquer()
+  this.equerreZoom(zoomEquerre)
+  this.regleModifierLongueur(longueurRegle)
 }
 
   /**
@@ -1439,7 +1452,12 @@ export default function Alea2iep () {
     const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
     return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
   }
-
+  /**
+   * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
+   * @param {point} A 
+   * @param {point} B 
+   * @param {booléen} codage 
+   */
   this.mediatriceRegleEquerre = function (A, B, codage = 'X') {
     const O = milieu(A, B)
     this.regleMontrer()
@@ -1475,6 +1493,13 @@ export default function Alea2iep () {
     this.segmentCodage(O, B, codage)
     this.codageAngleDroit(A, O, O2)
   }
+  /**
+   * Trace la hauteur issue de C dans un triangle ABC. Prolonge si besoin le segment [AB] pour avoir le pied de la hauteur et le codage de l'angle droit.
+   * @param {point} A 1er point de la base
+   * @param {point} B 2e point de la base
+   * @param {point} C Sommet dont est issue la hauteur
+   * @param {booléen} codage angle droit ajouté si true
+   */
   this.hauteur = function (A, B, C, codage = true) {
     const d = droite(A, B)
     d.isVisible = false
@@ -1515,7 +1540,13 @@ export default function Alea2iep () {
     }
     this.crayonMasquer()
   }
-
+/**
+ * Trace la médiane issue de C passant par le milieu de [AB]
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} options 
+ */
   this.mediane = function (A, B, C, options = {}) {
     if (options.codage === undefined) {
       options.codage = 'X'
@@ -1545,7 +1576,14 @@ export default function Alea2iep () {
       this.segmentCodage(O, B, options)
     }
   }
-
+/**
+ * Trace la bissectrice de l'angle ABC au compas.
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} param3 
+ * @returns 
+ */
   this.bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
     const A1 = pointSurSegment(B, A, l)
     const C1 = pointSurSegment(B, C, l)
@@ -1573,7 +1611,13 @@ export default function Alea2iep () {
     }
     return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
   }
-
+/**
+ * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} options 
+ */
   this.cercleCirconscrit = function (A, B, C, options = {}) {
     if (options.couleur === undefined) {
       options.couleur = this.couleur
@@ -1726,7 +1770,7 @@ export default function Alea2iep () {
 
   /**
    * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
-   *  à partir de la donnée de la longueur d'un côté et de la longueur de l'hypoténuse.
+   *  à partir de la donnée de la longueur des deux côtés de l'angle droit.
    *  Le premier sommet aura pour coordonnées (6, 0)
    * @param {string} ABC Une chaine de caractère de 3 lettre
    * @param {*} AB Distance entre le 1er et le 2e sommet
@@ -1780,7 +1824,7 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
-   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (2,0).
+   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (6,0).
    * @param {string} ABC Une chaine de caractère de 3 lettre
    * @param {*} AB Distance entre le 1er et le 2e sommet
    * @param {*} BAC Angle au 1er sommet
@@ -1857,7 +1901,7 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
-   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (2,0).
+   * Macro de construction d'un triangle à partir des longueurs des deux côtés d'un angle Le premier point a pour coordonnées (6,0).
    * @param {string} ABC Une chaine de caractère de 3 lettre
    * @param {*} AB Distance entre le 1er et le 2e sommet
    * @param {*} AC Distance entre le 1er et le 3e sommet
@@ -1944,7 +1988,7 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
-   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté
+   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté. Le premier point a pour coordonnées (6;0)
    * @param {string} NOM
    * @param {number} AB
    * @return {array} [A, B, C]
