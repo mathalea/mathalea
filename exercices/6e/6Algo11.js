@@ -242,7 +242,7 @@ export default function Note_la_couleur() {
     let ydepart 
     mathalea.unitesLutinParCm = 20 * 30 / 52
     mathalea.pixelsParCm = 20
-    let pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
+    let pion;
     if (this.sup) {
       objets_correction = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
       objets_enonce = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
@@ -274,6 +274,7 @@ export default function Note_la_couleur() {
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
           ydepart = -135 + randint(3, 6) * 30
+          pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
           lutin.color = 'green'
           lutin.epaisseur = 3
           lutin.pointilles = 2
@@ -282,7 +283,7 @@ export default function Note_la_couleur() {
           lutindepart = clone(lutin);
           baisseCrayon(lutindepart)
           allerA(xdepart, ydepart, lutindepart)
-          console.log(lutindepart)
+          console.log(lutindepart,lutin)
           objets_enonce.push(lutindepart)
           baisseCrayon(lutin)
           compteur++;
@@ -358,7 +359,6 @@ export default function Note_la_couleur() {
       } }
       
       retour_a_la_case_depart = true;
-        pion.codeScratch = "";
         couleurs = [];
         nb_couleurs = parseInt(this.sup3);
         let repetitions = nb_couleurs - 1
@@ -370,6 +370,8 @@ export default function Note_la_couleur() {
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
           ydepart = -135 + randint(3, 6) * 30
+          pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
+          pion.codeScratch = "";
           lutin.color = 'green'
           lutin.epaisseur = 3
           lutin.pointilles = 2
