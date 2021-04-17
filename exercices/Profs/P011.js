@@ -55,6 +55,11 @@ export default function Exercice_zero_mathalea2d() {
             triangle=anim.triangleEquilateral(nom, params[0], true)
           objets_enonceml.push(afficheLongueurSegment(triangle[1],triangle[0]),codeSegments('||','red',triangle[0],triangle[1],triangle[2],triangle[0],triangle[1],triangle[2]))
             break
+
+            case 6:
+              triangle=anim.triangle2longueurs1angle(nom,params[0],params[1],params[2],true)
+              objets_enonceml.push(afficheLongueurSegment(triangle[0],triangle[1]),afficheLongueurSegment(triangle[0],triangle[2]),afficheMesureAngle(triangle[1],triangle[0],triangle[2]))
+          break
             
         }
         let poly=polygoneAvecNom(triangle)
@@ -67,7 +72,7 @@ export default function Exercice_zero_mathalea2d() {
         let texte = mathalea2d(params_enonce, objets_enonceml)+'<br>'+anim.htmlBouton()
         this.contenu=texte;
     }
-  this.besoin_formulaire_numerique = ['Type de triangle', 5, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral`]
+  this.besoin_formulaire_numerique = ['Type de triangle', 6, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l'angle entre ces côtés`]
   this.besoin_formulaire2_texte = ["Nom du triangle",`ABC par exemple`];
   this.besoin_formulaire3_texte =['paramètres séparés par des espaces','3 4 5']
   
