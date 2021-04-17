@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombre,tex_fraction} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
  * @Auteur Rémi Angot + Jean-claude Lhote

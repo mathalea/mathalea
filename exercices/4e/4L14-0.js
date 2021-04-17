@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,texte_en_couleur} from "/modules/outils.js"
+const Algebrite = require('algebrite')
 
 /**
  * Tester si un nombre est solution d'une équation

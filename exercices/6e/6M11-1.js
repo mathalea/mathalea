@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,tex_nombre} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Un carré, un rectangle et un triangle rectangle sont tracés.
  *

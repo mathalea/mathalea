@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {fraction_simplifiee,liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 //import {fraction,ListeFraction} from "/modules/Fractions.js"
 
 /**

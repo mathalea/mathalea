@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,creer_couples,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Multiplier deux nombres décimaux
  * @Auteur Rémi Angot

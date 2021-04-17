@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,arrondi,tex_nombre} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * 3 figures sont données, 1 quart de disque, un demi-disque et un 3-quarts de disque
  * * 1 : Calculer les périmètres

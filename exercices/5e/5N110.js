@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_prix,tex_fraction} from "/modules/outils.js"
+const Algebrite = require('algebrite')
 
 
 /**

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,tex_prix,tex_fraction} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
  * @Auteur Jean-Claude Lhote

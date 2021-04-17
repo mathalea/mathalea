@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import Operation from '/modules/operations.js'
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.
  *

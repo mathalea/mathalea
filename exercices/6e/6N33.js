@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,simplification_de_fraction_avec_etapes,calcul,tex_nombrec,mise_en_evidence,tex_fraction} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
  *

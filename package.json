@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-project",
-  "version": "1.0.0",
-  "description": "My webpack project",
+  "name": "mathalea",
+  "version": "2.1.0",
+  "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
     "lint": "eslint",
@@ -12,6 +12,7 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "algebrite": "^1.4.0",
     "core-js": "^3.10.0",
     "instrumenpoche": "git+https://framagit.org/Sesamath/instrumenpoche.git",
     "jquery": "^3.6.0",

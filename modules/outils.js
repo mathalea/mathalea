@@ -1,5 +1,7 @@
 import { texteParPosition, } from "/modules/2d.js";
 import { fraction } from "/modules/Fractions.js";
+const Algebrite = require('algebrite')
+
 
 // Fonctions diverses pour la création des exercices
 

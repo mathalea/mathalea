@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,arrondi,tex_nombre,tex_texte} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *

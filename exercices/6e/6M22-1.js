@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,shuffle,arrondi,tex_nombre} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * 4 cercles sont tracés, 2 dont on connait le rayon et 2 dont on connait le diamètre.
  * * 1 : Calculer le périmètre de cercles

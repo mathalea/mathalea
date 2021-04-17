@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_algebrique_sauf1,ecriture_parenthese_si_negatif,calcul,tex_nombrec,lettre_minuscule_depuis_chiffre,tex_nombre,mise_en_evidence} from "/modules/outils.js"
 import {repere,courbe,mathalea2d,} from "/modules/2d.js"
+const Algebrite = require('algebrite')
+
 
 
 /**

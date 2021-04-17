@@ -53,10 +53,7 @@
     <link rel="stylesheet" type="text/css" href="style/style_mathalea.css" />
 
     <!-- Algebrite-->
-    <script
-      src="modules/algebrite.bundle-compressed.js"
-      type="text/javascript"
-    ></script>
+    <!-- <script src="modules/algebrite.bundle-compressed.js" type="text/javascript" ></script> -->
 
     <!-- Clipboard-->
     <script src="modules/clipboard.min.js" type="text/javascript"></script>

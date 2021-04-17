@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_nombre,tex_fraction} from "/modules/outils.js"
+const Algebrite = require('algebrite')
+
 /**
  * Multiplier ou diviser un nombre entier par 10, 100 ou 1 000
  *
