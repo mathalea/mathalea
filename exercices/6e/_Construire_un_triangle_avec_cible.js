@@ -8,7 +8,7 @@ import Alea2iep from "/modules/Alea2iep.js";
  * @Auteur Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
-export default function Construire_un_triangle_avec_cible() {
+export default function Construire_un_triangle_avec_cible(numero_de_l_exercice) {
   "use strict"
   Exercice.call(this)
   this.titre = "Construire un triangle avec cible auto-corrective";
@@ -18,9 +18,9 @@ export default function Construire_un_triangle_avec_cible() {
   this.sup = false;
   this.classe = 6;
   this.type_exercice = "IEP";
+
   this.nouvelle_version = function (numero_de_l_exercice) {
-    let IEP = new Alea2iep()
-let animation=''
+    let IEP; 
     this.liste_questions = []
     this.liste_corrections = []
     let celluleAleaRonde = function (rang) {
@@ -29,11 +29,12 @@ let animation=''
       return lettre + chiffre
     }
 
-    let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets
+    let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets,montriangle
     if (this.classe == 6) type_de_questions_disponibles = range1(6)
     else type_de_questions_disponibles = range1(9)
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      IEP = new Alea2iep()
       objets_enonce = []
       objets_enonceml = []
       objets_correction = []
@@ -42,7 +43,6 @@ let animation=''
       nom = creerNomDePolygone(3, "PQ")
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
-      sommets = shuffle(sommets)
       A = point(0, 0, sommets[0], 'left')
       switch (liste_type_de_questions[i]) {
         case 1: // triangle quelconque par ses trois longueurs
@@ -65,6 +65,7 @@ let animation=''
           objets_correction.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           texte_corr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          IEP.triangle3longueurs(nom,lAB,lAC,lBC,true)
           break;
         case 2: // triangle ABC rectangle en B dont on connait AB et BC 
           lBC = randint(70, 80) / 10
@@ -85,6 +86,8 @@ let animation=''
           objets_correction.push(cible, traceCompas(B, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B))
           texte_corr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+
+        IEP.triangleRectangle2Cotes(nom,lAB,lBC,true)
           break
         case 3: // triangle ABC isocèle en A
           lBC = calcul(randint(35, 45) / 10)
@@ -105,6 +108,9 @@ let animation=''
           objets_correction.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), codeSegments('||', 'black', A, B, A, C), afficheLongueurSegment(A, C))
           texte_corr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          montriangle=IEP.triangle3longueurs(nom,lAB,lAC,lBC,true)
+          IEP.segmentCodage(montriangle[0],montriangle[1],{codage:'\\\\'})
+          IEP.segmentCodage(montriangle[0],montriangle[2],{codage:'\\\\'})
           break;
         case 4: // triangle ABC recatangle isocèle en B
           lAB = calcul(randint(46, 60) / 10)
@@ -125,6 +131,9 @@ let animation=''
           objets_correction.push(cible, traceCompas(B, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), codeSegments('||', 'black', A, B, B, C))
           texte_corr += `Pour cette construction, nous avons utilisé l'équerre et la règle graduée.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+         montriangle=IEP.triangleRectangle2Cotes(nom,lAB,lAB,true)
+         IEP.segmentCodage(montriangle[0],montriangle[1],{codage:'\\\\'})
+          IEP.segmentCodage(montriangle[1],montriangle[2],{codage:'\\\\'})
           break
         case 5: // triangle équilatéral
           lAB = calcul(randint(46, 60) / 10)
@@ -145,6 +154,7 @@ let animation=''
           objets_correction.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), codeSegments('||', 'black', A, B, B, C, A, C))
           texte_corr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          IEP.triangleEquilateral(nom,lAB,true)
           break;
         case 6: //triangle ABC dont on connait AB et AC et l'angle BAC
           lAB = calcul(randint(46, 60) / 10)
@@ -160,6 +170,7 @@ let animation=''
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheLongueurSegment(A, C, 'black', 1))
           texte_corr += `Pour cette construction, nous avons utilisé le rapporteur et la règle graduée.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          IEP.triangle2longueurs1angle(nom,lAB,lAC,Math.round(angle(B, A, C)),true)
           break
         case 7: // triangle ABC dont ont connais AB et les deux angles adjacents 
           lAB = calcul(randint(46, 60) / 10)
@@ -201,6 +212,7 @@ let animation=''
           objets_correction.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(A, C))
           texte_corr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          IEP.triangleRectangleCoteHypotenuse(nom,lAB,lAC,true)
           break
         case 9: // triangle ABC dont ont connais AB un angle adjacent et l'angle opposé
           lAB = calcul(randint(46, 60) / 10)
@@ -221,7 +233,7 @@ let animation=''
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1), afficheMesureAngle(A, C, B, 'black', 1))
           texte_corr += `Pour cette construction, il a fallu calculer l'angle $\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$.<br>$\\widehat{${sommets[0] + sommets[1] + sommets[2]}}=180-\\widehat{${sommets[1] + sommets[0] + sommets[2]}}-\\widehat{${sommets[0] + sommets[2] + sommets[1]}}=180-${Math.round(angle(B, A, C))}-${Math.round(angle(B, C, A))}=${Math.round(angle(A, B, C))}$.<br>Nous avons utilisé le rapporteur pour effectuer cette construction.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
-
+          IEP.triangle1longueur2angles(nom,lAB,Math.round(angle(B, A, C)),Math.round(angle(C, B, A)),true)
 
       }
       T = polygoneAvecNom(A, B, C)
@@ -233,7 +245,7 @@ let animation=''
       params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
       texte_corr += mathalea2d(params_correction, objets_correction)
-      texte_corr+='<br>'+animation
+      texte_corr+='<br>'+IEP.htmlBouton(numero_de_l_exercice, i)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);

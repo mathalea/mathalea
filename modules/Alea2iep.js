@@ -1857,6 +1857,66 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
+   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (2,0).
+   * @param {string} ABC Une chaine de caractère de 3 lettre
+   * @param {*} AB Distance entre le 1er et le 2e sommet
+   * @param {*} AC Distance entre le 1er et le 3e sommet
+   * @param {*} BAC Angle au 1er sommet
+   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
+   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
+   */
+   this.triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true, mesure = false) {
+    const angle = randint(-20, 20)
+    const a1 = BAC
+    const A = point(6, 0)
+    const B = pointAdistance(A, AB, angle)
+    const D = pointAdistance(A, 5.2, a1 + angle)
+    const D2 = pointSurSegment(A, D, 10)
+    const D1 = pointSurSegment(D, D2, 0.4)
+    const C = pointSurSegment(A,D2, AC)
+    if (NOM.length !== 3) {
+      description = false
+    } else {
+      A.nom = NOM[0]
+      B.nom = NOM[1]
+      C.nom = NOM[2]
+    }
+    this.couleur = 'blue'
+    this.epaisseur = 3
+    this.pointCreer(A)
+    if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
+    this.regleSegment(A, B)
+    this.pointCreer(B)
+    this.couleur = 'grey'
+    this.epaisseur = 1
+    this.rapporteurMontrer(A)
+    this.rapporteurDeplacer(A)
+    this.rapporteurRotation(angle)
+    if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
+    this.epaisseur = 3
+    this.trait(D, D1, 20)
+    this.epaisseur = 1
+    this.rapporteurMasquer()
+    this.regleSegment(A, D2)
+    this.angleCodage(B, A, C)
+    this.rapporteurMasquer()
+    if (description) this.textePosition(`On place le point ${C.nom} sur la demi-droite [${A.nom + C.nom}) à ${AC} cm de ${A.nom}.`, 0, -6)
+    this.epaisseur = 3
+    this.couleur='blue'
+    this.crayonDeplacer(C)
+    this.pointCreer(C)
+    this.regleSegment(A,C)
+    this.crayonMasquer()
+    if (description) this.textePosition(`On trace le côté [${B.nom + C.nom}].`, 0, -7)
+    this.regleMontrer(C)
+    this.crayonMontrer(C)
+    this.regleSegment(C, B)
+    this.regleMasquer()
+    this.crayonMasquer()
+    return [A, B, C]
+  }
+ 
+  /**
    * Trace un triangle équilatéral à partir de la donnée de 2 points
    * @param {point} A
    * @param {point} B
