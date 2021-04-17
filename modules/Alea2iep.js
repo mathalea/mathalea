@@ -30,6 +30,7 @@ export default function Alea2iep () {
   this.recadre = function (xmin, ymax) {
     this.translationX = 1 - xmin
     this.translationY = ymax + 3
+
   }
 
   // Garde en mémoire les coordonnées extrêmes des objets créés
@@ -44,21 +45,21 @@ export default function Alea2iep () {
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
     const x = calcul((A.x + this.translationX) * 30, 0)
-    if (x > this.xMax) {
-      this.xMax = x
+    if (A.x > this.xMax) {
+      this.xMax = A.x
     }
-    if (x < this.xMin) {
-      this.xMin = x
+    if (A.x < this.xMin) {
+      this.xMin = A.x
     }
     return x
   }
   this.y = function (A) {
     const y = calcul((-A.y + this.translationY) * 30, 0)
-    if (y < this.yMin) {
-      this.yMin = y
+    if (A.y < this.yMin) {
+      this.yMin = A.y
     }
-    if (y > this.yMax) {
-      this.yMax = y
+    if (A.y > this.yMax) {
+      this.yMax = A.y
     }
     return y
   }
@@ -163,7 +164,6 @@ export default function Alea2iep () {
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            console.log(element, xml)
             iepLoad(element, xml, { zoom: true }, (error) => { console.log(error) })
           } else {
             element.style.display = 'none'
@@ -1128,7 +1128,6 @@ export default function Alea2iep () {
     if (options.codage === undefined) {
       options.codage = '\\'
     }
-    console.log(options.codage)
     this.idIEP++
     const id = this.idIEP
     const M = milieu(s.extremite1, s.extremite2)
@@ -1796,7 +1795,6 @@ export default function Alea2iep () {
     const A = point(6, 0)
     const B = pointAdistance(A, AB, angle)
     const D = pointAdistance(A, 5.2, a1 + angle)
-    console.log(a1 + angle)
     const D2 = pointSurSegment(A, D, 10)
     const D1 = pointSurSegment(D, D2, 0.4)
     const E = pointAdistance(B, 3, 180 - a2 + angle)

@@ -1564,6 +1564,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "étude de fonction de degré 3",
         "url": "/exercices/Profs/P010.js"
     },
+    "P011": {
+        "titre": "Construis mon triangle",
+        "url": "/exercices/Profs/P011.js"
+    },
     "PEA11": {
         "titre": "Passer de la base 10 à une autre base et inversement",
         "url": "/exercices/PE/PEA11.js"
@@ -1691,10 +1695,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
-    },
-    "betaP011": {
-        "titre": "Construis mon triangle",
-        "url": "/exercices/beta/betaP011.js"
     },
     "betaProbabilites": {
         "titre": "Probabilités simples",

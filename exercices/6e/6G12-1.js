@@ -9,7 +9,7 @@ import Alea2iep from "/modules/Alea2iep.js"
  * Animation de la correction ajoutée le 16/04/2021
  * @Auteur Jean-Claude Lhote
  */
-export default function Parallele_et_Perpendiculaires(numero_de_l_exercice) {
+export default function Parallele_et_Perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Tracer des parallèles et des perpendiculaires";
@@ -19,7 +19,7 @@ export default function Parallele_et_Perpendiculaires(numero_de_l_exercice) {
   this.sup = 1;
   this.type=3;
   this.type_exercice = "IEP";
-  this.nouvelle_version = function () {
+  this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles;
     type_de_questions_disponibles = [this.type]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
     let liste_type_de_questions = combinaison_listes(
@@ -170,6 +170,7 @@ let anim;
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) + 1)
+          anim.recadre(Xmin - 3, Ymax)
           anim.pointsCreer(A,B,C,D,E)
           anim.regleDemiDroiteOriginePoint(A,B)
           anim.perpendiculaireRegleEquerre2points3epoint(A,B,B)
@@ -218,6 +219,7 @@ let anim;
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          anim.recadre(Xmin - 3, Ymax)
           anim.pointsCreer(A,B,C,D,E)
           anim.regleDemiDroiteOriginePoint(A,B)
           anim.paralleleRegleEquerre2points3epoint(A,B,C)
@@ -308,6 +310,7 @@ let anim;
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          anim.recadre(Xmin - 3, Ymax)
           anim.pointsCreer(A,B,C,D,E)
           anim.regleDemiDroiteOriginePoint(A,B)
          anim.perpendiculaireRegleEquerre2points3epoint(A,B,B)
