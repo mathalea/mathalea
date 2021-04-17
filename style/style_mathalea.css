@@ -24,6 +24,10 @@
   }
 }
 
+.titreExercice {
+  margin-top: 40px;
+}
+
 /* Timer pour le calcul chronométré*/
 
 #timer, #numero_question {

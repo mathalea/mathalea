@@ -399,9 +399,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
 			}
           } else {
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
           }
-          contenuDesCorrections += `<div id="divexcorr${i}"> ${contenu.contenu_une_correction} </div>`	
+          contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`	
         }
         contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
         contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
