@@ -1656,6 +1656,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Construire un triangle aux instruments",
         "url": "/exercices/beta/beta6G21.js"
     },
+    "beta6M20": {
+        "titre": "Aires de triangles",
+        "url": "/exercices/beta/beta6M20.js"
+    },
     "beta6test2": {
         "titre": "Mon test",
         "url": "/exercices/beta/beta6test2.js"
