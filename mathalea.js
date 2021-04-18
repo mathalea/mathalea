@@ -7,6 +7,12 @@
 import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
+/* essai infructueux d'import de KaTeX
+import katex from 'katex'
+import renderMathInElement from 'katex/dist/contrib/auto-render'
+ */
+import Clipboard from 'clipboard'
+import QRCode from 'qrcode'
 
 /* décommenter ça lorsque l'on aura la bonne liste des widgets à charger
 import $ from 'jquery'
@@ -1674,16 +1680,9 @@ import 'jquery-ui/themes/base/sortable.css'
 
     if (document.getElementById('btnQRcode')) {
       document.getElementById('btnQRcode').addEventListener('click', function () {
-        $('#ModalQRcode').html('')
-        const qrcode = new QRCode(document.getElementById('ModalQRcode'), {
-          text: window.location.href,
-          width: Math.min(window.innerHeight, window.innerWidth) * 0.9,
-          height: Math.min(window.innerHeight, window.innerWidth) * 0.9,
-          colorDark: '#000000',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
-        })
-        qrcode.makeCode(window.location.href)
+        $('#ModalQRcode').html(`<canvas width="800" height="800" id="canvasQRCode"></canvas>`)
+        const canvas = document.getElementById('canvasQRCode')
+        QRCode.toCanvas(canvas, window.location.href, {width:Math.min(window.innerHeight, window.innerWidth) * 0.9, height: Math.min(window.innerHeight, window.innerWidth) * 0.9})
         $('#ModalQRcode').modal('show')
       })
     }
