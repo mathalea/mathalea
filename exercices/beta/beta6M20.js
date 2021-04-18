@@ -63,7 +63,7 @@ export default function Aire_de_triangles() {
         objets_correction.push(polynom[0],polynom[1],hauteurpoly,afficheLongueurSegment(B,A,'black',1),afficheLongueurSegment(C,H,'black',0.3),codageAngleDroit(A,H,C))
         texte=mathalea2d({xmin:xmin,xmax:xmax,ymin:ymin,ymax:ymax,pixelsParCm:20,scale:1,mainlevee:false},objets_enonce)+'<br'
     texte_corr = mathalea2d({xmin:xmin,xmax:xmax,ymin:ymin,ymax:ymax,pixelsParCm:20,scale:1,mainlevee:false},objets_correction)+'<br>'+
-    `$\\mathcal{A}_{ABC}=\\dfrac{1}{2}\\times AB\\times HC=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${tex_nombre(
+    `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${tex_nombre(
       Algebrite.eval((cotes[i] * hauteurs[i]) / 2)
     )}~\\text{cm}^2$`;
     texte_corr += "<br>";
