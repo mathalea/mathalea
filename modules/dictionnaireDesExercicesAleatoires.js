@@ -1180,6 +1180,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Périmètres et aires carrés, rectangles et triangles rectangles",
         "url": "/exercices/6e/6M11-1.js"
     },
+    "6M11-1MG32": {
+        "titre": "Périmètres et aires carrés, rectangles et triangles rectangles",
+        "url": "/exercices/6e/6M11-1MG32.js"
+    },
     "6M11-2": {
         "titre": "Périmètres et aires de figures composées",
         "url": "/exercices/6e/6M11-2.js"
@@ -1191,6 +1195,10 @@ export let dictionnaireDesExercicesAleatoires =
     "6M20": {
         "titre": "Aires de triangles",
         "url": "/exercices/6e/6M20.js"
+    },
+    "6M20MG32": {
+        "titre": "Aires de triangles",
+        "url": "/exercices/6e/6M20MG32.js"
     },
     "6M22": {
         "titre": "Périmètres et aires de disques (à partir d'un texte).",
@@ -1655,10 +1663,6 @@ export let dictionnaireDesExercicesAleatoires =
     "beta6G21": {
         "titre": "Construire un triangle aux instruments",
         "url": "/exercices/beta/beta6G21.js"
-    },
-    "beta6M20": {
-        "titre": "Aires de triangles",
-        "url": "/exercices/beta/beta6M20.js"
     },
     "beta6test2": {
         "titre": "Mon test",
