@@ -13,6 +13,8 @@ import renderMathInElement from 'katex/dist/contrib/auto-render'
  */
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
+import seedrandom from 'seedrandom'
+import math from 'mathjs'
 
 /* décommenter ça lorsque l'on aura la bonne liste des widgets à charger
 import $ from 'jquery'
@@ -299,7 +301,7 @@ import 'jquery-ui/themes/base/sortable.css'
       }
     }
     // Contrôle l'aléatoire grâce à SeedRandom
-    Math.seedrandom(mathalea.graine);
+    seedrandom(mathalea.graine, { global: true});
     // ajout des paramètres des exercices dans l'URL
     (function gestionURL () {
       if (liste_des_exercices.length > 0) {
