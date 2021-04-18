@@ -20,6 +20,7 @@ specifiers:
   instrumenpoche: git+https://framagit.org/Sesamath/instrumenpoche.git
   jquery: ^3.6.0
   jquery-ui: ^1.12.1
+  katex: ^0.13.2
   mini-css-extract-plugin: ^1.4.1
   regenerator-runtime: ^0.13.7
   sass: ^1.32.8
@@ -35,6 +36,7 @@ dependencies:
   instrumenpoche: framagit.org/Sesamath/instrumenpoche/deda67fb93b65fd223c60518162f3cda59184b7c
   jquery: 3.6.0
   jquery-ui: 1.12.1
+  katex: 0.13.2
   regenerator-runtime: 0.13.7
 
 devDependencies:
@@ -1876,6 +1878,11 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
+  /commander/6.2.1:
+    resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
+    engines: {node: '>= 6'}
+    dev: false
+
   /commander/7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
@@ -3604,6 +3611,13 @@ packages:
     dependencies:
       minimist: 1.2.5
     dev: true
+
+  /katex/0.13.2:
+    resolution: {integrity: sha512-u/KhjFDhyPr+70aiBn9SL/9w/QlLagIXBi2NZSbNnBUp2tR8dCjQplyEMkEzniem5gOeSCBjlBUg4VaiWs1JJg==}
+    hasBin: true
+    dependencies:
+      commander: 6.2.1
+    dev: false
 
   /killable/1.0.1:
     resolution: {integrity: sha512-LzqtLKlUwirEUyl/nicirVmNiPvYs7l5n8wOPP7fyJVpUPkvCnW/vuiXGpylGUlnPDnB7311rARzAt3Mhswpjg==}
