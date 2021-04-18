@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url,modal_pdf } from "/modules/outils.js";
-import { angleScratchTo2d,clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+import { attendre ,angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
@@ -320,6 +320,7 @@ export default function Note_la_couleur() {
               pion.codeScratch += result[4] + '\n';
               pion.currentIndex += result[4].length + 1
               lutin = result[5]
+              attendre(5,lutin)
             }
             else {
               nb_instructions++
@@ -410,6 +411,7 @@ export default function Note_la_couleur() {
                 pion.codeScratch += result[4] + '\n';
                 pion.currentIndex += result[4].length + 1
                 lutin = result[5]
+                attendre(5,lutin)
               }
               else {
                 nb_instructions++
@@ -432,6 +434,7 @@ export default function Note_la_couleur() {
                 if (instruction == 'NLC') {
                   couleurs.push(pion.nlc());
                   lutin = result[5]
+                  attendre(5,lutin)
                 }
                 else {
                   nb_instructions++
@@ -458,6 +461,7 @@ export default function Note_la_couleur() {
                 pion.codeScratch += result[4] + '\n';
                 pion.currentIndex += result[4].length + 1
                 lutin = result[5]
+                attendre(5,lutin)
               }
               else {
                 nb_instructions++

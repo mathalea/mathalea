@@ -8413,7 +8413,11 @@ export function angleScratchTo2d(x){
   }
   return angleModulo(angle2d)
   }
-
+/**
+ * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
+ * @param {number} a 
+ * @returns 
+ */
 export function angleModulo(a){
 if (a<-180) return a+360
 else if (a>180) return a-360
@@ -8512,12 +8516,21 @@ function ObjetLutin() {
     return code
   }
 }
-
+/**
+ * Crée une nouvelle instance de l'objet lutin
+ * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
+ * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
+ * @returns 
+ */
 export function creerLutin(...args) {
   return new ObjetLutin(...args);
 }
 
-
+/**
+ * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
+ * @param {number} d 
+ * @param {objet} lutin 
+ */
 export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
@@ -8528,27 +8541,51 @@ export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCerc
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite]);
   }
 }
-
+/**
+ * Fait entrer le lutin dans le mode "trace"
+ * @param {objet} lutin 
+ */
 export function baisseCrayon(lutin = mathalea.lutin) {
   lutin.crayonBaisse = true;
 }
-
+/**
+ * Fait sortir le lutin du mode "trace"
+ * @param {objet} lutin 
+ */
 export function leveCrayon(lutin = mathalea.lutin) {
   lutin.crayonBaisse = false;
 }
-
+/**
+ * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
+ * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
+ * @param {number} a 
+ * @param {objet} lutin 
+ */
 export function orienter(a, lutin = mathalea.lutin) {
   lutin.orientation = angleModulo(a)
 }
-
+/**
+ * Fait tourner de a degrés le lutin dans le sens direct
+ * @param {number} a 
+ * @param {objet} lutin 
+ */
 export function tournerG(a, lutin = mathalea.lutin) {
   lutin.orientation = angleModulo(lutin.orientation+a)
 }
-
+/**
+ * Fait tourner de a degrés le lutin dans le sens indirect
+ * @param {number} a 
+ * @param {objet} lutin 
+ */
 export function tournerD(a, lutin = mathalea.lutin) {
   lutin.orientation =angleModulo(lutin.orientation-a)
 }
-
+/**
+ * Déplace le lutin de sa position courante à (x;y)
+ * @param {number} x 
+ * @param {number} y
+ * @param {Objet} lutin 
+ */
 export function allerA(x, y, lutin = mathalea.lutin) {
   let xdepart = lutin.x;
   let ydepart = lutin.y;
@@ -8559,7 +8596,11 @@ export function allerA(x, y, lutin = mathalea.lutin) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite]);
   }
 }
-
+/**
+ * Change en x à l'abscisse du lutin
+ * @param {number} x 
+ * @param {Objet} lutin 
+ */
 export function mettrexA(x, lutin = mathalea.lutin) {
   let xdepart = lutin.x;
   lutin.x = calcul(x / mathalea.unitesLutinParCm);
@@ -8568,7 +8609,11 @@ export function mettrexA(x, lutin = mathalea.lutin) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
-
+/**
+ * change en y l'ordonnée du lutin
+ * @param {number} y 
+ * @param {Objet} lutin 
+ */
 export function mettreyA(y, lutin = mathalea.lutin) {
   let ydepart = lutin.y;
   lutin.y = calcul(y / mathalea.unitesLutinParCm);
@@ -8577,7 +8622,11 @@ export function mettreyA(y, lutin = mathalea.lutin) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
-
+/**
+ * Ajoute x à l'abscisse du lutin
+ * @param {number} x 
+ * @param {Objet} lutin 
+ */
 export function ajouterAx(x, lutin = mathalea.lutin) {
   let xdepart = lutin.x;
   lutin.x += calcul(x / mathalea.unitesLutinParCm);
@@ -8586,7 +8635,11 @@ export function ajouterAx(x, lutin = mathalea.lutin) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
-
+/**
+ * Ajoute y à l'ordonnée du lutin
+ * @param {number} y 
+ * @param {Objet} lutin 
+ */
 export function ajouterAy(y, lutin = mathalea.lutin) {
   let ydepart = lutin.y;
   lutin.y += calcul(y / mathalea.unitesLutinParCm);
@@ -8595,9 +8648,26 @@ export function ajouterAy(y, lutin = mathalea.lutin) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles]);
   }
 }
+/**
+ * fait "vibrer" le lutin tempo fois autour de sa position courante
+ * @Auteur Jean-Claude Lhote
+ */
+export function attendre(tempo,lutin=mathalea.lutin){
+  let x=lutin.x,y=lutin.y;
+  for (let i=0;i<tempo;i++){
+    lutin.listeTraces.push([x,y,x+0.1,y, lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([x+0.1,y,x-0.1,y,lutin.color, lutin.epaisseur, lutin.pointilles])
+    lutin.listeTraces.push([x-0.1,y,x,y,lutin.color, lutin.epaisseur, lutin.pointilles])
+    
+  }
+}
 
 /**
- * Traducteur scratch3 (Latex) -> scratchblock
+ * Traducteur scratch3 (Latex) -> scratchblocks
+ * On lui passe une chaine de caractères contenant une série de commande Latex du package Latex Scratch3
+ * Elle retourne une chaine de caractères contenant l'équivalent en langage scratchblocks
+ * http://mirrors.ctan.org/macros/latex/contrib/scratch3/scratch3-fr.pdf
+ * https://scratchblocks.github.io
  * @Auteur Jean-Claude Lhote. 
  */
 
