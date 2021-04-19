@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien } from './2d.js'
+import { vecteur, translation, appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien, norme } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -1085,6 +1085,14 @@ export default function Alea2iep () {
   this.textePosition = function (texte, x, y, options) {
     const A = point(x, y)
     return this.textePoint(texte, A, options)
+  }
+
+  this.longueurSegment = function (A,B,dy, options) {
+    let l=longueur(A,B)
+    let v=vecteur(A,B)
+    let w=vecteur(-v.y*dy/norme(v),v.x*dy/norme(v))
+    let ancrage=translation(translation(pointSurSegment(A,B,l/2-0.7),w),vecteur(0,1))
+    return this.textePoint(`${l} cm`,ancrage,options)
   }
 
   /**
