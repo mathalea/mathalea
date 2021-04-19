@@ -285,10 +285,11 @@ div#gauche
   color: #f15929;
   content: counter(list) ".";
   left: -32px;
-  position: absolute;
+  /* position: absolute; */
   text-align: right;
   width: 26px;
   font-weight: bold;
+  padding-right:1em
 }
 
 #corrections ol li {
@@ -302,10 +303,11 @@ div#gauche
   color: #f15929;
   content: counter(list) ".";
   left: -32px;
-  position: absolute;
+  /* position: absolute; */
   text-align: right;
   width: 26px;
   font-weight: bold;
+  padding-right:1em
 }
 
 ::placeholder {

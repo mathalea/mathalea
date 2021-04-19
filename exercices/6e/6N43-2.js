@@ -279,7 +279,6 @@ export default function Tableau_criteres_de_divisibilite() {
            texte += `\\end{array}\n$`;
       texte_corr += `\\end{array}$\n`;
      }
-     console.log(texte,'\n',texte_corr)
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
       if (!mathalea.sortieAMC){
