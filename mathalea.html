@@ -188,11 +188,11 @@ window.est_diaporama=false
           <button class="btn ui  icon button" id="btn_zoom_moins"><i class="minus icon"></i> </button>
         </div>
         <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url"
-          data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Lien</button>
-        <button id="btnLaTeX" style="margin:10px" class="btn ui button labeled icon"><i class="edit icon"></i> LaTeX</button>
-        <button id="btnEmbed" style="margin:10px" class="btn ui button icon"><i class="code icon"></i></button>
-        <button id="btnQRcode" style="margin:10px" class="btn ui button icon"><i class="qrcode icon"></i></button>
-        <button id="FullScreen" style="margin:10px" class="btn ui button icon" onClick="window.location.reload();"><i class="external alternate icon"></i></button>
+          data-clipboard-action="copy" data-tooltip="Copier le lien vers les exercices paramétrés" data-clipboard-text=url_courant()><i class="copy icon"></i>Lien</button>
+        <button id="btnLaTeX" style="margin:10px" class="btn ui button labeled icon"><i class="edit icon"></i> LaTeX / PDF</button>
+        <button id="btnEmbed" style="margin:10px" class="btn ui button icon" data-tooltip="Code HTML pour intégrer les exercices dans votre site"><i class="code icon"></i></button>
+        <button id="btnQRcode" style="margin:10px" class="btn ui button icon" data-tooltip="QRCode de lien vers les exercices"><i class="qrcode icon"></i></button>
+        <button id="FullScreen" style="margin:10px" class="btn ui button icon" data-tooltip="Exercices en plein écran" onClick="window.location.reload();"><i class="external alternate icon"></i></button>
       </div>
   
       <div id="ModalQRcode" class="ui basic modal"></div>

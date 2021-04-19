@@ -172,7 +172,8 @@
       <button class="btn ui  labeled icon button" data-clipboard-action="copy" data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
       <!-- Bouton de téléchargement -->
       <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
-  
+      <button style="margin-top:10px" class="btn ui labeled button icon" onclick="window.location.href=window.location.href.replace('/mathalealatex.html','/mathalea.html')" ><i class="eye icon"></i>Voir les exercices</button>
+        
       <div class="ui hidden divider"></div>
       <div id="overleaf">
         <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
@@ -181,7 +182,9 @@
         <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
         <input type="hidden" name="engine" value="" autocomplete="off">
         <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
-        <i class="cogs icon"></i>Compiler sur Overleaf.com</button></div></form>
+        <i class="cogs icon"></i>Compiler en PDF sur Overleaf.com</button>
+      </form>
+      </div>  
   
       </div>
       <!-- Instantiate clipboard -->
