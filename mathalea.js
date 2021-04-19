@@ -713,16 +713,14 @@ import 'jquery-ui/themes/base/sortable.css'
         )
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
-        // ici il ne peut s'agir que de js contenus dans exercices ou dnb, on indique donc ces deux préfixes
-        const chunks = /^\/(dnb|exercices)\/(.*)/.exec(url)
+        // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
+        if (!/^\/exercices\//.test(url)) throw Error(``)
+        const chunks = /^\/exercices\/(.*)/.exec(url)
         if (!chunks) throw Error(`url non prévue : ${url}`)
-        const [, dossier, path] = chunks
-        const importPromise = (dossier === 'dnb')
-          // cf https://webpack.js.org/api/module-methods/#magic-comments
-          ? import(/* webpackMode: "lazy" */ './dnb/' + path)
-          : import(/* webpackMode: "lazy" */ './exercices/' + path)
+        const path = chunks[1]
         promises.push(
-          importPromise
+          // cf https://webpack.js.org/api/module-methods/#magic-comments
+          import(/* webpackMode: "lazy" */ './exercices/' + path)
             .catch((error) => {
               console.log(error)
               listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenu_correction: '' } // Un exercice vide pour l'exercice qui n'existe pas
