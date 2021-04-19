@@ -285,10 +285,11 @@ div#gauche
   color: #f15929;
   content: counter(list) ".";
   left: -32px;
-  position: absolute;
+  /* position: absolute; */
   text-align: right;
   width: 26px;
   font-weight: bold;
+  padding-right:1em
 }
 
 #corrections ol li {
@@ -302,10 +303,11 @@ div#gauche
   color: #f15929;
   content: counter(list) ".";
   left: -32px;
-  position: absolute;
+  /* position: absolute; */
   text-align: right;
   width: 26px;
   font-weight: bold;
+  padding-right:1em
 }
 
 ::placeholder {
@@ -431,41 +433,22 @@ body.dragging, body.dragging * {
 }
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+
   .ui.container {
-    width: 1180px;
+    width: 85%;
   }
 
   .ui.grid.container {
-    width: calc( 1180px  +  2rem ) !important;
+    width: calc( 85%  +  2rem ) !important;
   }
 
   .ui.relaxed.grid.container {
-    width: calc( 1180px  +  3rem ) !important;
+    width: calc( 85%  +  3rem ) !important;
   }
 
   .ui.very.relaxed.grid.container {
-    width: calc( 1180px  +  5rem ) !important;
+    width: calc( 85%  +  5rem ) !important;
   }
-}
-
-@media only screen and (min-width: 1401px) and (max-width: 1900px) {
-  .ui.container {
-    width: 1340px;
-  }
-
-  .ui.grid.container {
-    width: calc( 1340px  +  2rem ) !important;
-  }
-
-  .ui.relaxed.grid.container {
-    width: calc( 1340px  +  3rem ) !important;
-  }
-
-  .ui.very.relaxed.grid.container {
-    width: calc( 1340px  +  5rem ) !important;
-  }
-}
 
 /* The actual popup (appears on top) */
 .popup .popuptext {

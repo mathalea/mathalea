@@ -286,7 +286,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
     (function gestionURL () {
       if (liste_des_exercices.length > 0) {
         let fin_de_l_URL = ''
-        if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0 && window.location.pathname.indexOf('beta.html') < 0) {
+        if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0 ) {
           fin_de_l_URL += 'exercice.html'
         }
         fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -1565,38 +1565,49 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
       mise_a_jour_du_code()
     }
 
-    // Gestion du bouton de zoom
-    // let taille = parseInt($("#affichage_exercices").css("font-size"));
-    // $("#btn_zoom_plus").click(function () {
-    //     taille *= 1.2;
-    //     $("#affichage_exercices").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-    // });
-    // $("#btn_zoom_moins").click(function () {
-    //     if (parseInt(taille) > 14) {
-    //         taille *= 0.8;
-    //     }
-    //     $("#affichage_exercices").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-    // });
+    
 
     if (sortie_html && !est_diaporama) {
       // Gestion du bouton de zoom
-      let zoom = 1
-      $('#btn_zoom_plus').click(function () {
-        zoom += 0.5
-        $('#affichage_exercices').css('transform', `scale(${zoom})`)
-        $('#affichage_exercices').css('transform-origin', '0 0px')
-      })
-      $('#btn_zoom_moins').click(function () {
-        if (zoom > 1) {
-          zoom -= 0.5
+      // let zoom = 1
+      // $('#btn_zoom_plus').click(function () {
+      //   zoom += 0.5
+      //   $('#affichage_exercices').css('transform', `scale(${zoom})`)
+      //   $('#affichage_exercices').css('transform-origin', '0 0px')
+      // })
+      // $('#btn_zoom_moins').click(function () {
+      //   if (zoom > 1) {
+      //     zoom -= 0.5
+      //   }
+      //   $('#affichage_exercices').css('transform', `scale(${zoom})`)
+      //   $('#affichage_exercices').css('transform-origin', '0 0px')
+      // })
+
+    let taille = parseInt($("#affichage_exercices").css("font-size"));
+    let lineHeight = parseInt($("#affichage_exercices").css("line-height"));
+    console.log(lineHeight)
+    $("#btn_zoom_plus").click(function () {
+        taille *= 1.2;
+        lineHeight *= 1.2;
+        $("#affichage_exercices").css("font-size", `${taille}px`);
+        $("#affichage_exercices").css("line-height", `${lineHeight}px`);
+        $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
+        $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
+        $(".mathalea2d").css("width", parseFloat($(".mathalea2d").css("width")) * 1.2);
+        $(".mathalea2d").css("height", parseFloat($(".mathalea2d").css("height")) * 1.2);
+    });
+    $("#btn_zoom_moins").click(function () {
+        if (parseInt(taille) > 10) {
+            taille *= 0.8;
+            lineHeight *=0.8;
         }
-        $('#affichage_exercices').css('transform', `scale(${zoom})`)
-        $('#affichage_exercices').css('transform-origin', '0 0px')
-      })
+        $("#affichage_exercices").css("font-size", `${taille}px`);
+        $("#affichage_exercices").css("line-height", `${lineHeight}px`);
+        $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
+        $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
+        $(".mathalea2d").css("width", parseFloat($(".mathalea2d").css("width")) * 0.8);
+        $(".mathalea2d").css("height", parseFloat($(".mathalea2d").css("height")) * 0.8);
+    });
     }
 
     // Gestion de la redirection vers MathaleaLaTeX
@@ -1651,6 +1662,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 	  }
     })
 		
+	window.addEventListener('resize',function(e){
+		if ($('#exo_plein_ecran').hasClass("left")) {
+			$('#right').css("width",$('#left').css("width"));
+		}
+	});
+	
     if (document.getElementById('btnQRcode')) {
       document.getElementById('btnQRcode').addEventListener('click', function () {
         $('#ModalQRcode').html('')
@@ -1664,6 +1681,26 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
         })
         qrcode.makeCode(window.location.href)
         $('#ModalQRcode').modal('show')
+      })
+    }
+    if (document.getElementById('btnEmbed')) {
+      document.getElementById('btnEmbed').addEventListener('click', function () {
+        $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
+        height="315" 
+        src="${window.location.href.replace('exercice.html','exo.html')}"
+        frameborder="0" >
+&lt;/iframe></code><pre></p>
+        <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
+        data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
+        new Clipboard('#btnEmbedCode', {
+          text: function () { return `<iframe width="660"
+          height="315" 
+          src="${window.location.href.replace('exercice.html','exo.html')}"
+          frameborder="0" >
+  </iframe>` }
+        })
+        $('.ui.button.toggle').state() // initialise le bouton
+        $('#ModalEmbed').modal('show')
       })
     }
 
