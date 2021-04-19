@@ -1651,6 +1651,12 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 	  }
     })
 		
+	window.addEventListener('resize',function(e){
+		if ($('#exo_plein_ecran').hasClass("left")) {
+			$('#right').css("width",$('#left').css("width"));
+		}
+	});
+	
     if (document.getElementById('btnQRcode')) {
       document.getElementById('btnQRcode').addEventListener('click', function () {
         $('#ModalQRcode').html('')
