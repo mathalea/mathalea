@@ -2115,6 +2115,25 @@ export function polygoneRegulierParCentreEtRayon(O, r, n, color = "black") {
 }
 
 /**
+ * retourne un objet contenant le triangle ABC et le pied de la hauteur H
+ * @param {point} A première extrémité de la base
+ * @param {point} B deuxième extrémité de la base
+ * @param {number} h hauteur du triangle en cm 
+ * @param {number} d valeur algébrique de AH où H est le pied de la hauteur 
+ * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
+ * @Auteur Jean-Claude Lhote
+ * @returns 
+ */
+export function triangle2points1hauteur(A,B,h,d,n=1){
+  if (d===undefined){
+    d=randint(0,Math.floor(longueur(A,B)))
+  }
+  let H=pointSurSegment(A,B,d)
+  let C=similitude(A,H,90*(3-n*2),h/longueur(A,H))
+  return {triangle:polygone(A,B,C),pied:H}
+}
+
+/**
  * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
  * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)

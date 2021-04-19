@@ -505,7 +505,7 @@ export default function Note_la_couleur() {
     texte +=`Il a été conçu pour étendre les possibilités de fiches proposées.<br>`
     texte +=`N'hésitez pas à vous rendre sur le site ${modal_url(numero_de_l_exercice+1,"https://www.monclasseurdemaths.fr","Mon classeur de Maths.fr","info circle")} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
     texte +=`Pour jouer, regarder les règles du jeu${modal_pdf(numero_de_l_exercice+2,"../../pdf/reglesnlc.pdf","Règles du jeu", "Règles - PDF", "file pdf")} .<br>`
-    texte +=`Exécute le programme et trouve la succession de couleur.<br>`
+    texte +=`Exécuter le programme et trouver la succession de couleur.<br>`
     texte += `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
