@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { vecteur, translation, appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien, norme } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien, norme, polygone } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -1088,7 +1088,7 @@ export default function Alea2iep () {
   }
 
   this.longueurSegment = function (A,B,dy, options) {
-    let l=longueur(A,B)
+    let l=calcul(longueur(A,B,2))
     let v=vecteur(A,B)
     let w=vecteur(-v.y*dy/norme(v),v.x*dy/norme(v))
     let ancrage=translation(translation(pointSurSegment(A,B,l/2-0.7),w),vecteur(0,1))
@@ -2042,9 +2042,9 @@ export default function Alea2iep () {
    * @param {point} C
    * @param {string} nomD
    * @param {boolean} description
-   * @param {boolean} cotesDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
+   * @param {boolean} csDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
    */
-  this.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, cotesDejaTraces = true) {
+  this.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, csDejaTraces = true) {
     const D = translation2Points(C, B, A)
     D.nom = nomD
     const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -2177,4 +2177,86 @@ export default function Alea2iep () {
     this.regleMasquer()
     this.crayonMasquer()
   }
+
+/**
+ ************************************************
+ ************** Carrés ****************
+ ************************************************
+ */
+
+ this.carre1point1longueur = function(A,c){
+
+const interligne = 1
+
+A = point(5, 0, 'A')
+const B = pointAdistance(A,c, randint(-20,20),'B')
+const C = rotation(A,B,-90,'C')
+const D = rotation(B,A,90,'D')
+const E = pointSurSegment(A,D,c+2, 'E')
+const F = pointSurSegment(D,C,c+2, 'F')
+
+anim.tempo=20
+
+anim.textePosition(`1) On veut construire un carré dont les côtés mesurent ${c} cm, donc on commence par tracer un segment, ici [AB], de cette longueur.`, 0, -2)
+
+anim.pointCreer(A, {tempo: 0}) // On coupe la pause pour ne pas voir le déplacement du point 
+anim.pointNommer(A,A.nom,{dx: -0.5,dy: 0}) // On déplace le label du point A vers la gauche
+anim.regleSegment(A, B)
+anim.pointCreer(B)
+anim.regleMasquer()
+anim.longueurSegment(A,B,-1)
+
+anim.textePosition(`2) Un carré possède 4 angles droits, donc on trace la perpendiculaire à (AB) passant par A.`, 0, -2-1*interligne)
+
+anim.equerreMontrer()
+anim.equerreDeplacer(A)
+anim.equerreRotation(B)
+anim.trait(A, E)
+anim.equerreMasquer()
+anim.codageAngleDroit(B, A, D)
+
+anim.textePosition(`3) Les 4 côtés d'un carré sont de la même longueur, donc on place le point D sur cette perpendiculaire, à ${c} cm de A.`, 0, -2-2*interligne)
+
+anim.regleSegment(D, A)
+anim.pointCreer(D, {tempo: 0})
+anim.pointNommer(D,D.nom,{dx: -0.7,dy: 0.5})
+anim.regleMasquer()
+anim.segmentCodage(A, B)
+anim.segmentCodage(A, D)
+
+anim.textePosition(`4) De même, on trace la perpendiculaire à (AD) passant par D, puis on place le point C sur cette perpendiculaire, à ${c} cm de D.`, 0, -2-3*interligne)
+
+anim.equerreMontrer()
+anim.equerreDeplacer(D)
+anim.equerreRotation(A)
+anim.trait(D, F)
+anim.equerreMasquer()
+anim.codageAngleDroit(A, D, C)
+
+
+anim.regleSegment(D, C)
+anim.pointCreer(C, {tempo: 0})
+anim.pointNommer(C,C.nom,{dx: 0,dy: 0.9})
+anim.regleMasquer()
+anim.segmentCodage(D, C)
+
+anim.textePosition(`5) On trace le segment [BC].`, 0, -2-4*interligne)
+
+anim.regleSegment(C, B)
+anim.regleMasquer()
+anim.segmentCodage(B, C)
+
+anim.textePosition(`6) On vérifie que BC = ${c} cm et que les deux derniers angles tracés sont droits.`, 0, -2-5*interligne)
+
+anim.equerreMontrer(C, {tempo: 0})
+anim.equerreRotation(D)
+anim.equerreMasquer()
+anim.codageAngleDroit(D, C, B)
+
+anim.equerreMontrer(B, {tempo: 0})
+anim.equerreRotation(C)
+anim.equerreMasquer()
+anim.codageAngleDroit(C, B, A)
+return polygoneAvecNom(A,B,C,D)
+ }
 }
