@@ -184,6 +184,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
         "url": "/exercices/3e/3G10-1.js"
     },
+    "3G10-1-2d": {
+        "titre": "Trouver les coordonnées de l'image d'un punto par une transformation du plan",
+        "url": "/exercices/3e/3G10-1-2d.js"
+    },
     "3G10-2": {
         "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
         "url": "/exercices/3e/3G10-2.js"
@@ -485,7 +489,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/4e/4G10.js"
     },
     "4G11": {
-        "titre": "Trouver l\\'image d'une figure par une translation dans un pavage",
+        "titre": "Trouver l'image d'une figure par une translation dans un pavage",
         "url": "/exercices/4e/4G11.js"
     },
     "4G11-1": {
@@ -1564,6 +1568,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "étude de fonction de degré 3",
         "url": "/exercices/Profs/P010.js"
     },
+    "P011": {
+        "titre": "Construis mon triangle",
+        "url": "/exercices/Profs/P011.js"
+    },
     "PEA11": {
         "titre": "Passer de la base 10 à une autre base et inversement",
         "url": "/exercices/PE/PEA11.js"
@@ -1691,10 +1699,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
-    },
-    "betaP011": {
-        "titre": "Construis mon triangle",
-        "url": "/exercices/beta/betaP011.js"
     },
     "betaProbabilites": {
         "titre": "Probabilités simples",

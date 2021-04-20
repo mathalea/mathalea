@@ -1,17 +1,10 @@
 # ignorer le dossier de config de visual studio code
-.vscode
-# idem pour webstorm (et autres IDE de JetBrains)
-.idea
-
-# les dépendances
-node_modules
-# le build
-build
+.vscode/
 
 # ignorer les dossier tex/, tex/png/, dnb/ et tous leurs enfants
 # tex/*
 # tex/png/*
-dnb
+dnb/
 
 #ignorer le fichier de config de jshintrc
 .jshintrc
@@ -23,3 +16,9 @@ fichierszip/*.zip
 
 #ignorer le fichier index.php utile que pour le sous domaine de test de Seb
 index.php
+
+
+# les dépendances
+node_modules
+# le build
+build

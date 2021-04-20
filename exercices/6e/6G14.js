@@ -32,20 +32,13 @@ export default function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites = [], code, raisonnement, numDroites = [], phrases = [], textetemp
-    let d = [], P = [], objets = [], num1, num2, couleurd = [], droiteP, PP, Inter
+    let d = [], P = [], objets = [],  couleurd = [], droiteP, PP, Inter
     let droitecolor = function (num) {
       let couleurs
       sortie_html ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
       return couleurs[num]
     }
-    if (sortie_html) {
-      num1 = `<tspan dy="5" style="font-size:70%">`
-      num2 = `</tspan><tspan dy="-5">)</tspan>`
-    }
-    else {
-      num1 = `_`
-      num2 = `)`
-    }
+
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -178,7 +171,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
       //construction de la figure
 
       P.push(point(0, 0))
-      droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `(d${num1}${numDroites[code[0][0] - 1]}${num2}`, droitecolor(couleurd[0]))
+      droiteP = droiteParPointEtPente(P[0], randint(-1, 1, 0) / 10, `(d_${numDroites[code[0][0] - 1]})`, droitecolor(couleurd[0]))
       droiteP.epaisseur = 2
       droite.pointilles = false
       d.push(droiteP)
@@ -186,14 +179,14 @@ export default function Proprietes_paralleles_perpendiculaires() {
       for (let x = 0; x < code.length; x++) {
         if (code[x][2] == 1) {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtParallele(P[x + 1], d[x], `(d${num1}${numDroites[code[x][1] - 1]}${num2}`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtParallele(P[x + 1], d[x], `(d_${numDroites[code[x][1] - 1]})`, droitecolor(couleurd[x + 1]))
           droiteP.epaisseur = 2
           droiteP.pointilles = d[x].pointilles
           d.push(droiteP)
         }
         else {
           P.push(point((x + 1) * 2, (x + 1) * 2))
-          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[x], `(d${num1}${numDroites[code[x][1] - 1]}${num2}`, droitecolor(couleurd[x + 1]))
+          droiteP = droiteParPointEtPerpendiculaire(P[x + 1], d[x], `(d_${numDroites[code[x][1] - 1]})`, droitecolor(couleurd[x + 1]))
           droiteP.epaisseur = 2
           droiteP.pointilles = x % 3 + 1
           Inter = pointIntersectionDD(d[x], droiteP)

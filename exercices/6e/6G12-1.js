@@ -1,9 +1,12 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,tex_nombre,texte_en_couleur,num_alpha} from "/modules/outils.js"
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from "/modules/2d.js"
+import Alea2iep from "/modules/Alea2iep.js"
+
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
+ * Animation de la correction ajoutée le 16/04/2021
  * @Auteur Jean-Claude Lhote
  */
 export default function Parallele_et_Perpendiculaires() {
@@ -15,7 +18,8 @@ export default function Parallele_et_Perpendiculaires() {
   this.nb_cols_corr = 1;
   this.sup = 1;
   this.type=3;
-  this.nouvelle_version = function () {
+  this.type_exercice = "IEP";
+  this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles;
     type_de_questions_disponibles = [this.type]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
     let liste_type_de_questions = combinaison_listes(
@@ -25,6 +29,7 @@ export default function Parallele_et_Perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc = 20, sc;
+let anim;
 
     let A,
       B,
@@ -68,6 +73,8 @@ export default function Parallele_et_Perpendiculaires() {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      anim=new Alea2iep()
+      anim.equerreZoom(150)
       objets_enonce.splice(0)
       objets_correction.splice(0)
       if (this.sup == 2)
@@ -163,7 +170,13 @@ export default function Parallele_et_Perpendiculaires() {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, CC.y, DD.y) + 1)
-          break;
+          anim.recadre(Xmin - 3, Ymax)
+          anim.pointsCreer(A,B,C,D)
+          anim.regleDroite(A,B)
+          anim.perpendiculaireRegleEquerre2points3epoint(A,B,B)
+          anim.perpendiculaireRegleEquerre2points3epoint(A,B,C)
+          anim.perpendiculaireRegleEquerre2points3epoint(A,B,D)
+           break;
         case 2:
           A = point(2, 0, "A", 'below left');
           B = point(12, randint(-4, 4, 0), "B");
@@ -206,6 +219,13 @@ export default function Parallele_et_Perpendiculaires() {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          anim.recadre(Xmin - 3, Ymax)
+          anim.pointsCreer(A,B,C,D,E)
+          anim.regleDroite(A,B)
+          anim.paralleleRegleEquerre2points3epoint(A,B,C)
+          anim.paralleleRegleEquerre2points3epoint(A,B,D)
+          anim.paralleleRegleEquerre2points3epoint(A,B,E)
+       
           break;
         case 3:
           A = point(0, 0, "A", "above left");
@@ -290,6 +310,13 @@ export default function Parallele_et_Perpendiculaires() {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, E.y, F.y, EE.y, CC.y, DD.y) + 1)
+          anim.recadre(Xmin - 3, Ymax)
+          anim.pointsCreer(A,B,C,D,E)
+          anim.regleDroite(A,B)
+         anim.perpendiculaireRegleEquerre2points3epoint(A,B,B)
+          anim.perpendiculaireRegleEquerre2points3epoint(A,B,C)
+          anim.paralleleRegleEquerre2points3epoint(A,B,D)
+          anim.paralleleRegleEquerre2points3epoint(A,B,E)
 
           break
       }
@@ -327,6 +354,7 @@ export default function Parallele_et_Perpendiculaires() {
         },
         objets_correction
       );
+      correction += anim.htmlBouton(numero_de_l_exercice, i)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(enonce + "<br>");

@@ -1,7 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html>
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5318292-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-5318292-3');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -49,53 +57,83 @@
   <!-- Math.js-->
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js" integrity="sha512-jZKoHppj8aIM7qVRs9BUkS+YUtEbw7tJ7oKu0+g3rKCzRJyMWzaAdukppHp4ubV3HPxzrG03iExbMTnlbySPKA==" crossorigin="anonymous"></script>-->
 
-  <script>
-		// Les variables globales nécessaires aux exercices (pas terrible...)
-	window.mathalea={sorteiAMC:false,
-    sortieNB:false,
-    anglePerspective:30,
-    coeffPerspective:0.5,
-    pixelsParCm :20,
-    scale : 1,
-    unitesLutinParCm : 50,
-     mainlevee:false,
-     amplitude:1,
-     fenetreMathalea2d : [-1,-10,29,10], objets2D:[]
-    };
-	window.sortie_html=true
-	window.est_diaporama=false
-	</script> 
+
 
   <!-- Le loader central déclaré comme pouvant charger des modules -->
   <script type="module" src="mathalea.js"></script>
-
+  <script>
+    // Les variables globales nécessaires aux exercices (pas terrible...)
+    let sortie_html = true;
+    let est_diaporama = false;
+    let mathalea = {sortieNB:false, pixelsParCm :20,scale : 1,unitesLutinParCm : 50, mainlevee:false,amplitude:1,fenetreMathalea2d : [-1,-10,29,10], objets2D:[]};
+  </script>
 
 <title>MathALÉA</title>
 </head>
 
 <body>
 
-<div style="position: fixed;
-  top: 10px;
-  right: 110px;
-  width: 50px;
-  height: 50px;
-  z-index: 10;
-  visibility: hidden;
-  cursor:move;" id="horloge"></div>
-  
-<div style="position: fixed;
-  top: 100px;
-  right: 110px;
-  width: 50px;
-  height: 50px;
-  z-index: 10;
-  cursor:move;" id="signaletique"></div>
 
 
-<div class="ui hidden divider"></div>
+  <nav>
+    <div class="ui top attached five item stackable container menu  ">
+      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/" class="item">Accueil</a>
+          <a href="/6e" class="item">Sixième</a>
+          <a href="/5e" class="item">Cinquième</a>
+          <a href="/4e" class="item">Quatrième</a>
+          <a href="/3e" class="item">Troisième</a>
+          <a href="/2e" class="item">Seconde</a>
+          <a href="/twitter" class="item">Actualités</a>
+        </div>
+      </div>
+      <a href="/a_propos/" class="ui simple  item">À propos</a>
+      <a href="/telechargements" class="ui simple  item">Téléchargements</a>
+      <a href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+      <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/mathalea.html" class="item">Exercices en ligne</a>
+          <a href="/cm.html" class="item">Exercices chronométrés</a>
+          <a href="/mathalealatex.html" class="item">Générateur LaTeX/PDF</a>
+          <a href="/alacarte" class="item">Évaluation à la carte</a>
+          <a href="/mathalea_amc.html" class="item">Générateur AMC</a>
+          <a href="/outils.html" class="item">Outils pour le professeur</a>
+          <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+          <a href="/mathalea2iep.html" class="item">InstrumEnPoche</a>
+          <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+          <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+          <a href="/mathalea_a_propos" class="item">À propos</a>
+        </div>
+      </div>
 
-<div class="ui hidden divider"></div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('.ui.dropdown').dropdown();
+        });
+      </script>
+  </nav>
+
+    <div style="position: fixed;
+    top: 10px;
+    right: 110px;
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+    visibility: hidden;
+    cursor:move;" id="horloge"></div>
+
+    <div style="position: fixed;
+    top: 100px;
+    right: 110px;
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+    cursor:move;" id="signaletique"></div>
+
+    <div class="ui hidden divider"></div>
+
+    <div class="ui hidden divider"></div>
 
     <section class="ui  container " >
       <h3 class="ui block header">Choix des exercices</h3>
@@ -105,7 +143,7 @@
      </div>
 
      <div class="ui hidden divider"></div>
-	<div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+
      <div id="liste_des_exercices" style="margin-top: 20px">
        <h3 class="ui dividing header">Exercices disponibles</h3>
        <!-- Liste mise à jour en JS -->
@@ -113,7 +151,7 @@
      <div class="ui hidden divider"></div>
 
      <h3 class="ui block header">Exercices</h3>
-  
+
      <div > 
        <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin:10px"><i class="redo icon"></i>Nouvelles données</button> 
        <div class="ui buttons" style="margin:10px">
@@ -126,6 +164,7 @@
 
 
 
+
     <div class="ui hidden divider"></div>
 
     <div id="affichage_exercices">
@@ -133,11 +172,11 @@
 
 
       <div class="ui fluid accordion">
-        <div class="active title">
+        <div class="title">
           <i class="dropdown icon"></i>
           Corrections
         </div>
-        <div class="active content">
+        <div class="content">
           <div id="corrections"></div> 
         </div>
       </div>
@@ -152,8 +191,11 @@
       <div class="ui hidden divider"></div>
       <div class="ui hidden divider"></div>
       <div class="ui right aligned container">
+	
+        <a href="mailto:contact@coopmaths.fr"  style="color: black; padding-right: 2em" ><i class="mail icon"></i>contact@coopmaths.fr</a>
+        <a href="/twitter" targer="_blank" style="color: black; padding-right: 2em" ><i class="twitter icon"></i>@CoopMaths_fr</a>
         <img class="ui middle aligned image" height="25" src="/images/logo2.png">
-        <span class="ui header"></span>
+      <span class="ui header"></span>
       </div>
       <div class="ui hidden divider"></div>
       <div class="ui hidden divider"></div>
@@ -168,6 +210,6 @@
 
 
 </body>
-
-
 </html>
+
+

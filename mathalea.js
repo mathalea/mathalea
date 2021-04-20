@@ -1,8 +1,4 @@
-// FIXME tout ça devrait être dans des imports plutôt qu'en global
-/* global mathalea sortie_html est_diaporama renderMathInElement scratchblocks iepLoad Clipboard Prism fetch mtg32App mtgLoad QRCode MG32_tableau_de_figures Module */
-
-// ça y'en a trop pour le moment, on désactive
-/* eslint-disable camelcase */
+/* global mathalea sortie_html est_diaporama renderMathInElement scratchblocks iepLoad Clipboard Prism fetch mtg32App mtgLoad QRCode MG32_tableau_de_figures Module $  */
 
 import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
@@ -15,21 +11,6 @@ import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
 import math from 'mathjs'
-
-/* décommenter ça lorsque l'on aura la bonne liste des widgets à charger
-import $ from 'jquery'
-// on importe que ce que l'on utilise
-import 'jquery-ui/ui/core'
-import 'jquery-ui/ui/widgets/accordion'
-import 'jquery-ui/ui/widgets/sortable'
-// pas trouvé qui file dropdown() et checkbox(), faudrait importer le bon module
-
-// les css pour jquery-ui
-import 'jquery-ui/themes/base/core.css'
-import 'jquery-ui/themes/base/theme.css'
-import 'jquery-ui/themes/base/accordion.css'
-import 'jquery-ui/themes/base/sortable.css'
-*/
 
 (function () {
   // IIFE principal
@@ -45,79 +26,85 @@ import 'jquery-ui/themes/base/sortable.css'
   // fonctions de gestion de la liste des exercices cg 04-2021 ****
 
   function copier_vers_exercice_form () {
-    // envoie des informations vers le formulaire et déclenchement de l'evt change.
-    const elt = document.getElementById('choix_des_exercices')
-    if (!elt) throw Error('Aucun élément html #choix_des_exercices dans le document courant')
-    const texteCode = document.querySelectorAll('.choix_exercices.valide')
-      .map(elt => elt.textContent)
-      .join(', ')
-    elt.value = texteCode
-    const evenement = new Event('change')
-    elt.dispatchEvent(evenement)
+  // envoie des informations vers le formulaire et déclenchement de l'evt change.
+    let i, liste_tag, liste_tag_length, texte_code, evenement
+  	liste_tag = $('.choix_exercices.valide')
+  	liste_tag_length = liste_tag.length
+  	texte_code = ''
+  	for (i = 0; i < liste_tag_length; i++) {
+  		if (i === 0) {
+  			texte_code += liste_tag[i].textContent
+  		} else {
+  			texte_code += ',' + liste_tag[i].textContent
+  		}
+  	}
+  	document.getElementById('choix_des_exercices').value = texte_code
+  	evenement = new Event('change')
+  	document.getElementById('choix_des_exercices').dispatchEvent(evenement)
   }
 
   function selectionner_code (elem) {
-    let range, sel
-    range = document.createRange()
-    range.selectNodeContents(elem)
-    sel = window.getSelection()
-    sel.removeAllRanges()
-    sel.addRange(range)
+  	let range, sel
+  	range = document.createRange()
+  	range.selectNodeContents(elem)
+  	sel = window.getSelection()
+  	sel.removeAllRanges()
+  	sel.addRange(range)
   }
 
   function ajout_handlers_etiquette_exo () {
     $('.choix_exercices').off('input').on('input', function (e) {
       gestion_span_choix_exercice(event.target)
-    })
-    $('.choix_exercices').off('keyup').on('keyup', function (e) {
-      if (e.which == 9 || e.which == 13) { // validation de l'étiquette sur tab ou entrée.
-        copier_vers_exercice_form()
-        $('.choix_exercices:last').focus()
-      }
-    })
-    $('#choix_exercices_div').sortable({ cancel: 'i', placeholder: 'sortableplaceholder', update: function () { copier_vers_exercice_form() } })
-    $('.choix_exercices').off('mousedown').on('mousedown', function () {
-    // nécessaire car le sortable ne permet plus la sélection des contenteditable une fois activé
-      this.focus()
-      selectionner_code(this)
-    })
+    })	
+  	$('.choix_exercices').off('keyup').on('keyup', function (e) {
+  		if (e.which == 9 || e.which == 13) { // validation de l'étiquette sur tab ou entrée.
+  			copier_vers_exercice_form()
+  			$('.choix_exercices:last').focus()				
+  		}
+  	})
+  	$('#choix_exercices_div').sortable({ cancel: 'i', placeholder: 'sortableplaceholder', update: function () { copier_vers_exercice_form()} })
+  	$('.choix_exercices').off('mousedown').on('mousedown', function () {
+  	// nécessaire car le sortable ne permet plus la sélection des contenteditable une fois activé
+  		this.focus()
+  		selectionner_code(this)
+  	})
   }
 
   function gestion_span_choix_exercice (elem) {
-    // quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
-    const liste_codes_exercices = Object.keys(dictionnaireDesExercices)
-    if (liste_codes_exercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
-      $(event.target).addClass('valide')
-      if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
-        $(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
-      }
-      ajout_handlers_etiquette_exo()
-      // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
-    } else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
-      // si on change le contenteditable et que l'exercice n'est plus un code valide
-      $(event.target).removeClass('valide')
-    }
+  	// quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
+  		const liste_codes_exercices = Object.keys(dictionnaireDesExercices)
+  		if (liste_codes_exercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
+  			$(event.target).addClass('valide')
+  			if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
+  				$(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
+  			}
+  			ajout_handlers_etiquette_exo()
+  			//sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
+  		} else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
+  			// si on change le contenteditable et que l'exercice n'est plus un code valide
+  			$(event.target).removeClass('valide')
+  		}
   }
 
   if (document.getElementById('choix_exercices_div')) {
-    ajout_handlers_etiquette_exo()
+  	ajout_handlers_etiquette_exo()	
   }
 
   function copier_exercices_form_vers_affichage (exliste) {
-    let tagexercices, liste_length, i, div_exercice
-    liste_length = exliste.length
-    tagexercices = ''
-    div_exercice = document.getElementById('choix_exercices_div')
-    if (liste_length > 0 && div_exercice) {
-      for (i = 0; i < liste_length; i++) {
-        tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`
-      }
-    }
-    tagexercices += '<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>' // ajout du <br> pour alignement dans firefox
-    if (div_exercice) {
-      div_exercice.innerHTML = tagexercices
-      ajout_handlers_etiquette_exo()
-    }
+  	let tagexercices, liste_length, i, div_exercice
+  	liste_length = exliste.length
+  	tagexercices = '';
+  	div_exercice = document.getElementById('choix_exercices_div')
+  	if (liste_length > 0 && div_exercice) {
+  		for (i = 0; i < liste_length; i++) {
+  			tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`
+  		}
+  	}
+  	tagexercices += '<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>'; // ajout du <br> pour alignement dans firefox
+  	if (div_exercice) {
+  		div_exercice.innerHTML = tagexercices
+  		ajout_handlers_etiquette_exo()
+  	}
   }
 
   //* *******
@@ -159,7 +146,7 @@ import 'jquery-ui/themes/base/sortable.css'
       on: 'hover',
       variation: 'inverted',
       inline: true
-    })
+    }) 
     let besoinScratch = false
     let besoinIEP = false
     let besoinMG32 = false
@@ -215,13 +202,13 @@ import 'jquery-ui/themes/base/sortable.css'
           }
         })
     }
-  }
+  	}
 
   function contenu_exercice_html (obj, num_exercice, isdiaporama) {
-    let contenu_un_exercice = ''
-    let contenu_une_correction = ''
-    let param_tooltip = ''
-    if (isdiaporama) {
+    let contenu_un_exercice = ''; 
+	var contenu_une_correction = ''
+    var param_tooltip = ''
+	if (isdiaporama) {
       contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
       for (const question of obj.liste_questions) {
         contenu_un_exercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
@@ -236,7 +223,7 @@ import 'jquery-ui/themes/base/sortable.css'
       }
     }
     if (!isdiaporama) {
-      if (obj.type_exercice === 'dnb') {
+      if (obj.type_exercice == 'dnb') {
         contenu_un_exercice += ` Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
         contenu_un_exercice += `<img width="90%" src="${obj.png}">`
         contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice},'${num_exercice - 1}')</h3>`
@@ -249,19 +236,19 @@ import 'jquery-ui/themes/base/sortable.css'
           console.log(error)
         }
         if ((!obj.nb_questions_modifiable && !obj.besoin_formulaire_numerique && !obj.besoin_formulaire_texte && !obj.QCM_disponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
-          contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
-        } else {
-          if (obj.besoin_formulaire_numerique && obj.besoin_formulaire_numerique[2]) {
-            param_tooltip += (obj.besoin_formulaire_numerique[0] + ': \n' + obj.besoin_formulaire_numerique[2]) + '\n'
-          }
-          if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
-            param_tooltip += (obj.besoin_formulaire2_numerique[0] + ': \n' + obj.besoin_formulaire2_numerique[2])
-          }
-          param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
-          contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
-        }
+			contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
+		} else {
+			if (obj.besoin_formulaire_numerique && obj.besoin_formulaire_numerique[2]) {
+				param_tooltip += (obj.besoin_formulaire_numerique[0] +': \n' + obj.besoin_formulaire_numerique[2]) + '\n';		
+			}
+			if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
+				param_tooltip += (obj.besoin_formulaire2_numerique[0] +': \n' + obj.besoin_formulaire2_numerique[2]);		
+			}
+			param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : '' ;
+			contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+		}
         if (obj.video.length > 3) {
-          contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modal_youtube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
+          contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modal_youtube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>';
         }
         if (obj.bouton_aide) {
           contenu_un_exercice += `<div id=aide${num_exercice - 1}> ${obj.bouton_aide}</div>`
@@ -283,6 +270,7 @@ import 'jquery-ui/themes/base/sortable.css'
     }
   }
 
+
   function mise_a_jour_du_code () {
     window.MG32_tableau_de_figures = []
     window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
@@ -298,7 +286,7 @@ import 'jquery-ui/themes/base/sortable.css'
       // Saisi le numéro de série dans le formulaire
       if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
         document.getElementById('form_serie').value = mathalea.graine
-      }
+	  }
     }
     // Contrôle l'aléatoire grâce à SeedRandom
     seedrandom(mathalea.graine, { global: true});
@@ -306,7 +294,7 @@ import 'jquery-ui/themes/base/sortable.css'
     (function gestionURL () {
       if (liste_des_exercices.length > 0) {
         let fin_de_l_URL = ''
-        if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0 && window.location.pathname.indexOf('beta.html') < 0) {
+        if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0 ) {
           fin_de_l_URL += 'exercice.html'
         }
         fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -348,7 +336,7 @@ import 'jquery-ui/themes/base/sortable.css'
         }
         fin_de_l_URL += `&serie=${mathalea.graine}`
         window.history.pushState('', '', fin_de_l_URL)
-        const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
+        let url = window.location.href.split('&serie')[0] //met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
         new Clipboard('.url', {
           text: function () {
             return url
@@ -356,9 +344,9 @@ import 'jquery-ui/themes/base/sortable.css'
         })
       }
     })()
-    // mise en évidence des exercices sélectionnés.
+    //mise en évidence des exercices sélectionnés.
     apparence_exercice_actif()
-    let contenu, contenuDesExercices
+    let contenu, contenuDesExercices, contenuDesCorrections
     if (sortie_html && est_diaporama) {
       if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
         $('#exercices_disponibles').hide()
@@ -368,8 +356,8 @@ import 'jquery-ui/themes/base/sortable.css'
         $('h3').show()
         $('#formulaire_choix_de_la_duree').show()
       }
-      document.getElementById('exercices').innerHTML = ''
-      document.getElementById('corrections').innerHTML = ''
+      document.getElementById('exercices').innerHTML = '';
+      document.getElementById('corrections').innerHTML = '';
       if (liste_des_exercices.length > 0) {
         for (let i = 0; i < liste_des_exercices.length; i++) {
           listeObjetsExercice[i].id = liste_des_exercices[i]
@@ -389,40 +377,39 @@ import 'jquery-ui/themes/base/sortable.css'
         $('#cache').dimmer('show') // Cache au dessus du code LaTeX
       }
       document.getElementById('exercices').innerHTML = contenuDesExercices
-      document.getElementById('corrections').innerHTML = contenuDesCorrections
+      document.getElementById('corrections').innerHTML = contenuDesCorrections           
       gestion_modules(true, listeObjetsExercice)
     }
 
     // Ajoute le contenu dans les div #exercices et #corrections
     if (sortie_html && !est_diaporama) {
-      let scroll_level
-      if (document.getElementById('right')) {
-        scroll_level = document.getElementById('right').scrollTop
-      }
-      document.getElementById('exercices').innerHTML = ''
-      document.getElementById('corrections').innerHTML = ''
-      let contenuDesExercices = ''
-      let contenuDesCorrections = ''
+      let scroll_level;
+	  if (document.getElementById('right')) {
+		scroll_level = document.getElementById('right').scrollTop
+	  }
+	  document.getElementById('exercices').innerHTML = '';
+      document.getElementById('corrections').innerHTML = '';
+      let contenuDesExercices = '';
+      let contenuDesCorrections = '';
       if (liste_des_exercices.length > 0) {
         for (let i = 0; i < liste_des_exercices.length; i++) {
-          const contenu_un_exercice = ''
-          const contenu_une_correction = ''
+          const contenu_un_exercice = ''; let contenu_une_correction = '';
           listeObjetsExercice[i].id = liste_des_exercices[i]
-          contenu = contenu_exercice_html(listeObjetsExercice[i], i + 1, false)
+          contenu = contenu_exercice_html(listeObjetsExercice[i], i + 1, false)			
           if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible')) { // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
             if (liste_des_exercices.length === 1) {
-              contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
-            } else if (i === 0) {
-              contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
-            } else if (i === liste_des_exercices.length - 1) {
-              contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
-            } else {
-              contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
-            }
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === 0) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+			} else if (i === liste_des_exercices.length-1) {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			} else {
+				contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+			}
           } else {
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
           }
-          contenuDesCorrections += `<div id="divexcorr${i}"> ${contenu.contenu_une_correction} </div>`
+          contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`	
         }
         contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
         contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
@@ -432,21 +419,21 @@ import 'jquery-ui/themes/base/sortable.css'
         $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
         $('#cache').dimmer('show') // Cache au dessus du code LaTeX
       }
-      $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+	  $("#popup_preview .icone_param").remove() //dans l'aperçu pas d'engrenage pour les paramètres.
       document.getElementById('exercices').innerHTML = contenuDesExercices
-      if (scroll_level) {
-        document.getElementById('right').scrollTop = scroll_level
-      }
-      document.getElementById('corrections').innerHTML = contenuDesCorrections
+	  if (scroll_level) {
+		document.getElementById('right').scrollTop = scroll_level;
+	  }
+      document.getElementById('corrections').innerHTML = contenuDesCorrections        
       gestion_modules(false, listeObjetsExercice)
     }
     if (!sortie_html) {
       // Sortie LaTeX
       // code pour la sortie LaTeX
-      let codeEnonces = ''
-      let codeCorrections = ''
-      const length_liste_exercices = liste_des_exercices.length
-      code_LaTeX = ''
+      let codeEnonces = '';
+      let codeCorrections = "";
+      let length_liste_exercices = liste_des_exercices.length
+      code_LaTeX = '';
       liste_packages = new Set()
       if (length_liste_exercices > 0) {
         for (let i = 0; i < length_liste_exercices; i++) {
@@ -455,19 +442,19 @@ import 'jquery-ui/themes/base/sortable.css'
             liste_packages.add('dnb')
             codeEnonces += '\n\n\\exo{}\n\n'
             codeEnonces += listeObjetsExercice[i].contenu
-            codeEnonces += '\n\n'
+            codeEnonces += '\n\n';
             codeCorrections += '\n\n\\exo{}\n\n'
             codeCorrections += listeObjetsExercice[i].contenu_correction
-            codeCorrections += '\n\n'
+            codeCorrections += '\n\n';
           } else {
             listeObjetsExercice[i].nouvelle_version()
             if (listeObjetsExercice[i].titre == 'Fichier statique') {
               liste_des_exercices_statiques.push(listeObjetsExercice[i].sup)
             }
             codeEnonces += listeObjetsExercice[i].contenu
-            codeEnonces += '\n\n'
+            codeEnonces += '\n\n';
             codeCorrections += listeObjetsExercice[i].contenu_correction
-            codeCorrections += '\n\n'
+            codeCorrections += '\n\n';
             if (typeof listeObjetsExercice[i].liste_packages === 'string') {
               liste_packages.add(listeObjetsExercice[i].liste_packages)
             } else {
@@ -481,7 +468,7 @@ import 'jquery-ui/themes/base/sortable.css'
           code_LaTeX = codeEnonces
         } else {
           code_LaTeX =
-                        codeEnonces + '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + codeCorrections + '\\end{correction}'
+                        codeEnonces + '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + codeCorrections + '\\end{correction}';
         }
         $('#message_liste_exercice_vide').hide()
         copier_exercices_form_vers_affichage(liste_des_exercices)
@@ -489,37 +476,37 @@ import 'jquery-ui/themes/base/sortable.css'
 
         // Gestion du nombre de versions
         if ($('#nombre_de_versions').val() > 1) {
-          code_LaTeX = ''
-          let code_exercices = ''
-          let code_correction = ''
+          code_LaTeX = '';
+          let code_exercices = '';
+          let code_correction = '';
           for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
-            code_exercices += '\\version{' + (v + 1) + '}\n\n'
-            code_correction += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
+            code_exercices += '\\version{' + (v + 1) + '}\n\n';
+            code_correction += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}';
             for (let i = 0; i < liste_des_exercices.length; i++) {
               listeObjetsExercice[i].nouvelle_version()
               code_exercices += listeObjetsExercice[i].contenu
-              code_exercices += '\n\n'
+              code_exercices += '\n\n';
               code_correction += listeObjetsExercice[i].contenu_correction
-              code_correction += '\n\n'
+              code_correction += '\n\n';
             }
             if (v < $('#nombre_de_versions').val() - 1) {
               if ($('#style_classique:checked').val()) {
-                code_exercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+                code_exercices += '\n\\newpage\n\\setcounter{exo}{0}\n';
               } else {
-                code_exercices += '\n\\newpage\n\\setcounter{section}{0}\n'
+                code_exercices += '\n\\newpage\n\\setcounter{section}{0}\n';
               }
             }
-            code_correction += '\n\\end{correction}'
+            code_correction += '\n\\end{correction}';
           }
           code_LaTeX = code_exercices + code_correction
         }
-        div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + '</code></pre>'
+        div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + '</code></pre>';
         Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
       } else {
-        code_LaTeX = ''
+        code_LaTeX = '';
         $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
         $('#cache').hide() // Cache au dessus du code LaTeX
-        div.innerHTML = ''
+        div.innerHTML = '';
       }
     }
 
@@ -616,20 +603,20 @@ import 'jquery-ui/themes/base/sortable.css'
       })
     }
 
-    // cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
-    $('.icone_param').off('click').on('click', function (e) {
-      $('#accordeon_parametres >div').addClass('active')
-      const num_ex = event.target.parentElement.parentElement.parentElement.id
-      $(`.${num_ex} + div :input`).focus()
+	//cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
+	$('.icone_param').off('click').on('click', function (e) {
+       $("#accordeon_parametres >div").addClass('active');
+	   var num_ex = event.target.parentElement.parentElement.parentElement.id;
+	   $(`.${num_ex} + div :input`).focus();
     })
-    // cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.
+    	// cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.
 
     $('.icone_moins').off('click').on('click', function (e) {
       supprimerExo(event.target.id)
     })
-
+		
     function monterExo (num) {
-      const form_choix_des_exercices = document.getElementById('choix_des_exercices')
+      let form_choix_des_exercices = document.getElementById('choix_des_exercices')
       liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
       num = parseInt(num)
       if (num != 0) {
@@ -643,9 +630,9 @@ import 'jquery-ui/themes/base/sortable.css'
     $('.icone_up').off('click').on('click', function (e) {
       monterExo(event.target.id)
     })
-
+		
     function descendreExo (num) {
-      const form_choix_des_exercices = document.getElementById('choix_des_exercices')
+      let form_choix_des_exercices = document.getElementById('choix_des_exercices')
       liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
       num = parseInt(num)
       if (num != liste_des_exercices.length - 1) {
@@ -659,7 +646,7 @@ import 'jquery-ui/themes/base/sortable.css'
     $('.icone_down').off('click').on('click', function (e) {
       descendreExo(event.target.id)
     })
-    //* ***************
+    //****************
   }
 
   /**
@@ -669,9 +656,9 @@ import 'jquery-ui/themes/base/sortable.css'
      * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
      * Enfin, elle délègue à mise_a_jour du code l'affichage
      *
-   * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
-   * sans l'ajouter à la liste
-   *
+	 * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
+	 * sans l'ajouter à la liste
+	 *
      */
   function mise_a_jour_de_la_liste_des_exercices (preview) {
     let besoinXCas = false
@@ -690,7 +677,6 @@ import 'jquery-ui/themes/base/sortable.css'
       } catch (error) {
         console.log(error)
         console.log(`Exercice ${id} non disponible`)
-        // FIXME il faut un return ou continue ici, et un feedback pour l'utilisateur
       }
       if (dictionnaireDesExercices[id].type_exercice === 'dnb') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -726,7 +712,7 @@ import 'jquery-ui/themes/base/sortable.css'
               listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenu_correction: '' } // Un exercice vide pour l'exercice qui n'existe pas
             })
             .then((module) => {
-              if (module && typeof module.default === 'function') {
+              if (module) {
                 listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
                 if (dictionnaireDesExercices[id].sup !== undefined) {
                   listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
@@ -761,9 +747,9 @@ import 'jquery-ui/themes/base/sortable.css'
           // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
           // => évite les erreurs lors de la suppression de question dans la liste.
           for (let i = 0; i < urlVars.length; i++) {
-            if (urlVars[i].id !== liste_exercices[i]) {
-              urlVars.splice(i, 1)
-            }
+			  if (urlVars[i].id !== liste_exercices[i]) {
+			  	urlVars.splice(i, 1)
+			  }
           }
           for (let i = 0; i < urlVars.length; i++) {
             // récupère les éventuels paramètres dans l'URL
@@ -829,35 +815,36 @@ import 'jquery-ui/themes/base/sortable.css'
       })
       .then(() => {
         if (preview) {
-          const output = sortie_html
+          const output = sortie_html 
           let contenu
-          sortie_html = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+          sortie_html = true //pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
           try {
             listeObjetsExercice[liste_exercices.length - 1].nouvelle_version(0)
           } catch (error) {
             console.log(error)
           }
           listeObjetsExercice[liste_exercices.length - 1].id = liste_exercices[liste_exercices.length - 1]
-          contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false)
+          contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false) 
           $('#popup_preview').html(contenu.contenu_un_exercice)
           $('.popup').addClass('show')
-          if (document.getElementById('left')) {
-            $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
-            $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
-            if (window.innerWidth < 765) {
-              $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
-              $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
-            }
-          } else {
-            $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
-          }
-          $('.popuptext').show()
+		  if (document.getElementById("left")) {
+			$('.popuptext').css({ top: document.getElementById("left").scrollTop - 10 })
+			$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+			if (window.innerWidth < 765) {
+				$('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+				$('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
+			}
+		  }
+		  else {
+			  $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+		  }
+          $('.popuptext').show()	
           liste_des_exercices.pop()
           if (!output) {
             gestion_modules(false, listeObjetsExercice)
           }
           sortie_html = output
-          mise_a_jour_du_code() // permet de gérer les popup avec module.
+          mise_a_jour_du_code() //permet de gérer les popup avec module.
         } else {
           mise_a_jour_du_code()
         }
@@ -1023,7 +1010,7 @@ import 'jquery-ui/themes/base/sortable.css'
 
     for (let i = 0; i < exercice.length; i++) {
       if (sortie_html) {
-        div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
+        div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice'+i+'">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
         if (exercice[i].pas_de_version_LaTeX) {
           div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
         }
@@ -1593,38 +1580,49 @@ import 'jquery-ui/themes/base/sortable.css'
       mise_a_jour_du_code()
     }
 
-    // Gestion du bouton de zoom
-    // let taille = parseInt($("#affichage_exercices").css("font-size"));
-    // $("#btn_zoom_plus").click(function () {
-    //     taille *= 1.2;
-    //     $("#affichage_exercices").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-    // });
-    // $("#btn_zoom_moins").click(function () {
-    //     if (parseInt(taille) > 14) {
-    //         taille *= 0.8;
-    //     }
-    //     $("#affichage_exercices").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
-    //     $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
-    // });
+    
 
     if (sortie_html && !est_diaporama) {
       // Gestion du bouton de zoom
-      let zoom = 1
-      $('#btn_zoom_plus').click(function () {
-        zoom += 0.5
-        $('#affichage_exercices').css('transform', `scale(${zoom})`)
-        $('#affichage_exercices').css('transform-origin', '0 0px')
-      })
-      $('#btn_zoom_moins').click(function () {
-        if (zoom > 1) {
-          zoom -= 0.5
+      // let zoom = 1
+      // $('#btn_zoom_plus').click(function () {
+      //   zoom += 0.5
+      //   $('#affichage_exercices').css('transform', `scale(${zoom})`)
+      //   $('#affichage_exercices').css('transform-origin', '0 0px')
+      // })
+      // $('#btn_zoom_moins').click(function () {
+      //   if (zoom > 1) {
+      //     zoom -= 0.5
+      //   }
+      //   $('#affichage_exercices').css('transform', `scale(${zoom})`)
+      //   $('#affichage_exercices').css('transform-origin', '0 0px')
+      // })
+
+    let taille = parseInt($("#affichage_exercices").css("font-size"));
+    let lineHeight = parseInt($("#affichage_exercices").css("line-height"));
+    console.log(lineHeight)
+    $("#btn_zoom_plus").click(function () {
+        taille *= 1.2;
+        lineHeight *= 1.2;
+        $("#affichage_exercices").css("font-size", `${taille}px`);
+        $("#affichage_exercices").css("line-height", `${lineHeight}px`);
+        $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
+        $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
+        $(".mathalea2d").css("width", parseFloat($(".mathalea2d").css("width")) * 1.2);
+        $(".mathalea2d").css("height", parseFloat($(".mathalea2d").css("height")) * 1.2);
+    });
+    $("#btn_zoom_moins").click(function () {
+        if (parseInt(taille) > 10) {
+            taille *= 0.8;
+            lineHeight *=0.8;
         }
-        $('#affichage_exercices').css('transform', `scale(${zoom})`)
-        $('#affichage_exercices').css('transform-origin', '0 0px')
-      })
+        $("#affichage_exercices").css("font-size", `${taille}px`);
+        $("#affichage_exercices").css("line-height", `${lineHeight}px`);
+        $("#affichage_exercices").find("h3").css("font-size", `${taille}px`);
+        $("#affichage_exercices").find("h4").css("font-size", `${taille}px`);
+        $(".mathalea2d").css("width", parseFloat($(".mathalea2d").css("width")) * 0.8);
+        $(".mathalea2d").css("height", parseFloat($(".mathalea2d").css("height")) * 0.8);
+    });
     }
 
     // Gestion de la redirection vers MathaleaLaTeX
@@ -1636,7 +1634,7 @@ import 'jquery-ui/themes/base/sortable.css'
     function afficher_popup () {
       if ($('.popuptext').is(':visible')) {
         $('.popuptext').empty()
-        $('.popuptext').hide()
+        $('.popuptext').hide() 
       } else {
         mise_a_jour_de_la_liste_des_exercices(event.target.id)
       }
@@ -1651,7 +1649,7 @@ import 'jquery-ui/themes/base/sortable.css'
     $('.icone_preview').off('click').on('click', function (e) {
       afficher_popup()
     })
-
+	
     $(document).click(function (event) {
       if ($('.popuptext').is(':visible')) {
         $('.popuptext').hide()
@@ -1661,29 +1659,56 @@ import 'jquery-ui/themes/base/sortable.css'
         })
       }
     })
-
-    $('#exo_plein_ecran').click(function (event) {
-      if ($('#exo_plein_ecran').hasClass('left')) {
+	
+	$("#exo_plein_ecran").click(function (event) {
+      if ($('#exo_plein_ecran').hasClass("left")) {
         $('#left').hide()
-        $('#right').removeClass('column')
-        $('#right').css('width', '100%')
-        $('#exo_plein_ecran').removeClass('left')
-        $('#exo_plein_ecran').addClass('right')
-      } else {
-        $('#left').show()
-        $('#right').addClass('column')
-        $('#right').css('width', $('#left').css('width'))
-        $('#exo_plein_ecran').removeClass('right')
-        $('#exo_plein_ecran').addClass('left')
+		$('#right').removeClass('column')
+		$('#right').css("width","100%")
+		$('#exo_plein_ecran').removeClass("left")
+		$('#exo_plein_ecran').addClass("right")
       }
+	  else {
+		$('#left').show()
+		$('#right').addClass('column')
+		$('#right').css("width",$('#left').css("width"))
+		$('#exo_plein_ecran').removeClass("right")
+		$('#exo_plein_ecran').addClass("left")
+	  }
     })
-
+		
+	window.addEventListener('resize',function(e){
+		if ($('#exo_plein_ecran').hasClass("left")) {
+			$('#right').css("width",$('#left').css("width"));
+		}
+	});
+	
     if (document.getElementById('btnQRcode')) {
       document.getElementById('btnQRcode').addEventListener('click', function () {
         $('#ModalQRcode').html(`<canvas width="800" height="800" id="canvasQRCode"></canvas>`)
         const canvas = document.getElementById('canvasQRCode')
         QRCode.toCanvas(canvas, window.location.href, {width:Math.min(window.innerHeight, window.innerWidth) * 0.9, height: Math.min(window.innerHeight, window.innerWidth) * 0.9})
         $('#ModalQRcode').modal('show')
+      })
+    }
+    if (document.getElementById('btnEmbed')) {
+      document.getElementById('btnEmbed').addEventListener('click', function () {
+        $('#ModalEmbed').html(`<div class="content"><p><pre><code>&lt;iframe width="660"
+        height="315" 
+        src="${window.location.href.replace('exercice.html','exo.html')}"
+        frameborder="0" >
+&lt;/iframe></code><pre></p>
+        <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
+        data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
+        new Clipboard('#btnEmbedCode', {
+          text: function () { return `<iframe width="660"
+          height="315" 
+          src="${window.location.href.replace('exercice.html','exo.html')}"
+          frameborder="0" >
+  </iframe>` }
+        })
+        $('.ui.button.toggle').state() // initialise le bouton
+        $('#ModalEmbed').modal('show')
       })
     }
 

@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, appartientDroite,point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien, norme, polygone } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -30,6 +30,7 @@ export default function Alea2iep () {
   this.recadre = function (xmin, ymax) {
     this.translationX = 1 - xmin
     this.translationY = ymax + 3
+
   }
 
   // Garde en mémoire les coordonnées extrêmes des objets créés
@@ -44,21 +45,21 @@ export default function Alea2iep () {
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   this.x = function (A) {
     const x = calcul((A.x + this.translationX) * 30, 0)
-    if (x > this.xMax) {
-      this.xMax = x
+    if (A.x > this.xMax) {
+      this.xMax = A.x
     }
-    if (x < this.xMin) {
-      this.xMin = x
+    if (A.x < this.xMin) {
+      this.xMin = A.x
     }
     return x
   }
   this.y = function (A) {
     const y = calcul((-A.y + this.translationY) * 30, 0)
-    if (y < this.yMin) {
-      this.yMin = y
+    if (A.y < this.yMin) {
+      this.yMin = A.y
     }
-    if (y > this.yMax) {
-      this.yMax = y
+    if (A.y > this.yMax) {
+      this.yMax = A.y
     }
     return y
   }
@@ -153,7 +154,7 @@ export default function Alea2iep () {
     if (window.sortie_html) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')"><i class="large play circle outline icon"></i>Voir animation</button>
+      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
             <div id="IEPContainer${id}" style="display: none;" ></div>`
       if (!window.toggleVisibilityIEP) {
         window.toggleVisibilityIEP = function (id) {
@@ -163,7 +164,6 @@ export default function Alea2iep () {
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            console.log(element, xml)
             iepLoad(element, xml, { zoom: true }, (error) => { console.log(error) })
           } else {
             element.style.display = 'none'
@@ -812,8 +812,14 @@ export default function Alea2iep () {
  * @param {objet} options { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
   this.rapporteurTracerDemiDroiteAngle = function (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
-    this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
-    this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
+    if (angle > 0) {
+      this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
+      this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
+    } else {
+      const B2 = rotation(B, A, 180)
+      this.rapporteurDeplacerRotation2Points(A, B2, { tempo: tempo, vitesse: vitesse, sens: sens })  
+      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), { tempo: tempo, vitesse: vitesse, sens: sens })
+    }
     const d = droite(A, B)
     d.isVisible = false
     const M = pointAdistance(A, calcul(5.2 * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
@@ -863,6 +869,13 @@ export default function Alea2iep () {
     const M = pointSurSegment(O, A, options.longueur)
     this.regleSegment(O, M, options)
   }
+
+  /**
+   * Trace une droite passanrt par les points A et B
+   * @param {point} A 
+   * @param {point} B 
+   * @param {objet} options Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
+   */
   this.regleDroite = function (A, B, options = {}) {
     if (!options.longueur) {
       options.longueur = this.regle.longueur
@@ -892,7 +905,7 @@ export default function Alea2iep () {
     }
     if (options.longueur > 0) {
       const B1 = pointSurSegment(B, A, 3)
-      const B2 = pointSurSegment(B, A, -1 * options.longueur)
+      const B2 = pointSurSegment(B, A, -options.longueur)
       this.regleSegment(B1, B2, options)
     } else {
       const A1 = pointSurSegment(A, B, 3)
@@ -1074,6 +1087,14 @@ export default function Alea2iep () {
     return this.textePoint(texte, A, options)
   }
 
+  this.longueurSegment = function (A,B,dy, options) {
+    let l=calcul(longueur(A,B,1))
+    let v=vecteur(A,B)
+    let w=vecteur(-v.y*dy/norme(v),v.x*dy/norme(v))
+    let ancrage=translation(translation(pointSurSegment(A,B,l/2-0.7),w),vecteur(0,1))
+    return this.textePoint(`${l} cm`,ancrage,options)
+  }
+
   /**
  * Masque le trait d'id fourni
  * @param {int} id
@@ -1122,7 +1143,6 @@ export default function Alea2iep () {
     if (options.codage === undefined) {
       options.codage = '\\'
     }
-    console.log(options.codage)
     this.idIEP++
     const id = this.idIEP
     const M = milieu(s.extremite1, s.extremite2)
@@ -1229,7 +1249,7 @@ export default function Alea2iep () {
   }
 
   /**
-   *
+   * Affiche une image (donnée par son URL) au point A
    * @param {string} url
    * @returns {id}
    */
@@ -1316,6 +1336,71 @@ export default function Alea2iep () {
     this.crayonDeplacer(C1, options)
     this.tracer(M, options)
   }
+/**
+   * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {*} options
+   */
+ this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
+  let G, D, H1,M,H,zoomEquerre=this.equerre.zoom,dist,longueurRegle=this.regle.longueur
+  // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
+  // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
+  if (A.x < B.x) {
+    G = A
+    D = B
+  } else {
+    G = B
+    D = A
+  }
+  const d = droite(A, B)
+  if (appartientDroite(C,A,B)){
+    H=homothetie(C,C,1)
+    dist=7.5
+    M=rotation(pointSurSegment(H,G,dist),H,-90)
+    H1=homothetie(H,M,1.6)
+  }
+  else{
+    H = projectionOrtho(C, d)
+    dist=longueur(H,C)+2
+     M = pointSurSegment(H, C, dist)
+  H1 = homothetie(H,M,1+4/longueur(H,M)) 
+  }
+  
+  this.equerreZoom(calcul(dist*100/7.5))
+  this.regleModifierLongueur(Math.max(15,Math.ceil((dist+1)*(1+4/longueur(H,M)))))
+  // Le tracé de la perpendiculaire ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
+
+  if (H.x < G.x ) { // Si le pied de la hauteur est trop à gauche
+    this.regleProlongerSegment(D, G,{longueur:longueur(G,H)+4})
+ 
+  }
+  if (H.x > D.x ) { // Si le pied de la hauteur est trop à droite
+    this.regleProlongerSegment(G, D,{longueur:longueur(D,H)+4})
+  }
+  this.regleMasquer()
+  if (H.y > C.y) {
+    this.equerreMontrer(G)
+  this.equerreRotation(d.angleAvecHorizontale-180)
+  } else {
+     this.equerreRotation(d.angleAvecHorizontale )
+    this.equerreMontrer(D)
+  
+  }
+  this.equerreDeplacer(H)
+
+  this.crayonMontrer(M)
+  this.tracer(H, options)
+  this.equerreMasquer()
+  this.codageAngleDroit(M,H,G)
+  this.regleMontrer(M)
+  this.regleRotation(H)
+  this.trait(M,H1)
+  this.regleMasquer()
+  this.equerreZoom(zoomEquerre)
+  this.regleModifierLongueur(longueurRegle)
+}
 
   /**
  *****************************************
@@ -1375,7 +1460,12 @@ export default function Alea2iep () {
     const codageCarre = this.codageAngleDroit(A, O, O2, { couleur: options.couleurCodage, tempo: options.tempo, vitesse: options.vitesse })
     return [arc1, arc2, arc3, arc4, codage1, codage2, codageCarre]
   }
-
+  /**
+   * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
+   * @param {point} A 
+   * @param {point} B 
+   * @param {booléen} codage 
+   */
   this.mediatriceRegleEquerre = function (A, B, codage = 'X') {
     const O = milieu(A, B)
     this.regleMontrer()
@@ -1411,6 +1501,13 @@ export default function Alea2iep () {
     this.segmentCodage(O, B, codage)
     this.codageAngleDroit(A, O, O2)
   }
+  /**
+   * Trace la hauteur issue de C dans un triangle ABC. Prolonge si besoin le segment [AB] pour avoir le pied de la hauteur et le codage de l'angle droit.
+   * @param {point} A 1er point de la base
+   * @param {point} B 2e point de la base
+   * @param {point} C Sommet dont est issue la hauteur
+   * @param {booléen} codage angle droit ajouté si true
+   */
   this.hauteur = function (A, B, C, codage = true) {
     const d = droite(A, B)
     d.isVisible = false
@@ -1451,7 +1548,13 @@ export default function Alea2iep () {
     }
     this.crayonMasquer()
   }
-
+/**
+ * Trace la médiane issue de C passant par le milieu de [AB]
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} options 
+ */
   this.mediane = function (A, B, C, options = {}) {
     if (options.codage === undefined) {
       options.codage = 'X'
@@ -1481,7 +1584,14 @@ export default function Alea2iep () {
       this.segmentCodage(O, B, options)
     }
   }
-
+/**
+ * Trace la bissectrice de l'angle ABC au compas.
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} param3 
+ * @returns 
+ */
   this.bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
     const A1 = pointSurSegment(B, A, l)
     const C1 = pointSurSegment(B, C, l)
@@ -1509,7 +1619,13 @@ export default function Alea2iep () {
     }
     return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
   }
-
+/**
+ * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
+ * @param {point} A 
+ * @param {point} B 
+ * @param {point} C 
+ * @param {objet} options 
+ */
   this.cercleCirconscrit = function (A, B, C, options = {}) {
     if (options.couleur === undefined) {
       options.couleur = this.couleur
@@ -1662,7 +1778,7 @@ export default function Alea2iep () {
 
   /**
    * Macro de construction d'un triangle rectangle (l'angle droit est le 2e point dans l'ordre du nom)
-   *  à partir de la donnée de la longueur d'un côté et de la longueur de l'hypoténuse.
+   *  à partir de la donnée de la longueur des deux côtés de l'angle droit.
    *  Le premier sommet aura pour coordonnées (6, 0)
    * @param {string} ABC Une chaine de caractère de 3 lettre
    * @param {*} AB Distance entre le 1er et le 2e sommet
@@ -1716,7 +1832,7 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
-   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (2,0).
+   * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (6,0).
    * @param {string} ABC Une chaine de caractère de 3 lettre
    * @param {*} AB Distance entre le 1er et le 2e sommet
    * @param {*} BAC Angle au 1er sommet
@@ -1731,7 +1847,6 @@ export default function Alea2iep () {
     const A = point(6, 0)
     const B = pointAdistance(A, AB, angle)
     const D = pointAdistance(A, 5.2, a1 + angle)
-    console.log(a1 + angle)
     const D2 = pointSurSegment(A, D, 10)
     const D1 = pointSurSegment(D, D2, 0.4)
     const E = pointAdistance(B, 3, 180 - a2 + angle)
@@ -1794,6 +1909,66 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
+   * Macro de construction d'un triangle à partir des longueurs des deux côtés d'un angle Le premier point a pour coordonnées (6,0).
+   * @param {string} ABC Une chaine de caractère de 3 lettre
+   * @param {*} AB Distance entre le 1er et le 2e sommet
+   * @param {*} AC Distance entre le 1er et le 3e sommet
+   * @param {*} BAC Angle au 1er sommet
+   * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
+   * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
+   */
+   this.triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true, mesure = false) {
+    const angle = randint(-20, 20)
+    const a1 = BAC
+    const A = point(6, 0)
+    const B = pointAdistance(A, AB, angle)
+    const D = pointAdistance(A, 5.2, a1 + angle)
+    const D2 = pointSurSegment(A, D, 10)
+    const D1 = pointSurSegment(D, D2, 0.4)
+    const C = pointSurSegment(A,D2, AC)
+    if (NOM.length !== 3) {
+      description = false
+    } else {
+      A.nom = NOM[0]
+      B.nom = NOM[1]
+      C.nom = NOM[2]
+    }
+    this.couleur = 'blue'
+    this.epaisseur = 3
+    this.pointCreer(A)
+    if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
+    this.regleSegment(A, B)
+    this.pointCreer(B)
+    this.couleur = 'grey'
+    this.epaisseur = 1
+    this.rapporteurMontrer(A)
+    this.rapporteurDeplacer(A)
+    this.rapporteurRotation(angle)
+    if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
+    this.epaisseur = 3
+    this.trait(D, D1, 20)
+    this.epaisseur = 1
+    this.rapporteurMasquer()
+    this.regleSegment(A, D2)
+    this.angleCodage(B, A, C)
+    this.rapporteurMasquer()
+    if (description) this.textePosition(`On place le point ${C.nom} sur la demi-droite [${A.nom + C.nom}) à ${AC} cm de ${A.nom}.`, 0, -6)
+    this.epaisseur = 3
+    this.couleur='blue'
+    this.crayonDeplacer(C)
+    this.pointCreer(C)
+    this.regleSegment(A,C)
+    this.crayonMasquer()
+    if (description) this.textePosition(`On trace le côté [${B.nom + C.nom}].`, 0, -7)
+    this.regleMontrer(C)
+    this.crayonMontrer(C)
+    this.regleSegment(C, B)
+    this.regleMasquer()
+    this.crayonMasquer()
+    return [A, B, C]
+  }
+ 
+  /**
    * Trace un triangle équilatéral à partir de la donnée de 2 points
    * @param {point} A
    * @param {point} B
@@ -1821,7 +1996,7 @@ export default function Alea2iep () {
     return [A, B, C]
   }
   /**
-   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté
+   * Trace un triangle équilatéral à partir de la donnée de la longueur du côté. Le premier point a pour coordonnées (6;0)
    * @param {string} NOM
    * @param {number} AB
    * @return {array} [A, B, C]
@@ -1867,9 +2042,9 @@ export default function Alea2iep () {
    * @param {point} C
    * @param {string} nomD
    * @param {boolean} description
-   * @param {boolean} cotesDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
+   * @param {boolean} csDejaTraces À true (par défaut), les 2 côtés seront faits immédiatement, sinon, on les tracera à la règle.
    */
-  this.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, cotesDejaTraces = true) {
+  this.parallelogramme3sommetsConsecutifs = function (A, B, C, nomD = '', description = true, csDejaTraces = true) {
     const D = translation2Points(C, B, A)
     D.nom = nomD
     const xMin = Math.min(A.x, B.x, C.x, D.x)
@@ -2002,4 +2177,90 @@ export default function Alea2iep () {
     this.regleMasquer()
     this.crayonMasquer()
   }
+
+/**
+ ************************************************
+ ************** Carrés ****************
+ ************************************************
+ */
+
+/**
+ * Macro crée par Sophie Desruelle
+ * @param {objet} A 
+ * @param {number} c 
+ * @returns 
+ */
+this.carre1point1longueur = function(nom,A,c){
+const interligne = 1
+A = point(5, 0, nom[0])
+const B = pointAdistance(A,c, randint(-20,20),nom[1])
+const C = rotation(A,B,-90,nom[2])
+const D = rotation(B,A,90,nom[3])
+const E = pointSurSegment(A,D,c+2, 'E')
+const F = pointSurSegment(D,C,c+2, 'F')
+this.equerreZoom((c+3)*100/7.5)
+this.tempo=20
+
+this.textePosition(`1) On veut construire un carré dont les côtés mesurent ${c} cm, donc on commence par tracer un segment, ici [${nom[0]+nom[1]}], de cette longueur.`, 0, -2)
+
+this.pointCreer(A, {tempo: 0}) // On coupe la pause pour ne pas voir le déplacement du point 
+this.pointNommer(A,A.nom,{dx: -0.5,dy: 0}) // On déplace le label du point A vers la gauche
+this.regleSegment(A, B)
+this.pointCreer(B)
+this.regleMasquer()
+this.longueurSegment(A,B,-1)
+
+this.textePosition(`2) Un carré possède 4 angles droits, donc on trace la perpendiculaire à (${nom[0]+nom[1]}) passant par ${nom[0]}.`, 0, -2-1*interligne)
+
+this.equerreMontrer()
+this.equerreDeplacer(A)
+this.equerreRotation(B)
+this.trait(A, E)
+this.equerreMasquer()
+this.codageAngleDroit(B, A, D)
+
+this.textePosition(`3) Les 4 côtés d'un carré sont de la même longueur, donc on place le point ${nom[3]} sur cette perpendiculaire, à ${c} cm de ${nom[0]}.`, 0, -2-2*interligne)
+
+this.regleSegment(A, D)
+this.pointCreer(D, {tempo: 0})
+this.pointNommer(D,D.nom,{dx: -0.7,dy: 0.5})
+this.regleMasquer()
+this.segmentCodage(A, B)
+this.segmentCodage(A, D)
+
+this.textePosition(`4) De même, on trace la perpendiculaire à (${nom[0]+nom[3]}) passant par ${nom[3]}, puis on place le point ${nom[2]} sur cette perpendiculaire, à ${c} cm de ${nom[3]}.`, 0, -2-3*interligne)
+
+this.equerreMontrer()
+this.equerreDeplacer(D)
+this.equerreRotation(A)
+this.trait(D, F)
+this.equerreMasquer()
+this.codageAngleDroit(A, D, C)
+
+
+this.regleSegment(D, C)
+this.pointCreer(C, {tempo: 0})
+this.pointNommer(C,C.nom,{dx: 0,dy: 0.9})
+this.regleMasquer()
+this.segmentCodage(D, C)
+
+this.textePosition(`5) On trace le segment [${nom[1]+nom[2]}].`, 0, -2-4*interligne)
+
+this.regleSegment(C, B)
+this.regleMasquer()
+this.segmentCodage(B, C)
+
+this.textePosition(`6) On vérifie que ${nom[1]+nom[2]} = ${c} cm et que les deux derniers angles tracés sont droits.`, 0, -2-5*interligne)
+
+this.equerreMontrer(C, {tempo: 0})
+this.equerreRotation(D)
+this.equerreMasquer()
+this.codageAngleDroit(D, C, B)
+
+this.equerreMontrer(B, {tempo: 0})
+this.equerreRotation(C)
+this.equerreMasquer()
+this.codageAngleDroit(C, B, A)
+return polygoneAvecNom(A,B,C,D)
+ }
 }

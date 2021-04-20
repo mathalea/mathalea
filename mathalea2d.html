@@ -2,6 +2,15 @@
 
 <html lang="fr">
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5318292-3"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+  
+	  gtag('config', 'UA-5318292-3');
+	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
@@ -35,14 +44,11 @@
 	<!-- MathALEA-->
 	<script>
 		// Les variables globales nécessaires aux exercices (pas terrible...)
-		window.mathalea={sortieNB:false,anglePerspective:30,coeffPerspective:0.5,pixelsParCm :20,scale : 1,unitesLutinParCm : 50, mainlevee:false,amplitude:1,fenetreMathalea2d : [-1,-10,29,10], objets2D:[]};
-	window.sortie_html=true
-	window.est_diaporama=false
-	</script> 
-
-	<script>
-			// Pour l'autocomplétion dans CodeMirror
-		var point,tracePoint,tracePointSurDroite,milieu,pointSurSegment,pointSurCercle,pointSurDroite,pointIntersectionDD,pointAdistance,labelPoint,barycentre,droite,droiteParPointEtVecteur,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteHorizontaleParPoint,droiteVerticaleParPoint,droiteParPointEtPente,mediatrice,codageMediatrice,codageMilieu,constructionMediatrice,bissectrice,codageBissectrice,constructionBissectrice,polyline,vecteur,segment,segmentAvecExtremites,demiDroite,demiDroiteAvecExtremite,polygone,polygoneAvecNom,polygoneRegulier,polygoneRegulierIndirect,carre,carreIndirect,codageCarre,polygoneRegulierParCentreEtRayon,triangle2points2longueurs,triangle2points2angles,triangle2points1angle1longueur,triangle2points1angle1longueurOppose,nommePolygone,deplaceLabel,aireTriangle,cercle,pointIntersectionLC,pointIntersectionCC,cercleCentrePoint,arc,arcPointPointAngle,traceCompas,courbeDeBezier,segmentMainLevee,cercleMainLevee,droiteMainLevee,polygoneMainLevee,arcMainLevee,dansLaCibleCarree,dansLaCibleRonde,cibleCarree,cibleRonde,translation,translation2Points,rotation,homothetie,symetrieAxiale,distancePointDroite,projectionOrtho,affiniteOrtho,similitude,translationAnimee,rotationAnimee,homothetieAnimee,symetrieAnimee,affiniteOrthoAnimee,montrerParDiv,cacherParDiv,afficherTempo,afficherTempoId,afficherUnParUn,medianeTriangle,centreGraviteTriangle,hauteurTriangle,codageHauteurTriangle,codageMedianeTriangle,orthoCentre,centreCercleCirconscrit,codageAngleDroit,afficheLongueurSegment,texteSurSegment,afficheMesureAngle,afficheCoteSegment,codeSegment,codeSegments,codeAngle,droiteGraduee,droiteGraduee2,axes,labelX,labelY,grille,grilleHorizontale,grilleVerticale,seyes,repere,repere2,pointDansRepere,traceGraphiqueCartesien,traceBarre,traceBarreHorizontale,lectureImage,lectureAntecedent,courbe,courbe2,courbeInterpolee,graphiqueInterpole,imageInterpolee,antecedentInterpole,crochetD,crochetG,intervalle,texteParPoint,texteParPosition,latexParPoint,latexParCoordonnees,fractionParPosition,print2d,longueur,norme,angle,angleOriente,angleradian,creerLutin,avance,baisseCrayon,leveCrayon,orienter,tournerG,tournerD,allerA,mettrexA,mettreyA,ajouterAx,ajouterAy,afficherCrayon,codeSvg,codeTikz,mathalea2d,labyrinthe,pavage,point3d,ellipse,rotation3d,rotationV3d,droite3d,vecteur3d,translation3d,pave3d,prisme3d,cylindre3d,cone3d,sphere3d;
+		let sortie_html = true;
+		let est_diaporama = false;
+		let mathalea = {sortieNB:false, anglePerspective:30,coeffPerspective:0.5,pixelsParCm :20,scale : 1,unitesLutinParCm : 50, mainlevee:false,amplitude:1,fenetreMathalea2d : [-1,-10,29,10], objets2D:[]};
+		// Pour l'autocomplétion dans CodeMirror
+		var point,tracePoint,tracePointSurDroite,milieu,pointSurSegment,pointSurCercle,pointSurDroite,pointIntersectionDD,pointAdistance,labelPoint,barycentre,droite,droiteParPointEtVecteur,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteHorizontaleParPoint,droiteVerticaleParPoint,droiteParPointEtPente,mediatrice,codageMediatrice,codageMilieu,constructionMediatrice,bissectrice,codageBissectrice,constructionBissectrice,polyline,vecteur,segment,segmentAvecExtremites,demiDroite,demiDroiteAvecExtremite,polygone,polygoneAvecNom,polygoneRegulier,polygoneRegulierIndirect,carre,carreIndirect,codageCarre,polygoneRegulierParCentreEtRayon,triangle2points2longueurs,triangle2points2angles,triangle2points1angle1longueur,triangle2points1angle1longueurOppose,nommePolygone,deplaceLabel,aireTriangle,cercle,pointIntersectionLC,pointIntersectionCC,cercleCentrePoint,arc,arcPointPointAngle,traceCompas,courbeDeBezier,segmentMainLevee,cercleMainLevee,droiteMainLevee,polygoneMainLevee,arcMainLevee,dansLaCibleCarree,dansLaCibleRonde,cibleCarree,cibleRonde,translation,translation2Points,rotation,homothetie,symetrieAxiale,distancePointDroite,projectionOrtho,affiniteOrtho,similitude,translationAnimee,rotationAnimee,homothetieAnimee,symetrieAnimee,affiniteOrthoAnimee,montrerParDiv,cacherParDiv,afficherTempo,afficherTempoId,afficherUnParUn,medianeTriangle,centreGraviteTriangle,hauteurTriangle,codageHauteurTriangle,codageMedianeTriangle,orthoCentre,centreCercleCirconscrit,codageAngleDroit,afficheLongueurSegment,texteSurSegment,afficheMesureAngle,afficheCoteSegment,codeSegment,codeSegments,codeAngle,droiteGraduee,droiteGraduee2,axes,labelX,labelY,grille,grilleHorizontale,grilleVerticale,seyes,repere,repere2,pointDansRepere,traceGraphiqueCartesien,traceBarre,traceBarreHorizontale,lectureImage,lectureAntecedent,courbe,courbe2,courbeInterpolee,graphiqueInterpole,imageInterpolee,antecedentInterpole,crochetD,crochetG,intervalle,texteParPoint,texteParPosition,latexParPoint,latexParCoordonnees,fractionParPosition,print2d,longueur,norme,angle,angleOriente,angleradian,creerLutin,avance,baisseCrayon,leveCrayon,orienter,tournerG,tournerD,allerA,mettrexA,mettreyA,ajouterAx,ajouterAy,afficherCrayon,codeSvg,codeTikz,mathalea2d,labyrinthe,pavage,point3d,ellipse,rotation3d,rotationV3d,droite3d,vecteur3d,translation3d;
 	</script>
 	<script type="module" src="/modules/mathalea2d-gui.js"></script>
 	<link rel="stylesheet" type="text/css" href="style/style_mathalea.css">
@@ -69,41 +75,43 @@
 <body>
 
 	<nav>
+    <div class="ui top attached five item stackable container menu  ">
+      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/" class="item">Accueil</a>
+          <a href="/6e" class="item">Sixième</a>
+          <a href="/5e" class="item">Cinquième</a>
+          <a href="/4e" class="item">Quatrième</a>
+          <a href="/3e" class="item">Troisième</a>
+          <a href="/2e" class="item">Seconde</a>
+          <a href="/twitter" class="item">Actualités</a>
+        </div>
+      </div>
+      <a href="/a_propos/" class="ui simple  item">À propos</a>
+      <a href="/telechargements" class="ui simple  item">Téléchargements</a>
+      <a href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+      <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/mathalea.html" class="item">Exercices en ligne</a>
+          <a href="/cm.html" class="item">Exercices chronométrés</a>
+          <a href="/mathalealatex.html" class="item">Générateur LaTeX/PDF</a>
+          <a href="/alacarte" class="item">Évaluation à la carte</a>
+          <a href="/mathalea_amc.html" class="item">Générateur AMC</a>
+          <a href="/outils.html" class="item">Outils pour le professeur</a>
+          <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+          <a href="/mathalea2iep.html" class="item">InstrumEnPoche</a>
+          <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+          <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+          <a href="/mathalea_a_propos" class="item">À propos</a>
+        </div>
+      </div>
 
-		<div class="ui top attached five item stackable container menu  ">
-			<div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i> 
-				<div class="menu">
-					<a href="/" class="item">Accueil</a>
-					<a href="/6e" class="item">Sixième</a>
-					<a href="/5e" class="item">Cinquième</a>
-					<a href="/4e" class="item">Quatrième</a>
-					<a href="/3e" class="item">Troisième</a>
-					<a href="/twitter" class="item">Actualités</a>
-				</div>
-			</div> 
-			<a  href="/a_propos/" class="ui simple  item">À propos</a>
-			<a  href="/telechargements"class="ui simple  item">Téléchargements</a> 
-			<a  href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
-			<div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i> 
-				<div class="menu">
-					<a href="/mathalea.html" class="item">Exercices en ligne</a>
-					<a href="/cm.html" class="item">Exercices chronométrés</a>
-					<a href="/mathalealatex.html"class="item">Générateur LaTeX/PDF</a>
-					<a href="/alacarte"class="item">Évaluation à la carte</a>
-					<a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
-					<a href="/mathalea2d.html" class="item">MathALEA 2D</a>
-					<a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
-					<a href="/mathalea_a_propos" class="item">À propos</a>
-				</div>
-			</div>
-
-			<script type="text/javascript">
-				$(document).ready(function(){
-					$('.ui.dropdown') .dropdown();
-				});     
-			</script>
-
-		</nav>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('.ui.dropdown').dropdown();
+        });
+      </script>
+  </nav>
 		<div class="ui hidden divider"></div>
 
 		<div class="ui hidden divider"></div>
@@ -132,7 +140,5 @@
 				</div>	
 			</div>
 		</div>
-
-
 	</body>
 	</html>
