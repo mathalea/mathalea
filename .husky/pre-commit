@@ -1,0 +1,20 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# cette commande sera lancé par chaque `git commit`, juste avant de faire le commit
+# si elle échoue le commit ne se fera pas, il faudra au choix
+# - corriger le pb eslint
+# - relancer la commande de commit avec l'argument --no-verify
+#git status -uno -s |awk '$NF ~ /\.js$/ { printf("%s ", $NF) }' |xargs --no-run-if-empty eslint
+
+# il y a encore trop de pbs eslint, on ne bloque donc pas (ligne précédente commentée), mais on signale le pb
+git status -uno -s |awk '$NF ~ /\.js$/ { printf("%s ", $NF) }' |while read -r f; do
+  if eslint "$f"; then
+    echo "eslint $f ok"
+  else
+    echo -e "eslint $f KO (cf ci-dessus), on ne bloque pas encore le commit pour ça ;-)\\nCertains problèmes peuvent être réglés automatiquement par la commande\\neslint --fix $f"
+  fi
+done
+
+# on laisse toujours passer
+exit 0

@@ -181,12 +181,12 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3F21-1.js"
     },
     "3G10-1": {
-        "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
+        "titre": "Trouver les coordonnées de l'image d'un punto par une transformation du plan",
         "url": "/exercices/3e/3G10-1.js"
     },
-    "3G10-1-2d": {
-        "titre": "Trouver les coordonnées de l'image d'un punto par une transformation du plan",
-        "url": "/exercices/3e/3G10-1-2d.js"
+    "3G10-1.bak": {
+        "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
+        "url": "/exercices/3e/3G10-1.bak.js"
     },
     "3G10-2": {
         "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
