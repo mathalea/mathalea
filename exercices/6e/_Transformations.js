@@ -343,8 +343,8 @@ export default function Transformations() {
          break;
       }
     }
-    texte+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,mainlevee:false},objets_enonce)
-    texte_corr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,mainlevee:false},objets_correction)
+    texte+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:1.5,mainlevee:false},objets_enonce)
+    texte_corr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:1.5,mainlevee:false},objets_correction)
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu_sans_numero(this);
