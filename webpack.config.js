@@ -44,7 +44,20 @@ module.exports = {
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options
     new HtmlWebpackPlugin({
-      template: 'mathalea.html'
+      template: 'mathalea.html',
+      filename: 'mathalea.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'exercice.html',
+      filename: 'exercice.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'mathalealatex.html',
+      filename: 'mathalealatex.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'exo.html',
+      filename: 'exo.html'
     })
   ],
   // La liste des fichiers à traiter

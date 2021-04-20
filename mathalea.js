@@ -10,7 +10,6 @@ import renderMathInElement from 'katex/dist/contrib/auto-render'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
-import math from 'mathjs'
 
 (function () {
   // IIFE principal
@@ -1600,7 +1599,6 @@ import math from 'mathjs'
 
     let taille = parseInt($("#affichage_exercices").css("font-size"));
     let lineHeight = parseInt($("#affichage_exercices").css("line-height"));
-    console.log(lineHeight)
     $("#btn_zoom_plus").click(function () {
         taille *= 1.2;
         lineHeight *= 1.2;

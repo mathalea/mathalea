@@ -1,5 +1,5 @@
-import Operation from '/modules/operations.js';
-import Exercice from '../ClasseExercice.js';
+import Operation from '../../modules/operations'
+import Exercice from '../ClasseExercice.js'
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,calcul} from "/modules/outils.js"
 
 /**
