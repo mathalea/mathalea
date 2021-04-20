@@ -882,13 +882,12 @@ export default function Alea2iep () {
     }
     const M = homothetie(B, A, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
     const N = homothetie(A, B, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
-    this.regleMontrer()
-    if (this.x(A) < this.x(B)) {
-      this.regleDeplacer(A, options)
+    if (this.x(A) <= this.x(B)) {
+      this.regleMontrer(M)
       this.regleRotation(N, options)
       this.regleSegment(M, N, options)
     } else {
-      this.regleDeplacer(B, options)
+      this.regleMontrer(N)
       this.regleRotation(M, options)
       this.regleSegment(N, M, options)
     }
@@ -985,7 +984,7 @@ export default function Alea2iep () {
       B = arg2
       options = arg3
     }
-    if (A.x < B.x) { // Toujours avoir la règle de gauche à droite
+    if (A.x <= B.x) { // Toujours avoir la règle de gauche à droite
       this.regleMontrer(A, options)
       this.regleRotation(B, options)
     } else {
@@ -1453,7 +1452,12 @@ export default function Alea2iep () {
       arc4 = this.compasTracerArcCentrePoint(A, N, { delta: options.delta, couleur: options.couleurCompas, sens: options.sens, vitesse: options.vitesse, tempo: options.tempo })
     }
     this.compasMasquer()
-    this.regleDroite(M, N, options)
+    if (M.x<=N.x){
+      this.regleDroite(M, N, options)
+    }
+    else {
+      this.regleDroite(N, M, options)
+    }
     this.regleMasquer()
     const codage1 = this.segmentCodage(A, O, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
     const codage2 = this.segmentCodage(O, B, { codage: options.codage, couleur: options.couleurCodage, tempo: options.tempo })
