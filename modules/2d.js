@@ -224,7 +224,7 @@ function TracePoint(...points) {
   };
   this.tikz = function () {
     let objetstikz = [], s1, s2, p1, p2, c
-    let tailletikz = this.taille / 20 / mathalea.scale;
+    let tailletikz = this.taille * mathalea.scale / 40 ;
     for (let A of points) {
       if (A.constructor == Point) {
         if (this.style == 'x') {
@@ -739,7 +739,7 @@ function Droite(arg1, arg2, arg3, arg4) {
     }
     absNom = arrondi(absNom, 2)
     ordNom = arrondi(ordNom, 2)
-    leNom = texteParPosition(this.nom, absNom, ordNom, "milieu", this.color, 1.2, "milieu", true)
+    leNom = latexParCoordonnees(this.nom, absNom, ordNom, 'black', 20, 0, "")
 
   }
   this.svg = function (coeff) {
