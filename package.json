@@ -5,6 +5,7 @@
   "main": "mathalea.js",
   "scripts": {
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
