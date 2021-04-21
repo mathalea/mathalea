@@ -58,6 +58,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'exo.html',
       filename: 'exo.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'cm.html',
+      filename: 'cm.html'
     })
   ],
   // La liste des fichiers à traiter

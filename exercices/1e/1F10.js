@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique,ecriture_algebrique_sauf1,lettre_minuscule_depuis_chiffre} from "/modules/outils.js"
-
+import {simplify, parse, derivative } from 'mathjs'
+const math = { simplify: simplify, parse: parse, derivative: derivative}
 /**
  * Calculs de dérivés
  * @Auteur Rémi Angot
@@ -55,7 +56,6 @@ export default function CalculsDeDerives() {
           b = randint(-10, 10, 0);
           c = randint(-10, 10, 0);
           expression = `${a} x^2  ${ecriture_algebrique_sauf1(b)} x  ${ecriture_algebrique(c)}`;
-          console.log(expression);
           ensembleDerivation = `\\mathbb{R}`;
           break;
         case 'xn':

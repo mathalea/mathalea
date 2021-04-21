@@ -39,7 +39,7 @@ function copier_vers_exercice_form () {
     }
   }
   document.getElementById('choix_des_exercices').value = texte_code
-  evenement = new Event('change')
+  const evenement = new Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
 }
 
@@ -73,14 +73,14 @@ function gestion_span_choix_exercice (elem) {
   // quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
   const liste_codes_exercices = Object.keys(dictionnaireDesExercices)
   if (liste_codes_exercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
-  			$(event.target).addClass('valide')
-  			if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
-  				$(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
-  			}
-  			ajout_handlers_etiquette_exo()
-  			// sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
-  		} else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
-  			// si on change le contenteditable et que l'exercice n'est plus un code valide
+    $(event.target).addClass('valide')
+    if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
+      $(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
+    }
+    ajout_handlers_etiquette_exo()
+    // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
+    } else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
+      // si on change le contenteditable et que l'exercice n'est plus un code valide
   			$(event.target).removeClass('valide')
   		}
 }
