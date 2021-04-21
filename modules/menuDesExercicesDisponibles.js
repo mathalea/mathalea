@@ -2,215 +2,11 @@ import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtr
 import { dictionnaireDesExercicesAleatoires } from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
-import DataTable from 'datatables.net'
+import $ from 'jquery'
+import 'datatables.net-dt/css/jquery.dataTables.css'
+
 //import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-
-const $ = window.jQuery
-
-// // Plug-in pour Datatable (ne pas tenir compte des accents pour les recherches)
-// (function () {
-//   function removeAccents (data) {
-//     if (data.normalize) {
-//       // Use I18n API if avaiable to split characters and accents, then remove
-//       // the accents wholesale. Note that we use the original data as well as
-//       // the new to allow for searching of either form.
-//       return data + ' ' + data
-//         .normalize('NFD')
-//         .replace(/[\u0300-\u036f]/g, '')
-//     }
-//     return data
-//   }
-
-//   const searchType = jQuery.fn.DataTable.ext.type.search
-//   searchType.string = function (data) {
-//     return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
-//   }
-//   searchType.html = function (data) {
-//     return !data ? '' : typeof data === 'string' ? removeAccents(data.replace(/<.*?>/g, '')) : data
-//   }
-// }())
-
-// Traduction de datatables.net
-
-// const datatablesfrJson = {
-//   emptyTable: 'Aucune donnée disponible dans le tableau',
-//   lengthMenu: 'Afficher _MENU_ éléments',
-//   loadingRecords: 'Chargement...',
-//   processing: 'Traitement...',
-//   zeroRecords: 'Aucun élément correspondant trouvé',
-//   paginate: {
-//     first: 'Premier',
-//     last: 'Dernier',
-//     previous: 'Précédent',
-//     next: 'Suiv'
-//   },
-//   aria: {
-//     sortAscending: ': activer pour trier la colonne par ordre croissant',
-//     sortDescending: ': activer pour trier la colonne par ordre décroissant'
-//   },
-//   select: {
-//     rows: {
-//       _: '%d lignes sélectionnées',
-//       0: 'Aucune ligne sélectionnée',
-//       1: '1 ligne sélectionnée'
-//     },
-//     1: '1 ligne selectionnée',
-//     _: '%d lignes selectionnées',
-//     cells: {
-//       1: '1 cellule sélectionnée',
-//       _: '%d cellules sélectionnées'
-//     },
-//     columns: {
-//       1: '1 colonne sélectionnée',
-//       _: '%d colonnes sélectionnées'
-//     }
-//   },
-//   autoFill: {
-//     cancel: 'Annuler',
-//     fill: 'Remplir toutes les cellules avec <i>%d<\/i>',
-//     fillHorizontal: 'Remplir les cellules horizontalement',
-//     fillVertical: 'Remplir les cellules verticalement',
-//     info: 'Exemple de remplissage automatique'
-//   },
-//   searchBuilder: {
-//     conditions: {
-//       date: {
-//         after: 'Après le',
-//         before: 'Avant le',
-//         between: 'Entre',
-//         empty: 'Vide',
-//         equals: 'Egal à',
-//         not: 'Différent de',
-//         notBetween: 'Pas entre',
-//         notEmpty: 'Non vide'
-//       },
-//       number: {
-//         between: 'Entre',
-//         empty: 'Vide',
-//         equals: 'Egal à',
-//         gt: 'Supérieur à',
-//         gte: 'Supérieur ou égal à',
-//         lt: 'Inférieur à',
-//         lte: 'Inférieur ou égal à',
-//         not: 'Différent de',
-//         notBetween: 'Pas entre',
-//         notEmpty: 'Non vide'
-//       },
-//       string: {
-//         contains: 'Contient',
-//         empty: 'Vide',
-//         endsWith: 'Se termine par',
-//         equals: 'Egal à',
-//         not: 'Différent de',
-//         notEmpty: 'Non vide',
-//         startsWith: 'Commence par'
-//       },
-//       array: {
-//         equals: 'Egal à',
-//         empty: 'Vide',
-//         contains: 'Contient',
-//         not: 'Différent de',
-//         notEmpty: 'Non vide',
-//         without: 'Sans'
-//       }
-//     },
-//     add: 'Ajouter une condition',
-//     button: {
-//       0: 'Recherche avancée',
-//       _: 'Recherche avancée (%d)'
-//     },
-//     clearAll: 'Effacer tout',
-//     condition: 'Condition',
-//     data: 'Donnée',
-//     deleteTitle: 'Supprimer la règle de filtrage',
-//     logicAnd: 'Et',
-//     logicOr: 'Ou',
-//     title: {
-//       0: 'Recherche avancée',
-//       _: 'Recherche avancée (%d)'
-//     },
-//     value: 'Valeur'
-//   },
-//   searchPanes: {
-//     clearMessage: 'Effacer tout',
-//     count: '{total}',
-//     title: 'Filtres actifs - %d',
-//     collapse: {
-//       0: 'Volet de recherche',
-//       _: 'Volet de recherche (%d)'
-//     },
-//     countFiltered: '{shown} ({total})',
-//     emptyPanes: 'Pas de volet de recherche',
-//     loadMessage: 'Chargement du volet de recherche...'
-//   },
-//   buttons: {
-//     copyKeys: 'Appuyer sur ctrl ou u2318 + C pour copier les données du tableau dans votre presse-papier.',
-//     collection: 'Collection',
-//     colvis: 'Visibilité colonnes',
-//     colvisRestore: 'Rétablir visibilité',
-//     copy: 'Copier',
-//     copySuccess: {
-//       1: '1 ligne copiée dans le presse-papier',
-//       _: '%ds lignes copiées dans le presse-papier'
-//     },
-//     copyTitle: 'Copier dans le presse-papier',
-//     csv: 'CSV',
-//     excel: 'Excel',
-//     pageLength: {
-//       '-1': 'Afficher toutes les lignes',
-//       1: 'Afficher 1 ligne',
-//       _: 'Afficher %d lignes'
-//     },
-//     pdf: 'PDF',
-//     print: 'Imprimer'
-//   },
-//   decimal: ',',
-//   info: 'Affichage de _START_ à _END_ sur _TOTAL_ éléments',
-//   infoEmpty: 'Affichage de 0 à 0 sur 0 éléments',
-//   infoThousands: '.',
-//   search: 'Rechercher:',
-//   searchPlaceholder: '...',
-//   thousands: '.',
-//   infoFiltered: '(filtrés depuis un total de _MAX_ éléments)',
-//   datetime: {
-//     previous: 'Précédent',
-//     next: 'Suivant',
-//     hours: 'Heures',
-//     minutes: 'Minutes',
-//     seconds: 'Secondes',
-//     unknown: '-',
-//     amPm: [
-//       'am',
-//       'pm'
-//     ]
-//   },
-//   editor: {
-//     close: 'Fermer',
-//     create: {
-//       button: 'Nouveaux',
-//       title: 'Créer une nouvelle entrée',
-//       submit: 'Envoyer'
-//     },
-//     edit: {
-//       button: 'Editer',
-//       title: 'Editer Entrée',
-//       submit: 'Modifier'
-//     },
-//     remove: {
-//       button: 'Supprimer',
-//       title: 'Supprimer',
-//       submit: 'Supprimer'
-//     },
-//     error: {
-//       system: "Une erreur système s'est produite"
-//     },
-//     multi: {
-//       title: 'Valeurs Multiples',
-//       restore: 'Rétablir Modification'
-//     }
-//   }
-// }
 
 // Liste tous les tags qui ont été utilisé
 const tags = new Set()
@@ -629,19 +425,6 @@ export function menuDesExercicesDisponibles () {
   $('#mode_choix_liste').hide()
   $('.popuptext').hide()
 
-  // on active datatable.
-  if (typeof $('#listtab').DataTable !== 'undefined') { // pour les pages ne supportant pas le tableau.
-    $('#listtab').DataTable({
-    //   language: {
-    //     url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json'
-    //   },
-      initComplete: function () {
-        $('#listtab_filter').detach().appendTo('#recherche')
-      }
-    })
-  } else {
-    $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
-  }
 
   renderMathInElement(document.body, {
     delimiters: [
@@ -719,6 +502,62 @@ export function menuDesExercicesDisponibles () {
     masquer_niveau()
   })
 
+  async function gestion_tableau() {
+    const Datatable = await import('datatables.net-dt')
+	$('#listtab').DataTable({
+       language: {
+	"sEmptyTable":     "Aucune donnée disponible dans le tableau",
+	"sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
+	"sInfoEmpty":      "Affichage de l'élément 0 à 0 sur 0 élément",
+	"sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+	"sInfoThousands":  ",",
+	"sLengthMenu":     "Afficher _MENU_ éléments",
+	"sLoadingRecords": "Chargement...",
+	"sProcessing":     "Traitement...",
+	"sSearch":         "Rechercher :",
+	"sZeroRecords":    "Aucun élément correspondant trouvé",
+	"oPaginate": {
+		"sFirst":    "Premier",
+		"sLast":     "Dernier",
+		"sNext":     "Suivant",
+		"sPrevious": "Précédent"
+	},
+	"oAria": {
+		"sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+		"sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+	},
+	"select": {
+        	"rows": {
+         		"_": "%d lignes sélectionnées",
+         		"0": "Aucune ligne sélectionnée",
+        		"1": "1 ligne sélectionnée"
+        	}  
+	}
+	},
+      initComplete: function () {
+        $('#listtab_filter').detach().appendTo('#recherche')
+      }
+    })
+	//plugin datatable pour ignorer les accents
+	function removeAccents (data) {
+     if (data.normalize) {
+       // Use I18n API if avaiable to split characters and accents, then remove
+       // the accents wholesale. Note that we use the original data as well as
+       // the new to allow for searching of either form.
+       return data + ' ' + data
+         .normalize('NFD')
+         .replace(/[\u0300-\u036f]/g, '')
+     }
+     return data
+    }
+	const searchType = $.fn.DataTable.ext.type.search
+	searchType.string = function (data) {
+		return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
+	}
+	searchType.html = function (data) {
+		return !data ? '' : typeof data === 'string' ? removeAccents(data.replace(/<.*?>/g, '')) : data
+	}
+  }
   // Gestion d'affichage de l'un ou l'autre des modes.
   $('#mode_choix_liste').off('click').on('click', function () {
     $('#liste_des_exercices_tableau').hide()
@@ -727,13 +566,17 @@ export function menuDesExercicesDisponibles () {
     $('#mode_choix_tableau').show()
     $('#replier').html('-')
   })
-  $('#mode_choix_tableau').off('click').on('click', function () {
-    $('#liste_des_exercices_tableau').show()
+  $('#mode_choix_tableau').off('click').on('click', async function () {
+    if (!document.getElementById('listtab_length')) { // si on clique pour la première fois sur l'affichage table alors on charge datatable
+		await gestion_tableau() 
+	} 
+	$('#liste_des_exercices_tableau').show()
     $('#liste_des_exercices').hide()
     $('#mode_choix_liste').show()
     $('#mode_choix_tableau').hide()
     $('#replier').html('-')
   })
+  
   $('#replier').off('click').on('click', function () {
     if ($('#liste_des_exercices').is(':visible') || $('#liste_des_exercices_tableau').is(':visible')) {
       $('#liste_des_exercices_tableau').hide()
