@@ -1,6 +1,7 @@
 import { ordreDeGrandeur, calcul, nombrec2 } from './outils.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
-
+import { format } from 'mathjs'
+const math = { format: format }
 /**
  *
  * Pose une opération
