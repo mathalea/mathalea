@@ -39,7 +39,7 @@ module.exports = {
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].js'
+      filename: '[name].[contenthash].css'
     }),
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options

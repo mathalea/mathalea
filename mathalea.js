@@ -6,11 +6,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 
 //import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-import 'katex/dist/katex.min.css'
+
+
 
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
+
+import 'katex/dist/katex.min.css'
+import './style/style_mathalea.css'
 
 (function () {
   // IIFE principal
