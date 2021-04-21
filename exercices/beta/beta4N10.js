@@ -1,4 +1,4 @@
-import Arrondir_une_valeur from '/Exercices/6e/6N31-3.js'
+import Arrondir_une_valeur from '/exercices/6e/6N31-3.js'
 /**
  *
  * référence ?
