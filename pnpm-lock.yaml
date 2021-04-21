@@ -10,6 +10,7 @@ specifiers:
   clipboard: ^2.0.8
   core-js: ^3.10.0
   css-loader: ^5.2.1
+  datatables.net: ^1.10.24
   eslint: ^7.23.0
   eslint-config-standard: 16.0.2
   eslint-import-resolver-node: ^0.3.4
@@ -30,6 +31,7 @@ specifiers:
   sass-loader: ^11.0.1
   seedrandom: ^3.0.5
   style-loader: ^2.0.0
+  svg.js: ^2.7.1
   webpack: ^5.33.2
   webpack-cli: ^4.6.0
   webpack-dev-server: ^3.11.2
@@ -38,7 +40,8 @@ dependencies:
   algebrite: 1.4.0
   clipboard: 2.0.8
   core-js: 3.10.1
-  instrumenpoche: framagit.org/Sesamath/instrumenpoche/deda67fb93b65fd223c60518162f3cda59184b7c
+  datatables.net: 1.10.24
+  instrumenpoche: framagit.org/Sesamath/instrumenpoche/9897363c7a2f27f8e703dfbef5d5ac29546cd85e
   jquery: 3.6.0
   jquery-ui: 1.12.1
   katex: 0.13.2
@@ -46,6 +49,7 @@ dependencies:
   qrcode: 1.4.4
   regenerator-runtime: 0.13.7
   seedrandom: 3.0.5
+  svg.js: 2.7.1
 
 devDependencies:
   '@babel/core': 7.13.15
@@ -2082,6 +2086,12 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
     dev: true
+
+  /datatables.net/1.10.24:
+    resolution: {integrity: sha512-CwXixvOdinvBCLXvcTloDinWiEM7Geaz+GwyjPrZL+MXIGPcLv4Op1bbWn8ErsI1JWMIWC8Cuf1rnDU2RrFV5w==}
+    dependencies:
+      jquery: 3.6.0
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -5445,6 +5455,10 @@ packages:
       has-flag: 4.0.0
     dev: true
 
+  /svg.js/2.7.1:
+    resolution: {integrity: sha512-ycbxpizEQktk3FYvn/8BH+6/EuWXg7ZpQREJvgacqn46gIddG24tNNe4Son6omdXCnSOaApnpZw6MPCBA1dODA==}
+    dev: false
+
   /table/6.1.0:
     resolution: {integrity: sha512-T4G5KMmqIk6X87gLKWyU5exPpTjLjY5KyrFWaIjv3SvgaIUGXV7UEzGEnZJdTA38/yUS6f9PlKezQ0bYXG3iIQ==}
     engines: {node: '>=10.0.0'}
@@ -6027,10 +6041,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  framagit.org/Sesamath/instrumenpoche/deda67fb93b65fd223c60518162f3cda59184b7c:
-    resolution: {commit: deda67fb93b65fd223c60518162f3cda59184b7c, repo: https://framagit.org/Sesamath/instrumenpoche.git, type: git}
+  framagit.org/Sesamath/instrumenpoche/9897363c7a2f27f8e703dfbef5d5ac29546cd85e:
+    resolution: {commit: 9897363c7a2f27f8e703dfbef5d5ac29546cd85e, repo: https://framagit.org/Sesamath/instrumenpoche.git, type: git}
     name: Instrumenpoche
-    version: 2.4.1
+    version: 2.4.2
     engines: {node: '>8.0.0'}
     dependencies:
       core-js: 3.10.1

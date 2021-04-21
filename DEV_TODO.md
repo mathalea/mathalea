@@ -16,3 +16,8 @@ Attention, pour le moment il faut créer un dossier dnb dans le projet (éventue
 * Ajouter jsdoc pour générer automatiquement la documentation
 * Ajouter des tests unitaires (avec mocha/chai ou un autre moteur de tests)
 * Ajouter éventuellement des tests fonctionnels avec [playwright](https://playwright.dev/)
+
+## Bugs connus
+* Il faudrait mieux charger le css de KaTeX
+* Datatable, il n'y a plus le champ de recherche. Il faudra gérer la traduction française (est-ce nécessaire ?) et le plugin pour la gestion des accents
+* Il faut vérifier l'intégration de SVG.js. 3F21-1 amène une erreur non comprise

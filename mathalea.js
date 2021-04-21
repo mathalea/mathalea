@@ -1,12 +1,13 @@
-/* global mathalea sortie_html est_diaporama renderMathInElement scratchblocks iepLoad Clipboard Prism fetch mtg32App mtgLoad QRCode MG32_tableau_de_figures Module $  */
+/* global mathalea sortie_html est_diaporama scratchblocks iepLoad Clipboard Prism fetch mtg32App mtgLoad QRCode MG32_tableau_de_figures Module $  */
 
 import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-/* essai infructueux d'import de KaTeX
-import katex from 'katex'
-import renderMathInElement from 'katex/dist/contrib/auto-render'
- */
+
+//import katex from 'katex'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+import 'katex/dist/katex.min.css'
+
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'

@@ -2,6 +2,7 @@ import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
+import SVG from 'svg.js'
 const math = { format: format, evaluate: evaluate }
 
 // Fonctions diverses pour la création des exercices
