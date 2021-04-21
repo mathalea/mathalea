@@ -5,7 +5,6 @@ import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 
-//import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
 // Liste tous les tags qui ont été utilisé
@@ -33,7 +32,7 @@ function coupe_chaine (titre, max_length) {
 }
 
 function span_exercice (id, titre) {
-  let max_length, tooltip, titre_tronque
+  let max_length
   if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 600) {
     max_length = 80
   } else if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 490) {
@@ -41,11 +40,11 @@ function span_exercice (id, titre) {
   } else {
     max_length = 50
   }
-  tooltip = titre.length > max_length
+  const tooltip = titre.length > max_length
     ? 'data-tooltip="' + coupe_chaine(titre, max_length + 20) + '"'
     : ''
-  titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre
-  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} numero="${id}">${titre_tronque}</a></a><span data-content="Prévisualiser l\'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
+  const titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre
+  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titre_tronque}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function liste_html_des_exercices_d_un_theme (theme) {
@@ -61,7 +60,7 @@ function liste_html_des_exercices_DNB_annee (annee) {
   const dictionnaire = filtreDictionnaireValeurCle(dictionnaireDNB, 'annee', annee)
   for (const id in dictionnaire) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+      `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   }
   return liste
 }
@@ -76,7 +75,7 @@ function liste_html_des_exercices_DNB_theme (theme) {
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" numero="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+      `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   }
   return liste
 }
@@ -167,7 +166,7 @@ function div_niveau (obj, active, id) {
 
 // fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
 function addExercice (e) {
-  const numero = $(e.target).attr('numero')
+  const numero = $(e.target).attr('data-id_exercice')
   if ($('#choix_des_exercices').val() == '') {
     $('#choix_des_exercices').val($('#choix_des_exercices').val() + numero)
   } else {

@@ -11,6 +11,7 @@ specifiers:
   core-js: ^3.10.0
   css-loader: ^5.2.1
   datatables.net: ^1.10.24
+  datatables.net-dt: ^1.10.24
   eslint: ^7.23.0
   eslint-config-standard: 16.0.2
   eslint-import-resolver-node: ^0.3.4
@@ -40,7 +41,6 @@ dependencies:
   algebrite: 1.4.0
   clipboard: 2.0.8
   core-js: 3.10.1
-  datatables.net: 1.10.24
   instrumenpoche: framagit.org/Sesamath/instrumenpoche/9897363c7a2f27f8e703dfbef5d5ac29546cd85e
   jquery: 3.6.0
   jquery-ui: 1.12.1
@@ -58,6 +58,8 @@ devDependencies:
   babel-loader: 8.2.2_de359d37148110717f7d10325d3521a7
   browserslist: 4.16.4
   css-loader: 5.2.1_webpack@5.33.2
+  datatables.net: 1.10.24
+  datatables.net-dt: 1.10.24
   eslint: 7.24.0
   eslint-config-standard: 16.0.2_4415c507f509d9e1aea11d51ee760740
   eslint-import-resolver-node: 0.3.4
@@ -2087,11 +2089,18 @@ packages:
     hasBin: true
     dev: true
 
+  /datatables.net-dt/1.10.24:
+    resolution: {integrity: sha512-O7c/Fhqz9hZG8LkXLr9k3M2rZPFjqY6tylOnFl3UaTZfBp5TeCc1AXZbFmv3Y7aNkcNS2UVJRiYAk7bkQhxR+w==}
+    dependencies:
+      datatables.net: 1.10.24
+      jquery: 3.6.0
+    dev: true
+
   /datatables.net/1.10.24:
     resolution: {integrity: sha512-CwXixvOdinvBCLXvcTloDinWiEM7Geaz+GwyjPrZL+MXIGPcLv4Op1bbWn8ErsI1JWMIWC8Cuf1rnDU2RrFV5w==}
     dependencies:
       jquery: 3.6.0
-    dev: false
+    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -2103,7 +2112,7 @@ packages:
     resolution: {integrity: sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==}
     deprecated: Debug versions >=3.2.0 <3.2.7 || >=4 <4.3.1 have a low-severity ReDos regression when used in a Node.js environment. It is recommended you upgrade to 3.2.7 or 4.3.1. (https://github.com/visionmedia/debug/issues/797)
     dependencies:
-      ms: 2.1.1
+      ms: 2.1.3
     dev: false
 
   /debug/3.2.7:
@@ -3637,7 +3646,6 @@ packages:
 
   /jquery/3.6.0:
     resolution: {integrity: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==}
-    dev: false
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -4053,7 +4061,6 @@ packages:
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
-    dev: true
 
   /multicast-dns-service-types/1.1.0:
     resolution: {integrity: sha1-iZ8R2WhuXgXLkbNdXw5jt3PPyQE=}
