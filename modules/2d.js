@@ -8237,11 +8237,9 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
 }
 
 /**
- * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
- * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
- * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
- * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- *
+ * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
+ * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
+ * si colorBackground="", le fond est transparent.
  * @Auteur Rémi Angot
  */
 export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
