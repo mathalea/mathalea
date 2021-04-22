@@ -1635,21 +1635,16 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   $('.popup').off('click').on('click', function (e) {
-    $('.icone_preview').off('click').on('click', function (e) {
-      afficher_popup()
-    })
+	  event.stopPropagation()
+	  afficher_popup()
   })
 
-  $('.icone_preview').off('click').on('click', function (e) {
-    afficher_popup()
-  })
-
-  $(document).click(function (event) {
-    if ($('.popuptext').is(':visible')) {
+  $(document).click(function (event) { 
+	if ($('.popuptext').is(':visible') || !$(event.target).hasClass('poppup') || !$(event.target).hasClass('icone_ppreview')) {
       $('.popuptext').hide()
       $('.popuptext').empty()
       $('.icone_preview').off('click').on('click', function (e) {
-        afficher_popup()
+        $('.popup').trigger('click')
       })
     }
   })
