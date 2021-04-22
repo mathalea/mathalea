@@ -7370,7 +7370,6 @@ function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors, 
               if (tabLines[index][k * 2] != "") {
                 texte = tabLines[index][k * 2]
                 long = tabLines[index][k * 2 + 1]
-                console.log('tabSlope', texte, long, i, index)
               }
             }
             break
@@ -9276,7 +9275,7 @@ export function mathalea2d(
               else
                 code += "\t" + objet[i].svgml(pixelsParCm, amplitude) + "\n";
             }
-          } catch (error) { console.log('premiere boucle', error.message, objet[i], i) }
+          } catch (error) { }//console.log('premiere boucle', error.message, objet[i], i) }
 
         }
       }

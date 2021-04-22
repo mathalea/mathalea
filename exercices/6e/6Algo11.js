@@ -40,7 +40,6 @@ class NoteLaCouleur {
     this.codeScratch = '';
     this.currentIndex = 0;
     this.nlc = function () {
-      console.log(this.currentPos.x, this.currentPos.y, this.plateau[Math.ceil((135 - this.currentPos.y) / 30)][Math.ceil((195 + this.currentPos.x) / 30)])
       return this.plateau[Math.ceil((135 - this.currentPos.y) / 30)][Math.ceil((195 + this.currentPos.x) / 30)];
     };
     this.testCoords = function (x, y) {
@@ -283,7 +282,6 @@ export default function Note_la_couleur() {
           lutindepart = clone(lutin);
           baisseCrayon(lutindepart)
           allerA(xdepart, ydepart, lutindepart)
-          console.log(lutindepart,lutin)
           objets_enonce.push(lutindepart)
           baisseCrayon(lutin)
           compteur++;
