@@ -195,7 +195,7 @@ export default function Pavages_et_transformations() {
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, `blue`);
 				objets_enonce.push(mediatrice1,mediatrice2,mediatrice3)
-				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0" dur="3s" repeatCount="indefinite" id="vert"'),symetrieAnimee(quad[numD],mediatrice2,'begin="vert.begin+3s" dur="3s" repeatCount="indefinite" id="rouge"'),symetrieAnimee(quad[numC],mediatrice3,'begin="rouge.begin+3s" dur="3s" repeatCount="indefinite" id="bleu"'))
+				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0s" dur="4s" id="vert" repeatcount="1"'),symetrieAnimee(quad[numD],mediatrice2,'begin="vert.end" dur="4s" id="rouge" repeatcount="1"'),symetrieAnimee(quad[numC],mediatrice3,'begin="rouge.end" dur="4s" id="bleu" repeatcount="1"'))
 				texte += mathalea2d({
 					xmin:-1,
 					xmax:nx*xAI+ny*xAJ,
