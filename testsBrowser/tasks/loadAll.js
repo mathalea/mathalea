@@ -5,7 +5,6 @@
 const path = require('path')
 
 const prefs = require('prefs')
-const { webpackServe } = require('runner')
 const { flushPage, getPage, initCurrentBrowser, loadUrl } = require('helpers/browser')
 const { getFileLogger, log, logError } = require('helpers/log')
 const { waitMs } = require('helpers/promise')
@@ -16,12 +15,7 @@ const logDir = path.join(__dirname, '..', '..', 'log')
 
 async function run () {
   // on peut nous lancer sur la prod (ou un autre serveur mathalea)
-  let { baseUrl } = prefs
-  let closeServer
-  if (!baseUrl) {
-    baseUrl = await webpackServe()
-    closeServer = webpackServe.close
-  }
+  const { baseUrl } = prefs
   const reBase = new RegExp(baseUrl)
   const isLocal = reBase.test.bind(reBase) // une fct qui teste son argument sur la regex précédente
 
@@ -89,9 +83,6 @@ async function run () {
     const logFile = path.resolve(logDir, `${errLogName}.log`)
     log(`Fin du test de chargement des exercices sur ${baseUrl} avec ${browserName} : ${nbExos} exos chargés (dont ${nbErr} avec des erreurs en console, enregistrées dans ${logFile})`)
   } // boucle browsers
-
-  // fermeture du serveur éventuel
-  if (closeServer) await closeServer()
 
   return true
 }

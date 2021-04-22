@@ -6,13 +6,14 @@ const minimist = require('minimist')
 
 const prefs = require('prefs')
 const { log } = require('helpers/log')
+const { webpackServe } = require('runner')
 
 let initDone = false
 
 /**
  * @return {boolean}
  */
-module.exports = function init () {
+module.exports = async function init () {
   if (initDone) throw Error('init déjà effectué')
 
   const listAllAndExit = () => {
@@ -32,10 +33,15 @@ module.exports = function init () {
 
   const printUsageAndExit = () => {
     console.log(`Usage : node testsBrowser/start.js [options] avec les options
+  --baseUrl xxx : L'url de base à tester, http://localhost:8080/ par défaut 
+        Ça suppose un devServer lancé par ailleurs, préciser l'option --devServer
+        pour qu'il soit lancé automatiquement juste avant le test 
+        Tous les tests peuvent donc être lancé sur la prod en précisant --baseUrl https://coopmaths.fr/
   --browsers xxx : les browser(s) à utiliser (parmi chromium|firefox|webkit),
         un seul possible, les séparer par des virgules (sans espace), 
         chromium par défaut
   --continue : pour continuer après un échec (laisse le navigateur ouvert sur le 1er échec sinon)
+  --devServer : pour lancer devServer et utiliser son url comme baseUrl
   --debug : afficher les opérations de playwright en console
   --scenario xxx : lancer le test du scenario xxx (dans testsBrowser/scenarios)
   --headless : ne pas ouvrir la fenêtre du navigateur (pour usage en environnement 
@@ -118,6 +124,13 @@ revient donc au même que
 
   // baseUrl
   if (options.baseUrl) prefs.baseUrl = options.baseUrl
+  // devServer
+  if (options.devServer) {
+    options.baseUrl = await webpackServe()
+    // il faudrait stocker qqpart webpackServe.close et l'appeler avant de sortir
+    // mais process.on('exit') ne peut pas lancer de code async => on laisse tomber car le process.exit va de toute manière couper le serveur
+    // https://nodejs.org/api/process.html#process_event_exit
+  }
   // skip & limit
   ;['skip', 'limit'].forEach(p => {
     if (options[p]) {

@@ -38,7 +38,8 @@ const knownBrowsers = ['chromium', 'firefox', 'webkit']
 let browsers = ['chromium']
 let timeout = 30000
 let slow
-let baseUrl
+// si on nous passe rien on teste sur un devServer sensé tourner par ailleurs
+let baseUrl = 'http://localhost:8080/'
 
 // un objet pour stocker les booléens (pour la propriété dynamique)
 const flags = {
