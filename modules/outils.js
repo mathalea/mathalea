@@ -1726,7 +1726,7 @@ export function prenom (n = 1) {
   if (n == 1) {
     return choice([prenomF(), prenomM()])
   } else {
-    return shuffle(['Rmi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude', 'Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
+    return shuffle(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude', 'Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
   }
 }
 
