@@ -11,7 +11,7 @@
     "build:prod": "webpack --mode=production",
     "prepare": "husky install",
     "start": "webpack serve",
-    "test": "node testsBrowser/start.js --task runAll --verbose",
+    "test": "node testsBrowser/start.js",
     "test:all": "node testsBrowser/start.js --task runAll --verbose",
     "test:list": "node testsBrowser/start.js --list",
     "watch": "webpack --watch"

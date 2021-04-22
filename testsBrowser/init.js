@@ -32,7 +32,7 @@ module.exports = async function init () {
   }
 
   const printUsageAndExit = () => {
-    console.log(`Usage : node testsBrowser/start.js [options] avec les options
+    console.log(`Usage : node testsBrowser/start.js [options] (ou "pnpm test [options]") avec les options
   --baseUrl xxx : L'url de base à tester, http://localhost:8080/ par défaut 
         Ça suppose un devServer lancé par ailleurs, préciser l'option --devServer
         pour qu'il soit lancé automatiquement juste avant le test 
@@ -59,6 +59,8 @@ Toutes ces options peuvent aussi être précisées via l'environnement (il faut 
   BROWSERS=firefox node testsBrowser/start.js
 revient donc au même que
   node testsBrowser/start.js --browsers firefox
+ou encore
+  pnpm test --browsers firefox
 `)
     process.exit()
   }
@@ -68,7 +70,7 @@ revient donc au même que
   // qui existe mais n'est pas très convaincate pour le moment (ne ralentit pas tellement et fait planter certains tests)
   // à creuser…
 
-  // parsing des options en ligne de commande (le 1er est node, le 2e ./start ou source/start.js)
+  // parsing des options en ligne de commande (le 1er est node, le 2e …start.js)
   const options = minimist(process.argv.slice(2))
 
   if (options.h || options.help) printUsageAndExit()

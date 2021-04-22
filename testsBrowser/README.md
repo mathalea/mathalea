@@ -4,14 +4,14 @@ Il s'agit de piloter un navigateur avec du code pour vérifier que tout se passe
 
 `pnpm run test:list` pour voir la liste des tests implémentés
 
-Attention, par défaut les tests sont lancés sur http://localhost:8080/, ça suppose qu'un devServer tourne déjà, sinon il faut préciser `--devServer` pour que le test le lance au préalable (mais en général on préfère lancer `pnpm start` d'un coté puis un `node testsBrowser/start.js --scenario xxx` de l'autre, pour éviter de relancer la compilation webpack complète à chaque test du scenario)
+Attention, par défaut les tests sont lancés sur http://localhost:8080/, ça suppose qu'un devServer tourne déjà, sinon il faut préciser `--devServer` pour que le test le lance au préalable (mais en général on préfère lancer `pnpm start` d'un coté puis un `pnpm test --scenario xxx` de l'autre, pour éviter de relancer la compilation webpack complète à chaque test du scenario)
 
 ## tasks
 Ce sont des tâches génériques. Par exemple
 * loadAll : passe en revue tous les exercices pour vérifier qu'il n'y a pas de plantage en console.error
 * runAllScenarios : lance tous les scérarios
 
-Elles se lancent avec par ex la commande `node testsBrowser/start.js --task xxx`
+Elles se lancent avec par ex la commande `pnpm test --task xxx`
 
 ## scenario
 
