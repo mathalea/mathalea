@@ -2113,6 +2113,9 @@ export function polygoneRegulierParCentreEtRayon(O, r, n, color = "black") {
   }
   return polygone(p, color);
 }
+/*********************************************/
+/*****************Triangles ******************/
+/*********************************************/
 
 /**
  * retourne un objet contenant le triangle ABC et le pied de la hauteur H
@@ -2224,6 +2227,48 @@ export function triangle2points1angle1longueurOppose(A, B, a, l, n = 1) {
   if ((n + 1) >> 1 == 1) M = pointIntersectionLC(e, c, "", 1);
   else M = pointIntersectionLC(e, c, "", 2);
   return polygone(A, B, M);
+}
+
+/*********************************************/
+/*************** Parrallélogrammes*************/
+/*********************************************/
+/**
+ * function qui retourne le parallélogramme ABCD dont on donne les 3 premiers points A, B et C
+ * 
+ * @param {string} NOM
+ * @param {objet} A 
+ * @param {objet} B 
+ * @param {objet} C 
+ * @returns {polygoneAvecNom}
+ */
+export function parallelogramme3points(NOM,A,B,C){
+  let D=translation(A,vecteur(B,C),NOM[3])
+  A.nom=NOM[0]
+  B.nom=NOM[1]
+  C.nom=NOM[2]
+  return polygoneAvecNom(A, B, C, D)
+}
+/**
+ * parrallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
+ * parrallelogramme2points1hauteur(A,7,5) renvoie un parallélogramme ABCD de base 7cm (le point B est choisi sur le cercle de centre A et de rayon 7cm) et de hauteur h
+ * 
+ * @param {String} NOM 
+ * @param {objet} A 
+ * @param {objet} B 
+ * @param {number} h 
+ * @returns {polygoneAvecNom}
+ */
+export function parallelogramme2points1hauteur(NOM,A,B,h){
+if (typeof B == "number" ){
+  B=pointAdistance(A,B,randint(-180,180))
+}
+A.nom=NOM[0]
+B.nom=NOM[1]
+let H=rotation(B,A,90)
+H=pointSurSegment(A,H,h)
+let D=translation(H,homothetie(vecteur(A,B),A,randint(-4,4,0)/10),NOM[3])
+let C=translation(D,vecteur(A,B),NOM[2])
+return polygoneAvecNom(A,B,C,D)
 }
 
 /**

@@ -200,7 +200,7 @@ export function apparence_exercice_actif () {
     const elem_liste = $(`a.lien_id_exercice[numero='${liste_exercices_selectionnes[i]}']`)
 
     if (!elem_liste.hasClass('exerciceactif')) {
-      elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l\'exercice."><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
+      elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l\'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
     }
     elem_liste.addClass('exerciceactif')
     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
@@ -442,7 +442,9 @@ export function menuDesExercicesDisponibles () {
   $('#listtab').on('draw.dt', function () {
     apparence_exercice_actif()
     $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
-    $('.popup').trigger('click')
+    $('.icone_preview').off('click').on('click', function (e) {
+		$('.popup').trigger('click')
+	})
     renderMathInElement(document.body, {
       delimiters: [
         { left: '\\[', right: '\\]', display: true },
@@ -482,7 +484,9 @@ export function menuDesExercicesDisponibles () {
     })
     apparence_exercice_actif()
     $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
-    $('.popup').trigger('click')
+    $('.icone_preview').off('click').on('click', function (e) {
+		$('.popup').trigger('click')
+	})
   }
 
   function masquer_niveau () {
@@ -503,6 +507,26 @@ export function menuDesExercicesDisponibles () {
 
   async function gestion_tableau() {
     const Datatable = await import('datatables.net-dt')
+	//plugin datatable pour ignorer les accents
+	function removeAccents (data) {
+	 if (data.normalize) {
+       // Use I18n API if avaiable to split characters and accents, then remove
+       // the accents wholesale. Note that we use the original data as well as
+       // the new to allow for searching of either form.
+       return data + ' ' + data
+         .normalize('NFD')
+         .replace(/[\u0300-\u036f]/g, '')
+     }
+     return data
+    }
+	const searchType = $.fn.DataTable.ext.type.search
+	searchType.string = function (data) {
+		console.log('search '+ data);
+		return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
+	}
+	searchType.html = function (data) {
+		return !data ? '' : typeof data === 'string' ? removeAccents(data.replace(/<.*?>/g, '')) : data
+	}
 	$('#listtab').DataTable({
        language: {
 	"sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -537,25 +561,7 @@ export function menuDesExercicesDisponibles () {
         $('#listtab_filter').detach().appendTo('#recherche')
       }
     })
-	//plugin datatable pour ignorer les accents
-	function removeAccents (data) {
-     if (data.normalize) {
-       // Use I18n API if avaiable to split characters and accents, then remove
-       // the accents wholesale. Note that we use the original data as well as
-       // the new to allow for searching of either form.
-       return data + ' ' + data
-         .normalize('NFD')
-         .replace(/[\u0300-\u036f]/g, '')
-     }
-     return data
-    }
-	const searchType = $.fn.DataTable.ext.type.search
-	searchType.string = function (data) {
-		return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
-	}
-	searchType.html = function (data) {
-		return !data ? '' : typeof data === 'string' ? removeAccents(data.replace(/<.*?>/g, '')) : data
-	}
+	
   }
   // Gestion d'affichage de l'un ou l'autre des modes.
   $('#mode_choix_liste').off('click').on('click', function () {
