@@ -16,3 +16,9 @@ fichierszip/*.zip
 
 #ignorer le fichier index.php utile que pour le sous domaine de test de Seb
 index.php
+
+
+# les dépendances
+node_modules
+# le build
+build

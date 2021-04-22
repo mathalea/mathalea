@@ -1,0 +1,27 @@
+// Auteur : Guillaume FRANÇOIS-LEROUX
+
+const O = point(5, 0)
+const A = point(9, 1, 'A')
+const A1 = rotation(A, O, -80)
+
+anim.textePosition('Tracer l\'image du point A par la rotation de centre O', 1, 6)
+anim.textePosition('et d\'angle 80° dans le sens horaire.', 1, 5)
+anim.pointCreer(O)
+anim.pointNommer(O,'O',{ dx: -0.6, dy: 1 })
+// Les options dx et dy permettent de décaler le nom du point
+anim.pointCreer(A)
+anim.regleDemiDroiteOriginePoint(O, A, { longueur: 8 })
+// L'option longueur permet de déterminer la longueur du tracé
+anim.regleMasquer()
+anim.rapporteurTracerDemiDroiteAngle(O, A, -80, {longueur : 8})
+anim.regleMasquer()
+anim.angleCodage(A, O, A1)
+anim.textePosition('80°', 6.2, -0.4)
+anim.crayonMasquer()
+anim.compasEcarter2Points(O, A)
+anim.compasTracerArcCentrePoint(O, A1)
+anim.compasMasquer()
+anim.pointCreer(A1)
+anim.pointNommer(A1,"A'",{ dx: -.06, dy: -0.5 })
+anim.segmentCodage(A, O)
+anim.segmentCodage(A1, O)

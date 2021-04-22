@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url,modal_pdf } from "/modules/outils.js";
-import { angleScratchTo2d,clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
+import { attendre ,angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from "/modules/2d.js";
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
@@ -242,7 +242,7 @@ export default function Note_la_couleur() {
     let ydepart 
     mathalea.unitesLutinParCm = 20 * 30 / 52
     mathalea.pixelsParCm = 20
-    let pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
+    let pion;
     if (this.sup) {
       objets_correction = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
       objets_enonce = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
@@ -274,6 +274,7 @@ export default function Note_la_couleur() {
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
           ydepart = -135 + randint(3, 6) * 30
+          pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
           lutin.color = 'green'
           lutin.epaisseur = 3
           lutin.pointilles = 2
@@ -282,7 +283,7 @@ export default function Note_la_couleur() {
           lutindepart = clone(lutin);
           baisseCrayon(lutindepart)
           allerA(xdepart, ydepart, lutindepart)
-          console.log(lutindepart)
+          console.log(lutindepart,lutin)
           objets_enonce.push(lutindepart)
           baisseCrayon(lutin)
           compteur++;
@@ -319,6 +320,7 @@ export default function Note_la_couleur() {
               pion.codeScratch += result[4] + '\n';
               pion.currentIndex += result[4].length + 1
               lutin = result[5]
+              attendre(5,lutin)
             }
             else {
               nb_instructions++
@@ -358,7 +360,6 @@ export default function Note_la_couleur() {
       } }
       
       retour_a_la_case_depart = true;
-        pion.codeScratch = "";
         couleurs = [];
         nb_couleurs = parseInt(this.sup3);
         let repetitions = nb_couleurs - 1
@@ -370,6 +371,8 @@ export default function Note_la_couleur() {
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
           ydepart = -135 + randint(3, 6) * 30
+          pion = new NoteLaCouleur(xdepart, ydepart, angledepart);
+          pion.codeScratch = "";
           lutin.color = 'green'
           lutin.epaisseur = 3
           lutin.pointilles = 2
@@ -408,6 +411,7 @@ export default function Note_la_couleur() {
                 pion.codeScratch += result[4] + '\n';
                 pion.currentIndex += result[4].length + 1
                 lutin = result[5]
+                attendre(5,lutin)
               }
               else {
                 nb_instructions++
@@ -430,6 +434,7 @@ export default function Note_la_couleur() {
                 if (instruction == 'NLC') {
                   couleurs.push(pion.nlc());
                   lutin = result[5]
+                  attendre(5,lutin)
                 }
                 else {
                   nb_instructions++
@@ -456,6 +461,7 @@ export default function Note_la_couleur() {
                 pion.codeScratch += result[4] + '\n';
                 pion.currentIndex += result[4].length + 1
                 lutin = result[5]
+                attendre(5,lutin)
               }
               else {
                 nb_instructions++
@@ -499,7 +505,7 @@ export default function Note_la_couleur() {
     texte +=`Il a été conçu pour étendre les possibilités de fiches proposées.<br>`
     texte +=`N'hésitez pas à vous rendre sur le site ${modal_url(numero_de_l_exercice+1,"https://www.monclasseurdemaths.fr","Mon classeur de Maths.fr","info circle")} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
     texte +=`Pour jouer, regarder les règles du jeu${modal_pdf(numero_de_l_exercice+2,"../../pdf/reglesnlc.pdf","Règles du jeu", "Règles - PDF", "file pdf")} .<br>`
-    texte +=`Exécute le programme et trouve la succession de couleur.<br>`
+    texte +=`Exécuter le programme et trouver la succession de couleur.<br>`
     texte += `<table><tr><td>`
       + scratchblock(pion.codeScratch) +
       `</td><td>`
