@@ -4254,7 +4254,7 @@ function SymetrieAnimee(
     let p2 = symetrieAxiale(p, d);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill=${p.couleurDeRemplissage} >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
