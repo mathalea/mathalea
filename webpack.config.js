@@ -32,6 +32,7 @@ module.exports = {
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
     open: true,
+    openPage: 'mathalea.html',
     host: 'localhost',
     // on active le hot module replacement (HMR)
     hot: true

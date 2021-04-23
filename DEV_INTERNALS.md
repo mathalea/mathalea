@@ -29,6 +29,11 @@ Dans les devDependencies on indique les dépendances nécessaire pour le dévelo
 * webpack, webpack-cli : pour compiler js|css & co
 * webpack-dev-server : pour développer en local (lancer un navigateur sur http://localhost avec le code courant et profiter du hot module reloading, qui va recharger le code js dans le navigateur s'il change dans les sources, sans avoir besoin de recharger la page)
 
+Et pour les tests fonctionnels (avec les navigateurs fournis par playwright)
+* playwright : le paquet principal, qui fournit les navigateurs et l'api pour les piloter
+* sesajs-date : utiliser pour formater les dates dans les logs
+* minimist : pour manipuler facilement les arguments passés au script
+
 ## navigateurs ciblés
 Avant le passage à webpack, mathalea exigeait des navigateurs récents (qui gèrent les [imports dynamiques](https://caniuse.com/?search=es6-module-dynamic-import)), on garde pour ce moment ce critère avec `"browserslist": ["supports es6-module-dynamic-import"]`. Attention, il ne faut pas mettre de targets dans la conf babel (sinon browserlist est ignoré et c'est targets qui impose ses choix).
 
