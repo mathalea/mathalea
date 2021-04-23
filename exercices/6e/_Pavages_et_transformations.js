@@ -1,4 +1,4 @@
-import { translation, mathalea2d, polygone, point, rotation, vecteur, milieu, barycentre, texteParPoint, mediatrice, tracePoint, symetrieAnimee } from '../../modules/2d.js';
+import { translation, mathalea2d, polygone, point, segment, rotation, homothetie, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,image_point_par_transformation,texte_en_couleur_et_gras,num_alpha} from "/modules/outils.js"
 
@@ -30,10 +30,10 @@ export default function Pavages_et_transformations() {
         let objets_correction=[];
 
 		//listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
-		let paves = [[5, 5, 4, 0, 4, 4, 0, 4, 22, 0], [5, 5, 6, 0, 8, 8, 0, 6, 40, -9], [5, 5, 8, 0, 4, 4, 2, 8, 30, -10], [5, 5, 4, 0, 6, 4, 0, 6, 28, -15], [4, 6, 8, 0, 7, 4, -1, 4, 32, 0], [5, 5, 8, 0, 4, 4, 0, 8, 40, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 15, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]];
+		let paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]];
         let quad=[],numeros=[],quadInitial,quad1,quad2,quad3
-		let mediatrice1,mediatrice2,mediatrice3
-		let texte, texte_corr;
+		let mediatrice1,mediatrice2,mediatrice3,centre1,centre2,centre3,arc1,arc2,arc3,rayon11,rayon12,rayon21,rayon22,rayon31,rayon32
+		let texte="", texte_corr="";
 		let tabfigA = [], tabfigB = [], tabfigC = [], tabfigD = [];
 		let pave = [];
 		switch (parseInt(this.sup)) {
@@ -52,9 +52,15 @@ export default function Pavages_et_transformations() {
 
 		let nx = pave[0], ny = pave[1], xB = pave[2], yB = pave[3], xC = pave[4], yC = pave[5], xD = pave[6], yD = pave[7], Zoom = pave[8], Angle = pave[9];
 		let A=point(0,0)
-        let B=point(xB,yB)
-        let C=point(xC,yC)
-        let D=point(xD,yD)
+        let B=similitude(point(xB,yB),A,Angle,22/Zoom)
+        let C=similitude(point(xC,yC),A,Angle,22/Zoom)
+        let D=similitude(point(xD,yD),A,Angle,22/Zoom)
+		xB=B.x
+		yB=B.y
+		xC=C.x
+		yC=C.y
+		xD=D.x
+		yD=D.y
         quadInitial=polygone(A,B,C,D)
         let xAI = xB + xC - xD;
 		let yAI = yB + yC - yD;
@@ -69,6 +75,11 @@ export default function Pavages_et_transformations() {
 		let s0 = choice([`S`, `T`, `L`, `W`, `R`, `G`, `E`, `F`, `G`, `K`]);
 		let s1 = choice([`S`, `T`, `L`, `W`, `R`, `G`, `E`, `F`, `G`, `K`], [s0]);
 		let s2 = choice([`S`, `T`, `L`, `W`, `R`, `G`, `E`, `F`, `G`, `K`], [s0, s1]);
+		let Xmin=Math.min(-1,ny*xAJ)
+		let Xmax=Math.max(nx*xAI+1,nx*xAI+ny*xAJ+1)
+		let Ymin=Math.min(-1,nx*yAI)
+		let Ymax=Math.max(nx*yAI+ny*yAJ+1,ny*yAJ+1)
+
 
 
 		for (let y = 0; y < ny; y++) { // On initialise les tableaux avec les coordonnées des puntos de référence (A,B,C et D) de chaque translaté et son numéro dans le pavage.
@@ -91,7 +102,7 @@ export default function Pavages_et_transformations() {
 			objets_correction.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',true))
         }
 
-		mathalea.fenetreMathalea2d=[-1,-1,nx*xAI+ny*xAJ,nx*yAI+ny*yAJ]
+		mathalea.fenetreMathalea2d=[Xmin,Ymin,Xmax,Ymax]
 		switch (parseInt(this.sup)) {
 			case 1: //symétrie axiale
 				// Première question : une figure type A par symétrie d'axe // à [BD] est une figure type A. le symétrique du sommet A est le sommet C
@@ -201,10 +212,10 @@ export default function Pavages_et_transformations() {
 				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1"'),symetrieAnimee(quad[numD],mediatrice2,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1"'),symetrieAnimee(quad[numC],mediatrice3,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1"'))
 
 				texte += mathalea2d({
-					xmin:-1,
-					xmax:nx*xAI+ny*xAJ,
-					ymin:-1,
-					ymax:nx*yAI+ny*yAJ,
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
 					pixelsParCm:15,
 					scale:0.5,
 					mainlevee:false
@@ -221,10 +232,10 @@ export default function Pavages_et_transformations() {
 				quad3.opaciteDeRemplissage=0.1
 				objets_correction.push(quad1,quad2,quad3)
 				texte_corr += mathalea2d({
-					xmin:-1,
-					xmax:nx*xAI+ny*xAJ,
-					ymin:-1,
-					ymax:nx*yAI+ny*yAJ,
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
 					pixelsParCm:15,
 					scale:0.5,
 					mainlevee:false
@@ -250,6 +261,8 @@ export default function Pavages_et_transformations() {
 							num1 = tabfigB[j][2];
 							xa = tabfigA[indexA][0];
 							ya = tabfigA[indexA][1];
+							centre1=point(xmil1,ymil1,s0,'left')
+							quad[numA].couleurDeRemplissage='green'
 							break;
 						}
 					}
@@ -281,6 +294,9 @@ export default function Pavages_et_transformations() {
 							num2 = tabfigA[j][2];
 							xb = tabfigA[indexD][0];
 							yb = tabfigA[indexD][1];
+							centre2=point(xmil2,ymil2,s1,'left')
+							quad[numD].couleurDeRemplissage='red'
+
 							break;
 						}
 					}
@@ -314,6 +330,8 @@ export default function Pavages_et_transformations() {
 							num3 = tabfigD[j][2];
 							xc = tabfigA[indexC][0];
 							yc = tabfigA[indexC][1];
+							centre3=point(xmil3,ymil3,s2,'left')
+							quad[numC].couleurDeRemplissage='blue'
 							break;
 						}
 					}
@@ -328,6 +346,60 @@ export default function Pavages_et_transformations() {
 				}
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, `blue`);
+
+				objets_enonce.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue'));
+				objets_correction.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue')
+				,rotationAnimee(quad[numA],centre1,180,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,180,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,180,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+
+				texte += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_enonce
+				); 
+				quad1=translation(quad[num1],vecteur(0,0))
+				quad1.couleurDeRemplissage='green'
+				quad1.opaciteDeRemplissage=0.1
+				quad2=translation(quad[num2],vecteur(0,0))
+				quad2.couleurDeRemplissage='red'
+				quad2.opaciteDeRemplissage=0.1
+				quad3=translation(quad[num3],vecteur(0,0))
+				quad3.couleurDeRemplissage='blue'
+				quad3.opaciteDeRemplissage=0.1
+				arc1=arc(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1,180)
+				rayon11=segment(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1)
+				rayon12=rotation(rayon11,centre1,180)
+				rayon11.pointilles=2
+				rayon12.pointilles=2
+				arc1.pointilles=2
+				arc2=arc(point(tabfigD[indexD][0],tabfigD[indexD][1]),centre2,180)
+				rayon21=segment(point(tabfigD[indexD][0],tabfigD[indexD][1]),centre2)
+				rayon22=rotation(rayon21,centre2,180)
+				rayon21.pointilles=2
+				rayon22.pointilles=2
+				arc2.pointilles=2
+				arc3=arc(point(tabfigC[indexC][0],tabfigC[indexC][1]),centre3,180)
+				rayon31=segment(point(tabfigC[indexC][0],tabfigC[indexC][1]),centre3)
+				rayon32=rotation(rayon31,centre3,180)
+				rayon31.pointilles=2
+				rayon32.pointilles=2
+				arc3.pointilles=2
+				objets_correction.push(quad1,quad2,quad3,arc1,arc2,arc3,rayon11,rayon12,rayon21,rayon22,rayon31,rayon32)
+				texte_corr += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_correction
+				); 
+
 				break;
 
 			case 3: //translations

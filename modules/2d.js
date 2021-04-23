@@ -148,6 +148,7 @@ function TracePoint(...points) {
 
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
+    points.length--;
   }
   else this.color = 'black';
   this.svg = function (coeff) {
@@ -499,6 +500,13 @@ export function pointAdistance(...args) {
 function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
   this.taille = 1
+  if (typeof points[points.length - 1] === "string") {
+    this.color = points[points.length - 1];
+    points.length--
+  }
+  else {
+    this.color = 'black'
+  }
   this.svg = function (coeff) {
     let code = "", x, y;
     if (Array.isArray(points[0])) {
@@ -511,28 +519,28 @@ function LabelPoint(...points) {
       x = point.x, y = point.y
       switch (point.positionLabel) {
         case "left":
-          code += texteParPosition(point.nom, x - 15 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below":
-          code += texteParPosition(point.nom, x, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "above":
-          code += texteParPosition(point.nom, x, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "above right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below left":
-          code += texteParPosition(point.nom, x - 15 / coeff, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         default:
-          code += texteParPosition(point.nom, x - 15 / coeff, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
       }
     }
