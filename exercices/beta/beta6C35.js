@@ -39,24 +39,24 @@ export default function ModelisationProblemes() {
 
         case 1:
           if (o == 1){
-             texte += `${jour}, ${prenomF} avait ${b} ${objet}. `;
+             texte += `${jour()}, ${prenomF()} avait ${b} ${objet()}. `;
              texte += `<br>Le lendemain, elle en a gagné ${a}.`;
              texte += `<br>Combien en a-t-elle alors ?`;
           }
           else {
-            texte += `${prenomM} a ${c} ans de moins que ${prenomF}.`;
-            texte += `<br>Sachant que ${prenomF} a ${b} ans, quel âge a ${prenomF} ?}`;
+            texte += `${prenomM()} a ${c} ans de moins que ${prenomF()}.`;
+            texte += `<br>Sachant que ${prenomF()} a ${b} ans, quel âge a ${prenomF()} ?}`;
           }
         break;
 
         case 2:
           if (o == 1){
-              texte +=`${prenomM} achète ${b} ${objet}.`;
+              texte +=`${prenomM()} achète ${b} ${objet()}.`;
               texte += `<br>Il en distribue ${a} à ses amis qui ont oublié les leurs.`;
               texte += `<br>Combien lui en reste-t-il ?`
           }
           else {
-            texte += `${prenomM} possède déjà ${a} ${objet}.`;
+            texte += `${prenomM()} possède déjà ${a} ${objet()}.`;
             texte += `<br>Il a besoin d'en avoir ${b} en fin de semaine.`;
             texte += `<br>Combien doit-il encore en récupérer ?`
           }
@@ -64,63 +64,63 @@ export default function ModelisationProblemes() {
 
         case 3:
           if (o == 1){
-          texte +=`J'ai ${b} ${objet} dans mon sac et je souhaite les partager avec mes ${c-1} amis.`;
+          texte +=`J'ai ${b} ${objet()} dans mon sac et je souhaite les partager avec mes ${c-1} amis.`;
           texte += `<br>Quelle sera la part de chacun ?`;
           }
           else {
-            texte += `${c} ${objetF} identiques coûtent ${b} €.`;
+            texte += `${c} ${objetF()} identiques coûtent ${b} €.`;
             texte += `<br>Quel est le prix d'une d'entre elles ?`
           }
         break;
           
         case 4:
           if (o == 1){
-          texte +=`${prenomF} a acheté ${c} ${objet} à ${b} € pièce.`;
+          texte +=`${prenomF()} a acheté ${c} ${objet()} à ${b} € pièce.`;
           texte += `<br>Combien a-t-elle payé ?`;
           }
           else {
-            texte +=`${prenomF} récupère ${c} paquets de ${b} ${objet} chacun.`;
+            texte +=`${prenomF()} récupère ${c} paquets de ${b} ${objet()} chacun.`;
             texte +=`<br>Combien en a-t-elle en tout ?`;
           }
 
           case 5:
             if (o == 1){
-              texte +=`${prenomF} a acheté ${b} ${objet} pour les donner à ses amis.`;
+              texte +=`${prenomF()} a acheté ${b} ${objet()} pour les donner à ses amis.`;
               texte +=`<br>Il lui en reste encore ${c} à donner.`;
               texte +=`<br>Combien en a-t-elle déjà distribué ?`;
             }
             else {
-              texte +=`${prenomF} a ${b} ans.`;
+              texte +=`${prenomF()} a ${b} ans.`;
               texte +=`<br>Sachant qu'elle a ${c} ans de plus que son frère, quel âge a celui-ci ?`;
             }
 
           case 6:
             if (o == 1){
-                texte +=`${prenomF} récupère ${b} ${objet} dans une salle, puis ${a} dans une autre.`;
+                texte +=`${prenomF()} récupère ${b} ${objet()} dans une salle, puis ${a} dans une autre.`;
                 texte +=`<br>Combien en a-t-elle en tout ?`;
               }
             else {
-                texte +=`Un paquet de ${objetM} coûte ${c} € et un paquet de ${objetF} coûte ${a} €.`;
+                texte +=`Un paquet de ${objetM()} coûte ${c} € et un paquet de ${objetF()} coûte ${a} €.`;
                 texte +=`<br>Combien coûte l'ensemble ?`;
               }
 
           case 7:
             if (o == 1){
-                  texte +=`J'ai ${d} ${objet} dans mon sac et je dois les regrouper par ${c}.`;
+                  texte +=`J'ai ${d} ${objet()} dans mon sac et je dois les regrouper par ${c}.`;
                   texte +=`<br>Combien puis-je faire de tas ?`;
                 }
             else {
-                  texte +=`J'ai payé ${d} € pour des ${objetM} coûtant ${c} € chacun.`;
+                  texte +=`J'ai payé ${d} € pour des ${objetM()} coûtant ${c} € chacun.`;
                   texte +=`<br>Combien en ai-je acheté ?`;
                 }
 
           case 8:
             if (o == 1){
-                    texte +=`Dans un sac, il y a ${a} ${objet} et dans l'autre, il y en a ${b}.`;
+                    texte +=`Dans un sac, il y a ${a} ${objet()} et dans l'autre, il y en a ${b}.`;
                     texte +=`<br>Combien y en a-t-il de plus dans ce sac ?`;
                   }
             else {
-                    texte +=`${prenomF} a ${b} ${objet} et elle doit les répartir équitablement sur ${c} tables.`;
+                    texte +=`${prenomF()} a ${b} ${objet()} et elle doit les répartir équitablement sur ${c} tables.`;
                     texte +=`<br>Combien va-t-elle en poser sur chaque table ?`;
                   }
         break;
