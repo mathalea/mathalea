@@ -27,10 +27,10 @@ async function test (page) {
     const type = await page.getAttribute('input#form_sup0', 'type')
     const type2 = await page.getAttribute('input#form_sup20', 'type')
     if (type === 'number' && type2 === 'number') {
-      const max = await page.getAttribute('input#form_sup0', 'max')
       const min = await page.getAttribute('input#form_sup0', 'min')
-      const max2 = await page.getAttribute('input#form_sup20', 'max')
+      const max = await page.getAttribute('input#form_sup0', 'max')
       const min2 = await page.getAttribute('input#form_sup20', 'min')
+      const max2 = await page.getAttribute('input#form_sup20', 'max')
       for (let i = min; i <= max; i++) {
         await page.fill('#form_sup0', i.toString())
         for (let j = min2; j <= max2; j++) {
