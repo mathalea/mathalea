@@ -197,7 +197,7 @@ export function apparence_exercice_actif () {
   $('.delexercice').remove()
   const liste_exercices_selectionnes = document.getElementById('choix_des_exercices').value.split(',')
   for (let i = 0; i < liste_exercices_selectionnes.length; i++) {
-    const elem_liste = $(`a.lien_id_exercice[numero='${liste_exercices_selectionnes[i]}']`)
+    const elem_liste = $(`a.lien_id_exercice[data-id_exercice='${liste_exercices_selectionnes[i]}']`)
 
     if (!elem_liste.hasClass('exerciceactif')) {
       elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l\'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
@@ -362,13 +362,13 @@ export function menuDesExercicesDisponibles () {
       if (dictionnaireDesExercices[exercice_tmp].titre) { // tous les non dnb
         liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
 				id +
-				'</span></td> <td> <a class="lien_id_exercice" numero="' + id + '">' + dictionnaireDesExercices[exercice_tmp].titre +
+				'</span></td> <td> <a class="lien_id_exercice" data-id_exercice="' + id + '">' + dictionnaireDesExercices[exercice_tmp].titre +
 				'</a></td><td data-tooltip="Prévisualiser l\'exercice."><i id="' + id + '" class="eye icon icone_preview" ></td></tr>'
       } else {
         liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
 			id +
 			'</span></td> <td>' +
-			`<a style="line-height:2.5" class="lien_id_exercice" numero="${exercice_tmp}">${dictionnaireDesExercices[exercice_tmp].annee} - ${exercice_tmp.substr(9, 2)} - ${dictionnaireDesExercices[exercice_tmp].lieu} - Ex ${dictionnaireDesExercices[exercice_tmp].numeroExercice}</a> ${liste_html_des_tags(dictionnaireDesExercices[exercice_tmp])} </br>\n` +
+			`<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice_tmp}">${dictionnaireDesExercices[exercice_tmp].annee} - ${exercice_tmp.substr(9, 2)} - ${dictionnaireDesExercices[exercice_tmp].lieu} - Ex ${dictionnaireDesExercices[exercice_tmp].numeroExercice}</a> ${liste_html_des_tags(dictionnaireDesExercices[exercice_tmp])} </br>\n` +
 			'</td><td><i id=' + id + ' class="eye icon icone_preview"></i></td></tr>'
       }
     }
