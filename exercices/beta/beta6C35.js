@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint, objet,jour, liste_de_question_to_contenu, combinaison_listes,prenomF,prenomM,objetF,objetM } from "/modules/outils.js"
+import {choice, randint, objet,jour, liste_de_question_to_contenu, combinaison_listes,prenomF,prenomM,objetF,objetM } from "/modules/outils.js"
 import {point,polygone,segment,mathalea2d,texteParPosition} from "/modules/2d.js"
 
 /**
@@ -33,7 +33,7 @@ export default function ModelisationProblemes() {
       b = randint(15,50);
       c = randint(3,8);
       d = c*randint(7,15);
-      o = choice(1,2);
+      o = choice([1,2]);
 
       switch (liste_type_de_questions[i]) { 
 
@@ -186,7 +186,7 @@ export default function ModelisationProblemes() {
         let B6 = point(28,-6);
         let C6 = point(28,-2);
         let D6 = point(16,-2);
-        let p2 = polygone(A6,B6,C6,D6);
+        let p6 = polygone(A6,B6,C6,D6);
         let traitHorizontal6 = segment(point(16,-4),point(28, -4));
         let traitVertical6 = segment(point(22,-4),point(22,-2));
         let tb6 = texteParPosition(d,22, -5);
