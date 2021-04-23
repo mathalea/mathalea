@@ -1733,10 +1733,10 @@ export function minToHour(minutes) {
 */
 export function prenomF(n = 1) {
 	if (n == 1) {
-		return choice(['Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine'])
+		return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
 	}
 	else {
-		return shuffle(['Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
+		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine']).slice(0, n)
 	}
 }
 
@@ -1746,10 +1746,10 @@ export function prenomF(n = 1) {
 */
 export function prenomM(n = 1) {
 	if (n == 1) {
-		return choice(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude'])
+		return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
 	}
 	else {
-		return shuffle(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude']).slice(0, n)
+		return shuffle(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
 	}
 }
 
@@ -1762,9 +1762,34 @@ export function prenom(n = 1) {
 		return choice([prenomF(), prenomM()])
 	}
 	else {
-		return shuffle(['Rmi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude', 'Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
+		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine','Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
 	}
 }
+
+
+/**
+* Renvoie un petit objet féminin au hasard 
+* @Auteur Mireille Gain
+*/
+export function objetF() {
+	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images'])
+	}
+
+	/**
+* Renvoie un petit objet masculin au hasard 
+* @Auteur Mireille Gain
+*/
+export function objetM() {
+	return choice(['auto-collants','bonbons','cahiers','livres','stylos'])
+	}
+
+		/**
+* Renvoie un petit objet au hasard 
+* @Auteur Mireille Gain
+*/
+export function objet() {
+	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images','auto-collants','bonbons','cahiers','livres','stylos'])
+	}
 
 /**
  * Définit l'objet personne
@@ -1796,6 +1821,7 @@ class Personne {
 		}
 	}
 }
+
 /**
  * crée une instance de la classe Personne
  * @Auteur Jean-Claude Lhote
@@ -1804,6 +1830,7 @@ class Personne {
 export function personne({ prenom = '', genre = '', pronom = '' } = {}) {
 	return new Personne({ prenom: prenom, genre: genre, pronom: pronom })
 }
+
 /**
  * Crée un tableau de n objet de la classe Personne
  * @Auteur Jean-Claude Lhote
@@ -1907,6 +1934,25 @@ export function un_mois_de_temperature(base, mois, annee) {
 export function nom_du_mois(n) {
 	let mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 	return mois[n - 1]
+}
+
+/**
+* Renvoie le nom du jour
+* @param n quantième du jour
+* @auteur Mireille Gain
+*/
+export function nom_du_jour(n) {
+	let jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+	return jour[n - 1]
+}
+
+/**
+* Renvoie le nom d'un jour au hasard
+* @param n quantième du jour
+* @auteur Mireille Gain
+*/
+export function jour() {
+	return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
 // Fonctions LaTeX
