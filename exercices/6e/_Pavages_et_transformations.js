@@ -1,4 +1,4 @@
-import { translation, mathalea2d, polygone, point, segment, rotation, homothetie, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee } from '../../modules/2d.js';
+import { translation, mathalea2d, polygone, point, segment, rotation, homothetie, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,image_point_par_transformation,texte_en_couleur_et_gras,num_alpha} from "/modules/outils.js"
 
@@ -33,34 +33,47 @@ export default function Pavages_et_transformations() {
 		let paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]];
         let quad=[],numeros=[],quadInitial,quad1,quad2,quad3
 		let mediatrice1,mediatrice2,mediatrice3,centre1,centre2,centre3,arc1,arc2,arc3,rayon11,rayon12,rayon21,rayon22,rayon31,rayon32
+		let vecteur1,vecteur2,vecteur3,vector1,vector2,vector3,origine1,origine2,origine3
+		let B,C,D
 		let texte="", texte_corr="";
 		let tabfigA = [], tabfigB = [], tabfigC = [], tabfigD = [];
 		let pave = [];
+		let choixPave;
 		switch (parseInt(this.sup)) {
 			case 1:
-				pave = paves[0]; // pavages adaptés à symétrie axiale (carrés)
+			 
+				choixPave=0 // pavages adaptés à symétrie axiale (carrés)
 				break;
 			case 2:
-				pave = paves[randint(0, 7)]; // pavages adaptés à symétrie centrale (tous)
+				choixPave=randint(0,7)// pavages adaptés à symétrie centrale (tous)
 				break;
 			case 3:
-				pave = paves[randint(0, 7)]; //pavages adaptés à translation (tous)
+				choixPave=randint(0,7); //pavages adaptés à translation (tous)
 				break;
 			case 4:
-				pave = paves[0]; // pavages adaptés à rotation (carrés  )
+				choixPave=0 ; // pavages adaptés à rotation (carrés  )
+				break;
 		}
+		pave=paves[choixPave]
 
 		let nx = pave[0], ny = pave[1], xB = pave[2], yB = pave[3], xC = pave[4], yC = pave[5], xD = pave[6], yD = pave[7], Zoom = pave[8], Angle = pave[9];
 		let A=point(0,0)
-        let B=similitude(point(xB,yB),A,Angle,22/Zoom)
-        let C=similitude(point(xC,yC),A,Angle,22/Zoom)
-        let D=similitude(point(xD,yD),A,Angle,22/Zoom)
+		if (choixPave!=0&&choixPave!=6&&choixPave!=7){
+        	B=similitude(point(xB,yB),A,Angle,22/Zoom)
+        	C=similitude(point(xC,yC),A,Angle,22/Zoom)
+        	D=similitude(point(xD,yD),A,Angle,22/Zoom)
 		xB=B.x
 		yB=B.y
 		xC=C.x
 		yC=C.y
 		xD=D.x
 		yD=D.y
+		}
+		else {
+			B=point(xB,yB)
+			C=point(xC,yC)
+			D=point(xD,yD)
+		}
         quadInitial=polygone(A,B,C,D)
         let xAI = xB + xC - xD;
 		let yAI = yB + yC - yD;
@@ -125,6 +138,7 @@ export default function Pavages_et_transformations() {
 							mediatrice1.epaisseur=2
 							mediatrice1.isVisible=true
 							quad[numA].couleurDeRemplissage='green'
+							quad[numA].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -160,6 +174,8 @@ export default function Pavages_et_transformations() {
 							mediatrice2.epaisseur=2
 							mediatrice2.isVisible=true
 							quad[numD].couleurDeRemplissage='red'
+							quad[numD].opaciteDeRemplissage=0.6
+	
 							break;
 						}
 					}
@@ -194,6 +210,7 @@ export default function Pavages_et_transformations() {
 							mediatrice3.epaisseur=2
 							mediatrice3.isVisible=true
 							quad[numC].couleurDeRemplissage='blue'
+							quad[numC].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -223,13 +240,13 @@ export default function Pavages_et_transformations() {
 				); 
 				quad1=translation(quad[num1],vecteur(0,0))
 				quad1.couleurDeRemplissage='green'
-				quad1.opaciteDeRemplissage=0.1
+				quad1.opaciteDeRemplissage=0.3
 				quad2=translation(quad[num2],vecteur(0,0))
 				quad2.couleurDeRemplissage='red'
-				quad2.opaciteDeRemplissage=0.1
+				quad2.opaciteDeRemplissage=0.3
 				quad3=translation(quad[num3],vecteur(0,0))
 				quad3.couleurDeRemplissage='blue'
-				quad3.opaciteDeRemplissage=0.1
+				quad3.opaciteDeRemplissage=0.3
 				objets_correction.push(quad1,quad2,quad3)
 				texte_corr += mathalea2d({
 					xmin:Xmin,
@@ -263,6 +280,7 @@ export default function Pavages_et_transformations() {
 							ya = tabfigA[indexA][1];
 							centre1=point(xmil1,ymil1,s0,'left')
 							quad[numA].couleurDeRemplissage='green'
+							quad[numA].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -296,7 +314,8 @@ export default function Pavages_et_transformations() {
 							yb = tabfigA[indexD][1];
 							centre2=point(xmil2,ymil2,s1,'left')
 							quad[numD].couleurDeRemplissage='red'
-
+							quad[numD].opaciteDeRemplissage=0.6
+	
 							break;
 						}
 					}
@@ -332,6 +351,7 @@ export default function Pavages_et_transformations() {
 							yc = tabfigA[indexC][1];
 							centre3=point(xmil3,ymil3,s2,'left')
 							quad[numC].couleurDeRemplissage='blue'
+							quad[numC].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -363,13 +383,13 @@ export default function Pavages_et_transformations() {
 				); 
 				quad1=translation(quad[num1],vecteur(0,0))
 				quad1.couleurDeRemplissage='green'
-				quad1.opaciteDeRemplissage=0.1
+				quad1.opaciteDeRemplissage=0.3
 				quad2=translation(quad[num2],vecteur(0,0))
 				quad2.couleurDeRemplissage='red'
-				quad2.opaciteDeRemplissage=0.1
+				quad2.opaciteDeRemplissage=0.3
 				quad3=translation(quad[num3],vecteur(0,0))
 				quad3.couleurDeRemplissage='blue'
-				quad3.opaciteDeRemplissage=0.1
+				quad3.opaciteDeRemplissage=0.3
 				arc1=arc(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1,180)
 				rayon11=segment(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1)
 				rayon12=rotation(rayon11,centre1,180)
@@ -422,6 +442,14 @@ export default function Pavages_et_transformations() {
 							num1 = tabfigA[j][2];
 							xa = tabfigA[indexA][0];
 							ya = tabfigA[indexA][1];
+							origine1=point(tabfigB[iB1][0],tabfigB[iB1][1])
+							vector1=vecteur(origine1,point(tabfigB[iB2][0],tabfigB[iB2][1]))
+							vecteur1=vector1.representant(origine1)
+							vecteur1.color='green'
+							vecteur1.epaisseur=2
+							vecteur1.pointilles=2
+							quad[numA].couleurDeRemplissage='green'
+							quad[numA].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -452,8 +480,16 @@ export default function Pavages_et_transformations() {
 						if (punto[0] == tabfigB[j][0] && punto[1] == tabfigB[j][1]) {
 							trouver = true;
 							num2 = tabfigB[j][2];
-							xb = tabfigA[indexD][0];
-							yb = tabfigA[indexD][1];
+							xb = tabfigD[indexD][0];
+							yb = tabfigD[indexD][1];
+							origine2=point(tabfigC[iC1][0],tabfigC[iC1][1])
+							vector2=vecteur(origine2,point(tabfigA[iA1][0],tabfigA[iA1][1]))
+							vecteur2=vector2.representant(origine2)
+							vecteur2.color='red'
+							vecteur2.epaisseur=2
+							vecteur2.pointilles=2
+							quad[numD].couleurDeRemplissage='red'
+							quad[numD].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -486,8 +522,16 @@ export default function Pavages_et_transformations() {
 						if (punto[0] == tabfigA[j][0] && punto[1] == tabfigA[j][1]) {
 							trouver = true;
 							num3 = tabfigA[j][2];
-							xc = tabfigA[indexC][0];
-							yc = tabfigA[indexC][1];
+							xc = tabfigC[indexC][0];
+							yc = tabfigC[indexC][1];
+							origine3=point(tabfigC[iD1][0],tabfigC[iD1][1])
+							vector3=vecteur(origine3,point(tabfigA[iB3][0],tabfigA[iB3][1]))
+							vecteur3=vector3.representant(origine3)
+							vecteur3.color='blue'
+							vecteur3.epaisseur=2
+							vecteur3.pointilles=2
+							quad[numC].couleurDeRemplissage='blue'
+							quad[numC].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -503,6 +547,50 @@ export default function Pavages_et_transformations() {
 				}
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, `blue`);
+
+				objets_enonce.push(vecteur1,vecteur2,vecteur3);
+				objets_correction.push(vecteur1,vecteur2,vecteur3
+				,translationAnimee(quad[numA],vector1,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),translationAnimee(quad[numD],vector2,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),translationAnimee(quad[numC],vector3,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+
+				texte += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_enonce
+				); 
+				quad1=translation(quad[num1],vecteur(0,0))
+				quad1.couleurDeRemplissage='green'
+				quad1.opaciteDeRemplissage=0.3
+				quad2=translation(quad[num2],vecteur(0,0))
+				quad2.couleurDeRemplissage='red'
+				quad2.opaciteDeRemplissage=0.3
+				quad3=translation(quad[num3],vecteur(0,0))
+				quad3.couleurDeRemplissage='blue'
+				quad3.opaciteDeRemplissage=0.3
+				rayon11=vector1.representant(point(xa,ya))
+				rayon11.color='green'
+				rayon11.epaisseur=2
+				rayon21=vector2.representant(point(xb,yb))
+				rayon21.color='red'
+				rayon21.epaisseur=2
+				rayon31=vector3.representant(point(xc,yc))
+				rayon31.color='blue'
+				rayon21.epaisseur=2
+				objets_correction.push(quad1,quad2,quad3,rayon11,rayon21,rayon31)
+				texte_corr += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_correction
+				); 
 
 
 				break;
@@ -524,6 +612,9 @@ export default function Pavages_et_transformations() {
 							num1 = tabfigD[j][2];
 							xa = tabfigA[indexA][0];
 							ya = tabfigA[indexA][1];
+							centre1=point(xmil1,ymil1,s0,'left')
+							quad[numA].couleurDeRemplissage='green'
+							quad[numA].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -536,8 +627,8 @@ export default function Pavages_et_transformations() {
 						punto = image_point_par_transformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, `green`);
-				texte_corr = num_alpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num1}.<br>`, `green`);
+				texte += num_alpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `green`);
+				texte_corr = num_alpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num1}.<br>`, `green`);
 
 				//deuxième question : centre B, rotation 90° sens horaire, une figure de tabfigD donne une figure de tabfigC
 				indexD = randint(0, nx * ny - 1);
@@ -554,6 +645,9 @@ export default function Pavages_et_transformations() {
 							num2 = tabfigC[j][2];
 							xb = tabfigA[indexD][0];
 							yb = tabfigA[indexD][1];
+							centre2=point(xmil2,ymil2,s1,'left')
+							quad[numD].couleurDeRemplissage='red'
+							quad[numD].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -566,8 +660,8 @@ export default function Pavages_et_transformations() {
 						punto = image_point_par_transformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `red`);
-				texte_corr += num_alpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num2}.<br>`, `red`);
+				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, `red`);
+				texte_corr += num_alpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num2}.<br>`, `red`);
 
 				//troisième question : centre B, rotation 90° sens anti-horaire, une figure de tabfigC donne une figure de tabfigD
 				indexC = randint(0, nx * ny - 1);
@@ -584,6 +678,9 @@ export default function Pavages_et_transformations() {
 							num3 = tabfigD[j][2];
 							xc = tabfigA[indexC][0];
 							yc = tabfigA[indexC][1];
+							centre3=point(xmil3,ymil3,s2,'left')
+							quad[numC].couleurDeRemplissage='blue'
+							quad[numC].opaciteDeRemplissage=0.6
 							break;
 						}
 					}
@@ -596,8 +693,67 @@ export default function Pavages_et_transformations() {
 						punto = image_point_par_transformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, `blue`);
-				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num3}.<br>`, `blue`);
+				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `blue`);
+				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, `blue`);
+
+				objets_enonce.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue'));
+				objets_correction.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue')
+				,rotationAnimee(quad[numA],centre1,-90,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,90,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,-90,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+
+				texte += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_enonce
+				); 
+				quad1=translation(quad[num1],vecteur(0,0))
+				quad1.couleurDeRemplissage='green'
+				quad1.opaciteDeRemplissage=0.3
+				quad2=translation(quad[num2],vecteur(0,0))
+				quad2.couleurDeRemplissage='red'
+				quad2.opaciteDeRemplissage=0.3
+				quad3=translation(quad[num3],vecteur(0,0))
+				quad3.couleurDeRemplissage='blue'
+				quad3.opaciteDeRemplissage=0.3
+				arc1=arc(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1,-90)
+				rayon11=segment(point(tabfigA[indexA][0],tabfigA[indexA][1]),centre1)
+				rayon12=rotation(rayon11,centre1,-90)
+				rayon11.pointilles=2
+				rayon12.pointilles=2
+				arc1.pointilles=2
+				arc1.epaisseur=2
+				arc1.color='green'
+				arc2=arc(point(tabfigD[indexD][0],tabfigD[indexD][1]),centre2,90)
+				rayon21=segment(point(tabfigD[indexD][0],tabfigD[indexD][1]),centre2)
+				rayon22=rotation(rayon21,centre2,90)
+				rayon21.pointilles=2
+				rayon22.pointilles=2
+				arc2.pointilles=2
+				arc2.epaisseur=2
+				arc2.color='red'
+				arc3=arc(point(tabfigC[indexC][0],tabfigC[indexC][1]),centre3,-90)
+				rayon31=segment(point(tabfigC[indexC][0],tabfigC[indexC][1]),centre3)
+				rayon32=rotation(rayon31,centre3,-90)
+				rayon31.pointilles=2
+				rayon32.pointilles=2
+				arc3.pointilles=2
+				arc3.epaisseur=2
+				arc3.color='blue'
+				objets_correction.push(quad1,quad2,quad3,arc1,arc2,arc3,rayon11,rayon12,rayon21,rayon22,rayon31,rayon32)
+				texte_corr += mathalea2d({
+					xmin:Xmin,
+					xmax:Xmax,
+					ymin:Ymin,
+					ymax:Ymax,
+					pixelsParCm:15,
+					scale:0.5,
+					mainlevee:false
+				},objets_correction
+				); 
 
 
 				break;
