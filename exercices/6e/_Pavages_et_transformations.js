@@ -1,4 +1,4 @@
-import { translation, mathalea2d, polygone, point, segment, rotation, homothetie, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js';
+import { translation, mathalea2d, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,image_point_par_transformation,texte_en_couleur_et_gras,num_alpha} from "/modules/outils.js"
 
@@ -23,7 +23,7 @@ export default function Pavages_et_transformations() {
 	//	this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 	this.liste_packages = 'tkz-euclide';
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelle_version = function () {
 		this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
         let objets_enonce=[];
@@ -31,7 +31,7 @@ export default function Pavages_et_transformations() {
 
 		//listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
 		let paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]];
-        let quad=[],numeros=[],quadInitial,quad1,quad2,quad3
+        let quad=[],quadInitial,quad1,quad2,quad3
 		let mediatrice1,mediatrice2,mediatrice3,centre1,centre2,centre3,arc1,arc2,arc3,rayon11,rayon12,rayon21,rayon22,rayon31,rayon32
 		let vecteur1,vecteur2,vecteur3,vector1,vector2,vector3,origine1,origine2,origine3
 		let B,C,D
