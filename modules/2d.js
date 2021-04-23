@@ -4234,7 +4234,7 @@ function HomothetieAnimee(
   };
 }
 export function homothetieAnimee(...args) {
-  return new HomothetieAnimee(...args);
+  return new DHomothetieAnimee(...args);
 }
 
 /**

@@ -31,7 +31,7 @@ export default function Pavages_et_transformations() {
 
 		//listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
 		let paves = [[5, 5, 4, 0, 4, 4, 0, 4, 22, 0], [5, 5, 6, 0, 8, 8, 0, 6, 40, -9], [5, 5, 8, 0, 4, 4, 2, 8, 30, -10], [5, 5, 4, 0, 6, 4, 0, 6, 28, -15], [4, 6, 8, 0, 7, 4, -1, 4, 32, 0], [5, 5, 8, 0, 4, 4, 0, 8, 40, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 15, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]];
-        let quad=[],numeros=[],quadInitial
+        let quad=[],numeros=[],quadInitial,quad1,quad2,quad3
 		let mediatrice1,mediatrice2,mediatrice3
 		let texte, texte_corr;
 		let tabfigA = [], tabfigB = [], tabfigC = [], tabfigD = [];
@@ -91,7 +91,7 @@ export default function Pavages_et_transformations() {
 			objets_correction.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',true))
         }
 
-
+		mathalea.fenetreMathalea2d=[-1,-1,nx*xAI+ny*xAJ,nx*yAI+ny*yAJ]
 		switch (parseInt(this.sup)) {
 			case 1: //symétrie axiale
 				// Première question : une figure type A par symétrie d'axe // à [BD] est une figure type A. le symétrique du sommet A est le sommet C
@@ -109,8 +109,9 @@ export default function Pavages_et_transformations() {
 							num1 = tabfigA[j][2];
 							xa = tabfigA[indexA][0];
 							ya = tabfigA[indexA][1];
-							mediatrice1=mediatrice(point(xa,ya),point(punto[0],punto[1]))
+							mediatrice1=mediatrice(point(xa,ya),point(punto[0],punto[1]),'(d_1)')
 							mediatrice1.color='green'
+							mediatrice1.epaisseur=2
 							mediatrice1.isVisible=true
 							quad[numA].couleurDeRemplissage='green'
 							break;
@@ -143,8 +144,9 @@ export default function Pavages_et_transformations() {
 							xb = tabfigD[indexD][0];
 							yb = tabfigD[indexD][1] - 4;
 							objets_enonce.push(tracePoint(point(xb,yb),point(punto[0],punto[1])))
-							mediatrice2=mediatrice(point(xb,yb+4),point(punto[0],punto[1]))
+							mediatrice2=mediatrice(point(xb,yb+4),point(punto[0],punto[1]),'(d_2)')
 							mediatrice2.color='red'
+							mediatrice2.epaisseur=2
 							mediatrice2.isVisible=true
 							quad[numD].couleurDeRemplissage='red'
 							break;
@@ -161,23 +163,24 @@ export default function Pavages_et_transformations() {
 				}
 				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, `red`);
 				texte_corr += num_alpha(1) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ porte le numéro ${num2}.<br>`, `red`);
-				// troisième question : une figure type C par symétrie d'axe // à [DC] est une figure type B. le symétrique du sommet C est le sommet C'
+				// troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
 				indexC = randint(0, nx * ny - 1);
 				numC = tabfigC[indexC][2];
-				let indexsym3 = randint(0, nx * ny - 1,indexC); // sert à choisir un axe [AC]. 
+				let indexsym3 = randint(0, 4,Math.floor(indexC/5))*5; // sert à choisir un axe [AC]. 
 				xmil3 = tabfigC[indexsym3][0]; // sert pour faire passer l'axe de symétrie.
 				ymil3 = tabfigC[indexsym3][1];
 				punto = image_point_par_transformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]);
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigB[j][0] && punto[1]-4 == tabfigB[j][1]) {
+						if (punto[0] == tabfigC[j][0] && punto[1] == tabfigC[j][1]) {
 							trouver = true;
 							num3 = tabfigB[j][2];
 							xc = tabfigC[indexC][0];
 							yc = tabfigC[indexC][1];
-							mediatrice3=mediatrice(point(xc,yc),point(punto[0],punto[1]))
+							mediatrice3=mediatrice(point(xc,yc),point(punto[0],punto[1]),'(d_3)')
 							mediatrice3.color='blue'
+							mediatrice3.epaisseur=2
 							mediatrice3.isVisible=true
 							quad[numC].couleurDeRemplissage='blue'
 							break;
@@ -185,8 +188,8 @@ export default function Pavages_et_transformations() {
 					}
 					if (trouver == false) {
 						indexC = randint(0, nx * ny - 1);
-						numC = tabfigB[indexC][2];
-						let indexsym3 = randint(0, nx * ny - 1,indexC); // sert à choisir un axe [AC]. 
+						numC = tabfigC[indexC][2];
+						let indexsym3 = randint(0, 4,Math.floor(indexC/5))*5; // sert à choisir un axe [AC]. 
 						xmil3 = tabfigC[indexsym3][0]; // sert pour faire passer l'axe de symétrie.
 						ymil3 = tabfigC[indexsym3][1];
 						punto = image_point_par_transformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]);
@@ -195,7 +198,8 @@ export default function Pavages_et_transformations() {
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, `blue`);
 				objets_enonce.push(mediatrice1,mediatrice2,mediatrice3)
-				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0s" dur="4s" id="vert" repeatcount="1"'),symetrieAnimee(quad[numD],mediatrice2,'begin="vert.end" dur="4s" id="rouge" repeatcount="1"'),symetrieAnimee(quad[numC],mediatrice3,'begin="rouge.end" dur="4s" id="bleu" repeatcount="1"'))
+				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1"'),symetrieAnimee(quad[numD],mediatrice2,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1"'),symetrieAnimee(quad[numC],mediatrice3,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1"'))
+
 				texte += mathalea2d({
 					xmin:-1,
 					xmax:nx*xAI+ny*xAJ,
@@ -206,10 +210,16 @@ export default function Pavages_et_transformations() {
 					mainlevee:false
 				},objets_enonce
 				); 
-				quad[num1].couleurDeRemplissage='green'
-				quad[num2].couleurDeRemplissage='red'
-				quad[num3].couleurDeRemplissage='blue'
-				objets_correction.push(quad[num1],quad[num2],quad[num3])
+				quad1=translation(quad[num1],vecteur(0,0))
+				quad1.couleurDeRemplissage='green'
+				quad1.opaciteDeRemplissage=0.1
+				quad2=translation(quad[num2],vecteur(0,0))
+				quad2.couleurDeRemplissage='red'
+				quad2.opaciteDeRemplissage=0.1
+				quad3=translation(quad[num3],vecteur(0,0))
+				quad3.couleurDeRemplissage='blue'
+				quad3.opaciteDeRemplissage=0.1
+				objets_correction.push(quad1,quad2,quad3)
 				texte_corr += mathalea2d({
 					xmin:-1,
 					xmax:nx*xAI+ny*xAJ,
