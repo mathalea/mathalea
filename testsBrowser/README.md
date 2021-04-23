@@ -20,3 +20,7 @@ En cas de pb ça throw une Error, sinon ça retourne une promesse résolue.
 
 On utilise pas mocha/chai ici pour ne pas alourdir et simplifier la syntaxe, il n'y a que du code [playwrigth](https://playwright.dev/docs/api/class-page/) à écrire.
 
+## utilisation
+
+`node testsBrowser/start.js --scenario 6C31.js`
+
