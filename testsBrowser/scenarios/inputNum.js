@@ -1,8 +1,4 @@
 const { dictionnaireDesExercicesAleatoires, dictionnaireDesExercicesQCM } = require('../esm/dictionnaires')
-const path = require('path')
-
-const logDir = path.join(__dirname, '..', '..', 'log')
-
 const prefs = require('prefs')
 
 /**
