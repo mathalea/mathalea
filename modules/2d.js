@@ -225,7 +225,7 @@ function TracePoint(...points) {
   };
   this.tikz = function () {
     let objetstikz = [], s1, s2, p1, p2, c
-    let tailletikz = this.taille * mathalea.scale / 40 ;
+    let tailletikz = this.taille * mathalea.scale / 20 ;
     for (let A of points) {
       if (A.constructor == Point) {
         if (this.style == 'x') {
