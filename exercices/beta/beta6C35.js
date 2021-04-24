@@ -80,7 +80,7 @@ export default function ModelisationProblemes() {
            th12 = texteParPosition(c1,9, 3);
 
            if (i == 7){
-            texte += mathalea2d(
+            texte += '<br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -119,7 +119,7 @@ export default function ModelisationProblemes() {
            th22 = texteParPosition('?',25, 3);
 
            if (i == 7){
-            texte += mathalea2d(
+            texte += '<br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -163,7 +163,7 @@ export default function ModelisationProblemes() {
            th35 = texteParPosition(c3,38, 6);
 
            if (i == 7){
-            texte += mathalea2d(
+            texte += '<br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -207,7 +207,7 @@ export default function ModelisationProblemes() {
            th45 = texteParPosition(c3,54, 6);
 
            if (i == 7){
-            texte += mathalea2d(
+            texte += '<br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -246,7 +246,7 @@ export default function ModelisationProblemes() {
              th52 = texteParPosition(c5,9, -3);
 
              if (i == 7){
-              texte += mathalea2d(
+              texte += '<br>' + mathalea2d(
                 {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
                 p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                 p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -283,7 +283,7 @@ export default function ModelisationProblemes() {
                th62 = texteParPosition(a5,25, -3);
 
                if (i == 7){
-                texte += mathalea2d(
+                texte += '<br>' + mathalea2d(
                   {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
                   p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                   p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -327,7 +327,7 @@ export default function ModelisationProblemes() {
                  th75 = texteParPosition('?',38, 0);
 
                  if (i == 7){
-                  texte += mathalea2d(
+                  texte += '<br>' + mathalea2d(
                     {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
                     p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                     p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -362,7 +362,7 @@ export default function ModelisationProblemes() {
                    th8 = texteParPosition(a7,51, -3);
                    th82 = texteParPosition('?',57, -3); 
                    if (i == 7){
-                    texte += mathalea2d(
+                    texte += '<br>' + mathalea2d(
                       {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
                       p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                       p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
