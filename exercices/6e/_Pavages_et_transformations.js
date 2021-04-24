@@ -232,7 +232,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -252,7 +253,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_correction
 				); 
@@ -365,8 +367,8 @@ export default function Pavages_et_transformations() {
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, `blue`);
 
-				objets_enonce.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue'));
-				objets_correction.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue')
+				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
+				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)
 				,rotationAnimee(quad[numA],centre1,180,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,180,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,180,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
 
 				texte += mathalea2d({
@@ -375,7 +377,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -413,7 +416,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_correction
 				); 
@@ -556,7 +560,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -586,6 +591,7 @@ export default function Pavages_et_transformations() {
 					ymax:Ymax,
 					pixelsParCm:15,
 					scale:0.3,
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_correction
 				); 
@@ -694,8 +700,8 @@ export default function Pavages_et_transformations() {
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, `blue`);
 
-				objets_enonce.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue'));
-				objets_correction.push(tracePoint(centre1,'green'),tracePoint(centre2,'red'),tracePoint(centre3,'blue'),labelPoint(centre1,'green'),labelPoint(centre2,'red'),labelPoint(centre3,'blue')
+				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
+				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)
 				,rotationAnimee(quad[numA],centre1,-90,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,90,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,-90,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
 
 				texte += mathalea2d({
@@ -704,7 +710,8 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.3,
+					scale:0.3,	
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -749,6 +756,7 @@ export default function Pavages_et_transformations() {
 					ymax:Ymax,
 					pixelsParCm:15,
 					scale:0.3,
+					optionsTikz:['every node/.style={scale=0.6}'],
 					mainlevee:false
 				},objets_correction
 				); 

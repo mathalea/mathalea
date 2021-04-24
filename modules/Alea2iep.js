@@ -1289,8 +1289,11 @@ export default function Alea2iep () {
     const H = projectionOrtho(C, d)
     if (H.x < D.x) {
       H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
-    } else {
+    } else if (H.x>D.x){
       H1 = pointSurSegment(H, D, 2)
+    }
+    else {
+      H1 = pointSurSegment(H,G,2)
     }
     const C1 = projectionOrtho(H1, droiteParPointEtParallele(C, d))
     // C1 est le point d'arrivée de l'équerre après avoir glissé

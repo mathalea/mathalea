@@ -75,8 +75,8 @@ let anim;
     ) {
       anim=new Alea2iep()
       anim.equerreZoom(150)
-      objets_enonce.splice(0)
-      objets_correction.splice(0)
+      objets_enonce.length=0
+      objets_correction.length=0
       if (this.sup == 2)
         k = 0.8;
       else
