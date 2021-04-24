@@ -39,7 +39,7 @@ export default function ModelisationProblemes() {
   let d7 = c7*randint(7,15);
   let o = choice([1,2]);
 
-    for (let i = 0, texte, schema, texte_corr, A, B, C, D, p, traitHorizontal, traitVertical, tb, th1, th2, cpt = 0; i < this.nb_questions && cpt < 50;) {  
+    for (let i = 0, texte, schema, texte_corr, A, B, C, D, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5, cpt = 0; i < this.nb_questions && cpt < 50;) {  
 
       texte = `` 
       schema = ``
@@ -70,7 +70,7 @@ export default function ModelisationProblemes() {
            th2 = texteParPosition(c1,9, 3);
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
           );  
 
         break;
@@ -99,7 +99,7 @@ export default function ModelisationProblemes() {
            th2 = texteParPosition('?',25, 3);
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
           );  
         break;
 
@@ -119,13 +119,19 @@ export default function ModelisationProblemes() {
            D = point(32,4);
            p = polygone(A,B,C,D);
            traitHorizontal = segment(point(32,2),point(44, 2));
-           traitVertical = segment(point(38,2),point(38,4));
+           traitHorizontal2 = segment(point(32,5),point(44, 5));
+           traitVertical = segment(point(34,2),point(34,4));
+           traitVertical2 = segment(point(36,2),point(36,4));
+           traitVertical3 = segment(point(42,2),point(42,4));
            tb = texteParPosition(d3,38, 1);
-           th1 = texteParPosition('?',35, 3);
-           th2 = texteParPosition('***',41, 3);
+           th1 = texteParPosition('?',33, 3);
+           th2 = texteParPosition('?',35, 3);
+           th3 = texteParPosition('. . .',39, 3);
+           th4 = texteParPosition('?',43, 3);
+           th5 = texteParPosition(c3,38, 6);
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
           );  
         break;
           
@@ -145,13 +151,20 @@ export default function ModelisationProblemes() {
            D = point(48,4);
            p = polygone(A,B,C,D);
            traitHorizontal = segment(point(48,2),point(60, 2));
-           traitVertical = segment(point(54,2),point(54,4));
+           traitHorizontal2 = segment(point(48,5),point(60, 5));
+           traitVertical = segment(point(50,2),point(50,4));
+           traitVertical2 = segment(point(52,2),point(52,4));
+           traitVertical3 = segment(point(58,2),point(58,4));
            tb = texteParPosition('?',54, 1);
-           th1 = texteParPosition(b3,51, 3);
-           th2 = texteParPosition(c3,57, 3);
+           th1 = texteParPosition(b3,49, 3);
+           th2 = texteParPosition(b3,51, 3);
+           th3 = texteParPosition('. . .',55, 3);
+           th4 = texteParPosition(b3,59, 3);
+           th5 = texteParPosition(c3,54, 6);
+           
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical,  traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
           );  
           break;
 
@@ -178,7 +191,7 @@ export default function ModelisationProblemes() {
              th2 = texteParPosition(c5,9, -3);
 
              schema += mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
             );  
         break;
 
@@ -204,7 +217,7 @@ export default function ModelisationProblemes() {
                th2 = texteParPosition(a5,25, -3);
 
                schema += mathalea2d(
-                {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+                {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
               );  
               break;
 
@@ -224,13 +237,19 @@ export default function ModelisationProblemes() {
                  D = point(32,-2);
                  p = polygone(A,B,C,D);
                  traitHorizontal = segment(point(32,-4),point(44, -4));
-                 traitVertical = segment(point(38,-4),point(38,-2));
+                 traitHorizontal2 = segment(point(32,-1),point(44, -1));
+                 traitVertical = segment(point(34,-4),point(34,-2));
+                 traitVertical2 = segment(point(36,-4),point(36,-2));
+                 traitVertical3 = segment(point(42,-4),point(42,-2));
                  tb = texteParPosition(d7,38, -5);
-                 th1 = texteParPosition(c7,35, -3);
-                 th2 = texteParPosition('***',41, -3);
+                 th1 = texteParPosition(c7,33, -3);
+                 th2 = texteParPosition(c7,35, -3);
+                 th3 = texteParPosition('. . .',39, -3);
+                 th4 = texteParPosition(c7,43, -3);
+                 th5 = texteParPosition('?',38, 0);
 
                  schema += mathalea2d(
-                  {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+                  {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
                 );  
 
         break;
@@ -255,7 +274,7 @@ export default function ModelisationProblemes() {
                    th1 = texteParPosition(a7,51, -3);
                    th2 = texteParPosition('?',57, -3); 
                   schema += mathalea2d(
-                    {xmin: -1, ymin: -7, xmax:61, ymax: 4.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th1, 
+                    {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
                   );  
         break;
 
