@@ -14,7 +14,6 @@ export default function Pavages_et_transformations() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 
 	//	this.titre = "Trouver l'image d'une figure par une symétrie centrale";
-	this.pas_de_version_LaTeX = true;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -22,7 +21,6 @@ export default function Pavages_et_transformations() {
 	this.nb_cols_corr = 1;
 	//	this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-	this.liste_packages = 'tkz-euclide';
 	this.nouvelle_version = function () {
 		this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
