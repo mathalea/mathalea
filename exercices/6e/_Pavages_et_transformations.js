@@ -577,7 +577,7 @@ export default function Pavages_et_transformations() {
 				rayon21.epaisseur=2
 				rayon31=vector3.representant(point(xc,yc))
 				rayon31.color='blue'
-				rayon21.epaisseur=2
+				rayon31.epaisseur=2
 				objets_correction.push(quad1,quad2,quad3,rayon11,rayon21,rayon31)
 				texte_corr += mathalea2d({
 					xmin:Xmin,
