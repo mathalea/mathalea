@@ -232,7 +232,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -413,7 +413,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_correction
 				); 
@@ -556,7 +556,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -585,7 +585,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_correction
 				); 
@@ -704,7 +704,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_enonce
 				); 
@@ -748,7 +748,7 @@ export default function Pavages_et_transformations() {
 					ymin:Ymin,
 					ymax:Ymax,
 					pixelsParCm:15,
-					scale:0.5,
+					scale:0.3,
 					mainlevee:false
 				},objets_correction
 				); 
