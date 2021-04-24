@@ -72,11 +72,11 @@ module.exports = {
     // https://webpack.js.org/configuration/module/#modulerules
     rules: [
       // le js doit passer par babel
-	   {
+      {
         test: /\.json$/,
         loader: 'json-loader'
       },
-	  {
+      {
         test: /\\.(js|jsx)$/,
         // mais pas le js venant des node_modules
         exclude: /node_modules\//,

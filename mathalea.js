@@ -1,4 +1,4 @@
-/* global mathalea sortie_html est_diaporama scratchblocks iepLoad Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
+/* global mathalea sortie_html est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modal_youtube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
@@ -6,10 +6,10 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exerci
 
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
+import iepLoadPromise from 'instrumenpoche'
 
 import 'katex/dist/katex.min.css'
 import './style/style_mathalea.css'
@@ -191,15 +191,14 @@ function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin katex, i
       })
   }
   if (besoinIEP) {
-    loadScript('https://instrumenpoche.sesamath.net/iep/js/iepLoad.min.js')
-      .then(() => {
-        for (const id of window.listeAnimationsIepACharger) {
-          const element = document.getElementById(`IEPContainer${id}`)
-          const xml = window.listeScriptsIep[id]
-          iepLoad(element, xml, { zoom: true, autostart: false })
-          // 2021-04 autostart semble non fonctionnel
-        }
-      })
+    for (const id of window.listeAnimationsIepACharger) {
+      const element = document.getElementById(`IEPContainer${id}`)
+      element.style.marginTop = '30px'
+      const xml = window.listeScriptsIep[id]
+      iepLoadPromise(element, xml, { zoom: true, autostart: false }).then(iepApp => {
+        // la figure est chargée
+      }).catch(error => { console.log(error) })
+    }
   }
 }
 
@@ -335,11 +334,14 @@ function mise_a_jour_du_code () {
       fin_de_l_URL += `&serie=${mathalea.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
-      new Clipboard('.url', {
-        text: function () {
-          return url
-        }
+      const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
+      clipboardURL.on('success', function (e) {
+        console.info(e.text + ' copié dans le presse-papier.')
       })
+      const btnCopieURL = document.getElementById('btnCopieURL')
+      if (btnCopieURL) {
+        btnCopieURL.classList.remove('disabled')
+      }
     }
   })()
   // mise en évidence des exercices sélectionnés.
@@ -1683,14 +1685,9 @@ window.addEventListener('DOMContentLoaded', () => {
 &lt;/iframe></code><pre></p>
         <button id="btnEmbedCode" style="margin:10px" class="btn ui toggle button labeled icon url"
         data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le code HTML</button></div>`)
-      new Clipboard('#btnEmbedCode', {
-        text: function () {
-          return `<iframe width="660"
-height="315" 
-src="${window.location.href.replace('exercice.html', 'exo.html')}"
-frameborder="0" >
-</iframe>`
-        }
+      const clipboard = new Clipboard('#btnEmbedCode', { text: () => `<iframe\n\t width="660" height="315"\n\t src="${window.location.href.replace('exercice.html', 'exo.html')}"\n\tframeborder="0" >\n</iframe>` })
+      clipboard.on('success', function (e) {
+        console.info(e.text + ' copié dans le presse-papier.')
       })
       $('.ui.button.toggle').state() // initialise le bouton
       $('#ModalEmbed').modal('show')
