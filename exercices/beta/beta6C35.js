@@ -20,6 +20,7 @@ export default function ModelisationProblemes() {
 
   this.nouvelle_version = function () {
     this.liste_questions = []; 
+    this.tableau_schema = [];
     this.liste_corrections = []; 
 
     let type_de_questions_disponibles=[1, 2, 3, 4, 5, 6, 7, 8];
@@ -63,16 +64,19 @@ export default function ModelisationProblemes() {
            C = point(12,4);
            D = point(0,4);
            p = polygone(A,B,C,D);
+           p.couleurDeRemplissage = 'green';
            traitHorizontal = segment(point(0,2),point(12, 2));
            traitVertical = segment(point(6,2),point(6,4));
            tb = texteParPosition('?',6, 1);
            th1 = texteParPosition(b1,3, 3);
            th2 = texteParPosition(c1,9, 3);
+           tb.color = 'white';
+           th1.color = 'white';
+           th2.color = 'white';
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
           );  
-
         break;
 
         case 2:
@@ -92,14 +96,18 @@ export default function ModelisationProblemes() {
            C = point(28,4);
            D = point(16,4);
            p = polygone(A,B,C,D);
+           p.couleurDeRemplissage = 'green';
            traitHorizontal = segment(point(16,2),point(28, 2));
            traitVertical = segment(point(22,2),point(22,4));
            tb = texteParPosition(b1,22, 1);
            th1 = texteParPosition(c1,19, 3);
            th2 = texteParPosition('?',25, 3);
+           tb.color = 'white';
+           th1.color = 'white';
+           th2.color = 'white';
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
           );  
         break;
 
@@ -118,8 +126,10 @@ export default function ModelisationProblemes() {
            C = point(44,4);
            D = point(32,4);
            p = polygone(A,B,C,D);
+           p.couleurDeRemplissage = 'red';
            traitHorizontal = segment(point(32,2),point(44, 2));
            traitHorizontal2 = segment(point(32,5),point(44, 5));
+           traitHorizontal2.styleExtremites = '<->';
            traitVertical = segment(point(34,2),point(34,4));
            traitVertical2 = segment(point(36,2),point(36,4));
            traitVertical3 = segment(point(42,2),point(42,4));
@@ -131,7 +141,7 @@ export default function ModelisationProblemes() {
            th5 = texteParPosition(c3,38, 6);
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
           );  
         break;
           
@@ -150,8 +160,10 @@ export default function ModelisationProblemes() {
            C = point(60,4);
            D = point(48,4);
            p = polygone(A,B,C,D);
+           p.couleurDeRemplissage = 'red';
            traitHorizontal = segment(point(48,2),point(60, 2));
            traitHorizontal2 = segment(point(48,5),point(60, 5));
+           traitHorizontal2.styleExtremites = '<->';
            traitVertical = segment(point(50,2),point(50,4));
            traitVertical2 = segment(point(52,2),point(52,4));
            traitVertical3 = segment(point(58,2),point(58,4));
@@ -164,7 +176,7 @@ export default function ModelisationProblemes() {
            
 
            schema += mathalea2d(
-            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical,  traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
+            {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical,  traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
           );  
           break;
 
@@ -184,14 +196,18 @@ export default function ModelisationProblemes() {
              C = point(12,-2);
              D = point(0,-2);
              p = polygone(A,B,C,D);
+             p.couleurDeRemplissage = 'blue';
              traitHorizontal = segment(point(0,-4),point(12, -4));
              traitVertical = segment(point(6,-4),point(6,-2));
              tb = texteParPosition(b5,6, -5);
              th1 = texteParPosition('?',3, -3);
              th2 = texteParPosition(c5,9, -3);
+             tb.color = 'white';
+             th1.color = 'white';
+             th2.color = 'white';
 
              schema += mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
             );  
         break;
 
@@ -210,14 +226,18 @@ export default function ModelisationProblemes() {
                C = point(28,-2);
                D = point(16,-2);
                p = polygone(A,B,C,D);
+               p.couleurDeRemplissage = 'blue';
                traitHorizontal = segment(point(16,-4),point(28, -4));
                traitVertical = segment(point(22,-4),point(22,-2));
                tb = texteParPosition('?',22, -5);
                th1 = texteParPosition(b5,19, -3);
                th2 = texteParPosition(a5,25, -3);
+               tb.color = 'white';
+               th1.color = 'white';
+               th2.color = 'white';
 
                schema += mathalea2d(
-                {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
+                {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
               );  
               break;
 
@@ -236,8 +256,10 @@ export default function ModelisationProblemes() {
                  C = point(44,-2);
                  D = point(32,-2);
                  p = polygone(A,B,C,D);
+                 p.couleurDeRemplissage = 'yellow';
                  traitHorizontal = segment(point(32,-4),point(44, -4));
                  traitHorizontal2 = segment(point(32,-1),point(44, -1));
+                 traitHorizontal2.styleExtremites = '<->';
                  traitVertical = segment(point(34,-4),point(34,-2));
                  traitVertical2 = segment(point(36,-4),point(36,-2));
                  traitVertical3 = segment(point(42,-4),point(42,-2));
@@ -249,7 +271,7 @@ export default function ModelisationProblemes() {
                  th5 = texteParPosition('?',38, 0);
 
                  schema += mathalea2d(
-                  {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
+                  {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitHorizontal2, traitVertical, traitVertical2, traitVertical3, tb, th1, th2, th3, th4, th5,
                 );  
 
         break;
@@ -268,13 +290,14 @@ export default function ModelisationProblemes() {
                    C = point(60,-2);
                    D = point(48,-2);
                    p = polygone(A,B,C,D);
+                   p.couleurDeRemplissage = 'yellow';
                    traitHorizontal = segment(point(48,-4),point(60, -4));
                    traitVertical = segment(point(54,-4),point(54,-2));
                    tb = texteParPosition(b7,54, -5);
                    th1 = texteParPosition(a7,51, -3);
                    th2 = texteParPosition('?',57, -3); 
                   schema += mathalea2d(
-                    {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 10, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
+                    {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, p, traitHorizontal, traitVertical, tb, th1, th2, 
                   );  
         break;
 
@@ -284,6 +307,7 @@ export default function ModelisationProblemes() {
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.liste_questions.push(texte);
+          this.tableau_schema.push(schema);
           this.liste_corrections.push(schema);
           i++;
         }
