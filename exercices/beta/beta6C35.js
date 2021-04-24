@@ -26,17 +26,17 @@ export default function ModelisationProblemes() {
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
   
   let b1 = randint(15,50);
-  let c1 = randint(3,8);
+  let c1 = randint(5,9);
   let b3 = randint(15,50);
-  let c3 = randint(3,8);
-  let d3 = c3*randint(7,15);
+  let c3 = randint(5,9);
+  let d3 = c3*randint(7,13);
   let a5 = randint(9,13);
   let b5 = randint(15,50);
-  let c5 = randint(3,8);  
+  let c5 = randint(5,9);  
   let a7 = randint(9,13);
   let b7 = randint(15,50);
-  let c7 = randint(3,8);
-  let d7 = c7*randint(7,15);
+  let c7 = randint(5,9);
+  let d7 = c7*randint(7,13);
   let o = choice([1,2]);
   let A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8,
   p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
