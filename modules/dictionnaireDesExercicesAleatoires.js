@@ -184,10 +184,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Trouver les coordonnées de l'image d'un punto par une transformation du plan",
         "url": "/exercices/3e/3G10-1.js"
     },
-    "3G10-1.bak": {
-        "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
-        "url": "/exercices/3e/3G10-1.bak.js"
-    },
     "3G10-2": {
         "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
         "url": "/exercices/3e/3G10-2.js"
@@ -205,7 +201,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3G12.js"
     },
     "3G12-1": {
-        "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage (sortie Latex Impossible)",
+        "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
         "url": "/exercices/3e/3G12-1.js"
     },
     "3G20": {
@@ -493,7 +489,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/4e/4G11.js"
     },
     "4G11-1": {
-        "titre": "Trouver l'image d'une figure par une translation dans un pavage (sortie Latex impossible)",
+        "titre": "Trouver l'image d'une figure par une translation dans un pavage",
         "url": "/exercices/4e/4G11-1.js"
     },
     "4G20": {
@@ -685,7 +681,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/5e/5G12.js"
     },
     "5G12-1": {
-        "titre": "Symétrique d'une figure dans un pavage avec correction animée (sortie Latex Impossible)",
+        "titre": "Symétrique d'une figure dans un pavage",
         "url": "/exercices/5e/5G12-1.js"
     },
     "5G20": {
@@ -1149,7 +1145,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/6e/6G25-1.js"
     },
     "6G25-2": {
-        "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré (sortie Latex Impossible)",
+        "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré",
         "url": "/exercices/6e/6G25-2.js"
     },
     "6G25-3": {

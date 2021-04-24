@@ -7,7 +7,7 @@ import Pavages_et_transformations from '/exercices/6e/_Pavages_et_transformation
  */
 export default function Pavages_et_translation() {
   Pavages_et_transformations.call(this);
-  this.titre = "Trouver l'image d'une figure par une translation dans un pavage (sortie Latex impossible)";
+  this.titre = "Trouver l'image d'une figure par une translation dans un pavage";
   this.sup = 3;
   this.besoin_formulaire_numerique = false;
 }
