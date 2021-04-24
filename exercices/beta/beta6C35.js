@@ -92,6 +92,7 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }     
 
+        texte_corr += `Cet énoncé est associé avec le premier schéma vert.`
         break;
 
         case 2:
@@ -129,8 +130,9 @@ export default function ModelisationProblemes() {
               p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
               p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
-              ); }      
+              ); }     
 
+              texte_corr += `Cet énoncé est associé avec le deuxième schéma vert.`
         break;
 
         case 3:
@@ -175,6 +177,7 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }        
 
+          texte_corr += `Cet énoncé est associé avec le premier schéma rouge.`
         break;
           
         case 4:
@@ -219,6 +222,7 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }      
 
+          texte_corr += `Cet énoncé est associé avec le deuxième schéma rouge.`
            
           break;
 
@@ -244,6 +248,9 @@ export default function ModelisationProblemes() {
              tb5 = texteParPosition(b5,6, -5);
              th5 = texteParPosition('?',3, -3);
              th52 = texteParPosition(c5,9, -3);
+             tb5.color = 'white';
+             th5.color = 'white';
+             th52.color = 'white';
 
              if (i == 7){
               texte += '<br>' + mathalea2d(
@@ -258,6 +265,7 @@ export default function ModelisationProblemes() {
                 p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                 ); }  
 
+                texte_corr += `Cet énoncé est associé avec le premier schéma bleu.`
         break;
 
           case 6:
@@ -281,6 +289,9 @@ export default function ModelisationProblemes() {
                tb6 = texteParPosition('?',22, -5);
                th6 = texteParPosition(b5,19, -3);
                th62 = texteParPosition(a5,25, -3);
+               tb6.color = 'white';
+               th6.color = 'white';
+               th62.color = 'white';
 
                if (i == 7){
                 texte += '<br>' + mathalea2d(
@@ -295,6 +306,7 @@ export default function ModelisationProblemes() {
                   p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                   ); }  
 
+                  texte_corr += `Cet énoncé est associé avec le deuxième schéma bleu.`
               break;
 
           case 7:
@@ -314,7 +326,7 @@ export default function ModelisationProblemes() {
                  p7 = polygone(A7,B7,C7,D7);
                  p7.couleurDeRemplissage = 'yellow';
                  traitHorizontal7 = segment(point(32,-4),point(44, -4));
-                 traitHorizontal72 = segment(point(32,-1),point(44, -1));
+                 traitHorizontal72 = segment(point(32,-1.3),point(44, -1.3));
                  traitHorizontal72.styleExtremites = '<->';
                  traitVertical7 = segment(point(34,-4),point(34,-2));
                  traitVertical72 = segment(point(36,-4),point(36,-2));
@@ -324,7 +336,7 @@ export default function ModelisationProblemes() {
                  th72 = texteParPosition(c7,35, -3);
                  th73 = texteParPosition('. . .',39, -3);
                  th74 = texteParPosition(c7,43, -3);
-                 th75 = texteParPosition('?',38, 0);
+                 th75 = texteParPosition('?',38, -0.8);
 
                  if (i == 7){
                   texte += '<br>' + mathalea2d(
@@ -338,6 +350,8 @@ export default function ModelisationProblemes() {
                     p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
                     p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                     ); }  
+
+                  texte_corr += `Cet énoncé est associé avec le premier schéma jaune.`
         break;
 
           case 8:
@@ -374,6 +388,7 @@ export default function ModelisationProblemes() {
                       p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                       ); }           
 
+                      texte_corr += `Cet énoncé est associé avec le deuxième schéma jaune.`
         break;
 
 
@@ -384,7 +399,7 @@ export default function ModelisationProblemes() {
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.liste_questions.push(texte);
-          this.liste_corrections.push(schemas);
+          this.liste_corrections.push(texte_corr);
           i++;
         }
         cpt++;
