@@ -83,7 +83,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -123,7 +124,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
           break
@@ -162,7 +164,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -202,7 +205,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
           break
@@ -241,7 +245,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -281,7 +286,8 @@ export default function TrianglesEgaux () {
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
-            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3
+            ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
+            scale: 0.5
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
           break
