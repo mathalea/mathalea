@@ -1652,6 +1652,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
+    "beta5G24-1": {
+        "titre": "Exercice exemple",
+        "url": "/exercices/5e/beta5G24-1.js"
+    },
     "beta6C33-1": {
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
