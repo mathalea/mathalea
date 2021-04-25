@@ -700,6 +700,14 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Déterminer la nature d'une droite remarquable",
         "url": "/exercices/5e/5G22.js"
     },
+    "5G24-1": {
+        "titre": "Triangles égaux et côtés homologues",
+        "url": "/exercices/5e/5G24-1.js"
+    },
+    "5G24-2": {
+        "titre": "Justifier que deux triangles sont égaux",
+        "url": "/exercices/5e/5G24-2.js"
+    },
     "5G30": {
         "titre": "Utiliser le codage pour décrire une figure",
         "url": "/exercices/5e/5G30.js"

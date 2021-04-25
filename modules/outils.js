@@ -553,6 +553,18 @@ export function shuffle(array) {
 	return array_bis;
 }
 
+/*
+* Mélange les lettres d'un string
+*
+* @Example
+* motMelange = shuffleLettres (mot)
+* @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+*/
+export function shuffleLettres(txt) {
+	const array = txt.split('')
+	return shuffle(array).join('')
+}
+
 
 
 /*
@@ -1622,7 +1634,7 @@ export function choisit_nombres_entre_m_et_n(m, n, combien, liste_a_eviter = [])
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @Auteur Jean-Claude Lhote
  */
-export function choisit_lettres_differentes(nombre, lettres_a_eviter, majuscule = true) {
+export function choisit_lettres_differentes(nombre, lettres_a_eviter = '', majuscule = true) {
 	let liste_a_eviter = [], lettres = []
 	for (let l of lettres_a_eviter) {
 		liste_a_eviter.push(l.charCodeAt(0) - 64)
