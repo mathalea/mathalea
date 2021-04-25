@@ -18,7 +18,7 @@ export default function ModelisationProblemes() {
   this.tailleDiaporama = 50; 
   this.video = "" ;
   this.correction_detaillee_disponible=true;
-  this.correction_detaillee=true;
+  this.correction_detaillee=false;
 
   this.nouvelle_version = function () {
   this.liste_questions = []; 
