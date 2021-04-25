@@ -18,7 +18,7 @@ export default function ModelisationProblemes() {
   this.tailleDiaporama = 50; 
   this.video = "" ;
   this.correction_detaillee_disponible=true;
-  this.correction_detaillee=false;
+  this.correction_detaillee=true;
 
   this.nouvelle_version = function () {
   this.liste_questions = []; 
@@ -80,6 +80,16 @@ export default function ModelisationProblemes() {
            th1 = texteParPosition(b1,3, 3);
            th12 = texteParPosition(c1,9, 3);
 
+
+           texte_corr += `Cet énoncé est associé avec le premier schéma rouge.`
+           if (this.correction_detaillee) { 
+             texte_corr += '<br>' + mathalea2d(
+               {xmin: -1, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
+               p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
+               );
+           texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+           }   
+
            if (i == 7){
             texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -92,15 +102,7 @@ export default function ModelisationProblemes() {
               p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }     
-
-        texte_corr += `Cet énoncé est associé avec le premier schéma rouge.`
-        if (this.correction_detaillee) { 
-          texte_corr += '<br>' + mathalea2d(
-            {xmin: -1, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
-            p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
-            );
-        texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-        }              
+           
         break;
 
         case 2:
@@ -126,6 +128,16 @@ export default function ModelisationProblemes() {
            th2 = texteParPosition(c1,19, 3);
            th22 = texteParPosition('?',25, 3);
 
+
+           texte_corr += `Cet énoncé est associé avec le deuxième schéma rouge.`
+           if (this.correction_detaillee) { 
+             texte_corr += '<br>' + mathalea2d(
+               {xmin: 15, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
+               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
+               );
+           texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+           }
+
            if (i == 7){
             texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -139,14 +151,6 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }     
 
-              texte_corr += `Cet énoncé est associé avec le deuxième schéma rouge.`
-              if (this.correction_detaillee) { 
-                texte_corr += '<br>' + mathalea2d(
-                  {xmin: 15, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
-                  p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
-                  );
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-              }
         break;
 
         case 3:
@@ -177,6 +181,16 @@ export default function ModelisationProblemes() {
            th34 = texteParPosition('?',43, 3);
            th35 = texteParPosition(c3,38, 6);
 
+
+           texte_corr += `Cet énoncé est associé avec le troisième schéma rouge.`
+           if (this.correction_detaillee) { 
+             texte_corr += '<br>' + mathalea2d(
+               {xmin: 31, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
+               p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
+               );
+           texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+           }
+
            if (i == 7){
             texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -190,14 +204,6 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }        
 
-              texte_corr += `Cet énoncé est associé avec le troisième schéma rouge.`
-              if (this.correction_detaillee) { 
-                texte_corr += '<br>' + mathalea2d(
-                  {xmin: 31, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
-                  p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
-                  );
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-              }
         break;
           
         case 4:
@@ -228,6 +234,16 @@ export default function ModelisationProblemes() {
            th44 = texteParPosition(b3,59, 3);
            th45 = texteParPosition(c3,54, 6);
 
+
+           texte_corr += `Cet énoncé est associé avec le quatrième schéma rouge.`
+           if (this.correction_detaillee) { 
+             texte_corr += '<br>' + mathalea2d(
+               {xmin: 47, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
+               p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
+               );
+           texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+           }
+
            if (i == 7){
             texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
               {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -241,14 +257,6 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }      
 
-              texte_corr += `Cet énoncé est associé avec le quatrième schéma rouge.`
-              if (this.correction_detaillee) { 
-                texte_corr += '<br>' + mathalea2d(
-                  {xmin: 47, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
-                  p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
-                  );
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-              }
            
           break;
 
@@ -274,6 +282,16 @@ export default function ModelisationProblemes() {
              th5 = texteParPosition('?',3, -3);
              th52 = texteParPosition(c5,9, -3);
 
+
+             texte_corr += `Cet énoncé est associé avec le premier schéma vert.`
+             if (this.correction_detaillee) { 
+               texte_corr += '<br>' + mathalea2d(
+                 {xmin: -1, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                 p5, traitHorizontal5, traitVertical5, tb5, th5, th52,
+                 );
+             texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+             }
+
              if (i == 7){
               texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
                 {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -287,14 +305,6 @@ export default function ModelisationProblemes() {
                 p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                 ); }  
 
-                texte_corr += `Cet énoncé est associé avec le premier schéma vert.`
-                if (this.correction_detaillee) { 
-                  texte_corr += '<br>' + mathalea2d(
-                    {xmin: -1, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
-                    p5, traitHorizontal5, traitVertical5, tb5, th5, th52,
-                    );
-                texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-                }
         break;
 
           case 6:
@@ -318,6 +328,16 @@ export default function ModelisationProblemes() {
                th6 = texteParPosition(b5,19, -3);
                th62 = texteParPosition(a5,25, -3);
 
+
+               texte_corr += `Cet énoncé est associé avec le deuxième schéma vert.`
+               if (this.correction_detaillee) { 
+                 texte_corr += '<br>' + mathalea2d(
+                   {xmin: 15, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                   p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
+                   );
+               texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+               }
+
                if (i == 7){
                 texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
                   {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -331,14 +351,6 @@ export default function ModelisationProblemes() {
                   p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                   ); }  
 
-                  texte_corr += `Cet énoncé est associé avec le deuxième schéma vert.`
-                  if (this.correction_detaillee) { 
-                    texte_corr += '<br>' + mathalea2d(
-                      {xmin: 15, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
-                      p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
-                      );
-                  texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-                  }
               break;
 
           case 7:
@@ -369,6 +381,16 @@ export default function ModelisationProblemes() {
                  th74 = texteParPosition(c7,43, -3);
                  th75 = texteParPosition('?',38, -0.8);
 
+
+                 texte_corr += `Cet énoncé est associé avec le troisième schéma vert.`
+                 if (this.correction_detaillee) { 
+                   texte_corr += '<br>' + mathalea2d(
+                     {xmin: 31, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                     p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
+                     );
+                 texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                 }
+
                  if (i == 7){
                   texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
                     {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -382,14 +404,6 @@ export default function ModelisationProblemes() {
                     p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                     ); }  
 
-                    texte_corr += `Cet énoncé est associé avec le troisième schéma vert.`
-                    if (this.correction_detaillee) { 
-                      texte_corr += '<br>' + mathalea2d(
-                        {xmin: 31, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
-                        p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
-                        );
-                    texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-                    }
         break;
 
           case 8:
@@ -412,6 +426,17 @@ export default function ModelisationProblemes() {
                    tb8 = texteParPosition(b7,54, -5);
                    th8 = texteParPosition(a7,51, -3);
                    th82 = texteParPosition('?',57, -3); 
+
+
+                   texte_corr += `Cet énoncé est associé avec le quatrième schéma vert.`
+                   if (this.correction_detaillee) { 
+                     texte_corr += '<br>' + mathalea2d(
+                       {xmin: 47, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                       p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
+                       );
+                   texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                   }
+
                    if (i == 7){
                     texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
                       {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
@@ -425,14 +450,6 @@ export default function ModelisationProblemes() {
                       p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                       ); }           
 
-                      texte_corr += `Cet énoncé est associé avec le quatrième schéma vert.`
-                      if (this.correction_detaillee) { 
-                        texte_corr += '<br>' + mathalea2d(
-                          {xmin: 47, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
-                          p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
-                          );
-                      texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
-                      }
         break; 
       }  
 
