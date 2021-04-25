@@ -360,12 +360,12 @@ export default function Problemes_grandeurs_composees() {
                 )}\\text{ dm}^3$<br>`;
               texte_corr +=
                 num_alpha(1) +
-                ` La masse de lait contenue dans ce tonneau est :<br>`;
+                ` La masse ${liquides[index2][0]} contenue dans ce tonneau est :<br>`;
               texte_corr += `$${tex_nombre(
                 arrondi((r * r * h * Math.PI) / 1000, 1)
               )}\\text{ dm}^3\\times ${tex_nombrec(
                 liquides[index2][1]
-              )} \\times 1 \\dfrac{kg}{dm}^3\\approx${tex_nombre(
+              )} \\times 1 \\dfrac{kg}{dm^3}\\approx${tex_nombre(
                 arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
               )}\\text{ kg}$`;
               break;
