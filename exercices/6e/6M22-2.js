@@ -12,12 +12,13 @@ import {liste_de_question_to_contenu,randint,arrondi,tex_nombre} from "/modules/
  */
 export default function Perimetre_aire_et_portions_de_disques(pa = 3) {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.pas_de_version_LaTeX = true;
   this.titre = "Périmètres et aires de portions de cercles";
   this.consigne =
     "Calculer le périmètre et l'aire de chacune des figures suivantes";
   this.sup = 3; // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.spacing = 2;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
   sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2);
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
@@ -45,7 +46,7 @@ export default function Perimetre_aire_et_portions_de_disques(pa = 3) {
     }
 
     if (figure == 1) {
-      params={xmin:4,ymin:-1,xmax:20,ymax:15,pixelsParCm:30,scale:1,mainlevee:false}
+      params={xmin:4,ymin:-1,xmax:20,ymax:15,pixelsParCm:20,scale:0.75,mainlevee:false}
       A1=pointAdistance(C1,r,0)
       A2=pointAdistance(C2,r2,0)
       A3=pointAdistance(C3,r3,0)
@@ -143,7 +144,7 @@ export default function Perimetre_aire_et_portions_de_disques(pa = 3) {
         )}~\\text{cm}^2$`;
       }
     } else {
-      params={xmin:4,ymin:-1,xmax:20,ymax:15,pixelsParCm:30,scale:1,mainlevee:false}
+      params={xmin:4,ymin:-1,xmax:20,ymax:15,pixelsParCm:20,scale:0.75,mainlevee:false}
       A1=pointAdistance(C1,r,0)
       A2=pointAdistance(C2,r2,180)
       A3=pointAdistance(C3,r3,0)

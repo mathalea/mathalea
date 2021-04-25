@@ -10,11 +10,12 @@ import {point,segment,droiteGraduee2,mathalea2d,} from "/modules/2d.js"
 export default function Nombre_a_placer() {
   Exercice.call(this);
   this.nb_cols = 1;
+  this.nb_questions=1;
+  this.nb_questions_modifiable=false
   this.sup = 1;
   this.sup2 = 2.573;
   this.sup3 = false;
   this.titre = "Placer un nombre décimal avec des zooms successifs";
-  this.pas_de_version_LaTeX = true;
 
   this.nouvelle_version = function () {
     this.contenu = "";
@@ -80,7 +81,12 @@ export default function Nombre_a_placer() {
     texte = mathalea2d(fenetre, objets);
     console.log(objets);
     this.contenu += texte;
-    this.contenu += '<br>';
+    if (sortie_html) {
+      this.contenu += '<br>';
+    }
+    else  {
+      this.contenu += '\\\\';
+    }
 
   };
   this.besoin_formulaire_numerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
