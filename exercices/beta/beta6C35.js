@@ -13,17 +13,19 @@ export default function ModelisationProblemes() {
   this.consigne = "Associer chaque problème avec sa modélisation";
   this.nb_questions = 8;
   this.nb_questions_modifiable=false;
-  this.nb_cols = 2; 
-  this.nb_cols_corr = 2; 
+  this.nb_cols = 1; 
+  this.nb_cols_corr = 1; 
   this.tailleDiaporama = 50; 
-  this.video = "" 
+  this.video = "" ;
+  this.correction_detaillee_disponible=true;
+  this.correction_detaillee=true;
 
   this.nouvelle_version = function () {
-    this.liste_questions = []; 
-    this.liste_corrections = []; 
+  this.liste_questions = []; 
+  this.liste_corrections = []; 
 
-    let type_de_questions_disponibles=[1, 2, 3, 4, 5, 6, 7, 8];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
+  let type_de_questions_disponibles=[1, 2, 3, 4, 5, 6, 7, 8];
+  let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
   
   let b1 = randint(15,50);
   let c1 = randint(5,9);
@@ -58,9 +60,9 @@ export default function ModelisationProblemes() {
 
         case 1:
           if (o == 1){
-             texte += `${jour()}, ${prenomF()} avait ${b1} ${objet()}. `;
-             texte += `<br>Le lendemain, elle en a gagné ${c1}.`;
-             texte += `<br>Combien en a-t-elle alors ?`;
+             texte += `${prenomF()} avait ${b1} ${objet()} ${jour()}. `;
+             texte += `<br>Le lendemain, elle en a trouvé ${c1} autres.`;
+             texte += `<br>Combien cela lui en fait-il ?`;
           }
           else {
             texte += `${prenomM()} a ${c1} ans de moins que sa soeur ${prenomF()}.`;
@@ -71,8 +73,7 @@ export default function ModelisationProblemes() {
            B1 = point(12,0);
            C1 = point(12,4);
            D1 = point(0,4);
-           p1 = polygone(A1,B1,C1,D1);
-           p1.couleurDeRemplissage = 'green';
+           p1 = polygone([A1,B1,C1,D1],'red');
            traitHorizontal1 = segment(point(0,2),point(12, 2));
            traitVertical1 = segment(point(6,2),point(6,4));
            tb1 = texteParPosition('?',6, 1);
@@ -80,8 +81,8 @@ export default function ModelisationProblemes() {
            th12 = texteParPosition(c1,9, 3);
 
            if (i == 7){
-            texte += '<br>' + mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
               p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -92,7 +93,14 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }     
 
-        texte_corr += `Cet énoncé est associé avec le premier schéma vert.`
+        texte_corr += `Cet énoncé est associé avec le premier schéma rouge.`
+        if (this.correction_detaillee) { 
+          texte_corr += '<br>' + mathalea2d(
+            {xmin: -1, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
+            p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
+            );
+        texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+        }              
         break;
 
         case 2:
@@ -111,8 +119,7 @@ export default function ModelisationProblemes() {
            B2 = point(28,0);
            C2 = point(28,4);
            D2 = point(16,4);
-           p2 = polygone(A2,B2,C2,D2);
-           p2.couleurDeRemplissage = 'green';
+           p2 = polygone([A2,B2,C2,D2],'red');
            traitHorizontal2 = segment(point(16,2),point(28, 2));
            traitVertical2 = segment(point(22,2),point(22,4));
            tb2 = texteParPosition(b1,22, 1);
@@ -120,8 +127,8 @@ export default function ModelisationProblemes() {
            th22 = texteParPosition('?',25, 3);
 
            if (i == 7){
-            texte += '<br>' + mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
               p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -132,7 +139,14 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }     
 
-              texte_corr += `Cet énoncé est associé avec le deuxième schéma vert.`
+              texte_corr += `Cet énoncé est associé avec le deuxième schéma rouge.`
+              if (this.correction_detaillee) { 
+                texte_corr += '<br>' + mathalea2d(
+                  {xmin: 15, ymin: -1, xmax:61, ymax: 5, pixelsParCm: 15, scale:0.25}, 
+                  p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
+                  );
+              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+              }
         break;
 
         case 3:
@@ -149,8 +163,7 @@ export default function ModelisationProblemes() {
            B3 = point(44,0);
            C3 = point(44,4);
            D3 = point(32,4);
-           p3 = polygone(A3,B3,C3,D3);
-           p3.couleurDeRemplissage = 'red';
+           p3 = polygone([A3,B3,C3,D3],'red');
            traitHorizontal3 = segment(point(32,2),point(44, 2));
            traitHorizontal32 = segment(point(32,5),point(44, 5));
            traitHorizontal32.styleExtremites = '<->';
@@ -165,8 +178,8 @@ export default function ModelisationProblemes() {
            th35 = texteParPosition(c3,38, 6);
 
            if (i == 7){
-            texte += '<br>' + mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
               p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -177,7 +190,14 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }        
 
-          texte_corr += `Cet énoncé est associé avec le premier schéma rouge.`
+              texte_corr += `Cet énoncé est associé avec le troisième schéma rouge.`
+              if (this.correction_detaillee) { 
+                texte_corr += '<br>' + mathalea2d(
+                  {xmin: 31, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
+                  p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
+                  );
+              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+              }
         break;
           
         case 4:
@@ -194,8 +214,7 @@ export default function ModelisationProblemes() {
            B4 = point(60,0);
            C4 = point(60,4);
            D4 = point(48,4);
-           p4 = polygone(A4,B4,C4,D4);
-           p4.couleurDeRemplissage = 'red';
+           p4 = polygone([A4,B4,C4,D4],'red');
            traitHorizontal4 = segment(point(48,2),point(60, 2));
            traitHorizontal42 = segment(point(48,5),point(60, 5));
            traitHorizontal42.styleExtremites = '<->';
@@ -210,8 +229,8 @@ export default function ModelisationProblemes() {
            th45 = texteParPosition(c3,54, 6);
 
            if (i == 7){
-            texte += '<br>' + mathalea2d(
-              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
               p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -222,7 +241,14 @@ export default function ModelisationProblemes() {
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
               ); }      
 
-          texte_corr += `Cet énoncé est associé avec le deuxième schéma rouge.`
+              texte_corr += `Cet énoncé est associé avec le quatrième schéma rouge.`
+              if (this.correction_detaillee) { 
+                texte_corr += '<br>' + mathalea2d(
+                  {xmin: 47, ymin: -1, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
+                  p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45,
+                  );
+              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+              }
            
           break;
 
@@ -241,20 +267,16 @@ export default function ModelisationProblemes() {
              B5 = point(12,-6);
              C5 = point(12,-2);
              D5 = point(0,-2);
-             p5 = polygone(A5,B5,C5,D5);
-             p5.couleurDeRemplissage = 'blue';
+             p5 = polygone([A5,B5,C5,D5],'green');
              traitHorizontal5 = segment(point(0,-4),point(12, -4));
              traitVertical5 = segment(point(6,-4),point(6,-2));
              tb5 = texteParPosition(b5,6, -5);
              th5 = texteParPosition('?',3, -3);
              th52 = texteParPosition(c5,9, -3);
-             tb5.color = 'white';
-             th5.color = 'white';
-             th52.color = 'white';
 
              if (i == 7){
-              texte += '<br>' + mathalea2d(
-                {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+              texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+                {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
                 p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                 p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
                 p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -265,7 +287,14 @@ export default function ModelisationProblemes() {
                 p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                 ); }  
 
-                texte_corr += `Cet énoncé est associé avec le premier schéma bleu.`
+                texte_corr += `Cet énoncé est associé avec le premier schéma vert.`
+                if (this.correction_detaillee) { 
+                  texte_corr += '<br>' + mathalea2d(
+                    {xmin: -1, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                    p5, traitHorizontal5, traitVertical5, tb5, th5, th52,
+                    );
+                texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                }
         break;
 
           case 6:
@@ -282,20 +311,16 @@ export default function ModelisationProblemes() {
                B6 = point(28,-6);
                C6 = point(28,-2);
                D6 = point(16,-2);
-               p6 = polygone(A6,B6,C6,D6);
-               p6.couleurDeRemplissage = 'blue';
+               p6 = polygone([A6,B6,C6,D6],'green');
                traitHorizontal6 = segment(point(16,-4),point(28, -4));
                traitVertical6 = segment(point(22,-4),point(22,-2));
                tb6 = texteParPosition('?',22, -5);
                th6 = texteParPosition(b5,19, -3);
                th62 = texteParPosition(a5,25, -3);
-               tb6.color = 'white';
-               th6.color = 'white';
-               th62.color = 'white';
 
                if (i == 7){
-                texte += '<br>' + mathalea2d(
-                  {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+                texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+                  {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
                   p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                   p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
                   p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -306,7 +331,14 @@ export default function ModelisationProblemes() {
                   p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                   ); }  
 
-                  texte_corr += `Cet énoncé est associé avec le deuxième schéma bleu.`
+                  texte_corr += `Cet énoncé est associé avec le deuxième schéma vert.`
+                  if (this.correction_detaillee) { 
+                    texte_corr += '<br>' + mathalea2d(
+                      {xmin: 15, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                      p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
+                      );
+                  texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                  }
               break;
 
           case 7:
@@ -323,8 +355,7 @@ export default function ModelisationProblemes() {
                  B7 = point(44,-6);
                  C7 = point(44,-2);
                  D7 = point(32,-2);
-                 p7 = polygone(A7,B7,C7,D7);
-                 p7.couleurDeRemplissage = 'yellow';
+                 p7 = polygone([A7,B7,C7,D7],'green');
                  traitHorizontal7 = segment(point(32,-4),point(44, -4));
                  traitHorizontal72 = segment(point(32,-1.3),point(44, -1.3));
                  traitHorizontal72.styleExtremites = '<->';
@@ -339,8 +370,8 @@ export default function ModelisationProblemes() {
                  th75 = texteParPosition('?',38, -0.8);
 
                  if (i == 7){
-                  texte += '<br>' + mathalea2d(
-                    {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+                  texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+                    {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
                     p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                     p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
                     p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -351,7 +382,14 @@ export default function ModelisationProblemes() {
                     p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                     ); }  
 
-                  texte_corr += `Cet énoncé est associé avec le premier schéma jaune.`
+                    texte_corr += `Cet énoncé est associé avec le troisième schéma vert.`
+                    if (this.correction_detaillee) { 
+                      texte_corr += '<br>' + mathalea2d(
+                        {xmin: 31, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                        p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
+                        );
+                    texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                    }
         break;
 
           case 8:
@@ -368,16 +406,15 @@ export default function ModelisationProblemes() {
                    B8 = point(60,-6);
                    C8 = point(60,-2);
                    D8 = point(48,-2);
-                   p8 = polygone(A8,B8,C8,D8);
-                   p8.couleurDeRemplissage = 'yellow';
+                   p8 = polygone([A8,B8,C8,D8], 'green');
                    traitHorizontal8 = segment(point(48,-4),point(60, -4));
                    traitVertical8 = segment(point(54,-4),point(54,-2));
                    tb8 = texteParPosition(b7,54, -5);
                    th8 = texteParPosition(a7,51, -3);
                    th82 = texteParPosition('?',57, -3); 
                    if (i == 7){
-                    texte += '<br>' + mathalea2d(
-                      {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:1}, 
+                    texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+                      {xmin: -1, ymin: -7, xmax:61, ymax: 6.5, pixelsParCm: 15, scale:0.25}, 
                       p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
                       p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
                       p3, traitHorizontal3, traitVertical3, tb3, th3, th32, traitHorizontal32, traitVertical32, traitVertical33, th33, th34, th35,
@@ -388,11 +425,15 @@ export default function ModelisationProblemes() {
                       p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
                       ); }           
 
-                      texte_corr += `Cet énoncé est associé avec le deuxième schéma jaune.`
-        break;
-
-
- 
+                      texte_corr += `Cet énoncé est associé avec le quatrième schéma vert.`
+                      if (this.correction_detaillee) { 
+                        texte_corr += '<br>' + mathalea2d(
+                          {xmin: 47, ymin: -7, xmax:61, ymax: -0.5, pixelsParCm: 15, scale:0.25}, 
+                          p8, traitHorizontal8, traitVertical8, tb8, th8, th82,  
+                          );
+                      texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')';
+                      }
+        break; 
       }  
 
 
