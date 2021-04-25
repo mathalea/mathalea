@@ -23,9 +23,9 @@ export default function TrianglesEgaux () {
     this.liste_corrections = [] // Liste de questions corrigées
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
-    if (this.nb_questions = 3) {
+    if (this.nb_questions === 3) {
       typeQuestionsDisponibles = ['similitude', 'rotation2', 'similitude3']
-    } else if (this.nb_questions = 4) {
+    } else if (this.nb_questions === 4) {
       typeQuestionsDisponibles = ['rotation', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
     }
     const listeTypeQuestions = combinaison_listes(typeQuestionsDisponibles, this.nb_questions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
