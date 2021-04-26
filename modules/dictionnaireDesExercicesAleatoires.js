@@ -1660,10 +1660,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
     },
-    "beta6C35": {
-        "titre": "Modéliser des problèmes",
-        "url": "/exercices/beta/beta6C35.js"
-    },
     "beta6G21": {
         "titre": "Construire un triangle aux instruments",
         "url": "/exercices/beta/beta6G21.js"
