@@ -22,3 +22,5 @@ index.php
 node_modules
 # le build
 build
+
+.husky/
