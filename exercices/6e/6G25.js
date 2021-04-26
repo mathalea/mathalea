@@ -19,14 +19,7 @@ export default function Construire_mediatrices_6e() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let result = [0, 0], texte_corr = "", texte = "", num1, num2
-    if (sortie_html) {
-      num1 = `<tspan dy="5" style="font-size:70%">`
-      num2 = `</tspan><tspan dy="-5">)</tspan>`
-    }
-    else {
-      num1 = `_`
-      num2 = `)`
-    }
+   
     let celluleAlea = function (rang) {
       let lettre = lettre_depuis_chiffre(randint(1, rang))
       let chiffre = Number(randint(1, rang)).toString()
@@ -40,7 +33,7 @@ export default function Construire_mediatrices_6e() {
     let I = point(0, 0, 'I')
     let A = pointAdistance(I, randint(3, 6))
     let B = similitude(A, I, randint(65, 150), randint(8, 15) / 10)
-    let medA = droite(I, A, `(d${num1}1${num2}`), medB = droite(I, B, `(d${num1}2${num2}`)
+    let medA = droite(I, A, `(d_1)`), medB = droite(I, B, `(d_2)`)
 
     let dA = droiteParPointEtPerpendiculaire(A, medA)
     let dB = droiteParPointEtPerpendiculaire(B, medB)

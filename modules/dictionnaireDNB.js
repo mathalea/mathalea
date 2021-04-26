@@ -1906,7 +1906,8 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2015/tex/dnb_2015_06_etrangers_2.tex",
         "urlcor": "/dnb/2015/tex/dnb_2015_06_etrangers_2_cor.tex",
-        "tags":["Proportionnalité"]
+        //"tags":["Proportionnalité"]
+        "tags":["Proportionnalité","Vitesses"]
     },
     "dnb_2015_06_etrangers_3": {
         "annee": "2015",
@@ -6317,7 +6318,8 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2020/tex/dnb_2020_09_metropole_3.tex",
         "urlcor": "/dnb/2020/tex/dnb_2020_09_metropole_3_cor.tex",
-        "tags": ["Pythagore", "Thalès", "Trigonométrie", "Pourcentages", "Recherche d'informations"]
+        //"tags": ["Pythagore", "Thalès", "Trigonométrie", "Pourcentages", "Recherche d'informations"]
+        "tags": ["Pythagore", "Thalès", "Pourcentages", "Recherche d'informations"]
     },
     "dnb_2020_09_metropole_4": {
         "annee": "2020",

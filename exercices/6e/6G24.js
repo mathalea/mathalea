@@ -9,5 +9,4 @@ export default function Transformations_6e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = "Trouver l'image d'un point par une symétrie axiale";
-  this.pas_de_version_LaTeX = true;
 }

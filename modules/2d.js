@@ -148,6 +148,7 @@ function TracePoint(...points) {
 
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
+    points.length--;
   }
   else this.color = 'black';
   this.svg = function (coeff) {
@@ -224,7 +225,7 @@ function TracePoint(...points) {
   };
   this.tikz = function () {
     let objetstikz = [], s1, s2, p1, p2, c
-    let tailletikz = this.taille * mathalea.scale / 40 ;
+    let tailletikz = this.taille * mathalea.scale / 20 ;
     for (let A of points) {
       if (A.constructor == Point) {
         if (this.style == 'x') {
@@ -499,6 +500,13 @@ export function pointAdistance(...args) {
 function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
   this.taille = 1
+  if (typeof points[points.length - 1] === "string") {
+    this.color = points[points.length - 1];
+    points.length--
+  }
+  else {
+    this.color = 'black'
+  }
   this.svg = function (coeff) {
     let code = "", x, y;
     if (Array.isArray(points[0])) {
@@ -511,28 +519,28 @@ function LabelPoint(...points) {
       x = point.x, y = point.y
       switch (point.positionLabel) {
         case "left":
-          code += texteParPosition(point.nom, x - 15 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below":
-          code += texteParPosition(point.nom, x, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "above":
-          code += texteParPosition(point.nom, x, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "above right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below left":
-          code += texteParPosition(point.nom, x - 15 / coeff, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         case "below right":
-          code += texteParPosition(point.nom, x + 15 / coeff, y - 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
         default:
-          code += texteParPosition(point.nom, x - 15 / coeff, y + 15 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += texteParPosition(point.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
           break;
       }
     }
@@ -4234,7 +4242,7 @@ function HomothetieAnimee(
   };
 }
 export function homothetieAnimee(...args) {
-  return new HomothetieAnimee(...args);
+  return new DHomothetieAnimee(...args);
 }
 
 /**
@@ -4254,7 +4262,7 @@ function SymetrieAnimee(
     let p2 = symetrieAxiale(p, d);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill=${p.couleurDeRemplissage} >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
@@ -8237,11 +8245,9 @@ export function texteParPosition(texte, x, y, orientation = "milieu", color, sca
 }
 
 /**
- * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
- * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
- * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
- * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
- *
+ * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
+ * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
+ * si colorBackground="", le fond est transparent.
  * @Auteur Rémi Angot
  */
 export function latexParPoint(texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {

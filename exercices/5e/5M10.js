@@ -15,12 +15,14 @@ import {liste_de_question_to_contenu_sans_numero,randint,choice,texte_en_couleur
 */
 export default function Aire_du_parallelogramme() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.pas_de_version_LaTeX = true;
 	this.titre = "Aire du parallélogramme";
 	this.consigne = "Calculer l'aire des 3 parallélogrammes suivants (les longueurs sont données en cm).";
 	this.spacing = 2;
 	this.spacing_corr = 2;
 	this.nb_questions = 1;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+  
 	this.nb_questions_modifiable = false;
 	let cadre = function (p,params){
 		let xmin=0,xmax=0,ymin=0,ymax=0
@@ -74,15 +76,15 @@ export default function Aire_du_parallelogramme() {
 		H3=projectionOrtho(I3,droite(P3[0].listePoints[3],P3[0].listePoints[2]))
 		s3=segment(I3,H3)
 		s3.pointilles=2
-	    params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:1,mainlevee:false}
+	    params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:0.5,mainlevee:false}
 		params=cadre(P1,params)
 		texte+=	mathalea2d(params,P1[0],P1[1],afficheLongueurSegment(B1,A1),afficheLongueurSegment(C1,B1),afficheLongueurSegment(I1,H1),s1,codageAngleDroit(A1,I1,H1),codageAngleDroit(C1,H1,I1))
-		params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:1,mainlevee:false}
+		params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:0.5,mainlevee:false}
 		params=cadre(P2,params)
 		texte+=	mathalea2d(params,P2[0],P2[1],afficheLongueurSegment(B2,A2),afficheLongueurSegment(C2,B2),afficheLongueurSegment(I2,H2),s2,codageAngleDroit(A2,I2,H2),codageAngleDroit(C2,H2,I2))
-		params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:1,mainlevee:false}
+		params={xmin:0,xmax:0,ymin:0,ymax:0,pixelsParCm:20,scale:0.5,mainlevee:false}
 		params=cadre(P3,params)
-		texte+='<br>'+	mathalea2d(params,P3[0],P3[1],afficheLongueurSegment(B3,A3),afficheLongueurSegment(C3,B3),afficheLongueurSegment(I3,H3),s3,codageAngleDroit(A3,I3,H3),codageAngleDroit(C3,H3,I3))
+		texte+='br'+mathalea2d(params,P3[0],P3[1],afficheLongueurSegment(B3,A3),afficheLongueurSegment(C3,B3),afficheLongueurSegment(I3,H3),s3,codageAngleDroit(A3,I3,H3),codageAngleDroit(C3,H3,I3))
 		
 		
 		let texte_corr = `Dans chaque parallélogramme, le segment en pointillés est ${texte_en_couleur_et_gras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texte_en_couleur_et_gras("hauteur")}.<br>`;

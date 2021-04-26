@@ -164,7 +164,7 @@ export default function Alea2iep () {
           if (element.style.display === 'none') {
             element.style.display = 'block'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            iepLoad(element, xml, { zoom: true }, (error) => { console.log(error) })
+            iepLoad(element, xml, { zoom: true }, (error) => { console.log('iepLoad erreur : ',error) })
           } else {
             element.style.display = 'none'
             elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
@@ -405,7 +405,7 @@ export default function Alea2iep () {
       if (typeof angle === 'number' && isFinite(angle)) {
         this.liste_script.push(codeXML)
       } else {
-        console.log('Angle de rotation non défini.')
+        console.log('Angle de rotation non défini pour l\'objet .', objet)
       }
     }
   }
@@ -1289,8 +1289,11 @@ export default function Alea2iep () {
     const H = projectionOrtho(C, d)
     if (H.x < D.x) {
       H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
-    } else {
+    } else if (H.x>D.x){
       H1 = pointSurSegment(H, D, 2)
+    }
+    else {
+      H1 = pointSurSegment(H,G,2)
     }
     const C1 = projectionOrtho(H1, droiteParPointEtParallele(C, d))
     // C1 est le point d'arrivée de l'équerre après avoir glissé

@@ -3,7 +3,7 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_listes,image_point_par_transformation,tex_fraction_reduite,num_alpha} from "/modules/outils.js"
 
 /**
- * Transformations : trouvers un punto numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
+ * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @Auteur Jean-Claude Lhote
  * Pas de version LaTeX
  */
@@ -11,7 +11,7 @@ export default function Transformations() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
 
-  // this.titre = "Trouver l'image d'un punto par une transformation du plan";
+  // this.titre = "Trouver l'image d'un point par une transformation du plan";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
@@ -63,7 +63,7 @@ export default function Transformations() {
       yO = 4,
       xu,
       yu,
-      punto_reseau; // k : rapports d'homothéties, (xO,yO) punto de rencontre des droites et centre, les composantes du vecteur de translation : (xu,yu)
+      punto_reseau; // k : rapports d'homothéties, (xO,yO) point de rencontre des droites et centre, les composantes du vecteur de translation : (xu,yu)
 
     let n = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
     let texte = ``,
@@ -104,7 +104,7 @@ export default function Transformations() {
         k[j]
       );
       images[j] = punto[j][0] + punto[j][1] * 10;
-      // Limitation des puntos invariants
+      // Limitation des points invariants
       if (choix_transformation[j] == 1 && images[j] % 11 == 0)
         punto[j][0] = -1; // Point impossible sur (d1) pour sa symétrie
       if (choix_transformation[j] == 3 && Math.floor(images[j] / 10 == 4))
@@ -113,17 +113,17 @@ export default function Transformations() {
         punto[j][0] = -1; // Point impossible sur  (d4) pour sa symétrie
       if ((choix_transformation[j] == 5 || choix_transformation[j] == 5) &&
         antecedents[j] == 44)
-        punto[j][0] = -1; // punto O impossible pour rotation
+        punto[j][0] = -1; // point O impossible pour rotation
       if (choix_transformation[j] == 10 && antecedents[j] == 44)
-        punto[j][0] = -1; // punto O impossible par homothétie de rapport 1/k2
+        punto[j][0] = -1; // point O impossible par homothétie de rapport 1/k2
 
-      // pour éviter les puntos en dehors des clous dans homothétie de rapport 1/k2
+      // pour éviter les points en dehors des clous dans homothétie de rapport 1/k2
       if (punto[j][0] - Math.floor(punto[j][0]) == 0 &&
         punto[j][1] - Math.floor(punto[j][1]) == 0)
         punto_reseau = true;
       else
         punto_reseau = false;
-      // On vérifie que l'image est bien un punto du réseau sinon, on change.
+      // On vérifie que l'image est bien un point du réseau sinon, on change.
       while (punto[j][0] < 0 ||
         punto[j][0] > 9 ||
         punto[j][1] < 0 ||
@@ -145,7 +145,7 @@ export default function Transformations() {
           k[j]
         );
         images[j] = punto[j][0] + punto[j][1] * 10;
-        // Limitation des puntos invariants
+        // Limitation des points invariants
         if (choix_transformation[j] == 1 && images[j] % 11 == 0)
           punto[j][0] = -1; // Point impossible sur (d1) pour sa symétrie
         if (choix_transformation[j] == 3 && Math.floor(images[j] / 10 == 4))
@@ -154,12 +154,12 @@ export default function Transformations() {
           punto[j][0] = -1; // Point impossible sur  (d4) pour sa symétrie
         if ((choix_transformation[j] == 5 || choix_transformation[j] == 5) &&
           antecedents[j] == 44)
-          punto[j][0] = -1; // punto O impossible pour rotation
+          punto[j][0] = -1; // point O impossible pour rotation
         if (choix_transformation[j] == 10 && antecedents[j] == 44)
-          punto[j][0] = -1; // punto O impossible par homothétie de rapport 1/k2
+          punto[j][0] = -1; // point O impossible par homothétie de rapport 1/k2
 
 
-        // pour éviter les puntos en dehors des clous dans homothétie de rapport 1/k2
+        // pour éviter les points en dehors des clous dans homothétie de rapport 1/k2
         if (punto[j][0] - Math.floor(punto[j][0]) == 0 &&
           punto[j][1] - Math.floor(punto[j][1]) == 0)
           punto_reseau = true;
@@ -169,8 +169,8 @@ export default function Transformations() {
       N[j]=point(punto[j][0]-4,punto[j][1]-4)
       M[j]=point(antecedents[j] % 10-4,Math.floor(antecedents[j] / 10-4))
     }
-    // n[i] est un tableau contenant -1 pour la transformation d'indice i si elle n'est pas utilisée, et contenant le numéro du point concerné si la transformation i est utilisée pour ce punto.
-    // Je l'utilise pour faire apparaître la correction liée au punto et à la transformation.
+    // n[i] est un tableau contenant -1 pour la transformation d'indice i si elle n'est pas utilisée, et contenant le numéro du point concerné si la transformation i est utilisée pour ce point.
+    // Je l'utilise pour faire apparaître la correction liée au point et à la transformation.
     for (let j = 0; j < 3; j++) {
       n[choix_transformation[j] - 1] = antecedents[j];
     }
@@ -343,8 +343,8 @@ export default function Transformations() {
          break;
       }
     }
-    texte+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:1.5,mainlevee:false},objets_enonce)
-    texte_corr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:1.5,mainlevee:false},objets_correction)
+    texte+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:0.8,optionsTikz:['every node/.style={scale=0.6}'],mainlevee:false},objets_enonce)
+    texte_corr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:0.8,optionsTikz:['every node/.style={scale=0.6}'],mainlevee:false},objets_correction)
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu_sans_numero(this);

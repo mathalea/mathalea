@@ -54,12 +54,6 @@ export default function Eq_resolvantes_Thales() {
 			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
 
-		if (this.sup == 4) {
-			this.nb_questions = 5;
-		} else if (!this.debug) {
-			this.nb_questions = 2;
-		};
-
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 

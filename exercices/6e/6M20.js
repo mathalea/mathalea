@@ -20,6 +20,9 @@ export default function Aire_de_triangles() {
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2);
   this.nb_questions = 3;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+
   this.nb_questions_modifiable = false;
   this.correction_detaillee_disponible=true;
   this.correction_detaillee=false

@@ -9,5 +9,4 @@ export default function Transformations_5e() {
   Transformations.call(this);
   this.sup = 2;
   this.titre = "Trouver l'image d'un point par une symétrie axiale ou centrale";
-  this.pas_de_version_LaTeX = true;
 }
