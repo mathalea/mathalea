@@ -950,7 +950,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_1.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_1_cor.tex",
-        "tags": ["QCM", "Puissances", "Calculs numériques"]
+        "tags": ["QCM", "Thalès", "Relatifs","Fonctions"]
     },
     "dnb_2014_03_caledonie_2": {
         "annee": "2013",
@@ -962,7 +962,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_2.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_2_cor.tex",
-        "tags": ["Equations"]
+        "tags": ["Pythagore","Périmètre"]
     },
     "dnb_2014_03_caledonie_3": {
         "annee": "2013",
@@ -974,7 +974,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_3.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_3_cor.tex",
-        "tags": ["Probabilités", "Aires et périmètres"]
+        "tags": ["Hors programme","PGCD","Probabilités"]
     },
     "dnb_2014_03_caledonie_4": {
         "annee": "2013",
@@ -986,7 +986,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_4.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_4_cor.tex",
-        "tags": ["Pythagore", "Géométrie plane"]
+        "tags": ["Calculs numériques","Calcul littéral"]
     },
     "dnb_2014_03_caledonie_5": {
         "annee": "2013",
@@ -998,7 +998,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_5.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_5_cor.tex",
-        "tags": ["Thalès"]
+        "tags": ["Statistiques"]
     },
     "dnb_2014_03_caledonie_6": {
         "annee": "2013",
@@ -1010,7 +1010,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_6.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_6_cor.tex",
-        "tags": ["Volumes", "Equations"]
+        "tags": ["Hors programme","Angles","Pythagore"]
     },
     "dnb_2014_03_caledonie_7": {
         "annee": "2013",
@@ -1022,7 +1022,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_7.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_7_cor.tex",
-        "tags": ["Statistiques"]
+        "tags": ["Vrai/Faux"]
     },
     "dnb_2014_03_caledonie_8": {
         "annee": "2013",
@@ -1034,7 +1034,7 @@ export let dictionnaireDNB = {
         "type_exercice": "dnb",
         "url": "/dnb/2013/tex/dnb_2014_03_caledonie_8.tex",
         "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_8_cor.tex",
-        "tags": ["Calculs numériques", "Fonctions"]
+        "tags": ["QCM","Tableur"]
     },
     //Fin Calédonie mars 2014
     "dnb_2014_04_pondichery_1": {
