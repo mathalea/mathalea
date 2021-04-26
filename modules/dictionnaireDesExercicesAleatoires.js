@@ -181,7 +181,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/3e/3F21-1.js"
     },
     "3G10-1": {
-        "titre": "Trouver les coordonnées de l'image d'un punto par une transformation du plan",
+        "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
         "url": "/exercices/3e/3G10-1.js"
     },
     "3G10-2": {
@@ -1056,6 +1056,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Dernier chiffre d'un calcul",
         "url": "/exercices/6e/6C34.js"
     },
+    "6C35": {
+        "titre": "Modéliser des problèmes",
+        "url": "/exercices/6e/6C35.js"
+    },
     "6D10": {
         "titre": "Convertir des durées",
         "url": "/exercices/6e/6D10.js"
@@ -1659,10 +1663,6 @@ export let dictionnaireDesExercicesAleatoires =
     "beta6C33-1": {
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
-    },
-    "beta6C35": {
-        "titre": "Modéliser des problèmes",
-        "url": "/exercices/beta/beta6C35.js"
     },
     "beta6G21": {
         "titre": "Construire un triangle aux instruments",

@@ -67,10 +67,16 @@ export default function Antecedent_graphique() {
 			a = calcul((fx2 - fx1) / (x2 - x1));
 			b = calcul(fx1 - a * x1);
 			expression_f = `${a}*x+(${b})`;
-
+			if (fx2!=fx1) {
 			texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ et de $${fx2}$ par cette fonction $f$.<br><br>`;
 			texte_corr = `L'antécédent de $${fx1}$ est $${x1}$, on note $f(${x1})=${fx1}$.<br>`;
 			texte_corr += `L'antécédent de $${fx2}$ est $${x2}$, on note $f(${x2})=${fx2}$.`;
+			}
+			else {
+				texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ par cette fonction $f$.<br><br>`;
+				texte_corr = `$${fx1}$ possède une infinité d'antécédents : on note $f(x)=${fx1}$ quel que soit $x$.<br>`;
+				
+			}
 
 		}
 

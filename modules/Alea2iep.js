@@ -406,7 +406,7 @@ export default function Alea2iep () {
       if (typeof angle === 'number' && isFinite(angle)) {
         this.liste_script.push(codeXML)
       } else {
-        console.log('Angle de rotation non défini.')
+        console.log('Angle de rotation non défini pour l\'objet .', objet)
       }
     }
   }
