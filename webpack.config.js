@@ -18,7 +18,8 @@ module.exports = {
   mode: 'development',
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
-    mathalea: './mathalea.js'
+    mathalea: './mathalea.js',
+    mathalea2d: './modules/mathalea2d-gui.js'
   },
   output: {
     // on vide build avant chaque compilation
@@ -46,23 +47,48 @@ module.exports = {
     // https://github.com/jantimon/html-webpack-plugin#options
     new HtmlWebpackPlugin({
       template: 'mathalea.html',
-      filename: 'mathalea.html'
+      filename: 'mathalea.html',
+      chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
       template: 'exercice.html',
-      filename: 'exercice.html'
+      filename: 'exercice.html',
+      chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
       template: 'mathalealatex.html',
-      filename: 'mathalealatex.html'
+      filename: 'mathalealatex.html',
+      chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
       template: 'exo.html',
-      filename: 'exo.html'
+      filename: 'exo.html',
+      chunks: ['mathalea']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'outils.html',
+      filename: 'outils.html',
+      chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
       template: 'cm.html',
-      filename: 'cm.html'
+      filename: 'cm.html',
+      chunks: ['mathalea']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'mathalea2d.html',
+      filename: 'mathalea2d.html',
+      chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'mathalea2dsvg.html',
+      filename: 'mathalea2dsvg.html',
+      chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
+      template: '2d.html',
+      filename: '2d.html',
+      chunks: ['mathalea2d']
     })
   ],
   // La liste des fichiers à traiter
