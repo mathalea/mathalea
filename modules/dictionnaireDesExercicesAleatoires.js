@@ -1704,6 +1704,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
     },
+    "betaExoLiouba": {
+        "titre": "Moule pour Liouba",
+        "url": "/exercices/beta/betaExoLiouba.js"
+    },
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
@@ -1769,7 +1773,7 @@ export let dictionnaireDesExercicesAleatoires =
         "url": "/exercices/beta/moule_a_exo_mathalea.js"
     },
     "moule_a_exo_mathalea2d": {
-        "titre": "Exo zéro Mathalea2d",
+        "titre": "Moule pour Liouba",
         "url": "/exercices/beta/moule_a_exo_mathalea2d.js"
     },
     "moule_a_exo_mathalea2d&3d": {
