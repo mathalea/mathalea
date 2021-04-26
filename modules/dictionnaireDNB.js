@@ -939,6 +939,104 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex",
         "tags": ["Calculs numériques", "Fonctions"]
     },
+    //Calédonie mars 2014
+    "dnb_2014_03_caledonie_1": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "1",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_1.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_1.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_1_cor.tex",
+        "tags": ["QCM", "Puissances", "Calculs numériques"]
+    },
+    "dnb_2014_03_caledonie_2": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "2",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_2.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_2.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_2_cor.tex",
+        "tags": ["Equations"]
+    },
+    "dnb_2014_03_caledonie_3": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "3",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_3.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_3.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_3_cor.tex",
+        "tags": ["Probabilités", "Aires et périmètres"]
+    },
+    "dnb_2014_03_caledonie_4": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "4",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_4.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_4.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_4_cor.tex",
+        "tags": ["Pythagore", "Géométrie plane"]
+    },
+    "dnb_2014_03_caledonie_5": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "5",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_5.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_5.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_5_cor.tex",
+        "tags": ["Thalès"]
+    },
+    "dnb_2014_03_caledonie_6": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "6",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_6.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_6.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_6_cor.tex",
+        "tags": ["Volumes", "Equations"]
+    },
+    "dnb_2014_03_caledonie_7": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "7",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_7.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_7.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_7_cor.tex",
+        "tags": ["Statistiques"]
+    },
+    "dnb_2014_03_caledonie_8": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "8",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_8.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_8_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_8.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_8_cor.tex",
+        "tags": ["Calculs numériques", "Fonctions"]
+    },
+    //Fin Calédonie mars 2014
     "dnb_2014_04_pondichery_1": {
         "annee": "2014",
         "lieu": "Pondichéry",
