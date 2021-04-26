@@ -12,10 +12,12 @@ import {liste_de_question_to_contenu,randint,tex_nombre, creerNomDePolygone} fro
  */
 export default function Perimetre_ou_aire_de_carres_rectangles_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.pas_de_version_LaTeX = true;
   this.titre = "Périmètres et aires carrés, rectangles et triangles rectangles";
   this.consigne = "Calculer le périmètre et l'aire des 3 figures suivantes";
   this.spacing = 2;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+
   sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2);
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

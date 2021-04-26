@@ -13,12 +13,13 @@ import {liste_de_question_to_contenu,shuffle,arrondi,tex_nombre} from "/modules/
  */
 export default function Perimetre_aire_disques(pa = 3) {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.pas_de_version_LaTeX = true;
   this.titre = "Périmètres et aires de disques";
   this.sup = pa; // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.spacing = 2;
   this.spacing_corr = 2;
   this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
   this.nb_questions_modifiable = false;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -50,7 +51,7 @@ export default function Perimetre_aire_disques(pa = 3) {
     D3.pointilles=2
     R4=segment(D,P)
     R4.pointilles=2
-    let texte=mathalea2d({xmin:-1,ymin:-1,xmax:33,ymax:33,pixelsParCm:15,scale:0.5,mainlevee:false},C1,C2,C3,C4,tracePoint(A,B,C,D),R1,R4,D2,D3,
+    let texte=mathalea2d({xmin:-1,ymin:-1,xmax:33,ymax:33,pixelsParCm:10,scale:0.4,mainlevee:false},C1,C2,C3,C4,tracePoint(A,B,C,D),R1,R4,D2,D3,
     afficheLongueurSegment(R1.extremite1,R1.extremite2),afficheLongueurSegment(R4.extremite1,R4.extremite2),
     afficheLongueurSegment(D2.extremite1,D2.extremite2),afficheLongueurSegment(D3.extremite1,D3.extremite2),
     latexParPoint('\\mathcal{C}_1',pointAdistance(A,r1+0.7,145),'black',20,0,""),
