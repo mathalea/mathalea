@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
+
 import Exercice from '../ClasseExercice.js'
-import { choice, randint, objet, jour, liste_de_question_to_contenu, combinaison_listes, prenomF, prenomM, objetF, objetM } from '/modules/outils.js'
-import { point, polygone, segment, mathalea2d, texteParPosition } from '/modules/2d.js'
+import { choice, randint, objet, jour, liste_de_question_to_contenu, combinaison_listes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
+import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
@@ -50,9 +52,8 @@ export default function ModelisationProblemes () {
       p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, texte, schemas, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       texte = ''
-      schemas = ''
       texte_corr = ''
 
       switch (liste_type_de_questions[i]) {
@@ -287,7 +288,7 @@ export default function ModelisationProblemes () {
             texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
           }
 
-          if (i == 7) {
+          if (i === 7) {
             texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12,
@@ -298,13 +299,13 @@ export default function ModelisationProblemes () {
               p6, traitHorizontal6, traitVertical6, tb6, th6, th62,
               p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82
-            ) 
+            )
           }
 
           break
 
         case 6:
-          if (o == 1) {
+          if (o === 1) {
             texte += `${prenomF()} récupère ${b5} ${objet()} dans une salle, puis ${a5} dans une autre.`
             texte += '<br>Combien en a-t-elle en tout ?'
           } else {
