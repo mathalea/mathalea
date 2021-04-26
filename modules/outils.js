@@ -543,6 +543,20 @@ export function shuffle (array) {
 }
 
 /*
+* Mélange les lettres d'un string
+*
+* @Example
+* motMelange = shuffleLettres (mot)
+* @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+*/
+export function shuffleLettres(txt) {
+	const array = txt.split('')
+	return shuffle(array).join('')
+}
+
+
+
+/*
 * Mélange les items de deux tableaux de la même manière
 *
 *
@@ -1590,20 +1604,20 @@ export function choisit_nombres_entre_m_et_n (m, n, combien, liste_a_eviter = []
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @Auteur Jean-Claude Lhote
  */
-export function choisit_lettres_differentes (nombre, lettres_a_eviter, majuscule = true) {
-  const liste_a_eviter = []; let lettres = []
-  for (const l of lettres_a_eviter) {
-    liste_a_eviter.push(l.charCodeAt(0) - 64)
-  }
-  const index = choisit_nombres_entre_m_et_n(1, 26, nombre, liste_a_eviter)
-  for (const n of index) {
-    if (majuscule) lettres.push(lettre_depuis_chiffre(n))
-    else lettres.push(lettre_minuscule_depuis_chiffre(n))
-  }
-  return lettres
+export function choisit_lettres_differentes(nombre, lettres_a_eviter = '', majuscule = true) {
+	let liste_a_eviter = [], lettres = []
+	for (let l of lettres_a_eviter) {
+		liste_a_eviter.push(l.charCodeAt(0) - 64)
+	}
+	let index = choisit_nombres_entre_m_et_n(1, 26, nombre, liste_a_eviter)
+	for (let n of index) {
+		if (majuscule) lettres.push(lettre_depuis_chiffre(n))
+		else lettres.push(lettre_minuscule_depuis_chiffre(n))
+	}
+	return lettres
 }
-export function cesar (word, decal) {
-  let mot = ''; let code = 65
+export function cesar(word, decal) {
+	let mot = '', code = 65;
 	for (let x = 0; x < word.length; x++) {
     code = word.charCodeAt(x) % 65
     code = (code + decal) % 26 + 65
@@ -1698,37 +1712,65 @@ export function minToHour (minutes) {
 * Renvoie un prénom féminin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomF (n = 1) {
-  if (n == 1) {
-    return choice(['Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine'])
-  } else {
-    return shuffle(['Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
-  }
+export function prenomF(n = 1) {
+	if (n == 1) {
+		return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
+	}
+	else {
+		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine']).slice(0, n)
+	}
 }
 
 /**
 * Renvoie un prénom masculin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomM (n = 1) {
-  if (n == 1) {
-    return choice(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude'])
-  } else {
-    return shuffle(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude']).slice(0, n)
-  }
+export function prenomM(n = 1) {
+	if (n == 1) {
+		return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
+	}
+	else {
+		return shuffle(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+	}
 }
 
 /**
 * Renvoie un prénom au hasard
 * @Auteur Rémi Angot
 */
-export function prenom (n = 1) {
-  if (n == 1) {
-    return choice([prenomF(), prenomM()])
-  } else {
-    return shuffle(['Rémi', 'Benjamin', 'Guillaume', 'Christophe', 'Cyril', 'Kamel', 'Yazid', 'Mehdi', 'Karim', 'Bernard', 'Joachim', 'Jean-Claude', 'Manon', 'Julie', 'Aude', 'Corinne', 'Léa', 'Carine', 'Elsa', 'Lisa', 'Marina', 'Magalie', 'Nawel', 'Dalila', 'Nadia', 'Yasmine']).slice(0, n)
-  }
+export function prenom(n = 1) {
+	if (n == 1) {
+		return choice([prenomF(), prenomM()])
+	}
+	else {
+		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine','Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+	}
 }
+
+
+/**
+* Renvoie un petit objet féminin au hasard 
+* @Auteur Mireille Gain
+*/
+export function objetF() {
+	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images'])
+	}
+
+	/**
+* Renvoie un petit objet masculin au hasard 
+* @Auteur Mireille Gain
+*/
+export function objetM() {
+	return choice(['auto-collants','bonbons','cahiers','livres','stylos'])
+	}
+
+		/**
+* Renvoie un petit objet au hasard 
+* @Auteur Mireille Gain
+*/
+export function objet() {
+	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images','auto-collants','bonbons','cahiers','livres','stylos'])
+	}
 
 /**
  * Définit l'objet personne
@@ -1757,6 +1799,7 @@ class Personne {
     }
   }
 }
+
 /**
  * crée une instance de la classe Personne
  * @Auteur Jean-Claude Lhote
@@ -1765,6 +1808,7 @@ class Personne {
 export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
   return new Personne({ prenom: prenom, genre: genre, pronom: pronom })
 }
+
 /**
  * Crée un tableau de n objet de la classe Personne
  * @Auteur Jean-Claude Lhote
@@ -1867,6 +1911,25 @@ export function un_mois_de_temperature (base, mois, annee) {
 export function nom_du_mois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 	return mois[n - 1]
+}
+
+/**
+* Renvoie le nom du jour
+* @param n quantième du jour
+* @auteur Mireille Gain
+*/
+export function nom_du_jour(n) {
+	let jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+	return jour[n - 1]
+}
+
+/**
+* Renvoie le nom d'un jour au hasard
+* @param n quantième du jour
+* @auteur Mireille Gain
+*/
+export function jour() {
+	return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
 // Fonctions LaTeX

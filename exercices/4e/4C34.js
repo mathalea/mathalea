@@ -69,8 +69,7 @@ export default function Priorites_et_relatifs_et_puissances() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
   
-    let liste_questions_disponibles
-      liste_questions_disponibles = range1(7);
+    let liste_questions_disponibles = range1(7);
   
     let liste_type_de_questions = combinaison_listes(
       liste_questions_disponibles,

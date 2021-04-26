@@ -7,7 +7,7 @@ import Pavages_et_transformations from '/exercices/6e/_Pavages_et_transformation
  */
 export default function Pavages_et_rotation() {
     Pavages_et_transformations.call(this);
-    this.titre = "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage (sortie Latex Impossible)";
+    this.titre = "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage";
     this.sup = 4;
     this.besoin_formulaire_numerique = false;
   }

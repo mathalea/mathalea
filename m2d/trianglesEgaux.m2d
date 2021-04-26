@@ -1,0 +1,36 @@
+let l1 = randint(40, 70)
+let l2 = randint(40, 80, l1)
+let l3 = randint(40, l1 + l2 - 10, [l1, l2])
+l1 /= 10
+l2 /= 10
+l3 /= 10
+const A = point(0, 0)
+const B = pointAdistance(A, l1)
+const p1 = triangle2points2longueurs(A, B, l2, l3)
+const C = p1.listePoints[2]
+const O = barycentre(p1)
+const v = vecteur(longueur(A,B) + 2, 0)
+const O2 = translation(O,v)
+const p2 = similitude(p1, O2, randint(160, 200), 1)
+const D = p2.listePoints[0]
+const E = p2.listePoints[1]
+const F = p2.listePoints[2]
+const code1 = codeSegment(A, B, '|')
+const code2 = codeSegment(D, E, '|')
+const code3 = codeSegment(B, C, '||')
+const code4 = codeSegment(E, F, '||')
+const code5 = codeSegment(C, A, '|||')
+const code6 = codeSegment(F, D, '|||')
+const codeA1 = codeAngle(A, B, C)
+const codeA2 = codeAngle(D, E, F)
+const codeA3 = codeAngle(B, C, A, 0.8, 'X')
+const codeA4 = codeAngle(E, F, D, 0.8, 'X' )
+const codeA5 = codeAngle(C, A, B, 0.8, '||')
+const codeA6 = codeAngle(F, D, E, 0.8, '||')
+const nom1 = creerNomDePolygone(3)
+const nom2 = creerNomDePolygone(3, nom1)
+nommePolygone(p1, nom1)
+nommePolygone(p2, nom2)
+mathalea.fenetreMathalea2d = [Math.min(A.x, B.x, C.x, D.x, E.x, F.x)-3, Math.min(A.y, B.y, C.y, D.y, E.y, F.y)-3,Math.max(A.x, B.x, C.x, D.x, E.x, F.x)+3,Math.max(A.y, B.y, C.y, D.y, E.y, F.y)+3]
+
+
