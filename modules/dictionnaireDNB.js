@@ -769,6 +769,80 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2013/tex/dnb_2013_11_ameriquesud_6_cor.tex",
         "tags": ["Aires et périmètres", "Calcul littéral", "Fonctions"]
     },
+    //amerique sud secours nov 2013
+    "dnb_2013_11_amdusudsecours_1": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "1",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_1.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
+        "tags": ["QCM","Calculs","Calcul littéral","Statistiques","Hors programme"]
+    },
+    "dnb_2013_11_amdusudsecours_2": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "2",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
+        "tags": ["Calculs numérqiues","Calcul littéral","Équations"]
+    },
+    "dnb_2013_11_amdusudsecours_3": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "3",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_3.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_3_cor.tex",
+        "tags": ["Pythagore","Trigonométrie","Vitesses"]
+    },
+    "dnb_2013_11_amdusudsecours_4": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "4",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_4.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_4_cor.tex",
+        "tags": ["Masses","Volumes"]
+    },
+    "dnb_2013_11_amdusudsecours_5": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "5",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_5.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_5_cor.tex",
+        "tags": ["Aires","Tableur","Fonctions"]
+    },
+    "dnb_2013_11_amdusudsecours_6": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "6",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6_cor.tex",
+        "tags": ["Prise d'initiative"]
+    },
+    //fin amerique sud secours nov 2013
     "dnb_2013_12_caledonie_1": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
