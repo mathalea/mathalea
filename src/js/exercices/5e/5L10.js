@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,enleve_element,choice,range1,combinaison_listes,tex_fraction} from '../../modules/outils.js'
 
+export const titre = 'Écrire une expression littérale'
+
 /**
 * Écrire une expression littérale à partir d'une phrase :
 * * Double, triple, moitié, tiers, quart
@@ -13,7 +15,7 @@ import {shuffle2tableaux,liste_de_question_to_contenu,randint,enleve_element,cho
 */
 export default function Ecrire_une_expression_litterale() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Écrire une expression littérale";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;

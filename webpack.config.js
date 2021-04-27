@@ -14,6 +14,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // cf https://webpack.js.org/plugins/mini-css-extract-plugin/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
+// pour reconstruire la liste des titres à chaque build
+const buildDicos = require('./tasks/buildDicos')
+buildDicos()
+console.log('\nDémarrage de la transpilation webpack :\n')
+
 module.exports = {
   mode: 'development',
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry

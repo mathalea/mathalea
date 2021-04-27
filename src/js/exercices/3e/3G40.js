@@ -5,10 +5,12 @@ import {point3d,droite3d,vecteur3d,arete3d,sphere3d,rotation3d,rotationV3d,demic
 import { sens_de_rotation3d } from '../../modules/3d.js';
 import { liste_de_question_to_contenu_sans_numero } from '../../modules/outils.js';
 
+export const titre = 'Repérage sur la sphère'
+
 export default function ReperageSurLaSphere() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Repérage sur la sphère";
+    this.titre = titre;
     this.nb_questions = 4;
     this.nb_questions_modifiable=true
     this.nb_cols = 1;

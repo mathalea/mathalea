@@ -1,5 +1,7 @@
 import Tables_de_multiplications from '../6e/_Tables_de_multiplications.js';
 
+export const titre = 'Tables de multiplication'
+
 /**
  * Tables de multiplications classiques, à trou ou un mélange des deux.
  *
@@ -9,7 +11,7 @@ import Tables_de_multiplications from '../6e/_Tables_de_multiplications.js';
  */
 export default function Tables_parametres(tables_par_defaut = "2-3-4-5-6-7-8-9"){
     Tables_de_multiplications.call(this,tables_par_defaut)
-    this.titre = "Tables de multiplication";
+    this.titre = titre;
     this.tailleDiaporama = 100;
 
 }

@@ -5,6 +5,8 @@ import {liste_de_question_to_contenu,randint,shuffle,tex_nombre} from '../../mod
 const Algebrite = require('algebrite')
 
 
+export const titre = 'Aires de triangles'
+
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
  *
@@ -15,7 +17,7 @@ const Algebrite = require('algebrite')
  */
 export default function Aire_de_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Aires de triangles";
+  this.titre = titre;
   this.consigne =
     "Calculer l'aire des 3 triangles suivants.";
   this.spacing = 2;

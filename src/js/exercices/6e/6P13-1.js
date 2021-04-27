@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
+export const titre = 'Facture'
+
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import { liste_de_question_to_contenu, randint, choice, calcul, tex_prix } from 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Facture";
+  this.titre = titre;
   this.consigne = "Compléter le tableau suivant : ";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

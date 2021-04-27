@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,choice,katex_Popup2} from '../../modules/ou
 import {point,polygone,grille,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 
+export const titre = 'Programmer des déplacements'
+
 /**
  * * Colorier le déplacement d'un lutin
  * * 6Algo10
@@ -15,7 +17,7 @@ export default function Colorier_Deplacement() {
   this.sup2 = false; //1 : sans boucle ; true : avec boucle
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
-  this.titre = "Programmer des déplacements";
+  this.titre = titre;
   this.consigne = "Dans le quadrillage, effectuer le programme.";
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

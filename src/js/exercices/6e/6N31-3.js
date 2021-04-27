@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_nb_premiers_strict_jusqua, shuffle2tableaux, choice, liste_de_question_to_contenu, randint, troncature, calcul, tex_nombre, mise_en_evidence, tex_fraction } from '../../modules/outils.js';
+export const titre = 'Arrondir une valeur'
+
 /**
  * * Encadrer_puis_arrondir_une_valeur
  * * 6N31-3
@@ -8,7 +10,7 @@ import { liste_nb_premiers_strict_jusqua, shuffle2tableaux, choice, liste_de_que
 
 export default function Arrondir_une_valeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Arrondir une valeur';
+  this.titre = titre;
 
   this.nb_questions = 3
   this.nb_cols = 3

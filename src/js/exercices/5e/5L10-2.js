@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,combinaison_listes,itemize} from '../../modules/outils.js'
 
 
+export const titre = 'Traduire un programme de calcul par une expression littérale'
+
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
 * @Auteur Rémi Angot
@@ -10,7 +12,7 @@ import {shuffle2tableaux,liste_de_question_to_contenu,randint,combinaison_listes
 */
 export default function Traduire_un_programme_de_calcul() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Traduire un programme de calcul par une expression littérale";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 2;
 	this.nb_cols = 2;

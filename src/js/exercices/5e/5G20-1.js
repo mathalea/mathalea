@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_enumerate_sans_numero,tex_nombre,modal_texte_long,lampe_message,Triangles} from '../../modules/outils.js'
 
+export const titre = 'Vocabulaire des triangles'
+
 /**
  * Vocabulaire des triangles
  * 6G20-2 ; 5G20-1
@@ -12,7 +14,7 @@ export default function Vocabulaire_des_triangles() {
   this.consigne = "Donner la nature des triangles en justifiant.";
   this.sup = 1;
   this.sup2 = false;
-  this.titre = "Vocabulaire des triangles";
+  this.titre = titre;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions_modifiable = false;

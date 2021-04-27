@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre} from '../../modules/outils.js';
 import {texte_gras,lampe_message} from '../../modules/outils.js';
 
+export const titre = 'Déterminer des médianes'
+
 /**
  * Calculs de médianes dans des séries statistiques
 * @auteur Sébastien Lozano forked de Jean-Claude Lhote
@@ -11,7 +13,7 @@ import {texte_gras,lampe_message} from '../../modules/outils.js';
 */
 export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Déterminer des médianes";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;

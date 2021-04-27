@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,valeur_base,tex_nombre,nombre_avec_espace,mise_en_evidence} from '../../modules/outils.js'
+export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
+
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
 * référence PEA11-1
@@ -12,7 +14,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,valeur_ba
 export default function Passer_de_la_base_12_ou_16_a_la_10() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Passer de la base 12 ou 16 à la base 10 et inversement";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 3;
 	this.nb_cols = 1;

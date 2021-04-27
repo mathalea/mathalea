@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Quart'
+
 /**
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes,te
 */
 export default function Quart() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Quart";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

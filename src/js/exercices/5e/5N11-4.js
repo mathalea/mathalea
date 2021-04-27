@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, tex_nombre, tex_prix, arrondi} from '../../modules/outils.js'
+export const titre = 'Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage'
+
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, tex_no
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Exprimer une fractions sous la forme d'une valeur approchée d'un pourcentage";
+  this.titre = titre;
   this.consigne = "À l'aide de la calculatrice, donner une valeur approchée au centième près du quotient puis l'écrire sous la forme d'un pourcentage à l'unité près.";
   this.nb_questions = 6;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

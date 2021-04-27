@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,texte_en_couleur
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 
 
+export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Publié le 7/12/2020
@@ -11,7 +13,7 @@ import {mathalea2d,labyrinthe} from '../../modules/2d.js'
  */
 export default function Exercice_labyrinthe_divisibilite() {
 	Exercice.call(this);
-	this.titre = "Labyrinthe de multiples basé sur les critères de divisibilité";
+	this.titre = titre;
 	this.consigne = "";
 	this.niveau = '6e';
 	this.nb_questions = 1;

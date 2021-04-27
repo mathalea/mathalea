@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,lettre_depuis_chiffre,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Déterminer un angle grâce à la trigonométrie'
+
 /**
  * @auteur Jean-Claude Lhote
  * 3G31
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,
 export default function Exercice_Trigo_angles() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer un angle grâce à la trigonométrie";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

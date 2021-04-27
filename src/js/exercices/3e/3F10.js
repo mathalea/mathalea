@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle2tableaux} from '../../modules/outils.js'
+export const titre = 'Lectures d’images et d’antécédents depuis un tableau de valeurs'
+
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle2tableaux} from '../.
 */
 export default function Image_antecedent_depuis_tableau_ou_fleche() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lectures d'images et d'antécédents depuis un tableau de valeurs";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;

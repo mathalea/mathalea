@@ -4,6 +4,8 @@ import {liste_de_question_to_contenu, modal_texte_court} from '../../modules/out
 import {randint, choice, combinaison_listes} from '../../modules/outils.js'
 
 
+export const titre = 'Mon test'
+
 /**
  * Exercice de test
  * @Auteur 
@@ -11,7 +13,7 @@ import {randint, choice, combinaison_listes} from '../../modules/outils.js'
 */
 export default function MaFonctionQuiCreeExercice() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Mon test";
+    this.titre = titre;
     this.consigne = "Calculer";
     this.nb_questions = 10;
     this.nb_cols = 2; // Nombre de colonnes pour la sortie LaTeX

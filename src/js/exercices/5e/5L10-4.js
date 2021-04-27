@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,tex_nombre,num_alpha,tab_C_L} from '../../modules/outils.js'
 import {point,polygone,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Produire une formule à partir d’un tableau'
+
 /** 
  * * Traduire la dépendance entre deux grandeurs par un tableau de valeurs et produire une formule.
  * * 5L10-4
@@ -18,7 +20,7 @@ export default function Tableaux_et_fonction() {
 		this.nb_questions = 1;
 	};
 
-	this.titre = "Produire une formule à partir d'un tableau";
+	this.titre = titre;
 	this.consigne = ``;
 
 	this.nb_cols = 1;

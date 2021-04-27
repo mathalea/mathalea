@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,arrondi,calcul,choice,arrondi_virgule,tex_nombre,tex_nombre2,tex_prix} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Problème - Les courses'
+
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
  * @Auteur Rémi Angot
@@ -9,7 +11,7 @@ const Algebrite = require('algebrite')
  */
 export default function Probleme_course() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problème - Les courses";
+  this.titre = titre;
   this.consigne = "";
   this.spacing = 2;
   this.spacing_corr = 2;

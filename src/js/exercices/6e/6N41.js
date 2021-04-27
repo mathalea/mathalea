@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,mise_en_evidence,tex_fraction,shuffle2tableaux} from '../../modules/outils.js'
+export const titre = 'Égalités entre fractions simples'
+
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
  * @Auteur Rémi Angot
@@ -10,7 +12,7 @@ export default function Egalites_entre_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 11; // Correspond au facteur commun
   this.sup2=2 // alternace numérateur ou dénominateur imposé.
-  this.titre = "Égalités entre fractions simples";
+  this.titre = titre;
   this.consigne = "Compléter les égalités.";
   this.spacing = 2;
   this.spacing_corr = 2;

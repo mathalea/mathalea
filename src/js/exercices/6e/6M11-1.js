@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,tex_nombre} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Périmètres et aires carrés, rectangles et triangles rectangles'
+
 /**
  * Un carré, un rectangle et un triangle rectangle sont tracés.
  *
@@ -14,7 +16,7 @@ const Algebrite = require('algebrite')
  */
 export default function Perimetre_ou_aire_de_carres_rectangles_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Périmètres et aires carrés, rectangles et triangles rectangles";
+  this.titre = titre;
   this.consigne = "Calculer le périmètre et l'aire des 3 figures suivantes";
   this.spacing = 2;
   this.nb_cols = 1;

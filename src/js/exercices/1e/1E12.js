@@ -5,6 +5,8 @@ const Algebrite = require('algebrite')
 
 
 
+export const titre = 'Trouver l’équation d’une parabole'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Trois type de questions proposées :
@@ -15,7 +17,7 @@ const Algebrite = require('algebrite')
  */
  export default function Trouver_equation_parabole() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Trouver l'équation d'une parabole";
+    this.titre = titre;
     this.consigne = "Trouver l'expression de la fonction f.";
     this.nb_questions = 5;
     this.nb_cols = 1;

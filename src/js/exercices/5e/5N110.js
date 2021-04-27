@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,tex_prix,tex_fraction} from 
 const Algebrite = require('algebrite')
 
 
+export const titre = 'Variation en pourcentages'
+
 /**
 * Calculer +/- 20, 30, 40 ou 60 %
 * @Auteur Rémi Angot
@@ -10,7 +12,7 @@ const Algebrite = require('algebrite')
 */
 export default function Variation_en_pourcentages() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Variation en pourcentages";
+	this.titre = titre;
 	this.consigne = "Calculer le nouveau prix";
 	this.nb_questions = 5;
 	this.spacing = 1;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu, randint } from '../../modules/outils.js'
+export const titre = 'Ceci est le titre de l’exercice BetaExosimpleMatthieu'
+
 /**
  * Description didactique de l'exercice
  * @Matthieu_Devillers
@@ -7,7 +9,7 @@ import { liste_de_question_to_contenu, randint } from '../../modules/outils.js'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = "Ceci est le titre de l'exercice BetaExosimpleMatthieu"
+  this.titre = titre
   this.consigne = "Ceci est la consigne (en gras) de l'exercice."
   this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
   this.nb_questions_modifiable = false // le nombre de questions est fixe dans cet exercice.

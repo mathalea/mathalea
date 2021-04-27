@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,arrondi,abs,quatrieme_proportionnelle,tex_nombrec,lettre_depuis_chiffre,tex_fraction,katex_Popup2} from '../../modules/outils.js'
 
+export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
+
 /**
  * @auteur Jean-Claude Lhote
  * 3G20-2
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,ra
 export default function Exercice_Thales() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer une longueur avec la propriété de Thales (MG32)";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

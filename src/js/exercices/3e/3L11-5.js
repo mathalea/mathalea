@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,texte_gras,warn_message} from '../../modules/outils.js'
+export const titre = 'Calcul mental et calcul littéral'
+
 /**
  * * Calcul mental autour des identités remarquables
  * * numéro de l'exo ex : 3L11-5
@@ -17,7 +19,7 @@ export default function identites_calculs() {
 		this.nb_questions = 3;
 	};
 
-	this.titre = "Calcul mental et calcul littéral";
+	this.titre = titre;
 	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;
 
 	this.nb_cols = 1;

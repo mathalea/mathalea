@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre} from '../../modules/outils.js'
 import {point,tracePoint,pointAdistance,labelPoint,droite,droiteParPointEtPerpendiculaire,codageMediatrice,segmentAvecExtremites,cercle,pointIntersectionLC,dansLaCibleCarree,cibleCarree,homothetie,similitude,texteParPoint,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Construire des médiatrices avec cible auto-corrective'
+
 /**
  * Construction de médiatrices avec dispositif d'auto-correction aléatoire
  * Ref 6G25
@@ -9,7 +11,7 @@ import {point,tracePoint,pointAdistance,labelPoint,droite,droiteParPointEtPerpen
  */
 export default function Construire_mediatrices_6e() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Construire des médiatrices avec cible auto-corrective";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false

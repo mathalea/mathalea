@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
+export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs.'
+
 /** 
  * * résoudre un problème additif avec des relatifs
  * * 5R20-4
@@ -17,7 +19,7 @@ export default function Problemes_additifs_relatifs_5e() {
 		this.nb_questions = 1;
 	};
 
-	this.titre = "Résoudre un problème en utilisant une somme algébrique de relatifs.";
+	this.titre = titre;
 	this.consigne = ``;
 
 	this.nb_cols = 1;

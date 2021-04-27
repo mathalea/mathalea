@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, choice, combinaison_listes, tex_nombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
+export const titre = 'Opérations posées'
+
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
  *
@@ -18,7 +20,7 @@ import Operation from '../../modules/operations.js';
  */
 export default function Operations_posees() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Opérations posées";
+    this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
     sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon opidiv n'est pas joli

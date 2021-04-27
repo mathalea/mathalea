@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_chiffre,simpExp,simpNotPuissance,eclatePuissance,modal_pdf} from '../../modules/outils.js'
+export const titre = 'Puissances de 10 : Le sens des règles de calculs'
+
 /**
  * 4C30 -- Puissances de 10
  * * Travailler des résultats automatisés
@@ -9,7 +11,7 @@ export default function Puissances_de_dix() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1;
-  this.titre = "Puissances de 10 : Le sens des règles de calculs";
+  this.titre = titre;
   sortie_html
     ? (this.consigne = "Écrire sous la forme $\\mathbf{10^n}$.")
     : (this.consigne = "Écrire sous la forme $10^n$.");

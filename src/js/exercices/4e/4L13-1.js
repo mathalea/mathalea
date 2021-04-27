@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,prenom,texte_en_couleur} from '../../modules/outils.js'
+export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
+
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
  * * 4L13-1
@@ -16,7 +18,7 @@ export default function Forme_litterale_introduire_une_lettre() {
     this.nb_questions = 2;
   };
 
-  this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
+  this.titre = titre;
   this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
 
   this.nb_cols = 1;

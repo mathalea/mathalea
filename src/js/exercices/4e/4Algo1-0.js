@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_cha
 import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} from '../../modules/2d.js'
 import {combinaison_listes} from '../../modules/outils.js'
 
+export const titre = 'Dessiner avec scratch'
+
 /** 
  * * Dessiner selon un programme scratch
  * * 4Algo1-0
@@ -13,7 +15,7 @@ import {combinaison_listes} from '../../modules/outils.js'
       export default function Tracer_avec_scratch() {
   'use strict';
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Dessiner avec scratch";
+  this.titre = titre;
   this.consigne = "Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?";
 
   this.nb_cols = 1;

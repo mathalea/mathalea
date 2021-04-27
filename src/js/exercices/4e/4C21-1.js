@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,pgcd,simplification_de_fraction_avec_etapes,mise_en_evidence,tex_fraction,ppcm} from '../../modules/outils.js'
 
 
+export const titre = 'Additionner deux fractions'
+
 /**
 * Effectuer la somme de deux fractions
 *
@@ -15,7 +17,7 @@ export default function Exercice_additionner_des_fractions() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 2; // Niveau de difficulté
 	this.sup2 = false; // Avec ou sans relatifs
-	this.titre = "Additionner deux fractions";
+	this.titre = titre;
 	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée";
 	this.spacing = 2;
 	this.spacing_corr = 2;

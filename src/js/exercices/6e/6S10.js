@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Lire un diagramme en barre'
+
 /**
  * Lire un diagramme en barre
  * @Auteur Erwan Duplessy
@@ -10,7 +12,7 @@ import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
 export default function Lecture_diagramme_barre() {
 
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Lire un diagramme en barre";
+  this.titre = titre;
   this.consigne = "Répondre aux questions à l'aide du graphique.";
   this.nb_questions = 3;
   this.nb_questions_modifiable = false;

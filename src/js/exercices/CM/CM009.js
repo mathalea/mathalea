@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range1,combinaison_listes,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Moitié'
+
 /**
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,range1,combinaison_listes,tex_nombr
 */
 export default function Moitie() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Moitié";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

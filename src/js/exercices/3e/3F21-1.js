@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu_sans_numero, ecriture_algebrique, randint, reduire_ax_plus_b, tex_nombre, SVG_Tracer_droite, Latex_Tracer_droite, SVG_repere, Latex_repere, katex_Popup2 } from '../../modules/outils.js'
 import SVG from 'svg.js'
+export const titre = 'Déterminer une fonction affine'
+
 /**
  * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
  * @Auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import SVG from 'svg.js'
  */
 export default function Lecture_expression_fonctions_affines () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Déterminer une fonction affine'
+  this.titre = titre
   this.consigne = "Donner l'expression des fonctions représentées"
   this.nb_questions = 1
   this.nb_questions_modifiable = false

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,modal_texte_court} from '../../modules/outils.js'
+export const titre = 'Ajouter 9'
+
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,modal_texte_court} from '../../modu
 */
 export default function Ajouter9() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Ajouter 9";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

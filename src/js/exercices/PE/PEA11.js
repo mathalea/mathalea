@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+export const titre = 'Passer de la base 10 à une autre base et inversement'
+
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
 * référence PEA11
@@ -12,7 +14,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombr
 export default function Passer_d_une_base_a_l_autre() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Passer de la base 10 à une autre base et inversement";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 3;
 	this.nb_cols = 1;

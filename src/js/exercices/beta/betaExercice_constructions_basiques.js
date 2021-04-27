@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,carre,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Programmes de constructions (en chantier)'
+
 /**
  * Non Publié : base servant à faire des tutoriels vidéos
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {point,tracePoint,labelPoint,carre,rotation,codageAngleDroit,mathalea2d} 
 export default function Exercice_constructions_basiques() {
   "use strict";
   Exercice.call(this);
-  this.titre = "Programmes de constructions (en chantier)";
+  this.titre = titre;
   this.nb_questions = 1; // Ici le nombre de questions
   this.nb_questions_modifiable = false; // Active le formulaire nombre de questions
   this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

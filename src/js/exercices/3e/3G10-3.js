@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,arcPointPointAngle,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Construire l’image d’un point par une rotation avec cible auto-corrective'
+
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
  * Ref 3G10-3
@@ -9,7 +11,7 @@ import {point,tracePoint,labelPoint,arcPointPointAngle,dansLaCibleCarree,cibleCa
  */
 export default function Construire_rotation_point_3e() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Construire l'image d'un point par une rotation avec cible auto-corrective";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

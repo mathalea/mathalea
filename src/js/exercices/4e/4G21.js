@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,calcul,tex_nombrec,creerNomDePolygone,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Déterminer si un triangle est rectangle ou pas.'
+
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_l
  */
 export default function Reciproque_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer si un triangle est rectangle ou pas.";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_cols = 1;

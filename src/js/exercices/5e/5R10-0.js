@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,mise_en_evidence,texte_en_couleur,tab_C_L} from '../../modules/outils.js'
+export const titre = 'Trouver l’opposé d’un nombre relatif'
+
 /** 
 * * Remplir un tableau en utilisant la notion d'opposé
 * * 5R10-0
@@ -16,7 +18,7 @@ export default function Trouver_oppose() {
 		this.nb_questions = 1;
 	};
 
-	this.titre = "Trouver l'opposé d'un nombre relatif";
+	this.titre = titre;
 	this.consigne = "Compléter le tableau suivant.";
 
 	this.nb_cols = 1;

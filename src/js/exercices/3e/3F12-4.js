@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,abs,calcul,tex_graphique,resol_sys_lineaire_2x2,resol_sys_lineaire_3x3,cherche_min_max_f} from '../../modules/outils.js'
+export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
+
 /**
 * Un graphique étant tracé, déterminer l'image de nombres donnés.
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,abs,calcul,tex_graphiqu
 */
 export default function Image_graphique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'image d'un nombre à partir d'un graphique";
+	this.titre = titre;
 	this.consigne = "";
 	this.sup = 3;
 	this.spacing = 1;

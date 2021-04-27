@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,abs,pgcd,tex_fraction_signe,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Diviser des fractions'
+
 /**
  * Calcul du quotient de deux fractions. Paramétrages possibles :
  * * 1 : Nombres positifs exclusivement
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 export default function Exercice_diviser_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1; // Avec ou sans relatifs
-  this.titre = "Diviser des fractions";
+  this.titre = titre;
   this.consigne = "Calculer et donner le résultat sous forme irréductible";
   this.spacing = 2;
   this.spacing_corr = 2;

@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,tex_nomb
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
+export const titre = 'Tracer des parallèles et des perpendiculaires'
+
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
@@ -12,7 +14,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
 export default function Parallele_et_Perpendiculaires() {
   "use strict";
   Exercice.call(this);
-  this.titre = "Tracer des parallèles et des perpendiculaires";
+  this.titre = titre;
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

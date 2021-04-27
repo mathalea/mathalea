@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,combinaison_listes,somme_des_chiffre,calcul,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Critères de divisibilité'
+
 /**
  * Un nombre est-il divisible par :
  *
@@ -13,7 +15,7 @@ import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,combinaison
 export default function Criteres_de_divisibilite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 4; // Correspond au facteur commun
-  this.titre = "Critères de divisibilité";
+  this.titre = titre;
   this.consigne = "Répondre aux questions suivantes en justifiant.";
   this.spacing = 2;
   this.spacing_corr = 1;

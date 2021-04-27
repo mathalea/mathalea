@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
+export const titre = 'Instruction conditionelle'
+
 /**
  * * Instructions conditionnelles
  * * numéro de l'exo ex : 3Algo1
@@ -13,7 +15,7 @@ export default function Instruction_conditionelle() {
 	this.sup = 1;
 	this.nb_questions = 2;
 
-	this.titre = "Instruction conditionelle";
+	this.titre = titre;
 	this.consigne = `Donner les coordonnées de la position finale du lutin.`;
 	this.type_exercice = "Scratch"
 	this.nb_cols = 2;

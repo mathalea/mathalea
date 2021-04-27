@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes, randint, num_alpha,arrondi, calcul, tex_nombre, tex_nombrec, arrondi_virgule } from '../../modules/outils.js'
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from '../../modules/3d.js'
+export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'
+
 /**
  * propose de mesurer la hauteur d'un objet en utilisant l'angle sous lequel on voit l'objet et la distance à l'objet. 
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d
 */
 export default function Calculs_trigonometriques2() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la hauteur d'un objet vu sous un angle donné";
+  this.titre = titre;
   this.consigne = "";
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX

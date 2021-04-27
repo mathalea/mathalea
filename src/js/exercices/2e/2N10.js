@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 
 
+export const titre = 'Existence d’une racine carrée'
+
 /**
  * 2N10
  * @Auteur Stéphane Guyon
  */
 export default function Existence_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Existence d'une racine carrée";
+    this.titre = titre;
     this.consigne = " Dire si le nombre proposé existe ou non, en justifiant.";
     this.nb_questions = 5;
     this.nb_cols = 2;

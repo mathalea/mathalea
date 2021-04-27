@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,obtenir_liste_facteurs_premiers,tex_nombre,mise_en_evidence,modal_pdf,modal_video,crible_eratosthene_n,premiers_entre_bornes,warn_message} from '../../modules/outils.js'
+export const titre = 'Décomposition en facteurs premiers d’un entier'
+
 /**
  * 3A11-2 - Decomposition_facteurs_premiers
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
@@ -13,7 +15,7 @@ export default function Decomposition_facteurs_premiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Décomposition en facteurs premiers d'un entier";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;

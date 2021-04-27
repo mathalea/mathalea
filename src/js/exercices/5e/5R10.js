@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {calcul,liste_de_question_to_contenu,randint,ecriture_parenthese_si_moins,tex_nombrec,tex_nombre,arrondi,choice,combinaison_listes} from '../../modules/outils.js'
 
+export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
+
 /**
  * Additions à trou dans les relatifs
  *
@@ -14,7 +16,7 @@ export default function Terme_inconnu_de_somme() {
   this.sup = 1;
   this.sup3 = 1;
   this.sup2 = 20; // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.titre = "Trouver le terme manquant d'une somme de nombres relatifs";
+  this.titre = titre;
   this.consigne = "Calcule le terme manquant";
   this.spacing = 2;
 

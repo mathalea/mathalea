@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,pgcd,tex_fraction_reduite,lettre_minuscule_depuis_chiffre} from '../../modules/outils.js'
+export const titre = 'Compléter un tableau de valeurs'
+
 /**
 * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
 *
@@ -13,7 +15,7 @@ import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,ra
 */
 export default function Tableau_de_valeurs() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Compléter un tableau de valeurs";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_cols = 1;

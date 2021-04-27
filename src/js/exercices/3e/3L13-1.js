@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_parenthese_si_negatif,signe,abs,pgcd,tex_fraction_reduite,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Équation du premier degré (utilisant la distributivité)'
+
 /**
 * Équation du premier degré
 * * Type 1 : ax+b=cx+d
@@ -11,7 +13,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,rien_si_1,ecritu
 */
 export default function Exercice_equation1_2() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Équation du premier degré (utilisant la distributivité)";
+	this.titre = titre;
 	this.consigne = 'Résoudre les équations suivantes';
 	this.spacing = 2;
 	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 2;

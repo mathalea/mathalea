@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,compare_nombres,tex_nombre} from '../../modules/outils.js'
 
 
+export const titre = 'Décomposition en facteurs premiers'
+
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
 * @Auteur Rémi Angot
@@ -11,7 +13,7 @@ export default function Exercice_decomposer_en_facteurs_premiers() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = '';
 	this.sup2 = '';
-	this.titre = "Décomposition en facteurs premiers";
+	this.titre = titre;
 	this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers.";
 	this.spacing = 2;
 	this.nb_questions = 6;

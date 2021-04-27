@@ -3,13 +3,15 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 import {point,labelPoint,segment,segmentAvecExtremites,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 /* auteur Stéphane Guyon*/
+export const titre = 'Résoudre une équation avec des valeurs absolues'
+
 /**
  * 2N23
  * @Auteur Stéphane Guyon
  */
 export default function valeur_absolue_et_equation() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre une équation avec des valeurs absolues";
+    this.titre = titre;
     this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes  :";
     this.nb_questions = 4;
     this.nb_cols = 2;

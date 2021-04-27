@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu, texte_en_couleur_et_gras, shuffle2tableaux } from '../../modules/outils.js'
+export const titre = 'Citer les propriétés des parallélogrammes'
+
 /**
  * Description didactique de l'exercice
  * @Auteur
@@ -7,7 +9,7 @@ import { liste_de_question_to_contenu, texte_en_couleur_et_gras, shuffle2tableau
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Citer les propriétés des parallélogrammes'
+  this.titre = titre
   this.consigne = "Compléter les phrases suivantes à l'aide de la définition ou des propriétés des parallélogrammes."
   this.nb_questions_modifiable = false
   this.nb_cols = 2 // Uniquement pour la sortie LaTeX

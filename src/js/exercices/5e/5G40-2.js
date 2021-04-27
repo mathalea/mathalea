@@ -1,6 +1,8 @@
 import { point, polygone, segment, milieu, nommePolygone, codeSegment, codeAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../ClasseExercice.js'
 import { creerNomDePolygone, liste_de_question_to_contenu, combinaison_listes } from '../../modules/outils.js'
+export const titre = 'Reconnaitre un parallélogramme à partir du codage d’une figure'
+
 /**
  * Description didactique de l'exercice
  * @Auteur
@@ -8,7 +10,7 @@ import { creerNomDePolygone, liste_de_question_to_contenu, combinaison_listes } 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = "Reconnaitre un parallélogramme à partir du codage d'une figure"
+  this.titre = titre
   this.consigne = "Pour chacune des figures suivantes, tracées à main levée, préciser s'il s'agit d'un parallélogramme."
   this.nb_questions_modifiable = false
   this.nb_cols = 2 // Uniquement pour la sortie LaTeX

@@ -1,4 +1,6 @@
 import Thales2D from './_Thales2D.js'
+export const titre = 'Calculer des longueurs avec la propriété de Thalès'
+
 /**
  * Calcul de longueurs avec le théorème de Thalès
  * @Auteur Rémi Angot
@@ -8,5 +10,5 @@ import Thales2D from './_Thales2D.js'
 export default function Thales2D_4e() {
   Thales2D.call(this);
   this.besoin_formulaire_numerique = false;
-  this.titre = "Calculer des longueurs avec la propriété de Thalès";
+  this.titre = titre;
 }

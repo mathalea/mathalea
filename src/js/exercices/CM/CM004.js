@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Les quatre opérations'
+
 /**
  * Mélange équitable d'additions, de soustractions, de multiplications et de divisions
  *
@@ -11,7 +13,7 @@ import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes} f
   */
 export default function Quatre_operations() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Les quatre opérations";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

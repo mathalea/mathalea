@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
+export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant'
+
 /** 
 * * Ranger une liste de nombres dans l'odre croissant ou décroissant
 * * 6N11-4
@@ -17,7 +19,7 @@ export default function Ranger_ordre_croissant_decroissant() {
     this.nb_questions = 2;
   };
 
-  this.titre = "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant";
+  this.titre = titre;
   //this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;	
 
   this.nb_cols = 1;

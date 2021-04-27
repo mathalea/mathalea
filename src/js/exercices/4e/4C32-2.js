@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/outils.js'
 import { choice, calcul, randint, tex_nombre, modal_texte_court } from '../../modules/outils.js';
+export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
+
 /**
  * Utiliser les puissances de 10 et les préfixes kilo, Méga, Giga, Téra
  * @Auteur Rémi Angot
@@ -9,7 +11,7 @@ import { choice, calcul, randint, tex_nombre, modal_texte_court } from '../../mo
 */
 export default function ConversionsPuissancesDe10(numero_de_l_exercice) {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Puissances de 10 et préfixes kilo, méga, giga, téra";
+  this.titre = titre;
   this.consigne = "Compléter";
   this.nb_questions = 10;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

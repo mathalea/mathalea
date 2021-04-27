@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique,ecriture_algebrique_sauf1,lettre_minuscule_depuis_chiffre,xcas} from '../../modules/outils.js'
 
+export const titre = 'Calculs de dérivés'
+
 /**
  * Calculs de dérivés
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebri
 */
 export default function CalculsDeDerives() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculs de dérivés";
+  this.titre = titre;
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée.";
   this.nb_questions = 6;
   this.nb_cols = 2; // Nombre de colonnes pour la sortie LaTeX

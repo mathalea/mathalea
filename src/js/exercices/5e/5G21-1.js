@@ -1,5 +1,7 @@
 import Constructibilite_des_triangles from './_Constructibilite_des_triangles.js'
 
+export const titre = 'Constructibilité des triangles via les longueurs'
+
 /**
  * Vocabulaire des triangles 
  * 5G21-1
@@ -10,6 +12,6 @@ export default function Constructibilite_des_triangles_longueurs() {
 	Constructibilite_des_triangles.call(this);
 	this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 	this.exo = this.beta + `5G21-1`;
-	this.titre = "Constructibilité des triangles via les longueurs";
+	this.titre = titre;
 };
 

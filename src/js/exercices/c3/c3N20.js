@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes, randint, tex_nombrec, choice } from '../../modules/outils.js'
+export const titre = 'Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales'
+
 /**
  * Description didactique de l'exercice
  * @Auteur Benjamin Angot
@@ -10,7 +12,7 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, tex_nombrec,
 
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales";
+  this.titre = titre;
   this.consigne = "Donner l'écriture décimale des nombres suivants.";
   this.nb_questions = 6;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

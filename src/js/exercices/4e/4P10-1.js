@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
 import {point,segment,repere,courbe,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Résoudre un problème de proportionnalité à l’aide d’un graphique'
+
 /**
  * fork de 4P10-1 par Jean-Claude Lhote
  */
@@ -15,7 +17,7 @@ export default function Graphiques_et_proportionnalite2() {
     this.nb_questions = 1;
   };
 
-  this.titre = "Résoudre un problème de proportionnalité à l'aide d'un graphique";
+  this.titre = titre;
   this.consigne = "";
 
   this.nb_cols = 1;

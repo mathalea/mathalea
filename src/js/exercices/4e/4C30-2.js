@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre,tex_nombre2,puissanceEnProduit} from '../../modules/outils.js'
+export const titre = 'Écriture décimale d’une puissance de 10'
+
 /**
  * Donner l'écriture décimale d'une puissance de 10
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre,tex_n
  */
 export default function EcritureDecimalePuissanceDe10() {
   Exercice.call(this);
-  this.titre = "Écriture décimale d'une puissance de 10";
+  this.titre = titre;
   this.consigne = "Donner l'écriture décimale";
   this.nb_questions = 8;
   this.nb_cols = 1;

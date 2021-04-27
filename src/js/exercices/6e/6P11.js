@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,prenomF,prenomM,texte_en_couleur,tex_prix,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js';
+export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
+
 /**
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
  * et le nombre d'objets qu'on peut acheter avec z€.
@@ -420,7 +422,7 @@ export default function Proportionnalite_par_linearite() {
   "use strict";
   let question;
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple";
+  this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
   sortie_html ? (this.spacing = 2) : (this.spacing = 1);
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1);

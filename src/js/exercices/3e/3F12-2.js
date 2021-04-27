@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,tex_fraction_reduite,lettre_minuscule_depuis_chiffre,katex_Popup2,fraction_simplifiee} from '../../modules/outils.js'
 
 
+export const titre = 'Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique'
+
 /**
 * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
 *
@@ -15,7 +17,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebri
 */
 export default function Image_fonction_algebrique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu} from '../../modules/outils.js'
 import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
+export const titre = 'Générateur de compte est bon version semi-aléatoire'
+
 /**
  * @Auteur Jean-Claude Lhote
   * référence CM020
@@ -9,7 +11,7 @@ import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
 export default function Le_compte_est_bonV4() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Générateur de compte est bon version semi-aléatoire";
+  this.titre = titre;
   this.consigne =
     "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
   this.nb_questions = 1;

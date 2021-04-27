@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,simpExp,modal_pdf} from '../../modules/outils.js'
+export const titre = 'Puissances : Calculs automatisés et règles de calculs'
+
 /**
  * Puissances d'un relatif (2)
  * * Travailler des résultats automatisés
@@ -13,7 +15,7 @@ export default function Puissances_d_un_relatif_2() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   //this.sup = 1;
-  this.titre = "Puissances : Calculs automatisés et règles de calculs";
+  this.titre = titre;
   sortie_html
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");

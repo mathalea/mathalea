@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import { premiere_lettre_en_majuscule, liste_de_question_to_contenu_sans_numero, texcolors, arrondi_virgule, tex_fraction, combinaison_listes, tab_C_L, choice, randint } from '../../modules/outils.js'
 import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from '../../modules/2d.js'
 
+export const titre = 'Représenter des données par un diagramme'
+
 /**
  * @Auteur Jean-Claude Lhote
  * 
@@ -9,7 +11,7 @@ import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motif
 export default function Construire_Un_Diagramme() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Représenter des données par un diagramme";
+    this.titre = titre;
     this.nb_questions = 1;
     this.nb_questions_modifiable = false
     this.nb_cols = 1;

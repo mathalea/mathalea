@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,ecriture_parenthese_si_moins,signe,abs,lettre_depuis_chiffre} from '../../modules/outils.js'
 
+export const titre = 'Utiliser la simple distributivité'
+
 /**
  * Développer en utilisant la distributivité simple
  *
@@ -20,7 +22,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 export default function Exercice_developper(difficulte = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = difficulte;
-  this.titre = "Utiliser la simple distributivité";
+  this.titre = titre;
   this.consigne = "Développer.";
   this.spacing = 1;
   this.nb_questions = 5;

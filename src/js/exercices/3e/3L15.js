@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Résoudre une équation du second degré'
+
 /**
  * Résoudre une équation de type x²=a
 * @auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '..
 export default function Resoudre_une_equation_x2_egal_A() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Résoudre une équation du second degré";
+	this.titre = titre;
 	this.consigne = "Résoudre les équations suivantes";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

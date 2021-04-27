@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,modal_pdf,num_alpha,premiers_entre_bornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
+export const titre = 'Fractions irréductibles'
+
 /**
  * 3A12 - Fractions irreductibles
  * @author Sébastien Lozano
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ord
 export default function Fractions_irreductibles() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Fractions irréductibles";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;

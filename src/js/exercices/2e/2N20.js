@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombrec,tex_nombre,katex_Popup2} from '../../modules/outils.js'
 
 
+export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient'
+
 /**
  * 2N20
  * @Auteur Stéphane Guyon
  */
 export default function ensemble_de_nombres() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient";
+    this.titre = titre;
     this.consigne = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :";
     this.nb_questions = 5;
     this.nb_cols = 2;

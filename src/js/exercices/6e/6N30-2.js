@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,tex_nombrec,lettre_depuis_chiffre,html_consigne,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe} from '../../modules/outils.js'
+export const titre = 'Placer un point d’abscisse décimale'
+
 /**
  * Placer un point d'abscisse décimale
  * @Auteur Jean-Claude Lhote et Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,t
 export default function Placer_points_sur_axe() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Placer un point d'abscisse décimale";
+  this.titre = titre;
   this.consigne = " Placer trois points sur un axe gradué.";
   this.nb_questions = 5;
   this.nb_questions_modifiable = true;

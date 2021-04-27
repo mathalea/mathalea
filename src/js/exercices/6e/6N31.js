@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,tex_prix} from '../../modules/outils.js'
+export const titre = 'Comparer des nombres décimaux'
+
 /**
  * Comparer deux nombres décimaux
  *
@@ -20,7 +22,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,te
  */
 export default function Comparer_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Comparer des nombres décimaux";
+  this.titre = titre;
   this.consigne = "Compléter avec le signe < , > ou =.";
   this.nb_questions = 8;
   this.nb_cols = 2;

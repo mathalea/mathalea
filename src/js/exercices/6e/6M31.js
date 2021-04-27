@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_texte} from '../../modules/outils.js'
+export const titre = 'Conversions de volume'
+
 /**
  * Conversions de volumes.
  *
@@ -17,7 +19,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = niveau; // Niveau de difficulté de l'exercice
   this.sup2 = false; // Avec des nombres décimaux ou pas
-  this.titre = "Conversions de volume";
+  this.titre = titre;
   this.consigne = "Compléter";
   this.spacing = 2;
   this.nb_cols_corr = 1;

@@ -1,4 +1,6 @@
 import Eq_resolvantes_Thales from '../3e/3L13-2.js'
+export const titre = 'Déterminer une quatrième proportionnelle dans un tableau'
+
 /** 
  * * Quatrieme proportionnelle dans un tableau du type 
  * ---------
@@ -15,7 +17,7 @@ import Eq_resolvantes_Thales from '../3e/3L13-2.js'
 export default function Tableaux_et_quatrieme_proportionnelle() {
   Eq_resolvantes_Thales.call(this);
   this.exo = `4P10-2`;
-  this.titre = "Déterminer une quatrième proportionnelle dans un tableau";
+  this.titre = titre;
   this.consigne = `Déterminer la quatrième proportionnelle dans les tableaux suivants.`;
   this.sup=1
 };

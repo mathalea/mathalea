@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, randint, calcul, choisit_lettres_differen
 import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
+export const titre = 'Construire des parallélogrammes avec dispositif d’auto-correction'
+
 /**
  * Terminer la construction d'un parallélogramme
  * Ref 5G40
@@ -11,7 +13,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
  */
 export default function Constructions_parallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = "Construire des parallélogrammes avec dispositif d'auto-correction"
+  this.titre = titre
   this.consigne = ''
   this.nb_questions = 1
   this.nb_questions_modifiable = false

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,tex_nombrec,obtenir_liste_facteurs_premiers,choice,combinaison_listes} from '../../modules/outils.js'
 
+export const titre = 'Deviner un nombre relatif'
+
 /**
  * Additions à trou dans les relatifs
  *
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,shuffle,tex_nombrec,obtenir_liste_f
 export default function Deviner_nombre_relatif() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-   this.titre = "Deviner un nombre relatif";
+   this.titre = titre;
   this.consigne = "Qui suis-je ?";
   this.spacing = 2;
   this.nb_questions=3;

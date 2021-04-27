@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,tab_C_L} from '../../modules/outils.js'
+export const titre = 'Ordre de grandeur et opérations sur les décimaux'
+
 /** 
  * * Ordre de grandeur d'une opération entre décimaux
  * * 6N31-2
@@ -16,7 +18,7 @@ export default function Ordre_de_grandeur_operations_decimaux() {
     this.nb_questions = 1;
   };
 
-  this.titre = "Ordre de grandeur et opérations sur les décimaux";
+  this.titre = titre;
   this.consigne = `Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l'ordre de grandeur du résultat.`;
 
   this.nb_cols = 1;

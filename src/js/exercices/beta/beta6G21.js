@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, randint, shuffle, combinaison_listes, cal
 import { triangle2points2longueurs, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
+export const titre = 'Construire un triangle aux instruments'
+
 /**
  * Publié le 30/08/202
  * @Auteur Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
@@ -12,7 +14,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
 export default function Construire_un_triangle() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Construire un triangle aux instruments";
+    this.titre = titre;
     this.nb_questions = 2;
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

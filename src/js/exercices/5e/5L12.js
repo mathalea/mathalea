@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes,rien_si_1,calcul,tex_nombrec,lettre_depuis_chiffre,tex_nombre} from '../../modules/outils.js'
 
+export const titre = 'Réduire une expression littérale'
+
 /**
 * Réduire une expression
 *
@@ -15,7 +17,7 @@ import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes,ri
 */
 export default function Reduire_une_expression_litterale() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Réduire une expression littérale";
+	this.titre = titre;
 	this.consigne = "Réduire les expressions suivantes";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

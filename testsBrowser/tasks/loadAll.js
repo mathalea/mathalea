@@ -9,7 +9,7 @@ const { flushPage, getPage, initCurrentBrowser, loadUrl } = require('helpers/bro
 const { getFileLogger, log, logError } = require('helpers/log')
 const { waitMs } = require('helpers/promise')
 
-const { dictionnaireDesExercicesAleatoires, dictionnaireDesExercicesQCM } = require('../esm/dictionnaires')
+const { dictionnaireDesExercicesAleatoires, dictionnaireDesExercicesAMC } = require('../esm/dictionnaires')
 
 const logDir = path.join(__dirname, '..', '..', 'log')
 
@@ -45,7 +45,7 @@ async function run () {
     addRequestListener(page)
 
     // reste à boucler sur les exos
-    let exos = Object.keys(dictionnaireDesExercicesAleatoires).concat(Object.keys(dictionnaireDesExercicesQCM))
+    let exos = Object.keys(dictionnaireDesExercicesAleatoires).concat(Object.keys(dictionnaireDesExercicesAMC))
     // avec éventuellement des bornes
     const { skip, limit } = prefs
     if (limit) exos = exos.slice(skip, skip + limit)

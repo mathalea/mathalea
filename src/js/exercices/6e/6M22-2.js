@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,arrondi,tex_nombre} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Périmètres et aires de portions de cercles'
+
 /**
  * 3 figures sont données, 1 quart de disque, un demi-disque et un 3-quarts de disque
  * * 1 : Calculer les périmètres
@@ -14,7 +16,7 @@ const Algebrite = require('algebrite')
  */
 export default function Perimetre_aire_et_portions_de_disques(pa = 3) {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Périmètres et aires de portions de cercles";
+  this.titre = titre;
   this.consigne =
     "Calculer le périmètre et l'aire de chacune des figures suivantes";
   this.sup = 3; // 1 : périmètre, 2 : aire, 3 : périmètres et aires

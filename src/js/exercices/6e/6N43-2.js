@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { shuffle2tableaux, liste_de_question_to_contenu_sans_numero, choice, combinaison_listes, tex_nombre2 } from '../../modules/outils.js'
+export const titre = 'Critères de divisibilité (plusieurs possibles)'
+
 /**
  * Un nombre est-il divisible par 2, 3, 5, 9 ?
  *
@@ -9,7 +11,7 @@ import { shuffle2tableaux, liste_de_question_to_contenu_sans_numero, choice, com
  */
 export default function Tableau_criteres_de_divisibilite() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Critères de divisibilité (plusieurs possibles)";
+  this.titre = titre;
 
   this.spacing = 1;
   this.spacing_corr = 1;

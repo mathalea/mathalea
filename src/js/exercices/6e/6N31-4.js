@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombre,info_message} from '../../modules/outils.js'
+export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
+
 /**
  * Intercaler un nombre décimal entre deux décimaux
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombr
 */
 export default function Intercaler_decimal_entre_2_decimaux() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Intercaler un nombre décimal entre deux nombres décimaux";
+    this.titre = titre;
     this.consigne = "Compléter avec un nombre décimal";
     this.nb_questions = 6;
     this.nb_cols = 2; // Nombre de colonnes pour la sortie LaTeX

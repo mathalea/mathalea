@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { export_QCM_AMC,liste_de_question_to_contenu, randint, tex_nombrec, tex_nombre2,calcul, choice, tex_fraction,shuffle2tableaux } from '../../modules/outils.js'
 
+export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
+
 /**
  * @Auteur Jean-claude Lhote
  * Publié le 20/02/2021
@@ -9,7 +11,7 @@ import { export_QCM_AMC,liste_de_question_to_contenu, randint, tex_nombrec, tex_
 export default function Placer_la_virgule() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)";
+  this.titre = titre;
   this.nb_questions = 4; // Ici le nombre de questions
   this.nb_questions_modifiable = true // Active le formulaire nombre de questions
   this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint,choice,rangeMinMax,ecriturePuissance,num_alpha,texte_en_couleur_et_gras,tex_nombre} from '../../modules/outils.js'
 
+export const titre = 'Puissances de 10'
+
 /**
  * * Comparer des puissances de 10.
  *
@@ -19,7 +21,7 @@ import {liste_de_question_to_contenu,combinaison_listes,randint,choice,rangeMinM
 export default function Comparer_puissance10() {
   'use strict';
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Puissances de 10";
+  this.titre = titre;
   this.consigne = "Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en écriture scientifique.";
   this.nb_questions = 5; // Ici le nombre de questions
   this.nb_questions_modifiable=true // Active le formulaire nombre de questions

@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, tex_nombre, randint, calcul, arrondi_virg
 import { fraction } from '../../modules/Fractions.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 
+export const titre = 'Simulation d’expériences aléatoires'
+
 /**
  * Reconnaître une fonction affine
 * @auteur Erwan Duplessy
@@ -15,7 +17,7 @@ import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 export default function SimulateurAleatoire() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Simulation d'expériences aléatoires";
+  this.titre = titre;
   this.nb_questions = 1; // Ici le nombre de questions
   this.nb_questions_modifiable = true // Active le formulaire nombre de questions
   this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

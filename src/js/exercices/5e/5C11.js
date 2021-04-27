@@ -1,5 +1,7 @@
 import Ecrire_une_expression_numerique from './_Ecrire_une_expression_numerique.js'
 
+export const titre = 'Traduire une phrase par une expression'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Référence 5C11
@@ -9,5 +11,5 @@ export default function Traduire_une_phrase_par_une_expression() {
 	this.version = 1
 	this.sup = false
 	this.sup2 = false
-	this.titre = "Traduire une phrase par une expression";
+	this.titre = titre;
 }

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {arrondi,troncature,calcul,choisit_lettres_differentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Placer un nombre décimal avec des zooms successifs'
+
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
  * ref P006
@@ -15,7 +17,7 @@ export default function Nombre_a_placer() {
   this.sup = 1;
   this.sup2 = 2.573;
   this.sup3 = false;
-  this.titre = "Placer un nombre décimal avec des zooms successifs";
+  this.titre = titre;
 
   this.nouvelle_version = function () {
     this.contenu = "";

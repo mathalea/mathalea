@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,texte_en_coul
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from '../../modules/2d.js'
 import {fraction} from '../../modules/Fractions.js'
 
+export const titre = 'Placer un événement sur une échelle de probabilités'
+
 /**
  * Placer un événement sur une échelle de probabilités.
  * @Auteur Erwan Duplessy
@@ -11,7 +13,7 @@ import {fraction} from '../../modules/Fractions.js'
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
 export default function Placer_probabilites() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Placer un événement sur une échelle de probabilités";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

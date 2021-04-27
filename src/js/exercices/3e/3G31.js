@@ -3,6 +3,8 @@ import {homothetie,codeAngle,longueur,tracePoint,barycentre,milieu,latexParPoint
 import { calcul, tex_fraction, quatrieme_proportionnelle, tex_nombre, arrondi, tex_nombre2,texte_en_couleur_et_gras, liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
+export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
+
 /**
  * @auteur Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
  * 3G31 Exercice remplaçant l'exercice initial utilisant MG32
@@ -12,7 +14,7 @@ import { calcul, tex_fraction, quatrieme_proportionnelle, tex_nombre, arrondi, t
  */
 export default function Calcul_de_longueur() {
     Exercice.call(this)
-    this.titre = "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie";
+    this.titre = titre;
     this.nb_questions = 1;
     this.nb_questions_modifiable = false;
     this.nb_cols = 1;

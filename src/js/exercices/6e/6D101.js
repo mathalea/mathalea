@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,katex_Popup2,fraction_simplifiee} from '../../modules/outils.js'
 
 
+export const titre = 'Utiliser les heures décimales'
+
 /**
  * Convertir une heure décimale dans le format HMS
  *
@@ -11,7 +13,7 @@ import {liste_de_question_to_contenu,randint,choice,katex_Popup2,fraction_simpli
  */
 export default function Heures_decimales() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Utiliser les heures décimales";
+  this.titre = titre;
   this.consigne = "Compléter les égalités suivantes";
   this.spacing = 2;
   this.nb_questions = 5;

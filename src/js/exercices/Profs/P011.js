@@ -3,10 +3,12 @@ import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/out
 import {mathalea2d,polygoneAvecNom,codeSegments,codageAngleDroit,afficheMesureAngle,codeAngle,afficheLongueurSegment} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js';
 
+export const titre = 'Construis mon triangle'
+
 export default function Exercice_zero_mathalea2d() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Construis mon triangle";
+    this.titre = titre;
     this.nb_questions = 1; // Ici le nombre de questions
     this.nb_questions_modifiable=false // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,tex_nombre,num_alpha} from '../../modules/outils.js'
+export const titre = 'Donner des valeurs approchées d’un quotient décimal'
+
 /**
  * Donner des valeurs approchées d'un quotient décimale.
  *
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,tex_nombre,num_alpha
  */
 export default function Valeur_approchee_division_decimale() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Donner des valeurs approchées d'un quotient décimal";
+  this.titre = titre;
   this.consigne = "Compléter les phrases suivantes.";
   this.nb_questions = 1;
   this.nb_cols = 1;

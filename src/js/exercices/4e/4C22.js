@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,abs,pgcd,tex_fraction_reduite,obtenir_liste_facteurs_premiers,obtenir_liste_fractions_irreductibles,obtenir_liste_nombres_premiers,decomposition_facteurs_premiers,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Mutliplier des fractions'
+
 /**
  * Exercice de calcul de produit de deux fractions.
  *
@@ -14,7 +16,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,abs,pgcd,
 export default function Exercice_multiplier_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1; // Avec ou sans relatifs
-  this.titre = "Mutliplier des fractions";
+  this.titre = titre;
   this.consigne = "Calculer et donner le résultat sous forme irréductible";
   this.spacing = 2;
   this.spacing_corr = 2;

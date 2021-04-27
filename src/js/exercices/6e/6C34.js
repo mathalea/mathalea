@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {randint,liste_de_question_to_contenu,combinaison_listes,texte_gras} from '../../modules/outils.js'
 
+export const titre = 'Dernier chiffre d’un calcul'
+
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
 * @auteur Erwan DUPLESSY
@@ -10,7 +12,7 @@ import {randint,liste_de_question_to_contenu,combinaison_listes,texte_gras} from
 export default function dernierChiffre() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Dernier chiffre d'un calcul";
+    this.titre = titre;
     this.consigne = `Pour chaque calcul, déterminer le dernier chiffre du résultat.`;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range1,combinaison_listes,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Tiers'
+
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,range1,combinaison_listes,tex_nombr
  */
 export default function Tiers() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Tiers";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

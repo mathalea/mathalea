@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,mise_en_evidence,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
 
 
+export const titre = 'Comparer des fractions (dénominateurs multiples)'
+
 /**
 * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
 * @Auteur Rémi Angot
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,mise_en_evide
 export default function Exercice_comparer_deux_fractions(max = 11) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max; // Correspond au facteur commun
-	this.titre = "Comparer des fractions (dénominateurs multiples)";
+	this.titre = titre;
 	this.consigne = 'Comparer les fractions suivantes.';
 	this.spacing = 2;
 	this.spacing_corr = 2;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, tex_nombre, tex_nombrec } from '../../modules/outils.js'
 import { texteSurSegment, pointAdistance,polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
+export const titre = 'Calculer la hauteur d’une falaise'
+
 /**
  * Propose de calculer la hauteur d'une falaise en utilisant les angles de vue depuis deux positions d'un bateau sans s'en approcher.
  * @Auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import { texteSurSegment, pointAdistance,polygoneAvecNom, afficheMesureAngle, co
 */
 export default function Calculs_trigonometriques3() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la hauteur d'une falaise";
+  this.titre = titre;
   this.consigne = "";
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_algebrique_sauf1,ecriture_parenthese_si_negatif,arrondi_virgule,tex_fraction_reduite,tex_fraction_signe,tex_fraction} from '../../modules/outils.js'
 
+export const titre = 'Résoudre une équation du second degré'
+
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,rien_si_1
 */
 export default function Resoudre_equation_degre_2() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Résoudre une équation du second degré";
+  this.titre = titre;
   this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes.";
   this.nb_questions = 4;
   this.nb_cols = 2;

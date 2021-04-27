@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,texte_en_couleur} from '../../modules/outils.js'
+export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
+
 /**
  * 5L12-1
  * Distinction entre la réduction d'un produit et la réduction d'une somme, on garde les même coeffs
@@ -19,7 +21,7 @@ export default function Reduire_dinstinction_somme_produit() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.titre = "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence";
+	this.titre = titre;
 	let type_de_questions_disponibles
 	this.nouvelle_version = function () {
 		//let type_de_questions_disponibles

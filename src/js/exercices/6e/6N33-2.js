@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import {point,pointSurSegment,rotation,codeAngle,texteParPoint,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Problèmes de calcul de pourcentage par complément à 100%'
+
 /**
  * Déduire un pourcentage par complément à 100%
  * @Auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {point,pointSurSegment,rotation,codeAngle,texteParPoint,mathalea2d} from 
  */
 export default function Calculer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problèmes de calcul de pourcentage par complément à 100%";
+  this.titre = titre;
   this.nb_questions = 1;
   this.consigne = "Calculer";
   this.spacing = 2;

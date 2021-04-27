@@ -1,10 +1,12 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/outils.js'
 
+export const titre = 'Exo zéro Mathalea'
+
 export default function Exercice_zero_mathalea() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Exo zéro Mathalea";
+    this.titre = titre;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

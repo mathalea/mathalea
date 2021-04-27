@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,texte_en_couleur} from '../../modules/outils.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
+export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
+
 /**
  * Référence 5L14-4
  * Déterminer la dernière opération à effectuer dans une expression littérale
@@ -15,7 +17,7 @@ export default function Calculer_une_expression_litteraleBis() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup2 = false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.titre = "Déterminer la dernière opération à effectuer dans une expression littérale";
+	this.titre = titre;
 
 	this.nouvelle_version = function () {
 		let type_de_questions_disponibles

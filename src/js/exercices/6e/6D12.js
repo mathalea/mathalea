@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,minToHoraire,minToHour,prenomF,prenom} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer des durées ou déterminer un horaire'
+
 /**
  * Problèmes où il faut calculer la durée d'un évèbement ou un horaire.
  * Paramétrage possible :
@@ -14,7 +16,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,minToHoraire,min
  */
 export default function Calculs_de_durees_ou_d_horaires() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer des durées ou déterminer un horaire";
+  this.titre = titre;
   this.consigne = "";
   this.sup = 4;
   this.spacing = 2;

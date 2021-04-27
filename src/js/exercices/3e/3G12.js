@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,egal,randint,choice,shuffle,nombre_avec_espace,arcenciel,texcolors} from '../../modules/outils.js'
 import {pavage,tracePoint,labelPoint,segment,rotation,rotationAnimee,codeAngle,texteParPosition,mathalea2d,} from '../../modules/2d.js'
+export const titre = 'Trouver l’image d’une figure par une rotation dans un pavage'
+
 /**
  * Publié le 16/12/2020
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {pavage,tracePoint,labelPoint,segment,rotation,rotationAnimee,codeAngle,t
 export default function Pavage_et_rotation2d() {
 	"use strict";
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre="Trouver l'image d'une figure par une rotation dans un pavage";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;

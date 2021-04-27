@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,combinaison_listes,randint,tex_fraction,cal
 import {fraction} from '../../modules/Fractions.js'
 import { creerBoutonMathalea2d } from '../../modules/outils.js';
 
+export const titre = 'Sens de l’écriture fractionnaire'
+
 /**
  * Donner la fraction correspondant à un nombre ou à un calcul
  * @Auteur Jean-Claude Lhote
@@ -12,7 +14,7 @@ import { creerBoutonMathalea2d } from '../../modules/outils.js';
 export default function Sens_de_la_fraction() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Sens de l'écriture fractionnaire";
+    this.titre = titre;
     this.nb_questions = 4; 
     this.nb_questions_modifiable=true 
     this.nb_cols = 1; 

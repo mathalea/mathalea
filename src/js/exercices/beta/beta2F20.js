@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from '../../modules/outils.js'
 
+export const titre = 'Reconnaître une fonction affine.'
+
 /**
  * Reconnaître une fonction affine
 * @auteur Stéphane Guyon
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Reconnaître une fonction affine.";
+    this.titre = titre;
     this.video = "";
     this.consigne = "Déterminer,en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines. :";
     this.nb_cols = 1;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, choice, calcul, texte_gras,modal_url,modal_pdf } from '../../modules/outils.js';
 import { attendre ,angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, leveCrayon, allerA } from '../../modules/2d.js';
+export const titre = 'Note la couleur'
+
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
@@ -213,7 +215,7 @@ class NoteLaCouleur {
 export default function Note_la_couleur() {
   "use strict";
   Exercice.call(this);
-  this.titre = "Note la couleur";
+  this.titre = titre;
   this.nb_questions = 1;
   this.nb_questions_modifiable = true;
   this.nb_cols = 1;

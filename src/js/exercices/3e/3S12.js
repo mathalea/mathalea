@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {randint,liste_de_question_to_contenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe,calcul,arrondi,arrondi_virgule, texte_gras} from '../../modules/outils.js';
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 
+export const titre = 'Calculer des effectifs et des fréquences'
+
 /**
 * Calculer des effectifs et des fréquences.
 * @auteur Erwan DUPLESSY
@@ -12,7 +14,7 @@ import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 export default function calcul_Effectif_Frequence() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Calculer des effectifs et des fréquences";
+    this.titre = titre;
     this.consigne = `Répondre aux questions à l'aide du graphique et de calculs.`;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=false; // Active le formulaire nombre de questions

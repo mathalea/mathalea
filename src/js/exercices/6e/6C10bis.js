@@ -2,6 +2,8 @@ import Operation from '../../modules/operations.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from '../../modules/outils.js'
 
+export const titre = 'Additions, soustractions, multiplications et divisions posées de nombres entiers'
+
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
  *
@@ -16,7 +18,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from
  */
 export default function Additions_soustractions_multiplications_divisions_posees() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Additions, soustractions, multiplications et divisions posées de nombres entiers";
+  this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies

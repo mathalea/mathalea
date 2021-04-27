@@ -1,13 +1,15 @@
 import Exercice from '../ClasseExercice.js';
 import { axes, } from '../../modules/2d.js'
 import { extraire_racine_carree, liste_de_question_to_contenu, randint, choice, combinaison_listes, ecriture_parenthese_si_negatif, fraction_simplifiee, tex_nombre } from '../../modules/outils.js'
+export const titre = 'Déterminer la nature d’un polygone.'
+
 /**
  * 2G12
  * @Auteur Stéphane Guyon
  */
 export default function Nature_polygone() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer la nature d'un polygone.";
+  this.titre = titre;
   this.nb_questions = 2;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;

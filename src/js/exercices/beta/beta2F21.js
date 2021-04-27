@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, choice, reduire_ax_plus_b, quotientier, combinaison_listes, ecriture_parenthese_si_negatif, tex_fraction_reduite } from '../../modules/outils.js'
 import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
+export const titre = 'Déterminer une fonction affine à partir de deux images.'
+
 /**
  * Déterminer une fonction affine à partir de deux images
 * @auteur Stéphane Guyon
@@ -9,7 +11,7 @@ import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer une fonction affine à partir de deux images.";
+    this.titre = titre;
     this.consigne = "Déterminer,en expliquant, l'expression de la fonctions affine $f$ vérifiant les conditions de l'énoncé :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

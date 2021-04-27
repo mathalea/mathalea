@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,droite,segment,demiDroite,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Notation des droites, segments et demi-droites'
+
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {point,labelPoint,droite,segment,demiDroite,mathalea2d} from '../../modul
  */
 export default function Notation_segment_droite_demi_droite() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Notation des droites, segments et demi-droites";
+  this.titre = titre;
   this.consigne = "Compléter les programmes de constructions qui ont permis d'obtenir ces figures.";
   this.nb_questions = 3;
   this.nb_cols = 3;

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,pgcd,calcul,tex_nombrec,tex_nombre,tex_fraction} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
+export const titre = 'Calculer la fraction d’une quantité'
+
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import{fraction} from '../../modules/Fractions.js'
  */
 export default function Fraction_d_une_quantite() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la fraction d'une quantité";
+  this.titre = titre;
   this.nb_questions = 5;
   this.consigne = "Calculer";
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);

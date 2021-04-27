@@ -1,11 +1,13 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice, combinaison_listes,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
+export const titre = 'Déterminer les coordonnées d’un vecteur.'
+
 /**
  * @Auteur Stéphane Guyon
  */
 export default function calculer_coordonnees_vecteurs() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer les coordonnées d'un vecteur.";
+    this.titre = titre;
 
     this.nb_questions = 2;
     this.nb_cols = 2;

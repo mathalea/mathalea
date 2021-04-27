@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Factoriser a²-b²'
+
 /**
  * Factoriser a²-b²
 * @auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,tex_fraction} from '../../mo
 export default function Factoriser_Identites_remarquables3() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Factoriser a²-b²";
+	this.titre = titre;
 	this.consigne = "Factoriser les expressions suivantes.";
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;

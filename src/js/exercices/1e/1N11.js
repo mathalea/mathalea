@@ -1,13 +1,15 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,signe,tex_nombre,mise_en_evidence,arcenciel} from '../../modules/outils.js'
 
+export const titre = 'Déterminer les termes d’une suite définie par récurrence'
+
 /**
  * 1N11
  * @Auteur Gaelle Morvan
  */
 export default function Terme_d_une_suite_definie_par_recurrence() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer les termes d'une suite définie par récurrence";
+  this.titre = titre;
   this.consigne = "Une suite étant donnée, calculer le terme demandé.";
   this.nb_questions = 4;
 

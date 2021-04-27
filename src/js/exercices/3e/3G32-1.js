@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, randint, tex_nombrec } from '../../module
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
 
+export const titre = 'Calcul d’un parallèle terrestre'
+
 /**
  * propose de calculer la longueur d'un parallèle terrestre à partir de la latitde
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from
 */
 export default function Calculs_trigonometriques1() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Calcul d'un parallèle terrestre";
+    this.titre = titre;
     this.consigne = "";
     this.nb_questions = 1;
     this.nb_cols = 1; // Uniquement pour la sortie LaTeX

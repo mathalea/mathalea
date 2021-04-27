@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '../../modules/outils.js'
 import {grille,seyes,mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
+export const titre = 'Représenter une fraction de l’unité'
+
 /**
  * Tracer un segment de longueur une fraction de l'unité.
  * @Auteur Jean-Claude Lhote
@@ -11,7 +13,7 @@ import{fraction} from '../../modules/Fractions.js'
 export default function Fractions_d_unite() {
   "use strict"
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Représenter une fraction de l'unité";
+  this.titre = titre;
   this.nb_questions = 5;
   this.consigne = "Colorier en bleu un segment de longueur ...";
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);

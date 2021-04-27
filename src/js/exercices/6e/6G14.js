@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range,rangeMinMax,shuffle,combinaison_listes} from '../../modules/outils.js'
 import {point,pointIntersectionDD,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteParPointEtPente,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Utiliser les propriétés des droites perpendiculaires'
+
 /**
  * Ref 6G14
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {point,pointIntersectionDD,droite,droiteParPointEtParallele,droiteParPoin
 export default function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
-  this.titre = "Utiliser les propriétés des droites perpendiculaires";
+  this.titre = titre;
   this.nb_questions = 3;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

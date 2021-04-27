@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {enleve_element_bis, liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from '../../modules/outils.js'
 import { fraction, listeFractions} from '../../modules/Fractions.js'
 
+export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
+
 /**
  * Problèmes additifs et de comparaion sur les rationnels
  * 4C25-0
@@ -18,7 +20,7 @@ export default function Problemes_additifs_fractions_bis() {
     } else {
         this.nb_questions = 2;
     }
-    this.titre = "Re-Problèmes additifs et de comparaison sur les rationnels";
+    this.titre = titre;
     this.consigne = `Justifier vos réponses aux problèmes suivants.`;
 
     this.nb_cols = 1;

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,pgcd,tex_fraction_reduite,calcul,lettre_depuis_chiffre,html_consigne,tex_fraction,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe} from '../../modules/outils.js'
 
 
+export const titre = 'Lire l’abscisse fractionnaire d’un point'
+
 /**
  * Lire l'abscisse fractionnaire d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,pgcd,tex_
 export default function Lire_abscisse_fractionnaire() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Lire l'abscisse fractionnaire d'un point";
+  this.titre = titre;
   this.consigne = "Lire l'abscisse de chacun des points suivants et donner le résultat sous la forme d'une fraction.";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;

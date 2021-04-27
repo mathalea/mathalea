@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_chiffre,printlatex} from '../../modules/outils.js'
+export const titre = 'Donner l’opposé d’une expression'
+
 /**
  * Donner l'opposé d'une expression.
  *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_ch
  */
 export default function Oppose_expression() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Donner l'opposé d'une expression";
+  this.titre = titre;
   this.consigne = "Développer et réduire les expressions suivantes.";
   this.spacing = 1;
   this.nb_questions = 6;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu} from '../../modules/outils.js'
 import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
+export const titre = 'Générateur de compte est bon'
+
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
 export default function Le_compte_est_bonV3() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Générateur de compte est bon";
+  this.titre = titre;
   this.consigne =
     "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
   this.nb_questions = 5;

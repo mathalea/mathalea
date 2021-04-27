@@ -1,5 +1,5 @@
 import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleve_element, compteOccurences } from './outils.js'
-import { dictionnaireDesExercicesAleatoires } from './dictionnaireDesExercicesAleatoires.js'
+import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
@@ -554,14 +554,14 @@ export function menuDesExercicesDisponibles () {
          		"_": "%d lignes sélectionnées",
          		"0": "Aucune ligne sélectionnée",
         		"1": "1 ligne sélectionnée"
-        	}  
+        	}
 	}
 	},
       initComplete: function () {
         $('#listtab_filter').detach().appendTo('#recherche')
       }
     })
-	
+
   }
   // Gestion d'affichage de l'un ou l'autre des modes.
   $('#mode_choix_liste').off('click').on('click', function () {
@@ -573,15 +573,15 @@ export function menuDesExercicesDisponibles () {
   })
   $('#mode_choix_tableau').off('click').on('click', async function () {
     if (!document.getElementById('listtab_length')) { // si on clique pour la première fois sur l'affichage table alors on charge datatable
-		await gestion_tableau() 
-	} 
+		await gestion_tableau()
+	}
 	$('#liste_des_exercices_tableau').show()
     $('#liste_des_exercices').hide()
     $('#mode_choix_liste').show()
     $('#mode_choix_tableau').hide()
     $('#replier').html('-')
   })
-  
+
   $('#replier').off('click').on('click', function () {
     if ($('#liste_des_exercices').is(':visible') || $('#liste_des_exercices_tableau').is(':visible')) {
       $('#liste_des_exercices_tableau').hide()

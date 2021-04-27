@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Connaitre le cours sur le périmètre et l’aire'
+
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/out
  */
 export default function Connaitre_formules_de_perimetre_et_aires() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Connaitre le cours sur le périmètre et l'aire";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 4;
   this.nb_cols = 1;

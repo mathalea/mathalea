@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique,lettre_depuis_chiffre,printlatex} from '../../modules/outils.js'
 
 
+export const titre = 'Réduire une expression de la forme $ax+bx function Reduction_ax_bx$'
+
 /**
 * Réduire des expressions de la forme ax+bx
 *
@@ -11,7 +13,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebri
 export default function Reduction_ax_bx() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Réduire une expression de la forme $ax+bx$";
+	this.titre = titre
 	this.consigne = "Réduire les expressions suivantes, si cela est possible.";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,ecriture_algebrique} from '../../modules/outils.js'
 
+export const titre = 'Factoriser avec les identités remarquables (niveau II)'
+
 /**
  * Factoriser avec a²-b² avec a ou b expression algébrique 1er degré
 * @auteur Stéphane Guyon
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Factoriser avec les identités remarquables (niveau II)";
+    this.titre = titre;
     this.consigne = "Factoriser les expressions suivantes.";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

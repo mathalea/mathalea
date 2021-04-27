@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_algebrique_sauf1,ecriture_parenthese_si_negatif,modal_texte_long} from '../../modules/outils.js'
 import {point,segment,repere2,courbe,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Calcul du discriminant d’une équation du second degré'
+
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
  * @Auteur Rémi Angot
@@ -9,7 +11,7 @@ import {point,segment,repere2,courbe,mathalea2d,} from '../../modules/2d.js'
 */
 export default function Calcul_discriminant() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calcul du discriminant d'une équation du second degré";
+  this.titre = titre;
   this.consigne = "Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.";
   this.nb_questions = 6;
   this.nb_cols = 2;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Addition de deux entiers'
+
 /**
  * Additionner deux entiers
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,tex_nombre} from '../../modules/out
  */
 export default function Exercice_tables_d_additions(max = 20) {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Addition de deux entiers";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.sup = max; // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2;

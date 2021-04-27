@@ -1,12 +1,14 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,calcul,lettre_depuis_chiffre} from '../../modules/outils.js'
+export const titre = 'Calculer une longueur avec l’égalité de Pythagore (MG32)'
+
 /**
  * @auteur Jean-Claude Lhote
  * 4G20MG32
  */
 export default function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer une longueur avec l'égalité de Pythagore (MG32)";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

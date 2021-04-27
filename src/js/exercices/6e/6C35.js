@@ -4,6 +4,8 @@ import Exercice from '../ClasseExercice.js'
 import { choice, randint, objet, jour, liste_de_question_to_contenu, combinaison_listes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 
+export const titre = 'Modéliser des problèmes'
+
 /**
  * Associer huit problèmes à huit types de modélisation différents
  * @Auteur Mireille Gain, 23 avril 2021
@@ -11,7 +13,7 @@ import { point, polygone, segment, mathalea2d, texteParPosition } from '../../mo
 */
 export default function ModelisationProblemes () {
   Exercice.call(this)
-  this.titre = 'Modéliser des problèmes'
+  this.titre = titre
   this.consigne = 'Associer chaque problème avec sa modélisation'
   this.nb_questions = 8
   this.nb_questions_modifiable = false

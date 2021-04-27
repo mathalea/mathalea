@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
+export const titre = 'Racine carré d’un carré parfait (calcul mental)'
+
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
  * @auteur Stéphane Guyon
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
  */
 export default function Racine_caree_de_carres_parfaits() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Racine carré d'un carré parfait (calcul mental)";
+  this.titre = titre;
   this.consigne = "Calculer de tête les racines suivantes.";
   this.nb_questions = 4;
   this.nb_cols = 2;

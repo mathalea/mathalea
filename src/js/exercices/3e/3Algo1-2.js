@@ -6,6 +6,8 @@ import {randint,calcul,modal_youtube} from '../../modules/outils.js';
 import {lampe_message} from '../../modules/outils.js';
 import {enumerate_sans_puce_sans_numero,texte_gras} from '../../modules/outils.js';
 
+export const titre = 'Conjecture de Syracuse'
+
 /**
  * @class Syracuse
  * @classdesc Outils pour les suites de Syracuse 
@@ -76,7 +78,7 @@ function syracuse({ N='1'}) {
 export default function Exercice_zero_mathalea() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Conjecture de Syracuse";
+    this.titre = titre;
     this.consigne = "";        
     this.nb_questions = 5; // Ici le nombre de questions
     this.nb_questions_modifiable=false // Active le formulaire nombre de questions

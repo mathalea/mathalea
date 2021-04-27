@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,tex_nombrec2,mise_en_evidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
+export const titre = 'Labyrinthe de numération décimale'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Publié le 9/12/2020
@@ -10,7 +12,7 @@ import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export default function Exercice_labyrinthe_numeration() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Labyrinthe de numération décimale";
+  this.titre = titre;
   this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;

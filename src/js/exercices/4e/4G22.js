@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,calcul,tex_nombrec,creerNomDePolygone,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Problèmes utilisant le théorème de Pythagore'
+
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.
  *
@@ -13,7 +15,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_l
  */
 export default function Problemes_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problèmes utilisant le théorème de Pythagore";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 2;
   this.nb_cols = 1;

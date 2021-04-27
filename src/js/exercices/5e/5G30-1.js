@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,arrondi,choisit_lettres_differentes,mise_en_evidence,num_alpha} from '../../modules/outils.js'
 import {point,pointSurSegment,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,rotation,similitude,codeAngle,longueur,angle,mathalea2d} from '../../modules/2d.js'
 
+export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
+
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
  * ref 5G30-1
@@ -23,7 +25,7 @@ export default function Egalite_d_angles() {
 	}
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.titre = "Déterminer des angles en utilisant les cas d'égalité";
+	this.titre = titre;
 	this.nouvelle_version = function () {
 		this.liste_questions = [];
 		this.liste_corrections = [];

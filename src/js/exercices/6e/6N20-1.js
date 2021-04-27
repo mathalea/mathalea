@@ -5,6 +5,8 @@ import {fraction} from '../../modules/Fractions.js';
 
 
 
+export const titre = 'Encadrer une fraction entre deux nombres entiers'
+
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadredr entre 2 entiers
  * @Auteur Rémi Angot
@@ -12,7 +14,7 @@ import {fraction} from '../../modules/Fractions.js';
 */
 export default function Encadrer_fraction_entre_2_entiers() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Encadrer une fraction entre deux nombres entiers";
+  this.titre = titre;
   this.consigne = "Compléter avec deux nombres entiers consécutifs"+modal_texte_court(1,"Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.",'Consécutifs');
   this.introduction=`Exemple : $2 < \\dfrac{9}{4} < 3$ car  $2=\\dfrac{8}{4}$ et $3=\\dfrac{12}{4}$`;
   this.nb_questions = 6;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,arrondi,calcul,tex_nombrec,tex_nombre,tex_texte} from '../../modules/outils.js'
+export const titre = 'Périmètres et aires de figures composées'
+
 /**
  * Deux figures composés de rectangles et de triangles sont tracés.
  *
@@ -14,7 +16,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,arrondi,calcul,tex_nomb
 export default function Perimetre_ou_aire_de_figures_composees() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.pas_de_version_LaTeX = true;
-  this.titre = "Périmètres et aires de figures composées";
+  this.titre = titre;
   this.consigne = "Calculer le périmètre et l'aire des 2 figures suivantes";
   this.spacing = 2;
   this.spacing_corr = 2;

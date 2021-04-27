@@ -1,4 +1,4 @@
-export let dictionnaireDesExercicesQCM = {
+export default {
     "6C10":{
         "url":"/exercices/6e/6C10.js",
         "titre":"Additions, soustractions et multiplications posées de nombres entiers (NC) "
@@ -171,5 +171,5 @@ export let dictionnaireDesExercicesQCM = {
         "titre": "Calcul d'un parallèle terrestre",
         "url": "/exercices/3e/3G32-1.js"
     },
-     
+
     };

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre,nombreEnLettres} from '../../modules/outils.js'
+export const titre = 'Écrire un nombre en chiffres ou en lettres'
+
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombr
 export default function Ecrire_nombres_entiers() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Écrire un nombre en chiffres ou en lettres";
+  this.titre = titre;
   this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
+export const titre = 'Soustraire 9'
+
 /**
  * Un nombre à 2 chiffres ne terminant pas par 9 - 9
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
 */
 export default function Soustraire9() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Soustraire 9";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

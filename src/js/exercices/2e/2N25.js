@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import {point,segment,crochetD,crochetG,intervalle,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
+
 /**
  * 2N25
  * @Auteur Stéphane Guyon
  */
 export default function union_et_intersection_intervalles_de_R() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$";
+    this.titre = titre;
     this.consigne = "Répondre aux questions suivantes: :";
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -328,3 +330,4 @@ export default function union_et_intersection_intervalles_de_R() {
         liste_de_question_to_contenu(this);
     };
 }
+
