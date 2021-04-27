@@ -49,6 +49,8 @@ window.addEventListener('load', function()  {
 		lineWrapping: true,
 	});
 
+	cmResize(myCodeMirror)
+
 	let myCodeMirrorSvg = CodeMirror(divSortieSvg, {
 		value: "",
 		mode: "htmlmixed",
@@ -332,4 +334,5 @@ previewBtn.addEventListener('click', display, false)
 var textarea = document.getElementById('xmlSrc')
 textarea.addEventListener('dragover', dragOverHandler, false);
 textarea.addEventListener('drop', dropHandler, false);
+
 
