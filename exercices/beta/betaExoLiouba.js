@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js"
 import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "/modules/2d.js"
 import { nommePolygone } from '../../modules/2d.js';
+import Alea2iep from "/modules/Alea2iep.js";
 
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
@@ -20,7 +21,7 @@ export default function LeNomDeLaFonctionExercice() {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function () {
+    this.nouvelle_version = function (numero_de_l_exercice) {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
   
@@ -46,6 +47,7 @@ export default function LeNomDeLaFonctionExercice() {
         let A,B,C,triangle,triangle0,O,M,triangle1,A1,B1,C1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
         let xMin,xMax,yMin,yMax
         let bordure,alpha,beta
+        let anim = new Alea2iep()
         /***************************************/
 /********Ici on définit les objets 2d */
 /*************************************/
@@ -117,6 +119,7 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
+        texte_corr += anim.htmlBouton(numero_de_l_exercice, i)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
