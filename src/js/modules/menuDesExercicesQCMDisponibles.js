@@ -1,10 +1,7 @@
 import { tridictionnaire, filtreDictionnaire }  from "./outils.js" ;
-import {dictionnaireDesExercicesQCM} from "./dictionnaireDesExercicesAMC.js"
-
-
+import dictionnaireDesExercicesQCM from "./dictionnaireDesExercicesAMC.js"
 
 let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesQCM);
-
 
 export function liste_html_des_exercicesQCM_d_un_theme(theme){
   let liste = '';
@@ -100,11 +97,11 @@ export function menuDesExercicesQCMDisponibles(){
     // Affiche de la liste des exercices disponibles
     let liste_html_des_exercices ='';
 
-    
+
 
     liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
       ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1'],['c3N2','c3N2 - Numération Niveau 2']])
-    
+
     liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
       ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
       ['6D1','6D1 - Les durées'],
@@ -146,10 +143,10 @@ export function menuDesExercicesQCMDisponibles(){
           ['2N1','2N1 -  Nombres et calculs'],
           ['1L1','1L1 -  Calcul littéral'],
         ])
-  */    
+  */
     for (let id in liste_des_exercices_disponibles) {
       let exercice_tmp = id;
-      
+
       if (id[0] == '1') {
         liste_html_des_exercices_1 +=
           '<span class="id_exercice">' +
@@ -169,7 +166,7 @@ export function menuDesExercicesQCMDisponibles(){
           '">' +
           dictionnaireDesExercicesQCM[exercice_tmp].titre +
           "</a></br>\n";
-      }   
+      }
       if (id[0] == 'T') {
         liste_html_des_exercices_T +=
           '<span class="id_exercice">' +
@@ -307,7 +304,7 @@ export function menuDesExercicesQCMDisponibles(){
 
     $("#liste_des_exercices").html(liste_html_des_exercices);
     	//cg 04-2021 Génération du tableau des exercices.
-	
+
 	liste_html_des_exercices = "";
 	let liste_html_des_exercices_header = '<div id="recherche"> </div><table id=\'listtab\' class="stripe"><thead><tr><th class="colonnecode">Code</th><th>Intitulé de l\'exercice</th><th>prévisualiser</th></thead><tbody>';
 	for (let id in liste_des_exercices_disponibles) {
@@ -331,9 +328,9 @@ export function menuDesExercicesQCMDisponibles(){
 	liste_html_des_exercices = liste_html_des_exercices_header + liste_html_des_exercices + '</tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l\'exercice</th><th>prévisualiser</th></tr></tfoot></table>';
     $("#liste_des_exercices_tableau").html(liste_html_des_exercices);
 	$("#liste_des_exercices_tableau").hide();
-	$("#mode_choix_liste").hide(); 
+	$("#mode_choix_liste").hide();
 	$(".popuptext").hide();
-	
+
 	//fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
 	function addExercice(e) {
 		let numero = $(e.target).attr("numero");
@@ -344,11 +341,11 @@ export function menuDesExercicesQCMDisponibles(){
           $("#choix_des_exercices").val() + "," + numero
         );
       }
-	  
+
       // Créé un évènement de changement de la valeur du champ pour déclencher la mise à jour
       let event = new Event('change');
       document.getElementById('choix_des_exercices').dispatchEvent(event);
-      
+
       // Actualise KaTeX pour les titres d'exercices utilisant LaTeX
       renderMathInElement(document.body, {
         delimiters: [
@@ -361,7 +358,7 @@ export function menuDesExercicesQCMDisponibles(){
         trust: false,
       });
 	}
-	
+
 	if (typeof $('#listtab').DataTable != 'undefined') { //pour les pages ne supportant pas le tableau.
 		$('#listtab').DataTable({
 			"language": {
@@ -374,8 +371,8 @@ export function menuDesExercicesQCMDisponibles(){
 	} else {
 		$(".lien_id_exercice").off("click").on("click",function () {addExercice(event); });
 	}
-	
-		
+
+
 	renderMathInElement(document.body, {
 		delimiters: [
 		{ left: "\\[", right: "\\]", display: true },
@@ -388,8 +385,8 @@ export function menuDesExercicesQCMDisponibles(){
 	});
 
     // Gère le clic sur un exercice de la liste
-    
-	
+
+
 	//Lorsqu'on change de page le tableau il faut ajouter le handler d'evenement sur la liste des exercices.
 	$('#listtab').on( 'draw.dt', function () {
 		$(".lien_id_exercice").off("click").on("click",function () {addExercice(event); });
@@ -404,7 +401,7 @@ export function menuDesExercicesQCMDisponibles(){
         trust: false,
       });
 	} );
-	
+
 	//Gestion d'affichage de l'un ou l'autre des modes.
 	$("#mode_choix_liste").off("click").on("click",function () {
 		$("#liste_des_exercices_tableau").hide();
@@ -448,7 +445,7 @@ export function menuTheme(theme) {
   }
   codeHTML += '\n</div>'
   return codeHTML
-  
+
 }
 
 
@@ -462,5 +459,5 @@ export function listeTheme(theme) {
     </a>`
   }
   return codeHTML
-  
+
 }

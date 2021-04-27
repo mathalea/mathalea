@@ -5,7 +5,7 @@
 // cf https://github.com/standard-things/esm
 const requireImport = require('esm')(module)
 const { default: dictionnaireDesExercicesAleatoires } = requireImport('../../modules/dictionnaireDesExercicesAleatoires')
-const { dictionnaireDesExercicesQCM } = requireImport('../../modules/dictionnaireDesExercicesAMC')
+const { default: dictionnaireDesExercicesQCM } = requireImport('../../modules/dictionnaireDesExercicesAMC')
 module.exports = {
   dictionnaireDesExercicesQCM,
   dictionnaireDesExercicesAleatoires
