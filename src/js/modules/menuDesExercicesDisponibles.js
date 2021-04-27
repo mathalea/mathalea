@@ -217,6 +217,7 @@ export function apparence_exercice_actif () {
   }
   $('.delexercice').off('click').on('click', function (e) {
     supprimerExo(event.target.id, true)
+	event.stopPropagation()
   })
   $('.icone_preview').off('click').on('click', function (e) {
     $('.popup').trigger('click')
@@ -340,8 +341,12 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: ''
     }
   }
-
+  
   liste_html_des_exercicestab = ''
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  const isdnb = urlParams.get('dnb')
+  
   for (const id in liste_des_exercices_disponibles) {
     if ((id[0] == 'c' && id[1] == '3') || (id[0] == 'P' && id[1] == '0') || (id[0] == 'P' && id[1] == 'E') || (id[0] == 'b' && id[1] == 'e')) {
       obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
@@ -357,14 +362,17 @@ export function menuDesExercicesDisponibles () {
     if ((id[0] == 'P' && id[1] == '0') || (id[0] == 'P' && id[1] == 'E') || (id[0] == 'b' && id[1] == 'e')) {
       obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[exercice_tmp].titre)
     }
-    // cg 04-2021 Génération du tableau des exercices.
-    if (exercice_tmp[0] != 'b' || exercice_tmp[1] != 'e') { // on exclu les beta
-      if (dictionnaireDesExercices[exercice_tmp].titre) { // tous les non dnb
+    
+	
+	// cg 04-2021 Génération du tableau des exercices.
+    
+	if (exercice_tmp[0] != 'b' || exercice_tmp[1] != 'e') { // on exclu les beta
+      if (dictionnaireDesExercices[exercice_tmp].titre && !isdnb) { // tous les non dnb
         liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
 				id +
 				'</span></td> <td> <a class="lien_id_exercice" data-id_exercice="' + id + '">' + dictionnaireDesExercices[exercice_tmp].titre +
 				'</a></td><td data-tooltip="Prévisualiser l\'exercice."><i id="' + id + '" class="eye icon icone_preview" ></td></tr>'
-      } else {
+      } else if (!dictionnaireDesExercices[exercice_tmp].titre) {
         liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
 			id +
 			'</span></td> <td>' +
@@ -394,7 +402,7 @@ export function menuDesExercicesDisponibles () {
   } else if (window.location.href.indexOf('outils') > 0) {
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.P0, 'active', 'P0')
     liste_html_des_exercices += '</div>'
-  } else if (window.location.href.indexOf('dnb.html') > 0) {
+  } else if (isdnb) {
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.DNB, 'active', 'DNB')
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.DNBtheme, 'active', 'DNBtheme')
     liste_html_des_exercices += '</div>'
@@ -412,7 +420,7 @@ export function menuDesExercicesDisponibles () {
   }
 
   $('#liste_des_exercices').html(liste_html_des_exercices)
-
+  $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
   // cg 04-2021 Génération du tableau des exercices.
   liste_html_des_exercicestab = `<div id="recherche"> </div><table id=\'listtab\' class="stripe"><thead>
 		<tr><th class="colonnecode">Code</th><th>Intitulé de l\'exercice</th><th>Prévisualiser</th></thead><tbody>
@@ -528,6 +536,7 @@ export function menuDesExercicesDisponibles () {
 		return !data ? '' : typeof data === 'string' ? removeAccents(data.replace(/<.*?>/g, '')) : data
 	}
 	$('#listtab').DataTable({
+	   ordering: false,
        language: {
 	"sEmptyTable":     "Aucune donnée disponible dans le tableau",
 	"sInfo":           "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
