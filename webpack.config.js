@@ -33,7 +33,8 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     // on ajoute le hash dans le nom du fichier => plus besoin de demander aux utilisateur de vider leur cache tout le temps
     // cf https://webpack.js.org/configuration/output/#outputfilename
-    filename: '[name].[contenthash].js'
+    filename: 'js/[name].[contenthash].js',
+    assetModuleFilename: 'images/[hash][ext][query]'
   },
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
@@ -46,7 +47,7 @@ module.exports = {
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
+      filename: 'css/[name].[contenthash].css'
     }),
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options
@@ -128,7 +129,7 @@ module.exports = {
       // et le statique
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
-        type: 'asset'
+        type: 'asset/resource'
       }
     ]
   }

@@ -1,9 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,compare_fractions,shuffle,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
-
-import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, enleve_element, choice, compare_fractions, shuffle, mise_en_evidence, tex_fraction } from '../../modules/outils.js'
+import Algebrite from 'algebrite'
 
 /**
 * 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant ou décroissant

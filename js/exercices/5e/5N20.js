@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, export_QCM_AMC, tex_nombre2, liste_de_question_to_contenu, randint, choice, combinaison_listes, abs, pgcd, mise_en_evidence, tex_fraction, tex_fraction_reduite } from '/modules/outils.js'
+import { shuffle2tableaux, export_QCM_AMC, tex_nombre2, liste_de_question_to_contenu, randint, choice, combinaison_listes, abs, pgcd, mise_en_evidence, tex_fraction, tex_fraction_reduite } from '../../modules/outils.js'
 
 /**
 * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
