@@ -17,14 +17,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   mode: 'development',
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
-  resolve: {
-    alias: {
-      modules: path.resolve(__dirname, 'js/modules/')
-    }
-  },
   entry: {
-    mathalea: './js/mathalea.js',
-    mathalea2d: './js/modules/mathalea2d-gui.js'
+    mathalea: './src/js/mathalea.js',
+    mathalea2d: './src/js/modules/mathalea2d-gui.js'
   },
   output: {
     // on vide build avant chaque compilation
@@ -52,47 +47,47 @@ module.exports = {
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options
     new HtmlWebpackPlugin({
-      template: 'html/mathalea.html',
+      template: 'src/html/mathalea.html',
       filename: 'mathalea.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/exercice.html',
+      template: 'src/html/exercice.html',
       filename: 'exercice.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/mathalealatex.html',
+      template: 'src/html/mathalealatex.html',
       filename: 'mathalealatex.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/exo.html',
+      template: 'src/html/exo.html',
       filename: 'exo.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/outils.html',
+      template: 'src/html/outils.html',
       filename: 'outils.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/cm.html',
+      template: 'src/html/cm.html',
       filename: 'cm.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/mathalea2d.html',
+      template: 'src/html/mathalea2d.html',
       filename: 'mathalea2d.html',
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/mathalea2dsvg.html',
+      template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
-      template: 'html/2d.html',
+      template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']
     })
