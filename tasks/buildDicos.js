@@ -14,24 +14,9 @@ function getAllFiles (dir) {
   })
   return files
 }
-/* cette fonction n'a servi qu'une fois, pour transformer les 400 exos pour ajouter l'export nommé du titre
-On la garde là au cas où ça resservirait
-function transformExport (file) {
-  const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
-  if (/^export const titre/.test(srcContent)) return console.log(`${file} : export titre déjà là`)
-  // faut faire deux regexp suivant délimiteur ' ou " (on peut faire un rappel arrière pour le délimiteur fermant mais pas pour la négation)
-  let chunks = /this.titre *= *'([^']+)'/.exec(srcContent)
-  if (!chunks) chunks = /this.titre *= *"([^"]+)"/.exec(srcContent)
-  if (chunks) {
-    const titre = chunks[1].replace(/\\?'/g, '’')
-    const newContent = srcContent
-      .replace(/(\/\*\*.*)?export +default/ms, `export const titre = '${titre}'\n\n$&`)
-      .replace(chunks[0], 'this.titre = titre')
-    fs.writeFileSync(file, newContent)
-    console.log(`${file} : remplacement ok`)
-  }
-}
-*/
+
+// pour la fct qui a servi à transformer tous les exos pour ajouter le export const titre = …, cf commit 6d281fb4
+// mais attention elle avait un petit bug sur les titres qui finissaient par $ (bug rectifié manuellement dans les 4 exos concernés)
 
 module.exports = function buildDico () {
   // pour charger dans node des js avec une syntaxe export (sans l'extension mjs, sinon y'aurait pas besoin de ça)
