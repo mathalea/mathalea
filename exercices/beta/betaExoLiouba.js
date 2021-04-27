@@ -14,7 +14,8 @@ export default function LeNomDeLaFonctionExercice() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+    this.type_exercice = "IEP";
+   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
@@ -83,6 +84,10 @@ labels=labelPoint(D,F)
 triangle4=translation(triangle3,vecteur(D,F))
 alpha=-randint(90,150)
 triangle5=rotation(triangle4,F,alpha)
+anim.vitesse=50
+anim.tempo=0
+anim.polygoneRapide(...triangle4.listePoints)
+anim.rotationPolygone(triangle4,F,alpha)
 for (let i =0; i<3; i++) {
 xMin=Math.min(xMin,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
 xMax=Math.max(xMax,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
@@ -119,7 +124,7 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
-        texte_corr += anim.htmlBouton(numero_de_l_exercice, i)
+        texte_corr += anim.htmlBouton(numero_de_l_exercice,0)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
