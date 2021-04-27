@@ -1815,7 +1815,7 @@ export function demiDroiteAvecExtremite(A, B, color = "black") {
  */
 function Polygone(...points) {
   ObjetMathalea2D.call(this);
-  this.couleurDeRemplissage = "";
+  this.couleurDeRemplissage = "none";
   this.opaciteDeRemplissage = 1.1;
   this.hachures = false;
   this.couleurDesHachures = 'black'
@@ -4232,7 +4232,7 @@ function HomothetieAnimee(
     let p2 = homothetie(p, O, k);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
@@ -4242,7 +4242,7 @@ function HomothetieAnimee(
   };
 }
 export function homothetieAnimee(...args) {
-  return new DHomothetieAnimee(...args);
+  return new HomothetieAnimee(...args);
 }
 
 /**
@@ -4287,7 +4287,7 @@ function AffiniteOrthoAnimee(
     let p2 = affiniteOrtho(p, d, k);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"

@@ -60,8 +60,8 @@ while (largeur>16 && hauteur>16) {
 A=point(0,0,'A')
 B=pointAdistance(A,randint(40,60)/10,randint(70,100),'B')
 C=similitude(B,A,randint(20,50),randint(8,12)/10,'C')
-triangle=polygoneAvecNom(A,B,C)
 triangle0=polygone(A,B,C)
+triangle=polygoneAvecNom(A,B,C)
 //d0=droite(A,B)
 O=pointSurSegment(B,A,2+longueur(A,B))
 //d0.isVisible=false
@@ -84,10 +84,7 @@ labels=labelPoint(D,F)
 triangle4=translation(triangle3,vecteur(D,F))
 alpha=-randint(90,150)
 triangle5=rotation(triangle4,F,alpha)
-anim.vitesse=50
-anim.tempo=0
-anim.polygoneRapide(...triangle4.listePoints)
-anim.rotationPolygone(triangle4,F,alpha)
+
 for (let i =0; i<3; i++) {
 xMin=Math.min(xMin,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
 xMax=Math.max(xMax,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
@@ -108,7 +105,13 @@ let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s
 let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
 let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
 let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
-
+anim.vitesse=50
+anim.tempo=0
+anim.recadre(xMin,yMax)
+anim.polygoneRapide(...triangle0.listePoints)
+anim.polygoneRapide(...triangle4.listePoints)
+anim.pointsCreer(A,B,C,F,D)
+anim.rotationPolygone(triangle4,F,alpha)
 
 mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
    objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
