@@ -1,16 +1,18 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre} from '../../modules/outils.js'
+
+export const titre = 'Encadrer avec des puissances de 10'
+
 /**
  * Encadrer par des puissances de 10
  * 4C30-1
  * @author Sébastien Lozano
  */
 export default function Puissances_encadrement() {
-  "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 4;
   this.nb_questions = 6;
-  this.titre = `Encadrer avec des puissances de 10`;
+  this.titre = titre;
 
   this.consigne = `Encadrer les nombres suivants par deux puissances de 10 d'exposants consécutifs.`;
 

@@ -1,17 +1,19 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+
+export const titre = 'Calcul avec les puissances de dix'
+
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
- * @Auteur Jean-Claude Lhote 
+ * @Auteur Jean-Claude Lhote
  * 4C32-1
  */
 export default function Calculs_avec_puissances_de_dix() {
-  "use strict"
   Exercice.call(this)
   this.sup = 1;
   this.sup2 = 1;
-  this.titre = `Calcul avec les puissances de dix`;
+  this.titre = titre
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions = 5;
@@ -100,7 +102,7 @@ export default function Calculs_avec_puissances_de_dix() {
       if (this.liste_questions.indexOf(texte) == -1) {
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
-        this.QCM[1].push([`${texte}\n`,tabrep,tabicone]) 
+        this.QCM[1].push([`${texte}\n`,tabrep,tabicone])
         i++;
       }
       cpt++;

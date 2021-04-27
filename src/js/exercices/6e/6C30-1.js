@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
 
 /**

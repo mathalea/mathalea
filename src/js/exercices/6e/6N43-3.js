@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,somme_des_chiffre,calcul,tex_nombre, randint, choice} from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**

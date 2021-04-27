@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomD
 import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude,grille,seyes,mathalea2d,} from '../../modules/2d.js'
 
 
+export const amcReady = true
+
 export const titre = 'Compléter une représentation en perspective cavalière'
 
 /**

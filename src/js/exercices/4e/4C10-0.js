@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,ecriture_nombre_relatif,texte_en_couleur_et_gras,Relatif} from '../../modules/outils.js'
 
+export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
+
 /**
  * Signe d'un produit ou d'on quotient de relatifs
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
@@ -12,9 +14,8 @@ import {liste_de_question_to_contenu,randint,ecriture_nombre_relatif,texte_en_co
  * @author Sébastien Lozano
  */
 export default function Signe_produit_quotient_relatifs() {
-  "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = `Signe d'un produit ou d'un quotient de nombres relatifs`;
+  this.titre = titre
   this.consigne = `Donner le signe des expressions numériques.`;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

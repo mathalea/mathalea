@@ -3,6 +3,8 @@ import {homothetie,codeAngle,longueur,tracePoint,barycentre,milieu,latexParPoint
 import { calcul, tex_fraction, quatrieme_proportionnelle, tex_nombre, arrondi, tex_nombre2,texte_en_couleur_et_gras, liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
+export const amcReady = true
+
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 
 /**

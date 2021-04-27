@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {export_QCM_AMC,liste_de_question_to_contenu,randint,combinaison_listes,texte_en_couleur_et_gras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
+export const amcReady = true
+
 export const titre = 'Labyrinthe de multiples'
 
 /**

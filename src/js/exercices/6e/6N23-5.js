@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,combinaison_listes,randint,tex_fraction,cal
 import {fraction} from '../../modules/Fractions.js'
 import { creerBoutonMathalea2d } from '../../modules/outils.js';
 
+export const amcReady = true
+
 export const titre = 'Sens de l’écriture fractionnaire'
 
 /**

@@ -1,13 +1,15 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js';
+
+export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
+
 /**
  * Référence 5L14-6
  * Déterminer la dernière opération à effectuer dans une expression numérique
- * @author Sébastien Lozano 
+ * @author Sébastien Lozano
  */
 export default function Determiner_derniere_operation_exp_num() {
-	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;
 	this.consigne = "";
@@ -16,7 +18,7 @@ export default function Determiner_derniere_operation_exp_num() {
 	this.nb_cols_corr = 1;
 	this.sup = true;
 	this.sup2 = false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.titre = `Déterminer la dernière opération à effectuer dans une expression numérique`;
+	this.titre = titre
 
 	this.nouvelle_version = function () {
 		let type_de_questions_disponibles

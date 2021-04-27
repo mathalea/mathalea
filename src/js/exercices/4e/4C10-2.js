@@ -1,4 +1,7 @@
 import Signe_produit_quotient_relatifs from './4C10-0.js'
+
+export const titre = 'Signe d’un quotient de nombres relatifs'
+
 /**
  * Signe du produit de relatifs
  * 4C10-2 fils de 4C10-0
@@ -6,7 +9,7 @@ import Signe_produit_quotient_relatifs from './4C10-0.js'
  */
 export default function Signe_quotient_relatifs() {
   Signe_produit_quotient_relatifs.call(this);
-  this.titre = `Signe d'un quotient de nombres relatifs`;
+  this.titre = titre
   this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
   this.exo = this.beta + `4C10-2`;
   this.sup = 5;

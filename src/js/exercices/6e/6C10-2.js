@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,creer_couples,randint,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Tables de multiplications et multiples de 10'
 
 /**

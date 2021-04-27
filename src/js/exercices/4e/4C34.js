@@ -1,5 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {calcul,liste_de_question_to_contenu_sans_numero,lettre_depuis_chiffre,randint,sp,choice,range1,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,mise_en_evidence,liste_des_diviseurs} from '../../modules/outils.js'
+
+export const amcReady = true
+
 export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
 
 /**
@@ -7,9 +10,9 @@ export const titre = 'Calculs utilisant les priorités opératoires et les puiss
  *
  * Sans parenthèses :
  * * a²+b*c
- * * a+b²*c 
+ * * a+b²*c
  * * a²+b+c*d
- * 
+ *
  * * a²*b+c
  * * a*b²+c
  * * a²+b+c
@@ -26,7 +29,7 @@ export const titre = 'Calculs utilisant les priorités opératoires et les puiss
  * * a*(b²+c*d)
  * * (a+b+c²)*d
  * * d²(a+b+c)
- * 
+ *
  * * a*(b²+c)
  * * a*(b+c²)
  * * (a²+b)*c
@@ -66,28 +69,28 @@ export default function Priorites_et_relatifs_et_puissances() {
 
   this.nouvelle_version = function () {
     this.QCM=['4C34',[],'Calculs utilisant les priorités opératoires et les puissances',5,{}]
- 
+
     let reponse;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-  
+
     let liste_questions_disponibles = range1(7);
-  
+
     let liste_type_de_questions = combinaison_listes(
       liste_questions_disponibles,
       this.nb_questions
     );
     for (
       let i = 0, texte, texte_corr, a, b, c, d,m, n, p, cpt = 0;
-      i < this.nb_questions && cpt < 50;)      
+      i < this.nb_questions && cpt < 50;)
     {
       a = randint(1, 7) * choice([-1, 1]);
       b = randint(1, 7) * choice([-1, 1]);
       c = randint(1, 7) * choice([-1, 1]);
-      d = randint(1, 7) * choice([-1, 1]); 
-      m = randint(1, 5) * choice([-1, 1]);  
-      n = randint(1, 3) * (-1);  
-      p = randint(1, 3) ; 
+      d = randint(1, 7) * choice([-1, 1]);
+      m = randint(1, 5) * choice([-1, 1]);
+      n = randint(1, 3) * (-1);
+      p = randint(1, 3) ;
       switch (liste_type_de_questions[i]) {
         case 1: //a² + b*c
         texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(a)}^2 +  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}$`;
@@ -98,8 +101,8 @@ export default function Priorites_et_relatifs_et_puissances() {
         \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ( a*a + b*c))}\\\\$`;
         reponse=calcul( a*a + b*c)
           break;
-        
-        case 2: //a + b²*c   
+
+        case 2: //a + b²*c
           texte = `$${lettre_depuis_chiffre(i+1)} = ${a} + ${ecriture_parenthese_si_negatif(p)}^2 \\times ${ecriture_parenthese_si_negatif(c)}$`;
           texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
           =${a} + ${mise_en_evidence(ecriture_parenthese_si_negatif(p) + '^2', 'blue')} \\times ${ecriture_parenthese_si_negatif(c)}
@@ -107,9 +110,9 @@ export default function Priorites_et_relatifs_et_puissances() {
           \\\\&=${a + ecriture_algebrique(p*p*c)}\\end{aligned}
           \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a + p*p*c))}\\\\$`;
           reponse=calcul(a + p*p*c)
-            break;     
+            break;
 
-        case 3: //a²+b+c*d 
+        case 3: //a²+b+c*d
         texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(a)}^2   ${ecriture_algebrique(b)} ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}$`;
         texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
         =${mise_en_evidence(ecriture_parenthese_si_negatif(a) + '^2','blue')} ${ecriture_algebrique(b)}  ${ecriture_algebrique(c)} \\times ${ecriture_parenthese_si_negatif(d)}
@@ -117,7 +120,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         \\\\&=${a*a + ecriture_algebrique(b)+ecriture_algebrique(c*d)}\\end{aligned}
         \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (a*a + b + c * d))}\\\\$`;
         reponse=calcul(a*a + b + c * d)
-          break;              
+          break;
 
         case 4: //a²*(b+c)
           texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(n)}^2 \\times ( ${b + ecriture_algebrique(c)})$`;
@@ -126,8 +129,8 @@ export default function Priorites_et_relatifs_et_puissances() {
           \\\\&=${n*n} \\times ( ${mise_en_evidence(b + ecriture_algebrique(c), 'blue')})
           \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(b+c)}\\end{aligned}
           \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(b+c)))}\\\\$`;
-          reponse=calcul(n*n*(b+c)) 
-            break;      
+          reponse=calcul(n*n*(b+c))
+            break;
 
         case 5: //m*(n²+p*n)
             texte = `$${lettre_depuis_chiffre(i+1)} = ${m} \\times ( ${ecriture_parenthese_si_negatif(n)}^2${ecriture_algebrique(p)}\\times${ecriture_parenthese_si_negatif(n)})$`;
@@ -138,9 +141,9 @@ export default function Priorites_et_relatifs_et_puissances() {
             \\\\&=${m}\\times ${ecriture_parenthese_si_negatif( n*n + p*n)}\\end{aligned}
             \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (m*(n*n+p*n)))}\\\\$`;
             reponse=calcul(m*(n*n+p*n))
-              break;    
+              break;
 
-        case 6: //(a+b+n²)*d 
+        case 6: //(a+b+n²)*d
               texte = `$${lettre_depuis_chiffre(i+1)} = (${a} ${ecriture_algebrique(b)} + ${ecriture_parenthese_si_negatif(n)}^2 ) \\times ${ecriture_parenthese_si_negatif(d)}$`;
               texte_corr = `$\\begin{aligned}${lettre_depuis_chiffre(i+1)}&
               =(${a} + ${ecriture_parenthese_si_negatif(b)} + ${mise_en_evidence(ecriture_parenthese_si_negatif(n) +'^2','blue')}  ) \\times ${ecriture_parenthese_si_negatif(d)}
@@ -148,7 +151,7 @@ export default function Priorites_et_relatifs_et_puissances() {
               \\\\&=${a + b + n*n} \\times ${ecriture_parenthese_si_negatif(d)}\\end{aligned}
               \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + ((a+b+n*n)*d))}\\\\$`;
               reponse=calcul((a+b+n*n)*d)
-                break;   
+                break;
 
         case 7: //n²*(a+b+c)
                 texte = `$${lettre_depuis_chiffre(i+1)} = ${ecriture_parenthese_si_negatif(n)}^2 \\times ( ${a+ecriture_algebrique(b)+ecriture_algebrique(c)})$`;
@@ -158,9 +161,9 @@ export default function Priorites_et_relatifs_et_puissances() {
                 \\\\&=${n*n} \\times ${ecriture_parenthese_si_negatif(a+b+c)}\\end{aligned}
                 \\\\${mise_en_evidence(lettre_depuis_chiffre(i+1) + '=' + (n*n*(a+b+c)))}\\\\$`;
                 reponse=calcul(n*n*(a+b+c))
-                  break;   
+                  break;
 
-      }     
+      }
        if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);

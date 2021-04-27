@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_nb_premiers_strict_jusqua, shuffle2tableaux, choice, liste_de_question_to_contenu, randint, troncature, calcul, tex_nombre, mise_en_evidence, tex_fraction } from '../../modules/outils.js';
+export const amcReady = true
+
 export const titre = 'Arrondir une valeur'
 
 /**

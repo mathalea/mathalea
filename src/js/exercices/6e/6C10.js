@@ -2,6 +2,8 @@ import Operation from '../../modules/operations'
 import Exercice from '../ClasseExercice.js'
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,calcul} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
 
 /**
@@ -46,7 +48,7 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
     let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
       type_de_questions_disponibles,
       this.nb_questions
-    ); 
+    );
     if (this.nb_questions == 3) {
       liste_type_de_questions = [1, 2, 5];
     }

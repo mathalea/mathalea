@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
+export const amcReady = true
+
 export const titre = 'Divisions euclidiennes'
 
 /**

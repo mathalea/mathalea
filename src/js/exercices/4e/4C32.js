@@ -1,6 +1,9 @@
 import { machine_maths_video } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+
+export const titre = 'Notation scientifique'
+
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
  * @Auteur Jean-Claude Lhote
@@ -8,11 +11,10 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,te
  */
 
 export default function Notation_scientifique() {
-  "use strict"
   Exercice.call(this)
   this.sup = 1;
   this.sup2 = 1;
-  this.titre = `Notation scientifique`;
+  this.titre = titre
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions = 5

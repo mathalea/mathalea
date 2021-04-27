@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,tex_nombrec,tex_nombre,texte_en_couleur,Triangles} from '../../modules/outils.js'
 
+export const titre = 'Constructibilité des triangles via les longueurs'
 
 /**
  * Constructibilité des triangles
@@ -15,10 +16,10 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,tex_nombrec,t
  */
 export default function Constructibilite_des_triangles() {
 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()	
+	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
 	if (this.exo == this.beta + '5G21-1') { // via longueurs
-		this.titre = `Constructibilité des triangles via les longueurs`;
+		this.titre = titre
 		this.consigne = `Justifier si les longueurs données permettent de construire le triangle.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`;
 
@@ -45,7 +46,7 @@ export default function Constructibilite_des_triangles() {
 
 		if (this.exo == this.beta + '5G21-1') { // via longueurs
 			if (this.sup == 1) {
-				type_de_questions_disponibles = shuffle([1, 2, 3]);				
+				type_de_questions_disponibles = shuffle([1, 2, 3]);
 				this.nb_questions = type_de_questions_disponibles.length;
 			} else if (this.sup == 2) {
 				type_de_questions_disponibles = [choice([1, 2, 3]), 4];
@@ -79,7 +80,7 @@ export default function Constructibilite_des_triangles() {
 			let a_min = 0;
 			let a_max = 180;
 
-			// on crée un objet triangle 
+			// on crée un objet triangle
 			let triangle = new Triangles();
 			// on crée un tableau pour le triangle courant
 			let current_triangle = [];
@@ -142,7 +143,7 @@ export default function Constructibilite_des_triangles() {
 						texte_corr += `${current_triangle[0].longueur.split('')[2]}`;
 					};
 					texte_corr += `.`;
-					//`${current_triangle[0].longueur.split('')[2]}.`;				
+					//`${current_triangle[0].longueur.split('')[2]}.`;
 					break;
 				case 3: // 3 longueurs non constructible
 					// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!

@@ -2,6 +2,8 @@ import Operation from '../../modules/operations.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Additions, soustractions, multiplications et divisions posées de nombres entiers'
 
 /**
