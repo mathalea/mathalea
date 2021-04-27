@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {calcul,liste_de_question_to_contenu,randint,ecriture_parenthese_si_moins,tex_nombrec,tex_nombre,arrondi,choice,combinaison_listes} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
 
 /**
@@ -43,7 +45,7 @@ export default function Terme_inconnu_de_somme() {
       else {
         a = arrondi(randint(4*decimal, 20*decimal)/decimal,1);
         b = arrondi(randint(2*decimal, 20*decimal)/decimal,1);
-    
+
       }
       if (this.sup3==1) {
         inconnue=` \\ldots\\ldots `
@@ -71,14 +73,14 @@ export default function Terme_inconnu_de_somme() {
           texte_corr +=`. En effet : $${tex_nombre(b)}-${tex_nombre(a)}=${tex_nombrec( b-a)}$`
         break
 
-        case 4: 
+        case 4:
         texte = `$${tex_nombre(b)} = ${tex_nombre(a)} + ${inconnue}$`;
         texte_corr = `$${tex_nombre(b)}=${tex_nombre(a)} + ${ecriture_parenthese_si_moins(tex_nombrec( b-a))}$`;
         texte_corr +=`. En effet : $${tex_nombre(b)}-${tex_nombre(a)}=${tex_nombrec( b-a)}$`
         break
 
       }
-    
+
       if (est_diaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
@@ -92,7 +94,7 @@ export default function Terme_inconnu_de_somme() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"]; 
+  this.besoin_formulaire_numerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"];
   this.besoin_formulaire2_numerique = ["Valeur maximale", 9999]
-  this.besoin_formulaire3_numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"]; 
+  this.besoin_formulaire3_numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
 }

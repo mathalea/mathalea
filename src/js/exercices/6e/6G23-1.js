@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,shuffle2tableaux,tex_nombre2} from '../../modules/outils.js'
 import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,homothetie,demiDroite,texteParPoint,similitude,bissectrice,pointSurSegment} from '../../modules/2d.js'
 
+export const amcReady = true
+
 export const titre = 'Mesurer un angle'
 
 /**

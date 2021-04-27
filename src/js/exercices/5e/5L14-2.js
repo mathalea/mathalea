@@ -2,6 +2,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,range,combinaison_listes,ecriture_parenthese_si_negatif,lettre_depuis_chiffre} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Substitution'
 
 /**

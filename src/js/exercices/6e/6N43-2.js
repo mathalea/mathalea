@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { shuffle2tableaux, liste_de_question_to_contenu_sans_numero, choice, combinaison_listes, tex_nombre2 } from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Critères de divisibilité (plusieurs possibles)'
 
 /**

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombre,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const amcReady = true
+
 export const titre = 'Calculer le pourcentage d’un nombre de tête'
 
 /**

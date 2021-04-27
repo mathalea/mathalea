@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
 
 /** 

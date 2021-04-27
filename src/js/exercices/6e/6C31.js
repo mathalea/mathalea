@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js'
 import Operation from '../../modules/operations.js'
 import { liste_de_question_to_contenu, randint, choice, combinaison_listes, calcul, tex_nombre, arrondi } from '../../modules/outils.js'
+export const amcReady = true
+
 export const titre = 'Divisions décimales'
 
 /**

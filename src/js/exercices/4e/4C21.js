@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 import {fraction_simplifiee,tex_fraction_reduite} from '../../modules/outils.js'
 
 
+export const amcReady = true
+
 export const titre = 'Additionner ou soustraire deux fractions'
 
 /**

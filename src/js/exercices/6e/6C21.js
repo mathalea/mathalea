@@ -1,4 +1,6 @@
 import Divisions_euclidiennes from './6C11.js'
+export const amcReady = true
+
 export const titre = 'Divisions euclidiennes - Niveau 2'
 
 /** 

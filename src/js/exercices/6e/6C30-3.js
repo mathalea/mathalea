@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,tex_nombre2, calcul,shuffle2tableaux} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Opérations avec les nombres décimaux'
 
 /**

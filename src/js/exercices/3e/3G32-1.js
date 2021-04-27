@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, randint, tex_nombrec } from '../../module
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
 
+export const amcReady = true
+
 export const titre = 'Calcul d’un parallèle terrestre'
 
 /**

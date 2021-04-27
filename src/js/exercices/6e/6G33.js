@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,choice,shuffle,shuffle2tableaux} from '../../modules/outils.js'
 import {point,segment,polygone,codageAngleDroit,codeSegments,mathalea2d} from '../../modules/2d.js'
+export const amcReady = true
+
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 
 /**

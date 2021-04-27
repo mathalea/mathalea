@@ -1,4 +1,6 @@
 import Thales2D from './_Thales2D.js'
+export const amcReady = true
+
 export const titre = 'Calculer des longueurs avec la propriété de Thalès'
 
 /**

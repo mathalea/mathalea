@@ -1,14 +1,15 @@
 import Exercice from '../ClasseExercice.js';
-import { } from '../../modules/outils.js'//Fonctions à importer dans fichiers outils
-import { } from '../../modules/2d.js'//Fonctions à importer dans fichiers mathalea2D
+// import { } from '../../modules/outils.js'//Fonctions à importer dans fichiers outils
+// import { } from '../../modules/2d.js'//Fonctions à importer dans fichiers mathalea2D
 
+export const titre = 'titre à donner'
 
 /**
 
 */
 export default function totoche() {// nom de fonction à donner
-  Exercice.call(this); 
-  this.titre = "";
+  Exercice.call(this);
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_cols = 2;
@@ -21,8 +22,8 @@ export default function totoche() {// nom de fonction à donner
 // paramètrage graphique, nb questions; ..
 
   this.nouvelle_version = function () {
-    this.liste_questions = []; 
-    this.liste_corrections = []; 
+    this.liste_questions = [];
+    this.liste_corrections = [];
     let type_de_questions_disponibles = [];
     type_de_questions_disponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
 
@@ -41,7 +42,7 @@ export default function totoche() {// nom de fonction à donner
         break; // qui cloture le cas présent
         case 2:
             // 2ème cas de figure
-         
+
           break;
         // on rajoute autant de case qu'on le souhaite
       } // fin de switch

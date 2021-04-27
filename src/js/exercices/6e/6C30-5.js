@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,combinaison_listes,randint,tex_nombre,tex_nombre2,tex_fraction,choice,mise_en_evidence} from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
 
 /**

@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,tex_nombre} from '../../modules/outils.js'
 
+export const amcReady = true
 
 export const titre = 'Addition de deux entiers relatifs'
 
@@ -67,7 +68,7 @@ export default function Exercice_additions_relatifs(max = 20) {
 				this.liste_corrections.push(texte_corr);
 				this.QCM[1].push([`${texte}\n`,
 				tabrep,
-				tabicone]) 
+				tabicone])
 				i++;
 			}
 			cpt++;

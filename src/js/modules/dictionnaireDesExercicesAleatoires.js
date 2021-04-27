@@ -279,6 +279,10 @@ export default {
     "titre": "Repérage sur la sphère",
     "url": "/exercices/3e/3G40.js"
   },
+  "3G42": {
+    "titre": "Volume d’une boule",
+    "url": "/exercices/3e/3G42.js"
+  },
   "3G43": {
     "titre": "Calculs de volumes",
     "url": "/exercices/3e/3G43.js"
@@ -371,6 +375,18 @@ export default {
     "titre": "Dessiner avec scratch",
     "url": "/exercices/4e/4Algo1-0.js"
   },
+  "4C10-0": {
+    "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
+    "url": "/exercices/4e/4C10-0.js"
+  },
+  "4C10-1": {
+    "titre": "Signe d’un produit de nombres relatifs",
+    "url": "/exercices/4e/4C10-1.js"
+  },
+  "4C10-2": {
+    "titre": "Signe d’un quotient de nombres relatifs",
+    "url": "/exercices/4e/4C10-2.js"
+  },
   "4C10-3": {
     "titre": "Multiplication de deux entiers relatifs",
     "url": "/exercices/4e/4C10-3.js"
@@ -415,6 +431,10 @@ export default {
     "titre": "Problèmes additifs et de comparaison sur les rationnels",
     "url": "/exercices/4e/4C25-0.js"
   },
+  "4C30-1": {
+    "titre": "Encadrer avec des puissances de 10",
+    "url": "/exercices/4e/4C30-1.js"
+  },
   "4C30-2": {
     "titre": "Écriture décimale d’une puissance de 10",
     "url": "/exercices/4e/4C30-2.js"
@@ -427,6 +447,10 @@ export default {
     "titre": "Puissances de 10 : Le sens des règles de calculs",
     "url": "/exercices/4e/4C30.js"
   },
+  "4C32-1": {
+    "titre": "Calcul avec les puissances de dix",
+    "url": "/exercices/4e/4C32-1.js"
+  },
   "4C32-2": {
     "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
     "url": "/exercices/4e/4C32-2.js"
@@ -434,6 +458,10 @@ export default {
   "4C32-3": {
     "titre": "Problèmes avec des puissances de 10 et des conversions",
     "url": "/exercices/4e/4C32-3.js"
+  },
+  "4C32": {
+    "titre": "Notation scientifique",
+    "url": "/exercices/4e/4C32.js"
   },
   "4C33-1": {
     "titre": "Puissances : Le sens des règles de calculs",
@@ -542,6 +570,14 @@ export default {
   "4L14-0": {
     "titre": "Tester si un nombre est solution d’une équation",
     "url": "/exercices/4e/4L14-0.js"
+  },
+  "4L14-1": {
+    "titre": "Tester si un nombre est solution d’une équation du premier degré",
+    "url": "/exercices/4e/4L14-1.js"
+  },
+  "4L14-2": {
+    "titre": "Tester si un nombre est solution d'une équation du second degré",
+    "url": "/exercices/4e/4L14-2.js"
   },
   "4L15-0": {
     "titre": "Trouver l’erreur dans une résolution d’équation du premier degré",
@@ -762,6 +798,10 @@ export default {
   "5L14-5": {
     "titre": "Calculer la valeur d’une expression littérale de degré 1 à 1 inconnue",
     "url": "/exercices/5e/5L14-5.js"
+  },
+  "5L14-6": {
+    "titre": "Déterminer la dernière opération à effectuer dans une expression numérique",
+    "url": "/exercices/5e/5L14-6.js"
   },
   "5L14": {
     "titre": "Calculer la valeur d’une expression littérale",
@@ -1674,6 +1714,10 @@ export default {
   "betaXcas": {
     "titre": "Test de XCas",
     "url": "/exercices/beta/betaXcas.js"
+  },
+  "beta_modele_vide_stephane": {
+    "titre": "titre à donner",
+    "url": "/exercices/beta/beta_modele_vide_stephane.js"
   },
   "betabonhomme": {
     "titre": "bonhomme de neige",

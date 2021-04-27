@@ -2,6 +2,7 @@ import { ecriture_parenthese_si_negatif } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,combinaison_listes,itemize} from '../../modules/outils.js'
 
+export const amcReady = true
 
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
@@ -129,7 +130,7 @@ export default function Traduire_un_programme_de_calcul() {
 				this.liste_corrections.push(texte_corr);
 				this.QCM[1].push([`${texte}\n`,
 				tabrep,
-				tabicone]) 
+				tabicone])
 				i++;
 			}
 			cpt++;

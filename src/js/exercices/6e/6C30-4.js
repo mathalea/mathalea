@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { export_QCM_AMC,liste_de_question_to_contenu, randint, tex_nombrec, tex_nombre2,calcul, choice, tex_fraction,shuffle2tableaux } from '../../modules/outils.js'
 
+export const amcReady = true
+
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
 
 /**
