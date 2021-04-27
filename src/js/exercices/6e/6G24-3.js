@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,codageMediatrice,segment,traceCompas,dansLaCibleCarree,cibleCarree,translation,homothetie,symetrieAxiale,distancePointDroite,longueur,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Construire le symétrique d’un point avec cible auto-corrective'
+
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
  * Ref 6G24-3 
@@ -9,7 +11,7 @@ import {point,tracePoint,labelPoint,droite,codageMediatrice,segment,traceCompas,
  */
 export default function Construire_symetrique_point_6e() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Construire le symétrique d'un point avec cible auto-corrective";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,shuffle,combinaison_listes,lettre_depuis_chiffre,texcolors,texte_gras} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,segment,demiDroite,polygone,codeAngle,texteParPosition,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Propriétés de conservation de la symétrie axiale'
+
 /**
  * Ref 6G32-1
  * Publié le 26/10/2020
@@ -8,7 +10,7 @@ import {point,tracePoint,labelPoint,droite,segment,demiDroite,polygone,codeAngle
  */
 export default function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Propriétés de conservation de la symétrie axiale";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 4;
   this.nb_cols = 1;

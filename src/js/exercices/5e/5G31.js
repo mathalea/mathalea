@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombrec,lettre_depuis_chiffre} from '../../modules/outils.js'
 
 
+export const titre = 'Somme des angles dans un triangle'
+
 /**
 * Déterminer la valeur d'un angle dans un triangle.
 *
@@ -22,7 +24,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombrec,lett
 export default function Exercice_angles_triangles() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Somme des angles dans un triangle";
+	this.titre = titre;
 	this.consigne = '';
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1.5;
 	sortie_html ? this.spacing = 2 : this.spacing = 2;

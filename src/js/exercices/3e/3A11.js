@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,nombre_avec_espace,texte_en_couleur_et_gras,modal_pdf,modal_video,crible_eratosthene_n,warn_message} from '../../modules/outils.js'
+export const titre = 'Primalité ou pas'
+
 /**
  * 3A11 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_cha
 export default function Premier_ou_pas() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Primalité ou pas";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//sortie_html ? this.spacing = 3 : this.spacing = 2;

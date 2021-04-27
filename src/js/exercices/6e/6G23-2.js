@@ -3,6 +3,8 @@ import { liste_de_question_to_contenu, randint, calcul, creerNomDePolygone, tex_
 import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, segment, segmentAvecExtremites, rotation, afficheLongueurSegment, afficheMesureAngle, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
+export const titre = 'Tracer un triangle dont on connait une longueur et 2 angles'
+
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
@@ -10,7 +12,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
  */
 export default function Tracer_triangle_2_angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Tracer un triangle dont on connait une longueur et 2 angles'
+  this.titre = titre
   this.consigne = ''
   this.nb_questions = 3
   this.nb_cols = 1

@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,nombre_avec_espace} from '../../modules/out
 import {pavage,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 
+export const titre = 'Fabriquer des pavages pour travailler les transformations'
+
 /**
  * Outil de création de pavages pour le prof
  * @Auteur Jean-Claude Lhote
@@ -12,7 +14,7 @@ import {pavage,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 export default function Pavages_mathalea2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Fabriquer des pavages pour travailler les transformations";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,creer_couples,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Tables de multiplications et nombres décimaux'
+
 /**
  * Multiplier deux nombres décimaux
  * @Auteur Rémi Angot
@@ -13,7 +15,7 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
   //Multiplier deux nombres
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = tables_par_defaut;
-  this.titre = "Tables de multiplications et nombres décimaux";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;

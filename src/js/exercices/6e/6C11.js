@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
+export const titre = 'Divisions euclidiennes'
+
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
  *
@@ -18,7 +20,7 @@ import Operation from '../../modules/operations.js';
  */
 export default function Divisions_euclidiennes() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Divisions euclidiennes";
+  this.titre = titre;
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.";
   this.spacing = 2;

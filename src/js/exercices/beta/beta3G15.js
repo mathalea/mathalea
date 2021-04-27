@@ -2,9 +2,11 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,num_alpha, calcul, randint} from '../../modules/outils.js'
 import {mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point} from '../../modules/2d.js'
 
+export const titre = 'Utiliser toutes les transformations'
+
 export default function Exercice_zero_mathalea2d() {
     Exercice.call(this)
-    this.titre = "Utiliser toutes les transformations";
+    this.titre = titre;
     this.nb_questions = 1; // Ici le nombre de questions
     this.nb_questions_modifiable = false // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotation,homothetie,similitude,codageAngleDroit,codeSegments,codeAngle,grille,seyes,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Nommer et coder des polygones'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Placer les sommets et les égalités de longueur...
@@ -8,7 +10,7 @@ import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotati
  */
 export default function Nommer_et_coder_des_polygones() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Nommer et coder des polygones";
+  this.titre = titre;
   this.consigne = "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
   this.nb_questions = 4;
   this.nb_cols = 2;

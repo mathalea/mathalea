@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,calcul,texte_en_couleur,texte_gras,num_alpha} from '../../modules/outils.js'
 import {point,labelPoint,segment,cercleCentrePoint,rotation,codageAngleDroit,codeAngle,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Résoudre un problème en utilisant des fractions'
+
 /** 
  * * résoudre un problème additif de fractions niv 5e
  * * 5N20-0
@@ -11,7 +13,7 @@ export default function Problemes_additifs_fractions_5e () {
   this.debug = false
   this.sup = 1
 
-  this.titre = 'Résoudre un problème en utilisant des fractions';
+  this.titre = titre;
   this.consigne = 'Calculatrice autorisée.';
 
   this.nb_cols = 1

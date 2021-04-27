@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe} from '../../modules/outils.js'
 
+export const titre = 'Tracer des droites graduées'
+
 /**
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,SVG_reperage_sur_un_axe,Latex_reperage_sur_
 export default function feuille_d_axes_gradues() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Tracer des droites graduées";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = true;

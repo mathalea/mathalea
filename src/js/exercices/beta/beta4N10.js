@@ -1,4 +1,6 @@
 import Arrondir_une_valeur from '../6e/6N31-3.js'
+export const titre = 'Arrondir une valeur numérique'
+
 /**
  *
  * référence ?
@@ -6,6 +8,6 @@ import Arrondir_une_valeur from '../6e/6N31-3.js'
 export default function Arrondir_une_valeur_4e() {
   Arrondir_une_valeur.call(this);
   this.sup = 3;
-  this.titre = "Arrondir une valeur numérique";
+  this.titre = titre;
   this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
 }

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,tex_nombre} from '../../modules/outils.js'
 
 
+export const titre = 'Addition de deux entiers relatifs'
+
 /**
 * Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
 *
@@ -13,7 +15,7 @@ export default function Exercice_additions_relatifs(max = 20) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.sup2 = false; // écriture simplifiée
-	this.titre = "Addition de deux entiers relatifs";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 2;
 	this.QCM_disponible=true

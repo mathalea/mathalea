@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,calcul,tex_graphique,resol_sys_lineaire_2x2} from '../../modules/outils.js'
+export const titre = 'Lire les antécédents d’un nombre à partir d’un graphique'
+
 /**
 * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,calcul,tex_graphique,re
 */
 export default function Antecedent_graphique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire les antécédents d'un nombre à partir d'un graphique";
+	this.titre = titre;
 	this.consigne = "";
 	this.sup = 2;
 	this.spacing = 1;

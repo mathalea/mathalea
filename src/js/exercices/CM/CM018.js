@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Somme de deux nombres mariés et un entier'
+
 /**
  * Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../mod
 */
 export default function Somme_de_deux_nombres_maries_et_un_entier() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Somme de deux nombres mariés et un entier";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

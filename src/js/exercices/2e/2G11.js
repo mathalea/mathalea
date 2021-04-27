@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,fraction_simplifiee,tex_nombre} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,segment,axes,grille,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Déterminer les coordonnées milieu d’un segment dans un repère'
+
 /**
  * 2G11
  * @Auteur Stéphane Guyon
  */
 export default function Milieu() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer les coordonnées milieu d’un segment dans un repère";
+    this.titre = titre;
 
     this.nb_questions = 2;
     this.nb_cols = 2;

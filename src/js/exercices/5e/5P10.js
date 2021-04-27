@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,texte_en_couleur_et_gras,tab_C_L} from '../../modules/outils.js'
+export const titre = 'Tableaux et proportionnalité.'
+
 /** 
  * * Justifier qu'un tableau est un tableau de proportionnalité ou non
  * * 5P10
@@ -17,7 +19,7 @@ export default function Tableaux_et_proportionnalite() {
 		this.nb_questions = 4;
 	};
 
-	this.titre = "Tableaux et proportionnalité.";
+	this.titre = titre;
 	this.consigne = `Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.`;
 
 	this.nb_cols = 1;

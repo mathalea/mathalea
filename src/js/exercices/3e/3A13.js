@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,decomposition_facteurs_premiers,modal_pdf,katex_Popup2,num_alpha,warn_message,lampe_message,SVG_engrenages,ppcm} from '../../modules/outils.js'
+export const titre = 'Engrenages'
+
 /**
  * 3A13 - PPCM_Engrenages
  * les deux on besoin de la def partielle serie : stlX
@@ -10,7 +12,7 @@ export default function PPCM_Engrenages() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Engrenages";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne = ``;

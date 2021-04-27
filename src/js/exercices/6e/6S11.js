@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,arrondi_virgule,prenom,tex_nombre,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
+export const titre = 'Organiser des données dans un tableau'
+
 /**
  * Organiser donnees depuis texte
  * @Auteur Erwan Duplessy
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,arrondi_virgule,pren
 
 export default function Organiser_donnees_depuis_texte() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Organiser des données dans un tableau";
+  this.titre = titre;
   this.consigne = "Répondre aux questions à l'aide du texte.";
   this.nb_questions = 4;
   this.nb_questions_modifiable = false;

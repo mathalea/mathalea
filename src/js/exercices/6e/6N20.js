@@ -1,12 +1,14 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
+
 /**
  * @Auteur Rémi Angot
  * 6N20
  */
 export default function Exercice_fractions_decomposer() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Décomposer une fraction (partie entière + fraction inférieure à 1).";
+  this.titre = titre;
   this.consigne =
     "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1.";
   this.spacing = 2;

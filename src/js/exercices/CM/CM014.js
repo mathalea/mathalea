@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range1,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Double, moitié, tiers, triple'
+
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,range1,combinaison_listes} from '..
  */
 export default function Double_moitie_tiers_triple() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Double, moitié, tiers, triple";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

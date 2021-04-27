@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul} from '../../modules/outils.js'
+export const titre = 'Quotient de deux entiers relatifs'
+
 /**
 * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
 *
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul} f
 export default function Exercice_quotients_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = false;
-  this.titre = "Quotient de deux entiers relatifs";
+  this.titre = titre;
   this.consigne = 'Calculer'
   this.spacing = 2;
   this.nb_questions = 6;

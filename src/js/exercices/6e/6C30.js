@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
 import Operation  from '../../modules/operations.js'
+export const titre = 'Multiplications posées de nombres décimaux'
+
 /**
  * Multiplication de deux nombres décimaux
  *
@@ -14,7 +16,7 @@ import Operation  from '../../modules/operations.js'
 export default function Multiplier_decimaux() {
 
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Multiplications posées de nombres décimaux";
+  this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
   this.spacing_corr = 1; //Important sinon le calcul posé ne fonctionne pas avec opmul et spacing

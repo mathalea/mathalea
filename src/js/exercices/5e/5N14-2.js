@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,compare_fractions,shuffle,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
+export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
+
 /**
 * 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant ou décroissant
 *
@@ -11,7 +13,7 @@ import Algebrite from 'algebrite'
 */
 export default function Exercice_comparer_quatre_fractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
+  this.titre = titre
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
   this.spacing = 2
   sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2.5

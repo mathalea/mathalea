@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombre,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Calculer le pourcentage d’un nombre de tête'
+
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
  * @Auteur Rémi Angot + Jean-claude Lhote
@@ -11,7 +13,7 @@ const Algebrite = require('algebrite')
 export default function Pourcentage_d_un_nombre() {
 
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer le pourcentage d'un nombre de tête";
+  this.titre = titre;
   this.nb_questions = 5;
   this.consigne = "Calculer";
   this.spacing = 2;

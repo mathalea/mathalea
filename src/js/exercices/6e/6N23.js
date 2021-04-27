@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_nombre,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Donner l’écriture décimale d’une fraction décimale'
+
 /**
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  *
@@ -11,7 +13,7 @@ const Algebrite = require('algebrite')
  */
 export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Donner l'écriture décimale d'une fraction décimale";
+  this.titre = titre;
   this.consigne = "Donner l'écriture décimale";
   this.spacing = 2;
   this.spacing_corr = 2;

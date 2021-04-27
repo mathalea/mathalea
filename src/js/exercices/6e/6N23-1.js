@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Différentes écritures des nombres décimaux'
+
 /**
  * Compléter des égalités sur les nombres décimaux
  * * n/100 = .../10 + .../100
@@ -13,7 +15,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,te
  */
 export default function Exercice_differentes_ecritures_nombres_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Différentes écritures des nombres décimaux";
+  this.titre = titre;
   this.consigne = "Compléter l'égalité puis donner l'écriture décimale.";
   this.spacing = 2;
   this.spacing_corr = 2;

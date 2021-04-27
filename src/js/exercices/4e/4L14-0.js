@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,texte_en_couleur} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Tester si un nombre est solution d’une équation'
+
 /**
  * Tester si un nombre est solution d'une équation
  * * 4L14-0
@@ -11,7 +13,7 @@ const Algebrite = require('algebrite')
 export default function Tester_si_un_nombre_est_solution_d_une_equation() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Tester si un nombre est solution d'une équation";
+  this.titre = titre;
   this.consigne = "";
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

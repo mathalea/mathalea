@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,range,combinaison_listes,arrondi,calcul,tex_nombrec,prenomF,prenomM,tex_nombre,mise_en_evidence,tex_prix} from '../../modules/outils.js'
+export const titre = 'Reconnaître une situation de proportionnalité'
+
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
  * @Auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,range,combinaison_listes,arr
 export default function Proportionnalite_pas_proportionnalite() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Reconnaître une situation de proportionnalité";
+  this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
   sortie_html ? this.spacing = 2 : this.spacing = 1.4;
   sortie_html ? this.spacing_corr = 1.5 : this.spacing_corr = 1;

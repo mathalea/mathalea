@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu } from '../../modules/outils.js'
+export const titre = 'Exercice exemple avec un nombre fixe de questions différentes'
+
 /**
  * Description didactique de l'exercice
  * @Auteur
@@ -7,7 +9,7 @@ import { liste_de_question_to_contenu } from '../../modules/outils.js'
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Exercice exemple avec un nombre fixe de questions différentes'
+  this.titre = titre
   this.consigne = ''
   this.nb_questions_modifiable = false
   this.nb_cols = 2 // Uniquement pour la sortie LaTeX

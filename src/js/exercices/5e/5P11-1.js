@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint, choice, prenomF, prenomM, tex_nombre, nombre_avec_espace, calcul, minToHour} from '../../modules/outils.js'
+export const titre = 'Problème de vitesse'
+
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint, choice, prenom
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problème de vitesse";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX

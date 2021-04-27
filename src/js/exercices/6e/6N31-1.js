@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
 
+export const titre = 'Encadrer un décimal par deux entiers consécutifs'
+
 /**
  * * Encadrer_un_decimal_par_deux_entiers_consecutifs
  * * 6N31-1
@@ -17,7 +19,7 @@ export default function Encadrer_un_decimal_par_deux_entiers_consecutifs() {
     this.nb_questions = 3;
   };
 
-  this.titre = "Encadrer un décimal par deux entiers consécutifs";
+  this.titre = titre;
   this.consigne = `Encadrer chaque nombre proposé par deux nombres entiers consécutifs.`;
 
   this.nb_cols = 1;

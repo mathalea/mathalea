@@ -3,6 +3,8 @@
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, export_QCM_AMC, tex_nombre2, liste_de_question_to_contenu, randint, choice, combinaison_listes, abs, pgcd, mise_en_evidence, tex_fraction, tex_fraction_reduite } from '../../modules/outils.js'
 
+export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
+
 /**
 * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
 *
@@ -18,7 +20,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun
   this.sup2 = false // Si true alors il n'y aura que des soustractions
-  this.titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
+  this.titre = titre
   this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
   this.spacing = 2
   this.spacing_corr = 2

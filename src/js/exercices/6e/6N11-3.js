@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+export const titre = 'Encadrer un entier entre deux entiers consécutifs'
+
 /** 
 * * Encadrer un nombre entier par deux entier consécutifs
 * * 6N11-3
@@ -17,7 +19,7 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
     this.nb_questions = 3;
   };
 
-  this.titre = "Encadrer un entier entre deux entiers consécutifs";
+  this.titre = titre;
   this.consigne = ``;
 
   this.nb_cols = 1;

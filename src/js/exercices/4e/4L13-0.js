@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,prenom,texte_en_couleur} from '../../modules/outils.js'
 import {point,segment,codageCarre,polygoneRegulierParCentreEtRayon,nommePolygone,afficheCoteSegment,codeSegments,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Mettre en équation un problème sans objectif de résolution'
+
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
  * à partir de figure géométriques élémentaires
@@ -18,7 +20,7 @@ export default function Mettre_en_equation_sans_resoudre() {
     this.nb_questions = 2;
   };
 
-  this.titre = "Mettre en équation un problème sans objectif de résolution";
+  this.titre = titre;
   this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation.";
 
   this.nb_cols = 1;

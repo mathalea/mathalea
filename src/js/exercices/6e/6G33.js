@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,choice,shuffle,shuffle2tableaux} from '../../modules/outils.js'
 import {point,segment,polygone,codageAngleDroit,codeSegments,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
+
 /**
  * Reconnaitre un quadrilatère particulier à partir de ses propriétés
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {point,segment,polygone,codageAngleDroit,codeSegments,mathalea2d} from '.
 */
 export default function Reconnaitre_quadrilatere_particulier() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Reconnaitre un quadrilatère particulier à partir de ses propriétés";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = false;

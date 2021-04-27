@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, choice, tex_nombrec } from '../../modules/outils.js';
+export const titre = 'Probabilités simples'
+
 /**
  * Description didactique de l'exercice
  * @Auteur Rémi Angot et Matthieu Devillers
@@ -7,7 +9,7 @@ import { liste_de_question_to_contenu, randint, choice, tex_nombrec } from '../.
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Probabilités simples";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions_modifiable = false;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_parenth
 const Algebrite = require('algebrite')
 
 
+export const titre = 'Tester une égalité'
+
 /**
 * Tester une égalité pour 2 valeurs données (une vraie et une fausse)
 *
@@ -15,7 +17,7 @@ const Algebrite = require('algebrite')
 */
 export default function Tester_une_egalite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Tester une égalité";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 3;
 	this.nb_cols = 1;

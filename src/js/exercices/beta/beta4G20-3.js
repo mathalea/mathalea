@@ -2,10 +2,12 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 
+export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
+
 export default function Calculer_valeur_manquante_visuel_pythagore() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Calculer une valeur manquante avec l'égalité de Pythagore";
+    this.titre = titre;
     this.consigne = "Dans chaque cas, calculer la valeur manquante indiquée par un point d'interrogation.";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions

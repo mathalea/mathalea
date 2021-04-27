@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique} from '../../modules/outils.js'
+export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
+
 /**
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebri
 export default function Exercice_tableau_multiplications_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = false;
-  this.titre = "Multiplications de deux entiers relatifs dans un tableau à double entrée";
+  this.titre = titre;
   this.consigne = 'Calculer'
   this.spacing = 1;
   this.nb_questions = 1;

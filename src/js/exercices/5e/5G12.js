@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,egal,randint,choice,shuffle,nombre_avec_esp
 import {tracePoint,labelPoint,codageMilieu,segment,rotation,rotationAnimee,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
 
 
+export const titre = 'Trouver l’image d’une figure par symétrie centrale dans un pavage'
+
 /**
  * Publié le 14/12/2020
  * Trouver l'image par symétrie centrale d'une figure dans un pavage
@@ -13,7 +15,7 @@ import {tracePoint,labelPoint,codageMilieu,segment,rotation,rotationAnimee,texte
 export default function Pavage_et_demi_tour2d() {
 	"use strict";
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'une figure par symétrie centrale dans un pavage";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,shuffle,texte_en_couleur_et_gras,cesar} from '../../modules/outils.js'
 import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
+export const titre = 'Spécial escape game'
+
 /**
  * @Auteur Jean-Claude Lhote
  * publié le  15/11/2020
@@ -8,7 +10,7 @@ import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../
  */
 export default function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Spécial escape game";
+	this.titre = titre;
 	this.consigne = "Trouver le mot de passe.";
 	this.nb_questions = 1;
 	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1.5;

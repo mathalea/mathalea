@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,creer_couples,randint,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from '../../modules/outils.js'
+export const titre = 'Tables de multiplications et multiples de 10'
+
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @Auteur Rémi Angot
@@ -11,7 +13,7 @@ export default function Exercice_tables_de_multiplications_et_multiples_de_10(
   //Multiplier deux nombres
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = tables_par_defaut;
-  this.titre = "Tables de multiplications et multiples de 10";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;

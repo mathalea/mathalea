@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,tex_nombrec,tex_nombre,tex_fraction} from '../../modules/outils.js'
 
+export const titre = 'Calculs de volumes'
+
 /**
  * Calcul de volumes (cube et pavé droit).
  * @Auteur Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,t
 export default function Calcul_de_volumes() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculs de volumes";
+  this.titre = titre;
   this.consigne = "Calculer, en détaillant, le volume des solides donnés.";
   this.nb_questions = 4;
   this.nb_cols = 1;

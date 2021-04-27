@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.'
+
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction}
  */
 export default function Exercice_fractions_differentes_ecritures() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.";
+  this.titre = titre;
   this.consigne =
     "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale";
   this.spacing = 2;

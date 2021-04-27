@@ -3,9 +3,11 @@ import { mathalea2d,point,rotation,latexParPoint } from '../../modules/2d.js'
 import {point3d,polygone3d,rotation3d,droite3d} from '../../modules/3d.js'
 import {texcolors} from '../../modules/outils.js'
 
+export const titre = 'Rotation 3d de polygones'
+
 export default function beta_rotation3d() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Rotation 3d de polygones";
+    this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
     this.nb_questions = 1;

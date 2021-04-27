@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
+
 /**
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
  *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from
  */
 export default function Exercice_numeration_entier() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...";
+  this.titre = titre;
   this.consigne = "Écrire en chiffres chacun des nombres.";
   this.nb_questions = 5;
   this.nb_cols = 1;

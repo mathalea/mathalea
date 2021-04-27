@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,choice,combinaison_listes,pgcd,tex_fraction_reduite,tex_nombrec,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Trouver l’inverse d’un nombre'
+
 /**
  * * Calcul de l'inverse d'un nombre.
  *
@@ -14,7 +16,7 @@ import {liste_de_question_to_contenu,choice,combinaison_listes,pgcd,tex_fraction
 export default function Exercice_trouver_l_inverse() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1; // Avec ou sans relatifs
-  this.titre = "Trouver l'inverse d'un nombre";
+  this.titre = titre;
   this.consigne =
     "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible";
   this.spacing = 2;

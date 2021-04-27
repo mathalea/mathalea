@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,simplification_de_fraction_avec_etapes,prenom,tex_fraction,num_alpha} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer des probabilités dans une expérience aléatoire à une épreuve'
+
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,simplification_d
 export default function fonctions_probabilite1() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des probabilités dans une expérience aléatoire à une épreuve";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_questions_modifiable = true;

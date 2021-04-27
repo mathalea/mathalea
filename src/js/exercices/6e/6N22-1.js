@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
+export const titre = 'Rapport de deux longueurs sur un segment'
+
 /** 
  * * Exprimer un rapport de longueurs sur un segment
  * * 6N22-1
@@ -18,7 +20,7 @@ export default function Rapports_sur_un_segment() {
     this.nb_questions = 2;
   };
 
-  this.titre = "Rapport de deux longueurs sur un segment";
+  this.titre = titre;
   this.consigne = `Sur tous les axes, les graduations sont régulières.`;
 
   this.nb_cols = 1;

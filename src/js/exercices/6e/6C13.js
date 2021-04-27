@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,combinaison_listes,num_alpha} from '../../modules/outils.js'
 import Choisir_expression_numerique from '../5e/_Choisir_expression_numerique.js'
+export const titre = 'Traduire des phrases en calculs et réciproquement'
+
 /**
  * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
  * Exercice sur le vocabulaire : somme,différence, produit, quotient...
@@ -10,7 +12,7 @@ import Choisir_expression_numerique from '../5e/_Choisir_expression_numerique.js
 export default function Vocabulaire_et_operations() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Traduire des phrases en calculs et réciproquement";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 5;
   this.nb_cols = 2;

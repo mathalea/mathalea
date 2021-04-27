@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,arrondi,abs,tex_nombrec,lettre_depuis_chiffre,tex_nombre,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
 
+export const titre = 'Contrôler si deux droites sont parallèles'
+
 /**
  * Reciproque_Thales
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,ra
 export default function Reciproque_Thales() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Contrôler si deux droites sont parallèles";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint,ecriture_algebrique, tex_fraction_reduite,tex_fraction,pgcd} from '../../modules/outils.js'
 
+export const titre = 'Déterminer un antécédent'
+
 /**
  * Reconnaître une fonction affine
 * @auteur Erwan Duplessy
@@ -17,7 +19,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint,ecriture_algebr
 export default function antecedent_par_calcul() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Déterminer un antécédent";
+    this.titre = titre;
     this.consigne = "Répondre aux questions suivantes avec une valeur exacte simplifiée. ";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions

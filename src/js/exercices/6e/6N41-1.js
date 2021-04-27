@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,pgcd,tex_fractio
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 import { fraction } from '../../modules/Fractions.js'
 
+export const titre = 'Labyrinthe de fractions égales'
+
 /**
  * @Auteur Jean-Claude Lhote
  * Publié le 11/12/2020
@@ -12,7 +14,7 @@ import { fraction } from '../../modules/Fractions.js'
 export default function Exercice_labyrinthe_fractions_egales() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Labyrinthe de fractions égales";
+  this.titre = titre;
   this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;

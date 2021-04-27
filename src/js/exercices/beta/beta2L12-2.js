@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique} from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
+export const titre = 'Résoudre des équations se ramenant au produit-nul.'
+
 /**
  * Résoudre des équations se ramenant au produit-nul
 * @auteur Stéphane Guyon
@@ -9,7 +11,7 @@ import { fraction } from '../../modules/Fractions.js'
 export default function Equations_presque_produit_null2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre des équations se ramenant au produit-nul.";
+    this.titre = titre;
     this.video = "";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;

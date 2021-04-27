@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,tex_prix,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Problèmes avec des calculs de pourcentages'
+
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ const Algebrite = require('algebrite')
  */
 export default function Appliquer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problèmes avec des calculs de pourcentages";
+  this.titre = titre;
   this.nb_questions = 1;
   this.consigne = "Calculer";
   this.spacing = 2;

@@ -1,6 +1,8 @@
 import Operation from '../../modules/operations.js';
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombrec, tex_nombre,export_QCM_AMC } from '../../modules/outils.js'
+export const titre = 'Additions et soustractions de nombres décimaux'
+
 /**
  * Additions et soustractions de nombres décimaux
  * * xxx-xx,x
@@ -16,7 +18,7 @@ import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_
  */
 export default function Additionner_soustraires_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Additions et soustractions de nombres décimaux";
+  this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies

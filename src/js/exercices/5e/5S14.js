@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,prenom,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre,tex_fraction} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer des moyennes'
+
 /**
  * Calcul de moyennes de série statistiques
 * @auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,pren
 */
 export default function Calculer_des_moyennes() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des moyennes";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;

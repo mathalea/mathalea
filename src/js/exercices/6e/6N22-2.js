@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
+export const titre = 'Mettre bout à bout des segments'
+
 /**
  * Représenter une somme de fracions de même dénominateur sur un segment gradué de façon adaptée.
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import{fraction} from '../../modules/Fractions.js'
  */
 export default function Ajouter_des_fractions_d_unite() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Mettre bout à bout des segments";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 4;
   this.nb_cols = 2;

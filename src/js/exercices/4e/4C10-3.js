@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
 
 
+export const titre = 'Multiplication de deux entiers relatifs'
+
 /**
 * Effectuer une multiplication entre 2 nombres relatifs.
 *
@@ -14,7 +16,7 @@ export default function Exercice_multiplications_relatifs(max = 10) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.sup2 = false; // écriture simplifiée
-	this.titre = "Multiplication de deux entiers relatifs";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 2;
 

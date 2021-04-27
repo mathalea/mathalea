@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,tex_nombre} from '../../modules/outils.js'
 import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
 
+export const titre = 'Construire un angle de mesure donnée'
+
 /**
  * Construire un angle
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation
  */
 export default function Construire_un_angle() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Construire un angle de mesure donnée";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 2;
   this.nb_questions_modifiable=true

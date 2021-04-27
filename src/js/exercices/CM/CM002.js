@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,creer_couples,choice,combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Tables de divisions'
+
 /**
  * Tables de divisions classiques, à trou ou un mélange des deux.
  *
@@ -12,7 +14,7 @@ export default function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = tables_par_defaut;
   this.sup2 = 1; // classique|a_trous|melange
-  this.titre = "Tables de divisions";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;

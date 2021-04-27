@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Conversions avec des unités de volumes ou de capacités'
+
 /**
  * Conversions d'unités de volumes vers les unités de capacité ou inversement.
  *
@@ -19,7 +21,7 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = niveau; // Niveau de difficulté de l'exercice
   this.sup2 = false; // Avec des nombres décimaux ou pas
-  this.titre = "Conversions avec des unités de volumes ou de capacités";
+  this.titre = titre;
   this.consigne = "Compléter";
   this.spacing = 2;
   this.nb_questions = 8;

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,liste_diviseurs,crible_eratosthene_n,texte_ou_pas} from '../../modules/outils.js'
 
 
+export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
+
 /**
  * 5A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ord
 export default function Liste_des_diviseurs_5e() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Écrire la liste de tous les diviseurs d'un entier";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	//this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
 	this.consigne = ``;

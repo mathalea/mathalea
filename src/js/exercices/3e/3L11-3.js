@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_chiffre,printlatex} from '../../modules/outils.js'
+export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
+
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_ch
 export default function Distributivite_simple_double_reduction() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Utiliser la distributivité (simple ou double) et réduire";
+	this.titre = titre;
 	this.consigne = "Développer et réduire les expressions suivantes.";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

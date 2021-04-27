@@ -1,13 +1,15 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,shuffle,calcul,choisit_lettres_differentes,tex_nombre,tex_fraction,num_alpha} from '../../modules/outils.js'
 import {droiteGraduee2,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Lire des abscisses décimales sous trois formes'
+
 /**
  * 6N23-2
  */
 export default function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
-  this.titre = "Lire des abscisses décimales sous trois formes";
+  this.titre = titre;
   this.consigne = "";
   if (sortie_html) {
     this.spacing = 2;

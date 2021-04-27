@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
+export const titre = 'Faire des phrases avec les mots : divisible, diviseur et multiple'
+
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import Operation from '../../modules/operations.js';
 */
 export default function DivisibleDiviseurMultiple() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Faire des phrases avec les mots : divisible, diviseur et multiple";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 6; // 6 questions au maximum
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

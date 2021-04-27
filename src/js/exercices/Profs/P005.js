@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {point,segment,polygone,carre,grille,grilleHorizontale,texteParPosition,mathalea2d,grilleVerticale} from '../../modules/2d.js'
 
+export const titre = 'Grilles décimales'
+
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
  * ref P005
@@ -10,7 +12,7 @@ export default function Feuille_de_grilles() {
   Exercice.call(this);
   this.nb_cols = 1;
   this.sup = 1;
-  this.titre = "Grilles décimales";
+  this.titre = titre;
 
   this.nouvelle_version = function () {
     this.contenu = "";

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,somme_des_chiffre,calcul,tex_nombre, randint, choice} from '../../modules/outils.js'
+export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
+
 /**
  * Vrai ou faux sur les notions de diviseur ou multiple
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,combinaison_listes,somme_des_chiffre,calcul
 */
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Diviseur, multiple, divisible - Vrai ou faux";
+  this.titre = titre;
   this.consigne = "Pour chaque affirmation, indiquer si elle est vraie ou fausse.";
   this.nb_questions = 5;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
 
+export const titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
+
 /**
  * 2N11
  * @Auteur Stéphane Guyon

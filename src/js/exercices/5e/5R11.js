@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,lettre_depuis_chiffre,html_consigne,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe} from '../../modules/outils.js'
 
 
+export const titre = 'Lire l’abscisse relative d’un point'
+
 /**
 * Lire l'abscisse décimale d'un point
 * @Auteur Jean-Claude Lhote et Rémi Angot
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,lettre_de
 export default function Lire_abscisse_relative() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse relative d'un point";
+	this.titre = titre;
 	this.consigne = "Lire l'abscisse de chacun des points suivants.";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;

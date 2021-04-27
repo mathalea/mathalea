@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_fraction} from '../../modules/outils.js'
 
+export const titre = 'Factoriser avec les identités remarquables'
+
 /**
  * Factoriser en utilisant les 3 identités remarquables
 * @auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_fract
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Factoriser avec les identités remarquables";
+    this.titre = titre;
     this.consigne = "Factoriser les expressions suivantes.";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

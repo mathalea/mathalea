@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,combinaison_listes, randint} from '../../mo
 import {mathalea2d} from '../../modules/2d.js'
 import {cube} from "../../modules/3d.js"
 
+export const titre = 'Représentation de solides'
+
 /**
 * Compter des cubes
 * @auteur Erwan DUPLESSY
@@ -15,7 +17,7 @@ import {cube} from "../../modules/3d.js"
 export default function DenombrerCubes() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Représentation de solides";
+  this.titre = titre;
   this.nb_questions = 3; // Ici le nombre de questions
   this.nb_questions_modifiable=true // Active le formulaire nombre de questions
   this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

@@ -2,6 +2,8 @@ import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2
 import Exercice from '../ClasseExercice.js'
 import { liste_de_question_to_contenu, shuffle, arrondi, tex_nombre } from '../../modules/outils.js'
 
+export const titre = 'Périmètres et aires de disques'
+
 /**
  * 4 cercles sont tracés, 2 dont on connait le rayon et 2 dont on connait le diamètre.
  * * 1 : Calculer le périmètre de cercles
@@ -15,7 +17,7 @@ import { liste_de_question_to_contenu, shuffle, arrondi, tex_nombre } from '../.
 export default function Perimetre_aire_disques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.pas_de_version_LaTeX = true
-  this.titre = 'Périmètres et aires de disques'
+  this.titre = titre
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.spacing = 2
   this.spacing_corr = 2

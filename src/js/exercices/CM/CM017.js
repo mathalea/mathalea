@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
+
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombr
 */
 export default function Diviser_decimal_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Diviser un nombre décimal par 10, 100 ou 1000";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer la valeur d’une expression littérale'
+
 /**
 * Calculer la valeur d'une expression littérale
 *
@@ -20,7 +22,7 @@ import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes} f
 */
 export default function Calculer_la_valeur_d_une_expression_litterale() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer la valeur d'une expression littérale";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

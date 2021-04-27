@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+export const titre = 'Chiffre des ... Nombre de ...'
+
 /** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
@@ -17,7 +19,7 @@ export default function chiffre_nombre_de() {
     this.nb_questions = 6;
   };
 
-  this.titre = "Chiffre des ... Nombre de ...";
+  this.titre = titre;
   this.consigne = ``;
 
   this.nb_cols = 1;

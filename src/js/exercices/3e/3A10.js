@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,egal,randint,shuffle,shuffle2tableaux,combinaison_listes_sans_changer_ordre,nombre_avec_espace,texte_en_couleur,modal_pdf,liste_diviseurs} from '../../modules/outils.js'
 
+export const titre = 'Division Euclidienne - Diviseurs - Multiples'
+
 /**
  * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,egal,randint,shuffle,shuffle2tableaux,combi
 export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Division Euclidienne - Diviseurs - Multiples";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
 	//sortie_html ? this.spacing = 3 : this.spacing = 2;

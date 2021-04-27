@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Diviser un entier par 10, 100 ou 1000'
+
 /**
  * Division d'un entier par 10, 100, 1000
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,tex_nombrec,tex_nombre} from
 */
 export default function Diviser_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Diviser un entier par 10, 100 ou 1000";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 import {fraction_simplifiee,tex_fraction_reduite} from '../../modules/outils.js'
 
 
+export const titre = 'Additionner ou soustraire deux fractions'
+
 /**
 * Effectuer la somme ou la différence de deux fractions
 *
@@ -17,7 +19,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 2; // Niveau de difficulté
 	this.sup2 = false; // Avec ou sans relatifs
-	this.titre = "Additionner ou soustraire deux fractions";
+	this.titre = titre;
 	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée.";
 	this.spacing = 2;
 	this.spacing_corr = 2;

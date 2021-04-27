@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrondi_virgule, nombre_avec_espace, texte_en_couleur_et_gras} from '../../modules/outils.js'
 
+export const titre = 'Stabilisation des fréquences'
+
 /**
  * Reconnaître une fonction affine
 * @auteur Erwan Duplessy
@@ -13,7 +15,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrond
 export default function Stabilisation_frequence() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Stabilisation des fréquences";
+    this.titre = titre;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

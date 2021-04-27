@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import { combinaison_listes, liste_de_question_to_contenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js'
 import {fraction} from '../../modules/Fractions.js'
+export const titre = 'Représenter des fractions'
+
 /**
  * 6N14
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
@@ -9,7 +11,7 @@ import {fraction} from '../../modules/Fractions.js'
  */
 export default function Representer_une_fraction() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Représenter des fractions";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 4;
   this.nb_cols = 2;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {deuxColonnes,randint,tex_consigne,num_alpha} from '../../modules/outils.js'
 import {repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
+export const titre = 'Lecture graphique d’images et d’antécédents'
+
 /**
  * Lecture d'images et antécédents sur un graphe sinusoidale
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 */
 export default function Antecedent_et_image_graphique() {
 	Exercice.call(this);
-	this.titre = "Lecture graphique d'images et d'antécédents";
+	this.titre = titre;
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;

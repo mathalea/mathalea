@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,
 import {point,tracePoint,labelPoint,codageMilieu,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d} from '../../modules/2d.js'
 
 
+export const titre = 'Construire le symétrique d’un point avec cible auto-corrective'
+
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
  * Ref 5G11-3
@@ -11,7 +13,7 @@ import {point,tracePoint,labelPoint,codageMilieu,segment,traceCompas,dansLaCible
  */
 export default function Construire_symetrique_point_5e() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Construire le symétrique d'un point avec cible auto-corrective";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

@@ -4,6 +4,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,mise_en_evidence
 
 
 
+export const titre = 'Additions et de soustractions'
+
 /**
  * Additions et/ou soustractions classique et/ou à trou.
  *
@@ -16,7 +18,7 @@ export default function Tables_additions_soustractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 20;
   this.sup2 = 6; // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.titre = "Additions et de soustractions";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;

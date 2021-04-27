@@ -4,6 +4,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,texte_en_couleur_et_gras} from '../../modules/outils.js'
 
 
+export const titre = 'Aire du parallélogramme'
+
 /**
 * Deux parallélogrammes sont tracés, on connait les 2 côté et une hauteur.
 *
@@ -15,7 +17,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,choice,texte_en_couleur
 */
 export default function Aire_du_parallelogramme() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Aire du parallélogramme";
+	this.titre = titre;
 	this.consigne = "Calculer l'aire des 3 parallélogrammes suivants (les longueurs sont données en cm).";
 	this.spacing = 2;
 	this.spacing_corr = 2;

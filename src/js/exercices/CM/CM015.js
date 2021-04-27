@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
+export const titre = 'Somme de deux nombres mariés'
+
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint} from '../../modules/outils.js'
 */
 export default function Somme_de_deux_nombres_maries() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Somme de deux nombres mariés";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 10;
   this.nb_cols = 2;

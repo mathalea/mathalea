@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre,tex_fraction} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer des fréquences'
+
 /**
  * Calculs de fréquences dans des séries statistiques
 * @auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,calc
 */
 export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des fréquences";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;

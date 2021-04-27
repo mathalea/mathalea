@@ -4,12 +4,14 @@ import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../
 
 
 
+export const titre = 'Représentation graphique d’une fonction affine'
+
 /**
 
 */
 export default function representer_fonction_affine() {
   Exercice.call(this);
-  this.titre = "Représentation graphique d'une fonction affine";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;//On complète le nb de questions
   this.nb_cols = 2;

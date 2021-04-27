@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
+export const titre = 'étude de fonction de degré 3'
+
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -8,7 +10,7 @@ import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, r
 */
 export default function variation_polynome_degre3() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "étude de fonction de degré 3";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false

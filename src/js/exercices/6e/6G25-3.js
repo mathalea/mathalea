@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,egal,randint,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
 import {tracePoint,mediatrice,codageMediatrice,segment,symetrieAxiale,symetrieAnimee,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
+export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage'
+
 /**
  * @Auteur Jean-Claude Lhote
  * publié le 14/12/2020
@@ -10,7 +12,7 @@ import {tracePoint,mediatrice,codageMediatrice,segment,symetrieAxiale,symetrieAn
 export default function Pavage_et_reflexion2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Trouver l'image d'une figure par une symétrie axiale dans un pavage";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;

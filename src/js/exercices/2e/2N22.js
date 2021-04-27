@@ -3,13 +3,15 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '..
 
 
 
+export const titre = 'Utiliser la notion de valeur absolue d’une quantité'
+
 /**
  * 2N22
  * @Auteur Stéphane Guyon
  */
 export default function valeur_absolue() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser la notion de valeur absolue d'une quantité";
+    this.titre = titre;
     this.consigne = "Déterminer la valeur du nombre proposé :";
     this.nb_questions = 5;
     this.nb_cols = 2;

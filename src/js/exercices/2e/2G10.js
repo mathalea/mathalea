@@ -1,13 +1,15 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,extraire_racine_carree,tex_racine_carree,tex_nombre} from '../../modules/outils.js'
 
+export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
+
 /**
  * 2G10
  * @Auteur Stéphane Guyon
  */
 export default function Distance() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser la distance entre deux points dans un repère orthonormé";
+    this.titre = titre;
 
     this.nb_questions = 2;
     this.nb_cols = 2;

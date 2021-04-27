@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,ecriture_algebriquec,signe,somme_des_termes_par_signe,trie_positifs_negatifs,lettre_depuis_chiffre} from '../../modules/outils.js'
 
 
+export const titre = 'Additions de 5 nombres relatifs'
+
 /**
 * Effectuer la somme de 5 nombres relatifs.
 *
@@ -16,7 +18,7 @@ export default function Exercice_additions_de_5_relatifs(max = 20) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.sup2 = false; // écriture simplifiée
-	this.titre = "Additions de 5 nombres relatifs";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 2;
 	this.nb_cols = 1;

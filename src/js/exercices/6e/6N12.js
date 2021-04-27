@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre,modal_url} from '../../modules/outils.js'
+export const titre = 'Multiplier un entier par 10, 100, 1 000...'
+
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombr
  */
 export default function Multiplier_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Multiplier un entier par 10, 100, 1 000...";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 8;
   this.nb_cols = 2;

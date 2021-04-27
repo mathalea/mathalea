@@ -3,6 +3,8 @@ import { mathalea2d, point, similitude, longueur, polygone,rotation, codageAngle
 import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
+export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
+
 /**
  * @auteur Rémi Angot
  * 3G30-1
@@ -15,7 +17,7 @@ import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } fro
  */
 export default function Mon_Exercice() {
     Exercice.call(this)
-    this.titre = "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle";
+    this.titre = titre;
     this.nb_questions = 1; 
     this.nb_questions_modifiable = false;
     this.nb_cols = 1; 

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,texte_en_couleur_et_gras,tab_C_L,warn_message} from '../../modules/outils.js'
+export const titre = 'Equations résolvantes pour le théorème de Thalès'
+
 /**
  * * Equations résolvantes pour le théorème de Thalès
  * * 3L13-2
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_s
 export default function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Equations résolvantes pour le théorème de Thalès";
+	this.titre = titre;
 	this.debug = false;
 	if (this.debug) {
 		this.nb_questions = 4;

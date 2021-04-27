@@ -4,11 +4,13 @@ import { tkzTab,mathalea2d } from '../../modules/2d.js';
 import { tab_C_L } from '../../modules/outils.js';
 
 
+export const titre = 'Tests tableaux fonctions'
+
 export default function Exercice_zero_mathalea() {
     "use strict"
     Exercice.call(this)
     this.liste_packages = `tkz-tab`;
-    this.titre = "Tests tableaux fonctions";
+    this.titre = titre;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

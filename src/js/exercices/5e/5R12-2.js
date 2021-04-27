@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,creer_couples,randint,shuffle,calcul,lettre_depuis_chiffre,tex_nombre,SVG_tracer_point,SVG_repere,Latex_repere} from '../../modules/outils.js'
 
 
+export const titre = 'Déterminer les coordonnées (relatives) d’un point'
+
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu_sans_numero,creer_couples,randint,shuffle,c
 export default function Reperage_point_du_plan() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Déterminer les coordonnées (relatives) d'un point";
+	this.titre = titre;
 	this.consigne = "Donner les coordonnées des points représentés";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

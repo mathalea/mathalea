@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Écrire correctement les grands nombres entiers.'
+
 /**
  * 6N10-4
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,tex_nombre} from '../../modu
 export default function Ecrire_nombres_entiers_formates() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Écrire correctement les grands nombres entiers.";
+  this.titre = titre;
   this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

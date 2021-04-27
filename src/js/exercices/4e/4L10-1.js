@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,ecriture_parenthese_si_moins,lettre_depuis_chiffre} from '../../modules/outils.js'
+export const titre = 'Réduire, si possible, une expression littérale simple'
+
 /**
  * Réduire, si possible, une expression littérale simple
  * 
@@ -23,7 +25,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
  */
 export default function Reductions_pieges_classiques() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Réduire, si possible, une expression littérale simple";
+  this.titre = titre;
   this.consigne = "Réduire, si possible, les expressions suivantes";
   this.spacing = 1;
   this.nb_questions = 10;

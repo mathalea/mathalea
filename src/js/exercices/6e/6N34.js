@@ -1,4 +1,6 @@
 import Exercice_conversions from './_Exercice_conversions.js'
+export const titre = 'Conversions avec tous les préfixes de milli à tera.'
+
 /**
  * @Auteur Rémi Angot
  * référence 6N34
@@ -7,7 +9,7 @@ import Exercice_conversions from './_Exercice_conversions.js'
 export default function Reglages_6N34() {
   Exercice_conversions.call(this);
   this.sup = 5;
-  this.titre = "Conversions avec tous les préfixes de milli à tera.";
+  this.titre = titre;
 }
 
 

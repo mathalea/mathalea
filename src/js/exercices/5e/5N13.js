@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Simplification de fractions'
+
 /**
  * Simplifier une fraction, le facteur commun est inférieur à une valeur donnée en paramètre qui est 11 par défaut
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction}
 export default function Exercice_fractions_simplifier(max = 11) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max; // Correspond au facteur commun
-	this.titre = "Simplification de fractions";
+	this.titre = titre;
 	this.consigne = "Simplifier les fractions suivantes.";
 	this.spacing = 2;
 	this.spacing_corr = 2;

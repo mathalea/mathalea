@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_nombre_relatifc,ecriture_algebrique,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
 
 
+export const titre = 'Soustraction de deux entiers relatifs'
+
 /**
 * Effectuer la soustraction de  2 nombres relatifs.
 *
@@ -14,7 +16,7 @@ export default function Exercice_soustractions_relatifs(max = 20) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.sup2 = false; // écriture simplifiée
-	this.titre = "Soustraction de deux entiers relatifs";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 2;
 

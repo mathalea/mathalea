@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,choice,combinaison_listes,abs,lettre_depuis_chiffre,printlatex} from '../../modules/outils.js'
+export const titre = 'Factoriser une expression'
+
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,choice,combinaison_listes,abs,lettre_depuis
 export default function Factoriser_par_nombre_ou_x() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Factoriser une expression";
+	this.titre = titre;
 	this.consigne = "Factoriser les expressions suivantes.";
 	this.nb_questions = 8;
 	this.nb_cols = 2;

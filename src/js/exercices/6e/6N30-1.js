@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js';
 import { combinaison_listes, liste_de_question_to_contenu, randint } from '../../modules/outils.js';
 
 
+export const titre = 'Lire l’abscisse décimale d’un point repéré par une fraction'
+
 /**
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
  * demis, quart, cinquièmes dixièmes et centièmes
@@ -12,7 +14,7 @@ import { combinaison_listes, liste_de_question_to_contenu, randint } from '../..
 export default function Lire_abscisse_decimale_bis() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Lire l'abscisse décimale d'un point repéré par une fraction";
+  this.titre = titre;
   this.consigne = "Lire l\’abscisse de chacun des points suivants et donner le résultat sous la forme d\’un nombre en écriture décimale.";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;

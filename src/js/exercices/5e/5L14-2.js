@@ -2,6 +2,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,range,combinaison_listes,ecriture_parenthese_si_negatif,lettre_depuis_chiffre} from '../../modules/outils.js'
 
+export const titre = 'Substitution'
+
 /**
 * x, y, z étant 3 entiers compris entre 2 et 9, calculer :
 * * kx
@@ -21,7 +23,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,range,combina
 export default function Exercice_substituer(difficulte = 1) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = difficulte;
-	this.titre = "Substitution";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 1;
 	this.consigne_modifiable = false;

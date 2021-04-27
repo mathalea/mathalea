@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range1,combinaison_listes_sans_changer_ordre,tex_nombrec,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
+
 /**
  * Écriture décimale à partir de différentes manière de l'énoncer
  *
@@ -13,7 +15,7 @@ import {liste_de_question_to_contenu,randint,range1,combinaison_listes_sans_chan
  */
 export default function Nombre_decimal_oralise_de_differentes_manieres() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Donner l'écriture décimale d'un nombre à partir de différents textes";
+  this.titre = titre;
   this.consigne = "Donner l'écriture décimale de chaque nombre.";
   this.nb_questions = 5;
 

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,nombre_avec_espace,modal_pdf,modal_video,liste_diviseurs,tikz_machine_maths,tikz_machine_diag,katex_Popup,num_alpha,SVG_machine_diag_3F1_act_mono,SVG_machine_diag_3F12,machine_maths_video,info_message,lampe_message} from '../../modules/outils.js'
+export const titre = 'Fonctions : Notion et vocabulaire'
+
 /**
  * 3F1-act - Notion de fonction - vocabulaire
  * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
@@ -13,7 +15,7 @@ export default function fonction_notion_vocabulaire() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Fonctions : Notion et vocabulaire";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Étudier différents procédés de calcul.`;
 	sortie_html ? this.spacing = 3 : this.spacing = 1;

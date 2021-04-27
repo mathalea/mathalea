@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,abs,calcul,tex_nombrec,tex_nombre,string_nombre,tex_prix} from '../../modules/outils.js'
+export const titre = 'Variations en pourcentage'
+
 /**
 * Problèmes de variations en pourcentage
 *
@@ -15,7 +17,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,abs,calcu
 export default function Evolutions_en_pourcentage() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Variations en pourcentage";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;

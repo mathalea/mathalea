@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,prenom,texte_en_couleur,tex_prix,num_alpha} from '../../modules/outils.js'
+export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.'
+
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
  * * 6P11-1
@@ -15,7 +17,7 @@ export default function Proportionnalite_par_linearite_bis() {
     this.nb_questions = 1;
   };
 
-  this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
+  this.titre = titre;
   this.consigne = "";
   sortie_html ? this.spacing = 2 : this.spacing = 1;
 

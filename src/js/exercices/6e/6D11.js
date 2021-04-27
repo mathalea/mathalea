@@ -1,6 +1,8 @@
 import { choice, combinaison_listes, liste_de_question_to_contenu, randint, tex_nombre } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 
+export const titre = 'Additionner des durées'
+
 /**
  * Additions de durées de différents :
  * * MS+MS=1hMS sans retenue sur les s
@@ -13,7 +15,7 @@ import Exercice from '../ClasseExercice.js';
  */
 export default function Somme_de_durees() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Additionner des durées";
+  this.titre = titre;
   this.consigne = "Compléter les égalités suivantes";
   this.sup = 1; // 2 niveaux de difficultés
   this.spacing = 2;

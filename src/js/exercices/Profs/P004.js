@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {randint,troncature,calcul,choisit_lettres_differentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Droites graduées avec zoom'
+
 /**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
@@ -12,7 +14,7 @@ export default function Feuille_de_zooms() {
   Exercice.call(this);
   this.nb_cols = 1;
   this.sup = 1;
-  this.titre = "Droites graduées avec zoom";
+  this.titre = titre;
 
   this.nouvelle_version = function () {
     this.contenu = "";

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_enumerate,mise_en_evidence,itemize,tikz_machine_diag,num_alpha,tex_cadre_par_orange,SVG_machine_diag_3F12} from '../../modules/outils.js'
 
+export const titre = 'Fonctions : Calculs d’images'
+
 /**
  * 3F12 Notion de fonction - Vocabulaire
  * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
@@ -10,7 +12,7 @@ export default function fonctions_calculs_d_images() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Fonctions : Calculs d'images";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = ``;
 	// pas de différence entre la version html et la version latex pour la consigne

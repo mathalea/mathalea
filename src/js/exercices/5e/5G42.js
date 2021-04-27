@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,choisit_lettres_differentes} from '../../modules/outils.js'
 import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageAngleDroit,labelPoint,similitude, } from '../../modules/2d.js';
+export const titre = 'Nature de parallélogrammes'
+
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -8,7 +10,7 @@ import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageA
 */
 export default function demonstrations_parallelogrammes() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Nature de parallélogrammes";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 7;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX

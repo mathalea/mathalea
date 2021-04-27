@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,texte_en_couleur,texte_gras} from '../../modules/outils.js'
 import {point,tracePoint,milieu,pointSurSegment,pointIntersectionDD,labelPoint,barycentre,droite,vecteur,segment,polygone,nommePolygone,aireTriangle,arc,rotation,translationAnimee,rotationAnimee,codeSegments,grille,angleOriente,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Reconnaître des triangles semblables dans différentes configurations'
+
 /**
  * 3G23 reconnaitre des triangles égaux
  * @author Jean-Claude Lhote et Sébastien Lozano
@@ -9,7 +11,7 @@ export default function TrianglesSemblables() {
 	'use strict';
 	Exercice.call(this);
 	this.debug = false;
-	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
+	this.titre = titre;
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,enleve_element,choice,range1,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,mise_en_evidence,liste_des_diviseurs} from '../../modules/outils.js'
+export const titre = 'Calculs utilisant les priorités opératoires'
+
 /**
  * Plusieurs type de calcul avec des entiers.
  *
@@ -36,7 +38,7 @@ import {liste_de_question_to_contenu,randint,enleve_element,choice,range1,combin
  */
 export default function Priorites_et_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculs utilisant les priorités opératoires";
+  this.titre = titre;
   this.consigne = "Calculer";
   this.nb_questions = 5;
   this.nb_cols = 2;

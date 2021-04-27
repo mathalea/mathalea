@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,ecriture_parenthese_si_negatif,prenom,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre} from '../../modules/outils.js'
 
 
+export const titre = 'Calculer des étendues'
+
 /**
  * Calculer des étendues de séries statistiques
 * @auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,ecriture_parenthese_si_negat
 */
 export default function Calculer_des_etendues() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des étendues";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;

@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,katex_Popup2} from '../../modules/outils.js'
 
 
+export const titre = 'Appliquer la double distributivité avec les racines carrées'
+
 /**
  * 2N12
  * @Auteur Stéphane Guyon
  */
 export default function Double_distributivité_avec_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Appliquer la double distributivité avec les racines carrées";
+    this.titre = titre;
     this.consigne = " Effectuer les calculs suivants :";
     this.nb_questions = 5;
     this.nb_cols = 2;

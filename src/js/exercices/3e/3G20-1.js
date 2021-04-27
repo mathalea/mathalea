@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,calcul,tex_nombrec,creerNomDePolygone,tex_nombre,nombre_avec_espace,tex_fraction} from '../../modules/outils.js'
 import {point,milieu,pointSurSegment,labelPoint,segment,polygone,codageAngleDroit,texteSurSegment,texteParPoint,longueur,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Problèmes avec le théorème de Thalès'
+
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
 * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {point,milieu,pointSurSegment,labelPoint,segment,polygone,codageAngleDroi
 */
 export default function Problemes_Thales() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Problèmes avec le théorème de Thalès";
+	this.titre = titre;
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;

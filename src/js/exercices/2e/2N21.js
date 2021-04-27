@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre,katex_Popup2} from '../../modules/outils.js'
 
 
+export const titre = 'Déterminer la parité d’une expression'
+
 /**
  * 2N21
  * @Auteur Stéphane Guyon
  */
 export default function parite() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer la parité d'une expression";
+    this.titre = titre;
     this.consigne = "Soit $n$ un entier naturel.";
     this.nb_questions = 4;
     this.nb_cols = 2;

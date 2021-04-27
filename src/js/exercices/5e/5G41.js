@@ -3,6 +3,8 @@ import { tex_nombrec, choice, texte_gras, liste_de_question_to_contenu, randint,
 import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 
+export const titre = 'Construire des quadrilatères particuliers'
+
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
  * Ref 4G41
@@ -11,7 +13,7 @@ import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSe
  */
 export default function Constructions_parallelogrammes_particuliers() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Construire des quadrilatères particuliers";
+    this.titre = titre;
     this.consigne = "";
     this.nb_questions = 1;
     this.nb_questions_modifiable = false;

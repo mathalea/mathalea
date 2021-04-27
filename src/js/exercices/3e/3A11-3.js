@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,modal_pdf,modal_video,liste_diviseurs,num_alpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
+export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
+
 /**
  * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
@@ -8,7 +10,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
-	this.titre = "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.";
+	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
 	//this.consigne += `<br>`;

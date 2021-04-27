@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,range1,shuffle,combinaison_listes,calcul} from '../../modules/outils.js'
 
+export const titre = 'Le compte est bon original'
+
 /**
  * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
  *  @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,range1,shuffle,combinaison_listes,c
 export default function Compte_Est_Bon() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Le compte est bon original";
+  this.titre = titre;
   this.consigne =
     "Trouve le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).";
   this.nb_questions = 5;

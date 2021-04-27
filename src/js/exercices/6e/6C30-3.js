@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,tex_nombre2, calcul,shuffle2tableaux} from '../../modules/outils.js'
 
+export const titre = 'Opérations avec les nombres décimaux'
+
 /**
  * Reconnaître une fonction affine
 * @auteur Erwan Duplessy
@@ -16,7 +18,7 @@ import {export_QCM_AMC,liste_de_question_to_contenu,combinaison_listes, randint,
 export default function Multiplication_mental_decimaux() {
     "use strict"     
     Exercice.call(this)
-    this.titre = "Opérations avec les nombres décimaux";
+    this.titre = titre;
     this.consigne = "Trouver la réponse exacte du calcul parmi les réponses proposées.";
     this.nb_questions = 4; // Ici le nombre de questions
     this.video = "";

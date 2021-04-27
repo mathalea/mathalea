@@ -1,4 +1,6 @@
 import Construire_un_triangle_avec_cible from '../6e/_Construire_un_triangle_avec_cible.js';
+export const titre = 'Construire un triangle avec cible auto-corrective'
+
 /**
  * @Auteur Jean-Claude Lhote
  * référence 5G20
@@ -6,6 +8,6 @@ import Construire_un_triangle_avec_cible from '../6e/_Construire_un_triangle_ave
  */
 export default function Construire_un_triangle_avec_cible_5e() {
 	Construire_un_triangle_avec_cible.call(this);
-	this.titre="Construire un triangle avec cible auto-corrective";
+	this.titre = titre;
 	this.classe = 5;
 }

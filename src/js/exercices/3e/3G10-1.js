@@ -1,6 +1,8 @@
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, latexParCoordonnees, afficheMesureAngle, vecteur} from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_listes,image_point_par_transformation,tex_fraction_reduite,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
+
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_list
 export default function Transformations_du_plan_et_coordonnees() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver les coordonnées de l'image d'un point par une transformation du plan";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,changement_de_base_ortho_tri,changement_de_base_tri_ortho,image_point_par_transformation,arrondi,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js'
+export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)'
+
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu_sans_numero,randint,changement_de_base_orth
 export default function Pavages_et_reflexion() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Trouver l'image d'une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)";
+  this.titre = titre;
   this.pas_de_version_LaTeX = true;
   this.consigne = "";
   this.nb_questions = 1;

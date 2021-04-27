@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,creerNomDePolygone,tex_nombre} from '../../modules/outils.js'
 import {point,polygone,nommePolygone,rotation,similitude,codageAngleDroit,afficheLongueurSegment,longueur,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Calculer une longueur avec le théorème de Pythagore'
+
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {point,polygone,nommePolygone,rotation,similitude,codageAngleDroit,affich
  */
 export default function Pythagore2D() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer une longueur avec le théorème de Pythagore";
+  this.titre = titre;
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,exposant,arrondi,arrondi_virgule,tex_fraction_reduite,produits_en_croix,quatrieme_proportionnelle,calcul,tex_nombrec,prenomF,prenom,tex_nombre,nombre_avec_espace,mise_en_evidence,tex_prix,katex_Popup2,num_alpha} from '../../modules/outils.js'
+export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
+
 /**
  * problèmes de grandeurs composées
  * @Auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,exposant,arrondi
 export default function Problemes_grandeurs_composees() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = false;

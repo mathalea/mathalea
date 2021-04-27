@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,egal,randint,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
 import {tracePoint,vecteur,segment,translation,translationAnimee,codeSegment,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
+export const titre = 'Trouver l’image d’une figure par une translation dans un pavage'
+
 /**
  * @Auteur Jean-Claude Lhote
  * publié le 16/12/2020
@@ -10,7 +12,7 @@ import {tracePoint,vecteur,segment,translation,translationAnimee,codeSegment,tex
 export default function Pavage_et_translation2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Trouver l'image d'une figure par une translation dans un pavage";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;

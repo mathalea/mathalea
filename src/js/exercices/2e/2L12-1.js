@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecriture_algebrique,tex_fraction_signe} from '../../modules/outils.js'
 
+export const titre = 'Résoudre des équations carrées.'
+
 /**
  * Résoudre des équations produit-nul
 * @auteur Stéphane Guyon
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre des équations carrées.";
+    this.titre = titre;
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

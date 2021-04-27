@@ -4,6 +4,8 @@ const Algebrite = require('algebrite')
 
 //import {fraction,ListeFraction} from '../../modules/Fractions.js'
 
+export const titre = 'Problèmes additifs et de comparaison sur les rationnels'
+
 /**
  * Problèmes additifs et de comparaion sur les rationnels
  * 4C25-0
@@ -20,7 +22,7 @@ export default function Problemes_additifs_fractions() {
   } else {
     this.nb_questions = 2;
   }
-  this.titre = "Problèmes additifs et de comparaison sur les rationnels";
+  this.titre = titre;
   this.consigne = `Justifier vos réponses aux problèmes suivants.`;
 
   this.nb_cols = 1;

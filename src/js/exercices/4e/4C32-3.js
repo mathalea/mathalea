@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, choice, tex_nombre} from '../../modules/outils.js'
+export const titre = 'Problèmes avec des puissances de 10 et des conversions'
+
 /**
  * Problèmes avec des multiplications ou des divisions avec des puissances de 10 et des conversions
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, choice
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problèmes avec des puissances de 10 et des conversions";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 4;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX

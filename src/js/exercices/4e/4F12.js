@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,prenomF} from '../../modules/outils.js'
 import {point,polyline,axes,labelX,labelY,grille,repere,courbe,courbeInterpolee,texteParPosition,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'
+
 /**
  * Problème avec lecture de représentation graphique d'une fonction
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {point,polyline,axes,labelX,labelY,grille,repere,courbe,courbeInterpolee,
  */
 export default function Exploiter_representation_graphique() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problème s'appuyant sur la lecture d'une représentation graphique";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_cols = 1;

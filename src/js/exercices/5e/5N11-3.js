@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes, randint, tex_nombre, choice, calcul} from '../../modules/outils.js'
+export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pourcentage'
+
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,combinaison_listes, randint, tex_nombre, ch
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Écrire une fraction sur 100 puis sous la forme d'un pourcentage";
+  this.titre = titre;
   this.consigne = "Compléter";
   this.nb_questions = 6;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

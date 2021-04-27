@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,calcul,creerNomDePolygone,tex_nombr
 import {point,labelPoint,polygone,similitude,codageAngleDroit,codeAngle,mathalea2d,afficheMesureAngle,afficheLongueurSegment,longueur,angle,texteSurSegment} from '../../modules/2d.js'
 
 
+export const titre = 'Calculer toutes les mesures d’angle d’une figure complexe'
+
 /**
  * Deux triangles rectangles accolés, on connait deux longueurs et un angle, il faut déterminer tous les autres angles
  * @Auteur Rémi Angot
@@ -11,7 +13,7 @@ import {point,labelPoint,polygone,similitude,codageAngleDroit,codeAngle,mathalea
 */
 export default function MonSuperExerciceTropBeau() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer toutes les mesures d'angle d'une figure complexe";
+  this.titre = titre;
   this.consigne = "Calculer la mesure de tous les angles de cette figure.";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;

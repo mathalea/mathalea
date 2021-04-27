@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,ecriture_algebrique} from '../../modules/outils.js'
 
 
+export const titre = 'Simplifier une somme de racines carrées'
+
 /**
  * 2N11-1
  * @Auteur Stéphane Guyon
  */
 export default function Simplifier_une_somme_de_racines_carrees() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Simplifier une somme de racines carrées";
+    this.titre = titre;
     this.consigne = " Simplifier une somme de racines carrées";
     this.nb_questions = 4;
     this.nb_cols = 2;

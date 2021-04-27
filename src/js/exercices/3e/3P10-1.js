@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_prix,modal_url} from '../../modules/outils.js'
+export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
+
 /**
 * Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
 *
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,te
 export default function Coefficient_evolution() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Coefficient multiplicateur d'une variation en pourcentage";
+	this.titre = titre;
 	this.consigne = "Compléter.";
 	this.nb_questions = 4;
 	this.nb_cols = 1;

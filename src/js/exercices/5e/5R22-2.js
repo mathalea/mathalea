@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecriture_algebrique} from '../../modules/outils.js'
 
 
+export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et calculer'
+
 /**
 * Simplifier l'écriture d'une somme de 2 relatifs et calculer
 *
@@ -12,7 +14,7 @@ import {liste_de_question_to_contenu,randint,choice,ecriture_nombre_relatif,ecri
 export default function Exercice_simplification_somme_algebrique(max = 20) {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
-	this.titre = "Simplifier l'écriture d'une somme de 2 relatifs et calculer";
+	this.titre = titre;
 	this.consigne = 'Simplifier puis calculer';
 	this.spacing = 2;
 

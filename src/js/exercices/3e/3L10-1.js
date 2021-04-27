@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_chiffre,printlatex} from '../../modules/outils.js'
+export const titre = 'Additionner ou soustraire une expression entre parenthèses'
+
 /**
  * Développer et réduire des expressions avec des parenthèses précédées d'un signe + ou -
  *
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,lettre_depuis_ch
  */
 export default function Parentheses_precedes_de_moins_ou_plus() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Additionner ou soustraire une expression entre parenthèses";
+  this.titre = titre;
   this.consigne = "Développer et réduire les expressions suivantes.";
   this.spacing = 1;
   this.nb_questions = 5;

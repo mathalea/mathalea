@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu_sans_numero,randint,troncature,calcul,choisit_lettres_differentes,tex_nombre,tex_fraction} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
+
 /**
  * 6N23-3
  */
@@ -8,7 +10,7 @@ export default function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
   this.sup = 3;
-  this.titre = "Lire une abscisse décimale grâce à des zooms successifs";
+  this.titre = titre;
   this.consigne = "";
   if (sortie_html) {
     this.spacing = 2;

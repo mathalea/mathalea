@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,prenom, Trouver_solution_mathador} from '../../modules/outils.js'
 
 
+export const titre = 'Traduire une succession des opérations par une expression'
+
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,prenom, Trouver_solution_mathador} from '..
 export default function Ecrire_une_expression_mathador() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Traduire une succession des opérations par une expression";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;

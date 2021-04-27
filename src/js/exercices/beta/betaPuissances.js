@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, tex_nombre, tex_nombrec, lettre_depuis_chiffre, tex_fraction_reduite, ecriture_parenthese_si_negatif, choice } from '../../modules/outils.js'
 
+export const titre = 'Exercice exemple'
+
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -8,7 +10,7 @@ import { liste_de_question_to_contenu_sans_numero, combinaison_listes, randint, 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Exercice exemple";
+  this.titre = titre;
   this.consigne = "";
   this.nb_questions = 10;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

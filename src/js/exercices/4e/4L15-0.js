@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,ecriture_parenthese_si_negatif,fraction_simplifiee,prenomF,prenomM,mise_en_evidence,texte_en_couleur,texte_gras} from '../../modules/outils.js'
+export const titre = 'Trouver l’erreur dans une résolution d’équation du premier degré'
+
 /** 
  * * Trouver l'erreur dans une equation
  * * 4L15-0
@@ -16,7 +18,7 @@ export default function Trouver_erreur_resol_eq_deg1() {
     this.nb_questions = 3;
   };
 
-  this.titre = "Trouver l'erreur dans une résolution d'équation du premier degré";
+  this.titre = titre;
   this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation.";
 
   this.nb_cols = 1;

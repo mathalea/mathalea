@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
+
 /**
  * Multiplication d'un nombre décimal dans différentes écritures par 10, 100, 1000
  *
@@ -15,7 +17,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,te
  */
 export default function Multiplier_decimaux_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Multiplications d'un nombre décimal par 10, 100 ou 1 000.";
+  this.titre = titre;
   this.consigne = "Calculer.";
   this.sup = 3;
   this.sup2 = false;

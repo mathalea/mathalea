@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul} from '../../modules/outils.js'
+export const titre = 'Parenthèses manquantes'
+
 /**
  * Priorités opératoires, placer les parenthèses.
  * @Auteur Cédric Grolleau
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,calcul} from '../../modules/outils.
  */
 export default function Priorites() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Parenthèses manquantes";
+  this.titre = titre;
   this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br\> S'il y a plusieurs fois la même égalité trouve des solutions différentes.";
   this.nb_questions = 2;
   this.nb_cols = 1;

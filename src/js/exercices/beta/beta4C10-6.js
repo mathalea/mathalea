@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu, randint, combinaison_listes,
  Relatif, lettre_depuis_chiffre, ecriture_nombre_relatif,
  texte_en_couleur_et_gras} from '../../modules/outils.js'
+export const titre = 'Multiplications et quotients de relatifs : signe avec une lettre'
+
 /**
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
@@ -11,7 +13,7 @@ import {liste_de_question_to_contenu, randint, combinaison_listes,
 export default function Exercice_tableau_multiplications_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 3;
-  this.titre = "Multiplications et quotients de relatifs : signe avec une lettre";
+  this.titre = titre;
   this.consigne = '';
   this.correction_detaillee_disponible = true;
   this.correction_detaillee = false;

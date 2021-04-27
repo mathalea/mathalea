@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,combinaison_listes,randint,tex_nombre,tex_nombre2,tex_fraction,choice,mise_en_evidence} from '../../modules/outils.js'
 
+export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
+
 /**
  * @Auteur Jean-claude Lhote
  * Publié le 20/02/2021
@@ -9,7 +11,7 @@ import {shuffle2tableaux,export_QCM_AMC,calcul,liste_de_question_to_contenu,comb
 export default function Multiplier_par_001() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)";
+    this.titre = titre;
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

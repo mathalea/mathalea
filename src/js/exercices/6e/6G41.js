@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomD
 import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude,grille,seyes,mathalea2d,} from '../../modules/2d.js'
 
 
+export const titre = 'Compléter une représentation en perspective cavalière'
+
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
  * référence : 6G41
@@ -10,7 +12,7 @@ import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude
  */
 export default function Representer_un_solide() {
   Exercice.call(this); // Héritage de la classe Exercice ()
-  this.titre = "Compléter une représentation en perspective cavalière";
+  this.titre = titre;
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;

@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_fraction_reduite,tex_fraction} from '../../modules/outils.js'
+export const titre = 'Résoudre une équation produit nul'
+
 /**
  * Résolution d'équations de type (ax+b)(cx+d)=0
 * @auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_fract
 export default function Resoudre_une_equation_produit_nul() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Résoudre une équation produit nul";
+	this.titre = titre;
 	this.consigne = "Résoudre les équations suivantes";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

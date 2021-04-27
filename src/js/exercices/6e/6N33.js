@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,arrondi,simplification_de_fraction_avec_etapes,calcul,tex_nombrec,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Calculer la fraction d’un nombre'
+
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
  *
@@ -11,7 +13,7 @@ const Algebrite = require('algebrite')
  */
 export default function Fraction_d_un_nombre() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la fraction d'un nombre";
+  this.titre = titre;
   this.nb_questions = 5;
   this.consigne = "Calculer";
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);

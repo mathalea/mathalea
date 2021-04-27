@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {calcul,liste_de_question_to_contenu_sans_numero,lettre_depuis_chiffre,randint,sp,choice,range1,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,mise_en_evidence,liste_des_diviseurs} from '../../modules/outils.js'
+export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
+
 /**
  * Plusieurs type de calcul avec priorités opératoires/ relatifs/ puissances
  *
@@ -52,7 +54,7 @@ import {calcul,liste_de_question_to_contenu_sans_numero,lettre_depuis_chiffre,ra
  */
 export default function Priorites_et_relatifs_et_puissances() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculs utilisant les priorités opératoires et les puissances";
+  this.titre = titre;
   this.consigne = "Calculer :";
   this.nb_questions = 5;
   this.nb_cols = 2;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
 import { liste_de_question_to_contenu, combinaison_listes, randint, creerNomDePolygone, choisit_lettres_differentes, shuffleLettres, texte_en_couleur } from '../../modules/outils.js'
+export const titre = 'Justifier que deux triangles sont égaux'
+
 /**
  * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
  * @Auteur Rémi Angot
@@ -8,7 +10,7 @@ import { liste_de_question_to_contenu, combinaison_listes, randint, creerNomDePo
 */
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Justifier que deux triangles sont égaux'
+  this.titre = titre
   this.consigne = 'Les triangles sont-ils égaux ? Si ils sont égaux, justifier la réponse.'
   this.nb_questions = 4
   this.nb_cols = 1 // Uniquement pour la sortie LaTeX

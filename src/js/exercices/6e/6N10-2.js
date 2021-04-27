@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombrec} from '../../modules/outils.js'
+export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de...)'
+
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
  * @Auteur Rémi Angot
@@ -7,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombr
  */
 export default function Decomposition_nombre_decimal() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Décomposer un nombre décimal (nombre de..., chiffre de...)";
+  this.titre = titre;
   this.consigne = "Compléter les phrases suivantes.";
   this.nb_questions = 5;
   this.nb_cols = 1;

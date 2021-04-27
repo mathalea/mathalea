@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,egal,randint,combinaison_listes,printlatex} from '../../modules/outils.js'
+export const titre = 'Utiliser la double distributivité'
+
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
 * @auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,egal,randint,combinaison_listes,printlatex}
 export default function Double_distributivite() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Utiliser la double distributivité";
+	this.titre = titre;
 	this.consigne = "Développer et réduire les expressions suivantes.";
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;

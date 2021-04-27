@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,fraction_
 
 
 
+export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
+
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
  * @Auteur Jean-Claude Lhote
@@ -10,7 +12,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,fraction_
  */
 export default function fonctions_probabilite2() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des probabilités dans une expérience aléatoire à deux épreuves";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 2;
 	this.nb_questions_modifiable = true;

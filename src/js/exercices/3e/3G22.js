@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,exposant,arrondi,pgcd,fraction_simplifiee,tex_fraction_reduite,calcul,tex_nombrec,tex_nombre,sp,katex_Popup2,num_alpha} from '../../modules/outils.js'
+export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
+
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes
 * @auteur Jean-Claude Lhote
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint,exposant,arrondi,pgcd,fraction_simp
 export default function Agrandissement_reduction() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Connaître les effets des agrandissements/réductions sur les aires et les volumes";
+	this.titre = titre;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

@@ -2,13 +2,15 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
 import {point,segment,crochetD,crochetG,intervalle,mathalea2d,} from '../../modules/2d.js'
 
+export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
+
 /**
  * 2N24
  * @Stéphane Guyon
  */
 export default function intervalles_de_R() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée";
+    this.titre = titre;
     this.consigne = "Répondre aux questions suivantes: :";
     this.nb_questions = 4;
     this.nb_cols = 2;

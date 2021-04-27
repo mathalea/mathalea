@@ -1,10 +1,12 @@
 import Exercice from '../ClasseExercice.js';
 import { premierMultipleSuperieur,liste_de_question_to_contenu,tex_nombre2,arrondi,sp, personnes,personne,mise_en_evidence,combinaison_listes,tex_fraction, randint,num_alpha, choice, premiere_lettre_en_majuscule ,ppcm,calcul} from '../../modules/outils.js'
 
+export const titre = 'Problèmes de ratio'
+
 export default function Probleme_de_ratio() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Problèmes de ratio";
+  this.titre = titre;
   this.nb_questions = 4; // Ici le nombre de questions
   this.nb_questions_modifiable = true // Active le formulaire nombre de questions
   this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX

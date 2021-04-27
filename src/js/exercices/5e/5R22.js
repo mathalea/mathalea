@@ -3,6 +3,8 @@ import {liste_de_question_to_contenu_sans_numero,randint,choice,ecriture_nombre_
 
 
 
+export const titre = 'Additions et soustractions de nombres relatifs'
+
 /**
 * Effectuer la somme ou la différence de deux nombres relatifs
 *
@@ -15,7 +17,7 @@ export default function Exercice_additions_et_soustraction_de_relatifsV2(max = 2
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max;
 	this.sup2 = false; // écriture simplifiée
-	this.titre = "Additions et soustractions de nombres relatifs";
+	this.titre = titre;
 	this.consigne = 'Calculer';
 	this.spacing = 2;
 	this.spacing_corr = 1;

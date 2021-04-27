@@ -2,6 +2,8 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,tex_nombre,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
+export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
+
 /**
  * Multiplier ou diviser un nombre entier par 10, 100 ou 1 000
  *
@@ -11,7 +13,7 @@ const Algebrite = require('algebrite')
  */
 export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Multiplier ou diviser un nombre entier par 10, 100 ou 1 000";
+  this.titre = titre;
   this.consigne = "Donner l'écriture décimale";
   this.spacing = 2;
   this.spacing_corr = 2;

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,Triangles} from '../../modules/outils.js'
 import {point,mediatrice,codageMediatrice,constructionMediatrice,bissectrice,codageBissectrice,constructionBissectrice,polygone,nommePolygone,rotation,similitude,medianeTriangle,centreGraviteTriangle,hauteurTriangle,codageHauteurTriangle,codageMedianeTriangle,mathalea2d} from '../../modules/2d.js'
+export const titre = 'Déterminer la nature d’une droite remarquable'
+
 /**
  * 5G22
  * @Auteur Jean-Claude Lhote
@@ -9,7 +11,7 @@ import {point,mediatrice,codageMediatrice,constructionMediatrice,bissectrice,cod
 export default function DroiteRemarquableDuTriangle() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 
-	this.titre = "Déterminer la nature d'une droite remarquable";
+	this.titre = titre;
 	this.consigne = 'Définir'
 	this.spacing = 2;
 	this.nb_questions = 1

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur,choice, ecriture_algebrique,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
 import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from '../../modules/Fractions.js'
+export const titre = 'Résoudre les équations produit-nul'
+
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
 * @auteur Stéphane Guyon & Jean-claude Lhote
@@ -10,7 +12,7 @@ import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from '../../modu
 export default function Equations_produits_nuls2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre les équations produit-nul";
+    this.titre = titre;
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

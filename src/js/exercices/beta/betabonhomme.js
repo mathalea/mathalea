@@ -2,9 +2,11 @@ import Exercice from '../ClasseExercice.js';
 import { mathalea2d } from '../../modules/2d.js'
 import {point3d,cylindre3d,sphere3d,vecteur3d,translation3d,cone3d,cercle3d} from '../../modules/3d.js'
 
+export const titre = 'bonhomme de neige'
+
 export default function bonhomme_de_neige() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "bonhomme de neige";
+    this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
     this.nb_questions = 1;

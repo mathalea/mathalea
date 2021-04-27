@@ -1,6 +1,8 @@
 import { xcas } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint, combinaison_listes} from '../../modules/outils.js'
+export const titre = 'Test de XCas'
+
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -8,7 +10,7 @@ import {liste_de_question_to_contenu,randint, combinaison_listes} from '../../mo
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Test de XCas";
+  this.titre = titre;
   this.consigne = "Dériver les fonctions suivantes";
   this.nb_questions = 10;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX

@@ -2,6 +2,8 @@ import { choice, combinaison_listes, liste_de_question_to_contenu, randint, tex_
 import Exercice from '../ClasseExercice.js';
 
 
+export const titre = 'Convertir des durées'
+
 /**
  * Conversions de durées.
  * * 1 : H vers min ou H ou min ou Hmin vers s
@@ -15,7 +17,7 @@ import Exercice from '../ClasseExercice.js';
 export default function Conversions_de_durees() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.sup = 5;
-    this.titre = "Convertir des durées";
+    this.titre = titre;
     this.consigne = "Compléter les égalités suivantes";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;

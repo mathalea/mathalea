@@ -1,4 +1,7 @@
 import Eq_resolvantes_Thales from '../3e/3L13-2.js'
+
+export const titre = 'Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
+
 /** 
  * * Equation type x/a=b/c
  * * numéro de l'exo ex : 4L15-1 fils de 3L13-2
@@ -6,11 +9,10 @@ import Eq_resolvantes_Thales from '../3e/3L13-2.js'
  * * modification le jj/mm/aaaa pour ....
  * @author Sébastien Lozano
  */
-
 export default function Equations_fractions() {
   Eq_resolvantes_Thales.call(this);
   this.exo = `4L15-1`;
-  this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";
+  this.titre = titre;
   this.sup=1;
-};
+}
 
