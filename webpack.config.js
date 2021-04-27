@@ -15,6 +15,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // pour reconstruire la liste des titres à chaque build
+/* si on préférait lancer ça dans une commande séparée, il faudrait
+1) modifier buildDicos.js pour ne rien exporter mais exécuter la fct exportée
+   (supprimer la ligne export default + la fermeture de l'accolade correspondante)
+2) ajouter dans le package.json qqchose comme
+scripts : {
+  // commande pour regénérer le dictionnaire
+  "build:dicos": "node tasks/buildDicos.js",
+  // on regénère d'office avant chaque build de prod
+  "build:prod": "node tasks/buildDicos.js && webpack --mode=production"
+  // + les autres commandes…
+}
+*/
 const buildDicos = require('./tasks/buildDicos')
 buildDicos()
 console.log('\nDémarrage de la transpilation webpack :\n')
