@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { vecteur, polygoneAvecNom, translation, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, traceGraphiqueCartesien, norme, polygone, nomAngleRentrantParPosition } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -8,7 +8,7 @@ import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outil
  *
  * @Auteur Rémi Angot
  */
-export default function Alea2iep() {
+export default function Alea2iep () {
   this.idIEP = 0 // Identifiant pour les tracés
   this.idHTML = 0 // Identifiant pour les div et le svg
   this.tempo = 5 // Pause par défaut après une instruction
@@ -30,7 +30,6 @@ export default function Alea2iep() {
   this.recadre = function (xmin, ymax) {
     this.translationX = 1 - xmin
     this.translationY = ymax + 3
-
   }
 
   // Garde en mémoire les coordonnées extrêmes des objets créés
@@ -872,8 +871,8 @@ export default function Alea2iep() {
 
   /**
    * Trace une droite passanrt par les points A et B
-   * @param {point} A 
-   * @param {point} B 
+   * @param {point} A
+   * @param {point} B
    * @param {objet} options Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
    */
   this.regleDroite = function (A, B, options = {}) {
@@ -1087,15 +1086,17 @@ export default function Alea2iep() {
   }
 
   this.longueurSegment = function (A, B, dy, options) {
-    let l = calcul(longueur(A, B, 1))
-    let v = vecteur(A, B)
-    let w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
-    let ancrage = translation(translation(pointSurSegment(A, B, l / 2 - 0.7), w), vecteur(0, 1))
+    const l = calcul(longueur(A, B, 1))
+    const v = vecteur(A, B)
+    const w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
+    const ancrage = translation(translation(pointSurSegment(A, B, l / 2 - 0.7), w), vecteur(0, 1))
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
   this.mesureAngle = function (A,O,B){
-    let a=angle(A,O,B)
+    let a=angleOriente(A,O,B)
+    let C=translation(homothetie(rotation(A,O,a/2),O,1.3/longueur(O,A)),vecteur(-0.2,0.5))
+    return this.textePoint(Math.abs(a)+'°',C)
   }
   /**
  * Masque le trait d'id fourni
@@ -1294,8 +1295,7 @@ export default function Alea2iep() {
       H1 = pointSurSegment(H, D, -2) // H1 sera plus à gauche que H
     } else if (H.x > D.x) {
       H1 = pointSurSegment(H, D, 2)
-    }
-    else {
+    } else {
       H1 = pointSurSegment(H, G, 2)
     }
     const C1 = projectionOrtho(H1, droiteParPointEtParallele(C, d))
@@ -1349,7 +1349,9 @@ export default function Alea2iep() {
      * @param {*} options
      */
   this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
-    let G, D, H1, M, H, zoomEquerre = this.equerre.zoom, dist, longueurRegle = this.regle.longueur
+    let G, D, H1, M, H, dist
+    const longueurRegle = this.regle.longueur
+    const zoomEquerre = this.equerre.zoom
     // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
     // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
     if (A.x < B.x) {
@@ -1365,8 +1367,7 @@ export default function Alea2iep() {
       dist = 7.5
       M = rotation(pointSurSegment(H, G, dist), H, -90)
       H1 = homothetie(H, M, 1.6)
-    }
-    else {
+    } else {
       H = projectionOrtho(C, d)
       dist = longueur(H, C) + 2
       M = pointSurSegment(H, C, dist)
@@ -1379,7 +1380,6 @@ export default function Alea2iep() {
 
     if (H.x < G.x) { // Si le pied de la hauteur est trop à gauche
       this.regleProlongerSegment(D, G, { longueur: longueur(G, H) + 4 })
-
     }
     if (H.x > D.x) { // Si le pied de la hauteur est trop à droite
       this.regleProlongerSegment(G, D, { longueur: longueur(D, H) + 4 })
@@ -1391,7 +1391,6 @@ export default function Alea2iep() {
     } else {
       this.equerreRotation(d.angleAvecHorizontale)
       this.equerreMontrer(D)
-
     }
     this.equerreDeplacer(H)
 
@@ -1460,8 +1459,7 @@ export default function Alea2iep() {
     this.compasMasquer()
     if (M.x <= N.x) {
       this.regleDroite(M, N, options)
-    }
-    else {
+    } else {
       this.regleDroite(N, M, options)
     }
     this.regleMasquer()
@@ -1472,9 +1470,9 @@ export default function Alea2iep() {
   }
   /**
    * Trace la médiatrice du segment [AB] avec la méthode Règle + équerre.
-   * @param {point} A 
-   * @param {point} B 
-   * @param {booléen} codage 
+   * @param {point} A
+   * @param {point} B
+   * @param {booléen} codage
    */
   this.mediatriceRegleEquerre = function (A, B, codage = 'X') {
     const O = milieu(A, B)
@@ -1560,10 +1558,10 @@ export default function Alea2iep() {
   }
   /**
    * Trace la médiane issue de C passant par le milieu de [AB]
-   * @param {point} A 
-   * @param {point} B 
-   * @param {point} C 
-   * @param {objet} options 
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {objet} options
    */
   this.mediane = function (A, B, C, options = {}) {
     if (options.codage === undefined) {
@@ -1596,11 +1594,11 @@ export default function Alea2iep() {
   }
   /**
    * Trace la bissectrice de l'angle ABC au compas.
-   * @param {point} A 
-   * @param {point} B 
-   * @param {point} C 
-   * @param {objet} param3 
-   * @returns 
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {objet} param3
+   * @returns
    */
   this.bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
     const A1 = pointSurSegment(B, A, l)
@@ -1631,10 +1629,10 @@ export default function Alea2iep() {
   }
   /**
    * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle
-   * @param {point} A 
-   * @param {point} B 
-   * @param {point} C 
-   * @param {objet} options 
+   * @param {point} A
+   * @param {point} B
+   * @param {point} C
+   * @param {objet} options
    */
   this.cercleCirconscrit = function (A, B, C, options = {}) {
     if (options.couleur === undefined) {
@@ -2196,9 +2194,9 @@ export default function Alea2iep() {
 
   /**
    * Macro crée par Sophie Desruelle
-   * @param {objet} A 
-   * @param {number} c 
-   * @returns 
+   * @param {objet} A
+   * @param {number} c
+   * @returns
    */
   this.carre1point1longueur = function (nom, A, c) {
     const interligne = 1
@@ -2213,7 +2211,7 @@ export default function Alea2iep() {
 
     this.textePosition(`1) On veut construire un carré dont les côtés mesurent ${c} cm, donc on commence par tracer un segment, ici [${nom[0] + nom[1]}], de cette longueur.`, 0, -2)
 
-    this.pointCreer(A, { tempo: 0 }) // On coupe la pause pour ne pas voir le déplacement du point 
+    this.pointCreer(A, { tempo: 0 }) // On coupe la pause pour ne pas voir le déplacement du point
     this.pointNommer(A, A.nom, { dx: -0.5, dy: 0 }) // On déplace le label du point A vers la gauche
     this.regleSegment(A, B)
     this.pointCreer(B)
@@ -2247,7 +2245,6 @@ export default function Alea2iep() {
     this.equerreMasquer()
     this.codageAngleDroit(A, D, C)
 
-
     this.regleSegment(D, C)
     this.pointCreer(C, { tempo: 0 })
     this.pointNommer(C, C.nom, { dx: 0, dy: 0.9 })
@@ -2274,33 +2271,30 @@ export default function Alea2iep() {
     return polygoneAvecNom(A, B, C, D)
   }
 
-
-
   /********************************************/
-  /************* Transformations **************/
+  /** *********** Transformations **************/
   /********************************************/
-
 
   /**
-   * 
+   *
    * @param {objet} p le polygone qui est déjà tracé
    * @param {objet} centre le centre de la rotation
    * @param {number} angle l'angle de rotation
    * @Auteur Jean-Claude Lhote
    */
   this.rotationPolygone = function (p, centre, angle) {
-    let image,p2
-    p2=rotation(p,centre,angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    this.epaisseur=1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    this.couleur='grey'
-    for (let sommet of p.listePoints) {  // On répète la construction pour chaque sommet du polygone
+    let image
+    const p2 = rotation(p, centre, angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+    this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
+    this.couleur = 'grey'
+    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       image = rotation(sommet, centre, angle, sommet.nom + "'") // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
       this.regleSegment(centre, sommet) // On trace le support du rapporteur
-      this.rapporteurMontrer(centre) 
-      this.rapporteurTracerDemiDroiteAngle(centre,sommet,angle) // On trace le deuxième côté
+      this.rapporteurMontrer(centre)
+      this.rapporteurTracerDemiDroiteAngle(centre, sommet, angle) // On trace le deuxième côté
       this.regleMasquer()
       this.rapporteurMasquer()
-      this.compasEcarter2Points(centre,sommet) // on prend l'écartement du compas
+      this.compasEcarter2Points(centre, sommet) // on prend l'écartement du compas
       this.compasTracerArcCentrePoint(centre, image) // On fait l'arc qui coupe la demi-droite
       this.compasMasquer()
       this.pointCreer(image) // On marque le point image (qui est nommé)
@@ -2312,10 +2306,5 @@ export default function Alea2iep() {
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
   }
 
-
-
-  /****** Fin de la classe Alea2iep */
+  /** **** Fin de la classe Alea2iep */
 }
-
-
-
