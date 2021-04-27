@@ -1,7 +1,7 @@
 import { creer_document_AMC, strRandom ,compteOccurences} from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles} from '/modules/menuDesExercicesQCMDisponibles.js'
-import dictionnaireDesExercicesQCM from "./modules/dictionnaireDesExercicesAMC.js"
+import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.js"
 
 (function () {
  // IIFE principal
@@ -65,7 +65,7 @@ import dictionnaireDesExercicesQCM from "./modules/dictionnaireDesExercicesAMC.j
 
 	function gestion_span_choix_exercice(elem) {
 		//quand on donne le code d'un exercice existant, le style change et on en créé un autre à suivre.
-			let liste_codes_exercices = Object.keys(dictionnaireDesExercicesQCM);
+			let liste_codes_exercices = Object.keys(dictionnaireDesExercicesAMC);
 			if (liste_codes_exercices.indexOf($(event.target).text())>=0 && !$(event.target).hasClass("valide") ) {
 				$(event.target).addClass("valide");
 				if ($(".choix_exercices:last").hasClass("valide")) { //si le dernier élément n'est pas valide on n'en créé pas un nouveau.
@@ -366,7 +366,7 @@ import dictionnaireDesExercicesQCM from "./modules/dictionnaireDesExercicesAMC.j
             id = liste_exercices[i];
 			let url;
             try {
-                url = dictionnaireDesExercicesQCM[id].url;
+                url = dictionnaireDesExercicesAMC[id].url;
             } catch (error) {
                 console.log(error);
                 console.log(`Exercice ${id} non disponible`);

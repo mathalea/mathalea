@@ -1,7 +1,7 @@
 import { tridictionnaire, filtreDictionnaire }  from "./outils.js" ;
-import dictionnaireDesExercicesQCM from "./dictionnaireDesExercicesAMC.js"
+import dictionnaireDesExercicesAMC from "./dictionnaireDesExercicesAMC.js"
 
-let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesQCM);
+let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesAMC);
 
 export function liste_html_des_exercicesQCM_d_un_theme(theme){
   let liste = '';
@@ -154,7 +154,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == '2') {
@@ -164,7 +164,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == 'T') {
@@ -174,7 +174,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == "P" && id[1] == "E") {
@@ -184,7 +184,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == "C") {
@@ -194,7 +194,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == "P" && id[1] == "0") {
@@ -204,7 +204,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
       if (id[0] == "b" && id[1] == "e") {
@@ -214,7 +214,7 @@ export function menuDesExercicesQCMDisponibles(){
           '</span> - <a class="lien_id_exercice" numero="' +
           id +
           '">' +
-          dictionnaireDesExercicesQCM[exercice_tmp].titre +
+          dictionnaireDesExercicesAMC[exercice_tmp].titre +
           "</a></br>\n";
       }
     }
@@ -310,17 +310,17 @@ export function menuDesExercicesQCMDisponibles(){
 	for (let id in liste_des_exercices_disponibles) {
 		let exercice_tmp = id;
 		if (exercice_tmp[0] != "b" || exercice_tmp[1] != "e") { //on exclu les beta
-			if (dictionnaireDesExercicesQCM[exercice_tmp].titre) { //tous les non dnb
+			if (dictionnaireDesExercicesAMC[exercice_tmp].titre) { //tous les non dnb
 				liste_html_des_exercices += '<tr><td class="colonnecode"><span class="id_exercice">' +
 				id +
-				'</span></td> <td> <a class="lien_id_exercice" numero="' +id +'">' + dictionnaireDesExercicesQCM[exercice_tmp].titre +
+				'</span></td> <td> <a class="lien_id_exercice" numero="' +id +'">' + dictionnaireDesExercicesAMC[exercice_tmp].titre +
 				'</a></td><td><i id="'+id+'" class="eye icon icone_preview"></td></tr>';
 			}
 			else {
 				liste_html_des_exercices += '<tr><td class="colonnecode"><span class="id_exercice">' +
 			id +
 			'</span></td> <td>'+
-			`<a style="line-height:2.5" class="lien_id_exercice" numero="${exercice_tmp}">${dictionnaireDesExercicesQCM[exercice_tmp]["annee"]} - ${exercice_tmp.substr(9,2)} - ${dictionnaireDesExercicesQCM[exercice_tmp]["lieu"]} - Ex ${dictionnaireDesExercicesQCM[exercice_tmp]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaireDesExercicesQCM[exercice_tmp])} </br>\n`
+			`<a style="line-height:2.5" class="lien_id_exercice" numero="${exercice_tmp}">${dictionnaireDesExercicesAMC[exercice_tmp]["annee"]} - ${exercice_tmp.substr(9,2)} - ${dictionnaireDesExercicesAMC[exercice_tmp]["lieu"]} - Ex ${dictionnaireDesExercicesAMC[exercice_tmp]["numeroExercice"]}</a> ${liste_html_des_tags(dictionnaireDesExercicesAMC[exercice_tmp])} </br>\n`
 			+"</td><td></td></tr>";
 			}
 		}
