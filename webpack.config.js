@@ -14,6 +14,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // cf https://webpack.js.org/plugins/mini-css-extract-plugin/
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
+// cf https://webpack.js.org/plugins/copy-webpack-plugin/#root
+const CopyPlugin = require('copy-webpack-plugin')
+
 // pour reconstruire la liste des titres à chaque build
 /* si on préférait lancer ça dans une commande séparée, il faudrait
 1) modifier buildDicos.js pour ne rien exporter mais exécuter la fct exportée
@@ -45,8 +48,8 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     // on ajoute le hash dans le nom du fichier => plus besoin de demander aux utilisateur de vider leur cache tout le temps
     // cf https://webpack.js.org/configuration/output/#outputfilename
-    filename: 'js/[name].[contenthash].js',
-    assetModuleFilename: 'images/[hash][ext][query]'
+    filename: 'js/[name].[contenthash].js'
+    // assetModuleFilename: 'images/[hash][ext][query]'
   },
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
@@ -58,8 +61,13 @@ module.exports = {
   },
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/assets', to: 'assets' }
+      ]
+    }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash].css'
+      filename: '[name].[contenthash].css'
     }),
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options
@@ -81,6 +89,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/html/exo.html',
       filename: 'exo.html',
+      chunks: ['mathalea']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/beta.html',
+      filename: 'beta.html',
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
@@ -141,7 +154,7 @@ module.exports = {
       // et le statique
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
-        type: 'asset/resource'
+        type: 'asset'
       }
     ]
   }

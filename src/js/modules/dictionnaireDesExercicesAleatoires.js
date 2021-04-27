@@ -1671,6 +1671,10 @@ export default {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/beta6test2021.js"
   },
+  "beta999": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/beta999.js"
+  },
   "betaClasseTableauVariations": {
     "titre": "Tests tableaux fonctions",
     "url": "/exercices/beta/betaClasseTableauVariations.js"
