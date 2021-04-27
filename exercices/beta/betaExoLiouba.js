@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js"
 import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "/modules/2d.js"
+import { nommePolygone } from '../../modules/2d.js';
 
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
@@ -42,9 +43,9 @@ export default function LeNomDeLaFonctionExercice() {
         let texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         let texte_corr = `` // Idem pour le texte de la correction.
         let largeur=20,hauteur=20
-        let A,B,C,triangle,triangle0,O,M,triangle1,A1,B1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
+        let A,B,C,triangle,triangle0,O,M,triangle1,A1,B1,C1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
         let xMin,xMax,yMin,yMax
-        let bordure,alpha
+        let bordure,alpha,beta
         /***************************************/
 /********Ici on définit les objets 2d */
 /*************************************/
@@ -61,10 +62,12 @@ triangle0=polygone(A,B,C)
 //d0=droite(A,B)
 O=pointSurSegment(B,A,2+longueur(A,B))
 //d0.isVisible=false
-triangle1=rotation(triangle0,O,randint(-45,-20))
-A1=triangle1.listePoints[0]
+beta=randint(-45,-20)
+A1=rotation(A,O,beta,'A')
+B1=rotation(B,O,beta,'B')
+C1=rotation(C,O,beta,'C')
+triangle1=polygone(A1,B1,C1)
 M=milieu(A,A1)
-B1=triangle1.listePoints[1]
 d1=droite(A1,B1)
 AA1=droite(A,A1)
 triangle2=symetrieAxiale(triangle1,d1)
@@ -72,11 +75,11 @@ med=mediatrice(A,A1)
 
 D=similitude(B1,A1,randint(-40,-10),1.5,'D')
 triangle3=rotation(triangle2,D,180)
-F=translation(translation(D,vecteur(B,A)),vecteur(C,B),'F')
+F=translation(D,vecteur(B,A),'F')
 traces = tracePoint(D,F)
 labels=labelPoint(D,F)
-triangle4=translation(triangle2,vecteur(D,F))
-alpha=randint(90,150)
+triangle4=translation(triangle3,vecteur(D,F))
+alpha=-randint(90,150)
 triangle5=rotation(triangle4,F,alpha)
 for (let i =0; i<3; i++) {
 xMin=Math.min(xMin,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
@@ -84,7 +87,7 @@ xMax=Math.max(xMax,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangl
 yMin=Math.min(yMin,triangle0.listePoints[i].y,triangle1.listePoints[i].y,triangle2.listePoints[i].y,triangle3.listePoints[i].y,triangle4.listePoints[i].y,triangle5.listePoints[i].y)
 yMax=Math.max(yMax,triangle0.listePoints[i].y,triangle1.listePoints[i].y,triangle2.listePoints[i].y,triangle3.listePoints[i].y,triangle4.listePoints[i].y,triangle5.listePoints[i].y)
 }
-xMax++
+xMax+=4
 xMin--
 yMin--
 yMax++
@@ -95,14 +98,14 @@ hauteur=yMax-yMin
 bordure=droite(point(xMin,yMin+2),point(xMax,yMin+2))
 nomd=latexParPoint('(d)',translation(milieu(B,B1),vecteur(1,0)),'black',30,12,"")
 let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s;10s;18s" repeatcount="indefinite" fill="freeze"')
-let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;16s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
-let triangle4a=translationAnimee(triangle2,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
+let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
+let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
 let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
 
 
 mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
    objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
-  objets_correction.push(triangle0,triangle[1],traces,labels,med,nomd,triangle2,triangle3,triangle4,triangle5,triangle2a,triangle3a,triangle4a,triangle5a)
+  objets_correction.push(triangle0,triangle[1],traces,labels,med,nomd,triangle2,nommePolygone(triangle2),triangle3,nommePolygone(triangle3),triangle4,nommePolygone(triangle4),triangle5,nommePolygone(triangle5),triangle2a,triangle3a,triangle4a,triangle5a)
   
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
     //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
