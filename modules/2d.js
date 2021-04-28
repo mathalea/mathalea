@@ -599,6 +599,7 @@ export function barycentre(p, nom = '', positionLabel = "above") {
  */
 function Droite(arg1, arg2, arg3, arg4) {
   let a, b, c
+
   ObjetMathalea2D.call(this);
   if (arguments.length == 2) {
     this.nom = ""
@@ -696,6 +697,15 @@ function Droite(arg1, arg2, arg3, arg4) {
 
   }
   */
+ let xsav,ysav
+ if (this.x1>this.x2){
+   xsav=this.x1
+   ysav=this.y1
+   this.x1=this.x2+0
+   this.y1=this.y2+0
+   this.x2=xsav
+   this.y2=ysav
+ }
   this.normal = vecteur(this.a, this.b);
   this.directeur = vecteur(this.b, - this.a);
   this.angleAvecHorizontale = angleOriente(
