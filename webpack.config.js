@@ -30,9 +30,11 @@ scripts : {
   // + les autres commandes…
 }
 */
+const debut = Date.now()
 const buildDicos = require('./tasks/buildDicos')
 buildDicos()
-console.log('\nDémarrage de la transpilation webpack :\n')
+const fin = Date.now()
+console.log(`(génération en ${fin - debut}ms)\n\nDémarrage de la transpilation webpack :\n`)
 
 module.exports = {
   mode: 'development',
@@ -48,8 +50,22 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     // on ajoute le hash dans le nom du fichier => plus besoin de demander aux utilisateur de vider leur cache tout le temps
     // cf https://webpack.js.org/configuration/output/#outputfilename
-    filename: 'js/[name].[contenthash].js'
-    // assetModuleFilename: 'images/[hash][ext][query]'
+    filename: 'js/[name].[contenthash].js',
+    // sans ça tous les assets chargés à partir des css se retrouvent à la racine
+    assetModuleFilename: 'assets/[hash][ext][query]',
+    // ça c'était pour voir si on pouvait régler le pb des urls des css qui doivent être relatives au css
+    // et sont actuellement toujours relatives au js (entry)
+    // c'est vieux : https://github.com/webpack-contrib/mini-css-extract-plugin/issues/367
+    // et toujours d'actualité en avril 2021 https://github.com/webpack-contrib/mini-css-extract-plugin/issues/691
+    //  => on récupère un hash qui permet pas de savoir d'où vient
+    // le fichier concerné, chargé par un css dont il faut corriger le path ou pas
+    // cf https://github.com/webpack-contrib/mini-css-extract-plugin/pull/373
+    //publicPath: function () { console.log('publicPath args', arguments); return ''; }
+
+    // ce truc semble régler nos pbs ce chemin relatif au css ou au js, tout le monde absolu par rapport à la racine
+    // attention, ça marchera pas si le contenu de build se retrouve mis sur http://domaine.tld/pathQcq/
+    // (il faudrait alors indiquer pathQcq ici, ce qui casserait l'usage en local)
+    publicPath: '/'
   },
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
@@ -67,7 +83,7 @@ module.exports = {
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
+      filename: 'css/[name].[contenthash].css'
     }),
     // https://webpack.js.org/plugins/html-webpack-plugin/
     // https://github.com/jantimon/html-webpack-plugin#options
