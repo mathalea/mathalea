@@ -2005,7 +2005,11 @@ function Polygone(...points) {
 export function polygone(...args) {
   return new Polygone(...args);
 }
-
+/**
+ * Crée un groupe d'objets contenant le polygone et ses sommets
+ * @param  {...any} args 
+ * @returns 
+ */
 export function polygoneAvecNom(...args) {
   let groupe
   let p = polygone(...args)
@@ -2014,6 +2018,9 @@ export function polygoneAvecNom(...args) {
   return groupe
 }
 
+/**
+ * Renomme en une fois tous les sommets d'un polygone avec le tableau de string fourni
+ */
 export function renommePolygone(p,noms){
   for (let i=0; i<p.listePoints.length;i++){
     if (noms[i]!==undefined){
