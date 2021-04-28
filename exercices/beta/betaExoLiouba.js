@@ -1,8 +1,8 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js"
-import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "/modules/2d.js"
+import {liste_de_question_to_contenu,combinaison_listes,randint} from "../../modules/outils.js"
+import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "../../modules/2d.js"
 import { nommePolygone } from '../../modules/2d.js';
-import Alea2iep from "/modules/Alea2iep.js";
+import Alea2iep from "../../modules/Alea2iep.js";
 
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
@@ -42,10 +42,10 @@ export default function LeNomDeLaFonctionExercice() {
         objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
         objets_correction = [] // Idem pour la correction
   
-        let texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
+
         let texte_corr = `` // Idem pour le texte de la correction.
         let largeur=20,hauteur=20
-        let A,B,C,triangle,triangle0,O,M,triangle1,A1,B1,C1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
+        let A,B,C,triangle,triangle0,O,M,X,Y,triangle1,A1,B1,C1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
         let xMin,xMax,yMin,yMax
         let bordure,alpha,beta
         let anim = new Alea2iep()
@@ -75,14 +75,15 @@ d1=droite(A1,B1)
 AA1=droite(A,A1)
 triangle2=symetrieAxiale(triangle1,d1)
 med=mediatrice(A,A1)
-
+X=pointSurSegment(M,O,5)
+Y=pointSurSegment(O,M,10)
 D=similitude(B1,A1,randint(-40,-10),1.5,'D')
 triangle3=rotation(triangle2,D,180)
 F=translation(D,vecteur(B,A),'F')
 traces = tracePoint(D,F)
 labels=labelPoint(D,F)
 triangle4=translation(triangle3,vecteur(D,F))
-alpha=-randint(90,150)
+alpha=-randint(80,110)
 triangle5=rotation(triangle4,F,alpha)
 
 for (let i =0; i<3; i++) {
@@ -99,19 +100,31 @@ largeur=xMax-xMin
 hauteur=yMax-yMin
 
 }
+
+let texte = `Construire<br>A'B'C' le triangle symétrique de ABC par rapport à la droite(d).<br>` // Nous utilisons souvent cette variable pour construire le texte de la question.
+texte += `A"B"C" le triangle symétrique de A'B'C' par rapport au point D.<br>`
+texte += `A"'B"'C"' le triangle translaté de A"B"C" tel que D soit transformé en F.<br>`
+texte += `A""B""C"" le triangle obtenu par la rotation de A"'B"'C"' de centre F et d'angle ${Math.abs(alpha)}° dans le sens des aiguilles d'une montre.<br>`
+
 bordure=droite(point(xMin,yMin+2),point(xMax,yMin+2))
 nomd=latexParPoint('(d)',translation(milieu(B,B1),vecteur(1,0)),'black',30,12,"")
 let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s;10s;18s" repeatcount="indefinite" fill="freeze"')
 let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
 let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
 let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
-anim.vitesse=50
-anim.tempo=0
+anim.vitesse=100
+anim.tempo=0.2
 anim.recadre(xMin,yMax)
 anim.polygoneRapide(...triangle0.listePoints)
-anim.polygoneRapide(...triangle4.listePoints)
 anim.pointsCreer(A,B,C,F,D)
-anim.rotationPolygone(triangle4,F,alpha)
+anim.couleur='black'
+anim.traitRapide(X,Y)
+anim.textePoint('(d)',milieu(B,B1))
+anim.symetrieAxialePolygone(triangle0,med,{couleur:'blue',couleurCodage:'lightblue'})
+anim.demiTourPolygone(triangle2,D,{couleur:'red',couleurCodage:'pink'})
+anim.translationPolygone(triangle3,D,F,{couleur:'brown',couleurCodage:'orange'})
+anim.rotationPolygone(triangle4,F,alpha,{couleur:'green',couleurCodage:'lightgreen'})
+anim.crayonMasquer()
 
 mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
    objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
@@ -127,7 +140,7 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
-        texte_corr += anim.htmlBouton(numero_de_l_exercice,0)
+        texte_corr += anim.htmlBouton(numero_de_l_exercice)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
