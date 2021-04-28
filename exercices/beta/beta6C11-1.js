@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre,texte_en_couleur_et_gras} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre,texte_en_couleur_et_gras} from "../../modules/outils.js"
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *
