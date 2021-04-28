@@ -521,28 +521,28 @@ function LabelPoint(...points) {
       x = point.x, y = point.y
       switch (point.positionLabel) {
         case "left":
-          code += texteParPosition(point.nom, x - 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below":
-          code += texteParPosition(point.nom, x, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "above":
-          code += texteParPosition(point.nom, x, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "above right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below left":
-          code += texteParPosition(point.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         default:
-          code += texteParPosition(point.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
       }
     }
@@ -2012,6 +2012,14 @@ export function polygoneAvecNom(...args) {
   p.sommets = nommePolygone(p)
   groupe = [p, p.sommets]
   return groupe
+}
+
+export function renommePolygone(p,noms){
+  for (let i=0; i<p.listePoints.length;i++){
+    if (noms[i]!==undefined){
+      p.listePoints[i].nom=noms[i]
+    }
+  }
 }
 
 /**
