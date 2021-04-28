@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from "/modules/outils.js"
 import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "/modules/2d.js"
 import { nommePolygone } from '../../modules/2d.js';
+import Alea2iep from "/modules/Alea2iep.js";
 
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
@@ -13,14 +14,15 @@ export default function LeNomDeLaFonctionExercice() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+    this.type_exercice = "IEP";
+   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function () {
+    this.nouvelle_version = function (numero_de_l_exercice) {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
   
@@ -46,6 +48,7 @@ export default function LeNomDeLaFonctionExercice() {
         let A,B,C,triangle,triangle0,O,M,triangle1,A1,B1,C1,d1,AA1,triangle2,med,nomd,D,F,triangle3,triangle4,triangle5,traces,labels
         let xMin,xMax,yMin,yMax
         let bordure,alpha,beta
+        let anim = new Alea2iep()
         /***************************************/
 /********Ici on définit les objets 2d */
 /*************************************/
@@ -57,8 +60,8 @@ while (largeur>16 && hauteur>16) {
 A=point(0,0,'A')
 B=pointAdistance(A,randint(40,60)/10,randint(70,100),'B')
 C=similitude(B,A,randint(20,50),randint(8,12)/10,'C')
-triangle=polygoneAvecNom(A,B,C)
 triangle0=polygone(A,B,C)
+triangle=polygoneAvecNom(A,B,C)
 //d0=droite(A,B)
 O=pointSurSegment(B,A,2+longueur(A,B))
 //d0.isVisible=false
@@ -81,6 +84,7 @@ labels=labelPoint(D,F)
 triangle4=translation(triangle3,vecteur(D,F))
 alpha=-randint(90,150)
 triangle5=rotation(triangle4,F,alpha)
+
 for (let i =0; i<3; i++) {
 xMin=Math.min(xMin,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
 xMax=Math.max(xMax,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
@@ -101,7 +105,13 @@ let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s
 let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
 let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
 let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
-
+anim.vitesse=50
+anim.tempo=0
+anim.recadre(xMin,yMax)
+anim.polygoneRapide(...triangle0.listePoints)
+anim.polygoneRapide(...triangle4.listePoints)
+anim.pointsCreer(A,B,C,F,D)
+anim.rotationPolygone(triangle4,F,alpha)
 
 mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
    objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
@@ -117,6 +127,7 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
+        texte_corr += anim.htmlBouton(numero_de_l_exercice,0)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page

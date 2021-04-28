@@ -1093,6 +1093,11 @@ export default function Alea2iep () {
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
+  this.mesureAngle = function (A,O,B){
+    let a=angleOriente(A,O,B)
+    let C=translation(homothetie(rotation(A,O,a/2),O,1.3/longueur(O,A)),vecteur(-0.2,0.5))
+    return this.textePoint(Math.abs(a)+'°',C)
+  }
   /**
  * Masque le trait d'id fourni
  * @param {int} id
@@ -2294,8 +2299,10 @@ export default function Alea2iep () {
       this.compasMasquer()
       this.pointCreer(image) // On marque le point image (qui est nommé)
     }
-    this.epaisseur = 2
-    this.couleur = 'blue'
+    this.angleCodage(p.listePoints[0],centre,p2.listePoints[0])
+    this.textePoint(Math.abs(angle)+'°',translation(homothetie(rotation(p.listePoints[0],centre,angle/2),centre,1.3/longueur(centre,p.listePoints[0])),vecteur(-0.2,0.5)))
+    this.epaisseur=2
+    this.couleur='blue'
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
   }
 
