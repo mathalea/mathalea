@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondi_virgule, calcul, lettre_depuis_chiffre, tex_nombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from "/modules/outils.js"
 
 /*
@@ -108,19 +110,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     this.nom = arg1;
   } else if (arguments.length == 2) {
 
-    this.x = arrondi(arg1, 2);
-    this.y = arrondi(arg2, 2);
+    this.x = arrondi(arg1, 3);
+    this.y = arrondi(arg2, 3);
   } else {
-    this.x = arrondi(arg1, 2);
-    this.y = arrondi(arg2, 2);
+    this.x = arrondi(arg1, 3);
+    this.y = arrondi(arg2, 3);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return arrondi(this.x * coeff, 2);
+    return arrondi(this.x * coeff, 3);
   };
   this.ySVG = function (coeff) {
-    return -arrondi(this.y * coeff, 2);
+    return -arrondi(this.y * coeff, 3);
   }
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace

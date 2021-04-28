@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { vecteur, polygoneAvecNom, translation, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -1093,10 +1093,10 @@ export default function Alea2iep () {
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
-  this.mesureAngle = function (A,O,B){
-    let a=angleOriente(A,O,B)
-    let C=translation(homothetie(rotation(A,O,a/2),O,1.3/longueur(O,A)),vecteur(-0.2,0.5))
-    return this.textePoint(Math.abs(a)+'°',C)
+  this.mesureAngle = function (A, O, B) {
+    const a = angleOriente(A, O, B)
+    const C = translation(homothetie(rotation(A, O, a / 2), O, 1.3 / longueur(O, A)), vecteur(-0.2, 0.5))
+    return this.textePoint(Math.abs(a) + '°', C)
   }
   /**
  * Masque le trait d'id fourni
@@ -2299,12 +2299,47 @@ export default function Alea2iep () {
       this.compasMasquer()
       this.pointCreer(image) // On marque le point image (qui est nommé)
     }
-    this.angleCodage(p.listePoints[0],centre,p2.listePoints[0])
-    this.textePoint(Math.abs(angle)+'°',translation(homothetie(rotation(p.listePoints[0],centre,angle/2),centre,1.3/longueur(centre,p.listePoints[0])),vecteur(-0.2,0.5)))
-    this.epaisseur=2
-    this.couleur='blue'
+    this.angleCodage(p.listePoints[0], centre, p2.listePoints[0])
+    this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p.listePoints[0], centre, angle / 2), centre, 1.3 / longueur(centre, p.listePoints[0])), vecteur(-0.2, 0.5)))
+    this.epaisseur = 2
+    this.couleur = 'blue'
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
   }
 
+  this.symetrieAxialePolygone = function (p, d) {
+    let M
+    let image
+    const p2 = symetrieAxiale(p, d) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
+    const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
+    this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
+    this.couleur = 'grey'
+    let i = 0
+    const marques = ['/', '//', '///', 'O', 'X']
+    for (const sommet of p.listePoints) {// On répète la construction pour chaque sommet du polygone
+      image = symetrieAxiale(sommet, d, sommet.nom + "'") // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
+      M = milieu(sommet, image) // on crée le point milieu de deux sommets homologues
+      this.regleMasquerGraduations()
+      this.regleDroite(N, M) // on met la règle sur l'axe
+      /*       this.equerreMontrer()
+      this.equerreDeplacer(M)
+      this.pointCreer(M)
+      this.equerreRotation(d.angleAvecHorizontale+90) // on place l'équerre contre l'axe, passant par le sommet
+      */
+      this.perpendiculaireRegleEquerre2points3epoint(M, N, sommet)
+      this.compasEcarter2Points(M, sommet)
+      this.compasTracerArcCentrePoint(M, image)
+      this.regleSegment(sommet, image)
+      this.regleMasquer()
+      this.pointCreer(image) // on construit l'image
+      this.equerreMasquer()
+      this.codageAngleDroit(sommet, M, N)
+      this.segmentCodage(sommet, M, { codage: marques[i] })
+      this.segmentCodage(image, M, { codage: marques[i] })
+      i++
+    }
+    this.epaisseur = this.couleur = 'blue'
+    this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
+    this.polygoneRapide(p2)
+  }
   /** **** Fin de la classe Alea2iep */
 }
