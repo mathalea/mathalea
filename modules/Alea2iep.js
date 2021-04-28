@@ -1411,8 +1411,8 @@ export default function Alea2iep() {
   this.perpendiculaireRegleEquerreDroitePoint = function (d,P){
     const H=projectionOrtho(P,d)
     this.equerreMontrer(H)
-    this.equerre
-  
+    this.equerreRotation(d.angleAvecHorizontale)
+    // pas fini...
   }
 
   /**
