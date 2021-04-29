@@ -2,6 +2,7 @@
 
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, export_QCM_AMC, tex_nombre2, liste_de_question_to_contenu, randint, choice, combinaison_listes, abs, pgcd, mise_en_evidence, tex_fraction, tex_fraction_reduite } from '../../modules/outils.js'
+import Algebrite from 'algebrite'
 
 export const amcReady = true
 

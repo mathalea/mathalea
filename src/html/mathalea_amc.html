@@ -20,8 +20,8 @@
       integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
       crossorigin="anonymous"
     ></script>
-    <script src="modules/jszip.min.js" type="text/javascript"></script>
-    <script src="modules/FileSaver.min.js" type="text/javascript"></script>
+    <script src="/assets/externalJs/jszip.min.js" type="text/javascript"></script>
+    <script src="assets/externalJs/FileSaver.min.js" type="text/javascript"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
       integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"

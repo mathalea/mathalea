@@ -41,7 +41,8 @@ module.exports = {
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     mathalea: './src/js/mathalea.js',
-    mathalea2d: './src/js/modules/mathalea2d-gui.js'
+    mathalea2d: './src/js/modules/mathalea2d-gui.js',
+    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js']
   },
   output: {
     // on vide build avant chaque compilation
@@ -60,7 +61,7 @@ module.exports = {
     //  => on récupère un hash qui permet pas de savoir d'où vient
     // le fichier concerné, chargé par un css dont il faut corriger le path ou pas
     // cf https://github.com/webpack-contrib/mini-css-extract-plugin/pull/373
-    //publicPath: function () { console.log('publicPath args', arguments); return ''; }
+    // publicPath: function () { console.log('publicPath args', arguments); return ''; }
 
     // ce truc semble régler nos pbs ce chemin relatif au css ou au js, tout le monde absolu par rapport à la racine
     // attention, ça marchera pas si le contenu de build se retrouve mis sur http://domaine.tld/pathQcq/
@@ -120,7 +121,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/html/cm.html',
       filename: 'cm.html',
-      chunks: ['mathalea']
+      chunks: ['mathaleaDiaporama']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2d.html',

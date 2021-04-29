@@ -1,5 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique,ecriture_algebrique_sauf1,lettre_minuscule_depuis_chiffre,xcas} from '../../modules/outils.js'
+import { simplify } from 'mathjs'
+const math = { simplify: simplify }
 
 export const titre = 'Calculs de dérivés'
 

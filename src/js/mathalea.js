@@ -14,6 +14,32 @@ import iepLoadPromise from 'instrumenpoche'
 import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 
+// Prism n'est utilisé que pour mathalealatex.html. Faut-il ajouter un test sur l'URL
+// Prism est utilisé pour la coloration syntaxique du LaTeX
+import '../assets/externalJs/prism.js'
+import '../assets/externalJs/prism.css'
+
+// import '../assets/externalJs/semantic.min.js'
+// import '../assets/externalJs/state.min.js'
+// import '../assets/externalJs/semantic.min.css'
+
+// Pour le menu du haut
+document.addEventListener('DOMContentLoaded', (event) => {
+  $('.ui.dropdown').dropdown()
+})
+
+// Les variables globales nécessaires aux exercices (pas terrible...)
+window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
+window.sortie_html = true
+window.est_diaporama = false
+
+if (document.location.href.indexOf('mathalealatex.html') > 0) {
+  window.sortie_html = false
+}
+if (document.location.href.indexOf('cm.html') > 0) {
+  window.est_diaporama = true
+}
+
 mathalea.listeDesScriptsCharges = []
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let liste_des_exercices = [] // Liste des identifiants des exercices
@@ -499,6 +525,10 @@ function mise_a_jour_du_code () {
       }
       div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + '</code></pre>'
       Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => code_LaTeX })
+      clipboardURL.on('success', function (e) {
+        console.info('Code LaTeX copié dans le presse-papier.')
+      })
     } else {
       code_LaTeX = ''
       $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
@@ -801,7 +831,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
                       </svg>
                     </div>
                   </div>`
-        return loadScript('modules/giacsimple.js')
+        return loadScript('/assets/externalJs/giacsimple.js')
       }
     })
     .then((resolve, reject) => {
