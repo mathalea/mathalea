@@ -3791,7 +3791,7 @@ export function rotation(A, O, angle, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(
       O.x +
-      (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
+      (A.x - O.x) * Math.cos((angle * Math.PI) / 180)-
       (A.y - O.y) * Math.sin((angle * Math.PI) / 180)
     );
     let y = calcul(

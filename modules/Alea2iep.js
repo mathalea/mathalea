@@ -1,6 +1,6 @@
 /* global iepLoad */
 
-import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, angleModulo, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
+import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, angleModulo, pointAdistance, droite, droiteParPointEtPerpendiculaire, pointSurDroite, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
 import { calcul, tex_nombre, arrondi, randint, nombre_avec_espace as nombreAvecEspace } from './outils.js'
 
 /*
@@ -1350,70 +1350,37 @@ export default function Alea2iep() {
      * @param {*} options
      */
   this.perpendiculaireRegleEquerre2points3epoint = function (A, B, C, options) {
-    let G, D, H1, M, H, dist
     const longueurRegle = this.regle.longueur
     const zoomEquerre = this.equerre.zoom
-    // G est le point le plus à gauche, D le plus à droite et H le projeté de C sur (AB)
-    // H1 est un point de (AB) à gauche de H, c'est là où seront la règle et l'équerre avant de glisser
-    if (A.x < B.x) {
-      G = A
-      D = B
-    } else {
-      G = B
-      D = A
-    }
     const d = droite(A, B)
+    let dist
     if (appartientDroite(C, A, B)) {
-      H = homothetie(C, C, 1)
       dist = 7.5
-      M = rotation(pointSurSegment(H, G, dist), H, -90)
-      H1 = homothetie(H, M, 1.6)
     } else {
-      H = projectionOrtho(C, d)
+      const H = projectionOrtho(C, d)
       dist = longueur(H, C) + 2
-      M = pointSurSegment(H, C, dist)
-      H1 = homothetie(H, M, 1 + 4 / longueur(H, M))
     }
-
     this.equerreZoom(calcul(dist * 100 / 7.5))
-    this.regleModifierLongueur(Math.max(15, Math.ceil((dist + 1) * (1 + 4 / longueur(H, M)))))
-    // Le tracé de la perpendiculaire ne fera que 6 cm pour ne pas dépassr de l'équerre. M est la fin de ce tracé
-
-    if (H.x < G.x) { // Si le pied de la hauteur est trop à gauche
-      this.regleProlongerSegment(D, G, { longueur: longueur(G, H) + 4 })
-    }
-    if (H.x > D.x) { // Si le pied de la hauteur est trop à droite
-      this.regleProlongerSegment(G, D, { longueur: longueur(D, H) + 4 })
-    }
-
-    this.regleMasquer()
-    if (H.y > C.y) {
-      this.equerreMontrer(G)
-      this.equerreRotation(d.angleAvecHorizontale - 180)
-    } else {
-      this.equerreRotation(d.angleAvecHorizontale)
-      this.equerreMontrer(D)
-    }
-    this.equerreDeplacer(H)
-
-    this.crayonMontrer(M)
-    this.tracer(H, options)
-    this.equerreMasquer()
-    this.codageAngleDroit(M, H, G)
-    this.regleMontrer(M)
-    this.regleRotation(H)
-    this.trait(M, H1)
-    this.regleMasquer()
+    this.regleModifierLongueur(Math.max(dist*2,15))
+ 
+ 
+    this.perpendiculaireRegleEquerreDroitePoint(d,C)
     this.equerreZoom(zoomEquerre)
     this.regleModifierLongueur(longueurRegle)
   }
-
-  /*this.perpendiculaireRegleEquerreDroitePoint = function (d, P) {
+ 
+  this.perpendiculaireRegleEquerreDroitePoint = function (d, P) {
     const H = projectionOrtho(P, d)
+    const A = rotation(P,H,90)
+    const B= rotation(A,H,180)
+    const alpha=angleOriente(point(10000,H.y),H,B)
+    this.equerreRotation(alpha)
     this.equerreMontrer(H)
-    this.equerreRotation(d.angleAvecHorizontale)
-    // pas fini...
-  }*/
+    this.regleSegment(H,P)
+    this.equerreMasquer()
+    this.codageAngleDroit(A,H,P)
+    this.regleProlongerSegment(P,H,{longueur:longueur(P,H)*2})
+  }
 
   /**
  *****************************************
@@ -2340,8 +2307,10 @@ export default function Alea2iep() {
     if (longueur(p,image)!==0){
     const M = milieu(p,image) // on crée le point milieu
     const N = rotation(p,M,90)
+    const D = rotation(N,M,180)
+    console.log(N,M,p)
     this.regleMasquerGraduations()
-    this.perpendiculaireRegleEquerre2points3epoint(N, M, p)
+    this.perpendiculaireRegleEquerre2points3epoint(N, D, p)
     this.compasEcarter2Points(M, p)
     this.compasTracerArcCentrePoint(M, image)
     this.regleSegment(p, image)
