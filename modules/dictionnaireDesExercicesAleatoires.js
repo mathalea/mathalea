@@ -1660,6 +1660,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
+    "beta6C11-1": {
+        "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
+        "url": "/exercices/beta/beta6C11-1.js"
+    },
     "beta6C33-1": {
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
