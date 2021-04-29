@@ -117,8 +117,8 @@ let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s
 let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
 let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
 let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
-anim.vitesse=100
-anim.tempo=0.2
+anim.vitesse=15
+anim.tempo=0.5
 anim.recadre(xMin,yMax)
 anim.polygoneRapide(...triangle0.listePoints)
 anim.pointsCreer(A,B,C,F,D)
