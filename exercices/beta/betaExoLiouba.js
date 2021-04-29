@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes,randint} from "../../modules/outils.js"
-import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom} from "../../modules/2d.js"
+import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom, renommePolygone} from "../../modules/2d.js"
 import { nommePolygone } from '../../modules/2d.js';
 import Alea2iep from "../../modules/Alea2iep.js";
 
@@ -70,21 +70,26 @@ A1=rotation(A,O,beta,'A')
 B1=rotation(B,O,beta,'B')
 C1=rotation(C,O,beta,'C')
 triangle1=polygone(A1,B1,C1)
+renommePolygone(triangle1,['A_1','B_1','C_1'])
 M=milieu(A,A1)
 d1=droite(A1,B1)
 AA1=droite(A,A1)
 triangle2=symetrieAxiale(triangle1,d1)
+renommePolygone(triangle2,['A_1','B_1','C_1'])
 med=mediatrice(A,A1)
 X=pointSurSegment(M,O,5)
 Y=pointSurSegment(O,M,10)
 D=similitude(B1,A1,randint(-40,-10),1.5,'D')
 triangle3=rotation(triangle2,D,180)
+renommePolygone(triangle3,['A_2','B_2','C_2'])
 F=translation(D,vecteur(B,A),'F')
 traces = tracePoint(D,F)
 labels=labelPoint(D,F)
 triangle4=translation(triangle3,vecteur(D,F))
+renommePolygone(triangle4,['A_3','B_3','C_3'])
 alpha=-randint(80,110)
 triangle5=rotation(triangle4,F,alpha)
+renommePolygone(triangle5,['A_4','B_4','C_4'])
 
 for (let i =0; i<3; i++) {
 xMin=Math.min(xMin,triangle0.listePoints[i].x,triangle1.listePoints[i].x,triangle2.listePoints[i].x,triangle3.listePoints[i].x,triangle4.listePoints[i].x,triangle5.listePoints[i].x)
@@ -101,10 +106,10 @@ hauteur=yMax-yMin
 
 }
 
-let texte = `Construire<br>A'B'C' le triangle symétrique de ABC par rapport à la droite(d).<br>` // Nous utilisons souvent cette variable pour construire le texte de la question.
-texte += `A"B"C" le triangle symétrique de A'B'C' par rapport au point D.<br>`
-texte += `A"'B"'C"' le triangle translaté de A"B"C" tel que D soit transformé en F.<br>`
-texte += `A""B""C"" le triangle obtenu par la rotation de A"'B"'C"' de centre F et d'angle ${Math.abs(alpha)}° dans le sens des aiguilles d'une montre.<br>`
+let texte = `Construire<br>$A_1B_1C_1$ le triangle symétrique de $ABC$ par rapport à la droite $(d)$;<br>` // Nous utilisons souvent cette variable pour construire le texte de la question.
+texte += `$A_2B_2C_2$ le triangle symétrique de $A_1B_1C_1$ par rapport au point $D$;<br>`
+texte += `$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>`
+texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}\\degree$ dans le sens des aiguilles d'une montre.<br>`
 
 bordure=droite(point(xMin,yMin+2),point(xMax,yMin+2))
 nomd=latexParPoint('(d)',translation(milieu(B,B1),vecteur(1,0)),'black',30,12,"")
@@ -120,10 +125,10 @@ anim.pointsCreer(A,B,C,F,D)
 anim.couleur='black'
 anim.traitRapide(X,Y)
 anim.textePoint('(d)',milieu(B,B1))
-anim.symetrieAxialePolygone(triangle0,med,{couleur:'blue',couleurCodage:'lightblue'})
-anim.demiTourPolygone(triangle2,D,{couleur:'red',couleurCodage:'pink'})
-anim.translationPolygone(triangle3,D,F,{couleur:'brown',couleurCodage:'orange'})
-anim.rotationPolygone(triangle4,F,alpha,{couleur:'green',couleurCodage:'lightgreen'})
+anim.symetrieAxialePolygone(triangle0,med,['A_1','B_1','C_1'],{couleur:'blue',couleurCodage:'lightblue'})
+anim.demiTourPolygone(triangle2,D,['A_2','B_2','C_2'],{couleur:'red',couleurCodage:'pink'})
+anim.translationPolygone(triangle3,D,F,['A_3','B_3','C_3'],{couleur:'brown',couleurCodage:'orange'})
+anim.rotationPolygone(triangle4,F,alpha,['A_4','B_4','C_4'],{couleur:'green',couleurCodage:'lightgreen'})
 anim.crayonMasquer()
 
 mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
