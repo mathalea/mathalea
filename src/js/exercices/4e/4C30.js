@@ -25,7 +25,7 @@ export default function Puissances_de_dix() {
     let type_de_questions;
     this.bouton_aide = modal_pdf(
       numero_de_l_exercice,
-      "pdf/FichePuissances-4N21.pdf",
+      "assets/pdf/FichePuissances-4N21.pdf",
       "Aide mémoire sur les puissances (Sébastien Lozano)",
       "Aide mémoire"
     );

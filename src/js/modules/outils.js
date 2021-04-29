@@ -2,7 +2,6 @@ import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
-import SVG from 'svg.js'
 const math = { format: format, evaluate: evaluate }
 
 // Fonctions diverses pour la création des exercices
@@ -10,37 +9,37 @@ const math = { format: format, evaluate: evaluate }
 export function liste_de_question_to_contenu (argument) {
   if (sortie_html) {
     argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = html_paragraphe(argument.consigne_correction) + html_enumerate(argument.liste_corrections, argument.spacing_corr)
-	} else {
+    argument.contenu_correction = html_paragraphe(argument.consigne_correction) + html_enumerate(argument.liste_corrections, argument.spacing_corr)
+  } else {
     let vspace = ''
-		if (argument.vspace) {
+    if (argument.vspace) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
-		}
+    }
     if (!mathalea.sortieAMC) {
       if (document.getElementById('supprimer_reference').checked == true) {
         argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
-			} else {
+      } else {
         argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
-			}
+      }
     }
     argument.contenu_correction = tex_consigne('') + tex_introduction(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
-	}
+  }
 }
 export function liste_de_choses_a_imprimer (argument) {
   if (sortie_html) {
     argument.contenu = html_ligne(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = '';
+    argument.contenu_correction = ''
   } else {
     let vspace = ''
-		if (argument.vspace) {
+    if (argument.vspace) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
-		}
+    }
     if (document.getElementById('supprimer_reference').checked == true) {
       argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-		} else {
+    } else {
       argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-		}
-    argument.contenu_correction = '';
+    }
+    argument.contenu_correction = ''
   }
 }
 
@@ -54,16 +53,16 @@ export function liste_de_choses_a_imprimer (argument) {
 export function liste_de_question_to_contenu_sans_numero (argument) {
   if (sortie_html) {
     argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions, argument.spacing)
-		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections, argument.spacing_corr)
-	} else {
+    argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections, argument.spacing_corr)
+  } else {
     if (document.getElementById('supprimer_reference').checked == true) {
       argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-		} else {
+    } else {
       argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-		}
+    }
     // argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)
     argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
-	}
+  }
 }
 
 /**
@@ -77,13 +76,11 @@ export function liste_de_question_to_contenu_sans_numero (argument) {
 export function liste_de_question_to_contenu_sans_numero_et_sans_consigne (argument) {
   if (document.getElementById('supprimer_reference').checked == true) {
     argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-	} else {
+  } else {
     argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
-	}
+  }
   // argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)
   argument.contenu_correction = tex_multicols(tex_paragraphe(argument.liste_corrections, argument.spacing_corr), argument.nb_cols_corr)
-
-
 }
 
 /**
@@ -101,7 +98,7 @@ export function deuxColonnes (cont1, cont2) {
 		${cont2}
 	 </div>
 	 <div style="clear:both"></div>`
-	} else {
+  } else {
     return `\\begin{minipage}{.5\\linewidth}
 		${cont1}
 		\\end{minipage}
@@ -109,7 +106,7 @@ export function deuxColonnes (cont1, cont2) {
 		${cont2}
 		\\end{minipage}
 		`
-	}
+  }
 }
 
 /**
@@ -123,49 +120,49 @@ export function deuxColonnes (cont1, cont2) {
 const epsilon = 0.000001
 export function egal (a, b, tolerance = epsilon) {
   if (Math.abs(a - b) < tolerance) return true
-	else return false
+  else return false
 }
 export function superieur (a, b, tolerance = epsilon) {
   if (a - b > tolerance && (!egal(a, b, tolerance))) return true
-	else return false
+  else return false
 }
 export function inferieur (a, b, tolerance = epsilon) {
   if (b - a > tolerance && (!egal(a, b, tolerance))) return true
-	else return false
+  else return false
 }
 export function superieurouegal (a, b, tolerance = epsilon) {
   if (a - b > tolerance || egal(a, b, tolerance)) return true
-	else return false
+  else return false
 }
 export function inferieurouegal (a, b, tolerance = epsilon) {
   if (b - a > tolerance || egal(a, b, tolerance)) return true
-	else return false
+  else return false
 }
 export function estentier (a, tolerance = epsilon) {
   if (Math.abs(calcul(a - Math.round(a))) < tolerance) return true
-	else return false
+  else return false
 }
 export function quotientier (a, b) {
   if (Number.isInteger(a) && Number.isInteger(b)) {
     let reste = a
-		let quotient = 0
-		while (reste >= b) {
+    let quotient = 0
+    while (reste >= b) {
       reste -= b
-			quotient++
-		}
+      quotient++
+    }
     return quotient
-	} else return false
+  } else return false
 }
 export function carreParfait (x) {
   if (estentier(Math.sqrt(x))) return true
-	else return false
+  else return false
 }
 
 // Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
 export function ecrireNombre2D (x, y, n) {
   const nString = nombre_avec_espace(n)
-	let nombre2D = []
-	for (let k = 0; k < nString.length; k++) {
+  const nombre2D = []
+  for (let k = 0; k < nString.length; k++) {
     nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
   }
   return nombre2D
@@ -189,37 +186,35 @@ function ecrireAdditionPosee(x,y,...args){
 class NombreDecimal {
   constructor (nombre) {
     if (nombre < 0) {
-      this.signe = '-';
+      this.signe = '-'
       nombre = calcul(-nombre)
-		} else this.signe = '+';
+    } else this.signe = '+'
     this.exposant = Math.floor(Math.log10(nombre))
-		nombre = nombre / 10 ** this.exposant
-		this.mantisse = []
-		for (let k = 0; k < 16; k++) {
+    nombre = nombre / 10 ** this.exposant
+    this.mantisse = []
+    for (let k = 0; k < 16; k++) {
       if (egal(Math.ceil(nombre) - nombre, 0, 0.00001)) {
         this.mantisse.push(Math.ceil(nombre))
-				nombre = (this.mantisse[k] - nombre) * 10
-			} else {
+        nombre = (this.mantisse[k] - nombre) * 10
+      } else {
         this.mantisse.push(Math.floor(nombre))
-				nombre = (nombre - this.mantisse[k]) * 10
-			}
-      if (egal(nombre, 0, 0.001))
-        {break;}
+        nombre = (nombre - this.mantisse[k]) * 10
+      }
+      if (egal(nombre, 0, 0.001)) { break }
     }
   }
 
   get valeur () {
     return this.recompose()
-	}
+  }
 
   recompose () {
     let val = 0
-		for (let i = 0; i < 10; i++)
-      {val += this.mantisse[i] * 10 ** (-i);}
+    for (let i = 0; i < 10; i++) { val += this.mantisse[i] * 10 ** (-i) }
     val = val * 10 ** this.exposant
-		if (this.signe == '+') return val
-		else return calcul(-val)
-	}
+    if (this.signe == '+') return val
+    else return calcul(-val)
+  }
 }
 export function decimal (n) {
   return new NombreDecimal(n)
@@ -238,17 +233,17 @@ export function decimal (n) {
 
 export function creer_couples (E1, E2, nombre_de_couples_min = 10) {
   let result = []; let temp = []
-	for (const i in E1) {
+  for (const i in E1) {
     for (const j in E2) {
       result.push([E1[i], E2[j]])
-		}
+    }
   }
 
   temp = shuffle(result).slice(0) // créer un clone du tableau result mélangé
-	result = temp.slice(0)
-	while (result.length < nombre_de_couples_min) {
+  result = temp.slice(0)
+  while (result.length < nombre_de_couples_min) {
     result = result.concat(shuffle(temp))
-	}
+  }
   return result
 }
 
@@ -273,14 +268,14 @@ export function creer_couples (E1, E2, nombre_de_couples_min = 10) {
 export function randint (min, max, liste_a_eviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
   const range = max - min
-	let rand = Math.floor(Math.random() * (range + 1))
-	if (Number.isInteger(liste_a_eviter)) {
+  let rand = Math.floor(Math.random() * (range + 1))
+  if (Number.isInteger(liste_a_eviter)) {
     liste_a_eviter = [liste_a_eviter]
-	}
+  }
   if (liste_a_eviter.length > 0) {
     while (liste_a_eviter.indexOf(min + rand) != -1) {
       rand = Math.floor(Math.random() * (range + 1))
-		}
+    }
   }
   return min + rand
 }
@@ -300,29 +295,29 @@ export function randint (min, max, liste_a_eviter = []) {
 * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
 */
 export function strRandom (o) {
-  let a = 10;
-		var b = 'abcdefghijklmnopqrstuvwxyz';
-		var c = '';
-		var d = 0;
-		var e = '' + b
-	if (o) {
+  let a = 10
+  const b = 'abcdefghijklmnopqrstuvwxyz'
+  let c = ''
+  let d = 0
+  let e = '' + b
+  if (o) {
     if (o.startsWithLowerCase) {
       c = b[Math.floor(Math.random() * b.length)]
-			d = 1
-		}
+      d = 1
+    }
     if (o.length) {
       a = o.length
-		}
+    }
     if (o.includeUpperCase) {
       e += b.toUpperCase()
-		}
+    }
     if (o.includeNumbers) {
       e += '1234567890'
-		}
+    }
   }
   for (; d < a; d++) {
     c += e[Math.floor(Math.random() * e.length)]
-	}
+  }
   return c
 }
 
@@ -338,7 +333,7 @@ export function enleve_element (array, item) {
   for (let i = array.length - 1; i >= 0; i--) {
     if (array[i] == item) {
       array.splice(i, 1)
-		}
+    }
   }
 }
 
@@ -349,8 +344,8 @@ export function enleve_element (array, item) {
  */
 export function compteOccurences (array, value) {
   let cpt = 0
-    array.forEach((v) => (v === value && cpt++))
-    return cpt
+  array.forEach((v) => (v === value && cpt++))
+  return cpt
 }
 
 /**
@@ -362,11 +357,11 @@ export function enleve_element_bis (array, item = undefined) {
   const tableaucopie = []
   for (i = 0; i < array.length; i++) {
     tableaucopie.push(array[i])
-	}
+  }
   for (var i = tableaucopie.length - 1; i >= 0; i--) {
     if (tableaucopie[i] == item) {
       tableaucopie.splice(i, 1)
-		}
+    }
   }
   return tableaucopie
 }
@@ -384,11 +379,11 @@ export function enleve_element_No (array, index) {
  */
 export function enleve_element_No_bis (array, index) {
   const tableaucopie = []
-	for (i = 0; i < array.length; i++) {
+  for (i = 0; i < array.length; i++) {
     tableaucopie.push(array[i])
-	}
+  }
   tableaucopie.splice(index, 1)
-	return tableaucopie
+  return tableaucopie
 }
 
 /**
@@ -408,12 +403,12 @@ export function enleve_element_No_bis (array, index) {
 export function choice (liste, liste_a_eviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
   const listebis = liste.slice()
-	// Supprime les éléments de liste à éviter
-	for (let i = 0; i < liste_a_eviter.length; i++) {
+  // Supprime les éléments de liste à éviter
+  for (let i = 0; i < liste_a_eviter.length; i++) {
     enleve_element(listebis, liste_a_eviter[i])
-	}
-  let index = Math.floor(Math.random() * listebis.length)
-	return listebis[index]
+  }
+  const index = Math.floor(Math.random() * listebis.length)
+  return listebis[index]
 }
 
 /**
@@ -430,10 +425,10 @@ export function choice (liste, liste_a_eviter = []) {
 export function range (max, liste_a_eviter = []) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const nb_max = parseInt(max, 10)
-	let liste = [...Array(nb_max + 1).keys()]
-	for (let i = 0; i < liste_a_eviter.length; i++) {
+  const liste = [...Array(nb_max + 1).keys()]
+  for (let i = 0; i < liste_a_eviter.length; i++) {
     enleve_element(liste, liste_a_eviter[i])
-	}
+  }
   return liste
 }
 
@@ -452,12 +447,12 @@ export function range (max, liste_a_eviter = []) {
 export function rangeMinMax (min, max, liste_a_eviter = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
-	for (let i = min; i <= max; i = calcul(i + step)) {
+  for (let i = min; i <= max; i = calcul(i + step)) {
     liste.push(i)
-	}
+  }
   for (let i = 0; i < liste_a_eviter.length; i++) {
     enleve_element(liste, liste_a_eviter[i])
-	}
+  }
   return liste
 }
 
@@ -471,13 +466,13 @@ export function rangeMinMax (min, max, liste_a_eviter = [], step = 1) {
 */
 export function range1 (max, liste_a_eviter = []) {
   const nb_max = parseInt(max, 10)
-	let liste = []
-	for (let i = 1; i <= nb_max; i++) {
+  const liste = []
+  for (let i = 1; i <= nb_max; i++) {
     liste.push(i)
-	}
+  }
   for (let i = 0; i < liste_a_eviter.length; i++) {
     enleve_element(liste, liste_a_eviter[i])
-	}
+  }
   return liste
 }
 
@@ -489,10 +484,8 @@ export function range1 (max, liste_a_eviter = []) {
 * @author Rémi Angot
 */
 export function compare_fractions (a, b) {
-  if ((a[0] / a[1]) > (b[0] / b[1]))
-    {return 1;}
-  if ((a[0] / a[1]) < (b[0] / b[1]))
-    {return -1;}
+  if ((a[0] / a[1]) > (b[0] / b[1])) { return 1 }
+  if ((a[0] / a[1]) < (b[0] / b[1])) { return -1 }
   // Sinon il y a égalité
   return 0
 }
@@ -513,7 +506,7 @@ export function compare_nombres (a, b) {
 export function numTrie (arr) {
   return arr.sort(function (a, b) {
     return a - b
-	})
+  })
 }
 
 /*
@@ -524,20 +517,20 @@ export function numTrie (arr) {
 * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 */
 export function shuffle (array) {
-  let currentIndex = array.length; var temporaryValue; var randomIndex
+  let currentIndex = array.length; let temporaryValue; let randomIndex
 
-	// While there remain elements to shuffle...
-	var array_bis = array.slice()
+  // While there remain elements to shuffle...
+  const array_bis = array.slice()
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
-		currentIndex -= 1
+    currentIndex -= 1
 
-		// And swap it with the current element.
-		temporaryValue = array_bis[currentIndex]
-		array_bis[currentIndex] = array_bis[randomIndex]
-		array_bis[randomIndex] = temporaryValue
-	}
+    // And swap it with the current element.
+    temporaryValue = array_bis[currentIndex]
+    array_bis[currentIndex] = array_bis[randomIndex]
+    array_bis[randomIndex] = temporaryValue
+  }
 
   return array_bis
 }
@@ -549,12 +542,10 @@ export function shuffle (array) {
 * motMelange = shuffleLettres (mot)
 * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 */
-export function shuffleLettres(txt) {
-	const array = txt.split('')
-	return shuffle(array).join('')
+export function shuffleLettres (txt) {
+  const array = txt.split('')
+  return shuffle(array).join('')
 }
-
-
 
 /*
 * Mélange les items de deux tableaux de la même manière
@@ -564,18 +555,18 @@ export function shuffleLettres(txt) {
 */
 export function shuffle2tableaux (obj1, obj2) {
   let index = obj1.length
-	var rnd, tmp1, tmp2
+  let rnd, tmp1, tmp2
 
-	while (index) {
+  while (index) {
     rnd = Math.floor(Math.random() * index)
-		index -= 1
-		tmp1 = obj1[index]
-		tmp2 = obj2[index]
-		obj1[index] = obj1[rnd]
-		obj2[index] = obj2[rnd]
-		obj1[rnd] = tmp1
-		obj2[rnd] = tmp2
-	}
+    index -= 1
+    tmp1 = obj1[index]
+    tmp2 = obj2[index]
+    obj1[index] = obj1[rnd]
+    obj2[index] = obj2[rnd]
+    obj1[rnd] = tmp1
+    obj2[rnd] = tmp2
+  }
 }
 
 /*
@@ -586,16 +577,16 @@ export function shuffle2tableaux (obj1, obj2) {
 * @Source https://stackoverflow.com/questions/10946880/sort-a-dictionary-or-whatever-key-value-data-structure-in-js-on-word-number-ke
 */
 export function tridictionnaire (dict) {
-  let sorted = []
-	for (let key in dict) {
+  const sorted = []
+  for (const key in dict) {
     sorted[sorted.length] = key
-	}
+  }
   sorted.sort()
 
-	var tempDict = {}
-	for (let i = 0; i < sorted.length; i++) {
+  const tempDict = {}
+  for (let i = 0; i < sorted.length; i++) {
     tempDict[sorted[i]] = dict[sorted[i]]
-	}
+  }
 
   return tempDict
 }
@@ -624,14 +615,14 @@ if (!Object.fromEntries) {
 
       const o = {}
 
-			Object.keys(entries).forEach((key) => {
+      Object.keys(entries).forEach((key) => {
         const [k, v] = entries[key]
 
-				o[k] = v
-			})
+        o[k] = v
+      })
 
-			return o
-		}
+      return o
+    }
   })
 }
 
@@ -678,7 +669,7 @@ function cleExisteEtContient (v, val) {
 export function combinaison_listes (liste, taille_minimale) {
   if (liste.length == 0) return []
   let l = shuffle(liste)
-	while (l.length < taille_minimale) {
+  while (l.length < taille_minimale) {
     l = l.concat(shuffle(liste))
   }
   return l
@@ -730,7 +721,7 @@ export function exposant (texte) {
 */
 export function ecriture_nombre_relatif (a) {
   let result = ''
-	if (a > 0) {
+  if (a > 0) {
     result = '(+' + a + ')'
   } else if (a < 0) {
     result = '(' + a + ')'
@@ -745,13 +736,13 @@ export function ecriture_nombre_relatif (a) {
  */
 export function ecriture_nombre_relatifc (a) {
   let result = ''
-	if (a > 0) {
+  if (a > 0) {
     result = mise_en_evidence('(+' + tex_nombrec(a) + ')', 'blue')
-	} else if (a < 0) {
+  } else if (a < 0) {
     result = mise_en_evidence('(' + tex_nombrec(a) + ')')
-	} else { // ne pas mettre de parenthèses pour 0
+  } else { // ne pas mettre de parenthèses pour 0
     result = mise_en_evidence('0', 'black')
-	}
+  }
   return result
 }
 
@@ -763,11 +754,11 @@ export function ecriture_nombre_relatifc (a) {
 */
 export function ecriture_algebrique (a) {
   let result = ''
-	if (a >= 0) {
+  if (a >= 0) {
     result = '+' + tex_nombrec(a)
-	} else {
+  } else {
     result = tex_nombrec(a)
-	}
+  }
   return result
 }
 
@@ -779,18 +770,18 @@ export function ecriture_algebrique (a) {
 */
 export function ecriture_algebrique_sauf1 (a) {
   let result = ''
-	if (a >= 0) {
+  if (a >= 0) {
     result = '+' + tex_nombrec(a)
-	}
+  }
   if (a < 0) {
     result = tex_nombrec(a)
-	}
+  }
   if (a == 1) {
     result = '+'
-	}
+  }
   if (a == -1) {
     result = '-'
-	}
+  }
   return result
 }
 
@@ -800,12 +791,12 @@ export function ecriture_algebrique_sauf1 (a) {
  */
 export function ecriture_algebriquec (a) {
   let result = ''
-	if (a > 0) {
+  if (a > 0) {
     result = mise_en_evidence('+' + tex_nombrec(a), 'blue')
-	} else if (a < 0) {
+  } else if (a < 0) {
     result = mise_en_evidence(tex_nombrec(a))
-	} else result = mise_en_evidence(tex_nombrec(a), 'black')
-	return result
+  } else result = mise_en_evidence(tex_nombrec(a), 'black')
+  return result
 }
 
 /**
@@ -816,11 +807,11 @@ export function ecriture_algebriquec (a) {
 */
 export function ecriture_parenthese_si_negatif (a) {
   let result = ''
-	if (a >= 0) {
+  if (a >= 0) {
     result = a
-	} else {
+  } else {
     result = `(${a})`
-	}
+  }
   return result
 }
 
@@ -832,11 +823,11 @@ export function ecriture_parenthese_si_negatif (a) {
 */
 export function ecriture_parenthese_si_moins (expr) {
   let result = ''
-	if (expr[0] == '-') {
+  if (expr[0] == '-') {
     result = `(${expr})`
-	} else {
+  } else {
     result = expr
-	}
+  }
   return result
 }
 
@@ -849,11 +840,11 @@ export function ecriture_parenthese_si_moins (expr) {
 
 export function calcul_aligne (numero, etapes) {
   let script = `$\\begin{aligned}${mise_en_evidence(lettre_depuis_chiffre(numero))}&=${etapes[0]}`
-	for (let i = 1; i < etapes.length - 1; i++) {
+  for (let i = 1; i < etapes.length - 1; i++) {
     script += `\\\\&=${etapes[i]}`
-	}
+  }
   script += `\\\\${mise_en_evidence(lettre_depuis_chiffre(numero) + '&=' + etapes[etapes.length - 1])}$`
-	return script
+  return script
 }
 
 /**
@@ -864,13 +855,13 @@ export function calcul_aligne (numero, etapes) {
 export function valeur_base (n) {
   switch (n) {
     case 'A': return 10
-		case 'B': return 11
-		case 'C': return 12
-		case 'D': return 13
-		case 'E': return 14
-		case 'F': return 15
-		default: return parseInt(n)
-	}
+    case 'B': return 11
+    case 'C': return 12
+    case 'D': return 13
+    case 'E': return 14
+    case 'F': return 15
+    default: return parseInt(n)
+  }
 }
 
 /**
@@ -897,10 +888,10 @@ Math.radians = function (degres) {
 
 export function produit_matrice_vecteur_3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
   const resultat = [0, 0, 0]
-	for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice
+  for (let j = 0; j < 3; j++) { // Chaque ligne de la matrice
     for (let i = 0; i < 3; i++) { // On traite la ligne i de la matrice -> résultat = coordonnée i du vecteur résultat
       resultat[j] += matrice[j][i] * vecteur[i]
-		}
+    }
   }
   return resultat
 }
@@ -914,10 +905,11 @@ export function produit_matrice_vecteur_3x3 (matrice, vecteur) { // matrice est 
 
 export function produit_matrice_matrice_3x3 (matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
   const resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-	for (let j = 0; j < 3; j++)
-    {for (let i = 0; i < 3; i++)
-			for (let k = 0; k < 3; k++)
-				resultat[j][i] += matrice1[j][k] * matrice2[k][i];}
+  for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < 3; i++) {
+      for (let k = 0; k < 3; k++) { resultat[j][i] += matrice1[j][k] * matrice2[k][i] }
+    }
+  }
   return resultat
 }
 /**
@@ -928,7 +920,7 @@ export function produit_matrice_matrice_3x3 (matrice1, matrice2) { // les deux m
  */
 export function changement_de_base_ortho_tri (point) {
   if (point.length == 2) point.push(1)
-	return produit_matrice_vecteur_3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
+  return produit_matrice_vecteur_3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
 }
 /**
  *
@@ -938,7 +930,7 @@ export function changement_de_base_ortho_tri (point) {
  */
 export function changement_de_base_tri_ortho (point) {
   if (point.length == 2) point.push(1)
-	return produit_matrice_vecteur_3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
+  return produit_matrice_vecteur_3x3([[1, Math.cos(Math.PI / 3), 0], [0, Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
 }
 
 /**
@@ -969,83 +961,82 @@ export function image_point_par_transformation (transformation, pointA, pointO, 
   // nécessite d'être en repère orthonormal...
   // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
 
-  const matrice_sym_obl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) //x'=y et y'=x
-	let matrice_sym_xxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-	let matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-	let matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-	let matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-	let matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-	let matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-	let matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-	let matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matrice_sym_obl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
+  const matrice_sym_xxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
+  const matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
+  const matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
+  const matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
+  const matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
+  const matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
+  const matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
 
-	let x2; let y2; let u; let v; let k; let pointA1 = [0, 0, 0]; let pointA2 = [0, 0, 0]
+  let x2; let y2; let u; let v; let k; let pointA1 = [0, 0, 0]; let pointA2 = [0, 0, 0]
 
-	if (pointA.length == 2) pointA.push(1)
-	x2 = pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-	y2 = pointO[1]
-	u = vecteur[0] // (u,v) vecteur de translation.
-	v = vecteur[1]
-	k = rapport // rapport d'homothétie
+  if (pointA.length == 2) pointA.push(1)
+  x2 = pointO[0] // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+  y2 = pointO[1]
+  u = vecteur[0] // (u,v) vecteur de translation.
+  v = vecteur[1]
+  k = rapport // rapport d'homothétie
 
+  const matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
+  const matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
+  const matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
+  const matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
+  const matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
 
-	let matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-	let matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-	let matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-	let matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-	let matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
+  let matrice
 
-	let matrice
-
-	switch (transformation) {
+  switch (transformation) {
     case 1:
       matrice = matrice_sym_obl1.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 2:
       matrice = matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 3:
       matrice = matrice_sym_xxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 4:
       matrice = matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 5:
       matrice = matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 6:
       matrice = matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 7:
       matrice = matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 11:
       matrice = matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 12:
       matrice = matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 13:
       matrice = matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 14:
       matrice = matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 8:
       matrice = matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 9:
       matrice = matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
     case 10:
       matrice = matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
-			break;
+      break
   }
   pointA1 = matrice.multiplieVecteur(pointA)
-	pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1)
-	return pointA2
+  pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1)
+  return pointA2
 }
 
 /**
@@ -1056,11 +1047,11 @@ export function image_point_par_transformation (transformation, pointA, pointO, 
 */
 export function signe (a) { // + ou -
   let result = ''
-	if (a > 0) {
+  if (a > 0) {
     result = '+'
-	} else {
+  } else {
     result = '-'
-	}
+  }
   return result
 }
 
@@ -1072,7 +1063,7 @@ export function signe (a) { // + ou -
  */
 export function unSiPositifMoinsUnSinon (a) {
   if (a < 0) return -1
-	else return 1
+  else return 1
 }
 /**
 * Retourne un string avec la somme des chiffres
@@ -1082,11 +1073,11 @@ export function unSiPositifMoinsUnSinon (a) {
 * @Auteur Rémi Angot
 */export function somme_des_chiffre (n) {
   let somme_string = ''
-	for (let i = 0; i < n.length - 1; i++) {
+  for (let i = 0; i < n.length - 1; i++) {
     somme_string += n[i] + '+'
-	}
+  }
   somme_string += n[n.length - 1]
-	return somme_string
+  return somme_string
 }
 
 /**
@@ -1096,7 +1087,7 @@ export function unSiPositifMoinsUnSinon (a) {
 */
 export function arrondi (nombre, precision = 2) {
   const tmp = Math.pow(10, precision)
-	return Math.round(nombre * tmp) / tmp
+  return Math.round(nombre * tmp) / tmp
 }
 /**
  * Retourne la troncature signée de nombre.
@@ -1104,12 +1095,12 @@ export function arrondi (nombre, precision = 2) {
  */
 export function troncature (nombre, precision) {
   let absolu, tronc
-	let tmp = Math.pow(10, precision)
+  const tmp = Math.pow(10, precision)
 
-	absolu = Math.abs(nombre)
-	tronc = calcul(Math.floor(absolu * tmp) / tmp)
-	if (nombre < 0) return -tronc
-	else return tronc
+  absolu = Math.abs(nombre)
+  tronc = calcul(Math.floor(absolu * tmp) / tmp)
+  if (nombre < 0) return -tronc
+  else return tronc
 }
 
 /**
@@ -1126,7 +1117,7 @@ export function abs (a) {
 */
 export function arrondi_virgule (nombre, precision = 2) { //
   const tmp = Math.pow(10, precision)
-	return String(Math.round(nombre * tmp) / tmp).replace('.', ',')
+  return String(Math.round(nombre * tmp) / tmp).replace('.', ',')
 }
 
 /**
@@ -1142,7 +1133,7 @@ export function pgcd (a, b) {
 * @Auteur Rémi Angot
 */
 export const ppcm = (a, b) => {
- return parseInt(Algebrite.run(`lcm(${a},${b})`))
+  return parseInt(Algebrite.run(`lcm(${a},${b})`))
 }
 
 /**
@@ -1152,14 +1143,14 @@ export const ppcm = (a, b) => {
 */
 export function fraction_simplifiee (n, d) {
   const p = pgcd(n, d)
-	let ns = n / p
-	let ds = d / p
-	if (ns < 0 && ds < 0) {
+  let ns = n / p
+  let ds = d / p
+  if (ns < 0 && ds < 0) {
     [ns, ds] = [-ns, -ds]
-	}
+  }
   if (ns > 0 && ds < 0) {
     [ns, ds] = [-ns, -ds]
-	}
+  }
   return [ns, ds]
 }
 
@@ -1170,9 +1161,9 @@ export function fraction_simplifiee (n, d) {
 export function tex_fraction_reduite (n, d) {
   if (Math.abs(n) % Math.abs(d) == 0) {
     return n / d
-	} else {
+  } else {
     return tex_fraction_signe(fraction_simplifiee(n, d)[0], fraction_simplifiee(n, d)[1])
-	}
+  }
 }
 /**
  * produit_de_deux_fractions(num1,den1,num2,den2) retourne deux chaines :
@@ -1181,23 +1172,23 @@ export function tex_fraction_reduite (n, d) {
  */
 export function produit_de_deux_fractions (num1, den1, num2, den2) {
   let num, den, tex_produit
-	if (num1 == den2) {
+  if (num1 == den2) {
     tex_produit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
-		num = num2
-		num1 = 1
-		den2 = 1
-		den = den1
-	} else if (num2 == den1) {
+    num = num2
+    num1 = 1
+    den2 = 1
+    den = den1
+  } else if (num2 == den1) {
     tex_produit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
-		num = num1
-		num2 = 1
-		den1 = 1
-		den = den2
-	} else {
+    num = num1
+    num2 = 1
+    den1 = 1
+    den = den2
+  } else {
     num = num1 * num2
-		den = den1 * den2
-		tex_produit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
-	}
+    den = den1 * den2
+    tex_produit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+  }
   return [tex_fraction(num, den), tex_produit, [num1, den1, num2, den2]]
 }
 
@@ -1210,13 +1201,13 @@ export function produit_de_deux_fractions (num1, den1, num2, den2) {
 export function simplification_de_fraction_avec_etapes (num, den) {
   // Est-ce que le résultat est simplifiable ?
   let result = ''
-	let s = pgcd(num, den)
-	if (s != 1) {
+  const s = pgcd(num, den)
+  if (s != 1) {
     if ((num) % (den) == 0) { // si le résultat est entier
       result = `=${(num) / (den)}`
-		} else {
+    } else {
       result = `=${tex_fraction(Algebrite.eval((num) / s) + mise_en_evidence('\\times' + s), Algebrite.eval(den / s) + mise_en_evidence('\\times' + s))}=${tex_fraction_signe(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
-		}
+    }
   }
   return result
 }
@@ -1228,9 +1219,9 @@ export function simplification_de_fraction_avec_etapes (num, den) {
  */
 
 export function produits_en_croix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
-  let result = '';
+  let result = ''
   result += `$${a}\\times${d}=${b}\\times${c}$`
-	return result
+  return result
 }
 
 /**
@@ -1244,17 +1235,17 @@ export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*
   if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {
     if (a == 0) {
       result = '=erreur : division par zéro'
-			return result
-		}
+      return result
+    }
     const p4 = calcul(b * c / a)
-		result += `\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`
-		if (p4 == arrondi(p4, precision)) result += '=';
-    else result += '\\approx';
+    result += `\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`
+    if (p4 == arrondi(p4, precision)) result += '='
+    else result += '\\approx'
     result += `${arrondi_virgule(p4, precision)}`
-		return result
-	} else {
+    return result
+  } else {
     return `\\dfrac{${b} \\times${c}}{${a}}`
-	}
+  }
 }
 
 /**
@@ -1264,54 +1255,57 @@ export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*
  * @param {number} b
  */
 export function reduire_ax_plus_b (a, b) {
-  let result = '';
-  if (a != 0) {if (a == 1) result = 'x';
-	else if (a == -1) result = '-x';
-	else result = `${tex_nombrec(a)}x`;}
-  if (b != 0) {if (a != 0) result += `${ecriture_algebrique(b)}`;
-	else result = tex_nombrec(b);}
-  else if (a == 0) result = '0'
-	return result
+  let result = ''
+  if (a != 0) {
+    if (a == 1) result = 'x'
+    else if (a == -1) result = '-x'
+    else result = `${tex_nombrec(a)}x`
+  }
+  if (b != 0) {
+    if (a != 0) result += `${ecriture_algebrique(b)}`
+    else result = tex_nombrec(b)
+  } else if (a == 0) result = '0'
+  return result
 }
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @Auteur Jean-Claude Lhote
  */
 export function reduire_polynome_degre3 (a, b, c, d) {
-  let result = '';
+  let result = ''
   if (a != 0) {
     switch (a) {
       case 1:
         result += 'x^3'
-				break;
+        break
       case -1:
         result += '-x^3'
-				break;
+        break
       default:
         result += `${a}x^3`
         break
-		}
+    }
     if (b != 0) {
       switch (b) {
         case 1:
           result += '+x^2'
-					break;
+          break
         case -1:
           result += '-x^2'
-					break;
+          break
         default:
           result += `${ecriture_algebrique(b)}x^2`
-					break;
+          break
       }
     }
     if (c != 0) {
       switch (c) {
         case 1:
           result += '+x'
-					break;
+          break
         case -1:
           result += '-x'
-					break;
+          break
         default:
           result += `${ecriture_algebrique(c)}x`
           break
@@ -1325,49 +1319,49 @@ export function reduire_polynome_degre3 (a, b, c, d) {
       switch (b) {
         case 1:
           result += 'x^2'
-					break;
+          break
         case -1:
           result += '-x^2'
-					break;
+          break
         default:
           result += `${b}x^2`
-					break;
+          break
       }
       if (c != 0) {
         switch (c) {
           case 1:
             result += '+x'
-						break;
+            break
           case -1:
             result += '-x'
-						break;
+            break
           default:
             result += `${ecriture_algebrique(c)}x`
-						break;
+            break
         }
       }
       if (d != 0) {
         result += `${ecriture_algebrique(d)}`
-			}
+      }
     } else // degré 1 pas de degré 2 ni de degré 3
     if (c != 0) {
       switch (c) {
         case 1:
           result += 'x'
-						break;
+          break
         case -1:
           result += '-x'
-						break;
+          break
         default:
           result += `${c}x`
-						break;
+          break
       }
       if (d != 0) {
         result += `${ecriture_algebrique(d)}`
-				}
+      }
     } else { // degré 0 a=0, b=0 et c=0
       result += `${d}`
-			}
+    }
   }
   return result
 }
@@ -1380,15 +1374,15 @@ export function reduire_polynome_degre3 (a, b, c, d) {
 export function obtenir_liste_facteurs_premiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-	let liste_nombres_premiers = obtenir_liste_nombres_premiers()
-	let i = 0
-	while (n > 1 && liste_nombres_premiers[i] <= n) {
+  const liste_nombres_premiers = obtenir_liste_nombres_premiers()
+  let i = 0
+  while (n > 1 && liste_nombres_premiers[i] <= n) {
     if (n % liste_nombres_premiers[i] == 0) {
       liste.push(liste_nombres_premiers[i])
-			n /= liste_nombres_premiers[i]
-		} else {
+      n /= liste_nombres_premiers[i]
+    } else {
       i++
-		}
+    }
   }
   if (liste.length == 0) { liste.push(n) }
   return liste
@@ -1402,7 +1396,7 @@ export function obtenir_liste_facteurs_premiers (n) {
 
 export function factorisation (n) {
   const liste = obtenir_liste_facteurs_premiers(n)
-  let facto = []; let index = 0
+  const facto = []; let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] == 0) i++
     else {
@@ -1432,9 +1426,9 @@ export function extraire_racine_carree (n) {
   for (let i = 0; i < facto.length; i++) {
     if (facto[i][1] % 2 == 0) {
       facteur *= facto[i][0] ** (calcul(facto[i][1] / 2))
-		} else if (facto[i][1] > 1) {
+    } else if (facto[i][1] > 1) {
       facteur *= facto[i][0] ** (calcul((facto[i][1] - 1) / 2))
-			radical *= facto[i][0]
+      radical *= facto[i][0]
     } else radical *= facto[i][0]
   }
   return [facteur, radical]
@@ -1459,7 +1453,6 @@ export function tex_racine_carree (n) {
 */
 export function xcas (expression) {
   return UI.eval(`latex(${expression})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('\"', '')
-
 }
 
 /**
@@ -1472,7 +1465,7 @@ export function calcul (expression, arrondir = false) {
     return parseFloat(Algebrite.eval('float(' + expression + ')'))
   } else {
     return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir)
-	}
+  }
 }
 
 /**
@@ -1485,7 +1478,7 @@ export function nombreDecimal (expression, arrondir = false) {
     return string_nombre(calcul(expression))
   } else {
     return string_nombre(calcul(expression, 1))
-	}
+  }
 }
 
 /**
@@ -1502,7 +1495,7 @@ export function tex_nombrec (expression) {
 export function tex_nombrecoul (nombre) {
   if (nombre > 0) return mise_en_evidence(tex_nombrec(nombre), 'green')
   else if (nombre < 0) return mise_en_evidence(tex_nombrec(nombre), 'red')
-	else return mise_en_evidence(tex_nombrec(0), 'black')
+  else return mise_en_evidence(tex_nombrec(0), 'black')
 }
 
 /**
@@ -1525,7 +1518,7 @@ export function trie_positifs_negatifs (liste) {
 */
 export function somme_des_termes_par_signe (liste) {
   let somme_des_positifs = 0; let somme_des_negatifs = 0
-	for (let i = 0; i < liste.length; i++) {
+  for (let i = 0; i < liste.length; i++) {
     if (liste[i] > 0) {
       somme_des_positifs += liste[i]
     } else {
@@ -1541,21 +1534,21 @@ export function somme_des_termes_par_signe (liste) {
 */
 export function creerNomDePolygone (nbsommets, liste_a_eviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
-	let polygone = '';
+  let polygone = ''
   for (let i = 0; i < nbsommets; i++) {
     polygone += String.fromCharCode(premiersommet + i)
   }
 
   if (liste_a_eviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
     let cpt = 0
-		while (possedeUnCaractereInterdit(polygone, liste_a_eviter) && cpt < 20) {
-      polygone = '';
+    while (possedeUnCaractereInterdit(polygone, liste_a_eviter) && cpt < 20) {
+      polygone = ''
       premiersommet = randint(65, 90 - nbsommets)
-			for (let i = 0; i < nbsommets; i++) {
+      for (let i = 0; i < nbsommets; i++) {
         polygone += String.fromCharCode(premiersommet + i)
       }
       cpt++ // Au bout de 20 essais on laisse tomber la liste à éviter
-		}
+    }
   } else {
     console.log('Trop de questions donc plusieurs polygones peuvent avoir le même nom')
   }
@@ -1588,14 +1581,13 @@ export function choisit_nombres_entre_m_et_n (m, n, combien, liste_a_eviter = []
   let t
   if (m > n) {
     t = m
-		m = n
-		n = t
-	} else if (m == n)
-    {return [n];}
+    m = n
+    n = t
+  } else if (m == n) { return [n] }
   if (combien > n - m) combien = n - m
-	let index = rangeMinMax(m, n, liste_a_eviter)
+  let index = rangeMinMax(m, n, liste_a_eviter)
   index = shuffle(index)
-	index = index.slice(0, combien)
+  index = index.slice(0, combien)
   return index
 }
 /**
@@ -1604,21 +1596,21 @@ export function choisit_nombres_entre_m_et_n (m, n, combien, liste_a_eviter = []
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @Auteur Jean-Claude Lhote
  */
-export function choisit_lettres_differentes(nombre, lettres_a_eviter = '', majuscule = true) {
-	let liste_a_eviter = [], lettres = []
-	for (let l of lettres_a_eviter) {
-		liste_a_eviter.push(l.charCodeAt(0) - 64)
-	}
-	let index = choisit_nombres_entre_m_et_n(1, 26, nombre, liste_a_eviter)
-	for (let n of index) {
-		if (majuscule) lettres.push(lettre_depuis_chiffre(n))
-		else lettres.push(lettre_minuscule_depuis_chiffre(n))
-	}
-	return lettres
+export function choisit_lettres_differentes (nombre, lettres_a_eviter = '', majuscule = true) {
+  const liste_a_eviter = []; const lettres = []
+  for (const l of lettres_a_eviter) {
+    liste_a_eviter.push(l.charCodeAt(0) - 64)
+  }
+  const index = choisit_nombres_entre_m_et_n(1, 26, nombre, liste_a_eviter)
+  for (const n of index) {
+    if (majuscule) lettres.push(lettre_depuis_chiffre(n))
+    else lettres.push(lettre_minuscule_depuis_chiffre(n))
+  }
+  return lettres
 }
-export function cesar(word, decal) {
-	let mot = '', code = 65;
-	for (let x = 0; x < word.length; x++) {
+export function cesar (word, decal) {
+  let mot = ''; let code = 65
+  for (let x = 0; x < word.length; x++) {
     code = word.charCodeAt(x) % 65
     code = (code + decal) % 26 + 65
     mot += String.fromCharCode(code)
@@ -1675,15 +1667,15 @@ export function lettre_minuscule_depuis_chiffre (i) {
 */
 export function minToHoraire (minutes) {
   let nbHour = parseInt(minutes / 60)
-	if (nbHour > 23) {
+  if (nbHour > 23) {
     nbHour = nbHour - 24
   }
-  let nbminuteRestante = (minutes % 60)
-	if (nbminuteRestante > 9) {
+  const nbminuteRestante = (minutes % 60)
+  if (nbminuteRestante > 9) {
     return (nbHour + ' h ' + nbminuteRestante)
-	} else {
+  } else {
     return (nbHour + ' h 0' + nbminuteRestante)
-	}
+  }
 }
 
 /**
@@ -1693,18 +1685,18 @@ export function minToHoraire (minutes) {
 */
 export function minToHour (minutes) {
   let nbHour = parseInt(minutes / 60)
-	if (nbHour > 23) {
+  if (nbHour > 23) {
     nbHour = nbHour - 24
   }
-  let nbminuteRestante = (minutes % 60)
-	if (nbHour == 0) {
+  const nbminuteRestante = (minutes % 60)
+  if (nbHour == 0) {
     return (nbminuteRestante + ' min')
   } else {
     if (nbminuteRestante > 9) {
       return (nbHour + ' h ' + nbminuteRestante)
-		} else {
+    } else {
       return (nbHour + ' h 0' + nbminuteRestante)
-		}
+    }
   }
 }
 
@@ -1712,65 +1704,61 @@ export function minToHour (minutes) {
 * Renvoie un prénom féminin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomF(n = 1) {
-	if (n == 1) {
-		return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
-	}
-	else {
-		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine']).slice(0, n)
-	}
+export function prenomF (n = 1) {
+  if (n == 1) {
+    return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
+  } else {
+    return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine']).slice(0, n)
+  }
 }
 
 /**
 * Renvoie un prénom masculin au hasard
 * @Auteur Rémi Angot
 */
-export function prenomM(n = 1) {
-	if (n == 1) {
-		return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
-	}
-	else {
-		return shuffle(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
-	}
+export function prenomM (n = 1) {
+  if (n == 1) {
+    return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
+  } else {
+    return shuffle(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+  }
 }
 
 /**
 * Renvoie un prénom au hasard
 * @Auteur Rémi Angot
 */
-export function prenom(n = 1) {
-	if (n == 1) {
-		return choice([prenomF(), prenomM()])
-	}
-	else {
-		return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine','Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
-	}
+export function prenom (n = 1) {
+  if (n == 1) {
+    return choice([prenomF(), prenomM()])
+  } else {
+    return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine', 'Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+  }
 }
 
+/**
+* Renvoie un petit objet féminin au hasard
+* @Auteur Mireille Gain
+*/
+export function objetF () {
+  return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images'])
+}
 
 /**
-* Renvoie un petit objet féminin au hasard 
+* Renvoie un petit objet masculin au hasard
 * @Auteur Mireille Gain
 */
-export function objetF() {
-	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images'])
-	}
+export function objetM () {
+  return choice(['auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
+}
 
-	/**
-* Renvoie un petit objet masculin au hasard 
+/**
+* Renvoie un petit objet au hasard
 * @Auteur Mireille Gain
 */
-export function objetM() {
-	return choice(['auto-collants','bonbons','cahiers','livres','stylos'])
-	}
-
-		/**
-* Renvoie un petit objet au hasard 
-* @Auteur Mireille Gain
-*/
-export function objet() {
-	return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images','auto-collants','bonbons','cahiers','livres','stylos'])
-	}
+export function objet () {
+  return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
+}
 
 /**
  * Définit l'objet personne
@@ -1815,7 +1803,7 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
  * le 14/03/2021
  */
 export function personnes (n) {
-  let liste = []; let essai; let  trouve
+  const liste = []; let essai; let trouve
   for (let i = 0; i < n;) {
     essai = personne()
     trouve = false
@@ -1854,12 +1842,12 @@ export function prenomPronom () {
 */
 export function tirer_les_des (nombre_tirages, nombre_faces, nombre_des) {
   const tirages = []
-	for (let i = 0; i <= (nombre_faces - 1) * nombre_des; i++) tirages.push([i + nombre_des, 0])
-	for (let i = 0, resultat; i < nombre_tirages; i++) {
+  for (let i = 0; i <= (nombre_faces - 1) * nombre_des; i++) tirages.push([i + nombre_des, 0])
+  for (let i = 0, resultat; i < nombre_tirages; i++) {
     resultat = 0
-		for (let j = 0; j < nombre_des; j++) resultat += randint(1, nombre_faces)
-		tirages[resultat - nombre_des][1]++
-	}
+    for (let j = 0; j < nombre_des; j++) resultat += randint(1, nombre_faces)
+    tirages[resultat - nombre_des][1]++
+  }
   return tirages
 }
 /**
@@ -1871,8 +1859,8 @@ export function tirer_les_des (nombre_tirages, nombre_faces, nombre_des) {
 */
 export function liste_de_notes (nombre_notes, note_min, note_max) {
   const notes = []
-	for (let i = 0; i < nombre_notes; i++) notes.push(randint(note_min, note_max))
-	return notes
+  for (let i = 0; i < nombre_notes; i++) notes.push(randint(note_min, note_max))
+  return notes
 }
 
 /**
@@ -1882,7 +1870,7 @@ export function liste_de_notes (nombre_notes, note_min, note_max) {
 */
 export function jours_par_mois (n) {
   const jours_mois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-	return jours_mois[n - 1]
+  return jours_mois[n - 1]
 }
 /**
 * Renvoie un tableau de températures
@@ -1893,14 +1881,14 @@ export function jours_par_mois (n) {
 */
 export function un_mois_de_temperature (base, mois, annee) {
   const temperatures = []
-	let nombre_jours = jours_par_mois(mois)
-	if (mois == 2) {
-    if (((annee % 4 == 0) && (annee % 100 != 0)) || (annee % 400 == 0)) nombre_jours = 29	// années bissextiles.  
-		else nombre_jours = 28
-	}
+  let nombre_jours = jours_par_mois(mois)
+  if (mois == 2) {
+    if (((annee % 4 == 0) && (annee % 100 != 0)) || (annee % 400 == 0)) nombre_jours = 29	// années bissextiles.
+    else nombre_jours = 28
+  }
   temperatures.push(randint(-3, 3) + base)
-	for (let i = 1; i < nombre_jours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
-	return temperatures
+  for (let i = 1; i < nombre_jours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
+  return temperatures
 }
 
 /**
@@ -1910,7 +1898,7 @@ export function un_mois_de_temperature (base, mois, annee) {
 */
 export function nom_du_mois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
-	return mois[n - 1]
+  return mois[n - 1]
 }
 
 /**
@@ -1918,9 +1906,9 @@ export function nom_du_mois (n) {
 * @param n quantième du jour
 * @auteur Mireille Gain
 */
-export function nom_du_jour(n) {
-	let jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
-	return jour[n - 1]
+export function nom_du_jour (n) {
+  const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+  return jour[n - 1]
 }
 
 /**
@@ -1928,8 +1916,8 @@ export function nom_du_jour(n) {
 * @param n quantième du jour
 * @auteur Mireille Gain
 */
-export function jour() {
-	return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
+export function jour () {
+  return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
 
 // Fonctions LaTeX
@@ -2020,7 +2008,7 @@ export function tex_introduction (texte) {
 export function html_enumerate (liste, spacing) {
   let result = ''
 
-	if (liste.length > 1) {
+  if (liste.length > 1) {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
       result += '<li>' + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
@@ -2092,7 +2080,7 @@ export function html_paragraphe (texte) {
 */
 export function html_ligne (liste, spacing) {
   let result = ''
-	if (spacing > 1) {
+  if (spacing > 1) {
     result = `<div style="line-height: ${spacing};">\n`
   }
   for (const i in liste) {
@@ -2113,12 +2101,12 @@ export function html_ligne (liste, spacing) {
 */
 export function tex_multicols (texte, nb_cols = 2) {
   let result
-	if (nb_cols > 1) {
+  if (nb_cols > 1) {
     result = '\\begin{multicols}{' + nb_cols + '}\n' +
 			texte + '\n\\end{multicols}'
-	} else {
+  } else {
     result = texte
-	}
+  }
   return result
 }
 
@@ -2147,15 +2135,15 @@ export function tex_nombre (nb) {
   if (sortie_html) {
     // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}'); // .replace(',','{,}') servait à enlever l'espace disgracieux des décimaux mais ne passait qu'en mode LaTeX
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ') // \nombre n'est pas pris en charge par katex
-	} else {
+  } else {
     let result
-		if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-		} else {
+    } else {
       result = nb.toString().replace('.', ',')
-		}
+    }
     return result
-	}
+  }
 }
 
 /**
@@ -2219,15 +2207,15 @@ export function nombre_avec_espace (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (sortie_html) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
-	} else {
+  } else {
     let result
-		if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-		} else {
+    } else {
       result = nb.toString().replace('.', ',')
-		}
+    }
     return result
-	}
+  }
 }
 
 /**
@@ -2237,19 +2225,19 @@ export function nombre_avec_espace (nb) {
 export function string_nombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   const nombre = nb.toString()
-	let partie_entiere = nombre.split('.')[0]
-	let partie_decimale = nombre.split('.')[1]
-	let result = ''
-	let i
-	if (partie_entiere.length > 3) {
+  const partie_entiere = nombre.split('.')[0]
+  const partie_decimale = nombre.split('.')[1]
+  let result = ''
+  let i
+  if (partie_entiere.length > 3) {
     for (i = 0; i < Math.floor(partie_entiere.length / 3); i++) {
       result = ' ' + partie_entiere.slice(partie_entiere.length - i * 3 - 3, partie_entiere.length - i * 3) + result
-		}
+    }
     result = partie_entiere.slice(0, partie_entiere.length - i * 3) + result
-	} else result = partie_entiere
-	if (result[0] == ' ') result = result.substring(1, result.length)
+  } else result = partie_entiere
+  if (result[0] == ' ') result = result.substring(1, result.length)
   if (partie_decimale != undefined) result += ',' + partie_decimale
-	return result
+  return result
 }
 /**
 * Met en couleur et en gras
@@ -2392,14 +2380,13 @@ export function href (texte, lien) {
 export function tex_prix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
-	let result
-	if (nombre == nombre.toFixed(0)) {
+  let result
+  if (nombre == nombre.toFixed(0)) {
     result = nombre
   } else {
-    result = nombre.toFixed(2).toString().replace('.', ',') //Ne gère pas l'espace des milliers
-	}
+    result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers
+  }
   return result
-
 }
 
 /**
@@ -2485,10 +2472,10 @@ export function obtenir_liste_nombres_premiers () {
 */
 export function decomposition_facteurs_premiers (n) {
   let decomposition = ''
-	let liste = obtenir_liste_facteurs_premiers(n)
-	for (const i in liste) {
+  const liste = obtenir_liste_facteurs_premiers(n)
+  for (const i in liste) {
     decomposition += liste[i] + '\\times'
-	}
+  }
   decomposition = decomposition.substr(0, decomposition.length - 6)
   return decomposition
 }
@@ -2499,11 +2486,11 @@ export function decomposition_facteurs_premiers (n) {
 */
 export function liste_des_diviseurs (n) {
   let k = 2
-	let liste = [1]
-	while (k <= n) {
+  const liste = [1]
+  while (k <= n) {
     if (n % k == 0) {
       liste.push(k)
-		}
+    }
     k++
   }
 
@@ -2644,8 +2631,8 @@ export function MG32_ajouter_figure (numero_de_l_exercice) {
 export function MG32_tracer_toutes_les_figures () {
   (function verifie_div_MG32 () {
     const el = document.getElementsByClassName('MG32')
-		// Sélectionne les div de classe MG32
-		if (el.length) { // S'ils existent, on peut appeler MG32
+    // Sélectionne les div de classe MG32
+    if (el.length) { // S'ils existent, on peut appeler MG32
       Promise.all(MG32_tableau_de_figures.map(({ idContainer, svgOptions, mtgOptions }) => mtgLoad(idContainer, svgOptions, mtgOptions)))
         .then(results => {
           // results est le tableau des valeurs des promesses résolues, avec la même instance du player pour chacune, la 1re valeur nous suffit donc
@@ -2656,549 +2643,8 @@ export function MG32_tracer_toutes_les_figures () {
         .catch(error => console.error(error))
     } else {
       setTimeout(verifie_div_MG32, 300) // retente dans 300 milliseconds
-		}
+    }
   })()
-
-}
-
-/**
- * Trace un axe vertical gradué
- * @param {string} mon_svg l'id du svg
- * @param {number} start ordonnée du début de l'axe en pixels (end-start=longueur del'axe)
- * @param {number} end ordonnée de fin del'axe en pixels
- * @param {number} absO position en abscisse de l'axe en pixels
- * @param {number} DeltaY Nombre entier de graduations à faire sur la longueur de l'axe.
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_Axe_vertical (mon_svg, start, end, absO, DeltaY, subY) {
-  const droite = mon_svg.line(absO, start + 2, absO, end)
-  droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-  for (let i = 0; i < DeltaY; i++) {
-    const line = mon_svg.line(absO - 2, (DeltaY - i) * ((end - start) / DeltaY), absO + 2, (DeltaY - i) * ((end - start) / DeltaY))
-    line.stroke({ color: 'black', width: 2, linecap: 'round' })
-    if (subY != 1) {
-      for (let k = 1; k < subY; k++) {
-        const line = mon_svg.line(absO - 2, ((end - start) / DeltaY) * (DeltaY - i - k / subY), absO + 2, ((end - start) / DeltaY) * (DeltaY - i - k / subY))
-        line.stroke({ color: 'black', width: 1, linecap: 'round' })
-      }
-    }
-  }
-}
-/**
- * Trace un axe horizontal gradué
- * @param {string} mon_svg l'id du svg
- * @param {number} start abscisse du début de l'axe en pixels (end-start=longueur del'axe)
- * @param {number} end abscisse de fin del'axe en pixels
- * @param {number} absO position en ordonnée de l'axe en pixels
- * @param {number} DeltaX Nombre entier de graduations à faire sur la longueur de l'axe.
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_Axe_horizontal (mon_svg, start, end, ordO, DeltaX, subX) {
-  const droite = mon_svg.line(start, ordO, end - 2, ordO)
-  droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-  for (let i = 1; i <= DeltaX; i++) {
-    const line = mon_svg.line(start + (DeltaX - i) * ((end - start) / DeltaX), ordO - 2, start + (DeltaX - i) * ((end - start) / DeltaX), ordO + 2)
-    line.stroke({ color: 'black', width: 2, linecap: 'round' })
-    if (subX != 1) {
-      for (let k = 1; k < subX; k++) {
-        const line = mon_svg.line(start + (DeltaX - i + k / subX) * ((end - start) / DeltaX), ordO - 2, start + (DeltaX - i + k / subX) * ((end - start) / DeltaX), ordO + 2)
-        line.stroke({ color: 'black', width: 1, linecap: 'round' })
-      }
-    }
-  }
-}
-
-/**
- * Place une grille de points dans un repère au sein d'un SVG
- * @param {string} mon_svg  l'id du svg
- * @param {number} absO abscisse du point de départ de la grille (normalement 0)
- * @param {number} ordO ordonnée du point de départ de la grille (normalement 0)
- * @param {number} tailleX largeur totale de la grille en pixels
- * @param {number} tailleY hauteur totale de la grille en pixels
- * @param {number} DeltaX nombre de graduations horizontales
- * @param {number} DeltaY nombre de graduations verticales
- * @param {number} subX coefficient de fractionnement de la grille en abscisse
- * @param {number} subY coefficient de fractionnement de la grille en ordonéée
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_grille (mon_svg, absO, ordO, tailleX, tailleY, DeltaX, DeltaY, subX, subY) {
-  let line_grille
-	for (let i = 0; i <= DeltaX; i++) {
-    line_grille = mon_svg.line(absO + i * (tailleX / DeltaX), 0, absO + i * (tailleX / DeltaX), tailleY)
-		line_grille.stroke({ color: 'lightgray', width: 1 })
-	}
-  for (let i = 0; i < DeltaX; i++) {
-    if (subX != 1) {
-      for (let k = 0; k < subX; k++) {
-        line_grille = mon_svg.line(absO + i * (tailleX / DeltaX) + k * (tailleX / DeltaX / subX), 0, absO + i * (tailleX / DeltaX) + k * (tailleX / DeltaX / subX), tailleY)
-				line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' })
-			}
-    }
-  }
-  for (let j = 0; j <= DeltaY; j++) {
-    line_grille = mon_svg.line(20, ordO + j * (tailleY / DeltaY), 20 + tailleX, ordO + j * (tailleY / DeltaY))
-		line_grille.stroke({ color: 'lightgray', width: 1 })
-	}
-  for (let j = 0; j < DeltaY; j++) {
-    if (subY != 1) {
-      for (let l = 0; l < subY; l++) {
-        line_grille = mon_svg.line(20, ordO + j * (tailleY / DeltaY) + l * (tailleY / DeltaY / subY), 20 + tailleX, ordO + j * (tailleY / DeltaY) + l * (tailleY / DeltaY / subY))
-				line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' })
-			}
-    }
-  }
-}
-
-/** Trace une graduation sur le SVG
-* @param mon_svg Objet SVG
-* @param origine abscisse en pixel de la première graduation
-* @param pas distance en pixels entre deux graduations
-* @param derniere_graduation abscisse limite en pixel
-* @param taille taille verticale
-* @param y ordonnée de la droite
-* @param couleur couleur de la graduation
-* @param width largeur de la graduation
-* @Auteur Rémi Angot
-*/
-export function SVG_graduation (mon_svg, origine, pas, derniere_graduation, taille = 10, y = 50, couleur = 'black', width = 5) {
-  for (let i = origine; i < derniere_graduation; i += pas) {
-    const line = mon_svg.line(i, y - taille / 2, i, y + taille / 2)
-    line.stroke({ color: couleur, width: width, linecap: 'round' })
-  }
-}
-
-/**
- * Ecris des nombres ou des textes à une position donnée dans un SVG
- * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
- * @param {number} y leading pour position du texte sur la ligne
- * @param {string} couleur couleur du nombre
- * @param {number} opacite valeur d'opacité entre 0 et 1
- * @Auteur Rémi Angot
- */
-export function SVG_label (mon_svg, liste_d_abscisses, y, couleur, opacite) {
-  'use strict'
-	for (let i = 0; i < liste_d_abscisses.length; i++) {
-    let text
-		if (typeof liste_d_abscisses[i][0] === 'number') text = mon_svg.text((liste_d_abscisses[i][0]).toString())
-		else text = mon_svg.text(liste_d_abscisses[i][0])
-		y = parseInt(y)
-		text.move(liste_d_abscisses[i][1], liste_d_abscisses[i][2]).font({
-      fill: couleur,
-      family: 'Helvetica',
-      size: 14,
-      anchor: 'middle',
-      leading: y,
-      opacity: opacite
-    })
-  }
-}
-/**
- * Ecris une fraction dans un SVG
- * @param {any} mon_svg l'Id du SVG
- * @param {number} num le numérateur de la fraction
- * @param {number} den le dénominateur de la fraction
- * @param {number} x l'abscisse de sa position
- * @param {number} y l'ordonnée de sa position
- * @param {string} couleur la couleur de la fraction
- * @Auteur Rémi Angot
- */
-export function SVG_fraction (mon_svg, num, den, x, y, couleur) {
-  'use strict'
-	let longueur = num.toString().length
-	let line = mon_svg.line(x - longueur * 5, y - 7, x + longueur * 5, y - 7)
-	line.stroke({ color: couleur, width: 2, linecap: 'round' })
-  const num_text = mon_svg.text(num.toString()).attr({ x: x, y: y - 10 })
-	num_text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 20,
-    anchor: 'middle',
-    leading: 0
-  })
-  const den_text = mon_svg.text(den.toString()).attr({ x: x, y: y + 10 })
-	den_text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 20,
-    anchor: 'middle',
-    leading: 0
-  })
-}
-
-/**
- *
- * @param {any} mon_svg L'id du SVG
- * @param {number} x l'abscisse du point
- * @param {number} y l'ordonnée du point
- * @param {string} nom le nom du point
- * @param {string} couleur la couleur du point
- * @param {number} shiftxnom décallage en abscisse pour le nom du point
- * @param {number} shiftynom décallage en ordonnée pour le nom du point
- * @param {array} montrer_coord cas 1 : [false] rien n'est ajouté, cas 2 : [true, absAxeX, ordAxeY] trace des flèches jusqu'aux axes
- * @Auteur Rémi Angot et Jean-Claude Lhote
- */
-export function SVG_tracer_point (mon_svg, x, y, nom, couleur, shiftxnom, shiftynom, montrer_coord) {
-  // creer un groupe pour la croix
-  const point = mon_svg.group()
-  const c1 = point.line(-3, 3, 3, -3)
-  c1.stroke({ color: couleur, width: 2, linecap: 'round', opacity: 1 })
-  const c2 = point.line(-3, -3, 3, 3)
-  c2.stroke({ color: couleur, width: 2, linecap: 'round', opacity: 1 })
-  // déplace la croix
-  point.move(x - 3, y - 3)
-  // point.dmove(-3,-3)
-  const text = mon_svg.text(nom).attr({ x: x + shiftxnom, y: y + shiftynom, fill: couleur, opacity: 0.7 })
-  // ecrit le nom
-  text.font({
-    color: couleur,
-    'font-weight': 'bolder',
-    family: 'Helvetica',
-    size: 14,
-    anchor: 'middle',
-    leading: -1
-  })
-  if (montrer_coord[0]) { // montrer_coord=[true,abs_axe,ord_axe] ou [false]
-    if ((y != montrer_coord[2]) && (x != montrer_coord[1])) SVG_tracer_droite_flecheV(mon_svg, x, y, x, montrer_coord[2], couleur, 3)
-    if ((x != montrer_coord[1]) && (y != montrer_coord[2])) SVG_tracer_droite_flecheH(mon_svg, x, y, montrer_coord[1], y, couleur, 3)
-  }
-}
-
-/**
- * Trace une flèche dans le SVG pour une demi-droite graduée
- * @param {any} mon_svg l'identifiant du SVG
- * @param {number} x l'abscisse de la pointe
- * @param {number} y l'ordonnée de la pointe
- * @Auteur Rémi Angot
- */
-function SVG_tracer_flecheH (mon_svg, x, y) {
-  // creer un groupe pour la fleche
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x - 5, y - 5, x, y)
-  c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-  const c2 = fleche.line(x - 5, y + 5, x, y)
-  c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-}
-/**
- *
- * @param {string} mon_svg l'identifiant du SVG
- * @param {number} x l'abscisse de la pointe de la flèche
- * @param {number} y l'ordonnée de la pointe de la flèche
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_tracer_flecheV (mon_svg, x, y) {
-  // creer un groupe pour la fleche
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(-5, 5, 0, 0)
-  c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-  const c2 = fleche.line(5, 5, 0, 0)
-  c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-  // déplace la croix
-  fleche.move(x, y)
-  fleche.dmove(-5, 5)
-}
-
-/**
- *
- * @param {string} mon_svg l'identifiant du SVG
- * @param {number} x1 (x1,y1)=point de départ de la flèche verticale (x1=x2 en général)
- * @param {number} y1
- * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
- * @param {number} y2
- * @param {string} couleur couleur de la flèche
- * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_tracer_droite_flecheV (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x1, y1, x2, y2)
-  c1.stroke({ color: couleur, width: 1, linecap: 'round', dasharray: pointilles, opacity: 0.5 })
-  if (y2 < y1) {
-    const c2 = fleche.line(x2 - 3, y2 + 5, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 3, y2 + 5, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  } else {
-    const c2 = fleche.line(x2 - 3, y2 - 5, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 3, y2 - 5, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  }
-}
-
-/**
- *
- * @param {string} mon_svg l'identifiant du SVG
- * @param {number} x1 (x1,y1)=point de départ de la flèche horizontale (y1=y2 en général)
- * @param {number} y1
- * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
- * @param {number} y2
- * @param {string} couleur couleur de la flèche
- * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
-  const fleche = mon_svg.group()
-  const c1 = fleche.line(x1, y1, x2, y2)
-  c1.stroke({ color: couleur, width: 1, linecap: 'round', dasharray: pointilles, opacity: 0.5 })
-  if (x2 < x1) {
-    const c2 = fleche.line(x2 + 5, y2 + 3, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 + 5, y2 - 3, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  } else {
-    const c2 = fleche.line(x2 - 5, y2 + 3, x2, y2)
-    c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-    const c3 = fleche.line(x2 - 5, y2 - 3, x2, y2)
-    c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
-  }
-}
-/**
- *
- * @param {string} mon_svg l'identifiant du SVG
- * @param {number} tailleX largeur en pixels du SVG
- * @param {number} tailleY hauteur en pixels du SVG
- * @param {number} Xmin l'abscisse minimale du repère
- * @param {number} Xmax l'abscisse maximale du repère
- * @param {number} Ymin l'ordonnée minimale du repère
- * @param {number} Ymax l'ordonnée maximale du repère
- * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
- * @param {number} Pente la Pente de la droite à tracer.
- * @param {string} couleur la couleur de la droite à tracer
- * @param {string} nom le nom de la droite à tracer
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_Tracer_droite (mon_svg, tailleX, tailleY, Xmin, Xmax, Ymin, Ymax, OrdX0, Pente, couleur, nom) {
-  'use strict'
-	let k = 0
-	let Pente_r = Pente * (Xmax - Xmin) / (Ymax - Ymin) // Pente adaptée au ratio d'échelle des axes.
-	while ((k > Xmin) & ((OrdX0 + Pente * k) < Ymax) & ((OrdX0 + Pente * k) > Ymin)) k--
-	let X1 = k
-	let Y1 = OrdX0 + Pente * k
-	let DeltaX = Xmax - Xmin
-	let DeltaY = Ymax - Ymin
-	let Dx = (tailleX - 20) / DeltaX
-	let Dy = (tailleY - 20) / DeltaY
-	let X0 = 20 + Dx * (X1 - Xmin)
-	let Y0 = tailleY - 20 - Dy * (Y1 - Ymin)
-	let droite = mon_svg.line(X0, Y0, X0 + tailleX, Y0 - tailleX * Pente_r)
-  droite.stroke({ color: couleur, width: 2, linecap: 'round' })
-  let Ynom
-	if (Y0 > tailleY / 2) Ynom = -Math.round(Pente)
-  else Ynom = -Math.round(Pente)
-  const text = mon_svg.text(nom).attr({ x: X0 + 20, y: Y0 - 20 * Pente_r })
-  // ecrit le nom
-  text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 15,
-    anchor: 'middle',
-    leading: Ynom
-  })
-}
-
-/**
- *
- * @param {number} Xmin l'abscisse minimum du repère
- * @param {number} Xmax  l'abscisse maximum du repère
- * @param {number} Ymin l'ordonnée minimum du repère
- * @param {number} Ymax l'ordonnée maximum du repère
- * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
- * @param {number} Pente le coefficient directeur de la droite à tracer
- * @param {string} couleur la couleur de la droite à tracer
- * @param {string} nom le nom de la droite
- * @returns {string} Le code Latex à intégrer dans un environnement {tikzpicture}
- * @Auteur Jean-Claude Lhote et Rémi Angot
- */
-export function Latex_Tracer_droite (Xmin, Xmax, Ymin, Ymax, OrdX0, Pente, couleur, nom) {
-  'use strict'
-	let k = 0
-	//	let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
-	while ((k > Xmin) & ((OrdX0 + Pente * k) < Ymax) & ((OrdX0 + Pente * k) > Ymin)) k--
-	let X1 = k
-	let Y1 = OrdX0 + Pente * k
-	let DeltaX = Xmax - Xmin
-	//	let DeltaY=Ymax-Ymin;
-	let X2 = X1 + DeltaX
-  const Y2 = Y1 + DeltaX * Pente
-	return `\n\t \\draw[color=${couleur},thick](${X1},${Y1})--(${X2},${Y2}) node[pos=.1,above] {$${nom}$};`
-}
-
-/**
- *
- * @param {string} mon_svg l'Identifiant du SVG
- * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
- * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
- * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
- * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
- * @param {number} subX coefficient de fractionnement de l'unité en X
- * @param {number} subY coefficient de fractionnement de l'unité en Y
- * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
- * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
- * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
- * @returns Les coordonnées des axes dans le SVG
- * @Auteur Jean-Claude Lhote
- */
-export function SVG_repere (mon_svg, Xmin, Xmax, Ymin, Ymax, subX, subY, tailleX, tailleY, grille) {
-  'use strict'
-	if (Xmin > 0) Xmin = 0
-	if (Ymin > 0) Ymin = 0
-	let DeltaX = Xmax - Xmin
-	let DeltaY = Ymax - Ymin
-	let Dx = (tailleX - 20) / DeltaX
-	let Dy = (tailleY - 20) / DeltaY
-	if (grille) SVG_grille(mon_svg, 20, 0, tailleX - 20, tailleY - 20, DeltaX, DeltaY, subX, subY)
-	SVG_Axe_horizontal(mon_svg, 20, tailleX, tailleY - 20 + Ymin * Dy, DeltaX, subX)
-	SVG_tracer_flecheH(mon_svg, tailleX - 2, tailleY - 20 + Ymin * Dy)
-	SVG_Axe_vertical(mon_svg, 0, tailleY - 20, 20 - Xmin * Dx, DeltaY, subY)
-	SVG_tracer_flecheV(mon_svg, 20 - Xmin * Dx, -3)
-	for (let i = 0; i < DeltaX; i++) {
-    if (i + Xmin == 0) SVG_label(mon_svg, [[string_nombre(i + Xmin), i * Dx + 15, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-		else SVG_label(mon_svg, [[string_nombre(i + Xmin), i * Dx + 20, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-	}
-  for (let i = 0; i < DeltaY; i++) {
-    if (i + Ymin == 0) SVG_label(mon_svg, [[string_nombre(i + Ymin), 10 - Xmin * Dx, tailleY - 15 - i * Dy]], 0, 'black', 0.5)
-		else SVG_label(mon_svg, [[string_nombre(i + Ymin), 10 - Xmin * Dx, tailleY - 25 - i * Dy]], 1, 'black', 0.5)
-	}
-  return [20 - Xmin * Dx, tailleY - 20 + Ymin * Dy]
-}
-/**
- * Trace un repère en Latex avec une grille
- * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
- * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
- * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
- * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
- * @param {number} subX coefficient de fractionnement de l'unité en X
- * @param {number} subY coefficient de fractionnement de l'unité en Y
- * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
- * @returns {string} Renvoie le code Latex correspondant
- * @Auteur Jean-Claude Lhote
- */
-export function Latex_repere (Xmin, Xmax, Ymin, Ymax, subX, subY, grille) {
-  'use strict'
-	let result = '';
-  result += `\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`
-	if (grille) result += `\n\t \\tkzGrid[sub,subxstep=${1 / subX},subystep=${1 / subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`
-	result += '\n\t \\tkzAxeXY';
-  result += '\n\t \\tkzClip[space=1]';
-  return result
-}
-
-/**
-* Trace une graduation sur le SVG
-* @param origine la première abscisse de la droite ou demi-droite
-* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
-* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-* @param pas2 Idem pas1 pour la petite graduation
-* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-* @param fraction booléen : true pour fractions, false pour décimaux
-* @Auteur Jean-Claude Lhote
-*/
-export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
-  'use strict'
-	let arrondir = 1 + Math.round(Math.log10(pas1))
-  if (arrondir < 1) arrondir = 1
-	let longueur_pas1 = 600 / longueur
-	let longueur_pas2 = 600 / longueur / pas2
-	let distance, valeur, nom
-  if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-  // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')//Vide le div pour éviter les SVG en doublon
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150).size('100%', '100%')
-      // Droite
-      const droite = mon_svg.line(100, 50, 750, 50)
-      droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-      // Graduation secondaire
-      SVG_graduation(mon_svg, 100, longueur_pas2, 750, 5, 50, 'black', 2)
-      // Graduation principale
-      SVG_graduation(mon_svg, 100, longueur_pas1, 750, 10, 50, 'black', 5)
-      SVG_tracer_flecheH(mon_svg, 750, 50)
-      // Nombres visibles
-      SVG_label(mon_svg, [[string_nombre(origine), 100, 50]], 2, 'black', 1)
-			for (let i = 0; i < points_connus.length; i++) {
-        valeur = string_nombre(points_connus[i][0])
-				distance = calcul(longueur_pas1 * points_connus[i][1] + longueur_pas2 * points_connus[i][2])
-				SVG_label(mon_svg, [[valeur, 100 + distance, 50]], 2, 'black', 1)
-      }
-      // Points inconnus
-      let position = 1
-			for (let i = 0; i < points_inconnus.length; i++) {
-        distance = longueur_pas1 * points_inconnus[i][1] + longueur_pas2 * points_inconnus[i][2]
-        nom = points_inconnus[i][0]
-        SVG_tracer_point(mon_svg, 100 + distance, 50, nom, '#f15929', 0, 0, [false])
-        if (points_inconnus[i][3] == true) {
-          if (!fraction) { // affichage décimal
-            valeur = string_nombre(calcul(origine + points_inconnus[i][1] / pas1 + points_inconnus[i][2] / pas1 / pas2))
-						SVG_label(mon_svg, [[valeur, 100 + distance, 50]], 3 + position, '#f15929', 1)
-            SVG_tracer_droite_flecheV(mon_svg, 100 + distance, 75 + 15 * position, 100 + distance, 55, '#f15929', 3)
-          } else { // affichage fractionnaire
-            SVG_fraction(mon_svg, (origine + points_inconnus[i][1]) * pas2 + points_inconnus[i][2], pas2, 100 + distance, 115 + 15 * position, '#f15929')
-            SVG_tracer_droite_flecheV(mon_svg, 100 + distance, 80 + 15 * position, 100 + distance, 55, '#f15929', 3)
-          }
-          position = 1 - position
-        }
-      }
-      clearInterval(SVGExist[id_du_div])//Arrête le timer
-		}
-  }, 100) // Vérifie toutes les 100ms
-}
-
-/**
-* Trace un axe gradué horizontal avec des points placés dessus en Latex
-* @param origine la première abscisse de la droite ou demi-droite
-* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-* @param pas2 Idem pas1 pour la petite graduation
-* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-* @param fraction booléen : true pour fraction, false pour décimaux
-* @Auteur Jean-Claude Lhote
-*/
-export function Latex_reperage_sur_un_axe (zoom, origine, pas1, pas2, points_inconnus, points_connus, fraction) {
-  'use strict'
-	let result = `\\begin{tikzpicture}[scale=${zoom}]`
-	let valeur
-  let decalage
-
-  result += `\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine + 7 / pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1 / pas1)}]`
-
-  if (origine == 0) result += '\n\t \\tkzDrawX[tickwd=2pt,label={}];'
-  else result += '\n\t \\tkzDrawX[left space=0.2,tickwd=2pt,label={}];'
-  result += '\n\t \\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}'
-
-  if (origine < 0) decalage = origine * pas1
-  else decalage = 0
-  result += `\n\t \\foreach \\x in {0,${calcul(1 / pas2)},...,7}`
-  result += `\n\t {\\draw (${decalage}+\\x,-0.05)--(${decalage}+\\x,0.05);}` // result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
-
-  for (let i = 0; i < points_connus.length; i++) {
-    valeur = calcul(origine + points_connus[i][1] / pas1 + calcul(points_connus[i][2] / pas1 / pas2))
-    result += `\n\t \\tkzDefPoint(${valeur},0){A}`
-    result += `\n\t \\tkzLabelPoint[color = black,below,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`
-  }
-  // Points inconnus
-  let position = 6
-	for (let i = 0; i < points_inconnus.length; i++) {
-    valeur = calcul(origine + points_inconnus[i][1] / pas1 + calcul(points_inconnus[i][2] / pas1 / pas2))
-    result += `\n\t \\tkzDefPoint(${valeur},0){A}`
-    result += `\n\t \\tkzDefPoint(${valeur},-0.3-${position * 0.02}){B}`
-    result += '\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=8](A)'
-    result += `\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
-    if (points_inconnus[i][3]) {
-      if (!fraction) { // affichage décimal
-        result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`
-        result += '\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)'
-      } else { // affichage fractionnaire
-        result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine + points_inconnus[i][1]) * pas2 + points_inconnus[i][2], pas2)}$}`
-        result += '\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)'
-      }
-    }
-    position = 6 - position
-	}
-  result += '\n\t \\end{tikzpicture}';
-  return result
-
 }
 
 /**
@@ -3254,8 +2700,7 @@ export function MatriceCarree (table) {
     this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
     for (let i = 0; i < this.dim; i++) {
       ligne = []
-      for (let j = 0; j < this.dim; j++)
-        {ligne.push(0)}
+      for (let j = 0; j < this.dim; j++) { ligne.push(0) }
       this.table.push(ligne)
     }
   } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
@@ -3271,9 +2716,7 @@ export function MatriceCarree (table) {
     let determinant = 0; let M
     for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       //	if (n==1) determinant=this.table[0][0]
-      if (n == 2)
-        {determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1])}
-      else {
+      if (n == 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
         M = this.matrice_reduite(0, i)
         determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
       }
@@ -3286,7 +2729,7 @@ export function MatriceCarree (table) {
 	 * @Auteur Jean-Claude Lhote
 	 */
   this.matrice_reduite = function (l, c) {
-    let resultat = []; let ligne
+    const resultat = []; let ligne
     for (let i = 0; i < this.table.length; i++) {
       if (i != l) {
         ligne = []
@@ -3302,7 +2745,7 @@ export function MatriceCarree (table) {
 	 * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
 	 */
   this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-    let n = this.dim; let resultat = []; let ligne; let M
+    const n = this.dim; let resultat = []; let ligne; let M
     if (n > 2) {
       for (let i = 0; i < n; i++) {
         ligne = []
@@ -3321,7 +2764,7 @@ export function MatriceCarree (table) {
 	 * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
 	 */
   this.transposee = function () { // retourne la matrice transposée
-    let n = this.dim; let resultat = []; let ligne
+    const n = this.dim; const resultat = []; let ligne
     for (let i = 0; i < n; i++) {
       ligne = []
       for (let j = 0; j < n; j++) {
@@ -3336,7 +2779,7 @@ export function MatriceCarree (table) {
 	 * @param {*} k
 	 */
   this.multiplieParReel = function (k) { // retourne k * la matrice
-    let n = this.dim; let resultat = []; let ligne
+    const n = this.dim; const resultat = []; let ligne
     for (let i = 0; i < n; i++) {
       ligne = []
       for (let j = 0; j < n; j++) {
@@ -3352,7 +2795,7 @@ export function MatriceCarree (table) {
 	 *
 	 */
   this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-    let n = this.dim; let resultat = []; let somme
+    const n = this.dim; const resultat = []; let somme
     if (n == V.length) {
       for (let i = 0; i < n; i++) {
         somme = 0
@@ -3378,7 +2821,7 @@ export function MatriceCarree (table) {
 	 *
 	 */
   this.multiplieMatriceCarree = function (M) {
-    let n = this.dim; let resultat = []; let ligne; let somme
+    const n = this.dim; const resultat = []; let ligne; let somme
     for (let i = 0; i < n; i++) {
       ligne = []
       for (let j = 0; j < n; j++) {
@@ -3410,11 +2853,11 @@ export function matriceCarree (table) {
 export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
   const determinant = matrice.determinant()
-	let [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
+  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
   if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant); let fb = fraction(b, determinant)
+    const fa = fraction(a, determinant); const fb = fraction(b, determinant)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-	} else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
+  } else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
@@ -3424,15 +2867,15 @@ export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
 
 export function resol_sys_lineaire_3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d; let y2 = fx2 - d; let y3 = fx3 - d
-	let determinant = matrice.determinant()
+  const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
+  const determinant = matrice.determinant()
   if (determinant == 0) return [[0, 0], [0, 0], [0, 0]]
-	else {
+  else {
     const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
     if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-      const fa = fraction(a, determinant); let fb = fraction(b, determinant); let fc = fraction(c, determinant)
+      const fa = fraction(a, determinant); const fb = fraction(b, determinant); const fc = fraction(c, determinant)
       return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred], [fc.numIrred, fc.denIrred]]
-		} // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+    } // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
     else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1], [calcul(b / determinant), 1]]
   }
 }
@@ -3447,20 +2890,20 @@ export function crible_polynome_entier () {
   let coefs = [[]]
   for (let i = 0, x1, x2, x3, fx1, fx2, fx3, d; ; i++) {
     x1 = randint(-10, 10)
-		x2 = randint(-10, 10, [x1])
-		x3 = randint(-10, 10, [x1, x2])
-		fx1 = randint(-10, 10)
-		fx2 = randint(-10, 10)
-		fx3 = randint(-10, 10)
-		d = randint(0, 10)
-		coefs = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d)
-		if (coefs[0][1] != 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
-		if (trouve) {
+    x2 = randint(-10, 10, [x1])
+    x3 = randint(-10, 10, [x1, x2])
+    fx1 = randint(-10, 10)
+    fx2 = randint(-10, 10)
+    fx3 = randint(-10, 10)
+    d = randint(0, 10)
+    coefs = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d)
+    if (coefs[0][1] != 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
+    if (trouve) {
       coefs.push([x1, fx1])
       coefs.push([x2, fx2])
       coefs.push([x3, fx3])
       break
-		}
+    }
   }
   if (trouve) return coefs
 }
@@ -3472,7 +2915,7 @@ export function crible_polynome_entier () {
 export function cherche_min_max_f ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
   if (delta <= 0) return []
-	let x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
+  const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
@@ -3498,10 +2941,10 @@ export function simpExp (b, e) {
   switch (e) {
     case 1:
       return ` ${b}`
-		case 0:
-      return ' 1';
+    case 0:
+      return ' 1'
     default:
-      return ' ';
+      return ' '
   }
 }
 
@@ -3515,33 +2958,33 @@ export function simpExp (b, e) {
 export function puissance (b, n) {
   switch (b) {
     case 0:
-      return '0';
+      return '0'
     case 1:
-      return '1';
+      return '1'
     case -1:
       if (b % 2 == 0) {
-        return '1';
+        return '1'
       } else {
-        return '-1';
+        return '-1'
       }
     default:
       if (b < 0) {
         return `(${b})^{${n}}`
-			} else {
+      } else {
         return `${b}^{${n}}`
-			}
+      }
   }
 }
 
 export function ecriturePuissance (a, b, n) {
   switch (a) {
     case 0:
-      return '$0$';
+      return '$0$'
     case 1:
       return `$${puissance(b, n)}$`
-		default:
+    default:
       return `$${String(Math.round(a * 1000) / 1000).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
-	}
+  }
 }
 
 /**
@@ -3558,29 +3001,29 @@ export function simpNotPuissance (b, e) {
   switch (b) {
     case -1: // si la base vaut -1 on teste la parité de l'exposant
       if (e % 2 == 0) {
-        return ' 1';
+        return ' 1'
         // break;
       } else {
-        return ' -1';
+        return ' -1'
         // break;
       }
     case 1: // si la base vaut 1 on renvoit toujours 1
-      return ' 1';
+      return ' 1'
     default: // sinon on switch sur l'exposant
       switch (e) {
         case 0: // si l'exposant vaut 0 on ranvoit toujours 1
-          return '1';
+          return '1'
         case 1: // si l'exposant vaut 1 on renvoit toujours la base
           return ` ${b}`
-				default: // sinon on teste le signe de la base et la parité de l'exposant
+        default: // sinon on teste le signe de la base et la parité de l'exposant
           if (b < 0 && e % 2 == 0) { // si la base est négative et que l'exposant est pair, le signe est inutile
             return ` ${b * -1}^{${e}}`
-						//break;
-					} else {
+            // break;
+          } else {
             return ` ${b}^{${e}}`
-						//return ` `;
-						//break;
-					}
+            // return ` `;
+            // break;
+          }
       }
   }
 }
@@ -3596,15 +3039,15 @@ export function eclatePuissance (b, e, couleur) {
   switch (e) {
     case 0:
       return `\\mathbf{\\color{${couleur}}{1}}`
-		case 1:
+    case 1:
       return `\\mathbf{\\color{${couleur}}{${b}}}`
-		default:
+    default:
       let str = `\\mathbf{\\color{${couleur}}{${b}}} `
-			for (let i = 1; i < e; i++) {
+      for (let i = 1; i < e; i++) {
         str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`
-			}
+      }
       return str
-	}
+  }
 }
 
 /**
@@ -3616,16 +3059,16 @@ export function eclatePuissance (b, e, couleur) {
 export function puissanceEnProduit (b, e) {
   switch (e) {
     case 0:
-      return '1';
+      return '1'
     case 1:
       return `${b}`
-		default:
+    default:
       let str = `${b}`
-			for (let i = 1; i < e; i++) {
+      for (let i = 1; i < e; i++) {
         str = str + `\\times ${b}`
-			}
+      }
       return str
-	}
+  }
 }
 
 /**
@@ -3640,16 +3083,16 @@ export function puissanceEnProduit (b, e) {
 export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
   switch (e) {
     case 0:
-      return '1';
+      return '1'
     case 1:
       return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
-		default:
+    default:
       let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
-			for (let i = 1; i < e; i++) {
+      for (let i = 1; i < e; i++) {
         str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
-			}
+      }
       return str
-	}
+  }
 }
 
 /**
@@ -3823,14 +3266,14 @@ export function modal_image (numero_de_l_exercice, url_image, texte, label_bouto
  */
 export function liste_diviseurs (n) {
   'use strict'
-	let i = 2
-	let diviseurs = [1]
-	while (i <= n) {
+  let i = 2
+  const diviseurs = [1]
+  while (i <= n) {
     if (n % i == 0) {
       diviseurs.push(i)
-		}
+    }
     i++
-	}
+  }
   return diviseurs
 }
 
@@ -3854,7 +3297,7 @@ export function liste_diviseurs (n) {
 export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
   // tous les textes sont en mode maths !!!
   'use strict'
-	return `
+  return `
 	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
 	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
@@ -3889,25 +3332,25 @@ export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_lig
  */
 export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
   'use strict'
-	var x_init = -10
-	var saut = 0
-	var pas = 1
-	var sortie = '';
+  const x_init = -10
+  let saut = 0
+  const pas = 1
+  let sortie = ''
   sortie += `
 	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
 	\\draw [line width=3pt,color=frvzsz] (` + x_init + ',0.5) -- (' + (x_init + pas) + ',0.5) -- (' + (x_init + pas) + ',-0.5) -- (' + x_init + `,-0.5) -- cycle;
 	\\node[text width=3cm,text centered, scale=1] at(` + (x_init + 0.5) + `,0){$${x_ant}$};
 	`
-	saut = saut + pas
-	for (let i = 0; i < etapes_expressions.length; i++) {
+  saut = saut + pas
+  for (let i = 0; i < etapes_expressions.length; i++) {
     // si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere
     // on affiche donc chaque fois avec le nom de la fonction
     if (etapes_expressions.length == i + 1) {
       // si il y a une operation et une expression algébrique
       if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
         const w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + `,0) circle(0.5);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
@@ -3915,11 +3358,11 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (x_init + saut + 5 * pas / 2) + `,-0.5) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
 				`
-			}
+      }
       // si il y a une operation et pas d'expression algébrique
       if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
         const w_etape = `${nom}(x)=\\ldots`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
@@ -3927,11 +3370,11 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
 				`
-			}
+      }
       // si il n'y a pas d'operation mais une expression algébrique
       if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
         const w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
@@ -3939,11 +3382,11 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
 				`
-			}
+      }
       // si il n'y ni une operation et ni expression algébrique
       if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
         const w_etape = `${nom}(x)=\\ldots`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
@@ -3951,12 +3394,12 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
 				`
-			}
+      }
     } else { // sinon c'est une étape intermédiaire
       // si il y a une operation et une expression algébrique
       if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
         const w_etape = `${etapes_expressions[i][1]}`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
@@ -3964,12 +3407,12 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
 				`
-				saut = saut + 3 * pas + w_etape / 4
-			}
+        saut = saut + 3 * pas + w_etape / 4
+      }
       // si il y a une operation et pas d'expression algébrique
       if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
         const w_etape = '\\ldots'.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
@@ -3977,12 +3420,12 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
 				`
-				saut = saut + 3 * pas + w_etape / 4
-			}
+        saut = saut + 3 * pas + w_etape / 4
+      }
       // si il n'y a pas d'operation mais une expression algébrique
       if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
         const w_etape = `${etapes_expressions[i][1]}`.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
@@ -3990,12 +3433,12 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
 				`
-				saut = saut + 3 * pas + w_etape / 4
-			}
+        saut = saut + 3 * pas + w_etape / 4
+      }
       // si il n'y ni une operation et ni expression algébrique
       if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
         const w_etape = '\\ldots'.length
-				sortie += `
+        sortie += `
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
@@ -4003,14 +3446,14 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
 				\\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
 				`
-				saut = saut + 3 * pas + w_etape / 4
-			}
+        saut = saut + 3 * pas + w_etape / 4
+      }
     }
   }
   sortie += `
 	\\end{tikzpicture}
 	`
-	return sortie
+  return sortie
 }
 
 /**
@@ -4022,33 +3465,33 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
  */
 export function katex_Popup (texte, titrePopup, textePopup) {
   'use strict'
-	let contenu = ''
+  let contenu = ''
   if (sortie_html) {
-    contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>';
-    contenu += '<div class="ui special popup" >';
+    contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
+    contenu += '<div class="ui special popup" >'
     if (titrePopup != '') {
-      contenu += '<div class="header">' + titrePopup + '</div>';
+      contenu += '<div class="header">' + titrePopup + '</div>'
     }
-    contenu += '<div>' + textePopup + '</div>';
-    contenu += '</div>';
+    contenu += '<div>' + textePopup + '</div>'
+    contenu += '</div>'
     return contenu
-	} else {
+  } else {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
 export function katex_Popuptest (texte, titrePopup, textePopup) {
   'use strict'
-	let contenu = ''
+  let contenu = ''
   if (sortie_html) {
-    contenu = '<div class="ui right label katexPopup">' + texte + '</div>';
-    contenu += '<div class="ui special popup" >';
+    contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
+    contenu += '<div class="ui special popup" >'
     if (titrePopup != '') {
-      contenu += '<div class="header">' + titrePopup + '</div>';
+      contenu += '<div class="header">' + titrePopup + '</div>'
     }
-    contenu += '<div>' + textePopup + '</div>';
-    contenu += '</div>';
+    contenu += '<div>' + textePopup + '</div>'
+    contenu += '</div>'
     return contenu
-	} else {
+  } else {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
@@ -4092,10 +3535,10 @@ export function katex_Popuptest (texte, titrePopup, textePopup) {
 
 export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
   'use strict'
-	switch (type) {
+  switch (type) {
     case 0:
       return katex_Popuptest(texte, titrePopup, textePopup)
-		case 1:
+    case 1:
       if (sortie_html) {
         return `${texte}` + modal_texte_long(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
       } else {
@@ -4117,308 +3560,10 @@ export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
  */
 export function num_alpha (k) {
   'use strict'
-	if (sortie_html) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
-	//else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
-	else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
+  if (sortie_html) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
+  // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
+  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
 }
-
-/**
-* Crée une flèche orange pour la fonction machine
-* @param {object} groupe groupe svg
-* @param {string} chemin path pour la ligne
-* @param {string} couleur couleur
-* @Auteur Sébastien Lozano
-*/
-export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
-  'use strict'
-	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
-}
-
-/** Trace un chemin pour un groupe donné avec une couleur donnée
-* @param {object} groupe groupe
-* @param {string} chemin path
-* @param {string} couleur couleur
-* @Auteur Sébastien Lozano
-*/
-export function SVG_chemin (groupe, chemin, couleur) {
-  'use strict'
-	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin: 'null' })
-}
-
-/**
- * Crée un diagramme pour une fonction arithmétique à une étape produit
- * @param {string} id_du_div id du div contenant le SVG
- * @param {number} w largeur du div du svg
- * @param {numer} h hauteur du div du svg
- * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
- * @Auteur Sébastien Lozano
- */
-export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etapes_expressions) {
-  'use strict'
-	let interligne = 10//w/80; //h/10; // unité d'espacement
-	if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-  // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')//Vide le div pour éviter les SVG en doublon
-			// on crée un rectangle dont la taille est adaptée au texte
-			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + `">
-					<g>
-						<path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + interligne + '" height="' + h / 2 + '" x="' + 2.5 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">` + x_ant + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-					<g>
-						<line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-						</line>
-						<circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</circle>
-						<path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 7.5 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-					<g>
-						<path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 12 * interligne + '" height="' + h / 2 + '" x="' + 16 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												
-												<span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[0][1] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-				</svg>	
-				`
-
-			clearInterval(SVGExist[id_du_div])//Arrête le timer
-		}
-  }, 100) // Vérifie toutes les 100ms
-}
-
-//= ===============================================================================================
-// fonctions dont le déplacement dans mathalea_outils.js posait problème
-// Les appels aux fonctions de mathalea_outils.js doivent être faits après this.nouvelle_version()
-//= ===============================================================================================
-
-/**
- * Fonction pour particulariser une police svg et ses paramètres
- * @param {string} font
- * @param {string} interligne
- * @param {string} ancre
- * @param {string} f_style
- * @param {string} f_weight
- * @author Sébastien Lozano
- */
-export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
-  'use strict'
-	return {
-    family: font,
-    size: interligne,
-    anchor: ancre,
-    style: f_style,
-    //, leading : 0.5
-    weight: f_weight
-  }
-}
-
-/**
- * Fonction pour créer une machine mathématique SVG, une fonction!
- * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
- * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
- * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
- * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
- * @param {string} id_du_div id_du_div
- * @param {number} w width du svg
- * @param {number} h height du svg
- * @param {string} nom nom de la fonction
- * @param {string} etape1 etape 1 du procédé de calcul
- * @param {string} etape2 etape 2 du procédé de calcul
- * @param {string} etape3 etape 3 du procédé de calcul
- * @param {string} x_ligne1 antécédent ligne1
- * @param {string} x_ligne2 antécédent ligne2
- * @param {string} y_ligne1 image ligne1
- * @param {string} y_ligne2 image ligne2
- * @author Sébastien Lozano
- */
-export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
-  'use strict'
-	let interligne = 15 // pour un interligne uniforme 
-	let prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
-	let prop_font_nom = my_svg_font('Helvetica', interligne, 'start', 'normal', 'bold')
-	let prop_font_etape = my_svg_font('Helvetica', 4 * interligne / 5, 'start', 'normal', 'normal')
-
-	if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-  // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')//Vide le div pour éviter les SVG en doublon
-			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h)
-			// on trace un cadre pour le debug
-			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
-
-			// path pour créer des fleches
-			const path_fleche = 'm0,0 l-' + interligne / 2 + ',-' + interligne + ' l' + interligne + ',' + interligne + ' l-' + interligne + ',' + interligne + ' l' + interligne / 2 + ',-' + interligne + 'z'
-
-			// On crée une timeline
-			let timeline = new SVG.Timeline()
-
-			//------------CREATION DES GROUPES----------------------
-			//------------Antécédent--------------------------------
-			let ant = mon_svg.group()
-
-			//------------Image-------------------------------------
-			let im = mon_svg.group()
-
-			//------------PREPARATION DES DIMENSIONS NECESSAIRES----
-			//------------Dimension Antécédent----------------------
-			let ant_ligne1 = ant.text(x_ligne1).font(prop_font)
-			let ant_ligne2 = ant.text(x_ligne2).font(prop_font)
-			let w_ant = Math.max(ant_ligne1.length(), ant_ligne2.length()) + interligne
-			ant_ligne1.clear()
-			ant_ligne2.clear()
-
-			//------------Dimension Image---------------------------
-			let im_ligne1 = im.text(y_ligne1).font(prop_font)
-			let im_ligne2 = im.text(y_ligne2).font(prop_font)
-			let w_im = Math.max(im_ligne1.length(), im_ligne2.length()) + interligne
-			im_ligne1.clear()
-			im_ligne2.clear()
-
-			//------------Dimension Machine-------------------------
-			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
-			// pour ajuster celle de la machine.
-			let W_machine_nom, machine_nom, machine_etape1, w_machine_etape1, machine_etape2, w_machine_etape2, machine_etape3, w_machine_etape3
-      if (nom != '') {
-        machine_nom = mon_svg.text(nom).font(prop_font_nom)
-				w_machine_nom = machine_nom.length()
-				machine_nom.clear()
-			} else {
-        w_machine_nom = 0
-			}
-      if (etape1 != '') {
-        machine_etape1 = mon_svg.text(etape1).font(prop_font_etape)
-				w_machine_etape1 = machine_etape1.length()
-				machine_etape1.clear()
-			} else {
-        w_machine_etape1 = 0
-			}
-      if (etape2 != '') {
-        machine_etape2 = mon_svg.text(etape2).font(prop_font_etape)
-				w_machine_etape2 = machine_etape2.length()
-				machine_etape2.clear()
-			} else {
-        w_machine_etape2 = 0
-			}
-      if (etape3 != '') {
-        machine_etape3 = mon_svg.text(etape3).font(prop_font_etape)
-				w_machine_etape3 = machine_etape3.length()
-				machine_etape3.clear()
-			} else {
-        w_machine_etape3 = 0
-			}
-
-      const w_etape_max = Math.max(w_machine_nom, w_machine_etape1, w_machine_etape2, w_machine_etape3, w_ant + interligne, w_im + interligne) + 1.5 * interligne
-
-			//------------GROUPE ANTECEDENT------------------------- 
-			let ant_ligne = ant.foreignObject(w_ant, h).attr({ x: '0', y: '0' })
-			let antDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-			katex.render(x_ligne1 + '\\newline ' + x_ligne2, antDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
-      })
-			ant_ligne.add(antDiv)
-			ant_ligne.dmove(0, -antDiv.offsetHeight / 2)
-			let fleche_ant = SVG_fleche_machine_maths(ant, path_fleche, '#f15929')
-			fleche_ant.dmove(antDiv.offsetWidth + interligne / 2, interligne)
-			// on positionne le groupe antécédent
-			ant.dmove(0, h / 2 - interligne)
-
-			//------------GROUPE IMAGE-------------------------
-			let im_ligne = im.foreignObject(w_im, h).attr({ x: '0', y: '0' })
-			let imDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-			katex.render(y_ligne1 + '\\newline ' + y_ligne2, imDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
-      })
-			im_ligne.add(imDiv)
-			im_ligne.dmove(0, -imDiv.offsetHeight / 2)
-			let fleche_im = SVG_fleche_machine_maths(im, path_fleche, '#f15929')
-			fleche_im.dmove(-interligne / 2, interligne)
-			// on positionne le groupe image
-			im.dmove(w / 2 - imDiv.offsetWidth / 2, h / 2 - interligne)
-
-			//------------GROUPE MACHINE-------------------------
-			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
-			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-' + (h / 2 - 5) + ' L' + (w_etape_max + 20) + ',-' + (h / 2 - 5) + ' L' + (w_etape_max + 20) + ',0 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 35) + ',-5 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 35) + ',5 L' + (w_etape_max + 40) + ',0 L' + (w_etape_max + 20) + ',0 L' + (w_etape_max + 20) + ',' + (h / 2 - 5) + ' L10,' + (h / 2 - 5) + ' L10,0'
-			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin: 'round' })
-			machine.dmove(w / 2 - w_etape_max / 2 - 20 + interligne / 2, h / 2) //w/2;  60 est la moitié de la taille de la machine en largeur
-
-			let fobj_machine = mon_svg.foreignObject(w_etape_max, h).attr({ x: w / 2 - w_etape_max / 2, y: '0' })
-			let machineDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-			katex.render('\\mathbf{' + nom + '}\\newline ' + etape1 + '\\newline ' + etape2 + '\\newline ' + etape3, machineDiv, {
-        displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
-      })
-			fobj_machine.add(machineDiv)
-			fobj_machine.dmove(0, h / 2 - interligne - machineDiv.offsetHeight / 2)
-
-			//------------ANIMATION-------------------------
-			ant.timeline(timeline)
-			im.timeline(timeline)
-
-			let runner1 = ant.animate(8000, 0, 'absolute').dmove(w / 2 - w_ant / 2, 0)
-			let runner2 = im.animate(8000, 0, 'after').dmove(w - w_im / 2, 0)
-
-			runner1.loop(true, false, 8000)
-			runner2.loop(true, false, 8000)
-
-
-			clearInterval(SVGExist[id_du_div])//Arrête le timer
-		}
-  }, 100) // Vérifie toutes les 100ms
-}
-
-//= ===========================================================================
-// fin fonctions dont le déplacement dasn mathalea_outils.js posait problème
-//= ==========================================================================
-
-//= ================================
-// fin fonctions 3F1-act
-//= ================================
 
 /**
  * crée un cadre orange autour d'un paragraphe
@@ -4429,8 +3574,8 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
 
 export function tex_cadre_par_orange (texte) {
   'use strict'
-	//\\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	let sortie = `
+  // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+  const sortie = `
 	 
 	 \\setlength{\\fboxrule}{1.5mm}
 	 \\par\\vspace{0.25cm}
@@ -4438,132 +3583,7 @@ export function tex_cadre_par_orange (texte) {
 	 \\par\\vspace{0.25cm}		 
 	 `
 
-	return sortie
-}
-
-/**
- * Crée un diagramme pour une fonction arithmétique à deux étapes produit puis somme
- * @param {string} id_du_div id du div contenant le SVG
- * @param {number} w largeur du div du svg
- * @param {numer} h hauteur du div du svg
- * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
- * @author Sébastien Lozano
- */
-export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expressions) {
-  'use strict'
-	let interligne = 10//w/80; //h/10; // unité d'espacement
-	if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-  // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if ($(`#${id_du_div}`).length) {
-      $(`#${id_du_div}`).html('')//Vide le div pour éviter les SVG en doublon
-			// on crée un rectangle dont la taille est adaptée au texte
-			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + `">
-					<g>
-						<path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + interligne + '" height="' + h / 2 + '" x="' + 2.5 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">` + x_ant + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-					<g>
-						<line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-						</line>
-						<circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</circle>
-						<path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 7.5 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-					<g>
-						<path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 2.5 * interligne + '" height="' + h / 2 + '" x="' + 16 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">` + etapes_expressions[0][1] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-					<g>
-						<line x1="` + 21 * interligne + '" y1="' + 5 * interligne + '" x2="' + 23 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-						</line>
-						<circle r="` + 2 * interligne + '" cx="' + 25 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</circle>
-						<path d="M` + 27 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 23.5 * interligne + '" y="' + h / 4 + `">
-						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">+` + etapes_expressions[1][0] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-							</body>
-						</foreignObject>
-					</g>
-					<g>
-						<path d="M` + 29 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 7 * interligne + 'L' + 29 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-						</path>
-						<foreignObject width="` + 12 * interligne + '" height="' + h / 2 + '" x="' + 31 * interligne + '" y="' + h / 4 + `">
-							<div style="position: fixed">
-								<span class="katex-display">
-									<span class="katex">
-										<span class="katex-html" aria-hidden="true">
-											<span class="base">
-												<span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[1][1] + `</span>
-											</span>
-										</span>
-									</span>
-								</span>
-							</div>
-						</foreignObject>
-					</g>
-				</svg>	
-				`
-
-			clearInterval(SVGExist[id_du_div])//Arrête le timer
-		}
-  }, 100) // Vérifie toutes les 100ms
+  return sortie
 }
 
 /**
@@ -4577,7 +3597,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
 
 export function machine_maths_video (url_video) {
   'use strict'
-	let video = `
+  const video = `
 	<div style="text-align:center"> 
 	<video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
 		<source src="` + url_video + `">
@@ -4585,7 +3605,7 @@ export function machine_maths_video (url_video) {
 	</video>
 	</div>`
 
-	return video
+  return video
 }
 
 /**
@@ -4594,12 +3614,12 @@ export function machine_maths_video (url_video) {
  */
 export function detect_safari_chrome_browser () {
   'use strict'
-	var is_chrome = navigator.userAgent.indexOf('Chrome') > -1
-	// var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
-	// var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
-	var is_safari = navigator.userAgent.indexOf('Safari') > -1
-	var is_opera = navigator.userAgent.toLowerCase().indexOf('op') > -1
-	if ((is_chrome) && (is_safari)) { is_safari = false }
+  let is_chrome = navigator.userAgent.indexOf('Chrome') > -1
+  // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+  // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+  let is_safari = navigator.userAgent.indexOf('Safari') > -1
+  const is_opera = navigator.userAgent.toLowerCase().indexOf('op') > -1
+  if ((is_chrome) && (is_safari)) { is_safari = false }
   if ((is_chrome) && (is_opera)) { is_chrome = false }
 
   return (is_chrome || is_safari)
@@ -4639,14 +3659,14 @@ export function premierMultipleInferieur (k, n) {
 */
 export function liste_nb_premiers_strict_jusqua (borneSup) {
   'use strict'
-	// tableau contenant les 300 premiers nombres premiers
-	let liste_300 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
-	let liste = []
-	let i = 0
-	while (liste_300[i] < borneSup) {
+  // tableau contenant les 300 premiers nombres premiers
+  const liste_300 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
+  const liste = []
+  let i = 0
+  while (liste_300[i] < borneSup) {
     liste.push(liste_300[i])
-		i++
-	}
+    i++
+  }
   return liste
 }
 
@@ -4657,21 +3677,21 @@ export function liste_nb_premiers_strict_jusqua (borneSup) {
  */
 export function crible_eratosthene_n (n) {
   'use strict'
-	var tab_entiers = [] // pour tous les entiers de 2 à n
-	var test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
-	var liste = [] // tableau de la liste des premiers jusqu'à n
+  const tab_entiers = [] // pour tous les entiers de 2 à n
+  const test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
+  const liste = [] // tableau de la liste des premiers jusqu'à n
 
-	// On rempli un tableau avec des booléeens de 2 à n
-	for (let i = 0; i < n + 1; i++) {
+  // On rempli un tableau avec des booléeens de 2 à n
+  for (let i = 0; i < n + 1; i++) {
     tab_entiers.push(true)
-	}
+  }
 
   // On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
   for (let i = 2; i <= test_max; i++) {
     if (tab_entiers[i]) {
       for (let j = i * i; j < n + 1; j += i) {
         tab_entiers[j] = false
-			}
+      }
     }
   }
 
@@ -4679,7 +3699,7 @@ export function crible_eratosthene_n (n) {
   for (let i = 2; i < n + 1; i++) {
     if (tab_entiers[i]) {
       liste.push(i)
-		}
+    }
   }
 
   return liste
@@ -4696,14 +3716,14 @@ export function crible_eratosthene_n (n) {
 
 export function premiers_entre_bornes (min, max) {
   'use strict'
-	// on crée les premiers jusque min
-	let premiers_a_suppr = crible_eratosthene_n(min - 1)
-	// on crée les premiers jusque max
-	let premiers_jusque_max = crible_eratosthene_n(max)
-	// on supprime le début de la liste jusque min
-	premiers_jusque_max.splice(0, premiers_a_suppr.length)
-	// on renvoie le tableau restant
-	return premiers_jusque_max
+  // on crée les premiers jusque min
+  const premiers_a_suppr = crible_eratosthene_n(min - 1)
+  // on crée les premiers jusque max
+  const premiers_jusque_max = crible_eratosthene_n(max)
+  // on supprime le début de la liste jusque min
+  premiers_jusque_max.splice(0, premiers_a_suppr.length)
+  // on renvoie le tableau restant
+  return premiers_jusque_max
 }
 
 /**
@@ -4714,12 +3734,12 @@ export function premiers_entre_bornes (min, max) {
 
 export function texte_ou_pas (texte) {
   'use strict'
-	let bool = randint(0, 1)
-	if (bool == 0) {
-    return '\\ldots';
+  const bool = randint(0, 1)
+  if (bool == 0) {
+    return '\\ldots'
   } else {
     return texte
-	}
+  }
 }
 
 /**
@@ -4741,8 +3761,8 @@ export function texte_ou_pas (texte) {
  */
 export function tab_C_L (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
   'use strict'
-	let myLatexArraystretch
-	if (typeof arraystretch === 'undefined') {
+  let myLatexArraystretch
+  if (typeof arraystretch === 'undefined') {
     myLatexArraystretch = 1
   } else {
     myLatexArraystretch = arraystretch
@@ -4750,59 +3770,59 @@ export function tab_C_L (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, a
 
   // on définit le nombre de colonnes
   const C = tab_entetes_colonnes.length
-	// on définit le nombre de lignes
-	let L = tab_entetes_lignes.length
-	// On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-	let tableau_C_L = '';
+  // on définit le nombre de lignes
+  const L = tab_entetes_lignes.length
+  // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
+  let tableau_C_L = ''
   if (sortie_html) {
-    tableau_C_L += '$\\def\\arraystretch{2.5}\\begin{array}{|';
+    tableau_C_L += '$\\def\\arraystretch{2.5}\\begin{array}{|'
   } else {
     tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
-		tableau_C_L += '\\begin{array}{|';
+    tableau_C_L += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
   for (let k = 0; k < C; k++) {
-    tableau_C_L += 'c|';
+    tableau_C_L += 'c|'
   }
-  tableau_C_L += '}\n';
+  tableau_C_L += '}\n'
 
   tableau_C_L += '\\hline\n'
   if (typeof tab_entetes_colonnes[0] === 'number') {
     tableau_C_L += tex_nombre(tab_entetes_colonnes[0])
-	} else {
+  } else {
     tableau_C_L += tab_entetes_colonnes[0]
-	}
+  }
   for (let k = 1; k < C; k++) {
     if (typeof tab_entetes_colonnes[k] === 'number') {
-      tableau_C_L += ' & ' + tex_nombre(tab_entetes_colonnes[k]) + '';
+      tableau_C_L += ' & ' + tex_nombre(tab_entetes_colonnes[k]) + ''
     } else {
-      tableau_C_L += ' & ' + tab_entetes_colonnes[k] + '';
+      tableau_C_L += ' & ' + tab_entetes_colonnes[k] + ''
     }
   }
-  tableau_C_L += '\\\\\n';
-  tableau_C_L += '\\hline\n';
+  tableau_C_L += '\\\\\n'
+  tableau_C_L += '\\hline\n'
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
     if (typeof tab_entetes_lignes[k] === 'number') {
-      tableau_C_L += '' + tex_nombre(tab_entetes_lignes[k]) + '';
+      tableau_C_L += '' + tex_nombre(tab_entetes_lignes[k]) + ''
     } else {
-      tableau_C_L += '' + tab_entetes_lignes[k] + '';
+      tableau_C_L += '' + tab_entetes_lignes[k] + ''
     }
     for (let m = 1; m < C; m++) {
       if (typeof tab_lignes[(C - 1) * k + m - 1] === 'number') {
         tableau_C_L += ' & ' + tex_nombre(tab_lignes[(C - 1) * k + m - 1])
-			} else {
+      } else {
         tableau_C_L += ' & ' + tab_lignes[(C - 1) * k + m - 1]
-			}
+      }
     }
-    tableau_C_L += '\\\\\n';
-    tableau_C_L += '\\hline\n';
+    tableau_C_L += '\\\\\n'
+    tableau_C_L += '\\hline\n'
   }
   tableau_C_L += '\\end{array}\n'
   if (sortie_html) {
-    tableau_C_L += '$';
+    tableau_C_L += '$'
   } else {
-    tableau_C_L += '\\renewcommand{\\arraystretch}{1}$\n';
+    tableau_C_L += '\\renewcommand{\\arraystretch}{1}$\n'
   }
 
   return tableau_C_L
@@ -4817,8 +3837,8 @@ export function tab_C_L (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, a
  */
 export function warn_message (texte, couleur, titre) {
   'use strict'
-	if (typeof (titre) === 'undefined') {
-    titre = '';
+  if (typeof (titre) === 'undefined') {
+    titre = ''
   }
   if (sortie_html) {
     return `
@@ -4829,14 +3849,14 @@ export function warn_message (texte, couleur, titre) {
 		</p>
 		</div>
 		`
-	} else {
+  } else {
     // return tex_cadre_par_orange(texte);
     return `
 		\\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
 			` + texte + `
 		\\end{bclogo}
 		`
-	}
+  }
 }
 
 /**
@@ -4859,13 +3879,13 @@ export function info_message ({ titre, texte, couleur }) {
 			</div>
 	  	</div>
 		`
-	} else {
+  } else {
     return `
 		\\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}
 			` + texte + `
 		\\end{bclogo}
 		`
-	}
+  }
 }
 
 /**
@@ -4888,50 +3908,18 @@ export function lampe_message ({ titre, texte, couleur }) {
 			</div>
 	  	</div>
 		`
-	} else {
+  } else {
     return `
 		\\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
 			` + texte + `
 		\\end{bclogo}
 		`
-	}
+  }
   // return info_message({
   // 	titre:titre,
   // 	texte:texte,
   // 	couleur:couleur
   // })
-}
-
-/**
- * Renvoie deux engrenages en HTML pour le moment
- * @param {string} id_du_div id unique pour éviter les doublons, généré dans l'exo; à revoir?
- * @param {number} w largeur du conteneur
- * @param {number} h hauteur du conteneur
- * @author Sébastien Lozano
- */
-export function SVG_engrenages (id_du_div, w, h) {
-  'use strict'
-	if (sortie_html) {
-    if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
-    // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-    window.SVGExist[id_du_div] = setInterval(function () {
-      if ($(`#${id_du_div}`).length) {
-        $(`#${id_du_div}`).html('')//Vide le div pour éviter les SVG en doublon
-				document.getElementById(id_du_div).innerHTML = `
-					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + `">
-					<g id="surface1">
-					<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 106.5625 0.125 C 106.289062 0.175781 105.386719 0.289062 104.5625 0.363281 C 103.738281 0.449219 103.023438 0.550781 102.960938 0.613281 C 102.761719 0.8125 102 8.164062 102 9.988281 C 102 10.476562 101.9375 10.914062 101.851562 11.023438 C 101.761719 11.136719 101.238281 11.324219 100.6875 11.4375 C 100.136719 11.5625 99.300781 11.800781 98.8125 11.960938 C 97.664062 12.386719 94.125 14.039062 93.226562 14.585938 C 92.800781 14.835938 92.4375 14.976562 92.351562 14.925781 C 92.261719 14.875 90.375 13.351562 88.148438 11.523438 C 85.9375 9.710938 84.074219 8.25 84.011719 8.273438 C 83.949219 8.300781 83.226562 8.863281 82.414062 9.523438 C 80.75 10.886719 78.3125 13.414062 76.699219 15.425781 C 75.75 16.613281 75.636719 16.8125 75.789062 16.988281 C 75.886719 17.101562 76.425781 17.773438 77.011719 18.5 C 77.585938 19.226562 79.023438 20.976562 80.210938 22.414062 C 81.398438 23.835938 82.375 25.039062 82.375 25.085938 C 82.375 25.125 82.148438 25.523438 81.863281 25.976562 C 81.199219 27.011719 80.113281 29.238281 79.773438 30.1875 C 79.574219 30.789062 78.75 33.425781 78.5625 34.074219 C 78.539062 34.148438 77.351562 34.3125 75.601562 34.488281 C 71.3125 34.886719 68.273438 35.273438 68.0625 35.425781 C 67.613281 35.761719 67.351562 40.875 67.625 43.8125 C 67.800781 45.699219 68.023438 47.113281 68.175781 47.300781 C 68.261719 47.414062 69.050781 47.539062 70.5625 47.675781 C 76.101562 48.164062 78.324219 48.386719 78.449219 48.425781 C 78.523438 48.449219 78.625 48.710938 78.675781 49.011719 C 78.726562 49.300781 78.863281 49.800781 78.988281 50.113281 C 79.113281 50.425781 79.425781 51.335938 79.675781 52.136719 C 80.164062 53.648438 81.175781 55.800781 82.011719 57.050781 C 82.273438 57.449219 82.5 57.824219 82.5 57.886719 C 82.5 57.949219 81.363281 59.363281 79.976562 61.023438 C 77.148438 64.425781 76.6875 64.988281 76.210938 65.636719 L 75.875 66.085938 L 76.636719 67.074219 C 78.5625 69.574219 81.164062 72.175781 83.613281 74.050781 C 84.324219 74.601562 84.4375 74.648438 84.664062 74.5 C 85 74.289062 88.789062 71.164062 90.835938 69.414062 C 91.738281 68.636719 92.585938 68 92.726562 68 C 92.863281 68 93.550781 68.324219 94.261719 68.738281 C 95.851562 69.625 97.960938 70.488281 99.863281 71 C 101.125 71.335938 101.75 71.5625 101.75 71.664062 C 101.75 72.476562 102.824219 81.9375 102.9375 82.113281 C 102.960938 82.175781 103.8125 82.289062 104.8125 82.375 C 106.960938 82.5625 112.511719 82.476562 114.0625 82.226562 L 115.050781 82.0625 L 115.148438 81.625 C 115.199219 81.386719 115.414062 79.210938 115.625 76.8125 C 115.835938 74.398438 116.050781 72.210938 116.101562 71.9375 C 116.210938 71.335938 116.273438 71.300781 118.363281 70.6875 C 120.226562 70.148438 122.625 69.085938 124.113281 68.164062 C 125.023438 67.585938 125.226562 67.5 125.425781 67.625 C 125.550781 67.699219 126.363281 68.375 127.238281 69.125 C 129.101562 70.710938 133.5 74.25 133.625 74.25 C 133.664062 74.25 134.148438 73.925781 134.699219 73.523438 C 136.113281 72.488281 141.414062 66.851562 141.988281 65.761719 C 142.101562 65.5625 141.75 65.074219 139.476562 62.351562 C 138.023438 60.613281 136.511719 58.8125 136.113281 58.363281 C 135.699219 57.898438 135.375 57.4375 135.375 57.324219 C 135.375 57.199219 135.710938 56.449219 136.113281 55.648438 C 137.113281 53.6875 138.074219 51.238281 138.398438 49.851562 C 138.613281 48.960938 138.710938 48.699219 138.925781 48.625 C 139.074219 48.5625 139.886719 48.460938 140.75 48.386719 C 145.675781 47.976562 149.324219 47.574219 149.398438 47.460938 C 149.476562 47.324219 149.523438 47 149.773438 44.6875 C 149.976562 42.699219 150.039062 40.136719 149.886719 39.25 C 149.8125 38.800781 149.699219 37.761719 149.625 36.9375 C 149.550781 36.101562 149.425781 35.375 149.335938 35.300781 C 149.25 35.210938 147.074219 34.960938 144.0625 34.6875 C 140.039062 34.324219 138.898438 34.1875 138.789062 34.039062 C 138.699219 33.925781 138.550781 33.449219 138.4375 32.976562 C 138.011719 31.113281 136.5625 27.601562 135.5 25.851562 C 135.363281 25.625 135.25 25.3125 135.25 25.164062 C 135.25 24.988281 136.460938 23.414062 138.550781 20.863281 C 141.074219 17.789062 141.835938 16.789062 141.75 16.636719 C 141.488281 16.148438 139.851562 14.300781 138.335938 12.773438 C 136.960938 11.375 133.886719 8.664062 133.324219 8.351562 C 133.175781 8.261719 129.636719 11.023438 126.699219 13.539062 C 125.8125 14.289062 125.023438 14.914062 124.949219 14.925781 C 124.875 14.925781 123.601562 14.335938 122.125 13.601562 C 119.664062 12.363281 118.039062 11.75 116.476562 11.4375 C 116.085938 11.363281 116.164062 11.800781 115.6875 6.875 C 115.261719 2.523438 115.011719 0.710938 114.851562 0.613281 C 114.699219 0.511719 114.335938 0.476562 112.0625 0.238281 C 110.375 0.0625 107.175781 -0.0117188 106.5625 0.125 Z M 113.1875 26.425781 C 116.261719 27.335938 119.238281 29.460938 121.261719 32.175781 C 126.011719 38.523438 124.863281 47.886719 118.75 52.914062 C 115.613281 55.488281 112.164062 56.648438 108.210938 56.460938 C 103.449219 56.25 99.5 54.125 96.625 50.25 C 93.289062 45.75 92.710938 39.4375 95.199219 34.460938 C 95.925781 33.011719 96.710938 31.914062 97.976562 30.613281 C 100.335938 28.148438 102.5 26.875 105.375 26.238281 C 106.273438 26.039062 106.863281 26.011719 109.25 26.050781 C 111.875 26.085938 112.136719 26.113281 113.1875 26.425781 Z M 113.1875 26.425781 "/>
-					<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 106.386719 28.5625 C 103.1875 29.261719 100.199219 31.261719 98.460938 33.863281 C 96.726562 36.460938 96.050781 39.050781 96.261719 42.261719 C 96.613281 47.523438 100.648438 52.363281 105.875 53.773438 C 106.800781 54.011719 107.226562 54.050781 109.0625 54.050781 C 111.5 54.039062 112.449219 53.851562 114.210938 53.011719 C 115.613281 52.335938 116.613281 51.636719 117.835938 50.460938 C 119.175781 49.175781 119.988281 48.074219 120.675781 46.613281 C 122.335938 43.074219 122.238281 38.5625 120.4375 35.136719 C 118.738281 31.898438 115.148438 29.25 111.523438 28.550781 C 110.363281 28.324219 107.449219 28.335938 106.386719 28.5625 Z M 110.960938 31.574219 C 112.3125 31.851562 113.386719 32.3125 114.648438 33.148438 C 116.4375 34.351562 117.699219 36 118.335938 37.960938 C 118.585938 38.738281 118.675781 39.289062 118.726562 40.613281 C 118.851562 44.0625 118.074219 46.085938 115.789062 48.25 C 114.023438 49.925781 112.386719 50.726562 110.164062 51.011719 C 107.539062 51.351562 104.898438 50.550781 102.789062 48.761719 C 100.550781 46.886719 99.4375 44.625 99.289062 41.675781 C 99.175781 39.398438 99.6875 37.511719 100.925781 35.636719 C 101.675781 34.511719 102.386719 33.800781 103.511719 33.050781 C 105.738281 31.574219 108.414062 31.050781 110.960938 31.574219 Z M 110.960938 31.574219 "/>
-					<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 58.5 55.886719 C 58.011719 57.148438 57.023438 59.835938 56.300781 61.875 C 55.585938 63.898438 54.925781 65.761719 54.835938 66 L 54.675781 66.4375 L 52.4375 66.511719 C 48.898438 66.636719 45.476562 67.125 43.164062 67.824219 C 42.386719 68.0625 41.699219 68.25 41.648438 68.25 C 41.585938 68.25 41.011719 67.5 40.375 66.585938 C 38.375 63.75 33.585938 57.1875 33.449219 57.101562 C 33.300781 57 32.289062 57.375 30.789062 58.074219 C 30.148438 58.375 29.585938 58.625 29.539062 58.625 C 29.476562 58.625 28.789062 59 28 59.449219 C 27.210938 59.914062 25.976562 60.625 25.25 61.039062 C 22.886719 62.386719 19.875 64.636719 19.875 65.0625 C 19.875 65.226562 20.550781 66.699219 24.085938 74.289062 L 25.523438 77.375 L 24.449219 78.5 C 23.863281 79.125 23.0625 80.011719 22.6875 80.476562 C 22.3125 80.9375 21.6875 81.675781 21.300781 82.125 C 20.476562 83.085938 18.699219 85.738281 18.136719 86.835938 C 17.925781 87.273438 17.699219 87.625 17.648438 87.625 C 17.601562 87.625 15.8125 87.324219 13.6875 86.949219 C 7.726562 85.898438 4.101562 85.351562 4 85.460938 C 3.863281 85.613281 2.726562 88.476562 2.210938 89.949219 C 1.699219 91.425781 0.914062 95.199219 0.386719 98.75 C 0.25 99.613281 0.113281 100.398438 0.0742188 100.5 C 0.0117188 100.664062 0.9375 101.0625 4.835938 102.550781 C 7.511719 103.574219 10.398438 104.6875 11.289062 105.039062 L 12.875 105.648438 L 12.875 107.300781 C 12.886719 110.324219 13.226562 112.851562 14.136719 116.5625 C 14.414062 117.664062 14.625 118.613281 14.625 118.6875 C 14.625 118.75 14.414062 118.960938 14.148438 119.136719 C 11.625 120.875 3.949219 126.449219 3.75 126.6875 C 3.449219 127.039062 5.761719 131.738281 7.925781 135.1875 C 8.851562 136.675781 10.585938 139.175781 11.273438 140.039062 L 11.5625 140.386719 L 13.75 139.375 C 19.039062 136.914062 23.851562 134.75 24.050781 134.75 C 24.175781 134.75 25 135.4375 25.898438 136.289062 C 27.9375 138.210938 29.011719 139.011719 31.8125 140.726562 C 33.398438 141.6875 34.074219 142.175781 34.101562 142.351562 C 34.125 142.488281 33.886719 144.136719 33.574219 146.023438 C 33.261719 147.898438 32.800781 150.863281 32.550781 152.601562 C 32.164062 155.273438 32.113281 155.789062 32.261719 155.886719 C 33.136719 156.449219 37.523438 157.835938 41.0625 158.675781 C 43.199219 159.1875 47.238281 159.9375 47.3125 159.851562 C 47.488281 159.625 50.574219 151.5 51.6875 148.3125 C 51.960938 147.550781 52.238281 146.898438 52.300781 146.851562 C 52.375 146.800781 53.3125 146.75 54.375 146.75 C 57.539062 146.75 59.710938 146.4375 63.085938 145.488281 L 64.925781 144.976562 L 65.25 145.335938 C 65.425781 145.539062 67.261719 148.101562 69.335938 151.023438 L 73.125 156.351562 L 75.25 155.375 C 78.074219 154.074219 79.726562 153.1875 81.675781 151.914062 C 83.386719 150.800781 86 148.851562 86.460938 148.351562 L 86.726562 148.0625 L 85.75 145.875 C 85.226562 144.675781 84.011719 142.023438 83.0625 140 C 82.125 137.976562 81.289062 136.136719 81.210938 135.914062 C 81.085938 135.511719 81.113281 135.488281 82.199219 134.3125 C 84.363281 132 86.238281 129.488281 87.386719 127.351562 C 87.738281 126.710938 88.101562 126.101562 88.199219 126 C 88.398438 125.789062 88.101562 125.75 95.6875 127 C 98.648438 127.5 101.300781 127.925781 101.574219 127.960938 L 102.085938 128.023438 L 102.5 126.988281 C 103.039062 125.574219 104.386719 121.386719 104.851562 119.6875 C 105.164062 118.539062 105.761719 115.386719 106.050781 113.289062 C 106.125 112.773438 106.113281 112.75 105.664062 112.523438 C 105.0625 112.210938 102.585938 111.273438 97.625 109.4375 C 95.460938 108.636719 93.5625 107.898438 93.414062 107.800781 C 93.136719 107.625 93.125 107.550781 93.125 105.648438 C 93.125 102.824219 92.75 100.074219 91.925781 96.835938 C 91.75 96.175781 91.625 95.5 91.648438 95.351562 C 91.675781 95.164062 92.550781 94.460938 94.550781 93.039062 C 96.925781 91.335938 102.273438 87.351562 102.664062 87 C 102.875 86.8125 101.039062 82.886719 99.550781 80.300781 C 98.125 77.8125 95.011719 73.5 94.664062 73.5 C 94.414062 73.5 90.75 75.136719 86.625 77.085938 C 84.523438 78.085938 82.664062 78.9375 82.476562 78.960938 C 82.175781 79.023438 81.9375 78.835938 80.523438 77.476562 C 78.898438 75.886719 76.761719 74.199219 75.1875 73.273438 C 74.363281 72.789062 73.25 72.039062 72.738281 71.625 C 72.476562 71.414062 72.375 72.125 73.875 62.6875 C 74.210938 60.488281 74.539062 58.488281 74.574219 58.226562 L 74.636719 57.773438 L 72.726562 57.023438 C 70.449219 56.136719 67.761719 55.25 67.335938 55.25 C 67.164062 55.25 66.8125 55.164062 66.550781 55.050781 C 66.050781 54.835938 61.3125 53.835938 60.113281 53.6875 L 59.398438 53.601562 Z M 55.664062 86.9375 C 61.8125 87.738281 66.976562 90.976562 69.988281 95.914062 C 71.335938 98.113281 72.460938 100.914062 72.886719 103.0625 C 73 103.636719 73.0625 104.800781 73.0625 106.4375 C 73.050781 108.710938 73.023438 109.074219 72.699219 110.4375 C 71.710938 114.699219 70.175781 117.664062 67.625 120.238281 C 64.648438 123.25 60.539062 125.351562 56.261719 126.0625 C 52.601562 126.675781 47.773438 125.8125 43.988281 123.863281 C 38.3125 120.925781 34.289062 114.898438 33.625 108.3125 C 33.273438 104.863281 34.300781 100.125 36.125 96.8125 C 38.800781 91.949219 44.085938 88.1875 49.726562 87.136719 C 51.976562 86.710938 53.550781 86.664062 55.664062 86.9375 Z M 55.664062 86.9375 "/>
-					<path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 51.875 89.835938 C 49.851562 90.050781 47.925781 90.648438 45.875 91.699219 C 41.324219 94.011719 38.789062 97.289062 37.4375 102.5625 C 36.523438 106.125 36.5625 108.800781 37.585938 111.851562 C 38.625 114.949219 41.324219 118.449219 44.136719 120.324219 C 49.289062 123.75 55.664062 124.1875 61.0625 121.460938 C 65.613281 119.1875 68.851562 115.023438 69.898438 110.113281 C 70.125 109.050781 70.175781 108.414062 70.175781 106.5625 C 70.175781 104.523438 70.148438 104.1875 69.835938 102.960938 C 68.6875 98.386719 65.761719 94.335938 62 92.125 C 59.238281 90.488281 54.898438 89.511719 51.875 89.835938 Z M 54.898438 93.9375 C 56.726562 94.136719 59.136719 95.039062 60.761719 96.125 C 63.050781 97.664062 65.113281 100.636719 65.898438 103.511719 C 66.148438 104.425781 66.1875 104.835938 66.175781 106.625 C 66.164062 108.324219 66.113281 108.863281 65.898438 109.675781 C 65.300781 111.863281 63.675781 114.539062 62.164062 115.851562 C 59.539062 118.113281 57.210938 119.101562 54.175781 119.210938 C 52.386719 119.289062 51.351562 119.136719 49.449219 118.539062 C 45.824219 117.398438 43.164062 114.789062 41.636719 110.914062 C 40.761719 108.664062 40.585938 105.726562 41.1875 103.335938 C 41.449219 102.351562 42.3125 100.511719 43.011719 99.488281 C 44.976562 96.574219 48.710938 94.300781 52.261719 93.886719 C 53.164062 93.789062 53.449219 93.789062 54.898438 93.9375 Z M 54.898438 93.9375 "/>
-					</g>
-					</svg>
-					`
-				clearInterval(SVGExist[id_du_div])//Arrête le timer
-			}
-    }, 100) // Vérifie toutes les 100ms
-
-	}
 }
 
 /**
@@ -4941,10 +3929,10 @@ export function SVG_engrenages (id_du_div, w, h) {
  */
 export function decomp_fact_prem_array (n) {
   const decomposition = []
-	let liste = obtenir_liste_facteurs_premiers(n)
-	for (const i in liste) {
+  const liste = obtenir_liste_facteurs_premiers(n)
+  for (const i in liste) {
     decomposition.push(liste[i])
-	}
+  }
   return decomposition
 }
 
@@ -4961,27 +3949,26 @@ export function decomp_fact_prem_array (n) {
  */
 export function Triangles (l1, l2, l3, a1, a2, a3) {
   'use strict'
-	var self = this
+  const self = this
 
-	/**
+  /**
 	 * @constant {array} nomsPossibles liste de noms possibles pour un triangle
 	 */
-	let nomsPossibles = ['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR', 'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI', 'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET', 'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL', 'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG']
+  const nomsPossibles = ['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR', 'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI', 'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET', 'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL', 'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG']
 
-	/**
+  /**
 	 * @property {string} nom nom du triangle, tiré au hasard dans un tableau
 	 */
-	this.nom = choice(nomsPossibles)
+  this.nom = choice(nomsPossibles)
 
-
-	/**
-	 * @return {string} Renvoie le nom du triangle tiré au hasard 
+  /**
+	 * @return {string} Renvoie le nom du triangle tiré au hasard
 	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
-	 * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard 
+	 * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard
 	 */
-	function getNom () {
+  function getNom () {
     return '$' + self.nom + '$'
-	}
+  }
 
   /**
 	 * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
@@ -4990,14 +3977,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 	 */
   function getCotes () {
     const cotes = []
-		let triangle = self.nom
-		let sommets = triangle.split('')
-		cotes[0] = '$[' + sommets[0] + '' + sommets[1] + ']$'
-		cotes[1] = '$[' + sommets[1] + '' + sommets[2] + ']$'
-		cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$'
+    const triangle = self.nom
+    const sommets = triangle.split('')
+    cotes[0] = '$[' + sommets[0] + '' + sommets[1] + ']$'
+    cotes[1] = '$[' + sommets[1] + '' + sommets[2] + ']$'
+    cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$'
 
-		return cotes
-	}
+    return cotes
+  }
 
   /**
 	 * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
@@ -5006,14 +3993,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 	 */
   function getLongueurs () {
     const longueurs = []
-		let triangle = self.nom
-		let sommets = triangle.split('')
-		longueurs[0] = '$' + sommets[0] + '' + sommets[1] + '$'
-		longueurs[1] = '$' + sommets[1] + '' + sommets[2] + '$'
-		longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$'
+    const triangle = self.nom
+    const sommets = triangle.split('')
+    longueurs[0] = '$' + sommets[0] + '' + sommets[1] + '$'
+    longueurs[1] = '$' + sommets[1] + '' + sommets[2] + '$'
+    longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$'
 
-		return longueurs
-	}
+    return longueurs
+  }
 
   /**
 	 * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
@@ -5022,14 +4009,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
       // return false;
       return ['L\'une des longueurs de l\'objet triangle n\'est pas définie']
-		}
+    }
     const longueurs = []
-		longueurs[0] = self.l1
-		longueurs[1] = self.l2
-		longueurs[2] = self.l3
+    longueurs[0] = self.l1
+    longueurs[1] = self.l2
+    longueurs[2] = self.l3
 
-		return longueurs
-	}
+    return longueurs
+  }
 
   /**
 	 * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
@@ -5037,14 +4024,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 	 */
   function getAngles () {
     const angles = []
-		let triangle = self.nom
-		let sommets = triangle.split('')
-		angles[0] = `$\\;\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$`
-		angles[1] = `$\\;\\widehat{${sommets[1] + sommets[2] + sommets[0]}}$`
-		angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`
+    const triangle = self.nom
+    const sommets = triangle.split('')
+    angles[0] = `$\\;\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$`
+    angles[1] = `$\\;\\widehat{${sommets[1] + sommets[2] + sommets[0]}}$`
+    angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`
 
-		return angles
-	}
+    return angles
+  }
 
   /**
 	 * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
@@ -5053,14 +4040,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
       // return false;
       return ['L\'un des angles de l\'objet triangle n\'est pas définie']
-		}
+    }
     const angles = []
-		angles[0] = self.a1
-		angles[1] = self.a2
-		angles[2] = self.a3
+    angles[0] = self.a1
+    angles[1] = self.a2
+    angles[2] = self.a3
 
-		return angles
-	}
+    return angles
+  }
 
   /**
 	 * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
@@ -5068,14 +4055,14 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 	 */
   function getSommets (math = true) {
     const triangle = self.nom
-		let sommets = triangle.split('')
-		if (math == true) {
+    const sommets = triangle.split('')
+    if (math == true) {
       sommets[0] = '$' + sommets[0] + '$'
-			sommets[1] = '$' + sommets[1] + '$'
-			sommets[2] = '$' + sommets[2] + '$'
-		}
+      sommets[1] = '$' + sommets[1] + '$'
+      sommets[2] = '$' + sommets[2] + '$'
+    }
     return sommets
-	}
+  }
 
   /**
 	 * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance
@@ -5089,9 +4076,9 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
       // return false;
       return 'L\'une des longueurs de l\'objet triangle n\'est pas définie'
-		} else {
+    } else {
       return calcul(self.l1 + self.l2 + self.l3)
-		}
+    }
   }
 
   /**
@@ -5110,17 +4097,17 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
   function isTrueTriangleLongueurs () {
     if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
       return false
-			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-		}
+      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+    }
     const longueurs = [self.l1, self.l2, self.l3]
-		longueurs.sort(function (a, b) {
+    longueurs.sort(function (a, b) {
       return calcul(a - b)
-		})
-		if (longueurs[2] < calcul(longueurs[0] + longueurs[1])) {
+    })
+    if (longueurs[2] < calcul(longueurs[0] + longueurs[1])) {
       return true
-		} else {
+    } else {
       return false
-		}
+    }
   }
 
   /**
@@ -5140,16 +4127,16 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     if ((typeof self.l1 === 'undefined') || (typeof self.l2 === 'undefined') || (typeof self.l3 === 'undefined')) {
       // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
       return false
-		}
+    }
     const longueurs = [self.l1, self.l2, self.l3]
-		longueurs.sort(function (a, b) {
+    longueurs.sort(function (a, b) {
       return calcul(a - b)
-		})
-		if (longueurs[2] == calcul(longueurs[0] + longueurs[1])) {
+    })
+    if (longueurs[2] == calcul(longueurs[0] + longueurs[1])) {
       return true
-		} else {
+    } else {
       return false
-		}
+    }
   }
 
   /**
@@ -5170,22 +4157,22 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     // si l'un des angles n'est pas defini ça ne va pas
     if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
       return false
-			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-		}
+      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+    }
     // si l'un des angles est négatif ça ne va pas
     if ((self.a1 < 0) || (self.a2 < 0) || (self.a3 < 0)) {
       return false
-			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-		}
+      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+    }
     if ((self.a1 + self.a2 + self.a3) == 180) {
       if ((self.a1 == 0 && self.a2 == 0) || (self.a2 == 0 && self.a3 == 0) || (self.a3 == 0 && self.a1 == 0)) {
         return false
-			} else {
+      } else {
         return true
-			}
+      }
     } else {
       return false
-		}
+    }
   }
 
   // renvoie un booleen selon que les trois angles forment un triangle plat ou non
@@ -5205,38 +4192,38 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
   function isPlatTriangleAngles () {
     if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
       return false
-			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
-		}
+      // return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+    }
     if ((self.a1 + self.a2 + self.a3) == 180) {
       if ((self.a1 == 0 && self.a2 == 0) || (self.a2 == 0 && self.a3 == 0) || (self.a3 == 0 && self.a1 == 0)) {
         return true
-			} else {
+      } else {
         return false
-			}
+      }
     } else {
       return false
-		}
+    }
   }
   this.l1 = l1
-	this.l2 = l2
-	this.l3 = l3
-	this.a1 = a1
-	this.a2 = a2
-	this.a3 = a3
-	//this.nom = nom;
-	this.getNom = getNom
-	this.getCotes = getCotes
-	this.getLongueurs = getLongueurs
-	this.getLongueursValeurs = getLongueursValeurs
-	this.getAngles = getAngles
-	this.getAnglesValeurs = getAnglesValeurs
-	this.getSommets = getSommets
-	this.getPerimetre = getPerimetre
-	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs
-	this.isPlatTriangleLongueurs = isPlatTriangleLongueurs
-	this.isTrueTriangleAngles = isTrueTriangleAngles
-	this.isPlatTriangleAngles = isPlatTriangleAngles
-	//this.isQuelconque = isQuelconque;	
+  this.l2 = l2
+  this.l3 = l3
+  this.a1 = a1
+  this.a2 = a2
+  this.a3 = a3
+  // this.nom = nom;
+  this.getNom = getNom
+  this.getCotes = getCotes
+  this.getLongueurs = getLongueurs
+  this.getLongueursValeurs = getLongueursValeurs
+  this.getAngles = getAngles
+  this.getAnglesValeurs = getAnglesValeurs
+  this.getSommets = getSommets
+  this.getPerimetre = getPerimetre
+  this.isTrueTriangleLongueurs = isTrueTriangleLongueurs
+  this.isPlatTriangleLongueurs = isPlatTriangleLongueurs
+  this.isTrueTriangleAngles = isTrueTriangleAngles
+  this.isPlatTriangleAngles = isPlatTriangleAngles
+  // this.isQuelconque = isQuelconque;
 }
 
 /**
@@ -5249,42 +4236,42 @@ export function Relatif (...relatifs) {
   // 'use strict'; pas de use strict avec un paramètre du reste
   this.relatifs = relatifs
 
-	/**
-	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
+  /**
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs,
 	 * * Si 0 fait partie des relatifs on renvoie une erreur
 	 * @return {array} Renvoie un tableau de -1 ou 1
 	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
 	 */
-	function getSigneNumber () {
+  function getSigneNumber () {
     const signes = []
-		try {
+    try {
       // port du string interdit !
       relatifs.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
-				}
+        }
         if (element == 0) {
           throw new RangeError(`${element} a été exclu des valeurs possibles.`)
         }
       })
-			// Quoi faire sans nombres ?
-			if (relatifs.length == 0) {
+      // Quoi faire sans nombres ?
+      if (relatifs.length == 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       relatifs.forEach(function (element) {
         if (element < 0) {
           signes.push(-1)
-				}
+        }
         if (element > 0) {
           signes.push(1)
-				}
+        }
       })
     } catch (err) {
       console.log(err.message)
-			console.log(err.stack)
-		} finally {
+      console.log(err.stack)
+    } finally {
       return signes
-		}
+    }
   }
 
   /**
@@ -5294,17 +4281,17 @@ export function Relatif (...relatifs) {
 	*/
   function getSigneString () {
     const signesString = []
-		let signes = getSigneNumber()
-		signes.forEach(function (element) {
+    const signes = getSigneNumber()
+    signes.forEach(function (element) {
       if (element == -1) {
         signesString.push('négatif')
-			}
+      }
       if (element == 1) {
         signesString.push('positif')
-			}
+      }
     })
-		return signesString
-	}
+    return signesString
+  }
 
   /**
 	 *
@@ -5315,33 +4302,33 @@ export function Relatif (...relatifs) {
 
   function getSigneProduitNumber (...n) {
     let produit = 1
-		try {
+    try {
       // port du string interdit !
       n.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
-				}
+        }
         if (element == 0) {
           throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-				}
+        }
       })
-			// Quoi faire sans nombres ?
-			if (n.length == 0) {
+      // Quoi faire sans nombres ?
+      if (n.length == 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       n.forEach(function (element) {
         produit = produit * element
-			})
-			if (produit < 0) {
+      })
+      if (produit < 0) {
         return -1
-			}
+      }
       if (produit > 0) {
         return 1
       }
     } catch (err) {
       console.log(err.message)
-			console.log(err.stack)
-		}
+      console.log(err.stack)
+    }
   }
 
   /**
@@ -5353,9 +4340,9 @@ export function Relatif (...relatifs) {
 
   function getSigneProduitString (...n) {
     const produit = getSigneProduitNumber(...n)
-		if (produit == -1) {
+    if (produit == -1) {
       return 'négatif'
-		}
+    }
     if (produit == 1) {
       return 'positif'
     }
@@ -5372,29 +4359,29 @@ export function Relatif (...relatifs) {
 
   function getCardNegatifs ([...n]) {
     let card = 0
-		try {
+    try {
       // port du string interdit !
       n.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
-				}
+        }
         if (element == 0) {
           throw new RangeError(`${element} a été exclu des valeurs possibles.`)
-				}
+        }
       })
-			// Quoi faire sans nombres ?
-			if (n.length == 0) {
+      // Quoi faire sans nombres ?
+      if (n.length == 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       n.forEach(function (element) {
         if (element < 0) {
           card = card + 1
-				}
+        }
       })
-			return card
-		} catch (err) {
+      return card
+    } catch (err) {
       console.log(err.message)
-		}
+    }
   }
 
   /**
@@ -5406,9 +4393,9 @@ export function Relatif (...relatifs) {
 	 */
   function orth_facteurs_négatifs (n) {
     if (n >= 2) {
-      return 'facteurs négatifs';
+      return 'facteurs négatifs'
     } else {
-      return 'facteur négatif';
+      return 'facteur négatif'
     }
   }
 
@@ -5424,32 +4411,32 @@ export function Relatif (...relatifs) {
       n.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
-				}
+        }
       })
-			// Quoi faire sans nombres ?
-			if (n.length == 0) {
+      // Quoi faire sans nombres ?
+      if (n.length == 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       if (n.length == 2) {
         if (getCardNegatifs(n) % 2 == 0) {
-          return 'Les deux facteurs ont le même signe donc le produit est positif.';
+          return 'Les deux facteurs ont le même signe donc le produit est positif.'
         } else {
-          return 'Les deux facteurs ont un signe différent donc le produit est négatif.';
+          return 'Les deux facteurs ont un signe différent donc le produit est négatif.'
         }
       } else if (n.length > 2) {
         if (getCardNegatifs(n) % 2 == 0) {
           if (getCardNegatifs(n) == 0) {
-            return 'Tous les facteurs sont positifs donc le produit est positif.';
+            return 'Tous les facteurs sont positifs donc le produit est positif.'
           } else {
             return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
-					}
+          }
         } else {
           return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
-				}
+        }
       }
     } catch (err) {
       console.log(err.message)
-		}
+    }
   }
 
   /**
@@ -5466,44 +4453,43 @@ export function Relatif (...relatifs) {
       n.forEach(function (element) {
         if (typeof element === 'string') {
           throw new TypeError(`${element} est un string !`)
-				}
+        }
       })
-			// Quoi faire sans nombres ?
-			if (n.length == 0) {
+      // Quoi faire sans nombres ?
+      if (n.length == 0) {
         throw new Error('C\'est mieux avec quelques nombres !')
       }
       if (n.length == 2) {
         if (getCardNegatifs(n) % 2 == 0) {
-          return 'Le numérateur et le dénominateur ont le même signe donc le quotient est positif.';
+          return 'Le numérateur et le dénominateur ont le même signe donc le quotient est positif.'
         } else {
-          return 'Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.';
+          return 'Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.'
         }
       } else if (n.length > 2) {
         if (getCardNegatifs(n) % 2 == 0) {
           if (getCardNegatifs(n) == 0) {
-            return 'Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.';
+            return 'Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.'
           } else {
             // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
             return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`
-					}
+          }
         } else {
           // return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
           return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`
-				}
+        }
       }
     } catch (err) {
       console.log(err.message)
-		}
+    }
   }
 
   this.getSigneNumber = getSigneNumber
-	this.getSigneString = getSigneString
-	this.getSigneProduitNumber = getSigneProduitNumber
-	this.getSigneProduitString = getSigneProduitString
-	this.getCardNegatifs = getCardNegatifs
-	this.setRegleSigneProduit = setRegleSigneProduit
-	this.setRegleSigneQuotient = setRegleSigneQuotient
-
+  this.getSigneString = getSigneString
+  this.getSigneProduitNumber = getSigneProduitNumber
+  this.getSigneProduitString = getSigneProduitString
+  this.getCardNegatifs = getCardNegatifs
+  this.setRegleSigneProduit = setRegleSigneProduit
+  this.setRegleSigneQuotient = setRegleSigneQuotient
 }
 
 export function nombreEnLettres (nb, type = 1) {
@@ -5513,7 +4499,7 @@ export function nombreEnLettres (nb, type = 1) {
     partie_entiere = Math.floor(nb)
     partie_decimale = calcul(nb - partie_entiere)
     nb_dec = partie_decimale.toString().replace(/\d*\./, '').length
-		partie_decimale = calcul(partie_decimale * 10 ** nb_dec)
+    partie_decimale = calcul(partie_decimale * 10 ** nb_dec)
 
     switch (nb_dec) {
       case 1:
@@ -6548,16 +5534,16 @@ export function partieEntiereEnLettres (nb) {
   }
 
   const nbString = nb.toString()
-	let classeDesMilliards = ''
-	if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {
+  let classeDesMilliards = ''
+  if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {
     classeDesMilliards = dictionnaire[nbString.substring(nbString.length - 12, nbString.length - 9).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
   }
   let classeDesMillions = ''
-	if (nbString.substring(nbString.length - 9, nbString.length - 6).length > 0) {
+  if (nbString.substring(nbString.length - 9, nbString.length - 6).length > 0) {
     classeDesMillions = dictionnaire[nbString.substring(nbString.length - 9, nbString.length - 6).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
   }
   let classeDesMilliers = ''
-	if (nbString.substring(nbString.length - 6, nbString.length - 3) == '080' || nbString.substring(nbString.length - 6, nbString.length - 3) == '80') {
+  if (nbString.substring(nbString.length - 6, nbString.length - 3) == '080' || nbString.substring(nbString.length - 6, nbString.length - 3) == '80') {
     classeDesMilliers = 'quatre-vingt'
   } else if (nbString.substring(nbString.length - 5, nbString.length - 3) == '00' && nbString.substring(nbString.length - 6, nbString.length - 5) != '1') {
     classeDesMilliers = dictionnaire[nbString.substring(nbString.length - 6, nbString.length - 3).replace(/^0{1,2}/, '')].replaceAll(' ', '-').replace('cents', 'cent')
@@ -6565,7 +5551,7 @@ export function partieEntiereEnLettres (nb) {
     classeDesMilliers = dictionnaire[nbString.substring(nbString.length - 6, nbString.length - 3).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
   }
   let classeDesUnites = ''
-	if (nbString.substring(nbString.length - 3, nbString.length).length > 0) {
+  if (nbString.substring(nbString.length - 3, nbString.length).length > 0) {
     classeDesUnites = dictionnaire[nbString.substring(nbString.length - 3, nbString.length).replace(/^0{1,2}/, '')].replaceAll(' ', '-')
   }
   let result = ''
@@ -6611,25 +5597,25 @@ export function Trouver_solution_mathador (
   D = 3,
   E = 5
 ) {
-  let eureka;
-		let a;
-		let b;
-		let c;
-		let d;
-		let e;
-		let tirage;
-		let nombres_restants;
-		let operations_restantes;
-		let expression_en_cours_f;
-		let expression_en_cours_d;
-		let op;
-		let part1_f;
-		let part2_f;
-		let part1_d;
-		let part2_d;
-		let operations_successives = [];
-		let solution
-	let liste_choix = [
+  let eureka
+  let a
+  let b
+  let c
+  let d
+  let e
+  let tirage
+  let nombres_restants
+  let operations_restantes
+  let expression_en_cours_f
+  let expression_en_cours_d
+  let op
+  let part1_f
+  let part2_f
+  let part1_d
+  let part2_d
+  let operations_successives = []
+  let solution
+  const liste_choix = [
     1,
     2,
     2,
@@ -6666,41 +5652,37 @@ export function Trouver_solution_mathador (
     19,
     20
   ]
-	eureka = false
-	let nb_determines = arguments.length - 2
-	while (eureka == false) {
+  eureka = false
+  const nb_determines = arguments.length - 2
+  while (eureka == false) {
     tirage = []
 
-		if (nb_determines < 1) a = parseInt(choice(liste_choix))
-		else a = A
-		if (nb_determines < 2)
-      {b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a]));}
-    else b = B
-		if (nb_determines < 3)
-      {c = parseInt(
-				choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
-			);}
-    else c = C
-		if (nb_determines < 4)
-      {d = parseInt(
-				choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
-			);}
-    else d = D
-		if (nb_determines < 5)
-      {e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20]));}
-    else e = E
-		tirage.push(a, b, c, d, e)
-		nombres_restants = shuffle(tirage)
-		operations_restantes = ['\\times', '+', '-', '\\div']
-		operations_restantes = shuffle(operations_restantes)
-		expression_en_cours_f = [
+    if (nb_determines < 1) a = parseInt(choice(liste_choix))
+    else a = A
+    if (nb_determines < 2) { b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
+    if (nb_determines < 3) {
+      c = parseInt(
+        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
+      )
+    } else c = C
+    if (nb_determines < 4) {
+      d = parseInt(
+        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
+      )
+    } else d = D
+    if (nb_determines < 5) { e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
+    tirage.push(a, b, c, d, e)
+    nombres_restants = shuffle(tirage)
+    operations_restantes = ['\\times', '+', '-', '\\div']
+    operations_restantes = shuffle(operations_restantes)
+    expression_en_cours_f = [
 			`${nombres_restants[0]}`,
 			`${nombres_restants[1]}`,
 			`${nombres_restants[2]}`,
 			`${nombres_restants[3]}`,
 			`${nombres_restants[4]}`
     ]
-		expression_en_cours_d = [
+    expression_en_cours_d = [
 			`${nombres_restants[0]}`,
 			`${nombres_restants[1]}`,
 			`${nombres_restants[2]}`,
@@ -6708,68 +5690,68 @@ export function Trouver_solution_mathador (
 			`${nombres_restants[4]}`
     ]
 
-		while (nombres_restants.length > 1) {
+    while (nombres_restants.length > 1) {
       b = nombres_restants.pop()
-			a = nombres_restants.pop()
-			part2_f = expression_en_cours_f.pop()
-			part1_f = expression_en_cours_f.pop()
-			part2_d = expression_en_cours_d.pop()
-			part1_d = expression_en_cours_d.pop()
+      a = nombres_restants.pop()
+      part2_f = expression_en_cours_f.pop()
+      part1_f = expression_en_cours_f.pop()
+      part2_d = expression_en_cours_d.pop()
+      part1_d = expression_en_cours_d.pop()
 
-			op = operations_restantes.pop()
-			if (op == '\\times') {
+      op = operations_restantes.pop()
+      if (op == '\\times') {
         c = a * b
-				expression_en_cours_f.push(`${part1_f}${op}${part2_f}`)
-				expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
-				nombres_restants.push(c)
-			} else if (op == '\\div') {
+        expression_en_cours_f.push(`${part1_f}${op}${part2_f}`)
+        expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
+        nombres_restants.push(c)
+      } else if (op == '\\div') {
         if (a % b == 0) {
           c = a / b
-					if (part1_f[0] == '\\') {
+          if (part1_f[0] == '\\') {
             part1_f = part1_f.substring(6, part1_f.length)
-						part1_f = part1_f.substring(0, part1_f.length - 7)
-					}
+            part1_f = part1_f.substring(0, part1_f.length - 7)
+          }
           if (part2_f[0] == '\\') {
             part2_f = part2_f.substring(6, part2_f.length)
-						part2_f = part2_f.substring(0, part2_f.length - 7)
-					}
+            part2_f = part2_f.substring(0, part2_f.length - 7)
+          }
           expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`)
-					expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
-					nombres_restants.push(c)
-				} else break
-			} else if (op == '-') {
+          expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
+          nombres_restants.push(c)
+        } else break
+      } else if (op == '-') {
         if (a > b) {
           c = a - b
-					expression_en_cours_f.push(
+          expression_en_cours_f.push(
 						`\\left(${part1_f}${op}${part2_f}\\right)`
           )
-					expression_en_cours_d.push(
+          expression_en_cours_d.push(
 						`\\left(${part1_d}${op}${part2_d}\\right)`
           )
-					nombres_restants.push(c)
-				} else break
-			} else if (op == '+') {
+          nombres_restants.push(c)
+        } else break
+      } else if (op == '+') {
         c = a + b
-				if (part2_f.substring(0, 2) == '\\l') {
+        if (part2_f.substring(0, 2) == '\\l') {
           part2_f = part2_f.substring(6, part2_f.length)
-					part2_f = part2_f.substring(0, part2_f.length - 7)
-				}
+          part2_f = part2_f.substring(0, part2_f.length - 7)
+        }
         expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`)
-				if (part2_d.substring(0, 2) == '\\l') {
+        if (part2_d.substring(0, 2) == '\\l') {
           part2_d = part2_d.substring(6, part2_d.length)
-					part2_d = part2_d.substring(0, part2_d.length - 7)
-				}
+          part2_d = part2_d.substring(0, part2_d.length - 7)
+        }
         expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`)
-				nombres_restants.push(c)
-			}
+        nombres_restants.push(c)
+      }
       operations_successives.push(`${a}` + op + `${b}=${c}`)
-		}
+    }
 
     if (nombres_restants.length == 1 && operations_restantes.length == 0) {
       solution = nombres_restants[0]
-			if (solution >= min && solution <= max) {
+      if (solution >= min && solution <= max) {
         eureka = true
-				if (
+        if (
           expression_en_cours_f[0][0] == '\\' &&
 					expression_en_cours_f[0][1] == 'l'
         ) {
@@ -6777,11 +5759,11 @@ export function Trouver_solution_mathador (
             6,
             expression_en_cours_f[0].length
           )
-					expression_en_cours_f[0] = expression_en_cours_f[0].substring(
+          expression_en_cours_f[0] = expression_en_cours_f[0].substring(
             0,
             expression_en_cours_f[0].length - 7
           )
-				}
+        }
         if (
           expression_en_cours_d[0][0] == '\\' &&
 					expression_en_cours_d[0][1] == 'l'
@@ -6790,11 +5772,11 @@ export function Trouver_solution_mathador (
             6,
             expression_en_cours_d[0].length
           )
-					expression_en_cours_d[0] = expression_en_cours_d[0].substring(
+          expression_en_cours_d[0] = expression_en_cours_d[0].substring(
             0,
             expression_en_cours_d[0].length - 7
           )
-				}
+        }
         return [
           tirage,
           solution,
@@ -6802,22 +5784,22 @@ export function Trouver_solution_mathador (
           expression_en_cours_f,
           expression_en_cours_d
         ]
-			} else operations_successives = []
-		} else operations_successives = []
-	}
+      } else operations_successives = []
+    } else operations_successives = []
+  }
 }
 
 // Gestion du fichier à télécharger
 export function telechargeFichier (text, filename) {
-  let element = document.createElement('a')
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-	element.setAttribute('download', filename)
+  const element = document.createElement('a')
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+  element.setAttribute('download', filename)
 
-	element.style.display = 'none'
-	document.body.appendChild(element)
-	element.click()
+  element.style.display = 'none'
+  document.body.appendChild(element)
+  element.click()
 
-	document.body.removeChild(element)
+  document.body.removeChild(element)
 }
 
 // Gestion des styles LaTeX
@@ -7314,7 +6296,7 @@ export function preambule_personnalise (liste_packages) {
 
 `
         break
-			case 'bclogo':
+      case 'bclogo':
         result += '\\usepackage[tikz]{bclogo}'
         break
       case 'tkz-euclide':
@@ -7827,7 +6809,7 @@ export function export_QCM_AMC (tabQCMs, idExo) {
     switch (tabQCMs[3]) {
       case 1: // question QCM 1 bonne réponse
         tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-			nbBonnes = 0
+        nbBonnes = 0
         for (const b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
           if (b == 1) nbBonnes++
         }
@@ -7864,7 +6846,7 @@ export function export_QCM_AMC (tabQCMs, idExo) {
 
       case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
         tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-				type = 'questionmult' // On est dans le cas 2 le type est questionmult
+        type = 'questionmult' // On est dans le cas 2 le type est questionmult
         tex_QR += `\\element{${tabQCMs[0]}}{\n `
         tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettre_depuis_chiffre(idExo + 1)}-${id}} \n `
         tex_QR += `		${tabQCM[0]} \n `
@@ -7930,13 +6912,13 @@ export function export_QCM_AMC (tabQCMs, idExo) {
         if (tabQCM[2].approx != 0) {
           tex_QR += `approx=${tabQCM[2].approx},`
         }
-        if (typeof tabQCM[2].vertical!=='undefined') {
+        if (typeof tabQCM[2].vertical !== 'undefined') {
           tex_QR += `vertical=${tabQCM[2].vertical},`
         }
-        if (typeof tabQCM[2].strict!=='undefined') {
+        if (typeof tabQCM[2].strict !== 'undefined') {
           tex_QR += `strict=${tabQCM[2].strict},`
         }
-        if (typeof tabQCM[2].vhead!=='undefined') {
+        if (typeof tabQCM[2].vhead !== 'undefined') {
           tex_QR += `vhead=${tabQCM[2].vhead},`
         }
         tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
@@ -8089,11 +7071,11 @@ export function creer_document_AMC ({ questions, nb_questions = [], nb_exemplair
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
 
-  let idExo = 0; let code; let  index_of_code
+  let idExo = 0; let code; let index_of_code
   console.log(type_entete)
   const nombre_de_questions_indefinie = []
   const graine = randint(1, 100000)
-  const groupeDeQuestions = []; let tex_questions = [[]]; let titre_question = []
+  const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
   for (const qcm of questions) {
     code = export_QCM_AMC(qcm, idExo)
     idExo++
@@ -8103,7 +7085,7 @@ export function creer_document_AMC ({ questions, nb_questions = [], nb_exemplair
       index_of_code = groupeDeQuestions.indexOf(code[1])
       tex_questions[index_of_code] = code[0]
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-      if (typeof nb_questions[index_of_code] ==='undefined') {
+      if (typeof nb_questions[index_of_code] === 'undefined') {
         nombre_de_questions_indefinie[index_of_code] = true
         nb_questions[index_of_code] = code[2]
       } else { // Si le nombre de question (à restituer pour ce groupe de question) a été défini par l'utilisateur, alors on le laisse !
@@ -8291,7 +7273,7 @@ export function creer_document_AMC ({ questions, nb_questions = [], nb_exemplair
 	%%% préparation des groupes 
 	\\setdefaultgroupmode{withoutreplacement}\n`
 
-	for (const g of groupeDeQuestions) {
+  for (const g of groupeDeQuestions) {
     const i = groupeDeQuestions.indexOf(g)
     debut_document += tex_questions[i]
   }

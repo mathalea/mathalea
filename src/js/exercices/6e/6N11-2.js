@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,lettre_depuis_chiffre,html_consigne,string_nombre,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe,katex_Popup2,fraction_simplifiee} from '../../modules/outils.js'
-
+import Exercice from '../ClasseExercice.js'
+import { liste_de_question_to_contenu, randint, combinaison_listes, arrondi, calcul, lettre_depuis_chiffre, html_consigne, string_nombre } from '../../modules/outils.js'
+import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Placer un point d’abscisse entière (grands nombres)'
 
@@ -9,38 +9,36 @@ export const titre = 'Placer un point d’abscisse entière (grands nombres)'
  * @Auteur Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  */
-export default function Placer_un_point_abscisse_entiere() {
-  "use strict";
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.consigne = " Placer trois points sur un axe gradué.";
-  this.nb_questions = 5;
-  this.nb_questions_modifiable = true;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.spacing = 1;
-  this.spacing_corr = 1;
-  this.sup = 1;
-  this.type_exercice = "SVGJS";
-  this.liste_packages = "tkz-euclide";
+export default function Placer_un_point_abscisse_entiere () {
+  'use strict'
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = ' Placer trois points sur un axe gradué.'
+  this.nb_questions = 5
+  this.nb_questions_modifiable = true
+  this.nb_cols = 1
+  this.nb_cols_corr = 1
+  this.spacing = 1
+  this.spacing_corr = 1
+  this.sup = 1
+  this.type_exercice = 'SVGJS'
+  this.liste_packages = 'tkz-euclide'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     // numero_de_l_exercice est 0 pour l'exercice 1
-    let type_de_questions;
-    this.liste_questions = [];
-    this.liste_corrections = [];
-    this.contenu = ""; // Liste de questions
-    this.contenu_correction = ""; // Liste de questions corrigées
-    if (this.sup == 4)
-      type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions);
-
-    else
+    let type_de_questions
+    this.liste_questions = []
+    this.liste_corrections = []
+    this.contenu = '' // Liste de questions
+    this.contenu_correction = '' // Liste de questions corrigées
+    if (this.sup == 4) { type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions) } else {
       type_de_questions = combinaison_listes(
         [parseInt(this.sup)],
         this.nb_questions
-      );
+      )
+    }
 
-    this.contenu = html_consigne(this.consigne);
+    this.contenu = html_consigne(this.consigne)
     for (let i = 0,
       abs0,
       abs1,
@@ -60,54 +58,54 @@ export default function Placer_un_point_abscisse_entiere() {
       id_unique,
       texte,
       texte_corr; i < this.nb_questions; i++) {
-      l1 = lettre_depuis_chiffre(i * 3 + 1);
-      l2 = lettre_depuis_chiffre(i * 3 + 2);
-      l3 = lettre_depuis_chiffre(i * 3 + 3);
+      l1 = lettre_depuis_chiffre(i * 3 + 1)
+      l2 = lettre_depuis_chiffre(i * 3 + 2)
+      l3 = lettre_depuis_chiffre(i * 3 + 3)
 
       switch (type_de_questions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
-          abs0 = randint(1, 9) * 1000;
-          pas1 = 0.001;
-          pas2 = 10;
-          break;
+          abs0 = randint(1, 9) * 1000
+          pas1 = 0.001
+          pas2 = 10
+          break
 
         case 2: // Placer des entiers sur un axe (dizaines de mille)
-          abs0 = randint(5, 15) * 10000;
-          pas1 = 0.0001;
-          pas2 = 10;
-          break;
+          abs0 = randint(5, 15) * 10000
+          pas1 = 0.0001
+          pas2 = 10
+          break
 
         case 3: // Placer des entiers sur un axe (centaines de mille)
-          abs0 = randint(35, 85) * 100000;
-          pas1 = 0.00001;
-          pas2 = 10;
-          break;
+          abs0 = randint(35, 85) * 100000
+          pas1 = 0.00001
+          pas2 = 10
+          break
       }
-      x1 = randint(0, 2);
-      x2 = randint(3, 4);
-      x3 = randint(5, 6);
-      x11 = randint(1, 9);
-      x22 = randint(1, 9);
-      x33 = randint(1, 3);
+      x1 = randint(0, 2)
+      x2 = randint(3, 4)
+      x3 = randint(5, 6)
+      x11 = randint(1, 9)
+      x22 = randint(1, 9)
+      x33 = randint(1, 3)
       abs1 = arrondi(
         abs0 + x1 / pas1 + x11 / pas1 / pas2,
         type_de_questions[i]
-      ); // le type de questions est égal au nombre de décimales.
+      ) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(
         abs0 + x2 / pas1 + x22 / pas1 / pas2,
         type_de_questions[i]
-      );
+      )
       abs3 = arrondi(
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
         type_de_questions[i]
-      );
+      )
       if (sortie_html) {
-        texte_corr = "";
+        texte_corr = ''
         this.contenu += `<h3> Placer les points : ${l1}(${string_nombre(
           abs1
-        )}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)})</h3>`;
-        id_unique = `${i}_${Date.now()}`;
-        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        )}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)})</h3>`
+        id_unique = `${i}_${Date.now()}`
+        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
           `div_svg${numero_de_l_exercice}${id_unique}`,
           abs0,
@@ -117,11 +115,11 @@ export default function Placer_un_point_abscisse_entiere() {
           [],
           [
             [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0]
           ],
           false
-        );
-        this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        )
+        this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
           `div_svg_corr${numero_de_l_exercice}${id_unique}`,
           abs0,
@@ -131,21 +129,21 @@ export default function Placer_un_point_abscisse_entiere() {
           [
             [l1, x1, x11, true],
             [l2, x2, x22, true],
-            [l3, x3, x33, true],
+            [l3, x3, x33, true]
           ],
           [
             [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0]
           ],
           false
-        );
+        )
       } else {
-        //sortie Latex
+        // sortie Latex
         texte = `{\\small Placer les points : $${l1}$(${string_nombre(
           abs1
         )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
           abs3
-        )})}<br>`;
+        )})}<br>`
         texte += Latex_reperage_sur_un_axe(
           2,
           abs0,
@@ -154,15 +152,15 @@ export default function Placer_un_point_abscisse_entiere() {
           [],
           [
             [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0]
           ],
           false
-        );
+        )
         texte_corr = `{\\small Les points $${l1}$(${string_nombre(
           abs1
         )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
           abs3
-        )}) sont placés ci dessous}<br>`;
+        )}) sont placés ci dessous}<br>`
         texte_corr += Latex_reperage_sur_un_axe(
           2,
           abs0,
@@ -171,24 +169,23 @@ export default function Placer_un_point_abscisse_entiere() {
           [
             [l1, x1, x11, true],
             [l2, x2, x22, true],
-            [l3, x3, x33, true],
+            [l3, x3, x33, true]
           ],
           [
             [calcul(abs0, 0), 0, 0],
-            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0]
           ],
           false
-        );
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        )
+        this.liste_questions.push(texte)
+        this.liste_corrections.push(texte_corr)
       }
     }
-    if (!sortie_html)
-      liste_de_question_to_contenu(this);
-  };
+    if (!sortie_html) { liste_de_question_to_contenu(this) }
+  }
   this.besoin_formulaire_numerique = [
-    "Niveau de difficulté",
+    'Niveau de difficulté',
     4,
-    "1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange",
-  ];
+    '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange'
+  ]
 }

@@ -36,7 +36,7 @@ export default function Puissances_d_un_relatif_2() {
 
     this.bouton_aide = modal_pdf(
       numero_de_l_exercice,
-      "pdf/FichePuissances-4N21.pdf",
+      "assets/pdf/FichePuissances-4N21.pdf",
       "Aide mémoire sur les puissances (Sébastien Lozano)",
       "Aide mémoire"
     );

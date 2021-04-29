@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,nombre_avec_espace,modal_pdf,modal_video,liste_diviseurs,tikz_machine_maths,tikz_machine_diag,katex_Popup,num_alpha,SVG_machine_diag_3F1_act_mono,SVG_machine_diag_3F12,machine_maths_video,info_message,lampe_message} from '../../modules/outils.js'
+import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,nombre_avec_espace,modal_pdf,modal_video,liste_diviseurs,tikz_machine_maths,tikz_machine_diag,katex_Popup,num_alpha,machine_maths_video,info_message,lampe_message} from '../../modules/outils.js'
+import {SVG_machine_diag_3F1_act_mono, SVG_machine_diag_3F12} from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**
@@ -80,9 +81,9 @@ export default function fonction_notion_vocabulaire() {
 		});
 
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "pdf/FicheFonctions-3F1-act.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			this.bouton_aide += modal_video('conteMathsFonctions', 'videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo');
-			this.introduction += machine_maths_video(`videos/machineMathsIntro.mp4`);
+			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheFonctions-3F1-act.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
+			this.bouton_aide += modal_video('conteMathsFonctions', 'assets/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo');
+			this.introduction += machine_maths_video(`assets/videos/machineMathsIntro.mp4`);
 		} else { // sortie LaTeX
 			this.introduction += tikz_machine_maths('maths', '---', `Proc\\acute{e}d\\acute{e}`, 'de\\,calcul', `ant\\acute{e}c\\acute{e}dent`, `\\textit{x}`, `image`, `\\textit{y}`);
 		};
@@ -110,7 +111,7 @@ export default function fonction_notion_vocabulaire() {
 					// machine						
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-f.mp4`);
+						texte += machine_maths_video(`assets/videos/machineMaths-f.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('f', '---', `P\\acute{e}rim\\grave{e}tre`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `P\\acute{e}rim\\grave{e}tre`, `???\\,cm`);
 					};
@@ -220,7 +221,7 @@ export default function fonction_notion_vocabulaire() {
 					// machine
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-g.mp4`);
+						texte += machine_maths_video(`assets/videos/machineMaths-g.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('g', '---', `Aire`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `Aire`, `???\\,cm^2`);
 					};
@@ -339,7 +340,7 @@ export default function fonction_notion_vocabulaire() {
 					// machine
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-h.mp4`);
+						texte += machine_maths_video(`assets/videos/machineMaths-h.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('h', '---', `Multiplier\\,par\\,3`, `Ajouter\\,1`, `nombre\\,de`, `d\\acute{e}part\\,${x}`, `nombre\\,de`, `sortie\\,?`);
 					};
@@ -458,7 +459,7 @@ export default function fonction_notion_vocabulaire() {
 					// machine
 					x = randint(2, 51); //augmenter les possibles pour éviter les questions déjà posées?						
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-d.mp4`);
+						texte += machine_maths_video(`assets/videos/machineMaths-d.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('d', '---', `nombre \\, total`, `de \\, diviseurs`, `nombre\\,de`, `d\\acute{e}part\\,${x}`, `nombre \\, de`, `diviseurs`);
 					};
