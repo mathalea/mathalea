@@ -138,6 +138,11 @@ module.exports = {
       template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/mathalea_amc.php',
+      filename: 'mathalea_amc.html',
+      chunks: ['mathalea_amc']
     })
   ],
   // La liste des fichiers à traiter
