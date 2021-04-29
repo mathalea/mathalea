@@ -2346,6 +2346,7 @@ export default function Alea2iep() {
       this.compasEcarter2Points(A, B)
       this.compasTracerArcCentrePoint(p, image)
     }
+    this.compasMasquer()
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur })
     const choix1 = randint(0, 4)
     const choix2 = randint(0, 4, choix1)
