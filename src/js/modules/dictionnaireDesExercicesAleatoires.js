@@ -991,6 +991,10 @@ export default {
     "titre": "Additions, soustractions, multiplications et divisions posées de nombres entiers",
     "url": "/exercices/6e/6C10bis.js"
   },
+  "6C11-1": {
+    "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
+    "url": "/exercices/6e/6C11-1.js"
+  },
   "6C11": {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/6e/6C11.js"
