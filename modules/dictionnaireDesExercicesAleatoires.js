@@ -204,6 +204,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
         "url": "/exercices/3e/3G12-1.js"
     },
+    "3G15-1": {
+        "titre": "this.titre = titre;\n",
+        "url": "/exercices/3e/3G15-1.js"
+    },
     "3G20": {
         "titre": "Calculer des longueurs avec la propriété de Thalès",
         "url": "/exercices/3e/3G20.js"
@@ -996,6 +1000,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Divisions euclidiennes",
         "url": "/exercices/6e/6C11.js"
     },
+    "6C11-1": {
+        "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
+        "url": "/exercices/6e/6C11-1.js"
+    },
     "6C13": {
         "titre": "Traduire des phrases en calculs et réciproquement",
         "url": "/exercices/6e/6C13.js"
@@ -1660,10 +1668,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
-    "beta6C11-1": {
-        "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
-        "url": "/exercices/beta/beta6C11-1.js"
-    },
     "beta6C33-1": {
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
@@ -1707,10 +1711,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExercice_constructions_basiques": {
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
-    },
-    "betaExoLiouba": {
-        "titre": "Moule pour Liouba",
-        "url": "/exercices/beta/betaExoLiouba.js"
     },
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",

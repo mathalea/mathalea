@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,num_alpha, calcul, randint} from "/modules/outils.js"
 import {mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point} from "/modules/2d.js"
+import Alea2iep from '../../modules/Alea2iep.js';
 
 export default function Exercice_zero_mathalea2d() {
     Exercice.call(this)
@@ -11,9 +12,10 @@ export default function Exercice_zero_mathalea2d() {
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.consigne = 'Construire les points suivants.'
     this.video = 'hFoN9sMWnac'
+    this.type_exercice = "IEP";
 
-    this.nouvelle_version = function () {
-  
+    this.nouvelle_version = function (numeroExercice) {
+      const anim = new Alea2iep()
     this.liste_questions = [] // tableau contenant la liste des questions 
     this.liste_corrections = []
   
@@ -56,7 +58,18 @@ export default function Exercice_zero_mathalea2d() {
 
 //mathalea.fenetreMathalea2d = [Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1),Math.min(M1.y-1,M2.y-1,M3.y-1,M4.y-1,M5.y-1,M6.y-1),Math.max(M1.x+1,M2.x+1,M3.x+1,M4.x+1,M5.x+1,M6.x+1),Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1)]
 
-
+        anim.recadre(Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1),Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1))
+        anim.vitesse=1000
+        anim.tempo=0
+        anim.pointsCreer(A,B,M,O)
+        anim.regleDroite(A,B)
+        anim.vitesse=10
+        anim.tempo=1
+        anim.symetrieAxialePoint(M,d,'M1',{couleur:'blue',couleurCodage:'lightblue',codage:'//'})
+        anim.rotationPoint(M,O,-60,'M4',{couleur:'green',couleurCodage:'lightgreen'})
+        anim.translationPoint(M,A,B,'M3',{couleur:'red',couleurCodage:'pink',codage:'O'})
+        anim.homothetiePoint(M,A,3,'M5',{couleur:'purple',couleurCodage:'magenta'})
+        anim.homothetiePoint(M,A,-2,'M6',{couleur:'black',couleurCodage:'grey'})
  
         params_enonce = { xmin: Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1), ymin: Math.min(M1.y-1,M2.y-1,M3.y-1,M4.y-1,M5.y-1,M6.y-1), xmax: Math.max(M1.x+1,M2.x+1,M3.x+1,M4.x+1,M5.x+1,M6.x+1), ymax: Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1), pixelsParCm: 20, scale: 1, mainlevee: false }
   //paramètres de la fenêtre Mathalea2d pour la correction
@@ -67,6 +80,7 @@ export default function Exercice_zero_mathalea2d() {
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
+        texte_corr +='<br>'+ anim.html(numeroExercice)
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.liste_questions.push(texte);
