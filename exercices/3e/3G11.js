@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,arcenciel,tex_nombre} from "/modules/outils.js"
-import {point,tracePoint,labelPoint,segment,dansLaCibleCarree,cibleCarree,homothetie,longueur,mathalea2d} from "/modules/2d.js"
+import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,arcenciel,tex_nombre} from "../../modules/outils.js"
+import {point,tracePoint,labelPoint,segment,dansLaCibleCarree,cibleCarree,homothetie,longueur,mathalea2d} from "../../modules/2d.js"
+import Alea2iep from '../../modules/Alea2iep.js';
 /**
 * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
 * Ref 3G11
@@ -16,8 +17,11 @@ export default function Construire_homothetie_point_3e() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 3;
-	this.nouvelle_version = function () {
+    this.type_exercice = "IEP";
+
+	this.nouvelle_version = function (numeroExercice) {
 		let nontrouve,assezloin,cible,s
+		const anim = new Alea2iep()
 		let k = randint(-4, 4, [0, -2, 2]) / 2;
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -41,13 +45,13 @@ export default function Construire_homothetie_point_3e() {
 		let xMin, yMin, xMax, yMax;
 		[xMin, yMin, xMax, yMax] = [0, 0, 0, 0];
 		for (let i = 0; i < nbpoints; i++) { //On place les cibles.
-			N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "\'"));
+			N.push(point(calcul(randint(-60, 60, 0) / 10), calcul(randint(-60, 60, 0) / 10), noms[i] + "\'"));
 			nontrouve = true;
 			while (longueur(N[i], O) < 3 || nontrouve) {
 				nontrouve = true;
 				if (longueur(N[i], O) < 3) {
-					N[i].x = calcul(randint(-80, 80, 0) / 10);
-					N[i].y = calcul(randint(-80, 80, 0) / 10);
+					N[i].x = calcul(randint(-60, 60, 0) / 10);
+					N[i].y = calcul(randint(-60, 60, 0) / 10);
 				}
 				else {
 					assezloin = true;
@@ -56,8 +60,8 @@ export default function Construire_homothetie_point_3e() {
 							assezloin = false;
 					}
 					if (assezloin == false) { //éloigner les points donc les grilles
-						N[i].x = calcul(randint(-80, 80, 0) / 10);
-						N[i].y = calcul(randint(-80, 80, 0) / 10);
+						N[i].x = calcul(randint(-60, 60, 0) / 10);
+						N[i].y = calcul(randint(-60, 60, 0) / 10);
 					}
 					else
 						nontrouve = false;
@@ -78,7 +82,9 @@ export default function Construire_homothetie_point_3e() {
 			cibles.push(cible);
 		}
 		for (let i = 0; i < nbpoints; i++) {
+
 			M.push(homothetie(N[i], O, 1 / k, noms[i]));
+
 			objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i]);
 			objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i]);
 			if (k<0) {
@@ -103,11 +109,21 @@ export default function Construire_homothetie_point_3e() {
 			xMax = Math.max(xMax, N[i].x + 3, M[i].x + 3);
 			yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3);
 		}
-
 		let fenetreMathalea2d = [xMin, yMin, xMax, yMax];
+		anim.xMin=xMin
+		anim.xMax=xMax
+		anim.yMin=yMin
+		anim.yMax=yMax
 
+		anim.recadre(xMin,yMax)
+
+		anim.pointCreer(O)
+		for (let i=0;i<nbpoints;i++){
+		anim.pointCreer(M[i])
+		anim.homothetiePoint(M[i],O,k,"",{positionTexte:{x:2,y:-1}})
+		}
 		this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce));
-		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction));
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)+ anim.html(numeroExercice));
 		liste_de_question_to_contenu(this);
 
 		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos

@@ -2401,19 +2401,25 @@ export default function Alea2iep() {
    * @param {array} noms tableau contenant les différents noms des sommets dans le même ordre que ceux de p. Si vide, alors on ajoute ' à ceux de p
    * @param {objet} param4 options (couleur)
    */
-  this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur } = {}) {
+  this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte={x:0,y:0} } = {}) {
     this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, { taille: 15 })
+    let t
     if (nom === undefined || nom === "") {
       nom = p.nom + "'"
     }
     const image = homothetie(p, centre, k, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
+    if (k>0){
+      t = this.textePosition(`Comme k est positif alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
+    }
+    else {
+      t = this.textePosition(`Comme k est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
+    }
     this.regleSegment(p, centre)
     const l = arrondi(longueur(p, centre), 1)
     const lprime = arrondi(math.multiply(l, math.abs(k)),)
-    const t1 = this.textePosition(`La mesure de ${p.nom}${centre.nom} est ${tex_nombre(arrondi(l, 1))} et k= ${k}`, 0, -1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} × |k| = ${tex_nombre(arrondi(l, 1))} × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)}`, 0, -2, { taille: 15 })
+    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} et k= ${tex_nombre(k)}`, positionTexte.x, positionTexte.y-1, { taille: 15 })
+    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} × |k| = ${tex_nombre(arrondi(l, 1))} × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)}`, positionTexte.x, positionTexte.y-2, { taille: 15 })
     this.regleSegment(centre, image)
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
     this.regleMasquer()
