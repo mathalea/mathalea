@@ -4,12 +4,14 @@ import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTra
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 
+
+
+
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
-import iepLoadPromise from 'instrumenpoche'
 
 import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
@@ -18,10 +20,6 @@ import '../css/style_mathalea.css'
 // Prism est utilisé pour la coloration syntaxique du LaTeX
 import '../assets/externalJs/prism.js'
 import '../assets/externalJs/prism.css'
-
-// import '../assets/externalJs/semantic.min.js'
-// import '../assets/externalJs/state.min.js'
-// import '../assets/externalJs/semantic.min.css'
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -155,7 +153,7 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 
-function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin katex, iep, scratch
+async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin katex, iep, scratch
   renderMathInElement(document.body, {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
@@ -201,29 +199,26 @@ function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin katex, i
     }
   }
   if (besoinScratch) {
-    loadScript('include/scratchblocks-v3.5-min.js')
-      .then(() => {
-        scratchTraductionFr()
-        scratchblocks.renderMatching('pre.blocks', {
-          style: 'scratch3',
-          languages: ['fr']
-        })
-        scratchblocks.renderMatching('code.b', {
-          inline: true,
-          style: 'scratch3',
-          languages: ['fr']
-        })
-        mathalea.listeDesScriptsCharges.push('Scratch')
-      })
+    await loadScript('include/scratchblocks-v3.5-min.js')
+    scratchTraductionFr()
+    scratchblocks.renderMatching('pre.blocks', {
+      style: 'scratch3',
+      languages: ['fr']
+    })
+    scratchblocks.renderMatching('code.b', {
+      inline: true,
+      style: 'scratch3',
+      languages: ['fr']
+    })
+    mathalea.listeDesScriptsCharges.push('Scratch')
   }
   if (besoinIEP) {
+    const iepLoadPromise = await import('instrumenpoche')
     for (const id of window.listeAnimationsIepACharger) {
       const element = document.getElementById(`IEPContainer${id}`)
       element.style.marginTop = '30px'
       const xml = window.listeScriptsIep[id]
-      iepLoadPromise(element, xml, { zoom: true, autostart: false }).then(iepApp => {
-        // la figure est chargée
-      }).catch(error => { console.log(error) })
+      await iepLoadPromise(element, xml, { zoom: true, autostart: false })
     }
   }
 }

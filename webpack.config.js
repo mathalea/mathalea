@@ -80,7 +80,8 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: 'src/assets', to: 'assets' }
+        { from: 'src/assets', to: 'assets' },
+        { from: 'src/assets/favicon.ico', to: '/' }
       ]
     }),
     new MiniCssExtractPlugin({
