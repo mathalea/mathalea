@@ -30,6 +30,7 @@
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",
     "seedrandom": "^3.0.5",
+    "sval": "^0.4.8",
     "svg.js": "^2.7.1"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@ anim.regleDroite(M, N, { couleur:'red' })
 anim.regleMasquer()
 const codage1 = anim.segmentCodage(A, O, { codage:'X' })
 const codage2 = anim.segmentCodage(O, B, { codage:'X' })
-const codageCarre = anim.codageAngleDroit(A, O, O2)
+const codage3 = anim.codageAngleDroit(A, O, O2)
 anim.crayonMasquer()
 anim.traitMasquer(arc1) // On cache les traits de construction
 anim.traitMasquer(arc2)

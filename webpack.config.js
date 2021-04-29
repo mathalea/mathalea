@@ -42,7 +42,8 @@ module.exports = {
   entry: {
     mathalea: './src/js/mathalea.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
-    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js']
+    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
+    mathalea2iep: './src/js/modules/mathalea2iep-gui.js'
   },
   output: {
     // on vide build avant chaque compilation
@@ -138,6 +139,11 @@ module.exports = {
       template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/mathalea2iep.html',
+      filename: 'mathalea2iep.html',
+      chunks: ['mathalea2iep']
     })
   ],
   // La liste des fichiers à traiter
