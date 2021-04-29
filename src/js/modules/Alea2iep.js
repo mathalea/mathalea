@@ -1600,7 +1600,7 @@ export default function Alea2iep () {
  * @param {point} B
  * @param {point} C
  * @param {objet} param3
- * @returns
+ * @returns {objet} {arc1, arc2, arc3, arc4}
  */
   this.bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, pointilles = this.pointilles, couleurCodage = this.couleurCodage, masquerTraitsDeConstructions = true } = {}) {
     const A1 = pointSurSegment(B, A, l)
@@ -2198,7 +2198,7 @@ export default function Alea2iep () {
    * Macro crée par Sophie Desruelle
    * @param {objet} A
    * @param {number} c
-   * @returns
+   * @returns polygoneAvecNom
    */
   this.carre1point1longueur = function (nom, A, c) {
     const interligne = 1

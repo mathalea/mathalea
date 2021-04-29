@@ -1,0 +1,36 @@
+{
+    "comment"  : "cf http://usejsdoc.org/about-configuring-jsdoc.html",
+    "tags"     : {
+      "allowUnknownTags": true
+    },
+    "source"   : {
+      "include": [
+        "./src/js/modules/2d.js",
+        "./DEV.md"
+      ],
+      "exclude": [
+        "./src/js/modules/MathJax"
+      ]
+    },
+    "plugins"  : ["plugins/markdown"],
+    "markdown" : {
+      "idInHeadings": true
+    },
+    "opts"     : {
+      "destination": "./documentation",
+      "recurse"    : true,
+      "private"    : false,
+      "template": "node_modules/docdash"
+    },
+    "docdash": {
+      "comment": "Cf https://github.com/clenemt/docdash (options)",
+      "static": true,
+      "sort": true,
+      "search": true,
+      "collapse": true
+    },
+    "templates": {
+      "cleverLinks": true
+    }
+  }
+  
