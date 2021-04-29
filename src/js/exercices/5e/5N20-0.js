@@ -12,6 +12,7 @@ export default function Problemes_additifs_fractions_5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1
+  this.nb_questions=1
 
   this.titre = titre;
   this.consigne = 'Calculatrice autorisée.';
@@ -19,8 +20,8 @@ export default function Problemes_additifs_fractions_5e () {
   this.nb_cols = 1
   this.nb_cols_corr = 1
   //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 3 : this.spacing = 2
-  sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5
+  sortie_html ? this.spacing = 1 : this.spacing = 1
+  sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1
 
   let type_de_questions_disponibles
 
