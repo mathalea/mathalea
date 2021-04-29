@@ -147,12 +147,12 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
         texte_corr += '<br>'
-        texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
-        texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`
-        texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>translation</button>`
-        texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}D').beginElement()"><i class="redo circle icon"></i>rotation</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>translation</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}D').beginElement()"><i class="redo circle icon"></i>rotation</button>`
     
-        texte_corr += anim.htmlBouton(numeroExercice)
+        texte_corr += anim.html(numeroExercice)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page

@@ -2285,7 +2285,6 @@ export default function Alea2iep() {
     this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteur(-0.2, 0.5)))
       }
     }
-    this.pause()
   }
 
 
@@ -2322,7 +2321,6 @@ export default function Alea2iep() {
     this.compasMasquer()
     }
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
-    this.pause()
   }
 
   /**
@@ -2364,7 +2362,6 @@ export default function Alea2iep() {
     this.traitRapide(A, p)
     this.segmentCodage(B, image, { codage: marque2, couleur: couleurCodage })
     this.segmentCodage(A, p, { codage: marque2, couleur: couleurCodage })
-    this.pause()
   }
 
   /**
@@ -2394,7 +2391,6 @@ export default function Alea2iep() {
     this.crayonMasquer()
     this.segmentCodage(p, centre, { codage: codage, couleur: couleurCodage })
     this.segmentCodage(centre, image, { codage: codage, couleur: couleurCodage })
-    this.pause()
   }
 
   /**
