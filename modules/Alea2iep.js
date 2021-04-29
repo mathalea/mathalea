@@ -2403,6 +2403,7 @@ export default function Alea2iep() {
    */
   this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte={x:0,y:0} } = {}) {
     this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
+    const couleurSave=this.couleur
     this.couleur = 'grey'
     let t
     if (nom === undefined || nom === "") {
@@ -2410,16 +2411,16 @@ export default function Alea2iep() {
     }
     const image = homothetie(p, centre, k, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
     if (k>0){
-      t = this.textePosition(`Comme k est positif alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
+      t = this.textePosition(`Comme le rapport est positif alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
     }
     else {
-      t = this.textePosition(`Comme k est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
+      t = this.textePosition(`Comme le rapport est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
     }
     this.regleSegment(p, centre)
     const l = arrondi(longueur(p, centre), 1)
     const lprime = arrondi(math.multiply(l, math.abs(k)),)
-    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} et k= ${tex_nombre(k)}`, positionTexte.x, positionTexte.y-1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} × |k| = ${tex_nombre(arrondi(l, 1))} × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)}`, positionTexte.x, positionTexte.y-2, { taille: 15 })
+    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${tex_nombre(k)}`, positionTexte.x, positionTexte.y-1, { taille: 15 })
+    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y-2, { taille: 15 })
     this.regleSegment(centre, image)
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
     this.regleMasquer()
@@ -2428,6 +2429,7 @@ export default function Alea2iep() {
     this.texteMasquer(t1)
     this.texteMasquer(t2)
     this.texteMasquer(t)
+    this.couleur=couleurSave
   }
   /**
    *
