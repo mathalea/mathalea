@@ -4,9 +4,6 @@ import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTra
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 
-
-
-
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'

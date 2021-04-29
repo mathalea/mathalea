@@ -1,6 +1,6 @@
 import {unSiPositifMoinsUnSinon,arrondi,fraction_simplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from './outils.js'
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from './2d.js'
-const Algebrite = require('algebrite')
+import Algebrite from 'algebrite'
 
 export function obtenir_liste_Fractions_irreductibles() { //sous forme de fractions
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
