@@ -2308,7 +2308,6 @@ export default function Alea2iep() {
     const M = milieu(p,image) // on crée le point milieu
     const N = rotation(p,M,90)
     const D = rotation(N,M,180)
-    console.log(N,M,p)
     this.regleMasquerGraduations()
     this.perpendiculaireRegleEquerre2points3epoint(N, D, p)
     this.compasEcarter2Points(M, p)
