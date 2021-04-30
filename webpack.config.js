@@ -41,6 +41,7 @@ module.exports = {
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     mathalea: './src/js/mathalea.js',
+    mathalea_amc: './src/js/mathalea_amc.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
     mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js']
   },
@@ -140,7 +141,7 @@ module.exports = {
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/html/mathalea_amc.php',
+      template: 'src/html/mathalea_amc.html',
       filename: 'mathalea_amc.html',
       chunks: ['mathalea_amc']
     })

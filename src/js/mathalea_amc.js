@@ -1,9 +1,34 @@
 import { creer_document_AMC, strRandom ,compteOccurences} from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
-import {menuDesExercicesQCMDisponibles} from '/modules/menuDesExercicesQCMDisponibles.js'
+import {menuDesExercicesQCMDisponibles} from './modules/menuDesExercicesQCMDisponibles.js'
 import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.js"
 
-(function () {
+// import katex from 'katex'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+//import Clipboard from 'clipboard'
+//import QRCode from 'qrcode'
+//import seedrandom from 'seedrandom'
+
+import 'katex/dist/katex.min.css'
+import '../css/style_mathalea.css'
+
+// Prism n'est utilisé que pour mathalealatex.html. Faut-il ajouter un test sur l'URL
+// Prism est utilisé pour la coloration syntaxique du LaTeX
+import '../assets/externalJs/prism.js'
+import '../assets/externalJs/prism.css'
+
+// Pour le menu du haut
+document.addEventListener('DOMContentLoaded', (event) => {
+  $('.ui.dropdown').dropdown()
+})
+
+// Les variables globales nécessaires aux exercices (pas terrible...)
+window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
+window.sortie_html = true
+window.est_diaporama = false
+
+
+//(function () {
  // IIFE principal
  mathalea.listeDesScriptsCharges = []
  let listeObjetsExercice = []; // Liste des objets listeObjetsExercices
@@ -342,162 +367,205 @@ import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.j
 
 	}
 
-    /**
+/**
      * Fonction à lancer une fois que la liste des exercices a été mise à jour.
      * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
      * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
      * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
      * Enfin, elle délègue à mise_a_jour du code l'affichage
      *
+     * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
+     * sans l'ajouter à la liste
+     *
      */
-    function mise_a_jour_de_la_liste_des_exercices(preview) {
-        let besoinXCas = false;
-        let liste_exercices;
-		mathalea.listeDesScriptsCharges = [];
-        let promises = [];
-        listeObjetsExercice = [];
-		liste_des_exercices = document.getElementById("choix_des_exercices").value.replace(/\s/g, "").replace(";", ",").split(",");
-		if (preview) {
-			liste_exercices = [preview];
-		} else {
-			liste_exercices = liste_des_exercices;
-		}
-		for (let i = 0, id; i < liste_exercices.length; i++) {
-            id = liste_exercices[i];
-			let url;
-            try {
-                url = dictionnaireDesExercicesAMC[id].url;
-            } catch (error) {
-                console.log(error);
-                console.log(`Exercice ${id} non disponible`);
-            }
-            promises.push(
-                import(url).catch((error) => {
-
-					console.log(error)
-                        listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: "", contenu_correction: "" }; // Un exercice vide pour l'exercice qui n'existe pas
-                    })
-                    .then((module) => {
-                        if (module) {
-                            listeObjetsExercice[i] = new module.default(); // Ajoute l'objet dans la liste des
-                            listeObjetsExercice[i].ModeQCM=true
-                            if (listeObjetsExercice[i].type_exercice == 'XCas') {
-                                besoinXCas = true;
-                            }
-                        }
-                    })
-            );
-        }
-        Promise.all(promises)
-            .then(() => {
-                if (!preview) {
-					parametres_exercice(listeObjetsExercice);
-				}
-            })
-            .then(() => {
-                if (!preview) {
-					// Récupère les paramètres passés dans l'URL
-					let urlVars = getUrlVars();
-					//trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
-					//	=> évite les erreurs lors de la suppression de question dans la liste.
-					for (var i = 0; i < urlVars.length; i++) {
-						if (urlVars[i].id != listeObjetsExercice[i]) {
-							urlVars.splice(i,1);
-						}
-					}
-					for (let i = 0; i < urlVars.length; i++) {
-						// récupère les éventuels paramètres dans l'URL
-						// et les recopie dans les formulaires des paramètres
-
-						if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
-							listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions;
-							form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
-						}
-						if (typeof urlVars[i].sup !== 'undefined') {
-							listeObjetsExercice[i].sup = urlVars[i].sup;
-							// Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
-							try {
-
-								form_sup[i].value = listeObjetsExercice[i].sup;
-							} catch {
-							}
-						}
-						if (typeof urlVars[i].sup2 !== 'undefined') {
-							listeObjetsExercice[i].sup2 = urlVars[i].sup2;
-							try {
-								form_sup2[i].value = listeObjetsExercice[i].sup2;
-							} catch (error) {
-							}
-						}
-						if (typeof urlVars[i].sup3 !== 'undefined') {
-							listeObjetsExercice[i].sup3 = urlVars[i].sup3;
-							try {
-								form_sup3[i].value = listeObjetsExercice[i].sup3;
-							} catch (error) {
-
-							}
-						}
-						if (typeof urlVars[i].ModeQCM !== 'undefined') {
-							listeObjetsExercice[i].ModeQCM = urlVars[i].ModeQCM;
-							try {
-								form_ModeQCM[i].value = listeObjetsExercice[i].ModeQCM;
-							} catch (error) {
-
-							}
-						}
-
-					}
-				}
-            })
-            .then(() => {
-                if (besoinXCas){
-                    // On charge le javascript de XCas
-                    document.getElementById("exercices").innerHTML = `<div class="profile-main-loader">
-                    <div class="loader">
-                      <svg class="circular-loader"viewBox="25 25 50 50" >
-                        <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
-                      </svg>
-                    </div>
-                  </div>`
-                    return loadScript("modules/giacsimple.js")
-
-                }
-            })
-            .then(() => {
-                if (besoinXCas) {
-                    // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-                    return checkXCas();
-                    }
-            })
-            .then(() => {
-                if (preview) {
-					let output = sortie_html;
-					sortie_html = true; //pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
-					try {
-                        listeObjetsExercice[0].nouvelle_version(0);
-                    } catch (error) {
-                        console.log(error);
-                    }
-					sortie_html = output;
-					$("#popup_preview").html(listeObjetsExercice[0].contenu);
-					renderMathInElement(document.body, {
-						delimiters: [
-						{ left: "\\[", right: "\\]", display: true },
-						{ left: "$", right: "$", display: false },
-						],
-						throwOnError: true,
-						errorColor: "#CC0000",
-						strict: "warn",
-						trust: false,
-					});
-					$(".popup").addClass("show");
-					$(".popuptext").css({top: document.documentElement.scrollTop -20});
-					$(".popuptext").show();
-				} else {
-					mise_a_jour_du_code();
-				}
-            });
+ function mise_a_jour_de_la_liste_des_exercices (preview) {
+    let besoinXCas = false
+    mathalea.listeDesScriptsCharges = []
+    const promises = []
+    const liste_exercices = liste_des_exercices
+    if (preview) {
+      liste_exercices.push(preview)
     }
+    listeObjetsExercice = []
+    for (let i = 0, id; i < liste_exercices.length; i++) {
+      id = liste_exercices[i]
+      let url
+      try {
+        url = dictionnaireDesExercicesQCM[id].url
+      } catch (error) {
+        console.log(error)
+        console.log(`Exercice ${id} non disponible`)
+      }
+      if (dictionnaireDesExercices[id].type_exercice === 'dnb') {
+        listeObjetsExercice[i] = dictionnaireDesExercices[id]
+        promises.push(
+          fetch(url)
+            .then(response => response.text())
+            .then(data => {
+              listeObjetsExercice[i].nb_questions_modifiable = false
+              listeObjetsExercice[i].video = ''
+              listeObjetsExercice[i].titre = id
+              listeObjetsExercice[i].contenu = data
+            })
+        )
+        promises.push(
+          fetch(dictionnaireDesExercices[id].urlcor)
+            .then(response => response.text())
+            .then(data => {
+              listeObjetsExercice[i].contenu_correction = data
+            })
+        )
+      } else {
+        // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
+        // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
+        if (!/^\/exercices\//.test(url)) throw Error('')
+        const chunks = /^\/exercices\/(.*)/.exec(url)
+        if (!chunks) throw Error(`url non prévue : ${url}`)
+        const path = chunks[1]
+        promises.push(
+          // cf https://webpack.js.org/api/module-methods/#magic-comments
+          import(/* webpackMode: "lazy" */ './exercices/' + path)
+            .catch((error) => {
+              console.log(error)
+              listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenu_correction: '' } // Un exercice vide pour l'exercice qui n'existe pas
+            })
+            .then((module) => {
+              if (module) {
+                listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
+                if (dictionnaireDesExercices[id].sup !== undefined) {
+                  listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
+                }
+                if (dictionnaireDesExercices[id].sup2 !== undefined) {
+                  listeObjetsExercice[i].sup2 = dictionnaireDesExercices[id].sup2
+                }
+                if (dictionnaireDesExercices[id].sup3 !== undefined) {
+                  listeObjetsExercice[i].sup3 = dictionnaireDesExercices[id].sup3
+                }
+                if (dictionnaireDesExercices[id].nb_questions !== undefined) {
+                  listeObjetsExercice[i].nb_questions = dictionnaireDesExercices[id].nb_questions
+                }
+                if (listeObjetsExercice[i].type_exercice === 'XCas') {
+                  besoinXCas = true
+                }
+              }
+            })
+        )
+      }
+    }
+    Promise.all(promises)
+      .then(() => {
+        if (!preview) {
+          parametres_exercice(listeObjetsExercice)
+        }
+      })
+      .then(() => {
+        if (!preview) {
+          // Récupère les paramètres passés dans l'URL
+          const urlVars = getUrlVars()
+          // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
+          // => évite les erreurs lors de la suppression de question dans la liste.
+          for (let i = 0; i < urlVars.length; i++) {
+            if (urlVars[i].id !== liste_exercices[i]) {
+              urlVars.splice(i, 1)
+            }
+          }
+          for (let i = 0; i < urlVars.length; i++) {
+            // récupère les éventuels paramètres dans l'URL
+            // et les recopie dans les formulaires des paramètres
+            if (urlVars[i].nb_questions && listeObjetsExercice[i].nb_questions_modifiable) {
+              listeObjetsExercice[i].nb_questions = urlVars[i].nb_questions
+              form_nb_questions[i].value = listeObjetsExercice[i].nb_questions
+            }
+            if (urlVars[i].video && sortie_html && !est_diaporama) {
+              listeObjetsExercice[i].video = urlVars[i].video
+              form_video[i].value = listeObjetsExercice[i].video
+            }
+            if (typeof urlVars[i].sup !== 'undefined') {
+              listeObjetsExercice[i].sup = urlVars[i].sup
+              // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+              try {
+                form_sup[i].value = listeObjetsExercice[i].sup
+              } catch {
+              }
+            }
+            if (typeof urlVars[i].sup2 !== 'undefined') {
+              listeObjetsExercice[i].sup2 = urlVars[i].sup2
+              try {
+                form_sup2[i].value = listeObjetsExercice[i].sup2
+              } catch (error) {
+              }
+            }
+            if (typeof urlVars[i].sup3 !== 'undefined') {
+              listeObjetsExercice[i].sup3 = urlVars[i].sup3
+              try {
+                form_sup3[i].value = listeObjetsExercice[i].sup3
+              } catch (error) {
+  
+              }
+            }
+          }
+        }
+      })
+      .then(() => {
+        if (besoinXCas) {
+          // On charge le javascript de XCas
+          let div // le div dans lequel on fera apparaitre le cercle de chargement
+          if (sortie_html) {
+            div = document.getElementById('exercices')
+          } else {
+            div = document.getElementById('div_code_LaTeX')
+          }
+          div.innerHTML = `<div class="profile-main-loader">
+                      <div class="loader">
+                        <svg class="circular-loader"viewBox="25 25 50 50" >
+                          <circle class="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
+                        </svg>
+                      </div>
+                    </div>`
+          return loadScript('/assets/externalJs/giacsimple.js')
+        }
+      })
+      .then((resolve, reject) => {
+        if (besoinXCas) {
+          // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
+          return checkXCas()
+        }
+      })
+      .then(() => {
+        if (preview) {
+          const output = sortie_html
+          sortie_html = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+          try {
+            listeObjetsExercice[liste_exercices.length - 1].nouvelle_version(0)
+          } catch (error) {
+            console.log(error)
+          }
+          listeObjetsExercice[liste_exercices.length - 1].id = liste_exercices[liste_exercices.length - 1]
+          const contenu = contenu_exercice_html(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false)
+          $('#popup_preview').html(contenu.contenu_un_exercice)
+          $('.popup').addClass('show')
+          if (document.getElementById('left')) {
+            $('.popuptext').css({ top: document.getElementById('left').scrollTop - 10 })
+            $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 5 })
+            if (window.innerWidth < 765) {
+              $('.popuptext').css({ left: document.getElementById('left').offsetLeft + 25 })
+              $('.popup').css({ left: document.getElementById('left').offsetLeft + 25 })
+            }
+          } else {
+            $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
+          }
+          $('.popuptext').show()
+          liste_des_exercices.pop()
+          if (!output) {
+            gestion_modules(false, listeObjetsExercice)
+          }
+          sortie_html = output
+          mise_a_jour_du_code() // permet de gérer les popup avec module.
+        } else {
+          mise_a_jour_du_code()
+        }
+      })
+  }
 
     const loadScript = src => {
         return new Promise((resolve, reject) => {
@@ -1121,4 +1189,4 @@ import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.j
 	$(document).click(function(event) {
 			$(".popuptext").hide();
 	});
-})();
+//})();
