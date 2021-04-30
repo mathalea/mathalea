@@ -1,13 +1,14 @@
 import { creer_document_AMC, strRandom ,compteOccurences} from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles} from './modules/menuDesExercicesQCMDisponibles.js'
+import {dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.js"
 
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
 //import QRCode from 'qrcode'
-//import seedrandom from 'seedrandom'
+import seedrandom from 'seedrandom'
 
 import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
@@ -162,7 +163,7 @@ window.est_diaporama = false
             document.getElementById("form_serie").value = mathalea.graine;
         }
         // Contrôle l'aléatoire grâce à SeedRandom
-        Math.seedrandom(mathalea.graine);
+        seedrandom(mathalea.graine, { global: true });
         // ajout des paramètres des exercices dans l'URL
         (function gestionURL() {
             if (liste_des_exercices.length > 0) {
@@ -391,7 +392,7 @@ window.est_diaporama = false
       id = liste_exercices[i]
       let url
       try {
-        url = dictionnaireDesExercicesQCM[id].url
+        url = dictionnaireDesExercicesAMC[id].url
       } catch (error) {
         console.log(error)
         console.log(`Exercice ${id} non disponible`)
