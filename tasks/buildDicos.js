@@ -57,8 +57,11 @@ for (const file of exercicesList) {
     }
   }
   if (titre) {
-    const url = file.substr(prefixLength)
-    dicoAlea[name] = { titre, url }
+    // Attention, on veut des séparateurs posix (/), pour faire propre faudrait
+    // if (path.sep !== path.posix.sep) url = url.replace(new RegExp(path.sep, 'g'), path.posix.sep)
+    // mais ça va bcp plus vite de faire
+    const url = file.substr(prefixLength).replace(/\\/g, '/')
+    dicoAlea[name] = { titre, url, amcReady, name }
     if (amcReady) {
       dicoAMC[name] = { titre, url }
     }
