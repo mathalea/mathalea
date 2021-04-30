@@ -1,5 +1,9 @@
 import { tridictionnaire, filtreDictionnaire }  from "./outils.js" ;
 import dictionnaireDesExercicesAMC from "./dictionnaireDesExercicesAMC.js"
+import $ from 'jquery'
+import 'datatables.net-dt/css/jquery.dataTables.css'
+
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
 let liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesAMC);
 
