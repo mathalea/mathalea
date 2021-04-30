@@ -719,7 +719,6 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
     } else {
       // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
       // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
-      if (!/^\/exercices\//.test(url)) throw Error('')
       const chunks = /^\/exercices\/(.*)/.exec(url)
       if (!chunks) throw Error(`url non prévue : ${url}`)
       const path = chunks[1]
