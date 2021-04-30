@@ -2008,7 +2008,7 @@ export function polygone(...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args 
- * @returns 
+ * @returns [p, p.sommets]
  */
 export function polygoneAvecNom(...args) {
   let groupe
@@ -2160,7 +2160,7 @@ export function polygoneRegulierParCentreEtRayon(O, r, n, color = "black") {
  * @param {number} d valeur algébrique de AH où H est le pied de la hauteur 
  * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
  * @Auteur Jean-Claude Lhote
- * @returns 
+ * @returns {objet} {triangle, pied}
  */
 export function triangle2points1hauteur(A,B,h,d,n=1){
   if (d===undefined){
@@ -8512,7 +8512,7 @@ export function angleScratchTo2d(x){
 /**
  * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
  * @param {number} a 
- * @returns 
+ * @returns angle
  */
 export function angleModulo(a){
 if (a<-180) return a+360
@@ -8616,7 +8616,7 @@ function ObjetLutin() {
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
  * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns 
+ * @returns Instance d'un lutin
  */
 export function creerLutin(...args) {
   return new ObjetLutin(...args);

@@ -1,0 +1,20 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# cette commande sera lancé par chaque `git push`, juste avant de faire le push
+# si elle échoue le push ne se fera pas, on peut le forcer en ajoutant l'option --no-verify
+# => `git push --no-verify`
+# mais c'est pas conseillé, si le build plante pas la peine de pusher ça (sauf pour montrer le code à qqun d'autre)
+
+echo 'Lancement d’un build de dev avant chaque push, pour au moins vérifier qu’il n’est pas cassé'
+
+if npm run build:dev; then
+  exit 0
+fi
+
+echo '
+Le build plante, probablement plus prudent de ne pas envoyer ce code.
+Si vous voulez l’envoyer quand même (pour le partager avec qqun d’autre par ex), il faut relancer la commande git push avec l’option --no-verify
+'
+
+exit 1

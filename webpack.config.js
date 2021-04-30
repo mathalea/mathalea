@@ -17,25 +17,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // cf https://webpack.js.org/plugins/copy-webpack-plugin/#root
 const CopyPlugin = require('copy-webpack-plugin')
 
-// pour reconstruire la liste des titres à chaque build
-/* si on préférait lancer ça dans une commande séparée, il faudrait
-1) modifier buildDicos.js pour ne rien exporter mais exécuter la fct exportée
-   (supprimer la ligne export default + la fermeture de l'accolade correspondante)
-2) ajouter dans le package.json qqchose comme
-scripts : {
-  // commande pour regénérer le dictionnaire
-  "build:dicos": "node tasks/buildDicos.js",
-  // on regénère d'office avant chaque build de prod
-  "build:prod": "node tasks/buildDicos.js && webpack --mode=production"
-  // + les autres commandes…
-}
-*/
-const debut = Date.now()
-const buildDicos = require('./tasks/buildDicos')
-buildDicos()
-const fin = Date.now()
-console.log(`(génération en ${fin - debut}ms)\n\nDémarrage de la transpilation webpack :\n`)
-
 module.exports = {
   mode: 'development',
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
@@ -43,7 +24,8 @@ module.exports = {
     mathalea: './src/js/mathalea.js',
     mathalea_amc: './src/js/mathalea_amc.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
-    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js']
+    mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
+    mathalea2iep: './src/js/modules/mathalea2iep-gui.js'
   },
   output: {
     // on vide build avant chaque compilation
@@ -144,6 +126,11 @@ module.exports = {
       template: 'src/html/mathalea_amc.html',
       filename: 'mathalea_amc.html',
       chunks: ['mathalea_amc']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/mathalea2iep.html',
+      filename: 'mathalea2iep.html',
+      chunks: ['mathalea2iep']
     })
   ],
   // La liste des fichiers à traiter

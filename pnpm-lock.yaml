@@ -40,6 +40,7 @@ specifiers:
   seedrandom: ^3.0.5
   sesajs-date: git+https://framagit.org/Sesamath/sesajs-date.git#main
   style-loader: ^2.0.0
+  sval: ^0.4.8
   svg.js: ^2.7.1
   webpack: ^5.36.0
   webpack-cli: ^4.6.0
@@ -58,6 +59,7 @@ dependencies:
   qrcode: 1.4.4
   regenerator-runtime: 0.13.7
   seedrandom: 3.0.5
+  sval: 0.4.8
   svg.js: 2.7.1
 
 devDependencies:
@@ -1329,6 +1331,12 @@ packages:
       acorn: 7.4.1
     dev: true
 
+  /acorn/6.4.2:
+    resolution: {integrity: sha512-XtGIhXwF8YM8bJhGxG5kXgjkEuNGLTkoYqVE+KMR+aspr4KGYmKYg7yUe3KghyQ9yheNwLnjmzh/7+gfDBmHCQ==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: false
+
   /acorn/7.4.1:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
     engines: {node: '>=0.4.0'}
@@ -2112,6 +2120,11 @@ packages:
 
   /core-js/3.11.0:
     resolution: {integrity: sha512-bd79DPpx+1Ilh9+30aT5O1sgpQd4Ttg8oqkqi51ZzhedMM1omD2e6IOF48Z/DzDCZ2svp49tN/3vneTK6ZBkXw==}
+    requiresBuild: true
+    dev: false
+
+  /core-js/3.11.1:
+    resolution: {integrity: sha512-k93Isqg7e4txZWMGNYwevZL9MiogLk8pd1PtwrmFmi8IBq4GXqUaVW/a33Llt6amSI36uSjd0GWwc9pTT9ALlQ==}
     requiresBuild: true
     dev: false
 
@@ -5814,6 +5827,12 @@ packages:
       has-flag: 4.0.0
     dev: true
 
+  /sval/0.4.8:
+    resolution: {integrity: sha512-YoJztDXNW5tho3xlR4vHVq3Caqk5aqC6Z862ICoFX1bVbWxQ6OPxD7SE1mjfj13oaek5l4whykWNUO1TX0oIhg==}
+    dependencies:
+      acorn: 6.4.2
+    dev: false
+
   /svg.js/2.7.1:
     resolution: {integrity: sha512-ycbxpizEQktk3FYvn/8BH+6/EuWXg7ZpQREJvgacqn46gIddG24tNNe4Son6omdXCnSOaApnpZw6MPCBA1dODA==}
     dev: false
@@ -6436,7 +6455,7 @@ packages:
     version: 2.4.2
     engines: {node: '>8.0.0'}
     dependencies:
-      core-js: 3.11.0
+      core-js: 3.11.1
       sesajstools: framagit.org/Sesamath/sesajstools/ac6283ba39b63def7e316a1f1c813915656c401e
       whatwg-fetch: 3.6.2
     dev: false
