@@ -210,7 +210,7 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     mathalea.listeDesScriptsCharges.push('Scratch')
   }
   if (besoinIEP) {
-    const iepLoadPromise = await import('instrumenpoche')
+    const { default: iepLoadPromise } = await import('instrumenpoche')
     for (const id of window.listeAnimationsIepACharger) {
       const element = document.getElementById(`IEPContainer${id}`)
       element.style.marginTop = '30px'
