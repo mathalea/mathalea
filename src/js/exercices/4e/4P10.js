@@ -685,7 +685,7 @@ export default function Problemes_grandeurs_composees() {
                 duree
               )}\\times 1\\text{ s}}=\\dfrac{${tex_nombrec(
                 duree * 340
-              )}}{${duree}\\text{ s}}$<br>`;
+              )}\\text{ m}}{${duree}\\text{ s}}$<br>`;
               texte_corr += `La distance à laquelle l'éclair est tombé est donc de ${nombre_avec_espace(
                 duree * 340
               )} m.<br>`;
@@ -1019,11 +1019,11 @@ export default function Problemes_grandeurs_composees() {
             ` La masse de cette pièce de ${materiaux[index1][0]
             } est de :<br>$${tex_nombre(
               materiaux[index1][1]
-            )}\\text{ km/m}^3\\times ${tex_nombre(
+            )}\\text{ kg/m}^3\\times ${tex_nombre(
               V1
             )}\\text{ cm}^3=${tex_nombre(
               materiaux[index1][1]
-            )}\\text{ km/m}^3\\times ${tex_nombrec(
+            )}\\text{ kg/m}^3\\times ${tex_nombrec(
               V1 / 1000000
             )}\\text{ m}^3=${tex_nombre(masse)}\\text{ kg}$.<br>`;
           texte_corr +=
