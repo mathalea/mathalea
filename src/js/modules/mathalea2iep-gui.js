@@ -1,5 +1,5 @@
 /* globals $ cmResize */
-import iepLoadPromise from 'Instrumenpoche'
+import iepLoadPromise from 'instrumenpoche'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/monokai.css'
