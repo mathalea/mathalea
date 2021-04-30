@@ -5,7 +5,7 @@ import dictionnaireDesExercicesAMC from "./modules/dictionnaireDesExercicesAMC.j
 
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-//import Clipboard from 'clipboard'
+import Clipboard from 'clipboard'
 //import QRCode from 'qrcode'
 //import seedrandom from 'seedrandom'
 
