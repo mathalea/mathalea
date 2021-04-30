@@ -4,10 +4,11 @@ import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersecti
 import { nommePolygone } from '../../modules/2d.js';
 import Alea2iep from "../../modules/Alea2iep.js";
 
+export const titre="Tranformations de triangle"
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Moule pour Liouba";
+    this.titre="Tranformations de triangle";
     this.nb_questions = 1; // Ici le nombre de questions (une seule pour cet exercice non modifiable)
     this.nb_questions_modifiable=false // désactive le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
@@ -22,8 +23,8 @@ export default function LeNomDeLaFonctionExercice() {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
   
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function (numero_de_l_exercice) {
-    // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+    this.nouvelle_version = function (numeroExercice) {
+    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
   
     this.liste_questions = [] // tableau contenant la liste des questions 
@@ -113,12 +114,12 @@ texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centr
 
 bordure=droite(point(xMin,yMin+2),point(xMax,yMin+2))
 nomd=latexParPoint('(d)',translation(milieu(B,B1),vecteur(1,0)),'black',30,12,"")
-let triangle2a=symetrieAnimee(triangle0,med,'begin="0s;8s;16s" dur ="2s" end="2s;10s;18s" repeatcount="indefinite" fill="freeze"')
-let triangle3a=rotationAnimee(triangle2,D,180,'begin="2s;10s;18s" dur ="2s" end="4s;12s;20s" repeatcount="indefinte" fill="freeze"')
-let triangle4a=translationAnimee(triangle3,vecteur(D,F),'begin="4s;12s;20s" dur ="2s" end="6s;14s;22s" repeatcount="indefinite" fill="freeze"')
-let triangle5a=rotationAnimee(triangle4,F,alpha,'begin="6s;14s;22s" dur ="2s" end="8s;16s;24s" repeatcount="indefinte" fill="freeze"')
-anim.vitesse=100
-anim.tempo=0.2
+let triangle2a=symetrieAnimee(triangle0,med,`id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
+let triangle3a=rotationAnimee(triangle2,D,180,`id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
+let triangle4a=translationAnimee(triangle3,vecteur(D,F),`id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
+let triangle5a=rotationAnimee(triangle4,F,alpha,`id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
+anim.vitesse=15
+anim.tempo=0.5
 anim.recadre(xMin,yMax)
 anim.polygoneRapide(...triangle0.listePoints)
 anim.pointsCreer(A,B,C,F,D)
@@ -145,7 +146,13 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texte_corr += mathalea2d(params_correction, objets_correction)
-        texte_corr += anim.htmlBouton(numero_de_l_exercice)
+        texte_corr += '<br>'
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>translation</button>`
+        texte_corr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}D').beginElement()"><i class="redo circle icon"></i>rotation</button>`
+    
+        texte_corr += anim.html(numeroExercice)
         this.liste_questions.push(texte)
         this.liste_corrections.push(texte_corr)
         liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page

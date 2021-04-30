@@ -492,6 +492,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Trouver l'image d'une figure par une translation dans un pavage",
         "url": "/exercices/4e/4G11-1.js"
     },
+    "4G15": {
+        "titre": "Tranformations de triangle",
+        "url": "/exercices/4e/4G15.js"
+    },
     "4G20": {
         "titre": "Calculer une longueur avec le théorème de Pythagore",
         "url": "/exercices/4e/4G20.js"
@@ -995,6 +999,10 @@ export let dictionnaireDesExercicesAleatoires =
     "6C11": {
         "titre": "Divisions euclidiennes",
         "url": "/exercices/6e/6C11.js"
+    },
+    "6C11-1": {
+        "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
+        "url": "/exercices/6e/6C11-1.js"
     },
     "6C13": {
         "titre": "Traduire des phrases en calculs et réciproquement",
@@ -1660,10 +1668,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Arrondir une valeur numérique",
         "url": "/exercices/beta/beta4N10.js"
     },
-    "beta6C11-1": {
-        "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
-        "url": "/exercices/beta/beta6C11-1.js"
-    },
     "beta6C33-1": {
         "titre": "Parenthèses manquantes",
         "url": "/exercices/beta/beta6C33-1.js"
@@ -1707,10 +1711,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExercice_constructions_basiques": {
         "titre": "Programmes de constructions (en chantier)",
         "url": "/exercices/beta/betaExercice_constructions_basiques.js"
-    },
-    "betaExoLiouba": {
-        "titre": "Moule pour Liouba",
-        "url": "/exercices/beta/betaExoLiouba.js"
     },
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
