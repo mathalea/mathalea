@@ -21,7 +21,7 @@ export default function Pavages_et_transformations() {
 	this.nb_cols_corr = 1;
 	//	this.sup = 1; // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-	this.nouvelle_version = function () {
+	this.nouvelle_version = function (numeroExercice) {
 		this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
         let objets_enonce=[];
@@ -224,7 +224,7 @@ export default function Pavages_et_transformations() {
 				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, `blue`);
 				texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, `blue`);
 				objets_enonce.push(mediatrice1,mediatrice2,mediatrice3)
-				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1"'),symetrieAnimee(quad[numD],mediatrice2,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1"'),symetrieAnimee(quad[numC],mediatrice3,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1"'))
+				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,`id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`),symetrieAnimee(quad[numD],mediatrice2,`id="anim${numeroExercice}B" dur="2s" repeatcount="1"`),symetrieAnimee(quad[numC],mediatrice3,`id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
 				texte += mathalea2d({
 					xmin:Xmin,
@@ -369,7 +369,7 @@ export default function Pavages_et_transformations() {
 
 				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
 				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)
-				,rotationAnimee(quad[numA],centre1,180,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,180,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,180,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+				,rotationAnimee(quad[numA],centre1,180,`id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`),rotationAnimee(quad[numD],centre2,180,`id="anim${numeroExercice}B" dur="2s" repeatcount="1"`),rotationAnimee(quad[numC],centre3,180,`id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
 				texte += mathalea2d({
 					xmin:Xmin,
@@ -552,7 +552,7 @@ export default function Pavages_et_transformations() {
 
 				objets_enonce.push(vecteur1,vecteur2,vecteur3);
 				objets_correction.push(vecteur1,vecteur2,vecteur3
-				,translationAnimee(quad[numA],vector1,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),translationAnimee(quad[numD],vector2,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),translationAnimee(quad[numC],vector3,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+				,translationAnimee(quad[numA],vector1,`id="anim${numeroExercice}A" dur="2s" repeatcount="1"`),translationAnimee(quad[numD],vector2,`id="anim${numeroExercice}B" dur="2s" repeatcount="1"`),translationAnimee(quad[numC],vector3,`id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
 				texte += mathalea2d({
 					xmin:Xmin,
@@ -702,7 +702,7 @@ export default function Pavages_et_transformations() {
 
 				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
 				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)
-				,rotationAnimee(quad[numA],centre1,-90,'begin="0s;6s;12s" dur ="2s" end="2s;8s;14s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numD],centre2,90,'begin="2s;8s;14s" dur="2s" end="4s;10s;16s" repeatcount="1" fill="freeze"'),rotationAnimee(quad[numC],centre3,-90,'begin="4s;10s;16s" dur="2s" end="6s;12s;18s" repeatcount="1" fill="freeze"'))
+				,rotationAnimee(quad[numA],centre1,-90,`id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`),rotationAnimee(quad[numD],centre2,90,`id="anim${numeroExercice}B" dur="2s" repeatcount="1"`),rotationAnimee(quad[numC],centre3,-90,`id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
 				texte += mathalea2d({
 					xmin:Xmin,
@@ -760,12 +760,16 @@ export default function Pavages_et_transformations() {
 					mainlevee:false
 				},objets_correction
 				); 
-
+				
 
 				break;
 
 		}
 		
+			texte_corr += '<br>'
+			texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>Relancer l'animation verte</button>`
+			texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>Relancer l'animation rouge</button>`
+			texte_corr += `<button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}C').beginElement()"><i class="redo circle icon"></i>Relancer l'animation bleue</button>`
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
 			liste_de_question_to_contenu_sans_numero(this);

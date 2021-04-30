@@ -527,6 +527,104 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2013/tex/dnb_2013_06_polynesie_8_cor.tex",
         "tags": ["Probabilités", "Tableur", "Statistiques"]
     },
+    //metropole sept 2013
+    "dnb_2013_09_metropole_1": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "1",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_1.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_1.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_1_cor.tex",
+        "tags": ["Fonctions"]
+    },
+    "dnb_2013_09_metropole_2": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "2",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_2.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_2.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_2_cor.tex",
+        "tags": ["Tableur","Probabilités"]
+    },
+    "dnb_2013_09_metropole_3": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "3",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_3.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_3.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_3_cor.tex",
+        "tags": ["Aires","Périmètres","Calcul littéral","Équations"]
+    },
+    "dnb_2013_09_metropole_4": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "4",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_4.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_4.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_4_cor.tex",
+        "tags": ["Résolution de problème","Pourcentages"]
+    },
+    "dnb_2013_09_metropole_5": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "5",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_5.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_5.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_5_cor.tex",
+        "tags": ["Thalès","Aires"]
+    },
+    "dnb_2013_09_metropole_6": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "6",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_6.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_6.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_6_cor.tex",
+        "tags": ["Prise d'initiative","Pythagore","Trigonométrie"]
+    },
+    "dnb_2013_09_metropole_7": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "7",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_7.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_7.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_7_cor.tex",
+        "tags": ["Vrai/Faux","Vitesses","Calcul littéral","Statistiques"]
+    },
+    "dnb_2013_09_metropole_8": {
+        "annee": "2013",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroExercice": "8",
+        "png": "/dnb/2013/tex/png/dnb_2013_09_metropole_8.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_09_metropole_8_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_09_metropole_8.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_09_metropole_8_cor.tex",
+        "tags": ["Prise d'initiative","Volumes"]
+    },
+    //fin metropole sept 2013
     "dnb_2013_09_polynesie_1": {
         "annee": "2013",
         "lieu": "Polynésie",
@@ -671,6 +769,80 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2013/tex/dnb_2013_11_ameriquesud_6_cor.tex",
         "tags": ["Aires et périmètres", "Calcul littéral", "Fonctions"]
     },
+    //amerique sud secours nov 2013
+    "dnb_2013_11_amdusudsecours_1": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "1",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_1.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
+        "tags": ["QCM","Calculs","Calcul littéral","Statistiques","Hors programme"]
+    },
+    "dnb_2013_11_amdusudsecours_2": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "2",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
+        "tags": ["Calculs numérqiues","Calcul littéral","Équations"]
+    },
+    "dnb_2013_11_amdusudsecours_3": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "3",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_3.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_3_cor.tex",
+        "tags": ["Pythagore","Trigonométrie","Vitesses"]
+    },
+    "dnb_2013_11_amdusudsecours_4": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "4",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_4.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_4_cor.tex",
+        "tags": ["Masses","Volumes"]
+    },
+    "dnb_2013_11_amdusudsecours_5": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "5",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_5.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_5_cor.tex",
+        "tags": ["Aires","Tableur","Fonctions"]
+    },
+    "dnb_2013_11_amdusudsecours_6": {
+        "annee": "2013",
+        "lieu": "Amérique du sud (Secours)",
+        "mois": "Novembre",
+        "numeroExercice": "6",
+        "png": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2013_11_amdusudsecours_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2013_11_amdusudsecours_6_cor.tex",
+        "tags": ["Prise d'initiative"]
+    },
+    //fin amerique sud secours nov 2013
     "dnb_2013_12_caledonie_1": {
         "annee": "2013",
         "lieu": "Nouvelle Calédonie",
@@ -767,6 +939,104 @@ export let dictionnaireDNB = {
         "urlcor": "/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex",
         "tags": ["Calculs numériques", "Fonctions"]
     },
+    //Calédonie mars 2014
+    "dnb_2014_03_caledonie_1": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "1",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_1.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_1_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_1.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_1_cor.tex",
+        "tags": ["QCM", "Thalès", "Relatifs","Fonctions"]
+    },
+    "dnb_2014_03_caledonie_2": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "2",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_2.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_2_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_2.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_2_cor.tex",
+        "tags": ["Pythagore","Périmètre"]
+    },
+    "dnb_2014_03_caledonie_3": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "3",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_3.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_3_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_3.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_3_cor.tex",
+        "tags": ["Hors programme","PGCD","Probabilités"]
+    },
+    "dnb_2014_03_caledonie_4": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "4",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_4.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_4_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_4.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_4_cor.tex",
+        "tags": ["Calculs numériques","Calcul littéral"]
+    },
+    "dnb_2014_03_caledonie_5": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "5",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_5.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_5_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_5.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_5_cor.tex",
+        "tags": ["Statistiques"]
+    },
+    "dnb_2014_03_caledonie_6": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "6",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_6.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_6_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_6.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_6_cor.tex",
+        "tags": ["Hors programme","Angles","Pythagore"]
+    },
+    "dnb_2014_03_caledonie_7": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "7",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_7.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_7_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_7.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_7_cor.tex",
+        "tags": ["Vrai/Faux"]
+    },
+    "dnb_2014_03_caledonie_8": {
+        "annee": "2013",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Mars",
+        "numeroExercice": "8",
+        "png": "/dnb/2013/tex/png/dnb_2014_03_caledonie_8.png",
+        "pngcor": "/dnb/2013/tex/png/dnb_2014_03_caledonie_8_cor.png",
+        "type_exercice": "dnb",
+        "url": "/dnb/2013/tex/dnb_2014_03_caledonie_8.tex",
+        "urlcor": "/dnb/2013/tex/dnb_2014_03_caledonie_8_cor.tex",
+        "tags": ["QCM","Tableur"]
+    },
+    //Fin Calédonie mars 2014
     "dnb_2014_04_pondichery_1": {
         "annee": "2014",
         "lieu": "Pondichéry",

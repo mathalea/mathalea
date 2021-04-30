@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondi_virgule, calcul, lettre_depuis_chiffre, tex_nombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from "/modules/outils.js"
 
 /*
@@ -108,19 +110,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     this.nom = arg1;
   } else if (arguments.length == 2) {
 
-    this.x = arrondi(arg1, 2);
-    this.y = arrondi(arg2, 2);
+    this.x = arrondi(arg1, 3);
+    this.y = arrondi(arg2, 3);
   } else {
-    this.x = arrondi(arg1, 2);
-    this.y = arrondi(arg2, 2);
+    this.x = arrondi(arg1, 3);
+    this.y = arrondi(arg2, 3);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return arrondi(this.x * coeff, 2);
+    return arrondi(this.x * coeff, 3);
   };
   this.ySVG = function (coeff) {
-    return -arrondi(this.y * coeff, 2);
+    return -arrondi(this.y * coeff, 3);
   }
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
@@ -519,28 +521,28 @@ function LabelPoint(...points) {
       x = point.x, y = point.y
       switch (point.positionLabel) {
         case "left":
-          code += texteParPosition(point.nom, x - 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below":
-          code += texteParPosition(point.nom, x, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "above":
-          code += texteParPosition(point.nom, x, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "above right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below left":
-          code += texteParPosition(point.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         case "below right":
-          code += texteParPosition(point.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x + 10 / coeff, y - 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
         default:
-          code += texteParPosition(point.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, this.taille, "", true).svg(coeff) + `\n`
+          code += latexParCoordonnees(point.nom, x - 10 / coeff, y + 10 / coeff,this.color, 10,  this.taille*10, "").svg(coeff) + `\n`
           break;
       }
     }
@@ -597,6 +599,7 @@ export function barycentre(p, nom = '', positionLabel = "above") {
  */
 function Droite(arg1, arg2, arg3, arg4) {
   let a, b, c
+
   ObjetMathalea2D.call(this);
   if (arguments.length == 2) {
     this.nom = ""
@@ -694,6 +697,15 @@ function Droite(arg1, arg2, arg3, arg4) {
 
   }
   */
+ let xsav,ysav
+ if (this.x1>this.x2){
+   xsav=this.x1
+   ysav=this.y1
+   this.x1=this.x2+0
+   this.y1=this.y2+0
+   this.x2=xsav
+   this.y2=ysav
+ }
   this.normal = vecteur(this.a, this.b);
   this.directeur = vecteur(this.b, - this.a);
   this.angleAvecHorizontale = angleOriente(
@@ -1815,7 +1827,7 @@ export function demiDroiteAvecExtremite(A, B, color = "black") {
  */
 function Polygone(...points) {
   ObjetMathalea2D.call(this);
-  this.couleurDeRemplissage = "";
+  this.couleurDeRemplissage = "none";
   this.opaciteDeRemplissage = 1.1;
   this.hachures = false;
   this.couleurDesHachures = 'black'
@@ -1993,13 +2005,28 @@ function Polygone(...points) {
 export function polygone(...args) {
   return new Polygone(...args);
 }
-
+/**
+ * Crée un groupe d'objets contenant le polygone et ses sommets
+ * @param  {...any} args 
+ * @returns 
+ */
 export function polygoneAvecNom(...args) {
   let groupe
   let p = polygone(...args)
   p.sommets = nommePolygone(p)
   groupe = [p, p.sommets]
   return groupe
+}
+
+/**
+ * Renomme en une fois tous les sommets d'un polygone avec le tableau de string fourni
+ */
+export function renommePolygone(p,noms){
+  for (let i=0; i<p.listePoints.length;i++){
+    if (noms[i]!==undefined){
+      p.listePoints[i].nom=noms[i]
+    }
+  }
 }
 
 /**
@@ -3764,7 +3791,7 @@ export function rotation(A, O, angle, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
     let x = calcul(
       O.x +
-      (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
+      (A.x - O.x) * Math.cos((angle * Math.PI) / 180)-
       (A.y - O.y) * Math.sin((angle * Math.PI) / 180)
     );
     let y = calcul(
@@ -4232,7 +4259,7 @@ function HomothetieAnimee(
     let p2 = homothetie(p, O, k);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
@@ -4242,7 +4269,7 @@ function HomothetieAnimee(
   };
 }
 export function homothetieAnimee(...args) {
-  return new DHomothetieAnimee(...args);
+  return new HomothetieAnimee(...args);
 }
 
 /**
@@ -4260,9 +4287,9 @@ function SymetrieAnimee(
   this.svg = function (coeff) {
     let binomesXY1 = p.binomesXY(coeff);
     let p2 = symetrieAxiale(p, d);
-    p2.isVisible = false;
+    p2.isVisible = false; 
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill=${p.couleurDeRemplissage} >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
@@ -4287,7 +4314,7 @@ function AffiniteOrthoAnimee(
     let p2 = affiniteOrtho(p, d, k);
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
-    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+    let code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
 		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"

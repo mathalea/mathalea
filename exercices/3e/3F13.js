@@ -39,7 +39,7 @@ export default function Antecedent_graphique() {
 				x2 = randint(x1 + 3, 2);
 				x3 = randint(x2 + 2, 8);
 				fx1 = randint(-5, 5);
-				fx2 = randint(-6, 6);
+				fx2 = randint(-6, 6,fx1);
 				fx3 = randint(-5, 5);
 				d = randint(-5, 5);
 				c = randint(-5, 5);
@@ -49,7 +49,7 @@ export default function Antecedent_graphique() {
 				x2 = randint(-1, 2, [0]);
 				x3 = randint(3, 4);
 				fx1 = randint(-4, 4);
-				fx2 = randint(-4, 4);
+				fx2 = randint(-4, 4,fx1);
 				fx3 = randint(-4, 4);
 				d = randint(-3, 3);
 				c = randint(-3, 3);
