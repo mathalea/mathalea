@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
 import { calcul, randint, nombre_avec_espace as nombreAvecEspace, arrondi, tex_nombre } from './outils.js'
 import iepLoadPromise from 'instrumenpoche'
@@ -2421,9 +2422,9 @@ export default function Alea2iep () {
     }
     this.regleSegment(p, centre)
     const l = arrondi(longueur(p, centre), 1)
-    const lprime = arrondi(math.multiply(l, math.abs(k)))
+    const lprime = arrondi(calcul(l * Math.abs(k)))
     const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${tex_nombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
+    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(Math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
     this.regleSegment(centre, image)
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
     this.regleMasquer()
@@ -2480,7 +2481,7 @@ export default function Alea2iep () {
   this.symetrieAxialePolygone = function (p, d, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
     let nom
     const p2 = symetrieAxiale(p, d) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
-    const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
+    // const N = homothetie(milieu(p.listePoints[0], p2.listePoints[0]), milieu(p.listePoints[1], p2.listePoints[1]), 1.23456) // créer unh point de l'axe de symétrie pour les alignements et les mesure d'angles
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
     let i = 0
