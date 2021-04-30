@@ -2320,7 +2320,6 @@ export default function Alea2iep () {
     this.regleSegment(p, image)
     this.regleMasquer()
     this.equerreMasquer()
-    this.codageAngleDroit(p, M, N)
     this.segmentCodage(p, M, { codage: codage, couleur: couleurCodage })
     this.segmentCodage(image, M, { codage: codage, couleur: couleurCodage })
     this.crayonMasquer()
@@ -2572,7 +2571,6 @@ export default function Alea2iep () {
     this.polygoneRapide(p2)// figure svg de l'exercice
   }
 
-    const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   /**
    * 
    * @param {objet} p polygone dont on doit construire l'image 

@@ -204,10 +204,6 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
         "url": "/exercices/3e/3G12-1.js"
     },
-    "3G15-1": {
-        "titre": "this.titre = titre;\n",
-        "url": "/exercices/3e/3G15-1.js"
-    },
     "3G20": {
         "titre": "Calculer des longueurs avec la propriété de Thalès",
         "url": "/exercices/3e/3G20.js"
@@ -495,6 +491,10 @@ export let dictionnaireDesExercicesAleatoires =
     "4G11-1": {
         "titre": "Trouver l'image d'une figure par une translation dans un pavage",
         "url": "/exercices/4e/4G11-1.js"
+    },
+    "4G15": {
+        "titre": "Tranformations de triangle",
+        "url": "/exercices/4e/4G15.js"
     },
     "4G20": {
         "titre": "Calculer une longueur avec le théorème de Pythagore",

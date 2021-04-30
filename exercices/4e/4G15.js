@@ -4,11 +4,11 @@ import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersecti
 import { nommePolygone } from '../../modules/2d.js';
 import Alea2iep from "../../modules/Alea2iep.js";
 
-export const titre="Moule pour Liouba"
+export const titre="Tranformations de triangle"
 export default function LeNomDeLaFonctionExercice() {
     "use strict"
     Exercice.call(this)
-    this.titre = titre;
+    this.titre="Tranformations de triangle";
     this.nb_questions = 1; // Ici le nombre de questions (une seule pour cet exercice non modifiable)
     this.nb_questions_modifiable=false // désactive le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
