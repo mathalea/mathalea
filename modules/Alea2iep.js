@@ -8,7 +8,7 @@ import { calcul, tex_nombre, arrondi, randint, nombre_avec_espace as nombreAvecE
  *
  * @Auteur Rémi Angot
  */
-export default function Alea2iep() {
+export default function Alea2iep () {
   this.idIEP = 0 // Identifiant pour les tracés
   this.idHTML = 0 // Identifiant pour les div et le svg
   this.tempo = 5 // Pause par défaut après une instruction
@@ -524,7 +524,8 @@ export default function Alea2iep() {
     let codeXML
     if (label) {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
-      codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
+      // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
+      this.textePoint(`$${label}$`, A, { tempo: tempo, couleur: couleurLabel })
     } else {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
     }
@@ -574,11 +575,16 @@ export default function Alea2iep() {
    * @param {objet} options dx pour le déplacement vertical du nom du point, dy pour le déplacemetn horizontal, couleur: this.couleurPoint, tempo: this.tempo
    */
   this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
-    let coordonneesTexte = ''
-    if (typeof dx !== 'undefined' && typeof dy !== 'undefined') {
-      coordonneesTexte = `abscisse="${dx * 30}" ordonnee="${-dy * 30}"`
+    // const coordonneesTexte = ''
+    const M = A
+    if (typeof dx !== 'undefined') {
+      M.x += dx
     }
-    this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
+    if (typeof dy !== 'undefined') {
+      M.y += dy
+    }
+    this.textePoint(`$${nom}$`, M, { tempo: tempo, couleur: couleur })
+    // this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
   }
 
   /**
@@ -2506,9 +2512,9 @@ export default function Alea2iep() {
   }
 
   /**
-   * 
-   * @param {objet} p polygone dont on construit l'image 
-   * @param {objet} A point de départ de la translation 
+   *
+   * @param {objet} p polygone dont on construit l'image
+   * @param {objet} A point de départ de la translation
    * @param {objet} B point d'arrivée de la translation
    * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p 
  * @param {objet} param3 options couleur et couleurCodage
@@ -2566,6 +2572,7 @@ export default function Alea2iep() {
     this.polygoneRapide(p2)// figure svg de l'exercice
   }
 
+    const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
   /**
    * 
    * @param {objet} p polygone dont on doit construire l'image 
