@@ -125,6 +125,11 @@ module.exports = {
       template: 'src/html/mathalea2iep.html',
       filename: 'mathalea2iep.html',
       chunks: ['mathalea2iep']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/iep.html',
+      filename: 'iep.html',
+      chunks: ['mathalea2iep']
     })
   ],
   // La liste des fichiers à traiter
