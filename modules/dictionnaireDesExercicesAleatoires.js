@@ -960,6 +960,10 @@ export let dictionnaireDesExercicesAleatoires =
         "titre": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
         "url": "/exercices/5e/5S21.js"
     },
+    "5S21-1": {
+        "titre": "Probabilités simples",
+        "url": "/exercices/5e/5S21-1.js"
+    },
     "6Algo10": {
         "titre": "Programmer des déplacements",
         "url": "/exercices/6e/6Algo10.js"
@@ -1715,10 +1719,6 @@ export let dictionnaireDesExercicesAleatoires =
     "betaExoSimpleMatthieu": {
         "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
         "url": "/exercices/beta/betaExoSimpleMatthieu.js"
-    },
-    "betaProbabilites": {
-        "titre": "Probabilités simples",
-        "url": "/exercices/beta/betaProbabilites.js"
     },
     "betaPuissances": {
         "titre": "Exercice exemple",
