@@ -255,6 +255,10 @@ window.est_diaporama = false
 
                 div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
                 Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
+                const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => code_LaTeX })
+                clipboardURL.on('success', function (e) {
+                  console.info('Code LaTeX copié dans le presse-papier.')
+                })          
             } else {
                 code_LaTeX = "";
                 $("#message_liste_exercice_vide").show(); // Message au dessus de la liste des exercices
