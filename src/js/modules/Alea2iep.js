@@ -517,7 +517,7 @@ export default function Alea2iep () {
  * @param {objet} options { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
  *
  */
-  this.pointCreer = function (A, { label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
+  this.pointCreer = function (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
     if (typeof id !== 'undefined') {
       A.id = id
     } else {
@@ -528,7 +528,14 @@ export default function Alea2iep () {
     if (label) {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
-      this.textePoint(`$${label}$`, A, { tempo: tempo, couleur: couleurLabel })
+      const M = point(A.x, A.y)
+      if (typeof dx !== 'undefined') {
+        M.x += dx
+      }
+      if (typeof dy !== 'undefined') {
+        M.y += dy
+      }
+      this.textePoint(`$${label}$`, M, { tempo: 0, couleur: couleurLabel })
     } else {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
     }
@@ -536,12 +543,22 @@ export default function Alea2iep () {
   }
   /**
  * Création de plusieurs points
+ * Le dernier argument peut être une option qui sera appliquée à tous les points
  *
- * @param  {...any} points Points séparés par des virgules
+ * @param  {...points} points Points séparés par des virgules
  */
-  this.pointsCreer = function (...points) {
-    for (const point of points) {
-      this.pointCreer(point, { tempo: 0 })
+  this.pointsCreer = function (...args) {
+    if (args[args.length - 1].typeObjet === 'point') {
+      for (const point of args) {
+        this.pointCreer(point, { tempo: 0 })
+      }
+    } else {
+      const options = args[args.length - 1]
+      console.log(options)
+      const enleveDernier = arr => arr.slice(0, -1)
+      for (const point of enleveDernier(args)) {
+        this.pointCreer(point, options)
+      }
     }
   }
   /**
@@ -579,7 +596,7 @@ export default function Alea2iep () {
    */
   this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
     // const coordonneesTexte = ''
-    const M = A
+    const M = point(A.x, A.y)
     if (typeof dx !== 'undefined') {
       M.x += dx
     }

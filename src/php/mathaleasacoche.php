@@ -1,6 +1,7 @@
-<!-- SACoche donne l'URL du fichier json avec json... -->
+<!-- On affiche le contenu de alacarte -->
+<?php include('alacarte/index.html'); ?>
 
-
+<!-- SACoche donne l'URL du fichier json avec ?json=http... -->
 <?php
   header('Content-Type: text/html; charset=utf-8');
   if(isset($_GET['json']))
@@ -14,16 +15,26 @@
 
 
  <script type="text/javascript">   
-   let json = <?php echo $file_data ?>;
+   var tableauSACoche = <?php echo $file_data ?>;
    // on récupère le contenu du tableau json dans notre variable JS
 
    // pour tous les élèves qui sont dans le tableau panier...
-   for (const numeroEleve in json.panier) {
-  console.log(`${json.eleve[numeroEleve].nom} ${json.eleve[numeroEleve].prenom}: ${json.panier[numeroEleve]}`);
-}
+  let texte_des_demandes = ''
+  if (Object.keys(tableauSACoche.panier).length>1){
+    for (const numeroEleve in tableauSACoche.panier) {
+        texte_des_demandes += `${tableauSACoche.eleve[numeroEleve].nom};${tableauSACoche.eleve[numeroEleve].prenom}`;
+        
+        for (let i = 0; i < Object.keys(tableauSACoche.panier[numeroEleve]).length; i++) {
+        texte_des_demandes += ';' + tableauSACoche.item[Object.keys(tableauSACoche.panier[numeroEleve])[i]].ref
+        }
+        texte_des_demandes += '\n'
+    }
+  } else {
+    for (let i = 0; i < Object.keys(tableauSACoche.item).length; i++) {
+        texte_des_demandes += tableauSACoche.item[Object.keys(tableauSACoche.item)[i]].ref + ' ; '
+        }
+    document.getElementById('style3').checked = true; //Passe en style item1 ; item2 ; item3...
+  }
+  
+  $('#textarea_id_items').val(texte_des_demandes)
  </script>
-
-
-<!-- On affiche le contenu de alacarte -->
- <?php include('alacarte/index.html'); ?>
-

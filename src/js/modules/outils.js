@@ -1,3 +1,6 @@
+/* eslint-disable no-tabs */
+/* eslint-disable camelcase */
+/* global mathalea sortie_html */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
@@ -16,7 +19,7 @@ export function liste_de_question_to_contenu (argument) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
     }
     if (!mathalea.sortieAMC) {
-      if (document.getElementById('supprimer_reference').checked == true) {
+      if (document.getElementById('supprimer_reference').checked === true) {
         argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
       } else {
         argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions, argument.spacing), argument.nb_cols)
@@ -34,7 +37,7 @@ export function liste_de_choses_a_imprimer (argument) {
     if (argument.vspace) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
     }
-    if (document.getElementById('supprimer_reference').checked == true) {
+    if (document.getElementById('supprimer_reference').checked === true) {
       argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
     } else {
       argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
@@ -55,7 +58,7 @@ export function liste_de_question_to_contenu_sans_numero (argument) {
     argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions, argument.spacing)
     argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections, argument.spacing_corr)
   } else {
-    if (document.getElementById('supprimer_reference').checked == true) {
+    if (document.getElementById('supprimer_reference').checked === true) {
       argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
     } else {
       argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
@@ -74,7 +77,7 @@ export function liste_de_question_to_contenu_sans_numero (argument) {
 * @author Rémi Angot
 */
 export function liste_de_question_to_contenu_sans_numero_et_sans_consigne (argument) {
-  if (document.getElementById('supprimer_reference').checked == true) {
+  if (document.getElementById('supprimer_reference').checked === true) {
     argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
   } else {
     argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions, argument.spacing), argument.nb_cols)
@@ -139,7 +142,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
   else return false
 }
 export function estentier (a, tolerance = epsilon) {
-  if (Math.abs(calcul(a - Math.round(a))) < tolerance) return true
+  if (Math.abs(a - Math.round(a)) < tolerance) return true
   else return false
 }
 export function quotientier (a, b) {
@@ -3168,7 +3171,7 @@ export function modal_youtube (numero_de_l_exercice, id_youtube, texte, label_bo
       contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
     }
     if (id_youtube.substr(0, 17) == 'https://youtu.be/') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube.substr(17, 28)}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
       contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
