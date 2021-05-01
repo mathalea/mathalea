@@ -25,7 +25,8 @@ module.exports = {
     mathalea_amc: './src/js/mathalea_amc.js',
     mathalea2d: './src/js/modules/mathalea2d-gui.js',
     mathaleaDiaporama: ['./src/js/modules/mathalea_diaporama.js', './src/js/mathalea.js'],
-    mathalea2iep: './src/js/modules/mathalea2iep-gui.js'
+    mathalea2iep: './src/js/modules/mathalea2iep-gui.js',
+    alacarte: './src/js/alacarte.js'
   },
   output: {
     // on vide build avant chaque compilation
@@ -64,6 +65,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'src/assets', to: 'assets' },
+        { from: 'src/php', to: './' },
         { from: 'src/assets/favicon.ico', to: './' }
       ]
     }),
@@ -136,6 +138,11 @@ module.exports = {
       template: 'src/html/iep.html',
       filename: 'iep.html',
       chunks: ['mathalea2iep']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/alacarte.html',
+      filename: 'alacarte.html',
+      chunks: ['alacarte']
     })
   ],
   // La liste des fichiers à traiter

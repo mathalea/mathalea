@@ -210,7 +210,7 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     mathalea.listeDesScriptsCharges.push('Scratch')
   }
   if (besoinIEP) {
-    const iepLoadPromise = await import('instrumenpoche')
+    const { default: iepLoadPromise } = await import('instrumenpoche')
     for (const id of window.listeAnimationsIepACharger) {
       const element = document.getElementById(`IEPContainer${id}`)
       element.style.marginTop = '30px'
@@ -905,6 +905,7 @@ function MG32_modifie_figure (numero_figure) {
   if (window.mtg32App.docs.length === 1) {
     code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace('display', 'updateDisplay')
   }
+  // eslint-disable-next-line no-new-func
   const modification = new Function('numero_figure', code_pour_modifier_la_figure)
   modification(numero_figure)
 }

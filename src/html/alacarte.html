@@ -1,295 +1,223 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5318292-3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'UA-5318292-3');
   </script>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
-  <!-- Math.js-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js" integrity="sha512-jZKoHppj8aIM7qVRs9BUkS+YUtEbw7tJ7oKu0+g3rKCzRJyMWzaAdukppHp4ubV3HPxzrG03iExbMTnlbySPKA==" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- JQuery-->
-  <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
-
-  <!-- Prism-->
-  <script src="include/prism.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" href="style/prism.css">
+  <script src="/assets/externalJs/jquery-3.6.0.min.js"></script>
+  <script src="/assets/externalJs/jquery-ui-1.12.1.min.js"></script>
 
 
   <!-- Semantic UI-->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/components/state.min.js"></script> 
-
-  <!-- Algebrite-->
-  <!-- <script src="modules/algebrite.bundle-compressed.js" type="text/javascript"></script> -->
-
-  <!-- Clipboard-->
-  <!--<script src="modules/clipboard.min.js" type="text/javascript"></script>-->
-
-  <!-- QRcode-->
- <!--<script src="modules/qrcode.min.js" type="text/javascript"></script>-->
-
-  
-  <!-- MathALEA-->
-  <script type="text/javascript">var sortie_html=false;</script>
-  <script src="include/mathalea_exercices_c3.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices_5e.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices_4e.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices_3e.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices_1re.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices_tle.js" type="text/javascript"></script>
-  <script src="include/mathalea_exercices.js" type="text/javascript"></script> 
- 
-  <script src="include/mathalea_outils.js" type="text/javascript"></script>
-  <script src="/include/alacarte.js" type="text/javascript"></script> 
-  <script src="include/mathalea2d.js" type="text/javascript"></script>
-
-  <!-- Seedrandom -->
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>-->
-
-  <!-- Math.js-->
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js" integrity="sha512-jZKoHppj8aIM7qVRs9BUkS+YUtEbw7tJ7oKu0+g3rKCzRJyMWzaAdukppHp4ubV3HPxzrG03iExbMTnlbySPKA==" crossorigin="anonymous"></script>-->
+  <link rel="stylesheet" type="text/css" href="/assets/externalJs/semantic-ui/semantic.min.css">
+  <script src="/assets/externalJs/semantic-ui/semantic.min.js" type="text/javascript"></script>
+  <script src="/assets/externalJs/semantic-ui/components/state.min.js"></script>
 
 
   <title>MathALÉA</title>
 </head>
 
-<div class="ui hidden divider"></div>
-
-<div class="ui hidden divider"></div>
-
-
-<div class="ui  text container ">
-	<h3 class="ui block header">Choix des exercices</h3>
-
-<!-- Choix du format items | nom prenom items  -->
-<div class="ui form" id="formulaire_radio_style">
-  <div class="grouped fields">
-    <!-- <label for="fruit">Sélectionnez votre second fruit favori :</label> -->
-    <div class="field">
-      <div class="ui radio checkbox">
-        <input type="radio" name="style" id="style1" checked="" tabindex="0" class="hidden">
-        <label>Nom;Prenom;item1;item2;item3... </label>
+<body>
+  <nav>
+    <div class="ui top attached five item stackable container menu  ">
+      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/" class="item">Accueil</a>
+          <a href="/6e" class="item">Sixième</a>
+          <a href="/5e" class="item">Cinquième</a>
+          <a href="/4e" class="item">Quatrième</a>
+          <a href="/3e" class="item">Troisième</a>
+          <a href="/2e" class="item">Seconde</a>
+          <a href="/twitter" class="item">Actualités</a>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <div class="ui radio checkbox">
-        <input type="radio" name="style" id="style2" tabindex="0" class="hidden">
-        <label>Nom;item1;item2;item 3...</label>
+      <a href="/a_propos/" class="ui simple  item">À propos</a>
+      <a href="/telechargements" class="ui simple  item">Téléchargements</a>
+      <a href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+      <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/mathalea.html" class="item">Exercices en ligne</a>
+          <a href="/cm.html" class="item">Exercices chronométrés</a>
+          <a href="/mathalealatex.html" class="item">Générateur LaTeX/PDF</a>
+          <a href="/alacarte.html" class="item">Évaluation à la carte</a>
+          <a href="/mathalea_amc.html" class="item">Générateur AMC</a>
+          <a href="/outils.html" class="item">Outils pour le professeur</a>
+          <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+          <a href="/mathalea2iep.html" class="item">InstrumEnPoche</a>
+          <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+          <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+          <a href="/mathalea_a_propos" class="item">À propos</a>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <div class="ui radio checkbox">
-        <input type="radio" name="style" id="style3" tabindex="0" class="hidden">
-        <label>item1;item2;item3...</label>
-      </div>
-    </div>
-  </div>
-</div>
+  </nav>
 
 
-    
-  <div class="ui form">
-    <div class="field">
-      <!-- <label>Identifiants des items séparés par des espaces - Saut de ligne pour changer de document</label> -->
-      <textarea rows="10" id="textarea_id_items"></textarea>
-    </div>
-  </div>
-
-	<div class="ui hidden divider"></div>
-
-	<button class="ui button" id="valider">Valider</button>
+  <div class="ui hidden divider"></div>
 
   <div class="ui hidden divider"></div>
 
 
-<div class="ui dropdown">
-  <div class="text">Sixième</div>
-  <i class="dropdown icon"></i>
-  <div class="menu">
-    <div class="item"><i class="dropdown icon"></i> Calculs <div class="menu">
-        <div class="item">6C10 - Additionner, soustraire et multiplier des nombres entiers.
- <img class="ui mini image" src="/images/dice.png"></div>
-        <div class="item">6C11 - Calculer des divisions euclidiennes simples. <img class="ui mini image" src="/images/dice.png"> </div>
-        <div class="item">6C12 - Résoudre des problèmes de niveau 1.</div>
-        <div class="item">6C20 - Additionner et soustraire des nombres décimaux. <img class="ui mini image" src="/images/dice.png"> </div>
-        <div class="item">6C21 - Calculer une division euclidienne de niveau 2. <img class="ui mini image" src="/images/dice.png"> </div>
-        <div class="disabled item">6C22 - Résoudre des problèmes de niveau 2.</div>
-        <div class="item">6C30 - Multiplier des nombres décimaux. <img class="ui mini image" src="/images/dice.png"> </div>
-        <div class="item">6C31 - Effectuer une division décimale. <img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6C32 - Résoudre des problèmes de niveau 3. </div>
+  <div class="ui  text container ">
+    <h3 class="ui block header">Choix des exercices</h3>
+
+    <!-- Choix du format items | nom prenom items  -->
+    <div class="ui form" id="formulaire_radio_style">
+      <div class="grouped fields">
+        <!-- <label for="fruit">Sélectionnez votre second fruit favori :</label> -->
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="style" id="style1" checked="" tabindex="0" class="hidden">
+            <label>Nom;Prenom;item1;item2;item3... </label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="style" id="style2" tabindex="0" class="hidden">
+            <label>Nom;item1;item2;item 3...</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="style" id="style3" tabindex="0" class="hidden">
+            <label>item1;item2;item3...</label>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="item"><i class="dropdown icon"></i> Géométrie <div class="menu">
-        <div class="item">6G10 - Connaitre le vocabulaire et les notations des points, des droites, des segments, des demi-droites et des cercles.</div>
-        <div class="item">6G11 - Tracer des perpendiculaires.</div>
-        <div class="item">6G12 - Tracer des parallèles.</div>
-        <div class="item">6G13 - Tracer des rectangles et des carrés de longueurs données.</div>
-        <div class="item">6G14 - Exécuter un programme de construction de niveau 1.</div>
-        <div class="disabled item">6G20 - Connaître le vocabulaire des polygones.</div>
-        <div class="disabled item">6G21 - Tracer un polygone avec le compas et l’équerre.</div>
-      <div class="disabled item">6G22 - Connaître le vocabulaire et les notations des angles.</div>
-      <div class="disabled item">6G23 - Utiliser le rapporteur pour tracer ou mesurer un angle. </div>
-      <div class="disabled item">6G24 - Tracer le symétrique d’une figure.</div>
-      <div class="disabled item">6G25 - Tracer la médiatrice d’un segment.</div>
-      <div class="disabled item">6G30 - Exécuter un programme de construction complexe.</div>
-      <div class="disabled item">6G31 - Agrandissement ou réduction de figures.</div>
-      <div class="disabled item">6G32 - Connaître et utiliser les propriétés de conservation de la symétrie axiale.</div>
-      <div class="disabled item">6G33 - Connaître et utiliser les propriétés des polygones particuliers.</div>
 
-    </div>
-  </div>
-    <div class="item"><i class="dropdown icon"></i> Grandeurs et mesures <div class="menu">
-        <div class="item">6M10 - Déterminer le périmètre d’un polygone.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6M11 - Déterminer l’aire d’un carré ou d’un rectangle (ou de figures composées de rectangles et carrés).</div>
-        <div class="item">6M12 - Convertir des longueurs.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6M13 - Résoudre un problème en utilisant les périmètres et les aires.</div>
-        <div class="disabled item">6M20 - Déterminer l’aire d’un triangle.</div>
-        <div class="disabled item">6M21 - Déterminer l’aire d’un polygone par assemblage ou par découpage. </div>
-        <div class="item">6M22 - Déterminer le périmètre ou l’aire d’un disque.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="item">6M23 - Convertir des aires.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6M30 - Déterminer le volume d’un pavé droit.</div>
-        <div class="disabled item">6M31 - Convertir des volumes (et faire le lien avec les contenances).</div>
 
-      </div>
-    </div>
-    <div class="item"><i class="dropdown icon"></i> Numération et fractions <div class="menu">
-        <div class="item">6N10 - Connaitre le système décimal.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N11 - Comparer, ranger, encadrer, repérer des grands nombres entiers.</div>
-        <div class="item">6N12 - Multiplier un entier par 10, 100, 1 000...<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="item">6N13 - Utiliser les préfixes multiplicateurs (déca à kilo).<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N14 - Comprendre et utiliser la notion de fraction dans des cas simples.</div>
-        <div class=" item">6N20 - Faire le lien entre les fractions et les nombres entiers.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class=" item">6N21 - Repérer et placer des fractions sur une demi-droite graduée (origine visible).<img class="ui mini image" src="/images/dice.png"> </div>
-        <div class=" item">6N22 - Faire des calculs simples avec des fractions à l’aide d’un dessin.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class=" item">6N23 - Comprendre et utiliser différentes écritures d’un nombre.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class=" item">6N24 - Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo).<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N30 - Repérer et placer des nombres décimaux sur une demi-droite graduée adaptée.</div>
-        <div class="item">6N31 - Comparer, ranger, encadrer, intercaler des nombres décimaux.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N32 - Repérer et placer des fractions sur une demi-droite graduée (origine non visible).</div>
-        <div class="item">6N33 - Calculer la fraction d’une quantité.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="item">6N34 - Utiliser les préfixes multiplicateurs et diviseurs (milli à téra).<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N40 - Repérer et placer des nombres décimaux sur une demi-droite graduée - niveau 2.</div>
-        <div class="item">6N41 - Établir des égalités entre des fractions simples.<img class="ui mini image" src="/images/dice.png"></div>
-        <div class="disabled item">6N42 - Multiples et diviseurs des nombres d’usage courant.</div>
-        <div class="item">6N43 - Critères de divisibilité.<img class="ui mini image" src="/images/dice.png"></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="menu_exercices_construit"></div>
 
-  <div id="reglages_sortie_LaTeX">
-
-	<!-- Affichage du code LaTeX -->
     <div class="ui form">
-    <div class="fields">
       <div class="field">
-        <div id="overleaf">
-        <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
-        <div class="form-group text-center">
-        <input type="hidden" name="encoded_snip" value="" autocomplete="off">
-        <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
-        <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
-        <i class="cogs icon"></i>Compiler avec Overleaf</button></div></form>
-      </div>
-      </div>
-      <div class="field">
-        <!-- Bouton de téléchargement -->
-         <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
-      </div>
-      <div class="field">
-        <!-- Bouton de copie du code -->
-        <button class="btn ui  labeled icon button" data-clipboard-action="copy" data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
+        <!-- <label>Identifiants des items séparés par des espaces - Saut de ligne pour changer de document</label> -->
+        <textarea rows="10" id="textarea_id_items"></textarea>
       </div>
     </div>
-    </div>
-    
-    <!-- Instantiate clipboard -->
-    <script>
-      	var clipboard = new Clipboard('.btn');
-    </script>
 
     <div class="ui hidden divider"></div>
 
-         <div class="content">
-                
-                <form class="ui form">
-                <div class="field">
-                  <label>Nom du fichier</label>
-                  <input type="text" id="nom_du_fichier" placeholder="Nom du fichier (sans extension)">
-                </div> 
-                <div class="field" id="options_style_classique">
-                    <label>Entête</label>
-                    <input type="text" id="entete_du_fichier" placeholder="Évaluation à la carte">
-                </div>
-                <div class="field" id="options_style_classique">
-                    <label>Entête droit</label>
-                    <input type="text" id="entete_droit_du_fichier" placeholder="2019-2020">
-                </div>
+    <button class="ui button" id="valider">Valider</button>
 
-                <div class="inline fields">
-                    <label>Style :</label>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input type="radio" name="style" id="style_classique" checked="" tabindex="0" class="hidden">
-                        <label>Classique</label>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="ui radio checkbox">
-                        <input type="radio" name="style" id="style_CoopMaths"  tabindex="0" class="hidden">
-                        <label>CoopMaths</label>
-                      </div>
-                    </div>
-                  </div>
+    <div class="ui hidden divider"></div>
 
-                <div id="options_style_CoopMaths">
-                  <div class="inline fields">
-                  <label>Thème :</label>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="theme" id="theme_nombres" value="nombres" checked="" tabindex="0" class="hidden">
-                      <label>Nombres</label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="theme" id="theme_geo" value="geo" tabindex="0" class="hidden">
-                      <label>Géo</label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="theme" id="theme_grandeurs" value="grandeurs"  tabindex="0" class="hidden">
-                      <label>Grandeurs</label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="theme" id="theme_gestion" value="gestion" tabindex="0" class="hidden">
-                      <label>Gestion</label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="ui radio checkbox">
-                      <input type="radio" name="theme" id="theme_algo" value="algo" tabindex="0" class="hidden">
-                      <label>Algo</label>
-                    </div>
-                  </div>
+
+    <div id="reglages_sortie_LaTeX">
+
+      <!-- Affichage du code LaTeX -->
+      <div class="ui form">
+        <div class="fields">
+          <div class="field">
+            <div id="overleaf">
+              <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+                <div class="form-group text-center">
+                  <input type="hidden" name="encoded_snip" value="" autocomplete="off">
+                  <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
+                  <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit">
+                    <i class="cogs icon"></i>Compiler avec Overleaf</button>
                 </div>
+              </form>
+            </div>
+          </div>
+          <div class="field">
+            <!-- Bouton de téléchargement -->
+            <button class="btn ui labeled icon button" id="btn_telechargement"><i
+                class="download icon"></i>Télécharger</button>
+          </div>
+          <div class="field">
+            <!-- Bouton de copie du code -->
+            <button class="btn ui  labeled icon button" data-clipboard-action="copy"
+              data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
+          </div>
+        </div>
+      </div>
 
-               <!--  <div class="field">
+      <!-- Instantiate clipboard
+    <script>
+      	var clipboard = new Clipboard('.btn');
+    </script> -->
+
+      <div class="ui hidden divider"></div>
+
+      <div class="content">
+
+        <form class="ui form">
+          <div class="field">
+            <label>Nom du fichier</label>
+            <input type="text" id="nom_du_fichier" placeholder="Nom du fichier (sans extension)">
+          </div>
+          <div class="field" id="options_style_classique">
+            <label>Entête</label>
+            <input type="text" id="entete_du_fichier" placeholder="Évaluation à la carte">
+          </div>
+          <div class="field" id="options_style_classique">
+            <label>Entête droit</label>
+            <input type="text" id="entete_droit_du_fichier" placeholder="2019-2020">
+          </div>
+
+          <div class="inline fields">
+            <label>Style :</label>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="style" id="style_classique" checked="" tabindex="0" class="hidden">
+                <label>Classique</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="style" id="style_CoopMaths" tabindex="0" class="hidden">
+                <label>CoopMaths</label>
+              </div>
+            </div>
+          </div>
+
+          <div id="options_style_CoopMaths">
+            <div class="inline fields">
+              <label>Thème :</label>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="theme" id="theme_nombres" value="nombres" checked="" tabindex="0"
+                    class="hidden">
+                  <label>Nombres</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="theme" id="theme_geo" value="geo" tabindex="0" class="hidden">
+                  <label>Géo</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="theme" id="theme_grandeurs" value="grandeurs" tabindex="0" class="hidden">
+                  <label>Grandeurs</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="theme" id="theme_gestion" value="gestion" tabindex="0" class="hidden">
+                  <label>Gestion</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="theme" id="theme_algo" value="algo" tabindex="0" class="hidden">
+                  <label>Algo</label>
+                </div>
+              </div>
+            </div>
+
+            <!--  <div class="field">
                   <label>Items et domaine</label>
                 </div>
                 <div class="two fields">
@@ -301,13 +229,19 @@
                     </div>
                 </div> -->
 
-                </div>
-                </form>
-                <div>
-                 	<a href="fichiers/preambule.tex" class="lien_preambule"><button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i> Préambule</button></a>
-                  <a href="fichiers/images.zip" class="lien_images"><button class="ui compact basic icon button" tabindex="0"><i class="download icon"></i> Images</button></a>
-                </div>
+          </div>
+        </form>
+        <div>
+          <a href="assets/fichiers/preambule.tex" class="lien_preambule"><button class="ui compact basic icon button"
+              tabindex="0"><i class="download icon"></i> Préambule</button></a>
+          <a href="assets/fichiers/images.zip" class="lien_images"><button class="ui compact basic icon button"
+              tabindex="0"><i class="download icon"></i> Images</button></a>
         </div>
+        <div class="ui checkbox">
+          <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden">
+          <label>Cacher les identifiants des exercices</label>
+        </div>
+      </div>
 
     </div>
 
@@ -320,18 +254,22 @@
 
 
 
-	<!-- Fin d'affichage du code LaTeX -->
+    <!-- Fin d'affichage du code LaTeX -->
 
-</div>  
+  </div>
 
 
- <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
   <div class="ui hidden divider"></div>
   <div class="ui right aligned container">
-	
-    <a href="mailto:contact@coopmaths.fr"  style="color: black; padding-right: 2em" ><i class="mail icon"></i>contact@coopmaths.fr</a>
-    <a href="/twitter" targer="_blank" style="color: black; padding-right: 2em" ><i class="twitter icon"></i>@CoopMaths_fr</a>
+
+    <a href="mailto:contact@coopmaths.fr" style="color: black; padding-right: 2em"><i
+        class="mail icon"></i>contact@coopmaths.fr</a>
+    <a href="/twitter" targer="_blank" style="color: black; padding-right: 2em"><i
+        class="twitter icon"></i>@CoopMaths_fr</a>
     <img class="ui middle aligned image" height="25" src="assets/images/logo2.png">
-  <span class="ui header"></span>
+    <span class="ui header"></span>
   </div>
-<!-- <script src="include/mathalea.js"></script> -->
+</body>
+
+</html>
