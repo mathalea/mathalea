@@ -514,7 +514,7 @@ export default function Alea2iep () {
  * @param {objet} options { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
  *
  */
-  this.pointCreer = function (A, { dx, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
+  this.pointCreer = function (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
     if (typeof id !== 'undefined') {
       A.id = id
     } else {
@@ -540,12 +540,22 @@ export default function Alea2iep () {
   }
   /**
  * Création de plusieurs points
+ * Le dernier argument peut être une option qui sera appliquée à tous les points
  *
- * @param  {...any} points Points séparés par des virgules
+ * @param  {...points} points Points séparés par des virgules
  */
-  this.pointsCreer = function (...points) {
-    for (const point of points) {
-      this.pointCreer(point, { tempo: 0 })
+  this.pointsCreer = function (...args) {
+    if (args[args.length - 1].typeObjet === 'point') {
+      for (const point of args) {
+        this.pointCreer(point, { tempo: 0 })
+      }
+    } else {
+      const options = args[args.length - 1]
+      console.log(options)
+      const enleveDernier = arr => arr.slice(0, -1)
+      for (const point of enleveDernier(args)) {
+        this.pointCreer(point, options)
+      }
     }
   }
   /**
