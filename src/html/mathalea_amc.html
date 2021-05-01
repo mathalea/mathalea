@@ -23,6 +23,11 @@
   <script src="/assets/externalJs/semantic-ui/semantic.min.js" type="text/javascript"></script>
   <script src="/assets/externalJs/semantic-ui/components/state.min.js"></script>
 
+    <!-- JSZip et FileSaver-->
+    <script src="/assets/externalJs/jszip.min.js"></script>
+    <script src="/assets/externalJs/FileSaver.min.js"></script>
+  
+
     <title>MathALÉA</title>
   </head>
 
@@ -127,13 +132,7 @@
             <i class="redo icon"></i>Nouvelles données
           </button>
           <!-- Bouton de copie du code -->
-          <button
-            class="btn ui  labeled icon button"
-            data-clipboard-action="copy"
-            data-clipboard-target="#div_code_LaTeX"
-          >
-            <i class="copy icon"></i>Copier code LaTeX
-          </button>
+          <button class="btn ui  labeled toggle icon button" id="btnCopieLatex" data-clipboard-action="copy" data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
           <!-- Bouton de téléchargement -->
           <button class="btn ui labeled icon button" id="btn_telechargement">
             <i class="download icon"></i>Télécharger

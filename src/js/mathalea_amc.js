@@ -18,6 +18,10 @@ import '../css/style_mathalea.css'
 import '../assets/externalJs/prism.js'
 import '../assets/externalJs/prism.css'
 
+// // Biblio JSZip et FileSaver 
+// import '../assets/externalJs/jszip.min.js'
+// import '../assets/externalJs/FileSaver.min.js'
+
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
@@ -255,6 +259,10 @@ window.est_diaporama = false
 
                 div.innerHTML = '<pre><code class="language-latex">' + code_LaTeX + "</code></pre>";
                 Prism.highlightAllUnder(div); // Met à jour la coloration syntaxique
+                const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => code_LaTeX })
+                clipboardURL.on('success', function (e) {
+                  console.info('Code LaTeX copié dans le presse-papier.')
+                })          
             } else {
                 code_LaTeX = "";
                 $("#message_liste_exercice_vide").show(); // Message au dessus de la liste des exercices
@@ -296,7 +304,7 @@ window.est_diaporama = false
                     return request.responseText;
                 }
 
-                contenu_fichier+=code_LaTeX
+                contenu_fichier+=code_LaTeX                
                 let monzip= new JSZip()
                 if ($("#nom_du_fichier").val()!="") {
                     nom_fichier=$("#nom_du_fichier").val() + ".tex"                               ;
@@ -304,7 +312,7 @@ window.est_diaporama = false
                     nom_fichier= "mathalea.tex";
                 }
                 monzip.file(`${nom_fichier}`,code_LaTeX)
-                monzip.file("automultiplechoice.sty",load("/fichiers/automultiplechoice.sty"))
+                monzip.file("automultiplechoice.sty",load("/src/fichiers/automultiplechoice.sty"))
                 monzip.generateAsync({type:"blob"})
                 .then(function(content) {
                     // see FileSaver.js
