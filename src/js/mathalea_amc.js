@@ -153,6 +153,72 @@ window.est_diaporama = false
 		mise_a_jour_de_la_liste_des_exercices();
     });
 
+    function contenu_exercice_html (obj, num_exercice, isdiaporama) {
+        let contenu_un_exercice = ''
+        let contenu_une_correction = ''
+        let param_tooltip = ''
+        if (isdiaporama) {
+          contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
+          for (const question of obj.liste_questions) {
+            contenu_un_exercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+          }
+          contenu_un_exercice += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
+          if (obj.type_exercice === 'MG32') {
+            contenu_un_exercice += `<div id="MG32div${num_exercice - 1}" class="MG32"></div>`
+          }
+          contenu_une_correction += obj.contenu_correction
+          if (obj.type_exercice === 'MG32' && obj.MG32codeBase64corr) {
+            contenu_une_correction += `<div id="MG32divcorr${num_exercice - 1}" class="MG32"></div>`
+          }
+        }
+        if (!isdiaporama) {
+          if (obj.type_exercice === 'dnb') {
+            contenu_un_exercice += ` Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
+            contenu_un_exercice += `<img width="90%" src="${obj.png}">`
+            contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice},'${num_exercice - 1}')</h3>`
+            contenu_une_correction += `<img width="90%" src="${obj.pngcor}">`
+            obj.video = false
+          } else {
+            try {
+              obj.nouvelle_version(num_exercice - 1)
+            } catch (error) {
+              console.log(error)
+            }
+            if ((!obj.nb_questions_modifiable && !obj.besoin_formulaire_numerique && !obj.besoin_formulaire_texte && !obj.QCM_disponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
+              contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
+            } else {
+              if (obj.besoin_formulaire_numerique && obj.besoin_formulaire_numerique[2]) {
+                param_tooltip += (obj.besoin_formulaire_numerique[0] + ': \n' + obj.besoin_formulaire_numerique[2]) + '\n'
+              }
+              if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
+                param_tooltip += (obj.besoin_formulaire2_numerique[0] + ': \n' + obj.besoin_formulaire2_numerique[2])
+              }
+              param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
+              contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+            }
+            if (obj.video.length > 3) {
+              contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modal_youtube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
+            }
+            if (obj.bouton_aide) {
+              contenu_un_exercice += `<div id=aide${num_exercice - 1}> ${obj.bouton_aide}</div>`
+            }
+            contenu_un_exercice += obj.contenu
+            if (obj.type_exercice === 'MG32') {
+              contenu_un_exercice += `<div id="MG32div${num_exercice - 1}" class="MG32"></div>`
+            }
+            contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice}</h3>`
+            contenu_une_correction += obj.contenu_correction
+            if (obj.type_exercice === 'MG32' && obj.MG32codeBase64corr) {
+              contenu_une_correction += `<div id="MG32divcorr${num_exercice - 1}" class="MG32"></div>`
+            }
+          }
+        }
+        return {
+          contenu_un_exercice: contenu_un_exercice,
+          contenu_une_correction: contenu_une_correction
+        }
+      }
+
     function mise_a_jour_du_code() {
         window.MG32_tableau_de_figures = [];
         // Fixe la graine pour les fonctions aléatoires
@@ -164,7 +230,9 @@ window.est_diaporama = false
                 startsWithLowerCase: false,
             });
             // Saisi le numéro de série dans le formulaire
-            document.getElementById("form_serie").value = mathalea.graine;
+            if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
+                document.getElementById('form_serie').value = mathalea.graine
+            }
         }
         // Contrôle l'aléatoire grâce à SeedRandom
         seedrandom(mathalea.graine, { global: true });
@@ -1226,17 +1294,40 @@ window.est_diaporama = false
     });
 
 	//handlers pour la prévisualisation des exercices cg 04-20201
-    $(".icone_preview").off("click").on("click", function (e) {
-		if ($(".popuptext").is(":visible")) {
-			$(".popuptext").hide();
-		} else {
-			mise_a_jour_de_la_liste_des_exercices(event.target.id)
-		}
-	});
-	$(".popuptext").off("click").on("click", function (e) {
-		$(".popuptext").hide();
-	});
-	$(document).click(function(event) {
-			$(".popuptext").hide();
-	});
+    function afficher_popup () {
+        if ($('.popuptext').is(':visible')) {
+          $('.popuptext').empty()
+          $('.popuptext').hide()
+        } else {
+          mise_a_jour_de_la_liste_des_exercices(event.target.id)
+        }
+      }
+    
+      $('.popup').off('click').on('click', function (e) {
+        event.stopPropagation()
+        afficher_popup()
+      })
+    
+      $(document).click(function (event) {
+        if ($('.popuptext').is(':visible') || !$(event.target).hasClass('poppup') || !$(event.target).hasClass('icone_ppreview')) {
+          $('.popuptext').hide()
+          $('.popuptext').empty()
+          $('.icone_preview').off('click').on('click', function (e) {
+            $('.popup').trigger('click')
+          })
+        }
+      })
+    // $(".icone_preview").off("click").on("click", function (e) {
+	// 	if ($(".popuptext").is(":visible")) {
+	// 		$(".popuptext").hide();
+	// 	} else {
+	// 		mise_a_jour_de_la_liste_des_exercices(event.target.id)
+	// 	}
+	// });
+	// $(".popuptext").off("click").on("click", function (e) {
+	// 	$(".popuptext").hide();
+	// });
+	// $(document).click(function(event) {
+	// 		$(".popuptext").hide();
+	// });
 //})();
