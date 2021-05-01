@@ -13,14 +13,15 @@ export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = 'Modéliser des problèmes'
   this.consigne = 'Associer chaque problème avec sa modélisation'
-  this.nb_questions = 8
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
-  this.tailleDiaporama = 50
-  this.video = ''
-  this.correction_detaillee_disponible = true
-  this.correction_detaillee = true
+  this.nb_questions = 8;
+  this.nb_questions_modifiable = false;
+  this.sup = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.tailleDiaporama = 50;
+  this.video = '';
+  this.correction_detaillee_disponible = true;
+  this.correction_detaillee = true;
 
   this.nouvelle_version = function () {
     this.liste_questions = []
@@ -29,15 +30,22 @@ export default function ModelisationProblemes () {
     const type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     const liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
 
-    const b1 = randint(15, 50)
-    const c1 = randint(5, 9)
-    const c3 = randint(5, 9)
-    const d3 = c3 * randint(7, 13)
-    const b5 = randint(15, 50)
-    const c5 = randint(5, 9)
-    const a7 = randint(9, 13)
-    const b7 = randint(15, 50)
-    const o = choice([1, 2])
+    const b1 = randint(15, 50);
+    let c1 = randint(5, 9);
+    const c3 = randint(5, 9);
+    let d3 = c3 * randint(7, 13);
+    let b5 = randint(15, 50);
+    let c5 = randint(5, 9);
+    let a7 = randint(9, 13);
+    let b7 = randint(15, 50);
+    let o = choice([1, 2]);
+    if (this.sup==2) {c1=c3;b5=b1;c5=c1;b7=d3;a7=b1;
+    }
+    else {
+       
+    }
+
+
     let A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2, C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8, n1, n2, n3, n4, n5, n6, n7, n8,
       p1, traitHorizontal1, traitVertical1, tb1, th1, th12, 
       p2, traitHorizontal2, traitVertical2, tb2, th2, th22,  
@@ -55,7 +63,7 @@ export default function ModelisationProblemes () {
       switch (liste_type_de_questions[i]) {
         case 1:
           if (o === 1) {
-            texte += `${prenomF()} avait ${b1} ${objet()} ${jour()}. `
+            texte += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `
             texte += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
             texte += '<br>Combien cela lui en fait-il ?'
           } else {
@@ -82,11 +90,11 @@ export default function ModelisationProblemes () {
               { xmin: -1.5, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12
             )
-            texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
-            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -102,11 +110,11 @@ export default function ModelisationProblemes () {
 
         case 2:
           if (o === 1) {
-            texte += `${prenomM()} achète ${b1} ${objet()}.`
+            texte += `${prenomM()} achète ${b1} ${objetM()}.`
             texte += `<br>Il en distribue ${c1} à ses amis qui ont oublié les leurs.`
             texte += '<br>Combien lui en reste-t-il ?'
           } else {
-            texte += `${prenomM()} possède déjà ${c1} ${objet()}.`
+            texte += `${prenomM()} possède déjà ${c1} ${objetF()}.`
             texte += `<br>Il a besoin d'en avoir ${b1} en fin de semaine.`
             texte += '<br>Combien doit-il encore en récupérer ?'
           }
@@ -130,11 +138,11 @@ export default function ModelisationProblemes () {
               { xmin: 15, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22
             )
-            texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
-            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -154,7 +162,7 @@ export default function ModelisationProblemes () {
               texte += `${prenomF()} a ${b5} ans.`
               texte += `<br>Sachant qu'elle a ${c5} ans de plus que son frère, quel âge a celui-ci ?`
             } else {
-              texte += `${prenomF()} a acheté ${b5} ${objet()} pour les donner à ses amis.`
+              texte += `${prenomF()} a acheté ${b5} ${objetM()} pour les donner à ses amis.`
               texte += `<br>Il lui en reste encore ${c5} à donner.`
               texte += '<br>Combien en a-t-elle déjà distribué ?'
             }
@@ -178,11 +186,11 @@ export default function ModelisationProblemes () {
                 { xmin: 31, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
                 p3, traitHorizontal3, traitVertical3, tb3, th3, th32
               )
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+              texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
             }
   
             if (i === 7) {
-              texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
                 { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
                 p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
                 p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -198,10 +206,10 @@ export default function ModelisationProblemes () {
   
               case 4: 
               if (o === 1) {
-                texte += `${prenomF()} a acheté ${c5} ${objet()} à ${b5} € pièce.`
+                texte += `${prenomF()} a acheté ${b5} ${objetM()} à ${c5} € pièce.`
                 texte += '<br>Combien a-t-elle payé ?'
               } else {
-                texte += `${prenomF()} récupère ${c5} paquets de ${b5} ${objet()} chacun.`
+                texte += `${prenomF()} récupère ${b5} paquets de ${c5} ${objetM()} chacun.`
                 texte += '<br>Combien en a-t-elle en tout ?'
               }
     
@@ -231,11 +239,11 @@ export default function ModelisationProblemes () {
                   { xmin: 47, ymin: -1, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
                   p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45
                 )
-                texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+                texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
               }
     
               if (i === 7) {
-                texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+                texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
                   { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
                   p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
                   p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -253,7 +261,7 @@ export default function ModelisationProblemes () {
 
             case 5: 
             if (o === 1) {
-              texte += `J'ai ${d3} ${objet()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
+              texte += `J'ai ${d3} ${objetF()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
               texte += '<br>Quelle sera la part de chacun ?'
             } else {
               texte += `${c3} ${objetF()} identiques coûtent ${d3} €.`
@@ -286,11 +294,11 @@ export default function ModelisationProblemes () {
                 { xmin: -1.5, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
                 p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55
               )
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+              texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
             }
   
             if (i === 7) {
-              texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
                 { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
                 p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
                 p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -310,7 +318,7 @@ export default function ModelisationProblemes () {
             texte += `${prenomF()} récupère ${b7} ${objet()} dans une salle, puis ${a7} dans une autre.`
             texte += '<br>Combien en a-t-elle en tout ?'
           } else {
-            texte += `Un paquet de ${objetM()} coûte ${b7} € et un paquet de ${objetF()} coûte ${a7} €.`
+            texte += `Un lot de ${objetM()} coûte ${b7} € et un lot de ${objetF()} coûte ${a7} €.`
             texte += '<br>Combien coûte l\'ensemble ?'
           }
 
@@ -333,11 +341,11 @@ export default function ModelisationProblemes () {
               { xmin: 15, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p6, traitHorizontal6, traitVertical6, tb6, th6, th62
             )
-            texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
-            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -354,7 +362,7 @@ export default function ModelisationProblemes () {
 
           case 7:
             if (o === 1) {
-              texte += `J'ai ${d3} ${objet()} dans mon sac et je dois les regrouper par ${c3}.`
+              texte += `J'ai ${d3} ${objetM()} dans mon sac et je dois les regrouper par ${c3}.`
               texte += '<br>Combien puis-je faire de tas ?'
             } else {
               texte += `J'ai payé ${d3} € pour des ${objetM()} coûtant ${c3} € chacun.`
@@ -387,11 +395,11 @@ export default function ModelisationProblemes () {
                 { xmin: 31, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
                 p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75
               )
-              texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+              texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
             }
   
             if (i === 7) {
-              texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+              texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
                 { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
                 p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
                 p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -410,10 +418,10 @@ export default function ModelisationProblemes () {
 
         case 8:
           if (o === 1) {
-            texte += `Dans un sac, il y a ${a7} ${objet()} et dans l'autre, il y en a ${b7}.`
+            texte += `Dans un sac, il y a ${a7} ${objetF()} et dans l'autre, il y en a ${b7}.`
             texte += '<br>Combien y en a-t-il de plus dans ce sac ?'
           } else {
-            texte += `${prenomF()} a trouvé ${b7} ${objet()} et ${prenomM()} en a trouvé ${a7}`
+            texte += `${prenomF()} a trouvé ${b7} ${objetF()} et ${prenomM()} en a trouvé ${a7}`
             texte += '<br>Combien en a-t-il de moins qu\'elle ?'
           }
 
@@ -436,11 +444,11 @@ export default function ModelisationProblemes () {
               { xmin: 47, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82
             )
-            texte_corr += "<br> (Pour mémoire, l'énoncé était :<br> " + texte + ')'
+            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
-            texte += '<br><br> Les schémas à associer avec chacun des énoncés sont : <br>' + mathalea2d(
+            texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1, n2, n3, n4, n5, n6, n7, n8,
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22, 
@@ -465,4 +473,6 @@ export default function ModelisationProblemes () {
     }
     liste_de_question_to_contenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoin_formulaire_numerique = ["Niveau de difficulté",2,"1 : Valeurs différentes suivant les exercices\n2: Valeurs identiques dans tous les exercices",
+  ];
 }
