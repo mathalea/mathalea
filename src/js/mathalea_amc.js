@@ -18,10 +18,6 @@ import '../css/style_mathalea.css'
 import '../assets/externalJs/prism.js'
 import '../assets/externalJs/prism.css'
 
-// // Biblio JSZip et FileSaver 
-// import '../assets/externalJs/jszip.min.js'
-// import '../assets/externalJs/FileSaver.min.js'
-
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
@@ -152,7 +148,6 @@ window.est_diaporama = false
         copier_exercices_form_vers_affichage(liste_des_exercices);
 		mise_a_jour_de_la_liste_des_exercices();
     });
-
     function contenu_exercice_html (obj, num_exercice, isdiaporama) {
         let contenu_un_exercice = ''
         let contenu_une_correction = ''
