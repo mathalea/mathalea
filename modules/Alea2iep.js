@@ -514,7 +514,7 @@ export default function Alea2iep () {
  * @param {objet} options { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
  *
  */
-  this.pointCreer = function (A, { label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
+  this.pointCreer = function (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
     if (typeof id !== 'undefined') {
       A.id = id
     } else {
@@ -525,7 +525,14 @@ export default function Alea2iep () {
     if (label) {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
-      this.textePoint(`$${label}$`, A, { tempo: tempo, couleur: couleurLabel })
+      const M = point(A.x, A.y)
+      if (typeof dx !== 'undefined') {
+        M.x += dx
+      }
+      if (typeof dy !== 'undefined') {
+        M.y += dy
+      }
+      this.textePoint(`$${label}$`, M, { tempo: 0, couleur: couleurLabel })
     } else {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}" />`
     }
@@ -533,12 +540,22 @@ export default function Alea2iep () {
   }
   /**
  * Création de plusieurs points
+ * Le dernier argument peut être une option qui sera appliquée à tous les points
  *
- * @param  {...any} points Points séparés par des virgules
+ * @param  {...points} points Points séparés par des virgules
  */
-  this.pointsCreer = function (...points) {
-    for (const point of points) {
-      this.pointCreer(point, { tempo: 0 })
+  this.pointsCreer = function (...args) {
+    if (args[args.length - 1].typeObjet === 'point') {
+      for (const point of args) {
+        this.pointCreer(point, { tempo: 0 })
+      }
+    } else {
+      const options = args[args.length - 1]
+      console.log(options)
+      const enleveDernier = arr => arr.slice(0, -1)
+      for (const point of enleveDernier(args)) {
+        this.pointCreer(point, options)
+      }
     }
   }
   /**
@@ -576,7 +593,7 @@ export default function Alea2iep () {
    */
   this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
     // const coordonneesTexte = ''
-    const M = A
+    const M = point(A.x, A.y)
     if (typeof dx !== 'undefined') {
       M.x += dx
     }
@@ -817,7 +834,6 @@ export default function Alea2iep () {
  * @param {objet} options { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
   this.rapporteurTracerDemiDroiteAngle = function (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
-
     if (angle > 0) {
       this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
       this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
@@ -1367,25 +1383,25 @@ export default function Alea2iep () {
       dist = longueur(H, C) + 2
     }
     this.equerreZoom(calcul(dist * 100 / 7.5))
-    this.regleModifierLongueur(Math.max(dist*2,15))
- 
- 
-    this.perpendiculaireRegleEquerreDroitePoint(d,C)
+    this.regleModifierLongueur(Math.max(dist * 2, 15))
+
+
+    this.perpendiculaireRegleEquerreDroitePoint(d, C)
     this.equerreZoom(zoomEquerre)
     this.regleModifierLongueur(longueurRegle)
   }
- 
+
   this.perpendiculaireRegleEquerreDroitePoint = function (d, P) {
     const H = projectionOrtho(P, d)
-    const A = rotation(P,H,90)
-    const B= rotation(A,H,180)
-    const alpha=angleOriente(point(10000,H.y),H,B)
+    const A = rotation(P, H, 90)
+    const B = rotation(A, H, 180)
+    const alpha = angleOriente(point(10000, H.y), H, B)
     this.equerreRotation(alpha)
     this.equerreMontrer(H)
-    this.regleSegment(H,P)
+    this.regleSegment(H, P)
     this.equerreMasquer()
-    this.codageAngleDroit(A,H,P)
-    this.regleProlongerSegment(P,H,{longueur:longueur(P,H)*2})
+    this.codageAngleDroit(A, H, P)
+    this.regleProlongerSegment(P, H, { longueur: longueur(P, H) * 2 })
   }
 
   /**
@@ -2258,7 +2274,7 @@ export default function Alea2iep () {
   /********************************************/
 
   /**
-   * 
+   *
    * @param {objet} p  le point dont on veut construire l'image
    * @param {objet} centre le centre de la rotation
    * @param {number} angle l'angle de la rotation
@@ -2266,10 +2282,10 @@ export default function Alea2iep () {
    * @param {objet} param4 options couleur et couleurCodage
    * @Auteur Jean-Claude Lhote
    */
-  this.rotationPoint = function (p, centre, angle, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage,codage=true } = {}) {
+  this.rotationPoint = function (p, centre, angle, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = true } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    if (nom === undefined || nom === "") {
+    if (nom === undefined || nom === '') {
       nom = p.nom + "'"
     }
     const image = rotation(p, centre, angle, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
@@ -2282,22 +2298,20 @@ export default function Alea2iep () {
     this.compasTracerArcCentrePoint(centre, image) // On fait l'arc qui coupe la demi-droite
     this.compasMasquer()
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // On marque le point image (qui est nommé)
-    if (codage){
-      if (Math.abs(angle)===90){
-        this.codageAngleDroit(p,centre,image,{couleur:couleurCodage})
-      }
-      else {
-    this.angleCodage(p, centre, image, { couleur: couleurCodage })
-    this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteur(-0.2, 0.5)))
+    if (codage) {
+      if (Math.abs(angle) === 90) {
+        this.codageAngleDroit(p, centre, image, { couleur: couleurCodage })
+      } else {
+        this.angleCodage(p, centre, image, { couleur: couleurCodage })
+        this.textePoint(Math.abs(angle) + '°', translation(homothetie(rotation(p, centre, angle / 2), centre, 1.3 / longueur(centre, p)), vecteur(-0.2, 0.5)))
       }
     }
   }
 
-
   /**
-   * 
-   * @param {objet} p point dont on construit l'image et qui doit être tracé. 
-   * @param {objet} d axe de symétrie. 
+   *
+   * @param {objet} p point dont on construit l'image et qui doit être tracé.
+   * @param {objet} d axe de symétrie.
    * @param {string} nom nom de l'image
    * @param {objet} options couleur et couleurCodage
    * @auteur Liouba Leroux et Jean-Claude Lhote
@@ -2305,31 +2319,31 @@ export default function Alea2iep () {
   this.symetrieAxialePoint = function (p, d, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = '//' } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    if (nom === undefined || nom === "") {
+    if (nom === undefined || nom === '') {
       nom = p.nom + "'"
     }
     const image = symetrieAxiale(p, d, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (longueur(p,image)!==0){
-    const M = milieu(p,image) // on crée le point milieu
-    const N = rotation(p,M,90)
-    const D = rotation(N,M,180)
-    this.regleMasquerGraduations()
-    this.perpendiculaireRegleEquerre2points3epoint(N, D, p)
-    this.compasEcarter2Points(M, p)
-    this.compasTracerArcCentrePoint(M, image)
-    this.regleSegment(p, image)
-    this.regleMasquer()
-    this.equerreMasquer()
-    this.segmentCodage(p, M, { codage: codage, couleur: couleurCodage })
-    this.segmentCodage(image, M, { codage: codage, couleur: couleurCodage })
-    this.crayonMasquer()
-    this.compasMasquer()
+    if (longueur(p, image) !== 0) {
+      const M = milieu(p, image) // on crée le point milieu
+      const N = rotation(p, M, 90)
+      const D = rotation(N, M, 180)
+      this.regleMasquerGraduations()
+      this.perpendiculaireRegleEquerre2points3epoint(N, D, p)
+      this.compasEcarter2Points(M, p)
+      this.compasTracerArcCentrePoint(M, image)
+      this.regleSegment(p, image)
+      this.regleMasquer()
+      this.equerreMasquer()
+      this.segmentCodage(p, M, { codage: codage, couleur: couleurCodage })
+      this.segmentCodage(image, M, { codage: codage, couleur: couleurCodage })
+      this.crayonMasquer()
+      this.compasMasquer()
     }
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
   }
 
   /**
-   * 
+   *
    * @param {objet} p  le point dont on veut construire l'image
    * @param {objet} le point de départ de la translation
    * @param {objet} le point d'arrivée de la translation
@@ -2341,11 +2355,11 @@ export default function Alea2iep () {
     const v = vecteur(A, B)
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    if (nom === undefined || nom === "") {
+    if (nom === undefined || nom === '') {
       nom = p.nom + "'"
     }
     const image = translation(p, v, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (longueur(A, p) != 0) {//si le point de départ A est l'antécédent, alors le point d'arrivée B est l'image... pas besoin de construction
+    if (longueur(A, p) != 0) { // si le point de départ A est l'antécédent, alors le point d'arrivée B est l'image... pas besoin de construction
       this.compasEcarter2Points(A, p)
       this.compasTracerArcCentrePoint(B, image)
       this.compasEcarter2Points(A, B)
@@ -2371,7 +2385,7 @@ export default function Alea2iep () {
   }
 
   /**
-   * 
+   *
    * @param {objet} p  le point dont on veut construire l'image
    * @param {objet} centre le centre de symétrie
    * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
@@ -2381,7 +2395,7 @@ export default function Alea2iep () {
   this.demiTourPoint = function (p, centre, nom, { couleur = 'black', couleurCodage = this.couleurCodage, codage = '//' } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    if (nom === undefined || nom === "") {
+    if (nom === undefined || nom === '') {
       nom = p.nom + "'"
     }
     const image = rotation(p, centre, 180, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
@@ -2400,33 +2414,32 @@ export default function Alea2iep () {
   }
 
   /**
-   * 
-   * @param {objet} p polygone dont on doit construire l'image 
+   *
+   * @param {objet} p polygone dont on doit construire l'image
    * @param {objet} centre de l'homothétie
    * @param {number} k rapport de l'homothétie
    * @param {array} noms tableau contenant les différents noms des sommets dans le même ordre que ceux de p. Si vide, alors on ajoute ' à ceux de p
    * @param {objet} param4 options (couleur)
    */
-  this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte={x:0,y:0} } = {}) {
+  this.homothetiePoint = function (p, centre, k, nom, { couleur = this.couleur, positionTexte = { x: 0, y: 0 } } = {}) {
     this.epaisseur = 1 // épaisseur et couleur de crayon de papier bien taillé pour la construction
-    const couleurSave=this.couleur
+    const couleurSave = this.couleur
     this.couleur = 'grey'
     let t
-    if (nom === undefined || nom === "") {
+    if (nom === undefined || nom === '') {
       nom = p.nom + "'"
     }
     const image = homothetie(p, centre, k, nom) // on définit le point image (pour le viser avec la règle on ajoute une apostrophe au nom)
-    if (k>0){
+    if (k > 0) {
       t = this.textePosition(`Comme le rapport est positif alors les points ${p.nom} et ${image.nom} sont du même côté de ${centre.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
-    }
-    else {
+    } else {
       t = this.textePosition(`Comme le rapport est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
     }
     this.regleSegment(p, centre)
     const l = arrondi(longueur(p, centre), 1)
-    const lprime = arrondi(math.multiply(l, math.abs(k)),)
-    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${tex_nombre(k)}`, positionTexte.x, positionTexte.y-1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y-2, { taille: 15 })
+    const lprime = arrondi(math.multiply(l, math.abs(k)))
+    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${tex_nombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
+    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
     this.regleSegment(centre, image)
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
     this.regleMasquer()
@@ -2435,7 +2448,7 @@ export default function Alea2iep () {
     this.texteMasquer(t1)
     this.texteMasquer(t2)
     this.texteMasquer(t)
-    this.couleur=couleurSave
+    this.couleur = couleurSave
   }
   /**
    *
@@ -2450,22 +2463,20 @@ export default function Alea2iep () {
     const p2 = rotation(p, centre, angle) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    let i = 0,codage
+    let i = 0; let  codage
     for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
-      }
-      else {
+      } else {
         nom = sommet.nom + "'"
       }
-      if (i<1) {
-        codage=true
+      if (i < 1) {
+        codage = true
+      } else {
+        codage = false
       }
-      else {
-        codage=false
-      }
-      if (longueur(centre,sommet)!==0){
-      this.rotationPoint(sommet, centre,angle, nom, { couleur: couleur, couleurCodage: couleurCodage,codage:codage })
+      if (longueur(centre, sommet) !== 0) {
+        this.rotationPoint(sommet, centre, angle, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
       }
       i++
     }
@@ -2474,12 +2485,11 @@ export default function Alea2iep () {
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
   }
 
-
   /**
-   * 
-   * @param {objet} p polygone dont on construit l'image et qui doit être tracé avec ses points nommés. 
+   *
+   * @param {objet} p polygone dont on construit l'image et qui doit être tracé avec ses points nommés.
    * @param {objet} d axe de symétrie.
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p 
+   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
    * @param {objet} param3 options couleur et couleurCodage
    * @auteur Liouba Leroux et Jean-Claude Lhote
    */
@@ -2492,14 +2502,13 @@ export default function Alea2iep () {
     this.couleur = 'grey'
     let i = 0
     const marques = ['/', '//', '///', 'O', '\\\\']
-    for (const sommet of p.listePoints) {// On répète la construction pour chaque sommet du polygone
+    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
-      }
-      else {
+      } else {
         nom = sommet.nom + "'"
       }
-     this.symetrieAxialePoint(sommet, d, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
+      this.symetrieAxialePoint(sommet, d, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
       i++
     }
     this.compasMasquer()
@@ -2515,7 +2524,7 @@ export default function Alea2iep () {
    * @param {objet} p polygone dont on construit l'image
    * @param {objet} A point de départ de la translation
    * @param {objet} B point d'arrivée de la translation
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p 
+   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
  * @param {objet} param3 options couleur et couleurCodage
  * @Auteur Jean-Claude Lhote
 */
@@ -2525,12 +2534,11 @@ export default function Alea2iep () {
     const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    let i = 0
-    for (const sommet of p.listePoints) {// On répète la construction pour chaque sommet du polygone
+    const i = 0
+    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
-      }
-      else {
+      } else {
         nom = sommet.nom + "'"
       }
       this.translationPoint(sommet, A, B, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
@@ -2541,7 +2549,7 @@ export default function Alea2iep () {
     this.polygoneRapide(p2)
   }
   /**
-   * 
+   *
    * @param {objet} p  le polygone dont on veut construire l'image qui doit être tracé
    * @param {objet} centre le centre de symétrie
    * @param {array} noms les noms des sommets images (si pas précisé ce sera le nom de l'antécédent avec un ')
@@ -2555,11 +2563,10 @@ export default function Alea2iep () {
     let image, nom
     let i = 0
     const marques = ['/', '//', '///', 'O', '\\\\']
-    for (let sommet of p.listePoints) {  // On répète la construction pour chaque sommet du polygone
+    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
-      }
-      else {
+      } else {
         nom = sommet.nom + "'"
       }
       this.demiTourPoint(sommet, centre, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
@@ -2572,8 +2579,8 @@ export default function Alea2iep () {
   }
 
   /**
-   * 
-   * @param {objet} p polygone dont on doit construire l'image 
+   *
+   * @param {objet} p polygone dont on doit construire l'image
    * @param {objet} centre de l'homothétie
    * @param {number} k rapport de l'homothétie
    * @param {array} noms tableau contenant les différents noms des sommets dans le même ordre que ceux de p. Si vide, alors on ajoute ' à ceux de p
@@ -2586,11 +2593,10 @@ export default function Alea2iep () {
     this.couleur = 'grey'
     const t = this.textePosition('Comme k est ' + (k >= 0 ? 'positif' : 'négatif') + ' alors ' + (k >= 0 ? 'les figures sont du même côté de ' + centre.nom : centre.nom + ' est entre les figures'), 0, 0, { taille: 15 })
     let i = 0
-    for (let sommet of p.listePoints) {  // On répète la construction pour chaque sommet du polygone
+    for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
-      }
-      else {
+      } else {
         nom = sommet.nom + "'"
       }
       this.homothetiePoint(sommet, centre, k, nom, { couleur: couleur })
