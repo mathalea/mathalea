@@ -55,12 +55,18 @@ function liste_html_des_exercices_d_un_theme (theme) {
   }
   return liste
 }
+function a_dnb (id,dictionnaire,mode) {
+	if (mode === 'annee' ) {
+		return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+	} else {
+		return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+	}
+}
 function liste_html_des_exercices_DNB_annee (annee) {
   let liste = ''
   const dictionnaire = filtreDictionnaireValeurCle(dictionnaireDNB, 'annee', annee)
   for (const id in dictionnaire) {
-    liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    liste += a_dnb(id,dictionnaire,'annee')
   }
   return liste
 }
@@ -74,8 +80,7 @@ function liste_html_des_exercices_DNB_theme (theme) {
   // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
-    liste +=
-      `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${liste_html_des_tags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    liste += a_dnb(id,dictionnaire,'theme')     
   }
   return liste
 }
@@ -240,188 +245,238 @@ export function supprimerExo (num, last) {
   document.getElementById('choix_des_exercices').dispatchEvent(event)
 }
 
+function ligne_tableau(exercice) {
+  let ligne= ''
+  if (dictionnaireDesExercices[exercice].titre) {
+    ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
+	  exercice +
+	  '</span></td> <td> <a class="lien_id_exercice" data-id_exercice="' +
+	  exercice + '">' + dictionnaireDesExercices[exercice].titre +
+	  '</a></td><td data-tooltip="Prévisualiser l\'exercice."><i id="' +
+	  exercice + '" class="eye icon icone_preview" ></td></tr>'
+  } else {
+    ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
+	  exercice +
+	  '</span></td> <td>' +
+	  `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}</a> ${liste_html_des_tags(dictionnaireDesExercices[exercice])} </br>\n` +
+	  '</td><td><i id=' + exercice + ' class="eye icon icone_preview"></i></td></tr>'
+  }
+  return ligne
+}
+
+function html_listes(objaff) {
+	let liste_affichage_length = objaff.liste_affichage.length
+    let liste ='', lignes=''
+	for (let i = 0; i < liste_affichage_length; i++) {
+      if (objaff.liste_affichage[i] === objaff.liste_affichage.active) { // liste active
+        liste += div_niveau(objaff.obj_ex[objaff.liste_affichage[i]], 'active', objaff.liste_affichage[i])
+      } else {
+        liste += div_niveau(objaff.obj_ex[objaff.liste_affichage[i]], '', objaff.liste_affichage[i])
+      }
+      lignes += objaff.obj_ex[objaff.liste_affichage[i]].lignes_tableau
+	}
+	return {liste:liste, lignes:lignes}
+}
+
 export function menuDesExercicesDisponibles () {
 // Détermine le nombre d'exercices par niveaux
-  let i, liste_affichage, liste_html_des_exercices, liste_affichage_length, liste_html_des_exercicestab
-  const obj_exercices_disponibles = {
-    c3: {
-      label: 'CM1 /CM2',
-      nombre_exercices_dispo: 0,
-      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau([
+  let i, liste_affichage, liste_html_des_exercices, html_affichage, liste_html_des_exercicestab
+  const liste_themes_c3 = [
         ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
-        ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']])
-    },
-    6: {
-      label: 'Sixième',
-      nombre_exercices_dispo: 0,
-      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau([
+        ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
+  const liste_themes_6 = [
         ['6C1', '6C1 - Calculs niveau 1'], ['6C2', '6C2 - Calculs niveau 2'], ['6C3', '6C3 - Calculs niveau 3'],
         ['6D1', '6D1 - Les durées'],
         ['6G1', '6G1 - Géométrie niveau 1'], ['6G2', '6G2 - Géométrie niveau 2'], ['6G3', '6G3 - Géométrie niveau 3'], ['6G4', '6G4 - Géométrie niveau 4'],
         ['6M1', '6M1 - Grandeurs et mesures niveau 1'], ['6M2', '6M2 - Grandeurs et mesures niveau 2'], ['6M3', '6M3 - Volumes'],
         ['6N1', '6N1 - Numération et fractions niveau 1'], ['6N2', '6N2 - Numération et fractions niveau 2'], ['6N3', '6N3 - Numération et fractions niveau 3'], ['6N4', '6N4 - Numération et fractions niveau 4'],
         ['6P1', '6P1 - Proportionnalité'], ['6S1', '6S1 - Statistiques'],
-        ['6Algo1', '6A - Algorithmique']])
-    },
-    5: {
-      label: 'Cinquième',
-      nombre_exercices_dispo: 0,
-      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau([
+        ['6Algo1', '6A - Algorithmique']]
+  const liste_themes_5 = [
         ['5A1', '5A1 - Arithmetique'], ['5C1', '5C1 - Calculs'],
         ['5G1', '5G1 - Symétries'], ['5G2', '5G2 - Triangles'], ['5G3', '5G3 - Angles'], ['5G4', '5G4 - Parallélogrammes'], ['5G5', '5G5 - Espace'],
         ['5L1', '5L1 - Calcul littéral'],
         ['5M1', '5M1 - Périmètres et aires'], ['5M2', '5M2 - Volumes'], ['5M3', '5M3 - Durées'],
         ['5N1', '5N1 - Numération et fractions niveau 1'], ['5N2', '5N2 - Calculs avec les fractions'],
         ['5P1', '5P1 - Proportionnalité'], ['5R1', '5R1 - Relatifs niveau 1'], ['5R2', '5R2 - Relatifs niveau 2'],
-        ['5S1', '5S1 - Statistiques'], ['5S2', '5S2 - Probabilités']])
-    },
-    4: {
-      label: 'Quatrième',
-      nombre_exercices_dispo: 0,
-      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau([
+        ['5S1', '5S1 - Statistiques'], ['5S2', '5S2 - Probabilités']]
+  const liste_themes_4 = [
         ['4C1', '4C1 - Relatifs'], ['4C2', '4C2 - Fractions'], ['4C3', '4C3 - Puissances'],
         ['4F1', '4F1 - Notion de fonction'],
         ['4G1', '4G1 - Translation et rotation'], ['4G2', '4G2 - Théorème de Pythagore'], ['4G3', '4G3 - Théorème de Thalès'], ['4G4', "4G4 - Cosinus d'un angle"], ['4G5', '4G5 - Espace'],
         ['4L1', '4L1 - Calcul littéral'], ['4L2', '4L2 - Équation'], ['4P1', '4P1 - Proportionnalité'], ['4S1', '4S1 - Statistiques'], ['4S2', '4S2 - Probabilités'],
-        ['4Algo1', '4A1 - Algorithmique']])
-    },
-    3: {
-      label: 'Troisième',
-      nombre_exercices_dispo: 0,
-      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau([
+        ['4Algo1', '4A1 - Algorithmique']]
+  const liste_themes_3 = [
         ['3A1', '3A1 - Arithmetique'],
         ['3F1', '3F1 - Généralités sur les fonctions'], ['3F2', '3F2 - Fonctions affines et linéaires'],
         ['3G1', '3G1 - Homothétie et rotation'], ['3G2', '3G2 - Théorème de Thalès'], ['3G3', '3G3 - Trigonométrie'], ['3G4', '3G4 - Espace'],
         ['3L1', '3L1 - Calcul littéral'], ['3P1', '3P1 - Proportionnalité'], ['3S1', '3S1 - Statistiques'], ['3S2', '3S2 - Probabilités'],
-        ['3Algo1', '3Algo1 - Algorithmique premier niveau']])
+        ['3Algo1', '3Algo1 - Algorithmique premier niveau']] 		
+  const obj_exercices_disponibles = {
+    c3: {
+      label: 'CM1 /CM2',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau(liste_themes_c3),
+	  lignes_tableau: ''
+    },
+    6: {
+      label: 'Sixième',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau(liste_themes_6),
+	  lignes_tableau: ''
+    },
+    5: {
+      label: 'Cinquième',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau(liste_themes_5),
+	  lignes_tableau: ''
+    },
+    4: {
+      label: 'Quatrième',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau(liste_themes_4),
+	  lignes_tableau: ''
+    },
+    3: {
+      label: 'Troisième',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: liste_html_des_exercices_d_un_niveau(liste_themes_3),
+	  lignes_tableau: ''
     },
     DNB: {
       label: 'Exercices de brevet (classés par année)',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: get_liste_html_des_exercices_DNB()
+      liste_html_des_exercices: get_liste_html_des_exercices_DNB(),
+	  lignes_tableau: ''
     },
     DNBtheme: {
       label: 'Exercices de brevet (classés par thème)',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: get_liste_html_des_exercices_DNB_theme()
+      liste_html_des_exercices: get_liste_html_des_exercices_DNB_theme(),
+	  lignes_tableau: ''
     },
     C: {
       label: 'Calcul mental',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     2: {
       label: 'Seconde',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     1: {
       label: 'Première',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     T: {
       label: 'Terminale',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     be: {
       label: 'Beta',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     PE: {
       label: 'CRPE',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     },
     P0: {
       label: 'Outils pour le professeur',
       nombre_exercices_dispo: 0,
-      liste_html_des_exercices: ''
+      liste_html_des_exercices: '',
+	  lignes_tableau: ''
     }
   }
   
   liste_html_des_exercicestab = ''
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
-  const isdnb = urlParams.get('dnb')
-  
-  for (const id in liste_des_exercices_disponibles) {
-    if ((id[0] == 'c' && id[1] == '3') || (id[0] == 'P' && id[1] == '0') || (id[0] == 'P' && id[1] == 'E') || (id[0] == 'b' && id[1] == 'e')) {
+  const filtre = urlParams.get('filtre') 
+    
+  for (const id in liste_des_exercices_disponibles) {   
+	if ((id[0] == 'c' && id[1] == '3') || (id[0] == 'P' && id[1] == '0') || (id[0] == 'P' && id[1] == 'E') || (id[0] == 'b' && id[1] == 'e')) {
       obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+	  obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligne_tableau(id)
     }
     if (id[0] == 6 || id[0] == 5 || id[0] == 4 || id[0] == 3 || id[0] == 2 || id[0] == 1 || id[0] == 'T' || id[0] == 'C') {
       obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+	  obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
     }
-
-    const exercice_tmp = id
     if (id[0] == 2 || id[0] == 1 || id[0] == 'T' || id[0] == 'C') {
-      obj_exercices_disponibles[id[0]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[exercice_tmp].titre)
+      obj_exercices_disponibles[id[0]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
     }
     if ((id[0] == 'P' && id[1] == '0') || (id[0] == 'P' && id[1] == 'E') || (id[0] == 'b' && id[1] == 'e')) {
-      obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[exercice_tmp].titre)
+      obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
     }
-    
-	
-	// cg 04-2021 Génération du tableau des exercices.
-    
-	if (exercice_tmp[0] != 'b' || exercice_tmp[1] != 'e') { // on exclu les beta
-      if (dictionnaireDesExercices[exercice_tmp].titre && !isdnb) { // tous les non dnb
-        liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
-				id +
-				'</span></td> <td> <a class="lien_id_exercice" data-id_exercice="' + id + '">' + dictionnaireDesExercices[exercice_tmp].titre +
-				'</a></td><td data-tooltip="Prévisualiser l\'exercice."><i id="' + id + '" class="eye icon icone_preview" ></td></tr>'
-      } else if (!dictionnaireDesExercices[exercice_tmp].titre) {
-        liste_html_des_exercicestab += '<tr><td class="colonnecode"><span class="id_exercice">' +
-			id +
-			'</span></td> <td>' +
-			`<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice_tmp}">${dictionnaireDesExercices[exercice_tmp].annee} - ${exercice_tmp.substr(9, 2)} - ${dictionnaireDesExercices[exercice_tmp].lieu} - Ex ${dictionnaireDesExercices[exercice_tmp].numeroExercice}</a> ${liste_html_des_tags(dictionnaireDesExercices[exercice_tmp])} </br>\n` +
-			'</td><td><i id=' + id + ' class="eye icon icone_preview"></i></td></tr>'
-      }
-    }
-    //* ********
+	if (id[0] === 'd' && id[1] === 'n' && id[2] === 'b') {
+	  obj_exercices_disponibles.DNB.lignes_tableau += ligne_tableau(id)
+	}
   }
 
   liste_html_des_exercices = '<div class="ui accordion">'
   // Change l'ordre des exercices suivant l'URL
-  if (window.location.href.indexOf('beta') > 0) {
+  if (filtre === 'beta') {
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.be, 'active', 'be')
     liste_html_des_exercices += '</div>'
+	liste_html_des_exercicestab += obj_exercices_disponibles.be.lignes_tableau
   } else if (window.location.href.indexOf('cm.html') > 0) {
-    liste_affichage = ['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE']
-    liste_affichage_length = liste_affichage.length
-    for (i = 0; i < liste_affichage_length; i++) {
-      if (liste_affichage[i] == 'C') { // liste active
-        liste_html_des_exercices += div_niveau(obj_exercices_disponibles[liste_affichage[i]], 'active', liste_affichage[i])
-      } else {
-        liste_html_des_exercices += div_niveau(obj_exercices_disponibles[liste_affichage[i]], '', liste_affichage[i])
-      }
-    }
-    liste_html_des_exercices += '</div>'
-  } else if (window.location.href.indexOf('outils') > 0) {
+	html_affichage = html_listes({liste_affichage:['C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'PE'],
+	  active:'C',
+	  obj_ex:obj_exercices_disponibles})  
+    liste_html_des_exercices += html_affichage.liste + '</div>'
+	liste_html_des_exercicestab += html_affichage.lignes
+  } else if (filtre === 'outils') {
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.P0, 'active', 'P0')
     liste_html_des_exercices += '</div>'
-  } else if (isdnb) {
+	liste_html_des_exercicestab += obj_exercices_disponibles.P0.lignes_tableau
+  } else if (filtre === 'dnb') {
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.DNB, 'active', 'DNB')
     liste_html_des_exercices += div_niveau(obj_exercices_disponibles.DNBtheme, 'active', 'DNBtheme')
     liste_html_des_exercices += '</div>'
+	liste_html_des_exercicestab += obj_exercices_disponibles.DNB.lignes_tableau
+  } else if (filtre === 'primaire') {
+	liste_html_des_exercices += div_niveau(obj_exercices_disponibles.c3, 'active', 'c3')
+    liste_html_des_exercices += '</div>'
+	liste_html_des_exercicestab += obj_exercices_disponibles.c3.lignes_tableau
+  } else if (filtre === 'college') {
+	html_affichage = html_listes({liste_affichage:[6, 5, 4, 3, 'DNB', 'DNBtheme', 'C'],
+	  active:'',
+	  obj_ex:obj_exercices_disponibles})
+	liste_html_des_exercices += html_affichage.liste + '</div>'
+	liste_html_des_exercicestab += html_affichage.lignes
+  } else if (filtre ==='lycee') {
+	html_affichage = html_listes({liste_affichage:[2, 1, 'T'],
+	  active:'',
+	  obj_ex:obj_exercices_disponibles})
+	liste_html_des_exercices += html_affichage.liste + '</div>'
+	liste_html_des_exercicestab += html_affichage.lignes
   } else {
-    liste_affichage = ['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C']
-    liste_affichage_length = liste_affichage.length
-    for (i = 0; i < liste_affichage_length; i++) {
-      liste_html_des_exercices += div_niveau(obj_exercices_disponibles[liste_affichage[i]], '', liste_affichage[i])
-    }
+    html_affichage = html_listes({liste_affichage:['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
+	  active:'',
+	  obj_ex:obj_exercices_disponibles})
+    liste_html_des_exercices += html_affichage.liste
+	liste_html_des_exercicestab += html_affichage.lignes
     // Ajoute les outils prof sur mathalealatex
     if (window.location.href.indexOf('mathalealatex.html') > 0) {
       liste_html_des_exercices += div_niveau(obj_exercices_disponibles.P0, '', 'P0')
+	  liste_html_des_exercicestab += obj_exercices_disponibles.P0.lignes_tableau
     }
-    liste_html_des_exercices += '</div>'
+    liste_html_des_exercices += '</div>'	
   }
 
   $('#liste_des_exercices').html(liste_html_des_exercices)
   $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
-  // cg 04-2021 Génération du tableau des exercices.
   liste_html_des_exercicestab = `<div id="recherche"> </div><table id=\'listtab\' class="stripe"><thead>
 		<tr><th class="colonnecode">Code</th><th>Intitulé de l\'exercice</th><th>Prévisualiser</th></thead><tbody>
 		${liste_html_des_exercicestab}

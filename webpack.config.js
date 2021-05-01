@@ -95,16 +95,6 @@ module.exports = {
       chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
-      template: 'src/html/beta.html',
-      filename: 'beta.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/outils.html',
-      filename: 'outils.html',
-      chunks: ['mathalea']
-    }),
-    new HtmlWebpackPlugin({
       template: 'src/html/cm.html',
       filename: 'cm.html',
       chunks: ['mathaleaDiaporama']
