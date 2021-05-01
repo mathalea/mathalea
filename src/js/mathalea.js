@@ -326,7 +326,7 @@ function mise_a_jour_du_code () {
         fin_de_l_URL += `,nb_questions=${listeObjetsExercice[0].nb_questions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`
+        fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
       for (let i = 1; i < liste_des_exercices.length; i++) {
         fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
@@ -343,7 +343,7 @@ function mise_a_jour_du_code () {
           fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`
         }
         if (listeObjetsExercice[i].video.length > 1) {
-          fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`
+          fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
         }
       }
       if (typeof mathalea.duree !== 'undefined') {
@@ -777,7 +777,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             form_nb_questions[i].value = listeObjetsExercice[i].nb_questions
           }
           if (urlVars[i].video && sortie_html && !est_diaporama) {
-            listeObjetsExercice[i].video = urlVars[i].video
+            listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
           }
           if (typeof urlVars[i].sup !== 'undefined') {
