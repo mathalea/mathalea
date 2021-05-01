@@ -78,7 +78,7 @@ export function clone (obj) {
   if (obj instanceof Object) {
     const copy = {}
     for (const attr in obj) {
-      if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr])
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = clone(obj[attr])
     }
     return copy
   }
@@ -6130,7 +6130,6 @@ function Repere2 ({
   axeX.styleExtremites = axeXStyle
   axeX.color = axesCouleur
   const abscisseAxe = Math.max(0, xMin)
-  let labelysize
   const axeY = segment(calcul(abscisseAxe * xUnite), calcul(yMin * yUnite), calcul(abscisseAxe * xUnite), calcul(yMax * yUnite))
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
@@ -6176,11 +6175,6 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    if (y < 0) {
-      labelysize = 0.18 * (Math.ceil(Math.log10(-y + 1)) + 1)
-    } else {
-      labelysize = 0.18 * Math.ceil(Math.log10(y + 1))
-    }
     const l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
