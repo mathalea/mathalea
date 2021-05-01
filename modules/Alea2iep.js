@@ -525,7 +525,7 @@ export default function Alea2iep () {
     if (label) {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" />`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
-      const M = A
+      const M = point(A.x, A.y)
       if (typeof dx !== 'undefined') {
         M.x += dx
       }
@@ -583,7 +583,7 @@ export default function Alea2iep () {
    */
   this.pointNommer = function (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
     // const coordonneesTexte = ''
-    const M = A
+    const M = point(A.x, A.y)
     if (typeof dx !== 'undefined') {
       M.x += dx
     }
