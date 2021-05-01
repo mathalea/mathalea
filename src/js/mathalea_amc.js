@@ -298,6 +298,9 @@ window.est_diaporama = false
                         return; // Non supporte
                     }
 
+                    // Pour éviter l'erreur d'interpretation du type Mime
+                    request.overrideMimeType("text/plain");
+
                     request.open('GET', monFichier, false); // Synchro
                     request.send(null);
 
@@ -312,7 +315,7 @@ window.est_diaporama = false
                     nom_fichier= "mathalea.tex";
                 }
                 monzip.file(`${nom_fichier}`,code_LaTeX)
-                monzip.file("automultiplechoice.sty",load("/src/fichiers/automultiplechoice.sty"))
+                monzip.file("automultiplechoice.sty",load("assets/fichiers/automultiplechoice.sty"))
                 monzip.generateAsync({type:"blob"})
                 .then(function(content) {
                     // see FileSaver.js
