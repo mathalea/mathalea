@@ -38,7 +38,7 @@ export default function PPCM_Engrenages() {
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
 			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','assets/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+			//this.bouton_aide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 

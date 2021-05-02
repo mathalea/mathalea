@@ -32,7 +32,7 @@ export default function Premier_ou_pas_5e() {
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
 			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-5A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.bouton_aide += modal_video('conteMathsNombresPremiers', 'assets/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+			this.bouton_aide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 

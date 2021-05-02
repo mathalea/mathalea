@@ -36,7 +36,7 @@ export default function fonctions_calculs_d_images () {
     let type_de_questions
     if (sortie_html) { // les boutons d'aide uniquement pour la version html
       //			 this.bouton_aide = modal_pdf(numero_de_l_exercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
-      //			 this.bouton_aide += modal_video('videoTest','assets/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+      //			 this.bouton_aide += modal_video('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
     }
     this.liste_questions = [] // Liste de questions
     this.liste_corrections = [] // Liste de questions corrigées

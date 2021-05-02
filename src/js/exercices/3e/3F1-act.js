@@ -82,7 +82,7 @@ export default function fonction_notion_vocabulaire() {
 
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheFonctions-3F1-act.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			this.bouton_aide += modal_video('conteMathsFonctions', 'assets/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo');
+			this.bouton_aide += modal_video('conteMathsFonctions', '/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo');
 			this.introduction += machine_maths_video(`assets/videos/machineMathsIntro.mp4`);
 		} else { // sortie LaTeX
 			this.introduction += tikz_machine_maths('maths', '---', `Proc\\acute{e}d\\acute{e}`, 'de\\,calcul', `ant\\acute{e}c\\acute{e}dent`, `\\textit{x}`, `image`, `\\textit{y}`);
