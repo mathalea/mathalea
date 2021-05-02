@@ -1,4 +1,4 @@
-import { creer_document_AMC, strRandom ,compteOccurences} from "./modules/outils.js";
+import { creer_document_AMC, strRandom ,compteOccurences,intro_LaTeX_coop} from "./modules/outils.js";
 import { getUrlVars } from "./modules/getUrlVars.js";
 import {menuDesExercicesQCMDisponibles} from './modules/menuDesExercicesQCMDisponibles.js'
 import {dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
@@ -271,7 +271,6 @@ window.est_diaporama = false
             }
 
             // Gestion du téléchargement
-
             $("#btn_telechargement").off("click").on("click",function () {
                 // Gestion du style pour l'entête du fichier
 
@@ -298,6 +297,9 @@ window.est_diaporama = false
                         return; // Non supporte
                     }
 
+                    // Pour éviter l'erreur d'interpretation du type Mime
+                    request.overrideMimeType("text/plain");
+
                     request.open('GET', monFichier, false); // Synchro
                     request.send(null);
 
@@ -312,7 +314,7 @@ window.est_diaporama = false
                     nom_fichier= "mathalea.tex";
                 }
                 monzip.file(`${nom_fichier}`,code_LaTeX)
-                monzip.file("automultiplechoice.sty",load("/src/fichiers/automultiplechoice.sty"))
+                monzip.file("automultiplechoice.sty",load("assets/fichiers/automultiplechoice.sty"))
                 monzip.generateAsync({type:"blob"})
                 .then(function(content) {
                     // see FileSaver.js
@@ -324,6 +326,45 @@ window.est_diaporama = false
                     telechargeFichier(contenu_fichier, "mathalea.tex");
                 }*/
             });
+
+            $('#btn_overleaf').off('click').on('click', function () {
+                // Gestion du style pour l'entête du fichier
+          
+                let contenu_fichier = `
+              
+              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+              % Document généré avec MathALEA sous licence CC-BY-SA
+              %
+              % ${window.location.href}
+              %
+              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+              
+              
+              `
+          
+                // if ($('#style_classique:checked').val()) {
+                //   contenu_fichier += intro_LaTeX($('#entete_du_fichier').val(), liste_packages) + code_LaTeX + '\n\n\\end{document}'
+                // } else {
+                //   contenu_fichier += intro_LaTeX_coop(liste_packages)
+                //   contenu_fichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
+                //   contenu_fichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + code_LaTeX
+                //   contenu_fichier += '\n\n\\end{document}'
+                // }
+
+                contenu_fichier +=  code_LaTeX ;
+          
+                // Gestion du LaTeX statique
+          
+                // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+          
+                $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+                if (liste_packages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+                  $('input[name=engine]').val('xelatex')
+                }
+                if ($('#nom_du_fichier').val()) {
+                  $('input[name=snip_name]').val($('#nom_du_fichier').val()) // nomme le projet sur Overleaf
+                }
+              })
 
         //cg 04-2021 possibilité de manipuler la liste des exercices via les exercices.
 
@@ -1138,33 +1179,33 @@ window.est_diaporama = false
             mise_a_jour_du_code()
          });
 
-        $("#btn_overleaf").click(function () {
-            // Gestion du style pour l'entête du fichier
+        // $("#btn_overleaf").click(function () {
+        //     // Gestion du style pour l'entête du fichier
 
-            let contenu_fichier = `
+        //     let contenu_fichier = `
 
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                % Document généré avec MathALEA sous licence CC-BY-SA
-                %
-                % ${window.location.href}
-                %
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        //         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        //         % Document généré avec MathALEA sous licence CC-BY-SA
+        //         %
+        //         % ${window.location.href}
+        //         %
+        //         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-            `;
-            contenu_fichier +=  code_LaTeX ;
+        //     `;
+        //     contenu_fichier +=  code_LaTeX ;
 
-            // Gestion du LaTeX statique
+        //     // Gestion du LaTeX statique
 
-            // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
+        //     // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-            //$("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
-            $("input[name=encoded_snip]").val(contenu_fichier);
-            if ($("#nom_du_fichier").val()) {
-                $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
-            }
+        //     //$("input[name=encoded_snip]").val(encodeURIComponent(contenu_fichier));
+        //     $("input[name=encoded_snip]").val(contenu_fichier);
+        //     if ($("#nom_du_fichier").val()) {
+        //         $("input[name=snip_name]").val($("#nom_du_fichier").val()); //nomme le projet sur Overleaf
+        //     }
 
-        });
+        // });
 
         // Récupère la graine pour l'aléatoire dans l'URL
         let params = new URL(document.location).searchParams;

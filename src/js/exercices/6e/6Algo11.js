@@ -244,19 +244,19 @@ export default function Note_la_couleur () {
     mathalea.pixelsParCm = 20
     let pion
     if (this.sup) {
-      objets_correction = [fond_ecran('/images/nlc_an.png', -450, -345, 900, 690)]
-      objets_enonce = [fond_ecran('/images/nlc_an.png', -450, -345, 900, 690)]
-    } else {
-      objets_correction = [fond_ecran('/images/nlc_sn.png', -450, -345, 900, 690)]
-      objets_enonce = [fond_ecran('/images/nlc_sn.png', -450, -345, 900, 690)]
+      objets_correction = [fond_ecran("assets/images/nlc_an.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("assets/images/nlc_an.png", -450, -345, 900, 690)];
     }
-    let texte = ''
-    let texte_corr = ''
-    let compteur = 0
-    let retour_a_la_case_depart
-    let compteur_essais_boucle
-    let compteur_essais_sequence
-    const repetitions = nb_couleurs - 1
+    else {
+      objets_correction = [fond_ecran("assets/images/nlc_sn.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("assets/images/nlc_sn.png", -450, -345, 900, 690)];
+    }
+    let texte = ``;
+    let texte_corr = ``;
+    let compteur = 0;
+    let retour_a_la_case_depart;
+    let compteur_essais_boucle;
+    let compteur_essais_sequence;
     switch (parseInt(this.sup2)) {
       case 1:
         commandes_disponibles = [['AV30', 'AV30', 'AV60', 'AV60', 'AV90', 'AV120'], ['TD90', 'TD90', 'TG90', 'TG90', 'TD90', 'TG90', 'TG180']]

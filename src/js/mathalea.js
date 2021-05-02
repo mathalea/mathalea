@@ -196,7 +196,7 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     }
   }
   if (besoinScratch) {
-    await loadScript('include/scratchblocks-v3.5-min.js')
+    await loadScript('assets/externalJs/scratchblocks-v3.5-min.js')
     scratchTraductionFr()
     scratchblocks.renderMatching('pre.blocks', {
       style: 'scratch3',
