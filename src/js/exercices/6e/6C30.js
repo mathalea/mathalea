@@ -1,6 +1,7 @@
-import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
-import Operation  from '../../modules/operations.js'
+/* eslint-disable camelcase */
+import Exercice from '../ClasseExercice.js'
+import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombre } from '../../modules/outils.js'
+import Operation from '../../modules/operations.js'
 export const amcReady = true
 
 export const titre = 'Multiplications posées de nombres décimaux'
@@ -15,67 +16,61 @@ export const titre = 'Multiplications posées de nombres décimaux'
  * @Auteur Rémi Angot
  * Référence 6C30
  */
-export default function Multiplier_decimaux() {
-
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.consigne = "Poser et effectuer les calculs suivants.";
-  this.spacing = 2;
-  this.spacing_corr = 1; //Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
-  this.nb_questions = 4;
-  this.liste_packages = "xlop";
+export default function Multiplier_decimaux () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = 'Poser et effectuer les calculs suivants.'
+  this.spacing = 2
+  this.spacing_corr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
+  this.nb_questions = 4
+  this.liste_packages = 'xlop'
 
   this.nouvelle_version = function () {
-    this.QCM=['6C30',[],'Multiplications posées de nombres décimaux',4]
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.QCM = ['6C30', [], 'Multiplications posées de nombres décimaux', 4]
+    this.liste_questions = [] // Liste de questions
+    this.liste_corrections = [] // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [1, 2, 3, 4];
-    let liste_type_de_questions = combinaison_listes(
+    const type_de_questions_disponibles = [1, 2, 3, 4]
+    const liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-let type_de_questions,reponse
-    for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b;
-      i < this.nb_questions && cpt < 50;
-
-    ) {
-      type_de_questions = liste_type_de_questions[i];
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let type_de_questions, reponse
+    for (let i = 0, texte, texte_corr, cpt = 0, a, b; i < this.nb_questions && cpt < 50;) {
+      type_de_questions = liste_type_de_questions[i]
       switch (type_de_questions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
-          a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5);
-          b = calcul(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10);
-          break;
+          a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)
+          b = calcul(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10)
+          break
         case 2: // xx,x * x,x
-          a = calcul(randint(2, 9) * 10 + randint(2, 9) + randint(2, 9) / 10);
-          b = calcul(randint(6, 9) + randint(6, 9) / 10);
-          break;
+          a = calcul(randint(2, 9) * 10 + randint(2, 9) + randint(2, 9) / 10)
+          b = calcul(randint(6, 9) + randint(6, 9) / 10)
+          break
         case 3: // x,xx * x0x
-          a = calcul(randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100);
-          b = calcul(randint(2, 9) * 100 + randint(2, 9));
-          break;
+          a = calcul(randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100)
+          b = calcul(randint(2, 9) * 100 + randint(2, 9))
+          break
         case 4: // 0,xx * x,x
-          a = calcul(randint(2, 9) / 10 + randint(2, 9) / 100);
-          b = calcul(randint(2, 9) + randint(2, 9) / 10);
-          break;
+          a = calcul(randint(2, 9) / 10 + randint(2, 9) / 100)
+          b = calcul(randint(2, 9) + randint(2, 9) / 10)
+          break
       }
 
-      texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`;
-      reponse=calcul(a*b)
-      texte_corr = Operation({operande1:a,operande2:b,type:'multiplication'})
+      texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`
+      reponse = calcul(a * b)
+      texte_corr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.liste_questions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-            // Pour AMC
-      this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
-        i++;
+        this.liste_questions.push(texte)
+        this.liste_corrections.push(texte_corr)
+        // Pour AMC
+        this.QCM[1].push([texte, [texte_corr, reponse], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
+        i++
       }
-      cpt++;
+      cpt++
     }
-    liste_de_question_to_contenu(this);
-  };
+    liste_de_question_to_contenu(this)
+  }
 }
-
