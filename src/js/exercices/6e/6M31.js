@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_texte} from '../../modules/outils.js'
+import {liste_de_question_to_contenu,randint,choice,arrondi,calcul,tex_nombre,tex_texte} from '../../modules/outils.js'
 export const titre = 'Conversions de volume'
 
 /**
@@ -93,7 +93,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       if (!div && type_de_questions < 4) {
         // Si il faut multiplier pour convertir
 
-        resultat = Algebrite.eval(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           tex_nombre(a) +
@@ -121,7 +121,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           "$";
       } else if (div && type_de_questions < 4) {
         k = randint(0, 1); // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = Algebrite.eval(a / prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           tex_nombre(a) +
@@ -169,7 +169,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
                 "\\times 1~000 \\times 1~000 \\times 1~000";
               break;
           }
-          resultat = Algebrite.eval(a * Math.pow(10, 3 * ecart));
+          resultat = calcul(a * Math.pow(10, 3 * ecart));
           texte =
             "$ " +
             tex_nombre(a) +
@@ -206,7 +206,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
               multiplications_par_1000 = "\\div 1~000 \\div 1~000 \\div 1~000";
               break;
           }
-          resultat = Algebrite.eval(a / Math.pow(10, 3 * ecart));
+          resultat = calcul(a / Math.pow(10, 3 * ecart));
           texte =
             "$ " +
             tex_nombre(a) +
@@ -236,7 +236,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       // else if(type_de_questions==5) { // Pour type_de_questions==5
       // 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // 	k = randint(0,1)
-      // 	resultat = Algebrite.eval(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+      // 	resultat = calcul(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
       // 	texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
       // 	texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^3'
       // 		 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';

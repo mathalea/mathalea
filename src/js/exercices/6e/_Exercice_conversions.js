@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_nombrec,tex_fraction,tex_texte} from '../../modules/outils.js'
+import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_nombrec,tex_fraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -97,7 +97,7 @@ export default function Exercice_conversions(niveau = 1) {
         } else {
           unite = "o";
         }
-        resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           tex_nombre(a) +
@@ -122,7 +122,7 @@ export default function Exercice_conversions(niveau = 1) {
         type_de_questions < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(["m", "L", "g"]);
-        resultat = Algebrite.eval(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           tex_nombre(a) +
@@ -143,7 +143,7 @@ export default function Exercice_conversions(niveau = 1) {
           "$";
       } else if (div && type_de_questions < 4) {
         unite = choice(["m", "L", "g"]);
-        resultat = Algebrite.eval(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           tex_nombre(a) +
@@ -173,7 +173,7 @@ export default function Exercice_conversions(niveau = 1) {
         }
         let unite2 = unite1 + ecart;
         if (randint(0, 1) > 0) {
-          resultat = Algebrite.eval(a * Math.pow(10, 3 * ecart));
+          resultat = calcul(a * Math.pow(10, 3 * ecart));
           texte =
             "$ " +
             tex_nombre(a) +
@@ -195,7 +195,7 @@ export default function Exercice_conversions(niveau = 1) {
             tex_texte(liste_unite_info[unite1]) +
             "$";
         } else {
-          resultat = Algebrite.eval(a / Math.pow(10, 3 * ecart));
+          resultat = calcul(a / Math.pow(10, 3 * ecart));
           texte =
             "$ " +
             tex_nombre(a) +
