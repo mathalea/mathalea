@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5318292-3"></script>
@@ -31,7 +30,7 @@
 <body>
   <nav>
     <div class="ui top attached five item stackable container menu  ">
-      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+      <div class="ui  dropdown item blanc">CoopMaths <i class="dropdown icon"></i>
         <div class="menu">
           <a href="/" class="item">Accueil</a>
           <a href="/6e" class="item">Sixième</a>
@@ -60,10 +59,11 @@
           <a href="/mathalea_a_propos" class="item">À propos</a>
         </div>
       </div>
-
+    
       <script type="text/javascript">
         
       </script>
+    </div>
   </nav>
 
   <div class="ui hidden divider"></div>
@@ -73,62 +73,61 @@
   <div class="ui two column centered grid" id="contenu">
     <div id="gauche" class="column">
       <div class="ui left aligned segment">
-      <h3 class="ui block header">Choix des exercices</h3>
+        <h3 class="ui block header">Choix des exercices</h3>
   
-      <div class="ui red message" id="message_liste_exercice_vide">
-         <p><strong>Commencer par saisir les numéros des exercices souhaités ci-dessous.</strong></p>
-      </div>
-     
-      <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
-      <i class="edit icon"></i>
-      <input id='choix_des_exercices'  type='text' >
-      </div>
-    <div id="choix_exercices_div"  >
-      <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
-    </div>
-      <div id='parametres_generaux'></div>
+        <div class="ui red message" id="message_liste_exercice_vide">
+          <p><strong>Commencer par saisir les numéros des exercices souhaités ci-dessous.</strong></p>
+        </div>     
+        <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
+          <i class="edit icon"></i>
+          <input id='choix_des_exercices'  type='text' >
+        </div>
+        <div id="choix_exercices_div">
+          <div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"></span></div>
+        </div>
+        <div id='parametres_generaux'></div>
       </div>
     </div>
   
     <div id="droite" class="ui left aligned segment">
       <div id="exercices_disponibles">
-    <h3 class="ui block header">Exercices disponibles 
-      <span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
-      <span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
-      <span class="replier" id="replier" > - </span>
-    </h3>
-    </div>
-    <div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
+        <h3 class="ui block header">Exercices disponibles 
+          <span class="mode_choix" id="mode_choix_liste"> Mode "Liste par niveau" </span>
+          <span class="mode_choix" id="mode_choix_tableau" > Mode "Tableau et recherche" </span>
+          <span class="replier" id="replier" > - </span>
+        </h3>
+      </div>
+      <div  class="popup"><span id="popup_preview" class="popuptext"></span></div>
       <div id="liste_des_exercices">    
       <!-- Liste mise à jour en JS -->
       </div>
-    <div id="liste_des_exercices_tableau">
-          <!-- Liste mise à jour en JS -->
+      <div id="liste_des_exercices_tableau">
+      <!-- Liste mise à jour en JS -->
       </div>
+
       <div class="ui hidden divider"></div>
       
       <div class="segment" id="cache">
-      <h3 class="ui block header">Code LaTeX</h3>
-      <!-- Bouton de mise à jour du code -->
-      <button class="btn ui  labeled icon button" id="btn_mise_a_jour_code"><i class="redo icon"></i>Nouvelles données</button> 
-      <!-- Bouton de copie du code -->
-      <button class="btn ui  labeled toggle icon button" id="btnCopieLatex" data-clipboard-action="copy" data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
-      <!-- Bouton de téléchargement -->
-      <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
-      <button style="margin-top:10px" class="btn ui labeled button icon" onclick="window.location.href=window.location.href.replace('/mathalealatex.html','/mathalea.html')" ><i class="eye icon"></i>Voir les exercices</button>
-        
-      <div class="ui hidden divider"></div>
-      <div id="overleaf">
-        <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
-        <div class="form-group text-center">
-        <input type="hidden" name="encoded_snip" value="" autocomplete="off">
-        <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
-        <input type="hidden" name="engine" value="" autocomplete="off">
-        <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
-        <i class="cogs icon"></i>Compiler en PDF sur Overleaf.com</button>
-      </form>
-      </div>  
-  
+        <h3 class="ui block header">Code LaTeX</h3>
+        <!-- Bouton de mise à jour du code -->
+        <button class="btn ui  labeled icon button" id="btn_mise_a_jour_code"><i class="redo icon"></i>Nouvelles données</button> 
+        <!-- Bouton de copie du code -->
+        <button class="btn ui  labeled toggle icon button" id="btnCopieLatex" data-clipboard-action="copy" data-clipboard-target="#div_code_LaTeX"><i class="copy icon"></i>Copier code LaTeX</button>
+        <!-- Bouton de téléchargement -->
+        <button class="btn ui labeled icon button" id="btn_telechargement"><i class="download icon"></i>Télécharger</button>
+        <button style="margin-top:10px" class="btn ui labeled button icon" onclick="window.location.href=window.location.href.replace('/mathalealatex.html','/mathalea.html')" ><i class="eye icon"></i>Voir les exercices</button>
+          
+        <div class="ui hidden divider"></div>
+        <div id="overleaf">
+          <form method="POST" action="https://www.overleaf.com/docs" target="_blank" >
+            <div class="form-group text-center">
+            <input type="hidden" name="encoded_snip" value="" autocomplete="off">
+            <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off">
+            <input type="hidden" name="engine" value="" autocomplete="off">
+            <button class="btn-success btn btn-smclass ui labeled icon button" id="btn_overleaf" type="submit" >
+            <i class="cogs icon"></i>Compiler en PDF sur Overleaf.com</button>
+          </form>
+        </div>    
       </div>
       
   

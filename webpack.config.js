@@ -56,6 +56,7 @@ module.exports = {
   devServer: {
     open: true,
     openPage: 'mathalea.html',
+    //openPage: 'mathalea_amc.html',
     host: 'localhost',
     // on active le hot module replacement (HMR)
     hot: true
