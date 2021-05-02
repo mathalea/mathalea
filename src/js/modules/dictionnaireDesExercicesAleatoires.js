@@ -1019,12 +1019,12 @@ export default {
     "amcReady": false,
     "name": "5G11"
   },
-  // "5G12-1": {
-  //   "titre": "Symétrique d’une figure dans un pavage",
-  //   "url": "/exercices/5e/5G12-1.js",
-  //   "amcReady": false,
-  //   "name": "5G12-1"
-  // },
+  "5G12-1": {
+    "titre": "Symétrique d’une figure dans un pavage",
+    "url": "/exercices/5e/5G12-1.js",
+    "amcReady": false,
+    "name": "5G12-1"
+  },
   "5G12": {
     "titre": "Trouver l’image d’une figure par symétrie centrale dans un pavage",
     "url": "/exercices/5e/5G12.js",
@@ -2524,12 +2524,6 @@ export default {
     "url": "/exercices/beta/beta999.js",
     "amcReady": false,
     "name": "beta999"
-  },
-  "betaClasseTableauVariations": {
-    "titre": "Tests tableaux fonctions",
-    "url": "/exercices/beta/betaClasseTableauVariations.js",
-    "amcReady": false,
-    "name": "betaClasseTableauVariations"
   },
   "betaExemple": {
     "titre": "Exercice exemple",

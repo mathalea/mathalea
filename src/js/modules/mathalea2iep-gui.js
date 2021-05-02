@@ -115,6 +115,8 @@ function scriptJsToAnimEtSvg () {
   interpreter.import({
     anim: window.anim,
     mathalea: window.mathalea,
+    randint: window.randint,
+    tex_nombre: window.tex_nombre,
     angleScratchTo2d: window.angleScratchTo2d,
     appartientSegment: window.appartientSegment,
     appartientDroite: window.appartientDroite,
