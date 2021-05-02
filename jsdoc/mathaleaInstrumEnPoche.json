@@ -4,20 +4,14 @@
       "allowUnknownTags": true
     },
     "source"   : {
-      "include": [
-        "./src/js/modules/Alea2iep.js",
-        "./DEV.md"
-      ],
-      "exclude": [
-        "./src/js/modules/MathJax"
-      ]
+      "include": "./src/js/modules/Alea2iep.js"
     },
     "plugins"  : ["plugins/markdown"],
     "markdown" : {
       "idInHeadings": true
     },
     "opts"     : {
-      "destination": "./documentation",
+      "destination": "./documentation/instrumenpoche",
       "recurse"    : true,
       "private"    : false,
       "template": "node_modules/docdash"

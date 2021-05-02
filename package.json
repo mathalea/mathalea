@@ -1,6 +1,6 @@
 {
   "name": "mathalea",
-  "version": "2.1.0",
+  "version": "2.5.0",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
@@ -75,7 +75,8 @@
     "exercise",
     "javascript"
   ],
-  "author": "à remplir, cf https://docs.npmjs.com/cli/v6/configuring-npm/package-json#people-fields-author-contributors",
+  "author": "Rémi Angot <contact@coopmaths.fr>",
+  "contributors": ["Rémi Angot", "Jean-Claude Lhote", "Sébastien Lozano", "Stéphane Guyon", "Gaëlle Morvan", "Mireille Gain", "Erwan Duplessy", "Cédric Grolleau", "Matthieu Devillers", "Liouba Leroux"],
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/remiangot/MathALEA/issues"

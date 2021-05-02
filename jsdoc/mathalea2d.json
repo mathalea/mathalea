@@ -17,7 +17,7 @@
       "idInHeadings": true
     },
     "opts"     : {
-      "destination": "./documentation",
+      "destination": "./documentation/2d",
       "recurse"    : true,
       "private"    : false,
       "template": "node_modules/docdash"
