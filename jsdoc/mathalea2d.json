@@ -6,7 +6,7 @@
     "source"   : {
       "include": [
         "./src/js/modules/2d.js",
-        "./DEV.md"
+        "./jsdoc/2d.md"
       ],
       "exclude": [
         "./src/js/modules/MathJax"

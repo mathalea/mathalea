@@ -4,7 +4,10 @@
       "allowUnknownTags": true
     },
     "source"   : {
-      "include": "./src/js/modules/Alea2iep.js"
+      "include": [
+        "./src/js/modules/Alea2iep.js",
+        "./jsdoc/iep.md"
+      ]
     },
     "plugins"  : ["plugins/markdown"],
     "markdown" : {

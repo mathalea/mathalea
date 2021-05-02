@@ -24,6 +24,3 @@ node_modules
 build
 # les logs
 log
-
-# la doc générée
-documentation
