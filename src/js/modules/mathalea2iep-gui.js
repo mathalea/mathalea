@@ -59,7 +59,7 @@ document.getElementById('xmlSrc').style.height = '500px'
 
 const url = new URL(window.location.href)
 if (url.searchParams.get('url')) { // Si on spécifie une url
-  fetch(`/assets/fichiers/iep/${url.searchParams.get('url')}.iep`)
+  fetch(`/assets/iep/${url.searchParams.get('url')}.iep`)
     .then(function (response) {
       if (response.ok) {
         return response.text()

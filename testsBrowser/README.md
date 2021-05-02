@@ -22,5 +22,10 @@ On utilise pas mocha/chai ici pour ne pas alourdir et simplifier la syntaxe, il 
 
 ## utilisation
 
-`node testsBrowser/start.js --scenario 6C31.js`
+`node testsBrowser/start.js --task testAll --headless`
+
+## ToDo
+
+* Améliorer testAll pour prendre en charge les cases à cocher dans les paramètres
+* Améliorer testAll pour sauvegarder l'URL de l'erreur et ainsi savoir la série qui pose problème
 
