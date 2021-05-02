@@ -70,8 +70,11 @@ async function run () {
         const type = await page.getAttribute('input#form_sup0', 'type')
         const type2 = await page.getAttribute('input#form_sup20', 'type')
         if (type === 'number' && type2 === 'number') {
-          const min = await page.getAttribute('input#form_sup0', 'min')
+          let min = await page.getAttribute('input#form_sup0', 'min')
           const max = await page.getAttribute('input#form_sup0', 'max')
+          if (max - min > 5) { // Pour les exercices où le this.sup correspond à la valeur maximale des nombres, on met le min à cette valeur
+            min = max
+          }
           const min2 = await page.getAttribute('input#form_sup20', 'min')
           const max2 = await page.getAttribute('input#form_sup20', 'max')
           for (let i = min; i <= max; i++) {
@@ -95,7 +98,10 @@ async function run () {
         const type = await page.getAttribute('input#form_sup0', 'type')
         if (type === 'number') {
           const max = await page.getAttribute('input#form_sup0', 'max')
-          const min = await page.getAttribute('input#form_sup0', 'min')
+          let min = await page.getAttribute('input#form_sup0', 'min')
+          if (max - min > 5) { // Pour les exercices où le this.sup correspond à la valeur maximale des nombres, on met le min à cette valeur
+            min = max
+          }
           for (let i = min; i <= max; i++) {
             await page.fill('#form_sup0', i.toString())
             await page.click('text=Nouvelles données')
