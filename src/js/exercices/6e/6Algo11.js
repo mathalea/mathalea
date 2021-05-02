@@ -245,12 +245,12 @@ export default function Note_la_couleur() {
     mathalea.pixelsParCm = 20
     let pion;
     if (this.sup) {
-      objets_correction = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
-      objets_enonce = [fond_ecran("../../images/nlc_an.png", -450, -345, 900, 690)];
+      objets_correction = [fond_ecran("assets/images/nlc_an.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("assets/images/nlc_an.png", -450, -345, 900, 690)];
     }
     else {
-      objets_correction = [fond_ecran("../../images/nlc_sn.png", -450, -345, 900, 690)];
-      objets_enonce = [fond_ecran("../../images/nlc_sn.png", -450, -345, 900, 690)];
+      objets_correction = [fond_ecran("assets/images/nlc_sn.png", -450, -345, 900, 690)];
+      objets_enonce = [fond_ecran("assets/images/nlc_sn.png", -450, -345, 900, 690)];
     }
     let texte = ``;
     let texte_corr = ``;
