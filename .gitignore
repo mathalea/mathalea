@@ -24,3 +24,4 @@ node_modules
 build
 
 .husky/
+.DS_Store
