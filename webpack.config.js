@@ -55,7 +55,8 @@ module.exports = {
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
     open: true,
-    openPage: 'mathalea.html',
+    //openPage: 'mathalea.html',
+    openPage: 'mathalea_amc.html',
     host: 'localhost',
     // on active le hot module replacement (HMR)
     hot: true
@@ -117,7 +118,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea_amc.html',
       filename: 'mathalea_amc.html',
-      chunks: ['mathalea_amc']
+      chunks: ['mathalea']
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2iep.html',
