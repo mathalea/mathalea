@@ -24,4 +24,8 @@ node_modules
 build
 # les logs
 log
+# la doc
+documentation
+
+# traces MacOS
 .DS_Store
