@@ -26,6 +26,24 @@ async function run () {
     const fileLogError = getFileLogger(errLogName)
     const fileLogWarning = getFileLogger(`loadAll.${browserName}.warning`)
     const fileLogAccess = getFileLogger(`loadAll.${browserName}.access`)
+    /**
+     * Clique 5× sur Nouvelles données, avec un timeout de 5s
+     * @private
+     * @param {Page} page
+     * @return {Promise<string>}
+     */
+    const retry5 = async (page) => {
+      const urlTestees = []
+      for (let nbTries = 0; nbTries < 5; nbTries++) {
+        try {
+          await page.click('text=Nouvelles données', { timeout: 5000 })
+        } catch (error) {
+          fileLogError(error.stack, `sur ${page.url()}`)
+        }
+        urlTestees.push(page.url())
+      }
+      return urlTestees.join(' | ')
+    }
 
     // pour ajouter le listener après la création de la page (il en a besoin)
     const addRequestListener = (page) => {
@@ -66,56 +84,37 @@ async function run () {
       // mon test
       let urlTestees = ''
       await page.click('text=Paramètres')
-      if (await page.$('#form_sup0') && await page.$('#form_sup20')) {
+      if (await page.$('#form_sup0')) {
         const type = await page.getAttribute('input#form_sup0', 'type')
-        const type2 = await page.getAttribute('input#form_sup20', 'type')
-        if (type === 'number' && type2 === 'number') {
-          let min = await page.getAttribute('input#form_sup0', 'min')
+        const sup20 = await page.$('#form_sup20')
+        let needTest = type === 'number'
+        if (needTest && sup20) {
+          const type2 = await page.getAttribute('input#form_sup20', 'type')
+          needTest = type2 === 'number'
+        }
+        if (needTest) {
           const max = await page.getAttribute('input#form_sup0', 'max')
-          if (max - min > 5) { // Pour les exercices où le this.sup correspond à la valeur maximale des nombres, on met le min à cette valeur
-            min = max
+          let min = await page.getAttribute('input#form_sup0', 'min')
+          // Pour les exercices où le this.sup correspond à la valeur maximale des nombres, on met le min à cette valeur
+          if (max - min > 5) min = max
+          let min2, max2
+          if (sup20) {
+            min2 = await page.getAttribute('input#form_sup20', 'min')
+            max2 = await page.getAttribute('input#form_sup20', 'max')
           }
-          const min2 = await page.getAttribute('input#form_sup20', 'min')
-          const max2 = await page.getAttribute('input#form_sup20', 'max')
           for (let i = min; i <= max; i++) {
             await page.fill('#form_sup0', i.toString())
-            for (let j = min2; j <= max2; j++) {
-              await page.fill('#form_sup20', j.toString())
-              await page.click('text=Nouvelles données')
-              urlTestees += ' | ' + await page.url()
-              await page.click('text=Nouvelles données')
-              urlTestees += ' | ' + await page.url()
-              await page.click('text=Nouvelles données')
-              urlTestees += ' | ' + await page.url()
-              await page.click('text=Nouvelles données')
-              urlTestees += ' | ' + await page.url()
-              await page.click('text=Nouvelles données')
-              urlTestees += ' | ' + await page.url()
+            if (sup20) {
+              // faut une 2e boucle
+              for (let j = min2; j <= max2; j++) {
+                await page.fill('#form_sup20', j.toString())
+                urlTestees += await retry5(page)
+              }
+            } else {
+              urlTestees += await retry5(page)
             }
           }
-        }
-      } else if (await page.$('#form_sup0')) {
-        const type = await page.getAttribute('input#form_sup0', 'type')
-        if (type === 'number') {
-          const max = await page.getAttribute('input#form_sup0', 'max')
-          let min = await page.getAttribute('input#form_sup0', 'min')
-          if (max - min > 5) { // Pour les exercices où le this.sup correspond à la valeur maximale des nombres, on met le min à cette valeur
-            min = max
-          }
-          for (let i = min; i <= max; i++) {
-            await page.fill('#form_sup0', i.toString())
-            await page.click('text=Nouvelles données')
-            urlTestees += ' | ' + await page.url()
-            await page.click('text=Nouvelles données')
-            urlTestees += ' | ' + await page.url()
-            await page.click('text=Nouvelles données')
-            urlTestees += ' | ' + await page.url()
-            await page.click('text=Nouvelles données')
-            urlTestees += ' | ' + await page.url()
-            await page.click('text=Nouvelles données')
-            urlTestees += ' | ' + await page.url()
-          }
-        }
+        } // else pas de clic sur Nouvelles données, ça correspond à quel type d'exo ?
       }
 
       const result = await flushPage(page, browser, { maxLoads: 10, processFailureAsError: true })
