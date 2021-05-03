@@ -7,7 +7,7 @@ const playwright = require('playwright')
 const prefs = require('prefs')
 const { log, logError, logIfVerbose } = require('helpers/log')
 const { waitMs } = require('helpers/promise')
-const { dropLatex, getMqChunks, normalize } = require('helpers/text')
+const { dropLatex, normalize } = require('helpers/text')
 
 // fonctions privées
 /**
