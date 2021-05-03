@@ -46,14 +46,14 @@ git pull
 ```
 
 ### docs
-* L'aide-mémoire indispensable http://ndpsoftware.com/git-cheatsheet.html
-* un article intéressant https://delicious-insights.com/fr/articles/apprendre-git
-* le git book en français (2ème édition 2014) https://git-scm.com/book/fr/v2
-* la référence (en anglais) https://git-scm.com/docs
-* un cours interactif en français https://learngitbranching.js.org/
-* de bon tutoriaux en français https://fr.atlassian.com/git/tutorials
+* [L'aide-mémoire indispensable](http://ndpsoftware.com/git-cheatsheet.html)
+* un [article intéressant](https://delicious-insights.com/fr/articles/apprendre-git)
+* le [git book en français](https://git-scm.com/book/fr/v2) (2ème édition 2014)
+* la [référence](https://git-scm.com/docs) (en anglais)
+* un [cours interactif en français](https://learngitbranching.js.org/)
+* de [bon tutoriaux en français](https://fr.atlassian.com/git/tutorials)
 * Des articles de Christophe Porteneuve [généralités](https://delicious-insights.com/fr/articles/git-workflows-generality/), [git-log](https://delicious-insights.com/fr/articles/git-log/), [hooks](https://delicious-insights.com/fr/articles/git-hooks-commit/)
-* qq recettes de cuisine pratiques http://pioupioum.fr/developpement/git-10-commandes-utiles.html
+* qq [recettes de cuisine](http://pioupioum.fr/developpement/git-10-commandes-utiles.html)
 
 ## Démarrage
 Une fois cloné le projet localement, il faut installer les dépendances avec `pnpm i` (à refaire après chaque modif du package.json)

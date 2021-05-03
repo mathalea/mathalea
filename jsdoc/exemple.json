@@ -6,7 +6,7 @@
   "source"   : {
     "include": [
       "./src/js/mathalea.js",
-      "./DEV.md"
+      "./src/demarrage.md"
     ],
     "exclude": [
       "./src/js/modules/MathJax"
@@ -20,7 +20,8 @@
     "destination": "./documentation",
     "recurse"    : true,
     "private"    : false,
-    "template": "node_modules/docdash"
+    "template": "node_modules/docdash",
+    "tutorials": "./jsdoc/tutorials"
   },
   "docdash": {
     "comment": "Cf https://github.com/clenemt/docdash (options)",
