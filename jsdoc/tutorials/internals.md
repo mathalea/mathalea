@@ -2,7 +2,13 @@
 
 Ce fichier donne quelques infos sur les choix d'architecture de code et les outils de développement utilisés
 
-# package.json
+## Arborescence
+- Les exercices sont rangés par niveau dans `/src/js/exercices/`.
+- Les fonctions que l'on souhaite utiliser dans plusieurs exercices sont à ranger dans `/src/js/modules/`.
+- Les fichiers statiques légers sont à déposer dans `/assets/`.
+- Les fichiers statiques lourds (vidéos...) sont à déposer dans le dépôt du site coopmaths.
+
+## package.json
 le format json du package.json ne permettant pas d'y ajouter des commentaires, voici quelques explications sur son contenu
 
 Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-json)
@@ -42,5 +48,5 @@ On se limite à une configuration minimaliste
 * https://babeljs.io/docs/en/babel-preset-env
 * [useBuiltIns: "usage"](https://babeljs.io/docs/en/babel-preset-env#usebuiltins) avec core-js 3, pour ne charger que les polyfill nécessaires pour le navigateur courant (donc souvent aucun), et alléger les js produits.
 
-# configuration eslint
+## configuration eslint
 On suit la norme de style de code de [standardJs](https://standardjs.com/)

@@ -10,7 +10,7 @@
     "build": "npm run build:prod",
     "build:dicos": "node tasks/buildDicos.js",
     "build:dev": "webpack --mode=development",
-    "build:prod": "npm run build:dicos && webpack --mode=production",
+    "build:prod": "npm run build:dicos && webpack --mode=production && npm run doc",
     "prepare": "husky install",
     "start": "webpack serve",
     "test": "node testsBrowser/start.js",
