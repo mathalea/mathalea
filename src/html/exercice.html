@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5318292-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-5318292-3');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- JQuery-->
+  <script src="/assets/externalJs/jquery-3.6.0.min.js"></script>
+  <script src="/assets/externalJs/jquery-ui-1.12.1.min.js"></script>
+  
+
+  <!-- Semantic UI-->
+  <link rel="stylesheet" type="text/css" href="/assets/externalJs/semantic-ui/semantic.min.css">
+  <script src="/assets/externalJs/semantic-ui/semantic.min.js" type="text/javascript"></script>
+  <script src="/assets/externalJs/semantic-ui/components/state.min.js"></script>
+
+
+  <title>MathALÉA</title>
+</head>
+
+
+
+<body>
+
+  
+
+  <nav>
+    <div class="ui top attached five item stackable container menu  ">
+      <div class="ui  dropdown item" class="blanc">CoopMaths <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/" class="item">Accueil</a>
+          <a href="/6e" class="item">Sixième</a>
+          <a href="/5e" class="item">Cinquième</a>
+          <a href="/4e" class="item">Quatrième</a>
+          <a href="/3e" class="item">Troisième</a>
+          <a href="/2e" class="item">Seconde</a>
+          <a href="/twitter" class="item">Actualités</a>
+        </div>
+      </div>
+      <a href="/a_propos/" class="ui simple  item">À propos</a>
+      <a href="/telechargements" class="ui simple  item">Téléchargements</a>
+      <a href="mailto:contact@coopmaths.fr" class="ui simple  item">Contact</a>
+      <div class="ui  dropdown item">MathALEA <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="/mathalea.html" class="item">Exercices en ligne</a>
+          <a href="/cm.html" class="item">Exercices chronométrés</a>
+          <a href="/mathalealatex.html" class="item">Générateur LaTeX/PDF</a>
+          <a href="/alacarte.html" class="item">Évaluation à la carte</a>
+          <a href="/mathalea_amc.html" class="item">Générateur AMC</a>
+          <a href="/mathalea.html?filtre=outils" class="item">Outils pour le professeur</a>
+          <a href="/mathalea2d.html" class="item">MathALEA 2D</a>
+          <a href="/mathalea2iep.html" class="item">InstrumEnPoche</a>
+          <a href="/mathalea_tuto" class="item">Comment utiliser MathALEA ?</a>
+          <a href="/docMathalea2d/presentation" class="item">Comment utiliser MathALEA 2D ?</a>
+          <a href="/mathalea_a_propos" class="item">À propos</a>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('.ui.dropdown').dropdown();
+        });
+      </script>
+  </nav>
+
+  <div style="position: fixed;
+  top: 10px;
+  right: 110px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  display: none;
+  cursor:move;" id="horloge"></div>
+
+  <div style="position: fixed;
+  top: 100px;
+  right: 110px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+  display: none;
+  cursor:move;" id="signaletique"></div>
+
+
+  <div class="ui hidden divider"></div>
+
+  <div class="ui hidden divider"></div>
+
+
+  <section class="ui container " >
+    <div  style="display: none;">
+      <h3 class="ui block header">Choix des exercices</h3>
+      <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
+       <i class="edit icon"></i>
+       <input id='choix_des_exercices'  type='text' >
+     </div>
+   </div>
+
+   <div class="ui floating message">
+    <p>Faire les questions suivantes au brouillon puis cliquer en dessous sur <em>Corrections</em> pour vérifier.</p>
+  </div>
+
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+
+
+
+  <div > 
+   <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin:10px"><i class="redo icon"></i>Nouvelles données</button> 
+   <div class="ui buttons" style="margin:10px">
+    <button class="btn ui  right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i> </button>
+    <button class="btn ui  icon button" id="btn_zoom_moins"><i class="minus icon"></i> </button>  
+  </div>
+  <!-- <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
+  <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
+  <button id="btnQRcode"  style="margin:10px" class="btn ui button icon" ><i class="qrcode icon"></i></button>  -->
+  <button   style="margin:10px" class="btn ui button icon" onclick="window.location.href=window.location.href.replace('/exercice.html','/mathalea.html')" ><i class="edit icon"></i></button>
+</div>
+
+<div id="ModalQRcode" class="ui basic modal"></div>
+
+
+<div class="ui hidden divider"></div>
+
+<div id="affichage_exercices">
+  <div id="exercices">  </div> 
+
+
+  <div class="ui fluid accordion">
+    <div class="title">
+      <i class="dropdown icon"></i>
+      Corrections
+    </div>
+    <div class="content">
+      <div id="corrections"></div> 
+    </div>
+  </div>
+  <div class="ui  fluid accordion">
+    <div class="title">
+      <i class="dropdown icon"></i>
+      Paramètres
+    </div>
+    <div class="content" id='parametres_generaux'>
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui right aligned container">
+	
+    <a href="mailto:contact@coopmaths.fr"  style="color: black; padding-right: 2em" ><i class="mail icon"></i>contact@coopmaths.fr</a>
+    <a href="/twitter" targer="_blank" style="color: black; padding-right: 2em" ><i class="twitter icon"></i>@CoopMaths_fr</a>
+    <img class="ui middle aligned image" height="25" src="assets/images/logo2.png">
+  <span class="ui header"></span>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+</div>
+</section>
+
+
+
+</body>
+</html>
+
+

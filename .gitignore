@@ -22,6 +22,12 @@ index.php
 node_modules
 # le build
 build
+# les logs
+log
+# la doc
+documentation
 
-.husky/
+# traces MacOS
 .DS_Store
+
+documentation
