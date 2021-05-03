@@ -13,7 +13,7 @@ RewriteEngine on
 #--------------------------------------------------
 
 # Redirection mathalea_amc.html vers mathalea_amc.php
-RewriteRule ^mathalea_amc.html$ mathalea_amc.php
+# RewriteRule ^mathalea_amc.html$ mathalea_amc.php
 
 # Accès interdit à évaluation à la carte
 #<Files alacarte>
