@@ -9,10 +9,10 @@
 
 # il y a encore trop de pbs eslint, on ne bloque donc pas (ligne précédente commentée), mais on signale le pb
 git status -uno -s |awk '$NF ~ /\.js$/ { printf("%s ", $NF) }' |while read -r f; do
-  if eslint "$f"; then
+  if eslint --fix "$f"; then
     echo "eslint $f ok"
   else
-    echo -e "eslint $f KO (cf ci-dessus), on ne bloque pas encore le commit pour ça ;-)\\nCertains problèmes peuvent être réglés automatiquement par la commande\\neslint --fix $f"
+    echo -e "eslint $f KO (cf ci-dessus), on ne bloque pas encore le commit pour ça ;-)\\n"
   fi
 done
 
