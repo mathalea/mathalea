@@ -43,6 +43,16 @@ git fetch origin
 
 # pour mettre à jour la branche locale d'après sa branche distante
 git pull
+
+# pour annuler complétement un commit sur une branche locale, 
+# notamment si on a oublié qu'on est sur master et qu'on a fait des commit
+# annuler uniquement le dernier commit
+git reset --hard HEAD^
+# annuler les deux derniers commits
+git reset --hard HEAD~2
+# annuler les trois derniers commits
+git reset --hard HEAD~3
+# etc
 ```
 
 ### docs
