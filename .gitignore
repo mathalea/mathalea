@@ -25,3 +25,5 @@ build
 # les logs
 log
 .DS_Store
+
+documentation
