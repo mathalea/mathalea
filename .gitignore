@@ -26,8 +26,8 @@ build
 log
 # la doc
 documentation
+# la conf privée
+_private
 
 # traces MacOS
 .DS_Store
-
-documentation
