@@ -76,7 +76,18 @@
     "javascript"
   ],
   "author": "Rémi Angot <contact@coopmaths.fr>",
-  "contributors": ["Rémi Angot", "Jean-Claude Lhote", "Sébastien Lozano", "Stéphane Guyon", "Gaëlle Morvan", "Mireille Gain", "Erwan Duplessy", "Cédric Grolleau", "Matthieu Devillers", "Liouba Leroux"],
+  "contributors": [
+    "Rémi Angot",
+    "Jean-Claude Lhote",
+    "Sébastien Lozano",
+    "Stéphane Guyon",
+    "Gaëlle Morvan",
+    "Mireille Gain",
+    "Erwan Duplessy",
+    "Cédric Grolleau",
+    "Matthieu Devillers",
+    "Liouba Leroux"
+  ],
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/remiangot/MathALEA/issues"
