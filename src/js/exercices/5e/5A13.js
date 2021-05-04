@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,compare_nombres,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,compareNombres,texNombre} from '../../modules/outils.js'
 
 
 export const titre = 'Décomposition en facteurs premiers'
@@ -16,14 +16,14 @@ export default function Exercice_decomposer_en_facteurs_premiers() {
 	this.titre = titre;
 	this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers.";
 	this.spacing = 2;
-	this.nb_questions = 6;
+	this.nbQuestions = 6;
 
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, n, facteurs = [], nb_facteurs, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+		for (let i = 0, n, facteurs = [], nb_facteurs, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			facteurs = [];
 			nb_facteurs = randint(3, 5);
 			for (var k = 0; k < nb_facteurs; k++) {
@@ -46,25 +46,25 @@ export default function Exercice_decomposer_en_facteurs_premiers() {
 				facteurs[k];
 				n = n * facteurs[k];
 			}
-			texte = '$ ' + tex_nombre(n) + ' = \\dotfill $';
-			texte_corr = '$ ' + tex_nombre(n) + ' = ';
-			facteurs.sort(compare_nombres); //classe les facteurs dans l'ordre croissant
+			texte = '$ ' + texNombre(n) + ' = \\dotfill $';
+			texteCorr = '$ ' + texNombre(n) + ' = ';
+			facteurs.sort(compareNombres); //classe les facteurs dans l'ordre croissant
 			for (var k = 0; k < facteurs.length - 1; k++) {
 				facteurs[k];
-				texte_corr += facteurs[k] + ' \\times  ';
+				texteCorr += facteurs[k] + ' \\times  ';
 			}
-			texte_corr += facteurs[facteurs.length - 1] + ' $';
+			texteCorr += facteurs[facteurs.length - 1] + ' $';
 
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
 
 }

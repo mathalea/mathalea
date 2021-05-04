@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,calcul,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texte_en_couleur} from '../../modules/outils.js'
 import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} from '../../modules/2d.js'
-import {combinaison_listes} from '../../modules/outils.js'
+import {combinaisonListes} from '../../modules/outils.js'
 
 export const titre = 'Dessiner avec scratch'
 
@@ -18,18 +18,18 @@ export const titre = 'Dessiner avec scratch'
   this.titre = titre;
   this.consigne = "Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?";
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
 
-  this.liste_packages = "scratch3";
-	this.type_exercice = "Scratch";
+  this.listePackages = "scratch3";
+	this.typeExercice = "Scratch";
 
   let type_de_questions_disponibles;
-  this.nb_questions = 3;
+  this.nbQuestions = 3;
   this.debug = false;
 
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
 
     if (this.debug) {
       type_de_questions_disponibles = [1,2,3,4,5];
@@ -37,21 +37,21 @@ export const titre = 'Dessiner avec scratch'
       type_de_questions_disponibles = [1,2,3,4,5];
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
     let pixelsParCm = fenetreMathalea2D.pixelsParCm*5;// 100;
 //    var unitesLutinParCm = 100;
 
 
-    let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer la sortie HTML/LaTeX
       // code est un string contenant le code svg ou tikz
       function scratchblocks_Tikz(code_svg, code_tikz) {
-        if (sortie_html) {
+        if (sortieHtml) {
           return code_svg;
         } else {
           return code_tikz;
@@ -302,9 +302,9 @@ export const titre = 'Dessiner avec scratch'
         if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-          texte_corr = ``;
+          texteCorr = ``;
         } else {
-          texte_corr = `${enonces[0].correction}`;
+          texteCorr = `${enonces[0].correction}`;
         };
         break;
       case 2:
@@ -312,9 +312,9 @@ export const titre = 'Dessiner avec scratch'
         if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-          texte_corr = ``;
+          texteCorr = ``;
         } else {
-          texte_corr = `${enonces[1].correction}`;
+          texteCorr = `${enonces[1].correction}`;
         };
         break;
       case 3:
@@ -322,9 +322,9 @@ export const titre = 'Dessiner avec scratch'
         if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-          texte_corr = ``;
+          texteCorr = ``;
         } else {
-          texte_corr = `${enonces[2].correction}`;
+          texteCorr = `${enonces[2].correction}`;
         };
         break;
       case 4:
@@ -332,9 +332,9 @@ export const titre = 'Dessiner avec scratch'
         if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-          texte_corr = ``;
+          texteCorr = ``;
         } else {
-          texte_corr = `${enonces[3].correction}`;
+          texteCorr = `${enonces[3].correction}`;
         };
         break;
       case 5:
@@ -342,22 +342,22 @@ export const titre = 'Dessiner avec scratch'
         if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-          texte_corr = ``;
+          texteCorr = ``;
         } else {
-          texte_corr = `${enonces[4].correction}`;
+          texteCorr = `${enonces[4].correction}`;
         };
         break;
       };
 
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   }
 }
 

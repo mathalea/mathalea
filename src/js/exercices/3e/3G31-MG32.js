@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,lettre_depuis_chiffre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,lettreDepuisChiffre,tex_fraction} from '../../modules/outils.js'
 export const titre = 'Déterminer un angle grâce à la trigonométrie'
 
 /**
@@ -14,26 +14,26 @@ export default function Exercice_Trigo_angles() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1; // 1 calcul avec Arccos
-  sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 1.5);
-  this.liste_packages = "tkz-euclide";
-  this.type_exercice = "MG32";
+  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5);
+  this.listePackages = "tkz-euclide";
+  this.typeExercice = "MG32";
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  this.nouvelleVersion = function (numeroExercice) {
 
-    this.taille_div_MG32 = [700, 500];
-    this.liste_questions = [];
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.dimensionsDivMg32 = [700, 500];
+    this.listeQuestions = [];
+    this.listeCorrections = []; // Liste de questions corrigées
     let lettre0 = randint(11, 25); // aleatoirisation du nom des points
-    let s0 = lettre_depuis_chiffre(lettre0);
+    let s0 = lettreDepuisChiffre(lettre0);
     let lettre1 = randint(11, 25, [lettre0]);
-    let s1 = lettre_depuis_chiffre(lettre1);
+    let s1 = lettreDepuisChiffre(lettre1);
     let lettre2 = randint(11, 25, [lettre0, lettre1]);
-    let s2 = lettre_depuis_chiffre(lettre2);
+    let s2 = lettreDepuisChiffre(lettre2);
     let angle1, angle2;
     let type_de_questions;
     if (this.sup == 1) {
@@ -59,15 +59,15 @@ export default function Exercice_Trigo_angles() {
     let alpha1deg = Math.round((alpha1 * 180) / Math.PI);
     let x1 = k1; // coordonnées des deux sommets du triangle
     let y2 = k2;
-    let s01 = arrondi_virgule(k1, 1); // mise en texte avec 1 chiffres après la virgule pour énoncé
-    let s02 = arrondi_virgule(k2, 1);
+    let s01 = arrondiVirgule(k1, 1); // mise en texte avec 1 chiffres après la virgule pour énoncé
+    let s02 = arrondiVirgule(k2, 1);
 
     let dist12 = k1 / Math.cos(Math.atan(k2 / k1)); //calcul de l'hypoténuse
     dist12 = Math.round(dist12 * 10) / 10; // On ne garde qu'une approximation au dixième pour l'exercice
-    let s12 = arrondi_virgule(dist12, 1);
+    let s12 = arrondiVirgule(dist12, 1);
     let texte;
-    let texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`;
-    if (sortie_html) {
+    let texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`;
+    if (sortieHtml) {
       // sortie html MG32
       let codeBase64;
       if (type_de_questions % 2 != 0) {
@@ -126,17 +126,17 @@ export default function Exercice_Trigo_angles() {
         texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`;
       }
 
-      this.type_exercice = "MG32";
+      this.typeExercice = "MG32";
       this.MG32codeBase64 = codeBase64;
       this.MG32code_pour_modifier_la_figure = `
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${y2}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x1", "${x1}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "alphadeg", "${alpha1deg}");
-			mtg32App.rename("MG32svg${numero_de_l_exercice}","A","${s0}");
-			mtg32App.rename("MG32svg${numero_de_l_exercice}","B","${s1}");
-			mtg32App.rename("MG32svg${numero_de_l_exercice}","C","${s2}");
-			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-			mtg32App.display("MG32svg${numero_de_l_exercice}");
+			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x2", "${y2}");
+			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x1", "${x1}");
+			mtg32App.giveFormula2("MG32svg${numeroExercice}", "alphadeg", "${alpha1deg}");
+			mtg32App.rename("MG32svg${numeroExercice}","A","${s0}");
+			mtg32App.rename("MG32svg${numeroExercice}","B","${s1}");
+			mtg32App.rename("MG32svg${numeroExercice}","C","${s2}");
+			mtg32App.calculate("MG32svg${numeroExercice}");
+			mtg32App.display("MG32svg${numeroExercice}");
 			`;
       texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
     } else {
@@ -244,60 +244,60 @@ export default function Exercice_Trigo_angles() {
       texte += "\\end{minipage}";
     }
     if (type_de_questions == 1) {
-      texte_corr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texte_corr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
+      texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 2) {
-      texte_corr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texte_corr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$<br>`;
-      texte_corr += `Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>`;
-      texte_corr += `$\\widehat{${s0 + s2 + s1}}\\approx90-${angle1}\\approx${angle2}\\degree$`;
+      texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$<br>`;
+      texteCorr += `Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>`;
+      texteCorr += `$\\widehat{${s0 + s2 + s1}}\\approx90-${angle1}\\approx${angle2}\\degree$`;
     }
     if (type_de_questions == 3) {
-      texte_corr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texte_corr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s1 + s2)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\sin\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s12)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arcsin\\left(${tex_fraction(s02, s12)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
+      texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s1 + s2)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\sin\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arcsin\\left(${tex_fraction(s02, s12)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 4) {
-      texte_corr += `Le sinus de l'angle $\\widehat{${s0 + s2 + s1}}$ est défini par :<br>`;
-      texte_corr += `$\\sin \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\sin\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arcsin\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
+      texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s2 + s1}}$ est défini par :<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\sin\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arcsin\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
     }
     if (type_de_questions == 5) {
-      texte_corr += `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
-      texte_corr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\tan\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s01)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arctan\\left(${tex_fraction(s02, s01)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
+      texteCorr += `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\tan\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s01)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arctan\\left(${tex_fraction(s02, s01)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 6) {
-      texte_corr += `La tangente de l'angle $\\widehat{${s0 + s2 + s1}}$ est définie par :<br>`;
-      texte_corr += `$\\tan \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s0 + s2)}$<br>`;
-      texte_corr += `Avec les données numériques :<br>`;
-      texte_corr += `$\\tan\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s02)}$<br>`;
-      texte_corr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arctan\\left(${tex_fraction(s01, s02)}\\right)$<br>`;
-      texte_corr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
+      texteCorr += `La tangente de l'angle $\\widehat{${s0 + s2 + s1}}$ est définie par :<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s0 + s2)}$<br>`;
+      texteCorr += `Avec les données numériques :<br>`;
+      texteCorr += `$\\tan\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s02)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arctan\\left(${tex_fraction(s01, s02)}\\right)$<br>`;
+      texteCorr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
     }
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu_sans_numero(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenuSansNumero(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     2,
     "1 : Calcul de l'angle avec Acos \n 2 : Calcul de l'angle avec Acos, Asin ou Atan",

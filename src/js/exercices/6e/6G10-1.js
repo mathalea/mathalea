@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { combinaison_listes, liste_de_question_to_contenu, randint, choice,creerNomDePolygone, calcul } from '../../modules/outils.js';
+import { combinaisonListes, listeQuestionsToContenu, randint, choice,creerNomDePolygone, calcul } from '../../modules/outils.js';
 import {mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment   } from '../../modules/2d.js';
 
 export const titre = 'Description et notation des droites, segments et demi-droites'
@@ -13,16 +13,16 @@ export default function Description_segment_droite_demi_droite(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Faire une phrase pour décrire le plus précisemment possible la figure et donner sa notation mathématique";
-  this.nb_questions = 3;
-  this.nb_cols = 3;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 3;
+  this.nbCols = 3;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function(numero_de_l_exercice) {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function(numeroExercice) {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1, 4, choice([2, 3])];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let p = creerNomDePolygone(2, "P");
       let A = point(0, calcul(randint(0, 20) / 10), p[0]);
       let B = point(4, calcul(randint(0, 20) / 10), p[1]);
@@ -60,19 +60,19 @@ export default function Description_segment_droite_demi_droite(){
         t2,
         labels
       );
-      texte_corr = dABCorr;
+      texteCorr = dABCorr;
       
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,shuffle2tableaux,tex_nombre2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,lettreDepuisChiffre,shuffle2tableaux,texNombre2} from '../../modules/outils.js'
 import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,homothetie,demiDroite,texteParPoint,similitude,bissectrice,pointSurSegment} from '../../modules/2d.js'
 
 export const amcReady = true
@@ -15,31 +15,31 @@ export default function Mesurer_un_angle() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 2;
-  this.nb_questions_modifiable=true
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 2;
+  this.nbQuestionsModifiable=true
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup=1;
   this.video="TEzu9uky56M"
-  this.QCM_disponible=true
-  this.ModeQCM=false
+  this.qcmDisponible=true
+  this.modeQcm=false
 
-  this.nouvelle_version = function () {
-    this.QCM=['6G23-1',[],"Estimer la mesure d'un angle.",1]
+  this.nouvelleVersion = function () {
+    this.qcm=['6G23-1',[],"Estimer la mesure d'un angle.",1]
     let tabrep,tabicone
     let espace =``;
-    if (sortie_html) {
+    if (sortieHtml) {
       espace = `&emsp;`;
     } else {
       espace = `\\qquad`;
     }
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-      let angle,anglerot,Apos,Bpos,Cpos,p,texte,texte_corr,A,B,C,s2,s1,bis,signes=[]
+      let angle,anglerot,Apos,Bpos,Cpos,p,texte,texteCorr,A,B,C,s2,s1,bis,signes=[]
       let labels,secteur,xMin,xMax,yMin,yMax,objets_enonce,objets_correction,secteur0
 
-      for (let i=0;i<this.nb_questions;i++){
+      for (let i=0;i<this.nbQuestions;i++){
         signes.push(choice([-1,1]))
       if (this.sup==1) {
           angle = randint (2,16,9)*10
@@ -54,8 +54,8 @@ export default function Mesurer_un_angle() {
       tabicone=[1,0,0,0,0,0]
       anglerot=randint(-180,180)
       angle=signes[i]*angle
-      p = [choice(['x','y','z','t']),lettre_depuis_chiffre(randint(1,16)),choice(['s','u','v','w'])];
-   if (this.ModeQCM) {
+      p = [choice(['x','y','z','t']),lettreDepuisChiffre(randint(1,16)),choice(['s','u','v','w'])];
+   if (this.modeQcm) {
     texte = `Estime la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
    } 
    else {
@@ -76,7 +76,7 @@ export default function Mesurer_un_angle() {
       labels=labelPoint(A,B,C)
       secteur=afficheMesureAngle(B,A,C)
       secteur0=afficheMesureAngle(B,A,C,'black',1.5," ")
-      texte_corr=``
+      texteCorr=``
       xMin=Math.min(A.x,C.x,B.x)-1
       xMax=Math.max(A.x,C.x,B.x)+1
       yMin=Math.min(A.y,C.y,B.y)-1
@@ -85,31 +85,31 @@ export default function Mesurer_un_angle() {
       objets_enonce=[s1,s2,labels,Apos,Bpos,Cpos,secteur0]
       objets_correction=[s1,s2,labels,Apos,Bpos,Cpos,secteur]
       texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
-      texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
+      texteCorr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
    /**********************************************/
    //Ajout pour AMC
-      this.QCM[1].push([`${texte}\\\\ \n Réponses possibles : `,
+      this.qcm[1].push([`${texte}\\\\ \n Réponses possibles : `,
       tabrep,
       tabicone]) 
    /********************************************/
-      if (this.ModeQCM&&!mathalea.sortieAMC) {
+      if (this.modeQcm&&!mathalea.sortieAMC) {
         texte+=`<br>  Réponses possibles : ${espace}  `
-        texte_corr=''
+        texteCorr=''
         shuffle2tableaux(tabrep, tabicone);
         for (let i=0; i<tabrep.length; i++) {
           texte += `$\\square\\;$ ${tabrep[i]} ` + espace ;
          if (tabicone[i]==1) {
-           texte_corr += `$\\blacksquare\\;$ ${tabrep[i]} ` + espace ;
+           texteCorr += `$\\blacksquare\\;$ ${tabrep[i]} ` + espace ;
          } else {
-           texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+           texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
          }
        }
       }
-      this.liste_questions.push(texte)
-      this.liste_corrections.push(texte_corr)
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
   }
-        liste_de_question_to_contenu(this)
+        listeQuestionsToContenu(this)
   };
-  this.besoin_formulaire_numerique = ['Précision de l\'angle',3,'1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°'];
+  this.besoinFormulaireNumerique = ['Précision de l\'angle',3,'1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°'];
 }
 

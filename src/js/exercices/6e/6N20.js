@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,tex_fraction} from '../../modules/outils.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
 
 /**
@@ -12,12 +12,12 @@ export default function Exercice_fractions_decomposer() {
   this.consigne =
     "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1.";
   this.spacing = 2;
-  this.spacing_corr = 2;
+  this.spacingCorr = 2;
   this.sup = false; // Donner l'écriture décimale
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_fractions = [
       [1, 2, ",5"],
       [1, 4, ",25"],
@@ -57,13 +57,13 @@ export default function Exercice_fractions_decomposer() {
       ])
     ); // liste_fractions pour les 6 premières questions
     for (
-      let i = 0, fraction, a,ed, b, c, n, texte, texte_corr;
-      i < this.nb_questions;
+      let i = 0, fraction, a,ed, b, c, n, texte, texteCorr;
+      i < this.nbQuestions;
       i++
     ) {
       if (i < 6) {
         fraction = choice(liste_fractions1);
-        enleve_element(liste_fractions1, fraction);
+        enleveElement(liste_fractions1, fraction);
       } else {
         fraction = choice(liste_fractions);
       }
@@ -73,19 +73,19 @@ export default function Exercice_fractions_decomposer() {
       n = randint(1, 4);
       a = n * b + c;
       ed = n + fraction[2];
-      enleve_element(liste_fractions, fraction); // Il n'y aura pas 2 fois la même partie décimale
+      enleveElement(liste_fractions, fraction); // Il n'y aura pas 2 fois la même partie décimale
       texte =
         "$ " +
         tex_fraction(a, b) +
         " = \\phantom{0000} + " +
         tex_fraction("\\phantom{00000000}", "") +
         " $";
-      texte_corr =
+      texteCorr =
         "$ " + tex_fraction(a, b) + " = " + n + "+" + tex_fraction(c, b) + " $";
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
     }
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
 }
 

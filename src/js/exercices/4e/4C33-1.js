@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_listes,lettre_depuis_chiffre,texte_gras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modal_pdf} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texte_gras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Le sens des règles de calculs'
 
 /**
@@ -20,29 +20,29 @@ export default function Puissances_d_un_relatif_1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1;
   this.titre = titre;
-  sortie_html
+  sortieHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");
-  sortie_html ? (this.spacing = 3) : (this.spacing = 2);
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1);
-  this.nb_questions = 5;
-  this.correction_detaillee_disponible = true;
-  this.nb_cols_corr = 1;
+  sortieHtml ? (this.spacing = 3) : (this.spacing = 2);
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  this.nbQuestions = 5;
+  this.correctionDetailleeDisponible = true;
+  this.nbColsCorr = 1;
   this.sup = 5;
 
-  this.liste_packages = 'bclogo';
+  this.listePackages = 'bclogo';
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  this.nouvelleVersion = function (numeroExercice) {
     let type_de_questions;
-    this.bouton_aide = modal_pdf(
-      numero_de_l_exercice,
+    this.boutonAide = modalPdf(
+      numeroExercice,
       "assets/pdf/FichePuissances-4N21.pdf",
       "Aide mémoire sur les puissances (Sébastien Lozano)",
       "Aide mémoire"
     );
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [];
     if (this.sup == 1) {
@@ -57,9 +57,9 @@ export default function Puissances_d_un_relatif_1() {
       type_de_questions_disponibles = [1, 2, 3, 4]; // mélange
     }
 
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
 
     // pour pouvoir adapter les couleurs en cas de besoin
@@ -79,9 +79,9 @@ export default function Puissances_d_un_relatif_1() {
       coul_exp1,
       lettre,
       texte,
-      texte_corr,
+      texteCorr,
       cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       // une fonction pour des infos supp sur les exposants
@@ -105,7 +105,7 @@ export default function Puissances_d_un_relatif_1() {
       exp0 = randint(1, 9);
       exp1 = randint(1, 9, [exp0]);
       exp = [exp0, exp1]; // on choisit deux exposants différents c'est mieux
-      lettre = lettre_depuis_chiffre(i + 1); // on utilise des lettres pour les calculs
+      lettre = lettreDepuisChiffre(i + 1); // on utilise des lettres pour les calculs
 
       if (base < 0) {
         base_utile = "(" + base + ")"; // on définit une base avec des parenthèses pour l'affichage du cas negatif
@@ -114,32 +114,32 @@ export default function Puissances_d_un_relatif_1() {
       }
 
 
-      texte_corr = ``;
+      texteCorr = ``;
 
       switch (type_de_questions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 
-          texte_corr += `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
-          if (this.correction_detaillee) {
-            texte_corr += `<br>`;
-            texte_corr += `$${lettre}=${eclatePuissance(
+          texteCorr += `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+          if (this.correctionDetaillee) {
+            texteCorr += `<br>`;
+            texteCorr += `$${lettre}=${eclatePuissance(
               base_utile,
               exp[0],
               coul0
             )} \\times ${eclatePuissance(base_utile, exp[1], coul1)}$`;
           }
-          texte_corr += `<br>`;
-          texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
-          texte_corr += `<br>`;
-          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}$`;
+          texteCorr += `<br>`;
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
+          texteCorr += `<br>`;
+          texteCorr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}$`;
           // attention la base_utile est de type str alors que la fonction switch sur un type number
           //if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] + exp[0]) % 2 == 0)) {
-            texte_corr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`;
+            texteCorr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`;
           };
-          texte_corr += remarquesPuissances(base, base_utile, exp[1] + exp[0]);
-          texte_corr += `<br>`;
+          texteCorr += remarquesPuissances(base, base_utile, exp[1] + exp[0]);
+          texteCorr += `<br>`;
 
           break;
         case 2: // quotient de puissances de même base
@@ -154,19 +154,19 @@ export default function Puissances_d_un_relatif_1() {
 
           texte = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
 
-          texte_corr += `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
-          if (this.correction_detaillee) {
-            texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile, exp[0], coul_exp0)}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
+          texteCorr += `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
+          if (this.correctionDetaillee) {
+            texteCorr += `<br><br>`;
+            texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile, exp[0], coul_exp0)}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
           }
-          texte_corr += `<br><br>`;
-          texte_corr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0], exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
-          if (this.correction_detaillee) {
-            texte_corr += `<br><br>`;
+          texteCorr += `<br><br>`;
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0], exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
+          if (this.correctionDetaillee) {
+            texteCorr += `<br><br>`;
           }
           if (exp[0] - exp[1] == 0) {
-            if (this.correction_detaillee) {
-              texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 `\\cancel{${base_utile}}`,
                 exp[0],
                 coul_exp0
@@ -176,11 +176,11 @@ export default function Puissances_d_un_relatif_1() {
                 coul_exp1
               )}}$`;
             }
-            texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=1$`;
+            texteCorr += `<br><br>`;
+            texteCorr += `$${lettre}=1$`;
           } else if (exp[0] - exp[1] < 0) {
-            if (this.correction_detaillee) {
-              texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 `\\cancel{${base_utile}}`,
                 exp[0],
                 coul_exp0
@@ -194,21 +194,21 @@ export default function Puissances_d_un_relatif_1() {
                 coul_exp1
               )}}$`;
             }
-            texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}$`;
+            texteCorr += `<br><br>`;
+            texteCorr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}$`;
             //if (simpNotPuissance(base, exp[1] - exp[0]) != ` `) {
             if ((base < 0) && ((exp[1] - exp[0]) % 2 == 0)) {
-              texte_corr += `$=\\dfrac{1}{${simpNotPuissance(
+              texteCorr += `$=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
                 //)}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
               )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`;
             } else {
-              texte_corr += `$=${base_utile}^{${exp[0] - exp[1]}}$`;
+              texteCorr += `$=${base_utile}^{${exp[0] - exp[1]}}$`;
             }
           } else {
-            if (this.correction_detaillee) {
-              texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
                 `\\cancel{${base_utile}}`,
                 exp[1],
                 coul_exp0
@@ -222,30 +222,30 @@ export default function Puissances_d_un_relatif_1() {
                 coul_exp1
               )}}$`;
             }
-            texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}$`;
+            texteCorr += `<br><br>`;
+            texteCorr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}$`;
             //if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
             if ((base < 0) && ((exp[0] - exp[1]) % 2 == 0)) {
-              texte_corr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`;
+              texteCorr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`;
             }
           }
-          texte_corr += remarquesPuissances(base, base_utile, exp[0] - exp[1]);
-          texte_corr += `<br>`;
+          texteCorr += remarquesPuissances(base, base_utile, exp[0] - exp[1]);
+          texteCorr += `<br>`;
           break;
         case 3: // exponentiation
           exp = [randint(2, 4), randint(2, 4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 
-          texte_corr += `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
-          if (this.correction_detaillee) {
-            texte_corr += `<br>`;
-            texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
+          texteCorr += `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+          if (this.correctionDetaillee) {
+            texteCorr += `<br>`;
+            texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
               `(${base_utile}^${exp[0]})`,
               exp[1],
               coul0
             )}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
-            texte_corr += `<br>`;
-            texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
+            texteCorr += `<br>`;
+            texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
               `(\\color{${coul1}}{\\underbrace{${eclatePuissance(
                 base_utile,
                 exp[0],
@@ -256,17 +256,17 @@ export default function Puissances_d_un_relatif_1() {
             )}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]
               }}\\thickspace\\color{black}{\\text{facteurs}}}}$`;
           }
-          texte_corr += `<br>`;
-          texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
-          texte_corr += `<br>`;
-          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]
+          texteCorr += `<br>`;
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
+          texteCorr += `<br>`;
+          texteCorr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]
             }} = ${base_utile}^{${exp[0] * exp[1]}}$`;
           //if (simpNotPuissance(base, exp[0] * exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] * exp[0]) % 2 == 0)) {
-            texte_corr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`;
+            texteCorr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`;
           }
-          texte_corr += remarquesPuissances(base, base_utile, exp[0] * exp[1]);
-          texte_corr += `<br>`;
+          texteCorr += remarquesPuissances(base, base_utile, exp[0] * exp[1]);
+          texteCorr += `<br>`;
           break;
         case 4: // produit de puissances de même exposant
           base0 = randint(2, 8, [4, 6]);
@@ -274,17 +274,17 @@ export default function Puissances_d_un_relatif_1() {
           base = [base0, base1]; // on choisit 2 bases différentes c'est mieux
           exp = randint(2, 5, 6); // on choisit un exposant
           texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
-          texte_corr += `<br>`;
-          texte_corr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
-          if (this.correction_detaillee) {
-            texte_corr += `<br>`;
-            texte_corr += `$${lettre}=${eclatePuissance(
+          texteCorr += `<br>`;
+          texteCorr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+          if (this.correctionDetaillee) {
+            texteCorr += `<br>`;
+            texteCorr += `$${lettre}=${eclatePuissance(
               base[0],
               exp,
               coul0
             )} \\times ${eclatePuissance(base[1], exp, coul1)}$`;
-            texte_corr += `<br>`;
-            texte_corr += `$${lettre}=${reorganiseProduitPuissance(
+            texteCorr += `<br>`;
+            texteCorr += `$${lettre}=${reorganiseProduitPuissance(
               base[0],
               base[1],
               exp,
@@ -292,25 +292,25 @@ export default function Puissances_d_un_relatif_1() {
               coul1
             )}$`;
           }
-          texte_corr += `<br>`;
-          texte_corr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]
+          texteCorr += `<br>`;
+          texteCorr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]
             }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
             }}}\\color{black}{)^{${exp}}}=${base[0] * base[1]}^${exp}$`;
-          texte_corr += `<br>`;
+          texteCorr += `<br>`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu_sans_numero(this);
+    listeQuestionsToContenuSansNumero(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Règle à travailler",
     5,
     "1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange",

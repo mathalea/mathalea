@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {fraction_simplifiee,liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {fractionSimplifiee,listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 //import {fraction,ListeFraction} from '../../modules/Fractions.js'
@@ -18,18 +18,18 @@ export default function Problemes_additifs_fractions() {
   this.debug = false;
   this.sup = 1;
   if (this.debug) {
-    this.nb_questions = 5;
+    this.nbQuestions = 5;
   } else {
-    this.nb_questions = 2;
+    this.nbQuestions = 2;
   }
   this.titre = titre;
   this.consigne = `Justifier vos réponses aux problèmes suivants.`;
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? (this.spacing = 2) : (this.spacing = 1.5);
-  sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 1.15);
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5);
+  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15);
 
   let type_de_questions_disponibles;
 
@@ -166,28 +166,28 @@ function ListeFraction() {
  this.sortFractions = sortFractions;
  this.reduceSameDenominateur = reduceSameDenominateur;
  this.denominateurs_amis = denominateurs_amis;
- this.fraction_simplifiee = fraction_simplifiee;
+ this.fractionSimplifiee = fractionSimplifiee;
 };
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.debug) {
       type_de_questions_disponibles = [1, 2, 3, 4, 5];
     } else {
       type_de_questions_disponibles = [choice([1, 2]), choice([3, 4, 5])];
     }
 
-    //let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
+    //let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let liste_type_de_questions = combinaisonListesSansChangerOrdre(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       // on aura besoin des méthodes de la classe Fraction()
@@ -229,12 +229,12 @@ function ListeFraction() {
         n3 = d1 * d2 - n1 * d2 - n2 * d1; //la somme des trois vaut 1 !
         d3 = d1 * d2;
 
-        nt1 = frac.fraction_simplifiee(n1, d1)[0];
-        dt1 = frac.fraction_simplifiee(n1, d1)[1];
-        nt2 = frac.fraction_simplifiee(n2, d2)[0];
-        dt2 = frac.fraction_simplifiee(n2, d2)[1];
-        nt3 = frac.fraction_simplifiee(n3, d3)[0];
-        dt3 = frac.fraction_simplifiee(n3, d3)[1];
+        nt1 = frac.fractionSimplifiee(n1, d1)[0];
+        dt1 = frac.fractionSimplifiee(n1, d1)[1];
+        nt2 = frac.fractionSimplifiee(n2, d2)[0];
+        dt2 = frac.fractionSimplifiee(n2, d2)[1];
+        nt3 = frac.fractionSimplifiee(n3, d3)[0];
+        dt3 = frac.fractionSimplifiee(n3, d3)[1];
       }
 
       //======================================================
@@ -534,14 +534,14 @@ function ListeFraction() {
         n4 = d1 * d2 * d3 - n1 * d2 * d3 - n2 * d1 * d3 - n3 * d1 * d2; //la somme des quatre vaut 1 !
         d4 = d1 * d2 * d3;
 
-        nq1 = frac.fraction_simplifiee(n1, d1)[0];
-        dq1 = frac.fraction_simplifiee(n1, d1)[1];
-        nq2 = frac.fraction_simplifiee(n2, d2)[0];
-        dq2 = frac.fraction_simplifiee(n2, d2)[1];
-        nq3 = frac.fraction_simplifiee(n3, d3)[0];
-        dq3 = frac.fraction_simplifiee(n3, d3)[1];
-        nq4 = frac.fraction_simplifiee(n4, d4)[0];
-        dq4 = frac.fraction_simplifiee(n4, d4)[1];
+        nq1 = frac.fractionSimplifiee(n1, d1)[0];
+        dq1 = frac.fractionSimplifiee(n1, d1)[1];
+        nq2 = frac.fractionSimplifiee(n2, d2)[0];
+        dq2 = frac.fractionSimplifiee(n2, d2)[1];
+        nq3 = frac.fractionSimplifiee(n3, d3)[0];
+        dq3 = frac.fractionSimplifiee(n3, d3)[1];
+        nq4 = frac.fractionSimplifiee(n4, d4)[0];
+        dq4 = frac.fractionSimplifiee(n4, d4)[1];
       }
 
       //======================================================
@@ -964,9 +964,9 @@ function ListeFraction() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_3_f[0].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${pb_3_f[0].correction}`;
+            texteCorr = `${pb_3_f[0].correction}`;
           }
           break;
         case 2: //Miss Math --> Noémie, Samia, Alexia
@@ -974,9 +974,9 @@ function ListeFraction() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_3_f[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${pb_3_f[1].correction}`;
+            texteCorr = `${pb_3_f[1].correction}`;
           }
           break;
         case 3: // Mandala --> carmin, ocre jaune, turquoise, pourpre
@@ -984,9 +984,9 @@ function ListeFraction() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[0].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${pb_4_f[0].correction}`;
+            texteCorr = `${pb_4_f[0].correction}`;
           }
           break;
         case 4: // Jardin --> légumes, plantes aromatiques, semis, fraisiers
@@ -994,9 +994,9 @@ function ListeFraction() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${pb_4_f[1].correction}`;
+            texteCorr = `${pb_4_f[1].correction}`;
           }
           break;
         case 5: // Stade --> pays organisatuers, supporters, sponsors, vente libre
@@ -1004,22 +1004,22 @@ function ListeFraction() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[2].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${pb_4_f[2].correction}`;
+            texteCorr = `${pb_4_f[2].correction}`;
           }
           break;
       }
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 }
 

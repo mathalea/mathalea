@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 export const amcReady = true
 
@@ -21,22 +21,22 @@ export default function Multiplier_decimaux () {
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
-  this.spacing_corr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
-  this.nb_questions = 4
-  this.liste_packages = 'xlop'
+  this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
+  this.nbQuestions = 4
+  this.listePackages = 'xlop'
 
-  this.nouvelle_version = function () {
-    this.QCM = ['6C30', [], 'Multiplications posées de nombres décimaux', 4]
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.qcm = ['6C30', [], 'Multiplications posées de nombres décimaux', 4]
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
     const type_de_questions_disponibles = [1, 2, 3, 4]
-    const liste_type_de_questions = combinaison_listes(
+    const liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let type_de_questions, reponse
-    for (let i = 0, texte, texte_corr, cpt = 0, a, b; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       type_de_questions = liste_type_de_questions[i]
       switch (type_de_questions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
@@ -57,20 +57,20 @@ export default function Multiplier_decimaux () {
           break
       }
 
-      texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`
+      texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
-      texte_corr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
+      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
 
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         // Pour AMC
-        this.QCM[1].push([texte, [texte_corr, reponse], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
+        this.qcm[1].push([texte, [texteCorr, reponse], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
 }

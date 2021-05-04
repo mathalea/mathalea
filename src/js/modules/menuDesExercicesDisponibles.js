@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleve_element, compteOccurences } from './outils.js'
+import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
@@ -17,8 +17,8 @@ for (const item in dictionnaireDNB) {
 }
 // transforme le set en tableau dans l'ordre alphabétique
 const tableauTags = ([...tags].sort())
-enleve_element(tableauTags, "Système d'équations")
-enleve_element(tableauTags, 'Hors programme')
+enleveElement(tableauTags, "Système d'équations")
+enleveElement(tableauTags, 'Hors programme')
 
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }

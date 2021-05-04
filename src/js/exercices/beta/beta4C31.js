@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes,randint,choice,rangeMinMax,ecriturePuissance,num_alpha,texte_en_couleur_et_gras,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,num_alpha,texte_en_couleur_et_gras,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 
@@ -23,34 +23,34 @@ export default function Comparer_puissance10() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Dans chaque cas, comparer les deux nombres. Les deux nombres sont écrits en écriture scientifique.";
-  this.nb_questions = 5; // Ici le nombre de questions
-  this.nb_questions_modifiable=true // Active le formulaire nombre de questions
-  this.correction_detaillee_disponible = true;
-  sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false;
+  this.nbQuestions = 5; // Ici le nombre de questions
+  this.nbQuestionsModifiable=true // Active le formulaire nombre de questions
+  this.correctionDetailleeDisponible = true;
+  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 5;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.spacingCorr = 2;
+  this.nbQuestions = 5;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [];       
     type_de_questions_disponibles = [1,2,3,4,5]; 
 
-    for (let i = 0, texte=``, texte_corr=``, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte=``, texteCorr=``, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a1 = 0; // mantisse 1
       let a2 = 0; // mantisse 2
       let n1 = 0; // puissance 1
       let n2 = 0; // puissance 2
       let nbA1 = 0; // valeur numérique du nombre 1
       let nbA2 = 0; // valeur numérique du nombre 2
-      this.liste_questions = [] // tableau contenant la liste des questions 
-      this.liste_corrections = []
+      this.listeQuestions = [] // tableau contenant la liste des questions 
+      this.listeCorrections = []
       let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+      let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
       switch (liste_type_de_questions[i]) {
         case 1:
           a1 = 1;
@@ -91,78 +91,78 @@ export default function Comparer_puissance10() {
       nbA2 = a2 * 10 ** n2;
       texte += num_alpha(i) + ` ` + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
       // début correction détaillée
-      texte_corr += num_alpha(i) + ` `;
-      if (this.correction_detaillee) {
+      texteCorr += num_alpha(i) + ` `;
+      if (this.correctionDetaillee) {
         if (nbA1==nbA2) {
-          texte_corr += `Les deux nombres ont la même écriture, ils sont donc égaux. <br>`;
+          texteCorr += `Les deux nombres ont la même écriture, ils sont donc égaux. <br>`;
         } else {
           if (a1*a2==0){
-            texte_corr += `L'un des deux nombres est nul. Il suffit de regarder le signe de l'autre. <br>`;
+            texteCorr += `L'un des deux nombres est nul. Il suffit de regarder le signe de l'autre. <br>`;
           }
           else {
             if (a1*a2<0) { // a1 et a2 de signes opposés
-              texte_corr += `Les deux nombres sont de signes opposés. Le plus petit nombre est donc le nombre négatif. <br>`;
+              texteCorr += `Les deux nombres sont de signes opposés. Le plus petit nombre est donc le nombre négatif. <br>`;
             } else {
               if (a1>0 && a2>0) { // a1 et a2 strictement positifs
-                texte_corr += `Les deux nombres sont positifs. On compare les exposants de l'écriture scientifique : `;
+                texteCorr += `Les deux nombres sont positifs. On compare les exposants de l'écriture scientifique : `;
                 if (n1>n2) {
-                  texte_corr += `$${n1} > ${n2}$. <br>`;
+                  texteCorr += `$${n1} > ${n2}$. <br>`;
                 }
                 if (n1==n2) {
-                  texte_corr += `Les exposants sont égaux. On compare ${tex_nombre(a1)} et ${tex_nombre(a2)} : `;
+                  texteCorr += `Les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `;
                   if (a1<a2) {
-                    texte_corr += `$${tex_nombre(a1)} < ${tex_nombre(a2)}$. <br>`;
+                    texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. <br>`;
                   } else {
-                    texte_corr += `$${tex_nombre(a1)} > ${tex_nombre(a2)}$. <br>`;
+                    texteCorr += `$${texNombre(a1)} > ${texNombre(a2)}$. <br>`;
                   }
                 }
                 if (n1<n2) {
-                  texte_corr += `$${n1} < ${n2}$.<br>`;
+                  texteCorr += `$${n1} < ${n2}$.<br>`;
                 }  
               }
               if (a1<0 && a2<0) { // a1 et a2 strictement négatifs
-                texte_corr += `Les deux nombres sont négatifs. Ils sont rangés dans l'ordre contraire de leur opposé : ${ecriturePuissance(-a1, 10, n1)} et ${ecriturePuissance(-a2, 10, n2)}. <br>`;
-                texte_corr += `On compare les exposants de l'écriture scientifique : `; 
+                texteCorr += `Les deux nombres sont négatifs. Ils sont rangés dans l'ordre contraire de leur opposé : ${ecriturePuissance(-a1, 10, n1)} et ${ecriturePuissance(-a2, 10, n2)}. <br>`;
+                texteCorr += `On compare les exposants de l'écriture scientifique : `; 
                 if (n1>n2) {
-                  texte_corr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
+                  texteCorr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
                 }
                 if (n1==n2) {
-                  texte_corr += `les exposants sont égaux. On compare ${tex_nombre(a1)} et ${tex_nombre(a2)} : `;
+                  texteCorr += `les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `;
                   if (a1<a2) {
-                    texte_corr += `$${tex_nombre(a1)} < ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
+                    texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
                   } else {
-                    texte_corr += `$${tex_nombre(a1)} > ${tex_nombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
+                    texteCorr += `$${texNombre(a1)} > ${texNombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`;
                   }
                 }
                 if (n1<n2) {
-                  texte_corr += `$${n1} < ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
+                  texteCorr += `$${n1} < ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br>`;
                 }             
               }  
             }
           }
 
         }
-      texte_corr += texte_en_couleur_et_gras(`Conclusion : `);
+      texteCorr += texte_en_couleur_et_gras(`Conclusion : `);
       } // fin de la correction détaillée
       // correction courte :
       if (nbA1 > nbA2) {
-        texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+        texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
        } else {
          if (nbA1 == nbA2) {
-          texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+          texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
            } else {
-           texte_corr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+           texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
          }
      }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
       i++;
     }
     cpt++
   }
-  liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+  listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
 }

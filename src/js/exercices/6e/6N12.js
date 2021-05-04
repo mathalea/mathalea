@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre,modal_url} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modal_url} from '../../modules/outils.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 
 /**
@@ -11,31 +11,31 @@ export default function Multiplier_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer";
-  this.nb_questions = 8;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 8;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 2;
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.bouton_aide = modal_url(numero_de_l_exercice, 'https://mathix.org/glisse-nombre/index.html',
+  this.nouvelleVersion = function (numeroExercice) {
+    this.boutonAide = modal_url(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
       "Glisse-nombre"
     );
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9];
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let liste_de_b = []
     if (this.sup == 2) {
-      liste_de_b = combinaison_listes([10, 100, 1000, 10000, 100000], this.nb_questions)
+      liste_de_b = combinaisonListes([10, 100, 1000, 10000, 100000], this.nbQuestions)
     } else {
-      liste_de_b = combinaison_listes([10, 100, 1000], this.nb_questions)
+      liste_de_b = combinaisonListes([10, 100, 1000], this.nbQuestions)
     }
     for (
-      let i = 0, texte, texte_corr, a, b, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, b, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       switch (liste_type_de_questions[i]) {
@@ -71,22 +71,22 @@ export default function Multiplier_entier_par_10_100_1000() {
 
       b = liste_de_b[i]
       if (choice([true, false])) {
-        texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`
-        texte_corr = `$${tex_nombre(a)}\\times${tex_nombre(b)}=${tex_nombre(a * b)}$`
+        texte = `$${texNombre(a)}\\times${texNombre(b)}$`
+        texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a * b)}$`
       } else {
-        texte = `$${tex_nombre(b)}\\times${tex_nombre(a)}$`
-        texte_corr = `$${tex_nombre(b)}\\times${tex_nombre(a)}=${tex_nombre(a * b)}$`
+        texte = `$${texNombre(b)}\\times${texNombre(a)}$`
+        texteCorr = `$${texNombre(b)}\\times${texNombre(a)}=${texNombre(a * b)}$`
       }
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Multiplication par 10, 100 ou 1 000\n2 : Multiplication par 10, 100, 1 000, 10 000 ou 100 000'];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par 10, 100 ou 1 000\n2 : Multiplication par 10, 100, 1 000, 10 000 ou 100 000'];
 }
 

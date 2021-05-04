@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-/* globals mathalea sortie_html */
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondi_virgule, calcul, lettre_depuis_chiffre, tex_nombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+/* globals mathalea sortieHtml */
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 
 /*
   MathALEA2D
@@ -282,7 +282,7 @@ function TracePointSurDroite (A, O) {
   this.x = A.x
   this.y = A.y
   let M, d
-  // if (sortie_html) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
+  // if (sortieHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
   // else taille = 0.2/scale
 
   if (O.constructor === Point) {
@@ -3431,7 +3431,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   let lettre, chiffre
   objets.push(grille(calcul(x - rang * this.taille / 2), calcul(y - rang * this.taille / 2), calcul(x + rang * this.taille / 2), calcul(y + rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
-    lettre = texteParPosition(lettre_depuis_chiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
     chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
@@ -3484,7 +3484,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     rayon.color = this.color
     rayon.opacite = this.opacite
     objets.push(rayon)
-    objets.push(texteParPoint(lettre_depuis_chiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
+    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
   }
   for (let i = 0; i < this.rang; i++) {
     c = cercle(point(this.x, this.y), this.taille * (1 + i))
@@ -3558,7 +3558,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
       numero.contour = true
       objets.push(numero)
     }
@@ -4699,7 +4699,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = label
       sizelabel = 30
     } else {
-      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
     return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
@@ -4715,7 +4715,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = label
       sizelabel = 30
     } else {
-      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
       sizelabel = 20
     }
     return '\n' + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
@@ -4938,7 +4938,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
     const d = droite(this.centre, P)
     d.isVisible = false
-    const mesure = arrondi_virgule(Math.abs(angle), 0) + '°'
+    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
     objets.push(arcangle)
@@ -4972,7 +4972,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
-    const mesure = arrondi_virgule(Math.abs(angle), 0) + '°'
+    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
@@ -4991,7 +4991,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / mathalea.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
-    const mesure = arrondi_virgule(Math.abs(angle), 0) + '°'
+    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
@@ -5009,7 +5009,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
-    const mesure = arrondi_virgule(Math.abs(angle), 0) + '°'
+    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
@@ -6166,7 +6166,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', true)
+    const l = texteParPosition(texNombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -6175,7 +6175,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
+    const l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -8877,7 +8877,7 @@ export function scratchblock (stringLatex) {
     console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
     return false
   }
-  if (!sortie_html) {
+  if (!sortieHtml) {
     codeScratch = stringLatex
   } else {
     codeScratch = '<pre class=\'blocks\'>'
@@ -8978,9 +8978,9 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   const fenetreymin = fenetreMathalea2d[3] * -(1)
   const fenetrexmax = fenetreMathalea2d[2]
   const fenetreymax = fenetreMathalea2d[1] * (-1)
-  const sortie = sortie_html
+  const sortie = sortieHtml
   // eslint-disable-next-line no-global-assign
-  sortie_html = false
+  sortieHtml = false
   if (scale === 1) {
     code += '\\begin{tikzpicture}[baseline]\n'
   } else {
@@ -9020,7 +9020,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   }
   code += '\\end{tikzpicture}\n'
   // eslint-disable-next-line no-global-assign
-  sortie_html = sortie
+  sortieHtml = sortie
   return code
 }
 
@@ -9038,7 +9038,7 @@ export function mathalea2d (
   ...objets
 ) {
   let code = ''
-  if (sortie_html) {
+  if (sortieHtml) {
     code = `<svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${(ymax - ymin) * pixelsParCm
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
@@ -9164,7 +9164,7 @@ function pattern ({
   opaciteDeRemplissage = 0.5
 }) {
   let myPattern = ''
-  if (sortie_html) {
+  if (sortieHtml) {
     if (couleurDeRemplissage.length < 1) {
       couleurDeRemplissage = 'none'
     }

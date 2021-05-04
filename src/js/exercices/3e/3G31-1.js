@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,calcul,creerNomDePolygone,tex_nombre,choice} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,creerNomDePolygone,texNombre,choice} from '../../modules/outils.js'
 import {point,labelPoint,polygone,similitude,codageAngleDroit,codeAngle,mathalea2d,afficheMesureAngle,afficheLongueurSegment,longueur,angle,texteSurSegment} from '../../modules/2d.js'
 
 
@@ -15,23 +15,23 @@ export default function MonSuperExerciceTropBeau() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer la mesure de tous les angles de cette figure.";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
-  this.spacing_corr = 3;
-  this.correction_detaillee_disponible = true;
-  sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1; // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
+  this.spacingCorr = 3;
+  this.correctionDetailleeDisponible = true;
+  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
   //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_question =  choice(['BA-AD-BAC','BA-AD-ACB']);
-    let texte, texte_corr;
+    let texte, texteCorr;
 
     let B = point(0,0,'','below')
     let A = point(randint(4,7),0,'','below')
@@ -75,26 +75,26 @@ export default function MonSuperExerciceTropBeau() {
         }
         texte = mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},liste_objets_mathalea );
         if (!this.sup) {
-          texte += `<br>On a $${B.nom+A.nom} = ${tex_nombre(BA)}$ cm, $${A.nom+D.nom} = ${tex_nombre(AD)}$ cm et $\\widehat{${B.nom+A.nom+C.nom}}=${BAC}°$.`
+          texte += `<br>On a $${B.nom+A.nom} = ${texNombre(BA)}$ cm, $${A.nom+D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${B.nom+A.nom+C.nom}}=${BAC}°$.`
         }
-        texte_corr = ''
-        if (this.correction_detaillee) {
+        texteCorr = ''
+        if (this.correctionDetaillee) {
           let texte1 = texteSurSegment('hypoténuse',C,A) 
           let texte2 = texteSurSegment('adjacent',A,B,'black',1)
-          texte_corr += mathalea2d({xmin : -1 , ymin : -2, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1c,t2,c1,c2,a1,a2,labels,texte1,texte2 );
-          texte_corr += '<br>'  
+          texteCorr += mathalea2d({xmin : -1 , ymin : -2, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1c,t2,c1,c2,a1,a2,labels,texte1,texte2 );
+          texteCorr += '<br>'  
         }
-        texte_corr += `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
-        texte_corr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${tex_nombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${tex_nombre(BA)}}{\\cos(${BAC}°)}\\approx${tex_nombre(AC)}$ cm.`
-        if (this.correction_detaillee) {
+        texteCorr += `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texteCorr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${texNombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${texNombre(BA)}}{\\cos(${BAC}°)}\\approx${texNombre(AC)}$ cm.`
+        if (this.correctionDetaillee) {
           let texte3 = texteSurSegment('adjacent',C,A) 
           let texte4 = texteSurSegment('opposé',A,D,'black')
-          texte_corr += '<br><br>' + mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1,t2c,c1,c2,a3,a4,a5,labels,texte3,texte4 );
+          texteCorr += '<br><br>' + mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1,t2c,c1,c2,a3,a4,a5,labels,texte3,texte4 );
         }
-        texte_corr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
-        texte_corr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}=\\text{arctan}\\left(\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\right)\\approx${ACD}$°.`
-        texte_corr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
-        texte_corr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
+        texteCorr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\right)\\approx${ACD}$°.`
+        texteCorr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
+        texteCorr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
         break;
     case 'BA-AD-ACB': 
         AC = calcul(BA/Math.sin(Math.radians(ACB)),1);
@@ -105,33 +105,33 @@ export default function MonSuperExerciceTropBeau() {
         }
         texte = mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},liste_objets_mathalea );
         if (!this.sup) {
-          texte += `<br>On a $${B.nom+A.nom} = ${tex_nombre(BA)}$ cm, $${A.nom+D.nom} = ${tex_nombre(AD)}$ cm et $\\widehat{${A.nom+C.nom+B.nom}}=${ACB}°$.`
+          texte += `<br>On a $${B.nom+A.nom} = ${texNombre(BA)}$ cm, $${A.nom+D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${A.nom+C.nom+B.nom}}=${ACB}°$.`
         }
-        texte_corr = ''
-        if (this.correction_detaillee) {
+        texteCorr = ''
+        if (this.correctionDetaillee) {
           let texte1 = texteSurSegment('hypoténuse',C,A) 
           let texte2 = texteSurSegment('opposé',A,B,'black',1)
-          texte_corr += mathalea2d({xmin : -1 , ymin : -2, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1c,t2,c1,c2,a1,a2,labels,texte1,texte2 );
-          texte_corr += '<br>'  
+          texteCorr += mathalea2d({xmin : -1 , ymin : -2, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1c,t2,c1,c2,a1,a2,labels,texte1,texte2 );
+          texteCorr += '<br>'  
         }
-        texte_corr += `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\sin\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
-        texte_corr += `soit $\\quad\\sin(${ACB}°)=\\dfrac{${tex_nombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${tex_nombre(BA)}}{\\sin(${ACB}°)}\\approx${tex_nombre(AC)}$ cm.`
-        if (this.correction_detaillee) {
+        texteCorr += `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\sin\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texteCorr += `soit $\\quad\\sin(${ACB}°)=\\dfrac{${texNombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${texNombre(BA)}}{\\sin(${ACB}°)}\\approx${texNombre(AC)}$ cm.`
+        if (this.correctionDetaillee) {
           let texte3 = texteSurSegment('adjacent',C,A) 
           let texte4 = texteSurSegment('opposé',A,D,'black')
-          texte_corr += '<br><br>' + mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1,t2c,c1,c2,a3,a4,a5,labels,texte3,texte4 );
+          texteCorr += '<br><br>' + mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : Math.max(C.y,D.y)+1},t1,t2c,c1,c2,a3,a4,a5,labels,texte3,texte4 );
         }
-        texte_corr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
-        texte_corr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}=\\text{arctan}\\left(\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\right)\\approx${ACD}$°.`
-        texte_corr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
-        texte_corr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
+        texteCorr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\right)\\approx${ACD}$°.`
+        texteCorr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
+        texteCorr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
         break;
     }
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_case_a_cocher = ['Figure codée'];
+  this.besoinFormulaireCaseACocher = ['Figure codée'];
 }
 
 

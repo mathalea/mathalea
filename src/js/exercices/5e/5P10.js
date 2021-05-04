@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,texte_en_couleur_et_gras,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tab_C_L} from '../../modules/outils.js'
 export const titre = 'Tableaux et proportionnalité.'
 
 /** 
@@ -14,23 +14,23 @@ export default function Tableaux_et_proportionnalite() {
 	this.debug = false;
 	this.sup = 1;
 	if (this.debug) {
-		this.nb_questions = 6;
+		this.nbQuestions = 6;
 	} else {
-		this.nb_questions = 4;
+		this.nbQuestions = 4;
 	};
 
 	this.titre = titre;
 	this.consigne = `Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.`;
 
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	//this.nbQuestionsModifiable = false;
+	sortieHtml ? this.spacing = 3 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
 	let type_de_questions_disponibles;
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		if (this.debug) {
 			type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
 		} else {
@@ -39,13 +39,13 @@ export default function Tableaux_et_proportionnalite() {
 			type_de_questions_disponibles = shuffle(type_de_questions_disponibles);
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
 			let n1 = randint(5, 9);
 			let n2 = randint(5, 9, [n1]);
@@ -72,10 +72,10 @@ export default function Tableaux_et_proportionnalite() {
 				let sortie;
 				switch (sens) {
 					case 'L1L2':
-						sortie = `$\\dfrac{\\textcolor{blue}{${tex_nombre(n1)}}}{\\textcolor{red}{${tex_nombre(n1 * coeff)}}} = \\dfrac{\\textcolor{blue}{${tex_nombre(n2)}}}{\\textcolor{red}{${tex_nombre(n2 * coeff)}}} = \\dfrac{\\textcolor{blue}{${tex_nombre(n3)}}}{\\textcolor{red}{${tex_nombre(n3 * coeff)}}}$`;
+						sortie = `$\\dfrac{\\textcolor{blue}{${texNombre(n1)}}}{\\textcolor{red}{${texNombre(n1 * coeff)}}} = \\dfrac{\\textcolor{blue}{${texNombre(n2)}}}{\\textcolor{red}{${texNombre(n2 * coeff)}}} = \\dfrac{\\textcolor{blue}{${texNombre(n3)}}}{\\textcolor{red}{${texNombre(n3 * coeff)}}}$`;
 						break;
 					case 'L2L1':
-						sortie = `$\\dfrac{\\textcolor{red}{${tex_nombre(n1 * coeff)}}}{\\textcolor{blue}{${tex_nombre(n1)}}} = \\dfrac{\\textcolor{red}{${tex_nombre(n2 * coeff)}}}{\\textcolor{blue}{${tex_nombre(n2)}}} = \\dfrac{\\textcolor{red}{${tex_nombre(n3 * coeff)}}}{\\textcolor{blue}{${tex_nombre(n3)}}}$`;
+						sortie = `$\\dfrac{\\textcolor{red}{${texNombre(n1 * coeff)}}}{\\textcolor{blue}{${texNombre(n1)}}} = \\dfrac{\\textcolor{red}{${texNombre(n2 * coeff)}}}{\\textcolor{blue}{${texNombre(n2)}}} = \\dfrac{\\textcolor{red}{${texNombre(n3 * coeff)}}}{\\textcolor{blue}{${texNombre(n3)}}}$`;
 						break;
 				};
 				return sortie;
@@ -104,18 +104,18 @@ export default function Tableaux_et_proportionnalite() {
 				};
 				switch (operation) {
 					case '+':
-						sortie = `$\\dfrac{\\textcolor{${color2}}{${tex_nombre(n1)}}}{\\textcolor{${color1}}{${tex_nombre(n1 + coeff)}}}`;
+						sortie = `$\\dfrac{\\textcolor{${color2}}{${texNombre(n1)}}}{\\textcolor{${color1}}{${texNombre(n1 + coeff)}}}`;
 						sortie += isEq(n1, n2, coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n2)}}}{\\textcolor{${color1}}{${tex_nombre(n2 + coeff)}}}`;
+						sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n2)}}}{\\textcolor{${color1}}{${texNombre(n2 + coeff)}}}`;
 						sortie += isEq(n2, n3, coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n3)}}}{\\textcolor{${color1}}{${tex_nombre(n3 + coeff)}}}$`;
+						sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n3)}}}{\\textcolor{${color1}}{${texNombre(n3 + coeff)}}}$`;
 						break;
 					case '-':
-						sortie = `$\\dfrac{\\textcolor{${color2}}{${tex_nombre(n1)}}}{\\textcolor{${color1}}{${tex_nombre(n1 - coeff)}}}`;
+						sortie = `$\\dfrac{\\textcolor{${color2}}{${texNombre(n1)}}}{\\textcolor{${color1}}{${texNombre(n1 - coeff)}}}`;
 						sortie += isEq(n1, n2, coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n2)}}}{\\textcolor{${color1}}{${tex_nombre(n2 - coeff)}}}`;
+						sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n2)}}}{\\textcolor{${color1}}{${texNombre(n2 - coeff)}}}`;
 						sortie += isEq(n2, n3, coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n3)}}}{\\textcolor{${color1}}{${tex_nombre(n3 - coeff)}}}$`;
+						sortie += `\\dfrac{\\textcolor{${color2}}{${texNombre(n3)}}}{\\textcolor{${color1}}{${texNombre(n3 - coeff)}}}$`;
 						break;
 				};
 				return sortie;
@@ -137,8 +137,8 @@ export default function Tableaux_et_proportionnalite() {
 				},
 				{//case 1 --> multiplication ligne1 vers ligne2 Décimaux
 					tableau: tab_C_L(
-						[`\\phantom{000}` + tex_nombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + tex_nombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + tex_nombre(u3 + ci3 / 10) + `\\phantom{000}`],
-						[tex_nombre((u1 + ci1 / 10) * coeff)], [tex_nombre((u2 + ci2 / 10) * coeff), tex_nombre((u3 + ci3 / 10) * coeff)]
+						[`\\phantom{000}` + texNombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u3 + ci3 / 10) + `\\phantom{000}`],
+						[texNombre((u1 + ci1 / 10) * coeff)], [texNombre((u2 + ci2 / 10) * coeff), texNombre((u3 + ci3 / 10) * coeff)]
 					),
 					justification_L1_L2: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L2L1'),
@@ -169,8 +169,8 @@ export default function Tableaux_et_proportionnalite() {
 				},
 				{//case 4 --> addition ligne1 vers ligne2 Décimaux
 					tableau: tab_C_L(
-						[`\\phantom{000}` + tex_nombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + tex_nombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + tex_nombre(u3 + ci3 / 10) + `\\phantom{000}`],
-						[tex_nombre((u1 + ci1 / 10) + coeff)], [tex_nombre((u2 + ci2 / 10) + coeff), tex_nombre((u3 + ci3 / 10) + coeff)]
+						[`\\phantom{000}` + texNombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u3 + ci3 / 10) + `\\phantom{000}`],
+						[texNombre((u1 + ci1 / 10) + coeff)], [texNombre((u2 + ci2 / 10) + coeff), texNombre((u3 + ci3 / 10) + coeff)]
 					),
 					justification_L1_L2: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L1L2'),
 					justification_L2_L1: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L2L1'),
@@ -214,9 +214,9 @@ export default function Tableaux_et_proportionnalite() {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[0].correction}`;
+						texteCorr = `${enonces[0].correction}`;
 					};
 					break;
 				case 1:
@@ -224,9 +224,9 @@ export default function Tableaux_et_proportionnalite() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[1].correction}`;
+						texteCorr = `${enonces[1].correction}`;
 					};
 					break;
 				case 2:
@@ -234,9 +234,9 @@ export default function Tableaux_et_proportionnalite() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[2].correction}`;
+						texteCorr = `${enonces[2].correction}`;
 					};
 					break;
 				case 3:
@@ -244,9 +244,9 @@ export default function Tableaux_et_proportionnalite() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[3].correction}`;
+						texteCorr = `${enonces[3].correction}`;
 					};
 					break;
 				case 4:
@@ -254,9 +254,9 @@ export default function Tableaux_et_proportionnalite() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[4].correction}`;
+						texteCorr = `${enonces[4].correction}`;
 					};
 					break;
 				case 5:
@@ -264,24 +264,24 @@ export default function Tableaux_et_proportionnalite() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[5].correction}`;
+						texteCorr = `${enonces[5].correction}`;
 					};
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 

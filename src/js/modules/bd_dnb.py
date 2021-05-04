@@ -78,7 +78,7 @@ for (dirpath, dirnames, filenames) in os.walk('./tex/'):
             listeDNB[nomFichier]["png"] = f"/tex/png/{nomFichier}.png"
             listeDNB[nomFichier]["urlcor"] = f"/tex/{nomFichier}_cor.tex"
             listeDNB[nomFichier]["pngcor"] = f"/tex/png/{nomFichier}_cor.png"
-            listeDNB[nomFichier]["type_exercice"] = "dnb"
+            listeDNB[nomFichier]["typeExercice"] = "dnb"
             listeDNB[nomFichier]["annee"] = nomFichier[4:8]
             listeDNB[nomFichier]["mois"] = mois[int(nomFichier[9:11])]
             listeDNB[nomFichier]["lieu"] = nomDeLieu(nomFichier.split('_')[3])

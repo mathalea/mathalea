@@ -10,11 +10,11 @@ export default function beta_rotation3d() {
     this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
-    this.nb_questions = 1;
+    this.nbQuestions = 1;
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let objets=[]
         let O=point3d(0,0,0)
         let C=point3d(0,-2,0)

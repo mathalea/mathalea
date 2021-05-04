@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,mise_en_evidence,katex_Popup2,fraction_simplifiee} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,miseEnEvidence,katex_Popup2,fractionSimplifiee} from '../../modules/outils.js'
 
 
 
@@ -24,58 +24,58 @@ export default function Tables_additions_soustractions() {
   this.tailleDiaporama = 100;
 
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_type_de_questions = [];
     if (this.sup2 == 1) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["addition"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup2 == 2) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["addition_a_trou"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup2 == 3) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["soustraction"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup2 == 4) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["soustraction_a_trou"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup2 == 5) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["addition", "soustraction"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup2 == 6) {
-      liste_type_de_questions = combinaison_listes(
+      liste_type_de_questions = combinaisonListes(
         ["addition", "addition_a_trou", "soustraction", "soustraction_a_trou"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
-    for (let i = 0, a, b, texte, texte_corr; i < this.nb_questions; i++) {
+    for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = randint(2, this.sup);
       b = randint(2, this.sup);
 
       switch (liste_type_de_questions[i]) {
         case "addition":
           texte = `$${a} + ${b} = \\dotfill$`;
-          texte_corr = `$${a} + ${b} = ${a + b}$`;
+          texteCorr = `$${a} + ${b} = ${a + b}$`;
           break;
         case "addition_a_trou":
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`;
-          texte_corr = `$${a} + ${mise_en_evidence(b)} = ${a + b}$`;
+          texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`;
           break;
         case "soustraction":
           if (a == b) {
@@ -85,7 +85,7 @@ export default function Tables_additions_soustractions() {
             b = [a, (a = b)][0]; //échange les variables a et b
           }
           texte = `$${a} - ${b} = \\dotfill$`;
-          texte_corr = `$${a} - ${b} = ${a - b}$`;
+          texteCorr = `$${a} - ${b} = ${a - b}$`;
           break;
         case "soustraction_a_trou":
           if (a == b) {
@@ -95,19 +95,19 @@ export default function Tables_additions_soustractions() {
             b = [a, (a = b)][0]; //échange les variables a et b
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`;
-          texte_corr = `$${a} - ${mise_en_evidence(b)} = ${a - b}$`;
+          texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`;
           break;
       }
 
       if (est_diaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ["Valeur maximale", 9999]; // Texte, tooltip
+  this.besoinFormulaireNumerique = ["Valeur maximale", 9999]; // Texte, tooltip
   this.besoin_formulaire2_numerique = [
     "Style de questions",
     6,

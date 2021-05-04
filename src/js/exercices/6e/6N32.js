@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes} from '../../modules/outils.js'
 import {grille,seyes,mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
 export const titre = 'Représenter une fraction de l’unité'
@@ -14,28 +14,28 @@ export default function Fractions_d_unite() {
   "use strict"
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
-  this.nb_questions = 5;
+  this.nbQuestions = 5;
   this.consigne = "Colorier en bleu un segment de longueur ...";
-  sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
-  sortie_html ? (this.spacing = 2) : (this.spacing = 2);
+  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
+  sortieHtml ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
   this.sup2 = 1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles, g, carreaux, sc, unit
     let liste_type_de_questions = []
     if (this.sup < 5)
       type_de_questions_disponibles = [parseInt(this.sup)]
     else
       type_de_questions_disponibles = [1, 2, 3, 4]
-    liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     for (
-      let i = 0, den, num, frac, frac_unite, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, den, num, frac, frac_unite, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       switch (liste_type_de_questions[i]) {
@@ -76,20 +76,20 @@ export default function Fractions_d_unite() {
       }
 
 
-      texte_corr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
+      texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
 
 
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ["Type d\'exercices", 4, "1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
+  this.besoinFormulaireNumerique = ["Type d\'exercices", 4, "1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
   this.besoin_formulaire2_numerique = ["Type de cahier", 2, "1 :  petits carreaux\n2 : Cahier gros carreaux type Seyes"];
 }

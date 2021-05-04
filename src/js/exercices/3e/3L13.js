@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_parenthese_si_negatif,signe,abs,pgcd,tex_fraction_reduite,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
 
 export const titre = 'Équation du premier degré'
 
@@ -17,18 +17,18 @@ export default function Exercice_equation1() {
   this.titre = titre;
   this.consigne = "Résoudre les équations suivantes";
   this.spacing = 2;
-  sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2);
-  this.correction_detaillee_disponible = true;
-  if (!sortie_html) {
-    this.correction_detaillee = false;
+  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
+  this.correctionDetailleeDisponible = true;
+  if (!sortieHtml) {
+    this.correctionDetaillee = false;
   }
   this.sup = true; // Avec des nombres relatifs
   this.sup2 = 4; // Choix du type d'équation
-  this.nb_questions = 6;
+  this.nbQuestions = 6;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_type_de_questions
     switch (this.sup2.toString()) {
       case "1":
@@ -50,11 +50,11 @@ export default function Exercice_equation1() {
         ];
         break;
     }
-    liste_type_de_questions = combinaison_listes(
+    liste_type_de_questions = combinaisonListes(
       liste_type_de_questions,
-      this.nb_questions
+      this.nbQuestions
     );
-    for (let i = 0, a, b, c, d, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(2, 13);
       b = randint(1, 13);
@@ -75,30 +75,30 @@ export default function Exercice_equation1() {
           b = randint(1, 9);
           c = randint(b, 15); // c sera plus grand que b pour que c-b>0
         }
-        texte = `$${a}x${ecriture_algebrique(b)}=${c}$`;
-        texte_corr = texte + "<br>";
-        if (this.correction_detaillee) {
+        texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`;
+        texteCorr = texte + "<br>";
+        if (this.correctionDetaillee) {
           if (b > 0) {
-            texte_corr += `On soustrait $${b}$ aux deux membres.<br>`;
+            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`;
           } else {
-            texte_corr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
+            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
           }
         }
-        texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(
-          ecriture_algebrique(-1 * b)
-        )}=${c}${mise_en_evidence(ecriture_algebrique(-1 * b))}$<br>`;
-        texte_corr += `$${a}x=${c - b}$<br>`;
-        if (this.correction_detaillee) {
-          texte_corr += `On divise les deux membres par $${a}$.<br>`;
+        texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
+          ecritureAlgebrique(-1 * b)
+        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`;
+        texteCorr += `$${a}x=${c - b}$<br>`;
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a}$.<br>`;
         }
-        texte_corr += `$${a}x${mise_en_evidence(
-          "\\div" + ecriture_parenthese_si_negatif(a)
-        )}=${c - b + mise_en_evidence("\\div" + ecriture_parenthese_si_negatif(a))}$<br>`;
-        texte_corr += `$x=${tex_fraction(c - b, a)}$`;
+        texteCorr += `$${a}x${miseEnEvidence(
+          "\\div" + ecritureParentheseSiNegatif(a)
+        )}=${c - b + miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a))}$<br>`;
+        texteCorr += `$x=${tex_fraction(c - b, a)}$`;
         if (pgcd(abs(a), abs(c - b)) > 1 || a < 0) {
-          texte_corr += `<br>$x=${tex_fraction_reduite(c - b, a)}$`;
+          texteCorr += `<br>$x=${texFractionReduite(c - b, a)}$`;
         }
-        texte_corr += `<br> La solution est $${tex_fraction_reduite(
+        texteCorr += `<br> La solution est $${texFractionReduite(
           c - b,
           a
         )}$.`;
@@ -108,35 +108,35 @@ export default function Exercice_equation1() {
           b = randint(-9, 9, [0]); // b peut être négatif, ça sera une équation du type x-b=c
           c = abs(randint(b, 15)); // c sera plus grand que b pour que c-b>0
         }
-        texte = `$x${ecriture_algebrique(b)}=${c}$`;
-        texte_corr = texte + "<br>";
-        if (this.correction_detaillee) {
+        texte = `$x${ecritureAlgebrique(b)}=${c}$`;
+        texteCorr = texte + "<br>";
+        if (this.correctionDetaillee) {
           if (b > 0) {
-            texte_corr += `On soustrait $${b}$ aux deux membres.<br>`;
+            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`;
           } else {
-            texte_corr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
+            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
           }
         }
-        texte_corr += `$x${ecriture_algebrique(b)}${mise_en_evidence(
-          ecriture_algebrique(-1 * b)
-        )}=${c}${mise_en_evidence(ecriture_algebrique(-1 * b))}$<br>`;
-        texte_corr += `$x=${c - b}$`;
-        texte_corr += `<br> La solution est $${c - b}$.`;
+        texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
+          ecritureAlgebrique(-1 * b)
+        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`;
+        texteCorr += `$x=${c - b}$`;
+        texteCorr += `<br> La solution est $${c - b}$.`;
       }
       if (liste_type_de_questions[i] == "ax=b") {
         texte = `$${a}x=${b}$`;
-        texte_corr = texte + "<br>";
-        if (this.correction_detaillee) {
-          texte_corr += `On divise les deux membres par $${a}$.<br>`;
+        texteCorr = texte + "<br>";
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a}$.<br>`;
         }
-        texte_corr += `$${a}x${mise_en_evidence(
-          "\\div" + ecriture_parenthese_si_negatif(a)
-        )}=${b + mise_en_evidence("\\div" + ecriture_parenthese_si_negatif(a))}$<br>`;
-        texte_corr += `$x=${tex_fraction(b, a)}$`;
+        texteCorr += `$${a}x${miseEnEvidence(
+          "\\div" + ecritureParentheseSiNegatif(a)
+        )}=${b + miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a))}$<br>`;
+        texteCorr += `$x=${tex_fraction(b, a)}$`;
         if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
-          texte_corr += `<br>$x=${tex_fraction_reduite(b, a)}$`;
+          texteCorr += `<br>$x=${texFractionReduite(b, a)}$`;
         }
-        texte_corr += `<br> La solution est $${tex_fraction_reduite(b, a)}$.`;
+        texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`;
       }
       if (liste_type_de_questions[i] == "ax+b=cx+d") {
         if (c == a) {
@@ -150,74 +150,74 @@ export default function Exercice_equation1() {
           b = randint(1, 9);
           d = randint(b + 1, 15); // d sera plus grand que b pour que d-b>0
         }
-        texte = `$${rien_si_1(a)}x${ecriture_algebrique(b)}=${rien_si_1(
+        texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
           c
-        )}x${ecriture_algebrique(d)}$`;
-        texte_corr = texte + "<br>";
-        if (this.correction_detaillee) {
+        )}x${ecritureAlgebrique(d)}$`;
+        texteCorr = texte + "<br>";
+        if (this.correctionDetaillee) {
           if (c > 0) {
-            texte_corr += `On soustrait $${rien_si_1(
+            texteCorr += `On soustrait $${rienSi1(
               c
             )}x$ aux deux membres.<br>`;
           } else {
-            texte_corr += `On ajoute $${rien_si_1(
+            texteCorr += `On ajoute $${rienSi1(
               -1 * c
             )}x$ aux deux membres.<br>`;
           }
         }
-        texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(
+        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
           b
-        )}${mise_en_evidence(
-          signe(-1 * c) + rien_si_1(abs(c)) + "x"
-        )}=${c}x${ecriture_algebrique(d)}${mise_en_evidence(
-          signe(-1 * c) + rien_si_1(abs(c)) + "x"
+        )}${miseEnEvidence(
+          signe(-1 * c) + rienSi1(abs(c)) + "x"
+        )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
+          signe(-1 * c) + rienSi1(abs(c)) + "x"
         )}$<br>`;
-        texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(
+        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
           b
         )}=${d}$<br>`;
-        if (this.correction_detaillee) {
+        if (this.correctionDetaillee) {
           if (b > 0) {
-            texte_corr += `On soustrait $${b}$ aux deux membres.<br>`;
+            texteCorr += `On soustrait $${b}$ aux deux membres.<br>`;
           } else {
-            texte_corr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
+            texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`;
           }
         }
-        texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(
+        texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
           b
-        )}${mise_en_evidence(
-          ecriture_algebrique(-1 * b)
-        )}=${d}${mise_en_evidence(ecriture_algebrique(-1 * b))}$<br>`;
-        texte_corr += `$${rien_si_1(a - c)}x=${d - b}$<br>`;
+        )}${miseEnEvidence(
+          ecritureAlgebrique(-1 * b)
+        )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`;
+        texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`;
 
-        if (this.correction_detaillee) {
-          texte_corr += `On divise les deux membres par $${a - c}$.<br>`;
+        if (this.correctionDetaillee) {
+          texteCorr += `On divise les deux membres par $${a - c}$.<br>`;
         }
-        texte_corr += `$${rien_si_1(a - c)}x${mise_en_evidence(
-          "\\div" + ecriture_parenthese_si_negatif(a - c)
+        texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
+          "\\div" + ecritureParentheseSiNegatif(a - c)
         )}=${d -
         b +
-        mise_en_evidence("\\div" + ecriture_parenthese_si_negatif(a - c))}$<br>`;
-        texte_corr += `$x=${tex_fraction(d - b, a - c)}$`;
+        miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a - c))}$<br>`;
+        texteCorr += `$x=${tex_fraction(d - b, a - c)}$`;
         if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
-          texte_corr += `<br>$x=${tex_fraction_reduite(d - b, a - c)}$`;
+          texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`;
         }
-        texte_corr += `<br> La solution est $${tex_fraction_reduite(
+        texteCorr += `<br> La solution est $${texFractionReduite(
           d - b,
           a - c
         )}$.`;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte); //replace(/1x/g,'x')); //remplace 1x par x
-        this.liste_corrections.push(texte_corr); //.replace(/1x/g,'x')); //remplace 1x par x
+        this.listeQuestions.push(texte); //replace(/1x/g,'x')); //remplace 1x par x
+        this.listeCorrections.push(texteCorr); //.replace(/1x/g,'x')); //remplace 1x par x
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_case_a_cocher = ["Avec des nombres relatifs"];
+  this.besoinFormulaireCaseACocher = ["Avec des nombres relatifs"];
   this.besoin_formulaire2_numerique = [
     "Type d'équations",
     4,

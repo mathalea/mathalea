@@ -1,6 +1,6 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, shuffle, arrondi, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, shuffle, arrondi, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires de disques'
 
@@ -16,17 +16,17 @@ export const titre = 'Périmètres et aires de disques'
  */
 export default function Perimetre_aire_disques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.pas_de_version_LaTeX = true
+  this.pasDeVersionLatex = true
   this.titre = titre
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.spacing = 2
-  this.spacing_corr = 2
-  this.nb_questions = 1
-  this.nb_questions_modifiable = false
+  this.spacingCorr = 2
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_questions = []
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = []
+    this.listeCorrections = [] // Liste de questions corrigées
     const tableau_des_rayons = shuffle([2, 3, 4, 5, 6, 7, 8]) // pour s'assurer que les 4 rayons sont différents
     const r1 = tableau_des_rayons[0]
     const r2 = tableau_des_rayons[1]
@@ -74,92 +74,92 @@ export default function Perimetre_aire_disques (pa = 3) {
     this.consigne +=
       '</br>Donner la valeur exacte et une valeur approchée au dixième près.'
 
-    let texte_corr = ''
+    let texteCorr = ''
     if (this.sup === 1 || this.sup === '1') {
       // si on ne demande pas les aires
-      texte_corr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
-        }\\pi\\approx${tex_nombre(
+      texteCorr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
+        }\\pi\\approx${texNombre(
           arrondi(2 * r1 * Math.PI, 1)
         )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${texNombre(
         arrondi(2 * r2 * Math.PI, 1)
       )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${texNombre(
         arrondi(2 * r3 * Math.PI, 1)
       )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
+        }\\pi\\approx${texNombre(
           arrondi(2 * r4 * Math.PI, 1)
         )}$ cm<br>`
     }
 
     if (this.sup === 2 || this.sup === '2') {
-      texte_corr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
+        }\\pi\\approx${texNombre(
           arrondi(r1 * r1 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
+      texteCorr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
         } cm donc son rayon est ${r2} cm.<br>`
-      texte_corr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
+        }\\pi\\approx${texNombre(
           arrondi(r2 * r2 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
+      texteCorr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
         } cm donc son rayon est ${r3} cm.<br>`
-      texte_corr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
+        }\\pi\\approx${texNombre(
           arrondi(r3 * r3 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
+        }\\pi\\approx${texNombre(
           arrondi(r4 * r4 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
     }
 
     if (this.sup === 3 || this.sup === '3') {
-      texte_corr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
-        }\\pi\\approx${tex_nombre(
+      texteCorr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
+        }\\pi\\approx${texNombre(
           arrondi(2 * r1 * Math.PI, 1)
         )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${texNombre(
         arrondi(2 * r2 * Math.PI, 1)
       )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${texNombre(
         arrondi(2 * r3 * Math.PI, 1)
       )}$ cm<br>`
-      texte_corr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
+        }\\pi\\approx${texNombre(
           arrondi(2 * r4 * Math.PI, 1)
         )}$ cm<br>`
 
-      texte_corr += '<br>'
+      texteCorr += '<br>'
 
-      texte_corr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
+        }\\pi\\approx${texNombre(
           arrondi(r1 * r1 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
+      texteCorr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
         } cm donc son rayon est ${r2} cm.<br>`
-      texte_corr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
+        }\\pi\\approx${texNombre(
           arrondi(r2 * r2 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
+      texteCorr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
         } cm donc son rayon est ${r3} cm.<br>`
-      texte_corr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
+        }\\pi\\approx${texNombre(
           arrondi(r3 * r3 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
-      texte_corr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
-        }\\pi\\approx${tex_nombre(
+      texteCorr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
+        }\\pi\\approx${texNombre(
           arrondi(r4 * r4 * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
     }
 
-    this.liste_questions.push(texte)
-    this.liste_corrections.push(texte_corr)
-    liste_de_question_to_contenu(this)
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenu(this)
   }
 
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
 }

@@ -10,5 +10,5 @@ export default function Exercice_additionner_des_fractions_6e () {
   this.sup2 = 3
   this.level = 6
   this.titre = titre
-  this.besoin_formulaire_numerique2 = false
+  this.besoinFormulaireNumerique2 = false
 }

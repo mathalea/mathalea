@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes} from '../../modules/outils.js'
 import {mathalea2d,polygoneAvecNom,codeSegments,codageAngleDroit,afficheMesureAngle,codeAngle,afficheLongueurSegment} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js';
 
@@ -9,18 +9,18 @@ export default function Exercice_zero_mathalea2d() {
     "use strict"
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 1; // Ici le nombre de questions
-    this.nb_questions_modifiable=false // Active le formulaire nombre de questions
-    this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-    this.pas_de_version_LaTeX=true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+    this.nbQuestions = 1; // Ici le nombre de questions
+    this.nbQuestionsModifiable=false // Active le formulaire nombre de questions
+    this.nbCols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
+    this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
+    this.pasDeVersionLatex=true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
     this.sup=1;
     this.sup2='ABC'
     this.sup3='3 4 5'
-    this.type_exercice = 'IEP'
+    this.typeExercice = 'IEP'
   
-    this.nouvelle_version = function () {
+    this.nouvelleVersion = function () {
       let params=this.sup3.split(' ');
       let type=parseInt(this.sup);
       let nom=this.sup2;
@@ -74,7 +74,7 @@ export default function Exercice_zero_mathalea2d() {
         let texte = mathalea2d(params_enonce, objets_enonceml)+'<br>'+anim.htmlBouton()
         this.contenu=texte;
     }
-  this.besoin_formulaire_numerique = ['Type de triangle', 6, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l'angle entre ces côtés`]
+  this.besoinFormulaireNumerique = ['Type de triangle', 6, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l'angle entre ces côtés`]
   this.besoin_formulaire2_texte = ["Nom du triangle",`ABC par exemple`];
   this.besoin_formulaire3_texte =['paramètres séparés par des espaces','3 4 5']
   

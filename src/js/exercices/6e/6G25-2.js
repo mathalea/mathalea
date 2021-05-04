@@ -11,5 +11,5 @@ export default function Pavages_et_symetries() {
   Pavages_et_transformations.call(this);
   this.titre = titre;
   this.sup = 1;
-  this.besoin_formulaire_numerique = false;
+  this.besoinFormulaireNumerique = false;
 }

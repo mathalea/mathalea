@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 
@@ -19,26 +19,26 @@ export default function Tester_une_egalite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 3;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 3;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
 	this.sup2 = false;
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles; // = range1(5)
 
-		//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//	let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		if (this.sup2 == false)
 			type_de_questions_disponibles = [1, 2, 3, 4, 5];
 		else
 			type_de_questions_disponibles = [6, 7, 3];
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d, x1, x2, x3;
 			switch (liste_type_de_questions[i]) {
 				case 1: // 3x-a=2x+b   x=a+b  
@@ -57,13 +57,13 @@ export default function Tester_une_egalite() {
 
 					}
 
-					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3 * x1 - a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2 * x1 + b}$<br>`;
-					texte_corr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc l'égalité n'est pas vraie.<br><br>`;
-					texte_corr += `Pour $x=${ecriture_parenthese_si_negatif(x2)}$ : <br>`;
-					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)}=${3 * x2 - a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${2 * x2 + b}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`;
+					texte = `Tester l'égalité $3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)}=${3 * x1 - a}$ <br> $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${2 * x1 + b}$<br>`;
+					texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc l'égalité n'est pas vraie.<br><br>`;
+					texteCorr += `Pour $x=${ecritureParentheseSiNegatif(x2)}$ : <br>`;
+					texteCorr += `$3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)}=${3 * x2 - a}$ <br> $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${2 * x2 + b}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`;
 					break;
 				case 2: // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière  
 					if (this.sup == 1) {
@@ -79,13 +79,13 @@ export default function Tester_une_egalite() {
 						x2 = randint(-9, 9, [0, x1]);
 					}
 
-					texte = `Tester l'égalité $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3 * x1 + a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5 * x1 - b}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3 * x2 + a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5 * x2 - b}$<br>`;
-					texte_corr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc l'égalité n'est pas vraie.`;
+					texte = `Tester l'égalité $3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a)}=${3 * x1 + a}$ <br> $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b)}=${5 * x1 - b}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(a)}=${3 * x2 + a}$ <br> $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b)}=${5 * x2 - b}$<br>`;
+					texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc l'égalité n'est pas vraie.`;
 					break;
 				case 3: // 10(x-a)=4(2x+b) x=(10a+4b)/2
 					if (this.sup == 1) {
@@ -101,13 +101,13 @@ export default function Tester_une_egalite() {
 						x1 = randint(-9, 9, [0, x2]);
 					}
 
-					texte = `Tester l'égalité $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x1 - a}=${10 * (x1 - a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`;
-					texte_corr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x2 - a}=${10 * (x2 - a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`;
+					texte = `Tester l'égalité $10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x1 - a}=${10 * (x1 - a)}$ <br> $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`;
+					texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x2 - a}=${10 * (x2 - a)}$ <br> $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`;
 					break;
 				case 4: // ax+b=(a+1)x-c x=b+c
 					if (this.sup == 1) {
@@ -125,13 +125,13 @@ export default function Tester_une_egalite() {
 						x2 = randint(2, 10, x1) * randint(-1, 1, 0);
 					}
 
-					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a + 1}x-${ecriture_parenthese_si_negatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a * x1 + b}$ <br> $${a + 1}x-${ecriture_parenthese_si_negatif(c)}=${a + 1}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a + 1) * x1 - c}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a * x2 + b}$ <br> $${a + 1}x-${ecriture_parenthese_si_negatif(c)}=${a + 1}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a + 1) * x2 - c}$<br>`;
-					texte_corr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc l'égalité n'est pas vraie.`;
+					texte = `Tester l'égalité $${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${a * x1 + b}$ <br> $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x1 - c}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${a * x2 + b}$ <br> $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x2 - c}$<br>`;
+					texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc l'égalité n'est pas vraie.`;
 					break;
 				case 5: // a-2x=b+2x x=(a-b)/4
 					if (this.sup == 1) {
@@ -148,12 +148,12 @@ export default function Tester_une_egalite() {
 					}
 
 					texte = `Tester l'égalité $${a}-2x=${b}+2x~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x1)}=${a - 2 * x1}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x1)}=${b + 2 * x1}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x2)}=${a - 2 * x2}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x2)}=${b + 2 * x2}$<br>`;
-					texte_corr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc l'égalité n'est pas vraie.`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x1)}=${a - 2 * x1}$ <br> $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x1)}=${b + 2 * x1}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x2)}=${a - 2 * x2}$ <br> $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x2)}=${b + 2 * x2}$<br>`;
+					texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc l'égalité n'est pas vraie.`;
 					break;
 				case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
 					if (this.sup == 1) {
@@ -170,16 +170,16 @@ export default function Tester_une_egalite() {
 						x3 = b;
 						x2 = randint(-9, 9, [x1, x3]);
 					}
-					texte = `Tester l'égalité $${a}x-${ecriture_parenthese_si_negatif(a * b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a * b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a * b)}=${a * x1 - a * b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1 * x1}-${ecriture_parenthese_si_negatif(b * x1)}=${x1 * x1 - b * x1}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a * b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a * b)}=${a * x2 - a * b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2 * x2}-${ecriture_parenthese_si_negatif(b * x2)}=${x2 * x2 - b * x2}$<br>`;
-					texte_corr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br><br>`;
-					texte_corr += `Pour $x=${x3}$ : <br>`;
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a * b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a * b)}=${a * x3 - a * b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3 * x3}-${ecriture_parenthese_si_negatif(b * x3)}=${x3 * x3 - b * x3}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texte = `Tester l'égalité $${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${a * x1 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a * b)}=${a * x2 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${x2 * x2 - b * x2}$<br>`;
+					texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br><br>`;
+					texteCorr += `Pour $x=${x3}$ : <br>`;
+					texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(a * b)}=${a * x3 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
 					break;
 				case 7: // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
 					if (this.sup == 1) {
@@ -200,30 +200,30 @@ export default function Tester_une_egalite() {
 						b = a * x2;
 						d = c * x3;
 					}
-					texte = `Tester l'égalité $${a * d}x-${ecriture_parenthese_si_negatif(b * d)}=${a * c}x^2-${ecriture_parenthese_si_negatif(b * c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`;
-					texte_corr = `Pour $x=${x1}$ : <br>`;
-					texte_corr += `$${a * d}x-${ecriture_parenthese_si_negatif(b * d)}=${a * d}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b * d)}=${a * d * x1 - d * b}$ <br> $${a * c}x^2-${ecriture_parenthese_si_negatif(b * c)}x=${a * c}\\times ${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b * c)}\\times ${ecriture_parenthese_si_negatif(x1)}=${a * c * x1 * x1}-${ecriture_parenthese_si_negatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`;
-					texte_corr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br><br>`;
-					texte_corr += `Pour $x=${x2}$ : <br>`;
-					texte_corr += `$${a * d}x-${ecriture_parenthese_si_negatif(b * d)}=${a * d}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b * d)}=${a * d * x2 - d * b}$ <br> $${a * c}x^2-${ecriture_parenthese_si_negatif(b * c)}x=${a * c}\\times ${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b * c)}\\times ${ecriture_parenthese_si_negatif(x2)}=${a * c * x2 * x2}-${ecriture_parenthese_si_negatif(b * c * x2)}=${a * c * x2 * x2 - b * c * x2}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
-					texte_corr += `Pour $x=${x3}$ : <br>`;
-					texte_corr += `$${a * d}x-${ecriture_parenthese_si_negatif(b * d)}=${a * d}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b * d)}=${a * d * x3 - d * b}$ <br> $${a * c}x^2-${ecriture_parenthese_si_negatif(b * c)}x=${a * c}\\times ${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b * c)}\\times ${ecriture_parenthese_si_negatif(x3)}=${a * c * x3 * x3}-${ecriture_parenthese_si_negatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`;
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texte = `Tester l'égalité $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`;
+					texteCorr = `Pour $x=${x1}$ : <br>`;
+					texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x1 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`;
+					texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br><br>`;
+					texteCorr += `Pour $x=${x2}$ : <br>`;
+					texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x2 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${a * c * x2 * x2 - b * c * x2}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
+					texteCorr += `Pour $x=${x3}$ : <br>`;
+					texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x3 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x3)}=${a * c * x3 * x3}-${ecritureParentheseSiNegatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`;
+					texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`;
 					break;
 			}
 
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 
 	};
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : Entiers naturels\n2 : Entiers relatifs"];
+	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Entiers naturels\n2 : Entiers relatifs"];
 	this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 }

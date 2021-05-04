@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,creer_couples,choice,tex_nombre,tex_nombre2,calcul,shuffle2tableaux} from '../../modules/outils.js'
+import {listeQuestionsToContenu,creerCouples,choice,texNombre,texNombre2,calcul,shuffle2tableaux} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const amcReady = true
@@ -21,15 +21,15 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
   this.consigne = "Calculer";
   this.spacing = 2;
   this.tailleDiaporama = 100;
-  this.QCM_disponible=true
-  this.ModeQCM=false
+  this.qcmDisponible=true
+  this.modeQcm=false
 
-  this.nouvelle_version = function () {
-    this.QCM=['6C10-3',[],"tables de multiplications et nombres décimaux",1]
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.qcm=['6C10-3',[],"tables de multiplications et nombres décimaux",1]
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let espace =``;
-    if (sortie_html) {
+    if (sortieHtml) {
       espace = `&emsp;`;
     } else {
       espace = `\\qquad`;
@@ -45,14 +45,14 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
     } else {
       tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des ;
     }
-    let couples = creer_couples(
+    let couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      this.nb_questions
+      this.nbQuestions
     ); //Liste tous les couples possibles (2,3)≠(3,2)
     for (
-      let i = 0, a, b, k1, k2, couple, texte, texte_corr;
-      i < this.nb_questions;
+      let i = 0, a, b, k1, k2, couple, texte, texteCorr;
+      i < this.nbQuestions;
       i++
     ) {
       a = couples[i][0];
@@ -77,44 +77,44 @@ export default function Exercice_tables_de_multiplications_et_decimaux(
         b = 0.1;
       }
       texte =
-        "$ " + tex_nombre(a) + " \\times " + tex_nombre(b) + " = \\dotfill $";
-      texte_corr =
+        "$ " + texNombre(a) + " \\times " + texNombre(b) + " = \\dotfill $";
+      texteCorr =
         "$ " +
-        tex_nombre(a) +
+        texNombre(a) +
         " \\times " +
-        tex_nombre(b) +
+        texNombre(b) +
         " = " +
-        tex_nombre(Algebrite.eval(a * b)) +
+        texNombre(Algebrite.eval(a * b)) +
         " $";
         /**********************************/
         // QCM
         /**********************************/
-        tabrep=[`$${tex_nombre2(a*b)}$`,`$${tex_nombre2(calcul(a*b/10))}$`,`$${tex_nombre2(calcul(a*b*10))}$`,`$${tex_nombre2(calcul(a*b/100))}$`,`$${tex_nombre2(calcul(a*b*100))}$`]
+        tabrep=[`$${texNombre2(a*b)}$`,`$${texNombre2(calcul(a*b/10))}$`,`$${texNombre2(calcul(a*b*10))}$`,`$${texNombre2(calcul(a*b/100))}$`,`$${texNombre2(calcul(a*b*100))}$`]
         tabicone=[1,0,0,0,0]
-                this.QCM[1].push([`${texte}\n`,
+                this.qcm[1].push([`${texte}\n`,
         tabrep,
         tabicone]) 
 
-        if (this.ModeQCM&&!mathalea.sortieAMC) {
-          texte_corr=''
+        if (this.modeQcm&&!mathalea.sortieAMC) {
+          texteCorr=''
           texte+=`<br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
           for (let i=0; i<tabrep.length; i++) {
             texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
            if (tabicone[i]==1) {
-             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
            } else {
-             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
            }
          }
         }
 
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_texte = [
+  this.besoinFormulaireTexte = [
     "Choix des tables",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip

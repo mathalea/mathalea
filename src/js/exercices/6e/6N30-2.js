@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,arrondi,calcul,tex_nombrec,lettre_depuis_chiffre,html_consigne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,calcul,texNombrec,lettreDepuisChiffre,htmlConsigne} from '../../modules/outils.js'
 export const titre = 'Placer un point d’abscisse décimale'
 import { SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -14,32 +14,32 @@ export default function Placer_points_sur_axe() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = " Placer trois points sur un axe gradué.";
-  this.nb_questions = 5;
-  this.nb_questions_modifiable = true;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 5;
+  this.nbQuestionsModifiable = true;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.spacing = 1;
-  this.spacing_corr = 1;
+  this.spacingCorr = 1;
   this.sup = 1;
-  this.type_exercice = "SVGJS";
-  this.liste_packages = "tkz-euclide";
+  this.typeExercice = "SVGJS";
+  this.listePackages = "tkz-euclide";
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    // numero_de_l_exercice est 0 pour l'exercice 1
+  this.nouvelleVersion = function (numeroExercice) {
+    // numeroExercice est 0 pour l'exercice 1
     let type_de_questions;
-    this.liste_questions = [];
-    this.liste_corrections = [];
+    this.listeQuestions = [];
+    this.listeCorrections = [];
     this.contenu = ""; // Liste de questions
-    this.contenu_correction = ""; // Liste de questions corrigées
+    this.contenuCorrection = ""; // Liste de questions corrigées
     if (this.sup == 4)
-      type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions);
+      type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions);
     else
-      type_de_questions = combinaison_listes(
+      type_de_questions = combinaisonListes(
         [parseInt(this.sup)],
-        this.nb_questions
+        this.nbQuestions
       );
 
-    this.contenu = html_consigne(this.consigne);
+    this.contenu = htmlConsigne(this.consigne);
     for (
       let i = 0,
       abs0,
@@ -59,13 +59,13 @@ export default function Placer_points_sur_axe() {
       pas2,
       id_unique,
       texte,
-      texte_corr;
-      i < this.nb_questions;
+      texteCorr;
+      i < this.nbQuestions;
       i++
     ) {
-      l1 = lettre_depuis_chiffre(i * 3 + 1);
-      l2 = lettre_depuis_chiffre(i * 3 + 2);
-      l3 = lettre_depuis_chiffre(i * 3 + 3);
+      l1 = lettreDepuisChiffre(i * 3 + 1);
+      l2 = lettreDepuisChiffre(i * 3 + 2);
+      l3 = lettreDepuisChiffre(i * 3 + 3);
 
       switch (type_de_questions[i]) {
         case 1: // Placer un point sur un axe (1 décimale)
@@ -105,15 +105,15 @@ export default function Placer_points_sur_axe() {
         type_de_questions[i]
       );
 
-      if (sortie_html) {
-        texte_corr = "";
-        this.contenu += `<h3>Placer les points : ${l1}(${tex_nombrec(
+      if (sortieHtml) {
+        texteCorr = "";
+        this.contenu += `<h3>Placer les points : ${l1}(${texNombrec(
           abs1
-        )}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})</h3>`;
+        )}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})</h3>`;
         id_unique = `${i}_${Date.now()}`;
-        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
         SVG_reperage_sur_un_axe(
-          `div_svg${numero_de_l_exercice}${id_unique}`,
+          `div_svg${numeroExercice}${id_unique}`,
           abs0,
           6,
           pas1,
@@ -125,9 +125,9 @@ export default function Placer_points_sur_axe() {
           ],
           false
         );
-        this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
         SVG_reperage_sur_un_axe(
-          `div_svg_corr${numero_de_l_exercice}${id_unique}`,
+          `div_svg_corr${numeroExercice}${id_unique}`,
           abs0,
           6,
           pas1,
@@ -145,9 +145,9 @@ export default function Placer_points_sur_axe() {
         );
       } else {
         //sortie Latex
-        texte = `{\\small Placer les points : $${l1}$(${tex_nombrec(
+        texte = `{\\small Placer les points : $${l1}$(${texNombrec(
           abs1
-        )}), $${l2}$(${tex_nombrec(abs2)}), $${l3}$(${tex_nombrec(abs3)})}<br>`;
+        )}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(abs3)})}<br>`;
         texte += Latex_reperage_sur_un_axe(
           2.4,
           abs0,
@@ -160,12 +160,12 @@ export default function Placer_points_sur_axe() {
           ],
           false
         );
-        texte_corr = `{\\small Les points $${l1}$(${tex_nombrec(
+        texteCorr = `{\\small Les points $${l1}$(${texNombrec(
           abs1
-        )}), $${l2}$(${tex_nombrec(abs2)}), $${l3}$(${tex_nombrec(
+        )}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(
           abs3
         )}) sont placés ci dessus}<br>`;
-        texte_corr += Latex_reperage_sur_un_axe(
+        texteCorr += Latex_reperage_sur_un_axe(
           2.4,
           abs0,
           pas1,
@@ -182,13 +182,13 @@ export default function Placer_points_sur_axe() {
           false
         );
 
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
       }
     }
-    if (!sortie_html) liste_de_question_to_contenu(this);
+    if (!sortieHtml) listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange",

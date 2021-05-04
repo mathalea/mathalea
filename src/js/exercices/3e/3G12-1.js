@@ -11,6 +11,6 @@ export default function Pavages_et_rotation() {
     Pavages_et_transformations.call(this);
     this.titre = titre;
     this.sup = 4;
-    this.besoin_formulaire_numerique = false;
+    this.besoinFormulaireNumerique = false;
   }
   

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,abs,pgcd,tex_fraction_signe,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,tex_fraction_signe,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
 export const titre = 'Diviser des fractions'
 
 /**
@@ -15,21 +15,21 @@ export default function Exercice_diviser_fractions() {
   this.titre = titre;
   this.consigne = "Calculer et donner le résultat sous forme irréductible";
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 5;
-  this.nb_cols_corr = 1;
+  this.spacingCorr = 2;
+  this.nbQuestions = 5;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_fractions = obtenir_liste_fractions_irreductibles();
 
     let type_de_questions_disponibles;
     type_de_questions_disponibles = [parseInt(this.sup)];
     let nombre_de_signe_moins;
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
     for (
       let i = 0,
@@ -42,10 +42,10 @@ export default function Exercice_diviser_fractions() {
       p,
       signe,
       texte,
-      texte_corr,
+      texteCorr,
       type_de_questions,
       cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       type_de_questions = liste_type_de_questions[i];
@@ -62,17 +62,17 @@ export default function Exercice_diviser_fractions() {
         //	case 0 : // entier * fraction (tout positif)
         //		texte=`$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=$`;
         //		if (pgcd(a*d,c)==1) {
-        //			texte_corr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=\\dfrac{${a}}{1}\\times${tex_fraction(d,c)}=${tex_fraction(a +'\\times'+d,'1\\times'+c)}=${tex_fraction(a*d,c)}$`
+        //			texteCorr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=\\dfrac{${a}}{1}\\times${tex_fraction(d,c)}=${tex_fraction(a +'\\times'+d,'1\\times'+c)}=${tex_fraction(a*d,c)}$`
         //		}
         //		else {
-        //			texte_corr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=${tex_fraction(a*d,c)}=${tex_fraction_reduite(a*d,c)}$`
+        //			texteCorr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=${tex_fraction(a*d,c)}=${texFractionReduite(a*d,c)}$`
         //		}
         //		break
         //
         case 1: // fraction * fraction tout positif
           texte = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}=$`;
           if (p == 1) {
-            texte_corr = `$${tex_fraction(a, b)}\\div${tex_fraction(
+            texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(
               c,
               d
             )}=${tex_fraction(a, b)}\\times${tex_fraction(d, c)}=${tex_fraction(
@@ -80,7 +80,7 @@ export default function Exercice_diviser_fractions() {
               b + "\\times" + c
             )}=${tex_fraction(a * d, b * c)}$`;
           } else {
-            texte_corr = `$${tex_fraction(a, b)}\\div${tex_fraction(
+            texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(
               c,
               d
             )}=${tex_fraction(a, b)}\\times${tex_fraction(d, c)}=${tex_fraction(
@@ -105,52 +105,52 @@ export default function Exercice_diviser_fractions() {
             signe = "-";
           }
           texte = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}=$`;
-          texte_corr = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}$`;
+          texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}$`;
           a = abs(a);
           b = abs(b);
           c = abs(c);
           d = abs(d);
           p = pgcd(a * d, b * c);
-          texte_corr += `$=${signe}${tex_fraction(a, b)}\\times${tex_fraction(
+          texteCorr += `$=${signe}${tex_fraction(a, b)}\\times${tex_fraction(
             d,
             c
           )}$`;
-          texte_corr += `$=${signe}${tex_fraction(
-            a + "\\times" + ecriture_parenthese_si_negatif(d),
-            b + "\\times" + ecriture_parenthese_si_negatif(c)
+          texteCorr += `$=${signe}${tex_fraction(
+            a + "\\times" + ecritureParentheseSiNegatif(d),
+            b + "\\times" + ecritureParentheseSiNegatif(c)
           )}$`;
           if (p == 1) {
-            texte_corr += `$=${signe}${tex_fraction_signe(a * d, b * c)}$`;
+            texteCorr += `$=${signe}${tex_fraction_signe(a * d, b * c)}$`;
           } else {
-            texte_corr += `$=${signe}${tex_fraction(a * d, b * c)}$`;
+            texteCorr += `$=${signe}${tex_fraction(a * d, b * c)}$`;
             if (a * d != b * c) {
-              texte_corr += `$=${signe}${tex_fraction(
+              texteCorr += `$=${signe}${tex_fraction(
                 (a * d) / p + "\\times\\cancel{" + p + "}",
                 (b * c) / p + "\\times\\cancel{" + p + "}"
               )}$`;
-              texte_corr += `$=${signe}${tex_fraction(
+              texteCorr += `$=${signe}${tex_fraction(
                 (a * d) / p,
                 (b * c) / p
               )}$`;
             } else {
-              texte_corr += `$=${signe}1$`;
+              texteCorr += `$=${signe}1$`;
             }
           }
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
 
       cpt++;
     }
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     2,
     "1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs",

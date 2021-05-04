@@ -514,7 +514,7 @@ import SVG from 'svg.js'
     for (let i = 0; i < points_connus.length; i++) {
       valeur = calcul(origine + points_connus[i][1] / pas1 + calcul(points_connus[i][2] / pas1 / pas2))
       result += `\n\t \\tkzDefPoint(${valeur},0){A}`
-      result += `\n\t \\tkzLabelPoint[color = black,below,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`
+      result += `\n\t \\tkzLabelPoint[color = black,below,inner sep = 5pt,font=\\scriptsize](A){$${texNombrec(valeur)}$}`
     }
     // Points inconnus
     let position = 6
@@ -526,7 +526,7 @@ import SVG from 'svg.js'
       result += `\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
       if (points_inconnus[i][3]) {
         if (!fraction) { // affichage décimal
-          result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`
+          result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${texNombrec(valeur)}$}`
           result += '\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)'
         } else { // affichage fractionnaire
           result += `\n\t \\tkzLabelPoint[color = blue,below=${15 + position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine + points_inconnus[i][1]) * pas2 + points_inconnus[i][2], pas2)}$}`
@@ -549,7 +549,7 @@ import SVG from 'svg.js'
  */
  export function SVG_engrenages (id_du_div, w, h) {
     'use strict'
-      if (sortie_html) {
+      if (sortieHtml) {
       if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
       // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
       window.SVGExist[id_du_div] = setInterval(function () {

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,arrondi,abs,tex_nombrec,lettre_depuis_chiffre,tex_nombre,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,texNombrec,lettreDepuisChiffre,texNombre,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -15,34 +15,34 @@ export default function Reciproque_Thales() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 1);
-  sortie_html ? (this.spacing = 2) : (this.spacing = 1.5);
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1);
+  sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5);
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.quatrieme = false;
   this.sup = 1;
   this.sup2 = 1;
-  this.liste_packages = "tkz-euclide";
-  this.type_exercice="MG32"
+  this.listePackages = "tkz-euclide";
+  this.typeExercice="MG32"
 
   // let s1='A',s2='B',s3='C',s4='M',s5='N'
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.QCM = ['3G21', [], "Contrôler si deux droites sont parallèles",3,{}]
-    this.liste_questions = [];
-    this.liste_corrections = [];
+  this.nouvelleVersion = function (numeroExercice) {
+    this.qcm = ['3G21', [], "Contrôler si deux droites sont parallèles",3,{}]
+    this.listeQuestions = [];
+    this.listeCorrections = [];
     let lettre1 = randint(1, 26); // aleatoirisation du nom des points
-    let s1 = lettre_depuis_chiffre(lettre1);
+    let s1 = lettreDepuisChiffre(lettre1);
     let lettre2 = randint(1, 26, [lettre1]);
-    let s2 = lettre_depuis_chiffre(lettre2);
+    let s2 = lettreDepuisChiffre(lettre2);
     let lettre3 = randint(1, 26, [lettre1, lettre2]);
-    let s3 = lettre_depuis_chiffre(lettre3);
+    let s3 = lettreDepuisChiffre(lettre3);
     let lettre4 = randint(1, 26, [lettre1, lettre2, lettre3]);
-    let s4 = lettre_depuis_chiffre(lettre4);
+    let s4 = lettreDepuisChiffre(lettre4);
     let lettre5 = randint(1, 26, [lettre1, lettre2, lettre3, lettre4]);
-    let s5 = lettre_depuis_chiffre(lettre5);
+    let s5 = lettreDepuisChiffre(lettre5);
     let x2 = randint(2, 4);
     let y2 = randint(3, 5);
     let x3 = randint(5, 6);
@@ -84,26 +84,26 @@ export default function Reciproque_Thales() {
       dist24 = dist12 - dist14;
     }
 
-    let texte, texte_corr;
+    let texte, texteCorr;
     // On ne garde qu'une approximation au dixième pour l'exercice
     // mise en texte avec 1 chiffres après la virgule pour énoncé
-    let s13 = tex_nombre(dist13);
-    let s12 = tex_nombre(dist12);
-    let s15 = tex_nombre(dist15);
-    let s14 = tex_nombre(dist14);
-    let s24 = tex_nombre(dist24);
-    let s35 = tex_nombre(dist35);
+    let s13 = texNombre(dist13);
+    let s12 = texNombre(dist12);
+    let s15 = texNombre(dist15);
+    let s14 = texNombre(dist14);
+    let s24 = texNombre(dist24);
+    let s35 = texNombre(dist35);
     // num1 = arrondi(dist12 * 100);
     // den1 = arrondi(dist14 * 100);
     // num2 = arrondi(dist13 * 100);
     // den2 = arrondi(dist15 * 100);
     // let fraction1 = [],
     //   fraction2 = [];
-    //  fraction1 = fraction_simplifiee(num1, den1);
-    // fraction2 = fraction_simplifiee(num2, den2);
-    if (sortie_html) {
-      this.type_exercice = "MG32";
-      this.taille_div_MG32 = [700, 500];
+    //  fraction1 = fractionSimplifiee(num1, den1);
+    // fraction2 = fractionSimplifiee(num2, den2);
+    if (sortieHtml) {
+      this.typeExercice = "MG32";
+      this.dimensionsDivMg32 = [700, 500];
       let codeBase64;
 
       if (k < 0) {
@@ -117,28 +117,28 @@ export default function Reciproque_Thales() {
       if (this.sup == 1) {
         // AM,AB,AN,AC sont donnés pas de calculs intermédiaires
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s5}=${s15}$ cm et $${s1 + s4}=${s14}$ cm.<br>`;
-        texte_corr = ``;
+        texteCorr = ``;
       } else if (this.sup == 2) {
         // AN n'est pas donné, il faut le calculer avant.
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`;
-        texte_corr = ``;
+        texteCorr = ``;
         if (k > 0) {
           //triangles imbriqués
-          texte_corr +=
+          texteCorr +=
             "On sait que " +
             `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
             " cm.<br>";
-          texte_corr +=
+          texteCorr +=
             "et que " +
             `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
             " cm.<br>";
         } else {
           // papillon
-          texte_corr +=
+          texteCorr +=
             "On sait que " +
             `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
             " cm.<br>";
-          texte_corr +=
+          texteCorr +=
             "et que " +
             `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
             " cm.<br>";
@@ -146,70 +146,70 @@ export default function Reciproque_Thales() {
       } else if (randint(1, 2) == 1) {
         //triangles imbriqués sans figure
         texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`;
-        texte_corr = ``;
+        texteCorr = ``;
       } else {
         // papillon sans figure
         texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`;
         texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`;
-        texte_corr = ``;
+        texteCorr = ``;
       }
       texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`;
 
-      texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(
+      texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
-      )}}{${s14}\\times${mise_en_evidence(s15)}}=\\dfrac{
-        ${tex_nombrec(arrondi(dist12 * dist15, 3))}}
+      )}}{${s14}\\times${miseEnEvidence(s15)}}=\\dfrac{
+        ${texNombrec(arrondi(dist12 * dist15, 3))}}
         {${s14}\\times${s15}}
       $`;
-      texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(
+      texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
-      )}}{${s15}\\times${mise_en_evidence(s14)}}=\\dfrac{${tex_nombrec(arrondi(dist13 * dist14, 3))}}
+      )}}{${s15}\\times${miseEnEvidence(s14)}}=\\dfrac{${texNombrec(arrondi(dist13 * dist14, 3))}}
         {${s14}\\times${s15}}
       $`;
 
       if (k != k2) {
         // droites non parallèles
-        texte_corr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
-        texte_corr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`;
+        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
+        texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`;
       } else {
         // droites parallèles
-        texte_corr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
+        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
         if (k > 0)
-          texte_corr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`;
+          texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`;
 
         else
-          texte_corr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`;
-        texte_corr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
+          texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`;
+        texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
       }
 
       if (this.sup < 3) {
         this.MG32codeBase64 = codeBase64;
         this.MG32code_pour_modifier_la_figure = `
-					mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x3", "${x3}");
-					mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y2", "${y2}");
-					mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y3", "${y3}");
-					mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "k", "${k}");
-					mtg32App.rename("MG32svg${numero_de_l_exercice}","A'","${s1}");
-					mtg32App.rename("MG32svg${numero_de_l_exercice}","B'","${s2}");
-					mtg32App.rename("MG32svg${numero_de_l_exercice}","C'","${s3}");
-					mtg32App.rename("MG32svg${numero_de_l_exercice}","M'","${s4}");
-					mtg32App.rename("MG32svg${numero_de_l_exercice}","N'","${s5}");
-					mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-					mtg32App.display("MG32svg${numero_de_l_exercice}");
+					mtg32App.giveFormula2("MG32svg${numeroExercice}", "x3", "${x3}");
+					mtg32App.giveFormula2("MG32svg${numeroExercice}", "y2", "${y2}");
+					mtg32App.giveFormula2("MG32svg${numeroExercice}", "y3", "${y3}");
+					mtg32App.giveFormula2("MG32svg${numeroExercice}", "k", "${k}");
+					mtg32App.rename("MG32svg${numeroExercice}","A'","${s1}");
+					mtg32App.rename("MG32svg${numeroExercice}","B'","${s2}");
+					mtg32App.rename("MG32svg${numeroExercice}","C'","${s3}");
+					mtg32App.rename("MG32svg${numeroExercice}","M'","${s4}");
+					mtg32App.rename("MG32svg${numeroExercice}","N'","${s5}");
+					mtg32App.calculate("MG32svg${numeroExercice}");
+					mtg32App.display("MG32svg${numeroExercice}");
 					`;
         texte += `$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$<br>`;
       }
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
       if (this.sup < 3) {
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
       } else {
-        this.type_exercice = "";
-        liste_de_question_to_contenu_sans_numero(this);
+        this.typeExercice = "";
+        listeQuestionsToContenuSansNumero(this);
       }
     } else {
       // sortie Latex
-      texte_corr = ``;
+      texteCorr = ``;
       if (this.sup == 1) {
         //niveau 1 : Calcul direct
         texte =
@@ -230,21 +230,21 @@ export default function Reciproque_Thales() {
           ". \\end{minipage}";
         if (k > 0) {
           // triangles imbriqués
-          texte_corr +=
+          texteCorr +=
             "On sait que " +
             `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` +
             " cm.<br>";
-          texte_corr +=
+          texteCorr +=
             "et que " +
             `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` +
             " cm.<br>";
         } else {
           // papillon
-          texte_corr +=
+          texteCorr +=
             "On sait que " +
             `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` +
             " cm.<br>";
-          texte_corr +=
+          texteCorr +=
             "et que " +
             `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` +
             " cm.<br>";
@@ -326,46 +326,46 @@ export default function Reciproque_Thales() {
         texte += "\n \\end{tikzpicture}"; // Balise de fin de figure
         texte += "\\end{minipage}";
       }
-      this.liste_questions.push(texte); // on envoie la question
+      this.listeQuestions.push(texte); // on envoie la question
 
       // correction
-      texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(
+      texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
-      )}}{${s14}\\times${mise_en_evidence(s15)}}=${tex_fraction(
-        tex_nombrec(arrondi(dist12 * dist15, 3)),
-        tex_nombrec(arrondi(dist14 * dist15, 4))
+      )}}{${s14}\\times${miseEnEvidence(s15)}}=${tex_fraction(
+        texNombrec(arrondi(dist12 * dist15, 3)),
+        texNombrec(arrondi(dist14 * dist15, 4))
       )}$`;
-      texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(
+      texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
-      )}}{${s15}\\times${mise_en_evidence(s14)}}=${tex_fraction(
-        tex_nombrec(arrondi(dist13 * dist14, 3)),
-        tex_nombrec(arrondi(dist14 * dist15, 4))
+      )}}{${s15}\\times${miseEnEvidence(s14)}}=${tex_fraction(
+        texNombrec(arrondi(dist13 * dist14, 3)),
+        texNombrec(arrondi(dist14 * dist15, 4))
       )}$`;
 
       if (k != k2) {
         // droites pas parallèles
-        texte_corr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
-        texte_corr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`;
+        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
+        texteCorr += `Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`;
       } else {
         // droites parallèles
-        texte_corr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
+        texteCorr += `<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${texNombre(arrondi(dist12*dist15,3))}$.<br>`;
         if (k > 0)
-          texte_corr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`;
+          texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`;
 
         else
-          texte_corr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`;
-        texte_corr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
+          texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`;
+        texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
       }
      
-      this.QCM[1][0] = [texte, [texte_corr], [6]]
+      this.qcm[1][0] = [texte, [texteCorr], [6]]
   
-      this.liste_corrections.push(texte_corr);
+      this.listeCorrections.push(texteCorr);
 
-      liste_de_question_to_contenu_sans_numero(this);
+      listeQuestionsToContenuSansNumero(this);
     }
   };
 
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     3,
     "1 : Cas simple \n 2 : Complication \n 3 : Sans figure",

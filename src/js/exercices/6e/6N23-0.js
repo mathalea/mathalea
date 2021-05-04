@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,nombreEnLettres} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,nombreEnLettres} from '../../modules/outils.js'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 
 /**
@@ -13,26 +13,26 @@ export default function Ecrire_nombres_decimal() {
   "use strict"
   Exercice.call(this)
   this.titre = titre;
-  this.nb_questions = 5;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1
   this.sup2 = 1
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.sup == 2)
       this.consigne = "Écrire le nombre en chiffres"
     else
       this.consigne = "Écrire le nombre en lettres"
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées 
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées 
     let type_de_questions_disponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texte_corr, a, b, c, nombre, tranche, part_ent, part_dec, nb_dec, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, part_ent, part_dec, nb_dec, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
 
@@ -62,30 +62,30 @@ export default function Ecrire_nombres_decimal() {
       if (part_dec % 10 != 0) nb_dec = 3
       else if (part_dec % 100 != 0) nb_dec = 2
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ : \\dotfill`
-        else texte = `$${tex_nombre(nombre)}$`
-        if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
-        else texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
+        if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        else texte = `$${texNombre(nombre)}$`
+        if (!est_diaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
+        else texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
       }
       else {
         if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
         else texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}`
-        if (!est_diaporama) texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${tex_nombre(nombre)}$.`
-        else texte_corr = `$${tex_nombre(nombre)}$.`
+        if (!est_diaporama) texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${texNombre(nombre)}$.`
+        else texteCorr = `$${texNombre(nombre)}$.`
       }
       texte = texte.replace('et-un unités', 'et-une unités')
-      texte_corr = texte_corr.replace('et-un unités', 'et-une unités')
-      if (this.liste_questions.indexOf(texte) == -1) {
+      texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+  this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
   this.besoin_formulaire2_numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
 }
 

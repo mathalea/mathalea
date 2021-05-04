@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,range,combinaison_listes,arrondi,calcul,tex_nombrec,prenomF,prenomM,tex_nombre,mise_en_evidence,tex_prix} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,range,combinaisonListes,arrondi,calcul,texNombrec,prenomF,prenomM,texNombre,miseEnEvidence,tex_prix} from '../../modules/outils.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 
 /**
@@ -12,29 +12,29 @@ export default function Proportionnalite_pas_proportionnalite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortie_html ? this.spacing = 2 : this.spacing = 1.4;
-  sortie_html ? this.spacing_corr = 1.5 : this.spacing_corr = 1;
-  this.nb_questions = 5;
-  this.nb_cols_corr = 1;
-  this.nb_cols = 1;
-  this.nb_cols_modifiable = false;
-  this.nb_cols_corr_modifiable = false;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1.4;
+  sortieHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1;
+  this.nbQuestions = 5;
+  this.nbColsCorr = 1;
+  this.nbCols = 1;
+  this.nbColsModifiable = false;
+  this.nbColsCorrModifiable = false;
   this.sup=false
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_index_disponibles = [0, 1, 2, 3, 4];
-    let liste_index = combinaison_listes(
+    let liste_index = combinaisonListes(
       liste_index_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
     let liste_choix_disponibles
     if (this.sup) liste_choix_disponibles = [1, 2, 3, 4, 5];
     else liste_choix_disponibles=[1, 2, 3, 4, 5, 6];
-    let liste_choix = combinaison_listes(
+    let liste_choix = combinaisonListes(
       liste_choix_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
     let liste_de_lieux = [
       "dans un magasin de bricolage",
@@ -125,9 +125,9 @@ export default function Proportionnalite_pas_proportionnalite() {
       objet,
       met,
       texte,
-      texte_corr,
+      texteCorr,
       cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       switch (liste_choix[i]) {
@@ -151,20 +151,20 @@ export default function Proportionnalite_pas_proportionnalite() {
               z
             )}$€.<br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-          texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(
+          texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
             tex_prix(somme),
             "blue"
           )}$€.<br>`;
-          texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(
-            tex_nombre(p / y)
+          texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+            texNombre(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${mise_en_evidence(
+            } pour $${miseEnEvidence(
               tex_prix(somme),
               "blue"
-            )}$€.<br>Il a payé $${tex_prix(z)}$€ $=${mise_en_evidence(
-              tex_nombrec(p / y)
-            )}\\times${mise_en_evidence(tex_prix(somme), "blue")}$€.<br>`;
-          texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
+            )}$€.<br>Il a payé $${tex_prix(z)}$€ $=${miseEnEvidence(
+              texNombrec(p / y)
+            )}\\times${miseEnEvidence(tex_prix(somme), "blue")}$€.<br>`;
+          texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
           break;
         case 2:
           index1 = liste_index[i];
@@ -185,22 +185,22 @@ export default function Proportionnalite_pas_proportionnalite() {
               z
             )}$€.<br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-          texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(
+          texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
             tex_prix(somme),
             "blue"
           )}$€.<br>`;
-          texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(
-            tex_nombrec(p / y)
+          texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
+            texNombrec(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
-            } pour $${mise_en_evidence(
+            } pour $${miseEnEvidence(
               tex_prix(somme),
               "blue"
-            )}$€.<br>Il a payé $${tex_prix(z)}$€.<br>Mais $${mise_en_evidence(
-              tex_nombrec(p / y)
-            )}\\times${mise_en_evidence(tex_prix(somme), "blue")}$€ $=${tex_prix(
+            )}$€.<br>Il a payé $${tex_prix(z)}$€.<br>Mais $${miseEnEvidence(
+              texNombrec(p / y)
+            )}\\times${miseEnEvidence(tex_prix(somme), "blue")}$€ $=${tex_prix(
               calcul((p * somme) / y)
             )}$€.<br>`;
-          texte_corr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+          texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
           break;
         case 3:
           prenoms = [prenomF(), prenomM()];
@@ -212,16 +212,16 @@ export default function Proportionnalite_pas_proportionnalite() {
           index1 = calcul(x / n); //vitesse fille
           index2 = calcul(y / p); //vitesse garçon
 
-          texte = `${prenoms[0]} habite à $${tex_nombre(x)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
-          texte += `${prenoms[1]}, lui, habite à $${tex_nombre(y)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
+          texte = `${prenoms[0]} habite à $${texNombre(x)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
+          texte += `${prenoms[1]}, lui, habite à $${texNombre(y)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
           texte += `Le temps mis pour venir au collège est-il proportionnel à la distance du foyer au collège ?<br>`;
-          texte_corr = `${prenoms[0]} parcourt chaque minute environ $${tex_nombrec(arrondi(index1, 1))}$ m.<br>`;
-          texte_corr += `${prenoms[1]
-            } parcourt chaque minute environ $${tex_nombrec(arrondi(index2, 1))}$ m.<br>`;
+          texteCorr = `${prenoms[0]} parcourt chaque minute environ $${texNombrec(arrondi(index1, 1))}$ m.<br>`;
+          texteCorr += `${prenoms[1]
+            } parcourt chaque minute environ $${texNombrec(arrondi(index2, 1))}$ m.<br>`;
           if (index1 == index2)
-            texte_corr += `Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
+            texteCorr += `Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
           else
-            texte_corr += `Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne).<br>`;
+            texteCorr += `Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne).<br>`;
           break;
         case 4:
           prenoms = [prenomF(), prenomM()];
@@ -229,11 +229,11 @@ export default function Proportionnalite_pas_proportionnalite() {
           y = x + randint(25, 35);
           texte = `${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`;
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`;
-          texte_corr = `Aujourd'hui la différence d'âge entre ${prenoms[0]
+          texteCorr = `Aujourd'hui la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`;
-          texte_corr += `Dans ${x} années, ${prenoms[0]} aura ${2 * x
+          texteCorr += `Dans ${x} années, ${prenoms[0]} aura ${2 * x
             } ans, c'est à dire le double d'aujourd'hui.<br>`;
-          texte_corr += `Son père ${prenoms[1]} aura ${x + y
+          texteCorr += `Son père ${prenoms[1]} aura ${x + y
             } ans cette année-là.<br>Quand l'âge de ${prenoms[0]
             } double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]
             } et l'âge de son père ne sont pas propotionnels.<br>`;
@@ -245,13 +245,13 @@ export default function Proportionnalite_pas_proportionnalite() {
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`;
           texte += `Le nombre de malades est-il proportionnel au nombre de jours passés depuis le début de l'épidémie ?<br>`;
-          texte_corr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
+          texteCorr = `Admettons qu'il y ait 10 malades le premier jour. Le ${1 + 2 + index2
             }ème jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)
             }$ malades.<br>`;
-          texte_corr += `Entre le premier jour et le ${3 + index2
+          texteCorr += `Entre le premier jour et le ${3 + index2
             }ème jour, le nombre de malades est multiplié par ${index2 + 2
             } mais le nombre de jours est multiplié par ${3 + index2}.<br>`;
-          texte_corr += `Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.<br>`;
+          texteCorr += `Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.<br>`;
           break;
         case 6:
           prenoms = [prenomF(), prenomM()];
@@ -280,38 +280,38 @@ export default function Proportionnalite_pas_proportionnalite() {
             texte += `&${tex_prix(arrondi(tirages[j][1], 2))}`;
           texte += `\\\\\\hline\\end{array}$<br> <br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`;
-          texte_corr = `Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`;
+          texteCorr = `Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`;
           if (met) index3 = range(3);
           else index3 = range(3, [p]);
-          texte_corr += `$`;
+          texteCorr += `$`;
           for (let j = 0; j < index3.length; j++) {
-            texte_corr += `\\dfrac{${tex_prix(
+            texteCorr += `\\dfrac{${tex_prix(
               arrondi(tirages[index3[j]][1], 2)
             )}}{${tirages[index3[j]][0]}}=`;
           }
-          texte_corr += `${tex_prix(pu)}$<br><br>`;
+          texteCorr += `${tex_prix(pu)}$<br><br>`;
           if (!met) {
-            texte_corr += `Mais $\\dfrac{${tex_prix(
+            texteCorr += `Mais $\\dfrac{${tex_prix(
               arrondi(tirages[p][1], 2)
             )}}{${tirages[p][0]}}=${tex_prix(
               arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
             )}$€/${objet.substring(0, objet.length - 1)}<br>`;
-            texte_corr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`;
+            texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`;
           } else {
-            texte_corr += `Le prix des ${objet} est bien proportionnel à leur nombre.<br>`;
+            texteCorr += `Le prix des ${objet} est bien proportionnel à leur nombre.<br>`;
           }
           break;
       }
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
-  this.besoin_formulaire_case_a_cocher=['Sans tableau',false]
+  this.besoinFormulaireCaseACocher=['Sans tableau',false]
 }
 

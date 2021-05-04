@@ -11,5 +11,5 @@ export default function Exercice_6N24() {
   this.sup = 3;
   this.titre = titre;
   this.correction_avec_des_fractions = true;
-  this.spacing_corr = 2;
+  this.spacingCorr = 2;
 }

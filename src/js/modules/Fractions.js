@@ -1,4 +1,4 @@
-import {unSiPositifMoinsUnSinon,arrondi,fraction_simplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from './outils.js'
+import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from './outils.js'
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from './2d.js'
 import Algebrite from 'algebrite'
 
@@ -152,8 +152,8 @@ class Fraction {
          * numIrred est le numérateur réduit
          * denIrredest le dénominateur réduit
          */
-        this.numIrred = fraction_simplifiee(this.num, this.den)[0];
-        this.denIrred = fraction_simplifiee(this.num, this.den)[1];
+        this.numIrred = fractionSimplifiee(this.num, this.den)[0];
+        this.denIrred = fractionSimplifiee(this.num, this.den)[1];
         this.pourcentage = calcul(this.numIrred * 100 / this.denIrred);
         if (this.num == 0)
             this.signe = 0;

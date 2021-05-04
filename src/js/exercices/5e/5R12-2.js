@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu_sans_numero, creer_couples, randint, shuffle, calcul, lettre_depuis_chiffre, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, creerCouples, randint, shuffle, calcul, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { SVG_tracer_point, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Déterminer les coordonnées (relatives) d’un point'
@@ -14,23 +14,23 @@ export default function Reperage_point_du_plan () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Donner les coordonnées des points représentés'
-  this.nb_questions = 1
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.spacing = 1
-  this.spacing_corr = 1
+  this.spacingCorr = 1
   this.sup = 1
   this.sup2 = true
   this.quart_de_plan = false
-  this.liste_packages = 'tkz-euclide'
+  this.listePackages = 'tkz-euclide'
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_questions = []
-    this.liste_corrections = []
-    let texte, texte_corr
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    let texte, texteCorr
     this.contenu = '' // Liste de questions
-    this.contenu_correction = '' // Liste de questions corrigées
+    this.contenuCorrection = '' // Liste de questions corrigées
     let liste_points = []; let points = []
     let grille, w, h, k, xmin, xmax, ymin, ymax, shiftxnom, shiftynom
     h = Math.round(window.innerHeight * 0.7)
@@ -51,7 +51,7 @@ export default function Reperage_point_du_plan () {
       liste_ord.push(i)
     }
     let X0 = false; let Y0 = false
-    liste_points = creer_couples(liste_abs, liste_ord, 10 * k)
+    liste_points = creerCouples(liste_abs, liste_ord, 10 * k)
     for (let j = 0; j < 5; j++) {
       points.push(liste_points[j])
       if (points[j][0] == 0) { X0 = true }
@@ -61,10 +61,10 @@ export default function Reperage_point_du_plan () {
     if (!Y0) { points[1][1] = 0 }
     points = shuffle(points)
 
-    for (let l = 0, lettre = randint(1, 20); l < 5; l++) { nom.push(lettre_depuis_chiffre(l + lettre)) }
-    if (sortie_html) {
+    for (let l = 0, lettre = randint(1, 20); l < 5; l++) { nom.push(lettreDepuisChiffre(l + lettre)) }
+    if (sortieHtml) {
       const id_unique = `${Date.now()}`
-      const id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`
+      const id_du_div = `div_svg${numeroExercice}${id_unique}`
       this.consigne = `<div id="${id_du_div}" style="height: ${h}px"></div>`
       if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
 
@@ -93,32 +93,32 @@ export default function Reperage_point_du_plan () {
         texte += `\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
       }
       texte += '\n\t \\end{tikzpicture}'
-      this.liste_questions.push(texte)
+      this.listeQuestions.push(texte)
 
-      texte_corr = '\\begin{tikzpicture}'
-      texte_corr += Latex_repere(xmin, xmax, ymin, ymax, k, k, grille)
+      texteCorr = '\\begin{tikzpicture}'
+      texteCorr += Latex_repere(xmin, xmax, ymin, ymax, k, k, grille)
       for (let i = 0; i < 5; i++) {
-        texte_corr += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
-        texte_corr += '\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)'
-        texte_corr += `\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
-        texte_corr += '\n\t \\tkzPointShowCoord(A)'
+        texteCorr += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
+        texteCorr += '\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)'
+        texteCorr += `\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+        texteCorr += '\n\t \\tkzPointShowCoord(A)'
       }
-      texte_corr += '\n\t \\end{tikzpicture}'
-      this.liste_corrections.push(texte_corr)
+      texteCorr += '\n\t \\end{tikzpicture}'
+      this.listeCorrections.push(texteCorr)
     }
 
     texte = 'Déterminer les coordonnées des points'
-    texte_corr = 'Les coordonnées des points sont :<br>'
+    texteCorr = 'Les coordonnées des points sont :<br>'
     for (let i = 0; i < 4; i++) {
       texte += ` $${nom[i]}$,`
-      texte_corr += ` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$, `
+      texteCorr += ` $${nom[i]}(${texNombre(points[i][0])};${texNombre(points[i][1])})$, `
     }
     texte += ` $${nom[4]}$.`
-    texte_corr += ` $${nom[4]}(${tex_nombre(points[4][0])};${tex_nombre(points[4][1])})$.`
-    this.liste_questions.push(texte)
-    this.liste_corrections.push(texte_corr)
-    liste_de_question_to_contenu_sans_numero(this)
+    texteCorr += ` $${nom[4]}(${texNombre(points[4][0])};${texNombre(points[4][1])})$.`
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenuSansNumero(this)
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
   this.besoin_formulaire2_case_a_cocher = ['Grille de lecture']
 }

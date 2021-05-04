@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, shuffle, combinaison_listes, calcul, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone } from '../../modules/outils.js'
 import { triangle2points2longueurs, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, codageAngleDroit, afficheLongueurSegment, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -15,26 +15,26 @@ export default function Construire_un_triangle() {
     "use strict"
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 2;
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
+    this.nbQuestions = 2;
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
     this.classe = 6
-    this.type_exercice = "IEP";
-    this.nouvelle_version = function (numero_de_l_exercice) {
-        this.liste_questions = []
-        this.liste_corrections = []
+    this.typeExercice = "IEP";
+    this.nouvelleVersion = function (numeroExercice) {
+        this.listeQuestions = []
+        this.listeCorrections = []
         let IEP;
         let type_de_questions_disponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonce, objets_correction, params_enonce, params_correction, nom, sommets
         if (this.classe == 6) type_de_questions_disponibles = [1, 2]
         // else type_de_questions_disponibles = [1, 2, 3]
         else type_de_questions_disponibles = [1]
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-        for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
             IEP = new Alea2iep()
             objets_enonce = []
             objets_correction = []
             texte = `Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>`
-            texte_corr = `Voici la construction que tu devais réaliser.<br>`
+            texteCorr = `Voici la construction que tu devais réaliser.<br>`
             nom = creerNomDePolygone(3, "PQ")
             sommets = []
             for (let i = 0; i < 3; i++) sommets.push(nom[i])
@@ -56,7 +56,7 @@ export default function Construire_un_triangle() {
 
                     objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
                     objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
-                    texte_corr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
+                    texteCorr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
                    
                     IEP.triangle3longueurs(sommets,lAB,lAC,lBC)
                     break;
@@ -73,7 +73,7 @@ export default function Construire_un_triangle() {
 
                     objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
                     objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
-                    texte_corr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
+                    texteCorr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
                    
                     IEP.triangleRectangleCoteHypotenuse(sommets,lAB,lAC)
                     break
@@ -89,18 +89,18 @@ export default function Construire_un_triangle() {
             params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.3 }
             params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 2), ymin: Math.min(A.y - 1, B.y - 1, C.y - 2), xmax: Math.max(A.x + 1, B.x + 1, C.x + 2), ymax: Math.max(A.y + 1, B.y + 1, C.y + 2), pixelsParCm: 30, scale: 1 }
             texte += mathalea2d(params_enonce, objets_enonce)
-            texte_corr += mathalea2d(params_correction, objets_correction)
+            texteCorr += mathalea2d(params_correction, objets_correction)
 
-            texte_corr += IEP.htmlBouton(numero_de_l_exercice, i)
+            texteCorr += IEP.htmlBouton(numeroExercice, i)
 
-            if (this.liste_questions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en crée une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
 }

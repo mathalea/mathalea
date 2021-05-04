@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const amcReady = true
 
@@ -26,32 +26,32 @@ export default function Divisions_euclidiennes() {
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.";
   this.spacing = 2;
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon opidiv n'est pas joli
-  this.nb_questions = 4;
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
+  this.nbQuestions = 4;
   this.sup = 1;
-  this.liste_packages = "xlop";
+  this.listePackages = "xlop";
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
    if (this.sup<2) {
-     this.QCM=['6C11',[],'division euclidienne',3,{}]
+     this.qcm=['6C11',[],'division euclidienne',3,{}]
    }
    else {
-      this.QCM=['6C21',[],'division euclidienne niveau 2',3,{}]
+      this.qcm=['6C21',[],'division euclidienne niveau 2',3,{}]
    }
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles,type_de_questions
     if (this.sup == 0) type_de_questions_disponibles = [1, 1, 1, 1]
     else if (this.sup == 1) type_de_questions_disponibles = [1, 2, 2, 3]
     else if (this.sup == 2) type_de_questions_disponibles = [4, 4, 5, 6];
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, q, r;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0, a, b, q, r;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       type_de_questions = liste_type_de_questions[i];
@@ -87,27 +87,27 @@ export default function Divisions_euclidiennes() {
       }
       r = randint(0, b - 1); //reste inférieur au diviseur
       a = b * q + r;
-      texte = `$${tex_nombre(a)}\\div${b}$`;
+      texte = `$${texNombre(a)}\\div${b}$`;
       if (r == 0) {
-        texte_corr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${tex_nombre(a)}\\div${b}=${q}$`;
+        texteCorr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${texNombre(a)}\\div${b}=${q}$`;
       } else {
-        texte_corr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${tex_nombre(a)}=${b}\\times${q}+${r}$`;
+        texteCorr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${texNombre(a)}=${b}\\times${q}+${r}$`;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         /***************** AMC Open ************************/
-        this.QCM[1].push([texte,[texte_corr],[4]])    // [question,[reponse],[nb_lignes_cadre]]
+        this.qcm[1].push([texte,[texteCorr],[4]])    // [question,[reponse],[nb_lignes_cadre]]
         /*********************************************/
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     2,
     "1 : Diviseur inférieur à 10\n2: Diviseur à 2 chiffres",

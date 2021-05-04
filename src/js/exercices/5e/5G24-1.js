@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
-import { liste_de_question_to_contenu, combinaison_listes, randint, creerNomDePolygone, choisit_lettres_differentes, shuffleLettres } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisit_lettres_differentes, shuffleLettres } from '../../modules/outils.js'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
@@ -12,27 +12,27 @@ export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Compléter les phrases suivantes.'
-  this.nb_questions = 3
-  this.nb_cols = 1 // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 1 // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 3
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
 
-  this.nouvelle_version = function () {
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
-    if (this.nb_questions === 3) {
+    if (this.nbQuestions === 3) {
       typeQuestionsDisponibles = ['similitude', 'rotation2', 'similitude3']
-    } else if (this.nb_questions === 4) {
+    } else if (this.nbQuestions === 4) {
       typeQuestionsDisponibles = ['rotation', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
     }
-    const listeTypeQuestions = combinaison_listes(typeQuestionsDisponibles, this.nb_questions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       let l1 = randint(40, 70)
       let l2 = randint(40, 80, l1)
@@ -297,17 +297,17 @@ export default function TrianglesEgaux () {
       texteCorr = `$[${Anom + Bnom}]$ et $[${Dnom + Enom}]$ sont homologues.<br>`
       texteCorr += `$[${Bnom + Cnom}]$ et $[${Enom + Fnom}]$ sont homologues.<br>`
       texteCorr += `$[${Cnom + Anom}]$ et $[${Fnom + Dnom}]$ sont homologues.<br>`
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texteCorr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
-  // this.besoin_formulaire_numerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
 
 // python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu

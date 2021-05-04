@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,shuffle,texte_en_couleur_et_gras,cesar} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,texte_en_couleur_et_gras,cesar} from '../../modules/outils.js'
 import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Spécial escape game'
 
@@ -12,21 +12,21 @@ export default function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "Trouver le mot de passe.";
-	this.nb_questions = 1;
-	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1.5;
-	sortie_html ? this.spacing = 1 : this.spacing = 2;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 1;
+	sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1.5;
+	sortieHtml ? this.spacing = 1 : this.spacing = 2;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
 	this.sup2 = "";
-	this.pas_de_version_LaTeX = false;
-	this.nouvelle_version = function () {
+	this.pasDeVersionLatex = false;
+	this.nouvelleVersion = function () {
 		let lettres = [], mots = ["BMDF", "OGNQ", "BUQP", "BAUP", "BXGE", "BDUJ", "MZSXQE", "BDUEYQ", "BMDFUQ", "HMXQGD", "OAGBXQ", "PDAUFQ", "DQXMFUAZ", "BMDMNAXQ", "MPPUFUAZ", "QJBAEMZF", "RAZOFUAZ", "OAYBXQJQ"];
 		let alphabet = [];
 		//		let coords=[]
-		this.liste_questions = [];
-		this.liste_corrections = [];
-		let texte = '', texte_corr = '', f1, f2, f3, f4, p, r;
+		this.listeQuestions = [];
+		this.listeCorrections = [];
+		let texte = '', texteCorr = '', f1, f2, f3, f4, p, r;
 		// Initialisation des tableaux
 		for (let i = 0; i < 26; i++) {
 			alphabet.push(String.fromCharCode(65 + i));
@@ -48,9 +48,9 @@ export default function Premier_escape_game_mathalea() {
 		else
 			texte += `Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`;
 		texte += "Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>";
-		texte_corr += `Le mot de passe comporte ${2 + 2 * type} lettres.`;
+		texteCorr += `Le mot de passe comporte ${2 + 2 * type} lettres.`;
 		if (this.sup2 == mdp)
-			texte_corr += `${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
+			texteCorr += `${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
 
 		for (let x = 0; x < type * 2 + 2; x++) {
 			car = mdp[x];
@@ -158,13 +158,13 @@ export default function Premier_escape_game_mathalea() {
 		texte += `\\end{array}\n$`;
 		texte += `<br>`;
 
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu(this);
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
+		listeQuestionsToContenu(this);
 
 		//	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 	};
-	this.besoin_formulaire_numerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
+	this.besoinFormulaireNumerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
 	this.besoin_formulaire2_texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):'];
 
 }

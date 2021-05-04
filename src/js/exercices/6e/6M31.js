@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,calcul,tex_nombre,tex_texte} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombre,tex_texte} from '../../modules/outils.js'
 export const titre = 'Conversions de volume'
 
 /**
@@ -22,11 +22,11 @@ export default function Exercice_conversions_volumes(niveau = 1) {
   this.titre = titre;
   this.consigne = "Compléter";
   this.spacing = 2;
-  this.nb_cols_corr = 1;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let prefixe_multi = [
       ["da", "10\\times10\\times10", 1000],
       ["h", "100\\times100\\times100", 1000000],
@@ -47,9 +47,9 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       resultat,
       type_de_questions,
       texte,
-      texte_corr,
+      texteCorr,
       cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -96,26 +96,26 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           "^3" +
           " = \\dotfill " +
           tex_texte(unite) +
           "^3" +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           "^3" +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\times" +
           prefixe_multi[k][1] +
           tex_texte(unite) +
           "^3" +
           " = " +
-          tex_nombre(resultat) +
+          texNombre(resultat) +
           tex_texte(unite) +
           "^3" +
           "$";
@@ -124,26 +124,26 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         resultat = calcul(a / prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           "^3" +
           " = \\dotfill " +
           tex_texte(unite) +
           "^3" +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           "^3" +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\div" +
           prefixe_div[k][1] +
           tex_texte(unite) +
           "^3" +
           " = " +
-          tex_nombre(resultat) +
+          texNombre(resultat) +
           tex_texte(unite) +
           "^3" +
           "$";
@@ -172,25 +172,25 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           resultat = calcul(a * Math.pow(10, 3 * ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite2]) +
             "^3" +
             " = \\dotfill " +
             tex_texte(liste_unite[unite1]) +
             "^3" +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite2]) +
             "^3" +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             multiplications_par_1000 +
             tex_texte(liste_unite[unite1]) +
             "^3" +
             " = " +
-            tex_nombre(resultat) +
+            texNombre(resultat) +
             tex_texte(liste_unite[unite1]) +
             "^3" +
             "$";
@@ -209,25 +209,25 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           resultat = calcul(a / Math.pow(10, 3 * ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite1]) +
             "^3" +
             " = \\dotfill " +
             tex_texte(liste_unite[unite2]) +
             "^3" +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite1]) +
             "^3" +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             multiplications_par_1000 +
             tex_texte(liste_unite[unite2]) +
             "^3" +
             " = " +
-            tex_nombre(resultat) +
+            texNombre(resultat) +
             tex_texte(liste_unite[unite2]) +
             "^3" +
             "$";
@@ -237,31 +237,31 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       // 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // 	k = randint(0,1)
       // 	resultat = calcul(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-      // 	texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
-      // 	texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^3'
-      // 		 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';
+      // 	texte = '$ '+ texNombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
+      // 	texteCorr = '$ '+ texNombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^3'
+      // 		 + ' = ' + texNombre(resultat) + tex_texte(unite)+ '^2' + '$';
       // }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortie_html) {
+        if (sortieHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"
           );
         }
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : Conversions en mètres-cubes avec des multiplications\n\

@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import Operation from '../../modules/operations.js'
-import { liste_de_question_to_contenu, randint, choice, combinaison_listes, calcul, tex_nombre, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi } from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Divisions décimales'
@@ -25,28 +25,28 @@ export default function Division_decimale () {
   this.titre = titre
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1) // Important sinon opdiv n'est pas joli
-  this.nb_questions = 4
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+  this.nbQuestions = 4
   this.sup = 1
-  this.liste_packages = 'xlop'
+  this.listePackages = 'xlop'
 
-  this.nouvelle_version = function () {
-    this.QCM = ['6C31', [], 'Divisions décimales', 4]
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.qcm = ['6C31', [], 'Divisions décimales', 4]
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     let type_de_questions_disponibles
 
     this.sup == 1
       ? (type_de_questions_disponibles = [choice([1, 2, 3]), 4, 5, 6])
       : (type_de_questions_disponibles = [7, 8, 9])
-    const liste_type_de_questions = combinaison_listes(
+    const liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let type_de_questions
     for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, q;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0, a, b, q;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       type_de_questions = liste_type_de_questions[i]
@@ -122,27 +122,27 @@ export default function Division_decimale () {
         this.consigne =
           'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
-      texte = `$${tex_nombre(a)}\\div${b}$`
+      texte = `$${texNombre(a)}\\div${b}$`
       if (this.sup == 1) {
-        texte_corr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texte_corr += `<br>$${tex_nombre(a)}\\div${b}=${tex_nombre(q)}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
+        texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
       } else {
-        texte_corr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texte_corr += `<br>$${tex_nombre(a)}\\div${b}\\approx${tex_nombre(q)}$`
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
+        texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
-        this.QCM[1].push([texte, [texte_corr, q], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        this.qcm[1].push([texte, [texteCorr, q], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     'Type de questions',
     2,
     '1 : Déterminer le quotient exact\n2: Déterminer un quotient approché au millième près'

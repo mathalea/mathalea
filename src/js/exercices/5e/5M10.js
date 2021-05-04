@@ -1,7 +1,7 @@
 import { mathalea2d, pointAdistance, polygoneAvecNom, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho , milieu, droite, segment, codageAngleDroit} from '../../modules/2d.js';
 import { creerNomDePolygone } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,texte_en_couleur_et_gras} from '../../modules/outils.js'
 
 
 export const titre = 'Aire du parallélogramme'
@@ -20,12 +20,12 @@ export default function Aire_du_parallelogramme() {
 	this.titre = titre;
 	this.consigne = "Calculer l'aire des 3 parallélogrammes suivants (les longueurs sont données en cm).";
 	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_questions = 1;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.spacingCorr = 2;
+	this.nbQuestions = 1;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
   
-	this.nb_questions_modifiable = false;
+	this.nbQuestionsModifiable = false;
 	let cadre = function (p,params){
 		let xmin=0,xmax=0,ymin=0,ymax=0
 		for (let i=0;i<4;i++){
@@ -41,9 +41,9 @@ export default function Aire_du_parallelogramme() {
 		return params
 	}
 
-	this.nouvelle_version = function (numero_de_l_exercice) {
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.liste_questions=[]
+	this.nouvelleVersion = function (numeroExercice) {
+		this.listeCorrections = []; // Liste de questions corrigées
+		this.listeQuestions=[]
 		let texte='',params
         let nom=creerNomDePolygone(12,'Q')
 		let objets_enonce=[]
@@ -89,18 +89,18 @@ export default function Aire_du_parallelogramme() {
 		texte+='br'+mathalea2d(params,P3[0],P3[1],afficheLongueurSegment(B3,A3),afficheLongueurSegment(C3,B3),afficheLongueurSegment(I3,H3),s3,codageAngleDroit(A3,I3,H3),codageAngleDroit(C3,H3,I3))
 		
 		
-		let texte_corr = `Dans chaque parallélogramme, le segment en pointillés est ${texte_en_couleur_et_gras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texte_en_couleur_et_gras("hauteur")}.<br>`;
-		texte_corr += `Pour obtenir l'aire, il faut multiplier cette ${texte_en_couleur_et_gras("hauteur")} par la longueur de la ${texte_en_couleur_et_gras("base")} correspondante.`;
-		texte_corr += "<br><br>";
-		texte_corr += `$\\mathcal{A}_{${nom.slice(0,4)}}=${c1}~\\text{cm}\\times  ${h1}~\\text{cm}=${c1 * h1}~\\text{cm}^2$`;
-		texte_corr += `<br>$\\mathcal{A}_{${nom.slice(4,8)}}=${c2}~\\text{cm}\\times  ${h2}~\\text{cm}=${c2 * h2}~\\text{cm}^2$`;
-		texte_corr += `<br>$\\mathcal{A}_{${nom.slice(8,12)}}=${c3}~\\text{cm}\\times  ${h3}~\\text{cm}=${c3 * h3}~\\text{cm}^2$`;
+		let texteCorr = `Dans chaque parallélogramme, le segment en pointillés est ${texte_en_couleur_et_gras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texte_en_couleur_et_gras("hauteur")}.<br>`;
+		texteCorr += `Pour obtenir l'aire, il faut multiplier cette ${texte_en_couleur_et_gras("hauteur")} par la longueur de la ${texte_en_couleur_et_gras("base")} correspondante.`;
+		texteCorr += "<br><br>";
+		texteCorr += `$\\mathcal{A}_{${nom.slice(0,4)}}=${c1}~\\text{cm}\\times  ${h1}~\\text{cm}=${c1 * h1}~\\text{cm}^2$`;
+		texteCorr += `<br>$\\mathcal{A}_{${nom.slice(4,8)}}=${c2}~\\text{cm}\\times  ${h2}~\\text{cm}=${c2 * h2}~\\text{cm}^2$`;
+		texteCorr += `<br>$\\mathcal{A}_{${nom.slice(8,12)}}=${c3}~\\text{cm}\\times  ${h3}~\\text{cm}=${c3 * h3}~\\text{cm}^2$`;
 
-        this.liste_questions.push(texte)
-		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu_sans_numero(this);
+        this.listeQuestions.push(texte)
+		this.listeCorrections.push(texteCorr);
+		listeQuestionsToContenuSansNumero(this);
 	};
 
-	// 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
+	// 	this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
 	// 2 : Aires\n3 : Périmètres et aires"];
 }

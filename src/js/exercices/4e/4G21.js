@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,calcul,tex_nombrec,creerNomDePolygone,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,calcul,texNombrec,creerNomDePolygone,texNombre} from '../../modules/outils.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas.'
 
 /**
@@ -11,24 +11,24 @@ export default function Reciproque_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 3;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 3;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 3;
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1);
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_type_de_questions = []
     if (this.sup == 1) {
-      liste_type_de_questions = combinaison_listes(["rectangle"], this.nb_questions);
+      liste_type_de_questions = combinaisonListes(["rectangle"], this.nbQuestions);
     }
     else if (this.sup == 2) {
-      liste_type_de_questions = combinaison_listes(["pas_rectangle"], this.nb_questions);
+      liste_type_de_questions = combinaisonListes(["pas_rectangle"], this.nbQuestions);
     }
     else { // (this.sup == 3)
-      liste_type_de_questions = combinaison_listes(["rectangle", "pas_rectangle"], this.nb_questions);
+      liste_type_de_questions = combinaisonListes(["rectangle", "pas_rectangle"], this.nbQuestions);
     }
     let liste_triplets_pythagoriciens = [
       [3, 4, 5],
@@ -88,7 +88,7 @@ export default function Reciproque_Pythagore() {
     for (
       let i = 0,
       texte,
-      texte_corr,
+      texteCorr,
       a,
       b,
       c,A,B,C,
@@ -96,7 +96,7 @@ export default function Reciproque_Pythagore() {
       triplet,
       ordre_des_cotes,
       cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       nom_triangle = creerNomDePolygone(3, liste_noms_triangles);
@@ -105,7 +105,7 @@ export default function Reciproque_Pythagore() {
       B = nom_triangle[1];
       C = nom_triangle[2];
       triplet = choice(liste_triplets_pythagoriciens);
-      enleve_element(liste_triplets_pythagoriciens, triplet); // Supprime le triplet pour les prochaines questions
+      enleveElement(liste_triplets_pythagoriciens, triplet); // Supprime le triplet pour les prochaines questions
       a = triplet[0];
       b = triplet[1];
       c = triplet[2];
@@ -126,47 +126,47 @@ export default function Reciproque_Pythagore() {
       switch (ordre_des_cotes) {
         case 1:
           texte = `Le triangle $${nom_triangle}$ est tel que $${A + B
-            }=${tex_nombre(c)}$ cm, $${A + C}=${tex_nombre(b)}$ cm et $${B + C
-            }=${tex_nombre(a)}$ cm.`;
+            }=${texNombre(c)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${B + C
+            }=${texNombre(a)}$ cm.`;
           break;
         case 2:
           texte = `Le triangle $${nom_triangle}$ est tel que  $${B + C
-            }=${tex_nombre(a)}$ cm, $${A + C}=${tex_nombre(b)}$ cm et $${A + B
-            }=${tex_nombre(c)}$ cm.`;
+            }=${texNombre(a)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${A + B
+            }=${texNombre(c)}$ cm.`;
           break;
         case 3:
           texte = `Le triangle $${nom_triangle}$ est tel que $${A + C
-            }=${tex_nombre(b)}$ cm, $${A + B}=${tex_nombre(c)}$ cm,  et $${B + C
-            }=${tex_nombre(a)}$ cm.`;
+            }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${B + C
+            }=${texNombre(a)}$ cm.`;
           break;
       }
       texte += `<br>Ce triangle est-il rectangle ?`;
-      texte_corr = `Dans le triangle $${nom_triangle}$, le plus grand côté est $[${A + B
+      texteCorr = `Dans le triangle $${nom_triangle}$, le plus grand côté est $[${A + B
         }]$.`;
-      texte_corr += `<br>$${A + B}^2=${tex_nombre(c)}^2=${tex_nombrec(
+      texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombrec(
         c ** 2
       )}$`;
-      texte_corr += `<br>$${A + C}^2+${B + C}^2=${tex_nombre(b)}^2+${tex_nombre(
+      texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
         a
-      )}^2=${tex_nombrec(b ** 2 + a ** 2)}$`;
+      )}^2=${texNombrec(b ** 2 + a ** 2)}$`;
       if (liste_type_de_questions[i] == "rectangle") {
-        texte_corr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
+        texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore est vérifiée donc $${nom_triangle}$ est rectangle en $${C}$.`;
       } else {
-        texte_corr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
+        texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nom_triangle}$ n'est pas rectangle.`;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "];
+  this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "];
 }
 

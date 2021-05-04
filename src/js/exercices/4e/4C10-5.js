@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,ecriture_algebrique} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique} from '../../modules/outils.js'
 export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
 /**
@@ -14,13 +14,13 @@ export default function Exercice_tableau_multiplications_relatifs() {
   this.titre = titre;
   this.consigne = 'Calculer'
   this.spacing = 1;
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let liste_signes1 = combinaison_listes([-1, 1], 4);
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let liste_signes1 = combinaisonListes([-1, 1], 4);
     let a1 = randint(2, 9);
     let a2 = randint(2, 9, a1);
     let a3 = randint(2, 9, [a1, a2]);
@@ -40,34 +40,34 @@ export default function Exercice_tableau_multiplications_relatifs() {
 
     let texte = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
     \\hline
-    \\times & ${ecriture_algebrique(a1)} & ${ecriture_algebrique(a2)} & ${ecriture_algebrique(a3)} & ${ecriture_algebrique(a4)} \\\\
+    \\times & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
     \\hline
-    ${ecriture_algebrique(b1)} &  &  & &  \\\\
+    ${ecritureAlgebrique(b1)} &  &  & &  \\\\
     \\hline
-    ${ecriture_algebrique(b2)} & & & & \\\\
+    ${ecritureAlgebrique(b2)} & & & & \\\\
     \\hline
-    ${ecriture_algebrique(b3)} & & & & \\\\
+    ${ecritureAlgebrique(b3)} & & & & \\\\
     \\hline
-    ${ecriture_algebrique(b4)} & & & & \\\\
+    ${ecritureAlgebrique(b4)} & & & & \\\\
     \\hline
     \\end{array}$`
 
-    let texte_corr = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
+    let texteCorr = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
     \\hline
-    \\times & ${ecriture_algebrique(a1)} & ${ecriture_algebrique(a2)} & ${ecriture_algebrique(a3)} & ${ecriture_algebrique(a4)} \\\\
+    \\times & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
     \\hline
-    ${ecriture_algebrique(b1)} & ${ecriture_algebrique(a1 * b1)} & ${ecriture_algebrique(a2 * b1)} & ${ecriture_algebrique(a3 * b1)} & ${ecriture_algebrique(a4 * b1)} \\\\
+    ${ecritureAlgebrique(b1)} & ${ecritureAlgebrique(a1 * b1)} & ${ecritureAlgebrique(a2 * b1)} & ${ecritureAlgebrique(a3 * b1)} & ${ecritureAlgebrique(a4 * b1)} \\\\
     \\hline
-    ${ecriture_algebrique(b2)} & ${ecriture_algebrique(a1 * b2)} & ${ecriture_algebrique(a2 * b2)} & ${ecriture_algebrique(a3 * b2)} & ${ecriture_algebrique(a4 * b2)} \\\\
+    ${ecritureAlgebrique(b2)} & ${ecritureAlgebrique(a1 * b2)} & ${ecritureAlgebrique(a2 * b2)} & ${ecritureAlgebrique(a3 * b2)} & ${ecritureAlgebrique(a4 * b2)} \\\\
     \\hline
-    ${ecriture_algebrique(b3)} & ${ecriture_algebrique(a1 * b3)} & ${ecriture_algebrique(a2 * b3)} & ${ecriture_algebrique(a3 * b3)} & ${ecriture_algebrique(a4 * b3)} \\\\
+    ${ecritureAlgebrique(b3)} & ${ecritureAlgebrique(a1 * b3)} & ${ecritureAlgebrique(a2 * b3)} & ${ecritureAlgebrique(a3 * b3)} & ${ecritureAlgebrique(a4 * b3)} \\\\
     \\hline
-    ${ecriture_algebrique(b4)} & ${ecriture_algebrique(a1 * b4)} & ${ecriture_algebrique(a2 * b4)} & ${ecriture_algebrique(a3 * b4)} & ${ecriture_algebrique(a4 * b4)} \\\\
+    ${ecritureAlgebrique(b4)} & ${ecritureAlgebrique(a1 * b4)} & ${ecritureAlgebrique(a2 * b4)} & ${ecritureAlgebrique(a3 * b4)} & ${ecritureAlgebrique(a4 * b4)} \\\\
     \\hline
     \\end{array}$`
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this);
 
   }
 }

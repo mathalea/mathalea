@@ -1,4 +1,4 @@
-/* globals sortie_html */
+/* globals sortieHtml */
 import { ordreDeGrandeur, calcul } from './outils.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
 import { format } from 'mathjs'
@@ -360,20 +360,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
   switch (type) {
     case 'addition':
-      if (sortie_html) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (sortieHtml) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
 
       break
     case 'soustraction':
-      if (sortie_html) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (sortieHtml) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
-      if (sortie_html) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (sortieHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'division':
-      if (sortie_html) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
+      if (sortieHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
       break
     case 'divisionE':
-      if (sortie_html) { Code = DivisionPosee3d(operande1, operande2, 0) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
+      if (sortieHtml) { Code = DivisionPosee3d(operande1, operande2, 0) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
       break
   }
   return Code

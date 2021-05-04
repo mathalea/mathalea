@@ -10,5 +10,5 @@ export default function Reglages_6M23() {
   Exercice_conversions_aires.call(this);
   this.titre = titre;
   this.sup = 3;
-  this.nb_cols_corr = 1;
+  this.nbColsCorr = 1;
 }

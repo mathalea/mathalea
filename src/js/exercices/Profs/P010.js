@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fraction_simplifiee, liste_de_question_to_contenu, printlatex, arrondi_virgule, ecriture_nombre_relatif ,xcas} from '../../modules/outils.js'
+import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
 export const titre = 'étude de fonction de degré 3'
 
@@ -12,20 +12,20 @@ export default function variation_polynome_degre3() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1; // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
   this.sup = "-1/-2/3/1"; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.sup2 = true
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  this.liste_packages = 'tkz-tab'
-  this.type_exercice='XCas'
+  this.listePackages = 'tkz-tab'
+  this.typeExercice='XCas'
   
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     // un tableau correct en exemple 
     // escpl=taille en cm entre deux antécédents, deltacl=distance entre la bordure et les premiers et derniers antécédents
@@ -43,7 +43,7 @@ export default function variation_polynome_degre3() {
 
     let a, b, c, d, a1, b1, c1, a2, xx, xxs, rac = [], t, x1s, fx1s, x3s, x2s
     let sig1, sig2, s, delta, x1, x2, x3,X1,X2,X3,XXs, f, minima, fxstring, mafonction, maderivee,MaFonction,solutions
-    let YMAXI, YMINI, XMINI, XMAXI, monrepere, macourbe, texte, texte_corr, scalex, scaley
+    let YMAXI, YMINI, XMINI, XMAXI, monrepere, macourbe, texte, texteCorr, scalex, scaley
     let coef_f = this.sup.split('/')
     let vecteurs = [], A, B, C, tangente
 
@@ -115,7 +115,7 @@ export default function variation_polynome_degre3() {
             ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
-              ['Var', 10, '+/$+\\infty$', 30, `-/$${arrondi_virgule(mafonction(rac[0]))}$`, 50, `+/$${arrondi_virgule(mafonction(rac[1]))}$`, 50, '-/$-\\infty$', 30]
+              ['Var', 10, '+/$+\\infty$', 30, `-/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `+/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '-/$-\\infty$', 30]
               ]
           })
         }
@@ -209,7 +209,7 @@ export default function variation_polynome_degre3() {
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
             tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
-            ['$-\\infty$', 30, `$${arrondi_virgule(rac[0])}$`, 60, `$${arrondi_virgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+            ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
               ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
@@ -220,10 +220,10 @@ export default function variation_polynome_degre3() {
           t = tableau_de_variation({
             colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,
             tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
-            ['$-\\infty$', 30, `$${arrondi_virgule(rac[0])}$`, 60, `$${arrondi_virgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+            ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
-              ['Var', 10, '-/$-\\infty$', 30, `+/$${arrondi_virgule(mafonction(rac[0]))}$`, 50, `-/$${arrondi_virgule(mafonction(rac[1]))}$`, 50, '+/$+\\infty$', 30]
+              ['Var', 10, '-/$-\\infty$', 30, `+/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `-/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '+/$+\\infty$', 30]
               ]
           })
         }
@@ -274,12 +274,12 @@ export default function variation_polynome_degre3() {
       x2 = -b / (a * 2)
       minima = (-b * b + 4 * a * c) / 4 / a
       if (b != 0) {
-        x2s = `${tex_fraction_signe(fraction_simplifiee(-b, 2 * a)[0], fraction_simplifiee(-b, 2 * a)[1])}`
+        x2s = `${tex_fraction_signe(fractionSimplifiee(-b, 2 * a)[0], fractionSimplifiee(-b, 2 * a)[1])}`
       }
       else {
         x2s = `0`
       }
-      fx1s = `${tex_fraction_signe(fraction_simplifiee(-b * b + 4 * a * c, 4 * a)[0], fraction_simplifiee(-b * b + 4 * a * c, 4 * a)[1])}`
+      fx1s = `${tex_fraction_signe(fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[0], fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[1])}`
       if (a > 0) {
 
         if (minima < 0) { // f(x)=0 a deux solutions
@@ -528,27 +528,27 @@ export default function variation_polynome_degre3() {
       else {
       texte +=`Par lecture graphique on peut lire les solutions de $f(x)=0$ : `
         if (solutions.length==1) {
-          texte+=`$x\\approx${arrondi_virgule(solutions[0],1)}$`
+          texte+=`$x\\approx${arrondiVirgule(solutions[0],1)}$`
         }
         else {
           if (solutions.length==2) {
-            texte += `$x\\approx${arrondi_virgule(solutions[0],1)}$ et $x\\approx${arrondi_virgule(solutions[1],1)}$`
+            texte += `$x\\approx${arrondiVirgule(solutions[0],1)}$ et $x\\approx${arrondiVirgule(solutions[1],1)}$`
           }
           else {
-            texte += `$x\\approx${arrondi_virgule(solutions[0],1)}$, $x\\approx${arrondi_virgule(solutions[1],1)}$ et $x\\approx${arrondi_virgule(solutions[2],1)}$`
+            texte += `$x\\approx${arrondiVirgule(solutions[0],1)}$, $x\\approx${arrondiVirgule(solutions[1],1)}$ et $x\\approx${arrondiVirgule(solutions[2],1)}$`
           }
         }
     }
   }
 
-    texte_corr = ``;
+    texteCorr = ``;
 
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
 
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_texte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple'];
+  this.besoinFormulaireTexte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple'];
   this.besoin_formulaire2_case_a_cocher = ['Représentation graphique', true]
   this.besoin_formulaire3_case_a_cocher = ['Valeurs exactes',false]
 }

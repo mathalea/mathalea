@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,range1,combinaisonListes} from '../../modules/outils.js'
 export const titre = 'Les quatre opérations'
 
 /**
@@ -15,25 +15,25 @@ export default function Quatre_operations() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer";
-  this.nb_questions = 10;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 10;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 1; // niveau de difficulté
-  this.liste_packages = "xlop";
+  this.listePackages = "xlop";
   this.tailleDiaporama = 100;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = range1(4);
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texte_corr, a, b, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, b, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       switch (liste_type_de_questions[i]) {
@@ -51,7 +51,7 @@ export default function Quatre_operations() {
             b = randint(110 - a, 110 - a + 50);
           }
           texte = `$${a}+${b}$`;
-          texte_corr = `$${a}+${b}=${a + b}$`;
+          texteCorr = `$${a}+${b}=${a + b}$`;
           break;
         case 2: // soustraction
           if (this.sup == 1) {
@@ -67,7 +67,7 @@ export default function Quatre_operations() {
             b = randint(a - 39, a - 21);
           }
           texte = `$${a}-${b}$`;
-          texte_corr = `$${a}-${b}=${a - b}$`;
+          texteCorr = `$${a}-${b}=${a - b}$`;
           break;
         case 3: // multiplication
           if (this.sup == 1) {
@@ -83,7 +83,7 @@ export default function Quatre_operations() {
             b = randint(2, 9);
           }
           texte = `$${a}\\times${b}$`;
-          texte_corr = `$${a}\\times${b}=${a * b}$`;
+          texteCorr = `$${a}\\times${b}=${a * b}$`;
           break;
         case 4: // division
           if (this.sup == 1) {
@@ -99,20 +99,20 @@ export default function Quatre_operations() {
             b = randint(2, 9);
           }
           texte = `$${a * b}\\div${a}$`;
-          texte_corr = `$${a * b}\\div${a}=${b}$`;
+          texteCorr = `$${a * b}\\div${a}=${b}$`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ["Niveau de difficulté", 3];
+  this.besoinFormulaireNumerique = ["Niveau de difficulté", 3];
 }
 
