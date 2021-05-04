@@ -19,6 +19,7 @@ export default function Proportionnalite_pas_proportionnalite() {
   this.nb_cols = 1;
   this.nb_cols_modifiable = false;
   this.nb_cols_corr_modifiable = false;
+  this.sup=false
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
@@ -28,7 +29,9 @@ export default function Proportionnalite_pas_proportionnalite() {
       liste_index_disponibles,
       this.nb_questions
     );
-    let liste_choix_disponibles = [1, 2, 3, 4, 5, 6];
+    let liste_choix_disponibles
+    if (this.sup) liste_choix_disponibles = [1, 2, 3, 4, 5];
+    else liste_choix_disponibles=[1, 2, 3, 4, 5, 6];
     let liste_choix = combinaison_listes(
       liste_choix_disponibles,
       this.nb_questions
@@ -309,5 +312,6 @@ export default function Proportionnalite_pas_proportionnalite() {
     }
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
   };
+  this.besoin_formulaire_case_a_cocher=['Sans tableau',false]
 }
 
