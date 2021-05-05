@@ -267,7 +267,10 @@ export default function Probleme_de_ratio() {
               texteCorr+=`En effet, $${tex_fraction(a,x)}\\approx ${texNombre2(calcul(a/x))}$ et $${tex_fraction(b,y)}\\approx ${texNombre2(calcul(b/y))}$.<br>`
               texte+=`Sinon proposer une résolution adaptée à ce ratio.`
               k=ppcm(x,y)
-              c=premierMultipleSuperieur(k,1024)
+              c=calcul(k*10)
+              while (c<1024){
+                c=calcul(c*2)
+              }
               a=calcul(c*x/y)
               b=c
               texteCorr+=`Le nombre $${c}$ est un multiple de $${x}$ et de $${y}$.<br>`
