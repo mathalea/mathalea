@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,calcul,texNombre,miseEnEvidence,texte_en_couleur,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,calcul,texNombre,miseEnEvidence,texte_en_couleur,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Trouver l’opposé d’un nombre relatif'
 
 /** 
@@ -77,11 +77,11 @@ export default function Trouver_oppose() {
 			let enonces = [];
 			enonces.push({
 				enonce: `								
-				${tab_C_L(nb_ligne_nombres, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp)}
+				${tableauColonneLigne(nb_ligne_nombres, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp)}
 				`,
 				question: ``,
 				correction: `
-				${tab_C_L(nb_ligne_nombres_corr, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp_corr)}				
+				${tableauColonneLigne(nb_ligne_nombres_corr, ['\\text{Opposé du nombre}'], nb_ligne_nombres_opp_corr)}				
 				`
 			});
 			enonces.push({

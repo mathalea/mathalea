@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur,modalPdf,liste_diviseurs} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
 
@@ -28,7 +28,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
-			//this.boutonAide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -69,12 +69,12 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 				case 3: // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 					dividende = randint(101, 9999);
 					let rg_diviseur; // rang du diviseur choisi
-					if (liste_diviseurs(dividende).length % 2 == 0) { //si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
-						rg_diviseur = liste_diviseurs(dividende).length / 2 + 1;
+					if (listeDiviseurs(dividende).length % 2 == 0) { //si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
+						rg_diviseur = listeDiviseurs(dividende).length / 2 + 1;
 					} else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
-						rg_diviseur = (liste_diviseurs(dividende).length - 1) / 2 + 1;
+						rg_diviseur = (listeDiviseurs(dividende).length - 1) / 2 + 1;
 					}
-					diviseur = liste_diviseurs(dividende)[rg_diviseur - 1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
+					diviseur = listeDiviseurs(dividende)[rg_diviseur - 1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
 					let candidats_diviseurs = [diviseur - 1, diviseur, diviseur + 1]; // on prend l'entier précédent et le successeur de ce diviseur
 
 					// Faut-il que je conditionne pour éviter le diviseur 1 ?
@@ -140,8 +140,8 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					let n1 = nombre_avec_espace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]]));
 					let p1 = nombre_avec_espace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3], n1]));
 					// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
-					let n2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(n1)));
-					let p2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(p1)));
+					let n2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(n1)));
+					let p2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(p1)));
 					textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
 					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texte_en_couleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texte_en_couleur(n2 % n1)}`;
 					textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
@@ -169,7 +169,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					tableau_de_choix = [randint(2, 99), randint(2, 99, [tableau_de_choix[0]]), randint(2, 99, [tableau_de_choix[0], tableau_de_choix[1]]), randint(2, 99, [tableau_de_choix[0], tableau_de_choix[1], tableau_de_choix[2]])];
 					let tableau_de_choix_3chiffres = [];
 					for (let m = 101; m < 999; m++) {
-						if (liste_diviseurs(m).length > 8) {
+						if (listeDiviseurs(m).length > 8) {
 							tableau_de_choix_3chiffres.push(m);
 						};
 					};
@@ -185,21 +185,21 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`;
 					texteCorr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times$${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
 					texteCorr += ` En effet, si ${N} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${N} c'est que q$\\times$q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`;
-					if (liste_diviseurs(N).length % 2 == 0) { //si il y a un nombre pair de diviseurs
-						for (let m = 0; m < (liste_diviseurs(N).length / 2); m++) {
-							texteCorr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + ` = ${N}<br>`;
+					if (listeDiviseurs(N).length % 2 == 0) { //si il y a un nombre pair de diviseurs
+						for (let m = 0; m < (listeDiviseurs(N).length / 2); m++) {
+							texteCorr += `` + listeDiviseurs(N)[m] + `$\\times$` + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + ` = ${N}<br>`;
 						};
 					} else {
-						for (let m = 0; m < ((liste_diviseurs(N).length - 1) / 2); m++) {
-							texteCorr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + `<br>`;
+						for (let m = 0; m < ((listeDiviseurs(N).length - 1) / 2); m++) {
+							texteCorr += `` + listeDiviseurs(N)[m] + `$\\times$` + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + `<br>`;
 						};
-						texteCorr += `` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
+						texteCorr += `` + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + `$\\times$` + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
 					};
 					texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
 					texteCorr += `La liste des diviseurs de ${N} est donc `;
 					texteCorr += `1`;
-					for (let w = 1; w < liste_diviseurs(N).length; w++) {
-						texteCorr += ` ; ` + liste_diviseurs(N)[w];
+					for (let w = 1; w < listeDiviseurs(N).length; w++) {
+						texteCorr += ` ; ` + listeDiviseurs(N)[w];
 					};
 					texteCorr += `.`;
 					break;

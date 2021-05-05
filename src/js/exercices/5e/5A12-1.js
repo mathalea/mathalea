@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modal_video,crible_eratosthene_n,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modalVideo,cribleEratostheneN,warn_message} from '../../modules/outils.js'
 
 
 export const titre = 'Primalité ou pas'
@@ -32,7 +32,7 @@ export default function Premier_ou_pas_5e() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-5A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.boutonAide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -47,9 +47,9 @@ export default function Premier_ou_pas_5e() {
 		//let type_de_questions_disponibles = [1];
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>` + crible_eratosthene_n(100)[0];
-		for (let k = 1; k < crible_eratosthene_n(30).length; k++) {
-			string_rappel += `, ` + crible_eratosthene_n(30)[k];
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>` + cribleEratostheneN(100)[0];
+		for (let k = 1; k < cribleEratostheneN(30).length; k++) {
+			string_rappel += `, ` + cribleEratostheneN(30)[k];
 		};
 		string_rappel += `.`;
 		this.introduction = warn_message(string_rappel, `nombres`, `Coup de pouce`);
@@ -115,11 +115,11 @@ export default function Premier_ou_pas_5e() {
 					break;
 				case 6: // produit de deux nombres premiers inférieurs à 30
 					// rang du premier facteur premier
-					let r1 = randint(0, crible_eratosthene_n(30).length - 1);
+					let r1 = randint(0, cribleEratostheneN(30).length - 1);
 					// rang du second facteur premier
-					let r2 = randint(0, crible_eratosthene_n(30).length - 1);
-					let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-					let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+					let r2 = randint(0, cribleEratostheneN(30).length - 1);
+					let prime1 = cribleEratostheneN(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+					let prime2 = cribleEratostheneN(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
 					N = prime1 + `$\\times $` + prime2;
 					texte = N;
 					texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
@@ -132,10 +132,10 @@ export default function Premier_ou_pas_5e() {
 					break;
 				case 7: // nombre premier inférieur à 29
 					// rang du nombre premier choisi
-					let r = randint(0, crible_eratosthene_n(29).length - 1);
-					N = crible_eratosthene_n(29)[r]; //on choisit un nombre premier inférieur à 529
+					let r = randint(0, cribleEratostheneN(29).length - 1);
+					N = cribleEratostheneN(29)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
-					let tab_premiers_a_tester = crible_eratosthene_n(N);
+					let tab_premiers_a_tester = cribleEratostheneN(N);
 					//texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr += tab_premiers_a_tester[0];

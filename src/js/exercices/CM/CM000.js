@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,miseEnEvidence,katex_Popup2,fractionSimplifiee} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,miseEnEvidence,katexPopup2,fractionSimplifiee} from '../../modules/outils.js'
 
 
 

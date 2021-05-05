@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatriemeProportionnelle,texNombrec,lettreDepuisChiffre,texFraction,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatriemeProportionnelle,texNombrec,lettreDepuisChiffre,texFraction,katexPopup2} from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
 

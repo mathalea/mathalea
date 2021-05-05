@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Tableaux et proportionnalité.'
 
 /** 
@@ -125,7 +125,7 @@ export default function Tableaux_et_proportionnalite() {
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> multiplication ligne1 vers ligne2
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + n1 + `\\phantom{000}`, `\\phantom{000}` + n2 + `\\phantom{000}`, `\\phantom{000}` + n3 + `\\phantom{000}`],
 						[n1 * coeff], [n2 * coeff, n3 * coeff]
 					),
@@ -136,7 +136,7 @@ export default function Tableaux_et_proportionnalite() {
 
 				},
 				{//case 1 --> multiplication ligne1 vers ligne2 Décimaux
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + texNombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u3 + ci3 / 10) + `\\phantom{000}`],
 						[texNombre((u1 + ci1 / 10) * coeff)], [texNombre((u2 + ci2 / 10) * coeff), texNombre((u3 + ci3 / 10) * coeff)]
 					),
@@ -147,7 +147,7 @@ export default function Tableaux_et_proportionnalite() {
 
 				},
 				{//case 2 --> division ligne1 vers ligne2
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + n1 * coeff + `\\phantom{000}`, `\\phantom{000}` + n2 * coeff + `\\phantom{000}`, `\\phantom{000}` + n3 * coeff + `\\phantom{000}`],
 						[n1], [n2, n3]
 					),
@@ -158,7 +158,7 @@ export default function Tableaux_et_proportionnalite() {
 
 				},
 				{//case 3 --> addition ligne1 vers ligne2
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + n1 + `\\phantom{000}`, `\\phantom{000}` + n2 + `\\phantom{000}`, `\\phantom{000}` + n3 + `\\phantom{000}`],
 						[n1 + coeff], [n2 + coeff, n3 + coeff]
 					),
@@ -168,7 +168,7 @@ export default function Tableaux_et_proportionnalite() {
 					areEgaux: `différents`,
 				},
 				{//case 4 --> addition ligne1 vers ligne2 Décimaux
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + texNombre(u1 + ci1 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u2 + ci2 / 10) + `\\phantom{000}`, `\\phantom{000}` + texNombre(u3 + ci3 / 10) + `\\phantom{000}`],
 						[texNombre((u1 + ci1 / 10) + coeff)], [texNombre((u2 + ci2 / 10) + coeff), texNombre((u3 + ci3 / 10) + coeff)]
 					),
@@ -179,7 +179,7 @@ export default function Tableaux_et_proportionnalite() {
 
 				},
 				{//case 5 --> soustraction ligne1 vers ligne2
-					tableau: tab_C_L(
+					tableau: tableauColonneLigne(
 						[`\\phantom{000}` + n1 + `\\phantom{000}`, `\\phantom{000}` + n2 + `\\phantom{000}`, `\\phantom{000}` + n3 + `\\phantom{000}`],
 						[n1 - coeff_soust], [n2 - coeff_soust, n3 - coeff_soust]
 					),

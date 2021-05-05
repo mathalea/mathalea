@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenuSansNumero, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katex_Popup2 } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
 import {SVG_Tracer_droite, Latex_Tracer_droite, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
 import SVG from 'svg.js'
 export const titre = 'Déterminer une fonction affine'
@@ -83,7 +83,7 @@ export default function Lecture_expression_fonctions_affines () {
     }
 
     listeQuestionsToContenuSansNumero(this)
-    if (!this.lineaire) { this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection} else { this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katex_Popup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection}
+    if (!this.lineaire) { this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection} else { this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection}
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"]
   this.besoin_formulaire2_numerique = ['Nombre de droites (1 à 5)', 5]

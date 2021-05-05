@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modal_video,liste_diviseurs,numAlpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modalVideo,listeDiviseurs,numAlpha,cribleEratostheneN,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
 
 /**
@@ -27,7 +27,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.boutonAide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -47,13 +47,13 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 			switch (type_de_questions) {
 				case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
 					texte = `Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers`;
-					//let premiers_dispos = premiers_entre_bornes(2,11);
+					//let premiers_dispos = premiersEntreBornes(2,11);
 					// on fixe le nombre de facteurs premier à 3
 					let nb_de_premiers_b = randint(3, 3);
 					// on fixe la limite pour le choix des premiers
 					let max_premier_b = 11;
 					// on fixe le rang max pour le choix des premiers
-					let rg_max_b = crible_eratosthene_n(max_premier_b).length - 1;
+					let rg_max_b = cribleEratostheneN(max_premier_b).length - 1;
 					// on choisit les rangs pour les nombres premiers
 					let tab_rangs_b = [];
 					let tab_rangs_exclus_b = [];
@@ -66,7 +66,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					// on choisit les premiers
 					let tab_premiers_b = [];
 					for (let k = 0; k < tab_rangs_b.length; k++) {
-						tab_premiers_b[k] = crible_eratosthene_n(max_premier_b)[tab_rangs_b[k]];
+						tab_premiers_b[k] = cribleEratostheneN(max_premier_b)[tab_rangs_b[k]];
 					};
 					// on range les facteurs premiers dans l'ordre croissant
 					tab_premiers_b.sort(function (a, b) {
@@ -134,7 +134,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 						};
 					};
 					texte += `<br>`;
-					texte += tab_C_L(ent_colonnes, ent_lignes, contenu_lignes);
+					texte += tableauColonneLigne(ent_colonnes, ent_lignes, contenu_lignes);
 					if (!sortieHtml) {
 						texte += `$\\medskip$`;
 					};
@@ -200,7 +200,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 						};
 					};
 					texteCorr += `<br>`;
-					texteCorr += tab_C_L(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr);
+					texteCorr += tableauColonneLigne(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr);
 					texteCorr += `<br>`;
 					texteCorr += numAlpha(1) + ` $${texNombre(nombre_a_decomposer_b)}$ a donc `;
 					texteCorr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
@@ -230,8 +230,8 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					texteCorr += `<br>`;
 					texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${texNombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 					texteCorr += `$1`;
-					for (let w = 1; w < liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-						texteCorr += `\\text{ ; }` + texNombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
+					for (let w = 1; w < listeDiviseurs(nombre_a_decomposer_b).length; w++) {
+						texteCorr += `\\text{ ; }` + texNombre(listeDiviseurs(nombre_a_decomposer_b)[w]);
 					};
 					texteCorr += `.$`;
 					break;

@@ -1,4 +1,4 @@
-import {randint,arrondi,calcul,texNombrec,texNombre,nombre_avec_espace,katex_Popup2} from '../../modules/outils.js'
+import {randint,arrondi,calcul,texNombrec,texNombre,nombre_avec_espace,katexPopup2} from '../../modules/outils.js'
 
 
 /**

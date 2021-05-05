@@ -1,12 +1,12 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katex_Popup2,numAlpha,warn_message,lampe_message,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katexPopup2,numAlpha,warn_message,lampe_message,ppcm} from '../../modules/outils.js'
 import {SVG_engrenages} from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
 
 /**
  * 3A13 - PPCM_Engrenages
  * les deux on besoin de la def partielle serie : stlX
- * pb dans la sortie LaTeX, revoir comment user de la fonction katex_Popup2() pour affichage d'une note hors texte!
+ * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte!
  * @author Sébastien Lozano
  */
 export default function PPCM_Engrenages() {
@@ -38,7 +38,7 @@ export default function PPCM_Engrenages() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			//this.boutonAide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -99,7 +99,7 @@ export default function PPCM_Engrenages() {
 						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 						// };
 						//${texte_gras('les nombres a et b sont premiers entre eux')}.`;
-						texte += katex_Popup2(
+						texte += katexPopup2(
 							numeroExercice + 1,
 							1,
 							"nombres premiers entre eux ?",
@@ -148,7 +148,7 @@ export default function PPCM_Engrenages() {
 					texteCorr += `<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
-						texteCorr += katex_Popup2(
+						texteCorr += katexPopup2(
 							numeroExercice + 2,
 							1,
 							"nombres premiers entre eux.",
@@ -179,7 +179,7 @@ export default function PPCM_Engrenages() {
 					texte += `<br>` + numAlpha(0) + ` Décomposer $${nb_dents_r1}$ et $${nb_dents_r2}$ en produit de facteurs premiers.`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
-						texte += katex_Popup2(
+						texte += katexPopup2(
 							numeroExercice + 3,
 							1,
 							"nombres premiers entre eux",
@@ -194,7 +194,7 @@ export default function PPCM_Engrenages() {
 					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
-						texteCorr += katex_Popup2(
+						texteCorr += katexPopup2(
 							numeroExercice + 4,
 							1,
 							"nombres premiers entre eux.",

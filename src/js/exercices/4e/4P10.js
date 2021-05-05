@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katex_Popup2,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katexPopup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -193,7 +193,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(0) +
             ` Exprimer en kWh l' ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i + 1,
               type_aide,
               "énergie",
@@ -263,7 +263,7 @@ export default function Problemes_grandeurs_composees() {
               texte +=
                 numAlpha(0) +
                 ` Calculer le ` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i * 3,
                   type_aide,
                   "volume",
@@ -331,7 +331,7 @@ export default function Problemes_grandeurs_composees() {
               texte +=
                 numAlpha(0) +
                 ` Calculer le ` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i * 3,
                   type_aide,
                   "volume",
@@ -342,7 +342,7 @@ export default function Problemes_grandeurs_composees() {
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i * 3,
                   type_aide,
                   "densité",
@@ -380,7 +380,7 @@ export default function Problemes_grandeurs_composees() {
           vitesse_moy = randint(vitesses[index1][1], vitesses[index1][2]); // vitesse choisie pour l'exo
           texte =
             `${quidam} se déplace ${vitesses[index1][0]} à la ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3,
               type_aide,
               `vitesse`,
@@ -392,7 +392,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(0) +
             ` Calculer sa ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 1,
               type_aide,
               "quantité de mouvement",
@@ -403,7 +403,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(1) +
             ` En déduire son ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 2,
               type_aide,
               "énergie cinétique",
@@ -429,7 +429,7 @@ export default function Problemes_grandeurs_composees() {
           distance = arrondi(randint(25, 35) / 10);
           texte =
             `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3,
               2,
               `trébuchet`,
@@ -442,7 +442,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(0) +
             ` Calculer le ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 1,
               type_aide,
               `moment`,
@@ -450,7 +450,7 @@ export default function Problemes_grandeurs_composees() {
               `Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`
             ) +
             ` du ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 2,
               type_aide,
               `poids`,
@@ -500,7 +500,7 @@ export default function Problemes_grandeurs_composees() {
           texte =
             numAlpha(0) +
             ` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3,
               type_aide,
               `trafic`,
@@ -528,7 +528,7 @@ export default function Problemes_grandeurs_composees() {
           texte =
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 1,
               type_aide,
               `puissance`,
@@ -568,7 +568,7 @@ export default function Problemes_grandeurs_composees() {
               duree = randint(2, vitesses[index1][3]);
               texte =
                 `${quidam} se déplace ${vitesses[index1][0]} à la ` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i * 3,
                   type_aide,
                   `vitesse`,
@@ -660,7 +660,7 @@ export default function Problemes_grandeurs_composees() {
               distance = randint(5, 15, [duree]) * 340; //distance de l'orage en m pour question b
               texte =
                 `Le son se déplace dans l'air à la ` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i * 3,
                   type_aide,
                   `vitesse`,
@@ -710,7 +710,7 @@ export default function Problemes_grandeurs_composees() {
               distance = randint(5, 12);
               texte =
                 `${quidam} vient de courir ${distance} kilomètres. Sa montre connectée a enregistré l'` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i,
                   type_aide,
                   `allure`,
@@ -749,7 +749,7 @@ export default function Problemes_grandeurs_composees() {
               texte +=
                 numAlpha(1) +
                 ` En déduire sa	` +
-                katex_Popup2(
+                katexPopup2(
                   numeroExercice + i+1,
                   type_aide,
                   `vitesse`,
@@ -946,7 +946,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(1) +
             ` La même année, la ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 1,
               type_aide,
               `densité de population`,
@@ -996,7 +996,7 @@ export default function Problemes_grandeurs_composees() {
           texte =
             numAlpha(0) +
             ` La ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i * 3 + 1,
               type_aide,
               `masse volumique`,
@@ -1091,7 +1091,7 @@ export default function Problemes_grandeurs_composees() {
           let vmax = rivieres[index2][3] * 3600;
           texte =
             `Le ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i,
               type_aide,
               `débit`,
@@ -1148,7 +1148,7 @@ export default function Problemes_grandeurs_composees() {
           texte =
             numAlpha(0) +
             ` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa ` +
-            katex_Popup2(
+            katexPopup2(
               numeroExercice + i,
               type_aide,
               `vitesse de téléchargement`,

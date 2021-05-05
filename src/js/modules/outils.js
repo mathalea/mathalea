@@ -3232,7 +3232,7 @@ export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton 
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @Auteur Sébastien Lozano
  */
-export function modal_video (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
+export function modalVideo (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
   // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
   <div class="header">${texte}</div>
@@ -3254,7 +3254,7 @@ export function modal_video (id_du_modal, url_video, texte, label_bouton = 'Vid�
  * @param {string} label_bouton = ce qui est écrit en titre de l'image
  * @param {string} icone
  */
-export function modal_image (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
+export function modalImage (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
   const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
   return creerModal(numeroExercice, contenu, label_bouton, icone)
 }
@@ -3264,7 +3264,7 @@ export function modal_image (numeroExercice, url_image, texte, label_bouton = 'I
  * @param {integer} n
  * @Auteur Sébastien Lozano
  */
-export function liste_diviseurs (n) {
+export function listeDiviseurs (n) {
   'use strict'
   let i = 2
   const diviseurs = [1]
@@ -3294,7 +3294,7 @@ export function liste_diviseurs (n) {
 * @author Sébastien Lozano
 */
 
-export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
   // tous les textes sont en mode maths !!!
   'use strict'
   return `
@@ -3330,7 +3330,7 @@ export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_lig
  * attention mode maths pour les chaines
  * @author Sébastien Lozano
  */
-export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
+export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
   'use strict'
   const x_init = -10
   let saut = 0
@@ -3463,7 +3463,7 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
  * @param {string} textePopup
  * @Auteur Sébastien Lozano
  */
-export function katex_Popup (texte, titrePopup, textePopup) {
+export function katexPopup (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
   if (sortieHtml) {
@@ -3479,7 +3479,7 @@ export function katex_Popup (texte, titrePopup, textePopup) {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
-export function katex_Popuptest (texte, titrePopup, textePopup) {
+export function katexPopupTest (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
   if (sortieHtml) {
@@ -3533,11 +3533,11 @@ export function katex_Popuptest (texte, titrePopup, textePopup) {
 * @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
 
-export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
+export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
   'use strict'
   switch (type) {
     case 0:
-      return katex_Popuptest(texte, titrePopup, textePopup)
+      return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
       if (sortieHtml) {
         return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
@@ -3546,7 +3546,7 @@ export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
       }
     case 2:
       if (sortieHtml) {
-        return `${texte}` + modal_image(numero, textePopup, `${titrePopup}`, `${texte}`)
+        return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
       }
@@ -3572,7 +3572,7 @@ export function numAlpha (k) {
  * @author Sébastien Lozano
  */
 
-export function tex_cadre_par_orange (texte) {
+export function texCadreParOrange (texte) {
   'use strict'
   // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   const sortie = `
@@ -3595,7 +3595,7 @@ export function tex_cadre_par_orange (texte) {
  * @author Sébastien Lozano
  */
 
-export function machine_maths_video (url_video) {
+export function machineMathsVideo (url_video) {
   'use strict'
   const video = `
   <div style="text-align:center"> 
@@ -3612,7 +3612,7 @@ export function machine_maths_video (url_video) {
  * détecte si le navigateur et safari ou chrome et renvoie un booléen
  * @author Sébastien Lozano
  */
-export function detect_safari_chrome_browser () {
+export function detectSafariChromeBrowser () {
   'use strict'
   let is_chrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
@@ -3675,7 +3675,7 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  * @param {number} n
  * @author Sébastien Lozano
  */
-export function crible_eratosthene_n (n) {
+export function cribleEratostheneN (n) {
   'use strict'
   const tab_entiers = [] // pour tous les entiers de 2 à n
   const test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
@@ -3714,12 +3714,12 @@ export function crible_eratosthene_n (n) {
  * @author Sébastien Lozano
  */
 
-export function premiers_entre_bornes (min, max) {
+export function premiersEntreBornes (min, max) {
   'use strict'
   // on crée les premiers jusque min
-  const premiers_a_suppr = crible_eratosthene_n(min - 1)
+  const premiers_a_suppr = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
-  const premiers_jusque_max = crible_eratosthene_n(max)
+  const premiers_jusque_max = cribleEratostheneN(max)
   // on supprime le début de la liste jusque min
   premiers_jusque_max.splice(0, premiers_a_suppr.length)
   // on renvoie le tableau restant
@@ -3732,7 +3732,7 @@ export function premiers_entre_bornes (min, max) {
  * @author Sébastien Lozano
  */
 
-export function texte_ou_pas (texte) {
+export function texteOuPas (texte) {
   'use strict'
   const bool = randint(0, 1)
   if (bool === 0) {
@@ -3745,7 +3745,7 @@ export function texte_ou_pas (texte) {
 /**
  * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
  * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux en utilisant éventuellement la commande \\text{}
- * tab_C_L(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
+ * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
  * ------------------
  * | coin | A  | B  |
  * ------------------
@@ -3759,7 +3759,7 @@ export function texte_ou_pas (texte) {
  * @author Sébastien Lozano
  *
  */
-export function tab_C_L (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
+export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
   'use strict'
   let myLatexArraystretch
   if (typeof arraystretch === 'undefined') {
@@ -3850,7 +3850,7 @@ export function warn_message (texte, couleur, titre) {
     </div>
     `
   } else {
-    // return tex_cadre_par_orange(texte);
+    // return texCadreParOrange(texte);
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
       ` + texte + `

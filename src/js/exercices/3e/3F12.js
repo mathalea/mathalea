@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikz_machine_diag, numAlpha, tex_cadre_par_orange } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
 import { SVG_machine_diag_3F12 } from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Calculs d’images'
 
@@ -36,7 +36,7 @@ export default function fonctions_calculs_d_images () {
     let type_de_questions
     if (sortieHtml) { // les boutons d'aide uniquement pour la version html
       //			 this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
-      //			 this.boutonAide += modal_video('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+      //			 this.boutonAide += modalVideo('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -104,11 +104,11 @@ export default function fonctions_calculs_d_images () {
             texteCorr += numAlpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`
           } else {
-            texte += tex_cadre_par_orange(itemize(['Choisir un nombre', `Multiplier ce nombre par ${a}`, `Ajouter ${b} au résultat obtenu`]))
+            texte += texCadreParOrange(itemize(['Choisir un nombre', `Multiplier ce nombre par ${a}`, `Ajouter ${b} au résultat obtenu`]))
             // sous-question a/
             texte += texEnumerate([`Appliquer ce programme de calcul au nombre ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
             // texteCorr +=
-            texteCorr += texEnumerate([tex_cadre_par_orange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$ `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$`])), `L'image de ${c} par cette fonction vaut ${a * c + b}<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`], this.spacing)
+            texteCorr += texEnumerate([texCadreParOrange(itemize([`On choisit le nombre ${c}`, `On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a * c}$ `, `On ajoute ${b} au résultat obtenu : $${a * c}+${b}=${a * c + b}$`])), `L'image de ${c} par cette fonction vaut ${a * c + b}<br>On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`], this.spacing)
           };
           break
         case 2:
@@ -197,11 +197,11 @@ export default function fonctions_calculs_d_images () {
             texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $h$ vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $h$`
           } else {
-            texte += '<br>' + tikz_machine_diag('h', 'x', [['\\times ' + a, a + 'x'], ['+' + b, a + 'x+' + b]])
+            texte += '<br>' + tikzMachineDiag('h', 'x', [['\\times ' + a, a + 'x'], ['+' + b, a + 'x+' + b]])
             // sous-question a/ et b/
             texte += texEnumerate([`Calculer l'image de ${c}`, 'Traduire ce calcul par une phrase contenant le mot image'], this.spacing)
             texteCorr = texEnumerate(
-              [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikz_machine_diag('h', c, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
+              [`Calculons l'image par $g$ de $x=$ ${c} :<br>` + tikzMachineDiag('h', c, [['\\times ' + a, (a * c)], ['+' + b, (a * c + b)]]),
 							`L'image de ${c} par la fonction $g$ vaut ${a * c + b}
 						 	<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$`
               ], this.spacing)
