@@ -207,8 +207,6 @@ export function apparence_exercice_actif () {
     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
     if (compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-     // const ancienTexte = elem_liste.first().text()
-     // const txt = ancienTexte.split('✖︎')[0] + `<span> ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])} </span>`
       if (document.getElementById(`count¤${liste_exercices_selectionnes[i]}`)) {
 		 document.getElementById(`count¤${liste_exercices_selectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])}`  
 	  } else {
