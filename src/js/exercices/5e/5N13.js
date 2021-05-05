@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, enleve_element, choice, tex_fraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, tex_fraction } from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Simplification de fractions'
@@ -16,13 +16,13 @@ export default function Exercice_fractions_simplifier (max = 11) {
   this.titre = titre
   this.consigne = 'Simplifier les fractions suivantes.'
   this.spacing = 2
-  this.spacing_corr = 2
+  this.spacingCorr = 2
 
-  this.nouvelle_version = function () {
-    this.QCM = ['5N13', [], 'Simplification de fractions', 3]
+  this.nouvelleVersion = function () {
+    this.qcm = ['5N13', [], 'Simplification de fractions', 3]
 
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     const liste_fractions = [
       [1, 2],
       [1, 3],
@@ -57,15 +57,15 @@ export default function Exercice_fractions_simplifier (max = 11) {
       [9, 10]
     ] // Couples de nombres premiers entre eux
     for (
-      let i = 0, fraction, a, k, b, texte, texte_corr;
-      i < this.nb_questions;
+      let i = 0, fraction, a, k, b, texte, texteCorr;
+      i < this.nbQuestions;
       i++
     ) {
       fraction = choice(liste_fractions) //
       a = fraction[0]
       b = fraction[1]
       k = randint(2, this.sup)
-      enleve_element(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
+      enleveElement(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
       texte =
           '$ ' +
           tex_fraction(k * a, k * b) +
@@ -74,7 +74,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           tex_fraction('\\phantom{0000}', '') +
           ' $'
-      texte_corr =
+      texteCorr =
           '$ ' +
           tex_fraction(k * a, k * b) +
           ' = ' +
@@ -82,16 +82,16 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           tex_fraction(a, b) +
           ' $'
-      this.liste_questions.push(texte)
-      this.liste_corrections.push(texte_corr)
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
       /*****************************************************/
       // Pour AMC
-      this.QCM[1].push([texte, [texte_corr], [1]])
+      this.qcm[1].push([texte, [texteCorr], [1]])
     /****************************************************/
     }
-    liste_de_question_to_contenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     'Valeur maximale du facteur commun',
     99999
   ]

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,decomposition_facteurs_premiers,modal_pdf,katex_Popup2,num_alpha,warn_message,lampe_message,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katex_Popup2,num_alpha,warn_message,lampe_message,ppcm} from '../../modules/outils.js'
 import {SVG_engrenages} from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
 
@@ -18,40 +18,40 @@ export default function PPCM_Engrenages() {
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne = ``;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 2 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 4;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	sortieHtml ? this.spacing = 2 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	this.nbQuestions = 4;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
-	this.liste_packages = 'bclogo';
+	this.listePackages = 'bclogo';
 
 	var num_ex = '3A13'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-	if (sortie_html) {
+	if (sortieHtml) {
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 	} else { // sortie LaTeX
 	};
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
+			//this.boutonAide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1, 2, 3, 4];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 		let txt_intro = `Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`;
-		if (sortie_html) {
+		if (sortieHtml) {
 			txt_intro += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
 			txt_intro += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 			//this.introduction += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
@@ -65,19 +65,19 @@ export default function PPCM_Engrenages() {
 			couleur: `nombres`
 		});
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = liste_type_de_questions[i];
 
-			if (sortie_html) {
+			if (sortieHtml) {
 				let id_unique = `${num_ex}_${i}_${Date.now()}`;
-				//var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				//var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`;
 			}
 
 			var nb_dents_r1;
 			var nb_dents_r2;
 			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
 			//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
-			if (sortie_html) {
+			if (sortieHtml) {
 				txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 			} else {
 				txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
@@ -93,14 +93,14 @@ export default function PPCM_Engrenages() {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 						// let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
 						// //txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
-						// if (sortie_html) {
+						// if (sortieHtml) {
 						// 	txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 						// } else {
 						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 						// };
 						//${texte_gras('les nombres a et b sont premiers entre eux')}.`;
 						texte += katex_Popup2(
-							numero_de_l_exercice + 1,
+							numeroExercice + 1,
 							1,
 							"nombres premiers entre eux ?",
 							`Définition : Nombres premiers entre eux`,
@@ -108,69 +108,69 @@ export default function PPCM_Engrenages() {
 						);
 					};
 					texte += `<br>` + num_alpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
-					texte_corr = num_alpha(0) + ` Liste des premiers multiples de $${nb_dents_r1}$ : <br>`;
+					texteCorr = num_alpha(0) + ` Liste des premiers multiples de $${nb_dents_r1}$ : <br>`;
 					// on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
 					let nb_marge = 5 - (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1) % 5;
 					let k_max = (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1 + nb_marge);
 					for (let k = 1; k < k_max + 1; k++) {
-						texte_corr += `$${k}\\times${nb_dents_r1} = `;
+						texteCorr += `$${k}\\times${nb_dents_r1} = `;
 						if (k == (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1)) {
-							texte_corr += mise_en_evidence(tex_nombre(k * nb_dents_r1));
-							texte_corr += `$ ; `;
+							texteCorr += miseEnEvidence(texNombre(k * nb_dents_r1));
+							texteCorr += `$ ; `;
 						} else {
-							texte_corr += `${tex_nombre(k * nb_dents_r1)}$ ; `;
+							texteCorr += `${texNombre(k * nb_dents_r1)}$ ; `;
 						};
 						if (k % 5 == 0) {
-							texte_corr += `<br>`;
+							texteCorr += `<br>`;
 						}
 					};
-					texte_corr += `$\\ldots$ `;
-					texte_corr += `<br>`;
-					texte_corr += ` Liste des premiers multiples de ${nb_dents_r2} : <br>`;
+					texteCorr += `$\\ldots$ `;
+					texteCorr += `<br>`;
+					texteCorr += ` Liste des premiers multiples de ${nb_dents_r2} : <br>`;
 					// on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
 					nb_marge = 5 - (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2) % 5;
 					k_max = (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2 + nb_marge);
 					for (let k = 1; k < k_max + 1; k++) {
-						texte_corr += `$${k}\\times${nb_dents_r2} = `;
+						texteCorr += `$${k}\\times${nb_dents_r2} = `;
 						if (k == (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2)) {
-							texte_corr += mise_en_evidence(tex_nombre(k * nb_dents_r2));
-							texte_corr += `$ ; `;
+							texteCorr += miseEnEvidence(texNombre(k * nb_dents_r2));
+							texteCorr += `$ ; `;
 						} else {
-							texte_corr += `${tex_nombre(k * nb_dents_r2)}$ ; `;
+							texteCorr += `${texNombre(k * nb_dents_r2)}$ ; `;
 						};
 						if (k % 5 == 0) {
-							texte_corr += `<br>`;
+							texteCorr += `<br>`;
 						}
 					};
-					texte_corr += `$\\ldots$ `;
-					texte_corr += `<br>`;
-					texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1, nb_dents_r2)}$.`;
-					texte_corr += `<br>`;
+					texteCorr += `$\\ldots$ `;
+					texteCorr += `<br>`;
+					texteCorr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1, nb_dents_r2)}$.`;
+					texteCorr += `<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
-						texte_corr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
-						texte_corr += katex_Popup2(
-							numero_de_l_exercice + 2,
+						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+						texteCorr += katex_Popup2(
+							numeroExercice + 2,
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
 							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
-					texte_corr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
-					texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1, nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$`;
+					texteCorr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
+					texteCorr += `<br> Cela correspond à $(${ppcm(nb_dents_r1, nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `pour la roue n$\\degree$1.`;
-					texte_corr += `<br>Cela correspond à $(${ppcm(nb_dents_r1, nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$`;
+					texteCorr += `pour la roue n$\\degree$1.`;
+					texteCorr += `<br>Cela correspond à $(${ppcm(nb_dents_r1, nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `pour la roue n$\\degree$2.`;
+					texteCorr += `pour la roue n$\\degree$2.`;
 					break;
 				case 2: // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
 					nb_dents_r1 = randint(31, 80);
@@ -180,7 +180,7 @@ export default function PPCM_Engrenages() {
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 						texte += katex_Popup2(
-							numero_de_l_exercice + 3,
+							numeroExercice + 3,
 							1,
 							"nombres premiers entre eux",
 							`Définition : Nombres premiers entre eux`,
@@ -188,35 +188,35 @@ export default function PPCM_Engrenages() {
 						);
 					};
 					texte += `<br>` + num_alpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
-					texte_corr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`;
-					texte_corr += `<br>` + num_alpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
-					texte_corr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
-					texte_corr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
+					texteCorr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`;
+					texteCorr += `<br>` + num_alpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
+					texteCorr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
+					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
-						texte_corr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
-						texte_corr += katex_Popup2(
-							numero_de_l_exercice + 4,
+						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+						texteCorr += katex_Popup2(
+							numeroExercice + 4,
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
 							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
-					texte_corr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
-					texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$`;
+					texteCorr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
+					texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `pour la roue n$\\degree$1.`;
-					texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$`;
+					texteCorr += `pour la roue n$\\degree$1.`;
+					texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `pour la roue n$\\degree$2.`;
+					texteCorr += `pour la roue n$\\degree$2.`;
 					break;
 				case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
 					nb_dents_r1 = randint(5, 80);
@@ -229,40 +229,40 @@ export default function PPCM_Engrenages() {
 						texte += ` tours `;
 					};
 					texte += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$.`;
-					texte_corr = `Puisque la roue n$\\degree$2, qui a $${nb_dents_r2}$ dents, fait $${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$ `;
+					texteCorr = `Puisque la roue n$\\degree$2, qui a $${nb_dents_r2}$ dents, fait $${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2}$ `;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r2 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `, cela représente $${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
-					texte_corr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents, ceci en $${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$ `;
+					texteCorr += `, cela représente $${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
+					texteCorr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents, ceci en $${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}$ `;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `.`;
-					texte_corr += `<br> on obtient donc $(${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}\\text{`;
+					texteCorr += `.`;
+					texteCorr += `<br> on obtient donc $(${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}\\text{ dents})\\div (${ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1}\\text{`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) / nb_dents_r1 == 1) {
-						texte_corr += ` tour `;
+						texteCorr += ` tour `;
 					} else {
-						texte_corr += ` tours `;
+						texteCorr += ` tours `;
 					};
-					texte_corr += `}) = ${nb_dents_r1} \\text{ dents/tour}.$`;
-					texte_corr += `<br>La roue n$\\degree$1 a donc : $${nb_dents_r1}$ dents.`;
+					texteCorr += `}) = ${nb_dents_r1} \\text{ dents/tour}.$`;
+					texteCorr += `<br>La roue n$\\degree$1 a donc : $${nb_dents_r1}$ dents.`;
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { mathalea2d, codageAngleDroit, codeSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, tex_nombre, creerNomDePolygone, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires carrés, rectangles et triangles rectangles'
 
@@ -19,19 +19,19 @@ export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
   this.titre = titre
   this.consigne = "Calculer le périmètre et l'aire des 3 figures suivantes"
   this.spacing = 2
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbCols = 1
+  this.nbColsCorr = 1
 
   // eslint-disable-next-line no-undef
-  sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 2)
-  this.nb_questions = 1
-  this.nb_questions_modifiable = false
+  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    let texte = ''; let texte_corr = ''
+  this.nouvelleVersion = function (numeroExercice) {
+    let texte = ''; let texteCorr = ''
     const nom = creerNomDePolygone(11, 'Q')
-    this.liste_questions = []
-    this.liste_corrections = [] // Liste de questions corrigées
+    this.listeQuestions = []
+    this.listeCorrections = [] // Liste de questions corrigées
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)
@@ -59,26 +59,26 @@ export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
       triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)
     )
 
-    texte_corr = `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
+    texteCorr = `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
       }~\\text{cm}$`
-    texte_corr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c
+    texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c
       }~\\text{cm}^2$`
-    texte_corr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
+    texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
       }~\\text{cm}$`
-    texte_corr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
+    texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
       }~\\text{cm}^2$`
-    texte_corr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${tex_nombre(
+    texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(
       c2.toFixed(1)
-    )}~\\text{cm}=${tex_nombre(pIJK)}~\\text{cm}$`
-    texte_corr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${tex_nombre(
+    )}~\\text{cm}=${texNombre(pIJK)}~\\text{cm}$`
+    texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(
       calcul((a * b) / 2)
     )}~\\text{cm}^2$`
 
-    this.liste_questions.push(texte)
-    this.liste_corrections.push(texte_corr)
-    liste_de_question_to_contenu(this)
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenu(this)
   }
 
-  // this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
   // 2 : Aires\n3 : Périmètres et aires"];
 }

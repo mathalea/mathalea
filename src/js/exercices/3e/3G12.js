@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,egal,randint,choice,shuffle,nombre_avec_espace,arcenciel,texcolors} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombre_avec_espace,arcenciel,texcolors} from '../../modules/outils.js'
 import {pavage,tracePoint,labelPoint,segment,rotation,rotationAnimee,codeAngle,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Trouver l’image d’une figure par une rotation dans un pavage'
 
@@ -14,17 +14,17 @@ export default function Pavage_et_rotation2d() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 3;
-	this.nb_questions_modifiable = true;
-	this.correction_detaillee_disponible = true;
-	this.correction_detaillee = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 3;
+	this.nbQuestionsModifiable = true;
+	this.correctionDetailleeDisponible = true;
+	this.correctionDetaillee = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
 	this.sup2 = false; // On cache les barycentres par défaut.
 	this.sup3 = 7;
-	sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
-	this.nouvelle_version = function () {
+	sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+	this.nouvelleVersion = function () {
 		let videcouples = function (tableau) {
 			for (let k = 0; k < tableau.length; k++) {
 				if (tableau[k][0] == tableau[k][1]) {
@@ -110,13 +110,13 @@ export default function Pavage_et_rotation2d() {
 		if (taillePavage < 1 || taillePavage > 2) {
 			taillePavage = 1;
 		}
-		if (this.nb_questions > 5) {
+		if (this.nbQuestions > 5) {
 			taillePavage = 2;
 		}
-		this.liste_corrections = [];
-		this.liste_questions = [];
+		this.listeCorrections = [];
+		this.listeQuestions = [];
 		let Nx, Ny, index1, A, image, couples = [], tailles = [], monpavage, fenetre;
-		let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup);
+		let texte = "", texteCorr = "", type_de_pavage = parseInt(this.sup);
 		let nombreTentatives, nombrePavageTestes = 1;
 		let sensdirect, M, N, trace, label, P1, P2, P3, t;
 		let alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 180, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]], alpha;
@@ -126,7 +126,7 @@ export default function Pavage_et_rotation2d() {
 		else {
 			type_de_pavage = parseInt(this.sup3);
 		}
-		while (couples.length < this.nb_questions && nombrePavageTestes < 6) {
+		while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
 			nombreTentatives = 0;
 			monpavage = pavage(); // On crée l'objet Pavage qui va s'appeler monpavage
 			tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]];
@@ -136,7 +136,7 @@ export default function Pavage_et_rotation2d() {
 			monpavage.construit(type_de_pavage, Nx, Ny, 3); // On initialise toutes les propriétés de l'objet.
 			fenetre = monpavage.fenetre;
 			// fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax];
-			while (couples.length < this.nb_questions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
+			while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
 				couples = []; // On vide la liste des couples pour une nouvelle recherche
 
 				index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)); // On choisit 1 point dans un des polygones
@@ -173,14 +173,14 @@ export default function Pavage_et_rotation2d() {
 				couples = videcouples(couples); //supprime tous les couples en double (x,y)=(y,x)
 				nombreTentatives++;
 			}
-			if (couples.length < this.nb_questions) {
+			if (couples.length < this.nbQuestions) {
 				if (this.sup3 == 7) {
 					type_de_pavage = (type_de_pavage + 1) % 5 + 1;
 				}
 				nombrePavageTestes++;
 			}
 		}
-		if (couples.length < this.nb_questions) {
+		if (couples.length < this.nbQuestions) {
 			console.log('trop de questions, augmentez la taille du pavage');
 			return;
 		}
@@ -207,19 +207,19 @@ export default function Pavage_et_rotation2d() {
 		else {
 			texte += `des aiguilles d'une montre.<br>`;
 		}
-		texte_corr += `Dans la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
+		texteCorr += `Dans la rotation de centre $A$ et d\'angle ${alpha}° dans le sens `;
 		if (sensdirect == 1) {
-			texte_corr += `inverse des aiguilles d'une montre, <br>`;
+			texteCorr += `inverse des aiguilles d'une montre, <br>`;
 		}
 		else {
-			texte_corr += `des aiguilles d'une montre, <br>`;
+			texteCorr += `des aiguilles d'une montre, <br>`;
 		}
-		for (let i = 0; i < this.nb_questions; i++) {
+		for (let i = 0; i < this.nbQuestions; i++) {
 			texte += `Quel est l'image de la figure $${couples[i][0]}$ ?<br>`;
-			texte_corr += `- l'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`;
+			texteCorr += `- l'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`;
 
-			if (this.correction_detaillee) {
-				t = this.nb_questions * 3;
+			if (this.correctionDetaillee) {
+				t = this.nbQuestions * 3;
 				M = monpavage.barycentres[couples[i][0] - 1];
 				N = monpavage.barycentres[couples[i][1] - 1];
 				P1 = monpavage.polygones[couples[i][0] - 1];
@@ -232,21 +232,21 @@ export default function Pavage_et_rotation2d() {
 				P2.couleurDeRemplissage = texcolors(i);
 				P2.opaciteDeRemplissage = 0.5;
 				P2.epaisseur = 2;
-				P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nb_questions}s" id="poly-${i}-anim"`);
+				P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`);
 				P3.color = texcolors(i);
 				P3.epaisseur = 2;
 				objets_correction.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codeAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3);
 
 			}
 		}
-		if (this.correction_detaillee) {
-			texte_corr += mathalea2d(fenetre, objets, objets_correction);
+		if (this.correctionDetaillee) {
+			texteCorr += mathalea2d(fenetre, objets, objets_correction);
 		}
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu(this);
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
+	this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
 	this.besoin_formulaire2_case_a_cocher = ["Montrer les centres"];
 	this.besoin_formulaire3_numerique = ['Choix du pavage', 8, '1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Pavage 6.3.6.3\n8 : Un des sept pavages au hasard'];
 }

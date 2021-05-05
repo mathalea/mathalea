@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* globals mathalea */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu_sans_numero, randint, choice, texte_gras, modal_url, modal_pdf } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, texte_gras, modal_url, modalPdf } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA } from '../../modules/2d.js'
 export const titre = 'Note la couleur'
 
@@ -215,21 +215,21 @@ export default function Note_la_couleur () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
-  this.nb_questions = 1
-  this.nb_questions_modifiable = true
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
-  this.pas_de_version_LaTeX = false
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = true
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.type_exercice = 'Scratch'
-  this.liste_packages = 'scratch3'
+  this.typeExercice = 'Scratch'
+  this.listePackages = 'scratch3'
   this.sup = true
   this.sup2 = 1
   this.sup3 = 4
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_questions = []
-    this.liste_corrections = []
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = []
+    this.listeCorrections = []
     let j, test
     let objets_enonce, objets_correction
     const params_correction = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 }
@@ -251,7 +251,7 @@ export default function Note_la_couleur () {
       objets_enonce = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
     }
     let texte = ''
-    let texte_corr = ''
+    let texteCorr = ''
     let compteur = 0
     let retour_a_la_case_depart
     let compteur_essais_boucle
@@ -480,29 +480,29 @@ export default function Note_la_couleur () {
 
     //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
     //    texte += mathalea2d(params_enonce, objets_enonce);
-    //  texte_corr += mathalea2d(params_correction, objets_correction);
+    //  texteCorr += mathalea2d(params_correction, objets_correction);
     pion.codeScratch += '\\end{scratch}'
-    texte = `Cet exercice est tiré de l'excellente activité débranchée ${modal_url(numero_de_l_exercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
+    texte = `Cet exercice est tiré de l'excellente activité débranchée ${modal_url(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
     texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-    texte += `N'hésitez pas à vous rendre sur le site ${modal_url(numero_de_l_exercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-    texte += `Pour jouer, regarder les règles du jeu${modal_pdf(numero_de_l_exercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
+    texte += `N'hésitez pas à vous rendre sur le site ${modal_url(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+    texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
     texte += 'Exécuter le programme et trouver la succession de couleur.<br>'
     texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
       '</td><td>' +
       mathalea2d(params_correction, objets_enonce) +
       '</td></tr></table>'
-    texte_corr = 'On obtient la série de couleurs suivante :<br> '
-    texte_corr += `${texte_gras(couleurs[0])} `
+    texteCorr = 'On obtient la série de couleurs suivante :<br> '
+    texteCorr += `${texte_gras(couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
-      texte_corr += `- ${texte_gras(couleurs[i])} `
+      texteCorr += `- ${texte_gras(couleurs[i])} `
     }
-    texte_corr += '<br><br>' + mathalea2d(params_correction, objets_correction, lutin)
-    this.liste_questions.push(texte)
-    this.liste_corrections.push(texte_corr)
-    liste_de_question_to_contenu_sans_numero(this)
+    texteCorr += '<br><br>' + mathalea2d(params_correction, objets_correction, lutin)
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
+    listeQuestionsToContenuSansNumero(this)
   }
-  this.besoin_formulaire_case_a_cocher = ['Plateau avec numéros', true]
+  this.besoinFormulaireCaseACocher = ['Plateau avec numéros', true]
   this.besoin_formulaire2_numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
   this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)', 6]
 }

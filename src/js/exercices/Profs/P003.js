@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 export const titre = 'Tracer des droites graduées'
 
@@ -14,33 +14,33 @@ export default function feuille_d_axes_gradues () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nb_questions = 1
-  this.nb_questions_modifiable = true
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = true
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.spacing = 3
   this.sup = 10
-  this.consigne_modifiable = false
-  this.nb_questions_modifiable = false
-  this.nb_cols_modifiable = false
-  this.nb_cols_corr_modifiable = false
-  this.spacing_modifiable = false
-  this.spacing_corr_modifiable = false
-  this.liste_packages = ['tkz-euclide']
+  this.consigneModifiable = false
+  this.nbQuestionsModifiable = false
+  this.nbColsModifiable = false
+  this.nbColsCorrModifiable = false
+  this.spacingModifiable = false
+  this.spacingCorrModifiable = false
+  this.listePackages = ['tkz-euclide']
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  this.nouvelleVersion = function (numeroExercice) {
     let pas
-    this.liste_questions = []
-    this.liste_corrections = []
+    this.listeQuestions = []
+    this.listeCorrections = []
     this.contenu = '' // Liste de questions
-    this.contenu_correction = '' // Liste de questions corrigées
+    this.contenuCorrection = '' // Liste de questions corrigées
     pas = parseInt(this.sup)
     for (let i = 0, id_unique, texte; i < 14; i++) {
-      if (sortie_html) {
+      if (sortieHtml) {
         id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg${numero_de_l_exercice}${id_unique}`,
+          `div_svg${numeroExercice}${id_unique}`,
           '',
           6,
           1,
@@ -53,9 +53,9 @@ export default function feuille_d_axes_gradues () {
         // sortie Latex
         texte = Latex_reperage_sur_un_axe(2, 0, 1, pas, [], [], false)
       }
-      this.liste_questions.push(texte)
+      this.listeQuestions.push(texte)
     }
-    if (!sortie_html) { liste_de_question_to_contenu(this) }
+    if (!sortieHtml) { listeQuestionsToContenu(this) }
   }
-  this.besoin_formulaire_numerique = ['Nombres de parts', 10, '']
+  this.besoinFormulaireNumerique = ['Nombres de parts', 10, '']
 }

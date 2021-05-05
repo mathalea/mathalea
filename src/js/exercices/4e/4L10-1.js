@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,ecriture_parenthese_si_moins,lettre_depuis_chiffre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,ecritureParentheseSiMoins,lettreDepuisChiffre} from '../../modules/outils.js'
 export const titre = 'Réduire, si possible, une expression littérale simple'
 
 /**
@@ -28,12 +28,12 @@ export default function Reductions_pieges_classiques() {
   this.titre = titre;
   this.consigne = "Réduire, si possible, les expressions suivantes";
   this.spacing = 1;
-  this.nb_questions = 10;
+  this.nbQuestions = 10;
   this.sup = true;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [
       'ax+b',
@@ -50,8 +50,8 @@ export default function Reductions_pieges_classiques() {
       'ax^2-a',
       'ax^2-ax^2'
     ];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions),type_de_questions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texte_corr, a, b, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions),type_de_questions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       type_de_questions = liste_type_de_questions[i];
       a = randint(2, 11)
       b = randint(2, 11)
@@ -61,71 +61,71 @@ export default function Reductions_pieges_classiques() {
       }
       switch (type_de_questions) {
         case "ax+b":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x${ecriture_algebrique(b)}$`
-          texte_corr = texte
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x${ecritureAlgebrique(b)}$`
+          texteCorr = texte
           break;
         case "a+bx":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}${ecriture_algebrique(b)}x$`
-          texte_corr = texte
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}${ecritureAlgebrique(b)}x$`
+          texteCorr = texte
           break;
         case "ax-a":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${Math.abs(a)}x-${Math.abs(a)}$`
-          texte_corr = texte
+          texte = `$${lettreDepuisChiffre(i + 1)}=${Math.abs(a)}x-${Math.abs(a)}$`
+          texteCorr = texte
           break;
         case "ax+bx":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x${ecriture_algebrique(b)}x$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x${ecriture_algebrique(b)}x=${a + b}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x${ecritureAlgebrique(b)}x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x${ecritureAlgebrique(b)}x=${a + b}x$`
           break;
         case "ax+x":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x+x$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x+x=${a + 1}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x+x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x+x=${a + 1}x$`
           break;
         case "ax×b":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x\\times${ecriture_parenthese_si_negatif(b)}$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x\\times${ecriture_parenthese_si_negatif(b)}=${a * b}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x\\times${ecritureParentheseSiNegatif(b)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x\\times${ecritureParentheseSiNegatif(b)}=${a * b}x$`
           break;
         case "a×bx":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}\\times${ecriture_parenthese_si_moins(b + 'x')}$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}\\times${ecriture_parenthese_si_moins(b + 'x')}=${a * b}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}\\times${ecritureParentheseSiMoins(b + 'x')}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x$`
           break;
         case "ax×bx":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x')}\\times${ecriture_parenthese_si_moins(b + 'x')}$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x')}\\times${ecriture_parenthese_si_moins(b + 'x')}=${a * b}x^2$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x^2$`
           break;
         case "ax+0":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x+0$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x+0=${a}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x+0$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x+0=${a}x$`
           break;
         case "ax×0":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x\\times 0$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x\\times 0=0$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x\\times 0$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x\\times 0=0$`
           break;
         case "ax^2×x":
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x^2')}\\times x$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x^2')}\\times x=${ecriture_parenthese_si_moins(a + 'x^3')}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x=${ecritureParentheseSiMoins(a + 'x^3')}$`
           break;
         case "ax^2-a":
           a = Math.abs(a)
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x^2')}-${a}$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${ecriture_parenthese_si_moins(a + 'x^2')}-${a}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
           break;
         case "ax^2-ax^2":
           a = Math.abs(a)
-          texte = `$${lettre_depuis_chiffre(i + 1)}=${a}x^2-${a}x^2$`
-          texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${a}x^2-${a}x^2=0$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a}x^2-${a}x^2$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${a}x^2-${a}x^2=0$`
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_case_a_cocher = ['Avec des nombres relatifs']
+  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 }
 

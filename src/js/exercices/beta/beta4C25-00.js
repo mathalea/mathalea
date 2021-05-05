@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {enleve_element_bis, liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from '../../modules/outils.js'
+import {enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from '../../modules/outils.js'
 import { fraction, listeFractions} from '../../modules/Fractions.js'
 
 export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
@@ -16,36 +16,36 @@ export default function Problemes_additifs_fractions_bis() {
     this.sup = 1;
     this.video=""
     if (this.debug) {
-        this.nb_questions = 2;
+        this.nbQuestions = 2;
     } else {
-        this.nb_questions = 2;
+        this.nbQuestions = 2;
     }
     this.titre = titre;
     this.consigne = `Justifier vos réponses aux problèmes suivants.`;
 
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
-    //this.nb_questions_modifiable = false;
-    sortie_html ? (this.spacing = 2) : (this.spacing = 1.5);
-    sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 1.15);
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
+    //this.nbQuestionsModifiable = false;
+    sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5);
+    sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15);
 
     let type_de_questions_disponibles;
 
-    this.nouvelle_version = function () {
+    this.nouvelleVersion = function () {
         if (this.debug) {
             type_de_questions_disponibles = [1, 2, 3, 4, 5];
         } else {
             type_de_questions_disponibles = [choice([1, 2]), choice([3, 4, 5])];
         }
 
-        //let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-        let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
+        //let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+        let liste_type_de_questions = combinaisonListesSansChangerOrdre(
             type_de_questions_disponibles,
-            this.nb_questions
+            this.nbQuestions
         ); // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let denoms_amis = [
             [40, 2, 20, 4, 10, 5, 8],
             [60, 2, 30, 3, 20, 4, 15, 5, 12, 6, 10],
@@ -64,8 +64,8 @@ export default function Problemes_additifs_fractions_bis() {
             // on choisit un tableau de dénominateurs qui vont bien
         let denoms_cool_4 ;
         for (
-            let i = 0,denoms_cool_3 =[],texte, texte_corr, cpt = 0;
-            i < this.nb_questions && cpt < 50;
+            let i = 0,denoms_cool_3 =[],texte, texteCorr, cpt = 0;
+            i < this.nbQuestions && cpt < 50;
 
         ) {
 
@@ -153,9 +153,9 @@ export default function Problemes_additifs_fractions_bis() {
             //=========== 		Correction Commune  	 ===========
             //======================================================
             listefrac = listeFractions(F1, F2, F3)
-            frac_meme_denom = enleve_element_bis(listefrac.listeMemeDenominateur)
-            frac_meme_denom_rangees = enleve_element_bis(listefrac.listeRangeeMemeDenominateur)
-            frac_rangees = enleve_element_bis(listefrac.listeRangee)
+            frac_meme_denom = enleveElementBis(listefrac.listeMemeDenominateur)
+            frac_meme_denom_rangees = enleveElementBis(listefrac.listeRangeeMemeDenominateur)
+            frac_rangees = enleveElementBis(listefrac.listeRangee)
             denominateurCommun = listefrac.listeMemeDenominateur[0].den
             for (let i = 0; i < 2; i++) {
                 pb_3_f[
@@ -376,9 +376,9 @@ export default function Problemes_additifs_fractions_bis() {
             //=========== 		Correction Commune  	 ===========
             //======================================================
             listefrac2 = listeFractions(F1, F2, F3, F4)
-            frac_meme_denom = enleve_element_bis(listefrac2.listeMemeDenominateur)
-            frac_meme_denom_rangees = enleve_element_bis(listefrac2.listeRangeeMemeDenominateur)
-            frac_rangees = enleve_element_bis(listefrac2.listeRangee)
+            frac_meme_denom = enleveElementBis(listefrac2.listeMemeDenominateur)
+            frac_meme_denom_rangees = enleveElementBis(listefrac2.listeRangeeMemeDenominateur)
+            frac_rangees = enleveElementBis(listefrac2.listeRangee)
             denominateurCommun = listefrac2.listeMemeDenominateur[0].den
             for (let i = 0; i < 3; i++) {
                 pb_4_f[
@@ -554,9 +554,9 @@ export default function Problemes_additifs_fractions_bis() {
                     if (this.debug) {
                         texte += `<br>`;
                         texte += `<br> ${pb_3_f[0].correction}`;
-                        texte_corr = ``;
+                        texteCorr = ``;
                     } else {
-                        texte_corr = `${pb_3_f[0].correction}`;
+                        texteCorr = `${pb_3_f[0].correction}`;
                     }
                     break;
                 case 2: //Miss Math --> Noémie, Samia, Alexia
@@ -564,9 +564,9 @@ export default function Problemes_additifs_fractions_bis() {
                     if (this.debug) {
                         texte += `<br>`;
                         texte += `<br> ${pb_3_f[1].correction}`;
-                        texte_corr = ``;
+                        texteCorr = ``;
                     } else {
-                        texte_corr = `${pb_3_f[1].correction}`;
+                        texteCorr = `${pb_3_f[1].correction}`;
                     }
                     break;
                 case 3: // Mandala --> carmin, ocre jaune, turquoise, pourpre
@@ -574,9 +574,9 @@ export default function Problemes_additifs_fractions_bis() {
                     if (this.debug) {
                         texte += `<br>`;
                         texte += `<br> ${pb_4_f[0].correction}`;
-                        texte_corr = ``;
+                        texteCorr = ``;
                     } else {
-                        texte_corr = `${pb_4_f[0].correction}`;
+                        texteCorr = `${pb_4_f[0].correction}`;
                     }
                     break;
                 case 4: // Jardin --> légumes, plantes aromatiques, semis, fraisiers
@@ -584,9 +584,9 @@ export default function Problemes_additifs_fractions_bis() {
                     if (this.debug) {
                         texte += `<br>`;
                         texte += `<br> ${pb_4_f[1].correction}`;
-                        texte_corr = ``;
+                        texteCorr = ``;
                     } else {
-                        texte_corr = `${pb_4_f[1].correction}`;
+                        texteCorr = `${pb_4_f[1].correction}`;
                     }
                     break;
                 case 5: // Stade --> pays organisatuers, supporters, sponsors, vente libre
@@ -594,22 +594,22 @@ export default function Problemes_additifs_fractions_bis() {
                     if (this.debug) {
                         texte += `<br>`;
                         texte += `<br> ${pb_4_f[2].correction}`;
-                        texte_corr = ``;
+                        texteCorr = ``;
                     } else {
-                        texte_corr = `${pb_4_f[2].correction}`;
+                        texteCorr = `${pb_4_f[2].correction}`;
                     }
                     break;
             }
-            if (this.liste_questions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
-    //this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
+    //this.besoinFormulaireNumerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 }
 

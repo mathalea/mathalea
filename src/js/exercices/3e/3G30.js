@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {homothetie,codeAngle,repere2,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js';
-import { export_QCM_AMC, calcul, tex_fraction, quatrieme_proportionnelle, tex_nombre, arrondi, texte_en_couleur_et_gras, liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
+import { export_QCM_AMC, calcul, tex_fraction, quatrieme_proportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
 export const amcReady = true
@@ -17,38 +17,38 @@ export const titre = 'Calculer une longueurs dans un triangle rectangle en utili
 export default function Calcul_de_longueur() {
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 1;
-    this.nb_questions_modifiable = false;
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
+    this.nbQuestions = 1;
+    this.nbQuestionsModifiable = false;
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
     this.sup = false
-    this.correction_detaillee_disponible=true
-    this.correction_detaillee=false
+    this.correctionDetailleeDisponible=true
+    this.correctionDetaillee=false
 
-    if (sortie_html) {
+    if (sortieHtml) {
         this.spacing = 0;
-        this.spacing_corr = 0;
+        this.spacingCorr = 0;
     } else {
         this.spacing = 2;
-        this.spacing_corr = 2;
+        this.spacingCorr = 2;
     }
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []
-        this.liste_corrections = []
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []
+        this.listeCorrections = []
         let reponse
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (this.level!=4){
-        this.QCM = ['3G30', [], 'Calculs de longueurs avec la trigonométrie',5]
+        this.qcm = ['3G30', [], 'Calculs de longueurs avec la trigonométrie',5]
     }
     else {
-        this.QCM = ['4G40', [], 'Calculs de longueurs avec la trigonométrie',5]
+        this.qcm = ['4G40', [], 'Calculs de longueurs avec la trigonométrie',5]
     }
     /**********************************************************/
 
         let nom = creerNomDePolygone(3)
-        let texte = '', texte_corr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
+        let texte = '', texteCorr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
         let ab, bc, ac, angleABC, angleABCr
         if (this.level == 4) {
             choix_rapport_trigo = choice(['cosinus', 'invCosinus'])
@@ -58,7 +58,7 @@ export default function Calcul_de_longueur() {
         }
         angleABC = randint(35, 55)
         angleABCr = angleABC * Math.PI / 180
-        if (!sortie_html&&this.sup) {
+        if (!sortieHtml&&this.sup) {
             texte += '\\begin{minipage}{.7\\linewidth}\n'
         }
         switch (choix_rapport_trigo) {
@@ -106,7 +106,7 @@ export default function Calcul_de_longueur() {
                 break
         }
 
-        if (!sortie_html&&this.sup) {
+        if (!sortieHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
         let a = point(0, 0)
@@ -179,92 +179,92 @@ export default function Calcul_de_longueur() {
 
         let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true,amplitude:0.4 }
         let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .35, mainlevee: false }
-        if (!sortie_html&&this.sup) {
+        if (!sortieHtml&&this.sup) {
             texte += '\\begin{minipage}{.3\\linewidth}\n'
         }
         if (this.sup) {
             texte += mathalea2d(params_enonce, objets_enonce) + '<br>'
         }
-        if (!sortie_html&&this.correction_detaillee){
-            texte_corr += '\\begin{minipage}{.4\\linewidth}\n'+mathalea2d(params_correction, objets_correction)+'\n\\end{minipage}\n'+'\\begin{minipage}{.7\\linewidth}\n'
+        if (!sortieHtml&&this.correctionDetaillee){
+            texteCorr += '\\begin{minipage}{.4\\linewidth}\n'+mathalea2d(params_correction, objets_correction)+'\n\\end{minipage}\n'+'\\begin{minipage}{.7\\linewidth}\n'
             }
-        if (!sortie_html&&this.sup) {
+        if (!sortieHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
         switch (choix_rapport_trigo) {
             case 'cosinus': // AB=BCxcos(B)
-                texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-                texte_corr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[1], bc)}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
-                texte_corr += `soit $${nom[0] + nom[1]}\\approx${tex_nombre(arrondi(ab, 1))}$ cm.`;
+                texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+                texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[1], bc)}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;
 reponse =arrondi(ab,1)
                 break
             case 'sinus':
-                texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texte_corr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], bc)}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
-                texte_corr += `soit $${nom[0] + nom[2]}\\approx${tex_nombre(arrondi(ac, 1))}$ cm.`;
+                texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
+                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], bc)}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
                 reponse =arrondi(ac,1)
                 break
             case 'tangente':
-                texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texte_corr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], ab)}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
-                texte_corr += `soit $${nom[0] + nom[2]}\\approx${tex_nombre(arrondi(ac, 1))}$ cm.`;
+                texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
+                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], ab)}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
                 reponse =arrondi(ac,1)
                 break
             case 'invCosinus':
-                texte_corr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-                texte_corr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ab, nom[1] + nom[2])}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
-                texte_corr += `soit $${nom[1] + nom[2]}\\approx${tex_nombre(arrondi(bc, 1))}$ cm.`;
+                texteCorr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
+                texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ab, nom[1] + nom[2])}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
+                texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
                 reponse =arrondi(bc,1)
                 break
             case 'invSinus':
-                texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texte_corr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[1] + nom[2])}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
-                texte_corr += `soit $${nom[1] + nom[2]}\\approx${tex_nombre(arrondi(bc, 1))}$ cm.`;
+                texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
+                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[1] + nom[2])}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
+                texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
                 reponse =arrondi(bc,1)
                 break
             case 'invTangente':
-                texte_corr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texte_corr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
-                texte_corr += `Avec les données numériques :<br>`;
-                texte_corr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[0] + nom[1])}$<br>`;
-                texte_corr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texte_corr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
-                texte_corr += `soit $${nom[0] + nom[1]}\\approx${tex_nombre(arrondi(ab, 1))}$ cm.`;
+                texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
+                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
+                texteCorr += `Avec les données numériques :<br>`;
+                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[0] + nom[1])}$<br>`;
+                texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
+                texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
+                texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;
                 reponse =arrondi(ab,1)
                 break
         }
-if (!sortie_html&&this.correction_detaillee) {
-    texte_corr+='\n\\end{minipage}\n'
+if (!sortieHtml&&this.correctionDetaillee) {
+    texteCorr+='\n\\end{minipage}\n'
 }
 
         /*****************************************************/
         // Pour AMC
-        this.QCM[1][0] = [texte, [texte_corr,reponse,4], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
+        this.qcm[1][0] = [texte, [texteCorr,reponse,4], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
         /****************************************************/
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
+        listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
     };
 
-    this.besoin_formulaire_case_a_cocher = ['Figure à main levée', false];
+    this.besoinFormulaireCaseACocher = ['Figure à main levée', false];
 }  

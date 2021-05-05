@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, export_QCM_AMC, tex_nombre2, liste_de_question_to_contenu, randint, choice, combinaison_listes, abs, pgcd, mise_en_evidence, tex_fraction, tex_fraction_reduite } from '../../modules/outils.js'
+import { shuffle2tableaux, export_QCM_AMC, texNombre2, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, tex_fraction, texFractionReduite } from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
 export const amcReady = true
@@ -26,43 +26,43 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
   this.titre = titre
   this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
   this.spacing = 2
-  this.spacing_corr = 2
-  this.nb_questions = 5
-  this.nb_cols_corr = 1
+  this.spacingCorr = 2
+  this.nbQuestions = 5
+  this.nbColsCorr = 1
   this.sup2 = 3
-  /** ************ ModeQCM disponible dans Mathalea ***********************/
-  this.QCM_disponible = true
-  this.ModeQCM = false
+  /** ************ modeQcm disponible dans Mathalea ***********************/
+  this.qcmDisponible = true
+  this.modeQcm = false
   /***********************************************************************/
 
-  this.nouvelle_version = function () {
-    this.QCM = ['5N20', [], 'Additionner ou soustraire deux fractions (dénominateurs multiples)', 1]
-    if (this.level == 6) this.QCM[0] = '6C23'
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.qcm = ['5N20', [], 'Additionner ou soustraire deux fractions (dénominateurs multiples)', 1]
+    if (this.level == 6) this.qcm[0] = '6C23'
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     let liste_type_de_questions
     if (this.sup2 == 1) {
-      liste_type_de_questions = combinaison_listes(['+'], this.nb_questions)
+      liste_type_de_questions = combinaisonListes(['+'], this.nbQuestions)
     }
     if (this.sup2 == 2) {
-      liste_type_de_questions = combinaison_listes(['-'], this.nb_questions)
+      liste_type_de_questions = combinaisonListes(['-'], this.nbQuestions)
     }
     if (this.sup2 == 3) {
-      liste_type_de_questions = combinaison_listes(['+', '-'], this.nb_questions)
+      liste_type_de_questions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
 
     /** ************* Pour QCM html/latex hors AMC *****************************/
     let tabrep; let tabicone = [1, 0, 0, 0]
     let espace = ''
-    if (sortie_html) {
+    if (sortieHtml) {
 		  espace = '&emsp;'
     } else {
 		  espace = '\\qquad'
     }
     /**************************************************************************/
 
-    for (let i = 0, a, b, c, d, k, texte, texte_corr; i < this.nb_questions; i++) {
-      texte_corr = ''
+    for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {
+      texteCorr = ''
       // les numérateurs
       a = randint(1, 9)
       // les dénominateurs
@@ -81,133 +81,133 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
       }
       if (liste_type_de_questions[i] == '+') { // une addition
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${tex_fraction_reduite(a * d + c * b, b * d)}$`, `$${tex_fraction(a + c, b + d)}$`, `$${tex_fraction(a + c, b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
+        tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${tex_fraction(a + c, b + d)}$`, `$${tex_fraction(a + c, b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
         tabicone = [1, 0, 0, 0]
         /*************************************************************************/
         const ordre_des_fractions = randint(1, 2)
         if (ordre_des_fractions == 1) {
           texte = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$`
           /** ****************** AMC question/questionmult ********************************/
-          this.QCM[1].push([`$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*******************************************************************************/
         } else {
           texte = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.QCM[1].push([`$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*******************************************************************************/
         }
 
-        if (this.ModeQCM && !mathalea.sortieAMC) { //  pour Mathalea & Mathalealatex pas pour AMC ******/
+        if (this.modeQcm && !mathalea.sortieAMC) { //  pour Mathalea & Mathalealatex pas pour AMC ******/
           texte += `<br><br>Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone)
           for (let i = 0; i < 4; i++) {
 					  texte += `$\\square\\;$ ${tabrep[i]}` + espace
 					 if (tabicone[i] == 1) {
-					   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
+					   texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
 					 } else {
-					   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace
+					   texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
 					 }
 				   }
         } else {
           if (ordre_des_fractions == 1) {
-            texte_corr = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=`
+            texteCorr = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=`
 
             if (this.level != 6) {
-              texte_corr += `${tex_fraction(a + mise_en_evidence('\\times ' + k), b + mise_en_evidence('\\times ' + k))}+${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}+${tex_fraction(c, d)}=`
+              texteCorr += `${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}+${tex_fraction(c, d)}=`
             }
-            texte_corr += `${tex_fraction(a * k + '+' + c, d)}=${tex_fraction(a * k + c, d)}$`
+            texteCorr += `${tex_fraction(a * k + '+' + c, d)}=${tex_fraction(a * k + c, d)}$`
           } else {
-            texte_corr = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=`
+            texteCorr = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=`
             if (this.level != 6) {
-						 texte_corr += `${tex_fraction(c, d)}+${tex_fraction(a + mise_en_evidence('\\times ' + k), b + mise_en_evidence('\\times ' + k))}=${tex_fraction(c, d)}+${tex_fraction(a * k, b * k)}=`
+						 texteCorr += `${tex_fraction(c, d)}+${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${tex_fraction(c, d)}+${tex_fraction(a * k, b * k)}=`
             }
-            texte_corr += `${tex_fraction(c + '+' + a * k, d)}=${tex_fraction(a * k + c, d)}$`
+            texteCorr += `${tex_fraction(c + '+' + a * k, d)}=${tex_fraction(a * k + c, d)}$`
           }
           // Est-ce que le résultat est simplifiable ?
           const s = pgcd(a * k + c, d)
           if (s != 1) {
-            texte_corr += `$=${tex_fraction(Algebrite.eval((a * k + c) / s) + mise_en_evidence('\\times ' + s), Algebrite.eval(d / s) + mise_en_evidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((a * k + c) / s), Algebrite.eval(d / s))}$`
+            texteCorr += `$=${tex_fraction(Algebrite.eval((a * k + c) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((a * k + c) / s), Algebrite.eval(d / s))}$`
           }
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${tex_fraction_reduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${tex_fraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${tex_fraction(Math.abs(a - c), b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
+        tabrep = [`$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${tex_fraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${tex_fraction(Math.abs(a - c), b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
         tabicone = [1, 0, 0, 0]
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
           texte = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$`
-          this.QCM[1].push([`$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
         } else {
           texte = texte = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.QCM[1].push([`$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*****************************************************************************/
         }
         if ((a / b) > (c / d)) {
-          if (this.ModeQCM && !mathalea.sortieAMC) {
+          if (this.modeQcm && !mathalea.sortieAMC) {
             texte += `<br><br>Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone)
             for (let i = 0; i < 4; i++) {
 						  texte += `$\\square\\;$ ${tabrep[i]}` + espace
 						 if (tabicone[i] == 1) {
-						   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
+						   texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
 						 } else {
-						   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace
+						   texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
 						 }
 					   }
           } else {
-            texte_corr = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=`
+            texteCorr = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=`
             if (this.level != 6) {
-              texte_corr += `${tex_fraction(a + mise_en_evidence('\\times ' + k), b + mise_en_evidence('\\times ' + k))}-${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}-${tex_fraction(c, d)}=`
+              texteCorr += `${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}-${tex_fraction(c, d)}=`
             }
-            texte_corr += `${tex_fraction(a * k + '-' + c, d)}=${tex_fraction(a * k - c, d)}$`
+            texteCorr += `${tex_fraction(a * k + '-' + c, d)}=${tex_fraction(a * k - c, d)}$`
           }
         } else {
-          if (this.ModeQCM && !mathalea.sortieAMC) {
+          if (this.modeQcm && !mathalea.sortieAMC) {
             texte += `<br>	Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone)
             for (let i = 0; i < 4; i++) {
 						  texte += `$\\square\\;$ ${tabrep[i]}` + espace
 						 if (tabicone[i] == 1) {
-						   texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
+						   texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
 						 } else {
-						   texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace
+						   texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
 						 }
 					   }
           } else {
-            texte_corr = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=`
+            texteCorr = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=`
             if (this.level != 6) {
-              texte_corr += `${tex_fraction(c, d)}-${tex_fraction(a + mise_en_evidence('\\times ' + k), b + mise_en_evidence('\\times ' + k))}=${tex_fraction(c, d)}-${tex_fraction(a * k, b * k)}=${tex_fraction(c + '-' + a * k, d)}=`
+              texteCorr += `${tex_fraction(c, d)}-${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${tex_fraction(c, d)}-${tex_fraction(a * k, b * k)}=${tex_fraction(c + '-' + a * k, d)}=`
             }
-            texte_corr += `${tex_fraction(c - a * k, d)}$`
+            texteCorr += `${tex_fraction(c - a * k, d)}$`
           }
         }
         // Est-ce que le résultat est simplifiable ?
         const s = pgcd(a * k - c, d)
-        if (!this.ModeQCM) {
+        if (!this.modeQcm) {
           if (abs(a * k - c) % d == 0) { // si la fraction peut-être un nombre entier
-            texte_corr += `$=${Algebrite.eval((abs(a * k - c)) / d)}$`
+            texteCorr += `$=${Algebrite.eval((abs(a * k - c)) / d)}$`
           } else if (s != 1) {
-            texte_corr += `$=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s) + mise_en_evidence('\\times ' + s), Algebrite.eval(d / s) + mise_en_evidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s), Algebrite.eval(d / s))}$`
+            texteCorr += `$=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s), Algebrite.eval(d / s))}$`
           }
         }
       }
 
 	  texte = texte.replaceAll('$$', ' ')
-	  texte_corr = texte_corr.replaceAll('$$', ' ')
-      this.liste_questions.push(texte)
-      this.liste_corrections.push(texte_corr)
+	  texteCorr = texteCorr.replaceAll('$$', ' ')
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
-    liste_de_question_to_contenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur', 99999]
+  this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
   this.besoin_formulaire2_numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
 }

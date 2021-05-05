@@ -12,11 +12,11 @@ export const titre = 'Droites graduées avec zoom'
  */
 export default function Feuille_de_zooms() {
   Exercice.call(this);
-  this.nb_cols = 1;
+  this.nbCols = 1;
   this.sup = 1;
   this.titre = titre;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.contenu = "";
     let d1, d2, d3, texte = "", extremite, extreme, noms = [],xmin,origine,xmax;
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0,pA1,pA2,pB2,pB1,sA,sB;
@@ -36,7 +36,7 @@ export default function Feuille_de_zooms() {
         d1 = droiteGraduee2({
           x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
           thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,
-          //labelListe: [[origine, `${tex_nombre(origine)}`], [extreme, `${tex_nombre(extreme)}`]],
+          //labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
           pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
           pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
         });
@@ -118,6 +118,6 @@ export default function Feuille_de_zooms() {
       this.contenu += '<br>';
     }
   };
-  this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom'];
+  this.besoinFormulaireNumerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom'];
 
 }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, texte_en_couleur_et_gras, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texte_en_couleur_et_gras, shuffle2tableaux } from '../../modules/outils.js'
 export const titre = 'Citer les propriétés des parallélogrammes'
 
 /**
@@ -11,14 +11,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Compléter les phrases suivantes à l'aide de la définition ou des propriétés des parallélogrammes."
-  this.nb_questions_modifiable = false
-  this.nb_cols = 2 // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 2 // Uniquement pour la sortie LaTeX
+  this.nbQuestionsModifiable = false
+  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.sup = 1
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.introduction = 'Dans cet exercice, on supposera que tous les quadrilatères sont non croisés.'
 
     const question1 = 'Si un quadrilatère est un parallélogramme alors ses côtés…'
@@ -49,19 +49,19 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const correction9 = `Si un quadrilatère a ${texte_en_couleur_et_gras('ses angles opposés égaux')} alors c'est un parallélogramme`
 
     if (parseInt(this.sup) === 1) {
-      this.liste_questions = [question1, question2, question3, question4]
-      this.liste_corrections = [correction1, correction2, correction3, correction4]
+      this.listeQuestions = [question1, question2, question3, question4]
+      this.listeCorrections = [correction1, correction2, correction3, correction4]
     } else if (parseInt(this.sup) === 2) {
-      this.liste_questions = [question5, question6, question7, question8, question9]
-      this.liste_corrections = [correction5, correction6, correction7, correction8, correction9]
+      this.listeQuestions = [question5, question6, question7, question8, question9]
+      this.listeCorrections = [correction5, correction6, correction7, correction8, correction9]
     } else {
-      this.liste_questions = [question1, question2, question3, question4, question5, question6, question7, question8, question9]
-      this.liste_corrections = [correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9]
+      this.listeQuestions = [question1, question2, question3, question4, question5, question6, question7, question8, question9]
+      this.listeCorrections = [correction1, correction2, correction3, correction4, correction5, correction6, correction7, correction8, correction9]
     }
-    shuffle2tableaux(this.liste_questions, this.liste_corrections)
-    liste_de_question_to_contenu(this)
+    shuffle2tableaux(this.listeQuestions, this.listeCorrections)
+    listeQuestionsToContenu(this)
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme\n3 : Toutes les propriétés"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme\n3 : Toutes les propriétés"]
 }
 
 // python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu

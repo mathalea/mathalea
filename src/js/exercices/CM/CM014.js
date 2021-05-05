@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,range1,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,range1,combinaisonListes} from '../../modules/outils.js'
 export const titre = 'Double, moitié, tiers, triple'
 
 /**
@@ -11,60 +11,60 @@ export default function Double_moitie_tiers_triple() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer";
-  this.nb_questions = 10;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 10;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 1; // niveau de difficulté
   this.tailleDiaporama = 100;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = range1(4);
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texte_corr, a, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       switch (liste_type_de_questions[i]) {
         case 1: // Double
           a = randint(2, 9);
           texte = `$\\text{Le double de }${a}$`;
-          texte_corr = `$\\text{Le double de }${a} \\text{ est } ${a * 2}$`;
+          texteCorr = `$\\text{Le double de }${a} \\text{ est } ${a * 2}$`;
           break;
         case 2: // Moitié
           a = randint(2, 9) * 2;
           texte = `$\\text{La moitié de }${a * 2}$`;
-          texte_corr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`;
+          texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`;
           break;
         case 3: // Triple
           a = randint(2, 9);
           texte = `$\\text{Le triple de }${a}$`;
-          texte_corr = `$\\text{Le triple de }${a} \\text{ est } ${a * 3}$`;
+          texteCorr = `$\\text{Le triple de }${a} \\text{ est } ${a * 3}$`;
           break;
         case 4: // Tiers
           a = randint(2, 9);
           texte = `$\\text{Le tiers de }${a * 3}$`;
-          texte_corr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${a}$`;
+          texteCorr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${a}$`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 
 

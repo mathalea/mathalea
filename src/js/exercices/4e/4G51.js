@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomDePolygone} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude,grille,seyes,mathalea2d,} from '../../modules/2d.js'
 
 
@@ -13,13 +13,13 @@ export const titre = 'Compléter une représentation en perspective cavalière'
 export default function Representer_un_solide4e() {
   Exercice.call(this); // Héritage de la classe Exercice ()
   this.titre = titre;
-  this.nb_questions = 1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1;
   this.sup2 = 1;
   this.classe=4;
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     let type_de_questions_disponibles;
 
     if (this.sup == 3)
@@ -31,13 +31,13 @@ export default function Representer_un_solide4e() {
     else
       type_de_questions_disponibles = [parseInt(this.sup)];
 
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
 
     if (this.classe == 6)
@@ -65,7 +65,7 @@ export default function Representer_un_solide4e() {
       objets_enonce = [],
       objets_correction = [], matrace = tracePoint(I);
 
-    for (let i = 0, texte, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let nom = creerNomDePolygone(8, "PQ"),
         anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135]);
       if (anglepersp % 10 == 0)
@@ -78,14 +78,14 @@ export default function Representer_un_solide4e() {
       switch (liste_type_de_questions[i]) {
         case 1: //cube
           enonce = `$${nom}$ est un cube.<br>`;
-          if (sortie_html)
+          if (sortieHtml)
             enonce += `Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction = `Figure complétée :<br>`;
           break;
 
         case 2: //pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`;
-          if (sortie_html)
+          if (sortieHtml)
             enonce += `Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction = `Figure complétée :<br>`;
           break;
@@ -359,17 +359,17 @@ export default function Representer_un_solide4e() {
       }
 
       correction += mathalea2d(params, objets_correction);
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(enonce + "<br>");
-        this.liste_corrections.push(correction + "<br>");
+        this.listeQuestions.push(enonce + "<br>");
+        this.listeCorrections.push(correction + "<br>");
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-    this.besoin_formulaire_numerique = ['Type de solides', 7, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides`];
+    this.besoinFormulaireNumerique = ['Type de solides', 7, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides`];
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
     3,

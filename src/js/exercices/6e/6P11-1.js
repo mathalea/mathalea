@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,prenom,texte_en_couleur,tex_prix,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,calcul,prenom,texte_en_couleur,tex_prix,num_alpha} from '../../modules/outils.js'
 export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.'
 
 /**
@@ -12,37 +12,37 @@ export default function Proportionnalite_par_linearite_bis() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.beta = false;
   if (this.beta) {
-    this.nb_questions = 3;
+    this.nbQuestions = 3;
   } else {
-    this.nb_questions = 1;
+    this.nbQuestions = 1;
   };
 
   this.titre = titre;
   this.consigne = "";
-  sortie_html ? this.spacing = 2 : this.spacing = 1;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1;
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  //sortie_html? this.spacing = 3 : this.spacing = 2; 
-  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  //sortieHtml? this.spacing = 3 : this.spacing = 2; 
+  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       type_de_questions_disponibles = [1];
     } else {
       type_de_questions_disponibles = [1];
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     type_de_questions_disponibles = [1];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
       // une fonction pour gérer le pluriel 
       function pluriel(n, obj) {
@@ -129,21 +129,21 @@ export default function Proportionnalite_par_linearite_bis() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   }
 }
 

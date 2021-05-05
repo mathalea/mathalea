@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombrec,tex_nombre,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
@@ -24,14 +24,14 @@ export default function Multiplier_decimaux_par_10_100_1000() {
   this.sup = 3;
   this.sup2 = false;
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 8;
+  this.spacingCorr = 2;
+  this.nbQuestions = 8;
 
-  this.nouvelle_version = function () {
-    this.QCM=['6C30-1',[],'Multiplications d\'un nombre décimal par 10, 100 ou 1 000.',4]
+  this.nouvelleVersion = function () {
+    this.qcm=['6C30-1',[],'Multiplications d\'un nombre décimal par 10, 100 ou 1 000.',4]
  
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [],type_de_questions;
     if (this.sup == 1 && !this.sup2) type_de_questions_disponibles = [1, 2];
     if (this.sup == 1 && this.sup2)
@@ -46,18 +46,18 @@ export default function Multiplier_decimaux_par_10_100_1000() {
 
     if (this.sup2) this.consigne = "Calculer et compléter.";
 let reponse
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_de_facteurs = combinaison_listes(
+    let liste_de_facteurs = combinaisonListes(
       [10, 100, 1000],
-      this.nb_questions
+      this.nbQuestions
     );
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, den;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0, a, b, den;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       type_de_questions = liste_type_de_questions[i];
@@ -66,134 +66,134 @@ let reponse
           a = choice([randint(11, 99), randint(100, 999)]);
           a = calcul(a / choice([10, 100, 1000, 10000]));
           b = liste_de_facteurs[i];
-          texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`;
-          texte_corr = `$${tex_nombre(a)} \\times ${tex_nombre(
+          texte = `$${texNombre(a)}\\times${texNombre(b)}$`;
+          texteCorr = `$${texNombre(a)} \\times ${texNombre(
             b
-          )} = ${tex_nombrec(a * b)}$`;
+          )} = ${texNombrec(a * b)}$`;
           reponse=calcul(a*b)
           break;
         case 2: // 10 × a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
           a = calcul(a / choice([10, 100, 1000, 10000]));
           b = liste_de_facteurs[i];
-          texte = `$${tex_nombre(b)}\\times${tex_nombre(a)}$`;
-          texte_corr = `$${tex_nombre(b)} \\times ${tex_nombre(
+          texte = `$${texNombre(b)}\\times${texNombre(a)}$`;
+          texteCorr = `$${texNombre(b)} \\times ${texNombre(
             a
-          )} = ${tex_nombrec(a * b)}$`;
+          )} = ${texNombrec(a * b)}$`;
           reponse=calcul(a*b)
           break;
         case 3: // abcd/10 × 10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, den)}\\times${tex_nombre(b)}$`;
-          texte_corr = `$${tex_fraction(a, den)} \\times ${tex_nombre(
+          texte = `$${tex_fraction(a, den)}\\times${texNombre(b)}$`;
+          texteCorr = `$${tex_fraction(a, den)} \\times ${texNombre(
             b
-          )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=calcul(a*b/den)
           break;
         case 4: // 10 × abcd/10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_nombre(b)}\\times${tex_fraction(a, den)}$`;
-          texte_corr = `$${tex_nombre(b)} \\times ${tex_fraction(
+          texte = `$${texNombre(b)}\\times${tex_fraction(a, den)}$`;
+          texteCorr = `$${texNombre(b)} \\times ${tex_fraction(
             a,
             den
-          )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=calcul(a*b/den)
           break;
         case 5: // .... × 10 = a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
           a = calcul(a / choice([10, 100, 1000, 10000]));
           b = liste_de_facteurs[i];
-          texte = `$\\ldots \\times${tex_nombre(b)} = ${tex_nombrec(a * b)}$`;
-          texte_corr = `$${mise_en_evidence(
-            tex_nombre(a)
-          )} \\times ${tex_nombre(b)} = ${tex_nombrec(a * b)}$`;
+          texte = `$\\ldots \\times${texNombre(b)} = ${texNombrec(a * b)}$`;
+          texteCorr = `$${miseEnEvidence(
+            texNombre(a)
+          )} \\times ${texNombre(b)} = ${texNombrec(a * b)}$`;
           reponse=calcul(a*b)
           break;
         case 6: // 10 × .... = a,abcd
           a = choice([randint(11, 99), randint(100, 999)]);
           a = calcul(a / choice([10, 100, 1000, 10000]));
           b = liste_de_facteurs[i];
-          texte = `$${tex_nombre(b)} \\times \\ldots = ${tex_nombrec(a * b)}$`;
-          texte_corr = `$${tex_nombre(b)} \\times ${mise_en_evidence(
-            tex_nombre(a)
-          )}  = ${tex_nombrec(a * b)}$`;
+          texte = `$${texNombre(b)} \\times \\ldots = ${texNombrec(a * b)}$`;
+          texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
+            texNombre(a)
+          )}  = ${texNombrec(a * b)}$`;
          reponse=a
           break;
         case 7: // case 3 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, den)}\\times \\ldots = ${tex_nombrec(
+          texte = `$${tex_fraction(a, den)}\\times \\ldots = ${texNombrec(
             (a / den) * b
           )}$`;
-          texte_corr = `$${tex_fraction(a, den)} \\times ${mise_en_evidence(
-            tex_nombre(b)
-          )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+          texteCorr = `$${tex_fraction(a, den)} \\times ${miseEnEvidence(
+            texNombre(b)
+          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=b
           break;
         case 8: // case 4 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$ \\ldots \\times${tex_fraction(a, den)}= ${tex_nombrec(
+          texte = `$ \\ldots \\times${tex_fraction(a, den)}= ${texNombrec(
             (a / den) * b
           )}$`;
-          texte_corr = `$${mise_en_evidence(
-            tex_nombre(b)
+          texteCorr = `$${miseEnEvidence(
+            texNombre(b)
           )} \\times ${tex_fraction(a, den)} = ${tex_fraction(
             a * b,
             den
-          )} = ${tex_nombrec((a / den) * b)}$`;
+          )} = ${texNombrec((a / den) * b)}$`;
           reponse=calcul(b)
           break;
         case 9: // case 3 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, "\\ldots")}\\times${tex_nombre(
+          texte = `$${tex_fraction(a, "\\ldots")}\\times${texNombre(
             b
-          )} = ${tex_nombrec((a / den) * b)}$`;
-          texte_corr = `$${tex_fraction(
+          )} = ${texNombrec((a / den) * b)}$`;
+          texteCorr = `$${tex_fraction(
             a,
-            mise_en_evidence(tex_nombre(den))
-          )} \\times ${tex_nombre(b)} = ${tex_fraction(
+            miseEnEvidence(texNombre(den))
+          )} \\times ${texNombre(b)} = ${tex_fraction(
             a * b,
             den
-          )} = ${tex_nombrec((a / den) * b)}$`;
+          )} = ${texNombrec((a / den) * b)}$`;
           calcul(a*b/den)
           break;
         case 10: // case 4 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_nombre(b)}\\times${tex_fraction(
+          texte = `$${texNombre(b)}\\times${tex_fraction(
             a,
             "\\ldots"
-          )} = ${tex_nombrec((a / den) * b)}$`;
-          texte_corr = `$${tex_nombre(b)} \\times ${tex_fraction(
+          )} = ${texNombrec((a / den) * b)}$`;
+          texteCorr = `$${texNombre(b)} \\times ${tex_fraction(
             a,
-            mise_en_evidence(tex_nombre(den))
-          )} = ${tex_fraction(a * b, den)} = ${tex_nombrec((a / den) * b)}$`;
+            miseEnEvidence(texNombre(den))
+          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           calcul(a*b/den)
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
+        this.qcm[1].push([texte, [texteCorr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Types de calculs",
     3,
     "1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimales et fractionnaires",

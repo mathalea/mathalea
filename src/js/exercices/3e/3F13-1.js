@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {deuxColonnes,randint,tex_consigne,num_alpha} from '../../modules/outils.js'
+import {deuxColonnes,randint,texConsigne,num_alpha} from '../../modules/outils.js'
 import {repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Lecture graphique d’images et d’antécédents'
 
@@ -11,14 +11,14 @@ export const titre = 'Lecture graphique d’images et d’antécédents'
 export default function Antecedent_et_image_graphique() {
 	Exercice.call(this);
 	this.titre = titre;
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	if (sortie_html)
-		this.spacing_corr = 2;
+	this.nbQuestions = 1;
+	this.nbQuestionsModifiable = false;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	if (sortieHtml)
+		this.spacingCorr = 2;
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		let r = repere2({
 			xMin: -5,
 			xMax: 5,
@@ -56,20 +56,20 @@ export default function Antecedent_et_image_graphique() {
 		}
 		this.contenu += deuxColonnes(cont1, cont2);
 		this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr);
-		this.contenu_correction = `${num_alpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`;
-		this.contenu_correction += `<br>${num_alpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`;
+		this.contenuCorrection = `${num_alpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`;
+		this.contenuCorrection += `<br>${num_alpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`;
 		if (ordre == 1) {
-			this.contenu_correction += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
-			this.contenu_correction += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
+			this.contenuCorrection += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
+			this.contenuCorrection += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
 		} else {
-			this.contenu_correction += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
-			this.contenu_correction += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
+			this.contenuCorrection += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
+			this.contenuCorrection += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
 		}
-		if (!sortie_html) {
-			this.contenu = tex_consigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
-			this.contenu_correction = this.contenu_correction.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
+		if (!sortieHtml) {
+			this.contenu = texConsigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
+			this.contenuCorrection = this.contenuCorrection.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
 		} else {
-			this.contenu_correction = `<div style="line-height: ${this.spacing_corr};">\n${this.contenu_correction}\n</div>`;
+			this.contenuCorrection = `<div style="line-height: ${this.spacingCorr};">\n${this.contenuCorrection}\n</div>`;
 		}
 
 	};

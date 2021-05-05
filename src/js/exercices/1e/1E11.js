@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,rien_si_1,ecriture_algebrique,ecriture_algebrique_sauf1,ecriture_parenthese_si_negatif,arrondi_virgule,tex_fraction_reduite,tex_fraction_signe,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,tex_fraction} from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 
@@ -12,23 +12,23 @@ export default function Resoudre_equation_degre_2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes.";
-  this.nb_questions = 4;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
-  this.spacing_corr = 3;
+  this.nbQuestions = 4;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
+  this.spacingCorr = 3;
   this.sup = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_type_de_questions;
     if (this.sup == 1) {
-      liste_type_de_questions = combinaison_listes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nb_questions);
+      liste_type_de_questions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nbQuestions);
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaison_listes(['factorisationParx', 'pasDeSolution', 'ax2+c', 'solutionsReelles', 'solutionDouble'], this.nb_questions);
+      liste_type_de_questions = combinaisonListes(['factorisationParx', 'pasDeSolution', 'ax2+c', 'solutionsReelles', 'solutionDouble'], this.nbQuestions);
     }
-    for (let i = 0, texte, texte_corr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (liste_type_de_questions[i] == "solutionsEntieres") {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0]);
@@ -37,13 +37,13 @@ export default function Resoudre_equation_degre_2() {
         a = k;
         b = -k * x1 - k * x2;
         c = k * x1 * x2;
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`;
 
-        texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b * b - 4 * a * c}$`;
-        texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`;
-        texte_corr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`;
-        texte_corr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`;
-        texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`;
+        texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`;
+        texteCorr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`;
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`;
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`;
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`;
       }
       if (liste_type_de_questions[i] == "solutionDouble") {
         // (dx+e)^2=d^2x^2+2dex+e^2
@@ -52,22 +52,22 @@ export default function Resoudre_equation_degre_2() {
         a = d * d;
         b = 2 * d * e;
         c = e * e;
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`;
 
-        texte_corr = `Il est possible de factoriser le membre de gauche : $(${d}x${ecriture_algebrique(e)})^2=0$. `;
-        texte_corr += `On a alors une solution double : $${tex_fraction_signe(-e, d)}`;
+        texteCorr = `Il est possible de factoriser le membre de gauche : $(${d}x${ecritureAlgebrique(e)})^2=0$. `;
+        texteCorr += `On a alors une solution double : $${texFractionSigne(-e, d)}`;
         if (e % d == 0) {
-          texte_corr += `=${-e / d}$.`;
+          texteCorr += `=${-e / d}$.`;
         } else {
-          texte_corr += '$.';
+          texteCorr += '$.';
         }
-        texte_corr += `<br> Si on ne voit pas cette factorisation, on peut utiliser le discriminant.`;
-        texte_corr += `<br>$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b * b - 4 * a * c}$`;
-        texte_corr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${tex_fraction('-b', '2a')} = ${tex_fraction_reduite(-b, 2 * a)}$`;
+        texteCorr += `<br> Si on ne voit pas cette factorisation, on peut utiliser le discriminant.`;
+        texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`;
+        texteCorr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${tex_fraction('-b', '2a')} = ${texFractionReduite(-b, 2 * a)}$`;
         if (b % (2 * a) == 0) {
-          texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${-b / (2 * a)}\\right\\}$.`;
+          texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${-b / (2 * a)}\\right\\}$.`;
         } else {
-          texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${tex_fraction_reduite(-b, 2 * a)}\\right\\}$.`;
+          texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${texFractionReduite(-b, 2 * a)}\\right\\}$.`;
         }
       }
       if (liste_type_de_questions[i] == "solutionsReelles") {
@@ -80,50 +80,50 @@ export default function Resoudre_equation_degre_2() {
           b = randint(-11, 11, 0);
           c = randint(-11, 11, 0);
         }
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`;
 
-        texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b * b - 4 * a * c}$`;
-        texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`;
-        texte_corr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondi_virgule((-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`;
-        texte_corr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondi_virgule((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`;
-        texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`;
+        texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`;
+        texteCorr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`;
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondiVirgule((-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`;
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondiVirgule((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`;
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`;
       }
       if (liste_type_de_questions[i] == "factorisationParx") {
         // x(ax+b)=ax^2+bx
         a = randint(-11, 11, [0, -1, 1]);
         b = randint(-11, 11, 0);
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$`;
 
-        texte_corr = `On peut factoriser le membre de gauche par $x$.`;
-        texte_corr += `<br>$x(${rien_si_1(a)}x${ecriture_algebrique(b)})=0$`;
-        texte_corr += `<br>Si un produit est nul alors l'un au moins de ses facteurs est nul.`;
-        texte_corr += `<br>$x=0\\quad$ ou $\\quad${rien_si_1(a)}x${ecriture_algebrique(b)}=0$`;
-        texte_corr += `<br>$x=0\\quad$ ou $\\quad x=${tex_fraction_signe(-b, a)}$`;
-        texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{0 ; ${tex_fraction_reduite(-b, a)}\\right\\}$.`;
+        texteCorr = `On peut factoriser le membre de gauche par $x$.`;
+        texteCorr += `<br>$x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$`;
+        texteCorr += `<br>Si un produit est nul alors l'un au moins de ses facteurs est nul.`;
+        texteCorr += `<br>$x=0\\quad$ ou $\\quad${rienSi1(a)}x${ecritureAlgebrique(b)}=0$`;
+        texteCorr += `<br>$x=0\\quad$ ou $\\quad x=${texFractionSigne(-b, a)}$`;
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{0 ; ${texFractionReduite(-b, a)}\\right\\}$.`;
       }
       if (liste_type_de_questions[i] == "ax2+c") {
         // x(ax+b)=ax^2+bx
         a = randint(-11, 11, 0);
         c = randint(-11, 11, 0);
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}=0$`;
 
-        texte_corr = `Il est possible de résoudre cette équation sans effectuer le calcul du discriminant.`;
-        texte_corr += `<br> $x^2=${tex_fraction_signe(-c, a)}$`;
+        texteCorr = `Il est possible de résoudre cette équation sans effectuer le calcul du discriminant.`;
+        texteCorr += `<br> $x^2=${texFractionSigne(-c, a)}$`;
         if (-c / a > 0) {
           if ([1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961, 1024, 1089].includes(-c / a)) {
-            texte_corr += `<br>$x=\\sqrt{${tex_fraction_reduite(-c, a)}}=${Math.sqrt(-c / a)}\\quad$ ou $\\quad x=-\\sqrt{${tex_fraction_reduite(-c, a)}}=${-Math.sqrt(-c / a)}$`;
-            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${Math.sqrt(-c / a)} ; ${-Math.sqrt(-c / a)}\\right\\}$.`;
+            texteCorr += `<br>$x=\\sqrt{${texFractionReduite(-c, a)}}=${Math.sqrt(-c / a)}\\quad$ ou $\\quad x=-\\sqrt{${texFractionReduite(-c, a)}}=${-Math.sqrt(-c / a)}$`;
+            texteCorr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${Math.sqrt(-c / a)} ; ${-Math.sqrt(-c / a)}\\right\\}$.`;
           }
           else if (-c % a == 0) {
-            texte_corr += `<br>$x=\\sqrt{${-c / a}}\\quad$ ou $\\quad x=-\\sqrt{${-c / a}}$`;
-            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${-c / a}} ; -\\sqrt{${-c / a}}\\right\\}$.`;
+            texteCorr += `<br>$x=\\sqrt{${-c / a}}\\quad$ ou $\\quad x=-\\sqrt{${-c / a}}$`;
+            texteCorr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${-c / a}} ; -\\sqrt{${-c / a}}\\right\\}$.`;
           } else {
-            texte_corr += `<br>$x=\\sqrt{${tex_fraction_reduite(-c, a)}}\\quad$ ou $\\quad x=-\\sqrt{${tex_fraction_reduite(-c, a)}}$`;
-            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${tex_fraction_reduite(-c, a)}} ; -\\sqrt{${tex_fraction_reduite(-c, a)}}\\right\\}$.`;
+            texteCorr += `<br>$x=\\sqrt{${texFractionReduite(-c, a)}}\\quad$ ou $\\quad x=-\\sqrt{${texFractionReduite(-c, a)}}$`;
+            texteCorr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${texFractionReduite(-c, a)}} ; -\\sqrt{${texFractionReduite(-c, a)}}\\right\\}$.`;
           }
         } else {
-          texte_corr += `<br>Dans $\\mathbb{R}$, un carré est toujours positif donc cette équation n'a pas de solution.`;
-          texte_corr += `<br>$\\mathcal{S}=\\emptyset$`;
+          texteCorr += `<br>Dans $\\mathbb{R}$, un carré est toujours positif donc cette équation n'a pas de solution.`;
+          texteCorr += `<br>$\\mathcal{S}=\\emptyset$`;
         }
       }
       if (liste_type_de_questions[i] == "pasDeSolution") {
@@ -139,23 +139,23 @@ export default function Resoudre_equation_degre_2() {
           b = 2 * k * x1;
           c = -k * x1 * x1 - y1;
         }
-        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`;
+        texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`;
         if (b == 0) {
-          texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`;
+          texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}=0$`;
         }
-        texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b * b - 4 * a * c}$`;
-        texte_corr += `<br>$\\Delta<0$ donc l'équation n'admet pas de solution.`;
-        texte_corr += `<br>$\\mathcal{S}=\\emptyset$`;
+        texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`;
+        texteCorr += `<br>$\\Delta<0$ donc l'équation n'admet pas de solution.`;
+        texteCorr += `<br>$\\mathcal{S}=\\emptyset$`;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) {
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire"];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire"];
 }

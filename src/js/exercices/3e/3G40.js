@@ -1,9 +1,9 @@
 import Exercice from '../ClasseExercice.js';
-import {num_alpha,combinaison_listes,randint,choisit_lettres_differentes} from '../../modules/outils.js'
+import {num_alpha,combinaisonListes,randint,choisit_lettres_differentes} from '../../modules/outils.js'
 import {mathalea2d,tracePoint,labelPoint} from '../../modules/2d.js'
 import {point3d,droite3d,vecteur3d,arete3d,sphere3d,rotation3d,rotationV3d,demicercle3d} from "../../modules/3d.js"
 import { sens_de_rotation3d } from '../../modules/3d.js';
-import { liste_de_question_to_contenu_sans_numero } from '../../modules/outils.js';
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils.js';
 
 export const titre = 'Repérage sur la sphère'
 
@@ -11,11 +11,11 @@ export default function ReperageSurLaSphere() {
     "use strict"
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 4;
-    this.nb_questions_modifiable=true
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
-    this.pas_de_version_LaTeX=false
+    this.nbQuestions = 4;
+    this.nbQuestionsModifiable=true
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
+    this.pasDeVersionLatex=false
     this.pas_de_version_HMTL=false
     this.video=''
     this.sup=3;
@@ -24,15 +24,15 @@ export default function ReperageSurLaSphere() {
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
 
 
-    this.nouvelle_version = function (){
-    this.liste_questions = [] // tableau contenant la liste des questions 
-    this.liste_corrections = []
+    this.nouvelleVersion = function (){
+    this.listeQuestions = [] // tableau contenant la liste des questions 
+    this.listeCorrections = []
     let liste_type_de_questions=[]
-    if (this.sup==1) liste_type_de_questions=combinaison_listes([1],this.nb_questions)
-    else if (this.sup==2) liste_type_de_questions=combinaison_listes([2],this.nb_questions)
-    else liste_type_de_questions=combinaison_listes([1,2],this.nb_questions)
+    if (this.sup==1) liste_type_de_questions=combinaisonListes([1],this.nbQuestions)
+    else if (this.sup==2) liste_type_de_questions=combinaisonListes([2],this.nbQuestions)
+    else liste_type_de_questions=combinaisonListes([1,2],this.nbQuestions)
       let texte=''
-      let texte_correction=''
+      let texteCorrection=''
       let O=point3d(0,0,0,false,'O')
       let M=point3d(10,0,0,true,'M')
       let PoleNord=point3d(0,0,11,false,'N')
@@ -73,16 +73,16 @@ export default function ReperageSurLaSphere() {
       W.color='brown'      
       objets_enonce.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps,rotationTerre,E,W)
       objets_correction.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps,rotationTerre,E,W)
-      for (let i=0;i<this.nb_questions;i++){
+      for (let i=0;i<this.nbQuestions;i++){
         latitudes.push(0)
         longitudes.push(0)
         P.push(point3d(0,0,0))
         EstouOuest.push('O')
         NordouSud.push('N')
       }
-      nom=choisit_lettres_differentes(this.nb_questions,'Q')
+      nom=choisit_lettres_differentes(this.nbQuestions,'Q')
       texte=``
-      for (let i = 0, latitude,longitude,M,lab,croix; i < this.nb_questions;) {
+      for (let i = 0, latitude,longitude,M,lab,croix; i < this.nbQuestions;) {
         latitude=randint(-3,6,0)*10
         longitude=randint(-6,4)*10
         while (latitudes.indexOf(latitude)!=-1&&longitudes.indexOf(longitude)!=-1) {
@@ -111,13 +111,13 @@ export default function ReperageSurLaSphere() {
         switch (liste_type_de_questions[i]) {
           case 1:
             texte +=`${num_alpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
-            texte_correction+=`${num_alpha(i)} Les coordonnées de $${nom[i]}$ sont $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` 
+            texteCorrection+=`${num_alpha(i)} Les coordonnées de $${nom[i]}$ sont $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` 
             objets_enonce.push(croix,lab)
             objets_correction.push(croix,lab)
             break
           case 2:
             texte +=`${num_alpha(i)} Placer le point $${nom[i]}$ de  coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>`
-            texte_correction+=`${num_alpha(i)} Le point $${nom[i]}$ de coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$ est placé sur cette sphère.<br>` 
+            texteCorrection+=`${num_alpha(i)} Le point $${nom[i]}$ de coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$ est placé sur cette sphère.<br>` 
             objets_correction.push(croix,lab)
           break
         }
@@ -129,15 +129,15 @@ export default function ReperageSurLaSphere() {
   mathalea.coeffPerspective=0.5
       params_enonce = { xmin:-13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false}
 
-     // texte_corr += mathalea2d(params_correction, objets_correction)
+     // texteCorr += mathalea2d(params_correction, objets_correction)
       texte +='<br>'+ mathalea2d(params_enonce, objets_enonce)
-      texte_correction +='<br>'+ mathalea2d(params_enonce, objets_correction)
-      this.liste_questions.push(texte)
-      this.liste_corrections.push(texte_correction)
-      liste_de_question_to_contenu_sans_numero(this)
+      texteCorrection +='<br>'+ mathalea2d(params_enonce, objets_correction)
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorrection)
+      listeQuestionsToContenuSansNumero(this)
     };
   
-  this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange`]
+  this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange`]
   //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
   

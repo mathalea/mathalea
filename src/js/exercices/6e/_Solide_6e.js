@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomDePolygone} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,segment,polygone,translation2Points,similitude,codeSegments,grille,seyes,mathalea2d} from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
@@ -9,13 +9,13 @@ import {point,labelPoint,segment,polygone,translation2Points,similitude,codeSegm
 export default function Solide_6e() {
   "use strict";
   Exercice.call(this);
-  this.nb_questions = 1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1;
   this.sup2 = 1;
   this.titre = "";
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     let type_de_questions_disponibles;
     if (this.sup == 3) type_de_questions_disponibles = [1, 2]
     else type_de_questions_disponibles = [parseInt(this.sup)];
@@ -23,12 +23,12 @@ export default function Solide_6e() {
     if (this.type == "vocabulaire")
       for (let n = 0; n < type_de_questions_disponibles.length; n++)
         type_de_questions_disponibles[n] += 2
-    let liste_type_de_questions = combinaison_listes(
+    let liste_type_de_questions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
 
     if (this.sup2 == 1) sc = 0.5;
@@ -46,7 +46,7 @@ export default function Solide_6e() {
       p;
     for (
       let i = 0, texte, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       let nom = creerNomDePolygone(8, "PQ"),
@@ -58,14 +58,14 @@ export default function Solide_6e() {
       switch (liste_type_de_questions[i]) {
         case 1: //cube
           enonce = `${nom} est un cube.<br>`
-          if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le cube ${nom}.<br>`
           break;
 
         case 2:
           enonce = `${nom} est un pavé droit.<br>`
-          if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le pavé droit ${nom}.<br>`
           break;
@@ -294,18 +294,18 @@ export default function Solide_6e() {
 
       if (liste_type_de_questions[i] < 3) correction += mathalea2d(params, objets_correction, codesseg);
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(enonce + "<br>");
-        this.liste_corrections.push(correction + "<br>");
+        this.listeQuestions.push(enonce + "<br>");
+        this.listeCorrections.push(correction + "<br>");
         i++;
       }
       cpt++;
     }
 
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange`]
+  this.besoinFormulaireNumerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange`]
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
     3,

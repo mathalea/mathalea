@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu_sans_numero, ecriture_algebrique, randint, reduire_ax_plus_b, tex_nombre, katex_Popup2 } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, ecritureAlgebrique, randint, reduire_ax_plus_b, texNombre, katex_Popup2 } from '../../modules/outils.js'
 import {SVG_Tracer_droite, Latex_Tracer_droite, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
 import SVG from 'svg.js'
 export const titre = 'Déterminer une fonction affine'
@@ -13,24 +13,24 @@ export default function Lecture_expression_fonctions_affines () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Donner l'expression des fonctions représentées"
-  this.nb_questions = 1
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
-  sortie_html ? this.spacing = 2 : this.spacing = 1
-  sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  sortieHtml ? this.spacing = 2 : this.spacing = 1
+  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.sup = 1
   this.sup2 = 3
   this.lineaire = false
-  this.liste_packages = 'tkz-euclide'
+  this.listePackages = 'tkz-euclide'
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  this.nouvelleVersion = function (numeroExercice) {
     const k = Math.pow(2, parseInt(this.sup) - 1)
     const nb_droites = parseInt(this.sup2)
-    this.liste_questions = []
-    this.liste_corrections = []
+    this.listeQuestions = []
+    this.listeCorrections = []
     this.contenu = '' // Liste de questions
-    this.contenu_correction = '' // Liste de questions corrigées
+    this.contenuCorrection = '' // Liste de questions corrigées
     const liste_droites = []
     let OrdX0
     const Pente = []
@@ -53,7 +53,7 @@ export default function Lecture_expression_fonctions_affines () {
       liste_droites.push([OrdX0, Pente[i] / k])
     }
 
-    if (sortie_html) {
+    if (sortieHtml) {
       const mon_svg = SVG().viewbox(0, 0, 500, 500).size('100%', '100%')
       SVG_repere(mon_svg, -5, 5, -5, 5, k, k, 500, 500, true)
       SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[0][0], liste_droites[0][1], 'blue', '(d1)')
@@ -71,20 +71,20 @@ export default function Lecture_expression_fonctions_affines () {
       if (nb_droites > 3) { texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd_4')}
       if (nb_droites > 4) { texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd_5')}
       texte += '\n\t \\end{tikzpicture}'
-      this.liste_questions.push(texte)
+      this.listeQuestions.push(texte)
     }
     for (let i = 0; i < nb_droites; i++) {
-      this.liste_questions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.`)
+      this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.`)
       if (this.lineaire || liste_droites[i][0] == 0) {
-        this.liste_corrections.push(`La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${tex_nombre(liste_droites[i][1])})$ donc $f_${i + 1}(1)=${tex_nombre(liste_droites[i][1])}$ c'est à dire $a\\times 1=${tex_nombre(liste_droites[i][1])}$ donc $a=${tex_nombre(liste_droites[i][1])}\\div 1$ d'où $a=${tex_nombre(liste_droites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduire_ax_plus_b(liste_droites[i][1], 0)}$.`)
+        this.listeCorrections.push(`La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(liste_droites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(liste_droites[i][1])}$ c'est à dire $a\\times 1=${texNombre(liste_droites[i][1])}$ donc $a=${texNombre(liste_droites[i][1])}\\div 1$ d'où $a=${texNombre(liste_droites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduire_ax_plus_b(liste_droites[i][1], 0)}$.`)
       } else {
-        this.liste_corrections.push(`La droite $d_${i + 1}$ passe par le point de coordonnées $(0;${tex_nombre(liste_droites[i][0])})$. Elle représente donc la fonction affine $f_${i + 1}(x)=ax+b$ dont la constante $b$ est égale à $f_${i + 1}(0)=a\\times 0+b$, c'est à dire  $${tex_nombre(liste_droites[i][0])}=0+b$ donc $b=${tex_nombre(liste_droites[i][0])}$.<br> De plus $(d_${i + 1})$ passe par le point de coordonnées $(1;${tex_nombre(liste_droites[i][1] + liste_droites[i][0])})$ donc $f_${i + 1}(1)=${tex_nombre(liste_droites[i][1] + liste_droites[i][0])}=a\\times 1${ecriture_algebrique(liste_droites[i][0])}=a${ecriture_algebrique(liste_droites[i][0])}$ donc $a=${tex_nombre(liste_droites[i][1] + liste_droites[i][0])}${ecriture_algebrique(-liste_droites[i][0])}=${tex_nombre(liste_droites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduire_ax_plus_b(liste_droites[i][1], liste_droites[i][0])}$.`)
+        this.listeCorrections.push(`La droite $d_${i + 1}$ passe par le point de coordonnées $(0;${texNombre(liste_droites[i][0])})$. Elle représente donc la fonction affine $f_${i + 1}(x)=ax+b$ dont la constante $b$ est égale à $f_${i + 1}(0)=a\\times 0+b$, c'est à dire  $${texNombre(liste_droites[i][0])}=0+b$ donc $b=${texNombre(liste_droites[i][0])}$.<br> De plus $(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(liste_droites[i][1] + liste_droites[i][0])})$ donc $f_${i + 1}(1)=${texNombre(liste_droites[i][1] + liste_droites[i][0])}=a\\times 1${ecritureAlgebrique(liste_droites[i][0])}=a${ecritureAlgebrique(liste_droites[i][0])}$ donc $a=${texNombre(liste_droites[i][1] + liste_droites[i][0])}${ecritureAlgebrique(-liste_droites[i][0])}=${texNombre(liste_droites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduire_ax_plus_b(liste_droites[i][1], liste_droites[i][0])}$.`)
       }
     }
 
-    liste_de_question_to_contenu_sans_numero(this)
-    if (!this.lineaire) { this.contenu_correction = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenu_correction} else { this.contenu_correction = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katex_Popup2(numero_de_l_exercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenu_correction}
+    listeQuestionsToContenuSansNumero(this)
+    if (!this.lineaire) { this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection} else { this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katex_Popup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection}
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"]
   this.besoin_formulaire2_numerique = ['Nombre de droites (1 à 5)', 5]
 }

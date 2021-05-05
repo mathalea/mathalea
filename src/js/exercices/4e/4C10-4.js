@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul} from '../../modules/outils.js'
 export const titre = 'Quotient de deux entiers relatifs'
 
 /**
@@ -15,17 +15,17 @@ export default function Exercice_quotients_relatifs() {
   this.titre = titre;
   this.consigne = 'Calculer'
   this.spacing = 2;
-  this.nb_questions = 6;
+  this.nbQuestions = 6;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaison_listes(['-+', '+-', '--', '++'], this.nb_questions);
-    let liste_type_de_nombres = combinaison_listes(['tables', 'horstables'], this.nb_questions);
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let liste_type_de_questions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions);
+    let liste_type_de_nombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions);
     if (this.sup) {
-      liste_type_de_nombres = combinaison_listes(['tables'], this.nb_questions);
+      liste_type_de_nombres = combinaisonListes(['tables'], this.nbQuestions);
     }
-    for (let i = 0, a, b, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (liste_type_de_nombres[i] == 'tables') {
         b = randint(2, 9);
         a = b * randint(2, 9);
@@ -47,17 +47,17 @@ export default function Exercice_quotients_relatifs() {
           break;
       }
       texte = `$\\dfrac{${a}}{${b}}$`
-      texte_corr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
+      texteCorr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   }
-  this.besoin_formulaire_case_a_cocher = ['Utiliser seulement les tables de multiplications de 2 à 9'];
+  this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplications de 2 à 9'];
 }
 

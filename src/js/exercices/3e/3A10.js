@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,egal,randint,shuffle,shuffle2tableaux,combinaison_listes_sans_changer_ordre,nombre_avec_espace,texte_en_couleur,modal_pdf,liste_diviseurs} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur,modalPdf,liste_diviseurs} from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
 
@@ -14,34 +14,34 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
-	//sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing = 1 : this.spacing = 2;
-	//sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 2;
-	this.nb_questions = 5;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	//sortieHtml ? this.spacing = 3 : this.spacing = 2;
+	sortieHtml ? this.spacing = 1 : this.spacing = 2;
+	//sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 2;
+	this.nbQuestions = 5;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
+			//this.boutonAide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1, 2, 3, 4, 5];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = liste_type_de_questions[i];
 
 			var dividende;
@@ -53,7 +53,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 				case 1: // plus grand reste dans une division euclidienne
 					diviseur = randint(2, 99);
 					texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
-					texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
+					texteCorr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
 					break;
 				case 2: // quotient et reste d'une division euclidienne donnée
 					diviseur = randint(2, 99);
@@ -64,7 +64,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
 					texte += `<br>`;
 					texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.`;
-					texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
+					texteCorr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
 					break;
 				case 3: // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 					dividende = randint(101, 9999);
@@ -87,25 +87,25 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende / candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende % candidats_diviseurs[2])}`;
 					texte += `<br>`;
 					texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
-					texte_corr = ``;
+					texteCorr = ``;
 					if (egal(dividende % candidats_diviseurs[0], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
 					} else {
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
 					}
-					texte_corr += `<br>`;
+					texteCorr += `<br>`;
 					if (egal(dividende % candidats_diviseurs[1], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
 					} else {
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
 					}
-					texte_corr += `<br>`;
+					texteCorr += `<br>`;
 					if (egal(dividende % candidats_diviseurs[2], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
 					} else {
-						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
+						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
 					}
-					texte_corr += `<br>`;
+					texteCorr += `<br>`;
 					break;
 				case 4: // vocabulaire diviseurs et multiples
 					// on déclare des tableaux utiles 
@@ -150,17 +150,17 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					shuffle2tableaux(textes, textes_corr);
 					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;
 					texte += `<br>`;
-					texte_corr = ``;
+					texteCorr = ``;
 					for (let j = 0; j < 5; j++) {
 						texte += textes[j];
 						texte += `<br>`;
-						texte_corr += textes_corr[j];
-						texte_corr += `<br>`;
+						texteCorr += textes_corr[j];
+						texteCorr += `<br>`;
 					};
 					texte += textes[5];
 					//texte +=`<br>`;
-					texte_corr += textes_corr[5];
-					texte_corr += `<br>`;
+					texteCorr += textes_corr[5];
+					texteCorr += `<br>`;
 					break;
 				case 5: // liste des diviseurs
 					// on définit un tableau pour les choix du nombre dont on veut les diviseurs
@@ -181,39 +181,39 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					rg_N = randint(0, (tableau_de_choix.length - 1));
 					N = tableau_de_choix[rg_N];
 					texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-					texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
-					texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`;
-					texte_corr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times$${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
-					texte_corr += ` En effet, si ${N} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${N} c'est que q$\\times$q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`;
+					texteCorr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
+					texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`;
+					texteCorr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times$${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
+					texteCorr += ` En effet, si ${N} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${N} c'est que q$\\times$q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`;
 					if (liste_diviseurs(N).length % 2 == 0) { //si il y a un nombre pair de diviseurs
 						for (let m = 0; m < (liste_diviseurs(N).length / 2); m++) {
-							texte_corr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + ` = ${N}<br>`;
+							texteCorr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + ` = ${N}<br>`;
 						};
 					} else {
 						for (let m = 0; m < ((liste_diviseurs(N).length - 1) / 2); m++) {
-							texte_corr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + `<br>`;
+							texteCorr += `` + liste_diviseurs(N)[m] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + `<br>`;
 						};
-						texte_corr += `` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
+						texteCorr += `` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + `$\\times$` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
 					};
-					texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
-					texte_corr += `La liste des diviseurs de ${N} est donc `;
-					texte_corr += `1`;
+					texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
+					texteCorr += `La liste des diviseurs de ${N} est donc `;
+					texteCorr += `1`;
 					for (let w = 1; w < liste_diviseurs(N).length; w++) {
-						texte_corr += ` ; ` + liste_diviseurs(N)[w];
+						texteCorr += ` ; ` + liste_diviseurs(N)[w];
 					};
-					texte_corr += `.`;
+					texteCorr += `.`;
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

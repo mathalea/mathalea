@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, calcul, choisit_lettres_differentes, lettre_depuis_chiffre, arcenciel, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choisit_lettres_differentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Construire l’image d’un point par une homothetie avec cible auto-corrective'
@@ -14,22 +14,22 @@ export default function Construire_homothetie_point_3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nb_questions = 1
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 3
-  this.type_exercice = 'IEP'
+  this.typeExercice = 'IEP'
 
-  this.nouvelle_version = function (numeroExercice) {
+  this.nouvelleVersion = function (numeroExercice) {
     let nontrouve, assezloin, cible, s
     const anim = new Alea2iep()
     const k = randint(-4, 4, [0, -2, 2]) / 2
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
-    let result = [0, 0]; let texte_corr = ''; const nbpoints = parseInt(this.sup)
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
-      const lettre = lettre_depuis_chiffre(randint(1, rang))
+      const lettre = lettreDepuisChiffre(randint(1, rang))
       const chiffre = Number(randint(1, rang)).toString()
       return lettre + chiffre
     }
@@ -41,7 +41,7 @@ export default function Construire_homothetie_point_3e () {
       this.consigne += `, $${noms[i]}$`
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par l\'homothétie de centre $O$`
-    this.consigne += ` et de rapport $${tex_nombre(k)}$.`
+    this.consigne += ` et de rapport $${texNombre(k)}$.`
     const cibles = []; const M = []; const N = []; const objets_enonce = []; const objets_correction = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
     let xMin, yMin, xMax, yMax;
@@ -95,7 +95,7 @@ export default function Construire_homothetie_point_3e () {
       }
       s.color = arcenciel(i)
       objets_correction.push(s)
-      texte_corr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+      texteCorr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
     for (let i = 0; i < nbpoints; i++) {
@@ -117,12 +117,12 @@ export default function Construire_homothetie_point_3e () {
       anim.pointCreer(M[i])
       anim.homothetiePoint(M[i], O, k, '', { positionTexte: { x: 2, y: -1 } })
     }
-    this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce))
-    this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction) + anim.html(numeroExercice))
-    liste_de_question_to_contenu(this)
+    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction) + anim.html(numeroExercice))
+    listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
   }
-  this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)', 5, '1\n2\n3\n4\n5']
+  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, '1\n2\n3\n4\n5']
   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
 }

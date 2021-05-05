@@ -11,6 +11,6 @@ export const titre = 'Calculer des longueurs avec la propriété de Thalès'
 
 export default function Thales2D_4e() {
   Thales2D.call(this);
-  this.besoin_formulaire_numerique = false;
+  this.besoinFormulaireNumerique = false;
   this.titre = titre;
 }
