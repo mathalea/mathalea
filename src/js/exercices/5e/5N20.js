@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, export_QCM_AMC, texNombre2, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
+import { shuffle2tableaux, exportQcmAmc, texNombre2, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
 export const amcReady = true

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { export_QCM_AMC,listeQuestionsToContenu, randint, texNombrec, texNombre2,calcul, choice, texFraction,shuffle2tableaux } from '../../modules/outils.js'
+import { exportQcmAmc,listeQuestionsToContenu, randint, texNombrec, texNombre2,calcul, choice, texFraction,shuffle2tableaux } from '../../modules/outils.js'
 
 export const amcReady = true
 

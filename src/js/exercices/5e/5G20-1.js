@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texEnumerate_sans_numero,texNombre,modalTexteLong,lampe_message,Triangles} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texEnumerateSansNumero,texNombre,modalTexteLong,lampeMessage,Triangles} from '../../modules/outils.js'
 
 export const titre = 'Vocabulaire des triangles'
 
@@ -56,7 +56,7 @@ export default function Vocabulaire_des_triangles() {
         texte_intro += `<br>`;
         texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
       }
-      // this.introduction = lampe_message({
+      // this.introduction = lampeMessage({
       // 	titre : `Quelques définitions`,
       // 	texte : texte_intro,
       // 	couleur : `nombres`
@@ -71,7 +71,7 @@ export default function Vocabulaire_des_triangles() {
       );
     } else {
       if (this.classe == 6) {
-        texte_intro = texEnumerate_sans_numero(
+        texte_intro = texEnumerateSansNumero(
           [
             `- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
             `- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés de même longueur.`,
@@ -81,7 +81,7 @@ export default function Vocabulaire_des_triangles() {
           1
         );
       } else if (this.classe == 5) {
-        texte_intro = texEnumerate_sans_numero(
+        texte_intro = texEnumerateSansNumero(
           [
             `- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
             `- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles de même mesure.`,
@@ -92,7 +92,7 @@ export default function Vocabulaire_des_triangles() {
         );
       }
 
-      this.introduction = lampe_message({
+      this.introduction = lampeMessage({
         titre: `Quelques définitions`,
         texte: texte_intro,
         couleur: `nombres`,

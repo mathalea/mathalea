@@ -9,7 +9,7 @@
  @example   http://coopmaths.fr/alacarte
 */
 
-import { telechargeFichier, intro_LaTeX, intro_LaTeX_coop } from './modules/outils.js'
+import { telechargeFichier, introLatex, introLatexCoop } from './modules/outils.js'
 import dictionnaireDesExercices from './modules/dictionnaireDesExercicesAleatoires'
 import '../assets/externalJs/prism.js'
 import '../assets/externalJs/prism.css'
@@ -391,10 +391,10 @@ window.addEventListener('load', function () {
 function creer_fichier () {
   // Gestion du style pour l'entête du fichier
   if ($('#style_classique:checked').val()) {
-    contenu_fichier = intro_LaTeX($('#entete_du_fichier').val(), listePackages) + macro_nom_copie() + codeLatex + intro_correction +
+    contenu_fichier = introLatex($('#entete_du_fichier').val(), listePackages) + macro_nom_copie() + codeLatex + intro_correction +
             codeLatex_corr + '\n\n\\end{document}'
   } else {
-    contenu_fichier = intro_LaTeX_coop(listePackages) + macro_nom_copie('coop')
+    contenu_fichier = introLatexCoop(listePackages) + macro_nom_copie('coop')
     // contenu_fichier +='\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $("#entete_droit_du_fichier").val() + '}'
     // contenu_fichier += '{' + $("#items").val() + '}{' + $("#domaine").val() + '}\n'
     contenu_fichier += '\\begin{document}\n\n' + codeLatex + intro_correction +

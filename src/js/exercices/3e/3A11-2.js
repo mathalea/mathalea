@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modalVideo,cribleEratostheneN,premiersEntreBornes,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modalVideo,cribleEratostheneN,premiersEntreBornes,warnMessage} from '../../modules/outils.js'
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
@@ -54,7 +54,7 @@ export default function Decomposition_facteurs_premiers() {
 		};
 		string_rappel += `.`;
 
-		this.introduction = warn_message(string_rappel, `nombres`, `Coup de pouce`);
+		this.introduction = warnMessage(string_rappel, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = listeTypeDeQuestions[i];

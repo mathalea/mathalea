@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
 
 
 export const titre = 'Calculer des fréquences'
@@ -114,7 +114,7 @@ export default function Calculer_des_frequences() {
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
 				nombre_temperatures = jours_par_mois(mois);
-				temperatures = un_mois_de_temperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
+				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
 				for (let j = 0; j < temperatures.length; j++) {

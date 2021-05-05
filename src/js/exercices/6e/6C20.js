@@ -1,6 +1,6 @@
 import Operation from '../../modules/operations.js';
 import Exercice from '../ClasseExercice.js';
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre,export_QCM_AMC } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre,exportQcmAmc } from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Additions et soustractions de nombres décimaux'

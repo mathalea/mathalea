@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { creer_document_AMC, strRandom, compteOccurences, intro_LaTeX_coop } from './modules/outils.js'
+import { creerDocumentAmc, strRandom, compteOccurences, introLatexCoop } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
 import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
@@ -314,7 +314,7 @@ function mise_a_jour_du_code () {
         listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
       }
     }
-    codeLatex = creer_document_AMC({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+    codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
     $('#cache').show()
@@ -403,9 +403,9 @@ function mise_a_jour_du_code () {
               `
 
     // if ($('#style_classique:checked').val()) {
-    //   contenu_fichier += intro_LaTeX($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
+    //   contenu_fichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
     // } else {
-    //   contenu_fichier += intro_LaTeX_coop(listePackages)
+    //   contenu_fichier += introLatexCoop(listePackages)
     //   contenu_fichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
     //   contenu_fichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
     //   contenu_fichier += '\n\n\\end{document}'

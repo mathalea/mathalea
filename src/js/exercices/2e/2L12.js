@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texte_en_couleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
-import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from '../../modules/Fractions.js'
+import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/Fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
 /**
@@ -70,7 +70,7 @@ export default function Equations_produits_nuls2() {
                    
                     break;
                 case 2:
-                    fractions=obtenir_liste_Fractions_irreductibles_faciles()
+                    fractions=obtenirListeFractionsIrreductiblesFaciles()
                     index =randint(0,fractions.length-1)
                     f1=fractions[index]
                     index=randint(0,fractions.length-1,index)
@@ -98,7 +98,7 @@ export default function Equations_produits_nuls2() {
                     else  texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
                     break
         case 3: // (ax+f1)(bx+f2)=0
-                        fractions=obtenir_liste_Fractions_irreductibles_faciles()
+                        fractions=obtenirListeFractionsIrreductiblesFaciles()
                         index =randint(0,fractions.length-1)
                         f1=fractions[index].multiplieEntier(choice([-1,1]))
                         index=randint(0,fractions.length-1,index)
