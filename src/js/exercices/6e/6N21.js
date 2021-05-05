@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,pgcd,texFractionReduite,calcul,lettreDepuisChiffre,htmlConsigne,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,pgcd,texFractionReduite,calcul,lettreDepuisChiffre,htmlConsigne,texFraction} from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 
@@ -135,11 +135,11 @@ export default function Lire_abscisse_fractionnaire() {
         if (pgcd(x11, pas2) != 1 || pgcd(x22, pas2) != 1 || pgcd(x33, pas2) != 1)
           this.contenuCorrection += `Remarque : `;
         if (pgcd(x11, pas2) != 1)
-          this.contenuCorrection += `$${tex_fraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\phantom{espace}$`;
+          this.contenuCorrection += `$${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\phantom{espace}$`;
         if (pgcd(x22, pas2) != 1)
-          this.contenuCorrection += `$${tex_fraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\phantom{espace}$`;
+          this.contenuCorrection += `$${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\phantom{espace}$`;
         if (pgcd(x33, pas2) != 1)
-          this.contenuCorrection += `$${tex_fraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\phantom{espace}$`;
+          this.contenuCorrection += `$${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\phantom{espace}$`;
 
       } else {
         //sortie Latex
@@ -176,11 +176,11 @@ export default function Lire_abscisse_fractionnaire() {
           true
         );
         if (pgcd(x11, pas2) != 1)
-          texteCorr += `<br>$\\left(${tex_fraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\right)$.`;
+          texteCorr += `<br>$\\left(${texFraction(x1 * pas2 + x11, pas2)}$ peut se simplifier en $${texFractionReduite(x1 * pas2 + x11, pas2)}\\right)$.`;
         if (pgcd(x22, pas2) != 1)
-          texteCorr += `<br>$\\left(${tex_fraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\right)$.`;
+          texteCorr += `<br>$\\left(${texFraction(x2 * pas2 + x22, pas2)}$ peut se simplifier en $${texFractionReduite(x2 * pas2 + x22, pas2)}\\right)$.`;
         if (pgcd(x33, pas2) != 1)
-          texteCorr += `<br>$\\left(${tex_fraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\right)$.`;
+          texteCorr += `<br>$\\left(${texFraction(x3 * pas2 + x33, pas2)}$ peut se simplifier en $${texFractionReduite(x3 * pas2 + x33, pas2)}\\right)$.`;
 
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

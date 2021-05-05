@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, tex_fraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Simplification de fractions'
@@ -68,19 +68,19 @@ export default function Exercice_fractions_simplifier (max = 11) {
       enleveElement(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
       texte =
           '$ ' +
-          tex_fraction(k * a, k * b) +
+          texFraction(k * a, k * b) +
           ' = ' +
-          tex_fraction('\\phantom{00000000000000}', '') +
+          texFraction('\\phantom{00000000000000}', '') +
           ' = ' +
-          tex_fraction('\\phantom{0000}', '') +
+          texFraction('\\phantom{0000}', '') +
           ' $'
       texteCorr =
           '$ ' +
-          tex_fraction(k * a, k * b) +
+          texFraction(k * a, k * b) +
           ' = ' +
-          tex_fraction(k + ' \\times ' + a, k + ' \\times ' + b) +
+          texFraction(k + ' \\times ' + a, k + ' \\times ' + b) +
           ' = ' +
-          tex_fraction(a, b) +
+          texFraction(a, b) +
           ' $'
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

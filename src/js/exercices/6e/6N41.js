@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,miseEnEvidence,tex_fraction,shuffle2tableaux} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,miseEnEvidence,texFraction,shuffle2tableaux} from '../../modules/outils.js'
 export const titre = 'Égalités entre fractions simples'
 
 /**
@@ -95,15 +95,15 @@ export default function Egalites_entre_fractions() {
         }
         switch (choix){
           case 0 :
-        texte = `$${tex_fraction(a, b)} = ${tex_fraction(
+        texte = `$${texFraction(a, b)} = ${texFraction(
           "\\phantom{00000000000000}",
           "\\phantom{00000000000000}"
-        )} = ${tex_fraction("\\phantom{0000}", d)}$`;
-        texteCorr = `$${tex_fraction(a, b)} = ${tex_fraction(
+        )} = ${texFraction("\\phantom{0000}", d)}$`;
+        texteCorr = `$${texFraction(a, b)} = ${texFraction(
           a + miseEnEvidence("\\times" + k),
           b + miseEnEvidence("\\times" + k)
-        )} = ${tex_fraction(c, d)}$`;
-        tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction((k-1)*a, d)}$`,`$${tex_fraction((k+1)*a,d )}$`,`$${tex_fraction(Math.abs(d-a),d )}$`]
+        )} = ${texFraction(c, d)}$`;
+        tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(a, d)}$`,`$${texFraction((k-1)*a, d)}$`,`$${texFraction((k+1)*a,d )}$`,`$${texFraction(Math.abs(d-a),d )}$`]
         tabicone=[1,0,0,0,0]
         this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
@@ -123,15 +123,15 @@ export default function Egalites_entre_fractions() {
         }
         break
         case 1 :
-          texte = `$${tex_fraction(a, b)} = ${tex_fraction(
+          texte = `$${texFraction(a, b)} = ${texFraction(
             "\\phantom{00000000000000}",
             "\\phantom{00000000000000}"
-          )} = ${tex_fraction(c, "\\phantom{0000}")}$`;
-          texteCorr = `$${tex_fraction(a, b)} = ${tex_fraction(
+          )} = ${texFraction(c, "\\phantom{0000}")}$`;
+          texteCorr = `$${texFraction(a, b)} = ${texFraction(
             a + miseEnEvidence("\\times" + k),
             b + miseEnEvidence("\\times" + k)
-          )} = ${tex_fraction(c, d)}$`;
-          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(c, b)}$`,`$\\dfrac{${c}}{${(k-1)*b}}$`,`$${tex_fraction(c, (k+1)*b)}$`,`$\\dfrac{${c}}{${Math.abs(c-b)}}$`]
+          )} = ${texFraction(c, d)}$`;
+          tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(c, b)}$`,`$\\dfrac{${c}}{${(k-1)*b}}$`,`$${texFraction(c, (k+1)*b)}$`,`$\\dfrac{${c}}{${Math.abs(c-b)}}$`]
           tabicone=[1,0,0,0,0]
           this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,
@@ -170,15 +170,15 @@ export default function Egalites_entre_fractions() {
         }
         switch (choix){
           case 0 :
-        texte = `$${a} = ${tex_fraction(
+        texte = `$${a} = ${texFraction(
           "\\phantom{00000000000000}",
           "\\phantom{00000000000000}"
-        )} = ${tex_fraction("\\phantom{0000}", d)}$`;
-        texteCorr = `$${a} = \\dfrac{${a}}{1} =${tex_fraction(
+        )} = ${texFraction("\\phantom{0000}", d)}$`;
+        texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(
           a + miseEnEvidence("\\times" + d),
           "1" + miseEnEvidence("\\times" + d)
-        )} = ${tex_fraction(c, d)}$`;
-          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction(d+a, d)}$`,`$${tex_fraction(Math.abs(d-a), d)}$`,`$${tex_fraction((a+1)*d, d)}$`]
+        )} = ${texFraction(c, d)}$`;
+          tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(a, d)}$`,`$${texFraction(d+a, d)}$`,`$${texFraction(Math.abs(d-a), d)}$`,`$${texFraction((a+1)*d, d)}$`]
         tabicone=[1,0,0,0,0]
         this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
@@ -198,15 +198,15 @@ export default function Egalites_entre_fractions() {
         }
         break
         case 1 :
-          texte = `$${a} = ${tex_fraction(
+          texte = `$${a} = ${texFraction(
             "\\phantom{00000000000000}",
             "\\phantom{00000000000000}"
-          )} = ${tex_fraction(c, "\\phantom{0000}")}$`;
-          texteCorr = `$${a} = \\dfrac{${a}}{1} =${tex_fraction(
+          )} = ${texFraction(c, "\\phantom{0000}")}$`;
+          texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(
             a + miseEnEvidence("\\times" + d),
             "1" + miseEnEvidence("\\times" + d)
-          )} = ${tex_fraction(c, d)}$`;
-            tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(c, c-a)}$`,`$${tex_fraction(c, a)}$`,`$${tex_fraction(c, c+a)}$`,`$${tex_fraction(c,c*a)}$`]
+          )} = ${texFraction(c, d)}$`;
+            tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(c, c-a)}$`,`$${texFraction(c, a)}$`,`$${texFraction(c, c+a)}$`,`$${texFraction(c,c*a)}$`]
           tabicone=[1,0,0,0,0]
           this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,

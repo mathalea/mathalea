@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,pgcd,calcul,texNombrec,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,pgcd,calcul,texNombrec,texNombre,texFraction} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
 export const titre = 'Calculer la fraction d’une quantité'
@@ -49,8 +49,8 @@ export default function Fraction_d_une_quantite() {
             texte += `cette fraction est représentée ci dessous :<br>`
             texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
           }
-          texteCorr = `Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1, den)}$ d\'heure, soit $${calcul(60 / den)}$ minutes.<br>`
-          texteCorr += `Ici, il y a $${tex_fraction(num, den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den)}=${calcul(num * 60 / den)}$.<br>`
+          texteCorr = `Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d\'heure, soit $${calcul(60 / den)}$ minutes.<br>`
+          texteCorr += `Ici, il y a $${texFraction(num, den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den)}=${calcul(num * 60 / den)}$.<br>`
           texteCorr += `$${frac.texFraction}$ d\'heure correspond donc à $${calcul(num * 60 / den)}$ minutes.`
           break
         case 2:
@@ -62,8 +62,8 @@ export default function Fraction_d_une_quantite() {
             texte += `Cette fraction est représentée ci dessous :<br>`
             texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 15, ymax: 5 }, frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue'))
           }
-          texteCorr = `Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1, den)}$ d\'heure, soit $${calcul(60 / den)}$ minutes.<br>`
-          texteCorr += `Ici, il y a $${tex_fraction(num, den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den)}=${calcul(num * 60 / den)}$.<br>`
+          texteCorr = `Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${texFraction(1, den)}$ d\'heure, soit $${calcul(60 / den)}$ minutes.<br>`
+          texteCorr += `Ici, il y a $${texFraction(num, den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60 / den)}=${calcul(num * 60 / den)}$.<br>`
           texteCorr += `$${frac.texFraction}$ d\'heure correspond donc à $${calcul(num * 60 / den)}$ minutes.`
           break
         case 3:
@@ -80,18 +80,18 @@ export default function Fraction_d_une_quantite() {
           choix = randint(1, 2)
           if (choix == 1) {
             texte += `Quelle masse de chocoloat a-t-elle été consommée ?<br>`
-            texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1, denIrred)}$ de la tablette représente une masse de $${calcul(masse / denIrred)}$ grammes.<br>`
+            texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFraction(1, denIrred)}$ de la tablette représente une masse de $${calcul(masse / denIrred)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse / denIrred)}=${calcul(numIrred * masse / denIrred)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${calcul(numIrred * masse / denIrred)}$ grammes.`
           }
           else {
             texte += `Quelle masse de chocolat reste-t-il ?<br>`
-            texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1, denIrred)}$ de la tablette représente une masse de $${calcul(masse / denIrred)}$ grammes.<br>`
+            texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${texFraction(1, denIrred)}$ de la tablette représente une masse de $${calcul(masse / denIrred)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse / denIrred)}=${calcul(numIrred * masse / denIrred)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${calcul(numIrred * masse / denIrred)}$ grammes.<br>`
             texteCorr += `Il reste donc : $${masse}-${calcul(numIrred * masse / denIrred)}=${calcul(masse - numIrred * masse / denIrred)}$ grammes de chocolat.<br>`
-            texteCorr += `une autre façon de faire est d'utiliser la fraction restante : $${tex_fraction(denIrred, denIrred)}-${frac.texFractionSimplifiee}=${tex_fraction(denIrred - numIrred, denIrred)}$.<br>`
-            texteCorr += `$${tex_fraction(denIrred - numIrred, denIrred)}$ de $${masse}$ grammes c\'est $${denIrred - numIrred}$ fois $${calcul(masse / denIrred)}$ grammes.<br>`
+            texteCorr += `une autre façon de faire est d'utiliser la fraction restante : $${texFraction(denIrred, denIrred)}-${frac.texFractionSimplifiee}=${texFraction(denIrred - numIrred, denIrred)}$.<br>`
+            texteCorr += `$${texFraction(denIrred - numIrred, denIrred)}$ de $${masse}$ grammes c\'est $${denIrred - numIrred}$ fois $${calcul(masse / denIrred)}$ grammes.<br>`
             texteCorr += `Il reste donc : $${denIrred - numIrred}\\times${calcul(masse / denIrred)}=${(denIrred - numIrred) * masse / denIrred}$ grammes de chocolat.`
 
           }
@@ -121,7 +121,7 @@ export default function Fraction_d_une_quantite() {
             texte += `Ce bâton est représenté ci dessous :<br>`
             texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', "0", `${texNombre(calcul(longueur / 100))}`))
           }
-          texteCorr = `$${tex_fraction(1, denIrred)}$ de $${texNombrec(longueur / 100)}$ représente $${texNombrec(longueur / 100)} \\div ${denIrred} = ${texNombrec(longueur / 100 / denIrred)}$.<br>`
+          texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombrec(longueur / 100)}$ représente $${texNombrec(longueur / 100)} \\div ${denIrred} = ${texNombrec(longueur / 100 / denIrred)}$.<br>`
           texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombrec(longueur / 100 / denIrred)}=${texNombrec(numIrred * longueur / 100 / denIrred)}$ m.<br>`
           texteCorr += `Le deuxième morceau mesure donc : $${texNombrec(longueur / 100)}-${texNombrec(numIrred * longueur / 100 / denIrred)}=${texNombrec(longueur / 100 - numIrred * longueur / 100 / denIrred)}$ m.`
 

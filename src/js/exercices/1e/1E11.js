@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 
@@ -63,7 +63,7 @@ export default function Resoudre_equation_degre_2() {
         }
         texteCorr += `<br> Si on ne voit pas cette factorisation, on peut utiliser le discriminant.`;
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`;
-        texteCorr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${tex_fraction('-b', '2a')} = ${texFractionReduite(-b, 2 * a)}$`;
+        texteCorr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${texFraction('-b', '2a')} = ${texFractionReduite(-b, 2 * a)}$`;
         if (b % (2 * a) == 0) {
           texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${-b / (2 * a)}\\right\\}$.`;
         } else {

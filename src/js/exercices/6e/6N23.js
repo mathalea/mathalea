@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Donner l’écriture décimale d’une fraction décimale'
@@ -39,10 +39,10 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000]);
       texte =
-        "$ " + tex_fraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
+        "$ " + texFraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
       texteCorr =
         "$ " +
-        tex_fraction(texNombre(a), texNombre(b)) +
+        texFraction(texNombre(a), texNombre(b)) +
         " = " +
         texNombre(Algebrite.eval(a / b)) +
         " $";

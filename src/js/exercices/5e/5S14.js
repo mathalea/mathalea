@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre,tex_fraction,personne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre,texFraction,personne} from '../../modules/outils.js'
 
 export const titre = 'Calculer des moyennes'
 
@@ -41,11 +41,11 @@ export default function Calculer_des_moyennes () {
 			
 				if (eleve.genre==='masculin') {
 					texte += `Calculer la moyenne de cet élève en mathématiques.`;
-					texteCorr += 'Donc la moyenne de cet élève est : ' + `$${tex_fraction(texNombre(somme), texNombre(nombre_notes))}$`;
+					texteCorr += 'Donc la moyenne de cet élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombre_notes))}$`;
 				}
 				else {
 					texte += `Calculer la moyenne de cette élève en mathématiques.`;
-					texteCorr += 'Donc la moyenne de cette élève est : ' + `$${tex_fraction(texNombre(somme), texNombre(nombre_notes))}$`;
+					texteCorr += 'Donc la moyenne de cette élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombre_notes))}$`;
 				}
 
 				if (arrondi(somme / nombre_notes, 2) == somme / nombre_notes)
@@ -90,7 +90,7 @@ export default function Calculer_des_moyennes () {
 
         texte += 'Calculer la température moyenne de ce mois.'
         texteCorr = `En ${nom_du_mois(mois)} ${annee}, la somme des températures est ` + `$${somme}^\\circ\\text{C}$.<br> Il y a $${temperatures.length}$ jours ce mois-ci.<br> La température moyenne est :<br>`
-        texteCorr += `$${tex_fraction(texNombre(somme) + '^\\circ\\text{C}', texNombre(nombre_temperatures))}$`
+        texteCorr += `$${texFraction(texNombre(somme) + '^\\circ\\text{C}', texNombre(nombre_temperatures))}$`
 
         if (arrondi(somme / nombre_temperatures, 2) === somme / nombre_temperatures) {
           texteCorr += `$=${arrondiVirgule(somme / nombre_temperatures, 2)}^\\circ\\text{C}$` // moyenne exacte

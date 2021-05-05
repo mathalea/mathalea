@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplification_de_fraction_avec_etapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,tex_fraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplification_de_fraction_avec_etapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,texFraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -82,17 +82,17 @@ export default function Exercice_additionner_fraction_produit() {
       f = ef[1];
       switch (type_de_questions) {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
-          texte = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
+          texte = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}$`;
 
-          texteCorr = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
+          texteCorr = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}$`;
           produit=produitDeDeuxFractions(c,d,e,f)
           if (this.correctionDetaillee) {
-          texteCorr += `$=${tex_fraction(a, b)}+${tex_fraction(c + "\\times" + e,d + "\\times" + f)}$`;
-          texteCorr += `$=${tex_fraction(a, b)}+${tex_fraction(c * e,d * f)}$`;
+          texteCorr += `$=${texFraction(a, b)}+${texFraction(c + "\\times" + e,d + "\\times" + f)}$`;
+          texteCorr += `$=${texFraction(a, b)}+${texFraction(c * e,d * f)}$`;
       }
       else {
-        texteCorr += `$=${tex_fraction(a, b)}+${produit[1]}$`;
-        texteCorr += `$=${tex_fraction(a, b)}+${produit[0]}$`;
+        texteCorr += `$=${texFraction(a, b)}+${produit[1]}$`;
+        texteCorr += `$=${texFraction(a, b)}+${produit[0]}$`;
       }
           // faut-il simplifier c*e/d*f
           if (!this.correctionDetaillee) {
@@ -100,7 +100,7 @@ export default function Exercice_additionner_fraction_produit() {
           }
           p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${tex_fraction(a, b)}+${tex_fraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}"
+            texteCorr += `$=${texFraction(a, b)}+${texFraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}"
             )}$`;
             c = (e * c) / p;
             d = (f * d) / p;
@@ -112,32 +112,32 @@ export default function Exercice_additionner_fraction_produit() {
           k1 = p / b;
           k2 = p / d;
           if (k1 != 1) {
-            texteCorr += `$=${tex_fraction(
+            texteCorr += `$=${texFraction(
               a + miseEnEvidence("\\times" + k1),
               b + miseEnEvidence("\\times" + k1)
             )}$`;
           } else { if (k2!=1){
-            texteCorr += `$=${tex_fraction(a, b)}$`;
+            texteCorr += `$=${texFraction(a, b)}$`;
           }}
           if (k2 != 1) {
-            texteCorr += `$+${tex_fraction(
+            texteCorr += `$+${texFraction(
               c + miseEnEvidence("\\times" + k2),
               d + miseEnEvidence("\\times" + k2)
             )}$`;
           } else { if (k1!=1) {
-            texteCorr += `$+${tex_fraction(c, d)}$`;
+            texteCorr += `$+${texFraction(c, d)}$`;
           }}
 
-          texteCorr += `$=${tex_fraction(a * k1, p)}+${tex_fraction(c * k2,p)}$`;
+          texteCorr += `$=${texFraction(a * k1, p)}+${texFraction(c * k2,p)}$`;
           e = a * k1 + c * k2;
           f = p;
 
-          texteCorr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+          texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
   /*
           p = pgcd(e, f);
           // faut-il simplifier e/f
           if (p != 1) {
-            texteCorr += `$=${tex_fraction(
+            texteCorr += `$=${texFraction(
               e / p + "\\times\\cancel{" + p + "}",
               f / p + "\\times\\cancel{" + p + "}"
             )}$`;
@@ -148,16 +148,16 @@ export default function Exercice_additionner_fraction_produit() {
 
 
         case 2: // sans piège fraction2 x fraction3 + fraction1  (tout positif)
-        texte = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
+        texte = `$${texFraction(c,d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`;
         produit=produitDeDeuxFractions(c,d,e,f)
-        texteCorr = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
+        texteCorr = `$${texFraction(c,d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`;
         if (this.correctionDetaillee) {
-        texteCorr += `$=${tex_fraction(c + "\\times" + e,d + "\\times" + f)}+${tex_fraction(a, b)}$`;
-        texteCorr += `$=${tex_fraction(c * e,d * f)}+${tex_fraction(a, b)}$`;
+        texteCorr += `$=${texFraction(c + "\\times" + e,d + "\\times" + f)}+${texFraction(a, b)}$`;
+        texteCorr += `$=${texFraction(c * e,d * f)}+${texFraction(a, b)}$`;
         }
         else {
-          texteCorr += `$=${produit[1]}+${tex_fraction(a, b)}$`;
-          texteCorr += `$=${produit[0]}+${tex_fraction(a, b)}$`;
+          texteCorr += `$=${produit[1]}+${texFraction(a, b)}$`;
+          texteCorr += `$=${produit[0]}+${texFraction(a, b)}$`;
         }
         // faut-il simplifier c*e/d*f
         if (!this.correctionDetaillee) {
@@ -165,7 +165,7 @@ export default function Exercice_additionner_fraction_produit() {
         }
         p = pgcd(c * e, d * f);
         if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-          texteCorr += `$=${tex_fraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}")}+${tex_fraction(a, b)}$`;
+          texteCorr += `$=${texFraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}")}+${texFraction(a, b)}$`;
           c = (e * c) / p;
           d = (f * d) / p;
         } else {
@@ -176,37 +176,37 @@ export default function Exercice_additionner_fraction_produit() {
         k1 = p / b;
         k2 = p / d;
         if (k2 != 1) {
-          texteCorr += `$=${tex_fraction(
+          texteCorr += `$=${texFraction(
             c + miseEnEvidence("\\times" + k2),
             d + miseEnEvidence("\\times" + k2)
           )}$`;
         } else { if (k1!=1) {
-          texteCorr += `$=${tex_fraction(c, d)}$`;
+          texteCorr += `$=${texFraction(c, d)}$`;
         }
       }
 
         if (k1 != 1) {
-          texteCorr += `$+${tex_fraction(
+          texteCorr += `$+${texFraction(
             a + miseEnEvidence("\\times" + k1),
             b + miseEnEvidence("\\times" + k1)
           )}$`;
         } else {
           if (k2!=1) {
-          texteCorr += `$+${tex_fraction(a, b)}$`;
+          texteCorr += `$+${texFraction(a, b)}$`;
           }
         }
 
         if (this.correctionDetaillee) {
-          texteCorr += `$=${tex_fraction(c * k2,p)}+${tex_fraction(a * k1, p)}$`;
+          texteCorr += `$=${texFraction(c * k2,p)}+${texFraction(a * k1, p)}$`;
         }
         e = a * k1 + c * k2;
         f = p;
 
-        texteCorr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+        texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
    /*     p = pgcd(e, f);
         // faut-il simplifier e/f
         if (p != 1) {
-          texteCorr += `$=${tex_fraction(
+          texteCorr += `$=${texFraction(
             e / p + "\\times\\cancel{" + p + "}",
             f / p + "\\times\\cancel{" + p + "}"
           )}$`;
@@ -218,15 +218,15 @@ export default function Exercice_additionner_fraction_produit() {
         case 3: // avec piege addition non prioritaire fraction2 * fraction3 + fraction1  tout positif
           d = b;
           produit=produitDeDeuxFractions(c,d,e,f)
-          texte = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
-          texteCorr = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
+          texte = `$${texFraction(c,d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`;
+          texteCorr = `$${texFraction(c,d)}\\times${texFraction(e, f)}+${texFraction(a, b)}$`;
           if (this.correctionDetaillee){
-          texteCorr += `$=${tex_fraction(c + "\\times" + e,d + "\\times" + f)}+${tex_fraction(a, b)}$`;
-          texteCorr += `$=${tex_fraction(c * e,d * f)}+${tex_fraction(a, b)}$`;
+          texteCorr += `$=${texFraction(c + "\\times" + e,d + "\\times" + f)}+${texFraction(a, b)}$`;
+          texteCorr += `$=${texFraction(c * e,d * f)}+${texFraction(a, b)}$`;
           }
           else {
-            texteCorr += `$=${produit[1]}+${tex_fraction(a, b)}$`;
-            texteCorr += `$=${produit[0]}+${tex_fraction(a, b)}$`;
+            texteCorr += `$=${produit[1]}+${texFraction(a, b)}$`;
+            texteCorr += `$=${produit[0]}+${texFraction(a, b)}$`;
           }
           // faut-il simplifier c*e/d*f
           if (!this.correctionDetaillee) {
@@ -234,10 +234,10 @@ export default function Exercice_additionner_fraction_produit() {
           }
           p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${tex_fraction(
+            texteCorr += `$=${texFraction(
               (e * c) / p + "\\times\\cancel{" + p + "}",
               (f * d) / p + "\\times\\cancel{" + p + "}"
-            )}+${tex_fraction(a, b)}$`;
+            )}+${texFraction(a, b)}$`;
             c = (e * c) / p;
             d = (f * d) / p;
           } else {
@@ -249,32 +249,32 @@ export default function Exercice_additionner_fraction_produit() {
           k2 = p / d;
 
           if (k2 != 1) {
-            texteCorr += `$=${tex_fraction(
+            texteCorr += `$=${texFraction(
               c + "\\times" + k2,
               d + "\\times" + k2
             )}$`;
           } else { if (k1!=1) {
-            texteCorr += `$=${tex_fraction(c, d)}$`;
+            texteCorr += `$=${texFraction(c, d)}$`;
           }}
 
           if (k1 != 1) {
-            texteCorr += `$+${tex_fraction(
+            texteCorr += `$+${texFraction(
               a + miseEnEvidence("\\times" + k1),
               b + miseEnEvidence("\\times" + k1)
             )}$`;
           } else { if (k2!=1) {
-            texteCorr += `$+${tex_fraction(a, b)}$`;
+            texteCorr += `$+${texFraction(a, b)}$`;
           }}
           if(this.correctionDetaillee){
-          texteCorr += `$=${tex_fraction(c * k2,d * k2)}+${tex_fraction(a * k1, b * k1)}$`;
+          texteCorr += `$=${texFraction(c * k2,d * k2)}+${texFraction(a * k1, b * k1)}$`;
           }
           e = a * k1 + c * k2;
           f = p;
-            texteCorr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+            texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
    /*      p = pgcd(e, f);
           // faut-il simplifier e/f
           if (p != 1) {
-            texteCorr += `$=${tex_fraction(
+            texteCorr += `$=${texFraction(
               e / p + "\\times\\cancel{" + p + "}",
               f / p + "\\times\\cancel{" + p + "}"
             )}$`;
@@ -297,8 +297,8 @@ export default function Exercice_additionner_fraction_produit() {
           } else {
             signe2 = "-";
           }
-          texte = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}=$`;
-          texteCorr = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
+          texte = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}=$`;
+          texteCorr = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}$`;
 
           c = abs(c); // gestion du signe du produit avec {signe}
           d = abs(d);
@@ -316,21 +316,21 @@ export default function Exercice_additionner_fraction_produit() {
           b = abs(b);
           produit=produitDeDeuxFractions(c,d,e,f)
           if (this.correctionDetaillee) {
-          texteCorr += `$=${signe1}${tex_fraction(
+          texteCorr += `$=${signe1}${texFraction(
             a,
             b
-          )}${signe2}${tex_fraction(c + "\\times" + e, d + "\\times" + f)}$`;
-          texteCorr += `$=${signe1}${tex_fraction(
+          )}${signe2}${texFraction(c + "\\times" + e, d + "\\times" + f)}$`;
+          texteCorr += `$=${signe1}${texFraction(
             a,
             b
-          )}${signe2}${tex_fraction(c * e, d * f)}$`;
+          )}${signe2}${texFraction(c * e, d * f)}$`;
           }
           else {
-            texteCorr += `$=${signe1}${tex_fraction(
+            texteCorr += `$=${signe1}${texFraction(
               a,
               b
             )}${signe2}${produit[1]}$`;
-            texteCorr += `$=${signe1}${tex_fraction(
+            texteCorr += `$=${signe1}${texFraction(
               a,
               b
             )}${signe2}${produit[0]}$`;
@@ -341,10 +341,10 @@ export default function Exercice_additionner_fraction_produit() {
           }
           p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${signe1}${tex_fraction(
+            texteCorr += `$=${signe1}${texFraction(
               a,
               b
-            )}${signe2}${tex_fraction(
+            )}${signe2}${texFraction(
               (e * c) / p + "\\times\\cancel{" + p + "}",
               (f * d) / p + "\\times\\cancel{" + p + "}"
             )}$`;
@@ -359,18 +359,18 @@ export default function Exercice_additionner_fraction_produit() {
             // dénominateur commun = p
             k1 = p / b;
             k2 = p / d;
-            texteCorr += `$=${signe1}${tex_fraction(
+            texteCorr += `$=${signe1}${texFraction(
               a + miseEnEvidence("\\times" + k1),
               b + miseEnEvidence("\\times" + k1)
-            )}${signe2}${tex_fraction(
+            )}${signe2}${texFraction(
               c + miseEnEvidence("\\times" + k2),
               d + miseEnEvidence("\\times" + k2)
             )}$`;
-            texteCorr += `$=${signe1}${tex_fraction(
+            texteCorr += `$=${signe1}${texFraction(
               a * k1,
               b * k1
-            )}${signe2}${tex_fraction(c * k2, d * k2)}$`;
-            texteCorr += `$=${tex_fraction(
+            )}${signe2}${texFraction(c * k2, d * k2)}$`;
+            texteCorr += `$=${texFraction(
               signe1 + a * k1 + signe2 + c * k2,
               b * k1
             )}$`;
@@ -380,15 +380,15 @@ export default function Exercice_additionner_fraction_produit() {
           } else {
             if (p == d) {
               k1 = d / b; // d = dénominateur commun
-              texteCorr += `$=${signe1}${tex_fraction(
+              texteCorr += `$=${signe1}${texFraction(
                 a + miseEnEvidence("\\times" + k1),
                 b + miseEnEvidence("\\times" + k1)
-              )}${signe2}${tex_fraction(c, d)}$`;
-              texteCorr += `$=${signe1}${tex_fraction(
+              )}${signe2}${texFraction(c, d)}$`;
+              texteCorr += `$=${signe1}${texFraction(
                 a * k1,
                 d
-              )}${signe2}${tex_fraction(c, d)}$`;
-              texteCorr += `$=${tex_fraction(
+              )}${signe2}${texFraction(c, d)}$`;
+              texteCorr += `$=${texFraction(
                 signe1 + a * k1 + signe2 + c,
                 d
               )}$`;
@@ -396,18 +396,18 @@ export default function Exercice_additionner_fraction_produit() {
             } else {
               // b=k2*d
               k2 = b / d; // b= dénominateur commun
-              texteCorr += `$=${signe1}${tex_fraction(
+              texteCorr += `$=${signe1}${texFraction(
                 a,
                 b
-              )}${signe2}${tex_fraction(
+              )}${signe2}${texFraction(
                 c + miseEnEvidence("\\times" + k2),
                 d + miseEnEvidence("\\times" + k2)
               )}$`;
-              texteCorr += `$=${signe1}${tex_fraction(
+              texteCorr += `$=${signe1}${texFraction(
                 a,
                 b
-              )}${signe2}${tex_fraction(c * k2, b)}$`;
-              texteCorr += `$=${tex_fraction(
+              )}${signe2}${texFraction(c * k2, b)}$`;
+              texteCorr += `$=${texFraction(
                 signe1 + a + signe2 + c * k2,
                 b
               )}$`;
@@ -451,14 +451,14 @@ export default function Exercice_additionner_fraction_produit() {
             e = e / p;
             if (e > 0) {
               // fraction positive => pas de signe
-              texteCorr += `$=${tex_fraction(
+              texteCorr += `$=${texFraction(
                 e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;
               texteCorr += `$=${simplification_de_fraction_avec_etapes(e, f)}$`;
             } else {
               // numérateur négatif => signe - devant les fractions suivantes.
-              texteCorr += `$=-${tex_fraction(
+              texteCorr += `$=-${texFraction(
                 -e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;

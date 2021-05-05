@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { premiere_lettre_en_majuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, tex_fraction, combinaisonListes, tab_C_L, choice, randint } from '../../modules/outils.js'
+import { premiere_lettre_en_majuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tab_C_L, choice, randint } from '../../modules/outils.js'
 import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter des données par un diagramme'
@@ -96,11 +96,11 @@ export default function Construire_Un_Diagramme() {
                 }
                 contenutableau.push(effectiftotal)
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(tex_fraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+                    contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
                 }
                 contenutableau.push('1')
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(`${tex_fraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+                    contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
                 }
                 contenutableau.push(`360\\degree`)
 
@@ -149,11 +149,11 @@ export default function Construire_Un_Diagramme() {
                 }
                 contenutableau.push(effectiftotal)
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(tex_fraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+                    contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
                 }
                 contenutableau.push('1')
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(`${tex_fraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+                    contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
                 }
                 contenutableau.push(`180\\degree`)
 

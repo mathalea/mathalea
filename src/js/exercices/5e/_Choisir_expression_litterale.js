@@ -1,4 +1,4 @@
-import {estentier,randint,arrondi,simplification_de_fraction_avec_etapes,calcul,texNombrec,texNombre,nombre_avec_espace,tex_fraction,katex_Popup2} from '../../modules/outils.js'
+import {estentier,randint,arrondi,simplification_de_fraction_avec_etapes,calcul,texNombrec,texNombre,nombre_avec_espace,texFraction,katex_Popup2} from '../../modules/outils.js'
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
  * @param {number} nb_operations 
@@ -58,7 +58,7 @@ export default function Choisir_expression_litterale(nb_operations, decimal, val
 					expf = `Le quotient de $${l1}$ par ${nombre_avec_espace(b)}`
 					expl = `$${l1}\\div ${texNombre(b)}$`
 					if (estentier(val1 / b * 1000)) expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombrec(val1 / b)}$`
-					else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${tex_fraction(val1, texNombre(b))}${simplification_de_fraction_avec_etapes(val1, texNombre(b))}$`
+					else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFraction(val1, texNombre(b))}${simplification_de_fraction_avec_etapes(val1, texNombre(b))}$`
 					last_op = 'division';
 					break
 			}

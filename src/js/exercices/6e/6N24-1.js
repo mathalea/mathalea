@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
@@ -39,10 +39,10 @@ export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_1
       b = choice([10, 100, 1000]);
       if (choice([true, false])) {
         texte =
-          "$ " + tex_fraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
+          "$ " + texFraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
         texteCorr =
           "$ " +
-          tex_fraction(texNombre(a), texNombre(b)) +
+          texFraction(texNombre(a), texNombre(b)) +
           " = " +
           texNombre(Algebrite.eval(a / b)) +
           " $";

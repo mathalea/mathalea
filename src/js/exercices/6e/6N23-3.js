@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisitLettresDifferentes,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisitLettresDifferentes,texNombre,texFraction} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
@@ -93,7 +93,7 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${tex_fraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${tex_fraction(calcul(x1 * 10), 10)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${texFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${texFraction(calcul(x1 * 10), 10)}$.<br>`
     }
     else if (this.sup == 2) {
       if (this.niveau == 'CM') {
@@ -153,7 +153,7 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       let partent = Math.floor(x1), pardec = calcul(x1 - partent)
-      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${tex_fraction(calcul(pardec * 100), 100)}=${tex_fraction(calcul(x1 * 100), 100)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 100), 100)}=${texFraction(calcul(x1 * 100), 100)}$.<br>`
 
     }
     else if (this.sup == 3) {
@@ -242,7 +242,7 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, d3, sA, sB, sC, sD)
       objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
       let partent = Math.floor(x1), pardec = calcul(x1 - partent)
-      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${tex_fraction(calcul(pardec * 1000), 1000)}=${tex_fraction(calcul(x1 * 1000), 1000)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 1000), 1000)}=${texFraction(calcul(x1 * 1000), 1000)}$.<br>`
 
     }
     texte = `Donner l'abscisse de ${noms[1]} sous trois formes : en écriture décimale, comme somme d’un nombre entier et d’une fraction décimale et avec une fraction décimale.<br>`

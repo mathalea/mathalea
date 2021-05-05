@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, tex_fraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction } from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
 
@@ -68,17 +68,17 @@ export default function Factoriser_Identites_remarquables2 () {
           break
         case 7:
 
-          texte = `$${tex_fraction(ns * ns, ds * ds)}x^2+${tex_fraction(2 * ns * a, ds)}x+${a * a}$` // (kx+a)² k rationnel
-          texteCorr = `$${tex_fraction(ns * ns, ds * ds)}x^2+${tex_fraction(ns * 2 * a, ds)}x+${a * a}=\\left(${tex_fraction(ns, ds)}x\\right)^2+2 \\times ${tex_fraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${tex_fraction(ns, ds)}x+${a}\\right)^2$`
+          texte = `$${texFraction(ns * ns, ds * ds)}x^2+${texFraction(2 * ns * a, ds)}x+${a * a}$` // (kx+a)² k rationnel
+          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2+${texFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2+2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x+${a}\\right)^2$`
           break
         case 8:
-          texte = `$${tex_fraction(ns * ns, ds * ds)}x^2-${tex_fraction(2 * ns * a, ds)}x+${a * a}$` // (kx-a)² k rationnel
-          texteCorr = `$${tex_fraction(ns * ns, ds * ds)}x^2-${tex_fraction(ns * 2 * a, ds)}x+${a * a}=\\left(${tex_fraction(ns, ds)}x\\right)^2-2 \\times ${tex_fraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${tex_fraction(ns, ds)}x-${a}\\right)^2$`
+          texte = `$${texFraction(ns * ns, ds * ds)}x^2-${texFraction(2 * ns * a, ds)}x+${a * a}$` // (kx-a)² k rationnel
+          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${texFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)^2$`
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
-          texte = `$${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
-          texteCorr = `$${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${tex_fraction(ns, ds)}x\\right)^2-${a}^2=\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)$`
+          texte = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
+          texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
           break
       }
       if (this.listeQuestions.indexOf(texte) == -1) {

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, tex_fraction } from '../../modules/outils.js';
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js';
 export const amcReady = true
 
 export const titre = 'Arrondir une valeur'
@@ -69,7 +69,7 @@ export default function Arrondir_une_valeur () {
         den = choice([7, 9, 11, 13])
         num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
         n = num / den
-        nb = tex_fraction(num, den)
+        nb = texFraction(num, den)
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))

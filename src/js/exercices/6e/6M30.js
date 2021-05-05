@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,calcul,texNombrec,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,calcul,texNombrec,texNombre,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Calculs de volumes'
 
@@ -137,7 +137,7 @@ export default function Calcul_de_volumes() {
             r = randint(2, 10);
             h = randint(2, 15);
             texte = `Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${texNombre(h)}${liste_unites[j][0]}$ de hauteur.`;
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_fraction(
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${texFraction(
               r * r * h,
               3
             )}\\pi${liste_unites[j][1]}\\approx${texNombrec(
@@ -148,7 +148,7 @@ export default function Calcul_de_volumes() {
             r = randint(2, 10);
             h = randint(20, 150);
             texte = `Un cône de $${texNombre(r)}${liste_unites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${liste_unites[j - 1][0]}$ de hauteur.`;
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${texNombrec(calcul(h / 10))}${liste_unites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${texNombrec(h)}${liste_unites[j][0]}=${tex_fraction(r * r * h, 3)}\\pi\\approx${texNombrec(
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${texNombrec(calcul(h / 10))}${liste_unites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${texNombrec(h)}${liste_unites[j][0]}=${texFraction(r * r * h, 3)}\\pi\\approx${texNombrec(
               calcul((r * r * h * Math.PI) / 3, 1)
             )}${liste_unites[j][1]}$`;
           }
@@ -193,7 +193,7 @@ export default function Calcul_de_volumes() {
           j = randint(0, 3); // pour le choix de l'unité
           r = randint(2, 10);
           texte = `Une boule de $${r}${liste_unites[j][0]}$ de rayon.`;
-          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3=${tex_fraction(calcul(4 * r * r * r), 3)}\\pi${liste_unites[j][1]}\\approx${texNombrec(
+          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3=${texFraction(calcul(4 * r * r * r), 3)}\\pi${liste_unites[j][1]}\\approx${texNombrec(
             arrondi(calcul((4 * Math.PI * r * r * r) / 3), 1)
           )}${liste_unites[j][1]}$`;
           break;

@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {homothetie,codeAngle,repere2,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js';
-import { export_QCM_AMC, calcul, tex_fraction, quatrieme_proportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
+import { export_QCM_AMC, calcul, texFraction, quatrieme_proportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
 export const amcReady = true
@@ -196,7 +196,7 @@ export default function Calcul_de_longueur() {
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
                 texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[1], bc)}$<br>`;
+                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[1], bc)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;
@@ -204,9 +204,9 @@ reponse =arrondi(ab,1)
                 break
             case 'sinus':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
+                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], bc)}$<br>`;
+                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], bc)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
@@ -214,9 +214,9 @@ reponse =arrondi(ab,1)
                 break
             case 'tangente':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
+                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(nom[0] + nom[2], ab)}$<br>`;
+                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], ab)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
@@ -226,7 +226,7 @@ reponse =arrondi(ab,1)
                 texteCorr = `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
                 texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ab, nom[1] + nom[2])}$<br>`;
+                texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ab, nom[1] + nom[2])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
@@ -234,9 +234,9 @@ reponse =arrondi(ab,1)
                 break
             case 'invSinus':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
+                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[1] + nom[2])}$<br>`;
+                texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[1] + nom[2])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
@@ -244,9 +244,9 @@ reponse =arrondi(ab,1)
                 break
             case 'invTangente':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
+                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(ac, nom[0] + nom[1])}$<br>`;
+                texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[0] + nom[1])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
                 texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;

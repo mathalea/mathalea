@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenir_liste_facteurs_premiers,obtenir_liste_fractions_irreductibles,obtenir_liste_nombres_premiers,decomposition_facteurs_premiers,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenir_liste_facteurs_premiers,obtenir_liste_fractions_irreductibles,obtenir_liste_nombres_premiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
 export const titre = 'Mutliplier des fractions'
 
 /**
@@ -84,14 +84,14 @@ export default function Exercice_multiplier_fractions() {
             if (a == c) {
               a = a + 1;
             }
-            texte = `$${tex_fraction(a, 1)}\\times${tex_fraction(c, d)}=$`;
-            texteCorr = `$${tex_fraction(a, 1)}\\times${tex_fraction(c, d)}$`;
-            texteCorr += `$=\\dfrac{${a}}{1}\\times${tex_fraction(c, d)}$`;
-            texteCorr += `$=${tex_fraction(
+            texte = `$${texFraction(a, 1)}\\times${texFraction(c, d)}=$`;
+            texteCorr = `$${texFraction(a, 1)}\\times${texFraction(c, d)}$`;
+            texteCorr += `$=\\dfrac{${a}}{1}\\times${texFraction(c, d)}$`;
+            texteCorr += `$=${texFraction(
               a + "\\times" + c,
               "1\\times" + d
             )}$`;
-            texteCorr += `$=${tex_fraction(a * c, d)}$`;
+            texteCorr += `$=${texFraction(a * c, d)}$`;
             if (pgcd(a * c, d) != 1) {
               texteCorr += `$=${texFractionReduite(a * c, d)}$`;
             }
@@ -99,19 +99,19 @@ export default function Exercice_multiplier_fractions() {
 
           case 2: // fraction * fraction tout positif
             p = pgcd(a * c, b * d);
-            texte = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}=$`;
-            texteCorr = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
-            texteCorr += `$=${tex_fraction(
+            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`;
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
+            texteCorr += `$=${texFraction(
               a + "\\times" + c,
               b + "\\times" + d
             )}$`;
-            texteCorr += `$=${tex_fraction(a * c, b * d)}$`;
+            texteCorr += `$=${texFraction(a * c, b * d)}$`;
             if (p != 1) {
-              texteCorr += `$=${tex_fraction(
+              texteCorr += `$=${texFraction(
                 (a * c) / p + "\\times\\cancel{" + p + "}",
                 (b * d) / p + "\\times\\cancel{" + p + "}"
               )}$`;
-              texteCorr += `$=${tex_fraction((a * c) / p, (b * d) / p)}$`;
+              texteCorr += `$=${texFraction((a * c) / p, (b * d) / p)}$`;
             }
             break;
 
@@ -127,31 +127,31 @@ export default function Exercice_multiplier_fractions() {
               signe = "-";
             }
 
-            texte = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
-            texteCorr = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
+            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
             aa = abs(a);
             bb = abs(b);
             cc = abs(c);
             dd = abs(d);
             p = pgcd(aa * cc, bb * dd);
-            texteCorr += `$=${signe}${tex_fraction(
+            texteCorr += `$=${signe}${texFraction(
               aa,
               bb
-            )}\\times${tex_fraction(cc, dd)}$`;
-            texteCorr += `$=${signe}${tex_fraction(
+            )}\\times${texFraction(cc, dd)}$`;
+            texteCorr += `$=${signe}${texFraction(
               aa + "\\times" + cc,
               bb + "\\times" + dd
             )}$`;
             if (p == 1) {
-              texteCorr += `$=${signe}${tex_fraction(aa * cc, bb * dd)}$`;
+              texteCorr += `$=${signe}${texFraction(aa * cc, bb * dd)}$`;
             } else {
-              texteCorr += `$=${signe}${tex_fraction(aa * cc, bb * dd)}$`;
+              texteCorr += `$=${signe}${texFraction(aa * cc, bb * dd)}$`;
               if (aa * cc != bb * dd) {
-                texteCorr += `$=${signe}${tex_fraction(
+                texteCorr += `$=${signe}${texFraction(
                   (aa * cc) / p + "\\times\\cancel{" + p + "}",
                   (bb * dd) / p + "\\times\\cancel{" + p + "}"
                 )}$`;
-                texteCorr += `$=${signe}${tex_fraction(
+                texteCorr += `$=${signe}${texFraction(
                   (aa * cc) / p,
                   (bb * dd) / p
                 )}$`;
@@ -181,16 +181,16 @@ export default function Exercice_multiplier_fractions() {
 
         switch (type_de_questions) {
           case 1: // entier * fraction (tout positif)
-            texte = `$${a}\\times${tex_fraction(c, d)}=$`;
-            texteCorr = `$${a}\\times${tex_fraction(c, d)}$`;
-            texteCorr += `$=${tex_fraction(a + "\\times" + c, d)}$`;
-            texteCorr += `$=${tex_fraction(
+            texte = `$${a}\\times${texFraction(c, d)}=$`;
+            texteCorr = `$${a}\\times${texFraction(c, d)}$`;
+            texteCorr += `$=${texFraction(a + "\\times" + c, d)}$`;
+            texteCorr += `$=${texFraction(
               decomposition_facteurs_premiers(a) +
               "\\times" +
               decomposition_facteurs_premiers(c),
               decomposition_facteurs_premiers(d)
             )}$`;
-            // texteCorr += `$=${tex_fraction(decomposition_facteurs_premiers(a * c), decomposition_facteurs_premiers(d))}$`
+            // texteCorr += `$=${texFraction(decomposition_facteurs_premiers(a * c), decomposition_facteurs_premiers(d))}$`
             for (let k in listec) {
               listea.push(listec[k]);
             }
@@ -250,13 +250,13 @@ export default function Exercice_multiplier_fractions() {
             denominateur = denominateur.substr(0, denominateur.length - 6);
 
             texteCorr += `$=\\dfrac{${numerateur}}{${denominateur}}$`;
-            texteCorr += `$=${tex_fraction(a, b)}$`;
+            texteCorr += `$=${texFraction(a, b)}$`;
             break;
 
           case 2: // fraction * fraction tout positif
-            texte = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}=$`;
-            texteCorr = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
-            texteCorr += `$=${tex_fraction(
+            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}=$`;
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
+            texteCorr += `$=${texFraction(
               a + "\\times" + c,
               b + "\\times" + d
             )}$`;
@@ -323,7 +323,7 @@ export default function Exercice_multiplier_fractions() {
             denominateur = denominateur.substr(0, denominateur.length - 6);
 
             texteCorr += `$=\\dfrac{${numerateur}}{${denominateur}}$`;
-            texteCorr += `$=${tex_fraction(a, b)}$`;
+            texteCorr += `$=${texFraction(a, b)}$`;
             break;
 
           case 3:
@@ -338,18 +338,18 @@ export default function Exercice_multiplier_fractions() {
               signe = "-";
             }
 
-            texte = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
-            texteCorr = `$${tex_fraction(a, b)}\\times${tex_fraction(c, d)}$`;
+            texte = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
+            texteCorr = `$${texFraction(a, b)}\\times${texFraction(c, d)}$`;
             aa = abs(a);
             bb = abs(b);
             cc = abs(c);
             dd = abs(d);
 
-            texteCorr += `$=${signe}${tex_fraction(
+            texteCorr += `$=${signe}${texFraction(
               aa,
               bb
-            )}\\times${tex_fraction(cc, dd)}$`;
-            texteCorr += `$=${signe}${tex_fraction(
+            )}\\times${texFraction(cc, dd)}$`;
+            texteCorr += `$=${signe}${texFraction(
               aa + "\\times" + cc,
               bb + "\\times" + dd
             )}$`;
@@ -416,7 +416,7 @@ export default function Exercice_multiplier_fractions() {
             denominateur = denominateur.substr(0, denominateur.length - 6);
 
             texteCorr += `$=${signe}\\dfrac{${numerateur}}{${denominateur}}$`;
-            texteCorr += `$=${signe}${tex_fraction(a, b)}$`;
+            texteCorr += `$=${signe}${texFraction(a, b)}$`;
             break;
         }
       }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,range1,combinaisonListesSansChangerOrdre,texNombrec,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,range1,combinaisonListesSansChangerOrdre,texNombrec,texFraction} from '../../modules/outils.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 
 /**
@@ -33,52 +33,52 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
       switch (listeTypeDeQuestions[i]) {
         case 1: //3 unités, 5 dixièmes et 8 centièmes   
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`;
-          texteCorr = `$${a}+${tex_fraction(b, 10)}+${tex_fraction(c, 100)}=${texNombrec(a + b / 10 + c / 100)}$`
+          texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 100)}=${texNombrec(a + b / 10 + c / 100)}$`
           break;
         case 2: //3 unités et 5 centièmes   
           texte = `${a} unités et ${c} centièmes`;
-          texteCorr = `$${a}+${tex_fraction(c, 100)}=${texNombrec(a + c / 100)}$`
+          texteCorr = `$${a}+${texFraction(c, 100)}=${texNombrec(a + c / 100)}$`
           break;
         case 3: //5 dixièmes / centièmes ou millièmes
           choix = randint(1, 3)
           if (choix == 1) {
             texte = `${a} dixièmes`;
-            texteCorr = `$${tex_fraction(a, 10)}=${texNombrec(a / 10)}$`
+            texteCorr = `$${texFraction(a, 10)}=${texNombrec(a / 10)}$`
           }
           if (choix == 2) {
             texte = `${a} centièmes`;
-            texteCorr = `$${tex_fraction(a, 100)}=${texNombrec(a / 100)}$`
+            texteCorr = `$${texFraction(a, 100)}=${texNombrec(a / 100)}$`
           }
           if (choix == 3) {
             texte = `${a} millièmes`;
-            texteCorr = `$${tex_fraction(a, 1000)}=${texNombrec(a / 1000)}$`
+            texteCorr = `$${texFraction(a, 1000)}=${texNombrec(a / 1000)}$`
           }
           break;
         case 4: //128/10
           let n = a * 100 + b * 10 + c
           choix = randint(1, 3)
           if (choix == 1) {
-            texte = `$${tex_fraction(n, 10)}$`;
-            texteCorr = `$${tex_fraction(n, 10)}=${texNombrec(n / 10)}$`
+            texte = `$${texFraction(n, 10)}$`;
+            texteCorr = `$${texFraction(n, 10)}=${texNombrec(n / 10)}$`
           }
           if (choix == 2) {
-            texte = `$${tex_fraction(n, 100)}$`;
-            texteCorr = `$${tex_fraction(n, 100)}=${texNombrec(n / 100)}$`
+            texte = `$${texFraction(n, 100)}$`;
+            texteCorr = `$${texFraction(n, 100)}=${texNombrec(n / 100)}$`
           }
           if (choix == 1) {
-            texte = `$${tex_fraction(n, 1000)}$`;
-            texteCorr = `$${tex_fraction(n, 1000)}=${texNombrec(n / 1000)}$`
+            texte = `$${texFraction(n, 1000)}$`;
+            texteCorr = `$${texFraction(n, 1000)}=${texNombrec(n / 1000)}$`
           }
           break;
         case 5: //8+5/100+7/100  
           choix = randint(1, 2)
           if (choix == 1) {
-            texte = `$${a}+${tex_fraction(b, 100)}+${tex_fraction(c, 100)}$`;
-            texteCorr = `$${a}+${tex_fraction(b, 100)}+${tex_fraction(c, 100)}=${a}+${tex_fraction(b + c, 100)}=${texNombrec(a + (b + c) / 100)}$`
+            texte = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}$`;
+            texteCorr = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}=${a}+${texFraction(b + c, 100)}=${texNombrec(a + (b + c) / 100)}$`
           }
           if (choix == 2) {
-            texte = `$${a}+${tex_fraction(b, 10)}+${tex_fraction(c, 10)}$`;
-            texteCorr = `$${a}+${tex_fraction(b, 10)}+${tex_fraction(c, 10)}=${a}+${tex_fraction(b + c, 10)}=${a}+${texNombrec((b + c) / 10)}=${texNombrec(a + (b + c) / 10)}$`
+            texte = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}$`;
+            texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}=${a}+${texFraction(b + c, 10)}=${a}+${texNombrec((b + c) / 10)}=${texNombrec(a + (b + c) / 10)}$`
           }
           break;
 

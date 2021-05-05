@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Développer avec les identités remarquables'
 
@@ -69,17 +69,17 @@ export default function Developper_Identites_remarquables2() {
                     texteCorr = `$(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`;
                     break;
                 case 7:
-                    texte = `$\\left(${tex_fraction(ns, ds)}x+${a}\\right)^2$`; // (kx+a)² k rationnel 
-                    texteCorr = `$\\left(${tex_fraction(ns, ds)}x+${a}\\right)^2=\\left(${tex_fraction(ns, ds)}x\\right)^2+2 \\times ${tex_fraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${tex_fraction(ns, ds)}x+${a}\\right)^2=${tex_fraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`;
+                    texte = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2$`; // (kx+a)² k rationnel 
+                    texteCorr = `$\\left(${texFraction(ns, ds)}x+${a}\\right)^2=\\left(${texFraction(ns, ds)}x\\right)^2+2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${texFraction(ns, ds)}x+${a}\\right)^2=${texFraction(ns * ns, ds * ds)}x^2+${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`;
                     break;
                 case 8:
-                    texte = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)^2$`; // (kx-a)² k rationnel 
-                    texteCorr = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)^2=\\left(${tex_fraction(ns, ds)}x\\right)^2-2 \\times ${tex_fraction(ns, ds)}x \\times ${a} + ${a}^2=${tex_fraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`;
+                    texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2$`; // (kx-a)² k rationnel 
+                    texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)^2=\\left(${texFraction(ns, ds)}x\\right)^2-2 \\times ${texFraction(ns, ds)}x \\times ${a} + ${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${texFractionReduite(ns * 2 * a, ds)}x+${a * a}$`;
                     break;
                 case 9:
                     //  (bx-a)(bx+a) avec a entier et b rationnel simple
-                    texte = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)$`; // b>1
-                    texteCorr = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)=\\left(${tex_fraction(ns, ds)}x\\right)^2-${a}^2=${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}$`;
+                    texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`; // b>1
+                    texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`;
                     break;
             }
             if (this.listeQuestions.indexOf(texte) == -1) {
