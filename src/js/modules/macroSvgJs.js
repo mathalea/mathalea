@@ -1,3 +1,4 @@
+/* global $ */
 /* eslint-disable camelcase */
 import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
@@ -437,7 +438,6 @@ export function Latex_repere (Xmin, Xmax, Ymin, Ymax, subX, subY, grille) {
   * @Auteur Jean-Claude Lhote
   */
 export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
-  'use strict'
   let arrondir = 1 + Math.round(Math.log10(pas1))
   if (arrondir < 1) arrondir = 1
   const longueur_pas1 = 600 / longueur
@@ -482,7 +482,7 @@ export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas
           position = 1 - position
         }
       }
-      clearInterval(SVGExist[id_du_div])// Arrête le timer
+      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
     }
   }, 100) // Vérifie toutes les 100ms
 }
@@ -567,7 +567,7 @@ export function SVG_engrenages (id_du_div, w, h) {
                       </g>
                       </svg>
                       `
-        clearInterval(SVGExist[id_du_div])// Arrête le timer
+        clearInterval(window.SVGExist[id_du_div])// Arrête le timer
       }
     }, 100) // Vérifie toutes les 100ms
   }
@@ -693,7 +693,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                   </svg>	
                   `
 
-      clearInterval(SVGExist[id_du_div])// Arrête le timer
+      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
     }
   }, 100) // Vérifie toutes les 100ms
 }
@@ -802,7 +802,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                   </svg>	
                   `
 
-      clearInterval(SVGExist[id_du_div])// Arrête le timer
+      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
     }
   }, 100) // Vérifie toutes les 100ms
 }
@@ -977,7 +977,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       runner1.loop(true, false, 8000)
       runner2.loop(true, false, 8000)
 
-      clearInterval(SVGExist[id_du_div])// Arrête le timer
+      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
     }
   }, 100) // Vérifie toutes les 100ms
 }

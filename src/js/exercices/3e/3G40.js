@@ -1,3 +1,4 @@
+/* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { mathalea2d, tracePoint, labelPoint } from '../../modules/2d.js'
@@ -22,11 +23,12 @@ export default function ReperageSurLaSphere () {
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let listeTypeDeQuestions = []
-    if (this.sup == 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
-    else if (this.sup == 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
+    if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
+    else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
     else listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
     let texte = ''
     let texteCorrection = ''
@@ -60,16 +62,16 @@ export default function ReperageSurLaSphere () {
     greenwitch.opacite = 1
     equateur1.epaisseur = 3
     equateur2.epaisseur = 3
-    const objets_enonce = []; let params_enonce; const objets_correction = []// on initialise les tableaux des objets Mathalea2d
-    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []; let E; let W
-    E = labelPoint(point3d(13.2, 0, 0, true, 'E').p2d)
+    const objetsEnonce = []; let paramsEnonce; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
+    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
+    const E = labelPoint(point3d(13.2, 0, 0, true, 'E').p2d)
     E.taille = 3
     E.color = 'brown'
-    W = labelPoint(point3d(-12, 0, 0, true, 'O').p2d)
+    const W = labelPoint(point3d(-12, 0, 0, true, 'O').p2d)
     W.taille = 3
     W.color = 'brown'
-    objets_enonce.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
-    objets_correction.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
+    objetsEnonce.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
+    objetsCorrection.push(Sph, Axe.p2d, equateur1, equateur2, greenwitch, Pn, Ps, rotationTerre, E, W)
     for (let i = 0; i < this.nbQuestions; i++) {
       latitudes.push(0)
       longitudes.push(0)
@@ -109,13 +111,13 @@ export default function ReperageSurLaSphere () {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
           texteCorrection += `${numAlpha(i)} Les coordonnées de $${nom[i]}$ sont $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>`
-          objets_enonce.push(croix, lab)
-          objets_correction.push(croix, lab)
+          objetsEnonce.push(croix, lab)
+          objetsCorrection.push(croix, lab)
           break
         case 2:
           texte += `${numAlpha(i)} Placer le point $${nom[i]}$ de  coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>`
           texteCorrection += `${numAlpha(i)} Le point $${nom[i]}$ de coordonnées GPS $(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}) ou $(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$ est placé sur cette sphère.<br>`
-          objets_correction.push(croix, lab)
+          objetsCorrection.push(croix, lab)
           break
       }
       i++
@@ -124,11 +126,11 @@ export default function ReperageSurLaSphere () {
     // paramètres pour la perspective
     mathalea.anglePerspective = 30
     mathalea.coeffPerspective = 0.5
-    params_enonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
+    paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
     // texteCorr += mathalea2d(params_correction, objets_correction)
-    texte += '<br>' + mathalea2d(params_enonce, objets_enonce)
-    texteCorrection += '<br>' + mathalea2d(params_enonce, objets_correction)
+    texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+    texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
