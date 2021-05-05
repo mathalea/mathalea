@@ -2547,6 +2547,7 @@ export default function Alea2iep () {
     this.couleur = couleur
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
     this.polygoneRapide(p2)
+    i++
   }
   /**
    *
