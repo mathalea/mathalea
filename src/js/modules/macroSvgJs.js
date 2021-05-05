@@ -1,3 +1,5 @@
+import { calcul, tex_nombrec, tex_fraction_signe, string_nombre } from './outils.js'
+import katex from 'katex'
 import SVG from 'svg.js'
 
 /**
