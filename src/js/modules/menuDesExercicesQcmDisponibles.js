@@ -30,7 +30,7 @@ export function liste_html_des_exercices_d_un_niveau(liste_de_themes){ // liste_
 }
 
 
-export function menuDesExercicesqcmDisponibles(){
+export function menuDesExercicesQcmDisponibles(){
 
 // Détermine le nombre d'exercices par niveaux
     let nombre_d_exercices_disponibles_c3 = 0;
