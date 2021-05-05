@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,texFractionReduite, ecritureAlgebrique,ecritureAlgebriqueSauf1} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique,ecritureAlgebriqueSauf1} from '../../modules/outils.js'
 
 export const titre = 'Reconnaître une fonction affine.'
 
@@ -99,8 +99,8 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr +=`$f$ n'est donc pas une fonction affine.<br>`      
                 break;    
                 case 7:
-                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)} $`; //f(x)=1/ax+1/b
-                        texteCorr = `$f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)}$<br>`
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${texFractionSigne(1,a)}x+${texFractionSigne(1,e)} $`; //f(x)=1/ax+1/b
+                        texteCorr = `$f(x)=${texFractionSigne(1,a)}x+${texFractionSigne(1,e)}$<br>`
                         texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texteCorr +=`Ici, on a : $a=\\dfrac{1}{${a}}$ et $b=\\dfrac{1}{${e}}$<br>`
                         texteCorr +=`$f$ est donc bien une fonction affine.<br>` 

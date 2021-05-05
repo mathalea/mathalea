@@ -1163,7 +1163,7 @@ export function texFractionReduite (n, d) {
   if (Math.abs(n) % Math.abs(d) === 0) {
     return n / d
   } else {
-    return tex_fraction_signe(fractionSimplifiee(n, d)[0], fractionSimplifiee(n, d)[1])
+    return texFractionSigne(fractionSimplifiee(n, d)[0], fractionSimplifiee(n, d)[1])
   }
 }
 /**
@@ -1207,7 +1207,7 @@ export function simplification_de_fraction_avec_etapes (num, den) {
     if ((num) % (den) === 0) { // si le résultat est entier
       result = `=${(num) / (den)}`
     } else {
-      result = `=${tex_fraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${tex_fraction_signe(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result = `=${tex_fraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
   }
   return result
@@ -1477,9 +1477,9 @@ export function calcul (expression, arrondir = false) {
 */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
-    return string_nombre(calcul(expression))
+    return stringNombre(calcul(expression))
   } else {
-    return string_nombre(calcul(expression, 1))
+    return stringNombre(calcul(expression, 1))
   }
 }
 
@@ -2224,7 +2224,7 @@ export function nombre_avec_espace (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
 * @Auteur Jean-Claude Lhote
 */
-export function string_nombre (nb) {
+export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   const nombre = nb.toString()
   const partie_entiere = nombre.split('.')[0]
@@ -2420,7 +2420,7 @@ export function nombre_de_chiffres_dans_la_partie_entiere (nb) {
 * Écrit une fraction avec - devant si le numérateur ou le dénominateur est négatif
 * @Auteur Jean-Claude Lhote
 */
-export function tex_fraction_signe (a, b) {
+export function texFractionSigne (a, b) {
   if (b !== 1) {
     if (a * b > 0) {
       return '\\dfrac{' + Math.abs(a) + '}{' + Math.abs(b) + '}'
@@ -2437,7 +2437,7 @@ export function tex_fraction_signe (a, b) {
 * @Auteur Jean-Claude Lhote
 */
 export function tex_fraction_parentheses (a, b) {
-  if (a * b > 0) { return tex_fraction_signe(a, b) } else { return '\\left(' + tex_fraction_signe(a, b) + '\\right)' }
+  if (a * b > 0) { return texFractionSigne(a, b) } else { return '\\left(' + texFractionSigne(a, b) + '\\right)' }
 }
 
 /**

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, tex_fraction_signe, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
+import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
 export const titre = 'étude de fonction de degré 3'
 
@@ -274,12 +274,12 @@ export default function variation_polynome_degre3() {
       x2 = -b / (a * 2)
       minima = (-b * b + 4 * a * c) / 4 / a
       if (b != 0) {
-        x2s = `${tex_fraction_signe(fractionSimplifiee(-b, 2 * a)[0], fractionSimplifiee(-b, 2 * a)[1])}`
+        x2s = `${texFractionSigne(fractionSimplifiee(-b, 2 * a)[0], fractionSimplifiee(-b, 2 * a)[1])}`
       }
       else {
         x2s = `0`
       }
-      fx1s = `${tex_fraction_signe(fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[0], fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[1])}`
+      fx1s = `${texFractionSigne(fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[0], fractionSimplifiee(-b * b + 4 * a * c, 4 * a)[1])}`
       if (a > 0) {
 
         if (minima < 0) { // f(x)=0 a deux solutions
@@ -449,7 +449,7 @@ export default function variation_polynome_degre3() {
         t = tableau_de_variation({
           colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
           tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
-          ['$-\\infty$', 30, `$${tex_fraction_signe(-d, c)}$`, 60, '$+\\infty$', 30]],
+          ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0],
             ['Var', 10, '-/$-\\infty$', 30, `R/`, 0, '+/$+\\infty$', 30],
@@ -465,7 +465,7 @@ export default function variation_polynome_degre3() {
         t = tableau_de_variation({
           colorBackground: 'white', escpl: 3.5, delatcl: 0.8, lgt: 3.5,hauteurLignes:[20,20,20,20,20],
           tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ["$f(x)$", 2.5, 60]],
-          ['$-\\infty$', 30, `$${tex_fraction_signe(-d, c)}$`, 60, '$+\\infty$', 30]],
+          ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0],
             ['Var', 10, '+/$+\\infty$', 30, `R/`, 0, '-/$-\\infty$', 30],

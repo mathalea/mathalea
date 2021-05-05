@@ -123,7 +123,7 @@ export function fraction (a,b) {
 
 class Fraction {
     constructor(num, den) {
-        function tex_fraction_signe(num, den) {
+        function texFractionSigne(num, den) {
             if (den != 1) {
                 if (num * den > 0) {
                     return '\\dfrac{' + Math.abs(num) + '}{' + Math.abs(den) + '}';
@@ -159,7 +159,7 @@ class Fraction {
             this.signe = 0;
         else
             this.signe = unSiPositifMoinsUnSinon(this.num * this.den); // le signe de la fraction : -1, 0 ou 1
-        this.texFraction = tex_fraction_signe(this.num, this.den); // m/n si positif - m/n si négatif.
+        this.texFraction = texFractionSigne(this.num, this.den); // m/n si positif - m/n si négatif.
         if (this.signe == -1)
             this.texFractionSignee = this.texFraction; // + m/n si positif - m/n si négatif
         else
@@ -171,7 +171,7 @@ class Fraction {
         this.simplifie = function () {
             return fraction(this.numIrred, this.denIrred);
         };
-        this.texFractionSimplifiee = tex_fraction_signe(this.numIrred, this.denIrred);
+        this.texFractionSimplifiee = texFractionSigne(this.numIrred, this.denIrred);
         this.valeurDecimale = arrondi(this.num / this.den, 6);
 
         /**

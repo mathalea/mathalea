@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from '../../modules/outils.js'
+            <pre class="prettyprint source linenums"><code>import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from '../../modules/outils.js'
 
 /*
   MathALEA2D
@@ -4574,7 +4574,7 @@ function AfficheLongueurSegment(A, B, color = "black", d = 0.5) {
     let angle;
     let s = segment(this.extremite1, this.extremite2);
     s.isVisible = false;
-    let l = string_nombre(arrondi(s.longueur, 1));
+    let l = stringNombre(arrondi(s.longueur, 1));
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale;
     } else {
@@ -4590,7 +4590,7 @@ function AfficheLongueurSegment(A, B, color = "black", d = 0.5) {
     let angle;
     let s = segment(this.extremite1, this.extremite2);
     s.isVisible = false;
-    let l = string_nombre(arrondi(s.longueur, 1));
+    let l = stringNombre(arrondi(s.longueur, 1));
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale;
     } else {

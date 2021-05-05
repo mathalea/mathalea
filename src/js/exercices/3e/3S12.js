@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,listeQuestionsToContenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
+import {randint,listeQuestionsToContenu,choice,premiere_lettre_en_majuscule,num_alpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 
 export const titre = 'Calculer des effectifs et des fréquences'
@@ -120,7 +120,7 @@ export default function calcul_Effectif_Frequence() {
     
     texteCorr += ` = `+ Ntotal + `. `
     texteCorr += ` D'après le graphique, il y a ` + lstNombresAnimaux[1] + ` ` + lstAnimauxExo[1] + `. <br>`;
-    texteCorr += ` La fréquence (ou la proportion) de  ` + lstAnimauxExo[1] + ` est : $ ` + tex_fraction_signe(lstNombresAnimaux[1], Ntotal) + `$ `;
+    texteCorr += ` La fréquence (ou la proportion) de  ` + lstAnimauxExo[1] + ` est : $ ` + texFractionSigne(lstNombresAnimaux[1], Ntotal) + `$ `;
     // test de l'arrondi
     if (calcul(lstNombresAnimaux[1]/Ntotal) == arrondi(lstNombresAnimaux[1]/Ntotal,3)) {
       texteCorr += `= `;
@@ -153,7 +153,7 @@ export default function calcul_Effectif_Frequence() {
     } 
     texteCorr += ` = `+ Ntotal_oiseaux + `. `
     texteCorr += ` L'effectif total des animaux est : ` + Ntotal + `. <br>`;
-    texteCorr += ` La fréquence (ou la proportion) d'oiseaux est : $ ` + tex_fraction_signe(Ntotal_oiseaux, Ntotal) + `$ `;
+    texteCorr += ` La fréquence (ou la proportion) d'oiseaux est : $ ` + texFractionSigne(Ntotal_oiseaux, Ntotal) + `$ `;
     // test de l'arrondi
     if (calcul(Ntotal_oiseaux/Ntotal) == arrondi(Ntotal_oiseaux/Ntotal,3)) {
       texteCorr += `= `;

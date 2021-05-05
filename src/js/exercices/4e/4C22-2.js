@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,tex_fraction_signe,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,texFractionSigne,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
 export const titre = 'Diviser des fractions'
 
 /**
@@ -120,7 +120,7 @@ export default function Exercice_diviser_fractions() {
             b + "\\times" + ecritureParentheseSiNegatif(c)
           )}$`;
           if (p == 1) {
-            texteCorr += `$=${signe}${tex_fraction_signe(a * d, b * c)}$`;
+            texteCorr += `$=${signe}${texFractionSigne(a * d, b * c)}$`;
           } else {
             texteCorr += `$=${signe}${tex_fraction(a * d, b * c)}$`;
             if (a * d != b * c) {

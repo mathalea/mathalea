@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,tex_fraction_signe,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,tex_fraction} from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 
@@ -55,7 +55,7 @@ export default function Resoudre_equation_degre_2() {
         texte = `$${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=0$`;
 
         texteCorr = `Il est possible de factoriser le membre de gauche : $(${d}x${ecritureAlgebrique(e)})^2=0$. `;
-        texteCorr += `On a alors une solution double : $${tex_fraction_signe(-e, d)}`;
+        texteCorr += `On a alors une solution double : $${texFractionSigne(-e, d)}`;
         if (e % d == 0) {
           texteCorr += `=${-e / d}$.`;
         } else {
@@ -98,7 +98,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$`;
         texteCorr += `<br>Si un produit est nul alors l'un au moins de ses facteurs est nul.`;
         texteCorr += `<br>$x=0\\quad$ ou $\\quad${rienSi1(a)}x${ecritureAlgebrique(b)}=0$`;
-        texteCorr += `<br>$x=0\\quad$ ou $\\quad x=${tex_fraction_signe(-b, a)}$`;
+        texteCorr += `<br>$x=0\\quad$ ou $\\quad x=${texFractionSigne(-b, a)}$`;
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{0 ; ${texFractionReduite(-b, a)}\\right\\}$.`;
       }
       if (liste_type_de_questions[i] == "ax2+c") {
@@ -108,7 +108,7 @@ export default function Resoudre_equation_degre_2() {
         texte = `$${rienSi1(a)}x^2${ecritureAlgebrique(c)}=0$`;
 
         texteCorr = `Il est possible de résoudre cette équation sans effectuer le calcul du discriminant.`;
-        texteCorr += `<br> $x^2=${tex_fraction_signe(-c, a)}$`;
+        texteCorr += `<br> $x^2=${texFractionSigne(-c, a)}$`;
         if (-c / a > 0) {
           if ([1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 441, 484, 529, 576, 625, 676, 729, 784, 841, 900, 961, 1024, 1089].includes(-c / a)) {
             texteCorr += `<br>$x=\\sqrt{${texFractionReduite(-c, a)}}=${Math.sqrt(-c / a)}\\quad$ ou $\\quad x=-\\sqrt{${texFractionReduite(-c, a)}}=${-Math.sqrt(-c / a)}$`;

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecritureAlgebrique,tex_fraction_signe} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
 
 export const titre = 'Résoudre des équations carrées.'
 

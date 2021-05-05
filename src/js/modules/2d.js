@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 /* globals mathalea sortieHtml */
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 
 /*
   MathALEA2D
@@ -4589,7 +4589,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     let angle
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
-    const l = string_nombre(arrondi(s.longueur, 1))
+    const l = stringNombre(arrondi(s.longueur, 1))
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -4605,7 +4605,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
     let angle
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
-    const l = string_nombre(arrondi(s.longueur, 1))
+    const l = stringNombre(arrondi(s.longueur, 1))
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {

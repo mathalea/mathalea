@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,calcul,texNombrec,texNombre,string_nombre,tex_prix} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,calcul,texNombrec,texNombre,stringNombre,tex_prix} from '../../modules/outils.js'
 export const titre = 'Variations en pourcentage'
 
 /**
@@ -123,12 +123,12 @@ export default function Evolutions_en_pourcentage() {
 								texte = `Un ${etablissement} avait $${texNombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`;
 								texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`;
 								texteCorr += `<br>$${texNombre(depart)}\\times ${coeff} = ${texNombre(arrive)}$`;
-								texteCorr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`;
+								texteCorr += `<br>Il y a maintenant ${stringNombre(arrive)} élèves dans ce ${etablissement}.`;
 							} else {
 								texte = `Un ${etablissement} avait $${texNombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`;
 								texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`;
 								texteCorr += `<br>$${texNombre(depart)}\\times ${coeff} = ${texNombre(arrive)}$`;
-								texteCorr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`;
+								texteCorr += `<br>Il y a maintenant ${stringNombre(arrive)} élèves dans ce ${etablissement}.`;
 							}
 							break;
 						case 'initiale':
@@ -136,12 +136,12 @@ export default function Evolutions_en_pourcentage() {
 								texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`;
 								texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`;
 								texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`;
-								texteCorr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`;
+								texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart)} élèves dans ce ${etablissement}.`;
 							} else {
 								texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`;
 								texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`;
 								texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`;
-								texteCorr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`;
+								texteCorr += `<br>En ${anneeDerniere}, il y avait ${stringNombre(depart)} élèves dans ce ${etablissement}.`;
 							}
 							break;
 						case 'evolution':

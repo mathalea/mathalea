@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 
@@ -71,14 +71,14 @@ export default function Equations_presque_produit_null2() {
                        texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c+e,d+f)})=0$<br>`; 
                        if (c+e==0){ 
                         texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
-                        texteCorr +=`$x=${tex_fraction_signe(-b,a)}$<br>`
+                        texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                         texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                        }
                        else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                        texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c+e,d+f)}=0$<br>`; 
-                       texteCorr += `$\\iff x=${tex_fraction_signe(-b,a)}\\quad$ ou $\\quad x=${tex_fraction_signe(-d-f,c+e)}$<br>
+                       texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d-f,c+e)}$<br>
                        On en déduit :  `
                         if ((-d-f)/(c+e) < -b/a)    {
                         texteCorr += `$S=\\left\\{${texFractionReduite(-d-f,c+e)};${texFractionReduite(-b,a)}\\right\\}$`
@@ -106,14 +106,14 @@ export default function Equations_presque_produit_null2() {
                     texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c-e,d-f)})=0$<br>`; 
                     if (c-e==0){ 
                     texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
-                    texteCorr +=`$x=${tex_fraction_signe(-b,a)}$<br>`
+                    texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                     texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                    }
                    else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                    texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                    texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c-e,d-f)}=0$<br>`; 
-                   texteCorr += `$\\iff x=${tex_fraction_signe(-b,a)}\\quad$ ou $\\quad x=${tex_fraction_signe(-d+f,c-e)}$<br>
+                   texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+f,c-e)}$<br>
                    On en déduit :  `
                     if ((-d+f)/(c-e) < -b/a)    {
                     texteCorr += `$S=\\left\\{${texFractionReduite(-d+f,c-e)};${texFractionReduite(-b,a)}\\right\\}$`
@@ -139,14 +139,14 @@ export default function Equations_presque_produit_null2() {
                 texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(a+e,b+f)})=0$<br>`; 
                if (a+e==0){ 
                 texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
-                texteCorr +=`$x=${tex_fraction_signe(-b,a)}$<br>`
+                texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                 texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                }
                else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(a+e,b+f)}=0$<br>`; 
-               texteCorr += `$\\iff x=${tex_fraction_signe(-b,a)}\\quad$ ou $\\quad x=${tex_fraction_signe(-b-f,a+e)}$<br>
+               texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-b-f,a+e)}$<br>
                On en déduit :  `
                 if ((-b-f)/(a+e) < -b/a)    {
                 texteCorr += `$S=\\left\\{${texFractionReduite(-b-f,a+e)};${texFractionReduite(-b,a)}\\right\\}$`
@@ -173,14 +173,14 @@ export default function Equations_presque_produit_null2() {
             texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c-a,d-b)})=0$<br>`; 
             if (c-a==0){ 
             texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
-            texteCorr +=`$x=${tex_fraction_signe(-b,a)}$<br>`
+            texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
             texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
            }
            else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
            texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
            texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c-a,d-b)}=0$<br>`; 
-           texteCorr += `$\\iff x=${tex_fraction_signe(-b,a)}\\quad$ ou $\\quad x=${tex_fraction_signe(-d+b,c-a)}$<br>
+           texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+b,c-a)}$<br>
            On en déduit :  `
             if ((-d+b)/(c-b) < -b/a)    {
             texteCorr += `$S=\\left\\{${texFractionReduite(-d+b,c-a)};${texFractionReduite(-b,a)}\\right\\}$`

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplification_de_fraction_avec_etapes,miseEnEvidence,tex_fraction_signe,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,tex_fraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplification_de_fraction_avec_etapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,tex_fraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -444,7 +444,7 @@ export default function Exercice_additionner_fraction_produit() {
             }
           }
 
-          texteCorr += `$=${tex_fraction_signe(e, d)}${simplification_de_fraction_avec_etapes(e, d)}$`;
+          texteCorr += `$=${texFractionSigne(e, d)}${simplification_de_fraction_avec_etapes(e, d)}$`;
 /*          p = pgcd(abs(e), d);
           if (p != 1) {
             f = d / p;

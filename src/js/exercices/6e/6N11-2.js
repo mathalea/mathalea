@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, string_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Placer un point d’abscisse entière (grands nombres)'
@@ -101,9 +101,9 @@ export default function Placer_un_point_abscisse_entiere () {
       )
       if (sortieHtml) {
         texteCorr = ''
-        this.contenu += `<h3> Placer les points : ${l1}(${string_nombre(
+        this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
           abs1
-        )}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)})</h3>`
+        )}), ${l2}(${stringNombre(abs2)}), ${l3}(${stringNombre(abs3)})</h3>`
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -139,9 +139,9 @@ export default function Placer_un_point_abscisse_entiere () {
         )
       } else {
         // sortie Latex
-        texte = `{\\small Placer les points : $${l1}$(${string_nombre(
+        texte = `{\\small Placer les points : $${l1}$(${stringNombre(
           abs1
-        )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
+        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )})}<br>`
         texte += Latex_reperage_sur_un_axe(
@@ -156,9 +156,9 @@ export default function Placer_un_point_abscisse_entiere () {
           ],
           false
         )
-        texteCorr = `{\\small Les points $${l1}$(${string_nombre(
+        texteCorr = `{\\small Les points $${l1}$(${stringNombre(
           abs1
-        )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
+        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )}) sont placés ci dessous}<br>`
         texteCorr += Latex_reperage_sur_un_axe(
