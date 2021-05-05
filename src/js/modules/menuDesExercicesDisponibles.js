@@ -593,7 +593,6 @@ export function menuDesExercicesDisponibles () {
     }
     const searchType = $.fn.DataTable.ext.type.search
     searchType.string = function (data) {
-      console.log('search ' + data)
       return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
     }
     searchType.html = function (data) {

@@ -7073,7 +7073,6 @@ export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaire
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
 
   let idExo = 0; let code; let index_of_code
-  console.log(type_entete)
   const nombre_de_questions_indefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
@@ -7095,7 +7094,6 @@ export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaire
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       titre_question[index_of_code] = code[3]
     } else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
-      console.log(tex_questions[index_of_code].indexOf(code[0]))
       if (tex_questions[index_of_code].indexOf(code[0]) === -1) {
         tex_questions[index_of_code] += code[0]
         // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur

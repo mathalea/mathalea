@@ -469,7 +469,6 @@ export default function Nature_polygone() {
           facteur = extraire_racine_carree(AC)[0]
           radical = extraire_racine_carree(AC)[1]
           if (radical != 1) {
-            console.log(facteur)
             if (facteur != 1) {
               texteCorr += `$\\phantom{De meme :       } AC=${facteur}\\sqrt{${radical}}$<br>`
             }

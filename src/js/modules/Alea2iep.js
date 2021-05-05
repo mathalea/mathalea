@@ -554,7 +554,6 @@ export default function Alea2iep () {
       }
     } else {
       const options = args[args.length - 1]
-      console.log(options)
       const enleveDernier = arr => arr.slice(0, -1)
       for (const point of enleveDernier(args)) {
         this.pointCreer(point, options)

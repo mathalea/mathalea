@@ -134,7 +134,6 @@ export default function Egalite_d_angles() {
 				break;
 			case 2:
 				figure = fig2();
-				console.log(figure[0]);
 				figure[2] += mathalea2d(figure[1], figure[0]);
 				break;
 		}

@@ -233,7 +233,6 @@ else mEp2=''
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${tex_fraction(texNombre2(ac),texNombre2(ab))}$<br>`;
                 texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${tex_fraction(texNombre2(ac),texNombre2(ab))}\\right) \\approx ${angleABC} \\degree $ <br>`;
-console.log(texteCorr)
                 break
                   }
                   if (this.correctionDetaillee&&!sortieHtml) texteCorr+='\n\\end{minipage}\n'

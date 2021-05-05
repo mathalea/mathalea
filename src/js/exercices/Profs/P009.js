@@ -92,7 +92,6 @@ export default function SimulateurAleatoire() {
           }
           texteCorr += `Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
           texteCorr += `En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondiVirgule(f.pourcentage)}\\%$.`
-          console.log(tabEff, S, face, nbFaces)
         }
 
         break;

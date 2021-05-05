@@ -21,7 +21,6 @@ export default function beta_rotation3d() {
         let A=point3d(0,5,0)
         let B=point3d(0,0,7)
         let P=polygone3d([C,A,B],'black')
-        console.log(P.p2d)
         let Axex=droite3d(O,point3d(1,0,0))
         let Axey=droite3d(O,point3d(0,1,0))
         let Axez=droite3d(O,point3d(0,0,1))

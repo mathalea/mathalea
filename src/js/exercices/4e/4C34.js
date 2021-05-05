@@ -169,7 +169,6 @@ export default function Priorites_et_relatifs_et_puissances() {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         this.qcm[1].push([texte, [texteCorr,reponse,3], {digits:3,decimals:0,signe:true,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
-        console.log(reponse)
         i++;
       }
       cpt++;

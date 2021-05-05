@@ -72,9 +72,7 @@ if (url.searchParams.get('url')) { // Si on spécifie une url
       scriptJsToAnimEtSvg()
     })
 } else if (url.searchParams.get('script')) { // Si un script est présent dans l'URL
-  console.log('script détecté')
   myCodeMirror.setValue(decodeURIComponent(url.searchParams.get('script')))
-  console.log(decodeURIComponent(url.searchParams.get('script')))
   scriptJsToAnimEtSvg()
 } else { // Récupère le dernier script validé
   if (window.localStorage.getItem('Script Mathalea 2D IEP')) {
