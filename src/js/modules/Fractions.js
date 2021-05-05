@@ -77,7 +77,6 @@ class ListeFraction{
                 listetemp.splice(0,1)
                 this.denominateurs_amis.push(listetemp)
                 }
-                console.log(dens)
                 den=ppcm(dens)
                 this.listeMemeDenominateur=[]
                 for (let i=0;i<this.liste.length;i++) {

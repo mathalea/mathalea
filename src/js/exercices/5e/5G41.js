@@ -318,8 +318,6 @@ export default function Constructions_parallelogrammes_particuliers() {
         dd3 = segment(O, C)
         dd4 = segment(O, D)
 
-        console.log(objets_correction)
-
         switch (type_de_question) {
             case 1:
                 if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B))+'<br>'

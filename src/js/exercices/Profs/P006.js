@@ -81,7 +81,6 @@ export default function Nombre_a_placer() {
       objets.push(d1);
 
     texte = mathalea2d(fenetre, objets);
-    console.log(objets);
     this.contenu += texte;
     if (sortieHtml) {
       this.contenu += '<br>';
