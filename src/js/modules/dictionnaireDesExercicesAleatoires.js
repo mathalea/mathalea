@@ -1170,7 +1170,7 @@ export default {
     "name": "5L12"
   },
   "5L13": {
-    "titre": "Réduire une expression de la forme $ax+bx function Reduction_ax_bx$",
+    "titre": "Réduire une expression de la forme $ax+bx$ ",
     "url": "/exercices/5e/5L13.js",
     "amcReady": false,
     "name": "5L13"
