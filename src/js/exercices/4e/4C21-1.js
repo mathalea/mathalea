@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplificationDeFractionAvecEtapes,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
 
 
 export const titre = 'Additionner deux fractions'
@@ -135,7 +135,7 @@ export default function Exercice_additionner_des_fractions() {
 				den = b;
 			}
 			texteCorr += `=${texFraction(num, den)}`;
-			texteCorr += simplification_de_fraction_avec_etapes(num, den) + '$';
+			texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$';
 			this.listeQuestions.push(texte);
 			this.listeCorrections.push(texteCorr);
 		}

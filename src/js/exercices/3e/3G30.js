@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {homothetie,codeAngle,repere2,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js';
-import { export_QCM_AMC, calcul, texFraction, quatrieme_proportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
+import { export_QCM_AMC, calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
 export const amcReady = true
@@ -198,7 +198,7 @@ export default function Calcul_de_longueur() {
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[1], bc)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle("\\color{red}{1}",bc,`\\cos\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;
 reponse =arrondi(ab,1)
                 break
@@ -208,7 +208,7 @@ reponse =arrondi(ab,1)
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], bc)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle("\\color{red}{1}", bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
                 reponse =arrondi(ac,1)
                 break
@@ -218,7 +218,7 @@ reponse =arrondi(ab,1)
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], ab)}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[0] + nom[2]}=${quatrieme_proportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
+                texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle("\\color{red}{1}", ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`;
                 texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`;
                 reponse =arrondi(ac,1)
                 break
@@ -228,7 +228,7 @@ reponse =arrondi(ab,1)
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ab, nom[1] + nom[2])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
+                texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
                 reponse =arrondi(bc,1)
                 break
@@ -238,7 +238,7 @@ reponse =arrondi(ab,1)
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[1] + nom[2])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[1] + nom[2]}=${quatrieme_proportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
+                texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`;
                 reponse =arrondi(bc,1)
                 break
@@ -248,7 +248,7 @@ reponse =arrondi(ab,1)
                 texteCorr += `Avec les données numériques :<br>`;
                 texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[0] + nom[1])}$<br>`;
                 texteCorr += `${texte_en_couleur_et_gras('Les produits en croix sont égaux, donc ', 'red')}<br>`;
-                texteCorr += `$${nom[0] + nom[1]}=${quatrieme_proportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
+                texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, "\\color{red}{1}")}$`;
                 texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`;
                 reponse =arrondi(ab,1)
                 break

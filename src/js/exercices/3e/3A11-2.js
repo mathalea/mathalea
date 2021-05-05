@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenir_liste_facteurs_premiers,texNombre,miseEnEvidence,modalPdf,modal_video,crible_eratosthene_n,premiers_entre_bornes,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modal_video,crible_eratosthene_n,premiers_entre_bornes,warn_message} from '../../modules/outils.js'
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
@@ -118,7 +118,7 @@ export default function Decomposition_facteurs_premiers() {
 						}
 					};
 					texteCorr += `<br>`;
-					var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
+					var liste_facteurs_premiers = obtenirListeFacteursPremiers(nombre_a_decomposer);
 					var quotient_intermediaire = nombre_a_decomposer;
 					for (let k = 0; k < liste_facteurs_premiers.length; k++) {
 						texteCorr += `$${texNombre(quotient_intermediaire)}\\div${miseEnEvidence(liste_facteurs_premiers[k])} = ${texNombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;
@@ -159,7 +159,7 @@ export default function Decomposition_facteurs_premiers() {
 						texteCorr += `; ` + crible_eratosthene_n(racine_prem)[k];
 					};
 					texteCorr += `.$<br>`;
-					liste_facteurs_premiers = obtenir_liste_facteurs_premiers(premier1 * premier2);
+					liste_facteurs_premiers = obtenirListeFacteursPremiers(premier1 * premier2);
 					quotient_intermediaire = premier1 * premier2;
 					for (let k = 0; k < liste_facteurs_premiers.length; k++) {
 						texteCorr += `$${texNombre(quotient_intermediaire)}\\div${miseEnEvidence(liste_facteurs_premiers[k])} = ${texNombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;

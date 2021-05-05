@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,quatrieme_proportionnelle,lettreDepuisChiffre,texFraction,modalYoutube} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,quatriemeProportionnelle,lettreDepuisChiffre,texFraction,modalYoutube} from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur grâce à la trigonométrie'
 
@@ -241,7 +241,7 @@ export default function Exercice_Trigo_longueurs() {
         s12
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s0 + s1}=${quatrieme_proportionnelle(
+      texteCorr += `$${s0 + s1}=${quatriemeProportionnelle(
         "\\color{red}{1}",
         s12,
         `\\cos\\left(${angle1}\\degree\\right)`
@@ -257,7 +257,7 @@ export default function Exercice_Trigo_longueurs() {
         s1 + s2
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s1 + s2}=${quatrieme_proportionnelle(
+      texteCorr += `$${s1 + s2}=${quatriemeProportionnelle(
         `\\cos\\left(${angle1}\\degree\\right)`,
         s01,
         "\\color{red}{1}"
@@ -273,7 +273,7 @@ export default function Exercice_Trigo_longueurs() {
         s12
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s0 + s2}=${quatrieme_proportionnelle(
+      texteCorr += `$${s0 + s2}=${quatriemeProportionnelle(
         "\\color{red}{1}",
         s12,
         `\\sin\\left(${angle1}\\degree\\right)`
@@ -289,7 +289,7 @@ export default function Exercice_Trigo_longueurs() {
         s1 + s2
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s1 + s2}=${quatrieme_proportionnelle(
+      texteCorr += `$${s1 + s2}=${quatriemeProportionnelle(
         `\\sin\\left(${angle1}\\degree\\right)`,
         s02,
         "\\color{red}{1}"
@@ -305,7 +305,7 @@ export default function Exercice_Trigo_longueurs() {
         s01
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s0 + s2}=${quatrieme_proportionnelle(
+      texteCorr += `$${s0 + s2}=${quatriemeProportionnelle(
         "\\color{red}{1}",
         s01,
         `\\tan\\left(${angle1}\\degree\\right)`
@@ -321,7 +321,7 @@ export default function Exercice_Trigo_longueurs() {
         s0 + s1
       )}$<br>`;
       texteCorr += `$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`;
-      texteCorr += `$${s0 + s1}=${quatrieme_proportionnelle(
+      texteCorr += `$${s0 + s1}=${quatriemeProportionnelle(
         `\\tan\\left(${angle1}\\degree\\right)`,
         s02,
         "\\color{red}{1}"

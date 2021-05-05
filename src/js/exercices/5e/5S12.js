@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { premiere_lettre_en_majuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tab_C_L, choice, randint } from '../../modules/outils.js'
+import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tab_C_L, choice, randint } from '../../modules/outils.js'
 import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter des données par un diagramme'
@@ -221,7 +221,7 @@ export default function Construire_Un_Diagramme() {
 
                  lstElementGraph = []
                 for (let i = 0; i < nbAnimaux; i++) {
-                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
+                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
                 }
                 objets_correction.push(r)
                 params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }

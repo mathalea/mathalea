@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produits_en_croix,quatrieme_proportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katex_Popup2,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katex_Popup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -615,7 +615,7 @@ export default function Problemes_grandeurs_composees() {
               )}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${texNombre(
                 3600
               )}\\text{ s/h}}$<br>`;
-              texteCorr += `Appliquons l'égalité des produits en croix : ${produits_en_croix(
+              texteCorr += `Appliquons l'égalité des produits en croix : ${produitsEnCroix(
                 [
                   [`${vitesse_moy}\\text{ m}`, `1 \\text{ s}`],
                   [
@@ -695,7 +695,7 @@ export default function Problemes_grandeurs_composees() {
               texteCorr += `$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${texNombre(
                 distance
               )}\\text{ m}}{\\mathcal{T}\\text{ s}}$<br>`;
-              texteCorr += `Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatrieme_proportionnelle(
+              texteCorr += `Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatriemeProportionnelle(
                 `340 \\text{ m}`,
                 `1 \\text{ s}`,
                 distance + `\\text{ m}`,

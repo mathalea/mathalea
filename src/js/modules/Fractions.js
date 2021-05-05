@@ -1,4 +1,4 @@
-import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenir_liste_facteurs_premiers,calcul,texFraction,liste_diviseurs,quotientier} from './outils.js'
+import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenirListeFacteursPremiers,calcul,texFraction,liste_diviseurs,quotientier} from './outils.js'
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from './2d.js'
 import Algebrite from 'algebrite'
 
@@ -277,7 +277,7 @@ class Fraction {
         */
         this.fractionDecimale = function () {
             let den = this.denIrred;
-            let liste = obtenir_liste_facteurs_premiers(den);
+            let liste = obtenirListeFacteursPremiers(den);
             let n2 = 0, n5 = 0;
             for (let n of liste) {
                 if (n == 2)

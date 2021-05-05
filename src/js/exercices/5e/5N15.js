@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiere_lettre_en_majuscule, ppcm, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre2, arrondi, sp, personnes, personne, miseEnEvidence, combinaisonListes, texFraction, randint, numAlpha, choice, premiereLettreEnMajuscule, ppcm, calcul } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 
@@ -108,28 +108,28 @@ export default function ProblemeDeRatio () {
           article = quidam.pronom
 
           if (n === 2) { // On mélange du sirop et de l'eau
-            texte += `${quidam.prenom} prépare un sirop à l'eau pour ses amis. ${premiere_lettre_en_majuscule(article)} mélange du sirop ${sirops[index % 5]} et de l'eau dans le ratio $~${x}~:~${y}$.<br>`
+            texte += `${quidam.prenom} prépare un sirop à l'eau pour ses amis. ${premiereLettreEnMajuscule(article)} mélange du sirop ${sirops[index % 5]} et de l'eau dans le ratio $~${x}~:~${y}$.<br>`
             if (choice([true, false])) {
-              texte += `${premiere_lettre_en_majuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop et d'eau doit-${article} mélanger ?`
+              texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop et d'eau doit-${article} mélanger ?`
               texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]} et $${y}\\text{ cL} $ d'eau ${article} obtiendra $${x + y}\\text{ cL} $ de mélange.<br>`
-              texteCorr += `${premiere_lettre_en_majuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y}\\text{ cL} $.<br>`
+              texteCorr += `${premiereLettreEnMajuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y}\\text{ cL} $.<br>`
               texteCorr += `Donc pour cela, ${article} doit mélanger $${miseEnEvidence(k)}\\times ${x}\\text{ cL} $$=${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]} et $${miseEnEvidence(k)}\\times ${y}\\text{ cL} $$=${k * y}\\text{ cL} $ d'eau`
             } else {
-              texte += `${premiere_lettre_en_majuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité d'eau doit-${article} ajouter et quelle quantité de boisson obtiendra-t-${article} ?`
+              texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité d'eau doit-${article} ajouter et quelle quantité de boisson obtiendra-t-${article} ?`
               texteCorr += `Pour cette boisson le sirop ${sirops[index % 5]} et l'eau sont dans un ratio de $${x}~:~${y}$<br>ce qui signifie que : `
               texteCorr += `$${texFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
               texteCorr += `Avec la valeur numérique : $${texFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau en cL}", y + '\\text{ cL}')}$.<br>`
               texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${texFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
             }
           } else { // On mélange du sirop, du jus de fruit et de la limonade.
-            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiere_lettre_en_majuscule(article)} mélange les trois ingédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
+            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
             if (choice([true, false])) {
-              texte += `${premiere_lettre_en_majuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?`
+              texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?`
               texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${z}\\text{ cL} $ d'eau gazeuse ${article} obtiendra $${x + y + z}\\text{ cL} $ de coktail.<br>`
-              texteCorr += `${premiere_lettre_en_majuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y + z}\\text{ cL} $ de coktail.<br>`
+              texteCorr += `${premiereLettreEnMajuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y + z}\\text{ cL} $ de coktail.<br>`
               texteCorr += `Donc pour cela, ${article} doit mélanger $${miseEnEvidence(k)}\\times ${x}\\text{ cL} $$=${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${miseEnEvidence(k)}\\times ${y}\\text{ cL} $$=${k * y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${miseEnEvidence(k)}\\times ${z}\\text{ cL} $$=${k * z}\\text{ cL} $ d'eau gazeuse.`
             } else {
-              texte += `${premiere_lettre_en_majuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse doit-${article} ajouter et quelle quantité de coktail obtiendra-t-${article} ?`
+              texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse doit-${article} ajouter et quelle quantité de coktail obtiendra-t-${article} ?`
               texteCorr += `Pour ce coktail le sirop ${sirops[index % 5]}, le jus ${jusdefruit[index2 % 5]} et l'eau gazeuse sont dans un ratio de $${x}~:~${y}~:~${z}$<br>`
               texteCorr += `ce qui signifie que $${texFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${texFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$<br>`
               texteCorr += `Avec la valeur numérique : $${texFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${texFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${texFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$.<br>`
@@ -199,7 +199,7 @@ export default function ProblemeDeRatio () {
             k = choice([10, 15, 20, 25])
             total = (x + y + z) * k
             texte += `${quidam.prenom} veut faire des sablés bretons. Pour cela ${article} doit réaliser un mélange de farine, de sucre et de beurre selon le ratio $~${x}~:~${y}~:~${z}$.<br>`
-            texte += `${numAlpha(0)} ${premiere_lettre_en_majuscule(article)} dispose de $${k * z}\\text{ g}$ de beurre. Quelle masse de farine et de sucre doit-${article} utiliser si ${article} utilise tout le beurre disponible ?<br>`
+            texte += `${numAlpha(0)} ${premiereLettreEnMajuscule(article)} dispose de $${k * z}\\text{ g}$ de beurre. Quelle masse de farine et de sucre doit-${article} utiliser si ${article} utilise tout le beurre disponible ?<br>`
             texte += `${numAlpha(1)} Quelle sera alors la masse totale du "sable" produit ?`
             texteCorr += `${numAlpha(0)} La farine, le sucre et le beurre respecte le ratio $~${x}~:~${y}~:~${z}$, ce qui signifie :<br>`
             texteCorr += `$${texFraction('\\text{masse de farine en gramme}', x + '\\text{ g}')}=${texFraction('\\text{masse de sucre en gramme}', y + '\\text{ g}')}=${texFraction(`${k * z}\\text{ g}`, `${z}\\text{ g}`)}=${miseEnEvidence(k)}$.<br>`
@@ -212,7 +212,7 @@ export default function ProblemeDeRatio () {
             k = randint(2, 6)
             total = (x + y) * k
             texte += `${quidam.prenom} veut réaliser une vinaigrette. Pour cela ${article} mélange du vinaigre et de l'huile d'olive selon le ratio $~${x}~:~${y}$.<br>`
-            texte += `${premiere_lettre_en_majuscule(article)} utilise $${y * k}$ cuillères à soupe d'huile d'une contenance de $15 \\text{ mL}$ chacune.<br>`
+            texte += `${premiereLettreEnMajuscule(article)} utilise $${y * k}$ cuillères à soupe d'huile d'une contenance de $15 \\text{ mL}$ chacune.<br>`
             texte += `${numAlpha(0)} Quel volume de vinaigre doit-${article} utiliser ?<br>`
             texte += `${numAlpha(1)} Quel volume de vinaigrette ${quidam.prenom} réalisera-t-${article} ?`
             texteCorr += `${numAlpha(0)} Comme le ratio de vinaigre et d'huile est $${x}~:~${y}$, alors on a :<br>`

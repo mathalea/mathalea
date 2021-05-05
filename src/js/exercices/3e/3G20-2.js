@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatrieme_proportionnelle,texNombrec,lettreDepuisChiffre,texFraction,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatriemeProportionnelle,texNombrec,lettreDepuisChiffre,texFraction,katex_Popup2} from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
 
@@ -224,11 +224,11 @@ export default function Exercice_Thales() {
         )}=${texFraction(s45, s2 + s3)}$` + "<br>";
       texteCorr +=
         `Soit $${s1 + s4}=` +
-        quatrieme_proportionnelle(dist13, dist15, dist12, 1) +
+        quatriemeProportionnelle(dist13, dist15, dist12, 1) +
         "$ cm";
       texteCorr +=
         ` et $${s2 + s3}=` +
-        quatrieme_proportionnelle(dist15, dist13, dist45, 1) +
+        quatriemeProportionnelle(dist15, dist13, dist45, 1) +
         "$ cm.";
 
       if (this.sup < 3) {

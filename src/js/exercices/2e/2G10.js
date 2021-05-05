@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,extraire_racine_carree,tex_racine_carree,texNombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,extraireRacineCarree,texRacineCarree,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 
@@ -53,8 +53,8 @@ export default function Distance() {
                     texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`;
-                    if (extraire_racine_carree(AB)[0] != 1)
-                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${tex_racine_carree(AB)}$<br>`;
+                    if (extraireRacineCarree(AB)[0] != 1)
+                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${texRacineCarree(AB)}$<br>`;
                     break;
                 case 2:
 
@@ -86,12 +86,12 @@ export default function Distance() {
                     texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`;
-                    texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${tex_racine_carree(AB)}$<br>`;
+                    texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${texRacineCarree(AB)}$<br>`;
                     texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`;
                     texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`;
                     texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`;
-                    if (extraire_racine_carree(AC)[0] != 1)
-                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${tex_racine_carree(AC)}$<br>`;
+                    if (extraireRacineCarree(AC)[0] != 1)
+                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${texRacineCarree(AC)}$<br>`;
                     texteCorr += `On observe que $AC=AB$ donc le point $A$ est équidistant de $B$ et $C$.`;
                     texteCorr += `<br>Le point $C$ appartient bien au cercle de centre $A$ et passant par $B$.`;
                     break;
@@ -125,13 +125,13 @@ export default function Distance() {
                     texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`;
                     texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`;
-                    if (extraire_racine_carree(AB)[0] != 1)
-                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${tex_racine_carree(AB)}$<br>`;
+                    if (extraireRacineCarree(AB)[0] != 1)
+                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${texRacineCarree(AB)}$<br>`;
                     texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`;
                     texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`;
                     texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`;
-                    if (extraire_racine_carree(AC)[0] != 1)
-                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${tex_racine_carree(AC)}$<br>`;
+                    if (extraireRacineCarree(AC)[0] != 1)
+                        texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${texRacineCarree(AC)}$<br>`;
                     texteCorr += `On observe que $AC\\neq AB$ donc le point $C$ n'appartient pas au cercle de centre $A$ et passant par $B$`;
                     break;
             }

@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { axes, } from '../../modules/2d.js'
-import { extraire_racine_carree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
+import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d’un polygone.'
 
 /**
@@ -59,8 +59,8 @@ export default function Nature_polygone() {
           texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          facteur = extraire_racine_carree(AB)[0]
-          radical = extraire_racine_carree(AB)[1]
+          facteur = extraireRacineCarree(AB)[0]
+          radical = extraireRacineCarree(AB)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -73,8 +73,8 @@ export default function Nature_polygone() {
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraire_racine_carree(AC)[0]
-          radical = extraire_racine_carree(AC)[1]
+          facteur = extraireRacineCarree(AC)[0]
+          radical = extraireRacineCarree(AC)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -210,8 +210,8 @@ export default function Nature_polygone() {
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
 
-          facteur = extraire_racine_carree(AB)[0]
-          radical = extraire_racine_carree(AB)[1]
+          facteur = extraireRacineCarree(AB)[0]
+          radical = extraireRacineCarree(AB)[1]
 
           if (radical != 1) {
             if (facteur != 1) {
@@ -225,8 +225,8 @@ export default function Nature_polygone() {
           texteCorr += `On procède de même pour $AC$: $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${XAC}+${YAC}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraire_racine_carree(AC)[0]
-          radical = extraire_racine_carree(AC)[1]
+          facteur = extraireRacineCarree(AC)[0]
+          radical = extraireRacineCarree(AC)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AC=${facteur}\\sqrt{${radical}}$<br>`
@@ -316,8 +316,8 @@ export default function Nature_polygone() {
           texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${XAD}+${YAD}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
-          facteur = extraire_racine_carree(AD)[0]
-          radical = extraire_racine_carree(AD)[1]
+          facteur = extraireRacineCarree(AD)[0]
+          radical = extraireRacineCarree(AD)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
@@ -330,8 +330,8 @@ export default function Nature_polygone() {
           texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
-          facteur = extraire_racine_carree(BC)[0]
-          radical = extraire_racine_carree(BC)[1]
+          facteur = extraireRacineCarree(BC)[0]
+          radical = extraireRacineCarree(BC)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
@@ -422,8 +422,8 @@ export default function Nature_polygone() {
           texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${XAD}+${YAD}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
-          facteur = extraire_racine_carree(AD)[0]
-          radical = extraire_racine_carree(AD)[1]
+          facteur = extraireRacineCarree(AD)[0]
+          radical = extraireRacineCarree(AD)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
@@ -434,8 +434,8 @@ export default function Nature_polygone() {
           }
           texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
-          facteur = extraire_racine_carree(BC)[0]
-          radical = extraire_racine_carree(BC)[1]
+          facteur = extraireRacineCarree(BC)[0]
+          radical = extraireRacineCarree(BC)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
@@ -453,8 +453,8 @@ export default function Nature_polygone() {
           texteCorr += ` <br>$AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$AB =\\sqrt{${XAB}+${YAB}}$<br>`
           texteCorr += `$AB =\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          facteur = extraire_racine_carree(AB)[0]
-          radical = extraire_racine_carree(AB)[1]
+          facteur = extraireRacineCarree(AB)[0]
+          radical = extraireRacineCarree(AB)[1]
           if (radical != 1) {
             if (facteur != 1) {
               texteCorr += `$AB=${facteur}\\sqrt{${radical}}$<br>`
@@ -466,8 +466,8 @@ export default function Nature_polygone() {
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
           texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraire_racine_carree(AC)[0]
-          radical = extraire_racine_carree(AC)[1]
+          facteur = extraireRacineCarree(AC)[0]
+          radical = extraireRacineCarree(AC)[1]
           if (radical != 1) {
             console.log(facteur)
             if (facteur != 1) {

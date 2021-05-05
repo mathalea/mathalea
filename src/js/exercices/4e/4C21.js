@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureNombreRelatif,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,calcul,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureNombreRelatif,ecritureParentheseSiNegatif,pgcd,simplificationDeFractionAvecEtapes,calcul,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
 import {fractionSimplifiee,texFractionReduite} from '../../modules/outils.js'
 
 
@@ -161,7 +161,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 				den = b;
 			}
 			texteCorr += `=${texFraction(num, den)}`;
-			texteCorr += simplification_de_fraction_avec_etapes(num, den) + '$';			
+			texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$';			
 			// Pour l'instant pour tester je mets num et den dans reponse
 			let reponse = {num:fractionSimplifiee(num,den)[0],den:fractionSimplifiee(num,den)[1]};
 			this.listeQuestions.push(texte);

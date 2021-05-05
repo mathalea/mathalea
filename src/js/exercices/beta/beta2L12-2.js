@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 
@@ -61,23 +61,23 @@ export default function Equations_presque_produit_null2() {
                
             switch (type_de_questions) {
                 case 1: // (ax+b)(cx+d)+(ax+b)(ex+f)=0
-                        texte = ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})+(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$`;
-                        texteCorr = ` $(${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})+(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`;
+                        texte = ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$`;
+                        texteCorr = ` $(${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$<br>`;
                         if (this.correctionDetaillee) {
-                        texteCorr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
-                        texteCorr += ` $\\phantom{\\iff} (\\underline{${reduire_ax_plus_b(a,b)}})( ${reduire_ax_plus_b(c,d)})+(\\underline{${reduire_ax_plus_b(a,b)})}( ${reduire_ax_plus_b(e,f)})=0$<br>`;
-                        texteCorr += ` $\\iff (\\underline{${reduire_ax_plus_b(a,b)}})\\Big(( ${reduire_ax_plus_b(c,d)})+(${reduire_ax_plus_b(e,f)})\\Big)=0$<br>`;  
+                        texteCorr += ` On observe que $(${reduireAxPlusB(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
+                        texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a,b)}})( ${reduireAxPlusB(c,d)})+(\\underline{${reduireAxPlusB(a,b)})}( ${reduireAxPlusB(e,f)})=0$<br>`;
+                        texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a,b)}})\\Big(( ${reduireAxPlusB(c,d)})+(${reduireAxPlusB(e,f)})\\Big)=0$<br>`;  
                         }
-                       texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c+e,d+f)})=0$<br>`; 
+                       texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c+e,d+f)})=0$<br>`; 
                        if (c+e==0){ 
-                        texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
+                        texteCorr +=`$\\iff ${reduireAxPlusB(a,b)}=0$<br>`
                         texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                         texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                        }
                        else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-                       texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c+e,d+f)}=0$<br>`; 
+                       texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c+e,d+f)}=0$<br>`; 
                        texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d-f,c+e)}$<br>
                        On en déduit :  `
                         if ((-d-f)/(c+e) < -b/a)    {
@@ -92,27 +92,27 @@ export default function Equations_presque_produit_null2() {
                      
                  break;
                  case 2: //(ax+b)(cx+d)+(ax+b)(ex+f)=0
-                    texte = ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-
-                    ( ${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(e,f)})=0$`; 
-                    texteCorr = ` $(${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-
-                    ( ${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(e,f)})=0$<br>`;
+                    texte = ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})-
+                    ( ${reduireAxPlusB(a,b)})( ${reduireAxPlusB(e,f)})=0$`; 
+                    texteCorr = ` $(${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})-
+                    ( ${reduireAxPlusB(a,b)})( ${reduireAxPlusB(e,f)})=0$<br>`;
                     if (this.correctionDetaillee) {
-                        texteCorr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
-                        texteCorr += ` $\\phantom{\\iff} (\\underline{${reduire_ax_plus_b(a,b)}})( ${reduire_ax_plus_b(c,d)})- (\\underline{${reduire_ax_plus_b(a,b)})}( ${reduire_ax_plus_b(e,f)})=0$<br>`;
-                    texteCorr += ` $\\iff (\\underline{${reduire_ax_plus_b(a,b)}})\\Big(( ${reduire_ax_plus_b(c,d)})-( ${reduire_ax_plus_b(e,f)})\\Big)=0$<br>`;  
+                        texteCorr += ` On observe que $(${reduireAxPlusB(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
+                        texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a,b)}})( ${reduireAxPlusB(c,d)})- (\\underline{${reduireAxPlusB(a,b)})}( ${reduireAxPlusB(e,f)})=0$<br>`;
+                    texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a,b)}})\\Big(( ${reduireAxPlusB(c,d)})-( ${reduireAxPlusB(e,f)})\\Big)=0$<br>`;  
                     }
-                    if (e>0) texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)}${reduire_ax_plus_b(-e,-f)})=0$<br>`;
-                    else texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)}+${reduire_ax_plus_b(-e,-f)})=0$<br>`;
-                    texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c-e,d-f)})=0$<br>`; 
+                    if (e>0) texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)}${reduireAxPlusB(-e,-f)})=0$<br>`;
+                    else texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)}+${reduireAxPlusB(-e,-f)})=0$<br>`;
+                    texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c-e,d-f)})=0$<br>`; 
                     if (c-e==0){ 
-                    texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
+                    texteCorr +=`$\\iff ${reduireAxPlusB(a,b)}=0$<br>`
                     texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                     texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                    }
                    else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                    texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-                   texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c-e,d-f)}=0$<br>`; 
+                   texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c-e,d-f)}=0$<br>`; 
                    texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+f,c-e)}$<br>
                    On en déduit :  `
                     if ((-d+f)/(c-e) < -b/a)    {
@@ -126,26 +126,26 @@ export default function Equations_presque_produit_null2() {
                  
              break;  
                 case 3: //(ax+b)²+(ax+b)(ex+f)=0
-                texte = ` ($${reduire_ax_plus_b(a,b)})^{2}+(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$`; 
-                texteCorr = ` $(${reduire_ax_plus_b(a,b)})^{2}+(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`;
-                texteCorr += ` $(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(a,b)})+(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`;
+                texte = ` ($${reduireAxPlusB(a,b)})^{2}+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$`; 
+                texteCorr = ` $(${reduireAxPlusB(a,b)})^{2}+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$<br>`;
+                texteCorr += ` $(${reduireAxPlusB(a,b)})(${reduireAxPlusB(a,b)})+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$<br>`;
                     if (this.correctionDetaillee){
-                texteCorr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
-                texteCorr += ` $\\phantom{\\iff} (\\underline{${reduire_ax_plus_b(a,b)}})(${reduire_ax_plus_b(a,b)})+(\\underline{${reduire_ax_plus_b(a,b)})}( ${reduire_ax_plus_b(e,f)})=0$<br>`;
-                texteCorr += ` $\\iff (\\underline{${reduire_ax_plus_b(a,b)}})\\Big((${reduire_ax_plus_b(a,b)})+(${reduire_ax_plus_b(e,f)})\\Big)=0$<br>`;  
+                texteCorr += ` On observe que $(${reduireAxPlusB(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
+                texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a,b)}})(${reduireAxPlusB(a,b)})+(\\underline{${reduireAxPlusB(a,b)})}( ${reduireAxPlusB(e,f)})=0$<br>`;
+                texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a,b)}})\\Big((${reduireAxPlusB(a,b)})+(${reduireAxPlusB(e,f)})\\Big)=0$<br>`;  
             }
-                if (e<0) texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(a,b)})${reduire_ax_plus_b(e,f)})=0$<br>`; 
-                else  texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(a,b)})+${reduire_ax_plus_b(e,f)})=0$<br>`; 
-                texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(a+e,b+f)})=0$<br>`; 
+                if (e<0) texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(a,b)})${reduireAxPlusB(e,f)})=0$<br>`; 
+                else  texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(a,b)})+${reduireAxPlusB(e,f)})=0$<br>`; 
+                texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(a+e,b+f)})=0$<br>`; 
                if (a+e==0){ 
-                texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
+                texteCorr +=`$\\iff ${reduireAxPlusB(a,b)}=0$<br>`
                 texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
                 texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
                }
                else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
                texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-               texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(a+e,b+f)}=0$<br>`; 
+               texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(a+e,b+f)}=0$<br>`; 
                texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-b-f,a+e)}$<br>
                On en déduit :  `
                 if ((-b-f)/(a+e) < -b/a)    {
@@ -160,26 +160,26 @@ export default function Equations_presque_produit_null2() {
              
          break;  
         case 4: //(ax+b)(cx+d)-(ax+b)²=0
-            texte = ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})^{2}=0$`; 
-            texteCorr = ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})^{2}=0$<br>`;
-            texteCorr += ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(a,b)})=0$<br>`;
+            texte = ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})-(${reduireAxPlusB(a,b)})^{2}=0$`; 
+            texteCorr = ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})-(${reduireAxPlusB(a,b)})^{2}=0$<br>`;
+            texteCorr += ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})-(${reduireAxPlusB(a,b)})( ${reduireAxPlusB(a,b)})=0$<br>`;
             if (this.correctionDetaillee){
-            texteCorr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
-            texteCorr += ` $\\phantom{\\iff} (\\underline{${reduire_ax_plus_b(a,b)}})( ${reduire_ax_plus_b(c,d)})-(\\underline{${reduire_ax_plus_b(a,b)})}( ${reduire_ax_plus_b(a,b)})=0$<br>`;
-            texteCorr += ` $\\iff (\\underline{${reduire_ax_plus_b(a,b)}})\\Big(( ${reduire_ax_plus_b(c,d)})-( ${reduire_ax_plus_b(a,b)})\\Big)=0$<br>`;  
+            texteCorr += ` On observe que $(${reduireAxPlusB(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
+            texteCorr += ` $\\phantom{\\iff} (\\underline{${reduireAxPlusB(a,b)}})( ${reduireAxPlusB(c,d)})-(\\underline{${reduireAxPlusB(a,b)})}( ${reduireAxPlusB(a,b)})=0$<br>`;
+            texteCorr += ` $\\iff (\\underline{${reduireAxPlusB(a,b)}})\\Big(( ${reduireAxPlusB(c,d)})-( ${reduireAxPlusB(a,b)})\\Big)=0$<br>`;  
             }
-            if (a>0) texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)}${reduire_ax_plus_b(-a,-b)}))=0$<br>`;   
-            else texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)}+${reduire_ax_plus_b(-a,-b)}))=0$<br>`;   
-            texteCorr += ` $\\iff (${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c-a,d-b)})=0$<br>`; 
+            if (a>0) texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)}${reduireAxPlusB(-a,-b)}))=0$<br>`;   
+            else texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)}+${reduireAxPlusB(-a,-b)}))=0$<br>`;   
+            texteCorr += ` $\\iff (${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c-a,d-b)})=0$<br>`; 
             if (c-a==0){ 
-            texteCorr +=`$\\iff ${reduire_ax_plus_b(a,b)}=0$<br>`
+            texteCorr +=`$\\iff ${reduireAxPlusB(a,b)}=0$<br>`
             texteCorr +=`$x=${texFractionSigne(-b,a)}$<br>`
             texteCorr +=`L'équation admet une unique solution : $S=\\left\\{${texFractionReduite(-b,a)}\\right\\}$.`
            }
            else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
            texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-           texteCorr += ` $\\iff ${reduire_ax_plus_b(a,b)}=0\\quad$ ou bien $\\quad${reduire_ax_plus_b(c-a,d-b)}=0$<br>`; 
+           texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c-a,d-b)}=0$<br>`; 
            texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+b,c-a)}$<br>
            On en déduit :  `
             if ((-d+b)/(c-b) < -b/a)    {
@@ -194,28 +194,28 @@ export default function Equations_presque_produit_null2() {
      break;        
      
      case 5: // (ax+b)(cx+d)=(ax+b)(ex+f)
-        texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})$`; 
+        texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})$`; 
         texteCorr=`Deux nombres sont égaux si et seulement si leur différence est nulle.<br>`
-        texteCorr+=`$\\phantom{\\iff}(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})$<br>`; 
-        texteCorr+=`$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`
+        texteCorr+=`$\\phantom{\\iff}(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})$<br>`; 
+        texteCorr+=`$\\iff (${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})-(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$<br>`
         if (this.correctionDetaillee){
-        texteCorr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
-        texteCorr+= `$\\phantom{\\iff}(\\underline{${reduire_ax_plus_b(a,b)}})(${reduire_ax_plus_b(c,d)})-(\\underline{${reduire_ax_plus_b(a,b)}})(${reduire_ax_plus_b(e,f)})=0$<br>`
-        texteCorr += `$\\iff (\\underline{${reduire_ax_plus_b(a,b)}})\\Big((${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(e,f)})\\Big)=0$<br>`
+        texteCorr += ` On observe que $(${reduireAxPlusB(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
+        texteCorr+= `$\\phantom{\\iff}(\\underline{${reduireAxPlusB(a,b)}})(${reduireAxPlusB(c,d)})-(\\underline{${reduireAxPlusB(a,b)}})(${reduireAxPlusB(e,f)})=0$<br>`
+        texteCorr += `$\\iff (\\underline{${reduireAxPlusB(a,b)}})\\Big((${reduireAxPlusB(c,d)})-(${reduireAxPlusB(e,f)})\\Big)=0$<br>`
         }
         if (e<0){
-            texteCorr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}+${reduire_ax_plus_b(-e,-f)})=0$<br>`
+            texteCorr += `$\\iff (${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)}+${reduireAxPlusB(-e,-f)})=0$<br>`
         }
        else {
-                texteCorr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}${reduire_ax_plus_b(-e,-f)})=0$<br>`
+                texteCorr += `$\\iff (${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)}${reduireAxPlusB(-e,-f)})=0$<br>`
             }
-        texteCorr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
+        texteCorr += `$\\iff (${reduireAxPlusB(a,b)})(${reduireAxPlusB(c-e,d-f)})=0$<br>`
         texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
         ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-        texteCorr +=`$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
-        texteCorr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c-e,d-f)}=0$<br>`
+        texteCorr +=`$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c-e,d-f)})=0$<br>`
+        texteCorr+=`$\\iff ${reduireAxPlusB(a,b)}=0$ ou $${reduireAxPlusB(c-e,d-f)}=0$<br>`
         if (this.correctionDetaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
-            texteCorr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${-b}$ ou $ ${reduire_ax_plus_b(c-e,0)}=${-d+f}$<br>`
+            texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}=${-b}$ ou $ ${reduireAxPlusB(c-e,0)}=${-d+f}$<br>`
         }
         f1=fraction(-b,a)
         f2=fraction(-d+f,c-e)

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* global mathalea sortieHtml */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
@@ -1199,7 +1198,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
 * @Auteur Rémi Angot
 */
-export function simplification_de_fraction_avec_etapes (num, den) {
+export function simplificationDeFractionAvecEtapes (num, den) {
   // Est-ce que le résultat est simplifiable ?
   let result = ''
   const s = pgcd(num, den)
@@ -1219,7 +1218,7 @@ export function simplification_de_fraction_avec_etapes (num, den) {
  * @auteur Jean-Claude Lhote
  */
 
-export function produits_en_croix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
+export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
   let result = ''
   result += `$${a}\\times${d}=${b}\\times${c}$`
   return result
@@ -1231,7 +1230,7 @@ export function produits_en_croix ([[a, b], [c, d]]) { // écrit une chaine pour
  * @auteur Jean-Claude Lhote
  */
 
-export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*c/a
+export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c/a
   let result = ''
   if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {
     if (a === 0) {
@@ -1255,7 +1254,7 @@ export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*
  * @param {number} a
  * @param {number} b
  */
-export function reduire_ax_plus_b (a, b) {
+export function reduireAxPlusB (a, b) {
   let result = ''
   if (a !== 0) {
     if (a === 1) result = 'x'
@@ -1372,10 +1371,10 @@ export function reduire_polynome_degre3 (a, b, c, d) {
 * Donne la liste des facteurs premiers d'un nombre
 * @Auteur Rémi Angot
 */
-export function obtenir_liste_facteurs_premiers (n) {
+export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const liste_nombres_premiers = obtenir_liste_nombres_premiers()
+  const liste_nombres_premiers = obtenirListeNombresPremiers()
   let i = 0
   while (n > 1 && liste_nombres_premiers[i] <= n) {
     if (n % liste_nombres_premiers[i] === 0) {
@@ -1396,7 +1395,7 @@ export function obtenir_liste_facteurs_premiers (n) {
  */
 
 export function factorisation (n) {
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   const facto = []; let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] === 0) i++
@@ -1421,7 +1420,7 @@ export function factorisation (n) {
  * retourne le résulat [a,b] pour a²b=n
  * @Auteur Jean-Claude Lhote
  */
-export function extraire_racine_carree (n) {
+export function extraireRacineCarree (n) {
   const facto = factorisation(n)
   let radical = 1; let facteur = 1
   for (let i = 0; i < facto.length; i++) {
@@ -1440,8 +1439,8 @@ export function extraire_racine_carree (n) {
  * retourne le code Latex de la racine carrée de n "réduite"
  * @Auteur Jean-CLaude Lhote
  */
-export function tex_racine_carree (n) {
-  const result = extraire_racine_carree(n)
+export function texRacineCarree (n) {
+  const result = extraireRacineCarree(n)
   if (result[1] === 1) return `${result[0]}`
   else if (result[0] === 1) return `\\sqrt{${result[1]}}`
   else return `${result[0]}\\sqrt{${result[1]}}`
@@ -2394,7 +2393,7 @@ export function tex_prix (nb) {
 * Convertit en majuscule la première lettre
 * @Auteur Rémi Angot
 */
-export function premiere_lettre_en_majuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
+export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
@@ -2463,7 +2462,7 @@ export function obtenir_liste_fractions_irreductibles_faciles () { // sous forme
 * Retourne la liste des nombres premiers inférieurs à 300
 * @Auteur Rémi Angot
 */
-export function obtenir_liste_nombres_premiers () {
+export function obtenirListeNombresPremiers () {
   return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
 }
 
@@ -2473,7 +2472,7 @@ export function obtenir_liste_nombres_premiers () {
 */
 export function decomposition_facteurs_premiers (n) {
   let decomposition = ''
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
     decomposition += liste[i] + '\\times'
   }
@@ -2718,18 +2717,18 @@ export function MatriceCarree (table) {
     for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       //	if (n==1) determinant=this.table[0][0]
       if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
-        M = this.matrice_reduite(0, i)
+        M = this.matriceReduite(0, i)
         determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
       }
     }
     return determinant
   }
   /**
-   * Méthode : m=M.matrice_reduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+   * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
    * @Auteur Jean-Claude Lhote
    */
-  this.matrice_reduite = function (l, c) {
+  this.matriceReduite = function (l, c) {
     const resultat = []; let ligne
     for (let i = 0; i < this.table.length; i++) {
       if (i !== l) {
@@ -2751,7 +2750,7 @@ export function MatriceCarree (table) {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          M = this.matrice_reduite(i, j)
+          M = this.matriceReduite(i, j)
           ligne.push(calcul((-1) ** (i + j) * M.determinant()))
         }
         resultat.push(ligne)
@@ -2851,7 +2850,7 @@ export function matriceCarree (table) {
  *
  * @Auteur Jean-Claude Lhote
  */
-export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
+export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
   const determinant = matrice.determinant()
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
@@ -2866,7 +2865,7 @@ export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
  * @Auteur Jean-Claude Lhote
  */
 
-export function resol_sys_lineaire_3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
+export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
   const determinant = matrice.determinant()
@@ -2886,7 +2885,7 @@ export function resol_sys_lineaire_3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
  * sont des entiers compris eux aussi entre -10 et 10
  * @Auteur Jean-Claude Lhote
  */
-export function crible_polynome_entier () {
+export function criblePolynomeEntier () {
   let trouve = false
   let coefs = [[]]
   for (let i = 0, x1, x2, x3, fx1, fx2, fx3, d; ; i++) {
@@ -2897,7 +2896,7 @@ export function crible_polynome_entier () {
     fx2 = randint(-10, 10)
     fx3 = randint(-10, 10)
     d = randint(0, 10)
-    coefs = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d)
+    coefs = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
     if (coefs[0][1] !== 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
     if (trouve) {
       coefs.push([x1, fx1])
@@ -2913,7 +2912,7 @@ export function crible_polynome_entier () {
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
  * @Auteur Jean-Claude Lhote
  */
-export function cherche_min_max_f ([a, b, c, d]) {
+export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
   if (delta <= 0) return []
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
@@ -2924,7 +2923,7 @@ export function cherche_min_max_f ([a, b, c, d]) {
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
  * @Auteur Jean-Claude Lhote
  */
-export function cherche_polynome_deg3_a_extrema_fixes (x1, x2, y1, y2) {
+export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
   const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
   const R = [y1, y2, 0, 0]
   if (!egal(M.determinant(), 0)) return M.inverse().multiplieVecteur(R)
@@ -3930,7 +3929,7 @@ export function lampe_message ({ titre, texte, couleur }) {
  */
 export function decomp_fact_prem_array (n) {
   const decomposition = []
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
     decomposition.push(liste[i])
   }
