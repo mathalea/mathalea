@@ -18,7 +18,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // cf https://webpack.js.org/plugins/copy-webpack-plugin/#root
 const CopyPlugin = require('copy-webpack-plugin')
 
-const mode = (process.env.NODE_ENV === 'development' || /--mode=development/.test(process.argv)) ? 'development' : 'production'
+const isServeMode = /serve/.test(process.argv)
+const mode = (isServeMode || process.env.NODE_ENV === 'development' || /--mode=development/.test(process.argv)) ? 'development' : 'production'
 
 const config = {
   mode,
@@ -178,29 +179,33 @@ const config = {
 }
 
 // on regarde s'il faut ajouter bugsnag
-const privateDir = path.resolve(__dirname, '_private')
-const privateConfigFile = path.resolve(privateDir, 'config.js')
-if (fs.existsSync(privateDir) && fs.statSync(privateDir).isDirectory() && fs.existsSync(privateConfigFile)) {
-  const privateConfig = require('esm')(module)('./_private/config.js')
-  if (privateConfig && typeof privateConfig.bugsnagApiKey === 'string' && privateConfig.bugsnagApiKey) {
-    console.log(`${privateConfigFile} existe et exporte bugsnagApiKey, on ajoute bugsnag à chaque entry`)
-    // on génère un _private/bugsnag.js avec les constantes dont il a besoin
-    const { version } = require('./package.json')
-    const busgnagSrcFile = path.resolve(__dirname, 'src', 'js', 'bugsnag.js')
-    const busgnagDstFile = path.resolve(privateDir, 'bugsnag.js')
-    const bugsnagContent = fs.readFileSync(busgnagSrcFile, { encoding: 'utf8' })
-      .replace(/^const apiKey *= ''/m, `const apiKey = '${privateConfig.bugsnagApiKey}'`)
-      .replace(/^const appVersion *= ''/m, `const appVersion = '${version}'`)
-      .replace(/^const releaseStage *= ''/m, `const releaseStage = '${config.mode}'`)
-    fs.writeFileSync(busgnagDstFile, bugsnagContent)
-    // faut inclure bugsnag.js en premier dans chaque entry
-    Object.keys(config.entry).forEach(entryName => {
-      // faut passer en array si c'est pas le cas
-      if (typeof config.entry[entryName] === 'string') config.entry[entryName] = [config.entry[entryName]]
-      // et on ajoute bugsnag au début
-      config.entry[entryName].unshift('./_private/bugsnag.js')
-    })
+if (!isServeMode) {
+  const privateDir = path.resolve(__dirname, '_private')
+  const privateConfigFile = path.resolve(privateDir, 'config.js')
+  if (fs.existsSync(privateDir) && fs.statSync(privateDir).isDirectory() && fs.existsSync(privateConfigFile)) {
+    const privateConfig = require('esm')(module)('./_private/config.js')
+    if (privateConfig && typeof privateConfig.bugsnagApiKey === 'string' && privateConfig.bugsnagApiKey) {
+      console.log(`${privateConfigFile} existe et exporte bugsnagApiKey, on ajoute bugsnag à chaque entry`)
+      // on génère un _private/bugsnag.js avec les constantes dont il a besoin
+      const { version } = require('./package.json')
+      const busgnagSrcFile = path.resolve(__dirname, 'src', 'js', 'bugsnag.js')
+      const busgnagDstFile = path.resolve(privateDir, 'bugsnag.js')
+      const bugsnagContent = fs.readFileSync(busgnagSrcFile, { encoding: 'utf8' })
+        .replace(/^const apiKey *= ''/m, `const apiKey = '${privateConfig.bugsnagApiKey}'`)
+        .replace(/^const appVersion *= ''/m, `const appVersion = '${version}'`)
+        .replace(/^const releaseStage *= ''/m, `const releaseStage = '${config.mode}'`)
+      fs.writeFileSync(busgnagDstFile, bugsnagContent)
+      // faut inclure bugsnag.js en premier dans chaque entry
+      Object.keys(config.entry).forEach(entryName => {
+        // faut passer en array si c'est pas le cas
+        if (typeof config.entry[entryName] === 'string') config.entry[entryName] = [config.entry[entryName]]
+        // et on ajoute bugsnag au début
+        config.entry[entryName].unshift('./_private/bugsnag.js')
+      })
+    }
   }
 }
+
+console.log('webpack en mode', mode)
 
 module.exports = config
