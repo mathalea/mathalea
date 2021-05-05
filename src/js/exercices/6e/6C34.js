@@ -36,22 +36,22 @@ export default function dernierChiffre() {
   
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
-    let liste_type_de_questions_disponibles= [];
+    let listeTypeDeQuestions_disponibles= [];
     if (this.sup == 1) {
-        liste_type_de_questions_disponibles = ['somme'];
+        listeTypeDeQuestions_disponibles = ['somme'];
     }
     if (this.sup == 2) {
-        liste_type_de_questions_disponibles = ['somme','produit'];
+        listeTypeDeQuestions_disponibles = ['somme','produit'];
     }
     if (this.sup == 3) {
-        liste_type_de_questions_disponibles = ['somme','produit','difference'];
+        listeTypeDeQuestions_disponibles = ['somme','produit','difference'];
     }
-    let liste_type_de_questions = combinaisonListes(liste_type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions_disponibles, this.nbQuestions)
   
     for (let i = 0, a=0, b=0, texte=``, texteCorr=``, cpt = 0; i < this.nbQuestions && cpt < 50;)
       {
         this.contenuCorrection = ``;
-        switch (liste_type_de_questions[i]) {    
+        switch (listeTypeDeQuestions[i]) {    
           case 'somme':
                 a = randint(11, 999);
                 b = randint(11, 999);

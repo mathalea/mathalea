@@ -42,11 +42,11 @@ export default function Calculer_la_valeur_d_une_expression_litterale() {
 			type_de_questions_disponibles = range1(10);
 		};
 
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d, x, y;
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // ax+b
 					a = randint(2, 10);
 					x = randint(2, 10, a);

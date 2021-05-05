@@ -28,7 +28,7 @@ export default function Terme_inconnu_de_somme() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles=[1,2,3,4]
-    let liste_type_de_questions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
     let decimal;
     let inconnue;
     if (this.sup==1) {
@@ -53,7 +53,7 @@ export default function Terme_inconnu_de_somme() {
       else {
         inconnue=` ${choice(['x','y','z','a','t','n'])} `
       }
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `$${texNombre(a)} + ${inconnue} = ${texNombre(b)}$`;
           texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombrec( b-a))} = ${texNombre(b)}$`;

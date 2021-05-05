@@ -46,7 +46,7 @@ export default function Decomposition_facteurs_premiers() {
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + crible_eratosthene_n(100)[0];
 		for (let k = 1; k < crible_eratosthene_n(100).length; k++) {
@@ -57,7 +57,7 @@ export default function Decomposition_facteurs_premiers() {
 		this.introduction = warn_message(string_rappel, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 			switch (type_de_questions) {
 				case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max

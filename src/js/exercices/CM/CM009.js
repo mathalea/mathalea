@@ -23,7 +23,7 @@ export default function Moitie() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = range1(6);
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -32,7 +32,7 @@ export default function Moitie() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 2
           a = randint(2, 9);
           texte = `$\\text{La moitié de }${a * 2}$`;

@@ -57,7 +57,7 @@ export default function Puissances_d_un_relatif_1() {
       type_de_questions_disponibles = [1, 2, 3, 4]; // mélange
     }
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -99,7 +99,7 @@ export default function Puissances_d_un_relatif_1() {
         return sortie;
       };
 
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
 
       base = randint(2, 9) * choice([-1, 1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
       exp0 = randint(1, 9);

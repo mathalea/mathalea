@@ -76,7 +76,7 @@ export default function Priorites_et_relatifs_et_puissances() {
 
     let listeQuestions_disponibles = range1(7);
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       listeQuestions_disponibles,
       this.nbQuestions
     );
@@ -91,7 +91,7 @@ export default function Priorites_et_relatifs_et_puissances() {
       m = randint(1, 5) * choice([-1, 1]);
       n = randint(1, 3) * (-1);
       p = randint(1, 3) ;
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //a² + b*c
         texte = `$${lettreDepuisChiffre(i+1)} = ${ecritureParentheseSiNegatif(a)}^2 +  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}$`;
         texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i+1)}&

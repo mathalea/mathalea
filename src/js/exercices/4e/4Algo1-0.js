@@ -44,8 +44,8 @@ export const titre = 'Dessiner avec scratch'
 //    var unitesLutinParCm = 100;
 
 
-    let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer la sortie HTML/LaTeX
@@ -296,7 +296,7 @@ export const titre = 'Dessiner avec scratch'
     enonces.push(mySituation(5)[0])
     enonces.push(mySituation(6)[0])
     enonces.push(mySituation(8)[0])
-    switch (liste_type_de_questions[i]) {
+    switch (listeTypeDeQuestions[i]) {
       case 1:
         texte = `${enonces[0].enonce}`;
         if (this.debug) {

@@ -36,15 +36,15 @@ export default function Additions_soustractions_multiplications_divisions_posees
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions
     let type_de_questions_disponibles = [1, 2, 3, 4, 5,6];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     if (this.nbQuestions <= 3) {
-      liste_type_de_questions = [1, 2, 5];
+      listeTypeDeQuestions = [1, 2, 5];
     }
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: // abcde + fgh
           a =

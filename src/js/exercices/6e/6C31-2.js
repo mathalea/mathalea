@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,texNombre,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,texNombre,numAlpha} from '../../modules/outils.js'
 export const titre = 'Donner des valeurs approchées d’un quotient décimal'
 
 /**
@@ -53,38 +53,38 @@ export default function Valeur_approchee_division_decimale() {
       let choix = randint(1,4);
       switch (choix) {
         case 1:
-          texte+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[0][0]}\\ldots`
-          texte+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[4][0]}\\ldots`
-          texteCorr+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[0][0]} $ ${texNombre(liste_de_questions1[0][1])}$`
-          texteCorr+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[4][0]} $ ${texNombre(liste_de_questions1[4][1])}$`
+          texte+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[0][0]}\\ldots`
+          texte+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[4][0]}\\ldots`
+          texteCorr+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[0][0]} $ ${texNombre(liste_de_questions1[0][1])}$`
+          texteCorr+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[4][0]} $ ${texNombre(liste_de_questions1[4][1])}$`
           break;
         case 2:
-          texte+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[1][0]}\\ldots`
-          texte+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[5][0]}\\ldots`
-          texteCorr+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[1][0]} $ ${texNombre(liste_de_questions1[1][1])}$`
-          texteCorr+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[5][0]} $ ${texNombre(liste_de_questions1[5][1])}$`
+          texte+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[1][0]}\\ldots`
+          texte+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[5][0]}\\ldots`
+          texteCorr+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[1][0]} $ ${texNombre(liste_de_questions1[1][1])}$`
+          texteCorr+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[5][0]} $ ${texNombre(liste_de_questions1[5][1])}$`
           break;
         case 3:
-          texte+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[3][0]}\\ldots`
-          texte+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[7][0]}\\ldots`
-          texteCorr+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[3][0]} $ ${texNombre(liste_de_questions1[3][1])}$`
-          texteCorr+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[7][0]} $ ${texNombre(liste_de_questions1[7][1])}$`
+          texte+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[3][0]}\\ldots`
+          texte+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[7][0]}\\ldots`
+          texteCorr+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[3][0]} $ ${texNombre(liste_de_questions1[3][1])}$`
+          texteCorr+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[7][0]} $ ${texNombre(liste_de_questions1[7][1])}$`
           break;
         case 4:
-          texte+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[4][0]}\\ldots`
-          texte+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[7][0]}\\ldots`
-          texteCorr+= `<br><br> ${num_alpha(0)} ${liste_de_questions1[4][0]} $ ${texNombre(liste_de_questions1[4][1])}$`
-          texteCorr+= `<br><br> ${num_alpha(1)} ${liste_de_questions1[7][0]} $ ${texNombre(liste_de_questions1[7][1])}$`
+          texte+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[4][0]}\\ldots`
+          texte+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[7][0]}\\ldots`
+          texteCorr+= `<br><br> ${numAlpha(0)} ${liste_de_questions1[4][0]} $ ${texNombre(liste_de_questions1[4][1])}$`
+          texteCorr+= `<br><br> ${numAlpha(1)} ${liste_de_questions1[7][0]} $ ${texNombre(liste_de_questions1[7][1])}$`
           break;
       }
       shuffle(liste_de_questions2)
       
-      texte+= `<br><br> ${num_alpha(2)} ${liste_de_questions2[0][0]}\\ldots`
-      texte+= `<br><br> ${num_alpha(3)} ${liste_de_questions2[1][0]}\\ldots`
+      texte+= `<br><br> ${numAlpha(2)} ${liste_de_questions2[0][0]}\\ldots`
+      texte+= `<br><br> ${numAlpha(3)} ${liste_de_questions2[1][0]}\\ldots`
       
       
-      texteCorr+= `<br><br> ${num_alpha(2)} ${liste_de_questions2[0][0]} $ ${texNombre(liste_de_questions2[0][1])}$`
-      texteCorr+= `<br><br> ${num_alpha(3)} ${liste_de_questions2[1][0]} $ ${texNombre(liste_de_questions2[1][1])}$`
+      texteCorr+= `<br><br> ${numAlpha(2)} ${liste_de_questions2[0][0]} $ ${texNombre(liste_de_questions2[0][1])}$`
+      texteCorr+= `<br><br> ${numAlpha(3)} ${liste_de_questions2[1][0]} $ ${texNombre(liste_de_questions2[1][1])}$`
 
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

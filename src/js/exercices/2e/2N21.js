@@ -20,9 +20,9 @@ export default function parite() {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1, 2, 3],type_de_questions
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?

@@ -20,18 +20,18 @@ export default function EcritureDecimalePuissanceDe10() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let liste_type_de_questions
+    let listeTypeDeQuestions
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes(['+'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions);
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes(['-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions);
     }
     if (this.sup == 3) {
-      liste_type_de_questions = combinaisonListes(['+', '-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions);
     }
     for (let i = 0, texte, texteCorr, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case '+':
           n = randint(0, 10)
           texte = `$10^{${n}}$`;

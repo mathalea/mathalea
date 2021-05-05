@@ -32,7 +32,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
     let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets,montriangle
     if (this.classe == 6) type_de_questions_disponibles = range1(6)
     else type_de_questions_disponibles = range1(9)
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       IEP = new Alea2iep()
       objets_enonce = []
@@ -44,7 +44,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       A = point(0, 0, sommets[0], 'left')
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // triangle quelconque par ses trois longueurs
           lAC = randint(35, 45)
           lBC = calcul(randint(35, 45, lAC) / 10)

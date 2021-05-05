@@ -37,7 +37,7 @@ export default function Calcul_de_volumes() {
     // Quatrième : on ajoute pyramides et cones
     else
       type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7]; // Troisième : on ajoute les boules.
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -62,7 +62,7 @@ export default function Calcul_de_volumes() {
       partieDecimale3 = 0;
     }
     for (let i = 0, texte, texteCorr, L, l, h, c, r, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           c = calcul(randint(2, 10) + partieDecimale1);
           j = randint(0, 3); // pour le choix de l'unité

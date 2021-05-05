@@ -20,9 +20,9 @@ export default function intervalles_de_R() {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],type_de_questions
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
 
 
             s = segment(0, 0, 12, 0);

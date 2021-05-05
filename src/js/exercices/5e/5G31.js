@@ -53,7 +53,7 @@ export default function Exercice_angles_triangles() {
 		else
 			type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		this.consigne = `Calculer l'angle demandé dans les triangles suivants :`;
 		let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2;
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -67,7 +67,7 @@ export default function Exercice_angles_triangles() {
 				texteCorr = `Dans un triangle, la somme des angles est égale à $180\\degree$.<br>`;
 			else
 				texteCorr = ``;
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // triangle quelconque 2 angles connus
 					angle1 = randint(10, 40);
 					angle2 = randint(20, 100);

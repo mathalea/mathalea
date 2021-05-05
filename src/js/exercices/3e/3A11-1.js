@@ -42,7 +42,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		let string_rappel_b = `Ces critères de divisibilité pourront être utiles :`;
 		if (sortieHtml) {
@@ -72,7 +72,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 		this.introduction = warn_message(string_rappel_b, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 			var N; // le nombre de la question
 

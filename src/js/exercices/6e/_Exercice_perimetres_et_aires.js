@@ -57,12 +57,12 @@ export default function Exercice_perimetres_et_aires(difficulte = 1) {
     } else if (this.sup == 2) {
       type_de_questions_disponibles = ["cercle"];
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case "carre":
           let cote = calcul(randint(2, 11) + partieDecimale1);

@@ -56,7 +56,7 @@ export default function Priorites_et_relatifs() {
     } else {
       listeQuestions_disponibles = range1(20);
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       listeQuestions_disponibles,
       this.nbQuestions
     );
@@ -65,7 +65,7 @@ export default function Priorites_et_relatifs() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //a+b*c
           a = randint(2, 11) * choice([-1, 1]);
           b = randint(2, 11) * choice([-1, 1]);

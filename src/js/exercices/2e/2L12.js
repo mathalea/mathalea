@@ -36,9 +36,9 @@ export default function Equations_produits_nuls2() {
         type_de_questions_disponibles = [1,2,3];
       }
      
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
 			a = randint(-9, 9,0);
             b = randint(-9, 9,0);
             c = randint(-9, 9,[0,a]);

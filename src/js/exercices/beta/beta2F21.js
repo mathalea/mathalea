@@ -38,9 +38,9 @@ export default function Factoriser_Identites_remarquables2() {
             }
 
 
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0, A, courbe, B, r, f, c, t, l, xA, xB, yA, yB, a, b, d, e, k, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             k = choice([-1, 1]);
             a = randint(1, 5);
             a = a * k;

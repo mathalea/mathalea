@@ -24,10 +24,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_denominateurs = [10,20,50,1000,2,4,5,200]; // On créé 3 types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_denominateurs,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_denominateurs,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, den, num, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
-        den = liste_type_de_questions[i]
+        den = listeTypeDeQuestions[i]
         if (den == 2) {
             num = choice([1,3,5])
         } else if (den == 1000){

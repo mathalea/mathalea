@@ -44,7 +44,7 @@ export default function Multiplication_mental_decimaux() {
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
     let type_de_questions_disponibles=["add", "mul", "add_deci", "mul_deci"] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     
     // on définit l'espace horizontal entre les réponses en fonction de la sortie html/LaTeX :
     let espace =``;
@@ -58,7 +58,7 @@ export default function Multiplication_mental_decimaux() {
         texteCorr = `` // Idem pour le texte de la correction.
         let a=0, b=0, tabrep=[], tabicone=[]; // les deux opérandes
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case "add":
                a = 10*randint(1,9)+randint(1,9);
                b = 10*randint(1,9)+randint(1,9);

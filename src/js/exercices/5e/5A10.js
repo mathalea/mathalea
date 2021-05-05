@@ -40,10 +40,10 @@ export default function Liste_des_diviseurs_5e() {
 
 		let type_de_questions_disponibles = [1, 1, 2];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 			switch (type_de_questions) {
 				case 1: // Compléter un tableau pour trouver la liste de tous les diviseurs d'un entier

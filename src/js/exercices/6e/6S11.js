@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiere_lettre_en_majuscule,numAlpha} from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
@@ -94,15 +94,15 @@ export default function Organiser_donnees_depuis_texte() {
       texte += '. <br>'
     }
     texte += '<br>'
-    texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
+    texte += numAlpha(0) + ` Remplir le tableau suivant. <br>`;
 
     if (this.sup) {
-      texte += num_alpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
+      texte += numAlpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
     } else {
-      texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
+      texte += numAlpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
     }
-    texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
-    texte += num_alpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
+    texte += numAlpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
+    texte += numAlpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
 
     texte += `$\\begin{array}{|l|` + `c|`.repeat(nbFruits + 1) + `}\n`;
     texte += `\\hline\n`;
@@ -122,7 +122,7 @@ export default function Organiser_donnees_depuis_texte() {
 
     //CORRECTION
     // Question 1 :
-    texteCorr = num_alpha(0) + ` Voici le tableau complet. <br>`;
+    texteCorr = numAlpha(0) + ` Voici le tableau complet. <br>`;
     texteCorr += `$\\begin{array}{|l|` + `c|`.repeat(nbFruits + 1) + `}\n`;
     texteCorr += `\\hline\n`;
     texteCorr += ` `;
@@ -161,13 +161,13 @@ export default function Organiser_donnees_depuis_texte() {
     // Question 2 :
     S_total = arrondiVirgule(S_total);
     if (this.sup) {
-      texteCorr += num_alpha(1) + ` La masse totale de fruits est : ${S_total} kg. <br>`;
+      texteCorr += numAlpha(1) + ` La masse totale de fruits est : ${S_total} kg. <br>`;
     } else {
-      texteCorr += num_alpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
+      texteCorr += numAlpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
     }
 
     // Question 3 :
-    texteCorr += num_alpha(2) + ` On regarde la dernière colonne du tableau. `;
+    texteCorr += numAlpha(2) + ` On regarde la dernière colonne du tableau. `;
     let lstmax = []; //liste des prénoms solutions
     let nmax = 0; // nombre max de fruit pour une personne
     for (let i = 0; i < nbAmis; i++) {
@@ -204,7 +204,7 @@ export default function Organiser_donnees_depuis_texte() {
     }
 
     // Question 4 :
-    texteCorr += num_alpha(3) + ` On regarde la dernière ligne du tableau. `;
+    texteCorr += numAlpha(3) + ` On regarde la dernière ligne du tableau. `;
     let fmax = []; //liste des fruits apporté en quantité max
     nmax = 0; // nombre max par type de fruit 
     for (let j = 0; j < nbFruits; j++) {

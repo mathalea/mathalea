@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, num_alpha, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, numAlpha, calcul, randint } from '../../modules/outils.js'
 import { mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point } from '../../modules/2d.js'
 
 export const titre = 'Utiliser toutes les transformations'
@@ -23,17 +23,17 @@ export default function Exercice_zero_mathalea2d () {
     let objets_enonce, objets_enonceml, objets_correction, params_enonce, params_correction
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      texte = `${num_alpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte = `${numAlpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(1)} $M_2$ symétrique de $M$ par rapport à $O$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(1)} $M_2$ symétrique de $M$ par rapport à $O$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(2)} $M_3$ image de $M$ dans la translation qui transforme $A$ en $B$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(2)} $M_3$ image de $M$ dans la translation qui transforme $A$ en $B$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(3)} $M_4$ image de $M$ dans la rotation de centre $O$ et de $60$° dans le sens anti-horaire.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(3)} $M_4$ image de $M$ dans la rotation de centre $O$ et de $60$° dans le sens anti-horaire.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(4)} $M_5$ image de $M$ dans l'homothétie de centre $A$ et de rapport $3$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(4)} $M_5$ image de $M$ dans l'homothétie de centre $A$ et de rapport $3$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(5)} $M_6$ image de $M$ dans l'homothétie de centre $A$ et de rapport $-2$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(5)} $M_6$ image de $M$ dans l'homothétie de centre $A$ et de rapport $-2$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
 
       const A = point(0, 2, 'A', 'right')

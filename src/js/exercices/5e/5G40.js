@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, calcul, choisit_lettres_differentes, lettreDepuisChiffre, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice } from '../../modules/outils.js'
 import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -34,7 +34,7 @@ export default function Constructions_parallelogrammes () {
       return lettre + chiffre
     }
     // On prépare la figure...
-    const noms = choisit_lettres_differentes(5, 'QO', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
+    const noms = choisitLettresDifferentes(5, 'QO', true) // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
     let type_de_question
     if (this.sup < 5) type_de_question = parseInt(this.sup)
     else type_de_question = randint(1, 4)

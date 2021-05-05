@@ -21,7 +21,7 @@ export default function Exercice_numeration_entier() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       [1, 1, 1, 2, 2],
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -42,7 +42,7 @@ export default function Exercice_numeration_entier() {
         "millions",
       ];
       rang_a = randint(0, 2);
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         rang_b = randint(rang_a + 2, 6);
       } else {
         rang_b = rang_a + 1;

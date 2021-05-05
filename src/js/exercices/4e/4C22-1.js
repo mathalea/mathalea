@@ -90,7 +90,7 @@ export default function Exercice_trouver_l_inverse() {
     else {
       type_de_questions_disponibles = [parseInt(this.sup)];
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -103,7 +103,7 @@ export default function Exercice_trouver_l_inverse() {
       texteCorr,
       type_de_questions,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: //inverse d'entier
           couples_d_inverses = choice(liste_entiers);

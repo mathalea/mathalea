@@ -46,7 +46,7 @@ export default function Multiplier_decimaux_par_10_100_1000() {
 
     if (this.sup2) this.consigne = "Calculer et compléter.";
 let reponse
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -60,7 +60,7 @@ let reponse
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: // a,abcd × 10
           a = choice([randint(11, 99), randint(100, 999)]);

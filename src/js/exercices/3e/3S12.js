@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,listeQuestionsToContenu,choice,premiere_lettre_en_majuscule,num_alpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
+import {randint,listeQuestionsToContenu,choice,premiere_lettre_en_majuscule,numAlpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 
 export const titre = 'Calculer des effectifs et des fréquences'
@@ -38,7 +38,7 @@ export default function calcul_Effectif_Frequence() {
   
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    //let liste_type_de_questions_disponibles= [];
+    //let listeTypeDeQuestions_disponibles= [];
     let lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
     let lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours'];
     let nbAnimaux = 4 + parseInt(this.sup); // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
@@ -77,10 +77,10 @@ export default function calcul_Effectif_Frequence() {
     texte += `). `;
     
     texte += 'Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
-    texte += num_alpha(0) + ` Quel est l'effectif des ` + lstAnimauxExo[0] + ` ?<br>`;
-    texte += num_alpha(1) + ` Calculer la fréquence des ` + lstAnimauxExo[1] + ` ? Donner le résultat sous la forme d'un pourcentage.<br>`;
-    texte += num_alpha(2) + ` Calculer l'effectif des quadripèdes ? <br>`;
-    texte += num_alpha(3) + ` Calculer la fréquence des oiseaux ? Donner le résultat sous la forme d'un pourcentage.<br>`;
+    texte += numAlpha(0) + ` Quel est l'effectif des ` + lstAnimauxExo[0] + ` ?<br>`;
+    texte += numAlpha(1) + ` Calculer la fréquence des ` + lstAnimauxExo[1] + ` ? Donner le résultat sous la forme d'un pourcentage.<br>`;
+    texte += numAlpha(2) + ` Calculer l'effectif des quadripèdes ? <br>`;
+    texte += numAlpha(3) + ` Calculer la fréquence des oiseaux ? Donner le résultat sous la forme d'un pourcentage.<br>`;
 
     texte += `Les pourcentages seront éventuellement arrondis à 0,1% près. <br>`;
 
@@ -109,10 +109,10 @@ export default function calcul_Effectif_Frequence() {
 
 //début de la correction
     //question 1    
-    texteCorr += num_alpha(0) + texte_gras(` D'après le graphique, il y a ` + lstNombresAnimaux[0] + ` ` + lstAnimauxExo[0] + `. <br>`);
+    texteCorr += numAlpha(0) + texte_gras(` D'après le graphique, il y a ` + lstNombresAnimaux[0] + ` ` + lstAnimauxExo[0] + `. <br>`);
     //question 2
     let Ntotal = lstNombresAnimaux[0];
-     texteCorr += num_alpha(1) + ` L'effectif total des animaux est : ` + lstNombresAnimaux[0] ;
+     texteCorr += numAlpha(1) + ` L'effectif total des animaux est : ` + lstNombresAnimaux[0] ;
     for (let i = 1; i < nbAnimaux; i++) {
       texteCorr += ` + ` + lstNombresAnimaux[i];
       Ntotal += lstNombresAnimaux[i];
@@ -132,7 +132,7 @@ export default function calcul_Effectif_Frequence() {
     texteCorr += texte_gras(`La fréquence des ` + lstAnimauxExo[1] + ` est donc : ` + arrondiVirgule(100*lstNombresAnimaux[1]/Ntotal,1) + `%. <br>`);
 
     //question 3
-    texteCorr += num_alpha(2) + ` On fait la somme des effectifs de chaque espèce de quadripèdes : `
+    texteCorr += numAlpha(2) + ` On fait la somme des effectifs de chaque espèce de quadripèdes : `
     let N_totalQuadri = lstNombresAnimaux[0];
      texteCorr += lstNombresAnimaux[0] ;
     for (let i = 1; i < nbQuadri; i++) {
@@ -146,7 +146,7 @@ export default function calcul_Effectif_Frequence() {
 
     //question 4
     let Ntotal_oiseaux = lstNombresAnimaux[3];
-     texteCorr += num_alpha(3) + ` L'effectif total des oiseaux est : ` + lstNombresAnimaux[3] ;
+     texteCorr += numAlpha(3) + ` L'effectif total des oiseaux est : ` + lstNombresAnimaux[3] ;
     for (let i = 4; i < nbAnimaux; i++) {
       texteCorr += ` + ` + lstNombresAnimaux[i];
       Ntotal_oiseaux += lstNombresAnimaux[i];

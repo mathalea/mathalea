@@ -71,7 +71,7 @@ export default function DenombrerCubes() {
     return lstCoordonneesCubes;
     } 
     
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
     let longueur = 2 + parseInt(this.sup2); // longueur de l'empilement
     let largeur = longueur; // largeur de l'empilement
@@ -87,7 +87,7 @@ export default function DenombrerCubes() {
       let L, alpha, beta, cosa, cosb, sina, sinb;
 
       // début de l'exercice
-      switch (liste_type_de_questions[q]) {
+      switch (listeTypeDeQuestions[q]) {
         case 1:
           texte += `Combien de petits cubes contient cet empilement de cubes ? <br>`
           L = empilementCubes(longueur, largeur, hauteur); // crée un empilement aléatoire

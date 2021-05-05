@@ -26,10 +26,10 @@ export default function Determiner_derniere_operation_exp_num() {
 		this.listeCorrections = []; // Liste de questions corrigées
 		type_de_questions_disponibles = [5] //expressions complexes
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats, last_op
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			nb_operations = parseInt(liste_type_de_questions[i])
+			nb_operations = parseInt(listeTypeDeQuestions[i])
 			val1 = randint(2, 5)
 			val2 = randint(6, 9)
 			//resultats=Choisir_expression_litteraleBis(nb_operations,decimal,val1,val2)
@@ -41,7 +41,7 @@ export default function Determiner_derniere_operation_exp_num() {
 			last_op = resultats[4];
 			let str = expc.split('=');
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 5:
 					if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
 					this.consigne = `Déterminer la dernière opération à effectuer .`

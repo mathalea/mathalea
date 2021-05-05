@@ -47,18 +47,18 @@ export default function Additionner_soustraires_decimaux() {
       [1, 2, 3, 4],
       this.nbQuestions
     );
-    let liste_type_de_questions = [];
+    let listeTypeDeQuestions = [];
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
     } else if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
       for (let i = 0; i < this.nbQuestions; i++) {
         if (i + 1 <= this.nbQuestions / 2) {
           // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
-          liste_type_de_questions.push(liste_de_type_d_additions[i]);
+          listeTypeDeQuestions.push(liste_de_type_d_additions[i]);
         } else {
-          liste_type_de_questions.push(liste_de_type_de_soustractions[i]);
+          listeTypeDeQuestions.push(liste_de_type_de_soustractions[i]);
         }
       }
     }
@@ -68,7 +68,7 @@ export default function Additionner_soustraires_decimaux() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: // xxx-xx,x
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);

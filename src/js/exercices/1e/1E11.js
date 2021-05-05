@@ -21,15 +21,15 @@ export default function Resoudre_equation_degre_2() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions;
+    let listeTypeDeQuestions;
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nbQuestions);
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes(['factorisationParx', 'pasDeSolution', 'ax2+c', 'solutionsReelles', 'solutionDouble'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['factorisationParx', 'pasDeSolution', 'ax2+c', 'solutionsReelles', 'solutionDouble'], this.nbQuestions);
     }
     for (let i = 0, texte, texteCorr, a, b, c, x1, x2, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (liste_type_de_questions[i] == "solutionsEntieres") {
+      if (listeTypeDeQuestions[i] == "solutionsEntieres") {
         // k(x-x1)(x-x2)
         x1 = randint(-5, 2, [0]);
         x2 = randint(x1 + 1, 5, [0, -x1]);
@@ -45,7 +45,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`;
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`;
       }
-      if (liste_type_de_questions[i] == "solutionDouble") {
+      if (listeTypeDeQuestions[i] == "solutionDouble") {
         // (dx+e)^2=d^2x^2+2dex+e^2
         let d = randint(-11, 11, [-1, 1, 0]);
         let e = randint(-11, 11, [0, -1, 1]);
@@ -70,7 +70,7 @@ export default function Resoudre_equation_degre_2() {
           texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${texFractionReduite(-b, 2 * a)}\\right\\}$.`;
         }
       }
-      if (liste_type_de_questions[i] == "solutionsReelles") {
+      if (listeTypeDeQuestions[i] == "solutionsReelles") {
         // ax^2+bx+c
         a = randint(-11, 11, 0);
         b = randint(-11, 11, 0);
@@ -88,7 +88,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondiVirgule((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`;
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`;
       }
-      if (liste_type_de_questions[i] == "factorisationParx") {
+      if (listeTypeDeQuestions[i] == "factorisationParx") {
         // x(ax+b)=ax^2+bx
         a = randint(-11, 11, [0, -1, 1]);
         b = randint(-11, 11, 0);
@@ -101,7 +101,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$x=0\\quad$ ou $\\quad x=${texFractionSigne(-b, a)}$`;
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{0 ; ${texFractionReduite(-b, a)}\\right\\}$.`;
       }
-      if (liste_type_de_questions[i] == "ax2+c") {
+      if (listeTypeDeQuestions[i] == "ax2+c") {
         // x(ax+b)=ax^2+bx
         a = randint(-11, 11, 0);
         c = randint(-11, 11, 0);
@@ -126,7 +126,7 @@ export default function Resoudre_equation_degre_2() {
           texteCorr += `<br>$\\mathcal{S}=\\emptyset$`;
         }
       }
-      if (liste_type_de_questions[i] == "pasDeSolution") {
+      if (listeTypeDeQuestions[i] == "pasDeSolution") {
         k = randint(1, 5);
         x1 = randint(-3, 3, [0]);
         y1 = randint(1, 5);

@@ -45,7 +45,7 @@ export default function Multiplier_par_001() {
     else {
       type_de_questions_disponibles=[parseInt(this.sup2)]
     }
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     let rang=['millièmes','centièmes','dixièmes']
     let tabrep,tabicone=[1,0,0,0]
     let espace =``;
@@ -69,7 +69,7 @@ export default function Multiplier_par_001() {
         nombreentier=calcul(randint(10,1000)+randint(10,999)*choice([0,1000]))
         nombre=calcul(nombreentier*10**exposant)
         resultat=calcul(nombre*10**coef)
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
             tabrep=[`$${texNombre2(resultat)}$`,`$${texNombre2(calcul(nombre*10**(-coef)))}$`,`$${texNombre2(calcul(nombre*10**(coef-1)))}$`,`$${texNombre2(calcul(nombre*10**(-coef+1)))}$`]
             tabicone=[1,0,0,0]

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,numAlpha} from '../../modules/outils.js'
 import {point,segment,repere,courbe,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l’aide d’un graphique'
 
@@ -40,8 +40,8 @@ export default function Graphiques_et_proportionnalite2() {
 
     //type_de_questions_disponibles=[1];			
 
-    //let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
@@ -149,18 +149,18 @@ export default function Graphiques_et_proportionnalite2() {
         enonce: `
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br>${situation.fig}
-          <br> ${num_alpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
-          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
-          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
+          <br> ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
           `,
         //question:``,
         correction: `
-        <br> ${num_alpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
+        <br> ${numAlpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
 
-        <br> ${num_alpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${numAlpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
         <br> ${situation.fig_corr}
-        <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        <br> ${numAlpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
         <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
@@ -169,7 +169,7 @@ export default function Graphiques_et_proportionnalite2() {
         <br><br>${texte_en_couleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
         `
       })
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`;
           //texte = `${fig}`;

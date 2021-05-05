@@ -31,13 +31,13 @@ export default function Multiplier_decimaux () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const type_de_questions_disponibles = [1, 2, 3, 4]
-    const liste_type_de_questions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let type_de_questions, reponse
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i]
+      type_de_questions = listeTypeDeQuestions[i]
       switch (type_de_questions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
           a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)

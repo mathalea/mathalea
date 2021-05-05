@@ -30,9 +30,9 @@ export default function Equations_presque_produit_null2() {
         let type_de_questions_disponibles = [1,2,3,4,5];
         
         
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, f1,f2,type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             k = choice([-1, 1]); 
 			a = randint(2, 9);
             a = a * k;

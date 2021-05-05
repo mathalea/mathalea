@@ -25,7 +25,7 @@ export default function Fraction_d_une_quantite() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles
-    let liste_type_de_questions = []
+    let listeTypeDeQuestions = []
     let choixdenh=combinaisonListes([3,4,5,10,12,20,30],this.nbQuestions)
     let choixdent=combinaisonListes([20,24,30],this.nbQuestions)
     let choixdenb=combinaisonListes([4,5,10,12],this.nbQuestions)
@@ -34,12 +34,12 @@ export default function Fraction_d_une_quantite() {
       type_de_questions_disponibles = [parseInt(this.sup)]
     else
       type_de_questions_disponibles = [1, 2, 3, 4]
-    liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     for (
       let i = 0, den, num, choix, longueur, numIrred, denIrred, k, masse, frac,frac2, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           den = choixdenh[i]
           num = randint(1, den-1)

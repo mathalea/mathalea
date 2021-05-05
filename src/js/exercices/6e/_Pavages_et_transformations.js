@@ -1,6 +1,6 @@
 import { translation, mathalea2d, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,imagePointParTransformation,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,imagePointParTransformation,texte_en_couleur_et_gras,numAlpha} from '../../modules/outils.js'
 
 /**
  * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
@@ -149,8 +149,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1]);
 					}
 				}
-				texte = num_alpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ ?<br>`, `green`);
-				texteCorr = num_alpha(0) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ porte le numéro ${num1}.<br>`, `green`);
+				texte = numAlpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ ?<br>`, `green`);
+				texteCorr = numAlpha(0) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à $(d_1)$ porte le numéro ${num1}.<br>`, `green`);
 				// Deuxième question : une figure type D par symétrie d'axe // à [AC] est une figure type B. le symétrique du sommet B est le sommet D
 				indexD = randint(0, nx * ny - 1);
 				numD = tabfigD[indexD][2];
@@ -186,8 +186,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]);
 					}
 				}
-				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, `red`);
-				texteCorr += num_alpha(1) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ porte le numéro ${num2}.<br>`, `red`);
+				texte += numAlpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ ?<br>`, `red`);
+				texteCorr += numAlpha(1) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à $(d_2)$ porte le numéro ${num2}.<br>`, `red`);
 				// troisième question : une figure type D par symétrie d'axe // à [DC] est une figure type A. le symétrique du sommet D est le sommet A'
 				indexC = randint(0, nx * ny - 1);
 				numC = tabfigC[indexC][2];
@@ -221,8 +221,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]);
 					}
 				}
-				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, `blue`);
-				texteCorr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, `blue`);
+				texte += numAlpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, `blue`);
+				texteCorr += numAlpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, `blue`);
 				objets_enonce.push(mediatrice1,mediatrice2,mediatrice3)
 				objets_correction.push(mediatrice1,mediatrice2,mediatrice3,symetrieAnimee(quad[numA],mediatrice1,`id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`),symetrieAnimee(quad[numD],mediatrice2,`id="anim${numeroExercice}B" dur="2s" repeatcount="1"`),symetrieAnimee(quad[numC],mediatrice3,`id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
@@ -293,8 +293,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1]);
 					}
 				}
-				texte += num_alpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?<br>`, `green`);
-				texteCorr = num_alpha(0) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} porte le numéro ${num1}.<br>`, `green`);
+				texte += numAlpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} ?<br>`, `green`);
+				texteCorr = numAlpha(0) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport à ${s0} porte le numéro ${num1}.<br>`, `green`);
 				// Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
 				indexD = randint(0, nx * ny - 1);
 				numD = tabfigD[indexD][2];
@@ -329,8 +329,8 @@ export default function Pavages_et_transformations() {
 					}
 				}
 
-				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?<br>`, `red`);
-				texteCorr += num_alpha(1) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} porte le numéro ${num2}.<br>`, `red`);
+				texte += numAlpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} ?<br>`, `red`);
+				texteCorr += numAlpha(1) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport à ${s1} porte le numéro ${num2}.<br>`, `red`);
 				// troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
 				// le résultat est une figure dans tabfigD et le point (C'+ vecteur AC) a pour image D' !
 				indexC = randint(0, nx * ny - 1);
@@ -364,8 +364,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3]);
 					}
 				}
-				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, `blue`);
-				texteCorr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, `blue`);
+				texte += numAlpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, `blue`);
+				texteCorr += numAlpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, `blue`);
 
 				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
 				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)
@@ -465,8 +465,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1]);
 					}
 				}
-				texte += num_alpha(0) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quelle est le numéro de l'image de la figure ${numA} ?<br>`, `green`);
-				texteCorr = num_alpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, `green`);
+				texte += numAlpha(0) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} quelle est le numéro de l'image de la figure ${numA} ?<br>`, `green`);
+				texteCorr = numAlpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, `green`);
 				// Deuxième question : une figure dans tabfigD, l'image dans tabfigB... 
 				// On choisit une figure C et une figure A pour définir le vecteur de translation.
 				indexD = randint(0, nx * ny - 1);
@@ -505,8 +505,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2]);
 					}
 				}
-				texte += num_alpha(1) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quelle est le numéro de l'image de la figure ${numD} ?<br>`, `red`);
-				texteCorr += num_alpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, `red`);
+				texte += numAlpha(1) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} quelle est le numéro de l'image de la figure ${numD} ?<br>`, `red`);
+				texteCorr += numAlpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, `red`);
 
 
 				// troisième question : une figure dans tabfigC, l'image dans tabfigA... 
@@ -547,8 +547,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3]);
 					}
 				}
-				texte += num_alpha(2) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, `blue`);
-				texteCorr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, `blue`);
+				texte += numAlpha(2) + texte_en_couleur_et_gras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, `blue`);
+				texteCorr += numAlpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, `blue`);
 
 				objets_enonce.push(vecteur1,vecteur2,vecteur3);
 				objets_correction.push(vecteur1,vecteur2,vecteur3
@@ -631,8 +631,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `green`);
-				texteCorr = num_alpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num1}.<br>`, `green`);
+				texte += numAlpha(0) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `green`);
+				texteCorr = numAlpha(0) + texte_en_couleur_et_gras(` La figure image de la figure ${numA} dans la rotation de centre ${s0} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num1}.<br>`, `green`);
 
 				//deuxième question : centre B, rotation 90° sens horaire, une figure de tabfigD donne une figure de tabfigC
 				indexD = randint(0, nx * ny - 1);
@@ -664,8 +664,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, `red`);
-				texteCorr += num_alpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num2}.<br>`, `red`);
+				texte += numAlpha(1) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre ?<br>`, `red`);
+				texteCorr += numAlpha(1) + texte_en_couleur_et_gras(` La figure image de la figure ${numD} dans la rotation de centre ${s1} et d'angle 90° dans le sens inverse des aiguilles d'une montre porte le numéro ${num2}.<br>`, `red`);
 
 				//troisième question : centre B, rotation 90° sens anti-horaire, une figure de tabfigC donne une figure de tabfigD
 				indexC = randint(0, nx * ny - 1);
@@ -697,8 +697,8 @@ export default function Pavages_et_transformations() {
 						punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]); // le repère est direct, donc le sens de rotation est inversé...
 					}
 				}
-				texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `blue`);
-				texteCorr += num_alpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, `blue`);
+				texte += numAlpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, `blue`);
+				texteCorr += numAlpha(2) + texte_en_couleur_et_gras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, `blue`);
 
 				objets_enonce.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3));
 				objets_correction.push(tracePoint(centre1),tracePoint(centre2),tracePoint(centre3),labelPoint(centre1),labelPoint(centre2),labelPoint(centre3)

@@ -39,7 +39,7 @@ export default function Exercice_multiplier_fractions() {
       type_de_questions_disponibles = [3];
     }
     let nombre_de_signe_moins;
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -67,7 +67,7 @@ export default function Exercice_multiplier_fractions() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       ab = choice(liste_fractions);
       cd = choice(liste_fractions);
       a = ab[0];

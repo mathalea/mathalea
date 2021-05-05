@@ -108,7 +108,7 @@ export default function Exercice_zero_mathalea() {
       this.listeQuestions = [] // tableau contenant la liste des questions 
       this.listeCorrections = []
       let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+      let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
       // On choisit un entier pour l'étude de la suite de Syracuse correspondante
       // On contraint le temps de vol entre 5 et 25
       // On contraint l'altitude maximale en dessous de 100
@@ -247,7 +247,7 @@ export default function Exercice_zero_mathalea() {
           },
         };
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1: //étude du cas N = 1
             texte = `On choisit le nombre entier 1. Quels sont tous les entiers déterminés par cet algorithme ?`
             texteCorr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texte_gras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            

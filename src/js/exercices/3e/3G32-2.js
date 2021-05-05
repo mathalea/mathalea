@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { listeQuestionsToContenu, combinaisonListes, randint, num_alpha,arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, numAlpha,arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from '../../modules/3d.js'
 export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'

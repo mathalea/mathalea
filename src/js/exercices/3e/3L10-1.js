@@ -21,7 +21,7 @@ export default function Parentheses_precedes_de_moins_ou_plus() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = ["a-()", "a+()"];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -29,7 +29,7 @@ export default function Parentheses_precedes_de_moins_ou_plus() {
       k = randint(-11, 11, 0);
       a = randint(-9, 9, 0);
       b = randint(-9, 9, 0);
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "a-()":
           // k-(ax+b)
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(

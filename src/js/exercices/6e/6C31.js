@@ -39,7 +39,7 @@ export default function Division_decimale () {
     this.sup == 1
       ? (type_de_questions_disponibles = [choice([1, 2, 3]), 4, 5, 6])
       : (type_de_questions_disponibles = [7, 8, 9])
-    const liste_type_de_questions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -49,7 +49,7 @@ export default function Division_decimale () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i]
+      type_de_questions = listeTypeDeQuestions[i]
       switch (type_de_questions) {
         case 1: // entier divisé par 4 quotient : xx,25 ou xx,75
           b = 4

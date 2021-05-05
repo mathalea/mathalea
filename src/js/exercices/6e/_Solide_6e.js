@@ -23,7 +23,7 @@ export default function Solide_6e() {
     if (this.type == "vocabulaire")
       for (let n = 0; n < type_de_questions_disponibles.length; n++)
         type_de_questions_disponibles[n] += 2
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -55,7 +55,7 @@ export default function Solide_6e() {
       else coeffpersp = 0.4
       objets_correction = []
       objets_enonce = []
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `${nom} est un cube.<br>`
           if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
@@ -118,7 +118,7 @@ export default function Solide_6e() {
           break;
       }
 
-      switch (liste_type_de_questions[i] % 2) {
+      switch (listeTypeDeQuestions[i] % 2) {
         case 1:
           A = point(6, 0, nom[0], "left");
           B = point(11, 0, nom[1], "right");
@@ -256,7 +256,7 @@ export default function Solide_6e() {
       }
 
       enonce += mathalea2d(params, objets_enonce);
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         codesseg = [codeSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codeSegments('||', 'green', B, F, C, G, D, H)]
         AB.color = 'green'
         BC.color = 'green'
@@ -292,7 +292,7 @@ export default function Solide_6e() {
         carreaux
       );
 
-      if (liste_type_de_questions[i] < 3) correction += mathalea2d(params, objets_correction, codesseg);
+      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objets_correction, codesseg);
 
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

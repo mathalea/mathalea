@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { texNombrec, choice, texte_gras, listeQuestionsToContenu, randint, arrondi, calcul, choisit_lettres_differentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
+import { texNombrec, choice, texte_gras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
 import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 
@@ -32,7 +32,7 @@ export default function Constructions_parallelogrammes_particuliers() {
             return lettre + chiffre;
         };
         // On prépare la figure...
-        let noms = choisit_lettres_differentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
+        let noms = choisitLettresDifferentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
         let nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
         let A, B, C, D, O, p, d1, d2, c1, c2, c3, c4, dd1, dd2, dd3, dd4, alpha, tri, t1, t2, t3, t4,t5
         let objets_enonce = [], objets_correction = [], result2, result1, cible1, cible2, cible3, cellule1, cellule2, cellule3, result3

@@ -38,14 +38,14 @@ export default function Sens_de_la_fraction() {
     this.listeQuestions = [] 
     this.listeCorrections = []
     let type_de_questions_disponibles=[1,2,3,4]
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   
       for (let i = 0, texte, texteCorr, a,b,f,cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
         texte = `` 
         texteCorr = `` 
         
-        switch (liste_type_de_questions[i]) { 
+        switch (listeTypeDeQuestions[i]) { 
           case 1:
             a=randint(10,25)
             b=randint(10,25,a)

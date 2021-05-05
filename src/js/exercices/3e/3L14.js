@@ -27,15 +27,15 @@ export default function Resoudre_une_equation_produit_nul() {
 		let liste_fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
 		[1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
 		[1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]];
-		let liste_type_de_questions = [];
+		let listeTypeDeQuestions = [];
 		switch (parseInt(this.sup)) {
-			case 1: liste_type_de_questions = combinaisonListes([1, 2], this.nbQuestions);
+			case 1: listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions);
 				break;
-			case 2: liste_type_de_questions = combinaisonListes([3, 4], this.nbQuestions);
+			case 2: listeTypeDeQuestions = combinaisonListes([3, 4], this.nbQuestions);
 				break;
-			case 3: liste_type_de_questions = combinaisonListes([5, 6], this.nbQuestions);
+			case 3: listeTypeDeQuestions = combinaisonListes([5, 6], this.nbQuestions);
 				break;
-			case 4: liste_type_de_questions = combinaisonListes([1, 2, 3, 4, 5, 6], this.nbQuestions);
+			case 4: listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6], this.nbQuestions);
 
 		}
 		for (let i = 0, a, b, c, d, fraction1, fraction2, ns1, ns2, ds1, ds2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -45,7 +45,7 @@ export default function Resoudre_une_equation_produit_nul() {
 			fraction2 = choice(liste_fractions);
 			ns2 = fraction2[0];
 			ds2 = fraction2[1];
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: b = randint(1, 20); // (x+a)(x+b)=0 avec a et b entiers
 					d = randint(1, 20, [b]);
 					texte = `$(x+${b})(x+${d})=0$`;

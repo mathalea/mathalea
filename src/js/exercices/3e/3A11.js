@@ -58,7 +58,7 @@ export default function Premier_ou_pas() {
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + crible_eratosthene_n(100)[0];
 		for (let k = 1; k < crible_eratosthene_n(100).length; k++) {
@@ -70,7 +70,7 @@ export default function Premier_ou_pas() {
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 			var N; // le nombre de la question
 			let r;

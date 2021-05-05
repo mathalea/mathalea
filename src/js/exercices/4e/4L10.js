@@ -48,9 +48,9 @@ export default function Exercice_developper(difficulte = 1) {
       type_de_questions_disponibles = ["simple"]
     }
     let type_de_questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       let k = randint(2, 11);
       if (this.sup > 2) {
         // si difficulté 2, k peut être négatif

@@ -27,7 +27,7 @@ export default function Decomposition_nombre_decimal() {
       choice([9, 10]),
       choice([11, 12]),
     ]; // sans chevauchement ou avec chevauchement
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -55,7 +55,7 @@ export default function Decomposition_nombre_decimal() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = "La partie entière de ce nombre est : ";
           texteCorr =

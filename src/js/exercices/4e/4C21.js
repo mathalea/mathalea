@@ -39,11 +39,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 		if (this.sup == 2) {
 			type_de_questions_disponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
 		}
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_plus_ou_moins = combinaisonListes(['-', '-', '+', '+'], this.nbQuestions);
 		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, type_de_questions; i < this.nbQuestions; i++) {
 			let plus_ou_moins = liste_de_plus_ou_moins[i];
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 			switch (type_de_questions) {
 				case 'ppcm':
 					let liste_couples_de_denominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75],];

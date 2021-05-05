@@ -37,8 +37,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 		let texte = ``, texteCorr = ``, lettre1 = [`A`, `B`, `C`], lettre2 = [`O\'`, `A`, `B`]; // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
 		let punto = [[]];
 		let transformation = parseInt(this.sup) - 1;
-		let liste_type_de_questions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]];
-		let choix_transformation = combinaisonListes(liste_type_de_questions[transformation], 3);
+		let listeTypeDeQuestions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]];
+		let choix_transformation = combinaisonListes(listeTypeDeQuestions[transformation], 3);
 		for (let j = 0; j < 3; j++)
 			if (choix_transformation[j] == 10)
 				k[j] = choice([2, 2, 2, 2, 4, 4, 4, 4, 5, 10]) * randint(-1, 1, [0]); // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.

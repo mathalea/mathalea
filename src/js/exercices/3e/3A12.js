@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,num_alpha,premiers_entre_bornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiers_entre_bornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
 export const titre = 'Fractions irréductibles'
 
 /**
@@ -38,12 +38,12 @@ export default function Fractions_irreductibles() {
 
 		//let type_de_questions_disponibles = [1,2,3,4];
 		let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		this.introduction = warn_message(`À la question ` + num_alpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
+		this.introduction = warn_message(`À la question ` + numAlpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 			var nb_div_prem_communs; // nombre de diviseurs premiers communs
 			var candidats_premiers_communs; // tableau des candidats premiers communs
@@ -174,8 +174,8 @@ export default function Fractions_irreductibles() {
 
 			switch (type_de_questions) {
 				case 1: // décomposition de A
-					texte = num_alpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `;
-					texteCorr = num_alpha(0) + ` La décomposition en produit de facteurs premier de $A = `;
+					texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `;
+					texteCorr = numAlpha(0) + ` La décomposition en produit de facteurs premier de $A = `;
 					switch (tab_prem_mult_nb1[0].mult) {
 						case 1:
 							texteCorr += `${tab_prem_mult_nb1[0].prem}`;
@@ -197,8 +197,8 @@ export default function Fractions_irreductibles() {
 					texteCorr += `$.`;
 					//	break;		
 					//case 2 : // décomposition de B 	
-					texte += `<br>` + num_alpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers : `;
-					texteCorr += `<br>` + num_alpha(1) + ` La décomposition en produit de facteurs premier de $B = `;
+					texte += `<br>` + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers : `;
+					texteCorr += `<br>` + numAlpha(1) + ` La décomposition en produit de facteurs premier de $B = `;
 					switch (tab_prem_mult_nb2[0].mult) {
 						case 1:
 							texteCorr += `${tab_prem_mult_nb2[0].prem}`;
@@ -220,13 +220,13 @@ export default function Fractions_irreductibles() {
 					texteCorr += `$.`;
 					//	break;	
 					//case 3 : // reduction de A sur B 			
-					texte += `<br>` + num_alpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `;
+					texte += `<br>` + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `;
 					if (sortieHtml) {
-						texte += ` à l'aide des décompositions obtenues au ` + num_alpha(0) + ` et au ` + num_alpha(1);
+						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
-						texte += ` à l'aide des questions ` + num_alpha(0) + ` et ` + num_alpha(1);
+						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);
 					};
-					texteCorr += `<br>` + num_alpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `;
+					texteCorr += `<br>` + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `;
 					texteCorr += `\\dfrac{`;
 					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
 					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
@@ -241,13 +241,13 @@ export default function Fractions_irreductibles() {
 					texteCorr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$.`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
-					texte += `<br>` + num_alpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`;
+					texte += `<br>` + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`;
 					if (sortieHtml) {
-						texte += ` à l'aide des décompositions obtenues au ` + num_alpha(0) + ` et au ` + num_alpha(1);
+						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
-						texte += ` à l'aide des questions ` + num_alpha(0) + ` et ` + num_alpha(1);
+						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);
 					};
-					texteCorr += `<br>` + num_alpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `;
+					texteCorr += `<br>` + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `;
 					texteCorr += `\\dfrac{`;
 					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
 					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
@@ -262,10 +262,10 @@ export default function Fractions_irreductibles() {
 					texteCorr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$.`;
 					//	break;	
 					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
-					// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
+					// texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
 					// texte += `<br>Donner le résultat sous forme de fraction irréductible.`
-					//texte += `<br>`+num_alpha(4)+` Remarque ?`
-					//texteCorr += `<br>`+num_alpha(4)+' corr type 5';
+					//texte += `<br>`+numAlpha(4)+` Remarque ?`
+					//texteCorr += `<br>`+numAlpha(4)+' corr type 5';
 					break;
 			};
 

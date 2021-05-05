@@ -21,7 +21,7 @@ export default function Somme_de_deux_nombres_maries_et_un_entier() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [1, 2];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -36,7 +36,7 @@ export default function Somme_de_deux_nombres_maries_et_un_entier() {
       b = randint(1, 4) * 10 + u2;
       c = randint(1, 100 - a - b);
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `$${a}+${b}+${c}$`;
           texteCorr = `$${a}+${b}+${c}=${a + b + c}$`;

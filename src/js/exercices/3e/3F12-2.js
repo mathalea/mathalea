@@ -44,7 +44,7 @@ export default function Image_fonction_algebrique() {
 		if (this.sup == 5) {
 			type_de_questions_disponibles = ['ax+b', 'ax-b', '-ax+b', 'ax2+bx+c', '-ax2+bx-c', '-ax2-bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2'];
 		}
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_signes_de_x = combinaisonListes([true, false], this.nbQuestions);
 		for (let i = 0, texte, texteCorr, a, b, c, d, expression, nomdef, x, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			x = randint(1, 12);
@@ -55,7 +55,7 @@ export default function Image_fonction_algebrique() {
 			b = randint(2, 11);
 			c = randint(2, 11);
 			nomdef = lettre_minuscule_depuis_chiffre(6 + i) // on commence par f puis on continue dans l'ordre alphabétique
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 'ax+b':
 					expression = `${a}x+${b}`
 					texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}+${b}=${a * x}+${b}=${a * x + b}$`

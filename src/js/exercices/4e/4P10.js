@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produits_en_croix,quatrieme_proportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katex_Popup2,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produits_en_croix,quatrieme_proportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katex_Popup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -191,7 +191,7 @@ export default function Problemes_grandeurs_composees() {
             // les boutons d'aide uniquement pour la version html
           }
           texte +=
-            num_alpha(0) +
+            numAlpha(0) +
             ` Exprimer en kWh l' ` +
             katex_Popup2(
               numeroExercice + i + 1,
@@ -201,9 +201,9 @@ export default function Problemes_grandeurs_composees() {
               `C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`
             ) +
             ` consommée.<br>`;
-          texte += num_alpha(1) + ` Calculer la dépense correspondante.`;
+          texte += numAlpha(1) + ` Calculer la dépense correspondante.`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(
               duree
             )} heures `;
@@ -226,7 +226,7 @@ export default function Problemes_grandeurs_composees() {
             calcul(puissance * duree * 0.001)
           )}\\text{ kWh}.$<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Le prix de cette énergie consommée est : $${texNombre(
               prixkwh
             )}$ €$\\text{ /kWh} \\times${texNombre(
@@ -261,7 +261,7 @@ export default function Problemes_grandeurs_composees() {
               texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`;
               texte += `D\'une extrémité à l\'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`;
               texte +=
-                num_alpha(0) +
+                numAlpha(0) +
                 ` Calculer le ` +
                 katex_Popup2(
                   numeroExercice + i * 3,
@@ -278,10 +278,10 @@ export default function Problemes_grandeurs_composees() {
                   3
                 )} contenu dans cette piscine quand elle est pleine.<br>`;
               texte +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltat} degrés ?<br>`;
               texteCorr =
-                num_alpha(0) +
+                numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`;
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`;
               texteCorr += ` $=\\dfrac{\\left(${arrondiVirgule(
@@ -306,7 +306,7 @@ export default function Problemes_grandeurs_composees() {
                 ((h1 + h2) / 200) * L * l
               )}$m${exposant(3)}.<br>`;
               texteCorr +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Convertissons le volume de la piscine en litres : $${arrondiVirgule(
                   ((h1 + h2) / 200) * L * l
                 )}\\text{ m}^3=${texNombre(
@@ -329,7 +329,7 @@ export default function Problemes_grandeurs_composees() {
               let h = randint(0, 10) + r * 4;
               texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`;
               texte +=
-                num_alpha(0) +
+                numAlpha(0) +
                 ` Calculer le ` +
                 katex_Popup2(
                   numeroExercice + i * 3,
@@ -340,7 +340,7 @@ export default function Problemes_grandeurs_composees() {
                 ) +
                 ` en dm${exposant(3)} à 0,1 près de ce tonneau.<br>`;
               texte +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
                 katex_Popup2(
                   numeroExercice + i * 3,
@@ -352,7 +352,7 @@ export default function Problemes_grandeurs_composees() {
                 ` est de ${texNombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`;
               texteCorr =
-                num_alpha(0) +
+                numAlpha(0) +
                 ` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`;
               texteCorr += `$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${r * r * h
                 }\\pi\\text{ cm}^3\\approx${texNombre(
@@ -361,7 +361,7 @@ export default function Problemes_grandeurs_composees() {
                   arrondi((r * r * h * Math.PI) / 1000, 1)
                 )}\\text{ dm}^3$<br>`;
               texteCorr +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` La masse ${liquides[index2][0]} contenue dans ce tonneau est :<br>`;
               texteCorr += `$${texNombre(
                 arrondi((r * r * h * Math.PI) / 1000, 1)
@@ -390,7 +390,7 @@ export default function Problemes_grandeurs_composees() {
             ` de ${texNombrec(vitesse_moy)} m/s.<br>`;
           texte += `Elle pèse ${masse} kg.<br>`;
           texte +=
-            num_alpha(0) +
+            numAlpha(0) +
             ` Calculer sa ` +
             katex_Popup2(
               numeroExercice + i * 3 + 1,
@@ -401,7 +401,7 @@ export default function Problemes_grandeurs_composees() {
             ) +
             ` en $\\text{kg.m.s}^{-1}$.<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` En déduire son ` +
             katex_Popup2(
               numeroExercice + i * 3 + 2,
@@ -412,12 +412,12 @@ export default function Problemes_grandeurs_composees() {
             ) +
             ` en Joules.`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesse_moy}\\text{ m/s}=${texNombrec(
               masse * vitesse_moy
             )}\\text{ kg.m.s}^{-1}$<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${texNombrec(
               (masse * vitesse_moy ** 2) / 2
             )}\\text{ J}$`;
@@ -440,7 +440,7 @@ export default function Problemes_grandeurs_composees() {
               distance
             )} m du pivot central de la balançoire (bras de levier).<br>`;
           texte +=
-            num_alpha(0) +
+            numAlpha(0) +
             ` Calculer le ` +
             katex_Popup2(
               numeroExercice + i * 3 + 1,
@@ -459,10 +459,10 @@ export default function Problemes_grandeurs_composees() {
             ) +
             ` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`;
           index1 = arrondi(masse * 9.81 * distance); //pour éviter d'avoir trop de variable, je recycle
           texteCorr += `$${masse}\\text{ kg} \\times 9,81 \\text{m.s}^{-2} \\times ${texNombre(
@@ -473,7 +473,7 @@ export default function Problemes_grandeurs_composees() {
             index1
           )}\\text{ J}$<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le moment de son poids sur son point d'assise par rapport au pivot central du trébuchet soit égal à celui de ${quidam}, on obtient l'équation suivante où $${miseEnEvidence(
               `d`,
               `black`
@@ -498,7 +498,7 @@ export default function Problemes_grandeurs_composees() {
           let n1 = k * d2;
           let n2 = k * d1;
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le ` +
             katex_Popup2(
               numeroExercice + i * 3,
@@ -509,15 +509,15 @@ export default function Problemes_grandeurs_composees() {
             ) +
             ` moyen de voyageurs en voyageurs.km.<br> `;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Un autre bus de ville transporte en moyenne ${n2} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d2} km.<br> Montrer que le trafic de voyageur est le même qu'à la question ` +
-            num_alpha(0);
+            numAlpha(0);
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1 * d1
             }\\text{voyageurs.km}$.<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2 * d2
             }\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`;
           break;
@@ -526,7 +526,7 @@ export default function Problemes_grandeurs_composees() {
           index1 = randint(0, 3, [index]);
           let I1 = arrondi(appareils[index][1] / 230, 0) + 1;
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la ` +
             katex_Popup2(
               numeroExercice + i * 3 + 1,
@@ -537,16 +537,16 @@ export default function Problemes_grandeurs_composees() {
             ) +
             ` maximale de cet appareil si il fonctionne sur le secteur ?<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`;
           texteCorr += `$230\\text{ V}\\times${I1}\\text{ A}=${230 * I1
             }\\text{ W}$<br>`;
           let I2 = Math.floor(appareils[index1][1] / 230) + 1;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Pour fonctionner à la puissance maximum, cet appareil a besoin d'un courant d'une intensité de :<br>`;
           texteCorr += `$\\dfrac{${appareils[index1][1]
             }\\text{ W}}{230 \\text{ V}} \\approx ${texNombrec(
@@ -577,15 +577,15 @@ export default function Problemes_grandeurs_composees() {
                 ) +
                 ` de ${texNombrec(vitesse_moy)} m/s.<br>`;
               texte +=
-                num_alpha(0) +
+                numAlpha(0) +
                 ` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`;
               texte +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Si ${quidam} veut parcourir ${nombre_avec_espace(
                   distance
                 )} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`;
               texteCorr =
-                num_alpha(0) +
+                numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
                 } en ${duree} h à la vitesse de ${texNombrec(
                   vitesse_moy
@@ -603,7 +603,7 @@ export default function Problemes_grandeurs_composees() {
                 vitesse_moy * 3.6 * duree
               )}\\text{ km}$<br>`;
               texteCorr +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Pour parcourir ${nombre_avec_espace(
                   distance
                 )} km à cette vitesse, ${quidam} mettra :<br>`;
@@ -669,15 +669,15 @@ export default function Problemes_grandeurs_composees() {
                 ) +
                 ` de 340 m/s.<br>`;
               texte +=
-                num_alpha(0) +
+                numAlpha(0) +
                 ` ${quidam} voit un éclair dans le ciel et compte dans sa tête ${duree} secondes avant d'entendre le tonnerre.<br>`;
               texte += `Quelle est la distance à laquelle l'éclair est tombé ?<br>`;
               texte +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` L'éclair suivant tombe sur le paratonnerre situé sur le clocher de l'église du village voisin.<br>`;
               texte += `${quidam} sait que le clocher est situé à ${distance} m de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`;
               texteCorr =
-                num_alpha(0) +
+                numAlpha(0) +
                 ` Calculons la distance à laquelle le premier éclair est tombé en utilisant la vitesse du son (on considère que la vitesse de la lumière est telle que l'éclair est visible instantanément) :<br>`;
               texteCorr += `$340\\text{ m/s}=\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${miseEnEvidence(
                 duree
@@ -690,7 +690,7 @@ export default function Problemes_grandeurs_composees() {
                 duree * 340
               )} m.<br>`;
               texteCorr +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` Avec les données de l'énoncé nous pouvons écrire :<br>`;
               texteCorr += `$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${texNombre(
                 distance
@@ -744,10 +744,10 @@ export default function Problemes_grandeurs_composees() {
                   `\\text{ s}`;
               texte += "\\\\\\hline\\end{array}$<br>";
               texte +=
-                num_alpha(0) +
+                numAlpha(0) +
                 ` Calculer la durée totale de la course de ${quidam}.<br>`;
               texte +=
-                num_alpha(1) +
+                numAlpha(1) +
                 ` En déduire sa	` +
                 katex_Popup2(
                   numeroExercice + i+1,
@@ -758,10 +758,10 @@ export default function Problemes_grandeurs_composees() {
                 ) +
                 ` moyenne en km/h sur le trajet total.<br>`;
               texte +=
-                num_alpha(2) +
+                numAlpha(2) +
                 ` ${quidam} s'entraîne pour un semi-marathon (21,0975 km). En courant à la même vitesse, combien de temps durerait son semi-marathon ?`;
               texteCorr =
-                num_alpha(0) +
+                numAlpha(0) +
                 ` La durée totale de la course de ${quidam} est :<br>`;
               allures.push([0, 0]);
               duree = 0;
@@ -790,7 +790,7 @@ export default function Problemes_grandeurs_composees() {
                 texteCorr += `${allures[distance][1]} s.`;
               texteCorr +=
                 `<br>` +
-                num_alpha(1) +
+                numAlpha(1) +
                 ` ${quidam} a effectué ${distance} km en `;
               if (duree != 0) texteCorr += `${duree} h `;
               if (allures[distance][0] != 0)
@@ -832,7 +832,7 @@ export default function Problemes_grandeurs_composees() {
               vitesse_moy = arrondi((distance * 3600) / duree);
               texteCorr += `\\approx${texNombrec(vitesse_moy)}$ km/h<br>`;
               texteCorr +=
-                num_alpha(2) +
+                numAlpha(2) +
                 ` Si elle court 21,0975 km à cette vitesse de ${texNombre(
                   vitesse_moy
                 )} km/h, ${quidam} mettra :<br>`;
@@ -870,29 +870,29 @@ export default function Problemes_grandeurs_composees() {
           texte += `Enfin, elle achète ${texNombre(masse3)} kg de ${fruits[index][0]
             } pour ${tex_prix(prix3)} €.<br>`;
           texte +=
-            num_alpha(0) +
+            numAlpha(0) +
             ` Combien lui coûtent les ${fruits[index1][0]} ?<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Quelle masse de ${fruits[index2][0]} a-t-elle achetée ?<br>`;
           texte +=
-            num_alpha(2) +
+            numAlpha(2) +
             ` Quel est le prix au kilogramme des ${fruits[index][0]} ?`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` ${quidam} dépense pour les ${fruits[index1][0]} : $${texNombre(
               masse
             )}\\text{ kg} \\times ${tex_prix(
               fruits[index1][1]
             )}$ €$\\text{/kg} = ${tex_prix(prix1)}$ €.<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` La masse de ${fruits[index2][0]
             } qu'elle a achetée est : $${tex_prix(prix2)} $ €$ \\div ${tex_prix(
               fruits[index2][1]
             )}$ €$\\text{/kg} = ${texNombre(masse2)}\\text{ kg}$.<br>`;
           texteCorr +=
-            num_alpha(2) +
+            numAlpha(2) +
             ` Enfin, ${quidam} a acheté des ${fruits[index][0]
             } au prix unitaire de : $${tex_prix(prix3)}$ € $\\div ${texNombre(
               masse3
@@ -909,9 +909,9 @@ export default function Problemes_grandeurs_composees() {
             } pendant ${texNombre(
               nbheures
             )} heures. L'heure de location coûte ${tex_prix(prix1)} €.<br>`;
-          texte += num_alpha(0) + ` Combien cette location va lui coûter ?<br>`;
+          texte += numAlpha(0) + ` Combien cette location va lui coûter ?<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
             }. En tout ce mois-ci elle a eu ${texNombrec(
               prix2 / cours[index2][1]
@@ -919,14 +919,14 @@ export default function Problemes_grandeurs_composees() {
               prix2
             )} €. Combien demande son professeur pour une heure de cours ?<br>`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` ${quidam} va dépenser pour sa location : $${texNombre(
               nbheures
             )}\\text{ h} \\times ${tex_prix(prix1)}$ €$\\text{/h} = ${tex_prix(
               nbheures * prix1
             )}$ €.<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(
               prix2
             )}$ € $ \\div ${texNombre(
@@ -937,14 +937,14 @@ export default function Problemes_grandeurs_composees() {
           index1 = randint(0, 14);
           index2 = randint(0, 14, [index1]);
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` En 2016, à ${villes[index1][0]} il y avait $${texNombre(
               villes[index1][1]
             )}$ habitants pour une superficie de $${texNombrec(
               villes[index1][2] * 100
             )}$ ha.<br> Calculer la densité de population en hab/km$^2$.<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` La même année, la ` +
             katex_Popup2(
               numeroExercice + i * 3 + 1,
@@ -960,7 +960,7 @@ export default function Problemes_grandeurs_composees() {
             )}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${texNombre(
               villes[index1][1]
@@ -974,7 +974,7 @@ export default function Problemes_grandeurs_composees() {
               villes[index1][1] / villes[index1][2]
             )}\\text{ hab/km}^{2}$.<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` A cette date, le nombre d'habitants de ${villes[index2][0]
             } était de :<br> $${texNombrec(
               villes[index2][1] / villes[index2][2]
@@ -994,7 +994,7 @@ export default function Problemes_grandeurs_composees() {
           masse = arrondi((materiaux[index1][1] * V1) / 1000000);
           let V2 = arrondi(masse2 / materiaux[index2][1], 7);
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` La ` +
             katex_Popup2(
               numeroExercice + i * 3 + 1,
@@ -1010,12 +1010,12 @@ export default function Problemes_grandeurs_composees() {
             V1
           )}\\text{ cm}^3$ ?<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de `;
           texte += `$${texNombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]
             } est de $${texNombre(materiaux[index2][1])}\\text{ kg/m}^3$)<br>`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` La masse de cette pièce de ${materiaux[index1][0]
             } est de :<br>$${texNombre(
               materiaux[index1][1]
@@ -1027,7 +1027,7 @@ export default function Problemes_grandeurs_composees() {
               V1 / 1000000
             )}\\text{ m}^3=${texNombre(masse)}\\text{ kg}$.<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Le volume de cette pièce de ${materiaux[index2][0]
             } est de :<br>$${texNombre(masse2)}\\text{ kg}\\div ${texNombre(
               materiaux[index2][1]
@@ -1054,12 +1054,12 @@ export default function Problemes_grandeurs_composees() {
           else concentration2 = randint(2, solutes[index2][2]);
 
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` On a dissout $${texNombre(masse)}\\text{ g}$ de ${solutes[index1][0]
             } dans $${texNombre(Volume1)}\\text{ litres}$ ${solutes[index1][1]
             }.<br>Calculer la concentration massique de cette solution.<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` On dispose de $${texNombre(
               Volume2
             )}$ litres de solution aqueuse de ${solutes[index2][0]
@@ -1068,7 +1068,7 @@ export default function Problemes_grandeurs_composees() {
             )}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]
             } a été dissoute dans l'eau ?`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`;
           texteCorr += ` $\\dfrac{${texNombre(masse)}\\text{ g}}{${texNombre(
             Volume1
@@ -1076,7 +1076,7 @@ export default function Problemes_grandeurs_composees() {
             arrondi(masse / Volume1)
           )}\\text{ g/L}$<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` La masse de ${solutes[index2][0]} dissoute est de :<br>`;
           texteCorr += `$${texNombre(Volume2)}\\text{ L}\\times ${texNombre(
             concentration2
@@ -1102,12 +1102,12 @@ export default function Problemes_grandeurs_composees() {
             } mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]
             } m${exposant(3)}/s.<br>`;
           texte +=
-            num_alpha(0) +
+            numAlpha(0) +
             ` Calculer le volume d'eau en m${exposant(
               3
             )} écoulé en ${duree} heures à ce débit.<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
             }${rivieres[index2][0]} a débité ${nombre_avec_espace(
               vmax
@@ -1115,7 +1115,7 @@ export default function Problemes_grandeurs_composees() {
               3
             )} en une heure. Quel a été alors le débit en m³/s ?`;
           texteCorr =
-            num_alpha(0) +
+            numAlpha(0) +
             ` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`;
           texteCorr += `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]
             }\\text{ m}^3\\text{/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]
@@ -1123,7 +1123,7 @@ export default function Problemes_grandeurs_composees() {
               duree * 3600 * rivieres[index2][2]
             )}\\text{ m}^3$<br>`;
           texteCorr +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` En ${rivieres[index2][4]} lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`;
           texteCorr += `Débit =$${texNombre(
             vmax
@@ -1146,7 +1146,7 @@ export default function Problemes_grandeurs_composees() {
           nbsecondes = randint(2, 59);
           masse = arrondi(randint(15, 35) / 10);
           texte =
-            num_alpha(0) +
+            numAlpha(0) +
             ` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa ` +
             katex_Popup2(
               numeroExercice + i,
@@ -1158,13 +1158,13 @@ export default function Problemes_grandeurs_composees() {
             ` est de ${vitesse_moy} ${unites[index]}/s.<br>`;
           texte += `Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`;
           texte +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` ${quidam} veut télécharger un fichier de ${texNombre(
               masse
             )} Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesse_moy} ${unites[index]
             }/s ?<br>`;
           texteCorr =
-            num_alpha(0) + ` La taille du fichier téléchargé est :<br>`;
+            numAlpha(0) + ` La taille du fichier téléchargé est :<br>`;
           let taille_fichier = (nbminutes * 60 + nbsecondes) * vitesse_moy;
           texteCorr += `$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesse_moy} \\text{ ${unites[index]
             }/s} = ${nbminutes * 60 + nbsecondes
@@ -1174,7 +1174,7 @@ export default function Problemes_grandeurs_composees() {
             texteCorr += `$ =${texNombrec(taille_fichier / 1000)} \\text{ ${unites[index + 1]
               }}.$<br>`;
           texteCorr +=
-            num_alpha(1) + ` La durée du téléchargement sera de :<br>`;
+            numAlpha(1) + ` La durée du téléchargement sera de :<br>`;
           if (index == 0) {
             texteCorr += `$${masse}\\times ${texNombrec(
               10 ** 6

@@ -24,13 +24,13 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = range1(5);
-    let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, choix; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 9);
       b = randint(2, 9, a)
       c = randint(2, 9, [a, b])
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //3 unités, 5 dixièmes et 8 centièmes   
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`;
           texteCorr = `$${a}+${tex_fraction(b, 10)}+${tex_fraction(c, 100)}=${texNombrec(a + b / 10 + c / 100)}$`

@@ -41,7 +41,7 @@ export default function Evolutions_en_pourcentage() {
 			type_de_questions_disponibles = ['finale', 'evolution', 'initiale'];
 		}
 		let type_de_situations_disponibles = ['prix', 'etablissement', 'facture', 'population'];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_situations = combinaisonListes(type_de_situations_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -52,7 +52,7 @@ export default function Evolutions_en_pourcentage() {
 					taux *= choice([-1, 1]);
 					coeff = texNombrec(1 + taux / 100);
 					arrive = calcul(depart * (1 + taux / 100));
-					switch (liste_type_de_questions[i]) {
+					switch (listeTypeDeQuestions[i]) {
 						case 'finale':
 							if (taux > 0) {
 								texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`;
@@ -117,7 +117,7 @@ export default function Evolutions_en_pourcentage() {
 					let cetteAnnee = date.getFullYear();
 					let anneeDerniere = cetteAnnee - 1;
 					let etablissement = choice(['collège', 'lycée']);
-					switch (liste_type_de_questions[i]) {
+					switch (listeTypeDeQuestions[i]) {
 						case 'finale':
 							if (taux > 0) {
 								texte = `Un ${etablissement} avait $${texNombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`;
@@ -164,7 +164,7 @@ export default function Evolutions_en_pourcentage() {
 					coeff = texNombrec(1 + taux / 100);
 					arrive = calcul(depart * (1 + taux / 100));
 					let facture = choice(["ma facture annuelle d'électricité", "ma facture annuelle de gaz", "ma taxe d'habitation", "mon ordinateur", "mon vélo électrique"]);
-					switch (liste_type_de_questions[i]) {
+					switch (listeTypeDeQuestions[i]) {
 						case 'finale':
 							if (taux > 0) {
 								texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`;
@@ -211,7 +211,7 @@ export default function Evolutions_en_pourcentage() {
 					coeff = texNombrec(1 + taux / 100);
 					arrive = calcul(depart * (1 + taux / 100));
 					let nb = randint(5, 15);
-					switch (liste_type_de_questions[i]) {
+					switch (listeTypeDeQuestions[i]) {
 						case 'finale':
 							if (taux > 0) {
 								texte = `Il y a ${nb} ans, la population d'une ville était de $${texNombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`;

@@ -39,10 +39,10 @@ export default function Notation_scientifique() {
     else if (this.sup2 == 2) type_de_questions_disponibles = [0, 1, 1, 2, 2];
     else type_de_questions_disponibles = [2, 2, 3, 3, 3];
 
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 0:
           mantisse = randint(1, 9)
           exp = randint(1, 5)
@@ -78,7 +78,7 @@ export default function Notation_scientifique() {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         if (this.sup==1) {
-          this.qcm[1].push([`Donner l\'écriture scientifique de ${texte}`, [texteCorr,reponse], {strict:true,vertical:false,digits:liste_type_de_questions[i]+3,decimals:liste_type_de_questions[i]+1,signe:false,exposant_nb_chiffres:1,exposant_signe:true,approx:0}])
+          this.qcm[1].push([`Donner l\'écriture scientifique de ${texte}`, [texteCorr,reponse], {strict:true,vertical:false,digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposant_nb_chiffres:1,exposant_signe:true,approx:0}])
         }
         else {
           this.qcm[1].push([`Donner l\'écriture décimale de ${texte}`, [texteCorr,reponse], {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposant_nb_chiffres:0,exposant_signe:true,approx:0}])

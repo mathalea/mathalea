@@ -20,7 +20,7 @@ export default function Pythagore2D() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = [];
+    let listeTypeDeQuestions = [];
     let liste_de_noms_de_polygones = [];
     if (this.sup == 1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
@@ -30,7 +30,7 @@ export default function Pythagore2D() {
       this.consigne = "Dans chaque cas, calculer la longueur manquante."
     }
     if (this.sup == 2 || this.typeExercice == 'Calculer') {
-      liste_type_de_questions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(['AB', 'BC', 'AC'], this.nbQuestions)
     }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '';
@@ -60,26 +60,26 @@ export default function Pythagore2D() {
       let longueurBC = longueur(B, C, 1)
       let mesObjetsATracer = [codage, p2, nomme]
 
-      if (this.typeExercice == 'Calculer' && liste_type_de_questions[i] == 'AB') {
+      if (this.typeExercice == 'Calculer' && listeTypeDeQuestions[i] == 'AB') {
         mesObjetsATracer.push(affAC, affBC)
       }
-      if (this.typeExercice == 'Calculer' && liste_type_de_questions[i] == 'BC') {
+      if (this.typeExercice == 'Calculer' && listeTypeDeQuestions[i] == 'BC') {
         mesObjetsATracer.push(affAC, affAB)
       }
-      if (this.typeExercice == 'Calculer' && liste_type_de_questions[i] == 'AC') {
+      if (this.typeExercice == 'Calculer' && listeTypeDeQuestions[i] == 'AC') {
         mesObjetsATracer.push(affAB, affBC)
       }
 
       if (!sortieHtml) { texte = '~\\\\' }
       texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: .6 }, mesObjetsATracer);
       if (this.sup == 2) {
-        if (liste_type_de_questions[i] == 'AB') {
+        if (listeTypeDeQuestions[i] == 'AB') {
           texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
         }
-        if (liste_type_de_questions[i] == 'BC') {
+        if (listeTypeDeQuestions[i] == 'BC') {
           texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
         }
-        if (liste_type_de_questions[i] == 'AC') {
+        if (listeTypeDeQuestions[i] == 'AC') {
           texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
         }
       }
@@ -88,18 +88,18 @@ export default function Pythagore2D() {
       texteCorr = `Le triangle $${nomDuPolygone}$ est rectangle en $${A.nom}$ donc d'après le théorème de Pythagore, on a : `;
       texteCorr += `$${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2$`
       if (this.sup == 2) {
-        if (liste_type_de_questions[i] == 'AB') {
+        if (listeTypeDeQuestions[i] == 'AB') {
           texteCorr += ` d'où $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
         }
-        if (liste_type_de_questions[i] == 'BC') {
+        if (listeTypeDeQuestions[i] == 'BC') {
           texteCorr += `.`
         }
-        if (liste_type_de_questions[i] == 'AC') {
+        if (listeTypeDeQuestions[i] == 'AC') {
           texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
         }
       }
       if (this.typeExercice == "Calculer") {
-        if (liste_type_de_questions[i] == 'AB') {
+        if (listeTypeDeQuestions[i] == 'AB') {
           texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$`
           texteCorr += `<br> $${A.nom + B.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAC)}^2=${texNombrec(longueurBC ** 2 - longueurAC ** 2)}$`
           texteCorr += `<br> $${A.nom + B.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAC ** 2)}}$`
@@ -109,7 +109,7 @@ export default function Pythagore2D() {
             texteCorr += `<br> $${A.nom + B.nom}\\approx${texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))}$ cm.`
           }
         }
-        if (liste_type_de_questions[i] == 'BC') {
+        if (listeTypeDeQuestions[i] == 'BC') {
           texteCorr += `<br> $${B.nom + C.nom}^2=${texNombre(longueurAB)}^2+${texNombre(longueurAC)}^2=${texNombrec(longueurAB ** 2 + longueurAC ** 2)}$`
           texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) == calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
@@ -118,7 +118,7 @@ export default function Pythagore2D() {
             texteCorr += `<br> $${B.nom + C.nom}\\approx${texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))}$ cm.`
           }
         }
-        if (liste_type_de_questions[i] == 'AC') {
+        if (listeTypeDeQuestions[i] == 'AC') {
           texteCorr += ` donc $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$`
           texteCorr += `<br> $${A.nom + C.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAB)}^2=${texNombrec(longueurBC ** 2 - longueurAB ** 2)}$`
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`

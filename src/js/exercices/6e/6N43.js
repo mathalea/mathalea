@@ -50,7 +50,7 @@ export default function Criteres_de_divisibilite () {
     if (this.sup > 3) {
       liste_des_exercices_disponibles = [2, 3, 5, 9, 10, 'autre']
     }
-    const liste_type_de_questions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       liste_des_exercices_disponibles,
       this.nbQuestions
     )
@@ -59,7 +59,7 @@ export default function Criteres_de_divisibilite () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 2:
           u = randint(1, 2)
           n = randint(10, 999) * 10 + u

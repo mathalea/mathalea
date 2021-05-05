@@ -40,7 +40,7 @@ export default function antecedent_par_calcul() {
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
     let type_de_questions_disponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -49,7 +49,7 @@ export default function antecedent_par_calcul() {
         let a=0, b=0, c=0, d=0, e=0, m=0;
         let expr = ``;
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent
           case 1:
             // f(x) = ax + b avec a et b petits relatifs
             a = randint(-20,20, [-1,0,1]);

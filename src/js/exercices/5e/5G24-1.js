@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisit_lettres_differentes, shuffleLettres } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
@@ -67,8 +67,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom1 = nom1 + ' ' + choisit_lettres_differentes(2, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
@@ -108,8 +108,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom2 = choisit_lettres_differentes(3, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom2 = choisitLettresDifferentes(3, nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]
@@ -148,8 +148,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom1 = nom1 + ' ' + choisit_lettres_differentes(2, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
@@ -189,8 +189,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom2 = choisit_lettres_differentes(3, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom2 = choisitLettresDifferentes(3, nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]
@@ -229,8 +229,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom1 = nom1 + ' ' + choisit_lettres_differentes(2, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
           nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
@@ -270,8 +270,8 @@ export default function TrianglesEgaux () {
           codeA4 = codeAngle(E, F, D, 0.8, 'X')
           codeA5 = codeAngle(C, A, B, 0.8, '||')
           codeA6 = codeAngle(F, D, E, 0.8, '||')
-          nom1 = choisit_lettres_differentes(3)
-          nom2 = choisit_lettres_differentes(3, nom1)
+          nom1 = choisitLettresDifferentes(3)
+          nom2 = choisitLettresDifferentes(3, nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]

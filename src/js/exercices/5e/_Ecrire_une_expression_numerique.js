@@ -34,10 +34,10 @@ export default function Ecrire_une_expression_numerique() {
 			}
 		}
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			nb_operations = parseInt(liste_type_de_questions[i])
+			nb_operations = parseInt(listeTypeDeQuestions[i])
 			val1 = randint(2, 5)
 			val2 = randint(6, 9)
 			if (this.version > 2 && nb_operations == 1 && !this.litteral) nb_operations++

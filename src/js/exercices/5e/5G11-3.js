@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,calcul,choisit_lettres_differentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,codageMilieu,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d} from '../../modules/2d.js'
 
 
@@ -32,7 +32,7 @@ export default function Construire_symetrique_point_5e() {
 		// On prépare la figure...
 		let O = point(0, 0, 'O');
 		let marks = ['/', '//', '///', 'x', 'o', 'S', 'V'];
-		let noms = choisit_lettres_differentes(nbpoints, 'QO', true);
+		let noms = choisitLettresDifferentes(nbpoints, 'QO', true);
 		this.consigne = `Construire le symétrique des points $${noms[0]}$`;
 		for (let i = 1; i < nbpoints - 1; i++) {
 			this.consigne += `, $${noms[i]}$`;

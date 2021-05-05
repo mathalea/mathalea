@@ -27,7 +27,7 @@ export default function Exercice_diviser_fractions() {
     let type_de_questions_disponibles;
     type_de_questions_disponibles = [parseInt(this.sup)];
     let nombre_de_signe_moins;
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -48,7 +48,7 @@ export default function Exercice_diviser_fractions() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       ab = choice(liste_fractions);
       cd = choice(liste_fractions);
       a = ab[0];

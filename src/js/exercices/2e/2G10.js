@@ -26,9 +26,9 @@ export default function Distance() {
         if (this.sup == 2) {
             type_de_questions_disponibles = [2, 3];
         }
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?

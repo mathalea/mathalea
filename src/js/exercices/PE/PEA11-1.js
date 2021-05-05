@@ -32,7 +32,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 		}
 
 
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let b = choice([12, 16]);
 		if (b == 12) {
 			this.introduction = 'Les symboles que l’on utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.';
@@ -41,7 +41,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 			this.introduction += 'E pour 14 unités et F pour 15 unités.';
 		}
 		for (let i = 0, texte, texteCorr, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 'vers_base_10':
 					if (b == 12) {
 						n = choice([choice(['A', 'B']) + randint(0, 9), randint(1, 9) + choice(['A', 'B']), choice(['A', 'B']) + choice(['A', 'B'])]);

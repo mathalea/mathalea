@@ -20,7 +20,7 @@ export default function Priorites() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    var listeQuestions_disponibles = [], liste_type_de_questions, texte, texteCorr, a, b, c, d, i, e,
+    var listeQuestions_disponibles = [], listeTypeDeQuestions, texte, texteCorr, a, b, c, d, i, e,
 		m, n, f, l, g, k, p, prevchoice, choice, cpt = 0; //
 	texte = "";
 	texteCorr = "";

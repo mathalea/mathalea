@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikz_machine_diag, num_alpha, tex_cadre_par_orange } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikz_machine_diag, numAlpha, tex_cadre_par_orange } from '../../modules/outils.js'
 import { SVG_machine_diag_3F12 } from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Calculs d’images'
 
@@ -54,10 +54,10 @@ export default function fonctions_calculs_d_images () {
       type_de_questions_disponibles = [1, 2, 3, 4] // mélange
     };
     // let type_de_questions_disponibles = [1];
-    const liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i]
+      type_de_questions = listeTypeDeQuestions[i]
 
       if (sortieHtml) {
         const id_unique = `${num_ex}_${i}_${Date.now()}`
@@ -86,8 +86,8 @@ export default function fonctions_calculs_d_images () {
 							</div>
 							<br>`
             // sous-question a/
-            texte += num_alpha(j) + ` Appliquer ce programme de calcul au nombre ${c}<br>`
-            texteCorr += '<br>' + num_alpha(j) + `
+            texte += numAlpha(j) + ` Appliquer ce programme de calcul au nombre ${c}<br>`
+            texteCorr += '<br>' + numAlpha(j) + `
 							<br>
 							<div class="ui compact warning message">		
 							<p>							
@@ -100,8 +100,8 @@ export default function fonctions_calculs_d_images () {
 							`
             j++
             // sous-question b/
-            texte += num_alpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += num_alpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
+            texteCorr += numAlpha(j) + `L'image de ${c} par cette fonction vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par cette fonction`
           } else {
             texte += tex_cadre_par_orange(itemize(['Choisir un nombre', `Multiplier ce nombre par ${a}`, `Ajouter ${b} au résultat obtenu`]))
@@ -118,17 +118,17 @@ export default function fonctions_calculs_d_images () {
           texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}`
           if (sortieHtml) {
             // sous-question a/
-            texte += '<br>' + num_alpha(j) + ` Calculer l'image de ${c}`
+            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
             texte += '<br>'
-            texteCorr = num_alpha(j) + ` Calculons l'image par $f$ de $x= ${c}$ :`
+            texteCorr = numAlpha(j) + ` Calculons l'image par $f$ de $x= ${c}$ :`
             texteCorr += `<br>$f(${miseEnEvidence('\\textit{\\textbf{x}}')})= ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$`
             texteCorr += `<br>$f(${miseEnEvidence(c)})= ${a}\\times ${miseEnEvidence(c)}+${b}$`
             texteCorr += `<br>$f(${miseEnEvidence(c)})= ${a * c}+${b}$`
             texteCorr += `<br>$f(${miseEnEvidence(c)})= ${a * c + b}$`
             j++
             // sous question b/
-            texte += num_alpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + num_alpha(j) + ` L'image de ${c} par la fonction $f$ vaut ${a * c + b}`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $f$ vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $f$`
           } else {
             // sous-question a/ et b/
@@ -149,17 +149,17 @@ export default function fonctions_calculs_d_images () {
           texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}`
           if (sortieHtml) {
             // sous-question a/
-            texte += '<br>' + num_alpha(j) + ` Calculer l'image de ${c}`
+            texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
             texte += '<br>'
-            texteCorr = num_alpha(j) + ` Calculons l'image par $g$ de $x= ${c}$ :`
+            texteCorr = numAlpha(j) + ` Calculons l'image par $g$ de $x= ${c}$ :`
             texteCorr += `<br>$g:${miseEnEvidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${miseEnEvidence('\\textit{\\textbf{x}}')}+${b}$`
             texteCorr += `<br>$g:${miseEnEvidence(c)}\\longmapsto ${a}\\times${miseEnEvidence(c)}+${b}$`
             texteCorr += `<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c}+${b}$`
             texteCorr += `<br>$g:${miseEnEvidence(c)}\\longmapsto ${a * c + b}$`
             j++
             // sous question b/
-            texte += num_alpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + num_alpha(j) + ` L'image de ${c} par la fonction $g$ vaut ${a * c + b}`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $g$ vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $g$`
           } else {
             // sous-question a/ et b/
@@ -185,16 +185,16 @@ export default function fonctions_calculs_d_images () {
             // sous-question a/
             texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SVG_machine_diag_3F12(id_du_div, 800, 100, 'h', 'x', [['' + a, a + 'x'], ['' + b, a + 'x+' + b]])
-            texte += num_alpha(j) + ` Calculer l'image de ${c}`
+            texte += numAlpha(j) + ` Calculer l'image de ${c}`
             texte += '<br>'
             texteCorr += '<br>'
-            texteCorr += num_alpha(j) + ` Calculons l'image par $h$ de $x=$ ${c} :`
+            texteCorr += numAlpha(j) + ` Calculons l'image par $h$ de $x=$ ${c} :`
             texteCorr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; display : table "></div>`
             SVG_machine_diag_3F12(id_du_div_corr, 800, 100, 'h', '' + c, [['' + a, '' + (a * c)], ['' + b, '' + (a * c + b)]])
             j++
             // sous question b/
-            texte += num_alpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
-            texteCorr += '<br>' + num_alpha(j) + ` L'image de ${c} par la fonction $h$ vaut ${a * c + b}`
+            texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image'
+            texteCorr += '<br>' + numAlpha(j) + ` L'image de ${c} par la fonction $h$ vaut ${a * c + b}`
             texteCorr += `<br> On peut aussi dire que ${a * c + b} est l'image de ${c} par la fonction $h$`
           } else {
             texte += '<br>' + tikz_machine_diag('h', 'x', [['\\times ' + a, a + 'x'], ['+' + b, a + 'x+' + b]])

@@ -27,7 +27,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
     if (this.sup < 4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup) - 1]
     else type_de_questions_disponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -55,7 +55,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
       P.length = 0;
       couleurd.length = 0
       numDroites = shuffle([1, 2, 3, 4, 5]);
-      raisonnement = liste_type_de_questions[i]
+      raisonnement = listeTypeDeQuestions[i]
 
       switch (raisonnement) {
         case 0: // si 1//2 et 2//3 alors 1//3

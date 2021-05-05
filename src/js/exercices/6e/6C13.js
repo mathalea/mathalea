@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,combinaisonListes,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,combinaisonListes,numAlpha} from '../../modules/outils.js'
 import Choisir_expression_numerique from '../5e/_Choisir_expression_numerique.js'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 
@@ -26,7 +26,7 @@ export default function Vocabulaire_et_operations() {
     let type_de_questions_disponibles;
     if (this.sup < 4) type_de_questions_disponibles = [parseInt(this.sup)];
     else type_de_questions_disponibles = [1, 2, 3];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -46,32 +46,32 @@ export default function Vocabulaire_et_operations() {
       expc = resultats[2];
       texte = ``;
       texteCorr = ``;
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte +=
-            num_alpha(i) +
+            numAlpha(i) +
             `Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul) : `;
           expf = `l` + expf.substring(1);
           texte += `${expf}.`;
-          texteCorr += num_alpha(i) + `${expf} s'écrit ${expn}.`;
+          texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.`;
           break;
         case 2:
           if (expn.indexOf("ou") > 0)
             expn = expn.substring(0, expn.indexOf("ou")); // on supprime la deuxième expression fractionnaire
           texte +=
-            num_alpha(i) + `Traduire le calcul par une phrase en français : `;
+            numAlpha(i) + `Traduire le calcul par une phrase en français : `;
           texte += `${expn}`;
           expf = `l` + expf.substring(1);
-          texteCorr += num_alpha(i) + `${expn} est ${expf}.`;
+          texteCorr += numAlpha(i) + `${expn} est ${expf}.`;
           break;
         case 3:
           texte +=
-            num_alpha(i) +
+            numAlpha(i) +
             `Traduire la phrase par un calcul et effectuer ce calcul : `;
           expf = `l` + expf.substring(1);
           texte += `${expf}.`;
           expf = `L` + expf.substring(1);
-          texteCorr += num_alpha(i) + `${expf} s'écrit ${expn}.<br>`;
+          texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.<br>`;
           texteCorr += `${expc}.`;
           break;
       }

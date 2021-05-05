@@ -35,7 +35,7 @@ export default function Construire_Un_Diagramme() {
         }
         let liste_hachures_disponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
         let liste_motifs = combinaisonListes(liste_hachures_disponibles, 4)
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
         let N = 0, nom, texte, texteCorr;
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
         let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
@@ -86,7 +86,7 @@ export default function Construire_Un_Diagramme() {
         objets_enonce = []
         objets_correction = []
 
-        switch (liste_type_de_questions[0]) {
+        switch (listeTypeDeQuestions[0]) {
             case 1:
                 texte += `Représenter ces données par un diagramme circulaire.<br><br>`
                 entete.push('\\text{Totaux}')

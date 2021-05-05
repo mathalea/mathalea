@@ -21,7 +21,7 @@ export default function Soustraire11() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [1, 1, 1, 1, 2];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -30,7 +30,7 @@ export default function Soustraire11() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         a = randint(12, 99);
       } else {
         a = randint(2, 9) * 10;

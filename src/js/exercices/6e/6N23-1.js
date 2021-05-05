@@ -25,14 +25,14 @@ export default function Exercice_differentes_ecritures_nombres_decimaux() {
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions
     let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-    if (this.nbQuestions == 3) liste_type_de_questions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    if (this.nbQuestions == 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       let u = randint(2, 9); //chiffre des unités
       let d = randint(1, 9); //chiffre des dixièmes
       let c = randint(1, 9); //chiffre des centièmes

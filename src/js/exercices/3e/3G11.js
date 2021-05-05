@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, calcul, choisit_lettres_differentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Construire l’image d’un point par une homothetie avec cible auto-corrective'
@@ -35,7 +35,7 @@ export default function Construire_homothetie_point_3e () {
     }
     // On prépare la figure...
     const O = point(0, 0, 'O')
-    const noms = choisit_lettres_differentes(nbpoints, 'QO', true)
+    const noms = choisitLettresDifferentes(nbpoints, 'QO', true)
     this.consigne = `Construire l\'image des points $${noms[0]}$`
     for (let i = 1; i < nbpoints - 1; i++) {
       this.consigne += `, $${noms[i]}$`

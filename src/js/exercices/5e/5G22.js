@@ -23,11 +23,11 @@ export default function DroiteRemarquableDuTriangle() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		let triangles = [], sommets = [[]], A = [], B = [], C = [], t = [], d = [], n = [], c = [], objets = [], A0, B0, C0, tri, G
-		let type_de_questions_disponibles, liste_type_de_questions
+		let type_de_questions_disponibles, listeTypeDeQuestions
 		if (this.sup == 1) type_de_questions_disponibles = [1, 2]
 		if (this.sup == 2) type_de_questions_disponibles = [3, 4]
 		if (this.sup == 3) type_de_questions_disponibles = [1, 2, 3, 4]
-		liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 		for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) {// this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i] = triangles[i].getSommets(false);
@@ -45,7 +45,7 @@ export default function DroiteRemarquableDuTriangle() {
 			C[i] = rotation(C0, G, a, sommets[i][2], 'above')
 			t[i] = polygone(A[i], B[i], C[i])
 			n[i] = nommePolygone(t[i], `${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}`)
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1:
 					d[i] = hauteurTriangle(C[i], B[i], A[i], 'blue')
 					d[i].epaisseur = 1

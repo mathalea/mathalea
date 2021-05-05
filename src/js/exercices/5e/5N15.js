@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { premierMultipleSuperieur,listeQuestionsToContenu,texNombre2,arrondi,sp, personnes,personne,miseEnEvidence,combinaisonListes,tex_fraction, randint,num_alpha, choice, premiere_lettre_en_majuscule ,ppcm,calcul} from '../../modules/outils.js'
+import { premierMultipleSuperieur,listeQuestionsToContenu,texNombre2,arrondi,sp, personnes,personne,miseEnEvidence,combinaisonListes,tex_fraction, randint,numAlpha, choice, premiere_lettre_en_majuscule ,ppcm,calcul} from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 
@@ -36,7 +36,7 @@ export default function Probleme_de_ratio() {
     ratioecran=[[16,9],[4,3],[21,9],[16,10]],
     resolutions=[[800,600],[1024,768],[1280,720],[1280,1024],[1366,768],[1600,900],[1680,1050],[1920,1080]]
     let type_de_questions_disponibles = ['partage','mélange','dilution','recette','ecran']
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, x, y, z, total, a, b, c, n = 2, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       index=randint(0,10)
       index2=randint(0,10)
@@ -70,7 +70,7 @@ export default function Probleme_de_ratio() {
       }
       k = randint(2, 6)
       total = (x + y + z) * k
-      switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 'partage':
           prenoms = personnes(n)
           for (let j = 0; j < n - 1; j++) {
@@ -190,11 +190,11 @@ export default function Probleme_de_ratio() {
             }
             else {
                 total=k*(x+y)
-                texte +=` ${num_alpha(0)} Si on veut préparer $${total}\\text{ cL} $ de produit dilué selon le ratio $~${x}~:~${y}$, quel volume d\`eau et de ${produits[index%5]} faut-il mélanger ?<br>`
-                texte+=` ${num_alpha(1)} Avec $${k*x}\\text{ cL} $ de ${produits[index%5]}, quel volume d\'eau faut-il ajouter pour obtenir un produit dilué selon le ratio $~${x}~:~${z}$ ?`
-                texteCorr+=` ${num_alpha(0)} Selon le ratio donné, pour $${x}$ unités de volume de ${produits[index%5]} il faut $${y}$ unités de volume d\'eau soit au total un volume de $${x+y}$ unités de volume.<br>`
+                texte +=` ${numAlpha(0)} Si on veut préparer $${total}\\text{ cL} $ de produit dilué selon le ratio $~${x}~:~${y}$, quel volume d\`eau et de ${produits[index%5]} faut-il mélanger ?<br>`
+                texte+=` ${numAlpha(1)} Avec $${k*x}\\text{ cL} $ de ${produits[index%5]}, quel volume d\'eau faut-il ajouter pour obtenir un produit dilué selon le ratio $~${x}~:~${z}$ ?`
+                texteCorr+=` ${numAlpha(0)} Selon le ratio donné, pour $${x}$ unités de volume de ${produits[index%5]} il faut $${y}$ unités de volume d\'eau soit au total un volume de $${x+y}$ unités de volume.<br>`
                 texteCorr+=`${sp(4)}Or $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x+y}$ donc il faut $${miseEnEvidence(k)}\\times ${x}=${k*x}\\text{ cL} $ de ${produits[index%5]} et $${miseEnEvidence(k)}\\times ${y}=${k*y}\\text{ cL} $ d\'eau.<br>`
-                texteCorr+=` ${num_alpha(1)} Le ratio $~${x}~:~${z}~$ pour le ${produits[index%5]} signifie que :<br>`
+                texteCorr+=` ${numAlpha(1)} Le ratio $~${x}~:~${z}~$ pour le ${produits[index%5]} signifie que :<br>`
                 texteCorr+=`${sp(4)}$${tex_fraction(k*x+"\\text{ cL}",x+"\\text{ cL}")}=${tex_fraction("\\text{volume d'eau en cL}",z+"\\text{ cL}")}=${miseEnEvidence(k)}$.<br>`
                 texteCorr+=`${sp(4)}Donc il faut ajouter $${miseEnEvidence(k)}\\times ${z}\\text{ cL}=${k*z}\\text{ cL} $ d'eau pour obtenir une dilution selon le ratio $~${x}~:~${z}$`
               }
@@ -212,12 +212,12 @@ export default function Probleme_de_ratio() {
           k=choice([10,15,20,25])
           total=(x+y+z)*k
           texte+=`${quidam.prenom} veut faire des sablés bretons. Pour cela ${article} doit réaliser un mélange de farine, de sucre et de beurre selon le ratio $~${x}~:~${y}~:~${z}$.<br>`
-          texte+=`${num_alpha(0)} ${premiere_lettre_en_majuscule(article)} dispose de $${k*z}\\text{ g}$ de beurre. Quelle masse de farine et de sucre doit-${article} utiliser si ${article} utilise tout le beurre disponible ?<br>`
-          texte+=`${num_alpha(1)} Quelle sera alors la masse totale du "sable" produit ?`
-          texteCorr+=`${num_alpha(0)} La farine, le sucre et le beurre respecte le ratio $~${x}~:~${y}~:~${z}$, ce qui signifie :<br>`
+          texte+=`${numAlpha(0)} ${premiere_lettre_en_majuscule(article)} dispose de $${k*z}\\text{ g}$ de beurre. Quelle masse de farine et de sucre doit-${article} utiliser si ${article} utilise tout le beurre disponible ?<br>`
+          texte+=`${numAlpha(1)} Quelle sera alors la masse totale du "sable" produit ?`
+          texteCorr+=`${numAlpha(0)} La farine, le sucre et le beurre respecte le ratio $~${x}~:~${y}~:~${z}$, ce qui signifie :<br>`
           texteCorr+=`$${tex_fraction("\\text{masse de farine en gramme}",x+"\\text{ g}")}=${tex_fraction("\\text{masse de sucre en gramme}",y+"\\text{ g}")}=${tex_fraction(`${k*z}\\text{ g}`,`${z}\\text{ g}`)}=${miseEnEvidence(k)}$.<br>`
           texteCorr+=`On en déduit que ${quidam.prenom} devra utiliser $${miseEnEvidence(k)}\\times ${x}\\text{ g}=${k*x}\\text{ g}$ de farine et $${miseEnEvidence(k)}\\times ${y}\\text{ g}=${k*y}\\text{ g}$ de sucre.<br>`
-          texteCorr+=`${num_alpha(1)} La masse de "sable" sera donc : $${k*x}\\text{ g} + ${k*y}\\text{ g} +${k*z}\\text{ g} =${total}\\text{ g}$.`
+          texteCorr+=`${numAlpha(1)} La masse de "sable" sera donc : $${k*x}\\text{ g} + ${k*y}\\text{ g} +${k*z}\\text{ g} =${total}\\text{ g}$.`
         }
           else {
            article=quidam.pronom
@@ -227,12 +227,12 @@ export default function Probleme_de_ratio() {
             total=(x+y)*k
             texte+=`${quidam.prenom} veut réaliser une vinaigrette. Pour cela ${article} mélange du vinaigre et de l'huile d'olive selon le ratio $~${x}~:~${y}$.<br>`
             texte+=`${premiere_lettre_en_majuscule(article)} utilise $${y*k}$ cuillères à soupe d'huile d'une contenance de $15 \\text{ mL}$ chacune.<br>`
-            texte+=`${num_alpha(0)} Quel volume de vinaigre doit-${article} utiliser ?<br>`
-            texte+=`${num_alpha(1)} Quel volume de vinaigrette ${quidam.prenom} réalisera-t-${article} ?`
-            texteCorr+=`${num_alpha(0)} Comme le ratio de vinaigre et d'huile est $${x}~:~${y}$, alors on a :<br>`
+            texte+=`${numAlpha(0)} Quel volume de vinaigre doit-${article} utiliser ?<br>`
+            texte+=`${numAlpha(1)} Quel volume de vinaigrette ${quidam.prenom} réalisera-t-${article} ?`
+            texteCorr+=`${numAlpha(0)} Comme le ratio de vinaigre et d'huile est $${x}~:~${y}$, alors on a :<br>`
             texteCorr+=`${sp(6)}$${tex_fraction("\\text{volume de vinagre en mL}",x+"\\text{ mL}")}=${tex_fraction(`${y*k}\\times 15 \\text{ mL}`,y+"\\text{ mL}")}=${miseEnEvidence(k*15)}$.<br>`
             texteCorr+=`${sp(6)}Le volume de vinaigre doit-être : $${miseEnEvidence(k*15)}\\times ${x}\\text{ mL}=${k*15*x}\\text{ mL}$.<br>`
-            texteCorr+=`${num_alpha(1)} Donc le volume de vinaigrette est : $${miseEnEvidence(k*15)}\\text{ mL}\\times \\left( ${x}+${y} \\right)=${miseEnEvidence(k*15)}\\text{ mL}\\times ${x+y}=${k*15*(x+y)}\\text{ mL}$.`
+            texteCorr+=`${numAlpha(1)} Donc le volume de vinaigrette est : $${miseEnEvidence(k*15)}\\text{ mL}\\times \\left( ${x}+${y} \\right)=${miseEnEvidence(k*15)}\\text{ mL}\\times ${x+y}=${k*15*(x+y)}\\text{ mL}$.`
           }
           break
 

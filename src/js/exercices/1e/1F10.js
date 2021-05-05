@@ -27,21 +27,21 @@ export default function CalculsDeDerives() {
     this.listeCorrections = []; // Liste de questions corrigées
     this.liste_valeurs = []; // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
-    let liste_type_de_questions_disponibles;
+    let listeTypeDeQuestions_disponibles;
     if (this.sup == 1) {
-      liste_type_de_questions_disponibles = ['ax+b', 'a', 'ax2+bx+c', 'xn', 'xn+xm', '1/x', 'xn+1/x', '1/xn', 'xn+1/xm', 'racine(x)'];
+      listeTypeDeQuestions_disponibles = ['ax+b', 'a', 'ax2+bx+c', 'xn', 'xn+xm', '1/x', 'xn+1/x', '1/xn', 'xn+1/xm', 'racine(x)'];
     }
     if (this.sup == 2) {
-      liste_type_de_questions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)'];
+      listeTypeDeQuestions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)'];
     }
     if (this.sup == 3) {
-      liste_type_de_questions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)'];
+      listeTypeDeQuestions_disponibles = ['ax+b', 'axn', 'a/x', 'a/xn', 'racine(ax)'];
     }
-    let liste_type_de_questions = combinaisonListes(liste_type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions_disponibles, this.nbQuestions);
 
 
     for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 'a':
           a = randint(-10, 10, 0);
           expression = `${a}`;

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texte_en_couleur,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texte_en_couleur,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -24,7 +24,7 @@ export default function Parallele_et_Perpendiculaires() {
   this.nouvelleVersion = function (numeroExercice) {
     let type_de_questions_disponibles;
     type_de_questions_disponibles = [this.type]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -83,7 +83,7 @@ let anim;
         k = 0.8;
       else
         k = 0.5;
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           A = point(0, 0, "A", "above left");
           B = point(10, randint(-4, 4, [-1, 0, 1]), "B", "above right");
@@ -150,19 +150,19 @@ let anim;
             labelPoint(A, B, C, D),
             d,
           );
-          if (sortieHtml) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
-          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
+          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=
-            num_alpha(1) +
+            numAlpha(1) +
             ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce +=
-            num_alpha(2) +
+            numAlpha(2) +
             ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
           enonce +=
-            num_alpha(3) +
+            numAlpha(3) +
             ` Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
           enonce +=
-            num_alpha(4) +
+            numAlpha(4) +
             ` Mesurer ensuite les distances $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
           correction = `<br>$AM \\approx ${texNombre(
             lC
@@ -203,12 +203,12 @@ let anim;
           objets_correction.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
           objets_enonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
 
-          if (sortieHtml) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
-          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
-          enonce += num_alpha(1) + ` Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce += num_alpha(2) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce += num_alpha(3) + ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce += num_alpha(4) + ` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
+          enonce += numAlpha(1) + ` Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += numAlpha(2) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += numAlpha(3) + ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nommer $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += numAlpha(4) + ` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
 
           correction = `<br>$AM \\approx ${texNombre(
             lC
@@ -291,13 +291,13 @@ let anim;
               "green"
             ));
           objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
-          if (sortieHtml) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
-          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
-          enonce += num_alpha(1) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
-          enonce += num_alpha(2) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
-          enonce += num_alpha(3) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>`;
-          enonce += num_alpha(4) + ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>`
-          enonce += num_alpha(5) + ` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
+          enonce += numAlpha(1) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
+          enonce += numAlpha(2) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
+          enonce += numAlpha(3) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>`;
+          enonce += numAlpha(4) + ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>`
+          enonce += numAlpha(5) + ` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
 
           correction = `<br>$AM \\approx ${texNombre(
             lC

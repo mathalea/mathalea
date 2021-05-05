@@ -30,7 +30,7 @@ export default function ModelisationProblemes () {
     this.listeCorrections = []
 
     const type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
@@ -58,7 +58,7 @@ export default function ModelisationProblemes () {
       texte = ''
       texteCorr = ''
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           if (o === 1) {
             texte += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `

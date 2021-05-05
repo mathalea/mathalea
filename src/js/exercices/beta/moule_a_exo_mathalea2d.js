@@ -31,7 +31,7 @@ export default function LeNomDeLaFonctionExercice () {
     /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
   if (this.classe == 6) type_de_questions_disponibles = [1, 2]
       else type_de_questions_disponibles = [1, 2, 3,4]
-  liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+  listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   */
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.

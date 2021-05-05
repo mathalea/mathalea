@@ -26,7 +26,7 @@ export default function Ecrire_nombres_decimal() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées 
     let type_de_questions_disponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -42,19 +42,19 @@ export default function Ecrire_nombres_decimal() {
         tranche.splice(0)
         part_ent = 0
         part_dec = 0
-        for (let j = 0; j < liste_type_de_questions[i]; j++) {
+        for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           a = randint(1, 9)
           b = randint(1, 9)
           c = randint(1, 9)
           tranche.push(choice([0, 100, 20, 80, a, a * 100, a * 100 + b * 10 + c, a * 100 + 80 + b, a * 10, a * 100 + b * 10 + 1]))
         }
-        for (let j = 1; j < liste_type_de_questions[i]; j++) {
+        for (let j = 1; j < listeTypeDeQuestions[i]; j++) {
           part_ent += tranche[j] * 10 ** ((j - 1) * 3)
           // nombre += tranche[j] * 10 ** ((j-1)*3)
         }
         part_dec = tranche[0]
         nombre = calcul(part_ent + part_dec / 1000)
-        // if (tranche[liste_type_de_questions[i]-1]==0) nombre=0
+        // if (tranche[listeTypeDeQuestions[i]-1]==0) nombre=0
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] == 0) nombre = 0
 

@@ -30,10 +30,10 @@ export default function Passer_d_une_base_a_l_autre() {
 		if (this.nbQuestions > 3) {
 			type_de_questions_disponibles = ['vers_base_10', 'vers_base_n_3_chiffres', 'vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'];
 		}
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texteCorr, b, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			b = randint(2, 7);
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 'vers_base_10':
 					n = randint(1, b - 1) * 10 + randint(0, b - 1);
 					m = randint(1, b - 1) * 1000 + randint(0, b - 1) * 100 + randint(0, b - 1) * 10 + randint(0, b - 1);

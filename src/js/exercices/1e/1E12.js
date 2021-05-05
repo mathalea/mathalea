@@ -30,16 +30,16 @@ export const titre = 'Trouver l’équation d’une parabole'
       var pixelsParCm=20
       this.listeQuestions = []; // Liste de questions
       this.listeCorrections = []; // Liste de questions corrigées
-      let liste_type_de_questions,type_de_questions_disponibles;
+      let listeTypeDeQuestions,type_de_questions_disponibles;
       if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
       else type_de_questions_disponibles=[1,2,2,3,3]
       let f_name=[],Ymin,Yscale,Ymax
-      liste_type_de_questions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+      listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
       for (let i = 0, texte, texteCorr, a, b, c, x1, x2,x3,f,r,svgYmin,svgYmax,F, cpt = 0;i < this.nbQuestions && cpt < 50;) {
         f_name.push(lettre_minuscule_depuis_chiffre(i+6))
         texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré `
         texteCorr=``
-        switch (liste_type_de_questions[i]) {
+        switch (listeTypeDeQuestions[i]) {
             case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
             a=randint(-4,4,0)
             b=randint(-6,6,0)

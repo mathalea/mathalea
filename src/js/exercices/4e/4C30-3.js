@@ -22,19 +22,19 @@ export default function EcritureDecimalePuissance() {
 
     let liste_de_calculs = combinaisonListes([[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [5, 2], [5, 3], [6, 2], [6, 3], [7, 2], [7, 3], [8, 2], [8, 3], [9, 2], [9, 3]], this.nbQuestions);
 
-    let liste_type_de_questions
+    let listeTypeDeQuestions
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes(['+'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions);
       this.consigne = "Donner l'écriture sous la forme d'un nombre entier.";
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes(['-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions);
     }
     if (this.sup == 3) {
-      liste_type_de_questions = combinaisonListes(['+', '-'], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions);
     }
     for (let i = 0, texte, texteCorr, a, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case '+':
           a = liste_de_calculs[i][0];
           n = liste_de_calculs[i][1];

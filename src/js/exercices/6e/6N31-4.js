@@ -19,10 +19,10 @@ export default function Intercaler_decimal_entre_2_decimaux() {
       this.listeQuestions = []; // Liste de questions
       this.listeCorrections = []; // Liste de questions corrigées
 
-      let liste_type_de_questions_disponibles = ["a,b1", "a,b2", "a,9", "a,bc", "a,b9", "a,99", "a,b0c", "a,1", "a,01", "a"];
-      let liste_type_de_questions = combinaisonListes(liste_type_de_questions_disponibles, this.nbQuestions);
+      let listeTypeDeQuestions_disponibles = ["a,b1", "a,b2", "a,9", "a,bc", "a,b9", "a,99", "a,b0c", "a,1", "a,01", "a"];
+      let listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions_disponibles, this.nbQuestions);
       for (let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-          switch (liste_type_de_questions[i]) {
+          switch (listeTypeDeQuestions[i]) {
               case "a,b1":
                   d1 = randint(1, 6);
                   u = randint(1, 39);

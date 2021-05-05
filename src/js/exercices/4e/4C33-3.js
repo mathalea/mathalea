@@ -29,7 +29,7 @@ export default function Puissances_d_un_relatif_2() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -46,7 +46,7 @@ export default function Puissances_d_un_relatif_2() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      let type_de_questions = liste_type_de_questions[i];
+      let type_de_questions = listeTypeDeQuestions[i];
 
       switch (type_de_questions) {
         case 1:

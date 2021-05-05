@@ -20,7 +20,7 @@ export default function Exercice_quotients_relatifs() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions);
     let liste_type_de_nombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions);
     if (this.sup) {
       liste_type_de_nombres = combinaisonListes(['tables'], this.nbQuestions);
@@ -33,7 +33,7 @@ export default function Exercice_quotients_relatifs() {
         b = choice([11, 12, 13, 14, 15, 16, 20, 60, 80]);
         a = b * randint(2, 4)
       }
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case '-+':
           a *= -1;
           break;

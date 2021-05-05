@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,calcul,choisit_lettres_differentes,lettreDepuisChiffre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre} from '../../modules/outils.js'
 import {point,tracePoint,pointAdistance,labelPoint,droite,droiteParPointEtPerpendiculaire,codageMediatrice,segmentAvecExtremites,cercle,pointIntersectionLC,dansLaCibleCarree,cibleCarree,homothetie,similitude,texteParPoint,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 
@@ -28,7 +28,7 @@ export default function Construire_mediatrices_6e() {
       return lettre + chiffre
     }
     // On prépare la figure...
-    let noms = choisit_lettres_differentes(4, 'QI',true)
+    let noms = choisitLettresDifferentes(4, 'QI',true)
     texte = `Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
     texte += `Prolonger les droites $(d_1)$ et $(d_2)$ pour obtenir leur point d'intersection.<br>`
     let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']

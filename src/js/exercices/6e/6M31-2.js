@@ -30,21 +30,21 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions
+    let listeTypeDeQuestions
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["dam3toL", "m3toL", "dm3toL", "cm3toL"],
         this.nbQuestions
       );
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["Ltodm3", "Ltocm3", "Ltom3"],
         this.nbQuestions
       );
     }
     if (this.sup == 3) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         [
           "dam3toL",
           "m3toL",
@@ -108,7 +108,7 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
             break;
         }
       }
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "dam3toL":
           texte = `$${texNombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`;
           texteCorr = `$${texNombre(n)}~\\text{dam}^3=${texNombre(

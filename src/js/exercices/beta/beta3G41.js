@@ -31,7 +31,7 @@ export default function VuesEmpilementCubes() {
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = [];
     let type_de_questions_disponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
     
     function empilementCubes(long, larg, hmax) {
@@ -83,7 +83,7 @@ export default function VuesEmpilementCubes() {
       // cube(x,y,z,0,0) : vue de droite
       // cube(x,y,z,45,-35) : vue isométrique              
 
-      switch (liste_type_de_questions[q]) {
+      switch (listeTypeDeQuestions[q]) {
         case 1:
           // GAUCHE
           alpha = 15;

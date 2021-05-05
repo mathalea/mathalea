@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,troncature,calcul,choisit_lettres_differentes} from '../../modules/outils.js'
+import {randint,troncature,calcul,choisitLettresDifferentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
 export const titre = 'Droites graduées avec zoom'
@@ -21,7 +21,7 @@ export default function Feuille_de_zooms() {
     let d1, d2, d3, texte = "", extremite, extreme, noms = [],xmin,origine,xmax;
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0,pA1,pA2,pB2,pB1,sA,sB;
     for (let n = 0; n < 8 / parseInt(this.sup); n++) {
-      noms = choisit_lettres_differentes(5, 'QFN');
+      noms = choisitLettresDifferentes(5, 'QFN');
       objets.length = 0;
       if (this.sup == 1) {
         xmin = randint(5, 10) - 0.2;

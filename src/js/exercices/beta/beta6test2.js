@@ -24,21 +24,21 @@ export default function MaFonctionQuiCreeExercice() {
       this.listeQuestions = []; // Liste de questions
       this.listeCorrections = []; // Liste de questions corrigées
 
-      let liste_type_de_questions_disponibles
+      let listeTypeDeQuestions_disponibles
       if (this.sup == 1) {
-          liste_type_de_questions_disponibles = ['niveau1'];
+          listeTypeDeQuestions_disponibles = ['niveau1'];
       }
       if (this.sup == 2) {
-          liste_type_de_questions_disponibles = ['niveau1','niveau2','niveau2'];
+          listeTypeDeQuestions_disponibles = ['niveau1','niveau2','niveau2'];
       }
       if (this.sup == 3) {
-          liste_type_de_questions_disponibles = ['niveau1','niveau2','niveau3','niveau3','niveau3',];
+          listeTypeDeQuestions_disponibles = ['niveau1','niveau2','niveau3','niveau3','niveau3',];
       }
-      let liste_type_de_questions = combinaisonListes(liste_type_de_questions_disponibles, this.nbQuestions)
+      let listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions_disponibles, this.nbQuestions)
 
       for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;)
        {
-        switch (liste_type_de_questions[i]) {
+        switch (listeTypeDeQuestions[i]) {
             case 'niveau1':
                 a = randint(1, 9) * 10 + randint(1, 9);
                 break;

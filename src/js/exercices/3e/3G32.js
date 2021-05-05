@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { listeQuestionsToContenu, combinaisonListes, randint, num_alpha,arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, numAlpha,arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from '../../modules/3d.js'
 export const titre = 'Calculer la largeur d’une rivière'
@@ -62,26 +62,26 @@ export default function Calculs_trigonometriques() {
             texte+=`Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $A$.<br>`
             texte+=`A l'aide de son appareil, il mesure l'angle $\\widehat{BAC}$ noté $${alfa}$  et l'angle $\\widehat{BAS}$ noté $${baita}$.<br>`
             if (this.sup) {
-              texte+=`${num_alpha(j)}Exprimer $BC$ en fonction de $AB$ et de $${alfa}$.<br>`
+              texte+=`${numAlpha(j)}Exprimer $BC$ en fonction de $AB$ et de $${alfa}$.<br>`
               j++
-              texte+=`${num_alpha(j)}Exprimer $BS$ en fonction de $AB$ et de $${baita}$.<br>`
+              texte+=`${numAlpha(j)}Exprimer $BS$ en fonction de $AB$ et de $${baita}$.<br>`
               j++
             }
-            texte+=`${num_alpha(j)}Exprimer $CS$ en fonction de $AB$, de $${alfa}$ et de $${baita}$.<br>`
+            texte+=`${numAlpha(j)}Exprimer $CS$ en fonction de $AB$, de $${alfa}$ et de $${baita}$.<br>`
             j++
-            texte+=`${num_alpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.<br>`
+            texte+=`${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.<br>`
             texte+=mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>';
             j=0
             texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 0.5 }, objets)+'<br>'
             if (this.sup) {
-              texteCorr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $\\tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times \\tan(${alfa})$.<br>`
+              texteCorr+=`${numAlpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $\\tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times \\tan(${alfa})$.<br>`
               j++
-              texteCorr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $\\tan(${baita})=\\dfrac{BS}{AB}$ d'où $BS=AB\\times \\tan(${baita})$.<br>`
+              texteCorr+=`${numAlpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $\\tan(${baita})=\\dfrac{BS}{AB}$ d'où $BS=AB\\times \\tan(${baita})$.<br>`
               j++
             }
-            texteCorr+=`${num_alpha(j)}Comme $BS=AB\\times \\tan(${baita})$ et $BC=AB\\times \\tan(${alfa})$, alors $CS=AB\\times (\\tan(${baita})-\\tan(${alfa}))$.<br>`
+            texteCorr+=`${numAlpha(j)}Comme $BS=AB\\times \\tan(${baita})$ et $BC=AB\\times \\tan(${alfa})$, alors $CS=AB\\times (\\tan(${baita})-\\tan(${alfa}))$.<br>`
             j++
-            texteCorr+=`${num_alpha(j)}Donc $CS=${distance}\\times (\\tan(${beta})-\\tan(${alpha}))\\approx ${taille}$ m.<br>`
+            texteCorr+=`${numAlpha(j)}Donc $CS=${distance}\\times (\\tan(${beta})-\\tan(${alpha}))\\approx ${taille}$ m.<br>`
 
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

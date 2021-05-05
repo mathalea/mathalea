@@ -24,15 +24,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let denominateur_disponibles = [100,200,300,1000]; 
-    let liste_type_de_questions = combinaisonListes(denominateur_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(denominateur_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     if (this.sup == 2) {
         this.consigne = "À l'aide de la calculatrice, donner une valeur approchée au millième près du quotient puis l'écrire sous la forme d'un pourcentage au dixième près.";
     }
     for (let i = 0, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-        den = randint(10,liste_type_de_questions[i])
+        den = randint(10,listeTypeDeQuestions[i])
         num = randint(1,den-8)
         while (calcul(num/den)==arrondi(num/den,4)) {
-            den = randint(10,liste_type_de_questions[i])
+            den = randint(10,listeTypeDeQuestions[i])
             num = randint(1,den-8)
         }
         texte = `$\\dfrac{${num}}{${den}}\\approx \\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$`

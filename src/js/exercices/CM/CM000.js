@@ -27,39 +27,39 @@ export default function Tables_additions_soustractions() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = [];
+    let listeTypeDeQuestions = [];
     if (this.sup2 == 1) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["addition"],
         this.nbQuestions
       );
     }
     if (this.sup2 == 2) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["addition_a_trou"],
         this.nbQuestions
       );
     }
     if (this.sup2 == 3) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["soustraction"],
         this.nbQuestions
       );
     }
     if (this.sup2 == 4) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["soustraction_a_trou"],
         this.nbQuestions
       );
     }
     if (this.sup2 == 5) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["addition", "soustraction"],
         this.nbQuestions
       );
     }
     if (this.sup2 == 6) {
-      liste_type_de_questions = combinaisonListes(
+      listeTypeDeQuestions = combinaisonListes(
         ["addition", "addition_a_trou", "soustraction", "soustraction_a_trou"],
         this.nbQuestions
       );
@@ -68,7 +68,7 @@ export default function Tables_additions_soustractions() {
       a = randint(2, this.sup);
       b = randint(2, this.sup);
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "addition":
           texte = `$${a} + ${b} = \\dotfill$`;
           texteCorr = `$${a} + ${b} = ${a + b}$`;

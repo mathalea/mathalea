@@ -36,14 +36,14 @@ export default function Traduire_un_programme_de_calcul() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a = randint(4, 11);
 			let b = randint(2, 11);
 			let c = randint(2, 11);
 			let d = randint(2, 5);
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // (x+a)*b+c
 					texte = `Voici un programme de calcul : \n`;
 					texte += itemize([`Ajoute ${a}`, `Multiplie par ${b}`, `Ajoute ${c}`]);

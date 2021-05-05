@@ -29,7 +29,7 @@ export default function Construire_un_triangle() {
         if (this.classe == 6) type_de_questions_disponibles = [1, 2]
         // else type_de_questions_disponibles = [1, 2, 3]
         else type_de_questions_disponibles = [1]
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
         for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
             IEP = new Alea2iep()
             objets_enonce = []
@@ -41,7 +41,7 @@ export default function Construire_un_triangle() {
             for (let i = 0; i < 3; i++) sommets.push(nom[i])
             sommets = shuffle(sommets)
             A = point(0, 0, sommets[0], 'left')
-            switch (liste_type_de_questions[i]) {
+            switch (listeTypeDeQuestions[i]) {
                 case 1: // triangle donné par trois longueurs
                     lAC = randint(35, 45)
                     lBC = calcul(randint(35, 45, lAC) / 10)

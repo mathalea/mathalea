@@ -31,10 +31,10 @@ export default function DivisibleDiviseurMultiple() {
     this.introduction +=Operation({ operande1 :a1, operande2 :b, type :'divisionE'})
 
     let type_de_questions_disponibles = [1,2,3,4,5,6]; // On créé 3 types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: 
           texte = `... est divisible par ...`;
           texteCorr = `${a} est divisible par ${b} ou ${a} est divisible par ${q}.`;

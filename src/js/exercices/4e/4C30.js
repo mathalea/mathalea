@@ -41,7 +41,7 @@ export default function Puissances_de_dix() {
     } else if (this.sup == 3) {
       type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // calculs deuxième série
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -64,7 +64,7 @@ export default function Puissances_de_dix() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
 
       exp0 = randint(1, 9);
       exp1 = randint(1, 9, [exp0]);

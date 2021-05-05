@@ -19,7 +19,7 @@ export default function Calculer_valeur_manquante_visuel_pythagore() {
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
     let type_de_questions_disponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
   
     let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
       mathalea.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]
@@ -59,7 +59,7 @@ let q3=latexParPoint('16 \\text{ cm}^2',bar3)
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = `` // Idem pour le texte de la correction.
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
                
             //ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice

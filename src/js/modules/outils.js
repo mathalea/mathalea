@@ -1598,7 +1598,7 @@ export function choisit_nombres_entre_m_et_n (m, n, combien, listeAEviter = []) 
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @Auteur Jean-Claude Lhote
  */
-export function choisit_lettres_differentes (nombre, lettres_a_eviter = '', majuscule = true) {
+export function choisitLettresDifferentes (nombre, lettres_a_eviter = '', majuscule = true) {
   const listeAEviter = []; const lettres = []
   for (const l of lettres_a_eviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
@@ -3559,7 +3559,7 @@ export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
  * @param {number} k valeur numérique
  * @Auteur Sébastien Lozano
  */
-export function num_alpha (k) {
+export function numAlpha (k) {
   'use strict'
   if (sortieHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
   // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {arrondi,troncature,calcul,choisit_lettres_differentes} from '../../modules/outils.js'
+import {arrondi,troncature,calcul,choisitLettresDifferentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
@@ -23,7 +23,7 @@ export default function Nombre_a_placer() {
     this.contenu = "";
     let d1, d2, d3, texte = "", extremite, noms = [];
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0;
-    noms = choisit_lettres_differentes(5, 'QFN');
+    noms = choisitLettresDifferentes(5, 'QFN');
     objets.length = 0;
     x1 = parseFloat(this.sup2);
     x1 = arrondi(x1, 4);

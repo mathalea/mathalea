@@ -29,19 +29,19 @@ export default function Exercice_equation1() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions
+    let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case "1":
-        liste_type_de_questions = ["ax=b", "x+b=c"];
+        listeTypeDeQuestions = ["ax=b", "x+b=c"];
         break;
       case "2":
-        liste_type_de_questions = ["ax+b=c"];
+        listeTypeDeQuestions = ["ax+b=c"];
         break;
       case "3":
-        liste_type_de_questions = ["ax+b=cx+d"];
+        listeTypeDeQuestions = ["ax+b=cx+d"];
         break;
       default:
-        liste_type_de_questions = [
+        listeTypeDeQuestions = [
           "ax+b=0",
           "ax+b=c",
           "ax=b",
@@ -50,8 +50,8 @@ export default function Exercice_equation1() {
         ];
         break;
     }
-    liste_type_de_questions = combinaisonListes(
-      liste_type_de_questions,
+    listeTypeDeQuestions = combinaisonListes(
+      listeTypeDeQuestions,
       this.nbQuestions
     );
     for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -66,9 +66,9 @@ export default function Exercice_equation1() {
         c *= choice([-1, 1]);
         d *= choice([-1, 1]);
       }
-      if (liste_type_de_questions[i] == "ax+b=0" ||
-        liste_type_de_questions[i] == "ax+b=c") {
-        if (liste_type_de_questions[i] == "ax+b=0") {
+      if (listeTypeDeQuestions[i] == "ax+b=0" ||
+        listeTypeDeQuestions[i] == "ax+b=c") {
+        if (listeTypeDeQuestions[i] == "ax+b=0") {
           c = 0;
         }
         if (!this.sup && c < b) {
@@ -103,7 +103,7 @@ export default function Exercice_equation1() {
           a
         )}$.`;
       }
-      if (liste_type_de_questions[i] == "x+b=c") {
+      if (listeTypeDeQuestions[i] == "x+b=c") {
         if (!this.sup && c < b) {
           b = randint(-9, 9, [0]); // b peut être négatif, ça sera une équation du type x-b=c
           c = abs(randint(b, 15)); // c sera plus grand que b pour que c-b>0
@@ -123,7 +123,7 @@ export default function Exercice_equation1() {
         texteCorr += `$x=${c - b}$`;
         texteCorr += `<br> La solution est $${c - b}$.`;
       }
-      if (liste_type_de_questions[i] == "ax=b") {
+      if (listeTypeDeQuestions[i] == "ax=b") {
         texte = `$${a}x=${b}$`;
         texteCorr = texte + "<br>";
         if (this.correctionDetaillee) {
@@ -138,7 +138,7 @@ export default function Exercice_equation1() {
         }
         texteCorr += `<br> La solution est $${texFractionReduite(b, a)}$.`;
       }
-      if (liste_type_de_questions[i] == "ax+b=cx+d") {
+      if (listeTypeDeQuestions[i] == "ax+b=cx+d") {
         if (c == a) {
           c = randint(1, 13, [a]);
         } // sinon on arrive à une division par 0

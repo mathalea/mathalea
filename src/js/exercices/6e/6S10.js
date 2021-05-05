@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,premiere_lettre_en_majuscule,numAlpha} from '../../modules/outils.js'
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire un diagramme en barre'
 
@@ -67,14 +67,14 @@ export default function Lecture_diagramme_barre() {
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
 
     texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
-    texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
-    texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
+    texte += numAlpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
+    texte += numAlpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
 
     let numAnimal = randint(0, nbAnimaux - 1);
     switch (parseInt(this.sup2)) {
-      case 1: texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+      case 1: texte += numAlpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
-      case 2: texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+      case 2: texte += numAlpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
     }
     texte += '<br>'
@@ -113,14 +113,14 @@ export default function Lecture_diagramme_barre() {
     texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: .5 }, r, lstElementGraph)
     // debut de la correction
     // question 1
-    texteCorr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>';
+    texteCorr = numAlpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>';
     // question 2
-    texteCorr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>';
+    texteCorr += numAlpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>';
     // question 3
     let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])];
     reponseinf = 10 * coef * Math.floor(reponse / (10 * coef))
     reponsesup = reponseinf + 10 * coef
-    texteCorr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
+    texteCorr += numAlpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
 
     this.listeQuestions.push(texte);
     this.listeCorrections.push(texteCorr);

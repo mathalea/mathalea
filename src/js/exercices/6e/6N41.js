@@ -64,7 +64,7 @@ export default function Egalites_entre_fractions() {
       [7, 10],
       [9, 10],
     ]; // Couples de nombres premiers entre eux
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       [1, 1, 1, 1, 2],
       this.nbQuestions
     );
@@ -73,7 +73,7 @@ export default function Egalites_entre_fractions() {
       i < this.nbQuestions;
       i++
     ) {
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         // égalité entre 2 fractions
         fraction = choice(liste_fractions); //
         a = fraction[0];

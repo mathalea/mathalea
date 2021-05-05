@@ -23,14 +23,14 @@ export default function Distributivite_simple_double_reduction() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)'];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texteCorr, a, b, c, d, e, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			a = randint(-11, 11, 0);
 			b = randint(-11, 11, 0);
 			c = randint(-11, 11, 0);
 			d = randint(-11, 11, 0);
 			e = randint(-11, 11, 0);
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 'cx+e(ax+b)':
 					texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
 					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;

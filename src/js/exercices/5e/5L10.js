@@ -39,7 +39,7 @@ export default function Ecrire_une_expression_litterale() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = range1(17);
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let lettres_disponibles = ['x', 'y', 'z', 't', 'a', 'b', 'c', 'n', 'm'];
@@ -47,7 +47,7 @@ export default function Ecrire_une_expression_litterale() {
 			enleveElement(lettres_disponibles, x);
 			let y = choice(lettres_disponibles);
 			let k = randint(2, 10);
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // 2x
 					texte = `Exprimer le double de $${x}$ en fonction de $${x}$.`;
 					texteCorr = `Le double de $${x}$ se note : $2${x}$.`;

@@ -30,9 +30,9 @@ export default function Milieu() {
         if (this.sup == 3) {
             type_de_questions_disponibles = [3, 4];
         }
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, a, ux, uy, g,s, xA, yA, xB, yB, xC, yC, xD, yD, XAB, YAB, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, A, B, T, L, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?

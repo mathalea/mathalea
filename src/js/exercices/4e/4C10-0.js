@@ -84,8 +84,8 @@ export default function Signe_produit_quotient_relatifs () {
       this.nbQuestions = type_de_questions_disponibles.length
     }
 
-    // let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -101,7 +101,7 @@ export default function Signe_produit_quotient_relatifs () {
         randint(-1, 1, [0]) * randint(1, nbMax)
       )
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // 2 facteurs
           texte = `$ ${ecritureNombreRelatif(
             num.relatifs[0]

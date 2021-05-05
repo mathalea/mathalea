@@ -24,7 +24,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['vitesse','temps','distance'];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, d, v, t, pronomgenre, prenom, destination, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
         v = randint(8,26,[12]) * 5; // On évite le 60 km/h trop trivial
@@ -45,7 +45,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         } else {
             destination = choice(["jusqu'à sa location de vacances","dans la maison de ses parents","à une conférence"])
         }
-        switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+        switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'vitesse': 
             texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km. Déterminer sa vitesse moyenne.`;
             if (sortieHtml) {

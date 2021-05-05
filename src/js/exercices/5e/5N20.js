@@ -40,15 +40,15 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
     if (this.level == 6) this.qcm[0] = '6C23'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let liste_type_de_questions
+    let listeTypeDeQuestions
     if (this.sup2 == 1) {
-      liste_type_de_questions = combinaisonListes(['+'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
     }
     if (this.sup2 == 2) {
-      liste_type_de_questions = combinaisonListes(['-'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
     }
     if (this.sup2 == 3) {
-      liste_type_de_questions = combinaisonListes(['+', '-'], this.nbQuestions)
+      listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
 
     /** ************* Pour QCM html/latex hors AMC *****************************/
@@ -74,12 +74,12 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
         k = randint(2, this.sup)
       } else k = 1
       d = b * k
-      if (liste_type_de_questions[i] == '-') {
+      if (listeTypeDeQuestions[i] == '-') {
         c = choice([randint(1, b * k), randint(b * k, 9 * k)])
       } else {
         c = randint(1, 19, d)
       }
-      if (liste_type_de_questions[i] == '+') { // une addition
+      if (listeTypeDeQuestions[i] == '+') { // une addition
         /** ***************** Choix des réponses du QCM ***********************************/
         tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${tex_fraction(a + c, b + d)}$`, `$${tex_fraction(a + c, b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
         tabicone = [1, 0, 0, 0]

@@ -39,8 +39,8 @@ export default function Forme_litterale_introduire_une_lettre() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     type_de_questions_disponibles = [1];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -84,7 +84,7 @@ export default function Forme_litterale_introduire_une_lettre() {
         <br>${texte_en_couleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
         `
       })
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`;
           if (this.debug) {

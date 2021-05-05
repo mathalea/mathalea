@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,changementDeBaseOrthoTri,changementDeBaseTriOrtho,imagePointParTransformation,arrondi,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,changementDeBaseOrthoTri,changementDeBaseTriOrtho,imagePointParTransformation,arrondi,texte_en_couleur_et_gras,numAlpha} from '../../modules/outils.js'
 export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)'
 
 /**
@@ -113,13 +113,13 @@ export default function Pavages_et_reflexion() {
 
     texte = `Le point O peut être déplacé pour recadrer éventuellement le pavage.<br>`;
     texte +=
-      num_alpha(0) +
+      numAlpha(0) +
       texte_en_couleur_et_gras(
         ` Quel est le numéro de la figure symétrique de la figure ${numa} dans la symétrie par rapport à la droite $(d_1)$ ?<br>`,
         `green`
       );
     texteCorr =
-      num_alpha(0) +
+      numAlpha(0) +
       texte_en_couleur_et_gras(
         ` La figure symétrique de la figure ${numa} dans la symétrie par rapport à la droite $(d_1)$ porte le numéro ${anum}.<br>`,
         `green`
@@ -164,13 +164,13 @@ export default function Pavages_et_reflexion() {
     yN2 = point[1];
 
     texte +=
-      num_alpha(1) +
+      numAlpha(1) +
       texte_en_couleur_et_gras(
         ` Quel est le numéro de la figure symétrique de la figure ${numb} dans la symétrie par rapport à la droite $(d_2)$ ?<br>`,
         `red`
       );
     texteCorr +=
-      num_alpha(1) +
+      numAlpha(1) +
       texte_en_couleur_et_gras(
         ` La figure symétrique de la figure ${numb} dans la symétrie par rapport à la droite $(2)$ porte le numéro ${bnum}.<br>`,
         `red`
@@ -226,13 +226,13 @@ export default function Pavages_et_reflexion() {
     yN3 = point[1];
 
     texte +=
-      num_alpha(2) +
+      numAlpha(2) +
       texte_en_couleur_et_gras(
         ` Quel est le numéro de la figure symétrique de la figure ${numc} dans la symétrie par rapport à la droite $(d_3)$ ?<br>`,
         `blue`
       );
     texteCorr +=
-      num_alpha(2) +
+      numAlpha(2) +
       texte_en_couleur_et_gras(
         ` La figure symétrique de la figure ${numc} dans la symétrie par rapport à la droite $(d_3)$ porte le numéro ${cnum}.<br>`,
         `blue`

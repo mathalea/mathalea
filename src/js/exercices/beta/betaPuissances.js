@@ -26,11 +26,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let a, b, c, c1, c2, e1, e2, e3, e4, e5;
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           c1 = choice([2,3,5,7,11])
           c2 = choice([2,3,5,7,11],c1)

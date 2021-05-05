@@ -20,15 +20,15 @@ export default function Reciproque_Pythagore() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = []
+    let listeTypeDeQuestions = []
     if (this.sup == 1) {
-      liste_type_de_questions = combinaisonListes(["rectangle"], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(["rectangle"], this.nbQuestions);
     }
     else if (this.sup == 2) {
-      liste_type_de_questions = combinaisonListes(["pas_rectangle"], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(["pas_rectangle"], this.nbQuestions);
     }
     else { // (this.sup == 3)
-      liste_type_de_questions = combinaisonListes(["rectangle", "pas_rectangle"], this.nbQuestions);
+      listeTypeDeQuestions = combinaisonListes(["rectangle", "pas_rectangle"], this.nbQuestions);
     }
     let liste_triplets_pythagoriciens = [
       [3, 4, 5],
@@ -109,7 +109,7 @@ export default function Reciproque_Pythagore() {
       a = triplet[0];
       b = triplet[1];
       c = triplet[2];
-      if (liste_type_de_questions[i] == "pas_rectangle") {
+      if (listeTypeDeQuestions[i] == "pas_rectangle") {
         c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         while (a ** 2 + b ** 2 == c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
@@ -149,7 +149,7 @@ export default function Reciproque_Pythagore() {
       texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
         a
       )}^2=${texNombrec(b ** 2 + a ** 2)}$`;
-      if (liste_type_de_questions[i] == "rectangle") {
+      if (listeTypeDeQuestions[i] == "rectangle") {
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore est vérifiée donc $${nom_triangle}$ est rectangle en $${C}$.`;
       } else {

@@ -30,14 +30,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     if (this.sup == 1) {
       type_de_questions_disponibles = ['type1', 'type5']
     }
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = choice([randint(1, 9), randint(1, 9), randint(10, 99)]);
       b = randint(1, 9,[a]); 
       c = randint(1, 9,[a,b]); // Tous les chiffres doivent être différents
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           texte = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100}$`;
           texteCorr = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100} = ${texNombrec(a + b / 10 + c / 100)} $`;

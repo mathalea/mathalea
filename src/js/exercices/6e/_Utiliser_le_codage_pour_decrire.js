@@ -21,7 +21,7 @@ export default function Utiliser_le_codage_pour_decrire() {
       type_de_questions_disponibles = [1, 2, 3];
     else
       type_de_questions_disponibles = [1, 2, 3, 4];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets_enonce = [];
       objets_correction = [];
@@ -33,7 +33,7 @@ export default function Utiliser_le_codage_pour_decrire() {
       sommets = shuffle(sommets);
 
       A = point(0, 0, sommets[0], 'left');
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           C = pointAdistance(A, randint(5, 7), randint(-45, 45), sommets[2], 'right');
           s2 = segment(A, C);

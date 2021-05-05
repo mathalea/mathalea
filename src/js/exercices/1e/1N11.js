@@ -18,13 +18,13 @@ export default function Terme_d_une_suite_definie_par_recurrence() {
     this.listeCorrections = []; // Vide la liste de questions corrigées
 
     let type_de_questions_disponibles = [1, 2, 3, 4];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0, u, a, b, k; i < this.nbQuestions && cpt < 50;) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //suite arithmétique
           a = randint(1, 10) * choice([-1, 1]);
           u = randint(0, 10) * choice([-1, 1]);

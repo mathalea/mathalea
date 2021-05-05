@@ -31,7 +31,7 @@ export default function Ecrire_nombres_entiers() {
     else if (this.sup2 == 3) type_de_questions_disponibles = [2, 2, 3, 3, 4]
     else type_de_questions_disponibles = [2, 3, 3, 4, 4]
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -45,16 +45,16 @@ export default function Ecrire_nombres_entiers() {
       tranche = []
       while (nombre == 0) {
         tranche.splice(0)
-        for (let j = 0; j < liste_type_de_questions[i]; j++) {
+        for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           a = randint(1, 9)
           b = randint(1, 9)
           c = randint(1, 9)
           tranche.push(choice([0, 100, 20, 80, a, a * 100, a * 100 + b * 10 + c, a * 100 + 80 + b, a * 10, a * 100 + b * 10 + 1]))
         }
-        for (let j = 0; j < liste_type_de_questions[i]; j++) {
+        for (let j = 0; j < listeTypeDeQuestions[i]; j++) {
           nombre += tranche[j] * 10 ** (j * 3)
         }
-        if (tranche[liste_type_de_questions[i] - 1] == 0) nombre = 0
+        if (tranche[listeTypeDeQuestions[i] - 1] == 0) nombre = 0
       }
       if (this.sup == 1) {
         if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`

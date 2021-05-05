@@ -40,7 +40,7 @@ export default function Tables_de_multiplications_et_divisions(
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
       this.nbQuestions
     ); //Liste tous les couples possibles (2,3)≠(3,2)
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       ["classique", "a_trous"],
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -54,7 +54,7 @@ export default function Tables_de_multiplications_et_divisions(
       } else if (this.sup2 == 2) {
         type_de_questions = "a_trous";
       } else {
-        type_de_questions = liste_type_de_questions[i];
+        type_de_questions = listeTypeDeQuestions[i];
       }
 
       if (operation[i] == "x") {

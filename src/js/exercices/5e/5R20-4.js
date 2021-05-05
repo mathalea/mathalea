@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,texte_en_couleur,texte_gras,tex_prix,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs.'
 
 /** 
@@ -43,8 +43,8 @@ export default function Problemes_additifs_relatifs_5e() {
 
 		//type_de_questions_disponibles=[1];			
 
-		//let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let g_p_u; //pour le gain/perte unitaire
@@ -149,8 +149,8 @@ export default function Problemes_additifs_relatifs_5e() {
 					<br>${situations[0].enonce_4} $${tex_prix(situations[0].perte)}$€.
 					<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
 					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${tex_prix(situations[k].gain_unitaire)}$€.
-					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
-					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
+					<br> ${numAlpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
+					<br> ${numAlpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
 					`,
 					question: ``,
 					correction: `
@@ -168,10 +168,10 @@ export default function Problemes_additifs_relatifs_5e() {
 					<br>${texte_gras(`Pertes :`)}
 					<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${tex_prix(situations[k].perte)}$€$) = -${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€
 
-					<br>${num_alpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
+					<br>${numAlpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
 					<br> ${situations[k].bilan[2]}   
 
-					<br>${num_alpha(i_sous_question_corr++)} 
+					<br>${numAlpha(i_sous_question_corr++)} 
 					$(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)+(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)+(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$) = (${tex_prix(situations[k].nb_gains * situations[k].gain_multiple + situations[k].nb_gains_unitaires * situations[k].gain_unitaire - situations[k].nb_pertes * situations[k].perte)}$€$)$
 					<br>${texte_en_couleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}$€`)} 
 
@@ -179,7 +179,7 @@ export default function Problemes_additifs_relatifs_5e() {
 				});
 			};
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0:
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {

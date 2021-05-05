@@ -40,7 +40,7 @@ export default function Stabilisation_frequence() {
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
     let type_de_questions_disponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -60,7 +60,7 @@ export default function Stabilisation_frequence() {
         let face = 0;
         let N = 0; // largeur du tableau
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
             // avec un dé
             // Cas où les fréquesnces rejoignent les proba

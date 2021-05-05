@@ -21,7 +21,7 @@ export default function Description_segment_droite_demi_droite(){
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1, 4, choice([2, 3])];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let p = creerNomDePolygone(2, "P");
       let A = point(0, calcul(randint(0, 20) / 10), p[0]);
@@ -31,7 +31,7 @@ export default function Description_segment_droite_demi_droite(){
       let dAB, dABCorr;
       function creerDroiteDemiSegment(A, B) {
         let trait, correction;
-        switch (liste_type_de_questions[i]) {
+        switch (listeTypeDeQuestions[i]) {
           case 1:
             trait = droite(A, B);
             correction = `La droite qui passe par les points $${A.nom}$ et $${B.nom}$ notée $(${A.nom}${B.nom})$.`;

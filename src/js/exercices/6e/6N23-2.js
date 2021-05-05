@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,shuffle,calcul,choisit_lettres_differentes,texNombre,tex_fraction,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,shuffle,calcul,choisitLettresDifferentes,texNombre,tex_fraction,numAlpha} from '../../modules/outils.js'
 import {droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'
 
@@ -30,7 +30,7 @@ export default function Lire_abscisse_decimale_trois_formes() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let d1, texte = "", texteCorr = "", extremite, noms = choisit_lettres_differentes(3, 'Q')
+    let d1, texte = "", texteCorr = "", extremite, noms = choisitLettresDifferentes(3, 'Q')
     let x1 = 0, x2 = 0, x3 = 0, thickOff, tableau = [],xmin,xmax
     if (this.sup == 1) {
       if (this.niveau == 'CM') {
@@ -62,12 +62,12 @@ export default function Lire_abscisse_decimale_trois_formes() {
         pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
-      texte = `${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
-      texte += `${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
-      texteCorr = `${num_alpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-      texteCorr += `${num_alpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
-      texteCorr += `${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 10), 10)}$.`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
+      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
+      texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 10), 10)}$.`
     }
     else if (this.sup == 2) {
       if (this.niveau == 'CM') {
@@ -99,12 +99,12 @@ export default function Lire_abscisse_decimale_trois_formes() {
         pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
-      texte = `${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte += `${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
-      texteCorr = `${num_alpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-      texteCorr += `${num_alpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
-      texteCorr += `${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 100), 100)}$.`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
+      texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 100), 100)}$.`
 
     }
     else if (this.sup == 3) {
@@ -140,12 +140,12 @@ export default function Lire_abscisse_decimale_trois_formes() {
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
 
-      texte = `${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-      texte += `${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte += `${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
-      texteCorr = `${num_alpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-      texteCorr += `${num_alpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
-      texteCorr += `${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 1000), 1000)}$.`
+      texte = `${numAlpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+      texte += `${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte += `${numAlpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
+      texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${tex_fraction(calcul(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
+      texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3 * 1000), 1000)}$.`
 
     }
     texte += mathalea2d({ xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 1.5, pixelsParCm: 25, scale: 0.5 }, d1)

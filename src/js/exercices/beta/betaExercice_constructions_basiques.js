@@ -31,12 +31,12 @@ export default function Exercice_constructions_basiques() {
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
     let type_de_questions_disponibles = [1]; // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
     /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
     if (this.classe == 6) type_de_questions_disponibles = [1, 2]
         else type_de_questions_disponibles = [1, 2, 3,4]
-    liste_type_de_questions = combin,aison_listes(type_de_questions_disponibles, this.nbQuestions)
+    listeTypeDeQuestions = combin,aison_listes(type_de_questions_disponibles, this.nbQuestions)
     */
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.
@@ -53,7 +53,7 @@ export default function Exercice_constructions_basiques() {
 
       //      nom = creerNomDePolygone(3, "PQ")
       // fonction permettant de choisir un nom de polygone, soit ici 3 lettres qui se suivent à l'exclusion de la séquence PQ
-      switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
           A = point(0, 0, 'A', 'below');
           B = point(5, randint(-30, 30) / 10, 'B', 'below');

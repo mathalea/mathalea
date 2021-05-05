@@ -42,7 +42,7 @@ export default function Comparer_decimaux() {
       8,
       9,
     ]; // une seule question du type inversion de chiffres (1,4,5)
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -59,7 +59,7 @@ export default function Comparer_decimaux() {
         c,
         zero_inutile = false;
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // ab ba
           a = randint(1, 9);
           b = randint(1, 9, a);

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {deuxColonnes,randint,texConsigne,num_alpha} from '../../modules/outils.js'
+import {deuxColonnes,randint,texConsigne,numAlpha} from '../../modules/outils.js'
 import {repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Lecture graphique d’images et d’antécédents'
 
@@ -43,27 +43,27 @@ export default function Antecedent_et_image_graphique() {
 		}
 		this.contenu = `Ci-dessous, on a tracé la courbe représentative de la fonction $f$.`;
 		this.contenu += `<br><br>`;
-		let cont1 = `${num_alpha(0)} Quelle est l'image de $${x0}$ ?`;
-		cont1 += `<br>${num_alpha(1)} Quelle est l'image de $${x0 + 5}$ ?`;
+		let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`;
+		cont1 += `<br>${numAlpha(1)} Quelle est l'image de $${x0 + 5}$ ?`;
 		let ordre = randint(1, 2);
 		let cont2;
 		if (ordre == 1) {
-			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${b}$.`;
-			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${c}$.`;
+			cont2 = `${numAlpha(2)} Déterminer le (ou les) antécédent(s) de $${b}$.`;
+			cont2 += `<br>${numAlpha(3)} Déterminer le (ou les) antécédent(s) de $${c}$.`;
 		} else {
-			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${c}$.`;
-			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`;
+			cont2 = `${numAlpha(2)} Déterminer le (ou les) antécédent(s) de $${c}$.`;
+			cont2 += `<br>${numAlpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`;
 		}
 		this.contenu += deuxColonnes(cont1, cont2);
 		this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr);
-		this.contenuCorrection = `${num_alpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`;
-		this.contenuCorrection += `<br>${num_alpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`;
+		this.contenuCorrection = `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`;
+		this.contenuCorrection += `<br>${numAlpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`;
 		if (ordre == 1) {
-			this.contenuCorrection += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
-			this.contenuCorrection += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
+			this.contenuCorrection += `<br>${numAlpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
+			this.contenuCorrection += `<br>${numAlpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
 		} else {
-			this.contenuCorrection += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
-			this.contenuCorrection += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
+			this.contenuCorrection += `<br>${numAlpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
+			this.contenuCorrection += `<br>${numAlpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
 		}
 		if (!sortieHtml) {
 			this.contenu = texConsigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');

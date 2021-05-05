@@ -18,7 +18,7 @@ export default function Connaitre_formules_de_perimetre_et_aires() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       [
         "pi",
         "prectangle",
@@ -37,7 +37,7 @@ export default function Connaitre_formules_de_perimetre_et_aires() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "pi":
           texte = "Rappeler la définition du nombre $\\pi$.";
           texteCorr = "$\\pi$ est la longueur d'un cercle de diamètre 1.";

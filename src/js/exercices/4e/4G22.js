@@ -47,7 +47,7 @@ export default function Problemes_Pythagore() {
           "parallelogramme_n_est_pas_rectangle",])
       ];
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -124,8 +124,8 @@ export default function Problemes_Pythagore() {
       let b = triplet[1];
       let c = triplet[2];
       if (
-        liste_type_de_questions[i] == "parallelogramme_n_est_pas_losange" ||
-        liste_type_de_questions[i] == "parallelogramme_n_est_pas_rectangle"
+        listeTypeDeQuestions[i] == "parallelogramme_n_est_pas_losange" ||
+        listeTypeDeQuestions[i] == "parallelogramme_n_est_pas_rectangle"
       ) {
         c += randint(-3, 3, [0]); // on change la valeur de c
         while (a ** 2 + b ** 2 == c ** 2) {
@@ -141,7 +141,7 @@ export default function Problemes_Pythagore() {
         c = calcul(c / 10);
       }
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "losange":
           texte = `$${nom_quadrilatere}$ est un losange de centre $O$ tel que $${A + B
             }=${texNombre(c)}$ cm et $${A + C}=${texNombre(2 * a)}$ cm.<br>`;

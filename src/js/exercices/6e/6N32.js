@@ -27,18 +27,18 @@ export default function Fractions_d_unite() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles, g, carreaux, sc, unit
-    let liste_type_de_questions = []
+    let listeTypeDeQuestions = []
     if (this.sup < 5)
       type_de_questions_disponibles = [parseInt(this.sup)]
     else
       type_de_questions_disponibles = [1, 2, 3, 4]
-    liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
     for (
       let i = 0, den, num, frac, frac_unite, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           den = choice([4, 5, 6, 10])
           num = randint(1, den - 1)

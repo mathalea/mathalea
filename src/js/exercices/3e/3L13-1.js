@@ -26,15 +26,15 @@ export default function Exercice_equation1_2() {
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let liste_type_de_questions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d'];
-		liste_type_de_questions = combinaisonListes(liste_type_de_questions, this.nbQuestions);
+		let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d'];
+		listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions);
 		for (let i = 0, a, b, c, d, k,texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			a = randint(-9, 9, 0);
 			b = randint(-9, 9, 0);
 			c = randint(-9, 9, 0);
 			d = randint(-9, 9, 0);
 			k = randint(2, 9);
-			if (liste_type_de_questions[i] == 'ax+b=cx+d') {
+			if (listeTypeDeQuestions[i] == 'ax+b=cx+d') {
 				if (c == a) { c = randint(1, 9, [a]); } // sinon on arrive à une division par 0
 				if (!this.sup && a < c) {
 					c = randint(1, 9);
@@ -70,7 +70,7 @@ export default function Exercice_equation1_2() {
 				texteCorr += `<br> La solution est $${texFractionReduite(d - b, a - c)}$.`;
 			}
 
-			if (liste_type_de_questions[i] == 'k(ax+b)=cx+d') {
+			if (listeTypeDeQuestions[i] == 'k(ax+b)=cx+d') {
 				if (c == k * a) { c = randint(1, 9, [a]); } // sinon on arrive à une division par 0
 				texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$`;
 				texteCorr = texte + '<br>';
@@ -106,7 +106,7 @@ export default function Exercice_equation1_2() {
 				texteCorr += `<br> La solution est $${texFractionReduite(d - k * b, k * a - c)}$.`;
 			}
 
-			if (liste_type_de_questions[i] == 'k-(ax+b)=cx+d') {
+			if (listeTypeDeQuestions[i] == 'k-(ax+b)=cx+d') {
 				if (c == -a) { c = randint(-9, 9, [0, a]); } // sinon on arrive à une division par 0
 				texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$`;
 				texteCorr = texte + '<br>';

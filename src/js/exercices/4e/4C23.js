@@ -42,7 +42,7 @@ export default function Exercice_additionner_fraction_produit() {
       type_de_questions_disponibles = [4];
     }
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     );
@@ -70,7 +70,7 @@ export default function Exercice_additionner_fraction_produit() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       if (this.sup==1) {ab = choice(liste_fractions_faciles);cd = choice(liste_fractions_faciles);ef = choice(liste_fractions_faciles);}
       else {ab = choice(liste_fractions);cd = choice(liste_fractions);ef = choice(liste_fractions);}
 

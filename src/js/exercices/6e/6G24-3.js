@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,calcul,choisit_lettres_differentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,codageMediatrice,segment,traceCompas,dansLaCibleCarree,cibleCarree,translation,homothetie,symetrieAxiale,distancePointDroite,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire le symétrique d’un point avec cible auto-corrective'
 
@@ -33,7 +33,7 @@ export default function Construire_symetrique_point_6e() {
     let A = translation(point(0, 0), homothetie(d.directeur, point(0, 0), -0.5))
     let B = translation(point(0, 0), homothetie(d.directeur, point(0, 0), 0.5))
     let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
-    let noms = choisit_lettres_differentes(nbpoints, 'Q',  true)
+    let noms = choisitLettresDifferentes(nbpoints, 'Q',  true)
     this.consigne = `Construire le symétrique des points $${noms[0]}$`
     for (let i = 1; i < nbpoints - 1; i++) {
       this.consigne += `, $${noms[i]}$`

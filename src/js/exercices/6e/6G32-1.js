@@ -23,7 +23,7 @@ export default function Symetrie_axiale_conservation1() {
     for (let i = 0; i < 25; i++) nom.push(lettreDepuisChiffre(i + 1))
     let noms = shuffle(nom)
 
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     this.listeQuestions.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
@@ -117,7 +117,7 @@ export default function Symetrie_axiale_conservation1() {
     objets_correction.lenght = 0
     for (let i = 0, texte, texteCorr,s1,s2,choix, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "Segment":
           choix = randint(0, 10) + randint(0, 1) * 12
           texte = `Quel est le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ ?`

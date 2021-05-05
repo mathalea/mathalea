@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,choisit_lettres_differentes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,choisitLettresDifferentes} from '../../modules/outils.js'
 import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageAngleDroit,labelPoint,similitude, } from '../../modules/2d.js';
 export const titre = 'Nature de parallélogrammes'
 
@@ -23,9 +23,9 @@ export default function demonstrations_parallelogrammes() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0,objets,O,A,B,C,D,p,t1,t2,t3,t4,s1,s2,s3,s4,d1,d2, texte, texteCorr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      noms=choisit_lettres_differentes(5,'Q')
+      noms=choisitLettresDifferentes(5,'Q')
       nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
       centre=`$${noms[4]}$`
       objets=[]
@@ -47,7 +47,7 @@ export default function demonstrations_parallelogrammes() {
       s4.color='red'
       objets.push(s1,s2,s3,s4,p[1])
         // Boucle principale où i+1 correspond au numéro de la question
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': // rectangle 1
           def=`ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ ont la même longueur`
           prop1=`a des diagonales de même longueur`

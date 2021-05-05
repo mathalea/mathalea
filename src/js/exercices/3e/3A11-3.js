@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modal_video,liste_diviseurs,num_alpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modal_video,liste_diviseurs,numAlpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
 
 /**
@@ -38,10 +38,10 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 
 		let type_de_questions_disponibles = [1];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+			type_de_questions = listeTypeDeQuestions[i];
 
 
 			switch (type_de_questions) {
@@ -98,7 +98,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 						};
 					};
 					texte += `$, <br>`;
-					texte += num_alpha(0) + ` Compléter le tableau ci-dessous.`;
+					texte += numAlpha(0) + ` Compléter le tableau ci-dessous.`;
 					if (!sortieHtml) {
 						texte += `$\\medskip$`;
 					};
@@ -139,8 +139,8 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;
-					texte += num_alpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
-					texte += num_alpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
+					texte += numAlpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
+					texte += numAlpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
 
 					// correction
 					texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombre_a_decomposer_b)}$ qui est : $`;
@@ -157,7 +157,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 						};
 					};
 					texteCorr += `$, <br>`;
-					texteCorr += num_alpha(0) + ` Le tableau donne :`;
+					texteCorr += numAlpha(0) + ` Le tableau donne :`;
 					// on crée le tableau des entetes de lignes et des colonnes
 					let ent_lignes_corr = [];
 					let ent_lignes_corr_res = [];
@@ -202,7 +202,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					texteCorr += `<br>`;
 					texteCorr += tab_C_L(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr);
 					texteCorr += `<br>`;
-					texteCorr += num_alpha(1) + ` $${texNombre(nombre_a_decomposer_b)}$ a donc `;
+					texteCorr += numAlpha(1) + ` $${texNombre(nombre_a_decomposer_b)}$ a donc `;
 					texteCorr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
 					texteCorr += `${tab_multiplicites_b[0] + 1}\\times${tab_multiplicites_b[1] + 1}\\times${tab_multiplicites_b[2] + 1} = `;
 					texteCorr += `${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs.<br>`;
@@ -228,7 +228,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texteCorr += `$${tab_premiers_b[2]}^{` + tab_multiplicites_b[2] + `}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
 					texteCorr += `<br>`;
-					texteCorr += num_alpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${texNombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
+					texteCorr += numAlpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${texNombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 					texteCorr += `$1`;
 					for (let w = 1; w < liste_diviseurs(nombre_a_decomposer_b).length; w++) {
 						texteCorr += `\\text{ ; }` + texNombre(liste_diviseurs(nombre_a_decomposer_b)[w]);

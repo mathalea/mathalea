@@ -33,8 +33,8 @@ export default function Reduire_dinstinction_somme_produit() {
 			type_de_questions_disponibles = [choice([0, 2]), choice([1, 3])];
 		}
 
-		//let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) 
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+		//let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) 
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
 
 		//if (this.sup2) decimal=10;
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -140,7 +140,7 @@ export default function Reduire_dinstinction_somme_produit() {
 				enonces[3].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
 			};
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0:	// produit puis somme 				
 					texte = `${enonces[0].enonce}.`;
 					if (this.debug) {

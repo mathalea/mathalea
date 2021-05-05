@@ -34,9 +34,9 @@ export default function Volume_boule() {
     this.listeCorrections = [];
     let type_de_questions_disponibles = []; // tableau à compléter par valeurs possibles des types de questions
     type_de_questions_disponibles = [1,2,3,4];
-    let liste_type_de_questions = [];
+    let listeTypeDeQuestions = [];
     type_de_questions_disponibles.splice(this.sup, 5-parseInt(this.sup));
-    liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 
       // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
       // La boucle s'arrête après 50 tentatives.
@@ -44,7 +44,7 @@ export default function Volume_boule() {
         texte = ``; // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = ``; // Idem pour le texte de la correction.
         let type_de_questions = [];
-        type_de_questions = liste_type_de_questions[i];
+        type_de_questions = listeTypeDeQuestions[i];
 
         switch (type_de_questions) {
           case 1:

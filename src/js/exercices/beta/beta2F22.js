@@ -29,12 +29,12 @@ export default function representer_fonction_affine() {
     let type_de_questions_disponibles = [];
     type_de_questions_disponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
 
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
 
     for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texteCorr, cpt = 0, type_de_questions;
       i < this.nbQuestions && cpt < 50;) // on rajoute les variables dont on a besoin
     {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
 
 
       switch (type_de_questions) {

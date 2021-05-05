@@ -22,13 +22,13 @@ export default function Reduction_si_possible() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x'];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texteCorr, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			a = randint(-11, 11, 0);
 			b = randint(-11, 11, [0, a]);
 			c = randint(-11, 11, [0]);
 			d = randint(-11, 11, 0);
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 'ax+b':
 					texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})`)}$`;
 					texteCorr = texte;

@@ -31,7 +31,7 @@ export default function Representer_un_solide5e() {
     else
       type_de_questions_disponibles = [parseInt(this.sup)];
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -75,7 +75,7 @@ export default function Representer_un_solide5e() {
       objets_correction = [];
       objets_enonce = [];
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `$${nom}$ est un cube.<br>`;
           if (sortieHtml)
@@ -101,7 +101,7 @@ export default function Representer_un_solide5e() {
           break;
       }
 
-      switch (liste_type_de_questions[i] % 2) {
+      switch (listeTypeDeQuestions[i] % 2) {
         case 1:
           A = point(6, 0, nom[0], "left");
           B = point(11, 0, nom[1], "right");
@@ -253,28 +253,28 @@ export default function Representer_un_solide5e() {
         scale: sc,
       };
 
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
-      if (liste_type_de_questions[i] == 2) {
+      if (listeTypeDeQuestions[i] == 2) {
         objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
-      if (liste_type_de_questions[i] == 4) {
+      if (listeTypeDeQuestions[i] == 4) {
         objets_enonce.push(AB, DA, BD, AE,
           g,
           carreaux
         );
       }
 
-      if (liste_type_de_questions[i] == 6) {
+      if (listeTypeDeQuestions[i] == 6) {
         objets_enonce.push(AB, BF, tracePoint(I, .5, 'red'), labelPoint(I),
           g,
           carreaux
@@ -282,7 +282,7 @@ export default function Representer_un_solide5e() {
       }
 
       enonce += mathalea2d(params, objets_enonce);
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         AB.color = 'green';
         BC.color = 'red';
         CD.color = 'green';
@@ -301,7 +301,7 @@ export default function Representer_un_solide5e() {
         );
       }
 
-      if (liste_type_de_questions[i] == 2) {
+      if (listeTypeDeQuestions[i] == 2) {
         AB.color = 'green';
         BC.color = 'red';
         CD.color = 'green';
@@ -320,7 +320,7 @@ export default function Representer_un_solide5e() {
         );
       }
 
-      if (liste_type_de_questions[i] == 4) {
+      if (listeTypeDeQuestions[i] == 4) {
         AB.color = 'green';
         BC.color = 'red';
         CD.color = 'green';
@@ -339,7 +339,7 @@ export default function Representer_un_solide5e() {
         );
       }
 
-      if (liste_type_de_questions[i] == 6) {
+      if (listeTypeDeQuestions[i] == 6) {
         AB.color = 'green';
         BC.color = 'red';
         CD.color = 'green';

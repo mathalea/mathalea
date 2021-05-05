@@ -36,10 +36,10 @@ export default function Coefficient_evolution () {
     if (this.sup === 3) {
       type_de_questions_disponibles = ['coef+', 'coef-', 'taux+', 'taux-']
     }
-    const liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       taux = choice([randint(1, 9) * 10, randint(1, 9)])
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`
           coeff = tex_prix(calcul(1 + taux / 100))

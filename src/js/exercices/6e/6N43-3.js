@@ -73,7 +73,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
     if (this.nbQuestions<8) {
       type_de_questions_disponibles = [choice(['Ndiviseur','divisibleParN']),'multipleDeN',choice(['NdiviseurF','divisibleParNF']),'multipleDeNF',choice(['NdiviseurEnvers','divisibleParNEnvers','multipleDeNEnvers'])]; 
     }
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let liste_de_N_disponibles
     if (this.sup == 1) {
         liste_de_N_disponibles = [2,5]
@@ -89,7 +89,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
         // Boucle principale où i+1 correspond au numéro de la question
         N = liste_de_N[i]
         a = randint(199,999)*N;
-        switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+        switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Ndiviseur': 
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`;
           texteCorr = texte.replace('.',' ') + ' : Vrai';

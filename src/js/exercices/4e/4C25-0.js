@@ -176,8 +176,8 @@ function ListeFraction() {
       type_de_questions_disponibles = [choice([1, 2]), choice([3, 4, 5])];
     }
 
-    //let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaisonListesSansChangerOrdre(
+    //let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées --> à remettre comme ci dessus
@@ -958,7 +958,7 @@ function ListeFraction() {
         )}`;
       }
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // Triathlon des neiges --> VTT, ski de fond, course
           texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
           if (this.debug) {

@@ -39,13 +39,13 @@ export default function Calculs_avec_puissances_de_dix() {
     else if (this.sup2 == 2) type_de_questions_disponibles = [0, 1, 1, 2, 2];
     else type_de_questions_disponibles = [2, 2, 3, 3, 3];
 
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, nombre, mantisse1, exp1, decalage, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
       //        nombre=calcul(randint(1001,9999)/10**randint(1,6))
       //      mantisse=calcul(nombre/10**(Math.floor(Math.log10(nombre))))
       //        exp=Math.floor(Math.log10(nombre))
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 0:
           decalage = randint(-1, 1, 0)
           mantisse = randint(1, 9)

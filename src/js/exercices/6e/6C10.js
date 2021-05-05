@@ -45,19 +45,19 @@ this.qcm=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions,reponse
     let type_de_questions_disponibles = [1, 2, 3, 4, 5];
-    let liste_type_de_questions = combinaisonListesSansChangerOrdre(
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
       type_de_questions_disponibles,
       this.nbQuestions
     );
     if (this.nbQuestions == 3) {
-      liste_type_de_questions = [1, 2, 5];
+      listeTypeDeQuestions = [1, 2, 5];
     }
     if (this.nbQuestions == 4) {
-      liste_type_de_questions = [1, 2, 4, 5];
+      listeTypeDeQuestions = [1, 2, 4, 5];
     }
 
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: // abcd +efg
           a =

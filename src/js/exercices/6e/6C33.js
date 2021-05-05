@@ -55,7 +55,7 @@ export default function Priorites() {
     } else {
       listeQuestions_disponibles = range1(22);
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       listeQuestions_disponibles,
       this.nbQuestions
     );
@@ -64,7 +64,7 @@ export default function Priorites() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           a = randint(2, 11);
           b = randint(2, 11);

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,num_alpha,texte_en_couleur_et_gras,texNombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texte_en_couleur_et_gras,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 
@@ -50,8 +50,8 @@ export default function Comparer_puissance10() {
       this.listeQuestions = [] // tableau contenant la liste des questions 
       this.listeCorrections = []
       let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
-      switch (liste_type_de_questions[i]) {
+      let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           a1 = 1;
           n1 = randint(-9, 9);
@@ -89,9 +89,9 @@ export default function Comparer_puissance10() {
         }
       nbA1 = a1 * 10 ** n1;
       nbA2 = a2 * 10 ** n2;
-      texte += num_alpha(i) + ` ` + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
+      texte += numAlpha(i) + ` ` + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
       // début correction détaillée
-      texteCorr += num_alpha(i) + ` `;
+      texteCorr += numAlpha(i) + ` `;
       if (this.correctionDetaillee) {
         if (nbA1==nbA2) {
           texteCorr += `Les deux nombres ont la même écriture, ils sont donc égaux. <br>`;

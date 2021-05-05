@@ -43,7 +43,7 @@ export default function Exercice_tableau_multiplications_relatifs() {
           type_de_questions_disponibles = [1, 2, 3, 4];
           break;
      }
-	let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+	let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
 	for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 		// on ne choisit que des nombres compris entre 1 et 20
 		let nbMax = 20;
@@ -59,7 +59,7 @@ export default function Exercice_tableau_multiplications_relatifs() {
 		let lettre = lettre_tab[randint(0, lettre_tab.length-1)];
 		let nom_expression = lettreDepuisChiffre(i + 1);
 		let signe_expression = randint(-1, 1, [0]);
-		let nb_termes = liste_type_de_questions[i] == 1 ? randint(3, 5) : randint(4, 6);
+		let nb_termes = listeTypeDeQuestions[i] == 1 ? randint(3, 5) : randint(4, 6);
 		let place_lettre = randint(0, nb_termes-1);
 		let liste_nombres = num.relatifs.slice(0,nb_termes-1);
 		let liste_termes = [];
@@ -71,7 +71,7 @@ export default function Exercice_tableau_multiplications_relatifs() {
 		let signe_lettre, calcul_nombres;
 		texte = `Donne le signe de $ ${lettre} $ pour que ${nom_expression} soit ${signe_expression==-1 ? 'negatif' : 'positif'}. <br>`;
 		texteCorr = `${texte_en_couleur_et_gras("Supposons que " + lettre + " soit positif : ")}`; 
-		switch (liste_type_de_questions[i]) {
+		switch (listeTypeDeQuestions[i]) {
 			case 1: // multiplications
 				calcul += `${liste_termes[0]} `;
 				for (let k=1; k<nb_termes ; k++) {

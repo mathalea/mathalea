@@ -116,13 +116,13 @@ export default function Vocabulaire_des_triangles() {
         choice([8, 9]),
       ]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
     }
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 
-    //let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    //let listeTypeDeQuestions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
@@ -151,7 +151,7 @@ export default function Vocabulaire_des_triangles() {
         partieDecimale2 = 0;
         partieDecimale3 = 0;
       }
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // triangle quelconque par les longueurs sans conversion
           while (!triangle_quelconque.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);

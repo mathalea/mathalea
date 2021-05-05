@@ -27,7 +27,7 @@ export default function Divisions_euclidiennes_egalite () {
     } else if (this.sup == 2) {
       type_de_questions_disponibles = [1, 2, 3, 4]
     }
-    const liste_type_de_questions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -36,7 +36,7 @@ export default function Divisions_euclidiennes_egalite () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = liste_type_de_questions[i]
+      type_de_questions = listeTypeDeQuestions[i]
       q = randint(7, 75)
 	  b = randint(3, 25)
 	  r = type_de_questions === 1 ? 0 : randint(1, b - 1)

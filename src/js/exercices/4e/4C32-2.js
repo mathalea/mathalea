@@ -37,14 +37,14 @@ nano : milliardième $\\times10^{-9}$<br>
     this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['m>km','u>M','u>G','g>t','M>G','M>T','G>T','m>mm','m>um','m>nm']; // On créé 3 types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let liste_de_sens = combinaisonListes(['div','fois'],this.nbQuestions)
     for (let i = 0, a, n, unite, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
         a = choice([calcul(randint(1,9)+randint(1,9)/10),calcul(randint(11,99)+randint(1,9)/10+randint(1,9)/100),calcul(randint(11,999)+randint(1,9)/10)],calcul(randint(10000,99999)/100))
         texte = '';
         texteCorr = '';
-        switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+        switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'm>km': 
             n = randint(6,12)
             if (liste_de_sens[i]=='div') {

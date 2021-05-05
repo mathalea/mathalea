@@ -35,9 +35,9 @@ export default function Developper_Identites_remarquables2() {
         }
         else { type_de_questions_disponibles = [7, 8, 9]; } // coef de x relatif
 
-        let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0, a, b, type_de_questions, fraction = [], ds, ns; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             a = randint(1, 9);
             b = randint(2, 9);
             fraction = choice(liste_fractions);

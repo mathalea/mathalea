@@ -31,16 +31,16 @@ export default function Tester_une_egalite() {
 
 		let type_de_questions_disponibles; // = range1(5)
 
-		//	let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//	let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		if (this.sup2 == false)
 			type_de_questions_disponibles = [1, 2, 3, 4, 5];
 		else
 			type_de_questions_disponibles = [6, 7, 3];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d, x1, x2, x3;
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // 3x-a=2x+b   x=a+b  
 					if (this.sup == 1) {
 						a = randint(1, 6);

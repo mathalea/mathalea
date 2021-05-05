@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisit_lettres_differentes,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisitLettresDifferentes,texNombre,tex_fraction} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
@@ -31,7 +31,7 @@ export default function LireUneAbscisseAvecZoom() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let d1, d2, d3, d3Corr, d1Corr, d2Corr, texte = "", texteCorr = "", extremite, extreme, noms = choisit_lettres_differentes(5, 'QFN')
+    let d1, d2, d3, d3Corr, d1Corr, d2Corr, texte = "", texteCorr = "", extremite, extreme, noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0, objetsCorr = [],xmin,xmax,origine,pA1,pA2,pB1,pB2,sA,sB,x21,x31,pC1,pC2,pD1,pD2,sC,sD
     if (this.sup == 1) {
       if (this.niveau == 'CM') {

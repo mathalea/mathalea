@@ -38,7 +38,7 @@ export default function Exercice_substituer(difficulte = 1) {
 		this.listeCorrections = []; // Liste de questions corrigées
 let reponse
 		let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let k = randint(2, 9);
 		let k2 = randint(2, 9);
 		let k3 = randint(2, 9);
@@ -60,7 +60,7 @@ let reponse
 			this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`;
 		}
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1:
 					texte = `$${lettreDepuisChiffre(i + 1)}=${k}x$`;
 					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x=${k}\\times  ${x}=${k * x}$`;

@@ -23,11 +23,11 @@ export default function Calculer_une_expression_litterale_pythagore() {
     this.listeCorrections = []; 
     let a, b, n,s,d,racs,racd,miracs, miracd;
     let type_de_questions_disponibles = ['type1','type2'];
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
     
-      switch (liste_type_de_questions[i]) {        
+      switch (listeTypeDeQuestions[i]) {        
           
         case 'type1': 
         a = randint(3,12);

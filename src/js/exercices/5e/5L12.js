@@ -30,7 +30,7 @@ export default function Reduire_une_expression_litterale() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = range1(7);
-		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d;
@@ -45,7 +45,7 @@ export default function Reduire_une_expression_litterale() {
 				c = randint(2, this.sup);
 				d = randint(2, this.sup);
 			}
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // ax+bx+c	
 					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}$`;
 					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}=${texNombre(calcul(a + b))}x+${texNombre(c)}$`;

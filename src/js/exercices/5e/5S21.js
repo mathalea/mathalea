@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,simplification_de_fraction_avec_etapes,prenom,tex_fraction,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,simplification_de_fraction_avec_etapes,prenom,tex_fraction,numAlpha} from '../../modules/outils.js'
 
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à une épreuve'
@@ -56,15 +56,15 @@ export default function fonctions_probabilite1() {
 
 			texte = `Dans ${lieu} il y a ${somme} ${objet}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
 			texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.<br> `;
-			texte += num_alpha(0) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ?<br>`;
-			texte += num_alpha(1) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} ?<br>`;
-			texte += num_alpha(2) + ` Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} ?<br>`;
-			texte += num_alpha(3) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]}?<br>`;
+			texte += numAlpha(0) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ?<br>`;
+			texte += numAlpha(1) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} ?<br>`;
+			texte += numAlpha(2) + ` Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} ?<br>`;
+			texte += numAlpha(3) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]}?<br>`;
 			texteCorr = `On est dans une situation d’équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>`;
-			texteCorr += num_alpha(0) + ` Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est :<br> $${tex_fraction(n[m], somme)}${simplification_de_fraction_avec_etapes(n[m], somme)}$.<br>`;
-			texteCorr += num_alpha(1) + ` Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est :<br> $${tex_fraction(n[p], somme)}${simplification_de_fraction_avec_etapes(n[p], somme)}$.<br>`;
-			texteCorr += num_alpha(2) + ` Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objet} et il y a ${somme} ${objet} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est :<br> $${tex_fraction(somme - n[q], somme)}${simplification_de_fraction_avec_etapes(somme - n[q], somme)}$.<br>`;
-			texteCorr += num_alpha(3) + ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${tex_fraction(n[m], somme)}+${tex_fraction(n[p], somme)}=${tex_fraction(n[p] + n[m], somme)}${simplification_de_fraction_avec_etapes(n[p] + n[m], somme)}$.<br>`;
+			texteCorr += numAlpha(0) + ` Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est :<br> $${tex_fraction(n[m], somme)}${simplification_de_fraction_avec_etapes(n[m], somme)}$.<br>`;
+			texteCorr += numAlpha(1) + ` Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est :<br> $${tex_fraction(n[p], somme)}${simplification_de_fraction_avec_etapes(n[p], somme)}$.<br>`;
+			texteCorr += numAlpha(2) + ` Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objet} et il y a ${somme} ${objet} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est :<br> $${tex_fraction(somme - n[q], somme)}${simplification_de_fraction_avec_etapes(somme - n[q], somme)}$.<br>`;
+			texteCorr += numAlpha(3) + ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${tex_fraction(n[m], somme)}+${tex_fraction(n[p], somme)}=${tex_fraction(n[p] + n[m], somme)}${simplification_de_fraction_avec_etapes(n[p] + n[m], somme)}$.<br>`;
 			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);

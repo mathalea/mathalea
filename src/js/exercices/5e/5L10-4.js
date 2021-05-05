@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texNombre,num_alpha,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texNombre,numAlpha,tab_C_L} from '../../modules/outils.js'
 import {point,polygone,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d’un tableau'
 
@@ -42,8 +42,8 @@ export default function Tableaux_et_fonction() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		//let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let L1 = randint(3, 7);
@@ -188,13 +188,13 @@ export default function Tableaux_et_fonction() {
 					enonce: `
 					On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].cote_connu}$ $${unites[1]}$ et l'autre mesure $${situations[k].cote_inconnu}$ $${unites[0]}$.<br>
 					${situations[k].fig}<br>
-					${num_alpha(i_sous_question++)} Compléter le tableau suivant :<br><br>
+					${numAlpha(i_sous_question++)} Compléter le tableau suivant :<br><br>
 					${situations[k].tableau}<br><br>
-					${num_alpha(i_sous_question++)} Quelle formule permet de calculer le périmètre de ce rectangle en fonction de $${situations[k].cote_inconnu}$ ?								
+					${numAlpha(i_sous_question++)} Quelle formule permet de calculer le périmètre de ce rectangle en fonction de $${situations[k].cote_inconnu}$ ?								
 					`,
 					question: ``,
 					correction: `
-					${num_alpha(i_sous_question_corr++)} ${situations[k].intro}<br>
+					${numAlpha(i_sous_question_corr++)} ${situations[k].intro}<br>
 					Il y a plusieurs façons de calculer le périmètre d'un rectangle, par exemple : <br> $2\\times largeur + 2\\times Longueur$.<br>
 					Ici l'un des côtés mesure toujours $\\textcolor{blue}{${petit_l[0]}}$ $${unite_petit_l}$<br>
 					Calculons les périmètres pour chacune des valeurs données :<br>
@@ -204,7 +204,7 @@ export default function Tableaux_et_fonction() {
 					${situations[k].calculL4}<br>
 					Nous pouvons alors remplir le tableau<br>
 					${situations[k].tableau_corr}<br><br>
-					${num_alpha(i_sous_question_corr++)} On peut généraliser le raisonnement des calculs du périmètre, et ainsi obtenir une formule.<br>
+					${numAlpha(i_sous_question_corr++)} On peut généraliser le raisonnement des calculs du périmètre, et ainsi obtenir une formule.<br>
 					$${situations[k].secondeQ}$
 
 					`
@@ -212,7 +212,7 @@ export default function Tableaux_et_fonction() {
 			};
 
 			// autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0:
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {

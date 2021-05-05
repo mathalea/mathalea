@@ -54,11 +54,11 @@ export default function Puissances_encadrement() {
         break;
     }
 
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
@@ -103,7 +103,7 @@ export default function Puissances_encadrement() {
         });
       }
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // nombre enier positif
           texte = `${ent_pos[0].val}`;
           texteCorr = `${ent_pos[0].puissance_inf} $\\leqslant$ ${ent_pos[0].val} $\\leqslant$ ${ent_pos[0].puissance_sup}`;

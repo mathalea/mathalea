@@ -27,14 +27,14 @@ export default function Exercice_zero_mathalea() {
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
     let type_de_questions_disponibles=[1] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = `` // Idem pour le texte de la correction.
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
                
           break;

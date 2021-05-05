@@ -23,7 +23,7 @@ export default function Multiplier_entier_par_10_100_1000() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9];
-    let liste_type_de_questions = combinaisonListes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -38,7 +38,7 @@ export default function Multiplier_entier_par_10_100_1000() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           a = randint(1, 9)
           break;
