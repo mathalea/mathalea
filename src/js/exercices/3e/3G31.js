@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {homothetie,codeAngle,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js';
-import { calcul, tex_fraction, quatrieme_proportionnelle, texNombre, arrondi, texNombre2,texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
+import { calcul, texFraction, quatrieme_proportionnelle, texNombre, arrondi, texNombre2,texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
 export const amcReady = true
@@ -215,24 +215,25 @@ else mEp2=''
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, ${mEp2}le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
                 texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${tex_fraction(texNombre2(ab),texNombre2(bc))}$<br>`;
-                texteCorr += `$\\widehat{${nom}}=\\arccos(${tex_fraction(texNombre2(ab),texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`;
+                texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ab),texNombre2(bc))}$<br>`;
+                texteCorr += `$\\widehat{${nom}}=\\arccos(${texFraction(texNombre2(ab),texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`;
 
                 break
             case 'Asin':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$ ${mEp2},le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
+                texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${tex_fraction(texNombre2(ac),texNombre2(bc))}$<br>`;
-                texteCorr += `$\\widehat{${nom}}=\\arcsin(${tex_fraction(texNombre2(ac),texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`;
+                texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac),texNombre2(bc))}$<br>`;
+                texteCorr += `$\\widehat{${nom}}=\\arcsin(${texFraction(texNombre2(ac),texNombre2(bc))})\\approx ${angleABC}\\degree$<br>`;
 
                 break
             case 'Atan':
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, ${mEp2}la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`;
-                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${tex_fraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
+                texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`;
                 texteCorr += `Avec les données numériques :<br>`;
-                texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${tex_fraction(texNombre2(ac),texNombre2(ab))}$<br>`;
-                texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${tex_fraction(texNombre2(ac),texNombre2(ab))}\\right) \\approx ${angleABC} \\degree $ <br>`;
+                texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${texFraction(texNombre2(ac),texNombre2(ab))}$<br>`;
+                texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${texFraction(texNombre2(ac),texNombre2(ab))}\\right) \\approx ${angleABC} \\degree $ <br>`;
+console.log(texteCorr)
                 break
                   }
                   if (this.correctionDetaillee&&!sortieHtml) texteCorr+='\n\\end{minipage}\n'

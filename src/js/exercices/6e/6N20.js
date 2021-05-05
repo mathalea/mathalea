@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,texFraction} from '../../modules/outils.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
 
 /**
@@ -76,12 +76,12 @@ export default function Exercice_fractions_decomposer() {
       enleveElement(liste_fractions, fraction); // Il n'y aura pas 2 fois la même partie décimale
       texte =
         "$ " +
-        tex_fraction(a, b) +
+        texFraction(a, b) +
         " = \\phantom{0000} + " +
-        tex_fraction("\\phantom{00000000}", "") +
+        texFraction("\\phantom{00000000}", "") +
         " $";
       texteCorr =
-        "$ " + tex_fraction(a, b) + " = " + n + "+" + tex_fraction(c, b) + " $";
+        "$ " + texFraction(a, b) + " = " + n + "+" + texFraction(c, b) + " $";
       this.listeQuestions.push(texte);
       this.listeCorrections.push(texteCorr);
     }

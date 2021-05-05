@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {shuffle2tableaux,export_QCM_AMC,calcul,listeQuestionsToContenu,combinaisonListes,randint,texNombre,texNombre2,tex_fraction,choice,miseEnEvidence} from '../../modules/outils.js'
+import {shuffle2tableaux,export_QCM_AMC,calcul,listeQuestionsToContenu,combinaisonListes,randint,texNombre,texNombre2,texFraction,choice,miseEnEvidence} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -90,7 +90,7 @@ export default function Multiplier_par_001() {
              }
              break
             }
-            texteCorr=`Quand on multiplie par $${texNombre2(calcul(10**coef))}=${tex_fraction(1,calcul(10**(-coef)))}$ chaque chiffre prend une valeur $${texNombre2(calcul(10**(-coef)))}$ fois plus petite.<br>`
+            texteCorr=`Quand on multiplie par $${texNombre2(calcul(10**coef))}=${texFraction(1,calcul(10**(-coef)))}$ chaque chiffre prend une valeur $${texNombre2(calcul(10**(-coef)))}$ fois plus petite.<br>`
             texteCorr+=`Le chiffre des unités se positionne donc dans les ${rang[3+coef]} :<br>`
             texteCorr=`$${texNombre2(nombre)} \\times ${texNombre2(calcul(10**coef))}~~ =~~ ${miseEnEvidence(texNombre2(resultat),'blue')}$`
 
@@ -116,7 +116,7 @@ export default function Multiplier_par_001() {
              }
              break
             }
-            texteCorr=`Quand on multiplie par $${texNombre2(10**coef)}=${tex_fraction(1,10**(-coef))}$ chaque chiffre prend une valeur $${texNombre2(10**(-coef))}$ fois plus petite.<br>`
+            texteCorr=`Quand on multiplie par $${texNombre2(10**coef)}=${texFraction(1,10**(-coef))}$ chaque chiffre prend une valeur $${texNombre2(10**(-coef))}$ fois plus petite.<br>`
             texteCorr+=`Le chiffre des unités se positionne donc dans les ${rang[3+coef]} :<br>`
             texteCorr=`$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10**coef),'blue')} ~~=~~ ${texNombre2(resultat)}$`
    
@@ -143,7 +143,7 @@ export default function Multiplier_par_001() {
              }
              break
             }
-            texteCorr=`Quand on multiplie par $${texNombre2(10**coef)}=${tex_fraction(1,10**(-coef))}$ chaque chiffre prend une valeur $${texNombre2(10**(-coef))}$ fois plus petite.<br>`
+            texteCorr=`Quand on multiplie par $${texNombre2(10**coef)}=${texFraction(1,10**(-coef))}$ chaque chiffre prend une valeur $${texNombre2(10**(-coef))}$ fois plus petite.<br>`
             texteCorr+=`Le chiffre des unités se positionne donc dans les ${rang[3+coef]} :<br>`
             texteCorr=`$${miseEnEvidence(texNombre2(nombre),'blue')} \\times ${texNombre2(10**coef)} = ${texNombre2(resultat)}$`
    

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texFraction} from '../../modules/outils.js'
 export const titre = 'Développer (a-b)(a+b)'
 
 /**
@@ -43,8 +43,8 @@ export default function Developper_Identites_remarquables3() {
 				fraction = choice(liste_fractions);
 				ns = fraction[0];
 				ds = fraction[1];
-				texte = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)$`; // b>1
-				texteCorr = `$\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)=\\left(${tex_fraction(ns, ds)}x\\right)^2-${a}^2=${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}$`;
+				texte = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`; // b>1
+				texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`;
 			}
 
 			if (this.listeQuestions.indexOf(texte) == -1) {

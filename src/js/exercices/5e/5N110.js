@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,tex_prix,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,tex_prix,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 
@@ -34,7 +34,7 @@ export default function Variation_en_pourcentages() {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux}~\\%.`;
 				}
 
-				texteCorr = `$\\text{Diminution : }${tex_fraction(taux, 100)}\\times  ${tex_prix(prix)} = ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)} = ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
 				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(Algebrite.eval(prix * taux / 100))}=${tex_prix(Algebrite.eval(prix - prix * taux / 100))}$ €`;
 			} else {
@@ -44,7 +44,7 @@ export default function Variation_en_pourcentages() {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux}~\\%.`;
 
 				}
-				texteCorr = `$\\text{Augmentation : }${tex_fraction(taux, 100)}\\times  ${tex_prix(prix)}= ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)}= ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
 				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(Algebrite.eval(prix * taux / 100))}=${tex_prix(Algebrite.eval(prix * (1 + taux / 100)))}$ €`;
 			}

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,miseEnEvidence,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,miseEnEvidence,obtenir_liste_fractions_irreductibles,texFraction} from '../../modules/outils.js'
 
 
 export const titre = 'Comparer des fractions (dénominateurs multiples)'
@@ -43,18 +43,18 @@ export default function Exercice_comparer_deux_fractions(max = 11) {
 
 			let ordre_des_fractions = randint(1, 2);
 			if (ordre_des_fractions == 1) {
-				texte = `$${tex_fraction(a, b)} \\quad$ et $\\quad ${tex_fraction(k * a + ecart, k * b)}$`;
+				texte = `$${texFraction(a, b)} \\quad$ et $\\quad ${texFraction(k * a + ecart, k * b)}$`;
 			} else {
-				texte = `$${tex_fraction(k * a + ecart, k * b)} \\quad$ et $\\quad ${tex_fraction(a, b)}$`;
+				texte = `$${texFraction(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFraction(a, b)}$`;
 			}
 			if (!sortieHtml) {
 				texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots');
 			}
-			texteCorr = `$${tex_fraction(a, b)}=${tex_fraction(a + miseEnEvidence('\\times  ' + k), b + miseEnEvidence('\\times  ' + k))}=${tex_fraction(a * k, b * k)}\\quad$`;
+			texteCorr = `$${texFraction(a, b)}=${texFraction(a + miseEnEvidence('\\times  ' + k), b + miseEnEvidence('\\times  ' + k))}=${texFraction(a * k, b * k)}\\quad$`;
 			if (ordre_des_fractions == 1) {
-				texteCorr += `  et   $\\quad${tex_fraction(a * k, b * k)} ${signe} ${tex_fraction(a * k + ecart, b * k)}\\quad$ donc $\\quad${tex_fraction(a, b)} ${signe} ${tex_fraction(a * k + ecart, b * k)}$ `;
+				texteCorr += `  et   $\\quad${texFraction(a * k, b * k)} ${signe} ${texFraction(a * k + ecart, b * k)}\\quad$ donc $\\quad${texFraction(a, b)} ${signe} ${texFraction(a * k + ecart, b * k)}$ `;
 			} else {
-				texteCorr += `  et   $\\quad${tex_fraction(a * k + ecart, b * k)} ${signe2} ${tex_fraction(a * k, b * k)} \\quad$ donc $\\quad ${tex_fraction(a * k + ecart, b * k)} ${signe2} ${tex_fraction(a, b)} $ `;
+				texteCorr += `  et   $\\quad${texFraction(a * k + ecart, b * k)} ${signe2} ${texFraction(a * k, b * k)} \\quad$ donc $\\quad ${texFraction(a * k + ecart, b * k)} ${signe2} ${texFraction(a, b)} $ `;
 			}
 			this.listeQuestions.push(texte);
 			this.listeCorrections.push(texteCorr);

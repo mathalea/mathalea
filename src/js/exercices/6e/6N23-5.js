@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes,randint,tex_fraction,calcul,choice,texNombre2,shuffle2tableaux} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes,randint,texFraction,calcul,choice,texNombre2,shuffle2tableaux} from '../../modules/outils.js'
 import {fraction} from '../../modules/Fractions.js'
 import { creerBoutonMathalea2d } from '../../modules/outils.js';
 
@@ -49,36 +49,36 @@ export default function Sens_de_la_fraction() {
           case 1:
             a=randint(10,25)
             b=randint(10,25,a)
-            texte=`Le quotient de $${a}$ par $${b}$ s'écrit en écriture fractionnaire : $${tex_fraction(
+            texte=`Le quotient de $${a}$ par $${b}$ s'écrit en écriture fractionnaire : $${texFraction(
               "\\phantom{00000}",
               "\\phantom{00000}"
             )}$`
-            texteCorr=`Le quotient de $${a}$ par $${b}$ s'écrit $${tex_fraction(a, b)}$.`
-            tabrep=[`$${tex_fraction(a, b)}$`,`$${tex_fraction(b, a)}$`,`$${tex_fraction(Math.abs(a-b),b)}$`,`$${tex_fraction(a+b,b)}$`,`$${tex_fraction(a*10,b)}$`]
+            texteCorr=`Le quotient de $${a}$ par $${b}$ s'écrit $${texFraction(a, b)}$.`
+            tabrep=[`$${texFraction(a, b)}$`,`$${texFraction(b, a)}$`,`$${texFraction(Math.abs(a-b),b)}$`,`$${texFraction(a+b,b)}$`,`$${texFraction(a*10,b)}$`]
             tabicone=[1,0,0,0,0]
           break;
   
           case 2:
             a=randint(10,25)
             b=randint(10,25,a)
-            texte=`Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit en écriture fractionnaire : $${tex_fraction(
+            texte=`Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit en écriture fractionnaire : $${texFraction(
               "\\phantom{00000}",
               "\\phantom{00000}"
             )}$`
-            texteCorr=`Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${tex_fraction(a, b)}$.`
-            tabrep=[`$${tex_fraction(a, b)}$`,`$${tex_fraction(b, a)}$`,`$${tex_fraction(Math.abs(a-b),b)}$`,`$${tex_fraction(a+b,b)}$`,`$${tex_fraction(a*10,b)}$`]
+            texteCorr=`Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${texFraction(a, b)}$.`
+            tabrep=[`$${texFraction(a, b)}$`,`$${texFraction(b, a)}$`,`$${texFraction(Math.abs(a-b),b)}$`,`$${texFraction(a+b,b)}$`,`$${texFraction(a*10,b)}$`]
             tabicone=[1,0,0,0,0]
           break
   
           case 3:
             a=randint(10,25)
             b=randint(10,25,a)
-            texte=`$${a}\\div ${b}$ s'écrit en écriture fractionnaire : $${tex_fraction(
+            texte=`$${a}\\div ${b}$ s'écrit en écriture fractionnaire : $${texFraction(
               "\\phantom{00000}",
               "\\phantom{00000}"
             )}$`
-            texteCorr=`$${a}\\div ${b}$ s'écrit  $${tex_fraction(a, b)}$.`
-            tabrep=[`$${tex_fraction(a, b)}$`,`$${tex_fraction(b, a)}$`,`$${tex_fraction(Math.abs(a-b),b)}$`,`$${tex_fraction(a+b,b)}$`,`$${tex_fraction(a*10,b)}$`]
+            texteCorr=`$${a}\\div ${b}$ s'écrit  $${texFraction(a, b)}$.`
+            tabrep=[`$${texFraction(a, b)}$`,`$${texFraction(b, a)}$`,`$${texFraction(Math.abs(a-b),b)}$`,`$${texFraction(a+b,b)}$`,`$${texFraction(a*10,b)}$`]
             tabicone=[1,0,0,0,0]
           break
             
@@ -92,7 +92,7 @@ export default function Sens_de_la_fraction() {
           }
           f=fraction(a,b)
 
-          texte=`Le nombre $${texNombre2(calcul(a/b))}$ s'écrit en écriture fractionnaire : $${tex_fraction(
+          texte=`Le nombre $${texNombre2(calcul(a/b))}$ s'écrit en écriture fractionnaire : $${texFraction(
             "\\phantom{00000}",
             "\\phantom{00000}"
           )}$`
@@ -101,7 +101,7 @@ export default function Sens_de_la_fraction() {
             texteCorr+=` ou $${f.texFractionSimplifiee}$.`
           }
           else texte+=`.`
-          tabrep=[`$${f.fractionDecimale().texFraction}$`,`$${tex_fraction(b, a)}$`,`$${tex_fraction(a,b*10)}$`,`$${tex_fraction(a*10,b)}$`,`$${tex_fraction(Math.floor(a/b),fraction(calcul((a/b-Math.floor(a/b)))*100,100).fractionDecimale().num)}$`]
+          tabrep=[`$${f.fractionDecimale().texFraction}$`,`$${texFraction(b, a)}$`,`$${texFraction(a,b*10)}$`,`$${texFraction(a*10,b)}$`,`$${texFraction(Math.floor(a/b),fraction(calcul((a/b-Math.floor(a/b)))*100,100).fractionDecimale().num)}$`]
           tabicone=[1,0,0,0,0]
           break  
             

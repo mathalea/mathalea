@@ -2534,7 +2534,7 @@ export default function Alea2iep () {
     const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    const i = 0
+    let i = 0
     for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes, randint,ecritureAlgebrique, texFractionReduite,tex_fraction,pgcd} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint,ecritureAlgebrique, texFractionReduite,texFraction,pgcd} from '../../modules/outils.js'
 
 export const titre = 'Déterminer un antécédent'
 
@@ -63,9 +63,9 @@ export default function antecedent_par_calcul() {
             texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `;
             texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `;
             if (pgcd(m-b,a)==1 && m-b>0 && a>0) { // teste si la fraction est simplifiable
-              texteCorr += `x &= ${tex_fraction(m-b, a)} \\\\`;
+              texteCorr += `x &= ${texFraction(m-b, a)} \\\\`;
             } else {
-              texteCorr += `x &= ${tex_fraction(m-b, a)} = ${texFractionReduite(m-b, a)}\\\\ `;
+              texteCorr += `x &= ${texFraction(m-b, a)} = ${texFractionReduite(m-b, a)}\\\\ `;
             }
             texteCorr += `\\end{aligned}$`;
           break;
@@ -83,9 +83,9 @@ export default function antecedent_par_calcul() {
             texteCorr += ` ${a}x ${ecritureAlgebrique(b)}&= ${m} \\\\ `;
             texteCorr += ` ${a}x &= ${m} ${ecritureAlgebrique(-b)}\\\\ `;
             if (pgcd(m-b,a)==1 && m-b>0 && a>0) {// teste si la fraction est simplifiable
-              texteCorr += `x &= ${tex_fraction(m-b, a)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-b, a)}\\\\`;
             } else {
-              texteCorr += `x &= ${tex_fraction(m-b, a)} = ${texFractionReduite(m-b, a)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-b, a)} = ${texFractionReduite(m-b, a)}\\\\`;
             }
             texteCorr += `\\end{aligned}$`;
           break
@@ -107,9 +107,9 @@ export default function antecedent_par_calcul() {
             texteCorr += `${a}x ${ecritureAlgebrique(a*b+c)} &= ${m}\\\\`;
             texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-a*b-c)}\\\\`;
             if (pgcd(m-a*b-c,a)==1 && m-a*b-c>0 && a>0) {// teste si la fraction est simplifiable
-              texteCorr += `x &= ${tex_fraction(m-a*b-c, a)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-a*b-c, a)}\\\\`;
             } else {
-              texteCorr += `x &= ${tex_fraction(m-a*b-c, a)} = ${texFractionReduite(m-a*b-c, a)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-a*b-c, a)} = ${texFractionReduite(m-a*b-c, a)}\\\\`;
             }
             texteCorr += `\\end{aligned}$`;
           break
@@ -134,9 +134,9 @@ export default function antecedent_par_calcul() {
             texteCorr += `${a*b+d}x  &= ${m}${ecritureAlgebrique(-a*c-e)}\\\\`;
             texteCorr += `${a*b+d}x &= ${m-a*c-e}\\\\`;
             if (pgcd(m-a*c-e,a*b+d)==1 && m-a*c-e>0 && a*b+d>0) {// teste si la fraction est simplifiable
-              texteCorr += `x &= ${tex_fraction(m-a*c-e, a*b+d)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-a*c-e, a*b+d)}\\\\`;
             } else {
-              texteCorr += `x &= ${tex_fraction(m-a*c-e, a*b+d)} = ${texFractionReduite(m-a*c-e, a*b+d)}\\\\`;
+              texteCorr += `x &= ${texFraction(m-a*c-e, a*b+d)} = ${texFractionReduite(m-a*c-e, a*b+d)}\\\\`;
             }
             texteCorr += `\\end{aligned}$`;
 

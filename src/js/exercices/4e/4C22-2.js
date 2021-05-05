@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,texFractionSigne,obtenir_liste_fractions_irreductibles,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,texFractionSigne,obtenir_liste_fractions_irreductibles,texFraction} from '../../modules/outils.js'
 export const titre = 'Diviser des fractions'
 
 /**
@@ -60,36 +60,36 @@ export default function Exercice_diviser_fractions() {
 
       switch (type_de_questions) {
         //	case 0 : // entier * fraction (tout positif)
-        //		texte=`$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=$`;
+        //		texte=`$${texFraction(a,1)}\\div${texFraction(c,d)}=$`;
         //		if (pgcd(a*d,c)==1) {
-        //			texteCorr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=\\dfrac{${a}}{1}\\times${tex_fraction(d,c)}=${tex_fraction(a +'\\times'+d,'1\\times'+c)}=${tex_fraction(a*d,c)}$`
+        //			texteCorr= `$${texFraction(a,1)}\\div${texFraction(c,d)}=${texFraction(a,1)}\\times${texFraction(d,c)}=\\dfrac{${a}}{1}\\times${texFraction(d,c)}=${texFraction(a +'\\times'+d,'1\\times'+c)}=${texFraction(a*d,c)}$`
         //		}
         //		else {
-        //			texteCorr= `$${tex_fraction(a,1)}\\div${tex_fraction(c,d)}=${tex_fraction(a,1)}\\times${tex_fraction(d,c)}=${tex_fraction(a*d,c)}=${texFractionReduite(a*d,c)}$`
+        //			texteCorr= `$${texFraction(a,1)}\\div${texFraction(c,d)}=${texFraction(a,1)}\\times${texFraction(d,c)}=${texFraction(a*d,c)}=${texFractionReduite(a*d,c)}$`
         //		}
         //		break
         //
         case 1: // fraction * fraction tout positif
-          texte = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}=$`;
+          texte = `$${texFraction(a, b)}\\div${texFraction(c, d)}=$`;
           if (p == 1) {
-            texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(
+            texteCorr = `$${texFraction(a, b)}\\div${texFraction(
               c,
               d
-            )}=${tex_fraction(a, b)}\\times${tex_fraction(d, c)}=${tex_fraction(
+            )}=${texFraction(a, b)}\\times${texFraction(d, c)}=${texFraction(
               a + "\\times" + d,
               b + "\\times" + c
-            )}=${tex_fraction(a * d, b * c)}$`;
+            )}=${texFraction(a * d, b * c)}$`;
           } else {
-            texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(
+            texteCorr = `$${texFraction(a, b)}\\div${texFraction(
               c,
               d
-            )}=${tex_fraction(a, b)}\\times${tex_fraction(d, c)}=${tex_fraction(
+            )}=${texFraction(a, b)}\\times${texFraction(d, c)}=${texFraction(
               a + "\\times" + d,
               b + "\\times" + c
-            )}=${tex_fraction(a * d, b * c)}=${tex_fraction(
+            )}=${texFraction(a * d, b * c)}=${texFraction(
               (a * d) / p + "\\times\\cancel{" + p + "}",
               (b * c) / p + "\\times\\cancel{" + p + "}"
-            )}=${tex_fraction((a * d) / p, (b * c) / p)}$`;
+            )}=${texFraction((a * d) / p, (b * c) / p)}$`;
           }
           break;
 
@@ -104,31 +104,31 @@ export default function Exercice_diviser_fractions() {
           } else {
             signe = "-";
           }
-          texte = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}=$`;
-          texteCorr = `$${tex_fraction(a, b)}\\div${tex_fraction(c, d)}$`;
+          texte = `$${texFraction(a, b)}\\div${texFraction(c, d)}=$`;
+          texteCorr = `$${texFraction(a, b)}\\div${texFraction(c, d)}$`;
           a = abs(a);
           b = abs(b);
           c = abs(c);
           d = abs(d);
           p = pgcd(a * d, b * c);
-          texteCorr += `$=${signe}${tex_fraction(a, b)}\\times${tex_fraction(
+          texteCorr += `$=${signe}${texFraction(a, b)}\\times${texFraction(
             d,
             c
           )}$`;
-          texteCorr += `$=${signe}${tex_fraction(
+          texteCorr += `$=${signe}${texFraction(
             a + "\\times" + ecritureParentheseSiNegatif(d),
             b + "\\times" + ecritureParentheseSiNegatif(c)
           )}$`;
           if (p == 1) {
             texteCorr += `$=${signe}${texFractionSigne(a * d, b * c)}$`;
           } else {
-            texteCorr += `$=${signe}${tex_fraction(a * d, b * c)}$`;
+            texteCorr += `$=${signe}${texFraction(a * d, b * c)}$`;
             if (a * d != b * c) {
-              texteCorr += `$=${signe}${tex_fraction(
+              texteCorr += `$=${signe}${texFraction(
                 (a * d) / p + "\\times\\cancel{" + p + "}",
                 (b * c) / p + "\\times\\cancel{" + p + "}"
               )}$`;
-              texteCorr += `$=${signe}${tex_fraction(
+              texteCorr += `$=${signe}${texFraction(
                 (a * d) / p,
                 (b * c) / p
               )}$`;

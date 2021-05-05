@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texFraction} from '../../modules/outils.js'
 export const titre = 'Factoriser a²-b²'
 
 /**
@@ -42,8 +42,8 @@ export default function Factoriser_Identites_remarquables3() {
 				fraction = choice(liste_fractions);
 				ns = fraction[0];
 				ds = fraction[1];
-				texte = `$${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}$`; // b>1
-				texteCorr = `$${tex_fraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${tex_fraction(ns, ds)}x\\right)^2-${a}^2=\\left(${tex_fraction(ns, ds)}x-${a}\\right)\\left(${tex_fraction(ns, ds)}x+${a}\\right)$`;
+				texte = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`; // b>1
+				texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`;
 
 			}
 

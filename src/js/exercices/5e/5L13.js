@@ -2,7 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 
 
-export const titre = 'Réduire une expression de la forme $ax+bx function Reduction_ax_bx$'
+export const titre = 'Réduire une expression de la forme $ax+bx$ '
 
 /**
 * Réduire des expressions de la forme ax+bx
