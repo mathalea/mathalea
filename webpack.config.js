@@ -71,7 +71,8 @@ const config = {
       patterns: [
         { from: 'src/assets', to: 'assets' },
         { from: 'src/php', to: './' },
-        { from: 'src/assets/favicon.ico', to: './' }
+        { from: 'src/assets/favicon.ico', to: './' },
+        { from: 'src/.htaccess', to: './' }
       ]
     }),
     new MiniCssExtractPlugin({
