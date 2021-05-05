@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,texNombrec,lettreDepuisChiffre,texNombre,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,texNombrec,lettreDepuisChiffre,texNombre,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -331,13 +331,13 @@ export default function Reciproque_Thales() {
       // correction
       texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
         s15
-      )}}{${s14}\\times${miseEnEvidence(s15)}}=${tex_fraction(
+      )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFraction(
         texNombrec(arrondi(dist12 * dist15, 3)),
         texNombrec(arrondi(dist14 * dist15, 4))
       )}$`;
       texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
         s14
-      )}}{${s15}\\times${miseEnEvidence(s14)}}=${tex_fraction(
+      )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFraction(
         texNombrec(arrondi(dist13 * dist14, 3)),
         texNombrec(arrondi(dist14 * dist15, 4))
       )}$`;

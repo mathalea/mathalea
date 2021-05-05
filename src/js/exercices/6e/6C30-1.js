@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre,miseEnEvidence,texFraction} from '../../modules/outils.js'
 export const amcReady = true
 
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
@@ -86,21 +86,21 @@ let reponse
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, den)}\\times${texNombre(b)}$`;
-          texteCorr = `$${tex_fraction(a, den)} \\times ${texNombre(
+          texte = `$${texFraction(a, den)}\\times${texNombre(b)}$`;
+          texteCorr = `$${texFraction(a, den)} \\times ${texNombre(
             b
-          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
+          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=calcul(a*b/den)
           break;
         case 4: // 10 × abcd/10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${texNombre(b)}\\times${tex_fraction(a, den)}$`;
-          texteCorr = `$${texNombre(b)} \\times ${tex_fraction(
+          texte = `$${texNombre(b)}\\times${texFraction(a, den)}$`;
+          texteCorr = `$${texNombre(b)} \\times ${texFraction(
             a,
             den
-          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
+          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=calcul(a*b/den)
           break;
         case 5: // .... × 10 = a,abcd
@@ -127,24 +127,24 @@ let reponse
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, den)}\\times \\ldots = ${texNombrec(
+          texte = `$${texFraction(a, den)}\\times \\ldots = ${texNombrec(
             (a / den) * b
           )}$`;
-          texteCorr = `$${tex_fraction(a, den)} \\times ${miseEnEvidence(
+          texteCorr = `$${texFraction(a, den)} \\times ${miseEnEvidence(
             texNombre(b)
-          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
+          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           reponse=b
           break;
         case 8: // case 4 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$ \\ldots \\times${tex_fraction(a, den)}= ${texNombrec(
+          texte = `$ \\ldots \\times${texFraction(a, den)}= ${texNombrec(
             (a / den) * b
           )}$`;
           texteCorr = `$${miseEnEvidence(
             texNombre(b)
-          )} \\times ${tex_fraction(a, den)} = ${tex_fraction(
+          )} \\times ${texFraction(a, den)} = ${texFraction(
             a * b,
             den
           )} = ${texNombrec((a / den) * b)}$`;
@@ -154,13 +154,13 @@ let reponse
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${tex_fraction(a, "\\ldots")}\\times${texNombre(
+          texte = `$${texFraction(a, "\\ldots")}\\times${texNombre(
             b
           )} = ${texNombrec((a / den) * b)}$`;
-          texteCorr = `$${tex_fraction(
+          texteCorr = `$${texFraction(
             a,
             miseEnEvidence(texNombre(den))
-          )} \\times ${texNombre(b)} = ${tex_fraction(
+          )} \\times ${texNombre(b)} = ${texFraction(
             a * b,
             den
           )} = ${texNombrec((a / den) * b)}$`;
@@ -170,14 +170,14 @@ let reponse
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)]);
           den = choice([10, 100, 1000]);
           b = liste_de_facteurs[i];
-          texte = `$${texNombre(b)}\\times${tex_fraction(
+          texte = `$${texNombre(b)}\\times${texFraction(
             a,
             "\\ldots"
           )} = ${texNombrec((a / den) * b)}$`;
-          texteCorr = `$${texNombre(b)} \\times ${tex_fraction(
+          texteCorr = `$${texNombre(b)} \\times ${texFraction(
             a,
             miseEnEvidence(texNombre(den))
-          )} = ${tex_fraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
+          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`;
           calcul(a*b/den)
           break;
       }

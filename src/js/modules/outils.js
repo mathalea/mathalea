@@ -1190,7 +1190,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
     den = den1 * den2
     texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
   }
-  return [tex_fraction(num, den), texProduit, [num1, den1, num2, den2]]
+  return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
 
 /**
@@ -1207,7 +1207,7 @@ export function simplification_de_fraction_avec_etapes (num, den) {
     if ((num) % (den) === 0) { // si le résultat est entier
       result = `=${(num) / (den)}`
     } else {
-      result = `=${tex_fraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result = `=${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
     }
   }
   return result
@@ -2436,7 +2436,7 @@ export function texFractionSigne (a, b) {
 * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
 * @Auteur Jean-Claude Lhote
 */
-export function tex_fraction_parentheses (a, b) {
+export function texFraction_parentheses (a, b) {
   if (a * b > 0) { return texFractionSigne(a, b) } else { return '\\left(' + texFractionSigne(a, b) + '\\right)' }
 }
 
@@ -2502,7 +2502,7 @@ export function liste_des_diviseurs (n) {
 * Retourne le code LaTeX d'une fraction a/b
 * @Auteur Rémi Angot
 */
-export function tex_fraction (a, b) {
+export function texFraction (a, b) {
   if (b !== 1) {
     if (Number.isInteger(a) && Number.isInteger(b)) {
       return `\\dfrac{${texNombre(a)}}{${texNombre(b)}}`

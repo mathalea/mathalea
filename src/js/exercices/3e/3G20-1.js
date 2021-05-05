@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombrec,creerNomDePolygone,texNombre,nombre_avec_espace,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombrec,creerNomDePolygone,texNombre,nombre_avec_espace,texFraction} from '../../modules/outils.js'
 import {point,milieu,pointSurSegment,labelPoint,segment,polygone,codageAngleDroit,texteSurSegment,texteParPoint,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
@@ -139,9 +139,9 @@ export default function Problemes_Thales() {
 				}, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels);
 
 				texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `;
-				texteCorr += `<br><br> $${tex_fraction(nomA + 'M', nomA + nomB)}=${tex_fraction(nomA + 'N', nomA + nomD)}=${tex_fraction('MN', nomB + nomD)}$`;
-				texteCorr += `<br><br> $${tex_fraction(nomA + 'M', nomA + nomB)}=${tex_fraction(nomA + 'N', BC)}=${tex_fraction(texNombre(MN), texNombre(BD))}$`;
-				texteCorr += `<br><br> $${nomA}N = ${tex_fraction(BC + '\\times' + texNombre(MN), BD)}=${texNombre(arrondi(calcul(BC * MN / BD), 1))}$ cm`;
+				texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', nomA + nomD)}=${texFraction('MN', nomB + nomD)}$`;
+				texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', BC)}=${texFraction(texNombre(MN), texNombre(BD))}$`;
+				texteCorr += `<br><br> $${nomA}N = ${texFraction(BC + '\\times' + texNombre(MN), BD)}=${texNombre(arrondi(calcul(BC * MN / BD), 1))}$ cm`;
 				texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(arrondi(calcul(BC * MN / BD), 1))}=${texNombre(arrondi(calcul(BC - BC * MN / BD), 1))}$ cm.`;
 				break;
 		}

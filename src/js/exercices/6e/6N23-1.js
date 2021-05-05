@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,texFraction} from '../../modules/outils.js'
 export const titre = 'Différentes écritures des nombres décimaux'
 
 /**
@@ -41,56 +41,56 @@ export default function Exercice_differentes_ecritures_nombres_decimaux() {
       switch (type_de_questions) {
         case 1: // n/100 = .../10 + .../100
           ecriture_decimale = texNombre(calcul(u + d / 10 + c / 100));
-          texte = `$${tex_fraction(n, "100")}=\\ldots\\ldots+${tex_fraction(
+          texte = `$${texFraction(n, "100")}=\\ldots\\ldots+${texFraction(
             "",
             10
-          )}+${tex_fraction("", 100)}=\\ldots$`;
-          texteCorr = `$${tex_fraction(n, "100")}=${u}+${tex_fraction(
+          )}+${texFraction("", 100)}=\\ldots$`;
+          texteCorr = `$${texFraction(n, "100")}=${u}+${texFraction(
             d,
             "10"
-          )}+${tex_fraction(c, "100")}=${ecriture_decimale}$`;
+          )}+${texFraction(c, "100")}=${ecriture_decimale}$`;
 
           break;
         case 2: // n/100 = .../100 + .../10
           ecriture_decimale = texNombre(calcul(u + d / 10 + c / 100));
-          texte = `$${tex_fraction(n, "100")}=\\ldots\\ldots+${tex_fraction(
+          texte = `$${texFraction(n, "100")}=\\ldots\\ldots+${texFraction(
             "",
             100
-          )}+${tex_fraction("", 10)}=\\ldots$`;
-          texteCorr = `$${tex_fraction(n, "100")}=${u}+${tex_fraction(
+          )}+${texFraction("", 10)}=\\ldots$`;
+          texteCorr = `$${texFraction(n, "100")}=${u}+${texFraction(
             c,
             100
-          )}+${tex_fraction(d, 10)}=${ecriture_decimale}$`;
+          )}+${texFraction(d, 10)}=${ecriture_decimale}$`;
           break;
         case 3: // .../100 = u+ d/10 + c/100
           ecriture_decimale = texNombre(calcul(u + d / 10 + c / 100));
-          texte = `$${tex_fraction("", "100")}=${u}+${tex_fraction(
+          texte = `$${texFraction("", "100")}=${u}+${texFraction(
             d,
             "10"
-          )}+${tex_fraction(c, "100")}=\\ldots$`;
-          texteCorr = `$${tex_fraction(n, "100")}=${u}+${tex_fraction(
+          )}+${texFraction(c, "100")}=\\ldots$`;
+          texteCorr = `$${texFraction(n, "100")}=${u}+${texFraction(
             d,
             "10"
-          )}+${tex_fraction(c, "100")}=${ecriture_decimale}$`;
+          )}+${texFraction(c, "100")}=${ecriture_decimale}$`;
           break;
         case 4: // u = .../10
-          texte = `$${u}=${tex_fraction("", "10")}$`;
-          texteCorr = `$${u}=${tex_fraction(10 * u, "10")}$`;
+          texte = `$${u}=${texFraction("", "10")}$`;
+          texteCorr = `$${u}=${texFraction(10 * u, "10")}$`;
           break;
         case 5: // u = .../100
-          texte = `$${u}=${tex_fraction("", "100")}$`;
-          texteCorr = `$${u}=${tex_fraction(100 * u, "10")}$`;
+          texte = `$${u}=${texFraction("", "100")}$`;
+          texteCorr = `$${u}=${texFraction(100 * u, "10")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = texNombre(calcul(n / 10));
-          texte = `$${tex_fraction(n, 10)}=\\ldots\\ldots+${tex_fraction(
+          texte = `$${texFraction(n, 10)}=\\ldots\\ldots+${texFraction(
             "",
             10
-          )}+${tex_fraction("", 100)}=\\ldots$`;
-          texteCorr = `$${tex_fraction(n, 10)}=${u * 10 + d}+${tex_fraction(
+          )}+${texFraction("", 100)}=\\ldots$`;
+          texteCorr = `$${texFraction(n, 10)}=${u * 10 + d}+${texFraction(
             c,
             10
-          )}+${tex_fraction(0, 100)}=${ecriture_decimale}$`;
+          )}+${texFraction(0, 100)}=${ecriture_decimale}$`;
           break;
       }
 

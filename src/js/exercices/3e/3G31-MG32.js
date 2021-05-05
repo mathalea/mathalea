@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,lettreDepuisChiffre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,lettreDepuisChiffre,texFraction} from '../../modules/outils.js'
 export const titre = 'Déterminer un angle grâce à la trigonométrie'
 
 /**
@@ -245,52 +245,52 @@ export default function Exercice_Trigo_angles() {
     }
     if (type_de_questions == 1) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${texFraction(s01, s12)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 2) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `$\\cos\\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${texFraction(s01, s12)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$<br>`;
       texteCorr += `Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>`;
       texteCorr += `$\\widehat{${s0 + s2 + s1}}\\approx90-${angle1}\\approx${angle2}\\degree$`;
     }
     if (type_de_questions == 3) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s1 + s2)}$<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\sin\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s12)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arcsin\\left(${tex_fraction(s02, s12)}\\right)$<br>`;
+      texteCorr += `$\\sin\\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s02, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arcsin\\left(${texFraction(s02, s12)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 4) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s2 + s1}}$ est défini par :<br>`;
-      texteCorr += `$\\sin \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\sin\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s12)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arcsin\\left(${tex_fraction(s01, s12)}\\right)$<br>`;
+      texteCorr += `$\\sin\\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s01, s12)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arcsin\\left(${texFraction(s01, s12)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
     }
     if (type_de_questions == 5) {
       texteCorr += `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
-      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\tan\\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s02, s01)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arctan\\left(${tex_fraction(s02, s01)}\\right)$<br>`;
+      texteCorr += `$\\tan\\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s02, s01)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arctan\\left(${texFraction(s02, s01)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`;
     }
     if (type_de_questions == 6) {
       texteCorr += `La tangente de l'angle $\\widehat{${s0 + s2 + s1}}$ est définie par :<br>`;
-      texteCorr += `$\\tan \\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s0 + s1, s0 + s2)}$<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s0 + s1, s0 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\tan\\left(\\widehat{${s0 + s2 + s1}}\\right)=${tex_fraction(s01, s02)}$<br>`;
-      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arctan\\left(${tex_fraction(s01, s02)}\\right)$<br>`;
+      texteCorr += `$\\tan\\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s01, s02)}$<br>`;
+      texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arctan\\left(${texFraction(s01, s02)}\\right)$<br>`;
       texteCorr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`;
     }
     this.listeQuestions.push(texte);

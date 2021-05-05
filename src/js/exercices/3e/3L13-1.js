@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,texFraction} from '../../modules/outils.js'
 export const titre = 'Équation du premier degré (utilisant la distributivité)'
 
 /**
@@ -63,7 +63,7 @@ export default function Exercice_equation1_2() {
 
 				if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>`; }
 				texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`;
-				texteCorr += `$x=${tex_fraction(d - b, a - c)}$`;
+				texteCorr += `$x=${texFraction(d - b, a - c)}$`;
 				if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
 					texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`;
 				}
@@ -99,7 +99,7 @@ export default function Exercice_equation1_2() {
 
 				if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${k * a - c}$.<br>`; }
 				texteCorr += `$${rienSi1(k * a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}=${d - k * b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(k * a - c))}$<br>`;
-				texteCorr += `$x=${tex_fraction(d - k * b, k * a - c)}$`;
+				texteCorr += `$x=${texFraction(d - k * b, k * a - c)}$`;
 				if (pgcd(abs(d - k * b), abs(k * a - c)) > 1 || (k * a - c) < 0) {
 					texteCorr += `<br>$x=${texFractionReduite(d - k * b, k * a - c)}$`;
 				}
@@ -141,7 +141,7 @@ export default function Exercice_equation1_2() {
 
 				if (this.correctionDetaillee) { texteCorr += `On divise les deux membres par $${a - c}$.<br>`; }
 				texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}=${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`;
-				texteCorr += `$x=${tex_fraction(d - b, a - c)}$`;
+				texteCorr += `$x=${texFraction(d - b, a - c)}$`;
 				if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
 					texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`;
 				}

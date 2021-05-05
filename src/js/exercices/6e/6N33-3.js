@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Problèmes avec des calculs de pourcentages'
@@ -42,7 +42,7 @@ export default function Appliquer_un_pourcentage() {
           texte = `${article[index[i]][0]} coûtant $${prix[i]}$€ bénéficie d'une réduction de $${pourcent[i]} \\%$.<br>`
           texte += `Quel est le montant en euro de cette réduction ?`
           texteCorr = `On doit calculer $${pourcent[i]}\\%$ de $${prix[i]}$€ :<br>`
-          texteCorr += `$${pourcent[i]}\\%\\text{ de }${prix[i]}=${tex_fraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
+          texteCorr += `$${pourcent[i]}\\%\\text{ de }${prix[i]}=${texFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
           texteCorr += `Le montant de la réduction est de ${tex_prix(calcul(prix[i] * pourcent[i] / 100))}€`
           break;
         case 2:
@@ -50,7 +50,7 @@ export default function Appliquer_un_pourcentage() {
           texte = `${legume[index[i]][0]} pesant $${masse[i]}$ grammes a eu une croissance de $${pourcent[i]} \\%$.<br>`
           texte += `Quelle est la masse supplémentaire en grammes correspondant à cette croissance ?`
           texteCorr = `On doit calculer $${pourcent[i]}\\%$ de $${masse[i]}$ grammes :<br>`
-          texteCorr += `$${pourcent[i]}\\%\\text{ de }${masse[i]}=${tex_fraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
+          texteCorr += `$${pourcent[i]}\\%\\text{ de }${masse[i]}=${texFraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
           texteCorr += `La masse a augmenté de $${texNombre(calcul(masse[i] * pourcent[i] / 100))}$ g.`
 
           break;

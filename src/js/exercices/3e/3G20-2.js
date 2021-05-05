@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatrieme_proportionnelle,texNombrec,lettreDepuisChiffre,tex_fraction,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,arrondi,abs,quatrieme_proportionnelle,texNombrec,lettreDepuisChiffre,texFraction,katex_Popup2} from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
 
@@ -96,10 +96,10 @@ export default function Exercice_Thales() {
             `$(${s2 + s3})$` +
             " sont parallèles.<br>" +
             " D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>";
         } else {
           texteCorr =
@@ -111,10 +111,10 @@ export default function Exercice_Thales() {
           texteCorr += `<br>Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`;
           texteCorr +=
             "<br>D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}$` +
             "<br>";
         }
       } else if (this.sup == 2) {
@@ -132,19 +132,19 @@ export default function Exercice_Thales() {
             `$(${s2 + s3})$` +
             " sont parallèles.<br>" +
             " D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>";
         } else {
           texteCorr =
             `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>` +
             " D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>";
         }
         if (k > 0) {
@@ -170,10 +170,10 @@ export default function Exercice_Thales() {
           `$(${s2 + s3})$` +
           " sont parallèles.<br>" +
           " D&rsquo;après la propriété de Thales, on a " +
-          `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+          `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
             s1 + s5,
             s1 + s3
-          )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+          )}=${texFraction(s4 + s5, s2 + s3)}.$` +
           "<br>";
       } else {
         texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`;
@@ -189,19 +189,19 @@ export default function Exercice_Thales() {
             `$(${s2 + s3})$` +
             " sont parallèles.<br>" +
             " D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>";
         } else {
           texteCorr =
             `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés et les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>` +
             " D&rsquo;après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>";
         }
         if (k > 0) {
@@ -218,10 +218,10 @@ export default function Exercice_Thales() {
       }
       texteCorr += "Avec les données numériques :<br>";
       texteCorr +=
-        `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(
+        `$${texFraction(s1 + s4, s12)}=${texFraction(
           s15,
           s13
-        )}=${tex_fraction(s45, s2 + s3)}$` + "<br>";
+        )}=${texFraction(s45, s2 + s3)}$` + "<br>";
       texteCorr +=
         `Soit $${s1 + s4}=` +
         quatrieme_proportionnelle(dist13, dist15, dist12, 1) +
@@ -316,10 +316,10 @@ export default function Exercice_Thales() {
           `$(${s2 + s3})$` +
           " sont parallèles.<br>\n" +
           " D'après la propriété de Thales, on a " +
-          `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+          `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
             s1 + s5,
             s1 + s3
-          )}=${tex_fraction(s4 + s5, s2 + s3)}.$`;
+          )}=${texFraction(s4 + s5, s2 + s3)}.$`;
         if (niv_diff == 2) {
           texteCorr +=
             "On sait que " +
@@ -338,10 +338,10 @@ export default function Exercice_Thales() {
         texteCorr =
           `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n` +
           " D'après la propriété de Thales, on a " +
-          `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+          `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
             s1 + s5,
             s1 + s3
-          )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+          )}=${texFraction(s4 + s5, s2 + s3)}.$` +
           "<br>\n";
         if (niv_diff == 2) {
           texteCorr +=
@@ -418,10 +418,10 @@ export default function Exercice_Thales() {
       // correction
       if (this.sup == 2) {
         //niveau 2 : Calcul intermédiaire nécessaire
-        texteCorr = `Les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n\t D\'après la propriété de Thales, on a $${tex_fraction(
+        texteCorr = `Les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n\t D\'après la propriété de Thales, on a $${texFraction(
           s1 + s4,
           s1 + s2
-        )}=${tex_fraction(s1 + s5, s1 + s3)}=${tex_fraction(
+        )}=${texFraction(s1 + s5, s1 + s3)}=${texFraction(
           s4 + s5,
           s2 + s3
         )}.$<br>\n\t`;
@@ -436,10 +436,10 @@ export default function Exercice_Thales() {
         }
       } else if (this.sup == 1) {
         if (k > 0) {
-          texteCorr = `Dans le triangle $${s1 + s2 + s3}$, les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n D\'après la propriété de Thales, on a $${tex_fraction(
+          texteCorr = `Dans le triangle $${s1 + s2 + s3}$, les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n D\'après la propriété de Thales, on a $${texFraction(
             s1 + s4,
             s1 + s2
-          )}=${tex_fraction(s1 + s5, s1 + s3)}=${tex_fraction(
+          )}=${texFraction(s1 + s5, s1 + s3)}=${texFraction(
             s4 + s5,
             s2 + s3
           )}.$`;
@@ -447,22 +447,22 @@ export default function Exercice_Thales() {
           texteCorr =
             `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés et les droites $(${s4 + s5})$ et $(${s2 + s3})$ sont parallèles.<br>\n` +
             " D'après la propriété de Thales, on a " +
-            `$${tex_fraction(s1 + s4, s1 + s2)}=${tex_fraction(
+            `$${texFraction(s1 + s4, s1 + s2)}=${texFraction(
               s1 + s5,
               s1 + s3
-            )}=${tex_fraction(s4 + s5, s2 + s3)}.$` +
+            )}=${texFraction(s4 + s5, s2 + s3)}.$` +
             "<br>\n";
         }
       }
-      texteCorr += `<br>\n On a donc $${tex_fraction(
+      texteCorr += `<br>\n On a donc $${texFraction(
         s1 + s4,
         s12
-      )}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}$`;
-      texteCorr += `<br>\n Soit $${s1 + s4}=${tex_fraction(
+      )}=${texFraction(s15, s13)}=${texFraction(s45, s2 + s3)}$`;
+      texteCorr += `<br>\n Soit $${s1 + s4}=${texFraction(
         s15 + "\\times" + s12,
         s13
       )}\\approx${s14}~\\text{cm}$.`;
-      texteCorr += `<br>\n Et $${s2 + s3}=${tex_fraction(
+      texteCorr += `<br>\n Et $${s2 + s3}=${texFraction(
         s13 + "\\times" + s45,
         s15
       )}\\approx${s23}~\\text{cm}$.`;

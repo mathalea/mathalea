@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,quatrieme_proportionnelle,lettreDepuisChiffre,tex_fraction,modalYoutube} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,quatrieme_proportionnelle,lettreDepuisChiffre,texFraction,modalYoutube} from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur grâce à la trigonométrie'
 
@@ -234,9 +234,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 1) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s0 + s1,
         s12
       )}$<br>`;
@@ -250,9 +250,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 2) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s1, s1 + s2)}$<br>`;
+      texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s01,
         s1 + s2
       )}$<br>`;
@@ -266,9 +266,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 3) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s1 + s2)}$<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s0 + s2,
         s12
       )}$<br>`;
@@ -282,9 +282,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 4) {
       texteCorr = `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`;
-      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s1 + s2)}$<br>`;
+      texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s02,
         s1 + s2
       )}$<br>`;
@@ -298,9 +298,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 5) {
       texteCorr = `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
-      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s0 + s2,
         s01
       )}$<br>`;
@@ -314,9 +314,9 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 6) {
       texteCorr = `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
-      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
+      texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`;
       texteCorr += `Avec les données numériques :<br>`;
-      texteCorr += `$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
+      texteCorr += `$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${texFraction(
         s02,
         s0 + s1
       )}$<br>`;

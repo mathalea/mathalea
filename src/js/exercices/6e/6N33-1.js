@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,texNombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,texNombre,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const amcReady = true
@@ -55,20 +55,20 @@ let reponse;
 					${texNombre(Algebrite.eval(n / 4))}$`; // calcul de n/4 si p = 25%
 			break;
 			default :
-				texteCorr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+				texteCorr = `$${p}~\\%~\\text{de }${n}=${texFraction(
 					p,
 					100
 					)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(
 					p * n
 				)}\\div100=${texNombre(Algebrite.eval((p * n) / 100))}$`;
 				if (this.sup2) {
-					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
+					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(
 					p,
 					100
 					)}\\times${n}=(${n}\\div100)\\times${p}=${texNombrec(
 					calcul(n / 100)
 					)}\\times${p}=${texNombre(Algebrite.eval((p * n) / 100))}$`;
-					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
+					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(
 						p,
 						100
 						)}\\times${n}=${texNombrec(calcul(p / 100))}\\times${n}=${texNombre(

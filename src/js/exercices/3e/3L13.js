@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Équation du premier degré'
 
@@ -94,7 +94,7 @@ export default function Exercice_equation1() {
         texteCorr += `$${a}x${miseEnEvidence(
           "\\div" + ecritureParentheseSiNegatif(a)
         )}=${c - b + miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a))}$<br>`;
-        texteCorr += `$x=${tex_fraction(c - b, a)}$`;
+        texteCorr += `$x=${texFraction(c - b, a)}$`;
         if (pgcd(abs(a), abs(c - b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(c - b, a)}$`;
         }
@@ -132,7 +132,7 @@ export default function Exercice_equation1() {
         texteCorr += `$${a}x${miseEnEvidence(
           "\\div" + ecritureParentheseSiNegatif(a)
         )}=${b + miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a))}$<br>`;
-        texteCorr += `$x=${tex_fraction(b, a)}$`;
+        texteCorr += `$x=${texFraction(b, a)}$`;
         if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
           texteCorr += `<br>$x=${texFractionReduite(b, a)}$`;
         }
@@ -197,7 +197,7 @@ export default function Exercice_equation1() {
         )}=${d -
         b +
         miseEnEvidence("\\div" + ecritureParentheseSiNegatif(a - c))}$<br>`;
-        texteCorr += `$x=${tex_fraction(d - b, a - c)}$`;
+        texteCorr += `$x=${texFraction(d - b, a - c)}$`;
         if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`;
         }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,simplification_de_fraction_avec_etapes,calcul,texNombrec,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,simplification_de_fraction_avec_etapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Calculer la fraction d’un nombre'
@@ -73,12 +73,12 @@ export default function Fraction_d_un_nombre() {
       if (this.sup) n = b * k;
       else if (randint(0, 1) == 0) n = b * k;
       else n = randint(10, b * 11);
-      texte = `$${tex_fraction(a, b)}\\times${n}=$`;
+      texte = `$${texFraction(a, b)}\\times${n}=$`;
       texteCorr = ``;
       if (a == 1) {
         // Si n * 1/b
         if (calcul(n / b - arrondi(n / b, 4)) == 0)
-          texteCorr += `$${tex_fraction(
+          texteCorr += `$${texFraction(
             a,
             miseEnEvidence(b)
           )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombrec(
@@ -86,14 +86,14 @@ export default function Fraction_d_un_nombre() {
           )}$`;
         // si résultat décimal
         else
-          texteCorr += `$${tex_fraction(a, b)}\\times${n}=${tex_fraction(
+          texteCorr += `$${texFraction(a, b)}\\times${n}=${texFraction(
             n,
             b
           )}${simplification_de_fraction_avec_etapes(n, b)}$`; //si résultat non décimal
       } else {
         if (calcul(n / b - arrondi(n / b, 4)) == 0) {
           //si n/b décimal calcul (n/b)*a
-          texteCorr += `$${tex_fraction(
+          texteCorr += `$${texFraction(
             a,
             miseEnEvidence(b)
           )}\\times${n}=(${n}\\div${miseEnEvidence(
@@ -104,7 +104,7 @@ export default function Fraction_d_un_nombre() {
         } else {
           if (calcul((n * a) / b - arrondi((n * a) / b, 4)) == 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
-            texteCorr += ` $${tex_fraction(
+            texteCorr += ` $${texFraction(
               a,
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -114,14 +114,14 @@ export default function Fraction_d_un_nombre() {
             )}=${texNombrec(Algebrite.eval((n / b) * a))}$<br>`;
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
-            texteCorr += ` $${tex_fraction(
+            texteCorr += ` $${texFraction(
               a,
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
               b
             )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(
               b
-            )}=${tex_fraction(n * a, miseEnEvidence(b))}$<br>`;
+            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
           }
           j = true;
         }
@@ -131,7 +131,7 @@ export default function Fraction_d_un_nombre() {
           !j
         ) {
           // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
-          texteCorr += ` $${tex_fraction(
+          texteCorr += ` $${texFraction(
             a,
             miseEnEvidence(b)
           )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -142,18 +142,18 @@ export default function Fraction_d_un_nombre() {
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
           if (this.sup2 && !j)
-            texteCorr += ` $${tex_fraction(
+            texteCorr += ` $${texFraction(
               a,
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
               b
             )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(
               b
-            )}=${tex_fraction(n * a, miseEnEvidence(b))}$<br>`;
+            )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
         if ((b == 2 || b == 4 || b == 5 || b == 8 || b == 10) && this.sup2)
-          texteCorr += ` $${tex_fraction(
+          texteCorr += ` $${texFraction(
             a,
             miseEnEvidence(b)
           )}\\times${n}=(${a}\\div${miseEnEvidence(

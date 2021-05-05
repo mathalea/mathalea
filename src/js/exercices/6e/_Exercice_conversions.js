@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,tex_fraction,tex_texte,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -135,7 +135,7 @@ export default function Exercice_conversions(niveau = 1) {
           texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " =  " +
-          tex_fraction(texNombre(a), texNombre(prefixe_div[k][1])) +
+          texFraction(texNombre(a), texNombre(prefixe_div[k][1])) +
           tex_texte(unite) +
           " = " +
           texNombre(resultat) +

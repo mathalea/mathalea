@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,texFraction} from '../../modules/outils.js'
 export const titre = 'Résoudre une équation produit nul'
 
 /**
@@ -72,7 +72,7 @@ export default function Resoudre_une_equation_produit_nul() {
 					texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`;
 					texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x+${d}=0$`;
 					texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${0 - d}$`;
-					texteCorr += '<br> Donc ' + `$x=-${tex_fraction(b, a)}$` + ' ou ' + `$x=-${tex_fraction(d, c)}$`;
+					texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=-${texFraction(d, c)}$`;
 					texteCorr += '<br> Donc ' + `$x=${0 - b / a}$` + ' ou ' + `$x=${0 - d / c}$`;
 					break;
 				case 4: a = randint(2, 6); //(ax+b)(cx-d)=0  avec b/a et d/c entiers.
@@ -84,7 +84,7 @@ export default function Resoudre_une_equation_produit_nul() {
 					texteCorr += '<br>' + `$(${a}x+${b})(${c}x-${d})=0$`;
 					texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x-${d}=0$`;
 					texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${d}$`;
-					texteCorr += '<br> Donc ' + `$x=-${tex_fraction(b, a)}$` + ' ou ' + `$x=${tex_fraction(d, c)}$`;
+					texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=${texFraction(d, c)}$`;
 					texteCorr += '<br> Donc ' + `$x=${0 - b / a}$` + ' ou ' + `$x=${d / c}$`;
 					break;
 				case 5:
@@ -97,10 +97,10 @@ export default function Resoudre_une_equation_produit_nul() {
 					texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`;
 					texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x+${d}=0$`;
 					texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${0 - d}$`;
-					texteCorr += '<br> Donc ' + `$x=-${tex_fraction(b, a)}$`;
-					if (tex_fraction(b, a) != texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$`; }
-					texteCorr += ' ou ' + `$x=-${tex_fraction(d, c)}$`;
-					if (tex_fraction(d, c) != texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$`; }
+					texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$`;
+					if (texFraction(b, a) != texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$`; }
+					texteCorr += ' ou ' + `$x=-${texFraction(d, c)}$`;
+					if (texFraction(d, c) != texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$`; }
 					break;
 				case 6:
 					a = randint(2, 9); //(ax+b)(cx-d)=0 	avec b/a et d/c quelconques.
@@ -112,10 +112,10 @@ export default function Resoudre_une_equation_produit_nul() {
 					texteCorr += '<br>' + `$(${a}x+${b})(${c}x-${d})=0$`;
 					texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x-${d}=0$`;
 					texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${d}$`;
-					texteCorr += '<br> Donc ' + `$x=-${tex_fraction(b, a)}$`;
-					if (tex_fraction(b, a) != texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$`; }
-					texteCorr += ' ou ' + `$x=${tex_fraction(d, c)}$`;
-					if (tex_fraction(d, c) != texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$`; }
+					texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$`;
+					if (texFraction(b, a) != texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$`; }
+					texteCorr += ' ou ' + `$x=${texFraction(d, c)}$`;
+					if (texFraction(d, c) != texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$`; }
 
 					break;
 			}

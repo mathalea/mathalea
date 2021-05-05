@@ -1,4 +1,4 @@
-import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from './outils.js'
+import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenir_liste_facteurs_premiers,calcul,texFraction,liste_diviseurs,quotientier} from './outils.js'
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from './2d.js'
 import Algebrite from 'algebrite'
 
@@ -237,7 +237,7 @@ class Fraction {
          *  @params {object} f2 la fraction qui multiplie.
          */
         this.texProduitFraction = function (f2) {
-            return `${this.texFraction}\\times ${f2.texFraction}=${tex_fraction(this.num + `\\times` + f2.num, this.den + `\\times` + f2.den)}=${tex_fraction(this.num * f2.num, this.den * f2.den)}`;
+            return `${this.texFraction}\\times ${f2.texFraction}=${texFraction(this.num + `\\times` + f2.num, this.den + `\\times` + f2.den)}=${texFraction(this.num * f2.num, this.den * f2.den)}`;
         };
 
         /**
@@ -269,7 +269,7 @@ class Fraction {
             return this.produitFraction(f2.inverse());
         };
         this.texQuotientFraction = function (f2) {
-            return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${tex_fraction(this.num + `\\times` + f2.den, this.den + `\\times` + f2.num)}=${tex_fraction(this.num * f2.den, this.den * f2.num)}`;
+            return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${texFraction(this.num + `\\times` + f2.den, this.den + `\\times` + f2.num)}=${texFraction(this.num * f2.den, this.den * f2.num)}`;
         };
 
         /**

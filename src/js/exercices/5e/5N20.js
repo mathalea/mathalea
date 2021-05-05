@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, export_QCM_AMC, texNombre2, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, tex_fraction, texFractionReduite } from '../../modules/outils.js'
+import { shuffle2tableaux, export_QCM_AMC, texNombre2, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
 export const amcReady = true
@@ -81,21 +81,21 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
       }
       if (listeTypeDeQuestions[i] == '+') { // une addition
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${tex_fraction(a + c, b + d)}$`, `$${tex_fraction(a + c, b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
+        tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${texFraction(a + c, b + d)}$`, `$${texFraction(a + c, b * d)}$`, `$${texFraction(a * c, b * d)}$`]
         tabicone = [1, 0, 0, 0]
         /*************************************************************************/
         const ordre_des_fractions = randint(1, 2)
         if (ordre_des_fractions == 1) {
-          texte = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$`
+          texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`
           /** ****************** AMC question/questionmult ********************************/
-          this.qcm[1].push([`$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${texFraction(a, b)}+${texFraction(c, d)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*******************************************************************************/
         } else {
-          texte = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$`
+          texte = `$${texFraction(c, d)}+${texFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.qcm[1].push([`$${tex_fraction(c, d)}+${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${texFraction(c, d)}+${texFraction(a, b)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*******************************************************************************/
@@ -114,39 +114,39 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
 				   }
         } else {
           if (ordre_des_fractions == 1) {
-            texteCorr = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=`
+            texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}=`
 
             if (this.level != 6) {
-              texteCorr += `${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}+${tex_fraction(c, d)}=`
+              texteCorr += `${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}=${texFraction(a * k, b * k)}+${texFraction(c, d)}=`
             }
-            texteCorr += `${tex_fraction(a * k + '+' + c, d)}=${tex_fraction(a * k + c, d)}$`
+            texteCorr += `${texFraction(a * k + '+' + c, d)}=${texFraction(a * k + c, d)}$`
           } else {
-            texteCorr = `$${tex_fraction(c, d)}+${tex_fraction(a, b)}=`
+            texteCorr = `$${texFraction(c, d)}+${texFraction(a, b)}=`
             if (this.level != 6) {
-						 texteCorr += `${tex_fraction(c, d)}+${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${tex_fraction(c, d)}+${tex_fraction(a * k, b * k)}=`
+						 texteCorr += `${texFraction(c, d)}+${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${texFraction(c, d)}+${texFraction(a * k, b * k)}=`
             }
-            texteCorr += `${tex_fraction(c + '+' + a * k, d)}=${tex_fraction(a * k + c, d)}$`
+            texteCorr += `${texFraction(c + '+' + a * k, d)}=${texFraction(a * k + c, d)}$`
           }
           // Est-ce que le résultat est simplifiable ?
           const s = pgcd(a * k + c, d)
           if (s != 1) {
-            texteCorr += `$=${tex_fraction(Algebrite.eval((a * k + c) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((a * k + c) / s), Algebrite.eval(d / s))}$`
+            texteCorr += `$=${texFraction(Algebrite.eval((a * k + c) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${texFraction(Algebrite.eval((a * k + c) / s), Algebrite.eval(d / s))}$`
           }
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${tex_fraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${tex_fraction(Math.abs(a - c), b * d)}$`, `$${tex_fraction(a * c, b * d)}$`]
+        tabrep = [`$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${texFraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${texFraction(Math.abs(a - c), b * d)}$`, `$${texFraction(a * c, b * d)}$`]
         tabicone = [1, 0, 0, 0]
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
-          texte = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$`
-          this.qcm[1].push([`$${tex_fraction(a, b)}-${tex_fraction(c, d)}=$\\\\ \n Réponses possibles`,
+          texte = `$${texFraction(a, b)}-${texFraction(c, d)}=$`
+          this.qcm[1].push([`$${texFraction(a, b)}-${texFraction(c, d)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
         } else {
-          texte = texte = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$`
+          texte = texte = `$${texFraction(c, d)}-${texFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.qcm[1].push([`$${tex_fraction(c, d)}-${tex_fraction(a, b)}=$\\\\ \n Réponses possibles`,
+          this.qcm[1].push([`$${texFraction(c, d)}-${texFraction(a, b)}=$\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
           /*****************************************************************************/
@@ -164,11 +164,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
 						 }
 					   }
           } else {
-            texteCorr = `$${tex_fraction(a, b)}-${tex_fraction(c, d)}=`
+            texteCorr = `$${texFraction(a, b)}-${texFraction(c, d)}=`
             if (this.level != 6) {
-              texteCorr += `${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${tex_fraction(c, d)}=${tex_fraction(a * k, b * k)}-${tex_fraction(c, d)}=`
+              texteCorr += `${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${texFraction(c, d)}=${texFraction(a * k, b * k)}-${texFraction(c, d)}=`
             }
-            texteCorr += `${tex_fraction(a * k + '-' + c, d)}=${tex_fraction(a * k - c, d)}$`
+            texteCorr += `${texFraction(a * k + '-' + c, d)}=${texFraction(a * k - c, d)}$`
           }
         } else {
           if (this.modeQcm && !mathalea.sortieAMC) {
@@ -183,11 +183,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
 						 }
 					   }
           } else {
-            texteCorr = `$${tex_fraction(c, d)}-${tex_fraction(a, b)}=`
+            texteCorr = `$${texFraction(c, d)}-${texFraction(a, b)}=`
             if (this.level != 6) {
-              texteCorr += `${tex_fraction(c, d)}-${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${tex_fraction(c, d)}-${tex_fraction(a * k, b * k)}=${tex_fraction(c + '-' + a * k, d)}=`
+              texteCorr += `${texFraction(c, d)}-${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${texFraction(c, d)}-${texFraction(a * k, b * k)}=${texFraction(c + '-' + a * k, d)}=`
             }
-            texteCorr += `${tex_fraction(c - a * k, d)}$`
+            texteCorr += `${texFraction(c - a * k, d)}$`
           }
         }
         // Est-ce que le résultat est simplifiable ?
@@ -196,7 +196,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
           if (abs(a * k - c) % d == 0) { // si la fraction peut-être un nombre entier
             texteCorr += `$=${Algebrite.eval((abs(a * k - c)) / d)}$`
           } else if (s != 1) {
-            texteCorr += `$=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${tex_fraction(Algebrite.eval((abs(a * k - c)) / s), Algebrite.eval(d / s))}$`
+            texteCorr += `$=${texFraction(Algebrite.eval((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${texFraction(Algebrite.eval((abs(a * k - c)) / s), Algebrite.eval(d / s))}$`
           }
         }
       }

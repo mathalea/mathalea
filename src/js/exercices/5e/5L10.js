@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {shuffle2tableaux,listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,tex_fraction} from '../../modules/outils.js'
+import {shuffle2tableaux,listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,texFraction} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -62,13 +62,13 @@ export default function Ecrire_une_expression_litterale() {
 					break;
 				case 3: // x/2
 					texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`;
-					texteCorr = `La moitié de $${x}$  se note :  $${tex_fraction(x, 2)}=${x}\\div 2=0,5${x}$.`;
+					texteCorr = `La moitié de $${x}$  se note :  $${texFraction(x, 2)}=${x}\\div 2=0,5${x}$.`;
 					tabrep=[`$${x}\\div 2$`,`$\\dfrac{${x}}{2}$`,`$0,5${x}$`,`$${x}-2$`,`$\\dfrac{1}{2}+${x}$`,`$${x}\\div 0,5$`]
 					tabicone=[1,1,1,0,0,0]
 					break;
 				case 4: // x/4
 					texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`;
-					texteCorr = `Le quart de $${x}$  se note :  $${tex_fraction(x, 4)}=${x}\\div 4=0,25${x}$.`;
+					texteCorr = `Le quart de $${x}$  se note :  $${texFraction(x, 4)}=${x}\\div 4=0,25${x}$.`;
 					tabrep=[`$${x}\\div 4$`,`$\\dfrac{${x}}{4}$`,`$0,25${x}$`,`$${x}-\\dfrac{1}{4}$`,`$\\dfrac{1}{4}+${x}$`,`$${x}\\div 0,25$`]
 					tabicone=[1,1,1,0,0,0]
 					break;
@@ -104,7 +104,7 @@ export default function Ecrire_une_expression_litterale() {
 					break;
 				case 9: // 1/x
 					texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`;
-					texteCorr = `L'inverse de $${x}$ se note : $${tex_fraction(1, x)}$.`;
+					texteCorr = `L'inverse de $${x}$ se note : $${texFraction(1, x)}$.`;
 					tabrep=[`$-${x}$`,`$-1\\times ${x}$`,`$${x}-1$`,`$\\dfrac{1}{${x}}$`,`$${x}$`,`$1-${x}$`]
 					tabicone=[0,0,0,1,0,0]					
 					break;
@@ -122,13 +122,13 @@ export default function Ecrire_une_expression_litterale() {
 					break;
 				case 12: // x/k
 					texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`;
-					texteCorr = `Le quotient de $${x}$ par ${k} se note : $${tex_fraction(x, k)}$.`;
+					texteCorr = `Le quotient de $${x}$ par ${k} se note : $${texFraction(x, k)}$.`;
 					tabrep=[`$${k}\\div ${x}$`,`$${x}\\div ${k}$`,`$\\dfrac{${x}}{${k}}$`,`$${x}\\times ${k}$`,`$${x}-${k}$`,`$${k}\\times ${x}$`]
 					tabicone=[0,1,1,0,0,0]
 					break;
 				case 13: // k/x
 					texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`;
-					texteCorr = `Le quotient de ${k} par $${x}$ se note : $${tex_fraction(k, x)}$.`;
+					texteCorr = `Le quotient de ${k} par $${x}$ se note : $${texFraction(k, x)}$.`;
 					tabrep=[`$${x}\\div ${k}$`,`$${k}\\div ${x}$`,`$\\dfrac{${k}}{${x}}$`,`$${k}\\times ${x}$`,`$${k}-${x}$`,`$${x}\\times ${k}$`]
 					tabicone=[0,1,1,0,0,0]
 					break;

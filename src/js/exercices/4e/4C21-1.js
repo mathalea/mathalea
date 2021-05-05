@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,miseEnEvidence,tex_fraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
 
 
 export const titre = 'Additionner deux fractions'
@@ -83,33 +83,33 @@ export default function Exercice_additionner_des_fractions() {
 				a = a * choice([-1, 1]);
 				c = c * choice([-1, 1]);
 			}
-			texte = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}=$`;
-			texteCorr = `$${tex_fraction(a, b)}+${tex_fraction(c, d)}`;
+			texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`;
+			texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}`;
 
 			// a/b+c/d = num/den (résultat non simplifié)
 			if (type_de_questions == 'ppcm' || type_de_questions == 'premiers_entre_eux') {
-				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${tex_fraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
-				//texteCorr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
+				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
+				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a * k1 + c * k2;
 				den = b * k1;
-				texteCorr += `=${tex_fraction(a * k1 + `+` + ecritureParentheseSiNegatif(c * k2), den)}`;
+				texteCorr += `=${texFraction(a * k1 + `+` + ecritureParentheseSiNegatif(c * k2), den)}`;
 
 			}
 
 			if (type_de_questions == 'd_multiple_de_b') {
-				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${tex_fraction(c, d)}`;
-				//texteCorr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
+				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}`;
+				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a * k + c;
 				den = b * k;
-				texteCorr += `=${tex_fraction(a * k + `+` + ecritureParentheseSiNegatif(c), den)}`;
+				texteCorr += `=${texFraction(a * k + `+` + ecritureParentheseSiNegatif(c), den)}`;
 			}
 
 			if (type_de_questions == 'b_multiple_de_d') {
-				texteCorr += `=${tex_fraction(a, b)}+${tex_fraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
-				//texteCorr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
+				texteCorr += `=${texFraction(a, b)}+${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
+				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a + c * k;
 				den = b;
-				texteCorr += `=${tex_fraction(a + `+` + ecritureParentheseSiNegatif(c * k), den)}`;
+				texteCorr += `=${texFraction(a + `+` + ecritureParentheseSiNegatif(c * k), den)}`;
 			}
 
 			if (type_de_questions == "entier") {
@@ -121,20 +121,20 @@ export default function Exercice_additionner_des_fractions() {
 					n = n * choice([-1, 1]);
 				}
 				if (choice([true, false])) {
-					texte = `$${n}+${tex_fraction(a, b)}=$`;
+					texte = `$${n}+${texFraction(a, b)}=$`;
 					texteCorr = texte;
-					texteCorr += `$${tex_fraction(n + '\\times ' + b, b)}+${tex_fraction(a, b)}`;
-					texteCorr += `=${tex_fraction(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`;
+					texteCorr += `$${texFraction(n + '\\times ' + b, b)}+${texFraction(a, b)}`;
+					texteCorr += `=${texFraction(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`;
 				} else {
-					texte = `$${tex_fraction(a, b)}+${ecritureParentheseSiNegatif(n)}=$`;
+					texte = `$${texFraction(a, b)}+${ecritureParentheseSiNegatif(n)}=$`;
 					texteCorr = texte;
-					texteCorr += `$${tex_fraction(a, b)}+${tex_fraction(n + '\\times ' + b, b)}`;
-					texteCorr += `=${tex_fraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
+					texteCorr += `$${texFraction(a, b)}+${texFraction(n + '\\times ' + b, b)}`;
+					texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
 				}
 				num = n * b + a;
 				den = b;
 			}
-			texteCorr += `=${tex_fraction(num, den)}`;
+			texteCorr += `=${texFraction(num, den)}`;
 			texteCorr += simplification_de_fraction_avec_etapes(num, den) + '$';
 			this.listeQuestions.push(texte);
 			this.listeCorrections.push(texteCorr);

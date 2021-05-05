@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,shuffle,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,shuffle,miseEnEvidence,texFraction} from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
@@ -44,11 +44,11 @@ export default function Exercice_comparer_quatre_fractions () {
         n3 = randint(1, 11)
         n4 = randint(1, 11)
       }
-      const tableau_fractions = [[n1, d1, `$${tex_fraction(n1, d1)}$`, `$${tex_fraction(n1, d1)}$`]]
-      tableau_fractions.push([n2, d2, `$${tex_fraction(n2, d2)}=${tex_fraction(n2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)), d2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)))}=${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`, `$${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`])
-      tableau_fractions.push([n3, d3, `$${tex_fraction(n3, d3)}=${tex_fraction(n3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)), d3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)))}=${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`, `$${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`])
-      tableau_fractions.push([n4, d4, `$${tex_fraction(n4, d4)}=${tex_fraction(n4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)), d4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)))}=${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`, `$${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`])
-      tableau_fractions.push([k, 1, `$${k}=${tex_fraction(d1 * k, d1)}$`, `$${tex_fraction(k * d1, d1)}$`])
+      const tableau_fractions = [[n1, d1, `$${texFraction(n1, d1)}$`, `$${texFraction(n1, d1)}$`]]
+      tableau_fractions.push([n2, d2, `$${texFraction(n2, d2)}=${texFraction(n2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)), d2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)))}=${texFraction(Algebrite.eval(n2 * d1 / d2), d1)}$`, `$${texFraction(Algebrite.eval(n2 * d1 / d2), d1)}$`])
+      tableau_fractions.push([n3, d3, `$${texFraction(n3, d3)}=${texFraction(n3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)), d3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)))}=${texFraction(Algebrite.eval(n3 * d1 / d3), d1)}$`, `$${texFraction(Algebrite.eval(n3 * d1 / d3), d1)}$`])
+      tableau_fractions.push([n4, d4, `$${texFraction(n4, d4)}=${texFraction(n4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)), d4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)))}=${texFraction(Algebrite.eval(n4 * d1 / d4), d1)}$`, `$${texFraction(Algebrite.eval(n4 * d1 / d4), d1)}$`])
+      tableau_fractions.push([k, 1, `$${k}=${texFraction(d1 * k, d1)}$`, `$${texFraction(k * d1, d1)}$`])
       tableau_fractions.sort(compareFractions)
       const tableau_fractions_enonce = shuffle(tableau_fractions)
       texte = ''
@@ -56,7 +56,7 @@ export default function Exercice_comparer_quatre_fractions () {
         if (tableau_fractions_enonce[j][1] === 1) {
           texte += `$${tableau_fractions_enonce[j][0]}\\quad\\text{;}\\quad$`
         } else {
-          texte += `$${tex_fraction(tableau_fractions_enonce[j][0], tableau_fractions_enonce[j][1])}\\quad\\text{;}\\quad$`
+          texte += `$${texFraction(tableau_fractions_enonce[j][0], tableau_fractions_enonce[j][1])}\\quad\\text{;}\\quad$`
         }
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
@@ -78,7 +78,7 @@ export default function Exercice_comparer_quatre_fractions () {
         if (tableau_fractions[j][1] === 1) {
           texte_conclusion += `$${tableau_fractions[j][0]}\\quad<\\quad$`
         } else {
-          texte_conclusion += `$${tex_fraction(tableau_fractions[j][0], tableau_fractions[j][1])}\\quad<\\quad$`
+          texte_conclusion += `$${texFraction(tableau_fractions[j][0], tableau_fractions[j][1])}\\quad<\\quad$`
         }
       }
       texteCorr += 'Finalement : $\\quad$ ' + texte_conclusion.substring(0, texte_conclusion.length - 12) + '$'

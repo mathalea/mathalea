@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureNombreRelatif,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,calcul,miseEnEvidence,tex_fraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureNombreRelatif,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,calcul,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
 import {fractionSimplifiee,texFractionReduite} from '../../modules/outils.js'
 
 
@@ -103,30 +103,30 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 				}
 				let echange = true;
 			}
-			texte = `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c, d)}=$`;
-			texteCorr = `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c, d)}`;
+			texte = `$${texFraction(a, b)}${plus_ou_moins}${texFraction(c, d)}=$`;
+			texteCorr = `$${texFraction(a, b)}${plus_ou_moins}${texFraction(c, d)}`;
 
 			// a/b(+ou-)c/d = num/den (résultat non simplifié)
 			if (type_de_questions == 'ppcm' || type_de_questions == 'premiers_entre_eux') {
-				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plus_ou_moins}${tex_fraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
+				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plus_ou_moins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
 				num = calcul(a * k1 + plus_ou_moins + ecritureNombreRelatif(c * k2));
 				den = b * k1;
-				texteCorr += `=${tex_fraction(a * k1 + plus_ou_moins + ecritureParentheseSiNegatif(c * k2), den)}`;
+				texteCorr += `=${texFraction(a * k1 + plus_ou_moins + ecritureParentheseSiNegatif(c * k2), den)}`;
 
 			}
 
 			if (type_de_questions == 'd_multiple_de_b') {
-				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plus_ou_moins}${tex_fraction(c, d)}`;
+				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plus_ou_moins}${texFraction(c, d)}`;
 				num = calcul(a * k + plus_ou_moins + ecritureNombreRelatif(c));
 				den = b * k;
-				texteCorr += `=${tex_fraction(a * k + plus_ou_moins + ecritureParentheseSiNegatif(c), den)}`;
+				texteCorr += `=${texFraction(a * k + plus_ou_moins + ecritureParentheseSiNegatif(c), den)}`;
 			}
 
 			if (type_de_questions == 'b_multiple_de_d') {
-				texteCorr += `=${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
+				texteCorr += `=${texFraction(a, b)}${plus_ou_moins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
 				num = calcul(a + plus_ou_moins + ecritureNombreRelatif(c * k));
 				den = b;
-				texteCorr += `=${tex_fraction(a + plus_ou_moins + ecritureParentheseSiNegatif(c * k), den)}`;
+				texteCorr += `=${texFraction(a + plus_ou_moins + ecritureParentheseSiNegatif(c * k), den)}`;
 			}
 
 			if (type_de_questions == "entier") {
@@ -142,25 +142,25 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 					if (!this.sup2 && plus_ou_moins == "-" && n < a / b) {
 						n = randint(5, 9); // max(a/b)=9/2
 					}
-					texte = `$${n}${plus_ou_moins}${tex_fraction(a, b)}=$`;
+					texte = `$${n}${plus_ou_moins}${texFraction(a, b)}=$`;
 					texteCorr = texte;
-					texteCorr += `$${tex_fraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plus_ou_moins}${tex_fraction(a, b)}`;
-					texteCorr += `=${tex_fraction(n * b + plus_ou_moins + ecritureParentheseSiNegatif(a), b)}`;
+					texteCorr += `$${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plus_ou_moins}${texFraction(a, b)}`;
+					texteCorr += `=${texFraction(n * b + plus_ou_moins + ecritureParentheseSiNegatif(a), b)}`;
 				} else {
 					// a/b +-n
 					if (!this.sup2 && plus_ou_moins == "-" && n > a / b) {
 						n = randint(1, 4); // 
 						a = n * b + randint(1, 9); //(n*b+?)/b-n>0
 					}
-					texte = `$${tex_fraction(a, b)}${plus_ou_moins}${ecritureParentheseSiNegatif(n)}=$`;
+					texte = `$${texFraction(a, b)}${plus_ou_moins}${ecritureParentheseSiNegatif(n)}=$`;
 					texteCorr = texte;
-					texteCorr += `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`;
-					texteCorr += `=${tex_fraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
+					texteCorr += `$${texFraction(a, b)}${plus_ou_moins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`;
+					texteCorr += `=${texFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
 				}
 				num = calcul(n * b + plus_ou_moins + ecritureParentheseSiNegatif(a));
 				den = b;
 			}
-			texteCorr += `=${tex_fraction(num, den)}`;
+			texteCorr += `=${texFraction(num, den)}`;
 			texteCorr += simplification_de_fraction_avec_etapes(num, den) + '$';			
 			// Pour l'instant pour tester je mets num et den dans reponse
 			let reponse = {num:fractionSimplifiee(num,den)[0],den:fractionSimplifiee(num,den)[1]};
