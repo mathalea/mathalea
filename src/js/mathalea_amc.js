@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { creer_document_AMC, strRandom, compteOccurences, intro_LaTeX_coop } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-import { menuDesExercicesqcmDisponibles } from './modules/menuDesExercicesqcmDisponibles.js'
+import { menuDesExercicesQCMDisponibles } from './modules/menuDesExercicesQCMDisponibles'
 import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
 
@@ -130,7 +130,7 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 //* *******
-menuDesExercicesqcmDisponibles()
+menuDesExercicesQCMDisponibles()
 
 // Mise à jour du formulaire de la liste des exercices
 const form_choix_des_exercices = document.getElementById('choix_des_exercices')
