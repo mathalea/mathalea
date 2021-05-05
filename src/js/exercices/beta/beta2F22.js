@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { listeQuestionsToContenu, combinaisonListes, quotientier, randint, reduire_ax_plus_b, choice, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, quotientier, randint, reduireAxPlusB, choice, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 
 
@@ -65,7 +65,7 @@ export default function representer_fonction_affine() {
           texteCorr += `On lit alors que le coefficient directeur de la droite est : $${a}$.<br>`          
           texteCorr += ` On peut en déduire que l'expression de la fonction $f$ est`
 
-          texteCorr += `$f(x)=${reduire_ax_plus_b(a, b)}$`
+          texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$`
           texteCorr += mathalea2d({
             xmin: -6,
             ymin: -6,
@@ -94,7 +94,7 @@ export default function representer_fonction_affine() {
           t = tracePoint(A, B,'red') // Variable qui trace les points avec une croix
           l = labelPoint(A,B)// Variable qui trace les nom s A et B
           l.color='red'
-          texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduire_ax_plus_b(a, b)}$ <br>`;
+          texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`;
           texteCorr = `On sait que la représentation graphique d'une fonction affine est une droite.<br>`
           texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>`                
           texteCorr +=`On sait que si $f(x)=ax+b$, le coefficient $b$ est l'ordonnée à l'origine.<br>`

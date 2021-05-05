@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,choice,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,choice,katexPopup2} from '../../modules/outils.js'
 import {point,polygone,grille,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 

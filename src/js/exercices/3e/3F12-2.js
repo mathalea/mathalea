@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,texFractionReduite,lettre_minuscule_depuis_chiffre,katex_Popup2,fractionSimplifiee} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,texFractionReduite,lettre_minuscule_depuis_chiffre,katexPopup2,fractionSimplifiee} from '../../modules/outils.js'
 
 
 export const titre = 'Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique'

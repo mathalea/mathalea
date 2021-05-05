@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec,texNombre,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec,texNombre,katexPopup2} from '../../modules/outils.js'
 
 
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient'

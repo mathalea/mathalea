@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,exposant,arrondi,pgcd,fractionSimplifiee,texFractionReduite,calcul,texNombrec,texNombre,sp,katex_Popup2,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,exposant,arrondi,pgcd,fractionSimplifiee,texFractionReduite,calcul,texNombrec,texNombre,sp,katexPopup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
@@ -67,9 +67,9 @@ export default function Agrandissement_reduction() {
 				texte += `<br>Un plan parallèle à la face ABCD passant par O' coupe la pyramide en formant la section A'B'C'D'.<br>`;
 				if (!sortieHtml)
 					texte += `La figure n'est pas en vraie grandeur.<br>`;
-				texte += numAlpha(0) + ` Calculer l'` + katex_Popup2(numeroExercice , 1, "aire de base de la pyramide", `Formule : Aire d'un carré de côté c`, `$Aire=\\text{c}$${exposant(2)}`) + `.<br>`;
-				texte += numAlpha(1) + ` Calculer le ` + katex_Popup2(numeroExercice + 5, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SABCD.<br>`;
-				texte += numAlpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numeroExercice + 10, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` A'B'C'D' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
+				texte += numAlpha(0) + ` Calculer l'` + katexPopup2(numeroExercice , 1, "aire de base de la pyramide", `Formule : Aire d'un carré de côté c`, `$Aire=\\text{c}$${exposant(2)}`) + `.<br>`;
+				texte += numAlpha(1) + ` Calculer le ` + katexPopup2(numeroExercice + 5, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SABCD.<br>`;
+				texte += numAlpha(2) + ` En déduire l'aire de la ` + katexPopup2(numeroExercice + 10, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` A'B'C'D' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
 				texte += numAlpha(3) + ` Calculer le volume de la pyramide SA'B'C'D'.<br>`;
 				texte += numAlpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`;
 				if (sortieHtml)
@@ -180,12 +180,12 @@ export default function Agrandissement_reduction() {
 					texte = ``;
 				texte += `Un cône a pour rayon ${texNombre(r)}${sp()}cm et pour hauteur SO${sp()}=${sp()}${texNombre(h1)}${sp()}cm.<br>Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.<br>`;
 				texte += `Un plan parallèle à la base passant par O' coupe le cône.<br>`;
-				texte += `On obtient ainsi une section ` + katex_Popup2(numeroExercice , 1, "semblable", `Définition : Figures semblables`, `Se dit de deux figures/solides qui ont les mêmes formes, les mêmes angles mais pas nécessairement les mêmes mesures.<br>Les représentations d'une même figure à deux échelles différentes sont des figures semblables.`) + ` à la base et un cône réduit semblable au grand cône.<br>`;
+				texte += `On obtient ainsi une section ` + katexPopup2(numeroExercice , 1, "semblable", `Définition : Figures semblables`, `Se dit de deux figures/solides qui ont les mêmes formes, les mêmes angles mais pas nécessairement les mêmes mesures.<br>Les représentations d'une même figure à deux échelles différentes sont des figures semblables.`) + ` à la base et un cône réduit semblable au grand cône.<br>`;
 				if (!sortieHtml)
 					texte += `La figure n'est pas en vraie grandeur.<br>`;
-				texte += numAlpha(0) + ` Calculer l'` + katex_Popup2(numeroExercice + 1, 1, "aire de base du cône", `Formule : Aire du disque de rayon R`, `$Aire=\\pi \\times \\text{R}^{2}$`) + `.<br>`;
-				texte += numAlpha(1) + ` Calculer le ` + katex_Popup2(numeroExercice + 6, 1, "volume du cône", `Formule : Volume d'un cône de rayon R et de hauteur h`, `$Volume= \\dfrac{\\pi \\times \\text{R}^{2} \\times \\text{h}}{3}$`) + `.<br>`;
-				texte += numAlpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numeroExercice + 11, 1, "section", `Définition : Section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
+				texte += numAlpha(0) + ` Calculer l'` + katexPopup2(numeroExercice + 1, 1, "aire de base du cône", `Formule : Aire du disque de rayon R`, `$Aire=\\pi \\times \\text{R}^{2}$`) + `.<br>`;
+				texte += numAlpha(1) + ` Calculer le ` + katexPopup2(numeroExercice + 6, 1, "volume du cône", `Formule : Volume d'un cône de rayon R et de hauteur h`, `$Volume= \\dfrac{\\pi \\times \\text{R}^{2} \\times \\text{h}}{3}$`) + `.<br>`;
+				texte += numAlpha(2) + ` En déduire l'aire de la ` + katexPopup2(numeroExercice + 11, 1, "section", `Définition : Section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
 				texte += numAlpha(3) + ` Calculer le volume du cône de hauteur SO'.<br>`;
 				texte += numAlpha(4) + ` Calculer le volume du tronc de cône (partie du cône située entre la base et la section).`;
 				if (sortieHtml)
@@ -336,9 +336,9 @@ export default function Agrandissement_reduction() {
 				texte += `<br>Un plan parallèle à la face OAB passant par O' coupe la pyramide en formant la section O'A'B'.<br>`;
 				if (!sortieHtml)
 					texte += `La figure n'est pas en vraie grandeur.<br>`;
-				texte += numAlpha(0) + ` Calculer l'` + katex_Popup2(numeroExercice , 1, "aire de base de la pyramide", `Formule : Aire d'un triangle rectangle`, `$Aire=\\dfrac{\\text{c}\\times\\text{c'}}{2}$`) + `.<br>`;
-				texte += numAlpha(1) + ` Calculer le ` + katex_Popup2(numeroExercice + 5, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SOAB.<br>`;
-				texte += numAlpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numeroExercice + 10, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` O'A'B' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
+				texte += numAlpha(0) + ` Calculer l'` + katexPopup2(numeroExercice , 1, "aire de base de la pyramide", `Formule : Aire d'un triangle rectangle`, `$Aire=\\dfrac{\\text{c}\\times\\text{c'}}{2}$`) + `.<br>`;
+				texte += numAlpha(1) + ` Calculer le ` + katexPopup2(numeroExercice + 5, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SOAB.<br>`;
+				texte += numAlpha(2) + ` En déduire l'aire de la ` + katexPopup2(numeroExercice + 10, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` O'A'B' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`;
 				texte += numAlpha(3) + ` Calculer le volume de la pyramide SO'A'B'.<br>`;
 				texte += numAlpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`;
 				if (sortieHtml)

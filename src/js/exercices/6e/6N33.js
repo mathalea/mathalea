@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,simplification_de_fraction_avec_etapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,simplificationDeFractionAvecEtapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Calculer la fraction d’un nombre'
@@ -89,7 +89,7 @@ export default function Fraction_d_un_nombre() {
           texteCorr += `$${texFraction(a, b)}\\times${n}=${texFraction(
             n,
             b
-          )}${simplification_de_fraction_avec_etapes(n, b)}$`; //si résultat non décimal
+          )}${simplificationDeFractionAvecEtapes(n, b)}$`; //si résultat non décimal
       } else {
         if (calcul(n / b - arrondi(n / b, 4)) == 0) {
           //si n/b décimal calcul (n/b)*a

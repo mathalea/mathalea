@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,ecritureAlgebrique} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,ecritureAlgebrique} from '../../modules/outils.js'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 
@@ -59,7 +59,7 @@ export default function Factoriser_Identites_remarquables2() {
                     texteCorr = `$(${a}x${ecritureAlgebrique(b)})^2-${c*c}=(${a}x${ecritureAlgebrique(b)})^2-${c}^2$<br>
                     On reconnaît l'identité remarquable $a^2-b^2=(\\color{red}a\\color{black}-\\color{blue}b)(\\color{red}a\\color{black}+\\color{blue}b)$, avec $a=\\color{red}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}$<br>
                     $(${a}x${ecritureAlgebrique(b)})^2-${c*c}=\\left(\\color{red} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{blue} ${c}\\right) \\left(\\color{red}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{blue}${c}\\right)$<br>
-                    d'où, après réduction : $(${a}x${ecritureAlgebrique(b)})^2-${c*c}=(${reduire_ax_plus_b(a,b-c)}) (${reduire_ax_plus_b(a,b+c)})$`;
+                    d'où, après réduction : $(${a}x${ecritureAlgebrique(b)})^2-${c*c}=(${reduireAxPlusB(a,b-c)}) (${reduireAxPlusB(a,b+c)})$`;
                    
                     break;
                 case 2:
@@ -68,7 +68,7 @@ export default function Factoriser_Identites_remarquables2() {
                     On reconnaît l'identité remarquable $a^2-b^2=(\\color{red}a\\color{black}-\\color{blue}b)(\\color{red}a\\color{black}+\\color{blue}b)$, avec $a=\\color{blue}${c}$ et $b=\\color{red}${a}x${ecritureAlgebrique(b)}$. <br>
                     $${c*c}-(${a}x${ecritureAlgebrique(b)})^2=\\left(\\color{blue}${c}\\color{black}-(\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})\\right) \\left(\\color{blue}${c}\\color{black}+(\\color{red}${a}x${ecritureAlgebrique(b)}\\color{black})\\right)$<br>
                     $\\phantom{${c*c}-(${a}x${ecritureAlgebrique(b)})^2}=(${c}${ecritureAlgebrique(-a)}x${ecritureAlgebrique(-b)}) (${c}${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)})$<br>
-                    d'où, après réduction : $${c*c}-(${a}x${ecritureAlgebrique(b)})^2=(${reduire_ax_plus_b(-a,c-b)}) (${reduire_ax_plus_b(a,b+c)})$`;
+                    d'où, après réduction : $${c*c}-(${a}x${ecritureAlgebrique(b)})^2=(${reduireAxPlusB(-a,c-b)}) (${reduireAxPlusB(a,b+c)})$`;
                     break;
                 case 3:
                     texte = `$(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2$`; // (ax+b)²-(cx+d)²
@@ -86,23 +86,23 @@ export default function Factoriser_Identites_remarquables2() {
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}x${ecritureAlgebrique(d)})$<br>`
                     if (a!= c && b!= d&&a!=-c&&b!=-d) {
                         texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                        (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$  `}
+                        (${reduireAxPlusB(a-c,b-d)})(${reduireAxPlusB(a+c,b+d)})$  `}
                         else {
                             if (a!= c &&  a!= -c && b== d&& a!=c+1) {
                                 texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                ${a-c}x(${reduire_ax_plus_b(a+c,b+d)})$    ` }   
+                                ${a-c}x(${reduireAxPlusB(a+c,b+d)})$    ` }   
                             if (a!= c &&  a!= -c && b== d&& a==c+1) {
                                 texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                x(${reduire_ax_plus_b(a+c,b+d)})$    ` }      
+                                x(${reduireAxPlusB(a+c,b+d)})$    ` }      
                             if (a!= c &&  a!= -c && b== -d) {
                                     texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${a+c}x(${reduire_ax_plus_b(a-c,b-d)})$  `   }  
+                                    ${a+c}x(${reduireAxPlusB(a-c,b-d)})$  `   }  
                             if (a== c  && b!= d &&b!=-d) {
                                     texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${b-d}(${reduire_ax_plus_b(a+c,b+d)})$  `   }    
+                                    ${b-d}(${reduireAxPlusB(a+c,b+d)})$  `   }    
                             if (a== -c  && b!= d && b!=-d) {
                                     texteCorr +=`$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${b+d}(${reduire_ax_plus_b(a-c,b-d)})$  `   }                   
+                                    ${b+d}(${reduireAxPlusB(a-c,b-d)})$  `   }                   
                            }   ;
                     break;
                 

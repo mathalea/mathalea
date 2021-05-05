@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,fractionSimplifiee,texFractionReduite,simplification_de_fraction_avec_etapes,prenomF,prenomM,texFraction,numAlpha,ppcm,} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,fractionSimplifiee,texFractionReduite,simplificationDeFractionAvecEtapes,prenomF,prenomM,texFraction,numAlpha,ppcm,} from '../../modules/outils.js'
 
 
 
@@ -79,17 +79,17 @@ export default function fonctions_probabilite2() {
 					else {
 						texteCorr += numAlpha(1) + ` Comme le nombre de yaourt est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu' il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`;
 					}
-					texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est de : $${texFraction(n[p], somme1)}${simplification_de_fraction_avec_etapes(n[p], somme1)}$.<br>`;
-					texteCorr += `Ensuite il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est de $${texFraction(n[p] - 1, somme1 - 1)}${simplification_de_fraction_avec_etapes(n[p] - 1, somme1 - 1)}$.<br>`;
-					texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFraction(n[p], somme1)}\\times${texFraction(n[p] - 1, somme1 - 1)}=${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplification_de_fraction_avec_etapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`;
+					texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est de : $${texFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`;
+					texteCorr += `Ensuite il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est de $${texFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`;
+					texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFraction(n[p], somme1)}\\times${texFraction(n[p] - 1, somme1 - 1)}=${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`;
 					texteCorr += numAlpha(3) + ` a probabilité des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être calculées de la même façon qu'au c) :<br>`;
 					texteCorr += `$${texFraction(n[q], somme1)}\\times${texFraction(n[q] - 1, somme1 - 1)}=${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$.<br>`;
 					texteCorr += `$${texFraction(n[r], somme1)}\\times${texFraction(n[r] - 1, somme1 - 1)}=${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`;
 					texteCorr += `La probabilité qu'ils choisissent le même parfum est la somme des probabilités des issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}), soit :<br>`;
-					texteCorr += `$${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFraction(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplification_de_fraction_avec_etapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$<br>`;
+					texteCorr += `$${texFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFraction(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$<br>`;
 					texteCorr += numAlpha(4) + ` choisir des parfums différents est l'événement contraire de l'événement dont on a calculé la probabilité à la question 4).<br>`;
 					fra1 = fractionSimplifiee(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1));
-					texteCorr += `La probabilité de cet événement est donc : $1-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1], fra1[1])}-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1] - fra1[0], fra1[1])}$`;
+					texteCorr += `La probabilité de cet événement est donc : $1-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1], fra1[1])}-${texFraction(fra1[0], fra1[1])}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$`;
 					break;
 				case 1:
 					p = randint(0, 3);
@@ -174,9 +174,9 @@ export default function fonctions_probabilite2() {
 					texte += numAlpha(1) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`;
 					texte += numAlpha(2) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`;
 					texteCorr = numAlpha(0) + ` Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `;
-					texteCorr += `La probabilité de chosir une paire de chaussettes ${qualites[2][r]} est de : $${texFraction(n[r], somme1)}${simplification_de_fraction_avec_etapes(n[r], somme1)}$.<br>`;
+					texteCorr += `La probabilité de chosir une paire de chaussettes ${qualites[2][r]} est de : $${texFraction(n[r], somme1)}${simplificationDeFractionAvecEtapes(n[r], somme1)}$.<br>`;
 					texteCorr += `Il y a ${m[r]} T-shirts ${qualites[5][r]} et il y a ${somme2} T-shirts possibles. `;
-					texteCorr += `La probabilité de chosir un des T-shirt ${qualites[5][r]} est de : $${texFraction(m[r], somme2)}${simplification_de_fraction_avec_etapes(m[r], somme2)}$.<br>`;
+					texteCorr += `La probabilité de chosir un des T-shirt ${qualites[5][r]} est de : $${texFraction(m[r], somme2)}${simplificationDeFractionAvecEtapes(m[r], somme2)}$.<br>`;
 					texteCorr += `${quidam} a donc $${texFractionReduite(m[r], somme2)}$ de `;
 					fra1 = fractionSimplifiee(n[r], somme1);
 					fra2 = fractionSimplifiee(m[r], somme2);
@@ -185,34 +185,34 @@ export default function fonctions_probabilite2() {
 					else
 						texteCorr += `$${fra1[0]}$ chances `;
 					texteCorr += `sur $${fra1[1]}$ de choisir des chaussettes et un T-shirt ${qualites[5][r]}.<br>`;
-					texteCorr += `Soit $${texFractionReduite(m[r], somme2)}\\times${texFractionReduite(n[r], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplification_de_fraction_avec_etapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
+					texteCorr += `Soit $${texFractionReduite(m[r], somme2)}\\times${texFractionReduite(n[r], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
 					p1 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1]);
 					fra1 = fractionSimplifiee(n[p], somme1);
 					fra2 = fractionSimplifiee(m[p], somme2);
-					texteCorr += numAlpha(1) + ` La probabilité de chosir une paire de chaussettes ${qualites[2][p]} est de : $${texFraction(n[p], somme1)}${simplification_de_fraction_avec_etapes(n[p], somme1)}$ et `;
-					texteCorr += `la probabilité de chosir l'un des T-shirt ${qualites[5][p]} est de : $${texFraction(m[p], somme2)}${simplification_de_fraction_avec_etapes(m[p], somme2)}$.<br>`;
-					texteCorr += `Donc la probabilité de chosir des chaussettes un T-shirt ${qualites[5][p]} est de : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplification_de_fraction_avec_etapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
+					texteCorr += numAlpha(1) + ` La probabilité de chosir une paire de chaussettes ${qualites[2][p]} est de : $${texFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$ et `;
+					texteCorr += `la probabilité de chosir l'un des T-shirt ${qualites[5][p]} est de : $${texFraction(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`;
+					texteCorr += `Donc la probabilité de chosir des chaussettes un T-shirt ${qualites[5][p]} est de : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
 					p2 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1]);
 					fra1 = fractionSimplifiee(n[q], somme1);
 					fra2 = fractionSimplifiee(m[q], somme2);
-					texteCorr += `La probabilité de chosir une paire de chaussettes ${qualites[2][q]} est de : $${texFraction(n[q], somme1)}${simplification_de_fraction_avec_etapes(n[q], somme1)}$ et `;
-					texteCorr += `la probabilité de chosir l'un des T-shirt ${qualites[5][q]} est de : $${texFraction(m[q], somme2)}${simplification_de_fraction_avec_etapes(m[q], somme2)}$.<br>`;
-					texteCorr += `Donc la probabilité de chosir des chaussettes un T-shirt ${qualites[5][q]} est de : $${texFractionReduite(m[q], somme2)}\\times${texFractionReduite(n[q], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplification_de_fraction_avec_etapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
+					texteCorr += `La probabilité de chosir une paire de chaussettes ${qualites[2][q]} est de : $${texFraction(n[q], somme1)}${simplificationDeFractionAvecEtapes(n[q], somme1)}$ et `;
+					texteCorr += `la probabilité de chosir l'un des T-shirt ${qualites[5][q]} est de : $${texFraction(m[q], somme2)}${simplificationDeFractionAvecEtapes(m[q], somme2)}$.<br>`;
+					texteCorr += `Donc la probabilité de chosir des chaussettes un T-shirt ${qualites[5][q]} est de : $${texFractionReduite(m[q], somme2)}\\times${texFractionReduite(n[q], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`;
 					p3 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1]);
 					texteCorr += `On en déduit que la probabilité de choisir des chaussettes et un T-shirt de la même couleur est :<br>`;
 					texteCorr += `$${texFraction(p1[0], p1[1])}+${texFraction(p2[0], p2[1])}+${texFraction(p3[0], p3[1])}=`;
 					if (p1[1] == p2[1] && p2[1] == p3[1]) {
-						texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFraction(p1[0] + p2[0] + p3[0], p1[1])}${simplification_de_fraction_avec_etapes(p1[0] + p2[0] + p3[0], p1[1])}$<br>`;
+						texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFraction(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$<br>`;
 						fra1 = fractionSimplifiee(p1[0] + p2[0] + p3[0], p1[1]);
 					}
 					else {
 						den = ppcm(p1[1], ppcm(p2[1], p3[1]));
 						e = den / p1[1], f = den / p2[1], g = den / p3[1];
-						texteCorr += `${texFraction(p1[0] * e, den)}+${texFraction(p2[0] * f, den)}+${texFraction(p3[0] * g, den)}=${texFraction(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplification_de_fraction_avec_etapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$<br>`;
+						texteCorr += `${texFraction(p1[0] * e, den)}+${texFraction(p2[0] * f, den)}+${texFraction(p3[0] * g, den)}=${texFraction(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$<br>`;
 						fra1 = fractionSimplifiee(p1[0] * e + p2[0] * f + p3[0] * g, den);
 					}
 					texteCorr += numAlpha(2) + ` L'événement \"choisir des chaussettes et un T-shirt de couleurs différentes\" est l'événement contraire de l'événement \"choisir des chaussettes et un T-shirt de même couleur\".<br>`;
-					texteCorr += `Donc sa probabilité est : $1-${texFraction(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1] - fra1[0], fra1[1])}$<br>`;
+					texteCorr += `Donc sa probabilité est : $1-${texFraction(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$<br>`;
 					break;
 				case 3:
 					quidam = prenomM();
@@ -299,15 +299,15 @@ export default function fonctions_probabilite2() {
 						texteCorr += `& \\textcolor {${Couleurs[j % 10]}}` + `{\\dfrac{${fra2[j - 2]}}{${p1[1]}}}`;
 					texteCorr += `\\\\\\hline\\end{array}$<br>`;
 
-					texteCorr += `La probabilité qu'a ${quidame} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFraction(fra2[n[0] - 1], p1[1])}}${simplification_de_fraction_avec_etapes(fra2[n[0] - 1], p1[1])}$.<br>`;
-					texteCorr += `La probabilité qu'a ${quidam} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFraction(fra1[n[0] - 1], p1[0])}}${simplification_de_fraction_avec_etapes(fra1[n[0] - 1], p1[0])}$.<br>`;
+					texteCorr += `La probabilité qu'a ${quidame} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFraction(fra2[n[0] - 1], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[n[0] - 1], p1[1])}$.<br>`;
+					texteCorr += `La probabilité qu'a ${quidam} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFraction(fra1[n[0] - 1], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[n[0] - 1], p1[0])}$.<br>`;
 					if (p2[n[0] - 1] > 0) { // Si quidame a plus de chance de gagner avec le choix de quidam
 						texteCorr += `${quidam} se trompe en croyant avoir plus de chances de gagner car $${texFractionReduite(fra2[n[0] - 1], p1[1])}>${texFractionReduite(fra1[n[0] - 1], p1[0])}$.<br>`;
 						// choix du nombre cible qui favorise quidam
 						trouve = false;
 						for (let j = r - 2; j >= 0; j--) {
 							if (p2[j] < 0) {
-								texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j], p1[1])}$.<br>`;
+								texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`;
 								trouve = true;
 							}
 							if (trouve == true)
@@ -324,7 +324,7 @@ export default function fonctions_probabilite2() {
 							trouve = false;
 							for (let j = r - 2; j >= 0; j--) {
 								if (p2[j] > 0) {
-									texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j], p1[1])}$<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${texFraction(fra2[j], p1[1])}.$<br>`;
+									texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${texFraction(fra2[j], p1[1])}.$<br>`;
 									trouve = true;
 								}
 								if (trouve == true)
@@ -343,7 +343,7 @@ export default function fonctions_probabilite2() {
 							trouve = false;
 							for (let j = r - 2; j >= 0; j--) {
 								if (p2[j] < 0) {
-									texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j], p1[1])}$.<br>`;
+									texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`;
 									trouve = true;
 								}
 								if (trouve == true)
@@ -361,7 +361,7 @@ export default function fonctions_probabilite2() {
 						for (let j = r - 2; j >= 0; j--) {
 							if (p2[j] == 0) {
 								texteCorr += numAlpha(3) + ` En choisissant ${j + 2} comme cible, ${quidam} et ${quidame} ont la même probabilité de gagner.<br>
-								Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j], p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j], p1[1])}$.<br>`;
+								Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`;
 								trouve = true;
 							}
 							if (trouve == true)

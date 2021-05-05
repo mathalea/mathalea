@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,texNombrec,obtenir_liste_facteurs_premiers,choice,combinaisonListes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,texNombrec,obtenirListeFacteursPremiers,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
 
@@ -51,7 +51,7 @@ export default function Deviner_nombre_relatif() {
 
         case 3:
             produit=choice([6,10,15])
-            facteurs=obtenir_liste_facteurs_premiers(produit)
+            facteurs=obtenirListeFacteursPremiers(produit)
             facteurs.push(1)
             facteurs=shuffle(facteurs)
             unite=facteurs[0]

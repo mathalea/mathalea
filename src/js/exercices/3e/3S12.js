@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,listeQuestionsToContenu,choice,premiere_lettre_en_majuscule,numAlpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
+import {randint,listeQuestionsToContenu,choice,premiereLettreEnMajuscule,numAlpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texte_gras} from '../../modules/outils.js';
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 
 export const titre = 'Calculer des effectifs et des fréquences'
@@ -103,7 +103,7 @@ export default function calcul_Effectif_Frequence() {
 
     let lstElementGraph = [];
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: 1 / coef }));
+      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 1 / coef }));
     }
     texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 1 }, r, lstElementGraph);
 

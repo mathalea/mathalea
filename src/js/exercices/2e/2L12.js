@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,reduire_ax_plus_b,texte_en_couleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texte_en_couleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from '../../modules/Fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
@@ -49,13 +49,13 @@ export default function Equations_produits_nuls2() {
                  
             switch (type_de_questions) {
                 case 1:
-                    texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$`; 
+                    texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`; 
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                     ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                     texteCorr +=texte+'<br>' //optimisation du code
-                    texteCorr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c,d)}=0$<br>`
+                    texteCorr+=`$\\iff ${reduireAxPlusB(a,b)}=0$ ou $${reduireAxPlusB(c,d)}=0$<br>`
                     if (this.correctionDetaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
-                        texteCorr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${-b}$ ou $ ${reduire_ax_plus_b(c,0)}=${-d}$<br>`
+                        texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}=${-b}$ ou $ ${reduireAxPlusB(c,0)}=${-d}$<br>`
                     }
                     f1=fraction(-b,a)
                     f2=fraction(-d,c)
@@ -105,13 +105,13 @@ export default function Equations_produits_nuls2() {
                         f2=fractions[index].multiplieEntier(choice([-1,1]))
                         f3=f1.entierDivise(-a)
                         f4=f2.entierDivise(-b)
-                        texte =`$(${reduire_ax_plus_b(a,0)}${f1.texFractionSignee})(${reduire_ax_plus_b(b,0)}${f2.texFractionSignee})=0$`
+                        texte =`$(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$`
                         texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                         ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
-                        $(${reduire_ax_plus_b(a,0)}${f1.texFractionSignee})(${reduire_ax_plus_b(b,0)}${f2.texFractionSignee})=0$<br>`
-                        texteCorr+=`$\\iff ${reduire_ax_plus_b(a,0)}${f1.texFractionSignee}=0$ ou $${reduire_ax_plus_b(b,0)}${f2.texFractionSignee}=0$<br>`
+                        $(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$<br>`
+                        texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}${f1.texFractionSignee}=0$ ou $${reduireAxPlusB(b,0)}${f2.texFractionSignee}=0$<br>`
                         if (this.correctionDetaillee){
-                            texteCorr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${f1.multiplieEntier(-1).texFraction}$ ou $${reduire_ax_plus_b(b,0)}=${f2.multiplieEntier(-1).texFraction}$<br>`
+                            texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}=${f1.multiplieEntier(-1).texFraction}$ ou $${reduireAxPlusB(b,0)}=${f2.multiplieEntier(-1).texFraction}$<br>`
                             texteCorr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(b)}$<br>`
                             texteCorr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1,a).texFractionSigneeParentheses}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1,b).texFractionSigneeParentheses}$<br>`
                         }

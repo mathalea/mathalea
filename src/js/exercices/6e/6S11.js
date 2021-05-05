@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiere_lettre_en_majuscule,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
@@ -108,7 +108,7 @@ export default function Organiser_donnees_depuis_texte() {
     texte += `\\hline\n`;
     texte += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte += ` & \\textbf{\\text{` + premiere_lettre_en_majuscule(lstFruitExo[j]) + `}}`;
+      texte += ` & \\textbf{\\text{` + premiereLettreEnMajuscule(lstFruitExo[j]) + `}}`;
     }
     texte += '& \\textbf{TOTAL}';
     texte += `\\\\\\hline\n`;

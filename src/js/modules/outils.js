@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* global mathalea sortieHtml */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
@@ -1199,7 +1198,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
 * @Auteur Rémi Angot
 */
-export function simplification_de_fraction_avec_etapes (num, den) {
+export function simplificationDeFractionAvecEtapes (num, den) {
   // Est-ce que le résultat est simplifiable ?
   let result = ''
   const s = pgcd(num, den)
@@ -1219,7 +1218,7 @@ export function simplification_de_fraction_avec_etapes (num, den) {
  * @auteur Jean-Claude Lhote
  */
 
-export function produits_en_croix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
+export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
   let result = ''
   result += `$${a}\\times${d}=${b}\\times${c}$`
   return result
@@ -1231,7 +1230,7 @@ export function produits_en_croix ([[a, b], [c, d]]) { // écrit une chaine pour
  * @auteur Jean-Claude Lhote
  */
 
-export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*c/a
+export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c/a
   let result = ''
   if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {
     if (a === 0) {
@@ -1255,7 +1254,7 @@ export function quatrieme_proportionnelle (a, b, c, precision) { // calcul de b*
  * @param {number} a
  * @param {number} b
  */
-export function reduire_ax_plus_b (a, b) {
+export function reduireAxPlusB (a, b) {
   let result = ''
   if (a !== 0) {
     if (a === 1) result = 'x'
@@ -1372,10 +1371,10 @@ export function reduire_polynome_degre3 (a, b, c, d) {
 * Donne la liste des facteurs premiers d'un nombre
 * @Auteur Rémi Angot
 */
-export function obtenir_liste_facteurs_premiers (n) {
+export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const liste_nombres_premiers = obtenir_liste_nombres_premiers()
+  const liste_nombres_premiers = obtenirListeNombresPremiers()
   let i = 0
   while (n > 1 && liste_nombres_premiers[i] <= n) {
     if (n % liste_nombres_premiers[i] === 0) {
@@ -1396,7 +1395,7 @@ export function obtenir_liste_facteurs_premiers (n) {
  */
 
 export function factorisation (n) {
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   const facto = []; let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] === 0) i++
@@ -1421,7 +1420,7 @@ export function factorisation (n) {
  * retourne le résulat [a,b] pour a²b=n
  * @Auteur Jean-Claude Lhote
  */
-export function extraire_racine_carree (n) {
+export function extraireRacineCarree (n) {
   const facto = factorisation(n)
   let radical = 1; let facteur = 1
   for (let i = 0; i < facto.length; i++) {
@@ -1440,8 +1439,8 @@ export function extraire_racine_carree (n) {
  * retourne le code Latex de la racine carrée de n "réduite"
  * @Auteur Jean-CLaude Lhote
  */
-export function tex_racine_carree (n) {
-  const result = extraire_racine_carree(n)
+export function texRacineCarree (n) {
+  const result = extraireRacineCarree(n)
   if (result[1] === 1) return `${result[0]}`
   else if (result[0] === 1) return `\\sqrt{${result[1]}}`
   else return `${result[0]}\\sqrt{${result[1]}}`
@@ -2394,7 +2393,7 @@ export function tex_prix (nb) {
 * Convertit en majuscule la première lettre
 * @Auteur Rémi Angot
 */
-export function premiere_lettre_en_majuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
+export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
@@ -2463,7 +2462,7 @@ export function obtenir_liste_fractions_irreductibles_faciles () { // sous forme
 * Retourne la liste des nombres premiers inférieurs à 300
 * @Auteur Rémi Angot
 */
-export function obtenir_liste_nombres_premiers () {
+export function obtenirListeNombresPremiers () {
   return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
 }
 
@@ -2473,7 +2472,7 @@ export function obtenir_liste_nombres_premiers () {
 */
 export function decomposition_facteurs_premiers (n) {
   let decomposition = ''
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
     decomposition += liste[i] + '\\times'
   }
@@ -2718,18 +2717,18 @@ export function MatriceCarree (table) {
     for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       //	if (n==1) determinant=this.table[0][0]
       if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
-        M = this.matrice_reduite(0, i)
+        M = this.matriceReduite(0, i)
         determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
       }
     }
     return determinant
   }
   /**
-   * Méthode : m=M.matrice_reduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+   * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
    * @Auteur Jean-Claude Lhote
    */
-  this.matrice_reduite = function (l, c) {
+  this.matriceReduite = function (l, c) {
     const resultat = []; let ligne
     for (let i = 0; i < this.table.length; i++) {
       if (i !== l) {
@@ -2751,7 +2750,7 @@ export function MatriceCarree (table) {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          M = this.matrice_reduite(i, j)
+          M = this.matriceReduite(i, j)
           ligne.push(calcul((-1) ** (i + j) * M.determinant()))
         }
         resultat.push(ligne)
@@ -2851,7 +2850,7 @@ export function matriceCarree (table) {
  *
  * @Auteur Jean-Claude Lhote
  */
-export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
+export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
   const determinant = matrice.determinant()
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
@@ -2866,7 +2865,7 @@ export function resol_sys_lineaire_2x2 (x1, x2, fx1, fx2, c) {
  * @Auteur Jean-Claude Lhote
  */
 
-export function resol_sys_lineaire_3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
+export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
   const determinant = matrice.determinant()
@@ -2886,7 +2885,7 @@ export function resol_sys_lineaire_3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
  * sont des entiers compris eux aussi entre -10 et 10
  * @Auteur Jean-Claude Lhote
  */
-export function crible_polynome_entier () {
+export function criblePolynomeEntier () {
   let trouve = false
   let coefs = [[]]
   for (let i = 0, x1, x2, x3, fx1, fx2, fx3, d; ; i++) {
@@ -2897,7 +2896,7 @@ export function crible_polynome_entier () {
     fx2 = randint(-10, 10)
     fx3 = randint(-10, 10)
     d = randint(0, 10)
-    coefs = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d)
+    coefs = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
     if (coefs[0][1] !== 0 && coefs[0][1] < 10 && coefs[1][1] < 10 && coefs[2][1] < 10) trouve = true
     if (trouve) {
       coefs.push([x1, fx1])
@@ -2913,7 +2912,7 @@ export function crible_polynome_entier () {
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
  * @Auteur Jean-Claude Lhote
  */
-export function cherche_min_max_f ([a, b, c, d]) {
+export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
   if (delta <= 0) return []
   const x1 = (-2 * b - Math.sqrt(delta)) / (6 * a)
@@ -2924,7 +2923,7 @@ export function cherche_min_max_f ([a, b, c, d]) {
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
  * @Auteur Jean-Claude Lhote
  */
-export function cherche_polynome_deg3_a_extrema_fixes (x1, x2, y1, y2) {
+export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
   const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
   const R = [y1, y2, 0, 0]
   if (!egal(M.determinant(), 0)) return M.inverse().multiplieVecteur(R)
@@ -3233,7 +3232,7 @@ export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton 
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @Auteur Sébastien Lozano
  */
-export function modal_video (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
+export function modalVideo (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
   // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
   <div class="header">${texte}</div>
@@ -3255,7 +3254,7 @@ export function modal_video (id_du_modal, url_video, texte, label_bouton = 'Vid�
  * @param {string} label_bouton = ce qui est écrit en titre de l'image
  * @param {string} icone
  */
-export function modal_image (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
+export function modalImage (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
   const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
   return creerModal(numeroExercice, contenu, label_bouton, icone)
 }
@@ -3265,7 +3264,7 @@ export function modal_image (numeroExercice, url_image, texte, label_bouton = 'I
  * @param {integer} n
  * @Auteur Sébastien Lozano
  */
-export function liste_diviseurs (n) {
+export function listeDiviseurs (n) {
   'use strict'
   let i = 2
   const diviseurs = [1]
@@ -3295,7 +3294,7 @@ export function liste_diviseurs (n) {
 * @author Sébastien Lozano
 */
 
-export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
   // tous les textes sont en mode maths !!!
   'use strict'
   return `
@@ -3331,7 +3330,7 @@ export function tikz_machine_maths (nom, etape1, etape2, etape3, x_ligne1, x_lig
  * attention mode maths pour les chaines
  * @author Sébastien Lozano
  */
-export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
+export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
   'use strict'
   const x_init = -10
   let saut = 0
@@ -3464,7 +3463,7 @@ export function tikz_machine_diag (nom, x_ant, etapes_expressions) {
  * @param {string} textePopup
  * @Auteur Sébastien Lozano
  */
-export function katex_Popup (texte, titrePopup, textePopup) {
+export function katexPopup (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
   if (sortieHtml) {
@@ -3480,7 +3479,7 @@ export function katex_Popup (texte, titrePopup, textePopup) {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
-export function katex_Popuptest (texte, titrePopup, textePopup) {
+export function katexPopupTest (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
   if (sortieHtml) {
@@ -3534,11 +3533,11 @@ export function katex_Popuptest (texte, titrePopup, textePopup) {
 * @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
 
-export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
+export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
   'use strict'
   switch (type) {
     case 0:
-      return katex_Popuptest(texte, titrePopup, textePopup)
+      return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
       if (sortieHtml) {
         return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
@@ -3547,7 +3546,7 @@ export function katex_Popup2 (numero, type, texte, titrePopup, textePopup) {
       }
     case 2:
       if (sortieHtml) {
-        return `${texte}` + modal_image(numero, textePopup, `${titrePopup}`, `${texte}`)
+        return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
       }
@@ -3573,7 +3572,7 @@ export function numAlpha (k) {
  * @author Sébastien Lozano
  */
 
-export function tex_cadre_par_orange (texte) {
+export function texCadreParOrange (texte) {
   'use strict'
   // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   const sortie = `
@@ -3596,7 +3595,7 @@ export function tex_cadre_par_orange (texte) {
  * @author Sébastien Lozano
  */
 
-export function machine_maths_video (url_video) {
+export function machineMathsVideo (url_video) {
   'use strict'
   const video = `
   <div style="text-align:center"> 
@@ -3613,7 +3612,7 @@ export function machine_maths_video (url_video) {
  * détecte si le navigateur et safari ou chrome et renvoie un booléen
  * @author Sébastien Lozano
  */
-export function detect_safari_chrome_browser () {
+export function detectSafariChromeBrowser () {
   'use strict'
   let is_chrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
@@ -3676,7 +3675,7 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  * @param {number} n
  * @author Sébastien Lozano
  */
-export function crible_eratosthene_n (n) {
+export function cribleEratostheneN (n) {
   'use strict'
   const tab_entiers = [] // pour tous les entiers de 2 à n
   const test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
@@ -3715,12 +3714,12 @@ export function crible_eratosthene_n (n) {
  * @author Sébastien Lozano
  */
 
-export function premiers_entre_bornes (min, max) {
+export function premiersEntreBornes (min, max) {
   'use strict'
   // on crée les premiers jusque min
-  const premiers_a_suppr = crible_eratosthene_n(min - 1)
+  const premiers_a_suppr = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
-  const premiers_jusque_max = crible_eratosthene_n(max)
+  const premiers_jusque_max = cribleEratostheneN(max)
   // on supprime le début de la liste jusque min
   premiers_jusque_max.splice(0, premiers_a_suppr.length)
   // on renvoie le tableau restant
@@ -3733,7 +3732,7 @@ export function premiers_entre_bornes (min, max) {
  * @author Sébastien Lozano
  */
 
-export function texte_ou_pas (texte) {
+export function texteOuPas (texte) {
   'use strict'
   const bool = randint(0, 1)
   if (bool === 0) {
@@ -3746,7 +3745,7 @@ export function texte_ou_pas (texte) {
 /**
  * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
  * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux en utilisant éventuellement la commande \\text{}
- * tab_C_L(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
+ * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
  * ------------------
  * | coin | A  | B  |
  * ------------------
@@ -3760,7 +3759,7 @@ export function texte_ou_pas (texte) {
  * @author Sébastien Lozano
  *
  */
-export function tab_C_L (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
+export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
   'use strict'
   let myLatexArraystretch
   if (typeof arraystretch === 'undefined') {
@@ -3851,7 +3850,7 @@ export function warn_message (texte, couleur, titre) {
     </div>
     `
   } else {
-    // return tex_cadre_par_orange(texte);
+    // return texCadreParOrange(texte);
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf ' + titre + `}
       ` + texte + `
@@ -3930,7 +3929,7 @@ export function lampe_message ({ titre, texte, couleur }) {
  */
 export function decomp_fact_prem_array (n) {
   const decomposition = []
-  const liste = obtenir_liste_facteurs_premiers(n)
+  const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
     decomposition.push(liste[i])
   }

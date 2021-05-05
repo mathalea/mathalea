@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduire_ax_plus_b,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique,ecritureAlgebriqueSauf1} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique,ecritureAlgebriqueSauf1} from '../../modules/outils.js'
 
 export const titre = 'Reconnaître une fonction affine.'
 
@@ -47,8 +47,8 @@ export default function Factoriser_Identites_remarquables2() {
            
                       switch (type_de_questions) {
                 case 1:
-                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduire_ax_plus_b(a,b)}$`; //f(x)=ax + b
-                        texteCorr = ` $f(x)=${reduire_ax_plus_b(a,b)}$<br>`
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduireAxPlusB(a,b)}$`; //f(x)=ax + b
+                        texteCorr = ` $f(x)=${reduireAxPlusB(a,b)}$<br>`
                         texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texteCorr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
                         texteCorr +=`$f$ est donc bien une fonction affine.<br>`                                 
@@ -65,7 +65,7 @@ export default function Factoriser_Identites_remarquables2() {
                         else{
                             texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecritureAlgebrique(b)} ${ecritureAlgebrique(a)}  x$<br>`; //f(x)=b-x}
                             texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecritureAlgebrique(b)} ${ecritureAlgebrique(a)}  x$<br>`; //f(x)=b-x}
-                            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${reduire_ax_plus_b(a,b)}$<br>`;} 
+                            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${reduireAxPlusB(a,b)}$<br>`;} 
                         texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texteCorr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
                         texteCorr +=`$f$ est donc bien une fonction affine.`                                 
@@ -106,10 +106,10 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr +=`$f$ est donc bien une fonction affine.<br>` 
                 break;
                 case 8:
-                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $`; //f(x)=k(ax+b)
-                        texteCorr = `$f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $<br>`
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduireAxPlusB(a,b)}) $`; //f(x)=k(ax+b)
+                        texteCorr = `$f(x)=${c}\\times (${reduireAxPlusB(a,b)}) $<br>`
                         texteCorr += `On peut développer l'expression de $f$ et on obtient alors :<br>`
-                        texteCorr += `$f(x)=${reduire_ax_plus_b(a*c,b*c)} $<br>`
+                        texteCorr += `$f(x)=${reduireAxPlusB(a*c,b*c)} $<br>`
                         texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texteCorr +=`Ici, on a : $a=${ecritureAlgebrique(a*c)}$ et $b=${ecritureAlgebrique(b*c)}$<br>`
                         texteCorr +=`$f$ est donc bien une fonction affine.<br>` 
