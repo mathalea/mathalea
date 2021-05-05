@@ -19,7 +19,7 @@ anim.xml = `
    </INSTRUMENPOCHE>
 `
 
-texte_corr += anim.html()
+texteCorr += anim.html()
 ```
 
 À noter que l'on peut remplacer `anim.html()` par `anim.htmlBouton()` et ainsi avoir un bouton pour afficher ou masquer l'animation (qui est masquée par défaut au chargement).
@@ -48,7 +48,7 @@ anim.compasEcarterAvecRegle(BC)
 anim.compasTracerArcCentrePoint(B,C)
 anim.compasMasquer()
 
-texte_corr += anim.htmlBouton()
+texteCorr += anim.htmlBouton()
 ```
 
 Pour créer et tester ses animations, on peut utiliser [coopmaths.fr/mathalea2iep.html](https://coopmaths.fr/mathalea2iep.html).

@@ -7,6 +7,6 @@ export default function Reglages_6M12() {
   Exercice_conversions_de_longueurs.call(this);
   this.titre = titre;
   this.sup = 3;
-  this.nb_questions = 8;
+  this.nbQuestions = 8;
 }
 

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,compare_fractions,shuffle,mise_en_evidence,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,shuffle,miseEnEvidence,tex_fraction} from '../../modules/outils.js'
 import Algebrite from 'algebrite'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
@@ -16,20 +16,20 @@ export default function Exercice_comparer_quatre_fractions () {
   this.titre = titre
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
   this.spacing = 2
-  sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2.5
-  this.nb_questions = 2
-  this.nb_cols_corr = 1
+  sortieHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
+  this.nbQuestions = 2
+  this.nbColsCorr = 1
 
-  this.nouvelle_version = function () {
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
-    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, texte = '', texte_corr = ''; i < this.nb_questions; i++) {
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
       const liste_denominateurs = [[12, 2, 3, 4, 6], [16, 2, 4, 8], [18, 2, 3, 6, 9], [20, 2, 4, 5, 10], [24, 2, 3, 4, 8, 12], [30, 2, 3, 5, 6]]
       denominateurs = choice(liste_denominateurs)
       d1 = denominateurs[0]
-      enleve_element(denominateurs, d1)
+      enleveElement(denominateurs, d1)
       d2 = choice(denominateurs)
-      enleve_element(denominateurs, d2)
+      enleveElement(denominateurs, d2)
       d3 = choice(denominateurs)
       d4 = choice(denominateurs)
       k = randint(1, 3)
@@ -45,11 +45,11 @@ export default function Exercice_comparer_quatre_fractions () {
         n4 = randint(1, 11)
       }
       const tableau_fractions = [[n1, d1, `$${tex_fraction(n1, d1)}$`, `$${tex_fraction(n1, d1)}$`]]
-      tableau_fractions.push([n2, d2, `$${tex_fraction(n2, d2)}=${tex_fraction(n2 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d2)), d2 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d2)))}=${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`, `$${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`])
-      tableau_fractions.push([n3, d3, `$${tex_fraction(n3, d3)}=${tex_fraction(n3 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d3)), d3 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d3)))}=${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`, `$${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`])
-      tableau_fractions.push([n4, d4, `$${tex_fraction(n4, d4)}=${tex_fraction(n4 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d4)), d4 + mise_en_evidence('\\times ' + Algebrite.eval(d1 / d4)))}=${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`, `$${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`])
+      tableau_fractions.push([n2, d2, `$${tex_fraction(n2, d2)}=${tex_fraction(n2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)), d2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)))}=${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`, `$${tex_fraction(Algebrite.eval(n2 * d1 / d2), d1)}$`])
+      tableau_fractions.push([n3, d3, `$${tex_fraction(n3, d3)}=${tex_fraction(n3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)), d3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)))}=${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`, `$${tex_fraction(Algebrite.eval(n3 * d1 / d3), d1)}$`])
+      tableau_fractions.push([n4, d4, `$${tex_fraction(n4, d4)}=${tex_fraction(n4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)), d4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)))}=${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`, `$${tex_fraction(Algebrite.eval(n4 * d1 / d4), d1)}$`])
       tableau_fractions.push([k, 1, `$${k}=${tex_fraction(d1 * k, d1)}$`, `$${tex_fraction(k * d1, d1)}$`])
-      tableau_fractions.sort(compare_fractions)
+      tableau_fractions.sort(compareFractions)
       const tableau_fractions_enonce = shuffle(tableau_fractions)
       texte = ''
       for (let j = 0; j < tableau_fractions_enonce.length; j++) {
@@ -60,19 +60,19 @@ export default function Exercice_comparer_quatre_fractions () {
         }
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
-      tableau_fractions.sort(compare_fractions)
-      texte_corr = ''
+      tableau_fractions.sort(compareFractions)
+      texteCorr = ''
       for (let j = 0; j < tableau_fractions_enonce.length; j++) {
-        texte_corr += tableau_fractions_enonce[j][2]
-        texte_corr += '<br>'
+        texteCorr += tableau_fractions_enonce[j][2]
+        texteCorr += '<br>'
       }
       for (let j = 0; j < tableau_fractions.length; j++) {
-        texte_corr += tableau_fractions[j][3]
+        texteCorr += tableau_fractions[j][3]
         if (j < tableau_fractions.length - 1) {
-          texte_corr += '$\\quad<\\quad$'
+          texteCorr += '$\\quad<\\quad$'
         }
       }
-      texte_corr += '<br>'
+      texteCorr += '<br>'
       let texte_conclusion = ''
       for (let j = 0; j < tableau_fractions.length; j++) {
         if (tableau_fractions[j][1] === 1) {
@@ -81,12 +81,12 @@ export default function Exercice_comparer_quatre_fractions () {
           texte_conclusion += `$${tex_fraction(tableau_fractions[j][0], tableau_fractions[j][1])}\\quad<\\quad$`
         }
       }
-      texte_corr += 'Finalement : $\\quad$ ' + texte_conclusion.substring(0, texte_conclusion.length - 12) + '$'
+      texteCorr += 'Finalement : $\\quad$ ' + texte_conclusion.substring(0, texte_conclusion.length - 12) + '$'
       texte = texte.replaceAll('$$', ' ')
-      texte_corr = texte.replaceAll('$$', ' ')
-      this.liste_questions.push(texte)
-      this.liste_corrections.push(texte_corr)
+      texteCorr = texte.replaceAll('$$', ' ')
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
-    liste_de_question_to_contenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
 }

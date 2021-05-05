@@ -1,28 +1,28 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, shuffle, combinaison_listes, creerNomDePolygone } from '../../modules/outils.js';
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js';
 import { point, pointSurSegment, pointIntersectionDD, pointAdistance, labelPoint, droite, mediatrice, segment, polygone, translation2Points, rotation, affiniteOrtho, similitude, codageAngleDroit, codeSegments, codeAngle, longueur, angleOriente, mathalea2d } from '../../modules/2d.js';
 
 export default function Utiliser_le_codage_pour_decrire() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser le codage pour décrire une figure";
-  this.nb_questions = 1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1;
   this.sup2 = 1;
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     let type_de_questions_disponibles;
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let nom, sommets = [], params_enonce, params_correction, objets_enonce, objets_correction;
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF;
     if (this.classe == 6)
       type_de_questions_disponibles = [1, 2, 3];
     else
       type_de_questions_disponibles = [1, 2, 3, 4];
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets_enonce = [];
       objets_correction = [];
       params_enonce = {};
@@ -63,11 +63,11 @@ export default function Utiliser_le_codage_pour_decrire() {
           texte += `- le milieu d'un segment ;<br>`;
           texte += `- un triangle rectangle ;<br>`;
           texte += `- un triangle isocèle ;<br>`;
-          texte_corr = `- Deux segments de même mesure : [$${sommets[0] + sommets[4]}$] et $[${sommets[4] + sommets[2]}]$ ou $[${sommets[0] + sommets[5]}]$ et $[${sommets[5] + sommets[2]}]$`;
-          texte_corr += ` ou $[${sommets[1] + sommets[3]}]$ et $[${sommets[3] + sommets[2]}]$.<br>`;
-          texte_corr += `- $${sommets[4]}$ est le milieu du segment $[${sommets[0] + sommets[2]}]$.<br>`;
-          texte_corr += `- $${sommets[0] + sommets[1] + sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0] + sommets[4] + sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2] + sommets[4] + sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`;
-          texte_corr += `- $${sommets[0] + sommets[5] + sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1] + sommets[3] + sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`;
+          texteCorr = `- Deux segments de même mesure : [$${sommets[0] + sommets[4]}$] et $[${sommets[4] + sommets[2]}]$ ou $[${sommets[0] + sommets[5]}]$ et $[${sommets[5] + sommets[2]}]$`;
+          texteCorr += ` ou $[${sommets[1] + sommets[3]}]$ et $[${sommets[3] + sommets[2]}]$.<br>`;
+          texteCorr += `- $${sommets[4]}$ est le milieu du segment $[${sommets[0] + sommets[2]}]$.<br>`;
+          texteCorr += `- $${sommets[0] + sommets[1] + sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0] + sommets[4] + sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2] + sommets[4] + sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`;
+          texteCorr += `- $${sommets[0] + sommets[5] + sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1] + sommets[3] + sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`;
           break;
         case 2:
           B = pointAdistance(A, randint(5, 7), randint(-45, 45), sommets[1], 'above');
@@ -87,7 +87,7 @@ export default function Utiliser_le_codage_pour_decrire() {
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`;
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`;
           texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.`;
-          texte_corr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`;
+          texteCorr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`;
           break;
         case 3:
           B = pointAdistance(A, randint(5, 7), randint(-45, 45), sommets[1], 'above');
@@ -107,7 +107,7 @@ export default function Utiliser_le_codage_pour_decrire() {
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`;
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`;
           texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécssaires.`;
-          texte_corr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`;
+          texteCorr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`;
           break;
         case 4:
           B = pointAdistance(A, randint(6, 7), randint(-30, 30), sommets[1], 'above right');
@@ -133,10 +133,10 @@ export default function Utiliser_le_codage_pour_decrire() {
           texte += `- la nature du triangle $${sommets[0] + sommets[1] + sommets[5]}$ ;<br>`;
           texte += `- la nature du quadrilatère $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ ;<br>`;
           texte += `- la nature de l'angle $\\widehat{${sommets[5] + sommets[1] + sommets[2]}}$ ;<br>`;
-          texte_corr = `Le triangle $${sommets[0] + sommets[1] + sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`;
-          texte_corr += `Le quadrilatère  $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`;
-          texte_corr += `Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`;
-          texte_corr += ` D'après le codage, l'angle $\\widehat{${sommets[2] + sommets[1] + sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`;
+          texteCorr = `Le triangle $${sommets[0] + sommets[1] + sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`;
+          texteCorr += `Le quadrilatère  $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`;
+          texteCorr += `Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`;
+          texteCorr += ` D'après le codage, l'angle $\\widehat{${sommets[2] + sommets[1] + sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`;
 
 
           break;
@@ -144,15 +144,15 @@ export default function Utiliser_le_codage_pour_decrire() {
       if (objets_enonce.length > 0)
         texte += mathalea2d(params_enonce, objets_enonce);
       if (objets_correction.length > 0)
-        texte_corr += mathalea2d(params_correction, objets_correction);
-      if (this.liste_questions.indexOf(texte) == -1) {
+        texteCorr += mathalea2d(params_correction, objets_correction);
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
 }

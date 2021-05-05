@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,creerNomDePolygone} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotation,homothetie,similitude,codageAngleDroit,codeSegments,codeAngle,grille,seyes,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
@@ -12,17 +12,17 @@ export default function Nommer_et_coder_des_polygones() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
-  this.nb_questions = 4;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 4;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 3;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, carreaux
     ppc = 40
-    if (sortie_html) {
+    if (sortieHtml) {
       sc = 0.5
     } else {
       sc = 0.4
@@ -30,11 +30,11 @@ export default function Nommer_et_coder_des_polygones() {
 
     let params
 
-    let liste = combinaison_listes([1, 2, 3, 4, 5, 6, 7, 8], this.nb_questions);
+    let liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions);
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       mathalea.pixelsParCm = 40;
@@ -189,19 +189,19 @@ export default function Nommer_et_coder_des_polygones() {
 
       pol.epaisseur = 2
       texte += `<br>` + mathalea2d(params, pol, polnom, g, carreaux)
-      texte_corr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
-      if (this.liste_questions.indexOf(texte) == -1) {
+      texteCorr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
     mathalea.pixelsParCm = 20
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,

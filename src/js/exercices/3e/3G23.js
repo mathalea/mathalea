@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,texte_en_couleur,texte_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,texte_en_couleur,texte_gras} from '../../modules/outils.js'
 import {point,tracePoint,milieu,pointSurSegment,pointIntersectionDD,labelPoint,barycentre,droite,vecteur,segment,polygone,nommePolygone,aireTriangle,arc,rotation,translationAnimee,rotationAnimee,codeSegments,grille,angleOriente,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles semblables dans différentes configurations'
 
@@ -12,15 +12,15 @@ export default function TrianglesSemblables() {
 	Exercice.call(this);
 	this.debug = false;
 	this.titre = titre;
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nbQuestions = 1;
+	this.nbQuestionsModifiable = false;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		let texte = '';
-		let texte_corr = '';
+		let texteCorr = '';
 		let type_de_questions = randint(1, 1);
 		switch (type_de_questions) {
 			case 1:
@@ -325,12 +325,12 @@ export default function TrianglesSemblables() {
 					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				} else {
-					texte_corr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
-					texte_corr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+					texteCorr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texteCorr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				}
-				this.liste_questions[0] = texte;
-				this.liste_corrections[0] = texte_corr;
-				liste_de_question_to_contenu(this);
+				this.listeQuestions[0] = texte;
+				this.listeCorrections[0] = texteCorr;
+				listeQuestionsToContenu(this);
 				break;
 
 		}

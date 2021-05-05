@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Encadrer un entier entre deux entiers consécutifs'
 
 /** 
@@ -14,36 +14,36 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
   this.beta = false;
   this.sup = 1;
   if (this.beta) {
-    this.nb_questions = 6;
+    this.nbQuestions = 6;
   } else {
-    this.nb_questions = 3;
+    this.nbQuestions = 3;
   };
 
   this.titre = titre;
   this.consigne = ``;
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 3 : this.spacing = 2;
-  sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 3 : this.spacing = 2;
+  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
     } else {
       type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3]), choice([4, 5])]);
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //pour la précision d'encadrement
       let precision;
 
@@ -133,12 +133,12 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
       // une fonction pour les correction à la precision près
       function encadrement_corr(nb, precision) {
         if (precision == 1) {
-          return `$${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision - precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision + precision))}$`;
+          return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`;
         } else if (precision == 10 || precision == 100) {
           if (nb % precision == 0) {
-            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision - precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision + precision))}$`;
+            return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`;
           } else {
-            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb / precision) * precision + precision))}$`;
+            return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`;
           };
         };
       };
@@ -147,7 +147,7 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-          $\\ldots < ${tex_nombre(situations[k].nombre)} < \\ldots$		
+          $\\ldots < ${texNombre(situations[k].nombre)} < \\ldots$		
           `,
           question: ``,
           correction: `
@@ -164,9 +164,9 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `             `
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
         case 1:
@@ -174,9 +174,9 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[1].correction}`;
+            texteCorr = `${enonces[1].correction}`;
           };
           break;
         case 2:
@@ -184,9 +184,9 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[2].correction}`;
+            texteCorr = `${enonces[2].correction}`;
           };
           break;
         case 3:
@@ -195,9 +195,9 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
             texte += `             `
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[3].correction}`;
+            texteCorr = `${enonces[3].correction}`;
           };
           break;
         case 4:
@@ -205,9 +205,9 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[4].correction}`;
+            texteCorr = `${enonces[4].correction}`;
           };
           break;
         case 5:
@@ -215,22 +215,22 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[5].correction}`;
+            texteCorr = `${enonces[5].correction}`;
           };
           break;
       };
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de dix\n3 : Encadrer entre deux multiples consécutifs de cent"];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de dix\n3 : Encadrer entre deux multiples consécutifs de cent"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 
 };

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,arrondi,choisit_lettres_differentes,mise_en_evidence,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,arrondi,choisit_lettres_differentes,miseEnEvidence,num_alpha} from '../../modules/outils.js'
 import {point,pointSurSegment,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,rotation,similitude,codeAngle,longueur,angle,mathalea2d} from '../../modules/2d.js'
 
 export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
@@ -14,27 +14,27 @@ export default function Egalite_d_angles() {
 	"use strict";
 	Exercice.call(this);
 	this.sup = 1;
-	this.nb_questions = 1;
-	if (sortie_html) {
+	this.nbQuestions = 1;
+	if (sortieHtml) {
 		this.spacing = 2;
-		this.spacing_corr = 3;
+		this.spacingCorr = 3;
 	}
 	else {
 		this.spacing = 2;
-		this.spacing_corr = 2;
+		this.spacingCorr = 2;
 	}
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.titre = titre;
-	this.nouvelle_version = function () {
-		this.liste_questions = [];
-		this.liste_corrections = [];
+	this.nouvelleVersion = function () {
+		this.listeQuestions = [];
+		this.listeCorrections = [];
 		this.consigne = "Cet exercice est inspiré d'un exercice du manuel sésamath 5e";
 		let figure = [], choix;
 		let fig1 = function () {
 			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
 			let noms = choisit_lettres_differentes(5, 'Q', true), gras;
-			sortie_html ? gras = "#f15929" : gras = `black`;
+			sortieHtml ? gras = "#f15929" : gras = `black`;
 			A = point(0, 0, noms[0], 'above left');
 			a = randint(45, 85);
 			ac = randint(8, 10);
@@ -69,11 +69,11 @@ export default function Egalite_d_angles() {
 			enonce += `${num_alpha(4)} En utilisant la question ${num_alpha(2)} déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$.<br>`;
 			enonce += `${num_alpha(5)} Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°.»<br>`;
 			correction = `${num_alpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`;
-			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${mise_en_evidence(180 - a, gras)}\\degree$.<br>`;
+			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${miseEnEvidence(180 - a, gras)}\\degree$.<br>`;
 			correction += `${num_alpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`;
-			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c, gras)}\\degree$.<br>`;
-			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, gras)}\\degree$.<br>`;
-			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, gras)}\\degree+${mise_en_evidence(a + c, gras)}\\degree+${mise_en_evidence(180 - a - c, gras)}\\degree=180\\degree+180\\degree=360\\degree$.<br>`;
+			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${miseEnEvidence(a + c, gras)}\\degree$.<br>`;
+			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${miseEnEvidence(180 - a - c, gras)}\\degree$.<br>`;
+			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${miseEnEvidence(180 - a, gras)}\\degree+${miseEnEvidence(a + c, gras)}\\degree+${miseEnEvidence(180 - a - c, gras)}\\degree=180\\degree+180\\degree=360\\degree$.<br>`;
 			correction += `$\\phantom{f}$ La conjecture est finalement vraie.`;
 			params = { xmin: Math.min(A.x - 8, C.x - 8, E.x - 8), ymin: Math.min(A.y - 1, E.y - 1, C.y - 1), xmax: Math.max(E.x + 2, A.x + 2, C.x + 2), ymax: Math.max(C.y + 2, A.y + 2, E.y + 2), scale: 0.7 };
 
@@ -138,9 +138,9 @@ export default function Egalite_d_angles() {
 				figure[2] += mathalea2d(figure[1], figure[0]);
 				break;
 		}
-		this.liste_questions.push(figure[2]);
-		this.liste_corrections.push(figure[3]);
-		liste_de_question_to_contenu(this);
+		this.listeQuestions.push(figure[2]);
+		this.listeCorrections.push(figure[3]);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Numéro de figure', 3, '1 : Le trapèze\n2: Le papillon\n3: Au hasard'];
+	this.besoinFormulaireNumerique = ['Numéro de figure', 3, '1 : Le trapèze\n2: Le papillon\n3: Au hasard'];
 }

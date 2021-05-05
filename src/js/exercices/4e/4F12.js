@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,prenomF} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,prenomF} from '../../modules/outils.js'
 import {point,polyline,axes,labelX,labelY,grille,repere,courbe,courbeInterpolee,texteParPosition,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'
 
@@ -12,15 +12,15 @@ export default function Exploiter_representation_graphique() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.nb_questions_modifiable = false;
+  this.nbQuestions = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  this.nbQuestionsModifiable = false;
   this.sup = 4;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_probleme
     if (this.sup == 1) {
       type_de_probleme = "projectile"
@@ -84,22 +84,22 @@ export default function Exploiter_representation_graphique() {
           "<br><br>" +
           "À l’aide de ce graphique, répondre aux questions suivantes :";
 
-        this.liste_questions.push(
+        this.listeQuestions.push(
           "Au bout de combien de temps le projectile retombe-t-il au sol ?"
         );
-        this.liste_corrections.push(
-          `Au bout de ${tex_nombrec(
+        this.listeCorrections.push(
+          `Au bout de ${texNombrec(
             t1 * xscale
-          )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${tex_nombrec(
+          )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombrec(
             t1 * xscale
           )}~;~0)$.`
         );
 
-        this.liste_questions.push(
+        this.listeQuestions.push(
           "Quelle est la hauteur maximale atteinte par le projectile ?"
         );
-        this.liste_corrections.push(
-          `Le point le plus haut de la courbe a pour abscisse $${tex_nombrec(
+        this.listeCorrections.push(
+          `Le point le plus haut de la courbe a pour abscisse $${texNombrec(
             (t1 / 2) * xscale
           )}$ et pour ordonnée $${f(
             t1 / 2
@@ -155,17 +155,17 @@ export default function Exploiter_representation_graphique() {
 
         this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
 
-        this.liste_questions.push('Pendant combien de temps a-t-elle fait du vélo ?')
-        this.liste_corrections.push(`Elle a fait du vélo pendant 40 minutes.`)
+        this.listeQuestions.push('Pendant combien de temps a-t-elle fait du vélo ?')
+        this.listeCorrections.push(`Elle a fait du vélo pendant 40 minutes.`)
 
-        this.liste_questions.push('Quelle distance a-t-elle parcourue au total ?')
-        this.liste_corrections.push(`Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de ${2 * v3} km.`)
+        this.listeQuestions.push('Quelle distance a-t-elle parcourue au total ?')
+        this.listeCorrections.push(`Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de ${2 * v3} km.`)
 
-        this.liste_questions.push(`Que se passe-t-il après ${tempsPause} minutes de vélo ?`)
-        this.liste_corrections.push(`La distance reste constante alors qu'elle est sur un chemin rectiligne. Elle a donc fait une pause.`)
+        this.listeQuestions.push(`Que se passe-t-il après ${tempsPause} minutes de vélo ?`)
+        this.listeCorrections.push(`La distance reste constante alors qu'elle est sur un chemin rectiligne. Elle a donc fait une pause.`)
 
-        this.liste_questions.push('À quel moment a-t-elle été la plus rapide ?')
-        this.liste_corrections.push(`Elle a été la plus rapide ${periodeRapide} où elle a effectué ${v3} km en 10 minutes.`)
+        this.listeQuestions.push('À quel moment a-t-elle été la plus rapide ?')
+        this.listeCorrections.push(`Elle a été la plus rapide ${periodeRapide} où elle a effectué ${v3} km en 10 minutes.`)
 
 
         break;
@@ -217,30 +217,30 @@ export default function Exploiter_representation_graphique() {
           "<br><br>" +
           "À l’aide de ce graphique, répondre aux questions suivantes :";
 
-        this.liste_questions.push(
+        this.listeQuestions.push(
           "Quelle est la température la plus froide de la journée ?"
         );
-        this.liste_corrections.push(`La température la plus basse est ${tmin}°C.`)
+        this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
 
-        this.liste_questions.push(
+        this.listeQuestions.push(
           "Quelle est la température la plus chaude de la journée ?"
         );
-        this.liste_corrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)
-        this.liste_questions.push(
+        this.listeCorrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)
+        this.listeQuestions.push(
           "À quelle heure fait-il le plus chaud ?"
         );
-        this.liste_corrections.push(`C'est à ${hmax} h qu'il fait le plus chaud.`)
-        this.liste_questions.push(
+        this.listeCorrections.push(`C'est à ${hmax} h qu'il fait le plus chaud.`)
+        this.listeQuestions.push(
           "À quelle heure fait-il le plus froid ?"
         );
-        this.liste_corrections.push(`C'est à ${hmin} h qu'il fait le plus froid.`)
+        this.listeCorrections.push(`C'est à ${hmin} h qu'il fait le plus froid.`)
 
 
         break;
     }
 
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Choix du problème', 3, "1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard"];
+  this.besoinFormulaireNumerique = ['Choix du problème', 3, "1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard"];
 }
 

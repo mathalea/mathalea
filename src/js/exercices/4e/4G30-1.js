@@ -8,5 +8,5 @@ export default function Thales_4eme() {
   Exercice_Thales.call(this);
   this.titre = titre;
   this.quatrieme = true;
-  sortie_html ? this.spacing = 2 : this.spacing = 1;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1;
 }

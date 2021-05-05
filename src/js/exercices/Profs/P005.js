@@ -10,11 +10,11 @@ export const titre = 'Grilles décimales'
  */
 export default function Feuille_de_grilles() {
   Exercice.call(this);
-  this.nb_cols = 1;
+  this.nbCols = 1;
   this.sup = 1;
   this.titre = titre;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.contenu = "";
     let objets = [], fleche,A,B,C,D,texte="";
     if (this.sup == 1) { // On travaille au dixième
@@ -105,8 +105,8 @@ export default function Feuille_de_grilles() {
         this.contenu += '<br>';
       }
     }
-    //liste_de_choses_a_imprimer(this);
+    //listeDeChosesAImprimer(this);
   };
-  this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
+  this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
 
 }

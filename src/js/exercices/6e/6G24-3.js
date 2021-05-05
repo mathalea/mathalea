@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,arcenciel} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,choisit_lettres_differentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,codageMediatrice,segment,traceCompas,dansLaCibleCarree,cibleCarree,translation,homothetie,symetrieAxiale,distancePointDroite,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire le symétrique d’un point avec cible auto-corrective'
 
@@ -13,17 +13,17 @@ export default function Construire_symetrique_point_6e() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 3;
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let result = [0, 0], texte_corr = "", nbpoints = parseInt(this.sup),nontrouve,assezloin,cible
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let result = [0, 0], texteCorr = "", nbpoints = parseInt(this.sup),nontrouve,assezloin,cible
     let celluleAlea = function (rang) {
-      let lettre = lettre_depuis_chiffre(randint(1, rang))
+      let lettre = lettreDepuisChiffre(randint(1, rang))
       let chiffre = Number(randint(1, rang)).toString()
       return lettre + chiffre
     }
@@ -84,7 +84,7 @@ export default function Construire_symetrique_point_6e() {
       objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
       objets_correction.push(segment(M[i], N[i], arcenciel(i)), codageMediatrice(M[i], N[i], arcenciel(i + 5), marks[i]))
       objets_correction.push(traceCompas(A, N[i], 20), traceCompas(B, N[i], 20))
-      texte_corr += `$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+      texteCorr += `$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
     for (let i = 0; i < nbpoints; i++) {
@@ -96,13 +96,13 @@ export default function Construire_symetrique_point_6e() {
 
     mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
-    this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
-    liste_de_question_to_contenu(this)
+    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
+    listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
 
   }
-  this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
+  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
 }

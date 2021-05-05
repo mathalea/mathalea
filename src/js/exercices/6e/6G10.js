@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,creerNomDePolygone} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,droite,segment,demiDroite,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Notation des droites, segments et demi-droites'
 
@@ -12,17 +12,17 @@ export default function Notation_segment_droite_demi_droite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Compléter les programmes de constructions qui ont permis d'obtenir ces figures.";
-  this.nb_questions = 3;
-  this.nb_cols = 3;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 3;
+  this.nbCols = 3;
+  this.nbColsCorr = 2;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       let pixelsParCm = 40;
@@ -66,19 +66,19 @@ export default function Notation_segment_droite_demi_droite() {
         dAC,
         labels
       );
-      texte_corr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
+      texteCorr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 
 

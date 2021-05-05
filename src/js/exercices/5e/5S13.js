@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre,tex_fraction} from '../../modules/outils.js'
 
 
 export const titre = 'Calculer des fréquences'
@@ -13,18 +13,18 @@ export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 1;
+	this.nbQuestions = 1;
 	this.spacing = 1;
-	this.spacing_corr = 1.5;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.spacingCorr = 1.5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			if (this.sup == 1) { // ici on lance des dés
 				nombre_des = randint(1, 2);
 				nombre_faces = choice([4, 6, 8, 10]);
@@ -77,9 +77,9 @@ export default function Calculer_des_frequences() {
 				}
 
 				texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$.`;
-				texte_corr = 'La valeur ' + `$${calcul(nombre_des + index_valeur)}$ apparaît ` + `$${tirages[index_valeur][1]}$ fois.<br>Le nombre total de lancers est $${tex_nombre(nombre_tirages)}$.<br>`;
-				texte_corr += 'La fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$` + ' est ' + `$${tex_fraction(tirages[index_valeur][1], tex_nombre(nombre_tirages))}=${tex_nombre(calcul(tirages[index_valeur][1] / nombre_tirages))}$<br>`;
-				texte_corr += 'Soit ' + `$${tex_nombre(calcul(tirages[index_valeur][1] * 100 / nombre_tirages))}\\thickspace\\%$.`;
+				texteCorr = 'La valeur ' + `$${calcul(nombre_des + index_valeur)}$ apparaît ` + `$${tirages[index_valeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombre_tirages)}$.<br>`;
+				texteCorr += 'La fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$` + ' est ' + `$${tex_fraction(tirages[index_valeur][1], texNombre(nombre_tirages))}=${texNombre(calcul(tirages[index_valeur][1] / nombre_tirages))}$<br>`;
+				texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[index_valeur][1] * 100 / nombre_tirages))}\\thickspace\\%$.`;
 			}
 			else if (this.sup == 2) { // ici on trie des notes
 				nombre_notes = choice([8, 10, 12]);
@@ -97,15 +97,15 @@ export default function Calculer_des_frequences() {
 				texte += `et $${notes[nombre_notes - 1]}$.`;
 
 				texte += `<br><br>Calculer la fréquence de la note $${notes[index_valeur]}$.`;
-				texte_corr = `La note $${notes[index_valeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombre_notes}$ notes<br>`;
-				texte_corr += `Donc la fréquence de la note $${notes[index_valeur]}$ est : ` + `$${tex_fraction(tex_nombre(frequence), tex_nombre(nombre_notes))}$`;
+				texteCorr = `La note $${notes[index_valeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombre_notes}$ notes<br>`;
+				texteCorr += `Donc la fréquence de la note $${notes[index_valeur]}$ est : ` + `$${tex_fraction(texNombre(frequence), texNombre(nombre_notes))}$`;
 				if (arrondi(frequence / nombre_notes, 3) == frequence / nombre_notes) { // valeurs exactes
-					texte_corr += `$=${arrondi_virgule(frequence / nombre_notes, 3)}$<br>`; // fréquence à 3 chiffres significatifs
-					texte_corr += 'Soit ' + `$${tex_nombre(calcul(frequence * 100 / nombre_notes))}\\thickspace\\%$.`; // fréquence en pourcentage avec 1 décimale
+					texteCorr += `$=${arrondiVirgule(frequence / nombre_notes, 3)}$<br>`; // fréquence à 3 chiffres significatifs
+					texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombre_notes))}\\thickspace\\%$.`; // fréquence en pourcentage avec 1 décimale
 				}
 				else {
-					texte_corr += `$\\approx${arrondi_virgule(frequence / nombre_notes, 3)}$`; // valeurs arrondies
-					texte_corr += 'Soit environ ' + `$${arrondi_virgule(calcul(frequence * 100 / nombre_notes), 1)}\\thickspace\\%$.`;
+					texteCorr += `$\\approx${arrondiVirgule(frequence / nombre_notes, 3)}$`; // valeurs arrondies
+					texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombre_notes), 1)}\\thickspace\\%$.`;
 				}
 
 			}
@@ -129,7 +129,7 @@ export default function Calculer_des_frequences() {
 					texte += '|c';
 				texte += '}\\hline  \\text{Jour}';
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
-					texte += '&' + tex_nombre(j + 1);
+					texte += '&' + texNombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
 					texte += '&' + temperatures[j];
@@ -140,7 +140,7 @@ export default function Calculer_des_frequences() {
 					texte += '|c';
 				texte += '}\\hline  \\text{Jour}';
 				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
-					texte += '&' + tex_nombre(j + 1);
+					texte += '&' + texNombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
 				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
 					texte += '&' + temperatures[j];
@@ -148,27 +148,27 @@ export default function Calculer_des_frequences() {
 
 
 				texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[index_valeur]}^\\circ\\text{C}$.`;
-				texte_corr = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[index_valeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`;
-				texte_corr += `Il y a $${jours_par_mois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[index_valeur]}^\\circ\\text{C}$ est :<br>`;
-				texte_corr += `$${tex_fraction(tex_nombre(frequence), tex_nombre(jours_par_mois(mois)))}$`;
+				texteCorr = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[index_valeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`;
+				texteCorr += `Il y a $${jours_par_mois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[index_valeur]}^\\circ\\text{C}$ est :<br>`;
+				texteCorr += `$${tex_fraction(texNombre(frequence), texNombre(jours_par_mois(mois)))}$`;
 				if (arrondi(frequence / nombre_temperatures, 3) == frequence / nombre_temperatures) { // valeurs exactes
-					texte_corr += `$=${arrondi_virgule(frequence / nombre_temperatures, 3)}$<br>`;
-					texte_corr += 'Soit ' + `$${tex_nombre(calcul(frequence * 100 / nombre_temperatures))}\\thickspace\\%$.`;
+					texteCorr += `$=${arrondiVirgule(frequence / nombre_temperatures, 3)}$<br>`;
+					texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombre_temperatures))}\\thickspace\\%$.`;
 
 				}
 				else {
-					texte_corr += `$\\approx${arrondi_virgule(frequence / nombre_temperatures, 3)}$<br>`; // valeurs arrondies
-					texte_corr += 'Soit environ ' + `$${arrondi_virgule(calcul(frequence * 100 / nombre_temperatures), 1)}\\thickspace\\%$.`;
+					texteCorr += `$\\approx${arrondiVirgule(frequence / nombre_temperatures, 3)}$<br>`; // valeurs arrondies
+					texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombre_temperatures), 1)}\\thickspace\\%$.`;
 				}
 			}
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Type de séries', 3, "1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
+	this.besoinFormulaireNumerique = ['Type de séries', 3, "1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
 }

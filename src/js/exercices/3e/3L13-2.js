@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,calcul,tex_nombre,texte_en_couleur_et_gras,tab_C_L,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tab_C_L,warn_message} from '../../modules/outils.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
@@ -14,23 +14,23 @@ export default function Eq_resolvantes_Thales() {
 	this.titre = titre;
 	this.debug = false;
 	if (this.debug) {
-		this.nb_questions = 4;
+		this.nbQuestions = 4;
 	} else {
-		this.nb_questions = 2;
+		this.nbQuestions = 2;
 	};
 	this.sup = 1;
 	this.consigne = `Résoudre les équations suivantes.`;
 
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	sortieHtml ? this.spacing = 3 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-	this.liste_packages = `bclogo`;
+	this.listePackages = `bclogo`;
 
 	let type_de_questions_disponibles;
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		// une fonction pour dire que c'est trivial dans ce cas
 		function trivial(bool, a, b, c, inc) {
 			let sortie;
@@ -56,14 +56,14 @@ export default function Eq_resolvantes_Thales() {
 			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let liste_type_de_questions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
 			// on a besoin d'un coeff pour le type de nombres
 			let coeff;
@@ -126,7 +126,7 @@ export default function Eq_resolvantes_Thales() {
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{
-					eq: `\\dfrac{${params.inc}}{${tex_nombre(params.b)}}=\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}`,
+					eq: `\\dfrac{${params.inc}}{${texNombre(params.b)}}=\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}`,
 					tab: tab_C_L([params.inc, params.a], [params.b], [params.c]),
 					a: params.a,
 					b: params.b,
@@ -135,7 +135,7 @@ export default function Eq_resolvantes_Thales() {
 					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 				{
-					eq: `\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
+					eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
 					tab: tab_C_L([params.a, params.inc], [params.c], [params.b]),
 					a: params.a,
 					b: params.b,
@@ -144,7 +144,7 @@ export default function Eq_resolvantes_Thales() {
 					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 				{
-					eq: `\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
+					eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
 					tab: tab_C_L([params.b, params.c], [params.inc], [params.a]),
 					a: params.a,
 					b: params.b,
@@ -153,7 +153,7 @@ export default function Eq_resolvantes_Thales() {
 					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 				{
-					eq: `\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
+					eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
 					tab: tab_C_L([params.c, params.b], [params.a], [params.inc]),
 					a: params.a,
 					b: params.b,
@@ -181,12 +181,12 @@ export default function Eq_resolvantes_Thales() {
 					correction: `${corrPlusPremiereLigne}
 						$${situations[k].eq}$<br>
 						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
-						$${tex_nombre(situations[k].c)}\\times ${situations[k].inc} = ${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}$<br>
-						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
-						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
+						$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
+						${texte_en_couleur_et_gras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
+						$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
 						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
-						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
-						${trivial(situations[k].trivial, tex_nombre(situations[k].a), tex_nombre(situations[k].b), tex_nombre(situations[k].c), situations[k].inc)}
+						$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
+						${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
 					`
 				});
 			};
@@ -199,9 +199,9 @@ export default function Eq_resolvantes_Thales() {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[0].correction}`;
+						texteCorr = `${enonces[0].correction}`;
 					};
 					break;
 				case 1:
@@ -209,9 +209,9 @@ export default function Eq_resolvantes_Thales() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[1].correction}`;
+						texteCorr = `${enonces[1].correction}`;
 					};
 					break;
 				case 2:
@@ -219,9 +219,9 @@ export default function Eq_resolvantes_Thales() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[2].correction}`;
+						texteCorr = `${enonces[2].correction}`;
 					};
 					break;
 				case 3:
@@ -229,22 +229,22 @@ export default function Eq_resolvantes_Thales() {
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[3].correction}`;
+						texteCorr = `${enonces[3].correction}`;
 					};
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 
 	};
-	this.besoin_formulaire_numerique = ['Type de nombres', 4, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange"];
+	this.besoinFormulaireNumerique = ['Type de nombres', 4, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange"];
 }

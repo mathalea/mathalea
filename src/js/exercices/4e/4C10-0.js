@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, ecriture_nombre_relatif, texte_en_couleur_et_gras, Relatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texte_en_couleur_et_gras, Relatif } from '../../modules/outils.js'
 
 export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
 
@@ -18,36 +18,36 @@ export default function Signe_produit_quotient_relatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Donner le signe des expressions numériques.'
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
-  this.nb_questions_modifiable = false
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.nbQuestionsModifiable = false
   this.sup = 1
 
   let type_de_questions_disponibles
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     if (this.exo === this.beta + '4C10-1') {
       // signe d'un produit
       switch (this.sup) {
         case 1: // 2 facteurs
           type_de_questions_disponibles = [1, 1, 1]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 2: // 3 facteurs
           type_de_questions_disponibles = [2, 2, 2]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 3: // 4 facteurs
           type_de_questions_disponibles = [3, 3, 3]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 4: // Mélange
           type_de_questions_disponibles = [1, 2, 3]
-          this.nb_questions = type_de_questions_disponibles.length
+          this.nbQuestions = type_de_questions_disponibles.length
           break
       }
     } else if (this.exo === this.beta + '4C10-2') {
@@ -55,90 +55,90 @@ export default function Signe_produit_quotient_relatifs () {
       switch (this.sup) {
         case 1: // quotient de 2 nombres
           type_de_questions_disponibles = [4, 4, 4]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 2: // quotient d'1 nombre sur un produit de 2 nombres
           type_de_questions_disponibles = [5, 5, 5]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 3: // quotient d'1 produit de 2 nombres sur 1 nombre
           type_de_questions_disponibles = [6, 6, 6]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 4: // quotient de 2 produits de 2 nombres
           type_de_questions_disponibles = [7, 7, 7]
-          // this.nb_questions = type_de_questions_disponibles.length;
-          this.nb_questions = 3
+          // this.nbQuestions = type_de_questions_disponibles.length;
+          this.nbQuestions = 3
           break
         case 5: // Mélange
           type_de_questions_disponibles = [4, 5, 6, 7]
-          this.nb_questions = type_de_questions_disponibles.length
+          this.nbQuestions = type_de_questions_disponibles.length
           break
       }
     } else {
       // signe d'un produit et/ou d'un quotient
       type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7]
-      this.nb_questions = type_de_questions_disponibles.length
+      this.nbQuestions = type_de_questions_disponibles.length
     }
 
-    // let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    // let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
-      const nb_max = 20
+      const nbMax = 20
       // Le tableau des relatifs necessaires, il m'en faut max 4 !
       const num = new Relatif(
-        randint(-1, 1, [0]) * randint(1, nb_max),
-        randint(-1, 1, [0]) * randint(1, nb_max),
-        randint(-1, 1, [0]) * randint(1, nb_max),
-        randint(-1, 1, [0]) * randint(1, nb_max)
+        randint(-1, 1, [0]) * randint(1, nbMax),
+        randint(-1, 1, [0]) * randint(1, nbMax),
+        randint(-1, 1, [0]) * randint(1, nbMax),
+        randint(-1, 1, [0]) * randint(1, nbMax)
       )
 
       switch (liste_type_de_questions[i]) {
         case 1: // 2 facteurs
-          texte = `$ ${ecriture_nombre_relatif(
+          texte = `$ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
-          texte_corr += `<br> ${num.setRegleSigneProduit(
+          )} \\times ${ecritureNombreRelatif(num.relatifs[1])} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
+          texteCorr += `<br> ${num.setRegleSigneProduit(
             num.relatifs[0],
             num.relatifs[1]
           )}`
-          texte_corr += `<br>Donc $ ${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
           )} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
           break
         case 2: // 3 facteurs
-          texte = `$ ${ecriture_nombre_relatif(
+          texte = `$ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texte_corr += ` et $ ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(num.relatifs[2])} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureNombreRelatif(
             num.relatifs[2]
           )} $ est ${num.getSigneString()[2]}.`
-          texte_corr += `<br> ${num.setRegleSigneProduit(
+          texteCorr += `<br> ${num.setRegleSigneProduit(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2]
           )}`
-          texte_corr += `<br>Donc $ ${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
           )} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(
@@ -149,28 +149,28 @@ export default function Signe_produit_quotient_relatifs () {
           )}.`
           break
         case 3: // 4 facteurs
-          texte = `$ ${ecriture_nombre_relatif(
+          texte = `$ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
-          )} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
-          texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
-          texte_corr += `<br> ${num.setRegleSigneProduit(
+          )} \\times ${ecritureNombreRelatif(num.relatifs[3])} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
+          texteCorr += `$ ${ecritureNombreRelatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureNombreRelatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
+          texteCorr += `<br> ${num.setRegleSigneProduit(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2],
             num.relatifs[3]
           )}`
-          texte_corr += `<br>Donc $ ${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ ${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[3]
           )} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(
@@ -182,42 +182,42 @@ export default function Signe_produit_quotient_relatifs () {
           )}.`
           break
         case 4: // quotient de 2 nombres
-          texte = `$ \\dfrac{${ecriture_nombre_relatif(
+          texte = `$ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )}}{${ecriture_nombre_relatif(num.relatifs[1])}} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
-          texte_corr += `<br> ${num.setRegleSigneQuotient(
+          )}}{${ecritureNombreRelatif(num.relatifs[1])}} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`
+          texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1]
           )}`
-          texte_corr += `<br>Donc $ \\dfrac{${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[1]
           )}} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
           break
         case 5: // quotient d'1 nombre sur un produit de 2 nombres
-          texte = `$ \\dfrac{${ecriture_nombre_relatif(
+          texte = `$ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(num.relatifs[2])}} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texte_corr += ` et $ ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(num.relatifs[2])}} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureNombreRelatif(
             num.relatifs[2]
           )} $ est ${num.getSigneString()[2]}.`
-          texte_corr += `<br> ${num.setRegleSigneQuotient(
+          texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2]
           )}`
-          texte_corr += `<br>Donc $ \\dfrac{${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[1]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
           )}} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(
@@ -228,25 +228,25 @@ export default function Signe_produit_quotient_relatifs () {
           )}.`
           break
         case 6: // quotient d'1 produit de 2 nombres sur 1 nombre
-          texte = `$ \\dfrac{${ecriture_nombre_relatif(
+          texte = `$ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )}}{${ecriture_nombre_relatif(num.relatifs[2])}} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
-          texte_corr += ` et $ ${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(num.relatifs[2])}} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`
+          texteCorr += ` et $ ${ecritureNombreRelatif(
             num.relatifs[2]
           )} $ est ${num.getSigneString()[2]}.`
-          texte_corr += `<br> ${num.setRegleSigneQuotient(
+          texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2]
           )}`
-          texte_corr += `<br>Donc $ \\dfrac{${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[2]
           )}} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(
@@ -257,28 +257,28 @@ export default function Signe_produit_quotient_relatifs () {
           )}.`
           break
         case 7: // quotient de 2 produits de 2 nombres
-          texte = `$ \\dfrac{${ecriture_nombre_relatif(
+          texte = `$ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[2]
-          )} \\times ${ecriture_nombre_relatif(num.relatifs[3])}} $`
-          texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
-          texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
-          texte_corr += `<br> ${num.setRegleSigneQuotient(
+          )} \\times ${ecritureNombreRelatif(num.relatifs[3])}} $`
+          texteCorr = `$ ${ecritureNombreRelatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecritureNombreRelatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `
+          texteCorr += `$ ${ecritureNombreRelatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecritureNombreRelatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}.`
+          texteCorr += `<br> ${num.setRegleSigneQuotient(
             num.relatifs[0],
             num.relatifs[1],
             num.relatifs[2],
             num.relatifs[3]
           )}`
-          texte_corr += `<br>Donc $ \\dfrac{${ecriture_nombre_relatif(
+          texteCorr += `<br>Donc $ \\dfrac{${ecritureNombreRelatif(
             num.relatifs[0]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )}}{${ecriture_nombre_relatif(
+          )}}{${ecritureNombreRelatif(
             num.relatifs[2]
-          )} \\times ${ecriture_nombre_relatif(
+          )} \\times ${ecritureNombreRelatif(
             num.relatifs[3]
           )}} $ est ${texte_en_couleur_et_gras(
             num.getSigneProduitString(
@@ -290,14 +290,14 @@ export default function Signe_produit_quotient_relatifs () {
           )}.`
           break
       }
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
 }

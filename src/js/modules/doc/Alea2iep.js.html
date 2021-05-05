@@ -156,7 +156,7 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    */
   this.html = function (numeroExercice, i) {
-    if (window.sortie_html) {
+    if (window.sortieHtml) {
       const id = `${numeroExercice}_${i}`
       window.listeScriptsIep.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
       const codeHTML = `&lt;script id="figurexml${numeroExercice}_${i}" type="text/xml">
@@ -175,7 +175,7 @@ export default function Alea2iep () {
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
   this.htmlBouton = function (numeroExercice, i) {
-    if (window.sortie_html) {
+    if (window.sortieHtml) {
       const id = `${numeroExercice}_${i}`
       window.listeScriptsIep.push([id, calcul(this.xMax - this.xMin), calcul(this.yMax - this.yMin)]) // Sauvegard le liste de toutes les animations à ajouter aux exercices
       const codeHTML = `&lt;script id="figurexml${numeroExercice}_${i}" type="text/xml">

@@ -1,6 +1,6 @@
 import Operation from '../../modules/operations'
 import Exercice from '../ClasseExercice.js'
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,calcul} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -23,17 +23,17 @@ export default function Additions_soustractions_multiplications_posees() {
   this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies
-  this.nb_questions = 5;
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
+  this.nbQuestions = 5;
   // this.pas_de_version_HMTL=true;
-  this.liste_packages = "xlop";
+  this.listePackages = "xlop";
   this.tailleDiaporama = 100;
 
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
         /*********************************************************/
 // On ajoute cette ligne pour AMC
-this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
+this.qcm=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
@@ -41,22 +41,22 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
 			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
 			/********************************************************************/
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions,reponse
     let type_de_questions_disponibles = [1, 2, 3, 4, 5];
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(
+    let liste_type_de_questions = combinaisonListesSansChangerOrdre(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
-    if (this.nb_questions == 3) {
+    if (this.nbQuestions == 3) {
       liste_type_de_questions = [1, 2, 5];
     }
-    if (this.nb_questions == 4) {
+    if (this.nbQuestions == 4) {
       liste_type_de_questions = [1, 2, 4, 5];
     }
 
-    for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
       type_de_questions = liste_type_de_questions[i];
       switch (type_de_questions) {
         case 1: // abcd +efg
@@ -67,9 +67,9 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
             randint(7, 9) * 10 +
             randint(1, 9);
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9);
-          texte = `$${tex_nombre(a)}+${b}$`;
+          texte = `$${texNombre(a)}+${b}$`;
           reponse=calcul(a+b)
-          texte_corr = Operation({operande1:a,operande2:b,type:'addition'})
+          texteCorr = Operation({operande1:a,operande2:b,type:'addition'})
           break;
         case 2: // abc0-efg
           a = randint(1, 9);
@@ -80,9 +80,9 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           g = randint(2, 9);
           x = a * 1000 + b * 100 + c * 10;
           y = e * 100 + f * 10 + g;
-          texte = `$${tex_nombre(x)}-${y}$`;
+          texte = `$${texNombre(x)}-${y}$`;
           reponse=calcul(x-y)
-          texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
+          texteCorr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 3: // 1abc-def
           a = randint(1, 9);
@@ -93,10 +93,10 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           f = randint(c, 9);
           x = 1000 + a * 100 + b * 10 + c;
           y = d * 100 + e * 10 + f;
-          texte = `$${tex_nombre(x)}-${y}$`;
+          texte = `$${texNombre(x)}-${y}$`;
           reponse=calcul(x-y)
 
-          texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
+          texteCorr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 4: // abc*d0e tables de 2 à 5
           a = randint(2, 5);
@@ -106,10 +106,10 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           e = randint(2, 5);
           x = 100 * a + 10 * b + c;
           y = d * 100 + e;
-          texte = `$${tex_nombre(x)}\\times${y}$`;
+          texte = `$${texNombre(x)}\\times${y}$`;
           reponse=calcul(x*y)
 
-          texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
+          texteCorr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
         case 5: // abc*de tables de 5 à 9
           a = randint(5, 9);
@@ -121,19 +121,19 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
           y = 10 * d + e;
           texte = `$${x}\\times${y}$`;
           reponse=calcul(x*y)
-          texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
+          texteCorr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        if (!sortie_html && i == 0) {
-          texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
+        this.listeQuestions.push(texte);
+        if (!sortieHtml && i == 0) {
+          texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
-        this.liste_corrections.push(texte_corr);
+        this.listeCorrections.push(texteCorr);
             /********************* AMCnumericChoices ********************************/
-    this.QCM[1].push([texte, [texte_corr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+    this.qcm[1].push([texte, [texteCorr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
     // [question,[réponse,réponse numérique],{paramètres réponse numérique}] (voir doc AMC \AMCnumericChoices)
     /****************************************************/
 
@@ -141,6 +141,6 @@ this.QCM=['6C10',[],'Additions et soustractions de nombres entier',4,{}]
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
 }

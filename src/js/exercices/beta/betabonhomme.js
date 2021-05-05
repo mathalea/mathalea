@@ -9,11 +9,11 @@ export default function bonhomme_de_neige() {
     this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
-    this.nb_questions = 1;
+    this.nbQuestions = 1;
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let objets=[]
         let normal=vecteur3d(0,0,1)
         let normal2=vecteur3d(0,-0.2,0)

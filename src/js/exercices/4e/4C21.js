@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_nombre_relatif,ecriture_parenthese_si_negatif,pgcd,simplification_de_fraction_avec_etapes,calcul,mise_en_evidence,tex_fraction,ppcm} from '../../modules/outils.js'
-import {fraction_simplifiee,tex_fraction_reduite} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureNombreRelatif,ecritureParentheseSiNegatif,pgcd,simplification_de_fraction_avec_etapes,calcul,miseEnEvidence,tex_fraction,ppcm} from '../../modules/outils.js'
+import {fractionSimplifiee,texFractionReduite} from '../../modules/outils.js'
 
 
 export const amcReady = true
@@ -24,14 +24,14 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 	this.titre = titre;
 	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée.";
 	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_questions = 5;
-	this.nb_cols_corr = 1;
+	this.spacingCorr = 2;
+	this.nbQuestions = 5;
+	this.nbColsCorr = 1;
 
-	this.nouvelle_version = function () {
-		this.QCM=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.qcm=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles;
 		if (this.sup == 1) {
 			type_de_questions_disponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
@@ -39,9 +39,9 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 		if (this.sup == 2) {
 			type_de_questions_disponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
 		}
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_de_plus_ou_moins = combinaison_listes(['-', '-', '+', '+'], this.nb_questions);
-		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texte_corr, type_de_questions; i < this.nb_questions; i++) {
+		let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_de_plus_ou_moins = combinaisonListes(['-', '-', '+', '+'], this.nbQuestions);
+		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, type_de_questions; i < this.nbQuestions; i++) {
 			let plus_ou_moins = liste_de_plus_ou_moins[i];
 			type_de_questions = liste_type_de_questions[i];
 			switch (type_de_questions) {
@@ -104,29 +104,29 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 				let echange = true;
 			}
 			texte = `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c, d)}=$`;
-			texte_corr = `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c, d)}`;
+			texteCorr = `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c, d)}`;
 
 			// a/b(+ou-)c/d = num/den (résultat non simplifié)
 			if (type_de_questions == 'ppcm' || type_de_questions == 'premiers_entre_eux') {
-				texte_corr += `=${tex_fraction(a + mise_en_evidence('\\times ' + k1), b + mise_en_evidence('\\times ' + k1))}${plus_ou_moins}${tex_fraction(c + mise_en_evidence('\\times ' + k2), d + mise_en_evidence('\\times ' + k2))}`;
-				num = calcul(a * k1 + plus_ou_moins + ecriture_nombre_relatif(c * k2));
+				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plus_ou_moins}${tex_fraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
+				num = calcul(a * k1 + plus_ou_moins + ecritureNombreRelatif(c * k2));
 				den = b * k1;
-				texte_corr += `=${tex_fraction(a * k1 + plus_ou_moins + ecriture_parenthese_si_negatif(c * k2), den)}`;
+				texteCorr += `=${tex_fraction(a * k1 + plus_ou_moins + ecritureParentheseSiNegatif(c * k2), den)}`;
 
 			}
 
 			if (type_de_questions == 'd_multiple_de_b') {
-				texte_corr += `=${tex_fraction(a + mise_en_evidence('\\times ' + k), b + mise_en_evidence('\\times ' + k))}${plus_ou_moins}${tex_fraction(c, d)}`;
-				num = calcul(a * k + plus_ou_moins + ecriture_nombre_relatif(c));
+				texteCorr += `=${tex_fraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plus_ou_moins}${tex_fraction(c, d)}`;
+				num = calcul(a * k + plus_ou_moins + ecritureNombreRelatif(c));
 				den = b * k;
-				texte_corr += `=${tex_fraction(a * k + plus_ou_moins + ecriture_parenthese_si_negatif(c), den)}`;
+				texteCorr += `=${tex_fraction(a * k + plus_ou_moins + ecritureParentheseSiNegatif(c), den)}`;
 			}
 
 			if (type_de_questions == 'b_multiple_de_d') {
-				texte_corr += `=${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c + mise_en_evidence('\\times ' + k), d + mise_en_evidence('\\times ' + k))}`;
-				num = calcul(a + plus_ou_moins + ecriture_nombre_relatif(c * k));
+				texteCorr += `=${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
+				num = calcul(a + plus_ou_moins + ecritureNombreRelatif(c * k));
 				den = b;
-				texte_corr += `=${tex_fraction(a + plus_ou_moins + ecriture_parenthese_si_negatif(c * k), den)}`;
+				texteCorr += `=${tex_fraction(a + plus_ou_moins + ecritureParentheseSiNegatif(c * k), den)}`;
 			}
 
 			if (type_de_questions == "entier") {
@@ -143,38 +143,38 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 						n = randint(5, 9); // max(a/b)=9/2
 					}
 					texte = `$${n}${plus_ou_moins}${tex_fraction(a, b)}=$`;
-					texte_corr = texte;
-					texte_corr += `$${tex_fraction(n + mise_en_evidence('\\times ' + b), mise_en_evidence(b))}${plus_ou_moins}${tex_fraction(a, b)}`;
-					texte_corr += `=${tex_fraction(n * b + plus_ou_moins + ecriture_parenthese_si_negatif(a), b)}`;
+					texteCorr = texte;
+					texteCorr += `$${tex_fraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plus_ou_moins}${tex_fraction(a, b)}`;
+					texteCorr += `=${tex_fraction(n * b + plus_ou_moins + ecritureParentheseSiNegatif(a), b)}`;
 				} else {
 					// a/b +-n
 					if (!this.sup2 && plus_ou_moins == "-" && n > a / b) {
 						n = randint(1, 4); // 
 						a = n * b + randint(1, 9); //(n*b+?)/b-n>0
 					}
-					texte = `$${tex_fraction(a, b)}${plus_ou_moins}${ecriture_parenthese_si_negatif(n)}=$`;
-					texte_corr = texte;
-					texte_corr += `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(n + mise_en_evidence('\\times ' + b), mise_en_evidence(b))}`;
-					texte_corr += `=${tex_fraction(a + '+' + ecriture_parenthese_si_negatif(n * b), b)}`;
+					texte = `$${tex_fraction(a, b)}${plus_ou_moins}${ecritureParentheseSiNegatif(n)}=$`;
+					texteCorr = texte;
+					texteCorr += `$${tex_fraction(a, b)}${plus_ou_moins}${tex_fraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`;
+					texteCorr += `=${tex_fraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`;
 				}
-				num = calcul(n * b + plus_ou_moins + ecriture_parenthese_si_negatif(a));
+				num = calcul(n * b + plus_ou_moins + ecritureParentheseSiNegatif(a));
 				den = b;
 			}
-			texte_corr += `=${tex_fraction(num, den)}`;
-			texte_corr += simplification_de_fraction_avec_etapes(num, den) + '$';			
+			texteCorr += `=${tex_fraction(num, den)}`;
+			texteCorr += simplification_de_fraction_avec_etapes(num, den) + '$';			
 			// Pour l'instant pour tester je mets num et den dans reponse
-			let reponse = {num:fraction_simplifiee(num,den)[0],den:fraction_simplifiee(num,den)[1]};
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			this.QCM[1].push([
+			let reponse = {num:fractionSimplifiee(num,den)[0],den:fractionSimplifiee(num,den)[1]};
+			this.listeQuestions.push(texte);
+			this.listeCorrections.push(texteCorr);
+			this.qcm[1].push([
 				`Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
-				[[texte_corr,reponse.num,3],[texte_corr,reponse.den,3]],
+				[[texteCorr,reponse.num,3],[texteCorr,reponse.den,3]],
 				[{texte:'numérateur',digits:reponse.num.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0},{texte:'dénominateur',digits:reponse.den.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}]				
 			]);			
 		}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+		listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
 	};
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
+	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
 2 : Cas général"];
 	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres relatifs'];
 

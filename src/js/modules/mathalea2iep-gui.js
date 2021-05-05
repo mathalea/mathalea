@@ -105,7 +105,7 @@ function scriptJsToAnimEtSvg () {
   // On réinitialise les variables
   window.anim = new Alea2iep()
   window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-  window.sortie_html = true
+  window.sortieHtml = true
   window.est_diaporama = false
   window.numId = 0
 
@@ -116,7 +116,7 @@ function scriptJsToAnimEtSvg () {
     anim: window.anim,
     mathalea: window.mathalea,
     randint: window.randint,
-    tex_nombre: window.tex_nombre,
+    texNombre: window.texNombre,
     angleScratchTo2d: window.angleScratchTo2d,
     appartientSegment: window.appartientSegment,
     appartientDroite: window.appartientDroite,

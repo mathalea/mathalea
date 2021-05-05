@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,tex_nombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,tex_fraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
@@ -16,14 +16,14 @@ export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_1
   this.titre = titre;
   this.consigne = "Donner l'écriture décimale";
   this.spacing = 2;
-  this.spacing_corr = 2;
+  this.spacingCorr = 2;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     for (
-      let i = 0, a, b, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, a, b, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       a = choice(
@@ -39,36 +39,36 @@ export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_1
       b = choice([10, 100, 1000]);
       if (choice([true, false])) {
         texte =
-          "$ " + tex_fraction(tex_nombre(a), tex_nombre(b)) + " = \\dotfill $";
-        texte_corr =
+          "$ " + tex_fraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
+        texteCorr =
           "$ " +
-          tex_fraction(tex_nombre(a), tex_nombre(b)) +
+          tex_fraction(texNombre(a), texNombre(b)) +
           " = " +
-          tex_nombre(Algebrite.eval(a / b)) +
+          texNombre(Algebrite.eval(a / b)) +
           " $";
       } else {
         texte =
-          "$ " + tex_nombre(a) + "\\times" + tex_nombre(b) + " = \\dotfill $";
-        texte_corr =
+          "$ " + texNombre(a) + "\\times" + texNombre(b) + " = \\dotfill $";
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\times" +
-          tex_nombre(b) +
+          texNombre(b) +
           " = " +
-          tex_nombre(Algebrite.eval(a * b)) +
+          texNombre(Algebrite.eval(a * b)) +
           " $";
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ["Valeur maximale", 99999];
+  this.besoinFormulaireNumerique = ["Valeur maximale", 99999];
 }
 

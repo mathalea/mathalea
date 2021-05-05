@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, combinaison_listes, arrondi, calcul, lettre_depuis_chiffre, html_consigne, string_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Placer un point d’abscisse entière (grands nombres)'
@@ -14,31 +14,31 @@ export default function Placer_un_point_abscisse_entiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ' Placer trois points sur un axe gradué.'
-  this.nb_questions = 5
-  this.nb_questions_modifiable = true
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbQuestions = 5
+  this.nbQuestionsModifiable = true
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.spacing = 1
-  this.spacing_corr = 1
+  this.spacingCorr = 1
   this.sup = 1
-  this.type_exercice = 'SVGJS'
-  this.liste_packages = 'tkz-euclide'
+  this.typeExercice = 'SVGJS'
+  this.listePackages = 'tkz-euclide'
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    // numero_de_l_exercice est 0 pour l'exercice 1
+  this.nouvelleVersion = function (numeroExercice) {
+    // numeroExercice est 0 pour l'exercice 1
     let type_de_questions
-    this.liste_questions = []
-    this.liste_corrections = []
+    this.listeQuestions = []
+    this.listeCorrections = []
     this.contenu = '' // Liste de questions
-    this.contenu_correction = '' // Liste de questions corrigées
-    if (this.sup == 4) { type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions) } else {
-      type_de_questions = combinaison_listes(
+    this.contenuCorrection = '' // Liste de questions corrigées
+    if (this.sup == 4) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      type_de_questions = combinaisonListes(
         [parseInt(this.sup)],
-        this.nb_questions
+        this.nbQuestions
       )
     }
 
-    this.contenu = html_consigne(this.consigne)
+    this.contenu = htmlConsigne(this.consigne)
     for (let i = 0,
       abs0,
       abs1,
@@ -57,10 +57,10 @@ export default function Placer_un_point_abscisse_entiere () {
       pas2,
       id_unique,
       texte,
-      texte_corr; i < this.nb_questions; i++) {
-      l1 = lettre_depuis_chiffre(i * 3 + 1)
-      l2 = lettre_depuis_chiffre(i * 3 + 2)
-      l3 = lettre_depuis_chiffre(i * 3 + 3)
+      texteCorr; i < this.nbQuestions; i++) {
+      l1 = lettreDepuisChiffre(i * 3 + 1)
+      l2 = lettreDepuisChiffre(i * 3 + 2)
+      l3 = lettreDepuisChiffre(i * 3 + 3)
 
       switch (type_de_questions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
@@ -99,15 +99,15 @@ export default function Placer_un_point_abscisse_entiere () {
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
         type_de_questions[i]
       )
-      if (sortie_html) {
-        texte_corr = ''
-        this.contenu += `<h3> Placer les points : ${l1}(${string_nombre(
+      if (sortieHtml) {
+        texteCorr = ''
+        this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
           abs1
-        )}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)})</h3>`
+        )}), ${l2}(${stringNombre(abs2)}), ${l3}(${stringNombre(abs3)})</h3>`
         id_unique = `${i}_${Date.now()}`
-        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg${numero_de_l_exercice}${id_unique}`,
+          `div_svg${numeroExercice}${id_unique}`,
           abs0,
           6,
           pas1,
@@ -119,9 +119,9 @@ export default function Placer_un_point_abscisse_entiere () {
           ],
           false
         )
-        this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+        this.contenuCorrection += `<div id="div_svg_corr${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
-          `div_svg_corr${numero_de_l_exercice}${id_unique}`,
+          `div_svg_corr${numeroExercice}${id_unique}`,
           abs0,
           6,
           pas1,
@@ -139,9 +139,9 @@ export default function Placer_un_point_abscisse_entiere () {
         )
       } else {
         // sortie Latex
-        texte = `{\\small Placer les points : $${l1}$(${string_nombre(
+        texte = `{\\small Placer les points : $${l1}$(${stringNombre(
           abs1
-        )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
+        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )})}<br>`
         texte += Latex_reperage_sur_un_axe(
@@ -156,12 +156,12 @@ export default function Placer_un_point_abscisse_entiere () {
           ],
           false
         )
-        texte_corr = `{\\small Les points $${l1}$(${string_nombre(
+        texteCorr = `{\\small Les points $${l1}$(${stringNombre(
           abs1
-        )}), $${l2}$(${string_nombre(abs2)}), $${l3}$(${string_nombre(
+        )}), $${l2}$(${stringNombre(abs2)}), $${l3}$(${stringNombre(
           abs3
         )}) sont placés ci dessous}<br>`
-        texte_corr += Latex_reperage_sur_un_axe(
+        texteCorr += Latex_reperage_sur_un_axe(
           2,
           abs0,
           pas1,
@@ -177,13 +177,13 @@ export default function Placer_un_point_abscisse_entiere () {
           ],
           false
         )
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortie_html) { liste_de_question_to_contenu(this) }
+    if (!sortieHtml) { listeQuestionsToContenu(this) }
   }
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
     '1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange'

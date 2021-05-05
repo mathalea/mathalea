@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombre,info_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombre,info_message} from '../../modules/outils.js'
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
 
 /**
@@ -11,17 +11,17 @@ export default function Intercaler_decimal_entre_2_decimaux() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = titre;
     this.consigne = "Compléter avec un nombre décimal";
-    this.nb_questions = 6;
-    this.nb_cols = 2; // Nombre de colonnes pour la sortie LaTeX
-    this.nb_cols_corr = 2; // Nombre de colonnes dans la correction pour la sortie LaTeX
+    this.nbQuestions = 6;
+    this.nbCols = 2; // Nombre de colonnes pour la sortie LaTeX
+    this.nbColsCorr = 2; // Nombre de colonnes dans la correction pour la sortie LaTeX
   
-    this.nouvelle_version = function () {
-      this.liste_questions = []; // Liste de questions
-      this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+      this.listeQuestions = []; // Liste de questions
+      this.listeCorrections = []; // Liste de questions corrigées
 
       let liste_type_de_questions_disponibles = ["a,b1", "a,b2", "a,9", "a,bc", "a,b9", "a,99", "a,b0c", "a,1", "a,01", "a"];
-      let liste_type_de_questions = combinaison_listes(liste_type_de_questions_disponibles, this.nb_questions);
-      for (let i = 0, texte, texte_corr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nb_questions && cpt < 50; ) {
+      let liste_type_de_questions = combinaisonListes(liste_type_de_questions_disponibles, this.nbQuestions);
+      for (let i = 0, texte, texteCorr, a, b, r, u, d1, c1, c2, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
           switch (liste_type_de_questions[i]) {
               case "a,b1":
                   d1 = randint(1, 6);
@@ -100,20 +100,20 @@ export default function Intercaler_decimal_entre_2_decimaux() {
                   r = calcul(a + 1 / 10);
                   break;
           }
-          texte = `$${tex_nombre(a)}<\\ldots\\ldots<${tex_nombre(b)}$`;
-          texte_corr = `$${tex_nombre(a)}<${tex_nombre(r)}<${tex_nombre(b)}$`;
+          texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`;
+          texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`;
 
-          if (this.liste_questions.indexOf(texte) == -1) {
+          if (this.listeQuestions.indexOf(texte) == -1) {
               // Si la question n'a jamais été posée, on en crée une autre
-              this.liste_questions.push(texte);
-              this.liste_corrections.push(texte_corr);
+              this.listeQuestions.push(texte);
+              this.listeCorrections.push(texteCorr);
               i++;
           }
           cpt++;
       }
-      liste_de_question_to_contenu(this);
-      if (sortie_html){
-        this.contenu_correction = info_message({ titre: "Remarque", texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.", couleur: "black" }) + this.contenu_correction;
+      listeQuestionsToContenu(this);
+      if (sortieHtml){
+        this.contenuCorrection = info_message({ titre: "Remarque", texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.", couleur: "black" }) + this.contenuCorrection;
       }
     };
   }

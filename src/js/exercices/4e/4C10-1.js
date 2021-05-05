@@ -13,7 +13,7 @@ export default function Signe_produit_relatifs() {
   this.exo = this.beta + `4C10-1`;
   this.sup = 4;
   this.titre = titre
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : deux facteurs\n2 : trois facteurs\n3 : quatre facteurs\n4 : Mélange",

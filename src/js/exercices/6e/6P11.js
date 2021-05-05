@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,prenomF,prenomM,texte_en_couleur,tex_prix,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,prenomF,prenomM,texte_en_couleur,tex_prix,texte_en_couleur_et_gras,num_alpha} from '../../modules/outils.js';
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 
 /**
@@ -10,7 +10,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité en utilisant
  * 03/2021 : ajout de situations de proportionnalité : CGrolleau
 */
 
-// _____ Les fonctions suivantes renvoient un objet : {texte = ; texte_corr = ;} ______
+// _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______
 // elles correspondent aux différentes situations problèmes 
 
 function question_achat() { //questions d'origine du 6P11 : achat.
@@ -98,8 +98,8 @@ function question_achat() { //questions d'origine du 6P11 : achat.
     let texte = `${num_alpha(0)} ${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent.<br\> ` +
 		`Elle lit que ${n} ${objet} coûtent ${tex_prix(x)} €. ` +
 		`Elle veut en acheter ${y}.<br\> Combien va-t-elle dépenser ?<br\>`;
-    let texte_corr = `${num_alpha(0)} ${y} ${objet}, c'est ${texte_en_couleur(
-        tex_nombrec(y / n)
+    let texteCorr = `${num_alpha(0)} ${y} ${objet}, c'est ${texte_en_couleur(
+        texNombrec(y / n)
       )} fois ${texte_en_couleur(
         n,
         "blue"
@@ -107,43 +107,43 @@ function question_achat() { //questions d'origine du 6P11 : achat.
         n,
         "blue"
       )} ${objet} coûtent ${tex_prix(x)} €, alors ${texte_en_couleur(
-        tex_nombrec(y / n)
+        texNombrec(y / n)
       )} fois ${texte_en_couleur(
         n,
         "blue"
       )} ${objet} coutent ${texte_en_couleur(
-        tex_nombrec(y / n)
+        texNombrec(y / n)
       )} fois ${tex_prix(x)} €.<br\>` +
 	  texte_en_couleur_et_gras(`Donc ${prenoms[0]} dépensera ${texte_en_couleur(
-        tex_nombrec(y / n)
+        texNombrec(y / n)
       )} $\\times$ ${tex_prix(x)} € = ${tex_prix(somme)} €.`,"black") + "<br\><br\>";
     texte += `${num_alpha(1)} ${prenoms[1]
         } veut lui aussi acheter ces ${objet}. Il dispose de ${tex_prix(
           z
         )} €.<br\> Combien peut-il en acheter ?<br\>`;
-    texte_corr += `${num_alpha(1)} ${tex_prix(z)} €, c'est ${texte_en_couleur(
-        tex_nombrec(z / x)
+    texteCorr += `${num_alpha(1)} ${tex_prix(z)} €, c'est ${texte_en_couleur(
+        texNombrec(z / x)
       )} fois ${tex_prix(x)} €.<br\> Si avec ${tex_prix(
         x
       )} € on peut acheter ${texte_en_couleur(
         n,
         "blue"
       )} ${objet}, alors avec ${texte_en_couleur(
-        tex_nombrec(z / x)
+        texNombrec(z / x)
       )} fois ${tex_prix(x)} €, on peut acheter ${texte_en_couleur(
-        tex_nombrec(z / x)
+        texNombrec(z / x)
       )} fois ${texte_en_couleur(n, "blue")} ${objet}.<br\>`;
-      texte_corr += texte_en_couleur_et_gras(`Donc ${prenoms[1]} pourra acheter ${texte_en_couleur(
-        tex_nombrec(z / x)
+      texteCorr += texte_en_couleur_et_gras(`Donc ${prenoms[1]} pourra acheter ${texte_en_couleur(
+        texNombrec(z / x)
       )} $\\times$ ${texte_en_couleur(n, "blue")} = ${p} ${objet}.`,"black") + "<br\>";
 	return {
 		qtexte:texte,
-		qtexte_corr:texte_corr
+		qtexteCorr:texteCorr
 	};
 }
 
 function question_recette() { //questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
-	let liste, nb_personne_init, nb_personne_final, alea1, alea2, alea3, alea4, prenoms, quantite, quantite_reponse, quantite_q2, texte, texte_corr;
+	let liste, nb_personne_init, nb_personne_final, alea1, alea2, alea3, alea4, prenoms, quantite, quantite_reponse, quantite_q2, texte, texteCorr;
 	liste = [ //liste des ingrédients avec différentes recettes associées et masses
 		{
 		ingredient : 'farine',
@@ -179,7 +179,7 @@ function question_recette() { //questions avec des masses pour un nombre de pers
 	texte = `${num_alpha(0)} ${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nb_personne_init} personnes qu'il faut ${quantite} g de ${liste[alea1].ingredient}. <br\>` +
 		`Elle veut adapter sa recette pour ${nb_personne_final} personnes.` +
 		`<br\> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? <br\><br\>`;
-    texte_corr = `${num_alpha(0)} Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br\>` +
+    texteCorr = `${num_alpha(0)} Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne : <br\>` +
 		` ${nb_personne_init} personnes, c'est ${texte_en_couleur(nb_personne_init)} fois 1 personne. ` +
 		`il faut donc ${texte_en_couleur(nb_personne_init)} fois moins que ${quantite} g pour 1 personne.<br\>` +
 		`${quantite} $\\div $ ${texte_en_couleur(nb_personne_init)} = ${liste[alea1].quantites_par_pers[alea3]}. <br\>` +
@@ -193,16 +193,16 @@ function question_recette() { //questions avec des masses pour un nombre de pers
 		` <br\><br\>`;	
     texte += `${num_alpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite_q2} g de ${liste[alea1].ingredient}. <br\>`+
 		` Pour combien de personnes au maximum peut-il cuisiner ? <br\>`;
-    texte_corr += `${num_alpha(1)} ${prenoms[1]} utilise ${quantite_q2} g de ${liste[alea1].ingredient} cela représente ${texte_en_couleur(alea4,"blue")} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g (quantité pour 1 personne).<br\>`+
+    texteCorr += `${num_alpha(1)} ${prenoms[1]} utilise ${quantite_q2} g de ${liste[alea1].ingredient} cela représente ${texte_en_couleur(alea4,"blue")} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g (quantité pour 1 personne).<br\>`+
 	texte_en_couleur_et_gras(`  Conclusion :  Il peut donc préparer sa recette pour ${texte_en_couleur(alea4,"blue")} personnes.`,"black"); 
     return {
 		qtexte : texte,
-		qtexte_corr : texte_corr
+		qtexteCorr : texteCorr
 	}; 
 }
 
 function question_dillution() { //questions de mélange de volumes
-	let liste, alea1, alea2, quantite, volume_final, quantite_reponse, volume_final_aff, unitesolvant_volume_final, texte, texte_corr;
+	let liste, alea1, alea2, quantite, volume_final, quantite_reponse, volume_final_aff, unitesolvant_volume_final, texte, texteCorr;
 	liste = [ 
 		{
 		solute : 'sirop',
@@ -239,24 +239,24 @@ function question_dillution() { //questions de mélange de volumes
 	} else {
 		unitesolvant_volume_final = liste[alea1].unite_solvant[1];
 	}
-	volume_final_aff = tex_nombrec(volume_final); //pour affichage avec bon séparateur.
+	volume_final_aff = texNombrec(volume_final); //pour affichage avec bon séparateur.
 	texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut  ` +
-		` ${tex_nombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau.<br\> ` +
+		` ${texNombrec(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau.<br\> ` +
 		`On veut utiliser ${volume_final_aff} ${unitesolvant_volume_final} d'eau.` +
 		`<br\> Quel volume de ${liste[alea1].solute} doit-on prévoir ? <br\>`;
-    texte_corr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau <br\> ` +
+    texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau <br\> ` +
 		` ${texte_en_couleur(volume_final_aff)} ${unitesolvant_volume_final} d'eau, c'est ${texte_en_couleur(volume_final_aff)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. <br\> ` +
-		`il faut donc ${texte_en_couleur(volume_final_aff)} fois plus que ${texte_en_couleur(tex_nombrec(quantite),"blue")} ${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br\>` +
-		`${texte_en_couleur(tex_nombrec(quantite),"blue")} ${liste[alea1].unite_solute} $\\times $ ${texte_en_couleur(volume_final_aff)} = ${tex_nombrec(quantite_reponse)}  ${liste[alea1].unite_solute}  <br\>  ` +
-        texte_en_couleur_et_gras(` Conclusion : Il faut donc prévoir ${tex_nombrec(quantite_reponse)} ${liste[alea1].unite_solute} de ${liste[alea1].solute}.`,"black") + ` <br\>`;	
+		`il faut donc ${texte_en_couleur(volume_final_aff)} fois plus que ${texte_en_couleur(texNombrec(quantite),"blue")} ${liste[alea1].unite_solute} de ${liste[alea1].solute}. <br\>` +
+		`${texte_en_couleur(texNombrec(quantite),"blue")} ${liste[alea1].unite_solute} $\\times $ ${texte_en_couleur(volume_final_aff)} = ${texNombrec(quantite_reponse)}  ${liste[alea1].unite_solute}  <br\>  ` +
+        texte_en_couleur_et_gras(` Conclusion : Il faut donc prévoir ${texNombrec(quantite_reponse)} ${liste[alea1].unite_solute} de ${liste[alea1].solute}.`,"black") + ` <br\>`;	
     return {
 		qtexte : texte,
-		qtexte_corr : texte_corr
+		qtexteCorr : texteCorr
 	};
 }
 
 function question_distance() { //questions de distance parcourue à une vitesse moyenne donnée
-	let liste, alea1, alea2, alea3, volume_final, duree, rapport, rapport_question2, distance, reponse_q1, texte, texte_corr;
+	let liste, alea1, alea2, alea3, volume_final, duree, rapport, rapport_question2, distance, reponse_q1, texte, texteCorr;
 	liste = [ //liste des "moyens de locomotion" et vitesses associées
 		{
 		locomotion : 'piéton',
@@ -308,56 +308,56 @@ function question_distance() { //questions de distance parcourue à une vitesse 
 	rapport_question2 = [0.25, 0.5, 0.75, 1.25, 1.5, 2];
 	alea3 = randint(0, rapport_question2.length-1,[alea2]);
 	reponse_q1 = calcul(duree[alea2].rapport*liste[alea1].vitesse[alea2]);
-	distance = tex_nombrec(calcul(rapport_question2[alea3] * liste[alea1].vitesse[alea2])); // pour question 2
-	texte = `${num_alpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${tex_nombrec(liste[alea1].vitesse[alea2])} km en une heure.<br\> Quelle distance va-t-il parcourir, à la même vitesse en ${duree[alea2].temps} ? <br\><br\> `;
-    texte_corr = `${num_alpha(0)} ${duree[alea2].temps} c'est ${texte_en_couleur(tex_nombrec(duree[alea2].rapport))} fois une heure.<br\> ` +
-		`En une heure le ${liste[alea1].locomotion} parcourt ${texte_en_couleur(tex_nombrec(liste[alea1].vitesse[alea2],"blue"))} km donc en ${duree[alea2].temps} il va parcourir ${texte_en_couleur(tex_nombrec(duree[alea2].rapport))} fois ${texte_en_couleur(tex_nombrec(liste[alea1].vitesse[alea2],"blue"))} km. <br\>` +
-		`${texte_en_couleur(tex_nombrec(duree[alea2].rapport))} $\\times$ ${texte_en_couleur(tex_nombrec(liste[alea1].vitesse[alea2],"blue"))} km = ${tex_nombrec(reponse_q1)} km <br\>`  +
-		texte_en_couleur_et_gras(` Conclusion : Le ${liste[alea1].locomotion} va donc parcourir ${tex_nombrec(reponse_q1)} km.`,"black") + `<br\><br\>`	;	
+	distance = texNombrec(calcul(rapport_question2[alea3] * liste[alea1].vitesse[alea2])); // pour question 2
+	texte = `${num_alpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${texNombrec(liste[alea1].vitesse[alea2])} km en une heure.<br\> Quelle distance va-t-il parcourir, à la même vitesse en ${duree[alea2].temps} ? <br\><br\> `;
+    texteCorr = `${num_alpha(0)} ${duree[alea2].temps} c'est ${texte_en_couleur(texNombrec(duree[alea2].rapport))} fois une heure.<br\> ` +
+		`En une heure le ${liste[alea1].locomotion} parcourt ${texte_en_couleur(texNombrec(liste[alea1].vitesse[alea2],"blue"))} km donc en ${duree[alea2].temps} il va parcourir ${texte_en_couleur(texNombrec(duree[alea2].rapport))} fois ${texte_en_couleur(texNombrec(liste[alea1].vitesse[alea2],"blue"))} km. <br\>` +
+		`${texte_en_couleur(texNombrec(duree[alea2].rapport))} $\\times$ ${texte_en_couleur(texNombrec(liste[alea1].vitesse[alea2],"blue"))} km = ${texNombrec(reponse_q1)} km <br\>`  +
+		texte_en_couleur_et_gras(` Conclusion : Le ${liste[alea1].locomotion} va donc parcourir ${texNombrec(reponse_q1)} km.`,"black") + `<br\><br\>`	;	
 	texte += `${num_alpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance} km à cette même vitesse ? <br\> `;
-    texte_corr += `${num_alpha(1)} ${distance} c'est ${texte_en_couleur(tex_nombrec(rapport_question2[alea3]))} fois ${tex_nombrec(liste[alea1].vitesse[alea2])} km.
-		Il parcourt ${tex_nombrec(liste[alea1].vitesse[alea2])} km en une heure. <br\>` + 
-	`Il va mettre donc ${texte_en_couleur(tex_nombrec(rapport_question2[alea3]))} fois une heure à parcourir ${distance} km <br\>` + 
-	texte_en_couleur_et_gras(`Conclusion : Il va donc mettre  ${tex_nombrec(rapport_question2[alea3])} heure(s) ( ${tex_nombrec(rapport_question2[alea3])} $\\times$ 1 ) à parcourir ${distance} km  ce qui fait ${calcul(rapport_question2[alea3]*60)} minutes.`,"black") + `<br\><br\>`;	
+    texteCorr += `${num_alpha(1)} ${distance} c'est ${texte_en_couleur(texNombrec(rapport_question2[alea3]))} fois ${texNombrec(liste[alea1].vitesse[alea2])} km.
+		Il parcourt ${texNombrec(liste[alea1].vitesse[alea2])} km en une heure. <br\>` + 
+	`Il va mettre donc ${texte_en_couleur(texNombrec(rapport_question2[alea3]))} fois une heure à parcourir ${distance} km <br\>` + 
+	texte_en_couleur_et_gras(`Conclusion : Il va donc mettre  ${texNombrec(rapport_question2[alea3])} heure(s) ( ${texNombrec(rapport_question2[alea3])} $\\times$ 1 ) à parcourir ${distance} km  ce qui fait ${calcul(rapport_question2[alea3]*60)} minutes.`,"black") + `<br\><br\>`;	
 	return {
 		qtexte : texte,
-		qtexte_corr : texte_corr
+		qtexteCorr : texteCorr
 	};
 }
 
 function question_echelle() { //X cm sur une carte correspond à x km dans la réalité... 
-	let rapport, distance_carte, distance_reel, distance_reel_q2, alea1, alea2, distance_carte_2, prenoms, texte, texte_corr;
+	let rapport, distance_carte, distance_reel, distance_reel_q2, alea1, alea2, distance_carte_2, prenoms, texte, texteCorr;
 	distance_carte = randint(1, 7); //Choix d'un nombre de cm sur la carte
 	distance_reel = randint(3, 20, [distance_carte]); //Choix d'un nombre de km dans la réalité (on évite d'avoir 1cm pour 1km)
 	rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5]; //rapport entre la référence et la question (rapports simples car niveau 6eme)
 	alea1 = randint(0, rapport.length-1);
 	alea2 = randint(0, rapport.length-1, [alea1]);
-	distance_carte_2 = tex_nombrec(calcul(rapport[alea1] * distance_carte)); 
-	distance_reel_q2 = tex_nombrec(calcul(rapport[alea2] * distance_reel)); 
+	distance_carte_2 = texNombrec(calcul(rapport[alea1] * distance_carte)); 
+	distance_reel_q2 = texNombrec(calcul(rapport[alea2] * distance_reel)); 
 	prenoms = [prenomF(), prenomM()];
 	texte = `${num_alpha(0)} Sur une carte sur laquelle ${distance_carte} cm représente ${distance_reel} km dans la réalité, <br\>
 		${prenoms[0]} mesure sont trajet, elle trouve une distance de ${distance_carte_2} cm. <br\>` +
 		`A quelle distance cela correspond dans la réalité ? <br\><br\>`;
-    texte_corr = `${num_alpha(0)} ${distance_carte_2} cm c'est ${texte_en_couleur(tex_nombrec(rapport[alea1]))} fois ${distance_carte} cm <br\>
+    texteCorr = `${num_alpha(0)} ${distance_carte_2} cm c'est ${texte_en_couleur(texNombrec(rapport[alea1]))} fois ${distance_carte} cm <br\>
 		Dans la réalité, ${distance_carte} cm correspond à ${texte_en_couleur(distance_reel,"blue")} km donc <br\>`+
-		`  ${distance_carte_2} cm va correspondre à ${texte_en_couleur(tex_nombrec(rapport[alea1]))} fois ${texte_en_couleur(distance_reel,"blue")} km  <br\>` +
-		`${texte_en_couleur(tex_nombrec(rapport[alea1]))} $\\times$ ${texte_en_couleur(distance_reel,"blue")} km = ${tex_nombrec(calcul(rapport[alea1]*distance_reel))} km <br\>` +
-		texte_en_couleur_et_gras(`Conclusion : le trajet de ${prenoms[0]} est de ${tex_nombrec(calcul(rapport[alea1]*distance_reel))} km.`,"black") + `<br\><br\>` ;	
-	texte += `${num_alpha(1)} Deux villes sont distantes de ${tex_nombrec(distance_reel_q2)} km. <br\>` +
+		`  ${distance_carte_2} cm va correspondre à ${texte_en_couleur(texNombrec(rapport[alea1]))} fois ${texte_en_couleur(distance_reel,"blue")} km  <br\>` +
+		`${texte_en_couleur(texNombrec(rapport[alea1]))} $\\times$ ${texte_en_couleur(distance_reel,"blue")} km = ${texNombrec(calcul(rapport[alea1]*distance_reel))} km <br\>` +
+		texte_en_couleur_et_gras(`Conclusion : le trajet de ${prenoms[0]} est de ${texNombrec(calcul(rapport[alea1]*distance_reel))} km.`,"black") + `<br\><br\>` ;	
+	texte += `${num_alpha(1)} Deux villes sont distantes de ${texNombrec(distance_reel_q2)} km. <br\>` +
 	`Quelle distance va-t-on mesurer sur la carte entre ces deux villes ?`;
-    texte_corr += `${num_alpha(1)} ${tex_nombrec(distance_reel_q2)} km c'est ${texte_en_couleur(tex_nombrec(rapport[alea2]))} fois ${distance_reel} km.
+    texteCorr += `${num_alpha(1)} ${texNombrec(distance_reel_q2)} km c'est ${texte_en_couleur(texNombrec(rapport[alea2]))} fois ${distance_reel} km.
 		Or ${distance_reel} km est représenté par ${texte_en_couleur(distance_carte,"blue")} cm sur la carte. <br\>` + 
-		`Donc ${tex_nombrec(distance_reel_q2)} km est représenté par ${texte_en_couleur(tex_nombrec(rapport[alea2]))} fois ${texte_en_couleur(distance_carte,"blue")} cm sur la carte <br\>` +
-		`${texte_en_couleur(tex_nombrec(rapport[alea2]))} $\\times$ ${texte_en_couleur(distance_carte,"blue")} cm = ${tex_nombrec(calcul(rapport[alea2]*distance_carte))} cm <br\>` +
-		texte_en_couleur_et_gras(`Conclusion : Les deux villes sont séparées de ${tex_nombrec(calcul(rapport[alea2]*distance_carte))} cm sur la carte.`,"black") + `<br\><br\>`;
+		`Donc ${texNombrec(distance_reel_q2)} km est représenté par ${texte_en_couleur(texNombrec(rapport[alea2]))} fois ${texte_en_couleur(distance_carte,"blue")} cm sur la carte <br\>` +
+		`${texte_en_couleur(texNombrec(rapport[alea2]))} $\\times$ ${texte_en_couleur(distance_carte,"blue")} cm = ${texNombrec(calcul(rapport[alea2]*distance_carte))} cm <br\>` +
+		texte_en_couleur_et_gras(`Conclusion : Les deux villes sont séparées de ${texNombrec(calcul(rapport[alea2]*distance_carte))} cm sur la carte.`,"black") + `<br\><br\>`;
 	return {
 		qtexte : texte,
-		qtexte_corr : texte_corr
+		qtexteCorr : texteCorr
 	};
 }
 
 function question_recouvrir_surface() { //peinture, gazon, carrelage pour une surface donnée.
-	let liste, alea1, alea2, alea3, alea4, alea5, alea6, quantite, qttaffichage, surface_finale, rapport, quantite2, surface_finale2, prenoms, texte, texte_corr;
+	let liste, alea1, alea2, alea3, alea4, alea5, alea6, quantite, qttaffichage, surface_finale, rapport, quantite2, surface_finale2, prenoms, texte, texteCorr;
 	liste = [ 
 		{
 		matiere : 'de la peinture',
@@ -390,28 +390,28 @@ function question_recouvrir_surface() { //peinture, gazon, carrelage pour une su
 	alea6 = randint(-2, 2,[0]);
 	surface_finale2 =  calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]+alea6);
 	prenoms = [prenomF(), prenomM()];
-	qttaffichage = tex_nombrec(quantite); //Pour affichage avec virgule en séparateur.
+	qttaffichage = texNombrec(quantite); //Pour affichage avec virgule en séparateur.
 	texte = `${num_alpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br\>`+
 	`Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]} m$^2$ <br\> ` +
-	`Combien doit-elle en acheter pour une surface de ${tex_nombrec(surface_finale)} m$^2$ ? <br\>`;
-    texte_corr = `${num_alpha(0)} ${tex_nombrec(surface_finale)} $m^2$ c'est ${texte_en_couleur(tex_nombrec(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]} $m^2$ <br\>` +
-		`Il va donc falloir ${texte_en_couleur(tex_nombrec(rapport[alea4]))} fois ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} pour ${tex_nombrec(surface_finale)} $m^2$ <br\>` +
-		`${texte_en_couleur(tex_nombrec(rapport[alea4]))} $\\times$ ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} = ${tex_nombrec(calcul(rapport[alea4]*quantite))} ${liste[alea1].unite}<br\>` +
-		texte_en_couleur_et_gras(`Conclusion : elle doit en acheter ${texte_en_couleur(tex_nombrec(rapport[alea4]))} $\\times$ ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} = ${tex_nombrec(calcul(rapport[alea4]*quantite))} ${liste[alea1].unite}.`,"black")+ `<br\>  `;	
-	texte += `<br\> ${num_alpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${tex_nombrec(quantite2)} ${liste[alea1].unite}. <br\> Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${tex_nombrec(liste[alea1].qtt_surface[alea3])} m$^2$ <br\>`+
-	`En a-t-il suffisament pour la surface de ${tex_nombrec(surface_finale2)} m$^2$ qu'il lui reste à faire ? <br\>`;
-    texte_corr += `<br\> ${num_alpha(1)} ${tex_nombrec(quantite2)} ${liste[alea1].unite} c'est ${texte_en_couleur(tex_nombrec(rapport[alea5]))} fois ${qttaffichage} ${liste[alea1].unite}. <br\>` +
-		`avec ${tex_nombrec(quantite2)} ${liste[alea1].unite} on peut donc traiter une surface de ${texte_en_couleur(tex_nombrec(rapport[alea5]))}
-		fois ${texte_en_couleur(tex_nombrec(liste[alea1].qtt_surface[alea3]),"blue")} m$^2$ <br\>` +
-		`${texte_en_couleur(tex_nombrec(rapport[alea5]))} $\\times$ ${texte_en_couleur(tex_nombrec(liste[alea1].qtt_surface[alea3]),"blue")} m$^2$ = ${tex_nombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$. <br\>`;
+	`Combien doit-elle en acheter pour une surface de ${texNombrec(surface_finale)} m$^2$ ? <br\>`;
+    texteCorr = `${num_alpha(0)} ${texNombrec(surface_finale)} $m^2$ c'est ${texte_en_couleur(texNombrec(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]} $m^2$ <br\>` +
+		`Il va donc falloir ${texte_en_couleur(texNombrec(rapport[alea4]))} fois ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} pour ${texNombrec(surface_finale)} $m^2$ <br\>` +
+		`${texte_en_couleur(texNombrec(rapport[alea4]))} $\\times$ ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} = ${texNombrec(calcul(rapport[alea4]*quantite))} ${liste[alea1].unite}<br\>` +
+		texte_en_couleur_et_gras(`Conclusion : elle doit en acheter ${texte_en_couleur(texNombrec(rapport[alea4]))} $\\times$ ${texte_en_couleur(qttaffichage,"blue")} ${liste[alea1].unite} = ${texNombrec(calcul(rapport[alea4]*quantite))} ${liste[alea1].unite}.`,"black")+ `<br\>  `;	
+	texte += `<br\> ${num_alpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${texNombrec(quantite2)} ${liste[alea1].unite}. <br\> Sur la notice il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${texNombrec(liste[alea1].qtt_surface[alea3])} m$^2$ <br\>`+
+	`En a-t-il suffisament pour la surface de ${texNombrec(surface_finale2)} m$^2$ qu'il lui reste à faire ? <br\>`;
+    texteCorr += `<br\> ${num_alpha(1)} ${texNombrec(quantite2)} ${liste[alea1].unite} c'est ${texte_en_couleur(texNombrec(rapport[alea5]))} fois ${qttaffichage} ${liste[alea1].unite}. <br\>` +
+		`avec ${texNombrec(quantite2)} ${liste[alea1].unite} on peut donc traiter une surface de ${texte_en_couleur(texNombrec(rapport[alea5]))}
+		fois ${texte_en_couleur(texNombrec(liste[alea1].qtt_surface[alea3]),"blue")} m$^2$ <br\>` +
+		`${texte_en_couleur(texNombrec(rapport[alea5]))} $\\times$ ${texte_en_couleur(texNombrec(liste[alea1].qtt_surface[alea3]),"blue")} m$^2$ = ${texNombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$. <br\>`;
 	if (calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]) > surface_finale2) {
-		texte_corr += texte_en_couleur_et_gras(`Conclusion : ${tex_nombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$ > ${tex_nombrec(surface_finale2)} $m^2$ donc il a suffisament pour ${surface_finale2} m$^2$.`,"black") +` <br\>`;
+		texteCorr += texte_en_couleur_et_gras(`Conclusion : ${texNombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$ > ${texNombrec(surface_finale2)} $m^2$ donc il a suffisament pour ${surface_finale2} m$^2$.`,"black") +` <br\>`;
 	} else {
-		texte_corr += texte_en_couleur_et_gras(`Conclusion : ${tex_nombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$ < ${tex_nombrec(surface_finale2)} $m^2$ donc il n'a pas assez pour ${surface_finale2} m$^2$.`,"black") +` <br\>`;
+		texteCorr += texte_en_couleur_et_gras(`Conclusion : ${texNombrec(calcul(rapport[alea5]*liste[alea1].qtt_surface[alea3]))} m$^2$ < ${texNombrec(surface_finale2)} $m^2$ donc il n'a pas assez pour ${surface_finale2} m$^2$.`,"black") +` <br\>`;
 	}
 	return {
 		qtexte : texte,
-		qtexte_corr : texte_corr
+		qtexteCorr : texteCorr
 	};
 }
 
@@ -424,24 +424,24 @@ export default function Proportionnalite_par_linearite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortie_html ? (this.spacing = 2) : (this.spacing = 1);
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1);
-  this.nb_questions = 5;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  sortieHtml ? (this.spacing = 2) : (this.spacing = 1);
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  this.nbQuestions = 5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let situationtypes = [];
 	let liste_index_situations_disponible = [0, 1, 2, 3, 4, 5]; 
-	let liste_index_situations = combinaison_listes(
+	let liste_index_situations = combinaisonListes(
 		liste_index_situations_disponible,
-		this.nb_questions
+		this.nbQuestions
 	); //permet de ne pas avoir 2 fois la même situation si - de questions que de situations
 	//boucle pour le nombre de question. 
 	//A chaque question on vérifie qu'elle n'existe pas déjà pour en refaire une. Sécurité : on ajoute un compteur pour eviter trop d'essais...
 	let cpt = 0;
-	for (let i=0; i<this.nb_questions && cpt<50;) {
+	for (let i=0; i<this.nbQuestions && cpt<50;) {
 		switch(liste_index_situations[i]) {
 			case 0:
 				question = question_achat();
@@ -462,13 +462,13 @@ export default function Proportionnalite_par_linearite() {
 				question = question_recouvrir_surface();
 				break;
 		}
-		if (this.liste_questions.indexOf(question.qtexte) == -1) { // Si la question n'a jamais été posée, on la garde.
-			this.liste_questions.push(question.qtexte);
-			this.liste_corrections.push(question.qtexte_corr);
+		if (this.listeQuestions.indexOf(question.qtexte) == -1) { // Si la question n'a jamais été posée, on la garde.
+			this.listeQuestions.push(question.qtexte);
+			this.listeCorrections.push(question.qtexteCorr);
 			i++;
 		}
 		cpt++;
 	}
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
 }

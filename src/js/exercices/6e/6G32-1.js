@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,shuffle,combinaison_listes,lettre_depuis_chiffre,texcolors,texte_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,shuffle,combinaisonListes,lettreDepuisChiffre,texcolors,texte_gras} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,segment,demiDroite,polygone,codeAngle,texteParPosition,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'
 
@@ -12,22 +12,22 @@ export default function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 4;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 4;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     let type_de_questions_disponibles = ["Segment", "Droite", "1/2droite", "Triangle", "Angle"];
     let points = [], traces = [], nom = [], alternance
-    for (let i = 0; i < 25; i++) nom.push(lettre_depuis_chiffre(i + 1))
+    for (let i = 0; i < 25; i++) nom.push(lettreDepuisChiffre(i + 1))
     let noms = shuffle(nom)
 
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    this.liste_questions.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
-    this.liste_corrections.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
+    let liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    this.listeQuestions.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
+    this.listeCorrections.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
     // On prépare la figure...
     let axe = parseInt(this.sup)
     let d, nonchoisi, coords = [], x, y, objets_enonce = [], objets_correction = [], nomd, label_pos
@@ -115,13 +115,13 @@ export default function Symetrie_axiale_conservation1() {
     }
     objets_enonce.length = 0
     objets_correction.lenght = 0
-    for (let i = 0, texte, texte_corr,s1,s2,choix, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr,s1,s2,choix, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
       switch (liste_type_de_questions[i]) {
         case "Segment":
           choix = randint(0, 10) + randint(0, 1) * 12
           texte = `Quel est le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ ?`
-          texte_corr = `Le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ est le segment $[${noms[index(choix + 12)]}${noms[index(choix + 13)]}]$.`
+          texteCorr = `Le symétrique du segment $[${noms[index(choix)]}${noms[index(choix + 1)]}]$ est le segment $[${noms[index(choix + 12)]}${noms[index(choix + 13)]}]$.`
           s1 = segment(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2))
           s2 = segment(points[index(choix + 12)], points[index(choix + 13)], texcolors(i * 3 + 2))
           s1.epaisseur = 2
@@ -131,28 +131,28 @@ export default function Symetrie_axiale_conservation1() {
         case "Droite":
           choix = randint(0, 10) + randint(0, 1) * 12
           texte = `Quel est la symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
-          texte_corr = `La symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ est la droite $(${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
+          texteCorr = `La symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ est la droite $(${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.`
           objets_correction.push(droite(points[index(choix)], points[index(choix + 1)], "", texcolors(i * 3 + 2)))
           objets_correction.push(droite(points[index(choix + 12)], points[index(choix + 13)], "", texcolors(i * 3 + 2)))
           break;
         case "1/2droite":
           choix = randint(0, 10) + randint(0, 1) * 12
           texte = `Quel est la symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ ?`
-          texte_corr = `La symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$`
+          texteCorr = `La symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$`
           objets_correction.push(demiDroite(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2)))
           objets_correction.push(demiDroite(points[index(choix + 12)], points[index(choix + 13)], texcolors(i * 3 + 2)))
           break;
         case "Triangle":
           choix = randint(0, 9) + randint(0, 1) * 12
           texte = `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
-          texte_corr = `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
+          texteCorr = `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.`
           objets_correction.push(polygone([points[index(choix)], points[index(choix + 1)], points[index(choix + 2)]], texcolors(i * 3 + 2)))
           objets_correction.push(polygone([points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)]], texcolors(i * 3 + 2)))
           break;
         case "Angle":
           choix = randint(0, 9) + randint(0, 1) * 12
           texte = `Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ ?`
-          texte_corr = `Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ est l'angle $\\widehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}$.`
+          texteCorr = `Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ est l'angle $\\widehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}$.`
           objets_correction.push(codeAngle(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)], 2, '', texcolors(i * 3 + 2), 2, 0.5, texcolors(i * 3 + 2), 0.2))
           objets_correction.push(codeAngle(points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)], 2, '', texcolors(i * 3 + 2), 2, 0.5, texcolors(i * 3 + 2), 0.2))
           objets_correction.push(segment(points[index(choix)], points[index(choix + 1)], texcolors(i * 3 + 2)))
@@ -163,9 +163,9 @@ export default function Symetrie_axiale_conservation1() {
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
@@ -178,12 +178,12 @@ export default function Symetrie_axiale_conservation1() {
       objets_correction.push(labelPoint(points[i]), tracePoint(points[i], 'blue'))
 
     }
-    this.liste_questions.push(mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1 }, objets_enonce))
-    this.liste_corrections.push(mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1 }, objets_correction))
-    liste_de_question_to_contenu_sans_numero(this);
+    this.listeQuestions.push(mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1 }, objets_enonce))
+    this.listeCorrections.push(mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1 }, objets_correction))
+    listeQuestionsToContenuSansNumero(this);
 
   }
-  this.besoin_formulaire_numerique = ['Type d\'axe', 5, "1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
+  this.besoinFormulaireNumerique = ['Type d\'axe', 5, "1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
   this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
 }
 

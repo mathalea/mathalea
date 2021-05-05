@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence,modal_pdf,modal_video,liste_diviseurs,num_alpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modal_video,liste_diviseurs,num_alpha,crible_eratosthene_n,tab_C_L} from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
 
 /**
@@ -14,33 +14,33 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 2 : this.spacing = 1;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 2;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	sortieHtml ? this.spacing = 2 : this.spacing = 1;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	this.nbQuestions = 2;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
 
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.bouton_aide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
+			this.boutonAide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let liste_type_de_questions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = liste_type_de_questions[i];
 
 
@@ -84,7 +84,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 							nombre_a_decomposer_b = nombre_a_decomposer_b * tab_premiers_b[k];
 						};
 					};
-					texte += `La décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ est : $`;
+					texte += `La décomposition en facteurs premiers de $${texNombre(nombre_a_decomposer_b)}$ est : $`;
 					if (tab_multiplicites_b[0] == 1) {
 						texte += `${tab_premiers_b[0]}`;
 					} else {
@@ -99,7 +99,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `$, <br>`;
 					texte += num_alpha(0) + ` Compléter le tableau ci-dessous.`;
-					if (!sortie_html) {
+					if (!sortieHtml) {
 						texte += `$\\medskip$`;
 					};
 					// on crée le tableau des entetes de lignes et des colonnes
@@ -135,29 +135,29 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `<br>`;
 					texte += tab_C_L(ent_colonnes, ent_lignes, contenu_lignes);
-					if (!sortie_html) {
+					if (!sortieHtml) {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;
-					texte += num_alpha(1) + ` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
-					texte += num_alpha(2) + ` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
+					texte += num_alpha(1) + ` En déduire le nombre de diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
+					texte += num_alpha(2) + ` Enfin, dresser la liste des diviseurs de $${texNombre(nombre_a_decomposer_b)}$.<br>`;
 
 					// correction
-					texte_corr = `Avec la décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ qui est : $`;
+					texteCorr = `Avec la décomposition en facteurs premiers de $${texNombre(nombre_a_decomposer_b)}$ qui est : $`;
 					if (tab_multiplicites_b[0] == 1) {
-						texte_corr += `${tab_premiers_b[0]}`;
+						texteCorr += `${tab_premiers_b[0]}`;
 					} else {
-						texte_corr += `${tab_premiers_b[0]}^{${tab_multiplicites_b[0]}}`;
+						texteCorr += `${tab_premiers_b[0]}^{${tab_multiplicites_b[0]}}`;
 					};
 					for (let k = 1; k < tab_premiers_b.length; k++) {
 						if (tab_multiplicites_b[k] == 1) {
-							texte_corr += `\\times ${tab_premiers_b[k]}`;
+							texteCorr += `\\times ${tab_premiers_b[k]}`;
 						} else {
-							texte_corr += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`;
+							texteCorr += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`;
 						};
 					};
-					texte_corr += `$, <br>`;
-					texte_corr += num_alpha(0) + ` Le tableau donne :`;
+					texteCorr += `$, <br>`;
+					texteCorr += num_alpha(0) + ` Le tableau donne :`;
 					// on crée le tableau des entetes de lignes et des colonnes
 					let ent_lignes_corr = [];
 					let ent_lignes_corr_res = [];
@@ -196,56 +196,56 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					for (let l = 0; l < (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1) + 1; l++) {
 						for (let c = 1; c < (tab_multiplicites_b[0] + 2); c++) {
 							//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));								
-							contenu_lignes_corr.push(ent_lignes_corr[l] + `\\times` + ent_colonnes_corr[c] + `=` + mise_en_evidence(tex_nombre(ent_lignes_corr_res[l] * ent_colonnes_corr_res[c])));
+							contenu_lignes_corr.push(ent_lignes_corr[l] + `\\times` + ent_colonnes_corr[c] + `=` + miseEnEvidence(texNombre(ent_lignes_corr_res[l] * ent_colonnes_corr_res[c])));
 						};
 					};
-					texte_corr += `<br>`;
-					texte_corr += tab_C_L(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr);
-					texte_corr += `<br>`;
-					texte_corr += num_alpha(1) + ` $${tex_nombre(nombre_a_decomposer_b)}$ a donc `;
-					texte_corr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
-					texte_corr += `${tab_multiplicites_b[0] + 1}\\times${tab_multiplicites_b[1] + 1}\\times${tab_multiplicites_b[2] + 1} = `;
-					texte_corr += `${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs.<br>`;
-					texte_corr += `En effet, dans la décomposition apparait : `;
-					texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[0]}$ avec la multiplicité $${tab_multiplicites_b[0]}$`;
-					texte_corr += `, le facteur $${tab_premiers_b[0]}$ apparait donc sous les formes : `;
+					texteCorr += `<br>`;
+					texteCorr += tab_C_L(ent_colonnes_corr, ent_lignes_corr, contenu_lignes_corr);
+					texteCorr += `<br>`;
+					texteCorr += num_alpha(1) + ` $${texNombre(nombre_a_decomposer_b)}$ a donc `;
+					texteCorr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
+					texteCorr += `${tab_multiplicites_b[0] + 1}\\times${tab_multiplicites_b[1] + 1}\\times${tab_multiplicites_b[2] + 1} = `;
+					texteCorr += `${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs.<br>`;
+					texteCorr += `En effet, dans la décomposition apparait : `;
+					texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[0]}$ avec la multiplicité $${tab_multiplicites_b[0]}$`;
+					texteCorr += `, le facteur $${tab_premiers_b[0]}$ apparait donc sous les formes : `;
 					for (let k = 0; k < tab_multiplicites_b[0]; k++) {
-						texte_corr += `$${tab_premiers_b[0]}^{` + k + `}$ ou `;
+						texteCorr += `$${tab_premiers_b[0]}^{` + k + `}$ ou `;
 					};
-					texte_corr += `$${tab_premiers_b[0]}^{` + tab_multiplicites_b[0] + `}$ d'où le facteur $(${tab_multiplicites_b[0]}+1)$.`;
+					texteCorr += `$${tab_premiers_b[0]}^{` + tab_multiplicites_b[0] + `}$ d'où le facteur $(${tab_multiplicites_b[0]}+1)$.`;
 
-					texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[1]}$ avec la multiplicité $${tab_multiplicites_b[1]}$`;
-					texte_corr += `, le facteur $${tab_premiers_b[1]}$ apparait donc sous les formes : `;
+					texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[1]}$ avec la multiplicité $${tab_multiplicites_b[1]}$`;
+					texteCorr += `, le facteur $${tab_premiers_b[1]}$ apparait donc sous les formes : `;
 					for (let k = 0; k < tab_multiplicites_b[1]; k++) {
-						texte_corr += `$${tab_premiers_b[1]}^{` + k + `}$ ou `;
+						texteCorr += `$${tab_premiers_b[1]}^{` + k + `}$ ou `;
 					};
-					texte_corr += `$${tab_premiers_b[1]}^{` + tab_multiplicites_b[1] + `}$ d'où le facteur $(${tab_multiplicites_b[1]}+1)$.`;
+					texteCorr += `$${tab_premiers_b[1]}^{` + tab_multiplicites_b[1] + `}$ d'où le facteur $(${tab_multiplicites_b[1]}+1)$.`;
 
-					texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[2]}$ avec la multiplicité $${tab_multiplicites_b[2]}$`;
-					texte_corr += `, le facteur $${tab_premiers_b[2]}$ apparait donc sous les formes : `;
+					texteCorr += ` <br> - Le facteur premier $${tab_premiers_b[2]}$ avec la multiplicité $${tab_multiplicites_b[2]}$`;
+					texteCorr += `, le facteur $${tab_premiers_b[2]}$ apparait donc sous les formes : `;
 					for (let k = 0; k < tab_multiplicites_b[2]; k++) {
-						texte_corr += `$${tab_premiers_b[2]}^{` + k + `}$ ou `;
+						texteCorr += `$${tab_premiers_b[2]}^{` + k + `}$ ou `;
 					};
-					texte_corr += `$${tab_premiers_b[2]}^{` + tab_multiplicites_b[2] + `}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
-					texte_corr += `<br>`;
-					texte_corr += num_alpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
-					texte_corr += `$1`;
+					texteCorr += `$${tab_premiers_b[2]}^{` + tab_multiplicites_b[2] + `}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
+					texteCorr += `<br>`;
+					texteCorr += num_alpha(2) + ` Enfin, voici la liste des $${(tab_multiplicites_b[0] + 1) * (tab_multiplicites_b[1] + 1) * (tab_multiplicites_b[2] + 1)}$ diviseurs de $${texNombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
+					texteCorr += `$1`;
 					for (let w = 1; w < liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-						texte_corr += `\\text{ ; }` + tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
+						texteCorr += `\\text{ ; }` + texNombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
 					};
-					texte_corr += `.$`;
+					texteCorr += `.$`;
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

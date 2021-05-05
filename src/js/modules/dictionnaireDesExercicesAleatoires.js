@@ -1433,6 +1433,12 @@ export default {
     "amcReady": false,
     "name": "5S20"
   },
+  "5S21-1": {
+    "titre": "Probabilités simples",
+    "url": "/exercices/5e/5S21-1.js",
+    "amcReady": false,
+    "name": "5S21-1"
+  },
   "5S21": {
     "titre": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
     "url": "/exercices/5e/5S21.js",

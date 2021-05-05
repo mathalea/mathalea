@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, choice, combinaison_listes, calcul, tex_nombrec, tex_prix, modal_url } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, tex_prix, modal_url } from '../../modules/outils.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 
 /**
@@ -15,15 +15,15 @@ export default function Coefficient_evolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Compléter.'
-  this.nb_questions = 4
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbQuestions = 4
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
-    this.bouton_aide = modal_url(numero_de_l_exercice, 'https://coopmaths.fr/aide/3P10/')
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.boutonAide = modal_url(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
     this.sup = parseInt(this.sup)
 
     let type_de_questions_disponibles = []
@@ -36,39 +36,39 @@ export default function Coefficient_evolution () {
     if (this.sup === 3) {
       type_de_questions_disponibles = ['coef+', 'coef-', 'taux+', 'taux-']
     }
-    const liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texte_corr, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    const liste_type_de_questions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, texte, texteCorr, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       taux = choice([randint(1, 9) * 10, randint(1, 9)])
       switch (liste_type_de_questions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`
           coeff = tex_prix(calcul(1 + taux / 100))
-          texte_corr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
+          texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
           break
         case 'coef-':
           texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`
           coeff = tex_prix(calcul(1 - taux / 100))
-          texte_corr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
+          texteCorr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
           break
         case 'taux+':
-          coeff = tex_nombrec(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           texte = `Multiplier par ${coeff} revient à...`
-          texte_corr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
+          texteCorr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
           break
         case 'taux-':
-          coeff = tex_nombrec(1 - taux / 100)
+          coeff = texNombrec(1 - taux / 100)
           texte = `Multiplier par ${coeff} revient à...`
-          texte_corr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
+          texteCorr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
           break
       }
-      if (this.liste_questions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange des 2 types de questions']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange des 2 types de questions']
 }

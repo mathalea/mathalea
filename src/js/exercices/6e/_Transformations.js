@@ -1,6 +1,6 @@
 import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_listes,image_point_par_transformation,tex_fraction_reduite,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,imagePointParTransformation,texFractionReduite,num_alpha} from '../../modules/outils.js'
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
@@ -13,13 +13,13 @@ export default function Transformations() {
 
   // this.titre = "Trouver l'image d'un point par une transformation du plan";
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
-  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  this.nouvelleVersion = function (numeroExercice) {
       let M=[],N=[],pointM,pointN
       let O=point(0,0,'O','below')
     let d1=droiteParPointEtPente(O,1) 
@@ -52,8 +52,8 @@ export default function Transformations() {
           objets_correction.push(texteParPosition(j+10*i,j-4.2,i-4.2,'milieu','gray',0.8,"middle",false))
         }
       }
-    this.liste_questions = [];
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = [];
+    this.listeCorrections = []; // Liste de questions corrigées
     let antecedents = [0, 0, 0],
       images = [0, 0, 0],
       k = [1, 1, 1],
@@ -67,7 +67,7 @@ export default function Transformations() {
 
     let n = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
     let texte = ``,
-      texte_corr = ``;
+      texteCorr = ``;
     let punto = [[]];
     let transformation = parseInt(this.sup) - 1;
     let liste_type_de_questions = [
@@ -76,7 +76,7 @@ export default function Transformations() {
       [1, 2, 3, 4, 7, 8],
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     ];
-    let choix_transformation = combinaison_listes(
+    let choix_transformation = combinaisonListes(
       liste_type_de_questions[transformation],
       3
     );
@@ -96,7 +96,7 @@ export default function Transformations() {
         k1 = k[j];
       }
       antecedents[j] = randint(0, 99);
-      punto[j] = image_point_par_transformation(
+      punto[j] = imagePointParTransformation(
         choix_transformation[j],
         [antecedents[j] % 10, Math.floor(antecedents[j] / 10)],
         [xO, yO],
@@ -137,7 +137,7 @@ export default function Transformations() {
           k1 = k[j];
         }
         antecedents[j] = randint(0, 99);
-        punto[j] = image_point_par_transformation(
+        punto[j] = imagePointParTransformation(
           choix_transformation[j],
           [antecedents[j] % 10, Math.floor(antecedents[j] / 10)],
           [xO, yO],
@@ -180,7 +180,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_1)$.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_1)$ est le point ${images[i]}.<br>`;
             objets_enonce.push(d1,tracePoint(M[i]),latexParCoordonnees('(d_1)',4.5,4.2,'green',15,1,""))
@@ -192,7 +192,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_2)$.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_2)$ est le point ${images[i]}.<br>`;
             objets_enonce.push(d2,tracePoint(M[i]),latexParCoordonnees('(d_2)',4.3,-3.7,'green',15,1,""))
@@ -204,7 +204,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_3)$.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_3)$ est le point ${images[i]}.<br>`;
             objets_enonce.push(d3,tracePoint(M[i]),latexParCoordonnees('(d_3)',-4.2,0.5,'green',15,1,""))
@@ -216,7 +216,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro du symétrique du point ${antecedents[i]} par rapport à la droite $(d_4)$.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_4)$ est le point ${images[i]}.<br>`;
             objets_enonce.push(d4,tracePoint(M[i]),latexParCoordonnees('(d_4)',0.2,4.5,'green',15,1,""))
@@ -228,7 +228,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de  l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens anti-horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens anti-horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -239,7 +239,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de  l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -250,7 +250,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la symétrie de centre O.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la symétrie de centre O est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -261,7 +261,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens anti-horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens anti-horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -272,7 +272,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -283,7 +283,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens anti-horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens anti-horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -294,7 +294,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens horaire.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens horaire est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -307,7 +307,7 @@ export default function Transformations() {
            texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par la translation qui transforme M en N.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par la translation qui transforme M en N est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],pointM,pointN),labelPoint(pointM,pointN))
@@ -318,7 +318,7 @@ export default function Transformations() {
           texte +=
             num_alpha(i) +
             ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k1}.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k1} est le point ${images[i]}.<br>`;
             objets_enonce.push(tracePoint(M[i],O),labelPoint(O))
@@ -328,13 +328,13 @@ export default function Transformations() {
         case 10:
           texte +=
             num_alpha(i) +
-            ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction_reduite(
+            ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${texFractionReduite(
               1,
               k2
             )}$.<br>`;
-          texte_corr +=
+          texteCorr +=
             num_alpha(i) +
-            ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction_reduite(
+            ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${texFractionReduite(
               1,
               k2
             )}$ est le point ${images[i]}.<br>`;
@@ -344,11 +344,11 @@ export default function Transformations() {
       }
     }
     texte+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:0.8,optionsTikz:['every node/.style={scale=0.6}'],mainlevee:false},objets_enonce)
-    texte_corr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:0.8,optionsTikz:['every node/.style={scale=0.6}'],mainlevee:false},objets_correction)
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
-      liste_de_question_to_contenu_sans_numero(this);
+    texteCorr+='<br>'+mathalea2d({xmin:-4.5,ymin:-4.5,xmax:5.3,ymax:5.3,pixelsParCm:40,scale:0.8,optionsTikz:['every node/.style={scale=0.6}'],mainlevee:false},objets_correction)
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
+      listeQuestionsToContenuSansNumero(this);
    
   };
-  // this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
+  // this.besoinFormulaireNumerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
 }

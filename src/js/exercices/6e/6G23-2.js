@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, calcul, creerNomDePolygone, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, segment, segmentAvecExtremites, rotation, afficheLongueurSegment, afficheMesureAngle, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -14,26 +14,26 @@ export default function Tracer_triangle_2_angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = ''
-  this.nb_questions = 3
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
-  this.type_exercice = 'IEP'
+  this.nbQuestions = 3
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.typeExercice = 'IEP'
   this.sup = false
 
-  this.nouvelle_version = function () {
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       const c = calcul(randint(30, 70) / 10)
       const angle1 = randint(20, 70)
       const angle2 = randint(20, 70)
       const p = creerNomDePolygone(3)
-      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${tex_nombre(
+      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c
       )}$ cm, $\\widehat{${p[1] + p[0] + p[2]
         }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
@@ -70,7 +70,7 @@ export default function Tracer_triangle_2_angles () {
       const C = pointIntersectionDD(d1, d2, p[2])
       const l = labelPoint(A0, B0, A1, B1, A2, B2, C)
 
-      // if (sortie_html) {
+      // if (sortieHtml) {
       //   texteCorr = mathalea2d(
       //     { xmin: -1, xmax: 3 * c + 10, ymin: -1, ymax: 10 }, s0, s1, s2, s3, s4, s5, t1, t2, t3, l)
       //   texteCorr += '<br><br>'
@@ -80,21 +80,21 @@ export default function Tracer_triangle_2_angles () {
       if (this.sup) {
         texteCorr = ''
       } else {
-        texteCorr = `$${p[0] + p[2]}\\approx${tex_nombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${tex_nombre(longueur(B2, C, 1))}$ cm.`
+        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm.`
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
       texteCorr += anim.htmlBouton()
 
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texteCorr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
-  this.besoin_formulaire_case_a_cocher = ["Longueurs données qu'à la fin de l'animation"]
+  this.besoinFormulaireCaseACocher = ["Longueurs données qu'à la fin de l'animation"]
 }

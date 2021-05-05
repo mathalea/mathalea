@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, choice, combinaison_listes, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const titre = 'Opérations posées'
 
@@ -23,17 +23,17 @@ export default function Operations_posees() {
     this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
-    sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon opidiv n'est pas joli
-    this.nb_questions = 1;
-    this.nb_questions_modifiable = false
+    sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
+    this.nbQuestions = 1;
+    this.nbQuestionsModifiable = false
     this.sup = 1;
     this.sup2 = "1234.5-789.2"
     this.sup3 = 0;
-    this.liste_packages = "xlop";
+    this.listePackages = "xlop";
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let nombres=[1234.5,789.2]
         let operandes = String(this.sup2).split("-")
         nombres[0]=parseFloat(operandes[0]);
@@ -59,7 +59,7 @@ export default function Operations_posees() {
                 break;
         }
     };
-    this.besoin_formulaire_numerique = ["Opération", 5, "1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale"];
+    this.besoinFormulaireNumerique = ["Opération", 5, "1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale"];
     this.besoin_formulaire2_texte = ["Deux nombres séparés par un tiret(séparateur décimal = le point)"]
     this.besoin_formulaire3_numerique = ["Nombre de chiffres après la virgule pour le quotient"]
 }

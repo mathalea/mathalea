@@ -93,7 +93,7 @@
         fenetreMathalea2d: [-1, -10, 29, 10],
         objets2D: []
       }
-      window.sortie_html = false
+      window.sortieHtml = false
       window.est_diaporama = false
     </script>
 
@@ -169,7 +169,7 @@
           <button
             class="btn ui  labeled icon button"
             data-clipboard-action="copy"
-            data-clipboard-target="#div_code_LaTeX"
+            data-clipboard-target="#div_codeLatex"
           >
             <i class="copy icon"></i>Copier code LaTeX
           </button>
@@ -252,7 +252,7 @@
           >
             <i class="edit icon"></i>
             <!-- <span tooltip='Nombres séparés par des virgules'><input id='choix_des_exercices' type='text' size='50' ></span> -->
-            <input id="nb_questions_par_groupe" type="text" />
+            <input id="nbQuestions_par_groupe" type="text" />
           </div>
             <div class="ui hidden divider"></div>
             <div id="overleaf">
@@ -300,7 +300,7 @@
 
           <!-- Code LaTeX -->
         </div>
-        <div id="div_code_LaTeX"></div>
+        <div id="div_codeLatex"></div>
       </div>
     
     </div>
