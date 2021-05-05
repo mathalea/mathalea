@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiers_entre_bornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiersEntreBornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
 export const titre = 'Fractions irréductibles'
 
 /**
@@ -26,7 +26,7 @@ export default function Fractions_irreductibles() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A12.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			//this.boutonAide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -63,7 +63,7 @@ export default function Fractions_irreductibles() {
 
 
 			// on fixe le tableau de choix
-			candidats_premiers_communs = premiers_entre_bornes(2, 13);
+			candidats_premiers_communs = premiersEntreBornes(2, 13);
 			// on fixe le nombre de divisuers premiers communs
 			nb_div_prem_communs = 4;
 			// on initialise le tableau des diviseurs premiers communs
@@ -110,9 +110,9 @@ export default function Fractions_irreductibles() {
 				multiplicites_nb2[k] = multiplicites_premiers_communs[k];
 			};
 			// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
-			r_ex = randint(0, premiers_entre_bornes(2, 30).length - 1);
-			nb1_dist = premiers_entre_bornes(2, 30)[r_ex];
-			nb2_dist = premiers_entre_bornes(2, 30)[randint(0, premiers_entre_bornes(2, 30).length - 1, r_ex)];
+			r_ex = randint(0, premiersEntreBornes(2, 30).length - 1);
+			nb1_dist = premiersEntreBornes(2, 30)[r_ex];
+			nb2_dist = premiersEntreBornes(2, 30)[randint(0, premiersEntreBornes(2, 30).length - 1, r_ex)];
 			// on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre 
 			// nb1
 			let bool = false;

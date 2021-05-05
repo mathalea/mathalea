@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplification_de_fraction_avec_etapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,texFraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,texFraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -132,7 +132,7 @@ export default function Exercice_additionner_fraction_produit() {
           e = a * k1 + c * k2;
           f = p;
 
-          texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+          texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`;
   /*
           p = pgcd(e, f);
           // faut-il simplifier e/f
@@ -202,7 +202,7 @@ export default function Exercice_additionner_fraction_produit() {
         e = a * k1 + c * k2;
         f = p;
 
-        texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+        texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`;
    /*     p = pgcd(e, f);
         // faut-il simplifier e/f
         if (p != 1) {
@@ -270,7 +270,7 @@ export default function Exercice_additionner_fraction_produit() {
           }
           e = a * k1 + c * k2;
           f = p;
-            texteCorr += `$=${texFraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+            texteCorr += `$=${texFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`;
    /*      p = pgcd(e, f);
           // faut-il simplifier e/f
           if (p != 1) {
@@ -444,7 +444,7 @@ export default function Exercice_additionner_fraction_produit() {
             }
           }
 
-          texteCorr += `$=${texFractionSigne(e, d)}${simplification_de_fraction_avec_etapes(e, d)}$`;
+          texteCorr += `$=${texFractionSigne(e, d)}${simplificationDeFractionAvecEtapes(e, d)}$`;
 /*          p = pgcd(abs(e), d);
           if (p != 1) {
             f = d / p;
@@ -455,14 +455,14 @@ export default function Exercice_additionner_fraction_produit() {
                 e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;
-              texteCorr += `$=${simplification_de_fraction_avec_etapes(e, f)}$`;
+              texteCorr += `$=${simplificationDeFractionAvecEtapes(e, f)}$`;
             } else {
               // numérateur négatif => signe - devant les fractions suivantes.
               texteCorr += `$=-${texFraction(
                 -e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;
-              texteCorr += `$=${simplification_de_fraction_avec_etapes(e, f)}$`;
+              texteCorr += `$=${simplificationDeFractionAvecEtapes(e, f)}$`;
             }
           }
 */

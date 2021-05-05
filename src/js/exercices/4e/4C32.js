@@ -1,4 +1,4 @@
-import { machine_maths_video } from '../../modules/outils.js';
+import { machineMathsVideo } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tab_C_L,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne,warn_message} from '../../modules/outils.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
@@ -127,7 +127,7 @@ export default function Eq_resolvantes_Thales() {
 			let situations = [
 				{
 					eq: `\\dfrac{${params.inc}}{${texNombre(params.b)}}=\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}`,
-					tab: tab_C_L([params.inc, params.a], [params.b], [params.c]),
+					tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -136,7 +136,7 @@ export default function Eq_resolvantes_Thales() {
 				},
 				{
 					eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
-					tab: tab_C_L([params.a, params.inc], [params.c], [params.b]),
+					tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -145,7 +145,7 @@ export default function Eq_resolvantes_Thales() {
 				},
 				{
 					eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
-					tab: tab_C_L([params.b, params.c], [params.inc], [params.a]),
+					tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -154,7 +154,7 @@ export default function Eq_resolvantes_Thales() {
 				},
 				{
 					eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
-					tab: tab_C_L([params.c, params.b], [params.a], [params.inc]),
+					tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
 					a: params.a,
 					b: params.b,
 					c: params.c,

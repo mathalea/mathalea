@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,tab_C_L} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Ordre de grandeur et opérations sur les décimaux'
 
 /** 
@@ -184,7 +184,7 @@ export default function Ordre_de_grandeur_operations_decimaux() {
       for (let k = 0; k < 1; k++) {
         enonces.push({
           enonce: `
-          ${tab_C_L(ligne_entete, [situations[0].operation, situations[1].operation, situations[2].operation, situations[3].operation, situations[4].operation],
+          ${tableauColonneLigne(ligne_entete, [situations[0].operation, situations[1].operation, situations[2].operation, situations[3].operation, situations[4].operation],
             [
               '', '', '', '', '', '',
               '', '', '', '', '', '',
@@ -198,7 +198,7 @@ export default function Ordre_de_grandeur_operations_decimaux() {
           correction: `
           Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
           <br>
-          ${tab_C_L(ligne_entete_corr, [situations[0].operation_corr, situations[1].operation_corr, situations[2].operation_corr, situations[3].operation_corr, situations[4].operation_corr,],
+          ${tableauColonneLigne(ligne_entete_corr, [situations[0].operation_corr, situations[1].operation_corr, situations[2].operation_corr, situations[3].operation_corr, situations[4].operation_corr,],
             [
               situations[0].operation_coche[0], situations[0].operation_coche[1], situations[0].operation_coche[2], situations[0].operation_coche[3], situations[0].operation_coche[4], situations[0].operation_coche[5],
               situations[1].operation_coche[0], situations[1].operation_coche[1], situations[1].operation_coche[2], situations[1].operation_coche[3], situations[1].operation_coche[4], situations[1].operation_coche[5],

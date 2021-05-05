@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,abs,calcul,tex_graphique,resol_sys_lineaire_2x2,resol_sys_lineaire_3x3,cherche_min_max_f} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,abs,calcul,tex_graphique,resolutionSystemeLineaire2x2,resolutionSystemeLineaire3x3,chercheMinMaxFonction} from '../../modules/outils.js'
 export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
 
 /**
@@ -76,7 +76,7 @@ export default function Image_graphique() {
 		}
 
 		if (this.sup == 2) {
-			[[numa, dena], [numb, denb]] = resol_sys_lineaire_2x2(x1, x3, fx1, fx3, c);
+			[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c);
 			while (dena == 0 || denb == 0 || numa == 0) {
 				x1 = randint(-6, -3);
 				x3 = randint(1, 6);
@@ -84,7 +84,7 @@ export default function Image_graphique() {
 				fx3 = randint(-6, 6);
 				d = randint(-10, 10);
 
-				[[numa, dena], [numb, denb]] = resol_sys_lineaire_2x2(x1, x3, fx1, fx3, c);
+				[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c);
 			}
 			a = numa / dena;
 			b = numb / denb;
@@ -95,15 +95,15 @@ export default function Image_graphique() {
 		}
 
 		if (this.sup == 3) {
-			[[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d);
-			let [extremum1, extremum2] = cherche_min_max_f([numa / dena, numb / denb, numc / denc, d]);
+			[[numa, dena], [numb, denb], [numc, denc]] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d);
+			let [extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d]);
 			while (dena == 0 || denb == 0 || denc == 0 || abs(extremum1[1]) > ymax || abs(extremum2[1]) > ymax) {
 				initialise_variables();
-				[[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d);
-				if (cherche_min_max_f([numa / dena, numb / denb, numc / denc, d]) == []) {
+				[[numa, dena], [numb, denb], [numc, denc]] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d);
+				if (chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d]) == []) {
 					[extremum1, extremum2] = [[0, 999], [0, 999]];
 				} else {
-					[extremum1, extremum2] = cherche_min_max_f([numa / dena, numb / denb, numc / denc, d]);
+					[extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d]);
 				}
 			}
 			a = numa / dena;

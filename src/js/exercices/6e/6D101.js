@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,katex_Popup2,fractionSimplifiee} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,katexPopup2,fractionSimplifiee} from '../../modules/outils.js'
 
 
 export const titre = 'Utiliser les heures décimales'

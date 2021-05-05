@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,calcul,tex_graphique,resol_sys_lineaire_2x2} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,calcul,tex_graphique,resolutionSystemeLineaire2x2} from '../../modules/outils.js'
 export const titre = 'Lire les antécédents d’un nombre à partir d’un graphique'
 
 /**
@@ -95,7 +95,7 @@ export default function Antecedent_graphique() {
 				expression_f = `${a}*(x-(${x0}))^2+(${fx0})`;
 			} else {
 				fx3 = fx1;
-				[[numa, dena], [numb, denb]] = resol_sys_lineaire_2x2(x1, x3, fx1, fx3, c);
+				[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c);
 				while (dena == 0 || denb == 0 || numa == 0) {
 					x1 = randint(-4, -1);
 					x3 = randint(1, 4);
@@ -103,7 +103,7 @@ export default function Antecedent_graphique() {
 					fx3 = fx1;
 					sortieHtml ? c = randint(-6, 6) : c = randint(-4, 4);
 
-					[[numa, dena], [numb, denb]] = resol_sys_lineaire_2x2(x1, x3, fx1, fx3, c);
+					[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c);
 				}
 				a = numa / dena;
 				b = numb / denb;

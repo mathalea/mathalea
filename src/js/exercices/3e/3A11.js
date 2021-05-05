@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modal_video,crible_eratosthene_n,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modalVideo,cribleEratostheneN,warn_message} from '../../modules/outils.js'
 export const titre = 'Primalité ou pas'
 
 /**
@@ -38,7 +38,7 @@ export default function Premier_ou_pas() {
 		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.boutonAide += modal_video('conteMathsNombresPremiers', 'assets/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+			this.boutonAide += modalVideo('conteMathsNombresPremiers', 'assets/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
@@ -60,9 +60,9 @@ export default function Premier_ou_pas() {
 		//let type_de_questions_disponibles = [1];
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + crible_eratosthene_n(100)[0];
-		for (let k = 1; k < crible_eratosthene_n(100).length; k++) {
-			string_rappel += `, ` + crible_eratosthene_n(100)[k];
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + cribleEratostheneN(100)[0];
+		for (let k = 1; k < cribleEratostheneN(100).length; k++) {
+			string_rappel += `, ` + cribleEratostheneN(100)[k];
 		};
 		string_rappel += `.`;
 
@@ -195,11 +195,11 @@ export default function Premier_ou_pas() {
 					break;
 				case 6: // produit de deux nombres premiers inférieurs à 100
 					// rang du premier facteur premier
-					let r1 = randint(0, crible_eratosthene_n(100).length - 1);
+					let r1 = randint(0, cribleEratostheneN(100).length - 1);
 					// rang du second facteur premier
-					let r2 = randint(0, crible_eratosthene_n(100).length - 1);
-					let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-					let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+					let r2 = randint(0, cribleEratostheneN(100).length - 1);
+					let prime1 = cribleEratostheneN(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+					let prime2 = cribleEratostheneN(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
 					N = prime1 + `$\\times$` + prime2;
 					texte = N;
 					texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
@@ -212,10 +212,10 @@ export default function Premier_ou_pas() {
 					break;
 				case 7: // nombre premier inférieur à 529
 					// rang du nombre premier choisi
-					r = randint(0, crible_eratosthene_n(529).length - 1);
-					N = crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
+					r = randint(0, cribleEratostheneN(529).length - 1);
+					N = cribleEratostheneN(529)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
-					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					tab_premiers_a_tester = cribleEratostheneN(Math.trunc(Math.sqrt(N)));
 					//texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr += tab_premiers_a_tester[0];
@@ -230,10 +230,10 @@ export default function Premier_ou_pas() {
 					break;
 				case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
 					// rang du nombre premier choisi
-					r = randint(0, crible_eratosthene_n(100).length - 1);
-					N = crible_eratosthene_n(100)[r]; //on choisit un nombre premier inférieur à 529
+					r = randint(0, cribleEratostheneN(100).length - 1);
+					N = cribleEratostheneN(100)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
-					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					tab_premiers_a_tester = cribleEratostheneN(Math.trunc(Math.sqrt(N)));
 					//texteCorr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texteCorr += tab_premiers_a_tester[0];

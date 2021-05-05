@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import Choisir_expression_numerique from './_Choisir_expression_numerique.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,katexPopup2} from '../../modules/outils.js'
 /**
 * Fonction noyau pour 7 fonctions qui utilisent les mêmes variables et la fonction Choisir_expression_numerique
 * @Auteur Jean-Claude Lhote

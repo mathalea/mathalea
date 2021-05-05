@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenir_liste_facteurs_premiers,obtenir_liste_fractions_irreductibles,obtenir_liste_nombres_premiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenir_liste_fractions_irreductibles,obtenirListeNombresPremiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
 export const titre = 'Mutliplier des fractions'
 
 /**
@@ -166,17 +166,17 @@ export default function Exercice_multiplier_fractions() {
         if (a == c) {
           a++;
         }
-        aa = obtenir_liste_nombres_premiers()[randint(1, 5)];
-        bb = obtenir_liste_nombres_premiers()[randint(1, 5, [aa])];
+        aa = obtenirListeNombresPremiers()[randint(1, 5)];
+        bb = obtenirListeNombresPremiers()[randint(1, 5, [aa])];
         a = a * aa;
         d = d * aa;
         b = b * bb;
         c = c * bb;
 
-        var listea = obtenir_liste_facteurs_premiers(a);
-        var listeb = obtenir_liste_facteurs_premiers(b);
-        var listec = obtenir_liste_facteurs_premiers(c);
-        var listed = obtenir_liste_facteurs_premiers(d);
+        var listea = obtenirListeFacteursPremiers(a);
+        var listeb = obtenirListeFacteursPremiers(b);
+        var listec = obtenirListeFacteursPremiers(c);
+        var listed = obtenirListeFacteursPremiers(d);
         var listeavf, listebvf;
 
         switch (type_de_questions) {

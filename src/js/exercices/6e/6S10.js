@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,premiere_lettre_en_majuscule,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire un diagramme en barre'
 
@@ -107,7 +107,7 @@ export default function Lecture_diagramme_barre() {
 
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef }))
+      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef }))
     }
 
     texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: .5 }, r, lstElementGraph)
