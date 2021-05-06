@@ -883,42 +883,42 @@ Math.radians = function (degres) {
  * @returns flottant : le cosinus de l'angle
  */
 export function cos (a) {
-  return Math.cos(Math.radians(a))
+  return calcul(Math.cos(Math.radians(a)))
 }
 /**
  * @param {number} a angle en degrés
  * @returns flottant : le sinus de l'angle
  */
 export function sin (a) {
-  return Math.sin(Math.radians(a))
+  return calcul(Math.sin(Math.radians(a)))
 }
 /**
  * @param {number} a angle en degrés
  * @returns flottant : la tangente de l'angle
  */
 export function tan (a) {
-  return Math.tan(Math.radians(a))
+  return calcul(Math.tan(Math.radians(a)))
 }
 /**
  * @param {number} un nombre qui correspond au cosinus de l'angle
  * @returns flottant : la mesure de l'angle en degrés
  */
 export function ArcCos (x) {
-  return Math.degres(Math.ArcCos(x))
+  return arrondi(Math.degres(Math.acos(x)), 1)
 }
 /**
  * @param {number} un nombre qui correspond au sinus de l'angle
  * @returns flottant : la mesure de l'angle en degrés
  */
 export function ArcSin (x) {
-  return Math.degres(Math.ArcSin(x))
+  return arrondi(Math.degres(Math.asin(x)), 1)
 }
 /**
  * @param {number} un nombre qui correspond à la tangente de l'angle
  * @returns flottant : la mesure de l'angle en degrés
  */
 export function ArcTan (x) {
-  return Math.degres(Math.ArcTan(x))
+  return arrondi(Math.degres(Math.atan(x)), 1)
 }
 
 /**
