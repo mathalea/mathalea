@@ -155,11 +155,11 @@ const config = {
         loader: 'json-loader'
       },
       {
-        test: /\\.(js|jsx)$/,
+        test: /\\.js$/,
         // mais pas le js venant des node_modules
         exclude: /node_modules\//,
-        // sauf pour des dossiers sources (instrumentpoche/src par ex)
-        include: /node_modules\/[^/]+\/(src|sources?)/,
+        // sauf pour certains
+        include: /node_modules\/(instrumentpoche\/src)/,
         loader: 'babel-loader'
       },
       // le css par css loader
