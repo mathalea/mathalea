@@ -24,6 +24,62 @@ const argv = process.argv || []
 const isServeMode = argv.some(arg => /serve/.test(arg))
 const mode = (isServeMode || env.NODE_ENV === 'development' || /--mode=development/.test(argv)) ? 'development' : 'production'
 
+/* on ajoute ça pour filtrer / logguer ce qui passe par babel
+const babelOptions = require('./package').babel
+const jsDir = path.resolve(__dirname, 'src', 'js')
+const reJsDir = new RegExp(`^${jsDir}`)
+function toBabelize (file) {
+  // return false // on peut décommenter cette ligne pour désactiver babel, mais ça change rien au pb de ERR_WORKER_OUT_OF_MEMORY
+  // on élimine déjà ce qui est clairement pas pour babel
+  if (!/\.js$/.test(file)) return false
+  let needBabel = false
+  if (reJsDir.test(file)) needBabel = true
+  if (/instrumenpoche\/src\//.test(file)) needBabel = true
+  // console.log(`${file} to babel : ${needBabel}`)
+  return needBabel
+} /* */
+
+/*
+Pb ERR_WORKER_OUT_OF_MEMORY au build:prod
+Dans ce cas, il faut relancer le build en augmentant la ram filée à node avec par ex
+  node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js
+ */
+
+/*
+À propos de la conf babel dans package.json
+On ne vise que les navigateurs pas trop vieux qui comprennent les modules es6, ça permet d'avoir de meilleures perfs
+(les navigateurs récupèrent directement du code es6|7|8 qu'ils savent interprêter nativement plutôt que du code transpilé en es5)
+
+cf https://philipwalton.com/articles/deploying-es2015-code-in-production-today/ pour faire 2 compilations
+(dont une pour les vieux navigateurs)
+
+On utilise traditionnellement le preset @babel/preset-env avec
+  "babel": {
+    "plugins": [
+      "@babel/syntax-dynamic-import"
+    ],
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": {
+            "version": "3.8",
+            "proposals": false
+          },
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ]
+    ],
+    "sourceType": "unambiguous"
+  },
+
+Mais il y a maintenant un preset @babel/preset-modules
+Attention, avec lui il faut donner qq précisions à Terser (qui minifie) pour qu'il ne casse pas les optimisations liées à cet usage "module only"
+Cf https://github.com/babel/preset-modules
+*/
 const config = {
   mode,
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
@@ -69,7 +125,8 @@ const config = {
     hot: true
   },
   // cf https://webpack.js.org/configuration/devtool/
-  devtool: (mode === 'production') ? 'source-map' : 'eval',
+  // eval-cheap-module-source-map est le truc recommandé dans la doc…
+  devtool: (mode === 'production') ? 'source-map' : 'eval-cheap-module-source-map',
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
     new CopyPlugin({
@@ -158,11 +215,21 @@ const config = {
         loader: 'json-loader'
       },
       {
-        test: /\\.js$/,
-        // mais pas le js venant des node_modules
-        exclude: /node_modules\//,
-        // sauf pour certains
-        include: /node_modules\/(instrumentpoche\/src)/,
+        // on ne veut passer par babel que notre code (et pas tout le code qu'on importe de node_modules)
+        // la règle exclude: /node_modules\// marche pas forcément, à cause des symlinks (et pnpm en met partout, c'est aussi ça qui le rend efficace)
+        // on procède plutôt en incluant que ce qui est chez nous
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src', 'js'),
+        // pas la peine d'exclure assets/externalJs car il est pas dans l'include
+        /* test: toBabelize,
+        options: babelOptions, */
+        loader: 'babel-loader'
+      },
+      {
+        // la règle précédente étant restrictive (pour limiter le nb de js qui passent par babel), faut ajouter les qq modules dont on importe des sources
+        // vu que l'on ne cible que des navigateurs récents c'est probablement inutile, mais on sait pas trop…
+        test: /instrumenpoche\/src\/.+\.js$/,
+        // pas la peine d'exclure assets/externalJs car il est pas dans l'include
         loader: 'babel-loader'
       },
       // le css par css loader
