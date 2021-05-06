@@ -1,6 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 
+const isVerbose = /-(-verbode|v)/.test(process.argv)
+const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
+
 function getAllFiles (dir) {
   const files = []
   fs.readdirSync(dir).forEach(entry => {
@@ -48,7 +51,7 @@ for (const file of exercicesList) {
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code source
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
-    const chunks = /export const titre *= *(['"])([^'"]+)\1/.test(srcContent)
+    const chunks = /export const titre *= *(['"])([^'"]+)\1/.exec(srcContent)
     if (chunks) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
@@ -65,6 +68,9 @@ for (const file of exercicesList) {
     if (amcReady) {
       dicoAMC[name] = { titre, url }
     }
+    logIfVerbose(`${name} traité (${titre})`)
+  } else {
+    console.error(`${name} ignoré (pas de titre)`)
   }
 }
 

@@ -287,6 +287,12 @@ export default {
     "amcReady": false,
     "name": "3G10-3"
   },
+  "3G11": {
+    "titre": "Construire l’image d’un point par une homothetie avec cible auto-corrective",
+    "url": "/exercices/3e/3G11.js",
+    "amcReady": false,
+    "name": "3G11"
+  },
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
