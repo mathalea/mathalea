@@ -99,22 +99,13 @@
       "@babel/syntax-dynamic-import"
     ],
     "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "useBuiltIns": "usage",
-          "corejs": {
-            "version": "3.8",
-            "proposals": false
-          },
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
+      ["@babel/preset-modules"]
     ],
     "sourceType": "unambiguous"
   },
+  "browserslist": [
+    "supports es6-module-dynamic-import"
+  ],
   "eslintConfig": {
     "env": {
       "browser": true

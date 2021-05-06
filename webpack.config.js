@@ -10,6 +10,10 @@ const path = require('path')
 // - avoir un html qui dépend du contexte de compilation (dev ou prod par ex)
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+// lui n'est à priori plus nécessaire avec webpack5 (il est là d'office),
+// sauf si on veut lui préciser des options particulières, ce qui est notre cas.
+const TerserPlugin = require('terser-webpack-plugin')
+
 // ce module sert à extraire les css (rencontré dans du js avec du `import 'path/to/file.css'`) dans des fichiers
 // séparés créé à cette occasion (sinon ce serait dans le code js)
 // cf https://webpack.js.org/plugins/mini-css-extract-plugin/
@@ -23,8 +27,10 @@ const env = process.env || {}
 const argv = process.argv || []
 const isServeMode = argv.some(arg => /serve/.test(arg))
 const mode = (isServeMode || env.NODE_ENV === 'development' || /--mode=development/.test(argv)) ? 'development' : 'production'
+const isProdMode = mode === 'production'
 
-/* on ajoute ça pour filtrer / logguer ce qui passe par babel
+/*
+// On ajoute ça pour filtrer / logguer ce qui passe par babel
 const babelOptions = require('./package').babel
 const jsDir = path.resolve(__dirname, 'src', 'js')
 const reJsDir = new RegExp(`^${jsDir}`)
@@ -37,7 +43,20 @@ function toBabelize (file) {
   if (/instrumenpoche\/src\//.test(file)) needBabel = true
   // console.log(`${file} to babel : ${needBabel}`)
   return needBabel
-} /* */
+}
+// il faut dans ce cas indiquer plus bas la règle bour babel :
+      {
+        test: toBabelize,
+        loader: 'babel-loader'
+        options: babelOptions,
+      },
+// mais on peut aussi voir la liste des fichiers traités par babel en mettant dans sa conf, dans package.json
+      [
+        "@babel/preset-env",
+        {
+          "debug": true,
+          …
+*/
 
 /*
 Pb ERR_WORKER_OUT_OF_MEMORY au build:prod
@@ -261,10 +280,10 @@ if (!isServeMode) {
     if (privateConfig && typeof privateConfig.bugsnagApiKey === 'string' && privateConfig.bugsnagApiKey) {
       console.log(`${privateConfigFile} existe et exporte bugsnagApiKey, on ajoute bugsnag à chaque entry`)
       // on génère un _private/bugsnag.js avec les constantes dont il a besoin
-      const { version } = require('./package.json')
+      const {version} = require('./package.json')
       const busgnagSrcFile = path.resolve(__dirname, 'src', 'js', 'bugsnag.js')
       const busgnagDstFile = path.resolve(privateDir, 'bugsnag.js')
-      const bugsnagContent = fs.readFileSync(busgnagSrcFile, { encoding: 'utf8' })
+      const bugsnagContent = fs.readFileSync(busgnagSrcFile, {encoding: 'utf8'})
         .replace(/^const apiKey *= ''/m, `const apiKey = '${privateConfig.bugsnagApiKey}'`)
         .replace(/^const appVersion *= ''/m, `const appVersion = '${version}'`)
         .replace(/^const releaseStage *= ''/m, `const releaseStage = '${config.mode}'`)
@@ -277,6 +296,21 @@ if (!isServeMode) {
         config.entry[entryName].unshift('./_private/bugsnag.js')
       })
     }
+  }
+}
+
+// options pour Terser
+if (isProdMode) {
+  config.optimization = {
+    minimizer: [
+      // cf https://github.com/babel/preset-modules
+      new TerserPlugin({
+        terserOptions: {
+          ecma: 2017,
+          safari10: true
+        }
+      })
+    ]
   }
 }
 
