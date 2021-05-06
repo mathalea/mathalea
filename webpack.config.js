@@ -18,8 +18,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // cf https://webpack.js.org/plugins/copy-webpack-plugin/#root
 const CopyPlugin = require('copy-webpack-plugin')
 
-const isServeMode = /serve/.test(process.argv)
-const mode = (isServeMode || process.env.NODE_ENV === 'development' || /--mode=development/.test(process.argv)) ? 'development' : 'production'
+// webstorm (ou tout autre IDE Jetbrains) exécute ce fichier mais n'a pas de process.argv, on veut pas qu'il plante pour autant
+const env = process.env || {}
+const argv = process.argv || []
+const isServeMode = /serve/.test(argv)
+const mode = (isServeMode || env.NODE_ENV === 'development' || /--mode=development/.test(argv)) ? 'development' : 'production'
 
 const config = {
   mode,
