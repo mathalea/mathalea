@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modalVideo,cribleEratostheneN,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 export const titre = 'Primalité ou pas'
 
 /**
