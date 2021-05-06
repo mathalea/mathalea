@@ -61,7 +61,7 @@ export function listeQuestionsToContenuSansNumero (argument) {
     } else {
       argument.contenu = texConsigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + texIntroduction(argument.introduction) + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
     }
-    // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerate_sans_numero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
+    // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
     argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
   }
 }
@@ -80,7 +80,7 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (argument) {
   } else {
     argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
   }
-  // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerate_sans_numero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
+  // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
   argument.contenuCorrection = texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
 }
 
@@ -1578,7 +1578,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
  * @Auteur Jean-Claude Lhote
  *
  */
-export function choisit_nombres_entre_m_et_n (m, n, combien, listeAEviter = []) {
+export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
   let t
   if (m > n) {
     t = m
@@ -1602,7 +1602,7 @@ export function choisitLettresDifferentes (nombre, lettres_a_eviter = '', majusc
   for (const l of lettres_a_eviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
   }
-  const index = choisit_nombres_entre_m_et_n(1, 26, nombre, listeAEviter)
+  const index = choisitNombresEntreMetN(1, 26, nombre, listeAEviter)
   for (const n of index) {
     if (majuscule) lettres.push(lettreDepuisChiffre(n))
     else lettres.push(lettre_minuscule_depuis_chiffre(n))
@@ -1880,7 +1880,7 @@ export function jours_par_mois (n) {
 * @annee pour déterminer si elle est bissextile ou non
 * @auteur Jean-Claude Lhote
 */
-export function un_mois_de_temperature (base, mois, annee) {
+export function unMoisDeTemperature (base, mois, annee) {
   const temperatures = []
   let nombre_jours = jours_par_mois(mois)
   if (mois === 2) {
@@ -1963,7 +1963,7 @@ export function texEnumerate (liste, spacing) {
 * * L'espacement est généré avec spacing
 * @Auteur Rémi Angot
 */
-export function texEnumerate_sans_numero (liste, spacing) {
+export function texEnumerateSansNumero (liste, spacing) {
   // return texEnumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
   return texEnumerate(liste, spacing).replace('\\begin{enumerate}', '\\begin{enumerate}[label={}]')
 }
@@ -2045,7 +2045,7 @@ export function enumerate (liste, spacing) {
 * @param spacing interligne (line-height en css)
 * @Auteur Sébastien Lozano
 */
-export function enumerate_sans_puce_sans_numero (liste, spacing) {
+export function enumerateSansPuceSansNumero (liste, spacing) {
   if (sortieHtml) {
     // return htmlEnumerate(liste,spacing)
     // for (let i=0; i<liste.length;i++) {
@@ -2453,7 +2453,7 @@ export function obtenir_liste_fractions_irreductibles () { // sous forme de tabl
 * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
 * @Auteur Mireille Gain
 */
-export function obtenir_liste_fractions_irreductibles_faciles () { // sous forme de tableaux [numérateur,dénominateur]
+export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 5], [2, 5], [3, 5], [4, 5],
     [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7]]
 }
@@ -3835,7 +3835,7 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
  * @param {string} titre
  * @author Sébastien Lozano
  */
-export function warn_message (texte, couleur, titre) {
+export function warnMessage (texte, couleur, titre) {
   'use strict'
   if (typeof (titre) === 'undefined') {
     titre = ''
@@ -3865,7 +3865,7 @@ export function warn_message (texte, couleur, titre) {
  * @author Sébastien Lozano
  */
 
-export function info_message ({ titre, texte, couleur }) {
+export function infoMessage ({ titre, texte, couleur }) {
   // 'use strict';
   if (sortieHtml) {
     return `
@@ -3894,7 +3894,7 @@ export function info_message ({ titre, texte, couleur }) {
  * @author Sébastien Lozano
  */
 
-export function lampe_message ({ titre, texte, couleur }) {
+export function lampeMessage ({ titre, texte, couleur }) {
   // 'use strict';
   if (sortieHtml) {
     return `
@@ -3915,7 +3915,7 @@ export function lampe_message ({ titre, texte, couleur }) {
     \\end{bclogo}
     `
   }
-  // return info_message({
+  // return infoMessage({
   // titre:titre,
   // texte:texte,
   // couleur:couleur
@@ -3927,7 +3927,7 @@ export function lampe_message ({ titre, texte, couleur }) {
  * @param {number} n
  * @author Sébastien Lozano
  */
-export function decomp_fact_prem_array (n) {
+export function decompositionFacteursPremiersArray (n) {
   const decomposition = []
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -4391,7 +4391,7 @@ export function Relatif (...relatifs) {
    * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
    * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
    */
-  function orth_facteurs_négatifs (n) {
+  function orthographeFacteursNegatifs (n) {
     if (n >= 2) {
       return 'facteurs négatifs'
     } else {
@@ -4428,10 +4428,10 @@ export function Relatif (...relatifs) {
           if (getCardNegatifs(n) === 0) {
             return 'Tous les facteurs sont positifs donc le produit est positif.'
           } else {
-            return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
+            return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`
           }
         } else {
-          return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
+          return `Il y a ${getCardNegatifs(n)} ${orthographeFacteursNegatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`
         }
       }
     } catch (err) {
@@ -5588,7 +5588,7 @@ export function partieEntiereEnLettres (nb) {
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
  * sert dans les exercices CM019,
  */
-export function Trouver_solution_mathador (
+export function TrouverSolutionMathador (
   min,
   max,
   A = 1,
@@ -5809,7 +5809,7 @@ export function telechargeFichier (text, filename) {
 * @param {string} Le titre de l'entête
 * @author Rémi Angot
 */
-export function intro_LaTeX (entete = 'Exercices', listePackages = '') {
+export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
@@ -5867,7 +5867,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
 \\setlength{\\headheight}{14.5pt}
 
-${preambule_personnalise(listePackages)}
+${preambulePersonnalise(listePackages)}
 
 
 \\begin{document}
@@ -5879,8 +5879,8 @@ ${preambule_personnalise(listePackages)}
 * Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths
 * @author Rémi Angot
 */
-export function intro_LaTeX_coop (listePackages) {
-  const intro_LaTeX_coop = `\\documentclass[12pt]{article}
+export function introLatexCoop (listePackages) {
+  const introLatexCoop = `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 \\usepackage[utf8]{inputenc}		        
 \\usepackage[T1]{fontenc}		
@@ -6033,7 +6033,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
   }
 }
 
-${preambule_personnalise(listePackages)}
+${preambulePersonnalise(listePackages)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% Fin du préambule %%%
@@ -6041,10 +6041,10 @@ ${preambule_personnalise(listePackages)}
     
 
 `
-  return intro_LaTeX_coop
+  return introLatexCoop
 }
 
-export function preambule_personnalise (listePackages) {
+export function preambulePersonnalise (listePackages) {
   let result = ''
   for (const packages of listePackages) {
     switch (packages) {
@@ -6760,7 +6760,7 @@ export function scratchTraductionFr () {
  * Le code Latex du groupe de question, la référence du groupe (passée dans l'argument tabQCMs[0], le nombre de questions dans ce groupe (tabQCMs[1].length), et le titre du groupe passé dans l'argument tabQCM[2])
  */
 
-export function export_QCM_AMC (tabQCMs, idExo) {
+export function exportQcmAmc (tabQCMs, idExo) {
   const elimineDoublons = function (tabqcm) { // fonction qui va éliminer les doublons si il y en a
     const reponses = tabqcm[1].slice()
     const bools = tabqcm[2].slice()
@@ -7066,7 +7066,7 @@ export function export_QCM_AMC (tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', type_entete = 'AMCcodeGrid', format = 'A4' }) {
+export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', type_entete = 'AMCcodeGrid', format = 'A4' }) {
   // Attention questions est maintenant un tableau de tous les this.qcm des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
@@ -7076,7 +7076,7 @@ export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaire
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
   for (const qcm of questions) {
-    code = export_QCM_AMC(qcm, idExo)
+    code = exportQcmAmc(qcm, idExo)
     idExo++
     index_of_code = groupeDeQuestions.indexOf(code[1])
     if (index_of_code === -1) { // si le groupe n'existe pas
@@ -7171,7 +7171,7 @@ export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaire
    \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
    % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
    %  sous Ubuntu, paquet texlive-science à installer
-   %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans intro_Latex
+   %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans introLatex
    \\usepackage{mathrsfs}  % Spécial math
    %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
    \\usepackage{pifont}						% Pour les symboles "ding"
@@ -7366,7 +7366,7 @@ export function creer_document_AMC ({ questions, nbQuestions = [], nb_exemplaire
   `
 
   // Ici On ajoute les commandes pour insérer les questions issues des groupes en quantité selon le nb_question[i]
-  // nb_question est un tableau passé en paramètre à la fonction creer_document_AMC pour déterminer le nombre de questions à restituer par groupe.
+  // nb_question est un tableau passé en paramètre à la fonction creerDocumentAmc pour déterminer le nombre de questions à restituer par groupe.
   // si ce nombre est 0, on restitue toutes les questions du groupe
   let contenuCopie = ''
   if (type_entete === 'AMCcodeGrid') {

@@ -3,8 +3,8 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from '../../modules/2d.js'
 import {randint,calcul,modalYoutube} from '../../modules/outils.js';
-import {lampe_message} from '../../modules/outils.js';
-import {enumerate_sans_puce_sans_numero,texte_gras} from '../../modules/outils.js';
+import {lampeMessage} from '../../modules/outils.js';
+import {enumerateSansPuceSansNumero,texte_gras} from '../../modules/outils.js';
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -135,7 +135,7 @@ export default function Exercice_zero_mathalea() {
           string_intro +=`<br>`;
         };
         string_intro += `        
-        ${enumerate_sans_puce_sans_numero([
+        ${enumerateSansPuceSansNumero([
           `On choisit un nombre entier strictement positif.`,
           `$\\leadsto$ Si l'entier choisi est pair on le divise par 2.`,
           `$\\leadsto$ Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.`,
@@ -149,7 +149,7 @@ export default function Exercice_zero_mathalea() {
         En dépit de la simplicité de son énoncé, cette conjecture défie depuis de nombreuses années les mathématiciens.
         `;
 
-        this.introduction = lampe_message({
+        this.introduction = lampeMessage({
           titre: `Introduction`,
           texte: string_intro,
           couleur: `nombres`

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,nombre_avec_espace,modalPdf,modalVideo,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,numAlpha,machineMathsVideo,info_message,lampe_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,nombre_avec_espace,modalPdf,modalVideo,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,numAlpha,machineMathsVideo,infoMessage,lampeMessage} from '../../modules/outils.js'
 import {SVG_machine_diag_3F1_act_mono, SVG_machine_diag_3F12} from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
 
@@ -71,7 +71,7 @@ export default function fonction_notion_vocabulaire() {
 		//let type_de_questions_disponibles = [1];
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		this.introduction = lampe_message({
+		this.introduction = lampeMessage({
 			titre: `Introduction`,
 			texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
 				On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
@@ -190,7 +190,7 @@ export default function fonction_notion_vocabulaire() {
 						texteCorr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texteCorr += tikzMachineDiag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
-					texte += info_message({
+					texte += infoMessage({
 						titre: 'Exemple',
 						texte: txt_info,
 						couleur: 'nombres'
@@ -305,7 +305,7 @@ export default function fonction_notion_vocabulaire() {
 						texteCorr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texteCorr += tikzMachineDiag(`g`, `x`, [[`\\times x`, `x^2`]]);
 					};
-					texte += info_message({
+					texte += infoMessage({
 						titre: 'Exemple',
 						texte: txt_info,
 						couleur: 'nombres'
@@ -425,7 +425,7 @@ export default function fonction_notion_vocabulaire() {
 						texteCorr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texteCorr += tikzMachineDiag(`h`, `x`, [[`\\times 3`, `3x`], [`+1`, `3x+1`]]);
 					};
-					texte += info_message({
+					texte += infoMessage({
 						titre: 'Exemple',
 						texte: txt_info,
 						couleur: 'nombres'

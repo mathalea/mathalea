@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre,texFraction,personne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction,personne} from '../../modules/outils.js'
 
 export const titre = 'Calculer des moyennes'
 
@@ -58,7 +58,7 @@ export default function Calculer_des_moyennes () {
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
 				nombre_temperatures = jours_par_mois(mois);
-				temperatures = un_mois_de_temperature(temperatures_de_base[mois - 1], mois, annee); // série brute de un mois de température
+				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // série brute de un mois de température
 				somme = 0;
 				texte = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
 				texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c'; // tableau des températures 1/2

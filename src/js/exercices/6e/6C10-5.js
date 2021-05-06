@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {export_QCM_AMC,listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur_et_gras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const amcReady = true
 

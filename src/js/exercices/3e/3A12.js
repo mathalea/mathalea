@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiersEntreBornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiersEntreBornes,warnMessage,decompositionFacteursPremiersArray} from '../../modules/outils.js'
 export const titre = 'Fractions irréductibles'
 
 /**
@@ -40,7 +40,7 @@ export default function Fractions_irreductibles() {
 		let type_de_questions_disponibles = [1];
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		this.introduction = warn_message(`À la question ` + numAlpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
+		this.introduction = warnMessage(`À la question ` + numAlpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = listeTypeDeQuestions[i];
@@ -228,14 +228,14 @@ export default function Fractions_irreductibles() {
 					};
 					texteCorr += `<br>` + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `;
 					texteCorr += `\\dfrac{`;
-					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texteCorr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
 					texteCorr += `\\times ${nb1_dist}}{`;
-					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texteCorr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
 					texteCorr += `\\times ${nb2_dist}} = `;
 					texteCorr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$.`;
@@ -249,14 +249,14 @@ export default function Fractions_irreductibles() {
 					};
 					texteCorr += `<br>` + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `;
 					texteCorr += `\\dfrac{`;
-					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texteCorr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
 					texteCorr += `\\times ${nb2_dist}}{`;
-					texteCorr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texteCorr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
 					texteCorr += `\\times ${nb1_dist}} = `;
 					texteCorr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$.`;

@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu} from '../../modules/outils.js'
-import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
+import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon'
 
 /**
@@ -38,7 +38,7 @@ export default function Le_compte_est_bonV3() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      solution_mathador = Trouver_solution_mathador(min_solution, max_solution);
+      solution_mathador = TrouverSolutionMathador(min_solution, max_solution);
       tirage = solution_mathador[0];
       solution = solution_mathador[1];
       expression = solution_mathador[3];

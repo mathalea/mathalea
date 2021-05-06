@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenir_liste_fractions_irreductibles_faciles,texFraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenirListeFractionsIrreductiblesFaciles,texFraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -27,7 +27,7 @@ export default function Exercice_additionner_fraction_produit() {
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles;
     let liste_fractions = obtenir_liste_fractions_irreductibles();
-    let liste_fractions_faciles = obtenir_liste_fractions_irreductibles_faciles();
+    let liste_fractions_faciles = obtenirListeFractionsIrreductiblesFaciles();
     let nombre_de_signe_moins;
     if (this.sup == 1)  {
       type_de_questions_disponibles = [1, 2, 3, 4];

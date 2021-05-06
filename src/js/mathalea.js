@@ -1,6 +1,6 @@
 /* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
-import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
+import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 
@@ -582,9 +582,9 @@ function mise_a_jour_du_code () {
     `
 
       if ($('#style_classique:checked').val()) {
-        contenu_fichier += intro_LaTeX($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
+        contenu_fichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
       } else {
-        contenu_fichier += intro_LaTeX_coop(listePackages)
+        contenu_fichier += introLatexCoop(listePackages)
         contenu_fichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
         contenu_fichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
         contenu_fichier += '\n\n\\end{document}'

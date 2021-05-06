@@ -69,7 +69,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 		};
 		string_rappel_b += `.`;
 
-		this.introduction = warn_message(string_rappel_b, `nombres`, `Coup de pouce`);
+		this.introduction = warnMessage(string_rappel_b, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = listeTypeDeQuestions[i];

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,prenom, Trouver_solution_mathador} from '../../modules/outils.js'
+import {listeQuestionsToContenu,prenom, TrouverSolutionMathador} from '../../modules/outils.js'
 
 
 export const titre = 'Traduire une succession des opérations par une expression'
@@ -24,7 +24,7 @@ export default function Ecrire_une_expression_mathador() {
 		let expression, calculs_successifs, tirage, cible, solution_mathador, quidam;
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			// traduire un calcul mathador
-			solution_mathador = Trouver_solution_mathador(30, 90);
+			solution_mathador = TrouverSolutionMathador(30, 90);
 			tirage = solution_mathador[0];
 			cible = solution_mathador[1];
 			calculs_successifs = solution_mathador[2];

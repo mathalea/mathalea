@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu} from '../../modules/outils.js'
-import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
+import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**
@@ -42,15 +42,15 @@ export default function Le_compte_est_bonV4() {
     }
     if (!this.sup) {
       // Si rien n'est saisi
-      solution_mathador = Trouver_solution_mathador(min, max);
+      solution_mathador = TrouverSolutionMathador(min, max);
     } else {
       if (typeof this.sup == "number") {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        solution_mathador = Trouver_solution_mathador(min, max, this.sup);
+        solution_mathador = TrouverSolutionMathador(min, max, this.sup);
       } else {
         tirage = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < tirage.length; i++) tirage[i] = parseInt(tirage[i]);
-        solution_mathador = Trouver_solution_mathador(min, max, ...tirage);
+        solution_mathador = TrouverSolutionMathador(min, max, ...tirage);
       }
     }
 

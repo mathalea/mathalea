@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texte_gras,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texte_gras,warnMessage} from '../../modules/outils.js'
 export const titre = 'Calcul mental et calcul littéral'
 
 /**
@@ -44,19 +44,19 @@ export default function identites_calculs() {
 		switch (Number(this.sup)) {
 			case 1:
 				type_de_questions_disponibles = [0, 0, 0]; //shuffle([choice([1,3]),choice([2,3]),0]);
-				this.introduction = warn_message(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);
+				this.introduction = warnMessage(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 2:
 				type_de_questions_disponibles = [1, 1, 1]; //shuffle([choice([1,3]),choice([2,3]),0]); 
-				this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`);
+				this.introduction = warnMessage(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 3:
 				type_de_questions_disponibles = [2, 2, 2]; //shuffle([choice([1,3]),choice([2,3]),0]);      			
-				this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
+				this.introduction = warnMessage(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 4:
 				type_de_questions_disponibles = shuffle([0, 1, 2]); //shuffle([choice([1,3]),choice([2,3]),0]);      			
-				this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
+				this.introduction = warnMessage(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 		};
 

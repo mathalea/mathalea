@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {export_QCM_AMC,listeQuestionsToContenu,combinaisonListes, randint,texNombre2, calcul,shuffle2tableaux} from '../../modules/outils.js'
+import {exportQcmAmc,listeQuestionsToContenu,combinaisonListes, randint,texNombre2, calcul,shuffle2tableaux} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -68,7 +68,7 @@ export default function Multiplication_mental_decimaux() {
                /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
                this.qcm[1].push([`Calcul : $${a}+${b}$.\\\\ \n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
-               // tableau pour la fonction export_QCM_AMC
+               // tableau pour la fonction exportQcmAmc
                /**********************************************************************/
 
                texte += `Calcul : $${a} + ${b}$. <br>`;
@@ -99,7 +99,7 @@ export default function Multiplication_mental_decimaux() {
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
                this.qcm[1].push([`Calcul : $${a} \\times ${b}$.\\\\ \n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
-               // tableau pour la fonction export_QCM_AMC
+               // tableau pour la fonction exportQcmAmc
                /**********************************************************************/
 
             texte += `Calcul : $${a} \\times ${b}$. <br>`
@@ -129,7 +129,7 @@ export default function Multiplication_mental_decimaux() {
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
                this.qcm[1].push([`Calcul : $${texNombre2(a/100)}+${texNombre2(b/100)}$.\\\\ \n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
-               // tableau pour la fonction export_QCM_AMC
+               // tableau pour la fonction exportQcmAmc
                /**********************************************************************/
 
             texte += `Calcul : $${texNombre2(a/100)} + ${texNombre2(b/100)}$. <br>`
@@ -161,7 +161,7 @@ export default function Multiplication_mental_decimaux() {
             /**********************************************************************/
                // ajouté par Jean-Caude Lhote pour générer des QCM AMC
                this.qcm[1].push([`Calcul : $${texNombre2(a/100)} \\times ${texNombre2(b/100)}$.\\\\ \n Réponses possibles`,tabrep.slice(0),tabicone.slice(0)]) 
-               // tableau pour la fonction export_QCM_AMC
+               // tableau pour la fonction exportQcmAmc
                /**********************************************************************/
 
             texte += `Calcul : $${texNombre2(a/100)} \\times ${texNombre2(b/100)}$. <br>`

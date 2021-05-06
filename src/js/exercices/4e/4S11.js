@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,texNombre} from '../../modules/outils.js';
-import {texte_gras,lampe_message} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
+import {texte_gras,lampeMessage} from '../../modules/outils.js';
 
 export const titre = 'Déterminer des médianes'
 
@@ -171,7 +171,7 @@ export default function Calculer_des_frequences() {
 				else {
 					texte = `On a réalisé $${nombre_tirages}$ lancers d'un dé à $${nombre_faces}$ faces.<br>`;
 				}
-				texte += lampe_message({
+				texte += lampeMessage({
 					titre : `Vocabulaire`,
 					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texte_gras(solid_name(nombre_faces))}.`,
 					couleur : `nombres`
@@ -210,7 +210,7 @@ export default function Calculer_des_frequences() {
 					};
 					scoresMedians.push(tirages[cpt][0]);
 					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
@@ -235,7 +235,7 @@ export default function Calculer_des_frequences() {
 					};
 					scoresMedians.push(tirages[cpt][0]);
 					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`;
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
@@ -290,13 +290,13 @@ export default function Calculer_des_frequences() {
 				};
 				texteCorr += `D'où ${texte_gras(`la note médiane : ${texNombre(mediane)}`)}<br>`;
 				if (notes.length%2==0) {
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${notes.length/2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${notes.length/2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(notes.length-1)/2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${(notes.length-1)/2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
@@ -308,7 +308,7 @@ export default function Calculer_des_frequences() {
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
 				nombre_temperatures = jours_par_mois(mois);
-				temperatures = un_mois_de_temperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
+				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
 				for (let j = 0; j < temperatures.length; j++) {
@@ -374,13 +374,13 @@ export default function Calculer_des_frequences() {
 				};
 				texteCorr += `D'où ${texte_gras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`;
 				if (temperatures.length%2==0) {
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
-					texteCorr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
