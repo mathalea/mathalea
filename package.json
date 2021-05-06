@@ -28,6 +28,7 @@
     "jquery": "^3.6.0",
     "jquery-ui": "^1.12.1",
     "katex": "^0.13.3",
+    "loadjs": "^4.2.0",
     "mathjs": "^9.3.2",
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",

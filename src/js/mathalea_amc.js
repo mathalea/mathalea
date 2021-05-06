@@ -4,6 +4,7 @@ import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
 import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
+import { loadScript } from './modules/loaders'
 
 // import katex from 'katex'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
@@ -31,7 +32,6 @@ window.est_diaporama = false
 
 // (function () {
 // IIFE principal
-mathalea.listeDesScriptsCharges = []
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let liste_des_exercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
@@ -489,7 +489,6 @@ function mise_a_jour_du_code () {
      */
 function mise_a_jour_de_la_liste_des_exercices (preview) {
   let besoinXCas = false
-  mathalea.listeDesScriptsCharges = []
   const promises = []
   const liste_exercices = liste_des_exercices
   if (preview) {
@@ -676,21 +675,6 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
     })
 }
 
-const loadScript = src => {
-  return new Promise((resolve, reject) => {
-    if (mathalea.listeDesScriptsCharges.indexOf(src) < 0) {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.onload = resolve
-      script.onerror = reject
-      script.src = src
-      document.head.append(script)
-      mathalea.listeDesScriptsCharges.push(src)
-    } else {
-      resolve()
-    }
-  })
-}
 const checkXCas = () => {
   return new Promise((resolve) => {
     const monInterval = setInterval(() => {
