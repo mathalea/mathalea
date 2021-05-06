@@ -64,4 +64,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme\n3 : Toutes les propriétés"]
 }
 
-// python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu
+

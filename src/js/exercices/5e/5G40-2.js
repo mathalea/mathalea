@@ -162,4 +162,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
 
-// python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu
+
