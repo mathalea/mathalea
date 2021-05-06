@@ -15,7 +15,7 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ''
+  this.consigne = 'Résoudre les équations suivantes'
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1

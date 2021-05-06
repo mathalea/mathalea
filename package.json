@@ -1,6 +1,6 @@
 {
   "name": "mathalea",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
