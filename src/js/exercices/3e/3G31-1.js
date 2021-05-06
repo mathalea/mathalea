@@ -57,7 +57,7 @@ export default function MonSuperExerciceTropBeau() {
     let AD = Math.ceil(longueur(A,D),1);
     let BAC = Math.ceil(angle(B,A,C));
     let AC = calcul(BA/Math.cos(Math.radians(BAC)),1);
-    let ACD = Math.round(Math.degres(Math.atan(AD/AC)));
+    let ACD = Math.round(degres(Math.atan(AD/AC)));
     let a1 = afficheMesureAngle(B,A,C,'black',1,BAC+'°');
     let a2 = afficheLongueurSegment(A,B)
     let a3 = afficheLongueurSegment(D,A)
@@ -98,7 +98,7 @@ export default function MonSuperExerciceTropBeau() {
         break;
     case 'BA-AD-ACB': 
         AC = calcul(BA/Math.sin(Math.radians(ACB)),1);
-        ACD = Math.round(Math.degres(Math.atan(AD/AC)));
+        ACD = Math.round(degres(Math.atan(AD/AC)));
         a1 = afficheMesureAngle(A,C,B,'black',1,ACB+'°');
         if (this.sup) {
           liste_objets_mathalea.push(a1, a2, a3)

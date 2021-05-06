@@ -53,7 +53,7 @@ export default function Exercice_Trigo_angles() {
     ]);
     let k1 = Math.round((Math.random() * 5 + 1) * 10) / 10;
     let k2 = Math.round((Math.random() * 5 + 1) * 10) / 10;
-    angle1 = Math.round(Math.degres(Math.atan(k2 / k1)));
+    angle1 = Math.round(degres(Math.atan(k2 / k1)));
     angle2 = 90 - angle1;
     let alpha1 = Math.random() * Math.PI - Math.PI / 2;
     let alpha1deg = Math.round((alpha1 * 180) / Math.PI);

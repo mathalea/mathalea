@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {homothetie,codeAngle,repere2,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
-import { exportQcmAmc, calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import {homothetie,codeAngle,longueur,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
+import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -255,7 +255,6 @@ reponse =arrondi(ab,1)
 if (!sortieHtml&&this.correctionDetaillee) {
     texteCorr+='\n\\end{minipage}\n'
 }
-
         /*****************************************************/
         // Pour AMC
         this.qcm[1][0] = [texte, [texteCorr,reponse,4], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
