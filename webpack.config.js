@@ -168,10 +168,11 @@ const config = {
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       // le scss doit passer par sass
-      {
-        test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-      },
+      // pour le moment on en a pas, faudra ajouter en devDependencies sass & sass-loader si on veut s'en servir
+      // {
+      //   test: /\.s[ac]ss$/i,
+      //   use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      // },
       // et le statique
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,

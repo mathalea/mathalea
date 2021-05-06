@@ -60,8 +60,6 @@
     "mini-css-extract-plugin": "^1.5.0",
     "minimist": "^1.2.5",
     "playwright": "^1.10.0",
-    "sass": "^1.32.11",
-    "sass-loader": "^11.0.1",
     "sesajs-date": "git+https://framagit.org/Sesamath/sesajs-date.git#main",
     "style-loader": "^2.0.0",
     "webpack": "^5.36.0",
