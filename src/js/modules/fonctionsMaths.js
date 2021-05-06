@@ -1,4 +1,4 @@
-import { calcul, arrondi } from '../../modules.js'
+import { calcul, arrondi } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -17,21 +17,21 @@ export function radians (degres) {
    * @returns flottant : le cosinus de l'angle
    */
 export function cos (a) {
-  return calcul(Math.cos(Math.radians(a)))
+  return calcul(Math.cos(radians(a)))
 }
 /**
    * @param {number} a angle en degrés
    * @returns flottant : le sinus de l'angle
    */
 export function sin (a) {
-  return calcul(Math.sin(Math.radians(a)))
+  return calcul(Math.sin(radians(a)))
 }
 /**
    * @param {number} a angle en degrés
    * @returns flottant : la tangente de l'angle
    */
 export function tan (a) {
-  return calcul(Math.tan(Math.radians(a)))
+  return calcul(Math.tan(radians(a)))
 }
 /**
    * @param {number} un nombre qui correspond au cosinus de l'angle

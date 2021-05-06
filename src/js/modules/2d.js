@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* globals mathalea sortieHtml */
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
-
+import { radians } from './fonctionsMaths.js'
 /*
   MathALEA2D
  @name      mathalea2d.js
@@ -390,8 +390,8 @@ export function appartientDemiDroite (C, A, B) {
  */
 export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   if (typeof angle !== 'number') angle = randint(-180, 180)
-  const x = c.centre.x + c.rayon * Math.cos(Math.radians(angle))
-  const y = c.centre.y + c.rayon * Math.sin(Math.radians(angle))
+  const x = c.centre.x + c.rayon * Math.cos(radians(angle))
+  const y = c.centre.y + c.rayon * Math.sin(radians(angle))
   return point(x, y, nom, positionLabel)
 }
 /**
@@ -4021,7 +4021,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
  */
 export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
   if (A.constructor === Point) {
-    const ra = Math.radians(a)
+    const ra = radians(a)
     const x = calcul(
       O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     )
@@ -8400,8 +8400,8 @@ export function creerLutin (...args) {
 export function avance (d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
-  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(Math.radians(lutin.orientation)))
-  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(Math.radians(lutin.orientation)))
+  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(radians(lutin.orientation)))
+  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(radians(lutin.orientation)))
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
