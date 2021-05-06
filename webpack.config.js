@@ -65,6 +65,8 @@ const config = {
     // on active le hot module replacement (HMR)
     hot: true
   },
+  // cf https://webpack.js.org/configuration/devtool/
+  devtool: (mode === 'production') ? 'source-map' : 'eval',
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
     new CopyPlugin({
