@@ -866,19 +866,6 @@ export function valeurBase (n) {
 }
 
 /**
-* Convertit un angle de radian vers degrés et fonction inverse
-* @Example
-* // PI->180
-* @Auteur Jean-Claude Lhote
-*/
-Math.degres = function (radians) {
-  return radians * 180 / Math.PI
-}
-Math.radians = function (degres) {
-  return degres * Math.PI / 180
-}
-
-/**
  *
  * @param {array} matrice M tableau 3x3 nombres
  * @param {array} vecteur A tableau 3 nombres
