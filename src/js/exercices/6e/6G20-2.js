@@ -1,4 +1,4 @@
-import Vocabulaire_des_triangles from '../5e/5G20-1.js'
+import VocabulaireDesTriangles from '../5e/5G20-1.js'
 export const titre = 'Vocabulaire des triangles'
 
 /**
@@ -6,9 +6,8 @@ export const titre = 'Vocabulaire des triangles'
  * 6G20-2
  * @author Sébastien Lozano
  */
-export default function Vocabulaire_des_triangles_6e() {
-  Vocabulaire_des_triangles.call(this);
-  this.titre = titre;
-  this.classe = 6;
+export default function VocabulaireDesTriangles6e () {
+  VocabulaireDesTriangles.call(this)
+  this.titre = titre
+  this.classe = 6
 }
-
