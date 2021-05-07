@@ -6,8 +6,8 @@ export const titre = 'Déterminer une fonction linéaire'
  * @Auteur Jean-Claude Lhote
  * Référence : 3F21-1
  */
-export default function Lecture_expression_fonctions_lineaires() {
-  Lecture_expression_fonctions_affines.call(this);
-  this.titre = titre;
-  this.lineaire = true;
+export default function LectureExpressionFonctionsLineaires () {
+  Lecture_expression_fonctions_affines.call(this)
+  this.titre = titre
+  this.lineaire = true
 }

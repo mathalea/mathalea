@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique,ecritureAlgebriqueSauf1} from '../../modules/outils.js'
 
 export const titre = 'Reconnaître une fonction affine.'
 
@@ -14,25 +14,25 @@ export default function Factoriser_Identites_remarquables2() {
     this.titre = titre;
     this.video = "";
     this.consigne = "Déterminer,en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines. :";
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
     this.spacing = 1;
-    this.spacing_corr = 1;
-    this.nb_questions = 5;
-    this.spacing_corr = 3
+    this.spacingCorr = 1;
+    this.nbQuestions = 5;
+    this.spacingCorr = 3
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [];
        
         type_de_questions_disponibles = [1,2,3,4,5,6,7,8]; 
         
         
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) 
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nbQuestions && cpt < 50;) 
         {
-            type_de_questions = liste_type_de_questions[i];
+            type_de_questions = listeTypeDeQuestions[i];
             k = choice([-1, 1]); 
 			a = randint(2, 9);
             a = a * k;
@@ -47,83 +47,83 @@ export default function Factoriser_Identites_remarquables2() {
            
                       switch (type_de_questions) {
                 case 1:
-                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduire_ax_plus_b(a,b)}$`; //f(x)=ax + b
-                        texte_corr = ` $f(x)=${reduire_ax_plus_b(a,b)}$<br>`
-                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
-                        texte_corr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
-                        texte_corr +=`$f$ est donc bien une fonction affine.<br>`                                 
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduireAxPlusB(a,b)}$`; //f(x)=ax + b
+                        texteCorr = ` $f(x)=${reduireAxPlusB(a,b)}$<br>`
+                        texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texteCorr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
+                        texteCorr +=`$f$ est donc bien une fonction affine.<br>`                                 
                  break;
                  case 2:
                         if (a=1) {
                             texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$<br>`; //f(x)=b+x
-                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$<br>`; 
-                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=x ${ecriture_algebrique(b)}$<br>`;} 
+                            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$<br>`; 
+                            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=x ${ecritureAlgebrique(b)}$<br>`;} 
                         if (a=-1) {
                             texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$<br>`; //f(x)=b-x}
-                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$<br>`; 
-                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${ecriture_algebrique(b)}$<br>`;} 
+                            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$<br>`; 
+                            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${ecritureAlgebrique(b)}$<br>`;} 
                         else{
-                            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecriture_algebrique(b)} ${ecriture_algebrique(a)}  x$<br>`; //f(x)=b-x}
-                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecriture_algebrique(b)} ${ecriture_algebrique(a)}  x$<br>`; //f(x)=b-x}
-                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${reduire_ax_plus_b(a,b)}$<br>`;} 
-                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
-                        texte_corr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
-                        texte_corr +=`$f$ est donc bien une fonction affine.`                                 
+                            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecritureAlgebrique(b)} ${ecritureAlgebrique(a)}  x$<br>`; //f(x)=b-x}
+                            texteCorr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecritureAlgebrique(b)} ${ecritureAlgebrique(a)}  x$<br>`; //f(x)=b-x}
+                            texteCorr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${reduireAxPlusB(a,b)}$<br>`;} 
+                        texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texteCorr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
+                        texteCorr +=`$f$ est donc bien une fonction affine.`                                 
                  break;    
                  case 3:
-                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecriture_algebrique(b)} x${ecriture_algebrique(c)} $`; //f(x)=ax²+bx+c
-                        texte_corr = ` $f(x)=${a}x^{2}${ecriture_algebrique_sauf1(b)} x${ecriture_algebrique(c)} $<br>`
-                        texte_corr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
-                        texte_corr += `Elle s'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>`
-                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`                                 
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(b)} x${ecritureAlgebrique(c)} $`; //f(x)=ax²+bx+c
+                        texteCorr = ` $f(x)=${a}x^{2}${ecritureAlgebriqueSauf1(b)} x${ecritureAlgebrique(c)} $<br>`
+                        texteCorr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
+                        texteCorr += `Elle s'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>`
+                        texteCorr +=`$f$ n'est donc pas une fonction affine.<br>`                                 
                  break;
                  case 4:
                         texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$`; //f(x)=\sqrt a x + \sqrt b
-                        texte_corr = ` $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$<br>`
-                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
-                        texte_corr +=`Ici, on a : $a=\\sqrt{${c}}$ et $b=\\sqrt{${d}}$<br>`
-                        texte_corr +=`$f$ est donc bien une fonction affine.<br>`                                 
+                        texteCorr = ` $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$<br>`
+                        texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texteCorr +=`Ici, on a : $a=\\sqrt{${c}}$ et $b=\\sqrt{${d}}$<br>`
+                        texteCorr +=`$f$ est donc bien une fonction affine.<br>`                                 
                  break;    
                  case 5:
-                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecriture_algebrique(c)} $`; //f(x)=ax²+c
-                        texte_corr = ` $f(x)=${a}x^{2}${ecriture_algebrique(c)} $<br>`
-                        texte_corr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
-                        texte_corr += `Elle s'écrit sous la forme $f(x)= a x^{2}+b$ avec $a$ et $b$ des nombres réels, et non pas sous la forme $ax+b$.<br>`
-                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`  
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecritureAlgebrique(c)} $`; //f(x)=ax²+c
+                        texteCorr = ` $f(x)=${a}x^{2}${ecritureAlgebrique(c)} $<br>`
+                        texteCorr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
+                        texteCorr += `Elle s'écrit sous la forme $f(x)= a x^{2}+b$ avec $a$ et $b$ des nombres réels, et non pas sous la forme $ax+b$.<br>`
+                        texteCorr +=`$f$ n'est donc pas une fonction affine.<br>`  
                 break;   
                 case 6:
-                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{1}{${a}x${ecriture_algebrique(b)} }$`; //f(x)=1/(ax+b)
-                        texte_corr = ` $f(x)=\\dfrac{1}{${a}x${ecriture_algebrique(b)} }$<br>`
-                        texte_corr += `On observe que la fonction $f$ est une fonction rationnelle, puisqu'il y une fraction avec des termes en $x$ au dénominateur.<br>`
-                        texte_corr += `Elle ne s'écrit  pas sous la forme $ax+b$.<br>`
-                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`      
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{1}{${a}x${ecritureAlgebrique(b)} }$`; //f(x)=1/(ax+b)
+                        texteCorr = ` $f(x)=\\dfrac{1}{${a}x${ecritureAlgebrique(b)} }$<br>`
+                        texteCorr += `On observe que la fonction $f$ est une fonction rationnelle, puisqu'il y une fraction avec des termes en $x$ au dénominateur.<br>`
+                        texteCorr += `Elle ne s'écrit  pas sous la forme $ax+b$.<br>`
+                        texteCorr +=`$f$ n'est donc pas une fonction affine.<br>`      
                 break;    
                 case 7:
-                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)} $`; //f(x)=1/ax+1/b
-                        texte_corr = `$f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)}$<br>`
-                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
-                        texte_corr +=`Ici, on a : $a=\\dfrac{1}{${a}}$ et $b=\\dfrac{1}{${e}}$<br>`
-                        texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${texFractionSigne(1,a)}x+${texFractionSigne(1,e)} $`; //f(x)=1/ax+1/b
+                        texteCorr = `$f(x)=${texFractionSigne(1,a)}x+${texFractionSigne(1,e)}$<br>`
+                        texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texteCorr +=`Ici, on a : $a=\\dfrac{1}{${a}}$ et $b=\\dfrac{1}{${e}}$<br>`
+                        texteCorr +=`$f$ est donc bien une fonction affine.<br>` 
                 break;
                 case 8:
-                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $`; //f(x)=k(ax+b)
-                        texte_corr = `$f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $<br>`
-                        texte_corr += `On peut développer l'expression de $f$ et on obtient alors :<br>`
-                        texte_corr += `$f(x)=${reduire_ax_plus_b(a*c,b*c)} $<br>`
-                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
-                        texte_corr +=`Ici, on a : $a=${ecriture_algebrique(a*c)}$ et $b=${ecriture_algebrique(b*c)}$<br>`
-                        texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduireAxPlusB(a,b)}) $`; //f(x)=k(ax+b)
+                        texteCorr = `$f(x)=${c}\\times (${reduireAxPlusB(a,b)}) $<br>`
+                        texteCorr += `On peut développer l'expression de $f$ et on obtient alors :<br>`
+                        texteCorr += `$f(x)=${reduireAxPlusB(a*c,b*c)} $<br>`
+                        texteCorr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texteCorr +=`Ici, on a : $a=${ecritureAlgebrique(a*c)}$ et $b=${ecritureAlgebrique(b*c)}$<br>`
+                        texteCorr +=`$f$ est donc bien une fonction affine.<br>` 
                 break;   
             }
-            if (this.liste_questions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
     
 }

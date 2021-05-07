@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texte_en_couleur} from '../../modules/outils.js'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 
 /**
@@ -12,32 +12,32 @@ export default function Reduire_dinstinction_somme_produit() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;
 	if (this.debug) {
-		this.nb_questions = 4;
+		this.nbQuestions = 4;
 	} else {
-		this.nb_questions = 2;
+		this.nbQuestions = 2;
 	};
 	this.consigne = "";
-	//this.nb_questions = 4;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	//this.nbQuestions = 4;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	//this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.titre = titre;
 	let type_de_questions_disponibles
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		//let type_de_questions_disponibles
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		if (this.debug) {
 			type_de_questions_disponibles = [0, 1, 2, 3];
 		} else {
 			type_de_questions_disponibles = [choice([0, 2]), choice([1, 3])];
 		}
 
-		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
+		//let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) 
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
 
 		//if (this.sup2) decimal=10;
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			// deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
 			function isUn(n) {
 				if (n == 1) {
@@ -140,7 +140,7 @@ export default function Reduire_dinstinction_somme_produit() {
 				enonces[3].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
 			};
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0:	// produit puis somme 				
 					texte = `${enonces[0].enonce}.`;
 					if (this.debug) {
@@ -148,11 +148,11 @@ export default function Reduire_dinstinction_somme_produit() {
 						texte += enonces[0].correction_produit;
 						texte += `<br>`;
 						texte += enonces[0].correction_somme;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = enonces[0].correction_produit;
-						texte_corr += `<br>`;
-						texte_corr += enonces[0].correction_somme;
+						texteCorr = enonces[0].correction_produit;
+						texteCorr += `<br>`;
+						texteCorr += enonces[0].correction_somme;
 					};
 					break;
 				case 1:	// x puis +				
@@ -162,11 +162,11 @@ export default function Reduire_dinstinction_somme_produit() {
 						texte += enonces[1].correction_produit;
 						texte += `<br>`;
 						texte += enonces[1].correction_somme;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = enonces[1].correction_produit;
-						texte_corr += `<br>`;
-						texte_corr += enonces[1].correction_somme;
+						texteCorr = enonces[1].correction_produit;
+						texteCorr += `<br>`;
+						texteCorr += enonces[1].correction_somme;
 					};
 					break;
 				case 2:	// somme puis produit				
@@ -176,11 +176,11 @@ export default function Reduire_dinstinction_somme_produit() {
 						texte += enonces[2].correction_somme;
 						texte += `<br>`;
 						texte += enonces[2].correction_produit;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = enonces[2].correction_somme;
-						texte_corr += `<br>`;
-						texte_corr += enonces[2].correction_produit;
+						texteCorr = enonces[2].correction_somme;
+						texteCorr += `<br>`;
+						texteCorr += enonces[2].correction_produit;
 					};
 					break;
 				case 3:	// + puis x				
@@ -190,24 +190,24 @@ export default function Reduire_dinstinction_somme_produit() {
 						texte += enonces[3].correction_somme;
 						texte += `<br>`;
 						texte += enonces[3].correction_produit;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = enonces[3].correction_somme;
-						texte_corr += `<br>`;
-						texte_corr += enonces[3].correction_produit;
+						texteCorr = enonces[3].correction_somme;
+						texteCorr += `<br>`;
+						texteCorr += enonces[3].correction_produit;
 					};
 					break;
 
 
 			}
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	}
 	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
 

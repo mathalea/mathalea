@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_nombrec,tex_fraction,tex_texte,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -21,9 +21,9 @@ export default function Exercice_conversions(niveau = 1) {
   this.spacing = 2;
   this.correction_avec_des_fractions = false;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let prefixe_multi = [
       ["da", 10],
       ["h", 100],
@@ -42,9 +42,9 @@ export default function Exercice_conversions(niveau = 1) {
       unite,
       type_de_questions,
       texte,
-      texte_corr,
+      texteCorr,
       liste_unite_info,
-      cpt = 0; i < this.nb_questions && cpt < 50;) {
+      cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
         type_de_questions = this.sup;
@@ -89,7 +89,7 @@ export default function Exercice_conversions(niveau = 1) {
           // Choix de l'unité
           unite = choice(["m", "L", "g"]);
         } else if (k == 2) {
-          if (sortie_html) {
+          if (sortieHtml) {
             unite = choice(["m", "L", "g"]); // pas de signe € pour KaTeX
           } else {
             unite = choice(["m", "L", "g", "€"]);
@@ -100,22 +100,22 @@ export default function Exercice_conversions(niveau = 1) {
         resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           " = \\dotfill " +
           tex_texte(unite) +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\times" +
-          tex_nombre(prefixe_multi[k][1]) +
+          texNombre(prefixe_multi[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombrec(resultat) +
+          texNombrec(resultat) +
           tex_texte(unite) +
           "$";
       } else if (div &&
@@ -125,20 +125,20 @@ export default function Exercice_conversions(niveau = 1) {
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
           tex_texte(unite) +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " =  " +
-          tex_fraction(tex_nombre(a), tex_nombre(prefixe_div[k][1])) +
+          texFraction(texNombre(a), texNombre(prefixe_div[k][1])) +
           tex_texte(unite) +
           " = " +
-          tex_nombre(resultat) +
+          texNombre(resultat) +
           tex_texte(unite) +
           "$";
       } else if (div && type_de_questions < 4) {
@@ -146,22 +146,22 @@ export default function Exercice_conversions(niveau = 1) {
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
           tex_texte(unite) +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\div" +
-          tex_nombre(prefixe_div[k][1]) +
+          texNombre(prefixe_div[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombrec(resultat) +
+          texNombrec(resultat) +
           tex_texte(unite) +
           "$";
       } else {
@@ -176,69 +176,69 @@ export default function Exercice_conversions(niveau = 1) {
           resultat = calcul(a * Math.pow(10, 3 * ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite_info[unite2]) +
             " = \\dotfill " +
             tex_texte(liste_unite_info[unite1]) +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite_info[unite2]) +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             "\\times" +
-            tex_nombre(Math.pow(10, 3 * ecart)) +
+            texNombre(Math.pow(10, 3 * ecart)) +
             tex_texte(liste_unite_info[unite1]) +
             " = " +
-            tex_nombrec(resultat) +
+            texNombrec(resultat) +
             tex_texte(liste_unite_info[unite1]) +
             "$";
         } else {
           resultat = calcul(a / Math.pow(10, 3 * ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite_info[unite1]) +
             " = \\dotfill " +
             tex_texte(liste_unite_info[unite2]) +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite_info[unite1]) +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             "\\div" +
-            tex_nombre(Math.pow(10, 3 * ecart)) +
+            texNombre(Math.pow(10, 3 * ecart)) +
             tex_texte(liste_unite_info[unite2]) +
             " = " +
-            tex_nombrec(resultat) +
+            texNombrec(resultat) +
             tex_texte(liste_unite_info[unite2]) +
             "$";
         }
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortie_html) {
+        if (sortieHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"
           );
         }
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     5,
     "1 : De da, h, k vers l'unité de référence\n\

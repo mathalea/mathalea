@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js';
 
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
@@ -13,23 +13,23 @@ export default function Determiner_derniere_operation_exp_num() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;
 	this.consigne = "";
-	this.nb_questions = 4;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 4;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = true;
 	this.sup2 = false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.titre = titre
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		let type_de_questions_disponibles
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		type_de_questions_disponibles = [5] //expressions complexes
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats, last_op
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
-		for (let i = 0, texte, texte_corr, val1, val2, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			nb_operations = parseInt(liste_type_de_questions[i])
+		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+			nb_operations = parseInt(listeTypeDeQuestions[i])
 			val1 = randint(2, 5)
 			val2 = randint(6, 9)
 			//resultats=Choisir_expression_litteraleBis(nb_operations,decimal,val1,val2)
@@ -41,7 +41,7 @@ export default function Determiner_derniere_operation_exp_num() {
 			last_op = resultats[4];
 			let str = expc.split('=');
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 5:
 					if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
 					this.consigne = `Déterminer la dernière opération à effectuer .`
@@ -55,30 +55,30 @@ export default function Determiner_derniere_operation_exp_num() {
 						};
 						texte += `${str[str.length - 1]}`
 						texte += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${last_op}.}$`;
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `$`
+						texteCorr = `$`
 						for (let l = 1; l < str.length - 1; l++) {
-							texte_corr += `${str[l]}=`
+							texteCorr += `${str[l]}=`
 						};
-						texte_corr += `${str[str.length - 1]}`
-						texte_corr += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${last_op}.}$`;
+						texteCorr += `${str[str.length - 1]}`
+						texteCorr += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${last_op}.}$`;
 					};
 
 					break;
 
 			}
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	}
 	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.", false]
-	this.besoin_formulaire_case_a_cocher = ["Avec le signe × devant les parenthèses", true]
+	this.besoinFormulaireCaseACocher = ["Avec le signe × devant les parenthèses", true]
 
 }
 

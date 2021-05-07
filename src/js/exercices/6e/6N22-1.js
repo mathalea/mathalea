@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
 export const titre = 'Rapport de deux longueurs sur un segment'
@@ -15,23 +15,23 @@ export default function Rapports_sur_un_segment() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.beta = false;
   if (this.beta) {
-    this.nb_questions = 2;
+    this.nbQuestions = 2;
   } else {
-    this.nb_questions = 2;
+    this.nbQuestions = 2;
   };
 
   this.titre = titre;
   this.consigne = `Sur tous les axes, les graduations sont régulières.`;
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 3 : this.spacing = 2;
-  sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 3 : this.spacing = 2;
+  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       type_de_questions_disponibles = [0, 1];
     } else {
@@ -39,13 +39,13 @@ export default function Rapports_sur_un_segment() {
       type_de_questions_disponibles = [0, 1];
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour le singulier pluriel
       function sing_plur(nombre, singulier, pluriel) {
         if (nombre > 1) {
@@ -161,16 +161,16 @@ export default function Rapports_sur_un_segment() {
       };
 
       // autant de case que d'elements dans le tableau des situations
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`;
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `             `
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
         case 1:
@@ -178,9 +178,9 @@ export default function Rapports_sur_un_segment() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[1].correction}`;
+            texteCorr = `${enonces[1].correction}`;
           };
           break;
         case 2:
@@ -188,9 +188,9 @@ export default function Rapports_sur_un_segment() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[2].correction}`;
+            texteCorr = `${enonces[2].correction}`;
           };
           break;
         case 3:
@@ -198,9 +198,9 @@ export default function Rapports_sur_un_segment() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[3].correction}`;
+            texteCorr = `${enonces[3].correction}`;
           };
           break;
         case 4:
@@ -208,24 +208,24 @@ export default function Rapports_sur_un_segment() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[4].correction}`;
+            texteCorr = `${enonces[4].correction}`;
           };
           break;
       };
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
 
   }
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 

@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondi_virgule, calcul, lettre_depuis_chiffre, tex_nombre, nombre_avec_espace, string_nombre, premierMultipleSuperieur, premierMultipleInferieur } from '../../modules/outils.js'
+            <pre class="prettyprint source linenums"><code>import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from '../../modules/outils.js'
 
 /*
   MathALEA2D
@@ -294,7 +294,7 @@ function TracePointSurDroite(A, O) {
   this.x = A.x
   this.y = A.y
   let M, d
-  // if (sortie_html) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
+  // if (sortieHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
   // else taille = 0.2/scale
 
   if (O.constructor == Point) {
@@ -402,8 +402,8 @@ export function appartientDemiDroite(C,A,B){
  */
 export function pointSurCercle(c, angle, nom, positionLabel = "above") {
   if (typeof angle != "number") angle = randint(-180, 180);
-  let x = c.centre.x + c.rayon * Math.cos(Math.radians(angle));
-  let y = c.centre.y + c.rayon * Math.sin(Math.radians(angle));
+  let x = c.centre.x + c.rayon * Math.cos(radians(angle));
+  let y = c.centre.y + c.rayon * Math.sin(radians(angle));
   return point(x, y, nom, positionLabel);
 }
 /**
@@ -704,7 +704,7 @@ function Droite(arg1, arg2, arg3, arg4) {
         else {
           if (x0 > mathalea.fenetreMathalea2d[0] &amp;&amp; x0 &lt; mathalea.fenetreMathalea2d[2]) {
             absNom = x0
-            ordNom = mathalea.fenetreMathalea2d[1] + math.abs(this.pente)
+            ordNom = mathalea.fenetreMathalea2d[1] + Math.abs(this.pente)
           }
           else {
             if (x1 > mathalea.fenetreMathalea2d[0] &amp;&amp; x1 &lt; mathalea.fenetreMathalea2d[2]) {
@@ -3415,7 +3415,7 @@ function CibleCarree({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray'
   let lettre, chiffre
   objets.push(grille(calcul(x - rang * this.taille / 2), calcul(y - rang * this.taille / 2), calcul(x + rang * this.taille / 2), calcul(y + rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i &lt; rang; i++) {
-    lettre = texteParPosition(lettre_depuis_chiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
     chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
@@ -3467,7 +3467,7 @@ function CibleRonde({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     rayon.color = this.color
     rayon.opacite = this.opacite
     objets.push(rayon)
-    objets.push(texteParPoint(lettre_depuis_chiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
+    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
   }
   for (let i = 0; i &lt; this.rang; i++) {
     c = cercle(point(this.x, this.y), this.taille * (1 + i))
@@ -3539,7 +3539,7 @@ function CibleCouronne({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18,
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettre_depuis_chiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
       numero.contour = true
       objets.push(numero)
     }
@@ -4002,7 +4002,7 @@ export function affiniteOrtho(A, d, k, nom = "", positionLabel = "above") {
  */
 export function similitude(A, O, a, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
-    let ra = Math.radians(a);
+    let ra = radians(a);
     let x = calcul(
       O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     );
@@ -4574,7 +4574,7 @@ function AfficheLongueurSegment(A, B, color = "black", d = 0.5) {
     let angle;
     let s = segment(this.extremite1, this.extremite2);
     s.isVisible = false;
-    let l = string_nombre(arrondi(s.longueur, 1));
+    let l = stringNombre(arrondi(s.longueur, 1));
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale;
     } else {
@@ -4590,7 +4590,7 @@ function AfficheLongueurSegment(A, B, color = "black", d = 0.5) {
     let angle;
     let s = segment(this.extremite1, this.extremite2);
     s.isVisible = false;
-    let l = string_nombre(arrondi(s.longueur, 1));
+    let l = stringNombre(arrondi(s.longueur, 1));
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale;
     } else {
@@ -4688,7 +4688,7 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5, label = ""
       sizelabel = 30
     }
     else {
-      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
       sizelabel = 20
     }
     return "\n" + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').svg(coeff) + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff);
@@ -4705,7 +4705,7 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5, label = ""
       sizelabel = 30
     }
     else {
-      mesureAngle = arrondi_virgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + "°";
       sizelabel = 20
     }
     return "\n" + latexParPoint(mesureAngle, N, color, sizelabel, 10, '').tikz() + "\n" + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz();
@@ -4931,7 +4931,7 @@ function CodeAngle(debut, centre, angle, taille = 0.8, mark = '', color = 'black
     M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
     d = droite(this.centre, P)
     d.isVisible = false
-    mesure = arrondi_virgule(Math.abs(angle), 0) + "°";
+    mesure = arrondiVirgule(Math.abs(angle), 0) + "°";
     arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false;
     objets.push(arcangle);
@@ -4965,7 +4965,7 @@ function CodeAngle(debut, centre, angle, taille = 0.8, mark = '', color = 'black
     depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
     P = rotation(depart, this.centre, this.angle / 2)
     M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
-    mesure = arrondi_virgule(Math.abs(angle), 0) + "°";
+    mesure = arrondiVirgule(Math.abs(angle), 0) + "°";
     d = droite(this.centre, P)
     d.isVisible = false
     arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
@@ -4984,7 +4984,7 @@ function CodeAngle(debut, centre, angle, taille = 0.8, mark = '', color = 'black
     depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / mathalea.pixelsParCm)
     P = rotation(depart, this.centre, this.angle / 2)
     M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
-    mesure = arrondi_virgule(Math.abs(angle), 0) + "°";
+    mesure = arrondiVirgule(Math.abs(angle), 0) + "°";
     d = droite(this.centre, P)
     d.isVisible = false
     arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
@@ -5002,7 +5002,7 @@ function CodeAngle(debut, centre, angle, taille = 0.8, mark = '', color = 'black
     depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
     P = rotation(depart, this.centre, this.angle / 2)
     M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
-    mesure = arrondi_virgule(Math.abs(angle), 0) + "°";
+    mesure = arrondiVirgule(Math.abs(angle), 0) + "°";
     d = droite(this.centre, P)
     d.isVisible = false
     arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
@@ -6175,7 +6175,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (let x of xLabelListe) {
-    let l = texteParPosition(tex_nombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, "middle", true)
+    let l = texteParPosition(texNombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, "middle", true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -6190,7 +6190,7 @@ function Repere2({
     else {
       labelysize = 0.18 * Math.ceil(Math.log10(y + 1))
     }
-    let l = texteParPosition(tex_nombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
+    let l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false;
     objets.push(l);
   }
@@ -8466,8 +8466,8 @@ export function creerLutin(...args) {
 export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
-  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(Math.radians(lutin.orientation)));
-  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(Math.radians(lutin.orientation)));
+  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(radians(lutin.orientation)));
+  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(radians(lutin.orientation)));
   lutin.historiquePositions.push([lutin.x, lutin.y]);
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite]);
@@ -8901,7 +8901,7 @@ export function scratchblock(stringLatex) {
     console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
     return false
   }
-  if (!sortie_html) {
+  if (!sortieHtml) {
     codeScratch = stringLatex;
   }
   else {
@@ -9013,8 +9013,8 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
   let fenetreymin = fenetreMathalea2d[3] * -(1)
   let fenetrexmax = fenetreMathalea2d[2]
   let fenetreymax = fenetreMathalea2d[1] * (-1)
-  let sortie = sortie_html
-  sortie_html = false
+  let sortie = sortieHtml
+  sortieHtml = false
   if (scale == 1) {
     code += `\\begin{tikzpicture}[baseline]\n`;
   } else {
@@ -9053,7 +9053,7 @@ export function codeTikz(fenetreMathalea2d, scale, mainlevee, ...objets) {
     } catch (error) { }
   }
   code += `\\end{tikzpicture}\n`;
-  sortie_html = sortie
+  sortieHtml = sortie
   return code;
 }
 
@@ -9074,7 +9074,7 @@ export function mathalea2d(
   ...objets
 ) {
   let code = "";
-  if (sortie_html) {
+  if (sortieHtml) {
     code = `&lt;svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${(ymax - ymin) * pixelsParCm
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
@@ -9202,7 +9202,7 @@ function pattern({ motif = 'north east lines',
   opaciteDeRemplissage = 0.5
 }) {
   let myPattern = ''
-  if (sortie_html) {
+  if (sortieHtml) {
 
     if (couleurDeRemplissage.length &lt; 1) {
       couleurDeRemplissage = "none"

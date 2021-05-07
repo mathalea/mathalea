@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
-import { calcul, randint, nombre_avec_espace as nombreAvecEspace, arrondi, tex_nombre } from './outils.js'
+import { calcul, randint, nombre_avec_espace as nombreAvecEspace, arrondi, texNombre } from './outils.js'
 import iepLoadPromise from 'instrumenpoche'
 
 /*
@@ -134,7 +134,7 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    */
   this.html = function (id1, id2) {
-    if (window.sortie_html) {
+    if (window.sortieHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
       const codeHTML = `<div id="IEPContainer${id}" ></div>`
@@ -150,7 +150,7 @@ export default function Alea2iep () {
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
   this.htmlBouton = function (id1, id2 = '') {
-    if (window.sortie_html) {
+    if (window.sortieHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
       const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
@@ -554,7 +554,6 @@ export default function Alea2iep () {
       }
     } else {
       const options = args[args.length - 1]
-      console.log(options)
       const enleveDernier = arr => arr.slice(0, -1)
       for (const point of enleveDernier(args)) {
         this.pointCreer(point, options)
@@ -2440,8 +2439,8 @@ export default function Alea2iep () {
     this.regleSegment(p, centre)
     const l = arrondi(longueur(p, centre), 1)
     const lprime = arrondi(calcul(l * Math.abs(k)))
-    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${tex_nombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${tex_nombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
-    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${tex_nombre(l)} cm × ${tex_nombre(Math.abs(k))} = ${tex_nombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
+    const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${texNombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${texNombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
+    const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${texNombre(l)} cm × ${texNombre(Math.abs(k))} = ${texNombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
     this.regleSegment(centre, image)
     this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
     this.regleMasquer()
@@ -2535,7 +2534,7 @@ export default function Alea2iep () {
     const p2 = translation(p, v) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
     this.couleur = 'grey'
-    const i = 0
+    let i = 0
     for (const sommet of p.listePoints) { // On répète la construction pour chaque sommet du polygone
       if (noms[i] !== undefined) {
         nom = noms[i]
@@ -2548,6 +2547,7 @@ export default function Alea2iep () {
     this.couleur = couleur
     this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
     this.polygoneRapide(p2)
+    i++
   }
   /**
    *

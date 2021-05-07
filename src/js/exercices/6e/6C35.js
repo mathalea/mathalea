@@ -1,36 +1,36 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../ClasseExercice.js'
-import { choice, randint, objet, jour, liste_de_question_to_contenu, combinaison_listes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
+import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Modéliser des problèmes'
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
- * @Auteur Mireille Gain, 23 avril 2021
+ * @Auteur Mireille Gain, 24 avril 2021
  * Référence 6C35
 */
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Associer chaque problème avec sa modélisation'
-  this.nb_questions = 8
-  this.nb_questions_modifiable = false
+  this.nbQuestions = 8
+  this.nbQuestionsModifiable = false
   this.sup = 2
-  this.nb_cols = 1
-  this.nb_cols_corr = 1
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.tailleDiaporama = 50
   this.video = ''
-  this.correction_detaillee_disponible = true
-  this.correction_detaillee = true
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = true
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []
-    this.liste_corrections = []
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []
+    this.listeCorrections = []
 
     const type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
 
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
@@ -54,11 +54,11 @@ export default function ModelisationProblemes () {
       p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
-      texte_corr = ''
+      texteCorr = ''
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           if (o === 1) {
             texte += `${prenomF()} avait ${b1} ${objetM()} ${jour()}. `
@@ -82,13 +82,13 @@ export default function ModelisationProblemes () {
           th12 = texteParPosition(c1, 9, 3)
           n1 = texteParPosition('A.', -1, 4)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma A.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma A.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
               p1, traitHorizontal1, traitVertical1, tb1, th1, th12
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -130,13 +130,13 @@ export default function ModelisationProblemes () {
           th22 = texteParPosition('?', 25, 3)
           n2 = texteParPosition('B.', 15, 4)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma B.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma B.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
               p2, traitHorizontal2, traitVertical2, tb2, th2, th22
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -176,13 +176,13 @@ export default function ModelisationProblemes () {
           th32 = texteParPosition(c5, 41, 3)
           n3 = texteParPosition('C.', 31, 4)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma C.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma C.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -1, xmax: 61, ymax: 5, pixelsParCm: 15, scale: 0.25 },
               p3, traitHorizontal3, traitVertical3, tb3, th3, th32
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -227,13 +227,13 @@ export default function ModelisationProblemes () {
           th45 = texteParPosition(c5, 54, 5)
           n4 = texteParPosition('D.', 47, 4)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma D.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma D.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -1, xmax: 61, ymax: 6.5, pixelsParCm: 15, scale: 0.25 },
               p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -279,13 +279,13 @@ export default function ModelisationProblemes () {
           th55 = texteParPosition(c3, 6, -0.8)
           n5 = texteParPosition('E.', -1, -2)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma E.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma E.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: -1.5, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -324,13 +324,13 @@ export default function ModelisationProblemes () {
           th62 = texteParPosition(a7, 25, -3)
           n6 = texteParPosition('F.', 15, -2)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma F.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma F.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 15, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p6, traitHorizontal6, traitVertical6, tb6, th6, th62
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -376,13 +376,13 @@ export default function ModelisationProblemes () {
           th75 = texteParPosition('?', 38, -0.8)
           n7 = texteParPosition('G.', 31, -2)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma G.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma G.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 31, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
 
           if (i === 7) {
@@ -420,13 +420,13 @@ export default function ModelisationProblemes () {
           th82 = texteParPosition('?', 57, -3)
           n8 = texteParPosition('H.', 47, -2)
 
-          texte_corr += 'Cet énoncé est associé avec le schéma H.'
-          if (this.correction_detaillee) {
-            texte_corr += '<br>' + mathalea2d(
+          texteCorr += 'Cet énoncé est associé avec le schéma H.'
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d(
               { xmin: 47, ymin: -7, xmax: 61, ymax: -0.5, pixelsParCm: 15, scale: 0.25 },
               p8, traitHorizontal8, traitVertical8, tb8, th8, th82
             )
-            texte_corr += "<br> (L'énoncé était :<br> " + texte + ')'
+            texteCorr += "<br> (L'énoncé était :<br> " + texte + ')'
           }
           if (i === 7) {
             texte += '<br><br> Les schémas à associer à chacun des énoncés sont : <br>' + mathalea2d(
@@ -443,16 +443,16 @@ export default function ModelisationProblemes () {
           }
           break
       }
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2: Valeurs identiques dans tous les exercices'
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2: Valeurs identiques dans tous les exercices'
   ]
 }

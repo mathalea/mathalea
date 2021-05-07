@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,choice,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,choice,katexPopup2} from '../../modules/outils.js'
 import {point,polygone,grille,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 
@@ -12,25 +12,25 @@ export const titre = 'Programmer des déplacements'
  */
 export default function Colorier_Deplacement() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.type_exercice = "Scratch"
+  this.typeExercice = "Scratch"
   this.sup = 1; // nombre de commandes = this.sup + 2
   this.sup2 = false; //1 : sans boucle ; true : avec boucle
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
   this.titre = titre;
   this.consigne = "Dans le quadrillage, effectuer le programme.";
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 2 : this.spacing = 1;
-  sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-  this.liste_packages = "scratch3"; // pour dessiner les blocs en LaTeX/Tikz
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1;
+  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+  this.listePackages = "scratch3"; // pour dessiner les blocs en LaTeX/Tikz
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     function scratchblocks_Tikz(code_svg, code_tikz) {
-      if (sortie_html) {
+      if (sortieHtml) {
         return code_svg;
       } else {
         return code_tikz;
@@ -38,7 +38,7 @@ export default function Colorier_Deplacement() {
     };
 
     let texte = ""; // texte de l'énoncé
-    let texte_corr = ""; // texte du corrigé
+    let texteCorr = ""; // texte du corrigé
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
     let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
@@ -90,7 +90,7 @@ export default function Colorier_Deplacement() {
     let yLutinMin = Math.min(...lstY);
     let yLutinMax = Math.max(...lstY);
 
-    if (sortie_html) {
+    if (sortieHtml) {
       texte += `<table style="width: 100%"><tr><td>`;
     } else {
       texte += `\\begin{minipage}[t]{.25\\textwidth}`;
@@ -98,7 +98,7 @@ export default function Colorier_Deplacement() {
 
     texte += scratchblocks_Tikz(code_svg, code_tikz);
 
-    if (sortie_html) {
+    if (sortieHtml) {
       texte += `</td><td>`;
       texte += `             `;
       texte += `</td><td style="vertical-align: top; text-align: center">`;
@@ -133,9 +133,9 @@ export default function Colorier_Deplacement() {
     }
 
     texte += `Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. <br><br>`;
-    if (!sortie_html) { texte += `\\begin{center}`; }
+    if (!sortieHtml) { texte += `\\begin{center}`; }
     texte += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: .5 }, lstObjet);
-    if (sortie_html) {
+    if (sortieHtml) {
       texte += `</td></tr></table>`;
     } else {
       texte += `\\end{center}\\end{minipage} `;
@@ -149,10 +149,10 @@ export default function Colorier_Deplacement() {
     let couleur = `red`;
 
     // on fait un dessin par passage dans la boucle
-    if (sortie_html) {
-      texte_corr += `<table style="width:100%"><tr><td style="text-align:center">`;
+    if (sortieHtml) {
+      texteCorr += `<table style="width:100%"><tr><td style="text-align:center">`;
     } else {
-      texte_corr += `\\begin{minipage}{.49\\textwidth}`;
+      texteCorr += `\\begin{minipage}{.49\\textwidth}`;
     }
     for (let k = 0; k < nbRepetition; k++) {
       for (let i = k * lstNumCommande.length; i < (k + 1) * lstNumCommande.length; i++) {
@@ -174,27 +174,27 @@ export default function Colorier_Deplacement() {
         }
       }
       if (this.sup2) {
-        texte_corr += `Passage n° ${k + 1} dans la boucle : <br>`;
+        texteCorr += `Passage n° ${k + 1} dans la boucle : <br>`;
       }
-      texte_corr += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: 0.4 }, lstObjet);
-      if (sortie_html) {
+      texteCorr += mathalea2d({ xmin: xGrilleMin - 3, xmax: xGrilleMax + 1, ymin: yGrilleMin - 1, ymax: yGrilleMax + 1, pixelsParCm: 20, scale: 0.4 }, lstObjet);
+      if (sortieHtml) {
         if (k % 3 == 2) {
-          texte_corr += `</td></tr><tr><td style="text-align:center">`; // retour à la ligne après 3 grilles dessinées en HTML
+          texteCorr += `</td></tr><tr><td style="text-align:center">`; // retour à la ligne après 3 grilles dessinées en HTML
         } else {
-          texte_corr += `</td><td></td><td style="text-align:center">`;
+          texteCorr += `</td><td></td><td style="text-align:center">`;
         }
       } else {
-        texte_corr += `\\end{minipage}`;
-        if (k % 2 == 1) { texte_corr += `\\\\ `; } // retour à la ligne après 2 grilles dessinées en LaTeX
-        texte_corr += `\\begin{minipage}{.49\\textwidth}`;
+        texteCorr += `\\end{minipage}`;
+        if (k % 2 == 1) { texteCorr += `\\\\ `; } // retour à la ligne après 2 grilles dessinées en LaTeX
+        texteCorr += `\\begin{minipage}{.49\\textwidth}`;
       }
     }
-    sortie_html ? texte_corr += `</td></tr></table>` : texte_corr += `\\end{minipage}`;
+    sortieHtml ? texteCorr += `</td></tr></table>` : texteCorr += `\\end{minipage}`;
 
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [`Nombre d'instructions de déplacements`, 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
+  this.besoinFormulaireNumerique = [`Nombre d'instructions de déplacements`, 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
   this.besoin_formulaire2_case_a_cocher = ["Avec une boucle"];
 }

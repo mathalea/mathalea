@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,ecriture_parenthese_si_negatif,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,katexPopup2} from '../../modules/outils.js'
 
 
 export const titre = 'Appliquer la double distributivité avec les racines carrées'
@@ -12,17 +12,17 @@ export default function Double_distributivité_avec_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = titre;
     this.consigne = " Effectuer les calculs suivants :";
-    this.nb_questions = 5;
-    this.nb_cols = 2;
-    this.nb_cols_corr = 2;
+    this.nbQuestions = 5;
+    this.nbCols = 2;
+    this.nbColsCorr = 2;
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1, 2],type_de_questions
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
@@ -40,15 +40,15 @@ export default function Double_distributivité_avec_racine_carree() {
                         b2 = -1 * b2;
                         aa2 = a1 * b2 + b1 * a2;
                     }
-                    texte = `$\\left(${a1}\\sqrt{${a}}${ecriture_algebrique(b1)}\\right)\\left(${a2}\\sqrt{${a}}${ecriture_algebrique(b2)}\\right)$`;
-                    texte_corr = `$\\left(${a1}\\sqrt{${a}}${ecriture_algebrique(b1)}\\right)\\left(${a2}\\sqrt{${a}}${ecriture_algebrique(b2)}\\right)$<br>
+                    texte = `$\\left(${a1}\\sqrt{${a}}${ecritureAlgebrique(b1)}\\right)\\left(${a2}\\sqrt{${a}}${ecritureAlgebrique(b2)}\\right)$`;
+                    texteCorr = `$\\left(${a1}\\sqrt{${a}}${ecritureAlgebrique(b1)}\\right)\\left(${a2}\\sqrt{${a}}${ecritureAlgebrique(b2)}\\right)$<br>
                     
-                    $=${a1}\\sqrt{${a}}\\times ${a2}\\sqrt{${a}}${ecriture_algebrique(a1)}\\sqrt{${a}} \\times ${ecriture_parenthese_si_negatif(b2)}
-                    ${ecriture_algebrique(b1)} \\times ${a2}\\sqrt{${a}}${ecriture_algebrique(b1)} \\times ${ecriture_parenthese_si_negatif(b2)}$<br>
-                    $=${a1}\\times ${a}\\times ${a2}+ \\left( ${a1} \\times ${ecriture_parenthese_si_negatif(b2)} 
-                    ${ecriture_algebrique(b1)} \\times ${a2}\\right)\\sqrt{${a}} ${ecriture_algebrique(bb)}$<br>
-                    $= ${aa1}${ecriture_algebrique(aa2)} \\sqrt{${a}}${ecriture_algebrique(bb)}$<br>
-                    $=${aa2} \\sqrt{${a}}${ecriture_algebrique(aaa)}$`;
+                    $=${a1}\\sqrt{${a}}\\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(a1)}\\sqrt{${a}} \\times ${ecritureParentheseSiNegatif(b2)}
+                    ${ecritureAlgebrique(b1)} \\times ${a2}\\sqrt{${a}}${ecritureAlgebrique(b1)} \\times ${ecritureParentheseSiNegatif(b2)}$<br>
+                    $=${a1}\\times ${a}\\times ${a2}+ \\left( ${a1} \\times ${ecritureParentheseSiNegatif(b2)} 
+                    ${ecritureAlgebrique(b1)} \\times ${a2}\\right)\\sqrt{${a}} ${ecritureAlgebrique(bb)}$<br>
+                    $= ${aa1}${ecritureAlgebrique(aa2)} \\sqrt{${a}}${ecritureAlgebrique(bb)}$<br>
+                    $=${aa2} \\sqrt{${a}}${ecritureAlgebrique(aaa)}$`;
 
 
                     break;
@@ -64,24 +64,24 @@ export default function Double_distributivité_avec_racine_carree() {
                     let dd1 = d1 * c2;
                     let dd2 = dd - cc2 * c;
                     let dd3 = cc1 - dd1;
-                    texte = `$\\left(${c1}\\sqrt{${c}}${ecriture_algebrique(d1)}\\right)\\left(${d2} ${ecriture_algebrique(c2)}\\sqrt{${c}}\\right)$`;
-                    texte_corr = `$\\left(${c1}\\sqrt{${c}}${ecriture_algebrique(d1)}\\right)\\left(${d2}${ecriture_algebrique(c2)}\\sqrt{${c}}\\right)$<br>
-                    $=${c1}\\sqrt{${c}}\\times ${d2}${ecriture_algebrique(c1)}\\sqrt{${c}} \\times ${ecriture_parenthese_si_negatif(c2)}\\sqrt{${c}}${ecriture_algebrique(d1)} \\times ${d2}  ${ecriture_algebrique(d1)}  \\times ${c2}\\sqrt{${c}}$<br>
-                    $= ${cc1}\\sqrt{${c}} ${ecriture_algebrique(cc2)}\\times ${c} ${ecriture_algebrique(dd)} ${ecriture_algebrique(dd1)} \\sqrt{${c}}   $<br>
-                    $=${dd3}\\sqrt{${c}}${ecriture_algebrique(dd2)}$`;
+                    texte = `$\\left(${c1}\\sqrt{${c}}${ecritureAlgebrique(d1)}\\right)\\left(${d2} ${ecritureAlgebrique(c2)}\\sqrt{${c}}\\right)$`;
+                    texteCorr = `$\\left(${c1}\\sqrt{${c}}${ecritureAlgebrique(d1)}\\right)\\left(${d2}${ecritureAlgebrique(c2)}\\sqrt{${c}}\\right)$<br>
+                    $=${c1}\\sqrt{${c}}\\times ${d2}${ecritureAlgebrique(c1)}\\sqrt{${c}} \\times ${ecritureParentheseSiNegatif(c2)}\\sqrt{${c}}${ecritureAlgebrique(d1)} \\times ${d2}  ${ecritureAlgebrique(d1)}  \\times ${c2}\\sqrt{${c}}$<br>
+                    $= ${cc1}\\sqrt{${c}} ${ecritureAlgebrique(cc2)}\\times ${c} ${ecritureAlgebrique(dd)} ${ecritureAlgebrique(dd1)} \\sqrt{${c}}   $<br>
+                    $=${dd3}\\sqrt{${c}}${ecritureAlgebrique(dd2)}$`;
                     break;
 
 
 
             }
-            if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
 
 

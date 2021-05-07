@@ -1,76 +1,206 @@
-import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '../../modules/outils.js'
-export const titre = 'Résoudre une équation du second degré'
+import Exercice from '../ClasseExercice.js'
+// eslint-disable-next-line camelcase
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
+export const titre = 'Équations du second degré se ramenant au premier degré'
 
 /**
- * Résoudre une équation de type x²=a
-* @auteur Jean-Claude Lhote
-* 3L15
+ *
+ * Résoudre une équation du type (ax)2 - b2 = 0
+ *
+ * Résoudre une équation du type ax2 + bx = 0
+ *
+ * @Auteur Rémi Angot
+ * Référence 3L15
 */
-export default function Resoudre_une_equation_x2_egal_A() {
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = titre;
-	this.consigne = "Résoudre les équations suivantes";
-	this.nb_questions = 5;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1.5;
-	this.spacing = 1;
+export default function ExerciceEquations () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.consigne = 'Résoudre les équations suivantes'
+  this.nbQuestions = 6
+  this.nbCols = 2
+  this.nbColsCorr = 1
+  this.sup = 4
+  this.spacingCorr = 3
+  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.video = '' // Id YouTube ou url
 
+  this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
-		[1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
-		[1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]];
-		let liste_type_de_questions = [];
-		switch (parseInt(this.sup)) {
-			case 1: liste_type_de_questions = combinaison_listes([1], this.nb_questions);
-				break;
-			case 2: liste_type_de_questions = combinaison_listes([2], this.nb_questions);
-				break;
-			case 3: liste_type_de_questions = combinaison_listes([3], this.nb_questions);
-				break;
-			case 4: liste_type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions);
+    let typeQuestionsDisponibles = []
+    if (this.sup === 1) {
+      typeQuestionsDisponibles = ['ax2+bx', 'ax2+bxAvec1']
+    }
+    if (this.sup === 2) {
+      typeQuestionsDisponibles = ['ax2-b2', 'ax2=b2']
+    }
+    if (this.sup === 3) {
+      typeQuestionsDisponibles = ['bcx2+a=bx(cx+d)', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2']
+    }
+    if (this.sup === 4) {
+      typeQuestionsDisponibles = ['ax2+bx', 'ax2+bxAvec1', 'bcx2+a=bx(cx+d)', 'ax2-b2', 'ax2=b2', '(ax+b)(cx+d)=acx2']
+    }
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 'ax2+bx':
+          a = randint(-9, 9)
+          b = randint(-9, 9)
+          texte = ax2plusbx(a, b)[0]
+          texteCorr = ax2plusbx(a, b)[1]
+          break
+        case 'ax2+bxAvec1':
+          if (randint(1, 2) === 1) {
+            a = choice([-1, 1])
+            b = randint(-9, 9, [-1, 1])
+          } else {
+            b = choice([-1, 1])
+            a = randint(-9, 9, [-1, 1])
+          }
+          texte = ax2plusbx(a, b)[0]
+          texteCorr = ax2plusbx(a, b)[1]
+          break
+        case 'ax2-b2':
+          a = randint(1, 10)
+          b = randint(1, 10)
+          texte = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
+          texteCorr = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
+          texteCorr += '<br>'
+          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += '<br>'
+          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += '<br>'
+          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += '<br>'
+          if (pgcd(a, b) !== 1) {
+            texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
+          } else {
+            texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
+          }
+          break
+        case 'ax2=b2':
+          a = randint(1, 10)
+          b = randint(1, 10)
+          texte = `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `
+          texteCorr = `$ ${rienSi1(a ** 2)}x^2 = ${b ** 2}$ `
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
+          texteCorr += '<br>'
+          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += '<br>'
+          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += '<br>'
+          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += '<br>'
+          if (pgcd(a, b) !== 1) {
+            texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
+          } else {
+            texteCorr += `$x = ${texFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}=${texFractionReduite(b, a)}$ `
+          }
+          break
+        case 'bcx2+a=bx(cx+d)':
+          a = randint(1, 10)
+          b = randint(1, 10)
+          c = randint(1, 10)
+          d = randint(1, 10)
+          if (randint(1, 2) === 1) {
+            texte = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
+            texteCorr = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
+            texteCorr += '<br>'
+            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d)}x $`
+            texteCorr += '<br>'
+            texteCorr += `$ ${a} = ${rienSi1(d)}x $`
+            texteCorr += '<br>'
+            texteCorr += `$ ${texFraction(a, d)} = x $`
+            if ((a < 0 && d < 0) || pgcd(a, d) !== 1) {
+              texteCorr += '<br>'
+              texteCorr += ` $ x = ${texFractionReduite(a, d)} $`
+            }
+          } else {
+            texte = `$ ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
+            texteCorr = `$  ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
+            texteCorr += '<br>'
+            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
+            texteCorr += '<br>'
+            texteCorr += `$ ${rienSi1(d)}x = ${a} $`
+            texteCorr += '<br>'
+            texteCorr += `$ x = ${texFraction(a, d)}$`
+            if ((a < 0 && d < 0) || pgcd(a, d) !== 1) {
+              texteCorr += '<br>'
+              texteCorr += ` $ x = ${texFractionReduite(a, d)} $`
+            }
+          }
 
-		}
-		for (let i = 0, fraction, ns, ds, a, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+          break
+        case '(ax+b)2=0':
+          a = randint(1, 10)
+          b = randint(1, 10)
+          texte = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
+          texteCorr = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a)}x ${ecritureAlgebrique(b)} = 0$`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a)}x = ${-b} $`
+          texteCorr += '<br>'
+          texteCorr += `$ x = ${texFraction(-b, a)}$`
+          if ((-b < 0 && a < 0) || pgcd(a, b) !== 1) {
+            texteCorr += '<br>'
+            texteCorr += ` $ x = ${texFractionReduite(-b, a)} $`
+          }
+          break
+        case '(ax+b)(cx+d)=acx2':
+          a = randint(1, 5)
+          b = randint(1, 5)
+          c = randint(1, 5)
+          d = randint(1, 5)
+          texte = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(a * c)}x^2 $`
+          texteCorr = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(a * c)}x^2 $`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a * c)}x^2 ${ecritureAlgebriqueSauf1(a * d)}x ${ecritureAlgebriqueSauf1(b * c)}x ${ecritureAlgebrique(b * d)} = ${rienSi1(a * c)}x^2 $`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a * c)}x^2 ${ecritureAlgebriqueSauf1(a * d + b * c)}x ${ecritureAlgebrique(b * d)} = ${rienSi1(a * c)}x^2 $`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a * d + b * c)}x ${ecritureAlgebrique(b * d)} = 0 $`
+          texteCorr += '<br>'
+          texteCorr += `$ ${rienSi1(a * d + b * c)}x = ${-b * d}$ `
+          texteCorr += '<br>'
+          texteCorr += `$ x = ${texFraction(-b * d, a * d + b * c)}$`
+          if ((-b * d < 0 && a * d + b * c < 0) || pgcd(-b * d, a * d + b * c) !== 1) {
+            texteCorr += '<br>'
+            texteCorr += `$ x = ${texFractionReduite(-b * d, a * d + b * c)}$`
+          }
 
-			switch (liste_type_de_questions[i]) {
-				case 1: a = randint(1, 20); // x²=a*a donc x=a ou -a.
-					texte = `$x^2=${a * a}$`;
-					texte_corr = `$x^2=${a * a}$ équivaut à $x = \\sqrt{${a * a}}$ ou $x = -\\sqrt{${a * a}}$<br>Soit $x = ${a}$ ou $x = -${a}$<br>`;
-					texte_corr += `Il est équivalent de résoudre $x^2 - ${a * a}=0$ c'est à dire $x^2 - ${a}^{2}=0$ <br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `;
-					break;
-				case 2: // x²=(ns*ns)/(ds*ds) solutions rationnelles
-					fraction = choice(liste_fractions);
-					ns = fraction[0];
-					ds = fraction[1];
-					texte = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$`;
-					texte_corr = `$x^2=\\dfrac{${ns * ns}}{${ds * ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns * ns}}{${ds * ds}}}$<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$<br>`;
-					texte_corr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns * ns}}{${ds * ds}}=0$ c'est à dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `;
-					break;
+          break
+      }
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ["Types d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Tous les types précédents"]
+}
 
-				case 3: a = randint(2, 50, [4, 9, 16, 25, 36, 49]); //solution irrationnelles
-					texte = `$x^2=${a}$`;
-					texte_corr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$<br>`;
-					texte_corr += `Il est équivalent de résoudre $x^2 - ${a}=0$  c'est à dire $x^2 - (\\sqrt{${a}})^{2}=0$<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `;
-					break;
-
-			}
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				// alert(this.liste_questions)
-				// alert(this.liste_corrections)
-				i++;
-			}
-			cpt++;
-		}
-		liste_de_question_to_contenu(this);
-	};
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : solutions entières\n 2 : solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange des 3 autres niveaux'];
+function ax2plusbx (a, b) {
+  const texte = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
+  let texteCorr = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
+  texteCorr += '<br>'
+  texteCorr += `$x(${rienSi1(a)} x ${ecritureAlgebrique(b)})=0$`
+  texteCorr += '<br>'
+  texteCorr += `$ x = 0 \\text{ \\quad ou \\quad } ${rienSi1(a)} x ${ecritureAlgebrique(b)} = 0 $ `
+  texteCorr += '<br>'
+  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }} ${rienSi1(a)} x = ${-b} $ `
+  texteCorr += '<br>'
+  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }}  x = ${texFraction(-b, a)} `
+  if ((b > 0 && a < 0) || pgcd(a, b) !== 1) {
+    texteCorr += ` = ${texFractionReduite(-b, a)} `
+  }
+  texteCorr += '$'
+  return [texte, texteCorr]
 }

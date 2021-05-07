@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes} from '../../modules/outils.js'
 
 
 
@@ -13,18 +13,18 @@ export default function valeur_absolue() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = titre;
     this.consigne = "Déterminer la valeur du nombre proposé :";
-    this.nb_questions = 5;
-    this.nb_cols = 2;
-    this.nb_cols_corr = 2;
+    this.nbQuestions = 5;
+    this.nbCols = 2;
+    this.nbColsCorr = 2;
     this.sup = 1; // 
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1, 2, 3],type_de_questions
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, a, b, c, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
@@ -34,8 +34,8 @@ export default function valeur_absolue() {
 
 
                     texte = `$\\vert ${a}\\vert = \\dots$`;
-                    if (a > 0) { texte_corr = `$\\vert ${a}\\vert = ${a}$`; }
-                    else { texte_corr = `$\\vert ${a}\\vert = ${-a}$`; }
+                    if (a > 0) { texteCorr = `$\\vert ${a}\\vert = ${a}$`; }
+                    else { texteCorr = `$\\vert ${a}\\vert = ${-a}$`; }
 
 
 
@@ -46,8 +46,8 @@ export default function valeur_absolue() {
 
 
                     texte = `$\\vert \\pi - ${a}\\vert = \\dots$`;
-                    if (a > 3) { texte_corr = `On a : $\\pi - ${a}<0 $ donc $\\vert \\pi - ${a}\\vert = ${a}-\\pi$`; }
-                    else { texte_corr = `On a : $\\pi - ${a}>0 $ donc $\\vert \\pi - ${a}\\vert = \\pi - ${a}$`; }
+                    if (a > 3) { texteCorr = `On a : $\\pi - ${a}<0 $ donc $\\vert \\pi - ${a}\\vert = ${a}-\\pi$`; }
+                    else { texteCorr = `On a : $\\pi - ${a}>0 $ donc $\\vert \\pi - ${a}\\vert = \\pi - ${a}$`; }
 
 
 
@@ -61,11 +61,11 @@ export default function valeur_absolue() {
                     texte = `$\\vert \\sqrt{${b}} - ${a}\\vert = \\dots $`;
 
                     if (c > a) {
-                        texte_corr = `On a : $${b} > ${a * a}$ donc $\\sqrt{${b}} > ${a}$ <br>
+                        texteCorr = `On a : $${b} > ${a * a}$ donc $\\sqrt{${b}} > ${a}$ <br>
                         $\\sqrt{${b}}- ${a}$ est donc un nombre positif, il en resulte que  $\\vert \\sqrt{${b}} - ${a}\\vert = \\sqrt{${b}} - ${a}$`;
                     }
                     else {
-                        texte_corr = `On a : $${b}< ${a * a}$ donc $\\sqrt{${b}} < ${a}$ <br>
+                        texteCorr = `On a : $${b}< ${a * a}$ donc $\\sqrt{${b}} < ${a}$ <br>
                         $\\sqrt{${b}}- ${a}$ est donc un nombre négatif, il en resulte que  $\\vert \\sqrt{${b}} -${a}\\vert = ${a}-\\sqrt{${b}}  $`;
                     }
 
@@ -74,14 +74,14 @@ export default function valeur_absolue() {
                     break;
 
             }
-            if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
 
 }

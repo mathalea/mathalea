@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,liste_de_question_to_contenu_sans_numero,randint,choice,arrondi_virgule,calcul,lettre_depuis_chiffre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,choice,arrondiVirgule,calcul,lettreDepuisChiffre} from '../../modules/outils.js'
 export const titre = 'Calculer une longueur avec l’égalité de Pythagore (MG32)'
 
 /**
@@ -10,27 +10,27 @@ export default function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit
-  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
-  this.liste_packages = "tkz-euclide";
-  this.type_exercice = "MG32";
+  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  this.listePackages = "tkz-euclide";
+  this.typeExercice = "MG32";
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+  this.nouvelleVersion = function (numeroExercice) {
 
-    this.taille_div_MG32 = [700, 500];
-    this.liste_questions = [];
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.dimensionsDivMg32 = [700, 500];
+    this.listeQuestions = [];
+    this.listeCorrections = []; // Liste de questions corrigées
     let lettre0 = randint(11, 25); // aleatoirisation du nom des points
-    let s0 = lettre_depuis_chiffre(lettre0);
+    let s0 = lettreDepuisChiffre(lettre0);
     let lettre1 = randint(11, 25, [lettre0]);
-    let s1 = lettre_depuis_chiffre(lettre1);
+    let s1 = lettreDepuisChiffre(lettre1);
     let lettre2 = randint(11, 25, [lettre0, lettre1]);
-    let s2 = lettre_depuis_chiffre(lettre2);
-    let type_de_questions,texte,texte_corr;
+    let s2 = lettreDepuisChiffre(lettre2);
+    let type_de_questions,texte,texteCorr;
     if (this.sup == 1) {
       type_de_questions = 1; //calcul de l'hypoténuse
     }
@@ -57,20 +57,20 @@ export default function Exercice_Pythagore() {
     let alpha1deg = Math.round((alpha1 * 180) / Math.PI);
     let x1 = k1; // coordonnées des deux sommets du triangle
     let y2 = k2;
-    let s01 = arrondi_virgule(k1, 1); // mise en texte avec 1 chiffres après la virgule pour énoncé
-    let s02 = arrondi_virgule(k2, 1);
+    let s01 = arrondiVirgule(k1, 1); // mise en texte avec 1 chiffres après la virgule pour énoncé
+    let s02 = arrondiVirgule(k2, 1);
 
     let carre01 = Math.round(k1 * k1 * 100) / 100;
     let carre02 = Math.round(k2 * k2 * 100) / 100;
     let dist12 = Math.sqrt(carre01 + carre02); //calcul de l'hypoténuse
     dist12 = Math.round(dist12 * 10) / 10; // On ne garde qu'une approximation au dixième pour l'exercice
-    let s12 = arrondi_virgule(dist12, 1);
+    let s12 = arrondiVirgule(dist12, 1);
     let carre12 = Math.round(dist12 * dist12 * 100) / 100;
 
-    let scarre01 = arrondi_virgule(carre01, 2); // carremn = distance entre (xm;ym) et (xn;yn) au carré avec 2 décimales
-    let scarre02 = arrondi_virgule(carre02, 2); // scarremn = chaine de caractère avec 2 décimales après une virgule.
-    let scarre12 = arrondi_virgule(carre12, 2);
-    if (sortie_html) {
+    let scarre01 = arrondiVirgule(carre01, 2); // carremn = distance entre (xm;ym) et (xn;yn) au carré avec 2 décimales
+    let scarre02 = arrondiVirgule(carre02, 2); // scarremn = chaine de caractère avec 2 décimales après une virgule.
+    let scarre12 = arrondiVirgule(carre12, 2);
+    if (sortieHtml) {
       let codeBase64;
       if (alpha1deg < 0) {
         codeBase64 =
@@ -87,19 +87,19 @@ export default function Exercice_Pythagore() {
           }=${s01}$ cm, $${s0 + s2}=${s02}$ cm.`;
         texte += `<br>Le point $${s0}$ peut être déplacé.<br>`;
         texte += `Calculer $${s1 + s2}$.`;
-        texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2
+        texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2
           }^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`;
-        texte_corr +=
+        texteCorr +=
           "D&rsquo;où " +
           `$${s1 + s2
-          }^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondi_virgule(
+          }^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondiVirgule(
             carre02 + carre01,
             2
           )}.$` +
           "<br>";
-        texte_corr +=
+        texteCorr +=
           "Soit " +
-          `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(
+          `$${s1 + s2}~=~\\sqrt{${arrondiVirgule(
             carre02 + carre01,
             2
           )}}~\\approx${s12}$` +
@@ -110,47 +110,47 @@ export default function Exercice_Pythagore() {
         texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${s0 + s1
           }=${s01}$ cm, $${s1 + s2}=${s12}$ cm.<br>`;
         texte += `Calculer $${s0 + s2}$.`;
-        texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2
+        texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2
           }^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`;
-        texte_corr +=
+        texteCorr +=
           "D&rsquo;où " +
           `$${s0 + s2}^2~=~${s1 + s2}^2~-~${s0 + s1
-          }^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondi_virgule(
+          }^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondiVirgule(
             carre12 - carre01,
             2
           )}.$` +
           "<br>";
-        texte_corr +=
+        texteCorr +=
           "Soit " +
-          `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(
+          `$${s0 + s2}~=~\\sqrt{${arrondiVirgule(
             carre12 - carre01,
             2
           )}}~\\approx${s02}$` +
           " cm.";
       }
       if (type_de_questions < 3) {
-        this.type_exercice = "MG32";
+        this.typeExercice = "MG32";
         this.MG32codeBase64 = codeBase64;
         this.MG32code_pour_modifier_la_figure = `
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${y2}");
-		        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x1", "${x1}");
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "alphadeg", "${alpha1deg}");
-				mtg32App.rename("MG32svg${numero_de_l_exercice}","A","${s0}");
-				mtg32App.rename("MG32svg${numero_de_l_exercice}","B","${s1}");
-				mtg32App.rename("MG32svg${numero_de_l_exercice}","C","${s2}");
-				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
+				mtg32App.giveFormula2("MG32svg${numeroExercice}", "x2", "${y2}");
+		        mtg32App.giveFormula2("MG32svg${numeroExercice}", "x1", "${x1}");
+				mtg32App.giveFormula2("MG32svg${numeroExercice}", "alphadeg", "${alpha1deg}");
+				mtg32App.rename("MG32svg${numeroExercice}","A","${s0}");
+				mtg32App.rename("MG32svg${numeroExercice}","B","${s1}");
+				mtg32App.rename("MG32svg${numeroExercice}","C","${s2}");
+				mtg32App.calculate("MG32svg${numeroExercice}");
+	        	mtg32App.display("MG32svg${numeroExercice}");
 				`;
         texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
       } else {
-        this.type_exercice = "";
+        this.typeExercice = "";
       }
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
       if (type_de_questions < 3) {
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
       } else {
-        liste_de_question_to_contenu_sans_numero(this);
+        listeQuestionsToContenuSansNumero(this);
       }
     } else {
       if (type_de_questions < 3) {
@@ -284,65 +284,65 @@ export default function Exercice_Pythagore() {
             " à 0,1 près. \\end{minipage}";
         }
       }
-      this.liste_questions.push(texte); // on envoie la question
+      this.listeQuestions.push(texte); // on envoie la question
       // correction
       if (type_de_questions == 2 || type_de_questions == 4) {
         //niveau 2 : Calcul d'un côté de l'angle droit
-        texte_corr =
+        texteCorr =
           "Le triangle " +
           `$${nom_du_triangle}$` +
           " est rectangle en " +
           `$${s0}.$` +
           "<br>\n D'après le théorème de Pythagore, on a :~" +
           `$${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$`;
-        texte_corr +=
+        texteCorr +=
           "<br>\n D'où " +
           `$${s0 + s2}^2~=~${s1 + s2}^2~-~${s0 + s1
-          }^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondi_virgule(
+          }^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondiVirgule(
             carre12 - carre01,
             2
           )}.$`;
-        texte_corr +=
+        texteCorr +=
           "<br>\n Soit " +
-          `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(
+          `$${s0 + s2}~=~\\sqrt{${arrondiVirgule(
             carre12 - carre01,
             2
           )}}~`;
-        if (s02 == calcul(Math.sqrt(s12 ** 2 - s01 ** 2))) texte_corr += `=${s02}~\\text{cm}.$`
+        if (s02 == calcul(Math.sqrt(s12 ** 2 - s01 ** 2))) texteCorr += `=${s02}~\\text{cm}.$`
         else texte += `\\approx${s02}~\\text{cm}.$`;
       } else {
-        texte_corr =
+        texteCorr =
           "Le triangle " +
           `$${nom_du_triangle}$` +
           " est rectangle en " +
           `$${s0}.$` +
           "<br>\n D'après le théorème de Pythagore, on a " +
           `$${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$`;
-        texte_corr +=
+        texteCorr +=
           "<br>\n D'où " +
           `$${s1 + s2
-          }^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondi_virgule(
+          }^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondiVirgule(
             carre02 + carre01,
             2
           )}.$`;
-        texte_corr +=
+        texteCorr +=
           "<br>\n Soit " +
-          `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(
+          `$${s1 + s2}~=~\\sqrt{${arrondiVirgule(
             carre02 + carre01,
             2
           )}}~`;
-        if (s12 == calcul(Math.sqrt(s01 ** 2 + s02 ** 2))) texte_corr += `=${s12}~\\text{cm}.$`
+        if (s12 == calcul(Math.sqrt(s01 ** 2 + s02 ** 2))) texteCorr += `=${s12}~\\text{cm}.$`
         else texte += `\\approx${s12}~\\text{cm}.$`;
       }
 
-      this.liste_corrections.push(texte_corr);
+      this.listeCorrections.push(texteCorr);
 
-      liste_de_question_to_contenu_sans_numero(this);
+      listeQuestionsToContenuSansNumero(this);
 
       // }end for
     }
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : Calcul de l'hypoténuse \n 2 : Calcul d'un côté de l'angle droit\n 3 : Calcul d'un côté quelconque\n 4 : Sans la figure",

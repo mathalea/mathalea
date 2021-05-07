@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
 export const titre = 'Facture'
 
 /**
@@ -11,19 +11,19 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Compléter le tableau suivant : ";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1; // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
   this.sup = 2; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 20; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let liste_articles = [["Feuilletés au fromage", calcul(randint(50, 80) / 10)],
       ["Feuilletés à la viande", calcul(randint(50, 80) / 10)],
       ["Pizzas", calcul(randint(80, 140) / 10)],
@@ -45,7 +45,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
 
 
       if (this.sup == 1) {
-        if (sortie_html) {
+        if (sortieHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -67,32 +67,32 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortie_html) {
-          texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
+        if (sortieHtml) {
+          texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
-          texte_corr = `$\\begin{array}{|c|c|c|c|}\n`;
+          texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;
         }
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Prix total (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
-        texte_corr += `\\hline\n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Prix total (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
+        texteCorr += `\\hline\n`
 
-        texte_corr += `\\end{array}$`
+        texteCorr += `\\end{array}$`
       }
 
       if (this.sup == 2) {
-        if (sortie_html) {
+        if (sortieHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -118,46 +118,46 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortie_html) {
-          texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
+        if (sortieHtml) {
+          texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
-          texte_corr = `$\\begin{array}{|c|c|c|c|}\n`;
+          texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;
         }
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Prix total brut (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Réduction (${r}~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Prix total net (H.T.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
-        texte_corr += `\\hline\n`
-        texte_corr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
-        texte_corr += `\\hline\n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Prix total net (H.T.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
+        texteCorr += `\\hline\n`
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
+        texteCorr += `\\hline\n`
 
-        texte_corr += `\\end{array}$`
+        texteCorr += `\\end{array}$`
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 2,'1 : Sans réduction\n2 : Avec réduction'];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Sans réduction\n2 : Avec réduction'];
 }
 
-// python3 modules/exercices_to_json.py pour faire apparaitre l'exercice dans le menu
+
 

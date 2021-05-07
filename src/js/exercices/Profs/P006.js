@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {arrondi,troncature,calcul,choisit_lettres_differentes} from '../../modules/outils.js'
+import {arrondi,troncature,calcul,choisitLettresDifferentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
@@ -11,19 +11,19 @@ export const titre = 'Placer un nombre décimal avec des zooms successifs'
  */
 export default function Nombre_a_placer() {
   Exercice.call(this);
-  this.nb_cols = 1;
-  this.nb_questions=1;
-  this.nb_questions_modifiable=false
+  this.nbCols = 1;
+  this.nbQuestions=1;
+  this.nbQuestionsModifiable=false
   this.sup = 1;
   this.sup2 = 2.573;
   this.sup3 = false;
   this.titre = titre;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.contenu = "";
     let d1, d2, d3, texte = "", extremite, noms = [];
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0;
-    noms = choisit_lettres_differentes(5, 'QFN');
+    noms = choisitLettresDifferentes(5, 'QFN');
     objets.length = 0;
     x1 = parseFloat(this.sup2);
     x1 = arrondi(x1, 4);
@@ -81,9 +81,8 @@ export default function Nombre_a_placer() {
       objets.push(d1);
 
     texte = mathalea2d(fenetre, objets);
-    console.log(objets);
     this.contenu += texte;
-    if (sortie_html) {
+    if (sortieHtml) {
       this.contenu += '<br>';
     }
     else  {
@@ -91,7 +90,7 @@ export default function Nombre_a_placer() {
     }
 
   };
-  this.besoin_formulaire_numerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
+  this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
   this.besoin_formulaire2_numerique = ['Saisir le nombre décimal '];
   this.besoin_formulaire3_case_a_cocher = ['Afficher les abscisses'];
 

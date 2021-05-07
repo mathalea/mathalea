@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleve_element, compteOccurences } from './outils.js'
+import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtreDictionnaireValeurTableauCle, enleveElement, compteOccurences } from './outils.js'
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
@@ -17,8 +17,8 @@ for (const item in dictionnaireDNB) {
 }
 // transforme le set en tableau dans l'ordre alphabétique
 const tableauTags = ([...tags].sort())
-enleve_element(tableauTags, "Système d'équations")
-enleve_element(tableauTags, 'Hors programme')
+enleveElement(tableauTags, "Système d'équations")
+enleveElement(tableauTags, 'Hors programme')
 
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }
@@ -172,7 +172,7 @@ function div_niveau (obj, active, id) {
 
 // fonction ajout d'un exercice : ajoute l'exercice dans l'input avec la liste des exercice et provoque l'evt change pour recalcul de la page.
 function addExercice (e) {
-  const numero = $(e.target).attr('data-id_exercice')
+  const numero = $(e.target).attr('data-id_exercice') ?  $(e.target).attr('data-id_exercice') :  $(e.target).parents('a.lien_id_exercice').attr('data-id_exercice')
   if ($('#choix_des_exercices').val() === '') {
     $('#choix_des_exercices').val($('#choix_des_exercices').val() + numero)
   } else {
@@ -203,23 +203,24 @@ export function apparence_exercice_actif () {
   $('.delexercice').remove()
   const liste_exercices_selectionnes = document.getElementById('choix_des_exercices').value.split(',')
   for (let i = 0; i < liste_exercices_selectionnes.length; i++) {
-    const elem_liste = $(`a.lien_id_exercice[data-id_exercice='${liste_exercices_selectionnes[i]}']`)
-
-    if (!elem_liste.hasClass('exerciceactif')) {
-      elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
-    }
-    elem_liste.addClass('exerciceactif')
+    const elem_liste = $(`a.lien_id_exercice[data-id_exercice='${liste_exercices_selectionnes[i]}']`)   
     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
     if (compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i]) > 1) {
       // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      const ancienTexte = elem_liste.first().text()
-      const txt = ancienTexte.split('✖︎')[0] + ` ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])}`
-      elem_liste.text(txt)
+      if (document.getElementById(`count¤${liste_exercices_selectionnes[i]}`)) {
+		 document.getElementById(`count¤${liste_exercices_selectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])}`  
+	  } else {
+		elem_liste.after(`<span id="count¤${liste_exercices_selectionnes[i]}"> ✖︎ ${compteOccurences(liste_exercices_selectionnes, liste_exercices_selectionnes[i])} </span>`)
+	  }
     } else {
-      const ancienTexte = elem_liste.first().text()
-      const txt = ancienTexte.split('✖︎')[0]
-      elem_liste.text(txt)
+      if (document.getElementById(`count¤${liste_exercices_selectionnes[i]}`)) {
+		  document.getElementById(`count¤${liste_exercices_selectionnes[i]}`).remove()
+	  }
     }
+	if (!elem_liste.hasClass('exerciceactif')) {
+      elem_liste.after(`<span data-tooltip="Supprimer le dernière occurence de l'exercice." class="delexercice"><i class="minus square icon delexercice" id="del¤${liste_exercices_selectionnes[i]}" ></i></span>`)
+    }
+    elem_liste.addClass('exerciceactif')
   }
   $('.delexercice').off('click').on('click', function (e) {
     supprimerExo(event.target.id, true)
@@ -593,7 +594,6 @@ export function menuDesExercicesDisponibles () {
     }
     const searchType = $.fn.DataTable.ext.type.search
     searchType.string = function (data) {
-      console.log('search ' + data)
       return !data ? '' : typeof data === 'string' ? removeAccents(data) : data
     }
     searchType.html = function (data) {

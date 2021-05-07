@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,arrondi,calcul,tex_nombrec,tex_nombre,tex_texte} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,arrondi,calcul,texNombrec,texNombre,tex_texte} from '../../modules/outils.js'
 export const titre = 'Périmètres et aires de figures composées'
 
 /**
@@ -15,18 +15,18 @@ export const titre = 'Périmètres et aires de figures composées'
  */
 export default function Perimetre_ou_aire_de_figures_composees() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.pas_de_version_LaTeX = true;
+  this.pasDeVersionLatex = true;
   this.titre = titre;
   this.consigne = "Calculer le périmètre et l'aire des 2 figures suivantes";
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false;
-  this.type_exercice = "MG32";
-  this.taille_div_MG32 = [500, 500];
+  this.spacingCorr = 2;
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false;
+  this.typeExercice = "MG32";
+  this.dimensionsDivMg32 = [500, 500];
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeCorrections = []; // Liste de questions corrigées
     let L1 = randint(4, 7);
     let l1 = randint(2, 4);
     let L2 = randint(2, 4);
@@ -40,38 +40,38 @@ export default function Perimetre_ou_aire_de_figures_composees() {
     let DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1);
     let t1 = arrondi(Math.sqrt(4 + h ** 2), 1); // longueur d'un côté du triangle
     let t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1); // longueur de l'autre côté d'un triangle
-    let texte_corr = "";
-    texte_corr += `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`;
-    texte_corr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`;
-    texte_corr += `$\\mathcal{P}_{1}=${L1 + L2}+${tex_nombre(
+    let texteCorr = "";
+    texteCorr += `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`;
+    texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`;
+    texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
       DA
-    )}+${L1}+${l1}=${tex_nombrec(L1 + L2 + DA + L1 + l1)}$ cm.<br>`;
-    texte_corr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
+    )}+${L1}+${l1}=${texNombrec(L1 + L2 + DA + L1 + l1)}$ cm.<br>`;
+    texteCorr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
       }+${calcul((L2 * l1) / 2)}=${calcul(L1 * l1 + (L2 * l1) / 2)}~${tex_texte(
         " cm"
       )}^2$.`;
-    texte_corr += "<br><br>";
-    texte_corr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`;
-    texte_corr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${tex_nombre(
+    texteCorr += "<br><br>";
+    texteCorr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`;
+    texteCorr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${texNombre(
       t1
-    )}+${tex_nombre(t2)}=${tex_nombrec(3 * c + t1 + t2)}$ cm<br>`;
-    texte_corr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
-      }-${(c * h) / 2}=${tex_nombrec(c ** 2 - (c * h) / 2)}~${tex_texte(
+    )}+${texNombre(t2)}=${texNombrec(3 * c + t1 + t2)}$ cm<br>`;
+    texteCorr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
+      }-${(c * h) / 2}=${texNombrec(c ** 2 - (c * h) / 2)}~${tex_texte(
         " cm"
       )}^2$.`;
 
     this.MG32codeBase64 = codeBase64;
     this.MG32code_pour_modifier_la_figure = `
-	        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "L1", "${L1}");
-	        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "l1", "${l1}");
-	        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "L2", "${L2}");
-	        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "c", "${c}");
-	        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h", "${h}");
-	        mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-	        mtg32App.display("MG32svg${numero_de_l_exercice}");
+	        mtg32App.giveFormula2("MG32svg${numeroExercice}", "L1", "${L1}");
+	        mtg32App.giveFormula2("MG32svg${numeroExercice}", "l1", "${l1}");
+	        mtg32App.giveFormula2("MG32svg${numeroExercice}", "L2", "${L2}");
+	        mtg32App.giveFormula2("MG32svg${numeroExercice}", "c", "${c}");
+	        mtg32App.giveFormula2("MG32svg${numeroExercice}", "h", "${h}");
+	        mtg32App.calculate("MG32svg${numeroExercice}");
+	        mtg32App.display("MG32svg${numeroExercice}");
 	      `;
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu_sans_numero(this);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenuSansNumero(this);
   };
 }
 

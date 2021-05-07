@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,texte_en_couleur,texte_gras,tex_prix,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs.'
 
 /** 
@@ -14,23 +14,23 @@ export default function Problemes_additifs_relatifs_5e() {
 	this.debug = false;
 	this.sup = 1;
 	if (this.debug) {
-		this.nb_questions = 1;
+		this.nbQuestions = 1;
 	} else {
-		this.nb_questions = 1;
+		this.nbQuestions = 1;
 	};
 
 	this.titre = titre;
 	this.consigne = ``;
 
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	//this.nbQuestionsModifiable = false;
+	sortieHtml ? this.spacing = 3 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
 	let type_de_questions_disponibles;
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		if (this.debug) {
 			type_de_questions_disponibles = [0];
 		} else {
@@ -38,15 +38,15 @@ export default function Problemes_additifs_relatifs_5e() {
 			type_de_questions_disponibles = [0];
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
 		//type_de_questions_disponibles=[1];			
 
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let g_p_u; //pour le gain/perte unitaire
 			let g_m; //pour le gain multiple
 			// on veut des multiples de 5 pour n'avoir que des demis entiers ou des entiers
@@ -149,8 +149,8 @@ export default function Problemes_additifs_relatifs_5e() {
 					<br>${situations[0].enonce_4} $${tex_prix(situations[0].perte)}$€.
 					<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
 					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${tex_prix(situations[k].gain_unitaire)}$€.
-					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
-					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
+					<br> ${numAlpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
+					<br> ${numAlpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
 					`,
 					question: ``,
 					correction: `
@@ -168,10 +168,10 @@ export default function Problemes_additifs_relatifs_5e() {
 					<br>${texte_gras(`Pertes :`)}
 					<br>$${myGainPerteString(situations[k].nb_pertes, 'perte', situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${tex_prix(situations[k].perte)}$€$) = -${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€
 
-					<br>${num_alpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
+					<br>${numAlpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)$ et $(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$)$.
 					<br> ${situations[k].bilan[2]}   
 
-					<br>${num_alpha(i_sous_question_corr++)} 
+					<br>${numAlpha(i_sous_question_corr++)} 
 					$(+${tex_prix(situations[k].nb_gains * situations[k].gain_multiple)}$€$)+(+${tex_prix(situations[k].nb_gains_unitaires * situations[k].gain_unitaire)}$€$)+(-${tex_prix(situations[k].nb_pertes * situations[k].perte)}$€$) = (${tex_prix(situations[k].nb_gains * situations[k].gain_multiple + situations[k].nb_gains_unitaires * situations[k].gain_unitaire - situations[k].nb_pertes * situations[k].perte)}$€$)$
 					<br>${texte_en_couleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}$€`)} 
 
@@ -179,31 +179,31 @@ export default function Problemes_additifs_relatifs_5e() {
 				});
 			};
 
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0:
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
-						texte_corr = ``;
+						texteCorr = ``;
 					} else {
-						texte_corr = `${enonces[0].correction}`;
+						texteCorr = `${enonces[0].correction}`;
 					};
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 

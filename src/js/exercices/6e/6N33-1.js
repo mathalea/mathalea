@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,calcul,tex_nombrec,tex_nombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,texNombre,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const amcReady = true
@@ -16,22 +16,22 @@ export default function Pourcentage_d_un_nombre() {
 
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
-  this.nb_questions = 5;
+  this.nbQuestions = 5;
   this.consigne = "Calculer";
   this.spacing = 2;
-  this.spacing_corr = 3.5;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 1;
+  this.spacingCorr = 3.5;
+  this.nbCols = 2;
+  this.nbColsCorr = 1;
   this.sup = 1;
-  this.nouvelle_version = function () {
-	this.QCM=['6N33-1',[],"Calculer le pourcentage d'un nombre de tête",4,{}]
+  this.nouvelleVersion = function () {
+	this.qcm=['6N33-1',[],"Calculer le pourcentage d'un nombre de tête",4,{}]
 let reponse;
     var liste_pourcentages = [];
-	this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+	this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     for (
-      let i = 0, p, n, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, p, n, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
     ) {
 		switch (parseInt(this.sup)) { //niveu de difficulté.
 			case 1: 
@@ -47,60 +47,60 @@ let reponse;
 		texte = `$${p}~\\%~\\text{de }${n}$`;
 		switch (p) {
 			case 50 :
-				texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2} = 
-					${tex_nombre(Algebrite.eval(n / 2))}$`; // calcul de n/2 si p = 50%
+				texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2} = 
+					${texNombre(Algebrite.eval(n / 2))}$`; // calcul de n/2 si p = 50%
 			break;
 			case 25 :
-				texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = 
-					${tex_nombre(Algebrite.eval(n / 4))}$`; // calcul de n/4 si p = 25%
+				texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = 
+					${texNombre(Algebrite.eval(n / 4))}$`; // calcul de n/4 si p = 25%
 			break;
 			default :
-				texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+				texteCorr = `$${p}~\\%~\\text{de }${n}=${texFraction(
 					p,
 					100
-					)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(
+					)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(
 					p * n
-				)}\\div100=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
+				)}\\div100=${texNombre(Algebrite.eval((p * n) / 100))}$`;
 				if (this.sup2) {
-					texte_corr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
+					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(
 					p,
 					100
-					)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(
+					)}\\times${n}=(${n}\\div100)\\times${p}=${texNombrec(
 					calcul(n / 100)
-					)}\\times${p}=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
-					texte_corr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
+					)}\\times${p}=${texNombre(Algebrite.eval((p * n) / 100))}$`;
+					texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(
 						p,
 						100
-						)}\\times${n}=${tex_nombrec(calcul(p / 100))}\\times${n}=${tex_nombre(
+						)}\\times${n}=${texNombrec(calcul(p / 100))}\\times${n}=${texNombre(
 						Algebrite.eval((p * n) / 100)
 						)}$`;
 					if (p === 60) {
-						texte_corr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $50~\\%~\\text{de }${n}$
+						texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $50~\\%~\\text{de }${n}$
 						plus $10 ~\\%~\\text{de }${n} $ soit la moitié de $ ${n} \\text{ plus } 10 ~\\%~\\text{de }${n} $ :
-						$${p}~\\%~\\text{de }${n}=${n}\\div${2} + ${n}\\div${10} =  ${tex_nombre(calcul(n * 0.6))}$`;
+						$${p}~\\%~\\text{de }${n}=${n}\\div${2} + ${n}\\div${10} =  ${texNombre(calcul(n * 0.6))}$`;
 					} else if (p === 90) {
-						texte_corr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $${n}$
+						texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $${n}$
 						moins $10 ~\\%~\\text{de }${n} $ :
-						$${p}~\\%~\\text{de }${n}=${n} - ${n}\\div${10} =  ${tex_nombre(calcul(n * 0.9))}$`;
+						$${p}~\\%~\\text{de }${n}=${n} - ${n}\\div${10} =  ${texNombre(calcul(n * 0.9))}$`;
 					} else if (p > 10) {
-						texte_corr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $ ${calcul(p/10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
-						$${p}~\\%~\\text{de }${n}= ${calcul(p/10)} \\times ${n}\\div${10} =  ${tex_nombre(calcul((p * n) / 100))}$`;
+						texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $ ${calcul(p/10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
+						$${p}~\\%~\\text{de }${n}= ${calcul(p/10)} \\times ${n}\\div${10} =  ${texNombre(calcul((p * n) / 100))}$`;
 					}
 				}
       }
 	  let reponse=calcul(n*p/100)
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-		this.QCM[1].push([texte, [texte_corr,reponse], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
+		this.qcm[1].push([texte, [texteCorr,reponse], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     2,
     "1 : pourcentages 10, 20, 30, 40, 50 \n 2: pourcentages 10, 20, 25, 30, 40, 50, 60, 90",

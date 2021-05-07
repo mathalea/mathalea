@@ -9,7 +9,7 @@ import {choice,shuffle} from '../../modules/outils.js'
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
  * sert dans les exercices CM019,
  */
-export default function Trouver_solution_mathador(
+export default function TrouverSolutionMathador(
   min,
   max,
   A = 1,

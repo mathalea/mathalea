@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre,tex_prix} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix} from '../../modules/outils.js'
 export const titre = 'Comparer des nombres décimaux'
 
 /**
@@ -24,13 +24,13 @@ export default function Comparer_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Compléter avec le signe < , > ou =.";
-  this.nb_questions = 8;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 8;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [
       choice([1, 4, 5]),
@@ -42,14 +42,14 @@ export default function Comparer_decimaux() {
       8,
       9,
     ]; // une seule question du type inversion de chiffres (1,4,5)
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       let x,
@@ -59,7 +59,7 @@ export default function Comparer_decimaux() {
         c,
         zero_inutile = false;
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // ab ba
           a = randint(1, 9);
           b = randint(1, 9, a);
@@ -130,46 +130,46 @@ export default function Comparer_decimaux() {
           break;
       }
 
-      texte = `${tex_nombre(x)}\\ldots\\ldots${tex_nombre(y)}`;
+      texte = `${texNombre(x)}\\ldots\\ldots${texNombre(y)}`;
       if (parseFloat(x) > parseFloat(y)) {
-        texte_corr = `${tex_nombre(x)} > ${tex_nombre(y)}`;
+        texteCorr = `${texNombre(x)} > ${texNombre(y)}`;
       } else if (parseFloat(x) < parseFloat(y)) {
-        texte_corr = `${tex_nombre(x)} < ${tex_nombre(y)}`;
+        texteCorr = `${texNombre(x)} < ${texNombre(y)}`;
       } else {
-        texte_corr = `${tex_nombre(x)} = ${tex_nombre(y)}`;
+        texteCorr = `${texNombre(x)} = ${texNombre(y)}`;
       }
 
       if (zero_inutile) {
         if (randint(1, 2) == 1) {
-          texte = `${tex_prix(x)}\\ldots\\ldots${tex_nombre(y)}`;
+          texte = `${tex_prix(x)}\\ldots\\ldots${texNombre(y)}`;
           if (parseFloat(x) > parseFloat(y)) {
-            texte_corr = `${tex_prix(x)} > ${tex_nombre(y)}`;
+            texteCorr = `${tex_prix(x)} > ${texNombre(y)}`;
           } else if (parseFloat(x) < parseFloat(y)) {
-            texte_corr = `${tex_prix(x)} < ${tex_nombre(y)}`;
+            texteCorr = `${tex_prix(x)} < ${texNombre(y)}`;
           } else {
-            texte_corr = `${tex_prix(x)} = ${tex_nombre(y)}`;
+            texteCorr = `${tex_prix(x)} = ${texNombre(y)}`;
           }
         } else {
-          texte = `${tex_nombre(x)}\\ldots\\ldots${tex_prix(y)}`;
+          texte = `${texNombre(x)}\\ldots\\ldots${tex_prix(y)}`;
           if (parseFloat(x) > parseFloat(y)) {
-            texte_corr = `${tex_nombre(x)} > ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} > ${tex_prix(y)}`;
           } else if (parseFloat(x) < parseFloat(y)) {
-            texte_corr = `${tex_nombre(x)} < ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} < ${tex_prix(y)}`;
           } else {
-            texte_corr = `${tex_nombre(x)} = ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} = ${tex_prix(y)}`;
           }
         }
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
 }
 

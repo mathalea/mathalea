@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,arrondi_virgule,prenom,tex_nombre,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
@@ -14,20 +14,20 @@ export default function Organiser_donnees_depuis_texte() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions à l'aide du texte.";
-  this.nb_questions = 4;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 4;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = false; // false -> effectif ; true -> masse
   this.sup2 = 4; // paramètre nombre de fruit
-  sortie_html ? this.spacing = 2 : this.spacing = 1;
-  sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1;
+  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    let nbAmis = 4,texte,texte_corr,m,S; // min = 2
+    let nbAmis = 4,texte,texteCorr,m,S; // min = 2
     let nbFruits = parseInt(this.sup2); // min = 2
     let lstPrenomExo = []
     while (lstPrenomExo.length < nbAmis) {
@@ -83,9 +83,9 @@ export default function Organiser_donnees_depuis_texte() {
       L = shuffle(L); // mélange l'ordre des fruits
       for (let k = 0; k < m; k++) {
         if (this.sup) {
-          texte += tex_nombre(L[k][0]) + ' kg de ' + L[k][1] + 's';
+          texte += texNombre(L[k][0]) + ' kg de ' + L[k][1] + 's';
         } else {
-          texte += tex_nombre(L[k][0]) + ' ' + L[k][1];
+          texte += texNombre(L[k][0]) + ' ' + L[k][1];
           if (L[k][0] > 1) { texte += 's' }
         }
         if (k < m - 2) { texte += ', ' }
@@ -94,21 +94,21 @@ export default function Organiser_donnees_depuis_texte() {
       texte += '. <br>'
     }
     texte += '<br>'
-    texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
+    texte += numAlpha(0) + ` Remplir le tableau suivant. <br>`;
 
     if (this.sup) {
-      texte += num_alpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
+      texte += numAlpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
     } else {
-      texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
+      texte += numAlpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
     }
-    texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
-    texte += num_alpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
+    texte += numAlpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
+    texte += numAlpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
 
     texte += `$\\begin{array}{|l|` + `c|`.repeat(nbFruits + 1) + `}\n`;
     texte += `\\hline\n`;
     texte += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte += ` & \\textbf{\\text{` + premiere_lettre_en_majuscule(lstFruitExo[j]) + `}}`;
+      texte += ` & \\textbf{\\text{` + premiereLettreEnMajuscule(lstFruitExo[j]) + `}}`;
     }
     texte += '& \\textbf{TOTAL}';
     texte += `\\\\\\hline\n`;
@@ -122,52 +122,52 @@ export default function Organiser_donnees_depuis_texte() {
 
     //CORRECTION
     // Question 1 :
-    texte_corr = num_alpha(0) + ` Voici le tableau complet. <br>`;
-    texte_corr += `$\\begin{array}{|l|` + `c|`.repeat(nbFruits + 1) + `}\n`;
-    texte_corr += `\\hline\n`;
-    texte_corr += ` `;
+    texteCorr = numAlpha(0) + ` Voici le tableau complet. <br>`;
+    texteCorr += `$\\begin{array}{|l|` + `c|`.repeat(nbFruits + 1) + `}\n`;
+    texteCorr += `\\hline\n`;
+    texteCorr += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte_corr += ` & \\text{${lstFruitExo[j]}}`;
+      texteCorr += ` & \\text{${lstFruitExo[j]}}`;
     }
-    texte_corr += '& TOTAL';
-    texte_corr += `\\\\\\hline\n`;
+    texteCorr += '& TOTAL';
+    texteCorr += `\\\\\\hline\n`;
     for (let i = 0; i < nbAmis; i++) {
-      texte_corr += `\\text{${lstPrenomExo[i]}}`;
+      texteCorr += `\\text{${lstPrenomExo[i]}}`;
       let S = 0; // pour calculer les sommes
       for (let j = 0; j < nbFruits; j++) {
-        texte_corr += '& ' + tex_nombre(lstTabVal[i][j]); //valeur dans le tableau
+        texteCorr += '& ' + texNombre(lstTabVal[i][j]); //valeur dans le tableau
         S += lstTabVal[i][j]; // somme d'une ligne
       }
-      texte_corr += '& ' + arrondi_virgule(S);
-      texte_corr += `\\\\\\hline\n`;
+      texteCorr += '& ' + arrondiVirgule(S);
+      texteCorr += `\\\\\\hline\n`;
     }
-    texte_corr += 'TOTAL';
+    texteCorr += 'TOTAL';
     let S_total = 0; // somme totale de tous les fruits
     for (let j = 0; j < nbFruits; j++) {
       S = 0;
       for (let i = 0; i < nbAmis; i++) {
         S += lstTabVal[i][j]; // somme d'une colonne
       }
-      //texte_corr += '& ' + Math.round(S*10)/10;
-      texte_corr += '& ' + arrondi_virgule(S, 1);
-      //texte_corr += '& ' + tex_nombre(S,1);
+      //texteCorr += '& ' + Math.round(S*10)/10;
+      texteCorr += '& ' + arrondiVirgule(S, 1);
+      //texteCorr += '& ' + texNombre(S,1);
       S_total += S;
     }
-    texte_corr += '& ' + arrondi_virgule(S_total);
-    texte_corr += `\\\\\\hline\n`;
-    texte_corr += `\\end{array}\n$`;
-    texte_corr += `<br>`
+    texteCorr += '& ' + arrondiVirgule(S_total);
+    texteCorr += `\\\\\\hline\n`;
+    texteCorr += `\\end{array}\n$`;
+    texteCorr += `<br>`
 
     // Question 2 :
-    S_total = arrondi_virgule(S_total);
+    S_total = arrondiVirgule(S_total);
     if (this.sup) {
-      texte_corr += num_alpha(1) + ` La masse totale de fruits est : ${S_total} kg. <br>`;
+      texteCorr += numAlpha(1) + ` La masse totale de fruits est : ${S_total} kg. <br>`;
     } else {
-      texte_corr += num_alpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
+      texteCorr += numAlpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
     }
 
     // Question 3 :
-    texte_corr += num_alpha(2) + ` On regarde la dernière colonne du tableau. `;
+    texteCorr += numAlpha(2) + ` On regarde la dernière colonne du tableau. `;
     let lstmax = []; //liste des prénoms solutions
     let nmax = 0; // nombre max de fruit pour une personne
     for (let i = 0; i < nbAmis; i++) {
@@ -183,28 +183,28 @@ export default function Organiser_donnees_depuis_texte() {
         lstmax = [lstPrenomExo[i]];
       }
     }
-    nmax = arrondi_virgule(nmax, 1);
+    nmax = arrondiVirgule(nmax, 1);
     if (lstmax.length > 1) {
-      texte_corr += `Les personnes qui ont rapporté le plus de fruits sont : `;
-      texte_corr += lstmax[0];
+      texteCorr += `Les personnes qui ont rapporté le plus de fruits sont : `;
+      texteCorr += lstmax[0];
       for (let k = 1; k < lstmax.length; k++) {
-        texte_corr += ` et ${lstmax[k]}`;
+        texteCorr += ` et ${lstmax[k]}`;
       }
       if (this.sup) {
-        texte_corr += `. La masse maximale rapportée est de ${nmax} kg.<br>`;
+        texteCorr += `. La masse maximale rapportée est de ${nmax} kg.<br>`;
       } else {
-        texte_corr += `. Le nombre maximal de fruits rapporté par une personne est de ${nmax}.<br>`;
+        texteCorr += `. Le nombre maximal de fruits rapporté par une personne est de ${nmax}.<br>`;
       }
     } else {
       if (this.sup) {
-        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
       } else {
-        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
       }
     }
 
     // Question 4 :
-    texte_corr += num_alpha(3) + ` On regarde la dernière ligne du tableau. `;
+    texteCorr += numAlpha(3) + ` On regarde la dernière ligne du tableau. `;
     let fmax = []; //liste des fruits apporté en quantité max
     nmax = 0; // nombre max par type de fruit 
     for (let j = 0; j < nbFruits; j++) {
@@ -220,32 +220,32 @@ export default function Organiser_donnees_depuis_texte() {
         fmax = [lstFruitExo[j]];
       }
     }
-    nmax = arrondi_virgule(nmax, 1);
+    nmax = arrondiVirgule(nmax, 1);
     if (fmax.length > 1) {
       if (this.sup) {
-        texte_corr += `Les fruits présents en la plus grosse quantité sont : `;
+        texteCorr += `Les fruits présents en la plus grosse quantité sont : `;
       } else {
-        texte_corr += `Les fruits les plus nombreux sont : `;
+        texteCorr += `Les fruits les plus nombreux sont : `;
       }
-      texte_corr += `Les fruits les plus nombreux sont : `;
-      texte_corr += `les ${fmax[0]}s`;
+      texteCorr += `Les fruits les plus nombreux sont : `;
+      texteCorr += `les ${fmax[0]}s`;
       for (let k = 1; k < fmax.length; k++) {
-        texte_corr += ` et les ${fmax[k]}s`;
+        texteCorr += ` et les ${fmax[k]}s`;
       }
-      texte_corr += `. Il y en a ${nmax} de chaque sorte.<br>`;
+      texteCorr += `. Il y en a ${nmax} de chaque sorte.<br>`;
     } else {
       if (this.sup) {
-        texte_corr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax} kg.`;
+        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax} kg.`;
       } else {
-        texte_corr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax}.`;
+        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax}.`;
       }
     }
 
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this);
   }
   this.besoin_formulaire2_numerique = ['Nombre de fruits différents', 8];
-  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses', false];
+  this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false];
 }
 

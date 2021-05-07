@@ -287,6 +287,12 @@ export default {
     "amcReady": false,
     "name": "3G10-3"
   },
+  "3G11": {
+    "titre": "Construire l’image d’un point par une homothetie avec cible auto-corrective",
+    "url": "/exercices/3e/3G11.js",
+    "amcReady": false,
+    "name": "3G11"
+  },
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
@@ -515,8 +521,14 @@ export default {
     "amcReady": false,
     "name": "3L14"
   },
+  "3L15-1": {
+    "titre": "Résoudre une équation $x^2 = a$",
+    "url": "/exercices/3e/3L15-1.js",
+    "amcReady": false,
+    "name": "3L15-1"
+  },
   "3L15": {
-    "titre": "Résoudre une équation du second degré",
+    "titre": "Équations du second degré se ramenant au premier degré",
     "url": "/exercices/3e/3L15.js",
     "amcReady": false,
     "name": "3L15"
@@ -1170,7 +1182,7 @@ export default {
     "name": "5L12"
   },
   "5L13": {
-    "titre": "Réduire une expression de la forme $ax+bx function Reduction_ax_bx$",
+    "titre": "Réduire une expression de la forme $ax+bx$ ",
     "url": "/exercices/5e/5L13.js",
     "amcReady": false,
     "name": "5L13"

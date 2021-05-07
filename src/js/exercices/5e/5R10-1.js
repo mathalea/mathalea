@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,shuffle,tex_nombrec,obtenir_liste_facteurs_premiers,choice,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,texNombrec,obtenirListeFacteursPremiers,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
 
@@ -15,16 +15,16 @@ export default function Deviner_nombre_relatif() {
    this.titre = titre;
   this.consigne = "Qui suis-je ?";
   this.spacing = 2;
-  this.nb_questions=3;
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nbQuestions=3;
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles=[1,2,3]
-    let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
+    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
     let dixieme,signe,centieme,unite,somme,produit,facteurs,type=['négatif','nul','positif'];
-    for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions;) {
+    for (let i = 0, texte, texteCorr,cpt=0; i < this.nbQuestions;) {
         signe=choice([-1,1])
-        switch (liste_type_de_questions[i]) {
+        switch (listeTypeDeQuestions[i]) {
         case 1:
             unite=randint(1,9)
             somme=randint(unite+1,unite+9)
@@ -51,7 +51,7 @@ export default function Deviner_nombre_relatif() {
 
         case 3:
             produit=choice([6,10,15])
-            facteurs=obtenir_liste_facteurs_premiers(produit)
+            facteurs=obtenirListeFacteursPremiers(produit)
             facteurs.push(1)
             facteurs=shuffle(facteurs)
             unite=facteurs[0]
@@ -72,18 +72,18 @@ export default function Deviner_nombre_relatif() {
         break
 
       }
-      texte_corr = `Je suis $${tex_nombrec(signe*(unite+dixieme/10+centieme/100))}$.`;
+      texteCorr = `Je suis $${texNombrec(signe*(unite+dixieme/10+centieme/100))}$.`;
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-//  this.besoin_formulaire_numerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"]; 
+//  this.besoinFormulaireNumerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"]; 
 //  this.besoin_formulaire2_numerique = ["Valeur maximale", 9999]
 //  this.besoin_formulaire3_numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"]; 
 }

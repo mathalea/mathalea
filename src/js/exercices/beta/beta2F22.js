@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, combinaison_listes, quotientier, randint, reduire_ax_plus_b, choice, ecriture_algebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, quotientier, randint, reduireAxPlusB, choice, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 
 
@@ -13,28 +13,28 @@ export default function representer_fonction_affine() {
   Exercice.call(this);
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 3;//On complète le nb de questions
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 3;//On complète le nb de questions
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.tailleDiaporama = 100;
   this.video = "";
   this.spacing = 1;
-  this.spacing_corr = 1;
-  this.spacing_corr = 3
+  this.spacingCorr = 1;
+  this.spacingCorr = 3
 
 
-  this.nouvelle_version = function () {
-    this.liste_questions = [];
-    this.liste_corrections = [];
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [];
+    this.listeCorrections = [];
     let type_de_questions_disponibles = [];
     type_de_questions_disponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
 
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
 
-    for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texte_corr, cpt = 0, type_de_questions;
-      i < this.nb_questions && cpt < 50;) // on rajoute les variables dont on a besoin
+    for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texteCorr, cpt = 0, type_de_questions;
+      i < this.nbQuestions && cpt < 50;) // on rajoute les variables dont on a besoin
     {
-      type_de_questions = liste_type_de_questions[i];
+      type_de_questions = listeTypeDeQuestions[i];
 
 
       switch (type_de_questions) {
@@ -57,16 +57,16 @@ export default function representer_fonction_affine() {
             xmax: 6,
             ymax: 6
           }, r, f, c);// On trace le graphique
-          texte_corr = `On sait que l'expression algébrique d'une fonction affine est de la forme :$f(x)=ax+b$, avec $a$ et $b$ deux réels.<br>`;
-          texte_corr +=`Le premier coefficient qu'on peut facilement lire graphiquement est $b$, l'ordonnée à l'origine de la droite.<br>`
-          texte_corr +=`On lit ici que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
-          texte_corr += `On peut alors conclure que l'ordonnée à l'origine est : $${b}$. <br>`
-          texte_corr += `On peut lire le coefficient directeur de la droite, en lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité .<br>`
-          texte_corr += `On lit alors que le coefficient directeur de la droite est : $${a}$.<br>`          
-          texte_corr += ` On peut en déduire que l'expression de la fonction $f$ est`
+          texteCorr = `On sait que l'expression algébrique d'une fonction affine est de la forme :$f(x)=ax+b$, avec $a$ et $b$ deux réels.<br>`;
+          texteCorr +=`Le premier coefficient qu'on peut facilement lire graphiquement est $b$, l'ordonnée à l'origine de la droite.<br>`
+          texteCorr +=`On lit ici que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
+          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $${b}$. <br>`
+          texteCorr += `On peut lire le coefficient directeur de la droite, en lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité .<br>`
+          texteCorr += `On lit alors que le coefficient directeur de la droite est : $${a}$.<br>`          
+          texteCorr += ` On peut en déduire que l'expression de la fonction $f$ est`
 
-          texte_corr += `$f(x)=${reduire_ax_plus_b(a, b)}$`
-          texte_corr += mathalea2d({
+          texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$`
+          texteCorr += mathalea2d({
             xmin: -6,
             ymin: -6,
             xmax: 6,
@@ -94,17 +94,17 @@ export default function representer_fonction_affine() {
           t = tracePoint(A, B,'red') // Variable qui trace les points avec une croix
           l = labelPoint(A,B)// Variable qui trace les nom s A et B
           l.color='red'
-          texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduire_ax_plus_b(a, b)}$ <br>`;
-          texte_corr = `On sait que la représentation graphique d'une fonction affine est une droite.<br>`
-          texte_corr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>`                
-          texte_corr +=`On sait que si $f(x)=ax+b$, le coefficient $b$ est l'ordonnée à l'origine.<br>`
-          texte_corr +=`On lit donc ici que $b=${b}$, donc que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
-          texte_corr += `On cherche un deuxième point, et on prend une abscisse au hasard :<br>` 
-          texte_corr += `Soit $x=${xA}$ :<br>` 
-          texte_corr += `On calcule : $y=${a} \\times ${xA}${ecriture_algebrique(b)}$:<br>` 
-          texte_corr += `On obtient : $y=${yA}$<br>` 
-          texte_corr +=`Le point $(${xA};${yA}) \\in \\mathcal{C_f}$.<br>`
-          texte_corr += mathalea2d({
+          texte = `Représenter graphiquement la fonction affinne $f$ défiie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`;
+          texteCorr = `On sait que la représentation graphique d'une fonction affine est une droite.<br>`
+          texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>`                
+          texteCorr +=`On sait que si $f(x)=ax+b$, le coefficient $b$ est l'ordonnée à l'origine.<br>`
+          texteCorr +=`On lit donc ici que $b=${b}$, donc que le point $(0;${b}) \\in \\mathcal{C_f}$.<br>`
+          texteCorr += `On cherche un deuxième point, et on prend une abscisse au hasard :<br>` 
+          texteCorr += `Soit $x=${xA}$ :<br>` 
+          texteCorr += `On calcule : $y=${a} \\times ${xA}${ecritureAlgebrique(b)}$:<br>` 
+          texteCorr += `On obtient : $y=${yA}$<br>` 
+          texteCorr +=`Le point $(${xA};${yA}) \\in \\mathcal{C_f}$.<br>`
+          texteCorr += mathalea2d({
           xmin: -6,
           ymin: -10,
           xmax: 6,
@@ -114,16 +114,16 @@ export default function representer_fonction_affine() {
                 }
 
 
-                if (this.liste_questions.indexOf(texte) == -1) {
+                if (this.listeQuestions.indexOf(texte) == -1) {
                   // Si la question n'a jamais été posée, on en créé une autre
-                  this.liste_questions.push(texte);
-                  this.liste_corrections.push(texte_corr);
+                  this.listeQuestions.push(texte);
+                  this.listeCorrections.push(texteCorr);
                   i++;
                 }
                 cpt++;
               }
               
-              liste_de_question_to_contenu(this);
+              listeQuestionsToContenu(this);
 
 
 

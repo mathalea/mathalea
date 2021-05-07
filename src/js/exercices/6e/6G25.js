@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,calcul,choisit_lettres_differentes,lettre_depuis_chiffre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre} from '../../modules/outils.js'
 import {point,tracePoint,pointAdistance,labelPoint,droite,droiteParPointEtPerpendiculaire,codageMediatrice,segmentAvecExtremites,cercle,pointIntersectionLC,dansLaCibleCarree,cibleCarree,homothetie,similitude,texteParPoint,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 
@@ -13,22 +13,22 @@ export default function Construire_mediatrices_6e() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let result = [0, 0], texte_corr = "", texte = "", num1, num2
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let result = [0, 0], texteCorr = "", texte = "", num1, num2
    
     let celluleAlea = function (rang) {
-      let lettre = lettre_depuis_chiffre(randint(1, rang))
+      let lettre = lettreDepuisChiffre(randint(1, rang))
       let chiffre = Number(randint(1, rang)).toString()
       return lettre + chiffre
     }
     // On prépare la figure...
-    let noms = choisit_lettres_differentes(4, 'QI',true)
+    let noms = choisitLettresDifferentes(4, 'QI',true)
     texte = `Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
     texte += `Prolonger les droites $(d_1)$ et $(d_2)$ pour obtenir leur point d'intersection.<br>`
     let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
@@ -73,7 +73,7 @@ export default function Construire_mediatrices_6e() {
 
     //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
     //      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
-    texte_corr += `Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
+    texteCorr += `Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
     xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
     yMin = Math.min(A1.y - 1, A2.y - 1, B1.y - 1, B2.y - 1, I.y - 4)
     xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
@@ -81,9 +81,9 @@ export default function Construire_mediatrices_6e() {
 
     mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.liste_questions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
-    this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
-    liste_de_question_to_contenu(this)
+    this.listeQuestions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
+    listeQuestionsToContenu(this)
   }
 }
 

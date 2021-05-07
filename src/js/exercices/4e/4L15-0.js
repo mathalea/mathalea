@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,ecriture_parenthese_si_negatif,fraction_simplifiee,prenomF,prenomM,mise_en_evidence,texte_en_couleur,texte_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,ecritureParentheseSiNegatif,fractionSimplifiee,prenomF,prenomM,miseEnEvidence,texte_en_couleur,texte_gras} from '../../modules/outils.js'
 export const titre = 'Trouver l’erreur dans une résolution d’équation du premier degré'
 
 /** 
@@ -13,23 +13,23 @@ export default function Trouver_erreur_resol_eq_deg1() {
   this.debug = false;
   this.sup = 1;
   if (this.debug) {
-    this.nb_questions = 5;
+    this.nbQuestions = 5;
   } else {
-    this.nb_questions = 3;
+    this.nbQuestions = 3;
   };
 
   this.titre = titre;
   this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation.";
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 3 : this.spacing = 2;
-  sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 3 : this.spacing = 2;
+  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.debug) {
       type_de_questions_disponibles = [1, 2, 3, 4, 5];
     } else {
@@ -37,15 +37,15 @@ export default function Trouver_erreur_resol_eq_deg1() {
 
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     //type_de_questions_disponibles=[1];			
 
-    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //on choisit un nom pour l'inconnue
       let variables = ['x', 't', 'u', 'v', 'w', 'y', 'z'];
       let inc = variables[randint(0, variables.length - 1)];
@@ -77,7 +77,7 @@ export default function Trouver_erreur_resol_eq_deg1() {
 
       // deux fonctionx pour conditionner la simplification d'une fraction
       function isSimp(n, d) {
-        if (fraction_simplifiee(n, d)[0] != n) {
+        if (fractionSimplifiee(n, d)[0] != n) {
           return true;
         } else {
           return false;
@@ -86,17 +86,17 @@ export default function Trouver_erreur_resol_eq_deg1() {
 
       function simpFrac(n, d) {
         if (isSimp(n, d)) {
-          if (fraction_simplifiee(n, d)[1] == 1) {
-            return `$= ${fraction_simplifiee(n, d)[0]}$`;
-          } else if (fraction_simplifiee(n, d)[0] == 0) {
+          if (fractionSimplifiee(n, d)[1] == 1) {
+            return `$= ${fractionSimplifiee(n, d)[0]}$`;
+          } else if (fractionSimplifiee(n, d)[0] == 0) {
             return `$ = 0`;
           } else {
-            return `$= \\dfrac{${fraction_simplifiee(n, d)[0]}}{${fraction_simplifiee(n, d)[1]}}$`;
+            return `$= \\dfrac{${fractionSimplifiee(n, d)[0]}}{${fractionSimplifiee(n, d)[1]}}$`;
           };
         } else {
-          if (fraction_simplifiee(n, d)[1] == 1) {
-            return `$= ${fraction_simplifiee(n, d)[0]}$`;
-          } else if (fraction_simplifiee(n, d)[0] == 0) {
+          if (fractionSimplifiee(n, d)[1] == 1) {
+            return `$= ${fractionSimplifiee(n, d)[0]}$`;
+          } else if (fractionSimplifiee(n, d)[0] == 0) {
             return `$ = 0$`;
           } else {
             return ` `;
@@ -133,20 +133,20 @@ export default function Trouver_erreur_resol_eq_deg1() {
             `,
           eq_corr: `${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           eq_corr_et1: `
-          ${texte_gras(`Étape 1 : `)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres. 
-          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} 
+          ${texte_gras(`Étape 1 : `)} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres. 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} 
           <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `
-          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres. 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          ${texte_gras(`Étape 3 :`)} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres. 
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
           <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
           eq_corr_et3: `
-          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a - c)}$ les deux membres.
-          <br> $\\dfrac{${a - c}${inc}}{${mise_en_evidence(a - c)}} = \\dfrac{${d - b}}{${mise_en_evidence(a - c)}}$
+          ${texte_gras(`Étape 5 :`)} $${miseEnEvidence(`\\textbf{diviser par}`)}$ $${miseEnEvidence(a - c)}$ les deux membres.
+          <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
           <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}
           `,
         },
@@ -172,20 +172,20 @@ export default function Trouver_erreur_resol_eq_deg1() {
             `,
           eq_corr: `${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
           eq_corr_et1: `
-          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} $ ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} 
+          ${texte_gras(`Étape 1 :`)} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} $ ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} 
           <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `
-          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          ${texte_gras(`Étape 3 :`)} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
           <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
           eq_corr_et3: `
-          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a - c)}$ les deux membres
-          <br> $\\dfrac{${a - c}${inc}}{${mise_en_evidence(a - c)}} = \\dfrac{${d - b}}{${mise_en_evidence(a - c)}}$
+          ${texte_gras(`Étape 5 :`)} $${miseEnEvidence(`\\textbf{diviser par}`)}$ $${miseEnEvidence(a - c)}$ les deux membres
+          <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
           <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}
           `,
         },
@@ -211,20 +211,20 @@ export default function Trouver_erreur_resol_eq_deg1() {
             `,
           eq_corr: `${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `
-          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)}
+          ${texte_gras(`Étape 1 :`)} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)}
           <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `
-          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          ${texte_gras(`Étape 3 :`)} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
           <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
           eq_corr_et3: `
-          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a - c)}$ les deux membres
-          <br> $\\dfrac{${a - c}${inc}}{${mise_en_evidence(a - c)}} = \\dfrac{${d - b}}{${mise_en_evidence(a - c)}}$
+          ${texte_gras(`Étape 5 :`)} $${miseEnEvidence(`\\textbf{diviser par}`)}$ $${miseEnEvidence(a - c)}$ les deux membres
+          <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
           <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}
           `,
         },
@@ -250,20 +250,20 @@ export default function Trouver_erreur_resol_eq_deg1() {
             `,
           eq_corr: `${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `
-          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)}
+          ${texte_gras(`Étape 1 :`)} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)}
           <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `
-          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          ${texte_gras(`Étape 3 :`)} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
           <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
           eq_corr_et3: `
-          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a - c)}$ les deux membres
-          <br> $\\dfrac{${a - c}${inc}}{${mise_en_evidence(a - c)}} = \\dfrac{${d - b}}{${mise_en_evidence(a - c)}}$
+          ${texte_gras(`Étape 5 :`)} $${miseEnEvidence(`\\textbf{diviser par}`)}$ $${miseEnEvidence(a - c)}$ les deux membres
+          <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
           <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}
           `,
         },
@@ -279,7 +279,7 @@ export default function Trouver_erreur_resol_eq_deg1() {
           et1: `${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
           et2: `${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,
           et3: `${texte_gras(`Étape 3 :`)} $${a - c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,
-          et4: `${texte_gras(`Étape 4 :`)} $${inc} = ${d} ${signeDansEq(-b).signe} ${-b} - ${ecriture_parenthese_si_negatif(a - c)} $`,
+          et4: `${texte_gras(`Étape 4 :`)} $${inc} = ${d} ${signeDansEq(-b).signe} ${-b} - ${ecritureParentheseSiNegatif(a - c)} $`,
           et_fin: `${texte_gras(`Étape 5 :`)} $${inc} = ${d - b - a + c}$`,
           err: `
             L'erreur se situe à l'étape 4.
@@ -289,20 +289,20 @@ export default function Trouver_erreur_resol_eq_deg1() {
             `,
           eq_corr: `${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1: `
-          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
-          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}$${texte_en_couleur(`$${inc}$`)}
+          ${texte_gras(`Étape 1 :`)} $${miseEnEvidence(signeDansEq(c).operation)}$ $${miseEnEvidence(signeDansEq(c).chgt_signe)}$${texte_en_couleur(`$${inc}$`)} aux deux membres 
+          <br> $${a}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)} $${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${miseEnEvidence(signeDansEq(-c).signe)} ${miseEnEvidence(-c)}$${texte_en_couleur(`$${inc}$`)}
           <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2: `
-          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
-          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          ${texte_gras(`Étape 3 :`)} $${miseEnEvidence(signeDansEq(b).operation)}$ $${miseEnEvidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a - c}${inc} ${signeDansEq(b).signe} ${b} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)} = ${d} ${miseEnEvidence(signeDansEq(-b).signe)} ${miseEnEvidence(-b)}$
           <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a - c}${inc} = ${d - b}$
           `,
           eq_corr_et3: `
-          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a - c)}$ les deux membres
-          <br> $\\dfrac{${a - c}${inc}}{${mise_en_evidence(a - c)}} = \\dfrac{${d - b}}{${mise_en_evidence(a - c)}}$
+          ${texte_gras(`Étape 5 :`)} $${miseEnEvidence(`\\textbf{diviser par}`)}$ $${miseEnEvidence(a - c)}$ les deux membres
+          <br> $\\dfrac{${a - c}${inc}}{${miseEnEvidence(a - c)}} = \\dfrac{${d - b}}{${miseEnEvidence(a - c)}}$
           <br>$${inc} = \\dfrac{${d - b}}{${a - c}}$ ${simpFrac(d - b, a - c)}
           `,
         },
@@ -336,7 +336,7 @@ export default function Trouver_erreur_resol_eq_deg1() {
         });
       };
 
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`;
           if (this.debug) {
@@ -344,9 +344,9 @@ export default function Trouver_erreur_resol_eq_deg1() {
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `
              `
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
         case 2:
@@ -354,9 +354,9 @@ export default function Trouver_erreur_resol_eq_deg1() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[1].correction}`;
+            texteCorr = `${enonces[1].correction}`;
           };
           break;
         case 3:
@@ -364,9 +364,9 @@ export default function Trouver_erreur_resol_eq_deg1() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[2].correction}`;
+            texteCorr = `${enonces[2].correction}`;
           };
           break;
         case 4:
@@ -374,9 +374,9 @@ export default function Trouver_erreur_resol_eq_deg1() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[3].correction}`;
+            texteCorr = `${enonces[3].correction}`;
           };
           break;
         case 5:
@@ -384,26 +384,26 @@ export default function Trouver_erreur_resol_eq_deg1() {
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[4].correction}`;
+            texteCorr = `${enonces[4].correction}`;
           };
           break;
 
       }
 
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
 
   }
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
 

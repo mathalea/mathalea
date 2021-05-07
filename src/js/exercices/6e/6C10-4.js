@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, randint, tex_nombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 export const titre = 'Addition de deux entiers'
 
 /**
@@ -16,34 +16,34 @@ export default function Exercice_tables_d_additions (max = 20) {
   this.spacing = 2
   this.tailleDiaporama = 100
 
-  this.nouvelle_version = function () {
-    this.liste_questions = [] // Liste de questions
-    this.liste_corrections = [] // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     for (
-      let i = 0, a, b, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, a, b, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-      texte = '$ ' + tex_nombre(a) + ' + ' + tex_nombre(b) + ' = \\dotfill $'
-      texte_corr =
+      texte = '$ ' + texNombre(a) + ' + ' + texNombre(b) + ' = \\dotfill $'
+      texteCorr =
         '$ ' +
-        tex_nombre(a) +
+        texNombre(a) +
         ' + ' +
-        tex_nombre(b) +
+        texNombre(b) +
         ' = ' +
-        tex_nombre(a + b) +
+        texNombre(a + b) +
         ' $'
-      if (this.liste_questions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   }
-  this.besoin_formulaire_numerique = ['Valeur maximale', 99999]
+  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
 }

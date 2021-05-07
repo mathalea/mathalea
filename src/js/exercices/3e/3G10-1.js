@@ -1,6 +1,6 @@
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, latexParCoordonnees, afficheMesureAngle, vecteur} from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,choice,combinaison_listes,image_point_par_transformation,tex_fraction_reduite,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,imagePointParTransformation,texFractionReduite,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
 
 /**
@@ -13,32 +13,32 @@ export default function Transformations_du_plan_et_coordonnees() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 1;
+	this.nbQuestionsModifiable = false;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 
 	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-    this.nouvelle_version = function (numero_de_l_exercice) {
+	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+    this.nouvelleVersion = function (numeroExercice) {
         let A,B,C,droited,droited1,droited2,O,droitedprime,pointO
 		let Aprime,Bprime,Cprime
         let objets_enonce = []
         let objets_correction = []
 	
-		this.liste_questions = [];
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = [];
+		this.listeCorrections = []; // Liste de questions corrigées
 		let xA, yA, xB, yB, xC, yC, k = [], xO, yO, k1, k2;
 		let xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
 		let yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
 		let xO5, xO6, xO7, xO8, xO9, xO10, xO11, xO12, xO13, xO14;
 		let yO5, yO6, yO7, yO8, yO9, yO10, yO11, yO12, yO13, yO14;
 		let bis1 = 0, bis2 = 0, xx = 0, yy = 0, AfficheO = 0, AfficheOO = 0, t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
-		let texte = ``, texte_corr = ``, lettre1 = [`A`, `B`, `C`], lettre2 = [`O\'`, `A`, `B`]; // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
+		let texte = ``, texteCorr = ``, lettre1 = [`A`, `B`, `C`], lettre2 = [`O\'`, `A`, `B`]; // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
 		let punto = [[]];
 		let transformation = parseInt(this.sup) - 1;
-		let liste_type_de_questions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]];
-		let choix_transformation = combinaison_listes(liste_type_de_questions[transformation], 3);
+		let listeTypeDeQuestions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]];
+		let choix_transformation = combinaisonListes(listeTypeDeQuestions[transformation], 3);
 		for (let j = 0; j < 3; j++)
 			if (choix_transformation[j] == 10)
 				k[j] = choice([2, 2, 2, 2, 4, 4, 4, 4, 5, 10]) * randint(-1, 1, [0]); // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.
@@ -76,40 +76,40 @@ export default function Transformations_du_plan_et_coordonnees() {
 		droited.opacite=0.5
 		droitedprime.opacite=0.5
 
-		punto[0] = image_point_par_transformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0]);
+		punto[0] = imagePointParTransformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0]);
 		while (punto[0][0] < -13 || punto[0][0] > 13 || punto[0][1] < -13 || punto[0][1] > 14) { // on teste si A est dans la fenêtre sinon on en choisit un autre
 			xA = randint(-10, 10); // Point A
 			yA = randint(-10, 10,-1);
-			punto[0] = image_point_par_transformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0]);
+			punto[0] = imagePointParTransformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0]);
 		}
         A=point(xA,yA,'A')
 		Aprime=point(punto[0][0],punto[0][1],"A'")
 		if (choix_transformation[1] > 4)
-			punto[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]);
+			punto[1] = imagePointParTransformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]);
 		else
-			punto[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
+			punto[1] = imagePointParTransformation(choix_transformation[1], [xB, yB], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
 		while (punto[1][0] < -13 || punto[1][0] > 13 || punto[1][1] < -13 || punto[1][1] > 14) { // on teste si on est dans les clous, sinon on choisit un autre punto B
 			xB = randint(-10, 10, [xA]); // Point B
 			yB = randint(-10, 10,-1);
 			if (choix_transformation[1] > 4)
-				punto[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]);
+				punto[1] = imagePointParTransformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]);
 			else
-				punto[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
+				punto[1] = imagePointParTransformation(choix_transformation[1], [xB, yB], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
 		}
         B=point(xB,yB,'B')
 		Bprime=point(punto[1][0],punto[1][1],"B'")
 
 		if (choix_transformation[2] > 4)
-			punto[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]);
+			punto[2] = imagePointParTransformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]);
 		else
-			punto[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
+			punto[2] = imagePointParTransformation(choix_transformation[2], [xC, yC], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
 		while (punto[2][0] < -13 || punto[2][0] > 13 || punto[2][1] < -13 || punto[2][1] > 14) { // on vérifie que C est dans le repère sinon on change le punto C.
 			xC = randint(-10, 10); // Point C
 			yC = randint(-10, 10, [yA, yB,-1]);
 			if (choix_transformation[2] > 4)
-				punto[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]);
+				punto[2] = imagePointParTransformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]);
 			else
-				punto[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
+				punto[2] = imagePointParTransformation(choix_transformation[2], [xC, yC], [xO, yO]); // si c'est une symétrie, l'axe passe par O'
 		}
         C=point(xC,yC,'C')
 		Cprime=point(punto[2][0],punto[2][1],"C'")
@@ -142,7 +142,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 					objets_correction.push(droited1,latexParCoordonnees('(d_1)',-10,-7-xO+yO,'green',2))
 					
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`;
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 2:
@@ -169,7 +169,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 					objets_enonce.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
 					objets_correction.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`;
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 3:
@@ -196,7 +196,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 					objets_enonce.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
 					objets_correction.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`;
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 4:
@@ -223,7 +223,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 					objets_enonce.push(droitedprime,latexParCoordonnees("(d\')",xO+0.2,13,'green',2))
 					objets_correction.push(droitedprime)
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`;
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 5:
@@ -258,7 +258,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO5 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 6:
@@ -292,7 +292,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO6 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 7:
@@ -326,7 +326,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO7 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${tex_nombrec(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${texNombrec(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 11:
@@ -360,7 +360,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO11 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(punto[i][0], 2))};${tex_nombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 12:
@@ -394,7 +394,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO12 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(punto[i][0], 2))};${tex_nombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 13:
@@ -431,7 +431,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO13 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(punto[i][0], 2))};${tex_nombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 14:
@@ -465,7 +465,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO14 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(punto[i][0], 2))};${tex_nombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 8:
@@ -500,7 +500,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 					}
 					// AfficheOO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 9:
@@ -536,8 +536,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						xO9 = xB;
 						yO9 = yB;
 					}
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 
 				case 10:
@@ -571,8 +571,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						xO10 = xB;
 						yO10 = yB;
 					}
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1, k[i])}$.<br>`;
-					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1, k[i])}$ a pour coordonnées ($${tex_nombre(punto[i][0])};${tex_nombre(punto[i][1])}$).<br>`;
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
 			}
 		}
@@ -589,15 +589,15 @@ export default function Transformations_du_plan_et_coordonnees() {
 			objets_enonce.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
 			objets_correction.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
 			
-			this.liste_questions.push(texte+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_enonce));
-			this.liste_corrections.push(texte_corr+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_correction));
-			liste_de_question_to_contenu_sans_numero(this);
+			this.listeQuestions.push(texte+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_enonce));
+			this.listeCorrections.push(texteCorr+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_correction));
+			listeQuestionsToContenuSansNumero(this);
 
 
 
 
 
 	};
-	this.besoin_formulaire_numerique = ['Transformations', 5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
+	this.besoinFormulaireNumerique = ['Transformations', 5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
 
 }

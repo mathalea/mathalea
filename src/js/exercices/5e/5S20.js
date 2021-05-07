@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texte_en_couleur_et_gras} from '../../modules/outils.js'
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from '../../modules/2d.js'
 import {fraction} from '../../modules/Fractions.js'
 
@@ -15,16 +15,16 @@ export default function Placer_probabilites() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	sortie_html ? this.spacing = 2 : this.spacing = 1;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+	this.nbQuestions = 1;
+	this.nbQuestionsModifiable = false;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	sortieHtml ? this.spacing = 2 : this.spacing = 1;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.sup = true;
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées		
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées		
 		let lstEvenenementA = []; // liste des évènements disponibles : p == 0 ou p == 1
 		let lstEvenenementB = []; // liste des évènements disponibles : p < 0.5
 		let lstEvenenementC = []; // liste des évènements disponibles : p = 0.5
@@ -116,7 +116,7 @@ export default function Placer_probabilites() {
 			lstObjet.push(texteParPosition("1", L, y - 0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}
 
-		if (sortie_html) {
+		if (sortieHtml) {
 			texte += `<p style="display:block">`;
 		} else {
 			texte += `\\begin{center}`;
@@ -127,14 +127,14 @@ export default function Placer_probabilites() {
 		}
 
 		texte += mathalea2d({ xmin: -1, xmax: L + 3, ymin: miny, ymax: 1, pixelsParCm: 40, scale: 1 }, lstObjet);
-		if (sortie_html) {
+		if (sortieHtml) {
 			texte += `</p>`;
 		} else {
 			texte += `\\end{center}`;
 		}
 
 		// CORRECTION :
-		let texte_corr = ` `;
+		let texteCorr = ` `;
 		let ylst = [0, 0, 0, 0, 0, 0, 0]; //ordonnées des textes réponses
 		angle = 0; // inclinaison du texte réponse
 		let p = 0; // probabilité de l'événement
@@ -156,22 +156,22 @@ export default function Placer_probabilites() {
 			else if (p < 0.75) { parrondi = 4; }
 			else if (p < 1) { parrondi = 5; }
 			else if (p == 1) { parrondi = 6; };
-			texte_corr += String.fromCharCode(65 + i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texte_en_couleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
+			texteCorr += String.fromCharCode(65 + i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texte_en_couleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
 		}
-		if (sortie_html) {
-			texte_corr += `<p style="display:block">`;
+		if (sortieHtml) {
+			texteCorr += `<p style="display:block">`;
 		} else {
-			texte_corr += `\\begin{center}`;
+			texteCorr += `\\begin{center}`;
 		}
-		texte_corr += mathalea2d({ xmin: -1, xmax: L + 3, ymin: miny, ymax: 2, pixelsParCm: 40, scale: 1 }, lstObjet);
-		if (sortie_html) {
-			texte_corr += `</p>`;
+		texteCorr += mathalea2d({ xmin: -1, xmax: L + 3, ymin: miny, ymax: 2, pixelsParCm: 40, scale: 1 }, lstObjet);
+		if (sortieHtml) {
+			texteCorr += `</p>`;
 		} else {
-			texte_corr += `\\end{center}`;
+			texteCorr += `\\end{center}`;
 		}
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
+		listeQuestionsToContenu(this); //Espacement de 2 em entre chaque question.
 	};
-	this.besoin_formulaire_case_a_cocher = [`Changer le type d'axe`];
+	this.besoinFormulaireCaseACocher = [`Changer le type d'axe`];
 }

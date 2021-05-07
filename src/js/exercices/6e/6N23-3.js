@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu_sans_numero,randint,troncature,calcul,choisit_lettres_differentes,tex_nombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisitLettresDifferentes,texNombre,texFraction} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
@@ -12,26 +12,26 @@ export default function LireUneAbscisseAvecZoom() {
   this.sup = 3;
   this.titre = titre;
   this.consigne = "";
-  if (sortie_html) {
+  if (sortieHtml) {
     this.spacing = 2;
-    this.spacing_corr = 3;
+    this.spacingCorr = 3;
   }
   else {
     this.spacing = 1;
-    this.spacing_corr = 1;
+    this.spacingCorr = 1;
   }
   this.vspace = -1;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1
-  this.nb_questions = 1;
-  this.nb_questions_modifiable = false
+  this.nbQuestions = 1;
+  this.nbQuestionsModifiable = false
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    let d1, d2, d3, d3Corr, d1Corr, d2Corr, texte = "", texte_corr = "", extremite, extreme, noms = choisit_lettres_differentes(5, 'QFN')
+    let d1, d2, d3, d3Corr, d1Corr, d2Corr, texte = "", texteCorr = "", extremite, extreme, noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0, objetsCorr = [],xmin,xmax,origine,pA1,pA2,pB1,pB2,sA,sB,x21,x31,pC1,pC2,pD1,pD2,sC,sD
     if (this.sup == 1) {
       if (this.niveau == 'CM') {
@@ -57,7 +57,7 @@ export default function LireUneAbscisseAvecZoom() {
       d1 = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,
-        labelListe: [[origine, `${tex_nombre(origine)}`], [extreme, `${tex_nombre(extreme)}`]],
+        labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -70,14 +70,14 @@ export default function LireUneAbscisseAvecZoom() {
       d1Corr = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true,
-        labelListe: [[origine, `${tex_nombre(origine)}`], [extreme, `${tex_nombre(extreme)}`]],
+        labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
       d2Corr = droiteGraduee2({
         x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, labelsSecondaires: true,
-        labelListe: [[Math.floor(x1), `${tex_nombre(Math.floor(x1))}`], [x1, `${tex_nombre(x1)}`], [Math.ceil(x1), `${tex_nombre(Math.ceil(x1))}`]],
+        labelListe: [[Math.floor(x1), `${texNombre(Math.floor(x1))}`], [x1, `${texNombre(x1)}`], [Math.ceil(x1), `${texNombre(Math.ceil(x1))}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -93,7 +93,7 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(Math.floor(x1))} + ${tex_fraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${tex_fraction(calcul(x1 * 10), 10)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${texFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${texFraction(calcul(x1 * 10), 10)}$.<br>`
     }
     else if (this.sup == 2) {
       if (this.niveau == 'CM') {
@@ -136,7 +136,7 @@ export default function LireUneAbscisseAvecZoom() {
       d2Corr = droiteGraduee2({
         x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false, labelsSecondaires: true,
-        labelListe: [[x2, `${tex_nombre(x2) + '0'}`], [x1, `${tex_nombre(x1)}`], [x3, `${tex_nombre(x3) + '0'}`]],
+        labelListe: [[x2, `${texNombre(x2) + '0'}`], [x1, `${texNombre(x1)}`], [x3, `${texNombre(x3) + '0'}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -153,7 +153,7 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, sA, sB)
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       let partent = Math.floor(x1), pardec = calcul(x1 - partent)
-      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 100), 100)}=${tex_fraction(calcul(x1 * 100), 100)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 100), 100)}=${texFraction(calcul(x1 * 100), 100)}$.<br>`
 
     }
     else if (this.sup == 3) {
@@ -184,7 +184,7 @@ export default function LireUneAbscisseAvecZoom() {
       d1 = droiteGraduee2({
         x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,
-        labelListe: [[xmin, `${tex_nombre(xmin)}`], [xmax, `${tex_nombre(xmax)}`]],
+        labelListe: [[xmin, `${texNombre(xmin)}`], [xmax, `${texNombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
       })
@@ -203,7 +203,7 @@ export default function LireUneAbscisseAvecZoom() {
       d1Corr = droiteGraduee2({
         x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true, labelsSecondaires: true,
-        labelListe: [[xmin, `${tex_nombre(xmin)}`], [xmax, `${tex_nombre(xmax)}`]],
+        labelListe: [[xmin, `${texNombre(xmin)}`], [xmax, `${texNombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
       })
@@ -211,14 +211,14 @@ export default function LireUneAbscisseAvecZoom() {
         x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false, labelsSecondaires: true,
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x2, `${tex_nombre(x2) + '0'}`], [x3, `${tex_nombre(x3) + '0'}`]],
+        labelListe: [[x2, `${texNombre(x2) + '0'}`], [x3, `${texNombre(x3) + '0'}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
       d3Corr = droiteGraduee2({
         x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false, labelsSecondaires: true,
         pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x21, `${tex_nombre(x21) + '0'}`], [x31, `${tex_nombre(x31) + '0'}`]],
+        labelListe: [[x21, `${texNombre(x21) + '0'}`], [x31, `${texNombre(x31) + '0'}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
 
@@ -242,17 +242,17 @@ export default function LireUneAbscisseAvecZoom() {
       objets.push(d1, d2, d3, sA, sB, sC, sD)
       objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
       let partent = Math.floor(x1), pardec = calcul(x1 - partent)
-      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 1000), 1000)}=${tex_fraction(calcul(x1 * 1000), 1000)}$.<br>`
+      texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 1000), 1000)}=${texFraction(calcul(x1 * 1000), 1000)}$.<br>`
 
     }
     texte = `Donner l'abscisse de ${noms[1]} sous trois formes : en écriture décimale, comme somme d’un nombre entier et d’une fraction décimale et avec une fraction décimale.<br>`
     texte += mathalea2d(fenetre, objets)
-    texte_corr += mathalea2d(fenetre, objetsCorr)
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu_sans_numero(this);
+    texteCorr += mathalea2d(fenetre, objetsCorr)
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenuSansNumero(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième'];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
 

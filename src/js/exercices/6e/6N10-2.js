@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombrec} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec} from '../../modules/outils.js'
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de...)'
 
 /**
@@ -11,13 +11,13 @@ export default function Decomposition_nombre_decimal() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Compléter les phrases suivantes.";
-  this.nb_questions = 5;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [
       1,
@@ -27,9 +27,9 @@ export default function Decomposition_nombre_decimal() {
       choice([9, 10]),
       choice([11, 12]),
     ]; // sans chevauchement ou avec chevauchement
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let m = randint(1, 9); // le nombre sera le même pour tout l'exercice
     let c = randint(0, 9, [m]);
@@ -51,81 +51,81 @@ export default function Decomposition_nombre_decimal() {
     //calcul ne semble pas marcher avec 7 chiffres significatifs
     this.consigne = `On considère le nombre $${n}$. Compléter les phrases suivantes.`;
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = "La partie entière de ce nombre est : ";
-          texte_corr =
-            texte + `$${tex_nombrec(m * 1000 + c * 100 + d * 10 + u)}$`;
+          texteCorr =
+            texte + `$${texNombrec(m * 1000 + c * 100 + d * 10 + u)}$`;
           break;
         case 2:
           texte = "La partie décimale de ce nombre est : ";
-          texte_corr =
-            texte + `$${tex_nombrec(di / 10 + ci / 100 + mi / 1000)}$`;
+          texteCorr =
+            texte + `$${texNombrec(di / 10 + ci / 100 + mi / 1000)}$`;
           break;
         case 3:
           texte = "Le chiffre des dizaines de ce nombre est : ";
-          texte_corr = texte + `$${d}$`;
+          texteCorr = texte + `$${d}$`;
           break;
         case 4:
           texte = "Le chiffre des centaines de ce nombre est : ";
-          texte_corr = texte + `$${c}$`;
+          texteCorr = texte + `$${c}$`;
           break;
         case 5:
           texte = "Le chiffre des miliers de ce nombre est : ";
-          texte_corr = texte + `$${m}$`;
+          texteCorr = texte + `$${m}$`;
           break;
         case 6:
           texte = "Le chiffre des dixièmes de ce nombre est : ";
-          texte_corr = texte + `$${di}$`;
+          texteCorr = texte + `$${di}$`;
           break;
         case 7:
           texte = "Le chiffre des centièmes de ce nombre est : ";
-          texte_corr = texte + `$${ci}$`;
+          texteCorr = texte + `$${ci}$`;
           break;
         case 8:
           texte = "Le chiffre des millièmes de ce nombre est : ";
-          texte_corr = texte + `$${mi}$`;
+          texteCorr = texte + `$${mi}$`;
           break;
         case 9:
           texte = "Le nombre de dizaines de ce nombre est : ";
-          texte_corr = texte + `$${tex_nombrec(d + c * 10 + m * 100)}$`;
+          texteCorr = texte + `$${texNombrec(d + c * 10 + m * 100)}$`;
           break;
         case 10:
           texte = "Le nombre de centaines de ce nombre est : ";
-          texte_corr = texte + `$${tex_nombrec(c + m * 10)}$`;
+          texteCorr = texte + `$${texNombrec(c + m * 10)}$`;
           break;
         case 11:
           texte = "Le nombre de dixièmes de ce nombre est : ";
-          texte_corr =
+          texteCorr =
             texte +
-            `$${tex_nombrec(di + u * 10 + d * 100 + c * 1000 + m * 10000)}$`;
+            `$${texNombrec(di + u * 10 + d * 100 + c * 1000 + m * 10000)}$`;
           break;
         case 12:
           texte = "Le nombre de centièmes de ce nombre est : ";
-          texte_corr =
+          texteCorr =
             texte +
-            `$${tex_nombrec(
+            `$${texNombrec(
               ci + di * 10 + u * 100 + d * 1000 + c * 10000 + m * 100000
             )}$`;
           break;
       }
 
-      texte_corr += ".";
+      texteCorr += ".";
       texte += "\\ldots";
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 

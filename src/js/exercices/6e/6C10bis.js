@@ -1,6 +1,6 @@
 import Operation from '../../modules/operations.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,texNombre} from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -23,28 +23,28 @@ export default function Additions_soustractions_multiplications_divisions_posees
   this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
-  sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies
-  this.nb_questions = 5;
+  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
+  this.nbQuestions = 5;
   // this.pas_de_version_HMTL=true;
-  this.liste_packages = "xlop";
+  this.listePackages = "xlop";
   this.tailleDiaporama = 100;
 
 
-  this.nouvelle_version = function () {
-    this.QCM=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers',3]
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.qcm=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers',3]
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions
     let type_de_questions_disponibles = [1, 2, 3, 4, 5,6];
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    if (this.nb_questions <= 3) {
-      liste_type_de_questions = [1, 2, 5];
+    if (this.nbQuestions <= 3) {
+      listeTypeDeQuestions = [1, 2, 5];
     }
-    for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nb_questions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: // abcde + fgh
           a =
@@ -54,8 +54,8 @@ export default function Additions_soustractions_multiplications_divisions_posees
             randint(7, 9) * 10 +
             randint(1, 9);
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9);
-          texte = `$${tex_nombre(a)}+${b}$`;
-          texte_corr = Operation({operande1:a,operande2:b,type:'addition'}) //`$${tex_nombre(a)}+${b}=${tex_nombre(a + b)}$`);
+          texte = `$${texNombre(a)}+${b}$`;
+          texteCorr = Operation({operande1:a,operande2:b,type:'addition'}) //`$${texNombre(a)}+${b}=${texNombre(a + b)}$`);
           break;
         case 2: // abc0-efg
           a = randint(1, 9);
@@ -66,8 +66,8 @@ export default function Additions_soustractions_multiplications_divisions_posees
           g = randint(2, 9);
           x = a * 1000 + b * 100 + c * 10;
           y = e * 100 + f * 10 + g;
-          texte = `$${tex_nombre(x)}-${y}$`;
-          texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
+          texte = `$${texNombre(x)}-${y}$`;
+          texteCorr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 3: // 1abc-def
           a = randint(1, 9);
@@ -78,8 +78,8 @@ export default function Additions_soustractions_multiplications_divisions_posees
           f = randint(c, 9);
           x = 1000 + a * 100 + b * 10 + c;
           y = d * 100 + e * 10 + f;
-          texte = `$${tex_nombre(x)}-${y}$`;
-          texte_corr = Operation({operande1:x,operande2:y,type:'soustraction'})
+          texte = `$${texNombre(x)}-${y}$`;
+          texteCorr = Operation({operande1:x,operande2:y,type:'soustraction'})
           break;
         case 4: // abc*d0e tables de 2 à 5
           a = randint(2, 5);
@@ -89,8 +89,8 @@ export default function Additions_soustractions_multiplications_divisions_posees
           e = randint(2, 5);
           x = 100 * a + 10 * b + c;
           y = d * 100 + e;
-          texte = `$${tex_nombre(x)}\\times${y}$`;
-          texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
+          texte = `$${texNombre(x)}\\times${y}$`;
+          texteCorr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
         case 5: // abc*de tables de 5 à 9
           a = randint(5, 9);
@@ -101,7 +101,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
           x = 100 * a + 10 * b + c;
           y = 10 * d + e;
           texte = `$${x}\\times${y}$`;
-          texte_corr = Operation({operande1:x,operande2:y,type:'multiplication'})
+          texteCorr = Operation({operande1:x,operande2:y,type:'multiplication'})
           break;
           case 6 : // x = y* c+d
           a = randint(5, 9);
@@ -112,21 +112,21 @@ export default function Additions_soustractions_multiplications_divisions_posees
           d = randint(0, y-1);
           x=y*c+d
           texte=`$${x}\\div${c}$`
-          texte_corr = Operation({operande1:x,operande2:c,type:'division'})
+          texteCorr = Operation({operande1:x,operande2:c,type:'division'})
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        if (!sortie_html && i == 0) {
-          texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
+        this.listeQuestions.push(texte);
+        if (!sortieHtml && i == 0) {
+          texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
-        this.liste_corrections.push(texte_corr);
-        this.QCM[1].push([texte,[texte_corr],[4]])
+        this.listeCorrections.push(texteCorr);
+        this.qcm[1].push([texte,[texteCorr],[4]])
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
 }

@@ -1,4 +1,4 @@
-import {unSiPositifMoinsUnSinon,arrondi,fraction_simplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from './outils.js'
+import {unSiPositifMoinsUnSinon,arrondi,fractionSimplifiee,obtenirListeFacteursPremiers,calcul,texFraction,listeDiviseurs,quotientier} from './outils.js'
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from './2d.js'
 import Algebrite from 'algebrite'
 
@@ -7,7 +7,7 @@ export function obtenir_liste_Fractions_irreductibles() { //sous forme de fracti
 	fraction(1,6),fraction(5,6),fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7),fraction(1,8),fraction(3,8),fraction(5,8),fraction(7,8),
 	fraction(1,9),fraction(2,9),fraction(4,9),fraction(5,9),fraction(7,9),fraction(8,9),fraction(1,10),fraction(3,10),fraction(7,10),fraction(9,10)]
 }
-export function obtenir_liste_Fractions_irreductibles_faciles() { //sous forme de fractions
+export function obtenirListeFractionsIrreductiblesFaciles() { //sous forme de fractions
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
 	fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7)]
 }
@@ -28,7 +28,7 @@ class ListeFraction{
         for (let i=0;i<this.liste.length;i++){
             den=this.liste[i].den
             dens.push(den)
-            listetemp=liste_diviseurs(den)
+            listetemp=listeDiviseurs(den)
             listetemp.splice(0,1)
             this.denominateurs_amis.push(listetemp)
         }
@@ -73,11 +73,10 @@ class ListeFraction{
                 listetemp=[]
                 this.liste.push(frac[i])
                 dens.push(frac[i].den)
-                listetemp=liste_diviseurs(frac[i].den)
+                listetemp=listeDiviseurs(frac[i].den)
                 listetemp.splice(0,1)
                 this.denominateurs_amis.push(listetemp)
                 }
-                console.log(dens)
                 den=ppcm(dens)
                 this.listeMemeDenominateur=[]
                 for (let i=0;i<this.liste.length;i++) {
@@ -123,7 +122,7 @@ export function fraction (a,b) {
 
 class Fraction {
     constructor(num, den) {
-        function tex_fraction_signe(num, den) {
+        function texFractionSigne(num, den) {
             if (den != 1) {
                 if (num * den > 0) {
                     return '\\dfrac{' + Math.abs(num) + '}{' + Math.abs(den) + '}';
@@ -152,14 +151,14 @@ class Fraction {
          * numIrred est le numérateur réduit
          * denIrredest le dénominateur réduit
          */
-        this.numIrred = fraction_simplifiee(this.num, this.den)[0];
-        this.denIrred = fraction_simplifiee(this.num, this.den)[1];
+        this.numIrred = fractionSimplifiee(this.num, this.den)[0];
+        this.denIrred = fractionSimplifiee(this.num, this.den)[1];
         this.pourcentage = calcul(this.numIrred * 100 / this.denIrred);
         if (this.num == 0)
             this.signe = 0;
         else
             this.signe = unSiPositifMoinsUnSinon(this.num * this.den); // le signe de la fraction : -1, 0 ou 1
-        this.texFraction = tex_fraction_signe(this.num, this.den); // m/n si positif - m/n si négatif.
+        this.texFraction = texFractionSigne(this.num, this.den); // m/n si positif - m/n si négatif.
         if (this.signe == -1)
             this.texFractionSignee = this.texFraction; // + m/n si positif - m/n si négatif
         else
@@ -171,7 +170,7 @@ class Fraction {
         this.simplifie = function () {
             return fraction(this.numIrred, this.denIrred);
         };
-        this.texFractionSimplifiee = tex_fraction_signe(this.numIrred, this.denIrred);
+        this.texFractionSimplifiee = texFractionSigne(this.numIrred, this.denIrred);
         this.valeurDecimale = arrondi(this.num / this.den, 6);
 
         /**
@@ -237,7 +236,7 @@ class Fraction {
          *  @params {object} f2 la fraction qui multiplie.
          */
         this.texProduitFraction = function (f2) {
-            return `${this.texFraction}\\times ${f2.texFraction}=${tex_fraction(this.num + `\\times` + f2.num, this.den + `\\times` + f2.den)}=${tex_fraction(this.num * f2.num, this.den * f2.den)}`;
+            return `${this.texFraction}\\times ${f2.texFraction}=${texFraction(this.num + `\\times` + f2.num, this.den + `\\times` + f2.den)}=${texFraction(this.num * f2.num, this.den * f2.den)}`;
         };
 
         /**
@@ -269,7 +268,7 @@ class Fraction {
             return this.produitFraction(f2.inverse());
         };
         this.texQuotientFraction = function (f2) {
-            return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${tex_fraction(this.num + `\\times` + f2.den, this.den + `\\times` + f2.num)}=${tex_fraction(this.num * f2.den, this.den * f2.num)}`;
+            return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${texFraction(this.num + `\\times` + f2.den, this.den + `\\times` + f2.num)}=${texFraction(this.num * f2.den, this.den * f2.num)}`;
         };
 
         /**
@@ -277,7 +276,7 @@ class Fraction {
         */
         this.fractionDecimale = function () {
             let den = this.denIrred;
-            let liste = obtenir_liste_facteurs_premiers(den);
+            let liste = obtenirListeFacteursPremiers(den);
             let n2 = 0, n5 = 0;
             for (let n of liste) {
                 if (n == 2)

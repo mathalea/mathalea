@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice, combinaison_listes,ecriture_parenthese_si_negatif} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice, combinaisonListes,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur.'
 
 /**
@@ -9,19 +9,19 @@ export default function calculer_coordonnees_vecteurs() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = titre;
 
-    this.nb_questions = 2;
-    this.nb_cols = 2;
-    this.nb_cols_corr = 2;
+    this.nbQuestions = 2;
+    this.nbCols = 2;
+    this.nbColsCorr = 2;
     this.sup = 1; // 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1];
         let type_de_questions
 
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, ux, uy, xA, yA, xB, yB, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        for (let i = 0, ux, uy, xA, yA, xB, yB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
@@ -38,13 +38,13 @@ export default function calculer_coordonnees_vecteurs() {
 
 
             }
-            if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
 }

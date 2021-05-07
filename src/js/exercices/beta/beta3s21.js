@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, arrondi_virgule, nombre_avec_espace, texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombre_avec_espace, texte_en_couleur_et_gras} from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
 
@@ -16,11 +16,11 @@ export default function Stabilisation_frequence() {
     "use strict"
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 4; // Ici le nombre de questions
-    this.nb_questions_modifiable=true // Active le formulaire nombre de questions
-    this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-    this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+    this.nbQuestions = 4; // Ici le nombre de questions
+    this.nbQuestionsModifiable=true // Active le formulaire nombre de questions
+    this.nbCols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
+    this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
+    this.pasDeVersionLatex=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
@@ -28,24 +28,24 @@ export default function Stabilisation_frequence() {
    this.sup2 = 10000; // nbLancers
    this.sup3 = false; // true = équiprobable, false = jeu truqué
   
-  if (sortie_html) {
+  if (sortieHtml) {
     this.consigne = `<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>`
   }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function () {
-    // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+    this.nouvelleVersion = function () {
+    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
   
-    this.liste_questions = [] // tableau contenant la liste des questions 
-    this.liste_corrections = []
+    this.listeQuestions = [] // tableau contenant la liste des questions 
+    this.listeCorrections = []
     let type_de_questions_disponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
   
-      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
-        texte_corr = `` // Idem pour le texte de la correction.
+        texteCorr = `` // Idem pour le texte de la correction.
         let nbFaces = 2*randint(1,4)+2; // nombre de faces du dé : 4, 6, 8, ou 10. Avec 12, le tableau devient trop grand....
         let nbLancers = 10000; // nombre de lancers 
         let tabcoul = ["rouges", "vertes", "bleues", "noires"];
@@ -60,7 +60,7 @@ export default function Stabilisation_frequence() {
         let face = 0;
         let N = 0; // largeur du tableau
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
             // avec un dé
             // Cas où les fréquesnces rejoignent les proba
@@ -73,28 +73,28 @@ export default function Stabilisation_frequence() {
             for (let i =0; i<nbFaces ; i++) {
               tabRes[i] = [i, calcul(tabEff[i]/S1)];
             } 
-            texte_corr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
+            texteCorr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
             switch (nbFaces){
               case 4:
-                texte_corr += ` $\\dfrac{1}{4} = 25\\%$ `;
+                texteCorr += ` $\\dfrac{1}{4} = 25\\%$ `;
                 break
               case 6:
-                texte_corr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
+                texteCorr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
                 break
               case 8:
-                texte_corr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
+                texteCorr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
                 break
               case 10:
-                texte_corr += ` $\\dfrac{1}{10} = 10\\%$ `;
+                texteCorr += ` $\\dfrac{1}{10} = 10\\%$ `;
                 break
               case 12:
-                texte_corr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
+                texteCorr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
                 break
             }
-            texte_corr += `d'apparaitre. <br>`
-            texte_corr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
-            texte_corr += `Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>`;
-            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
+            texteCorr += `d'apparaitre. <br>`
+            texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
+            texteCorr += `Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>`;
+            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
           break;
   
           case 2:
@@ -115,29 +115,29 @@ export default function Stabilisation_frequence() {
             for (let i =0; i<nbFaces ; i++) {
               tabRes[i] = [i, calcul(tabEff[i]/S1)];
             }  
-            texte_corr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
+            texteCorr += `Le dé est équilibré, donc c'est une situation d'équiprobabilité. Chaque face du dé a une probabilité égale à ` ;
             switch (nbFaces){
               case 4:
-                texte_corr += ` $\\dfrac{1}{4} = 25\\%$ `;
+                texteCorr += ` $\\dfrac{1}{4} = 25\\%$ `;
                 break
               case 6:
-                texte_corr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
+                texteCorr += ` $\\dfrac{1}{6} \\approx  16.7\\%$ `;
                 break
               case 8:
-                texte_corr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
+                texteCorr += ` $\\dfrac{1}{8} = 12.5\\%$ `;
                 break
               case 10:
-                texte_corr += ` $\\dfrac{1}{10} = 10\\%$ `;
+                texteCorr += ` $\\dfrac{1}{10} = 10\\%$ `;
                 break
               case 12:
-                texte_corr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
+                texteCorr += ` $\\dfrac{1}{12} \\approx 8.3\\%$ `;
                 break
             }
-            texte_corr += `d'apparaitre. <br>`;
-            texte_corr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
-            texte_corr += `Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>`;
-            texte_corr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`;
-            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
+            texteCorr += `d'apparaitre. <br>`;
+            texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
+            texteCorr += `Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>`;
+            texteCorr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`;
+            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
           break; 
 
           case 3:
@@ -164,29 +164,29 @@ export default function Stabilisation_frequence() {
             }   
             titreligne = "Couleur des boules"; // pour remplir le tableau
             tabtitrecolonne = tabcoul; 
-            texte_corr += `Chaque boule a la même probabilité d'être choisie. Par exemple, la probabilité de tirer une boule ${tabcoul[0]} est : $\\dfrac{${tabEff[0]}}{${S1}}$. `
-            texte_corr += `Les probabilités théoriques sont : <br>`;
+            texteCorr += `Chaque boule a la même probabilité d'être choisie. Par exemple, la probabilité de tirer une boule ${tabcoul[0]} est : $\\dfrac{${tabEff[0]}}{${S1}}$. `
+            texteCorr += `Les probabilités théoriques sont : <br>`;
             N = tabtitrecolonne.length;
-            texte_corr += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
-            texte_corr += `\\hline\n`;
-            texte_corr += `\\text{${titreligne}}`
+            texteCorr += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
+            texteCorr += `\\hline\n`;
+            texteCorr += `\\text{${titreligne}}`
             for (let i = 0; i<N ; i++) {
-              texte_corr += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
+              texteCorr += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
             }
-            texte_corr += `\\\\\\hline\n`;
-            texte_corr += `\\text{Fréquence d'apparition (en fraction)}`;
+            texteCorr += `\\\\\\hline\n`;
+            texteCorr += `\\text{Fréquence d'apparition (en fraction)}`;
             for (let i = 0; i<N ; i++) {
-              texte_corr += ` & \\dfrac{${tabEff[i]}}{${S1}} `; // probleme d'espace
+              texteCorr += ` & \\dfrac{${tabEff[i]}}{${S1}} `; // probleme d'espace
             }
-            texte_corr += `\\\\\\hline\n`;
-            texte_corr += `\\text{Fréquence d'apparition (en pourcentage)}`;
+            texteCorr += `\\\\\\hline\n`;
+            texteCorr += `\\text{Fréquence d'apparition (en pourcentage)}`;
             for (let i = 0; i<N ; i++) {
-              texte_corr += ` & \\text{${arrondi_virgule(100*tabEff[i]/S1, 1)}} \\% `;
+              texteCorr += ` & \\text{${arrondiVirgule(100*tabEff[i]/S1, 1)}} \\% `;
             }
-            texte_corr += `\\\\\\hline\n`;
-            texte_corr += `\\end{array}\n$ <br>`;
-            texte_corr += `Les probabilités semblent très proches des fréquences observées. <br>`;
-            texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.`);
+            texteCorr += `\\\\\\hline\n`;
+            texteCorr += `\\end{array}\n$ <br>`;
+            texteCorr += `Les probabilités semblent très proches des fréquences observées. <br>`;
+            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.`);
 
           break;  
 
@@ -216,36 +216,36 @@ export default function Stabilisation_frequence() {
               // CORRECTION : 
               titreligne = "Couleur des boules"; // pour remplir le tableau
               tabtitrecolonne = tabcoul; 
-              texte_corr += `Chaque boule a la même probabilité d'être choisie. Par exemple, la probabilité de tirer une boule ${tabcoul[0]} est : $\\dfrac{${tabEff[0]}}{${S1}}$. `
-              texte_corr += `Les probabilités théoriques sont : <br>`;
+              texteCorr += `Chaque boule a la même probabilité d'être choisie. Par exemple, la probabilité de tirer une boule ${tabcoul[0]} est : $\\dfrac{${tabEff[0]}}{${S1}}$. `
+              texteCorr += `Les probabilités théoriques sont : <br>`;
               N = tabtitrecolonne.length;
-              texte_corr += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
-              texte_corr += `\\hline\n`;
-              texte_corr += `\\text{${titreligne}}`
+              texteCorr += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
+              texteCorr += `\\hline\n`;
+              texteCorr += `\\text{${titreligne}}`
               for (let i = 0; i<N ; i++) {
-                texte_corr += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
+                texteCorr += ` & \\textbf{\\text{${tabtitrecolonne[i]}}}`;
               }
-              texte_corr += `\\\\\\hline\n`;
-              texte_corr += `\\text{Fréquence d'apparition (en fraction)}`;
+              texteCorr += `\\\\\\hline\n`;
+              texteCorr += `\\text{Fréquence d'apparition (en fraction)}`;
               for (let i = 0; i<N ; i++) {
-                texte_corr += ` & \\dfrac{${tabEff[i]}}{${S1}} `; // probleme d'espace
+                texteCorr += ` & \\dfrac{${tabEff[i]}}{${S1}} `; // probleme d'espace
               }
-              texte_corr += `\\\\\\hline\n`;
-              texte_corr += `\\text{Fréquence d'apparition (en pourcentage)}`;
+              texteCorr += `\\\\\\hline\n`;
+              texteCorr += `\\text{Fréquence d'apparition (en pourcentage)}`;
               for (let i = 0; i<N ; i++) {
-                texte_corr += ` & \\text{${arrondi_virgule(100*tabEff[i]/S1, 1)}} \\% `;
+                texteCorr += ` & \\text{${arrondiVirgule(100*tabEff[i]/S1, 1)}} \\% `;
               }
-              texte_corr += `\\\\\\hline\n`;
-              texte_corr += `\\end{array}\n$ <br>`;
-              texte_corr += `Les valeurs de fréquence et de probabilité pour les boules ${tabcoul[face]} ne correspondent pas. Il y a trop de différence. <br>`
-              texte_corr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un tirage aléatoire dans une urne.`);
+              texteCorr += `\\\\\\hline\n`;
+              texteCorr += `\\end{array}\n$ <br>`;
+              texteCorr += `Les valeurs de fréquence et de probabilité pour les boules ${tabcoul[face]} ne correspondent pas. Il y a trop de différence. <br>`
+              texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un tirage aléatoire dans une urne.`);
 
             break;  
   
         }
         N = tabtitrecolonne.length;
 
-        sortie_html ? texte +=`<br><center>` : texte +=`\\begin{center}` ;
+        sortieHtml ? texte +=`<br><center>` : texte +=`\\begin{center}` ;
 
         texte += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
         texte += `\\hline\n`;
@@ -256,30 +256,30 @@ export default function Stabilisation_frequence() {
         texte += `\\\\\\hline\n`;
         texte += `\\text{Fréquence d'apparition}`;
         for (let i = 0; i<N ; i++) {
-          texte += ` & \\text{${arrondi_virgule(100*tabRes[i][1], 1)}} \\% `;
+          texte += ` & \\text{${arrondiVirgule(100*tabRes[i][1], 1)}} \\% `;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
-        sortie_html ? texte +=`</center>` : texte +=`\\end{center}` ;
+        sortieHtml ? texte +=`</center>` : texte +=`\\end{center}` ;
 
         texte += `<br>`;
         texte += `Ces résultats vous semblent-ils respecter les principes des probabilités ? Détailler votre réponse en vous basant sur des calculs.<br>`;
 
-        if (this.liste_questions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-          this.liste_questions.push(texte);
-          this.liste_corrections.push(texte_corr);
+          this.listeQuestions.push(texte);
+          this.listeCorrections.push(texteCorr);
           i++;
         }
         cpt++;
       }
-      liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+      listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
-  this.besoin_formulaire_numerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
+  this.besoinFormulaireNumerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
   this.besoin_formulaire2_texte = ["Nombre de tirages"];
   this.besoin_formulaire3_case_a_cocher =['équiprobabilité',true]
   

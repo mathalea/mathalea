@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,creer_couples,choice,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,creerCouples,choice,combinaisonListes} from '../../modules/outils.js'
 export const titre = 'Tables de multiplications et de divisions'
 
 /**
@@ -21,9 +21,9 @@ export default function Tables_de_multiplications_et_divisions(
   this.spacing = 2;
   this.tailleDiaporama = 100;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = "2-3-4-5-6-7-8-9";
@@ -35,18 +35,18 @@ export default function Tables_de_multiplications_et_divisions(
     } else {
       tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des ;
     }
-    let couples = creer_couples(
+    let couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      this.nb_questions
+      this.nbQuestions
     ); //Liste tous les couples possibles (2,3)≠(3,2)
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       ["classique", "a_trous"],
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let operation = combinaison_listes(["x", "div"], this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let operation = combinaisonListes(["x", "div"], this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let type_de_questions;
-    for (let i = 0, a, b, texte, texte_corr; i < this.nb_questions; i++) {
+    for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = couples[i][0];
       b = couples[i][1];
       if (this.sup2 == 1) {
@@ -54,14 +54,14 @@ export default function Tables_de_multiplications_et_divisions(
       } else if (this.sup2 == 2) {
         type_de_questions = "a_trous";
       } else {
-        type_de_questions = liste_type_de_questions[i];
+        type_de_questions = listeTypeDeQuestions[i];
       }
 
       if (operation[i] == "x") {
         if (type_de_questions == "classique") {
           // classique
           texte = "$ " + a + " \\times " + b + " = \\dotfill $";
-          texte_corr = "$ " + a + " \\times " + b + " = " + a * b + " $";
+          texteCorr = "$ " + a + " \\times " + b + " = " + a * b + " $";
         } else {
           // a trous
           if (tables.length > 2) {
@@ -75,7 +75,7 @@ export default function Tables_de_multiplications_et_divisions(
             texte = "$ " + a + " \\times \\ldots\\ldots = " + a * b + " $";
           }
 
-          texte_corr = "$ " + a + " \\times " + b + " = " + a * b + " $";
+          texteCorr = "$ " + a + " \\times " + b + " = " + a * b + " $";
         }
       } else {
         if (type_de_questions == "classique") {
@@ -89,17 +89,17 @@ export default function Tables_de_multiplications_et_divisions(
             texte = `$ \\ldots\\ldots \\div ${b}  = ${a}$`;
           }
         }
-        texte_corr = `$ ${a * b} \\div ${b} = ${a}$`;
+        texteCorr = `$ ${a * b} \\div ${b} = ${a}$`;
       }
       if (est_diaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_texte = [
+  this.besoinFormulaireTexte = [
     "Choix des tables",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip

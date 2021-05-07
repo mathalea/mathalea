@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { mathalea2d, point, similitude, longueur, polygone,rotation, codageAngleDroit, nommePolygone, segment, codeAngle, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle  } from '../../modules/2d.js';
-import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
+import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
@@ -18,25 +18,25 @@ export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle 
 export default function Mon_Exercice() {
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 1; 
-    this.nb_questions_modifiable = false;
-    this.nb_cols = 1; 
-    this.nb_cols_corr = 2;
+    this.nbQuestions = 1; 
+    this.nbQuestionsModifiable = false;
+    this.nbCols = 1; 
+    this.nbColsCorr = 2;
     this.sup = 1
-    if (sortie_html){
+    if (sortieHtml){
         this.spacing = 4;
-        this.spacing_corr = 4;
+        this.spacingCorr = 4;
     } else {
         this.spacing = 2;
-        this.spacing_corr = 2;
+        this.spacingCorr = 2;
     }
 
-    this.nouvelle_version = function () {
-    this.liste_questions = [] 
-    this.liste_corrections = []
+    this.nouvelleVersion = function () {
+    this.listeQuestions = [] 
+    this.listeCorrections = []
   
   
-    let texte = '', texte_corr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
+    let texte = '', texteCorr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
 
     let a = point (0,0)
     let b = point(randint(3,7),0)
@@ -53,7 +53,7 @@ export default function Mon_Exercice() {
     let nomme = nommePolygone(p2, nom)
     let t1 = texteSurSegment('hypoténuse',C,B)
     let t2, t3, t22, t32, codageAngle, codageAngle2;
-    if (sortie_html) {
+    if (sortieHtml) {
         t2 = texteSurSegment("adjacent à ⍺",B,A)
         t3 = texteSurSegment("opposé à ⍺",A,C)
         t22 = texteSurSegment("opposé à 𝛽",B,A)
@@ -86,7 +86,7 @@ export default function Mon_Exercice() {
     let t13 = texteSurSegment('hypoténuse',B,A)
     let t23
     let t33
-    if (sortie_html) {
+    if (sortieHtml) {
     t23 = texteSurSegment("opposé à ⍺",A,H)
     t33 = texteSurSegment("adjacent à ⍺",H,B)
     }
@@ -107,11 +107,11 @@ export default function Mon_Exercice() {
 
     let params_enonce = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
     let params_correction = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
-    if (!sortie_html){
+    if (!sortieHtml){
         texte += '\\begin{minipage}{.4\\linewidth}\n'
     }
     texte += mathalea2d(params_enonce, objets_enonce)+'<br>'
-    if (!sortie_html){
+    if (!sortieHtml){
         texte += '\n\\end{minipage}\n'
         texte += '\\begin{minipage}{.6\\linewidth}\n'
     }
@@ -128,68 +128,68 @@ export default function Mon_Exercice() {
         choix_rapport_trigo = choice(['cosinus','sinus','tangente'])
         texte+= `Exprimer le ${choix_rapport_trigo} de $\\widehat{${A.nom+B.nom+C.nom}}$ de deux manières différentes.`
     }
-    if (!sortie_html){
+    if (!sortieHtml){
         texte += '\n\\end{minipage}\n'
     }
     if (this.sup == 1 || this.sup == 2 || this.sup == 3) {
-        texte_corr += mathalea2d(params_correction, objets_correction)
+        texteCorr += mathalea2d(params_correction, objets_correction)
     }
     if (this.sup == 2) {
         let objets_correction2 = [p2, codage, nomme, t1, t22, t32, hypo, codageAngle2]
-        texte_corr += mathalea2d(params_correction, objets_correction2)
+        texteCorr += mathalea2d(params_correction, objets_correction2)
     }
     if (this.sup == 3) {
         let objets_correction3 = [p2, codage2, nomme, t13, t23, t33, t4, hypo3, codageAngle, sAH]
-        texte_corr += mathalea2d(params_correction, objets_correction3)
+        texteCorr += mathalea2d(params_correction, objets_correction3)
     }
 
     if (this.sup == 1 || this.sup == 2) {
-        texte_corr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc :`
-        texte_corr += `<br>$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
-        texte_corr += `<br>$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
-        texte_corr += `<br>$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${A.nom+B.nom}}$.`
+        texteCorr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc :`
+        texteCorr += `<br>$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
+        texteCorr += `<br>$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
+        texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${A.nom+B.nom}}$.`
     }
     if (this.sup == 2) {
-        texte_corr += `<br>$\\cos\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
-        texte_corr += `<br>$\\sin\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
-        texte_corr += `<br>$\\tan\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${A.nom+C.nom}}$.`
+        texteCorr += `<br>$\\cos\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
+        texteCorr += `<br>$\\sin\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
+        texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${A.nom+C.nom}}$.`
     }
     if (this.sup == 3) {
         if (choix_rapport_trigo == 'cosinus') {
-            texte_corr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
-            if (!sortie_html) {
-                texte_corr+='<br>'
+            texteCorr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
+            if (!sortieHtml) {
+                texteCorr+='<br>'
             }
-            texte_corr += `$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`  
-            texte_corr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
-            texte_corr += `$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${B.nom+H.nom}}{${A.nom+B.nom}}$.`  
+            texteCorr += `$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`  
+            texteCorr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
+            texteCorr += `$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${B.nom+H.nom}}{${A.nom+B.nom}}$.`  
         }
         if (choix_rapport_trigo == 'sinus') {
-            texte_corr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
-            if (!sortie_html) {
-                texte_corr+='<br>'
+            texteCorr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
+            if (!sortieHtml) {
+                texteCorr+='<br>'
             }
-            texte_corr += `$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`  
-            texte_corr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
-            texte_corr += `$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+H.nom}}{${A.nom+B.nom}}$.`  
+            texteCorr += `$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`  
+            texteCorr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
+            texteCorr += `$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+H.nom}}{${A.nom+B.nom}}$.`  
 
         }
         if (choix_rapport_trigo == 'tangente') {
-            texte_corr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
-            if (!sortie_html) {
-                texte_corr+='<br>'
+            texteCorr += `<br>$${A.nom+B.nom+C.nom}$ est rectangle en $${A.nom}$ donc `
+            if (!sortieHtml) {
+                texteCorr+='<br>'
             }
-            texte_corr += `$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${A.nom+B.nom}}$ ;`  
-            texte_corr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
-            texte_corr += `$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+H.nom}}{${B.nom+H.nom}}$.`  
+            texteCorr += `$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${A.nom+B.nom}}$ ;`  
+            texteCorr += `<br>$${A.nom+B.nom+H.nom}$ est rectangle en $${H.nom}$ donc `
+            texteCorr += `$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+H.nom}}{${B.nom+H.nom}}$.`  
         }
         
     }
     
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   
-    this.besoin_formulaire_numerique = ['Type de questions',3,'1 : Compléter 3 rapports trigonométriques\n2 : Donner les 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes'];
+    this.besoinFormulaireNumerique = ['Type de questions',3,'1 : Compléter 3 rapports trigonométriques\n2 : Donner les 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes'];
 }  

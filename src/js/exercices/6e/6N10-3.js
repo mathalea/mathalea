@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_sans_changer_ordre,tex_nombre,mise_en_evidence} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Chiffre des ... Nombre de ...'
 
 /** 
@@ -14,23 +14,23 @@ export default function chiffre_nombre_de() {
   this.beta = false;
   this.sup = 1;
   if (this.beta) {
-    this.nb_questions = 6;
+    this.nbQuestions = 6;
   } else {
-    this.nb_questions = 6;
+    this.nbQuestions = 6;
   };
 
   this.titre = titre;
   this.consigne = ``;
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 3 : this.spacing = 2;
-  sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 3 : this.spacing = 2;
+  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
     } else {
@@ -39,13 +39,13 @@ export default function chiffre_nombre_de() {
 
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
-    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let u, d, c, mu, md, mc, mmu, mmd, mmc;
       mmc = randint(0, 9, [0]);
       mmd = randint(0, 9, [mmc]);
@@ -165,7 +165,7 @@ export default function chiffre_nombre_de() {
             nb_de_reste += str.split('')[j];
             j++;
           };
-          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$ alors `;
+          sortie = `comme $${texNombre(str)} = ${texNombre(nb_de)}\\times ${texNombre(cdu_num)}+${texNombre(nb_de_reste)}$ alors `;
         };
         return sortie;
       };
@@ -174,29 +174,29 @@ export default function chiffre_nombre_de() {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
+          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
 					`,
           question: ``,
           correction: `
-          Dans $${tex_nombre(nb)}$,           
+          Dans $${texNombre(nb)}$,           
           ${nombre_de_justif(situations[k].type, nb_str, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
           le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
-          $${mise_en_evidence(tex_nombre(chiffre_nombre_corr(situations[k].type, nb_str, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$					
+          $${miseEnEvidence(texNombre(chiffre_nombre_corr(situations[k].type, nb_str, chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$					
 					`
         });
       };
 
       // autant de case que d'elements dans le tableau des situations
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`;
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `             `
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
         case 1:
@@ -204,9 +204,9 @@ export default function chiffre_nombre_de() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[1].correction}`;
+            texteCorr = `${enonces[1].correction}`;
           };
           break;
         case 2:
@@ -214,9 +214,9 @@ export default function chiffre_nombre_de() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[2].correction}`;
+            texteCorr = `${enonces[2].correction}`;
           };
           break;
         case 3:
@@ -224,9 +224,9 @@ export default function chiffre_nombre_de() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[3].correction}`;
+            texteCorr = `${enonces[3].correction}`;
           };
           break;
         case 4:
@@ -234,9 +234,9 @@ export default function chiffre_nombre_de() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[4].correction}`;
+            texteCorr = `${enonces[4].correction}`;
           };
           break;
         case 5:
@@ -244,24 +244,24 @@ export default function chiffre_nombre_de() {
           if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[5].correction}`;
+            texteCorr = `${enonces[5].correction}`;
           };
           break;
       };
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
 
   }
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 

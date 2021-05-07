@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,combinaison_listes,mise_en_evidence,tex_fraction,shuffle2tableaux} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,miseEnEvidence,texFraction,shuffle2tableaux} from '../../modules/outils.js'
 export const titre = 'Égalités entre fractions simples'
 
 /**
@@ -15,22 +15,22 @@ export default function Egalites_entre_fractions() {
   this.titre = titre;
   this.consigne = "Compléter les égalités.";
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.QCM_disponible=true
-  this.ModeQCM=false
+  this.spacingCorr = 2;
+  this.qcmDisponible=true
+  this.modeQcm=false
 
-  this.nouvelle_version = function () {
-    this.QCM=['6N41',[],"Egalités de fractions",1]
+  this.nouvelleVersion = function () {
+    this.qcm=['6N41',[],"Egalités de fractions",1]
     let tabrep,tabicone
     let espace =``;
-    if (sortie_html) {
+    if (sortieHtml) {
       espace = `&emsp;`;
     } else {
       espace = `\\qquad`;
     }
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let liste_fractions = [
       [1, 2],
       [1, 3],
@@ -64,21 +64,21 @@ export default function Egalites_entre_fractions() {
       [7, 10],
       [9, 10],
     ]; // Couples de nombres premiers entre eux
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       [1, 1, 1, 1, 2],
-      this.nb_questions
+      this.nbQuestions
     );
     for (
-      let i = 0, fraction, a, b, c, d, k,choix, texte, texte_corr;
-      i < this.nb_questions;
+      let i = 0, fraction, a, b, c, d, k,choix, texte, texteCorr;
+      i < this.nbQuestions;
       i++
     ) {
-      if (liste_type_de_questions[i] == 1) {
+      if (listeTypeDeQuestions[i] == 1) {
         // égalité entre 2 fractions
         fraction = choice(liste_fractions); //
         a = fraction[0];
         b = fraction[1];
-        if (this.ModeQCM){
+        if (this.modeQcm){
           k = randint(3, Math.max(this.sup,4));
         }
         else {
@@ -86,7 +86,7 @@ export default function Egalites_entre_fractions() {
         }
         c = k * a;
         d = k * b;
-        enleve_element(liste_fractions, fraction); // Il n'y aura pas 2 fois la même fraction de départ
+        enleveElement(liste_fractions, fraction); // Il n'y aura pas 2 fois la même fraction de départ
         if (this.sup2==3) {
           choix=i%2
         }
@@ -95,57 +95,57 @@ export default function Egalites_entre_fractions() {
         }
         switch (choix){
           case 0 :
-        texte = `$${tex_fraction(a, b)} = ${tex_fraction(
+        texte = `$${texFraction(a, b)} = ${texFraction(
           "\\phantom{00000000000000}",
           "\\phantom{00000000000000}"
-        )} = ${tex_fraction("\\phantom{0000}", d)}$`;
-        texte_corr = `$${tex_fraction(a, b)} = ${tex_fraction(
-          a + mise_en_evidence("\\times" + k),
-          b + mise_en_evidence("\\times" + k)
-        )} = ${tex_fraction(c, d)}$`;
-        tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction((k-1)*a, d)}$`,`$${tex_fraction((k+1)*a,d )}$`,`$${tex_fraction(Math.abs(d-a),d )}$`]
+        )} = ${texFraction("\\phantom{0000}", d)}$`;
+        texteCorr = `$${texFraction(a, b)} = ${texFraction(
+          a + miseEnEvidence("\\times" + k),
+          b + miseEnEvidence("\\times" + k)
+        )} = ${texFraction(c, d)}$`;
+        tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(a, d)}$`,`$${texFraction((k-1)*a, d)}$`,`$${texFraction((k+1)*a,d )}$`,`$${texFraction(Math.abs(d-a),d )}$`]
         tabicone=[1,0,0,0,0]
-        this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+        this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
         tabicone]) 
-        if (this.ModeQCM&&!mathalea.sortieAMC) {
-          texte_corr=''
+        if (this.modeQcm&&!mathalea.sortieAMC) {
+          texteCorr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
           for (let i=0; i<tabrep.length; i++) {
             texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
            if (tabicone[i]==1) {
-             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
            } else {
-             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
            }
          }
         }
         break
         case 1 :
-          texte = `$${tex_fraction(a, b)} = ${tex_fraction(
+          texte = `$${texFraction(a, b)} = ${texFraction(
             "\\phantom{00000000000000}",
             "\\phantom{00000000000000}"
-          )} = ${tex_fraction(c, "\\phantom{0000}")}$`;
-          texte_corr = `$${tex_fraction(a, b)} = ${tex_fraction(
-            a + mise_en_evidence("\\times" + k),
-            b + mise_en_evidence("\\times" + k)
-          )} = ${tex_fraction(c, d)}$`;
-          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(c, b)}$`,`$\\dfrac{${c}}{${(k-1)*b}}$`,`$${tex_fraction(c, (k+1)*b)}$`,`$\\dfrac{${c}}{${Math.abs(c-b)}}$`]
+          )} = ${texFraction(c, "\\phantom{0000}")}$`;
+          texteCorr = `$${texFraction(a, b)} = ${texFraction(
+            a + miseEnEvidence("\\times" + k),
+            b + miseEnEvidence("\\times" + k)
+          )} = ${texFraction(c, d)}$`;
+          tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(c, b)}$`,`$\\dfrac{${c}}{${(k-1)*b}}$`,`$${texFraction(c, (k+1)*b)}$`,`$\\dfrac{${c}}{${Math.abs(c-b)}}$`]
           tabicone=[1,0,0,0,0]
-          this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+          this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,
           tabicone]) 
-          if (this.ModeQCM&&!mathalea.sortieAMC) {
-            texte_corr=''
+          if (this.modeQcm&&!mathalea.sortieAMC) {
+            texteCorr=''
             texte+=`<br><br>  Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone);
             for (let i=0; i<tabrep.length; i++) {
               texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+               texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
-               texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+               texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
              }
            }
           }
@@ -155,7 +155,7 @@ export default function Egalites_entre_fractions() {
       } else {
         //écrire un entier sous la forme d'une fraction
         a = randint(1, 9);
-        if (this.ModeQCM&&!mathalea.sortieAMC) {
+        if (this.modeQcm&&!mathalea.sortieAMC) {
           d=randint(3,9,[a,2*a])
         }
         else {
@@ -170,57 +170,57 @@ export default function Egalites_entre_fractions() {
         }
         switch (choix){
           case 0 :
-        texte = `$${a} = ${tex_fraction(
+        texte = `$${a} = ${texFraction(
           "\\phantom{00000000000000}",
           "\\phantom{00000000000000}"
-        )} = ${tex_fraction("\\phantom{0000}", d)}$`;
-        texte_corr = `$${a} = \\dfrac{${a}}{1} =${tex_fraction(
-          a + mise_en_evidence("\\times" + d),
-          "1" + mise_en_evidence("\\times" + d)
-        )} = ${tex_fraction(c, d)}$`;
-          tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(a, d)}$`,`$${tex_fraction(d+a, d)}$`,`$${tex_fraction(Math.abs(d-a), d)}$`,`$${tex_fraction((a+1)*d, d)}$`]
+        )} = ${texFraction("\\phantom{0000}", d)}$`;
+        texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(
+          a + miseEnEvidence("\\times" + d),
+          "1" + miseEnEvidence("\\times" + d)
+        )} = ${texFraction(c, d)}$`;
+          tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(a, d)}$`,`$${texFraction(d+a, d)}$`,`$${texFraction(Math.abs(d-a), d)}$`,`$${texFraction((a+1)*d, d)}$`]
         tabicone=[1,0,0,0,0]
-        this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+        this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
         tabrep,
         tabicone]) 
-        if (this.ModeQCM&&!mathalea.sortieAMC) {
-          texte_corr=''
+        if (this.modeQcm&&!mathalea.sortieAMC) {
+          texteCorr=''
           texte+=`<br><br>  Réponses possibles : ${espace}  `
           shuffle2tableaux(tabrep, tabicone);
           for (let i=0; i<tabrep.length; i++) {
             texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
            if (tabicone[i]==1) {
-             texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
            } else {
-             texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+             texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
            }
          }
         }
         break
         case 1 :
-          texte = `$${a} = ${tex_fraction(
+          texte = `$${a} = ${texFraction(
             "\\phantom{00000000000000}",
             "\\phantom{00000000000000}"
-          )} = ${tex_fraction(c, "\\phantom{0000}")}$`;
-          texte_corr = `$${a} = \\dfrac{${a}}{1} =${tex_fraction(
-            a + mise_en_evidence("\\times" + d),
-            "1" + mise_en_evidence("\\times" + d)
-          )} = ${tex_fraction(c, d)}$`;
-            tabrep=[`$${tex_fraction(c, d)}$`,`$${tex_fraction(c, c-a)}$`,`$${tex_fraction(c, a)}$`,`$${tex_fraction(c, c+a)}$`,`$${tex_fraction(c,c*a)}$`]
+          )} = ${texFraction(c, "\\phantom{0000}")}$`;
+          texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(
+            a + miseEnEvidence("\\times" + d),
+            "1" + miseEnEvidence("\\times" + d)
+          )} = ${texFraction(c, d)}$`;
+            tabrep=[`$${texFraction(c, d)}$`,`$${texFraction(c, c-a)}$`,`$${texFraction(c, a)}$`,`$${texFraction(c, c+a)}$`,`$${texFraction(c,c*a)}$`]
           tabicone=[1,0,0,0,0]
-          this.QCM[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+          this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
           tabrep,
           tabicone]) 
-          if (this.ModeQCM&&!mathalea.sortieAMC) {
-            texte_corr=''
+          if (this.modeQcm&&!mathalea.sortieAMC) {
+            texteCorr=''
             texte+=`<br><br>  Réponses possibles : ${espace}  `
             shuffle2tableaux(tabrep, tabicone);
             for (let i=0; i<tabrep.length; i++) {
               texte += `$\\square\\;$ ${tabrep[i]}` + espace ;
              if (tabicone[i]==1) {
-               texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
+               texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace ;
              } else {
-               texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace ;
+               texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace ;
              }
            }
           }
@@ -229,12 +229,12 @@ export default function Egalites_entre_fractions() {
       }
       }
 
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
+      this.listeQuestions.push(texte);
+      this.listeCorrections.push(texteCorr);
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ["Valeur maximale du facteur commun", 99];
+  this.besoinFormulaireNumerique = ["Valeur maximale du facteur commun", 99];
   this.besoin_formulaire2_numerique = ["Type de question",3,"1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance"]
 }
 

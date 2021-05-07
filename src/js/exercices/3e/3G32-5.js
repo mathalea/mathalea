@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { tex_fraction_reduite, choice, tex_nombre, calcul,liste_de_question_to_contenu, combinaison_listes, randint, arrondi, creerNomDePolygone } from '../../modules/outils.js'
+import { texFractionReduite, choice, texNombre, calcul,listeQuestionsToContenu, combinaisonListes, randint, arrondi, creerNomDePolygone } from '../../modules/outils.js'
 import { mathalea2d, angle, point, droite, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, projectionOrtho, segment, codageAngleDroit, labelPoint, longueur } from '../../modules/2d.js'
 
 
@@ -14,18 +14,18 @@ export const titre = 'Problème trigonométrique - Triangle rectangle inscrit da
 export default function CalculsTrigo() {
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 1;
-    this.nb_questions_modifiable = false;
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
-    this.spacing_corr = 3;
+    this.nbQuestions = 1;
+    this.nbQuestionsModifiable = false;
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
+    this.spacingCorr = 3;
 
-    this.nouvelle_version = function () {
+    this.nouvelleVersion = function () {
 
-        this.liste_questions = [] // tableau contenant la liste des questions 
-        this.liste_corrections = []
+        this.listeQuestions = [] // tableau contenant la liste des questions 
+        this.listeCorrections = []
 
-        let objets_enonce = [], objets_correction = [], params_enonce = {}, params_correction = {}, texte = '', texte_corr = '';
+        let objets_enonce = [], objets_correction = [], params_enonce = {}, params_correction = {}, texte = '', texteCorr = '';
         let AD = randint(5,9)
         let AE = randint(AD+1,AD+4)
         let AC = randint(3,AD-1)
@@ -69,20 +69,20 @@ export default function CalculsTrigo() {
         texte += mathalea2d(params_enonce, objets_enonce)
         texte += `<br><br> $${A.nom+E.nom} = ${AE}~\\text{cm}$, $${A.nom+D.nom} = ${AD}~\\text{cm}$ et $${A.nom+C.nom} = ${AC}~\\text{cm}$.`
         texte += `<br> Calculer la longueur $${A.nom+B.nom}$ et donner une valeur approchée au millimètre près.`
-        //texte_corr += mathalea2d(params_correction, objets_correction)
-        texte_corr += `Dans le triangle $${A.nom+D.nom+E.nom}$ rectangle en $${D.nom}$ : `
-        texte_corr += `<br>$\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${A.nom+D.nom}}{${A.nom+E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${AD}}{${AE}}$,`
-        texte_corr += `<br> d'où $\\widehat{${D.nom+A.nom+E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${tex_nombre(arrondi(angle(D,A,E),1))}\\degree$.`
+        //texteCorr += mathalea2d(params_correction, objets_correction)
+        texteCorr += `Dans le triangle $${A.nom+D.nom+E.nom}$ rectangle en $${D.nom}$ : `
+        texteCorr += `<br>$\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${A.nom+D.nom}}{${A.nom+E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${AD}}{${AE}}$,`
+        texteCorr += `<br> d'où $\\widehat{${D.nom+A.nom+E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(arrondi(angle(D,A,E),1))}\\degree$.`
 
 
-        texte_corr += `<br><br>Dans le triangle $${A.nom+B.nom+C.nom}$ rectangle en $${B.nom}$ : `
-        texte_corr += `<br>$\\cos(\\widehat{${B.nom+A.nom+C.nom}})=\\dfrac{${A.nom+B.nom}}{${A.nom+C.nom}}\\quad$ soit $\\quad\\cos(${tex_nombre(arrondi(angle(D,A,E),1))}\\degree)\\approx\\dfrac{${A.nom+B.nom}}{${AC}}$,`
-        texte_corr += `<br> d'où $${A.nom+B.nom} \\approx ${AC} \\times \\cos(${tex_nombre(arrondi(angle(D,A,E),1))}\\degree)\\approx${tex_nombre(arrondi(longueur(A,B),1))}~\\text{cm}$.`
+        texteCorr += `<br><br>Dans le triangle $${A.nom+B.nom+C.nom}$ rectangle en $${B.nom}$ : `
+        texteCorr += `<br>$\\cos(\\widehat{${B.nom+A.nom+C.nom}})=\\dfrac{${A.nom+B.nom}}{${A.nom+C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D,A,E),1))}\\degree)\\approx\\dfrac{${A.nom+B.nom}}{${AC}}$,`
+        texteCorr += `<br> d'où $${A.nom+B.nom} \\approx ${AC} \\times \\cos(${texNombre(arrondi(angle(D,A,E),1))}\\degree)\\approx${texNombre(arrondi(longueur(A,B),1))}~\\text{cm}$.`
         
-        texte_corr += `<br><br>On pouvait aussi écrire : $${A.nom+B.nom} = ${AC} \\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times\\dfrac{${AD}}{${AE}}=${tex_fraction_reduite(AC*AD,AE)}$.`
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+        texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom+B.nom} = ${AC} \\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times\\dfrac{${AD}}{${AE}}=${texFractionReduite(AC*AD,AE)}$.`
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
+        listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
     };
 
 }

@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu} from '../../modules/outils.js'
-import Trouver_solution_mathador from './_Trouver_solution_mathador.js'
+import {listeQuestionsToContenu} from '../../modules/outils.js'
+import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**
@@ -14,16 +14,16 @@ export default function Le_compte_est_bonV4() {
   this.titre = titre;
   this.consigne =
     "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-  this.nb_questions = 1;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 1;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let solution_mathador = [];
-    let tirage, solution, expression, min, max, texte, texte_corr;
+    let tirage, solution, expression, min, max, texte, texteCorr;
     let minmax = [];
     if (!this.sup2) {
       // Si rien n'est saisi
@@ -42,15 +42,15 @@ export default function Le_compte_est_bonV4() {
     }
     if (!this.sup) {
       // Si rien n'est saisi
-      solution_mathador = Trouver_solution_mathador(min, max);
+      solution_mathador = TrouverSolutionMathador(min, max);
     } else {
       if (typeof this.sup == "number") {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        solution_mathador = Trouver_solution_mathador(min, max, this.sup);
+        solution_mathador = TrouverSolutionMathador(min, max, this.sup);
       } else {
         tirage = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < tirage.length; i++) tirage[i] = parseInt(tirage[i]);
-        solution_mathador = Trouver_solution_mathador(min, max, ...tirage);
+        solution_mathador = TrouverSolutionMathador(min, max, ...tirage);
       }
     }
 
@@ -59,18 +59,18 @@ export default function Le_compte_est_bonV4() {
     expression = solution_mathador[3];
 
     texte = `Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`;
-    texte_corr = `Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `;
-    texte_corr += `ou $${solution_mathador[4]}$.<br>`;
-    texte_corr += `En effet : <br>`;
+    texteCorr = `Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `;
+    texteCorr += `ou $${solution_mathador[4]}$.<br>`;
+    texteCorr += `En effet : <br>`;
     for (let i = 0; i < 4; i++) {
-      texte_corr += `$${solution_mathador[2][i]}$<br>`;
+      texteCorr += `$${solution_mathador[2][i]}$<br>`;
     }
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
 
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_texte = [
+  this.besoinFormulaireTexte = [
     "Choix des nombres du tirage (de aucun à cinq)",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip

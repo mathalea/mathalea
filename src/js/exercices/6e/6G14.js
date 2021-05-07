@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,range,rangeMinMax,shuffle,combinaison_listes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,range,rangeMinMax,shuffle,combinaisonListes} from '../../modules/outils.js'
 import {point,pointIntersectionDD,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteParPointEtPente,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 
@@ -12,13 +12,13 @@ export default function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = titre;
-  this.nb_questions = 3;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 3;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 4;
-  this.correction_detaillee_disponible = true;
-  this.correction_detaillee = false;
-  this.nouvelle_version = function () {
+  this.correctionDetailleeDisponible = true;
+  this.correctionDetaillee = false;
+  this.nouvelleVersion = function () {
     let type_de_questions_disponibles, questions_par_niveau = [];
     questions_par_niveau.push(range(3))
     questions_par_niveau.push(rangeMinMax(9, 15))
@@ -27,27 +27,27 @@ export default function Proprietes_paralleles_perpendiculaires() {
     if (this.sup < 4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup) - 1]
     else type_de_questions_disponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
 
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let droites = [], code, raisonnement, numDroites = [], phrases = [], textetemp
     let d = [], P = [], objets = [],  couleurd = [], droiteP, PP, Inter
     let droitecolor = function (num) {
       let couleurs
-      sortie_html ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
+      sortieHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
       return couleurs[num]
     }
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       texte = ""
-      texte_corr = ""
+      texteCorr = ""
       phrases.length = 0;
       droites.length = 0;
       objets.length = 0;
@@ -55,7 +55,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
       P.length = 0;
       couleurd.length = 0
       numDroites = shuffle([1, 2, 3, 4, 5]);
-      raisonnement = liste_type_de_questions[i]
+      raisonnement = listeTypeDeQuestions[i]
 
       switch (raisonnement) {
         case 0: // si 1//2 et 2//3 alors 1//3
@@ -203,39 +203,39 @@ export default function Proprietes_paralleles_perpendiculaires() {
       }
       // correction raisonnement ordonné
       mathalea.fenetreMathalea2d = [-2, -2, 15, 10]
-      texte_corr = `À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
-      texte_corr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + `<br>`
+      texteCorr = `À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
+      texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + `<br>`
       for (let j = 0; j < code.length - 1; j++) {
-        if (this.correction_detaillee) texte_corr += `On sait que : `
-        else texte_corr += `Comme `
-        texte_corr += `$(d_${numDroites[code[j][0] - 1]})`;
-        if (code[j][2] == 1) texte_corr += `//`
-        else texte_corr += `\\perp`
-        texte_corr += `(d_${numDroites[code[j][1] - 1]})$ et `
-        texte_corr += `$(d_${numDroites[code[j + 1][0] - 1]})`;
-        if (code[j + 1][2] == 1) texte_corr += `//`
-        else texte_corr += `\\perp`
-        texte_corr += `(d_${numDroites[code[j + 1][1] - 1]})$`
+        if (this.correctionDetaillee) texteCorr += `On sait que : `
+        else texteCorr += `Comme `
+        texteCorr += `$(d_${numDroites[code[j][0] - 1]})`;
+        if (code[j][2] == 1) texteCorr += `//`
+        else texteCorr += `\\perp`
+        texteCorr += `(d_${numDroites[code[j][1] - 1]})$ et `
+        texteCorr += `$(d_${numDroites[code[j + 1][0] - 1]})`;
+        if (code[j + 1][2] == 1) texteCorr += `//`
+        else texteCorr += `\\perp`
+        texteCorr += `(d_${numDroites[code[j + 1][1] - 1]})$`
         // quelle propriété ?
         if (code[j][2] * code[j + 1][2] == -1) { // Une parallèle et une perpendiculaire
-          if (this.correction_detaillee) texte_corr += `.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
-          else texte_corr += `, on en déduit que `
-          texte_corr += ` $(d_${numDroites[code[0][0] - 1]})\\perp(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
+          if (this.correctionDetaillee) texteCorr += `.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+          else texteCorr += `, on en déduit que `
+          texteCorr += ` $(d_${numDroites[code[0][0] - 1]})\\perp(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = -1
         }
         else if (code[j][2] > 0) { // deux parallèles
-          if (this.correction_detaillee) texte_corr += `.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
-          else texte_corr += `, on en déduit que `
-          texte_corr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
+          if (this.correctionDetaillee) texteCorr += `.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+          else texteCorr += `, on en déduit que `
+          texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = 1
 
         }
         else { //deux perpendiculaires
-          if (this.correction_detaillee) texte_corr += `.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc`
-          else texte_corr += `, on en déduit que `
-          texte_corr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
+          if (this.correctionDetaillee) texteCorr += `.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc`
+          else texteCorr += `, on en déduit que `
+          texteCorr += ` $(d_${numDroites[code[0][0] - 1]})//(d_${numDroites[code[j + 1][1] - 1]})$.<br>`
           code[j + 1][0] = code[j][0]
           code[j + 1][2] = 1
 
@@ -244,18 +244,18 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte + "<br>");
-        this.liste_corrections.push(texte_corr + "<br>");
+        this.listeQuestions.push(texte + "<br>");
+        this.listeCorrections.push(texteCorr + "<br>");
         i++;
       }
       cpt++;
     }
 
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = ['Nombre d\'étapes de raisonnement :', 4, `1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire`]
+  this.besoinFormulaireNumerique = ['Nombre d\'étapes de raisonnement :', 4, `1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire`]
   // this.besoin_formulaire2_case_a_cocher = [
   //  "Avec figure ? ",false];
 }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,choice,combinaison_listes,pgcd,tex_fraction_reduite,tex_nombrec,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,choice,combinaisonListes,pgcd,texFractionReduite,texNombrec,texFraction} from '../../modules/outils.js'
 export const titre = 'Trouver l’inverse d’un nombre'
 
 /**
@@ -20,13 +20,13 @@ export default function Exercice_trouver_l_inverse() {
   this.consigne =
     "Calculer l'inverse et donner la réponse sous forme décimale ou de fraction simplifiée quand c'est impossible";
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 5;
-  this.nb_cols_corr = 1;
+  this.spacingCorr = 2;
+  this.nbQuestions = 5;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles;
     let liste_entiers = [
       [1, 1],
@@ -90,9 +90,9 @@ export default function Exercice_trouver_l_inverse() {
     else {
       type_de_questions_disponibles = [parseInt(this.sup)];
     }
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     );
     for (let i = 0,
       nombre_choisi,
@@ -100,10 +100,10 @@ export default function Exercice_trouver_l_inverse() {
       nombre_inverse_num,
       nombre_inverse_den,
       texte,
-      texte_corr,
+      texteCorr,
       type_de_questions,
-      cpt = 0; i < this.nb_questions && cpt < 50;) {
-      type_de_questions = liste_type_de_questions[i];
+      cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      type_de_questions = listeTypeDeQuestions[i];
       switch (type_de_questions) {
         case 1: //inverse d'entier
           couples_d_inverses = choice(liste_entiers);
@@ -113,17 +113,17 @@ export default function Exercice_trouver_l_inverse() {
             // nombre entier positif
             if (nombre_inverse != 0) {
               //inverse décimal
-              texte_corr = `L\'inverse de $${nombre_choisi}$ est $${tex_nombrec(
+              texteCorr = `L\'inverse de $${nombre_choisi}$ est $${texNombrec(
                 nombre_inverse
-              )} \\:$ car $\\: ${nombre_choisi}   \\times   ${tex_nombrec(
+              )} \\:$ car $\\: ${nombre_choisi}   \\times   ${texNombrec(
                 nombre_inverse
               )} =  1$.`;
             } else {
               //inverse non décimal
-              texte_corr = `L\'inverse de $${nombre_choisi}$ est $${tex_fraction(
+              texteCorr = `L\'inverse de $${nombre_choisi}$ est $${texFraction(
                 1,
                 nombre_choisi
-              )} \\:$ car $\\: ${nombre_choisi}   \\times   ${tex_fraction(
+              )} \\:$ car $\\: ${nombre_choisi}   \\times   ${texFraction(
                 1,
                 nombre_choisi
               )} =  1$.`;
@@ -133,24 +133,24 @@ export default function Exercice_trouver_l_inverse() {
             nombre_choisi = -nombre_choisi;
             if (nombre_inverse != 0) {
               //inverse décimal
-              texte_corr = `L'inverse de $${nombre_choisi}$ est $${tex_nombrec(
+              texteCorr = `L'inverse de $${nombre_choisi}$ est $${texNombrec(
                 -nombre_inverse
               )} \\:$`;
-              texte_corr += ` car $\\: ${nombre_choisi}  \\times  \\left(-${tex_nombrec(
+              texteCorr += ` car $\\: ${nombre_choisi}  \\times  \\left(-${texNombrec(
                 nombre_inverse
               )}\\right)  =  1$.`;
             } else {
               //inverse non décimal
-              texte_corr = `L\'inverse de $${nombre_choisi}$ est $-${tex_fraction(
+              texteCorr = `L\'inverse de $${nombre_choisi}$ est $-${texFraction(
                 1,
                 -nombre_choisi
-              )} \\:$ car $\\: ${nombre_choisi}   \\times   \\left(-${tex_fraction(
+              )} \\:$ car $\\: ${nombre_choisi}   \\times   \\left(-${texFraction(
                 1,
                 -nombre_choisi
               )}\\right) =  1$.`;
             }
           }
-          texte = `Quel est l'inverse de $${tex_nombrec(nombre_choisi)}$ ?`;
+          texte = `Quel est l'inverse de $${texNombrec(nombre_choisi)}$ ?`;
           break;
         case 2:
           couples_d_inverses = choice(liste_decimaux);
@@ -161,38 +161,38 @@ export default function Exercice_trouver_l_inverse() {
             // nombre positif
             if (pgcd(nombre_inverse_num, nombre_inverse_den) == 1) {
               //non simplifiable après inversion
-              texte_corr = `Comme $${tex_nombrec(nombre_choisi)}=${tex_fraction(
+              texteCorr = `Comme $${texNombrec(nombre_choisi)}=${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}$, l'inverse de $${tex_nombrec(
+              )}$, l'inverse de $${texNombrec(
                 nombre_choisi
-              )}$ est $${tex_fraction(
+              )}$ est $${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )} \\:$ car $\\: ${tex_fraction(
+              )} \\:$ car $\\: ${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}   \\times   ${tex_fraction(
+              )}   \\times   ${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
               )} =  1$.`;
             } else {
               // à simplifier après inversion
-              texte_corr = `Comme $${tex_nombrec(nombre_choisi)}=${tex_fraction(
+              texteCorr = `Comme $${texNombrec(nombre_choisi)}=${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}=${tex_fraction_reduite(
+              )}=${texFractionReduite(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}$, l'inverse de $${tex_nombrec(
+              )}$, l'inverse de $${texNombrec(
                 nombre_choisi
-              )}$ est $${tex_fraction_reduite(
+              )}$ est $${texFractionReduite(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )} \\:$ car $\\: ${tex_fraction_reduite(
+              )} \\:$ car $\\: ${texFractionReduite(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}  \\times   ${tex_fraction_reduite(
+              )}  \\times   ${texFractionReduite(
                 nombre_inverse_num,
                 nombre_inverse_den
               )} =  1$.`;
@@ -202,59 +202,59 @@ export default function Exercice_trouver_l_inverse() {
             nombre_choisi = -nombre_choisi;
             if (pgcd(nombre_inverse_num, nombre_inverse_den) == 1) {
               //non simplifiable après inversion
-              texte_corr = `L'inverse de $${tex_nombrec(
+              texteCorr = `L'inverse de $${texNombrec(
                 nombre_choisi
-              )}$ est $-${tex_fraction(
+              )}$ est $-${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )} \\:$ car $\\: ${tex_nombrec(
+              )} \\:$ car $\\: ${texNombrec(
                 nombre_choisi
-              )}   \\times   \\left(-${tex_fraction(
+              )}   \\times   \\left(-${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
               )}\\right) =  1$.`;
-              texte_corr = `Comme $${tex_nombrec(
+              texteCorr = `Comme $${texNombrec(
                 nombre_choisi
-              )}=-${tex_fraction(
+              )}=-${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}$, l'inverse de $${tex_nombrec(
+              )}$, l'inverse de $${texNombrec(
                 nombre_choisi
-              )}$ est $-${tex_fraction(
+              )}$ est $-${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )} \\:$ car $\\: -${tex_fraction(
+              )} \\:$ car $\\: -${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}   \\times  \\left(- ${tex_fraction(
+              )}   \\times  \\left(- ${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
               )}\\right) =  1$.`;
             } else {
               // à simplifier après inversion
-              texte_corr = `Comme $${tex_nombrec(
+              texteCorr = `Comme $${texNombrec(
                 nombre_choisi
-              )}=-${tex_fraction(
+              )}=-${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}=-${tex_fraction_reduite(
+              )}=-${texFractionReduite(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}$, l'inverse de $${tex_nombrec(
+              )}$, l'inverse de $${texNombrec(
                 nombre_choisi
-              )}$ est $-${tex_fraction_reduite(
+              )}$ est $-${texFractionReduite(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )} \\:$ car $\\: -${tex_fraction_reduite(
+              )} \\:$ car $\\: -${texFractionReduite(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}  \\times  \\left(- ${tex_fraction_reduite(
+              )}  \\times  \\left(- ${texFractionReduite(
                 nombre_inverse_num,
                 nombre_inverse_den
               )} \\right)=  1$.`;
             }
           }
-          texte = `Quel est l'inverse de $${tex_nombrec(nombre_choisi)}$ ?`;
+          texte = `Quel est l'inverse de $${texNombrec(nombre_choisi)}$ ?`;
           break;
         case 3:
           couples_d_inverses = choice(liste_fractions);
@@ -264,38 +264,38 @@ export default function Exercice_trouver_l_inverse() {
             // fraction positive
             if (couples_d_inverses[2] == true) {
               // inverse décimal
-              texte_corr = `L'inverse de $${tex_fraction(
+              texteCorr = `L'inverse de $${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}$ est $${tex_fraction(
+              )}$ est $${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}=${tex_nombrec(
+              )}=${texNombrec(
                 nombre_inverse_den / nombre_inverse_num
-              )} \\:$ car $\\: ${tex_fraction(
+              )} \\:$ car $\\: ${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}   \\times   ${tex_fraction(
+              )}   \\times   ${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
               )} =  1$.`;
             } else {
               // inverse non décimal
-              texte_corr = `L'inverse de $${tex_fraction(
+              texteCorr = `L'inverse de $${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}$ est $${tex_fraction(
+              )}$ est $${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )} \\:$ car $\\: ${tex_fraction(
+              )} \\:$ car $\\: ${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}   \\times   ${tex_fraction(
+              )}   \\times   ${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
               )} =  1$.`;
             }
-            texte = `Quel est l'inverse de $${tex_fraction(
+            texte = `Quel est l'inverse de $${texFraction(
               nombre_inverse_num,
               nombre_inverse_den
             )}$ ?`;
@@ -303,38 +303,38 @@ export default function Exercice_trouver_l_inverse() {
             // fraction négative
             if (couples_d_inverses[2] == true) {
               // inverse décimal
-              texte_corr = `L'inverse de $-${tex_fraction(
+              texteCorr = `L'inverse de $-${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}$ est $-${tex_fraction(
+              )}$ est $-${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )}=-${tex_nombrec(
+              )}=-${texNombrec(
                 nombre_inverse_den / nombre_inverse_num
-              )} \\:$ car $\\: -${tex_fraction(
+              )} \\:$ car $\\: -${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}   \\times  \\left(- ${tex_fraction(
+              )}   \\times  \\left(- ${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
               )}\\right) =  1$.`;
             } else {
               // inverse non décimal
-              texte_corr = `L'inverse de $-${tex_fraction(
+              texteCorr = `L'inverse de $-${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}$ est $-${tex_fraction(
+              )}$ est $-${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
-              )} \\:$ car $\\: -${tex_fraction(
+              )} \\:$ car $\\: -${texFraction(
                 nombre_inverse_num,
                 nombre_inverse_den
-              )}   \\times  \\left(- ${tex_fraction(
+              )}   \\times  \\left(- ${texFraction(
                 nombre_inverse_den,
                 nombre_inverse_num
               )} \\right)=  1$.`;
             }
-            texte = `Quel est l'inverse de $-${tex_fraction(
+            texte = `Quel est l'inverse de $-${texFraction(
               nombre_inverse_num,
               nombre_inverse_den
             )}$ ?`;
@@ -343,17 +343,17 @@ export default function Exercice_trouver_l_inverse() {
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : Nombres entiers\n 2 : Fractions\n 3 : Nombres décimaux\n 4 : Mélange des 3 niveaux",

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,tex_nombrec,tex_nombre,katex_Popup2} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec,texNombre,katexPopup2} from '../../modules/outils.js'
 
 
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient'
@@ -12,18 +12,18 @@ export default function ensemble_de_nombres() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = titre;
     this.consigne = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :";
-    this.nb_questions = 5;
-    this.nb_cols = 2;
-    this.nb_cols_corr = 2;
+    this.nbQuestions = 5;
+    this.nbCols = 2;
+    this.nbColsCorr = 2;
     this.sup = 1; // 
 
-    this.nouvelle_version = function () {
-        this.liste_questions = []; // Liste de questions
-        this.liste_corrections = []; // Liste de questions corrigées
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []; // Liste de questions
+        this.listeCorrections = []; // Liste de questions corrigées
         let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9],type_de_questions
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, a, b, c, d, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-            type_de_questions = liste_type_de_questions[i];
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+            type_de_questions = listeTypeDeQuestions[i];
             switch (type_de_questions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
@@ -33,7 +33,7 @@ export default function ensemble_de_nombres() {
 
 
                     texte = `$${a} \\in \\dots$`;
-                    texte_corr = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$
+                    texteCorr = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$
                     `;
 
 
@@ -45,7 +45,7 @@ export default function ensemble_de_nombres() {
 
 
                     texte = `$${a} \\in \\dots$`;
-                    texte_corr = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$
+                    texteCorr = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$
                     `;
 
 
@@ -59,8 +59,8 @@ export default function ensemble_de_nombres() {
                     a = b + c / 10 + d / 100;
                     a = a * choice([-1, 1]);
 
-                    texte = `$${tex_nombrec(b + c / 10 + d / 100)}\\in \\dots$`;
-                    texte_corr = `$${tex_nombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${tex_nombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$
+                    texte = `$${texNombrec(b + c / 10 + d / 100)}\\in \\dots$`;
+                    texteCorr = `$${texNombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$
                     `;
 
 
@@ -73,8 +73,8 @@ export default function ensemble_de_nombres() {
                     c = randint(0, 9);
 
 
-                    texte = `$\\sqrt{${tex_nombrec(a * a)}}\\in \\dots$`;
-                    texte_corr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${tex_nombrec(a * a)}}\\in \\mathbb{N}$
+                    texte = `$\\sqrt{${texNombrec(a * a)}}\\in \\dots$`;
+                    texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${texNombrec(a * a)}}\\in \\mathbb{N}$
                     `;
 
 
@@ -87,8 +87,8 @@ export default function ensemble_de_nombres() {
                     c = randint(0, 9);
 
 
-                    texte = `$\\dfrac{${tex_nombrec(b * a)}}{${a}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${tex_nombrec(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${tex_nombrec(b * a)}}{${a}}\\in \\mathbb{N}$
+                    texte = `$\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\dots$`;
+                    texteCorr = `$\\dfrac{${texNombrec(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\mathbb{N}$
                     `;
 
 
@@ -102,7 +102,7 @@ export default function ensemble_de_nombres() {
 
 
                     texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${a}}{${b}}$ n'est pas un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{Q}$
+                    texteCorr = `$\\dfrac{${a}}{${b}}$ n'est pas un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{Q}$
                     `;
 
 
@@ -119,7 +119,7 @@ export default function ensemble_de_nombres() {
 
 
                     texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${a}}{${b}}=${tex_nombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$
+                    texteCorr = `$\\dfrac{${a}}{${b}}=${texNombre(a / b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$
                     `;
 
 
@@ -130,7 +130,7 @@ export default function ensemble_de_nombres() {
 
                     a = randint(2, 100, [4, 9, 16, 25, 36, 49, 64, 81]);
                     texte = `$\\sqrt{${a}} \\in \\dots$`;
-                    texte_corr = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$
+                    texteCorr = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$
                     `;
 
 
@@ -139,7 +139,7 @@ export default function ensemble_de_nombres() {
                 case 9:
                     a = randint(2, 9);
                     texte = `$${a}\\pi \\in \\dots$`;
-                    texte_corr = `$${a}\\pi$   est un nombre irrationnel. On a donc $${a}\\pi \\in \\mathbb{R}$
+                    texteCorr = `$${a}\\pi$   est un nombre irrationnel. On a donc $${a}\\pi \\in \\mathbb{R}$
                     `;
 
 
@@ -147,14 +147,14 @@ export default function ensemble_de_nombres() {
                     break;
 
             }
-            if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte);
-                this.liste_corrections.push(texte_corr);
+            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+                this.listeQuestions.push(texte);
+                this.listeCorrections.push(texteCorr);
                 i++;
             }
             cpt++;
         }
-        liste_de_question_to_contenu(this);
+        listeQuestionsToContenu(this);
     };
 
 }

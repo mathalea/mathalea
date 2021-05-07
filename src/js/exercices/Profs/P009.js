@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, tex_nombre, randint, calcul, arrondi_virgule, nombre_avec_espace } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre, randint, calcul, arrondiVirgule, nombre_avec_espace } from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 
@@ -18,15 +18,15 @@ export default function SimulateurAleatoire() {
   "use strict"
   Exercice.call(this)
   this.titre = titre;
-  this.nb_questions = 1; // Ici le nombre de questions
-  this.nb_questions_modifiable = true // Active le formulaire nombre de questions
-  this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-  this.pas_de_version_LaTeX = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+  this.nbQuestions = 1; // Ici le nombre de questions
+  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+  this.nbCols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
+  this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
+  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.correction_detaillee_disponible = true
-  this.correction_detaillee = true
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = true
   this.sup = 1; // situation 1=dés
   this.sup2 = 10000; // nbLancers
   this.sup3 = false; // true = équiprobable, false = jeu truqué
@@ -35,19 +35,19 @@ export default function SimulateurAleatoire() {
   this.consigne = `<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>`
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelle_version = function () {
-    // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+  this.nouvelleVersion = function () {
+    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     let texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
-    let texte_corr = ''
+    let texteCorr = ''
     let nbFaces = 2 * randint(1, 5) + 2; // nombre de faces du dé : 4, 6, 8, 10 ou 12
     let nbLancers = parseInt(this.sup2); // nombre de lancers 
     let tabEff = new Array();// tableau d'effectifs temporaires - une dimension [eff]
     let S = 0; // effectif total
     let tabRes = new Array(); // tableau des fréqeunces observées - deux dimensions [val, freq]
-    this.liste_corrections = []
-    this.liste_questions = []
+    this.listeCorrections = []
+    this.listeQuestions = []
     let tabcoul = ["rouges", "vertes", "bleues", "noires"];
     let tabNbBoules = [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]
     let nbBoules = 0, f, choix
@@ -59,7 +59,7 @@ export default function SimulateurAleatoire() {
     switch (parseInt(this.sup)) { // 
       case 1: // Tirages de dés
         f = fraction(1, nbFaces)
-        texte_corr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondi_virgule(f.pourcentage)}\\%$.<br>`
+        texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.<br>`
 
         texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`;
         if (this.sup3) {
@@ -90,9 +90,8 @@ export default function SimulateurAleatoire() {
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }
-          texte_corr += `Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
-          texte_corr += `En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondi_virgule(f.pourcentage)}\\%$.`
-          console.log(tabEff, S, face, nbFaces)
+          texteCorr += `Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme un dé truqué.<br>`
+          texteCorr += `En effet, la fréquence de la face $${face}$ est largement supérieur à $${arrondiVirgule(f.pourcentage)}\\%$.`
         }
 
         break;
@@ -154,8 +153,8 @@ export default function SimulateurAleatoire() {
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / nbLancers)];
           }
-          texte_corr += `Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>`
-          texte_corr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement supérieur à $${f.texFraction}\\approx ${arrondi_virgule(f.pourcentage)}\\%$.`
+          texteCorr += `Ici, l'expérience montre qu'il y a quelque chose qui semble fausser cette équiprobabilité comme des boules discernables au toucher.<br>`
+          texteCorr += `En effet, la fréquence des boules ${tabcoul[face - 1]} est largement supérieur à $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.`
         }
         break
     }
@@ -170,12 +169,12 @@ export default function SimulateurAleatoire() {
         texte += `\\\\\\hline\n`;
         texte += `\\text{Fréquence d'apparition}`;
         for (let i = 0; i < nbFaces; i++) {
-          texte += ` & \\text{${arrondi_virgule(100 * tabRes[i][1], 1)}} \\% `;
+          texte += ` & \\text{${arrondiVirgule(100 * tabRes[i][1], 1)}} \\% `;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
-        if (this.correction_detaillee) {
+        if (this.correctionDetaillee) {
 
           let coef = 10;
           let r = repere2({
@@ -210,12 +209,12 @@ export default function SimulateurAleatoire() {
         texte += `\\\\\\hline\n`;
         texte += `\\text{Fréquence d'apparition}`;
         for (let i = 0; i < nbFaces; i++) {
-          texte += ` & \\text{${arrondi_virgule(100 * tabRes[i][1], 1)}} \\%`;
+          texte += ` & \\text{${arrondiVirgule(100 * tabRes[i][1], 1)}} \\%`;
         }
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
         texte += `<br>`;
-        if (this.correction_detaillee) {
+        if (this.correctionDetaillee) {
 
           let coef = 10;
           let r = repere2({
@@ -242,15 +241,15 @@ export default function SimulateurAleatoire() {
         break
     }
 
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
   };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
-  this.besoin_formulaire_numerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
+  this.besoinFormulaireNumerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
   this.besoin_formulaire2_texte = ["Nombre de tirages", `Taper un nombre entier : ${10000}`];
   this.besoin_formulaire3_case_a_cocher = ["Équiprobabilité", true]
 

@@ -6,6 +6,6 @@ export default function Egalite_Pythagore2D() {
   Pythagore2D.call(this);
   this.titre = titre;
   this.sup = 1;
-  this.type_exercice = '';
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
+  this.typeExercice = '';
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
 }

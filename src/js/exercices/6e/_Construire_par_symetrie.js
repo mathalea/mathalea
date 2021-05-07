@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomDePolygone,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteVerticaleParPoint,droiteParPointEtPente,codageMediatrice,codageMilieu,segment,polygone,nommePolygone,rotation,symetrieAxiale,grille,seyes,mathalea2d} from '../../modules/2d.js'
 
 /**
@@ -13,13 +13,13 @@ export default function Construire_par_Symetrie() {
 	"use strict";
 	Exercice.call(this);
 	this.titre = "Construire par Symétrie...";
-	this.nb_questions = 1;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 1;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 2;
 	this.sup2 = 1;
 	this.figure = false
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		let type_de_questions_disponibles;
 		if (this.sup == 3) 	  //Symétrie axiale ou centrale
 			if (this.figure == false) type_de_questions_disponibles = [0, 1, 2]; // points
@@ -29,12 +29,12 @@ export default function Construire_par_Symetrie() {
 			if (this.figure == false) type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
 			else type_de_questions_disponibles = [parseInt(this.sup) + 3] //figures
 
-		let liste_type_de_questions = combinaison_listes(
+		let listeTypeDeQuestions = combinaisonListes(
 			type_de_questions_disponibles,
-			this.nb_questions
+			this.nbQuestions
 		);
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		let Xmin, Xmax, Ymin, Ymax, sc;
 		if (this.sup2 == 2) sc = 0.8;
 		else sc = 0.5;
@@ -55,12 +55,12 @@ export default function Construire_par_Symetrie() {
 			p1, p2, p1nom;
 		for (
 			let i = 0, cpt = 0;
-			i < this.nb_questions && cpt < 50;
+			i < this.nbQuestions && cpt < 50;
 
 		) {
 			objets_enonce.length = 0
 			objets_correction.length = 0
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 0: // 3 symétries axiales simples de points (6ème)
 					p1nom = creerNomDePolygone(5, "PQ")
 					A = point(0, 0, `${p1nom[0]}`, 'above');
@@ -105,11 +105,11 @@ export default function Construire_par_Symetrie() {
 
 					objets_correction.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
 					objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
-					enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(3) + ` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(5) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(3) + ` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(5) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
 					Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
 					Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
@@ -156,11 +156,11 @@ export default function Construire_par_Symetrie() {
 
 					objets_correction.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
 					objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
-					enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(3) + ` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(5) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(3) + ` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(5) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) - 1)
 					Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, EE.x, CC.x, DD.x) + 1)
 					Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, E.y, EE.y, CC.y, DD.y) - 1)
@@ -187,11 +187,11 @@ export default function Construire_par_Symetrie() {
 
 					objets_correction.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
 					objets_enonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D));
-					enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
-					enonce += num_alpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
-					enonce += num_alpha(3) + ` Construire le point $${p1nom[0]}\'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
-					enonce += num_alpha(4) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
+					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+					enonce += numAlpha(3) + ` Construire le point $${p1nom[0]}\'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
+					enonce += numAlpha(4) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) - 1)
 					Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) + 1)
 					Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) - 1)
@@ -232,9 +232,9 @@ export default function Construire_par_Symetrie() {
 					sED.pointilles = true
 					objets_correction.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
 					objets_enonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
-					enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(2) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(2) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
 					Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
 					Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -274,9 +274,9 @@ export default function Construire_par_Symetrie() {
 					inter = pointIntersectionDD(sCE, sED)
 					objets_correction.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
 					objets_enonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
-					enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
-					enonce += num_alpha(2) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+					enonce += numAlpha(2) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
 					Xmax = Math.ceil(Math.max(inter.x, A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
 					Ymin = Math.floor(Math.min(inter.y, A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -306,9 +306,9 @@ export default function Construire_par_Symetrie() {
 
 					objets_correction.push(tracePoint(B), labelPoint(B), cC, cD, cA, sC, sD, sA, DD, CC, p1, p2)
 					objets_enonce.push(tracePoint(B), labelPoint(B), CC, p1);
-					enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`
-					enonce += num_alpha(1) + ` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
-					enonce += num_alpha(2) + ` Coder la figure.<br>`;
+					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
+					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+					enonce += numAlpha(2) + ` Coder la figure.<br>`;
 					Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) - 1)
 					Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
 					Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
@@ -345,18 +345,18 @@ export default function Construire_par_Symetrie() {
 				params,
 				objets_correction
 			);
-			if (this.liste_questions.indexOf(enonce) == -1) {
+			if (this.listeQuestions.indexOf(enonce) == -1) {
 				// Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(enonce + "<br>");
-				this.liste_corrections.push(correction + "<br>");
+				this.listeQuestions.push(enonce + "<br>");
+				this.listeCorrections.push(correction + "<br>");
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Type de questions', 4, `0 : symétries axiales simples\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange`]
+	this.besoinFormulaireNumerique = ['Type de questions', 4, `0 : symétries axiales simples\n 1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange`]
 	this.besoin_formulaire2_numerique = [
 		"Type de cahier",
 		3,

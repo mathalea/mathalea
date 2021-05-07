@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,liste_diviseurs,crible_eratosthene_n,texte_ou_pas} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,listeDiviseurs,cribleEratostheneN,texteOuPas} from '../../modules/outils.js'
 
 
 export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
@@ -17,47 +17,47 @@ export default function Liste_des_diviseurs_5e() {
 	//this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
 	this.consigne = ``;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 2 : this.spacing = 1;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 3;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	sortieHtml ? this.spacing = 2 : this.spacing = 1;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	this.nbQuestions = 3;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 
-	this.nouvelle_version = function () {
+	this.nouvelleVersion = function () {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"assets/pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			//this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
+			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1, 1, 2];
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+			type_de_questions = listeTypeDeQuestions[i];
 
 			switch (type_de_questions) {
 				case 1: // Compléter un tableau pour trouver la liste de tous les diviseurs d'un entier
 					// on choisit un entier non premier inférieur à 99
-					let M = randint(2, 99, crible_eratosthene_n(99));
+					let M = randint(2, 99, cribleEratostheneN(99));
 					// on calcule le nombre de diviseur de M pour prévoir le nombre de lignes du tableau
-					let nbre_diviseurs_M = liste_diviseurs(M).length;
+					let nbre_diviseurs_M = listeDiviseurs(M).length;
 
 					texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;
-					if (!sortie_html) {
+					if (!sortieHtml) {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;
-					if (sortie_html) {
+					if (sortieHtml) {
 						texte += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`;
 					} else {
 
@@ -68,57 +68,57 @@ export default function Liste_des_diviseurs_5e() {
 					texte += `\\hline\n`;
 
 					if (nbre_diviseurs_M % 2 == 0) { //si il y a un nombre pair de diviseurs
-						for (let m = 0; m < (liste_diviseurs(M).length / 2); m++) {
-							texte += texte_ou_pas(liste_diviseurs(M)[m]) + ` & ` + texte_ou_pas(liste_diviseurs(M)[(liste_diviseurs(M).length - m - 1)]) + `& ${texte_ou_pas(M)} \\\\\n`;
+						for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
+							texte += texteOuPas(listeDiviseurs(M)[m]) + ` & ` + texteOuPas(listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`;
 							texte += `\\hline\n`;
 						};
 					} else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
-						for (let m = 0; m < ((liste_diviseurs(M).length - 1) / 2); m++) {
-							texte += texte_ou_pas(liste_diviseurs(M)[m]) + ` & ` + texte_ou_pas(liste_diviseurs(M)[(liste_diviseurs(M).length - m - 1)]) + `& ${texte_ou_pas(M)} \\\\\n`;
+						for (let m = 0; m < ((listeDiviseurs(M).length - 1) / 2); m++) {
+							texte += texteOuPas(listeDiviseurs(M)[m]) + ` & ` + texteOuPas(listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)]) + `& ${texteOuPas(M)} \\\\\n`;
 						};
-						texte += texte_ou_pas(liste_diviseurs(M)[(nbre_diviseurs_M - 1) / 2]) + ` & ` + texte_ou_pas(liste_diviseurs(M)[(nbre_diviseurs_M - 1) / 2]) + `& ${texte_ou_pas(M)} \\\\\n`;
+						texte += texteOuPas(listeDiviseurs(M)[(nbre_diviseurs_M - 1) / 2]) + ` & ` + texteOuPas(listeDiviseurs(M)[(nbre_diviseurs_M - 1) / 2]) + `& ${texteOuPas(M)} \\\\\n`;
 						texte += `\\hline\n`;
 					};
 					texte += `\\end{array}\n$`;
 
 					// correction
-					texte_corr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`;
-					if (!sortie_html) {
-						texte_corr += `$\\medskip$`;
+					texteCorr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`;
+					if (!sortieHtml) {
+						texteCorr += `$\\medskip$`;
 					};
-					texte_corr += `<br>`;
-					if (sortie_html) {
-						texte_corr += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`;
+					texteCorr += `<br>`;
+					if (sortieHtml) {
+						texteCorr += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`;
 					} else {
-						texte_corr += `$\\begin{array}{|c|c|c|}\n`;
+						texteCorr += `$\\begin{array}{|c|c|c|}\n`;
 					};
-					texte_corr += `\\hline\n`;
-					texte_corr += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`;
-					texte_corr += `\\hline\n`;
+					texteCorr += `\\hline\n`;
+					texteCorr += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`;
+					texteCorr += `\\hline\n`;
 
 					if (nbre_diviseurs_M % 2 == 0) { //si il y a un nombre pair de diviseurs
-						for (let m = 0; m < (liste_diviseurs(M).length / 2); m++) {
-							texte_corr += liste_diviseurs(M)[m] + ` & ` + liste_diviseurs(M)[(liste_diviseurs(M).length - m - 1)] + `& ${M} \\\\\n`;
-							texte_corr += `\\hline\n`;
+						for (let m = 0; m < (listeDiviseurs(M).length / 2); m++) {
+							texteCorr += listeDiviseurs(M)[m] + ` & ` + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`;
+							texteCorr += `\\hline\n`;
 						};
 					} else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
-						for (let m = 0; m < ((liste_diviseurs(M).length - 1) / 2); m++) {
-							texte_corr += liste_diviseurs(M)[m] + ` & ` + liste_diviseurs(M)[(liste_diviseurs(M).length - m - 1)] + `& ${M} \\\\\n`;
+						for (let m = 0; m < ((listeDiviseurs(M).length - 1) / 2); m++) {
+							texteCorr += listeDiviseurs(M)[m] + ` & ` + listeDiviseurs(M)[(listeDiviseurs(M).length - m - 1)] + `& ${M} \\\\\n`;
 						};
-						texte_corr += liste_diviseurs(M)[(nbre_diviseurs_M - 1) / 2] + ` & ` + liste_diviseurs(M)[(nbre_diviseurs_M - 1) / 2] + `& ${M} \\\\\n`;
-						texte_corr += `\\hline\n`;
+						texteCorr += listeDiviseurs(M)[(nbre_diviseurs_M - 1) / 2] + ` & ` + listeDiviseurs(M)[(nbre_diviseurs_M - 1) / 2] + `& ${M} \\\\\n`;
+						texteCorr += `\\hline\n`;
 					};
-					texte_corr += `\\end{array}\n$`;
-					if (!sortie_html) {
-						texte_corr += `$\\medskip$`;
+					texteCorr += `\\end{array}\n$`;
+					if (!sortieHtml) {
+						texteCorr += `$\\medskip$`;
 					};
-					texte_corr += `<br>`;
-					texte_corr += `${M} a donc ${nbre_diviseurs_M} diviseurs qui sont : `;
-					texte_corr += `1`;
-					for (let w = 1; w < liste_diviseurs(M).length; w++) {
-						texte_corr += ` ; ` + liste_diviseurs(M)[w];
+					texteCorr += `<br>`;
+					texteCorr += `${M} a donc ${nbre_diviseurs_M} diviseurs qui sont : `;
+					texteCorr += `1`;
+					for (let w = 1; w < listeDiviseurs(M).length; w++) {
+						texteCorr += ` ; ` + listeDiviseurs(M)[w];
 					};
-					texte_corr += `.`;
+					texteCorr += `.`;
 					break;
 				case 2: // liste des diviseurs
 					// on définit un tableau pour les choix du nombre dont on veut les diviseurs
@@ -127,7 +127,7 @@ export default function Liste_des_diviseurs_5e() {
 					tableau_de_choix = [randint(2, 99), randint(2, 99, [tableau_de_choix[0]]), randint(2, 99, [tableau_de_choix[0], tableau_de_choix[1]]), randint(2, 99, [tableau_de_choix[0], tableau_de_choix[1], tableau_de_choix[2]])];
 					let tableau_de_choix_3chiffres = [];
 					for (let m = 101; m < 999; m++) {
-						if (liste_diviseurs(m).length > 8) {
+						if (listeDiviseurs(m).length > 8) {
 							tableau_de_choix_3chiffres.push(m);
 						};
 					};
@@ -140,39 +140,39 @@ export default function Liste_des_diviseurs_5e() {
 					rg_N = randint(0, (tableau_de_choix.length - 1));
 					N = tableau_de_choix[rg_N];
 					texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-					texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
-					texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times $${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`;
-					texte_corr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times $${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
-					texte_corr += ` En effet, si ${N} est le produit de deux entiers p$\\times $q avec p < q alors si p$\\times $p > ${N} c'est que q$\\times $q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`;
-					if (liste_diviseurs(N).length % 2 == 0) { //si il y a un nombre pair de diviseurs
-						for (let m = 0; m < (liste_diviseurs(N).length / 2); m++) {
-							texte_corr += `` + liste_diviseurs(N)[m] + `$\\times $` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + ` = ${N}<br>`;
+					texteCorr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
+					texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times $${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N)) * Math.trunc(Math.sqrt(N))}<${N}`;
+					texteCorr += ` et ${Math.trunc(Math.sqrt(N)) + 1}$\\times $${Math.trunc(Math.sqrt(N)) + 1} = ${(Math.trunc(Math.sqrt(N)) + 1) * (Math.trunc(Math.sqrt(N)) + 1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
+					texteCorr += ` En effet, si ${N} est le produit de deux entiers p$\\times $q avec p < q alors si p$\\times $p > ${N} c'est que q$\\times $q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`;
+					if (listeDiviseurs(N).length % 2 == 0) { //si il y a un nombre pair de diviseurs
+						for (let m = 0; m < (listeDiviseurs(N).length / 2); m++) {
+							texteCorr += `` + listeDiviseurs(N)[m] + `$\\times $` + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + ` = ${N}<br>`;
 						};
 					} else {
-						for (let m = 0; m < ((liste_diviseurs(N).length - 1) / 2); m++) {
-							texte_corr += `` + liste_diviseurs(N)[m] + `$\\times $` + liste_diviseurs(N)[(liste_diviseurs(N).length - m - 1)] + `<br>`;
+						for (let m = 0; m < ((listeDiviseurs(N).length - 1) / 2); m++) {
+							texteCorr += `` + listeDiviseurs(N)[m] + `$\\times $` + listeDiviseurs(N)[(listeDiviseurs(N).length - m - 1)] + `<br>`;
 						};
-						texte_corr += `` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + `$\\times $` + liste_diviseurs(N)[(liste_diviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
+						texteCorr += `` + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + `$\\times $` + listeDiviseurs(N)[(listeDiviseurs(N).length - 1) / 2] + ` = ${N}<br>`;
 					};
-					texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
-					texte_corr += `La liste des diviseurs de ${N} est donc `;
-					texte_corr += `1`;
-					for (let w = 1; w < liste_diviseurs(N).length; w++) {
-						texte_corr += ` ; ` + liste_diviseurs(N)[w];
+					texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
+					texteCorr += `La liste des diviseurs de ${N} est donc `;
+					texteCorr += `1`;
+					for (let w = 1; w < listeDiviseurs(N).length; w++) {
+						texteCorr += ` ; ` + listeDiviseurs(N)[w];
 					};
-					texte_corr += `.`;
+					texteCorr += `.`;
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

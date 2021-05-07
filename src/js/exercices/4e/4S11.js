@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre} from '../../modules/outils.js';
-import {texte_gras,lampe_message} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
+import {texte_gras,lampeMessage} from '../../modules/outils.js';
 
 export const titre = 'Déterminer des médianes'
 
@@ -15,19 +15,19 @@ export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions = 1;
+	this.nbQuestions = 1;
 	this.spacing = 1;
-	this.spacing_corr = 1.5;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.spacingCorr = 1.5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
-	this.liste_packages = `bclogo`;
+	this.listePackages = `bclogo`;
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {			
+		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {			
 			var underbrace_mediane = (nb_val) => {
 				let sortie;
 				if (nb_val%2 == 0) {// nb pair de valeurs
@@ -171,7 +171,7 @@ export default function Calculer_des_frequences() {
 				else {
 					texte = `On a réalisé $${nombre_tirages}$ lancers d'un dé à $${nombre_faces}$ faces.<br>`;
 				}
-				texte += lampe_message({
+				texte += lampeMessage({
 					titre : `Vocabulaire`,
 					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texte_gras(solid_name(nombre_faces))}.`,
 					couleur : `nombres`
@@ -179,9 +179,9 @@ export default function Calculer_des_frequences() {
 				texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>';
 				texte += des_tab_eff_cumul(tirages,false)+ '<br>';				
 				texte += `<br><br> Déterminer une médiane de cette série.`;
-				texte_corr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;				
+				texteCorr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;				
 				if (nombre_tirages%2 == 0) {
-					texte_corr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
+					texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
 					Les deux valeurs centrales sont la $${nombre_tirages/2}^{e}$ et la $${nombre_tirages/2+1}^{e}$ valeur.<br>
 					En effet, ${underbrace_mediane(nombre_tirages)} <br>
 					Une médiane est donc un score compris entre le $${nombre_tirages/2}^{e}$ et le $${nombre_tirages/2+1}^{e}$ score.<br>
@@ -209,14 +209,14 @@ export default function Calculer_des_frequences() {
 						effCumulCroiss += tirages[cpt][1];						
 					};
 					scoresMedians.push(tirages[cpt][0]);
-					texte_corr += `D'où ${texte_gras(`le score médian : ${tex_nombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
-					texte_corr += lampe_message({
+					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${tex_nombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				} else { // Le nombre de lancers est impair ici
-					texte_corr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
+					texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
 					La valeur centrale est la $${(nombre_tirages-1)/2+1}^{e}$ valeur.<br>
 					En effet, ${underbrace_mediane(nombre_tirages)} <br>
 					Une médiane est donc le $${(nombre_tirages-1)/2+1}^{e}$ score.<br>
@@ -234,10 +234,10 @@ export default function Calculer_des_frequences() {
 						effCumulCroiss += tirages[cpt][1];						
 					};
 					scoresMedians.push(tirages[cpt][0]);
-					texte_corr += `D'où ${texte_gras(`le score médian : ${tex_nombre(scoresMedians[0])}`)}<br>`;
-					texte_corr += lampe_message({
+					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`;
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${tex_nombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				}
@@ -268,37 +268,37 @@ export default function Calculer_des_frequences() {
 					//console.log('imparité');
 				}
 				
-				texte_corr = `Il y a $${notes.length}$ notes en tout. `;				
+				texteCorr = `Il y a $${notes.length}$ notes en tout. `;				
 				if (notes.length%2==0) {
-					texte_corr += `Le nombre de notes est pair.<br>`;					
+					texteCorr += `Le nombre de notes est pair.<br>`;					
 				} else {
-					texte_corr += `Le nombre de notes est impair.<br>`;					
+					texteCorr += `Le nombre de notes est impair.<br>`;					
 				};
-				texte_corr += `Il faut par exemple ranger les notes dans l'ordre croissant : <br> $${notes[0]}$`;
+				texteCorr += `Il faut par exemple ranger les notes dans l'ordre croissant : <br> $${notes[0]}$`;
 				for (let j = 1; j < nombre_notes - 1; j++)
-					texte_corr += `; $${notes[j]}$ `; // On liste les notes (série brute)
-				texte_corr += `et $${notes[nombre_notes - 1]}$.<br>`;
+					texteCorr += `; $${notes[j]}$ `; // On liste les notes (série brute)
+				texteCorr += `et $${notes[nombre_notes - 1]}$.<br>`;
 
 				if (notes.length%2==0) {
-					texte_corr += `Les notes centrales sont la $${notes.length/2}^{e}$ et la $${notes.length/2+1}^{e}$.<br>
+					texteCorr += `Les notes centrales sont la $${notes.length/2}^{e}$ et la $${notes.length/2+1}^{e}$.<br>
 					En effet, ${underbrace_mediane(notes.length)}<br>
 					Une médiane est donc une note comprise entre la $${notes.length/2}^{e}$ et la $${notes.length/2+1}^{e}$ note, lorsque ces notes sont rangées.<br>`;
 				} else {
-					texte_corr += `La note centrale est donc la $${(notes.length+1)/2}^{e}$.<br>
+					texteCorr += `La note centrale est donc la $${(notes.length+1)/2}^{e}$.<br>
 					En effet, ${underbrace_mediane(notes.length)}<br>					
 					Une médiane est donc la $${(notes.length+1)/2}^{e}$ note, lorsque ces notes sont rangées.<br>`;			
 				};
-				texte_corr += `D'où ${texte_gras(`la note médiane : ${tex_nombre(mediane)}`)}<br>`;
+				texteCorr += `D'où ${texte_gras(`la note médiane : ${texNombre(mediane)}`)}<br>`;
 				if (notes.length%2==0) {
-					texte_corr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${notes.length/2}$ notes inférieures ou égales à  $${tex_nombre(mediane)}$ et $${notes.length/2}$ notes supérieures ou égales à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${notes.length/2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${notes.length/2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
-					texte_corr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(notes.length-1)/2}$ notes inférieures ou égales à  $${tex_nombre(mediane)}$ et $${(notes.length-1)/2}$ notes supérieures ou égales à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${(notes.length-1)/2}$ notes inférieures ou égales à  $${texNombre(mediane)}$ et $${(notes.length-1)/2}$ notes supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				}
@@ -308,7 +308,7 @@ export default function Calculer_des_frequences() {
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
 				nombre_temperatures = jours_par_mois(mois);
-				temperatures = un_mois_de_temperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
+				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
 				for (let j = 0; j < temperatures.length; j++) {
@@ -323,7 +323,7 @@ export default function Calculer_des_frequences() {
 					texte += '|c';
 				texte += '}\\hline  \\text{Jour}';
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
-					texte += '&' + tex_nombre(j + 1);
+					texte += '&' + texNombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
 					texte += '&' + temperatures[j];
@@ -334,7 +334,7 @@ export default function Calculer_des_frequences() {
 					texte += '|c';
 				texte += '}\\hline  \\text{Jour}';
 				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
-					texte += '&' + tex_nombre(j + 1);
+					texte += '&' + texNombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
 				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
 					texte += '&' + temperatures[j];
@@ -344,7 +344,7 @@ export default function Calculer_des_frequences() {
 				texte += `<br><br>Déterminer une médiane de cette série.`;
 				//texte += temperatures;
 				//texte += temperatures.length;
-				texte_corr = ``;
+				texteCorr = ``;
 				let temperatures_rangees = temperatures.sort((a, b) => a - b);
 				let mediane;
 				if (temperatures.length%2==0) {// attention les indices commencent à 0 !
@@ -352,49 +352,49 @@ export default function Calculer_des_frequences() {
 				} else {
 					mediane = temperatures_rangees[(temperatures.length-1)/2];					
 				};
-				texte_corr = `Il y a $${temperatures.length}$ températures relevées en tout. `;				
+				texteCorr = `Il y a $${temperatures.length}$ températures relevées en tout. `;				
 				if (temperatures.length%2==0) {
-					texte_corr += `Le nombre de temperatures est pair.<br>`;					
+					texteCorr += `Le nombre de temperatures est pair.<br>`;					
 				} else {
-					texte_corr += `Le nombre de temperatures est impair.<br>`;					
+					texteCorr += `Le nombre de temperatures est impair.<br>`;					
 				};
-				texte_corr += `Il faut par exemple ranger les temperatures dans l'ordre croissant : <br> $${temperatures[0]}$`;
+				texteCorr += `Il faut par exemple ranger les temperatures dans l'ordre croissant : <br> $${temperatures[0]}$`;
 				for (let j = 1; j < nombre_temperatures - 1; j++)
-					texte_corr += `; $${temperatures[j]}$ `; // On liste les temperatures (série brute)
-				texte_corr += `et $${temperatures[nombre_temperatures - 1]}$.<br>`;
+					texteCorr += `; $${temperatures[j]}$ `; // On liste les temperatures (série brute)
+				texteCorr += `et $${temperatures[nombre_temperatures - 1]}$.<br>`;
 
 				if (temperatures.length%2==0) {
-					texte_corr += `Les temperatures centrales sont la $${temperatures.length/2}^{e}$ et la $${temperatures.length/2+1}^{e}$.<br>
+					texteCorr += `Les temperatures centrales sont la $${temperatures.length/2}^{e}$ et la $${temperatures.length/2+1}^{e}$.<br>
 					En effet, ${underbrace_mediane(temperatures.length)}<br>
 					Une médiane est donc une temperature comprise entre la $${temperatures.length/2}^{e}$ et la $${temperatures.length/2+1}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`;
 				} else {
-					texte_corr += `La temperature centrale est donc la $${(temperatures.length+1)/2}^{e}$.<br>
+					texteCorr += `La temperature centrale est donc la $${(temperatures.length+1)/2}^{e}$.<br>
 					En effet, ${underbrace_mediane(temperatures.length)}<br>					
 					Une médiane est donc la $${(temperatures.length+1)/2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`;			
 				};
-				texte_corr += `D'où ${texte_gras(`la temperature médiane : ${tex_nombre(mediane)}`)}<br>`;
+				texteCorr += `D'où ${texte_gras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`;
 				if (temperatures.length%2==0) {
-					texte_corr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures ou égales à  $${tex_nombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures ou égales à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
-					texte_corr += lampe_message({
+					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures ou égales à  $${tex_nombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures ou égales à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures ou égales à  $${texNombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures ou égales à  $${texNombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				}
 			}
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Type de séries', 3, "1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
+	this.besoinFormulaireNumerique = ['Type de séries', 3, "1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
 }

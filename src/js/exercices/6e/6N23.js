@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,tex_nombre,tex_fraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,texFraction} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 export const titre = 'Donner l’écriture décimale d’une fraction décimale'
@@ -16,15 +16,15 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
   this.titre = titre;
   this.consigne = "Donner l'écriture décimale";
   this.spacing = 2;
-  this.spacing_corr = 2;
-  this.nb_questions = 8;
+  this.spacingCorr = 2;
+  this.nbQuestions = 8;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     for (
-      let i = 0, a, b, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, a, b, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       a = choice(
@@ -39,25 +39,25 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000]);
       texte =
-        "$ " + tex_fraction(tex_nombre(a), tex_nombre(b)) + " = \\dotfill $";
-      texte_corr =
+        "$ " + texFraction(texNombre(a), texNombre(b)) + " = \\dotfill $";
+      texteCorr =
         "$ " +
-        tex_fraction(tex_nombre(a), tex_nombre(b)) +
+        texFraction(texNombre(a), texNombre(b)) +
         " = " +
-        tex_nombre(Algebrite.eval(a / b)) +
+        texNombre(Algebrite.eval(a / b)) +
         " $";
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
 }
 

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,enleve_element,choice,range1,combinaison_listes,mise_en_evidence,liste_des_diviseurs} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,miseEnEvidence,liste_des_diviseurs} from '../../modules/outils.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
 
 /**
@@ -39,38 +39,38 @@ export default function Priorites() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer";
-  this.nb_questions = 5;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 5;
+  this.nbCols = 2;
+  this.nbColsCorr = 1;
   this.sup = 3;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let liste_questions_disponibles = []; //
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let listeQuestions_disponibles = []; //
     if (this.sup == 1) {
-      liste_questions_disponibles = range1(12);
+      listeQuestions_disponibles = range1(12);
     } else if (this.sup == 2) {
-      liste_questions_disponibles = range1(22, range1(12));
+      listeQuestions_disponibles = range1(22, range1(12));
     } else {
-      liste_questions_disponibles = range1(22);
+      listeQuestions_disponibles = range1(22);
     }
-    let liste_type_de_questions = combinaison_listes(
-      liste_questions_disponibles,
-      this.nb_questions
+    let listeTypeDeQuestions = combinaisonListes(
+      listeQuestions_disponibles,
+      this.nbQuestions
     );
     for (
-      let i = 0, texte, texte_corr, a, b, c, d, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, b, c, d, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           a = randint(2, 11);
           b = randint(2, 11);
           c = randint(2, 11);
           texte = `$${a}+${b}\\times${c}$`;
-          texte_corr = `$${a}+${mise_en_evidence(b + "\\times" + c)}=${a}+${b * c
+          texteCorr = `$${a}+${miseEnEvidence(b + "\\times" + c)}=${a}+${b * c
             }=${a + b * c}$`;
           break;
         case 2:
@@ -78,7 +78,7 @@ export default function Priorites() {
           c = randint(2, 11);
           b = c * randint(2, 11);
           texte = `$${a}+${b}\\div${c}$`;
-          texte_corr = `$${a}+${mise_en_evidence(b + "\\div" + c)}=${a}+${b / c
+          texteCorr = `$${a}+${miseEnEvidence(b + "\\div" + c)}=${a}+${b / c
             }=${a + b / c}$`;
           break;
         case 3:
@@ -86,7 +86,7 @@ export default function Priorites() {
           c = randint(2, 11);
           a = b * randint(2, 11);
           texte = `$${a}\\div${b}\\times${c}$`;
-          texte_corr = `$${mise_en_evidence(a + "\\div" + b)}\\times${c}=${a / b
+          texteCorr = `$${miseEnEvidence(a + "\\div" + b)}\\times${c}=${a / b
             }\\times${c}=${(a / b) * c}$`;
           break;
         case 4:
@@ -94,7 +94,7 @@ export default function Priorites() {
           c = randint(2, 11);
           a = b * c + randint(2, 11);
           texte = `$${a}-${b}\\times${c}$`;
-          texte_corr = `$${a}-${mise_en_evidence(b + "\\times" + c)}=${a}-${b * c
+          texteCorr = `$${a}-${miseEnEvidence(b + "\\times" + c)}=${a}-${b * c
             }=${a - b * c}$`;
           break;
         case 5:
@@ -110,7 +110,7 @@ export default function Priorites() {
             a = randint(2, 6);
           }
           texte = `$${a}\\times${b}\\div${c}$`;
-          texte_corr = `$${mise_en_evidence(a + "\\times" + b)}\\div${c}=${a * b
+          texteCorr = `$${miseEnEvidence(a + "\\times" + b)}\\div${c}=${a * b
             }\\div${c}=${(a * b) / c}$`;
           break;
         case 6:
@@ -118,7 +118,7 @@ export default function Priorites() {
           b = randint(2, 11);
           c = randint(2, 11);
           texte = `$${a}\\times${b}+${c}$`;
-          texte_corr = `$${mise_en_evidence(a + "\\times" + b)}+${c}=${a * b
+          texteCorr = `$${miseEnEvidence(a + "\\times" + b)}+${c}=${a * b
             }+${c}=${a * b + c}$`;
           break;
         case 7:
@@ -126,7 +126,7 @@ export default function Priorites() {
           a = b + randint(11, 29);
           c = randint(11, 29);
           texte = `$${a}-${b}+${c}$`;
-          texte_corr = `$${mise_en_evidence(a + "-" + b)}+${c}=${a - b}+${c}=${a - b + c
+          texteCorr = `$${miseEnEvidence(a + "-" + b)}+${c}=${a - b}+${c}=${a - b + c
             }$`;
           break;
         case 8:
@@ -135,7 +135,7 @@ export default function Priorites() {
           c = randint(2, 11);
           d = randint(2, 11);
           texte = `$${a}+${b}+${c}\\times${d}$`;
-          texte_corr = `$${a}+${b}+${mise_en_evidence(
+          texteCorr = `$${a}+${b}+${miseEnEvidence(
             c + "\\times" + d
           )}=${a}+${b}+${c * d}=${a + b + c * d}$`;
           break;
@@ -145,9 +145,9 @@ export default function Priorites() {
           c = randint(2, 11);
           d = randint(2, 11);
           texte = `$${a}\\times${b}+${c}\\times${d}$`;
-          texte_corr = `$${mise_en_evidence(
+          texteCorr = `$${miseEnEvidence(
             a + "\\times" + b
-          )}+${mise_en_evidence(c + "\\times" + d)}=${a * b}+${c * d}=${a * b + c * d
+          )}+${miseEnEvidence(c + "\\times" + d)}=${a * b}+${c * d}=${a * b + c * d
             }$`;
           break;
         case 10:
@@ -156,9 +156,9 @@ export default function Priorites() {
           c = randint(2, 5);
           d = randint(2, a * b * c - 1);
           texte = `$${a}\\times${b}\\times${c}-${d}$`;
-          texte_corr = `$${mise_en_evidence(
+          texteCorr = `$${miseEnEvidence(
             a + "\\times" + b
-          )}\\times${c}-${d}=${mise_en_evidence(a * b + "\\times" + c)}-${d}=${a * b * c - d
+          )}\\times${c}-${d}=${miseEnEvidence(a * b + "\\times" + c)}-${d}=${a * b * c - d
             }$`;
           break;
         case 11:
@@ -167,9 +167,9 @@ export default function Priorites() {
           d = randint(2, 11);
           c = d * randint(2, 8);
           texte = `$${a}\\times${b}-${c}\\div${d}$`;
-          texte_corr = `$${mise_en_evidence(
+          texteCorr = `$${miseEnEvidence(
             a + "\\times" + b
-          )}-${mise_en_evidence(c + "\\div" + d)}=${a * b}-${c / d}=${a * b - c / d
+          )}-${miseEnEvidence(c + "\\div" + d)}=${a * b}-${c / d}=${a * b - c / d
             }$`;
           break;
         case 12:
@@ -178,9 +178,9 @@ export default function Priorites() {
           d = randint(2, 11);
           c = d * randint(2, 8);
           texte = `$${a}\\times${b}+${c}\\div${d}$`;
-          texte_corr = `$${mise_en_evidence(
+          texteCorr = `$${miseEnEvidence(
             a + "\\times" + b
-          )}+${mise_en_evidence(c + "\\div" + d)}=${a * b}+${c / d}=${a * b + c / d
+          )}+${miseEnEvidence(c + "\\div" + d)}=${a * b}+${c / d}=${a * b + c / d
             }$`;
           break;
         case 13:
@@ -188,7 +188,7 @@ export default function Priorites() {
           c = randint(2, 11);
           b = c + randint(2, 11);
           texte = `$${a}\\times(${b}-${c})$`;
-          texte_corr = `$${a}\\times(${mise_en_evidence(
+          texteCorr = `$${a}\\times(${miseEnEvidence(
             b + `-` + c
           )})=${a}\\times${b - c}=${a * (b - c)}$`;
           break;
@@ -197,7 +197,7 @@ export default function Priorites() {
           a = b + randint(2, 11);
           c = randint(2, 11);
           texte = `$(${a}-${b})\\times${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\times${c}=${a - b
+          texteCorr = `$(${miseEnEvidence(a + `-` + b)})\\times${c}=${a - b
             }\\times${c}=${(a - b) * c}$`;
           break;
         case 15:
@@ -205,7 +205,7 @@ export default function Priorites() {
           b = randint(11, 39);
           a = b + c * randint(2, 9);
           texte = `$(${a}-${b})\\div${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\div${c}=${a - b
+          texteCorr = `$(${miseEnEvidence(a + `-` + b)})\\div${c}=${a - b
             }\\div${c}=${(a - b) / c}$`;
           break;
         case 16:
@@ -213,7 +213,7 @@ export default function Priorites() {
           c = randint(2, 6);
           a = (b + c) * randint(2, 9);
           texte = `$${a}\\div(${b}+${c})$`;
-          texte_corr = `$${a}\\div(${mise_en_evidence(b + `+` + c)})=${a}\\div${b + c
+          texteCorr = `$${a}\\div(${miseEnEvidence(b + `+` + c)})=${a}\\div${b + c
             }=${a / (b + c)}$`;
           break;
         case 17:
@@ -221,7 +221,7 @@ export default function Priorites() {
           b = randint(11, 39);
           a = b + c * randint(2, 9);
           texte = `$(${a}-${b})\\div${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\div${c}=${a - b
+          texteCorr = `$(${miseEnEvidence(a + `-` + b)})\\div${c}=${a - b
             }\\div${c}=${(a - b) / c}$`;
           break;
         case 18:
@@ -230,7 +230,7 @@ export default function Priorites() {
           a = randint(2, 5);
           d = randint(2, 5);
           texte = `$${a}\\times(${b}-${c})\\times${d}$`;
-          texte_corr = `$${a}\\times(${mise_en_evidence(
+          texteCorr = `$${a}\\times(${miseEnEvidence(
             b + `-` + c
           )})\\times${d}=${a}\\times${b - c}\\times${d}=${a * (b - c) * d}$`;
           break;
@@ -240,7 +240,7 @@ export default function Priorites() {
           a = randint(2, 5);
           b = randint(2, 5);
           texte = `$${a}\\times${b}\\times(${c}-${d})$`;
-          texte_corr = `$${a}\\times${b}\\times(${mise_en_evidence(
+          texteCorr = `$${a}\\times${b}\\times(${miseEnEvidence(
             c + `-` + d
           )})=${a}\\times${b}\\times${c - d}=${a * b * (c - d)}$`;
           break;
@@ -250,9 +250,9 @@ export default function Priorites() {
           d = randint(2, 11);
           b = c * d + randint(2, 11);
           texte = `$${a}\\times(${b}-${c}\\times${d})$`;
-          texte_corr = `$${a}\\times(${b}-${mise_en_evidence(
+          texteCorr = `$${a}\\times(${b}-${miseEnEvidence(
             c + `\\times` + d
-          )})=${a}\\times(${mise_en_evidence(b + `-` + c * d)})=${a}\\times${b - c * d
+          )})=${a}\\times(${miseEnEvidence(b + `-` + c * d)})=${a}\\times${b - c * d
             }=${a * (b - c * d)}$`;
           break;
         case 21:
@@ -265,16 +265,16 @@ export default function Priorites() {
             liste.pop(); //on supprime le plus grand diviseur qui est le produit
           }
           if (liste.length > 2) {
-            enleve_element(liste, liste[1]); //on supprime le plus petit diviseur (autre que 1)
+            enleveElement(liste, liste[1]); //on supprime le plus petit diviseur (autre que 1)
           }
 
           let somme = choice(liste, [1]); // la somme doit être un diviseur différent de 1
           c = randint(1, somme - 1);
           d = somme - c;
           texte = `$${a}\\times${b}\\div(${c}+${d})$`;
-          texte_corr = `$${a}\\times${b}\\div(${mise_en_evidence(
+          texteCorr = `$${a}\\times${b}\\div(${miseEnEvidence(
             c + `+` + d
-          )})=${mise_en_evidence(a + "\\times" + b)}\\div${c + d}=${a * b
+          )})=${miseEnEvidence(a + "\\times" + b)}\\div${c + d}=${a * b
             }\\div${c + d}=${(a * b) / (c + d)}$`;
           break;
         case 22:
@@ -283,25 +283,25 @@ export default function Priorites() {
           b = c * randint(2, 5);
           d = randint(2, 6);
           texte = `$${a}\\times(${b}\\div${c}+${d})$`;
-          texte_corr = `$${a}\\times(${mise_en_evidence(
+          texteCorr = `$${a}\\times(${miseEnEvidence(
             b + `\\div` + c
-          )}+${d})=${a}\\times(${mise_en_evidence(
+          )}+${d})=${a}\\times(${miseEnEvidence(
             b / c + `+` + d
           )})=${a}\\times${b / c + d}=${a * (b / c + d)}$`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Type de calculs",
     3,
     "1 : Sans parenthèses\n2: Avec parenthèses\n3: Avec ou sans parenthèses",

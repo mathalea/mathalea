@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,numAlpha} from '../../modules/outils.js'
 import {point,segment,repere,courbe,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l’aide d’un graphique'
 
@@ -12,38 +12,38 @@ export default function Graphiques_et_proportionnalite2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.debug = false;
   if (this.debug) {
-    this.nb_questions = 2;
+    this.nbQuestions = 2;
   } else {
-    this.nb_questions = 1;
+    this.nbQuestions = 1;
   };
 
   this.titre = titre;
   this.consigne = "";
 
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  sortie_html ? this.spacing = 2 : this.spacing = 1;
-  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
+  //this.nbQuestionsModifiable = false;
+  sortieHtml ? this.spacing = 2 : this.spacing = 1;
+  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let type_de_questions_disponibles;
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     if (this.debug) {
       type_de_questions_disponibles = [1];
     } else {
       type_de_questions_disponibles = [1];
     };
 
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     //type_de_questions_disponibles=[1];			
 
-    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
       let pu_oranges = choice([1.2, 1.4, 1.6, 1.8]);
       let pu_baguettes = choice([0.6, 0.8, 1.2]);
@@ -149,18 +149,18 @@ export default function Graphiques_et_proportionnalite2() {
         enonce: `
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br>${situation.fig}
-          <br> ${num_alpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
-          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
-          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
+          <br> ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
+          <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
           `,
         //question:``,
         correction: `
-        <br> ${num_alpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
+        <br> ${numAlpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
 
-        <br> ${num_alpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${numAlpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
         <br> ${situation.fig_corr}
-        <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        <br> ${numAlpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
         <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
@@ -169,32 +169,32 @@ export default function Graphiques_et_proportionnalite2() {
         <br><br>${texte_en_couleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
         `
       })
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`;
           //texte = `${fig}`;
           if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-            texte_corr = ``;
+            texteCorr = ``;
           } else {
-            texte_corr = `${enonces[0].correction}`;
+            texteCorr = `${enonces[0].correction}`;
           };
           break;
       }
 
 
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
 
   }
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	  
 }
 

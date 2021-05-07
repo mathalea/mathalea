@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,range1,combinaison_listes,rien_si_1,calcul,tex_nombrec,lettre_depuis_chiffre,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,range1,combinaisonListes,rienSi1,calcul,texNombrec,lettreDepuisChiffre,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Réduire une expression littérale'
 
@@ -19,20 +19,20 @@ export default function Reduire_une_expression_litterale() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "Réduire les expressions suivantes";
-	this.nb_questions = 5;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbQuestions = 5;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 9; // valeur maximale des coefficients
 	this.sup2 = false; // avec des nombres décimaux
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = range1(7);
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d;
 			if (this.sup2) {
 				a = calcul(randint(2, this.sup) + randint(1, 9) / 10);
@@ -45,26 +45,26 @@ export default function Reduire_une_expression_litterale() {
 				c = randint(2, this.sup);
 				d = randint(2, this.sup);
 			}
-			switch (liste_type_de_questions[i]) {
+			switch (listeTypeDeQuestions[i]) {
 				case 1: // ax+bx+c	
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}x+${tex_nombre(c)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}x+${tex_nombre(c)}=${tex_nombre(calcul(a + b))}x+${tex_nombre(c)}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}=${texNombre(calcul(a + b))}x+${texNombre(c)}$`;
 					break;
 				case 2: // ax+b+x+c
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}+x+${tex_nombre(c)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}+x+${tex_nombre(c)}=${tex_nombre(calcul(a + 1))}x+${tex_nombre(calcul(b + c))}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}=${texNombre(calcul(a + 1))}x+${texNombre(calcul(b + c))}$`;
 					break;
 				case 3: // ax^2+bx+c+dx^2+x
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x^2+${tex_nombre(b)}x+${tex_nombre(c)}+${tex_nombre(d)}x^2+x$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x^2+${tex_nombre(b)}x+${tex_nombre(c)}+${tex_nombre(d)}x^2+x=${tex_nombre(calcul(a + d))}x^2+${tex_nombre(calcul(b + 1))}x+${tex_nombre(c)}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x=${texNombre(calcul(a + d))}x^2+${texNombre(calcul(b + 1))}x+${texNombre(c)}$`;
 					break;
 				case 4: // a+x+b+c+dx
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}+x+${tex_nombre(b)}+${tex_nombre(c)}+${tex_nombre(d)}x$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}+x+${tex_nombre(b)}+${tex_nombre(c)}+${tex_nombre(d)}x=${tex_nombrec(1 + d)}x+${tex_nombrec(a + b + c)}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombrec(1 + d)}x+${texNombrec(a + b + c)}$`;
 					break;
 				case 5: // ax+y+bx+c+dy
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+y+${tex_nombre(b)}x+${tex_nombre(c)}+${tex_nombre(d)}y$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+y+${tex_nombre(b)}x+${tex_nombre(c)}+${tex_nombre(d)}y=${tex_nombrec(a + b)}x+${tex_nombrec(1 + d)}y+${tex_nombre(c)}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombrec(a + b)}x+${texNombrec(1 + d)}y+${texNombre(c)}$`;
 					break;
 				case 6: // ax+b-cx
 					if (c > a) {
@@ -73,8 +73,8 @@ export default function Reduire_une_expression_litterale() {
 					if (c == a) {
 						a++;
 					}
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}-${tex_nombre(c)}x$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x+${tex_nombre(b)}-${tex_nombre(c)}x=${tex_nombrec(a - c)}x+${tex_nombre(b)}$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x=${texNombrec(a - c)}x+${texNombre(b)}$`;
 					break;
 				case 7: // ax-cx
 					if (c > a) {
@@ -83,23 +83,23 @@ export default function Reduire_une_expression_litterale() {
 					if (c == a) {
 						a++;
 					}
-					texte = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x-${tex_nombre(c)}x$`;
-					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${tex_nombre(a)}x-${tex_nombre(c)}x=${rien_si_1(tex_nombrec(a - c))}x$`;
+					texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x$`;
+					texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x=${rienSi1(texNombrec(a - c))}x$`;
 					break;
 
 
 			}
 
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Valeur maximale des coefficients', 999];
+	this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999];
 	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres décimaux'];
 }

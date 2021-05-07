@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,shuffle2tableaux} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle2tableaux} from '../../modules/outils.js'
 export const titre = 'Lectures d’images et d’antécédents depuis un tableau de valeurs'
 
 /**
@@ -11,14 +11,14 @@ export default function Image_antecedent_depuis_tableau_ou_fleche() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "";
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.nb_questions = 4;
+	this.nbQuestionsModifiable = false;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	this.nbQuestions = 4;
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		let a = randint(-20, 20);
 		let b = randint(-20, 20, [a]);
 		let c = randint(-20, 20, [a, b]);
@@ -41,44 +41,44 @@ export default function Image_antecedent_depuis_tableau_ou_fleche() {
 	$
 	`;
 		let texte = `Quelle est l'image de $${a}$ par la fonction $f$ ?`;
-		let texte_corr = `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.`;
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
+		let texteCorr = `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.`;
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
 
 		texte = `Quelle est l'image de $${c}$ par la fonction $f$ ?`;
-		texte_corr = `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`;
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
+		texteCorr = `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`;
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
 
 		let texte3 = `Déterminer le(s) antécédent(s) de $${a}$ par la fonction $f$.`;
-		let texte_corr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`;
+		let texteCorr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`;
 
 		let texte4 = `Déterminer le(s) antécédent(s) de $${d}$ par la fonction $f$.`;
-		let texte_corr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`;
+		let texteCorr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`;
 
 		if (choice([true, false])) { // Une fois sur 2 on inverse les questions 3 et 4
-			this.liste_questions.push(texte3);
-			this.liste_corrections.push(texte_corr3);
-			this.liste_questions.push(texte4);
-			this.liste_corrections.push(texte_corr4);
+			this.listeQuestions.push(texte3);
+			this.listeCorrections.push(texteCorr3);
+			this.listeQuestions.push(texte4);
+			this.listeCorrections.push(texteCorr4);
 		} else {
-			this.liste_questions.push(texte4);
-			this.liste_corrections.push(texte_corr4);
-			this.liste_questions.push(texte3);
-			this.liste_corrections.push(texte_corr3);
+			this.listeQuestions.push(texte4);
+			this.listeCorrections.push(texteCorr4);
+			this.listeQuestions.push(texte3);
+			this.listeCorrections.push(texteCorr3);
 		}
 
 		texte = `Recopier et compléter : $f(${c})=\\ldots$`;
-		texte_corr = `$f(${c})=${d}$`;
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
+		texteCorr = `$f(${c})=${d}$`;
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
 
 		texte = `Recopier et compléter : $f(\\ldots)=${c}$`;
-		texte_corr = `$f(${f})=${c}$`;
-		this.liste_questions.push(texte);
-		this.liste_corrections.push(texte_corr);
+		texteCorr = `$f(${f})=${c}$`;
+		this.listeQuestions.push(texte);
+		this.listeCorrections.push(texteCorr);
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	//this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }

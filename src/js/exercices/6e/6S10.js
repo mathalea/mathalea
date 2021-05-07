@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,premiere_lettre_en_majuscule,num_alpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire un diagramme en barre'
 
@@ -14,16 +14,16 @@ export default function Lecture_diagramme_barre() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions à l'aide du graphique.";
-  this.nb_questions = 3;
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 3;
+  this.nbQuestionsModifiable = false;
+  this.nbCols = 1;
+  this.nbColsCorr = 1;
   this.sup = 1;
   this.sup2 = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // vide la liste de questions
-    this.liste_corrections = []; // vide la liste de questions corrigées   
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // vide la liste de questions
+    this.listeCorrections = []; // vide la liste de questions corrigées   
 
     let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
     let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
@@ -36,7 +36,7 @@ export default function Lecture_diagramme_barre() {
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
-    let N = 0,nom,texte,texte_corr,reponseinf,reponsesup;
+    let N = 0,nom,texte,texteCorr,reponseinf,reponsesup;
 
     switch (parseInt(this.sup2)) {
       case 1:
@@ -67,14 +67,14 @@ export default function Lecture_diagramme_barre() {
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
 
     texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
-    texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
-    texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
+    texte += numAlpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
+    texte += numAlpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
 
     let numAnimal = randint(0, nbAnimaux - 1);
     switch (parseInt(this.sup2)) {
-      case 1: texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+      case 1: texte += numAlpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
-      case 2: texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+      case 2: texte += numAlpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
     }
     texte += '<br>'
@@ -107,26 +107,26 @@ export default function Lecture_diagramme_barre() {
 
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef }))
+      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef }))
     }
 
     texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: .5 }, r, lstElementGraph)
     // debut de la correction
     // question 1
-    texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>';
+    texteCorr = numAlpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>';
     // question 2
-    texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>';
+    texteCorr += numAlpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] + '.<br>';
     // question 3
     let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])];
     reponseinf = 10 * coef * Math.floor(reponse / (10 * coef))
     reponsesup = reponseinf + 10 * coef
-    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
+    texteCorr += numAlpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
 
-    this.liste_questions.push(texte);
-    this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    this.listeQuestions.push(texte);
+    this.listeCorrections.push(texteCorr);
+    listeQuestionsToContenu(this);
   }
-  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+  this.besoinFormulaireNumerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
   this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
 }
 

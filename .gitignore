@@ -29,5 +29,10 @@ documentation
 # la conf privée
 _private
 
+# Par défaut, on utilise pnpm.
+# On enlève ce fichier pour ceux qui utilisent npm
+package-lock.json
+
+
 # traces MacOS
 .DS_Store

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { premiere_lettre_en_majuscule, liste_de_question_to_contenu_sans_numero, texcolors, arrondi_virgule, tex_fraction, combinaison_listes, tab_C_L, choice, randint } from '../../modules/outils.js'
+import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tableauColonneLigne, choice, randint } from '../../modules/outils.js'
 import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter des données par un diagramme'
@@ -12,20 +12,20 @@ export default function Construire_Un_Diagramme() {
     "use strict"
     Exercice.call(this)
     this.titre = titre;
-    this.nb_questions = 1;
-    this.nb_questions_modifiable = false
-    this.nb_cols = 1;
-    this.nb_cols_corr = 1;
-    this.pas_de_version_LaTeX = false
+    this.nbQuestions = 1;
+    this.nbQuestionsModifiable = false
+    this.nbCols = 1;
+    this.nbColsCorr = 1;
+    this.pasDeVersionLatex = false
     this.pas_de_version_HMTL = false
     this.sup = 3;
     this.sup2 = 1;
     this.sup3 = 1;
 
     //  this.sup3 = false;
-    this.nouvelle_version = function () {
-        this.liste_questions = []
-        this.liste_corrections = []
+    this.nouvelleVersion = function () {
+        this.listeQuestions = []
+        this.listeCorrections = []
         let type_de_questions_disponibles
         if (this.sup3 < 5) {
             type_de_questions_disponibles = [parseInt(this.sup3)]
@@ -34,9 +34,9 @@ export default function Construire_Un_Diagramme() {
             type_de_questions_disponibles = [randint(1, 4)]
         }
         let liste_hachures_disponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
-        let liste_motifs = combinaison_listes(liste_hachures_disponibles, 4)
-        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-        let N = 0, nom, texte, texte_corr;
+        let liste_motifs = combinaisonListes(liste_hachures_disponibles, 4)
+        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let N = 0, nom, texte, texteCorr;
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
         let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
         let lstNombresAnimaux = []; // liste des effectifs de chaque animal
@@ -48,7 +48,7 @@ export default function Construire_Un_Diagramme() {
             'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
 
         texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux. Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>';
-        texte_corr = ''
+        texteCorr = ''
         let entete = ['\\text{Animaux}']
         let contenutableau,A,B,T,angle, a, legende, textelegende, hachures,a0,t,alpha
         switch (parseInt(this.sup)) {
@@ -82,11 +82,11 @@ export default function Construire_Un_Diagramme() {
             lstAnimauxExo.push(nom);
             entete.push(`\\text{${nom}}`)
         }
-        texte += `${tab_C_L(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
+        texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
         objets_enonce = []
         objets_correction = []
 
-        switch (liste_type_de_questions[0]) {
+        switch (listeTypeDeQuestions[0]) {
             case 1:
                 texte += `Représenter ces données par un diagramme circulaire.<br><br>`
                 entete.push('\\text{Totaux}')
@@ -96,15 +96,15 @@ export default function Construire_Un_Diagramme() {
                 }
                 contenutableau.push(effectiftotal)
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(tex_fraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondi_virgule(lstNombresAnimaux[i] / effectiftotal, 2))
+                    contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
                 }
                 contenutableau.push('1')
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(`${tex_fraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+                    contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
                 }
                 contenutableau.push(`360\\degree`)
 
-                texte_corr += `${tab_C_L(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+                texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
                 A = point(0, 0)
                 B = point(6, 0)
@@ -149,15 +149,15 @@ export default function Construire_Un_Diagramme() {
                 }
                 contenutableau.push(effectiftotal)
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(tex_fraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondi_virgule(lstNombresAnimaux[i] / effectiftotal, 2))
+                    contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
                 }
                 contenutableau.push('1')
                 for (let i = 0; i < nbAnimaux; i++) {
-                    contenutableau.push(`${tex_fraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+                    contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
                 }
                 contenutableau.push(`180\\degree`)
 
-                texte_corr += `${tab_C_L(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+                texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
                 A = point(0, 0)
                 B = point(6, 0)
@@ -221,7 +221,7 @@ export default function Construire_Un_Diagramme() {
 
                  lstElementGraph = []
                 for (let i = 0; i < nbAnimaux; i++) {
-                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
+                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
                 }
                 objets_correction.push(r)
                 params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
@@ -276,12 +276,12 @@ export default function Construire_Un_Diagramme() {
                 break
         }
         texte += mathalea2d(params_enonce, objets_enonce)
-        texte_corr += mathalea2d(params_correction, objets_correction)
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        liste_de_question_to_contenu_sans_numero(this); // On envoie l'exercice à la fonction de mise en page
+        texteCorr += mathalea2d(params_correction, objets_correction)
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
+        listeQuestionsToContenuSansNumero(this); // On envoie l'exercice à la fonction de mise en page
     };
-    this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` 2 espèces\n 2 : 3 espèces\n 3 : 4 espèces`];
+    this.besoinFormulaireNumerique = [`Nombre d'espèces différentes`, 3, ` 2 espèces\n 2 : 3 espèces\n 3 : 4 espèces`];
     this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` Entre 1 et 100\n Entre 100 et 1 000`];
     this.besoin_formulaire3_numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
 

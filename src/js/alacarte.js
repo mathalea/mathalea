@@ -9,7 +9,7 @@
  @example   http://coopmaths.fr/alacarte
 */
 
-import { telechargeFichier, intro_LaTeX, intro_LaTeX_coop } from './modules/outils.js'
+import { telechargeFichier, introLatex, introLatexCoop } from './modules/outils.js'
 import dictionnaireDesExercices from './modules/dictionnaireDesExercicesAleatoires'
 import '../assets/externalJs/prism.js'
 import '../assets/externalJs/prism.css'
@@ -17,7 +17,7 @@ import '../css/style_mathalea.css'
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortie_html = false
+window.sortieHtml = false
 window.est_diaporama = false
 
 // Pour le menu du haut
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
-let code_LaTeX; let code_LaTeX_corr; let tableau_de_demandes; const objet_contenu = []; const objet_contenu_correction = []
+let codeLatex; let codeLatex_corr; let tableau_de_demandes; const objet_contenu = []; const objet_contenuCorrection = []
 const listeDesExercicesDemandes = []; let contenu_fichier = ''; const listeObjetsExercice = {}; let message_d_erreur = ''
 
 const tableau_url_tex = [['items/MATHS.6.G14_ProgrammeConstruction', 'MATHS.6.G14_.tex', 'MATHS.6.G14_-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20v2.tex', 'MATHS.6.M20v2-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20_.tex', 'MATHS.6.M20_-cor.tex'], ['items/MATHS.6.G11_Perpendiculaire', 'MATHS.6.G11_.tex', 'MATHS.6.G11_-cor.tex'], ['items/MATHS.6.G23_Rapporteur', 'MATHS.6.G23.tex', 'MATHS.6.G23-cor.tex'], ['items/MATHS.6.M23_PerimetreAiresDisques', 'MATHS.6.M23.tex', 'MATHS.6.M23-cor.tex'], ['items/MATHS.6.N22_CalculsFractions', 'MATHS.6.N22_.tex', 'MATHS.6.N22_-cor.tex'], ['items/MATHS.6.G10_VocabulaireNotations', 'MATHS.6.G10_.tex', 'MATHS.6.G10_-cor.tex'], ['items/MATHS.6.R10_ProprietesParallelesPerpendiculaires', 'MATHS.6.R10_.tex', 'MATHS.6.R10_-cor.tex'], ['items/MATHS.6.N23_NombresDecimaux', 'MATHS.6.N23_.tex', 'MATHS.6.N23_-cor.tex'], ['items/MATHS.6.C11_DivisionsEuclidiennes', 'MATHS.6.C11_v1.tex', 'MATHS.6.C11_v1-cor.tex'], ['items/MATHS.6.N21_AbscissesFractionnaires', 'MATHS.6.N21_.tex', 'MATHS.6.N21_-cor.tex'], ['items/MATHS.6.R12_ProprietesDefinitionsMediatrice', 'MATHS.6.R12.tex', 'MATHS.6.R12-cor.tex'], ['items/MATHS.6.G13_CarresRectangles', 'MATHS.6.G13_.tex', 'MATHS.6.G13_-cor.tex'], ['items/MATHS.6.C12_ProblemesNiveau1', 'MATHS.6.C12_v1.tex', 'MATHS.6.C12_v1-cor.tex'], ['items/MATHS.6.G12_Paralleles', 'MATHS.6.G12_.tex', 'MATHS.6.G12_-cor.tex'], ['items/MATHS.6.R11_SchemaProprietesParallelesPerpendiculaires', 'MATHS.6.R11_v1.tex', 'MATHS.6.R11_v1-cor.tex'], ['items/MATHS.6.M21_Aire_assemblage', 'MATHS.6.M21.tex', 'MATHS.6.M21-cor.tex'], ['items/MATHS.6.M24_Portions_disque', 'MATHS.6.M24.tex', 'MATHS.6.M24-cor.tex'], ['items/MATHS.6.N20_FractionsEtEntiers', 'MATHS.6.N20_v1.tex', 'MATHS.6.N20_v1-cor.tex'], ['items/MATHS.6.C10_AddSousMulEntiers', 'MATHS.6.C10_v1.tex', 'MATHS.6.C10_v1-cor.tex'], ['items/MATHS.6.C22_Problemes2', 'MATHS.6.C22.tex', 'MATHS.6.C22-cor.tex']]
-const liste_packages = new Set()
+const listePackages = new Set()
 
 /**
 * tableau_url_tex est un tableau de tableaux
@@ -89,11 +89,11 @@ function textarea_to_array (textarea_id_textarea) {
 // }
 
 /**
-* Transforme le texte saisi par l'utilisateur en un dictionnaire avec l'id des exercices et les éventuels paramètres (sup, sup2, nb_questions)
+* Transforme le texte saisi par l'utilisateur en un dictionnaire avec l'id des exercices et les éventuels paramètres (sup, sup2, nbQuestions)
 *
 *
-* txt_to_objet_parametres_exercice('6C10,sup=false,nb_questions=5')
-* {id: "6C10", sup: false, nb_questions: 5}
+* txt_to_objet_parametres_exercice('6C10,sup=false,nbQuestions=5')
+* {id: "6C10", sup: false, nbQuestions: 5}
 * @Auteur Rémi Angot
 */
 function txt_to_objet_parametres_exercice (txt) { //
@@ -142,25 +142,25 @@ function item_to_contenu (txt) {
     if (dictionnaire.sup2) {
       exercice_aleatoire.sup2 = dictionnaire.sup2
     }
-    if (dictionnaire.nb_questions) {
-      exercice_aleatoire.nb_questions = dictionnaire.nb_questions
+    if (dictionnaire.nbQuestions) {
+      exercice_aleatoire.nbQuestions = dictionnaire.nbQuestions
     }
     exercice_aleatoire.id = idExerciceMathALEA
-    exercice_aleatoire.nouvelle_version()
-    code_LaTeX += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
-    code_LaTeX += exercice_aleatoire.contenu + '\n\n'
-    code_LaTeX_corr += exercice_aleatoire.contenu_correction + '\n\n'
+    exercice_aleatoire.nouvelleVersion()
+    codeLatex += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
+    codeLatex += exercice_aleatoire.contenu + '\n\n'
+    codeLatex_corr += exercice_aleatoire.contenuCorrection + '\n\n'
 
-    if (typeof exercice_aleatoire.liste_packages === 'string') {
-      liste_packages.add(exercice_aleatoire.liste_packages)
+    if (typeof exercice_aleatoire.listePackages === 'string') {
+      listePackages.add(exercice_aleatoire.listePackages)
     } else { // si c'est un tableau
-      exercice_aleatoire.liste_packages.forEach(liste_packages.add, liste_packages)
+      exercice_aleatoire.listePackages.forEach(listePackages.add, listePackages)
     }
 
     // Sinon un exercice statique si le nom de l'item est inclus dans le nom du répertoire
   } else {
     // Si l'identifiant de l'exercice n'est disponible ni sur MathALEA ni dans la liste statique des url tableau_url_tex
-    code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
+    codeLatex += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
     updateMessageErreur(`Pas d'exercice disponible pour ${e}.\n`)
   }
 }
@@ -208,37 +208,37 @@ window.addEventListener('load', function () {
   $('#reglages_sortie_LaTeX').hide()
 
   $('#valider').click(function () {
-    $('#div_code_LaTeX').html(' ')
-    code_LaTeX = ''
-    code_LaTeX_corr = ''
+    $('#div_codeLatex').html(' ')
+    codeLatex = ''
+    codeLatex_corr = ''
     message_d_erreur = ''
     tableau_de_demandes = textarea_to_array(textarea_id_items)
 
     tableau_de_demandes.forEach(function (ligne, numero_de_ligne) {
       // On créé un tableau pour chaque élève
       objet_contenu[numero_de_ligne] = []
-      objet_contenu_correction[numero_de_ligne] = []
+      objet_contenuCorrection[numero_de_ligne] = []
       ligne.forEach(function (e, i) {
         let rang_premier_item = 0
         if ($('#style1:checked').val()) {
           rang_premier_item = 2
           if (i === 0) {
             objet_contenu[numero_de_ligne][i] = entete_eleve(ligne[0], ligne[1])
-            objet_contenu_correction[numero_de_ligne][i] = entete_eleve(ligne[0], ligne[1])
+            objet_contenuCorrection[numero_de_ligne][i] = entete_eleve(ligne[0], ligne[1])
           }
         }
         if ($('#style2:checked').val()) {
           rang_premier_item = 1
           if (i === 0) {
             objet_contenu[numero_de_ligne][i] = entete_eleve(ligne[0])
-            objet_contenu_correction[numero_de_ligne][i] = entete_eleve(ligne[0])
+            objet_contenuCorrection[numero_de_ligne][i] = entete_eleve(ligne[0])
           }
         }
         if ($('#style3:checked').val()) {
           rang_premier_item = 0
           if (i === 0) {
             objet_contenu[numero_de_ligne][i] = entete_eleve()
-            objet_contenu_correction[numero_de_ligne][i] = entete_eleve()
+            objet_contenuCorrection[numero_de_ligne][i] = entete_eleve()
           }
         }
 
@@ -249,7 +249,7 @@ window.addEventListener('load', function () {
             e = e.replace('MATHS', '').replace(/\./g, '').replace(/ /g, '')
             // Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
             objet_contenu[numero_de_ligne][i] = e
-            objet_contenu_correction[numero_de_ligne][i] = e
+            objet_contenuCorrection[numero_de_ligne][i] = e
             if (dictionnaireDesExercices[e]) {
               if (listeDesExercicesDemandes.indexOf(e) < 0) {
                 listeDesExercicesDemandes.push(e)
@@ -285,12 +285,12 @@ window.addEventListener('load', function () {
         import(/* webpackMode: "lazy" */ './exercices/' + path)
           .catch((error) => {
             console.log(error)
-            listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenu_correction: '' } // Un exercice vide pour l'exercice qui n'existe pas
+            listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenuCorrection: '' } // Un exercice vide pour l'exercice qui n'existe pas
           })
           .then((module) => {
             if (module) {
               listeObjetsExercice[id] = new module.default() // Ajoute l'objet dans la liste des
-              if (listeObjetsExercice[id].type_exercice === 'XCas') {
+              if (listeObjetsExercice[id].typeExercice === 'XCas') {
                 besoinXCas = true
               }
             }
@@ -305,22 +305,22 @@ window.addEventListener('load', function () {
             if ($('#style1:checked').val()) {
               rang_premier_item = 2
               if (i === 0) {
-                code_LaTeX += entete_eleve(ligne[0], ligne[1])
-                code_LaTeX_corr += entete_eleve(ligne[0], ligne[1])
+                codeLatex += entete_eleve(ligne[0], ligne[1])
+                codeLatex_corr += entete_eleve(ligne[0], ligne[1])
               }
             }
             if ($('#style2:checked').val()) {
               rang_premier_item = 1
               if (i === 0) {
-                code_LaTeX += entete_eleve(ligne[0])
-                code_LaTeX_corr += entete_eleve(ligne[0])
+                codeLatex += entete_eleve(ligne[0])
+                codeLatex_corr += entete_eleve(ligne[0])
               }
             }
             if ($('#style3:checked').val()) {
               rang_premier_item = 0
               if (i === 0) {
-                code_LaTeX += entete_eleve()
-                code_LaTeX_corr += entete_eleve()
+                codeLatex += entete_eleve()
+                codeLatex_corr += entete_eleve()
               }
             }
 
@@ -336,13 +336,13 @@ window.addEventListener('load', function () {
           window.alert(message_d_erreur)
         }
         // Affiche les boutons de compilation
-        if (code_LaTeX.length > 2) {
+        if (codeLatex.length > 2) {
           $('#reglages_sortie_LaTeX').show()
         }
         // Affiche le code LaTeX
-        $('#div_code_LaTeX').html('<pre><code class="language-latex">' + code_LaTeX + intro_correction +
-                    code_LaTeX_corr + '</code></pre>')
-        const div = document.getElementById('div_code_LaTeX')
+        $('#div_codeLatex').html('<pre><code class="language-latex">' + codeLatex + intro_correction +
+                    codeLatex_corr + '</code></pre>')
+        const div = document.getElementById('div_codeLatex')
         Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
       })
   })
@@ -391,14 +391,14 @@ window.addEventListener('load', function () {
 function creer_fichier () {
   // Gestion du style pour l'entête du fichier
   if ($('#style_classique:checked').val()) {
-    contenu_fichier = intro_LaTeX($('#entete_du_fichier').val(), liste_packages) + macro_nom_copie() + code_LaTeX + intro_correction +
-            code_LaTeX_corr + '\n\n\\end{document}'
+    contenu_fichier = introLatex($('#entete_du_fichier').val(), listePackages) + macro_nom_copie() + codeLatex + intro_correction +
+            codeLatex_corr + '\n\n\\end{document}'
   } else {
-    contenu_fichier = intro_LaTeX_coop(liste_packages) + macro_nom_copie('coop')
+    contenu_fichier = introLatexCoop(listePackages) + macro_nom_copie('coop')
     // contenu_fichier +='\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $("#entete_droit_du_fichier").val() + '}'
     // contenu_fichier += '{' + $("#items").val() + '}{' + $("#domaine").val() + '}\n'
-    contenu_fichier += '\\begin{document}\n\n' + code_LaTeX + intro_correction +
-            code_LaTeX_corr + '\n\n\\end{document}'
+    contenu_fichier += '\\begin{document}\n\n' + codeLatex + intro_correction +
+            codeLatex_corr + '\n\n\\end{document}'
   }
 }
 

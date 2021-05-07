@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,range1,combinaison_listes,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,range1,combinaisonListes,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Moitié'
 
 /**
@@ -12,80 +12,80 @@ export default function Moitie() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Calculer";
-  this.nb_questions = 10;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nbQuestions = 10;
+  this.nbCols = 2;
+  this.nbColsCorr = 2;
   this.sup = 1; // niveau de difficulté
   this.tailleDiaporama = 100;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = range1(6);
-    let liste_type_de_questions = combinaison_listes(
+    let listeTypeDeQuestions = combinaisonListes(
       type_de_questions_disponibles,
-      this.nb_questions
+      this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texte_corr, a, b, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, texte, texteCorr, a, b, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 2
           a = randint(2, 9);
           texte = `$\\text{La moitié de }${a * 2}$`;
-          texte_corr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`;
+          texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`;
           break;
         case 2: // Impair inférieur à 20
           a = randint(2, 9);
           texte = `$\\text{La moitié de }${a * 2 + 1}$`;
-          texte_corr = `$\\text{La moitié de }${a * 2 + 1
-            } \\text{ est } ${tex_nombrec(a + 5 / 10)}$`;
+          texteCorr = `$\\text{La moitié de }${a * 2 + 1
+            } \\text{ est } ${texNombrec(a + 5 / 10)}$`;
           break;
         case 3: // Table de 200
           a = randint(2, 9);
-          texte = `$\\text{La moitié de }${tex_nombre(a * 2 * 100)}$`;
-          texte_corr = `$\\text{La moitié de }${tex_nombre(
+          texte = `$\\text{La moitié de }${texNombre(a * 2 * 100)}$`;
+          texteCorr = `$\\text{La moitié de }${texNombre(
             a * 2 * 100
-          )} \\text{ est } ${tex_nombre(a * 100)}$`;
+          )} \\text{ est } ${texNombre(a * 100)}$`;
           break;
         case 4: // a00 avec a impair
           a = randint(2, 9);
-          texte = `$\\text{La moitié de }${tex_nombre((a * 2 + 1) * 100)}$`;
-          texte_corr = `$\\text{La moitié de }${tex_nombre(
+          texte = `$\\text{La moitié de }${texNombre((a * 2 + 1) * 100)}$`;
+          texteCorr = `$\\text{La moitié de }${texNombre(
             (a * 2 + 1) * 100
-          )} \\text{ est } ${tex_nombre(a * 100 + 50)}$`;
+          )} \\text{ est } ${texNombre(a * 100 + 50)}$`;
           break;
         case 5: // a,b avec a et b pairs
           a = randint(2, 9);
           b = randint(2, 9);
-          texte = `$\\text{La moitié de }${tex_nombrec(
+          texte = `$\\text{La moitié de }${texNombrec(
             a * 2 + (b * 2) / 100
           )}$`;
-          texte_corr = `$\\text{La moitié de }${tex_nombrec(
+          texteCorr = `$\\text{La moitié de }${texNombrec(
             a * 2 + (b * 2) / 100
-          )} \\text{ est } ${tex_nombrec(a + b / 100)}$`;
+          )} \\text{ est } ${texNombrec(a + b / 100)}$`;
           break;
         case 6: // 1xx avec xx un nombre pair
           a = randint(2, 9);
           texte = `$\\text{La moitié de }${100 + a * 2}$`;
-          texte_corr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${50 + a
+          texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${50 + a
             }$`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 

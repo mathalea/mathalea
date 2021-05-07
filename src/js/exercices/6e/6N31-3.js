@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_nb_premiers_strict_jusqua, shuffle2tableaux, choice, liste_de_question_to_contenu, randint, troncature, calcul, tex_nombre, mise_en_evidence, tex_fraction } from '../../modules/outils.js';
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js';
 export const amcReady = true
 
 export const titre = 'Arrondir une valeur'
@@ -14,43 +14,43 @@ export default function Arrondir_une_valeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre;
 
-  this.nb_questions = 3
-  this.nb_cols = 3
-  this.nb_cols_corr = 1
+  this.nbQuestions = 3
+  this.nbCols = 3
+  this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-	this.QCM_disponible = true
-	this.ModeQCM = false
-  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 3.5)
+	this.qcmDisponible = true
+	this.modeQcm = false
+  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
-  this.nouvelle_version = function () {
-    if (!this.ModeQCM) {
+  this.nouvelleVersion = function () {
+    if (!this.modeQcm) {
       this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
     } else {
       this.consigne = "Quelles sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième"
     }
-    this.QCM = ['6N31-3', [], "Valeur arrondie du nombre à l'unité, au dixième et au centième", 2, { ordered: true, vertical: true }]
+    this.qcm = ['6N31-3', [], "Valeur arrondie du nombre à l'unité, au dixième et au centième", 2, { ordered: true, vertical: true }]
     let tabrep = []; let tabicone=[]; let pre_tabrep=[]; let  pre_tabicone = []
 		let espace = '';
-    if (sortie_html) {
-		 if (this.QCM[4].vertical === true) {
+    if (sortieHtml) {
+		 if (this.qcm[4].vertical === true) {
         espace = '<br>';
       }
       else {
         espace = '&emsp;';
       }
     } else {
-      if (this.QCM[4].vertical === true) {
+      if (this.qcm[4].vertical === true) {
         space = '\\\\';
       } else {
 		  espace = '\\qquad';
       }
     }
-    this.liste_questions = []
-    this.liste_corrections = []
+    this.listeQuestions = []
+    this.listeCorrections = []
     let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac
 
-    for (let i = 0, texte = '', texte_corr = '', cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       tabrep.length = 0, tabicone.length = 0, pre_tabrep.length = 0, pre_tabicone.length = 0
       if (this.sup == 1) {
         m = randint(0, 9)
@@ -64,17 +64,17 @@ export default function Arrondir_une_valeur () {
         ce = randint(0, 1)
         de = randint(0, 1)
         n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
-        nb = tex_nombre(n)
+        nb = texNombre(n)
       } else if (this.sup == 2) {
         den = choice([7, 9, 11, 13])
         num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
         n = num / den
-        nb = tex_fraction(num, den)
+        nb = texFraction(num, den)
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
       } else if (this.sup == 3) {
-        rac = randint(2, 300, [liste_nb_premiers_strict_jusqua(300)])
+        rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`
         di = 10 * (troncature(n - troncature(n, 0), 1))
@@ -85,14 +85,14 @@ export default function Arrondir_une_valeur () {
       texte = `$${nb}$`
       
         if (this.sup == 1) texte += '';
-      else if (this.sup == 2) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${num}\\div ${den}, ~elle~renvoie : ${tex_nombre(n)}$`
-        else if (this.sup == 3) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${tex_nombre(n)}$`
+      else if (this.sup == 2) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${num}\\div ${den}, ~elle~renvoie : ${texNombre(n)}$`
+        else if (this.sup == 3) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${texNombre(n)}$`
       
-      texte_corr = "Encadrement et arrondi à l'unité : "
+      texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
-        texte_corr += `$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`
-      pre_tabrep[0] = `$${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`
-      pre_tabrep[1] = `$${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`
+        texteCorr += `$\\phantom{1234567}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
+      pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
+      pre_tabrep[1] = `$${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
       pre_tabicone = [1, 0]
       if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -100,9 +100,9 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
       tabicone.push(pre_tabicone[0], pre_tabicone[1])
       } else {
-        texte_corr += `$\\phantom{1234567}${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`
-        pre_tabrep[0] = `$${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`
-        pre_tabrep[1] = `$${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`
+        texteCorr += `$\\phantom{1234567}${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
+        pre_tabrep[0] = `$${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
+        pre_tabrep[1] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
         pre_tabicone = [1, 0]
         if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -111,11 +111,11 @@ export default function Arrondir_une_valeur () {
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
 
-      texte_corr += '<br>Encadrement et arrondi au dixième : ';
+      texteCorr += '<br>Encadrement et arrondi au dixième : ';
       if (ci < 5) {
-        texte_corr += `$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`
-        pre_tabrep[0] = `$${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`
-        pre_tabrep[1] = `$${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`
+        texteCorr += `$\\phantom{123}${miseEnEvidence(texNombre(troncature(n, 1)))} < ${nb} < ${texNombre(troncature(n + 0.1, 1))}$`
+        pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 1)))} < ${nb} < ${texNombre(troncature(n + 0.1, 1))}$`
+        pre_tabrep[1] = `$${texNombre(troncature(n, 1))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.1, 1)))}$`
         pre_tabicone = [1, 0]
         if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -123,9 +123,9 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       } else {
-        texte_corr += `$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`
-        pre_tabrep[0] = `$${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`
-        pre_tabrep[1] = `$${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`
+        texteCorr += `$\\phantom{123}${texNombre(troncature(n, 1))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.1, 1)))}$`
+        pre_tabrep[0] = `$${texNombre(troncature(n, 1))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.1, 1)))}$`
+        pre_tabrep[1] = `$${miseEnEvidence(texNombre(troncature(n, 1)))} < ${nb} < ${texNombre(troncature(n + 0.1, 1))}$`
         pre_tabicone = [1, 0]
         if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -134,11 +134,11 @@ export default function Arrondir_une_valeur () {
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
 
-      texte_corr += '<br>Encadrement et arrondi au centième : $~$';
+      texteCorr += '<br>Encadrement et arrondi au centième : $~$';
       if (mi < 5) {
-        texte_corr += `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`
-        pre_tabrep[0] = `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`
-        pre_tabrep[1] = `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`
+        texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
+        pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
+        pre_tabrep[1] = `$${texNombre(troncature(n, 2))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.01, 2)))}$`
         pre_tabicone = [1, 0]
         if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -146,9 +146,9 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       } else {
-        texte_corr += `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`
-        pre_tabrep[0] = `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`
-        pre_tabrep[1] = `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`
+        texteCorr += `$${texNombre(troncature(n, 2))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.01, 2)))}$`
+        pre_tabrep[0] = `$${texNombre(troncature(n, 2))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 0.01, 2)))}$`
+        pre_tabrep[1] = `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
         pre_tabicone = [1, 0]
         if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
@@ -156,25 +156,25 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
-      if (this.ModeQCM && !mathalea.sortieAMC) {
+      if (this.modeQcm && !mathalea.sortieAMC) {
         texte += '<br><br>Réponses possibles : <br>  ';
-        texte_corr = ''
+        texteCorr = ''
         // shuffle2tableaux(tabrep, tabicone);
         for (let i = 0; i < 6; i++) {
           texte += `$\\square\\;$ ${tabrep[i]}` + espace  
          if (tabicone[i] == 1) {
-            texte_corr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
+            texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
          } else {
-            texte_corr += `$\\square\\;$ ${tabrep[i]}` + espace
+            texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
          }
         }
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte) // Sinon on enregistre la question dans liste_questions
-        this.liste_corrections.push(texte_corr) // On fait pareil pour la correction
-        this.QCM[1].push([`Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`,
+        this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
+        this.listeCorrections.push(texteCorr) // On fait pareil pour la correction
+        this.qcm[1].push([`Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`,
           tabrep.slice(),
           tabicone.slice()])
         tabrep.length = 0
@@ -183,8 +183,8 @@ export default function Arrondir_une_valeur () {
       }
       cpt++
     }
-    liste_de_question_to_contenu(this)
+    listeQuestionsToContenu(this)
   };
-  this.besoin_formulaire_numerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
+  this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
   this.besoin_formulaire2_case_a_cocher = ['Affichage de la valeur donnée à la calculatrice', false]
 }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,shuffle,combinaison_listes_sans_changer_ordre,obtenir_liste_facteurs_premiers,tex_nombre,mise_en_evidence,modal_pdf,modal_video,crible_eratosthene_n,premiers_entre_bornes,warn_message} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modalVideo,cribleEratostheneN,premiersEntreBornes,warnMessage} from '../../modules/outils.js'
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
@@ -19,45 +19,45 @@ export default function Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 3;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	sortieHtml ? this.spacing = 3 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	this.nbQuestions = 3;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.sup = 1;
-	this.liste_packages = `bclogo`;
+	this.listePackages = `bclogo`;
 
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
-			this.bouton_aide += modal_video('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
+			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1, 2, 3];
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 
 		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + crible_eratosthene_n(100)[0];
-		for (let k = 1; k < crible_eratosthene_n(100).length; k++) {
-			string_rappel += `, ` + crible_eratosthene_n(100)[k];
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + cribleEratostheneN(100)[0];
+		for (let k = 1; k < cribleEratostheneN(100).length; k++) {
+			string_rappel += `, ` + cribleEratostheneN(100)[k];
 		};
 		string_rappel += `.`;
 
-		this.introduction = warn_message(string_rappel, `nombres`, `Coup de pouce`);
+		this.introduction = warnMessage(string_rappel, `nombres`, `Coup de pouce`);
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+			type_de_questions = listeTypeDeQuestions[i];
 
 			switch (type_de_questions) {
 				case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
@@ -66,7 +66,7 @@ export default function Decomposition_facteurs_premiers() {
 					// on fixe la limite pour le choix des premiers
 					let max_premier = 11;
 					// on fixe le rang max pour le choix des premiers
-					let rg_max = crible_eratosthene_n(max_premier).length - 1;
+					let rg_max = cribleEratostheneN(max_premier).length - 1;
 					// on choisit les rangs pour les nombres premiers
 					let tab_rangs = [];
 					let tab_rangs_exclus = [];
@@ -79,7 +79,7 @@ export default function Decomposition_facteurs_premiers() {
 					// on choisit les premiers
 					let tab_premiers = [];
 					for (let k = 0; k < tab_rangs.length; k++) {
-						tab_premiers[k] = crible_eratosthene_n(max_premier)[tab_rangs[k]];
+						tab_premiers[k] = cribleEratostheneN(max_premier)[tab_rangs[k]];
 					};
 					// on range les facteurs premiers dans l'ordre croissant
 					tab_premiers.sort(function (a, b) {
@@ -99,101 +99,101 @@ export default function Decomposition_facteurs_premiers() {
 						};
 					};
 					let racine_premier_1 = Math.trunc(Math.sqrt(nombre_a_decomposer));
-					texte += `$${tex_nombre(nombre_a_decomposer)}$ en produit de facteurs premiers.`;
+					texte += `$${texNombre(nombre_a_decomposer)}$ en produit de facteurs premiers.`;
 					// correction						
-					texte_corr = `Nous allons successivement tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;
-					texte_corr += `$${tex_nombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
-					texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${tex_nombre(racine_premier_1)}$.<br>`;
-					texte_corr += `Ce sont les nombres de la liste : <br>`;
-					texte_corr += crible_eratosthene_n(racine_premier_1)[0] + ` ; `;
-					for (let k = 1; k < crible_eratosthene_n(racine_premier_1).length; k++) {
-						texte_corr += crible_eratosthene_n(racine_premier_1)[k];
-						if (k != crible_eratosthene_n(racine_premier_1).length - 1) {
-							texte_corr += ` ; `;
+					texteCorr = `Nous allons successivement tester la divisibilité de $${texNombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;
+					texteCorr += `$${texNombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
+					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${texNombre(racine_premier_1)}$.<br>`;
+					texteCorr += `Ce sont les nombres de la liste : <br>`;
+					texteCorr += cribleEratostheneN(racine_premier_1)[0] + ` ; `;
+					for (let k = 1; k < cribleEratostheneN(racine_premier_1).length; k++) {
+						texteCorr += cribleEratostheneN(racine_premier_1)[k];
+						if (k != cribleEratostheneN(racine_premier_1).length - 1) {
+							texteCorr += ` ; `;
 						} else {
-							texte_corr += `.`;
+							texteCorr += `.`;
 						}
 						if (k % 15 == 0) {
-							texte_corr += `<br>`;
+							texteCorr += `<br>`;
 						}
 					};
-					texte_corr += `<br>`;
-					var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
+					texteCorr += `<br>`;
+					var liste_facteurs_premiers = obtenirListeFacteursPremiers(nombre_a_decomposer);
 					var quotient_intermediaire = nombre_a_decomposer;
 					for (let k = 0; k < liste_facteurs_premiers.length; k++) {
-						texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;
+						texteCorr += `$${texNombre(quotient_intermediaire)}\\div${miseEnEvidence(liste_facteurs_premiers[k])} = ${texNombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;
 						quotient_intermediaire = quotient_intermediaire / liste_facteurs_premiers[k];
 					};
-					texte_corr += `Finalement on obtient la décomposition suivante : $ ${tex_nombre(nombre_a_decomposer)} = `;
+					texteCorr += `Finalement on obtient la décomposition suivante : $ ${texNombre(nombre_a_decomposer)} = `;
 					if (tab_multiplicites[0] == 1) {
-						texte_corr += `${tab_premiers[0]}`;
+						texteCorr += `${tab_premiers[0]}`;
 					} else {
-						texte_corr += `${tab_premiers[0]}^{${tab_multiplicites[0]}}`;
+						texteCorr += `${tab_premiers[0]}^{${tab_multiplicites[0]}}`;
 					};
 					for (let k = 1; k < tab_premiers.length; k++) {
 						if (tab_multiplicites[k] == 1) {
-							texte_corr += `\\times ${tab_premiers[k]}`;
+							texteCorr += `\\times ${tab_premiers[k]}`;
 						} else {
-							texte_corr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
+							texteCorr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
 						};
 					};
-					texte_corr += `$`;
+					texteCorr += `$`;
 					break;
 				case 2: // deux premiers compris entre 30 et 100 de multiplicité 1
 					// on choisit un rang différent pour chaque premier entre 30 et 100
-					let r1 = randint(0, premiers_entre_bornes(30, 100).length - 1);
-					let r2 = randint(0, premiers_entre_bornes(30, 100).length - 1, r1);
-					let premier1 = premiers_entre_bornes(30, 100)[r1];
-					let premier2 = premiers_entre_bornes(30, 100)[r2];
+					let r1 = randint(0, premiersEntreBornes(30, 100).length - 1);
+					let r2 = randint(0, premiersEntreBornes(30, 100).length - 1, r1);
+					let premier1 = premiersEntreBornes(30, 100)[r1];
+					let premier2 = premiersEntreBornes(30, 100)[r2];
 					if (premier1 > premier2) { // on inverse p1 et p2 si p1 est supérieur à p2
 						let p = premier1;
 						premier1 = premier2;
 						premier2 = p;
 					};
-					texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier1 * premier2)}$ en produit de facteurs premiers.`;
+					texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier1 * premier2)}$ en produit de facteurs premiers.`;
 					let racine_prem = Math.trunc(Math.sqrt(premier1 * premier2));
-					texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(premier1 * premier2)}}$ c'est à dire inférieurs à $${tex_nombre(racine_prem)}$.<br>`;
-					texte_corr += `Ce sont les nombres de la liste suivante : <br>$`;
-					texte_corr += crible_eratosthene_n(racine_prem)[0];
-					for (let k = 1; k < crible_eratosthene_n(racine_prem).length; k++) {
-						texte_corr += `; ` + crible_eratosthene_n(racine_prem)[k];
+					texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier1 * premier2)}}$ c'est à dire inférieurs à $${texNombre(racine_prem)}$.<br>`;
+					texteCorr += `Ce sont les nombres de la liste suivante : <br>$`;
+					texteCorr += cribleEratostheneN(racine_prem)[0];
+					for (let k = 1; k < cribleEratostheneN(racine_prem).length; k++) {
+						texteCorr += `; ` + cribleEratostheneN(racine_prem)[k];
 					};
-					texte_corr += `.$<br>`;
-					liste_facteurs_premiers = obtenir_liste_facteurs_premiers(premier1 * premier2);
+					texteCorr += `.$<br>`;
+					liste_facteurs_premiers = obtenirListeFacteursPremiers(premier1 * premier2);
 					quotient_intermediaire = premier1 * premier2;
 					for (let k = 0; k < liste_facteurs_premiers.length; k++) {
-						texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;
+						texteCorr += `$${texNombre(quotient_intermediaire)}\\div${miseEnEvidence(liste_facteurs_premiers[k])} = ${texNombre(quotient_intermediaire / liste_facteurs_premiers[k])}$<br>`;
 						quotient_intermediaire = quotient_intermediaire / liste_facteurs_premiers[k];
 					};
-					texte_corr += ` D'où $${tex_nombre(premier1 * premier2)} = ${tex_nombre(premier1)}\\times${tex_nombre(premier2)}$.`;
+					texteCorr += ` D'où $${texNombre(premier1 * premier2)} = ${texNombre(premier1)}\\times${texNombre(premier2)}$.`;
 					break;
 				case 3: // un gros premier entre 1000 et 2000			
 					// on choisit un rang pour le nombre premier entre 1000 et 2000
-					let r = randint(0, premiers_entre_bornes(1000, 2000).length - 1);
-					let premier = premiers_entre_bornes(1000, 2000)[r];
+					let r = randint(0, premiersEntreBornes(1000, 2000).length - 1);
+					let premier = premiersEntreBornes(1000, 2000)[r];
 					let racine_premier = Math.trunc(Math.sqrt(premier));
-					texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
-					texte_corr = `En testant la divisibilité de $${tex_nombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
-					texte_corr += ` c'est à dire les nombre de la liste $`;
-					texte_corr += crible_eratosthene_n(racine_premier)[0];
-					for (let k = 1; k < crible_eratosthene_n(racine_premier).length; k++) {
-						texte_corr += `; ` + crible_eratosthene_n(racine_premier)[k];
+					texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier)}$ en produit de facteurs premiers.`;
+					texteCorr = `En testant la divisibilité de $${texNombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
+					texteCorr += ` c'est à dire les nombre de la liste $`;
+					texteCorr += cribleEratostheneN(racine_premier)[0];
+					for (let k = 1; k < cribleEratostheneN(racine_premier).length; k++) {
+						texteCorr += `; ` + cribleEratostheneN(racine_premier)[k];
 					};
-					texte_corr += `$, `;
-					texte_corr += `on se rend compte que $${tex_nombre(premier)}$ est un nombre premier donc `;
-					texte_corr += `$${tex_nombre(premier)} = ${tex_nombre(premier)}$.`;
+					texteCorr += `$, `;
+					texteCorr += `on se rend compte que $${texNombre(premier)}$ est un nombre premier donc `;
+					texteCorr += `$${texNombre(premier)} = ${texNombre(premier)}$.`;
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
 
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

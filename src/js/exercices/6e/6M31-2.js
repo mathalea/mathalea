@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Conversions avec des unités de volumes ou de capacités'
 
 /**
@@ -24,27 +24,27 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
   this.titre = titre;
   this.consigne = "Compléter";
   this.spacing = 2;
-  this.nb_questions = 8;
-  this.nb_cols_corr = 1;
+  this.nbQuestions = 8;
+  this.nbColsCorr = 1;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let liste_type_de_questions
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
+    let listeTypeDeQuestions
     if (this.sup == 1) {
-      liste_type_de_questions = combinaison_listes(
+      listeTypeDeQuestions = combinaisonListes(
         ["dam3toL", "m3toL", "dm3toL", "cm3toL"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup == 2) {
-      liste_type_de_questions = combinaison_listes(
+      listeTypeDeQuestions = combinaisonListes(
         ["Ltodm3", "Ltocm3", "Ltom3"],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     if (this.sup == 3) {
-      liste_type_de_questions = combinaison_listes(
+      listeTypeDeQuestions = combinaisonListes(
         [
           "dam3toL",
           "m3toL",
@@ -55,18 +55,18 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
           "Ltocm3",
           "Ltom3",
         ],
-        this.nb_questions
+        this.nbQuestions
       );
     }
     let liste_de_n = [];
     if (this.sup2) {
-      liste_de_n = combinaison_listes([1, 2, 3, 4], this.nb_questions);
+      liste_de_n = combinaisonListes([1, 2, 3, 4], this.nbQuestions);
     } else {
-      liste_de_n = combinaison_listes([1, 2, 3, 4, 5, 6], this.nb_questions);
+      liste_de_n = combinaisonListes([1, 2, 3, 4, 5, 6], this.nbQuestions);
     }
     for (
-      let i = 0, n, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+      let i = 0, n, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
 
     ) {
       if (this.sup2) {
@@ -108,76 +108,76 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
             break;
         }
       }
-      switch (liste_type_de_questions[i]) {
+      switch (listeTypeDeQuestions[i]) {
         case "dam3toL":
-          texte = `$${tex_nombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{dam}^3=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`;
+          texteCorr = `$${texNombre(n)}~\\text{dam}^3=${texNombre(
             n
-          )}\\times1~000\\times1~000~\\text{dm}^3=${tex_nombrec(
+          )}\\times1~000\\times1~000~\\text{dm}^3=${texNombrec(
             n * 1000000
           )}~\\text{L}$`;
           break;
         case "m3toL":
-          texte = `$${tex_nombre(n)}~\\text{m}^3=\\dotfill~\\text{L}$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{m}^3=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{m}^3=\\dotfill~\\text{L}$`;
+          texteCorr = `$${texNombre(n)}~\\text{m}^3=${texNombre(
             n
-          )}\\times1~000~\\text{dm}^3=${tex_nombrec(n * 1000)}~\\text{L}$`;
+          )}\\times1~000~\\text{dm}^3=${texNombrec(n * 1000)}~\\text{L}$`;
           break;
         case "dm3toL":
-          texte = `$${tex_nombre(n)}~\\text{dm}^3=\\dotfill~\\text{L}$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{dm}^3=\\dotfill~\\text{L}$`;
+          texteCorr = `$${texNombre(n)}~\\text{dm}^3=${texNombre(
             n
           )}~\\text{L}$`;
           break;
         case "cm3toL":
-          texte = `$${tex_nombre(n)}~\\text{cm}^3=\\dotfill~\\text{L}$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{cm}^3=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{cm}^3=\\dotfill~\\text{L}$`;
+          texteCorr = `$${texNombre(n)}~\\text{cm}^3=${texNombre(
             n
-          )}\\div 1~000~\\text{dm}^3=${tex_nombrec(n / 1000)}~\\text{L}$`;
+          )}\\div 1~000~\\text{dm}^3=${texNombrec(n / 1000)}~\\text{L}$`;
           break;
         case "mm3toL":
-          texte = `$${tex_nombre(n)}~\\text{mm}^3=\\dotfill~\\text{L}$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{mm}^3=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{mm}^3=\\dotfill~\\text{L}$`;
+          texteCorr = `$${texNombre(n)}~\\text{mm}^3=${texNombre(
             n
-          )}\\div1~000\\div 1~000~\\text{dm}^3=${tex_nombrec(
+          )}\\div1~000\\div 1~000~\\text{dm}^3=${texNombrec(
             n / 1000000
           )}~\\text{L}$`;
           break;
         case "Ltodm3":
-          texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{dm}^3$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{dm}^3$`;
+          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
             n
           )}~\\text{dm}^3$`;
           break;
         case "Ltocm3":
-          texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{cm}^3$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{cm}^3$`;
+          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
             n
-          )}~\\text{dm}^3=${tex_nombre(
+          )}~\\text{dm}^3=${texNombre(
             n
-          )}\\times1~000~\\text{cm}^3=${tex_nombrec(n * 1000)}~\\text{cm}^3$`;
+          )}\\times1~000~\\text{cm}^3=${texNombrec(n * 1000)}~\\text{cm}^3$`;
           break;
         case "Ltom3":
-          texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{m}^3$`;
-          texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(
+          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{m}^3$`;
+          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
             n
-          )}~\\text{dm}^3=${tex_nombre(n)}\\div1~000~\\text{m}^3=${tex_nombrec(
+          )}~\\text{dm}^3=${texNombre(n)}\\div1~000~\\text{m}^3=${texNombrec(
             n / 1000
           )}~\\text{m}^3$`;
           break;
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     3,
     "1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Unités de volumes vers litre ou inversement ",

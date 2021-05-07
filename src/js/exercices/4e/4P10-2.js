@@ -14,7 +14,7 @@ export const titre = 'Déterminer une quatrième proportionnelle dans un tableau
  * @author Sébastien Lozano
  */
 
-export default function Tableaux_et_quatrieme_proportionnelle() {
+export default function Tableaux_et_quatriemeProportionnelle() {
   Eq_resolvantes_Thales.call(this);
   this.exo = `4P10-2`;
   this.titre = titre;

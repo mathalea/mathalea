@@ -1,10 +1,10 @@
 import { texte_en_couleur_et_gras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes_sans_changer_ordre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from '../../modules/2d.js'
-import {randint,calcul,modal_youtube} from '../../modules/outils.js';
-import {lampe_message} from '../../modules/outils.js';
-import {enumerate_sans_puce_sans_numero,texte_gras} from '../../modules/outils.js';
+import {randint,calcul,modalYoutube} from '../../modules/outils.js';
+import {lampeMessage} from '../../modules/outils.js';
+import {enumerateSansPuceSansNumero,texte_gras} from '../../modules/outils.js';
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -80,14 +80,14 @@ export default function Exercice_zero_mathalea() {
     Exercice.call(this)
     this.titre = titre;
     this.consigne = "";        
-    this.nb_questions = 5; // Ici le nombre de questions
-    this.nb_questions_modifiable=false // Active le formulaire nombre de questions
-    this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-    this.pas_de_version_LaTeX=false; // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+    this.nbQuestions = 5; // Ici le nombre de questions
+    this.nbQuestionsModifiable=false // Active le formulaire nombre de questions
+    this.nbCols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
+    this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
+    this.pasDeVersionLatex=false; // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
-    this.correction_detaillee_disponible=true;
-    this.liste_packages = `bclogo`;
+    this.correctionDetailleeDisponible=true;
+    this.listePackages = `bclogo`;
     // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
     //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
@@ -95,20 +95,20 @@ export default function Exercice_zero_mathalea() {
     //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
     
     // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-    this.nouvelle_version = function (numero_de_l_exercice) {
-      this.bouton_aide = modal_youtube(
-        numero_de_l_exercice,
+    this.nouvelleVersion = function (numeroExercice) {
+      this.boutonAide = modalYoutube(
+        numeroExercice,
         'https://youtu.be/aRe4ARtQiJY',
         'Conjecture de Syracuse',
         'En vidéo sur Maths-et-tiques'
       );
-      // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
+      // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
       // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
       
-      this.liste_questions = [] // tableau contenant la liste des questions 
-      this.liste_corrections = []
+      this.listeQuestions = [] // tableau contenant la liste des questions 
+      this.listeCorrections = []
       let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions)
+      let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
       // On choisit un entier pour l'étude de la suite de Syracuse correspondante
       // On contraint le temps de vol entre 5 et 25
       // On contraint l'altitude maximale en dessous de 100
@@ -118,24 +118,24 @@ export default function Exercice_zero_mathalea() {
         entier = randint(1,200);
       };
 
-      for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
         // Petite intro connaissances
         let string_intro = `En mathématiques, on appelle conjecture une proposition qui n'est pas encore démontrée.
         On a éventuellement vérifié cette proposition sur beaucoup d'exemples mais cela ne garantit pas qu'elle soit toujours vraie.<br>
         Nous allons nous intéresser à la ${texte_gras('conjecture de Syracuse')} découverte par le mathématicien allemand ${texte_gras('Lothar Collatz')} en 1930
         à l'université de Syracuse.`
-        if (sortie_html) {
+        if (sortieHtml) {
           string_intro +=`<br><br>`;
         } else {
           string_intro += `\\par\\vspace{0.5cm}`
         };
         string_intro += `${texte_gras('Algorithme de Syracuse :')}`;
-        if (sortie_html) {
+        if (sortieHtml) {
           string_intro +=`<br>`;
         };
         string_intro += `        
-        ${enumerate_sans_puce_sans_numero([
+        ${enumerateSansPuceSansNumero([
           `On choisit un nombre entier strictement positif.`,
           `$\\leadsto$ Si l'entier choisi est pair on le divise par 2.`,
           `$\\leadsto$ Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.`,
@@ -149,7 +149,7 @@ export default function Exercice_zero_mathalea() {
         En dépit de la simplicité de son énoncé, cette conjecture défie depuis de nombreuses années les mathématiciens.
         `;
 
-        this.introduction = lampe_message({
+        this.introduction = lampeMessage({
           titre: `Introduction`,
           texte: string_intro,
           couleur: `nombres`
@@ -247,65 +247,65 @@ export default function Exercice_zero_mathalea() {
           },
         };
 
-        switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1: //étude du cas N = 1
             texte = `On choisit le nombre entier 1. Quels sont tous les entiers déterminés par cet algorithme ?`
-            texte_corr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texte_gras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
+            texteCorr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texte_gras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            
+            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
             break;
           case 2: //suite de Syracuse pour un entier aléatoire          
             texte = `Déterminer tous les entiers issus de cet algorithme lorsqu'on choisit ${entier}.`;
-            texte_corr = `La suite de Syracuse du nombre ${entier} est : <br>
+            texteCorr = `La suite de Syracuse du nombre ${entier} est : <br>
             ${texte_gras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
+            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
 
-            if (this.correction_detaillee) {
-              texte_corr += mathalea2d(params_correction, objets_correction)
+            if (this.correctionDetaillee) {
+              texteCorr += mathalea2d(params_correction, objets_correction)
             }            
             break;
           case 3://altitude max
             texte = `Quelle est la valeur maximale de cette liste d'entiers ?`;
-            texte_corr = `La valeur maximale atteinte vaut : ${texte_gras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
+            texteCorr = `La valeur maximale atteinte vaut : ${texte_gras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
+            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
             break;
           case 4://temps de vol
             texte = `Combien de fois au minimum faut-il appliquer l'algorithme pour trouver la valeur 1 ?`;
-            texte_corr = `Il faut  appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
+            texteCorr = `Il faut  appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
+            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
             break;            
           case 5://temps de vol en altitude
             texte = `Au bout de combien d'application minimum de l'algorithme la valeur calculée suivante sera-t-elle strictement inférieure à la valeur initiale ?`;
             //`Quelle est le nombre d'éléments de cette liste d'entiers qui sont strictement supérieurs à la valeur initiale, sans compter cette valeur initiale ?`;            
             if (syracuse({N:entier}).tempsDeVolEnAltitude()==0) {
-              texte_corr = `Dès la première application de l'algorithme la valer trouvée est inférieure à la valeur initiale.`
+              texteCorr = `Dès la première application de l'algorithme la valer trouvée est inférieure à la valeur initiale.`
             } else {
-              texte_corr = `Il faut appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
+              texteCorr = `Il faut appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
             };
-            texte_corr +=`<br><br>`;
-            //texte_corr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
-            texte_corr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
+            texteCorr +=`<br><br>`;
+            //texteCorr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
+            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
 
-            if (this.correction_detaillee) {
-              texte_corr += mathalea2d(params_correction, objets_correction_plus)
+            if (this.correctionDetaillee) {
+              texteCorr += mathalea2d(params_correction, objets_correction_plus)
             } 
             break;
         };         
 
-        if (this.liste_questions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-          this.liste_questions.push(texte);
-          this.liste_corrections.push(texte_corr);
+          this.listeQuestions.push(texte);
+          this.listeCorrections.push(texteCorr);
           i++;
         }
         cpt++;
       }
-      liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+      listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
-  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
   //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
   

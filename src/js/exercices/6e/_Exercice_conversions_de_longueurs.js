@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,arrondi,tex_nombre,tex_texte} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 /**
@@ -20,9 +20,9 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
   this.consigne = "Compléter";
   this.spacing = 2;
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
     let prefixe_multi = [
       [" da", 10],
       [" h", 100],
@@ -35,16 +35,16 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
     ];
     let unite = "m";
     let liste_unite = ["mm", "cm", "dm", "m", "dam", "hm", "km"];
-    let liste_unite1 = combinaison_listes([0, 1, 2, 3, 4, 5, 6], this.nb_questions);
-    let liste_de_k = combinaison_listes([0, 1, 2], this.nb_questions);
+    let liste_unite1 = combinaisonListes([0, 1, 2, 3, 4, 5, 6], this.nbQuestions);
+    let liste_de_k = combinaisonListes([0, 1, 2], this.nbQuestions);
     for (let i = 0,
       a,
       k,
       div,
       resultat,
       texte,
-      texte_corr,
-      cpt = 0; i < this.nb_questions && cpt < 50;) {
+      texteCorr,
+      cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let type_de_questions;
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
@@ -88,45 +88,45 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           " = \\dotfill " +
           tex_texte(unite) +
           "$";
 
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_multi[k][0] + unite) +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\times" +
-          tex_nombre(prefixe_multi[k][1]) +
+          texNombre(prefixe_multi[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombre(resultat) +
+          texNombre(resultat) +
           tex_texte(unite) +
           "$";
       } else if (div && type_de_questions < 4) {
         resultat = Algebrite.eval(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
           tex_texte(unite) +
           "$";
-        texte_corr =
+        texteCorr =
           "$ " +
-          tex_nombre(a) +
+          texNombre(a) +
           tex_texte(prefixe_div[k][0] + unite) +
           " =  " +
-          tex_nombre(a) +
+          texNombre(a) +
           "\\div" +
-          tex_nombre(prefixe_div[k][1]) +
+          texNombre(prefixe_div[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombre(resultat) +
+          texNombre(resultat) +
           tex_texte(unite) +
           "$";
       } else {
@@ -141,69 +141,69 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
           resultat = Algebrite.eval(a * Math.pow(10, ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite2]) +
             " = \\dotfill " +
             tex_texte(liste_unite[unite1]) +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite2]) +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             "\\times" +
-            tex_nombre(Math.pow(10, ecart)) +
+            texNombre(Math.pow(10, ecart)) +
             tex_texte(liste_unite[unite1]) +
             " = " +
-            tex_nombre(resultat) +
+            texNombre(resultat) +
             tex_texte(liste_unite[unite1]) +
             "$";
         } else {
           resultat = Algebrite.eval(a / Math.pow(10, ecart));
           texte =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite1]) +
             " = \\dotfill " +
             tex_texte(liste_unite[unite2]) +
             "$";
-          texte_corr =
+          texteCorr =
             "$ " +
-            tex_nombre(a) +
+            texNombre(a) +
             tex_texte(liste_unite[unite1]) +
             " =  " +
-            tex_nombre(a) +
+            texNombre(a) +
             "\\div" +
-            tex_nombre(Math.pow(10, ecart)) +
+            texNombre(Math.pow(10, ecart)) +
             tex_texte(liste_unite[unite2]) +
             " = " +
-            tex_nombre(resultat) +
+            texNombre(resultat) +
             tex_texte(liste_unite[unite2]) +
             "$";
         }
       }
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortie_html) {
+        if (sortieHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"
           );
         }
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  this.besoin_formulaire_numerique = [
+  this.besoinFormulaireNumerique = [
     "Niveau de difficulté",
     4,
     "1 : De dam, hm, km vers m\n\

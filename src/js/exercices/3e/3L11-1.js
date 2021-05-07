@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,egal,randint,combinaison_listes,printlatex} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,combinaisonListes,printlatex} from '../../modules/outils.js'
 export const titre = 'Utiliser la double distributivité'
 
 /**
@@ -12,16 +12,16 @@ export default function Double_distributivite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;
 	this.consigne = "Développer et réduire les expressions suivantes.";
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
 	this.spacing = 1;
-	this.spacing_corr = 1;
-	this.nb_questions = 5;
+	this.spacingCorr = 1;
+	this.nbQuestions = 5;
 	this.sup = 1;
 
-	this.nouvelle_version = function () {
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+	this.nouvelleVersion = function () {
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles = [1, 2];
 		if (this.sup == 2) {
 			type_de_questions_disponibles = [3, 4];
@@ -31,9 +31,9 @@ export default function Double_distributivite() {
 		}
 
 
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-		for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, type_de_questions; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+		for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, type_de_questions; i < this.nbQuestions && cpt < 50;) {
+			type_de_questions = listeTypeDeQuestions[i];
 			a = randint(2, 9);
 			b = randint(2, 9);
 			c = randint(2, 9, [a]);
@@ -43,33 +43,33 @@ export default function Double_distributivite() {
 					b = randint(2, 10);
 					d = randint(2, 12);
 					texte = `$(x+${b})(x+${d})$`;
-					texte_corr = `$(x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`;
+					texteCorr = `$(x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`;
 					break;
 				case 2: //(ax+b)(cx+d)
 					texte = `$(${a}x+${b})(${c}x+${d})$`;
-					texte_corr = `$(${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`;
+					texteCorr = `$(${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`;
 					break;
 				case 3: //(ax-b)(cx+d)
 					texte = `$(${a}x-${b})(${c}x+${d})$`;
 					if (egal(a * d - b * c, 0))
-						texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`;
+						texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`;
 					else
-						texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`;
+						texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`;
 					break;
 				case 4: //(ax-b)(cx-d)
 					texte = `$(${a}x-${b})(${c}x-${d})$`;
-					texte_corr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`;
+					texteCorr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`;
 					break;
 			}
-			if (this.liste_questions.indexOf(texte) == -1) {
+			if (this.listeQuestions.indexOf(texte) == -1) {
 				// Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			}
 			cpt++;
 		}
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Tous les types'];
+	this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Tous les types'];
 }

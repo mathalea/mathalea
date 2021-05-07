@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,choisit_lettres_differentes} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,choisitLettresDifferentes} from '../../modules/outils.js'
 import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageAngleDroit,labelPoint,similitude, } from '../../modules/2d.js';
 export const titre = 'Nature de parallélogrammes'
 
@@ -12,20 +12,20 @@ export default function demonstrations_parallelogrammes() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "";
-  this.nb_questions = 7;
-  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
+  this.nbQuestions = 7;
+  this.nbCols = 1; // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 50; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
-  this.nouvelle_version = function () {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
+  this.nouvelleVersion = function () {
+    this.listeQuestions = []; // Liste de questions
+    this.listeCorrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0,objets,O,A,B,C,D,p,t1,t2,t3,t4,s1,s2,s3,s4,d1,d2, texte, texte_corr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nb_questions && cpt < 50;) {
-      noms=choisit_lettres_differentes(5,'Q')
+    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0,objets,O,A,B,C,D,p,t1,t2,t3,t4,s1,s2,s3,s4,d1,d2, texte, texteCorr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      noms=choisitLettresDifferentes(5,'Q')
       nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
       centre=`$${noms[4]}$`
       objets=[]
@@ -47,7 +47,7 @@ export default function demonstrations_parallelogrammes() {
       s4.color='red'
       objets.push(s1,s2,s3,s4,p[1])
         // Boucle principale où i+1 correspond au numéro de la question
-      switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': // rectangle 1
           def=`ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ ont la même longueur`
           prop1=`a des diagonales de même longueur`
@@ -118,23 +118,23 @@ export default function demonstrations_parallelogrammes() {
       }
       texte = `${nom} est un parallélogramme tel que ${def}.<br>`;
       texte+=`Déterminer la nature de ${nom} en justifiant la réponse.`
-      texte_corr=`Les segments de même couleur sont parallèles sur le schéma suivant :<br>`
-      texte_corr+=mathalea2d({xmin:-5,ymin:-4.5,xmax:5,ymax:4.5,pixelsParCm:20,scale:0.5,mainlevee:true,amplitude:0.3},objets)+'<br>'
-      texte_corr+=`On sait que ${prop2}.<br>`
-      texte_corr += `Si un parralélogramme ${prop1}, alors c'est un ${type}.<br>`;
-      texte_corr +=`${nom} est donc un ${type}.`
+      texteCorr=`Les segments de même couleur sont parallèles sur le schéma suivant :<br>`
+      texteCorr+=mathalea2d({xmin:-5,ymin:-4.5,xmax:5,ymax:4.5,pixelsParCm:20,scale:0.5,mainlevee:true,amplitude:0.3},objets)+'<br>'
+      texteCorr+=`On sait que ${prop2}.<br>`
+      texteCorr += `Si un parralélogramme ${prop1}, alors c'est un ${type}.<br>`;
+      texteCorr +=`${nom} est donc un ${type}.`
 
-      if (this.liste_questions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
+        this.listeQuestions.push(texte);
+        this.listeCorrections.push(texteCorr);
         i++;
       }
       cpt++;
     }
-    liste_de_question_to_contenu(this);
+    listeQuestionsToContenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  //this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
 
 

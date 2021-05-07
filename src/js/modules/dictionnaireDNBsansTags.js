@@ -7,7 +7,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_04_pondichery_1.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_1_cor.tex"
     },
@@ -18,7 +18,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_2_cor.tex"
     },
@@ -29,7 +29,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_04_pondichery_3.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_3_cor.tex"
     },
@@ -40,7 +40,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_04_pondichery_4.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_4_cor.tex"
     },
@@ -51,7 +51,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2013_04_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2013_04_pondichery_5_cor.tex"
     },
@@ -62,7 +62,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_1_cor.tex"
     },
@@ -73,7 +73,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_2_cor.tex"
     },
@@ -84,7 +84,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_3_cor.tex"
     },
@@ -95,7 +95,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_4_cor.tex"
     },
@@ -106,7 +106,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_5_cor.tex"
     },
@@ -117,7 +117,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_6_cor.tex"
     },
@@ -128,7 +128,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2013_06_ameriquenord_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2013_06_ameriquenord_7_cor.tex"
     },
@@ -139,7 +139,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_1.tex",
         "urlcor": "/tex/dnb_2013_06_asie_1_cor.tex"
     },
@@ -150,7 +150,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_2.tex",
         "urlcor": "/tex/dnb_2013_06_asie_2_cor.tex"
     },
@@ -161,7 +161,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_3.tex",
         "urlcor": "/tex/dnb_2013_06_asie_3_cor.tex"
     },
@@ -172,7 +172,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_4.tex",
         "urlcor": "/tex/dnb_2013_06_asie_4_cor.tex"
     },
@@ -183,7 +183,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_5.tex",
         "urlcor": "/tex/dnb_2013_06_asie_5_cor.tex"
     },
@@ -194,7 +194,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_6.tex",
         "urlcor": "/tex/dnb_2013_06_asie_6_cor.tex"
     },
@@ -205,7 +205,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2013_06_asie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_asie_7.tex",
         "urlcor": "/tex/dnb_2013_06_asie_7_cor.tex"
     },
@@ -216,7 +216,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_1_cor.tex"
     },
@@ -227,7 +227,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_2_cor.tex"
     },
@@ -238,7 +238,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_3_cor.tex"
     },
@@ -249,7 +249,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_4_cor.tex"
     },
@@ -260,7 +260,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_5_cor.tex"
     },
@@ -271,7 +271,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2013_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2013_06_etrangers_6_cor.tex"
     },
@@ -282,7 +282,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_1.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_1_cor.tex"
     },
@@ -293,7 +293,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_2.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_2_cor.tex"
     },
@@ -304,7 +304,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_3.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_3_cor.tex"
     },
@@ -315,7 +315,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_4.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_4_cor.tex"
     },
@@ -326,7 +326,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_5.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_5_cor.tex"
     },
@@ -337,7 +337,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2013_06_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2013_06_metropole_6_cor.tex"
     },
@@ -348,7 +348,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_1_cor.tex"
     },
@@ -359,7 +359,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_2_cor.tex"
     },
@@ -370,7 +370,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_3_cor.tex"
     },
@@ -381,7 +381,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_4_cor.tex"
     },
@@ -392,7 +392,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_5_cor.tex"
     },
@@ -403,7 +403,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_6_cor.tex"
     },
@@ -414,7 +414,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_06_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2013_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_06_polynesie_7.tex",
         "urlcor": "/tex/dnb_2013_06_polynesie_7_cor.tex"
     },
@@ -425,7 +425,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_1_cor.tex"
     },
@@ -436,7 +436,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_2_cor.tex"
     },
@@ -447,7 +447,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_3_cor.tex"
     },
@@ -458,7 +458,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_4_cor.tex"
     },
@@ -469,7 +469,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_5_cor.tex"
     },
@@ -480,7 +480,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2013_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2013_09_polynesie_6_cor.tex"
     },
@@ -491,7 +491,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_11_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_1_cor.tex"
     },
@@ -502,7 +502,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_11_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_2_cor.tex"
     },
@@ -513,7 +513,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_11_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_3_cor.tex"
     },
@@ -524,7 +524,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_11_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_4_cor.tex"
     },
@@ -535,7 +535,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2013_11_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2013_11_ameriquesud_5_cor.tex"
     },
@@ -546,7 +546,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2013_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_1_cor.tex"
     },
@@ -557,7 +557,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2013_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_2_cor.tex"
     },
@@ -568,7 +568,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2013_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_3_cor.tex"
     },
@@ -579,7 +579,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2013_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_4_cor.tex"
     },
@@ -590,7 +590,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2013_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_5_cor.tex"
     },
@@ -601,7 +601,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2013_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_6_cor.tex"
     },
@@ -612,7 +612,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2013_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_7_cor.tex"
     },
@@ -623,7 +623,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2013_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2013_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2013_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2013_12_caledonie_8_cor.tex"
     },
@@ -634,7 +634,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_1.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_1_cor.tex"
     },
@@ -645,7 +645,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_2_cor.tex"
     },
@@ -656,7 +656,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_3.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_3_cor.tex"
     },
@@ -667,7 +667,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_4.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_4_cor.tex"
     },
@@ -678,7 +678,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2014_04_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2014_04_pondichery_5_cor.tex"
     },
@@ -689,7 +689,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_1_cor.tex"
     },
@@ -700,7 +700,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_2_cor.tex"
     },
@@ -711,7 +711,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_3_cor.tex"
     },
@@ -722,7 +722,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_4_cor.tex"
     },
@@ -733,7 +733,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_5_cor.tex"
     },
@@ -744,7 +744,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_6_cor.tex"
     },
@@ -755,7 +755,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_7_cor.tex"
     },
@@ -766,7 +766,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2014_06_ameriquenord_8.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_8.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_8_cor.tex"
     },
@@ -777,7 +777,7 @@ export let dictionnaireDNB =
         "numeroExercice": "9",
         "png": "/tex/png/dnb_2014_06_ameriquenord_9.png",
         "pngcor": "/tex/png/dnb_2014_06_ameriquenord_9_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_ameriquenord_9.tex",
         "urlcor": "/tex/dnb_2014_06_ameriquenord_9_cor.tex"
     },
@@ -788,7 +788,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_1.tex",
         "urlcor": "/tex/dnb_2014_06_asie_1_cor.tex"
     },
@@ -799,7 +799,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_2.tex",
         "urlcor": "/tex/dnb_2014_06_asie_2_cor.tex"
     },
@@ -810,7 +810,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_3.tex",
         "urlcor": "/tex/dnb_2014_06_asie_3_cor.tex"
     },
@@ -821,7 +821,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_4.tex",
         "urlcor": "/tex/dnb_2014_06_asie_4_cor.tex"
     },
@@ -832,7 +832,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_5.tex",
         "urlcor": "/tex/dnb_2014_06_asie_5_cor.tex"
     },
@@ -843,7 +843,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2014_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_asie_6.tex",
         "urlcor": "/tex/dnb_2014_06_asie_6_cor.tex"
     },
@@ -854,7 +854,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_1_cor.tex"
     },
@@ -865,7 +865,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_2_cor.tex"
     },
@@ -876,7 +876,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_3_cor.tex"
     },
@@ -887,7 +887,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_4_cor.tex"
     },
@@ -898,7 +898,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_5_cor.tex"
     },
@@ -909,7 +909,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2014_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2014_06_etrangers_6_cor.tex"
     },
@@ -920,7 +920,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_1_cor.tex"
     },
@@ -931,7 +931,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_2_cor.tex"
     },
@@ -942,7 +942,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_3_cor.tex"
     },
@@ -953,7 +953,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_4_cor.tex"
     },
@@ -964,7 +964,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_5_cor.tex"
     },
@@ -975,7 +975,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2014_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2014_06_polynesie_6_cor.tex"
     },
@@ -986,7 +986,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_1_cor.tex"
     },
@@ -997,7 +997,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_2_cor.tex"
     },
@@ -1008,7 +1008,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_3_cor.tex"
     },
@@ -1019,7 +1019,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_4_cor.tex"
     },
@@ -1030,7 +1030,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_5_cor.tex"
     },
@@ -1041,7 +1041,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2014_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2014_09_metropole_6_cor.tex"
     },
@@ -1052,7 +1052,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_1_cor.tex"
     },
@@ -1063,7 +1063,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_2_cor.tex"
     },
@@ -1074,7 +1074,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_3_cor.tex"
     },
@@ -1085,7 +1085,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_4_cor.tex"
     },
@@ -1096,7 +1096,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_5_cor.tex"
     },
@@ -1107,7 +1107,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_6_cor.tex"
     },
@@ -1118,7 +1118,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_09_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2014_09_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_09_polynesie_7.tex",
         "urlcor": "/tex/dnb_2014_09_polynesie_7_cor.tex"
     },
@@ -1129,7 +1129,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_1_cor.tex"
     },
@@ -1140,7 +1140,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_2_cor.tex"
     },
@@ -1151,7 +1151,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_3_cor.tex"
     },
@@ -1162,7 +1162,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_4_cor.tex"
     },
@@ -1173,7 +1173,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_5_cor.tex"
     },
@@ -1184,7 +1184,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2014_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2014_11_ameriquesud_6_cor.tex"
     },
@@ -1195,7 +1195,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2014_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_1_cor.tex"
     },
@@ -1206,7 +1206,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2014_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_2_cor.tex"
     },
@@ -1217,7 +1217,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2014_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_3_cor.tex"
     },
@@ -1228,7 +1228,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2014_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_4_cor.tex"
     },
@@ -1239,7 +1239,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2014_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_5_cor.tex"
     },
@@ -1250,7 +1250,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2014_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_6_cor.tex"
     },
@@ -1261,7 +1261,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2014_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_7_cor.tex"
     },
@@ -1272,7 +1272,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2014_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2014_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2014_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2014_12_caledonie_8_cor.tex"
     },
@@ -1283,7 +1283,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_03_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_1.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_1_cor.tex"
     },
@@ -1294,7 +1294,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_03_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_2.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_2_cor.tex"
     },
@@ -1305,7 +1305,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_03_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_3.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_3_cor.tex"
     },
@@ -1316,7 +1316,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_03_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_4.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_4_cor.tex"
     },
@@ -1327,7 +1327,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_03_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_5.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_5_cor.tex"
     },
@@ -1338,7 +1338,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_03_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_6.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_6_cor.tex"
     },
@@ -1349,7 +1349,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_03_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2015_03_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_03_caledonie_7.tex",
         "urlcor": "/tex/dnb_2015_03_caledonie_7_cor.tex"
     },
@@ -1360,7 +1360,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_1.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_1_cor.tex"
     },
@@ -1371,7 +1371,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_2_cor.tex"
     },
@@ -1382,7 +1382,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_3.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_3_cor.tex"
     },
@@ -1393,7 +1393,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_4.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_4_cor.tex"
     },
@@ -1404,7 +1404,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_5_cor.tex"
     },
@@ -1415,7 +1415,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_04_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2015_04_pondichery_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_04_pondichery_6.tex",
         "urlcor": "/tex/dnb_2015_04_pondichery_6_cor.tex"
     },
@@ -1426,7 +1426,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_1_cor.tex"
     },
@@ -1437,7 +1437,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_2_cor.tex"
     },
@@ -1448,7 +1448,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_3_cor.tex"
     },
@@ -1459,7 +1459,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_4_cor.tex"
     },
@@ -1470,7 +1470,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_5_cor.tex"
     },
@@ -1481,7 +1481,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2015_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2015_06_ameriquenord_6_cor.tex"
     },
@@ -1492,7 +1492,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_1.tex",
         "urlcor": "/tex/dnb_2015_06_asie_1_cor.tex"
     },
@@ -1503,7 +1503,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_2.tex",
         "urlcor": "/tex/dnb_2015_06_asie_2_cor.tex"
     },
@@ -1514,7 +1514,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_3.tex",
         "urlcor": "/tex/dnb_2015_06_asie_3_cor.tex"
     },
@@ -1525,7 +1525,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_4.tex",
         "urlcor": "/tex/dnb_2015_06_asie_4_cor.tex"
     },
@@ -1536,7 +1536,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_5.tex",
         "urlcor": "/tex/dnb_2015_06_asie_5_cor.tex"
     },
@@ -1547,7 +1547,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2015_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_asie_6.tex",
         "urlcor": "/tex/dnb_2015_06_asie_6_cor.tex"
     },
@@ -1558,7 +1558,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_1_cor.tex"
     },
@@ -1569,7 +1569,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_2_cor.tex"
     },
@@ -1580,7 +1580,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_3_cor.tex"
     },
@@ -1591,7 +1591,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_4_cor.tex"
     },
@@ -1602,7 +1602,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_5_cor.tex"
     },
@@ -1613,7 +1613,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2015_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2015_06_etrangers_6_cor.tex"
     },
@@ -1624,7 +1624,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_1.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_1_cor.tex"
     },
@@ -1635,7 +1635,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_2.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_2_cor.tex"
     },
@@ -1646,7 +1646,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_3.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_3_cor.tex"
     },
@@ -1657,7 +1657,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_4.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_4_cor.tex"
     },
@@ -1668,7 +1668,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_5.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_5_cor.tex"
     },
@@ -1679,7 +1679,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_6_cor.tex"
     },
@@ -1690,7 +1690,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_06_metropole_7.png",
         "pngcor": "/tex/png/dnb_2015_06_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_metropole_7.tex",
         "urlcor": "/tex/dnb_2015_06_metropole_7_cor.tex"
     },
@@ -1701,7 +1701,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_1_cor.tex"
     },
@@ -1712,7 +1712,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_2_cor.tex"
     },
@@ -1723,7 +1723,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_3_cor.tex"
     },
@@ -1734,7 +1734,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_4_cor.tex"
     },
@@ -1745,7 +1745,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_5_cor.tex"
     },
@@ -1756,7 +1756,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2015_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2015_06_polynesie_6_cor.tex"
     },
@@ -1767,7 +1767,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_1_cor.tex"
     },
@@ -1778,7 +1778,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_2_cor.tex"
     },
@@ -1789,7 +1789,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_3_cor.tex"
     },
@@ -1800,7 +1800,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_4_cor.tex"
     },
@@ -1811,7 +1811,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_5_cor.tex"
     },
@@ -1822,7 +1822,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2015_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2015_09_metropole_6_cor.tex"
     },
@@ -1833,7 +1833,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_1_cor.tex"
     },
@@ -1844,7 +1844,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_2_cor.tex"
     },
@@ -1855,7 +1855,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_3_cor.tex"
     },
@@ -1866,7 +1866,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_4_cor.tex"
     },
@@ -1877,7 +1877,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_5_cor.tex"
     },
@@ -1888,7 +1888,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2015_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2015_09_polynesie_6_cor.tex"
     },
@@ -1899,7 +1899,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_12_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_1_cor.tex"
     },
@@ -1910,7 +1910,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_12_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_2_cor.tex"
     },
@@ -1921,7 +1921,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_12_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_3_cor.tex"
     },
@@ -1932,7 +1932,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_12_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_4_cor.tex"
     },
@@ -1943,7 +1943,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_12_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_5_cor.tex"
     },
@@ -1954,7 +1954,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_12_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_6_cor.tex"
     },
@@ -1965,7 +1965,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_12_ameriquesud_7.png",
         "pngcor": "/tex/png/dnb_2015_12_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_ameriquesud_7.tex",
         "urlcor": "/tex/dnb_2015_12_ameriquesud_7_cor.tex"
     },
@@ -1976,7 +1976,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2015_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_1_cor.tex"
     },
@@ -1987,7 +1987,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2015_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_2_cor.tex"
     },
@@ -1998,7 +1998,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2015_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_3_cor.tex"
     },
@@ -2009,7 +2009,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2015_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_4_cor.tex"
     },
@@ -2020,7 +2020,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2015_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_5_cor.tex"
     },
@@ -2031,7 +2031,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2015_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_6_cor.tex"
     },
@@ -2042,7 +2042,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2015_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_7_cor.tex"
     },
@@ -2053,7 +2053,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2015_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_8_cor.tex"
     },
@@ -2064,7 +2064,7 @@ export let dictionnaireDNB =
         "numeroExercice": "9",
         "png": "/tex/png/dnb_2015_12_caledonie_9.png",
         "pngcor": "/tex/png/dnb_2015_12_caledonie_9_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2015_12_caledonie_9.tex",
         "urlcor": "/tex/dnb_2015_12_caledonie_9_cor.tex"
     },
@@ -2075,7 +2075,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_04_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_1.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_1_cor.tex"
     },
@@ -2086,7 +2086,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_04_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_2.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_2_cor.tex"
     },
@@ -2097,7 +2097,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_04_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_3.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_3_cor.tex"
     },
@@ -2108,7 +2108,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_04_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_4.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_4_cor.tex"
     },
@@ -2119,7 +2119,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_04_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_5.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_5_cor.tex"
     },
@@ -2130,7 +2130,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_04_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_6.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_6_cor.tex"
     },
@@ -2141,7 +2141,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2016_04_pondichery_7.png",
         "pngcor": "/tex/png/dnb_2016_04_pondichery_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_04_pondichery_7.tex",
         "urlcor": "/tex/dnb_2016_04_pondichery_7_cor.tex"
     },
@@ -2152,7 +2152,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_1_cor.tex"
     },
@@ -2163,7 +2163,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_2_cor.tex"
     },
@@ -2174,7 +2174,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_3_cor.tex"
     },
@@ -2185,7 +2185,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_4_cor.tex"
     },
@@ -2196,7 +2196,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_5_cor.tex"
     },
@@ -2207,7 +2207,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2016_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2016_06_ameriquenord_6_cor.tex"
     },
@@ -2218,7 +2218,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_1.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_1.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_1_cor.tex"
     },
@@ -2229,7 +2229,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_2.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_2.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_2_cor.tex"
     },
@@ -2240,7 +2240,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_3.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_3.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_3_cor.tex"
     },
@@ -2251,7 +2251,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_4.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_4.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_4_cor.tex"
     },
@@ -2262,7 +2262,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_5.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_5.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_5_cor.tex"
     },
@@ -2273,7 +2273,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_antillesguyanne_6.png",
         "pngcor": "/tex/png/dnb_2016_06_antillesguyanne_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_antillesguyanne_6.tex",
         "urlcor": "/tex/dnb_2016_06_antillesguyanne_6_cor.tex"
     },
@@ -2284,7 +2284,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_1.tex",
         "urlcor": "/tex/dnb_2016_06_asie_1_cor.tex"
     },
@@ -2295,7 +2295,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_2.tex",
         "urlcor": "/tex/dnb_2016_06_asie_2_cor.tex"
     },
@@ -2306,7 +2306,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_3.tex",
         "urlcor": "/tex/dnb_2016_06_asie_3_cor.tex"
     },
@@ -2317,7 +2317,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_4.tex",
         "urlcor": "/tex/dnb_2016_06_asie_4_cor.tex"
     },
@@ -2328,7 +2328,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_5.tex",
         "urlcor": "/tex/dnb_2016_06_asie_5_cor.tex"
     },
@@ -2339,7 +2339,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2016_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_asie_6.tex",
         "urlcor": "/tex/dnb_2016_06_asie_6_cor.tex"
     },
@@ -2350,7 +2350,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_1_cor.tex"
     },
@@ -2361,7 +2361,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_2_cor.tex"
     },
@@ -2372,7 +2372,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_3_cor.tex"
     },
@@ -2383,7 +2383,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_4_cor.tex"
     },
@@ -2394,7 +2394,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_5_cor.tex"
     },
@@ -2405,7 +2405,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_6_cor.tex"
     },
@@ -2416,7 +2416,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2016_06_etrangers_7.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_7.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_7_cor.tex"
     },
@@ -2427,7 +2427,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2016_06_etrangers_8.png",
         "pngcor": "/tex/png/dnb_2016_06_etrangers_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_etrangers_8.tex",
         "urlcor": "/tex/dnb_2016_06_etrangers_8_cor.tex"
     },
@@ -2438,7 +2438,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_1_cor.tex"
     },
@@ -2449,7 +2449,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_2_cor.tex"
     },
@@ -2460,7 +2460,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_3_cor.tex"
     },
@@ -2471,7 +2471,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_4_cor.tex"
     },
@@ -2482,7 +2482,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_5_cor.tex"
     },
@@ -2493,7 +2493,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2016_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2016_06_polynesie_6_cor.tex"
     },
@@ -2504,7 +2504,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_1_cor.tex"
     },
@@ -2515,7 +2515,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_2_cor.tex"
     },
@@ -2526,7 +2526,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_3_cor.tex"
     },
@@ -2537,7 +2537,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_4_cor.tex"
     },
@@ -2548,7 +2548,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_5_cor.tex"
     },
@@ -2559,7 +2559,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_6_cor.tex"
     },
@@ -2570,7 +2570,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2016_09_metropole_7.png",
         "pngcor": "/tex/png/dnb_2016_09_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_09_metropole_7.tex",
         "urlcor": "/tex/dnb_2016_09_metropole_7_cor.tex"
     },
@@ -2581,7 +2581,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2016_12_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_1_cor.tex"
     },
@@ -2592,7 +2592,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2016_12_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_2_cor.tex"
     },
@@ -2603,7 +2603,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2016_12_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_3_cor.tex"
     },
@@ -2614,7 +2614,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2016_12_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_4_cor.tex"
     },
@@ -2625,7 +2625,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2016_12_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_5_cor.tex"
     },
@@ -2636,7 +2636,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2016_12_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2016_12_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2016_12_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2016_12_ameriquesud_6_cor.tex"
     },
@@ -2647,7 +2647,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_05_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_1.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_1_cor.tex"
     },
@@ -2658,7 +2658,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_05_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_2.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_2_cor.tex"
     },
@@ -2669,7 +2669,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_05_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_3.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_3_cor.tex"
     },
@@ -2680,7 +2680,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_05_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_4.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_4_cor.tex"
     },
@@ -2691,7 +2691,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_05_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_5.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_5_cor.tex"
     },
@@ -2702,7 +2702,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_05_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_6.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_6_cor.tex"
     },
@@ -2713,7 +2713,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_05_pondichery_7.png",
         "pngcor": "/tex/png/dnb_2017_05_pondichery_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_05_pondichery_7.tex",
         "urlcor": "/tex/dnb_2017_05_pondichery_7_cor.tex"
     },
@@ -2724,7 +2724,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_1_cor.tex"
     },
@@ -2735,7 +2735,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_2_cor.tex"
     },
@@ -2746,7 +2746,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_3_cor.tex"
     },
@@ -2757,7 +2757,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_4_cor.tex"
     },
@@ -2768,7 +2768,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_5_cor.tex"
     },
@@ -2779,7 +2779,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2017_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2017_06_ameriquenord_6_cor.tex"
     },
@@ -2790,7 +2790,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_1.tex",
         "urlcor": "/tex/dnb_2017_06_asie_1_cor.tex"
     },
@@ -2801,7 +2801,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_2.tex",
         "urlcor": "/tex/dnb_2017_06_asie_2_cor.tex"
     },
@@ -2812,7 +2812,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_3.tex",
         "urlcor": "/tex/dnb_2017_06_asie_3_cor.tex"
     },
@@ -2823,7 +2823,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_4.tex",
         "urlcor": "/tex/dnb_2017_06_asie_4_cor.tex"
     },
@@ -2834,7 +2834,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_5.tex",
         "urlcor": "/tex/dnb_2017_06_asie_5_cor.tex"
     },
@@ -2845,7 +2845,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_6.tex",
         "urlcor": "/tex/dnb_2017_06_asie_6_cor.tex"
     },
@@ -2856,7 +2856,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_7.tex",
         "urlcor": "/tex/dnb_2017_06_asie_7_cor.tex"
     },
@@ -2867,7 +2867,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2017_06_asie_8.png",
         "pngcor": "/tex/png/dnb_2017_06_asie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_asie_8.tex",
         "urlcor": "/tex/dnb_2017_06_asie_8_cor.tex"
     },
@@ -2878,7 +2878,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_1_cor.tex"
     },
@@ -2889,7 +2889,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_2_cor.tex"
     },
@@ -2900,7 +2900,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_3_cor.tex"
     },
@@ -2911,7 +2911,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_4_cor.tex"
     },
@@ -2922,7 +2922,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_5_cor.tex"
     },
@@ -2933,7 +2933,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_6_cor.tex"
     },
@@ -2944,7 +2944,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_06_etrangers_7.png",
         "pngcor": "/tex/png/dnb_2017_06_etrangers_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_etrangers_7.tex",
         "urlcor": "/tex/dnb_2017_06_etrangers_7_cor.tex"
     },
@@ -2955,7 +2955,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_1.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_1_cor.tex"
     },
@@ -2966,7 +2966,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_2.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_2_cor.tex"
     },
@@ -2977,7 +2977,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_3.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_3_cor.tex"
     },
@@ -2988,7 +2988,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_4.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_4_cor.tex"
     },
@@ -2999,7 +2999,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_5.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_5_cor.tex"
     },
@@ -3010,7 +3010,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_6_cor.tex"
     },
@@ -3021,7 +3021,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_06_metropole_7.png",
         "pngcor": "/tex/png/dnb_2017_06_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_metropole_7.tex",
         "urlcor": "/tex/dnb_2017_06_metropole_7_cor.tex"
     },
@@ -3032,7 +3032,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_1_cor.tex"
     },
@@ -3043,7 +3043,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_2_cor.tex"
     },
@@ -3054,7 +3054,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_3_cor.tex"
     },
@@ -3065,7 +3065,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_4_cor.tex"
     },
@@ -3076,7 +3076,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_5_cor.tex"
     },
@@ -3087,7 +3087,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2017_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2017_06_polynesie_6_cor.tex"
     },
@@ -3098,7 +3098,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_1_cor.tex"
     },
@@ -3109,7 +3109,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_2_cor.tex"
     },
@@ -3120,7 +3120,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_3_cor.tex"
     },
@@ -3131,7 +3131,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_4_cor.tex"
     },
@@ -3142,7 +3142,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_5_cor.tex"
     },
@@ -3153,7 +3153,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_6_cor.tex"
     },
@@ -3164,7 +3164,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_09_metropole_7.png",
         "pngcor": "/tex/png/dnb_2017_09_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_metropole_7.tex",
         "urlcor": "/tex/dnb_2017_09_metropole_7_cor.tex"
     },
@@ -3175,7 +3175,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_1_cor.tex"
     },
@@ -3186,7 +3186,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_2_cor.tex"
     },
@@ -3197,7 +3197,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_3_cor.tex"
     },
@@ -3208,7 +3208,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_4_cor.tex"
     },
@@ -3219,7 +3219,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_5_cor.tex"
     },
@@ -3230,7 +3230,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2017_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2017_09_polynesie_6_cor.tex"
     },
@@ -3241,7 +3241,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_1_cor.tex"
     },
@@ -3252,7 +3252,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_2_cor.tex"
     },
@@ -3263,7 +3263,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_3_cor.tex"
     },
@@ -3274,7 +3274,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_4_cor.tex"
     },
@@ -3285,7 +3285,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_5_cor.tex"
     },
@@ -3296,7 +3296,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_6_cor.tex"
     },
@@ -3307,7 +3307,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_11_ameriquesud_7.png",
         "pngcor": "/tex/png/dnb_2017_11_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_11_ameriquesud_7.tex",
         "urlcor": "/tex/dnb_2017_11_ameriquesud_7_cor.tex"
     },
@@ -3318,7 +3318,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_1_cor.tex"
     },
@@ -3329,7 +3329,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_2_cor.tex"
     },
@@ -3340,7 +3340,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_3_cor.tex"
     },
@@ -3351,7 +3351,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_4_cor.tex"
     },
@@ -3362,7 +3362,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_5_cor.tex"
     },
@@ -3373,7 +3373,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_6_cor.tex"
     },
@@ -3384,7 +3384,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_7_cor.tex"
     },
@@ -3395,7 +3395,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2017_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2017_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2017_12_caledonie_8_cor.tex"
     },
@@ -3406,7 +3406,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_1.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_1.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_1_cor.tex"
     },
@@ -3417,7 +3417,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_2.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_2.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_2_cor.tex"
     },
@@ -3428,7 +3428,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_3.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_3.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_3_cor.tex"
     },
@@ -3439,7 +3439,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_4.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_4.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_4_cor.tex"
     },
@@ -3450,7 +3450,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_5.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_5.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_5_cor.tex"
     },
@@ -3461,7 +3461,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_6.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_6.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_6_cor.tex"
     },
@@ -3472,7 +3472,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2017_12_wallisfutuna_7.png",
         "pngcor": "/tex/png/dnb_2017_12_wallisfutuna_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2017_12_wallisfutuna_7.tex",
         "urlcor": "/tex/dnb_2017_12_wallisfutuna_7_cor.tex"
     },
@@ -3483,7 +3483,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_05_pondichery_1.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_1.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_1_cor.tex"
     },
@@ -3494,7 +3494,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_05_pondichery_2.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_2.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_2_cor.tex"
     },
@@ -3505,7 +3505,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_05_pondichery_3.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_3.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_3_cor.tex"
     },
@@ -3516,7 +3516,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_05_pondichery_4.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_4.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_4_cor.tex"
     },
@@ -3527,7 +3527,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_05_pondichery_5.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_5.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_5_cor.tex"
     },
@@ -3538,7 +3538,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_05_pondichery_6.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_6.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_6_cor.tex"
     },
@@ -3549,7 +3549,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_05_pondichery_7.png",
         "pngcor": "/tex/png/dnb_2018_05_pondichery_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_05_pondichery_7.tex",
         "urlcor": "/tex/dnb_2018_05_pondichery_7_cor.tex"
     },
@@ -3560,7 +3560,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_1_cor.tex"
     },
@@ -3571,7 +3571,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_2_cor.tex"
     },
@@ -3582,7 +3582,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_3_cor.tex"
     },
@@ -3593,7 +3593,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_4_cor.tex"
     },
@@ -3604,7 +3604,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_5_cor.tex"
     },
@@ -3615,7 +3615,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_6_cor.tex"
     },
@@ -3626,7 +3626,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_7_cor.tex"
     },
@@ -3637,7 +3637,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2018_06_ameriquenord_8.png",
         "pngcor": "/tex/png/dnb_2018_06_ameriquenord_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_ameriquenord_8.tex",
         "urlcor": "/tex/dnb_2018_06_ameriquenord_8_cor.tex"
     },
@@ -3648,7 +3648,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_1.tex",
         "urlcor": "/tex/dnb_2018_06_asie_1_cor.tex"
     },
@@ -3659,7 +3659,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_2.tex",
         "urlcor": "/tex/dnb_2018_06_asie_2_cor.tex"
     },
@@ -3670,7 +3670,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_3.tex",
         "urlcor": "/tex/dnb_2018_06_asie_3_cor.tex"
     },
@@ -3681,7 +3681,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_4.tex",
         "urlcor": "/tex/dnb_2018_06_asie_4_cor.tex"
     },
@@ -3692,7 +3692,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_5.tex",
         "urlcor": "/tex/dnb_2018_06_asie_5_cor.tex"
     },
@@ -3703,7 +3703,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_6.tex",
         "urlcor": "/tex/dnb_2018_06_asie_6_cor.tex"
     },
@@ -3714,7 +3714,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_7.tex",
         "urlcor": "/tex/dnb_2018_06_asie_7_cor.tex"
     },
@@ -3725,7 +3725,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2018_06_asie_8.png",
         "pngcor": "/tex/png/dnb_2018_06_asie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_asie_8.tex",
         "urlcor": "/tex/dnb_2018_06_asie_8_cor.tex"
     },
@@ -3736,7 +3736,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_1_cor.tex"
     },
@@ -3747,7 +3747,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_2_cor.tex"
     },
@@ -3758,7 +3758,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_3_cor.tex"
     },
@@ -3769,7 +3769,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_4_cor.tex"
     },
@@ -3780,7 +3780,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_5_cor.tex"
     },
@@ -3791,7 +3791,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2018_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2018_06_etrangers_6_cor.tex"
     },
@@ -3802,7 +3802,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_06_metropole_1.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_1.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_1_cor.tex"
     },
@@ -3813,7 +3813,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_06_metropole_2.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_2.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_2_cor.tex"
     },
@@ -3824,7 +3824,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_06_metropole_3.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_3.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_3_cor.tex"
     },
@@ -3835,7 +3835,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_06_metropole_4.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_4.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_4_cor.tex"
     },
@@ -3846,7 +3846,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_06_metropole_5.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_5.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_5_cor.tex"
     },
@@ -3857,7 +3857,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_06_metropole_6.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_6.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_6_cor.tex"
     },
@@ -3868,7 +3868,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_06_metropole_7.png",
         "pngcor": "/tex/png/dnb_2018_06_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_06_metropole_7.tex",
         "urlcor": "/tex/dnb_2018_06_metropole_7_cor.tex"
     },
@@ -3879,7 +3879,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_07_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_1.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_1_cor.tex"
     },
@@ -3890,7 +3890,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_07_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_2.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_2_cor.tex"
     },
@@ -3901,7 +3901,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_07_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_3.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_3_cor.tex"
     },
@@ -3912,7 +3912,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_07_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_4.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_4_cor.tex"
     },
@@ -3923,7 +3923,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_07_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_5.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_5_cor.tex"
     },
@@ -3934,7 +3934,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_07_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2018_07_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_07_polynesie_6.tex",
         "urlcor": "/tex/dnb_2018_07_polynesie_6_cor.tex"
     },
@@ -3945,7 +3945,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_1_cor.tex"
     },
@@ -3956,7 +3956,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_2_cor.tex"
     },
@@ -3967,7 +3967,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_3_cor.tex"
     },
@@ -3978,7 +3978,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_4_cor.tex"
     },
@@ -3989,7 +3989,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_5_cor.tex"
     },
@@ -4000,7 +4000,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_6_cor.tex"
     },
@@ -4011,7 +4011,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_09_metropole_7.png",
         "pngcor": "/tex/png/dnb_2018_09_metropole_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_metropole_7.tex",
         "urlcor": "/tex/dnb_2018_09_metropole_7_cor.tex"
     },
@@ -4022,7 +4022,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_1_cor.tex"
     },
@@ -4033,7 +4033,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_2_cor.tex"
     },
@@ -4044,7 +4044,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_3_cor.tex"
     },
@@ -4055,7 +4055,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_4_cor.tex"
     },
@@ -4066,7 +4066,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_5_cor.tex"
     },
@@ -4077,7 +4077,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_6_cor.tex"
     },
@@ -4088,7 +4088,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_09_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2018_09_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_09_polynesie_7.tex",
         "urlcor": "/tex/dnb_2018_09_polynesie_7_cor.tex"
     },
@@ -4099,7 +4099,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_1_cor.tex"
     },
@@ -4110,7 +4110,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_2_cor.tex"
     },
@@ -4121,7 +4121,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_3_cor.tex"
     },
@@ -4132,7 +4132,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_4_cor.tex"
     },
@@ -4143,7 +4143,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_5_cor.tex"
     },
@@ -4154,7 +4154,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_6_cor.tex"
     },
@@ -4165,7 +4165,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_11_ameriquesud_7.png",
         "pngcor": "/tex/png/dnb_2018_11_ameriquesud_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_11_ameriquesud_7.tex",
         "urlcor": "/tex/dnb_2018_11_ameriquesud_7_cor.tex"
     },
@@ -4176,7 +4176,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2018_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_1_cor.tex"
     },
@@ -4187,7 +4187,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2018_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_2_cor.tex"
     },
@@ -4198,7 +4198,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2018_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_3_cor.tex"
     },
@@ -4209,7 +4209,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2018_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_4_cor.tex"
     },
@@ -4220,7 +4220,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2018_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_5_cor.tex"
     },
@@ -4231,7 +4231,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2018_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_6_cor.tex"
     },
@@ -4242,7 +4242,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2018_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_7_cor.tex"
     },
@@ -4253,7 +4253,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2018_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2018_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2018_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2018_12_caledonie_8_cor.tex"
     },
@@ -4264,7 +4264,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_03_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_1.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_1_cor.tex"
     },
@@ -4275,7 +4275,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_03_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_2.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_2_cor.tex"
     },
@@ -4286,7 +4286,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_03_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_3.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_3_cor.tex"
     },
@@ -4297,7 +4297,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_03_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_4.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_4_cor.tex"
     },
@@ -4308,7 +4308,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_03_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_5.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_5_cor.tex"
     },
@@ -4319,7 +4319,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_03_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_6.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_6_cor.tex"
     },
@@ -4330,7 +4330,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_03_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_7.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_7_cor.tex"
     },
@@ -4341,7 +4341,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2019_03_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2019_03_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_03_caledonie_8.tex",
         "urlcor": "/tex/dnb_2019_03_caledonie_8_cor.tex"
     },
@@ -4352,7 +4352,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_ameriquenord_1.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_1.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_1_cor.tex"
     },
@@ -4363,7 +4363,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_ameriquenord_2.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_2.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_2_cor.tex"
     },
@@ -4374,7 +4374,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_ameriquenord_3.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_3.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_3_cor.tex"
     },
@@ -4385,7 +4385,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_ameriquenord_4.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_4.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_4_cor.tex"
     },
@@ -4396,7 +4396,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_ameriquenord_5.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_5.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_5_cor.tex"
     },
@@ -4407,7 +4407,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_ameriquenord_6.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_6.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_6_cor.tex"
     },
@@ -4418,7 +4418,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_06_ameriquenord_7.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_7_cor.tex"
     },
@@ -4429,7 +4429,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2019_06_ameriquenord_8.png",
         "pngcor": "/tex/png/dnb_2019_06_ameriquenord_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_ameriquenord_8.tex",
         "urlcor": "/tex/dnb_2019_06_ameriquenord_8_cor.tex"
     },
@@ -4440,7 +4440,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_1.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_1.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_1_cor.tex"
     },
@@ -4451,7 +4451,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_2.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_2.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_2_cor.tex"
     },
@@ -4462,7 +4462,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_3.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_3.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_3_cor.tex"
     },
@@ -4473,7 +4473,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_4.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_4.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_4_cor.tex"
     },
@@ -4484,7 +4484,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_5.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_5.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_5_cor.tex"
     },
@@ -4495,7 +4495,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_antillesguyanne_6.png",
         "pngcor": "/tex/png/dnb_2019_06_antillesguyanne_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_antillesguyanne_6.tex",
         "urlcor": "/tex/dnb_2019_06_antillesguyanne_6_cor.tex"
     },
@@ -4506,7 +4506,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_asie_1.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_1.tex",
         "urlcor": "/tex/dnb_2019_06_asie_1_cor.tex"
     },
@@ -4517,7 +4517,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_asie_2.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_2.tex",
         "urlcor": "/tex/dnb_2019_06_asie_2_cor.tex"
     },
@@ -4528,7 +4528,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_asie_3.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_3.tex",
         "urlcor": "/tex/dnb_2019_06_asie_3_cor.tex"
     },
@@ -4539,7 +4539,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_asie_4.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_4.tex",
         "urlcor": "/tex/dnb_2019_06_asie_4_cor.tex"
     },
@@ -4550,7 +4550,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_asie_5.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_5.tex",
         "urlcor": "/tex/dnb_2019_06_asie_5_cor.tex"
     },
@@ -4561,7 +4561,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_asie_6.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_6.tex",
         "urlcor": "/tex/dnb_2019_06_asie_6_cor.tex"
     },
@@ -4572,7 +4572,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_06_asie_7.png",
         "pngcor": "/tex/png/dnb_2019_06_asie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_asie_7.tex",
         "urlcor": "/tex/dnb_2019_06_asie_7_cor.tex"
     },
@@ -4583,7 +4583,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_etrangers_1.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_1.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_1_cor.tex"
     },
@@ -4594,7 +4594,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_etrangers_2.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_2.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_2_cor.tex"
     },
@@ -4605,7 +4605,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_etrangers_3.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_3.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_3_cor.tex"
     },
@@ -4616,7 +4616,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_etrangers_4.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_4.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_4_cor.tex"
     },
@@ -4627,7 +4627,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_etrangers_5.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_5.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_5_cor.tex"
     },
@@ -4638,7 +4638,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_etrangers_6.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_6.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_6_cor.tex"
     },
@@ -4649,7 +4649,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_06_etrangers_7.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_7.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_7_cor.tex"
     },
@@ -4660,7 +4660,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2019_06_etrangers_8.png",
         "pngcor": "/tex/png/dnb_2019_06_etrangers_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_etrangers_8.tex",
         "urlcor": "/tex/dnb_2019_06_etrangers_8_cor.tex"
     },
@@ -4671,7 +4671,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_grece_1.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_1.tex",
         "urlcor": "/tex/dnb_2019_06_grece_1_cor.tex"
     },
@@ -4682,7 +4682,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_grece_2.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_2.tex",
         "urlcor": "/tex/dnb_2019_06_grece_2_cor.tex"
     },
@@ -4693,7 +4693,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_grece_3.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_3.tex",
         "urlcor": "/tex/dnb_2019_06_grece_3_cor.tex"
     },
@@ -4704,7 +4704,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_grece_4.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_4.tex",
         "urlcor": "/tex/dnb_2019_06_grece_4_cor.tex"
     },
@@ -4715,7 +4715,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_grece_5.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_5.tex",
         "urlcor": "/tex/dnb_2019_06_grece_5_cor.tex"
     },
@@ -4726,7 +4726,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_grece_6.png",
         "pngcor": "/tex/png/dnb_2019_06_grece_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_grece_6.tex",
         "urlcor": "/tex/dnb_2019_06_grece_6_cor.tex"
     },
@@ -4737,7 +4737,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_06_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_1.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_1_cor.tex"
     },
@@ -4748,7 +4748,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_06_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_2.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_2_cor.tex"
     },
@@ -4759,7 +4759,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_06_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_3.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_3_cor.tex"
     },
@@ -4770,7 +4770,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_06_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_4.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_4_cor.tex"
     },
@@ -4781,7 +4781,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_06_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_5.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_5_cor.tex"
     },
@@ -4792,7 +4792,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_06_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_6.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_6_cor.tex"
     },
@@ -4803,7 +4803,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_06_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2019_06_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_06_polynesie_7.tex",
         "urlcor": "/tex/dnb_2019_06_polynesie_7_cor.tex"
     },
@@ -4814,7 +4814,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_07_metropole_1.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_1.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_1_cor.tex"
     },
@@ -4825,7 +4825,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_07_metropole_2.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_2.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_2_cor.tex"
     },
@@ -4836,7 +4836,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_07_metropole_3.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_3.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_3_cor.tex"
     },
@@ -4847,7 +4847,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_07_metropole_4.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_4.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_4_cor.tex"
     },
@@ -4858,7 +4858,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_07_metropole_5.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_5.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_5_cor.tex"
     },
@@ -4869,7 +4869,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_07_metropole_6.png",
         "pngcor": "/tex/png/dnb_2019_07_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_metropole_6.tex",
         "urlcor": "/tex/dnb_2019_07_metropole_6_cor.tex"
     },
@@ -4880,7 +4880,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_07_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_1.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_1_cor.tex"
     },
@@ -4891,7 +4891,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_07_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_2.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_2_cor.tex"
     },
@@ -4902,7 +4902,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_07_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_3.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_3_cor.tex"
     },
@@ -4913,7 +4913,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_07_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_4.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_4_cor.tex"
     },
@@ -4924,7 +4924,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_07_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_5.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_5_cor.tex"
     },
@@ -4935,7 +4935,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_07_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_6.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_6_cor.tex"
     },
@@ -4946,7 +4946,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_07_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2019_07_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_07_polynesie_7.tex",
         "urlcor": "/tex/dnb_2019_07_polynesie_7_cor.tex"
     },
@@ -4957,7 +4957,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_1_cor.tex"
     },
@@ -4968,7 +4968,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_2_cor.tex"
     },
@@ -4979,7 +4979,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_3_cor.tex"
     },
@@ -4990,7 +4990,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_4_cor.tex"
     },
@@ -5001,7 +5001,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_5_cor.tex"
     },
@@ -5012,7 +5012,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_09_metropole_6.png",
         "pngcor": "/tex/png/dnb_2019_09_metropole_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_metropole_6.tex",
         "urlcor": "/tex/dnb_2019_09_metropole_6_cor.tex"
     },
@@ -5023,7 +5023,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_1_cor.tex"
     },
@@ -5034,7 +5034,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_2_cor.tex"
     },
@@ -5045,7 +5045,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_3_cor.tex"
     },
@@ -5056,7 +5056,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_4_cor.tex"
     },
@@ -5067,7 +5067,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_5_cor.tex"
     },
@@ -5078,7 +5078,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_09_polynesie_6.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_6.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_6_cor.tex"
     },
@@ -5089,7 +5089,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_09_polynesie_7.png",
         "pngcor": "/tex/png/dnb_2019_09_polynesie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_09_polynesie_7.tex",
         "urlcor": "/tex/dnb_2019_09_polynesie_7_cor.tex"
     },
@@ -5100,7 +5100,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_11_ameriquesud_1.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_1.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_1_cor.tex"
     },
@@ -5111,7 +5111,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_11_ameriquesud_2.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_2.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_2_cor.tex"
     },
@@ -5122,7 +5122,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_11_ameriquesud_3.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_3.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_3_cor.tex"
     },
@@ -5133,7 +5133,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_11_ameriquesud_4.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_4.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_4_cor.tex"
     },
@@ -5144,7 +5144,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_11_ameriquesud_5.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_5_cor.tex"
     },
@@ -5155,7 +5155,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_11_ameriquesud_6.png",
         "pngcor": "/tex/png/dnb_2019_11_ameriquesud_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_11_ameriquesud_6.tex",
         "urlcor": "/tex/dnb_2019_11_ameriquesud_6_cor.tex"
     },
@@ -5166,7 +5166,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2019_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_1_cor.tex"
     },
@@ -5177,7 +5177,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2019_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_2_cor.tex"
     },
@@ -5188,7 +5188,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2019_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_3_cor.tex"
     },
@@ -5199,7 +5199,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2019_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_4_cor.tex"
     },
@@ -5210,7 +5210,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2019_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_5_cor.tex"
     },
@@ -5221,7 +5221,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2019_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_6_cor.tex"
     },
@@ -5232,7 +5232,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2019_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_7_cor.tex"
     },
@@ -5243,7 +5243,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2019_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2019_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2019_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2019_12_caledonie_8_cor.tex"
     },
@@ -5254,7 +5254,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2020_09_antillesguyanne_1.png",
         "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_antillesguyanne_1.tex",
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_1_cor.tex"
     },
@@ -5265,7 +5265,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2020_09_antillesguyanne_2.png",
         "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_antillesguyanne_2.tex",
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_2_cor.tex"
     },
@@ -5276,7 +5276,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2020_09_antillesguyanne_3.png",
         "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_antillesguyanne_3.tex",
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_3_cor.tex"
     },
@@ -5287,7 +5287,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2020_09_antillesguyanne_4.png",
         "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_antillesguyanne_4.tex",
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_4_cor.tex"
     },
@@ -5298,7 +5298,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2020_09_antillesguyanne_5.png",
         "pngcor": "/tex/png/dnb_2020_09_antillesguyanne_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_antillesguyanne_5.tex",
         "urlcor": "/tex/dnb_2020_09_antillesguyanne_5_cor.tex"
     },
@@ -5309,7 +5309,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2020_09_metropole_1.png",
         "pngcor": "/tex/png/dnb_2020_09_metropole_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_metropole_1.tex",
         "urlcor": "/tex/dnb_2020_09_metropole_1_cor.tex"
     },
@@ -5320,7 +5320,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2020_09_metropole_2.png",
         "pngcor": "/tex/png/dnb_2020_09_metropole_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_metropole_2.tex",
         "urlcor": "/tex/dnb_2020_09_metropole_2_cor.tex"
     },
@@ -5331,7 +5331,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2020_09_metropole_3.png",
         "pngcor": "/tex/png/dnb_2020_09_metropole_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_metropole_3.tex",
         "urlcor": "/tex/dnb_2020_09_metropole_3_cor.tex"
     },
@@ -5342,7 +5342,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2020_09_metropole_4.png",
         "pngcor": "/tex/png/dnb_2020_09_metropole_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_metropole_4.tex",
         "urlcor": "/tex/dnb_2020_09_metropole_4_cor.tex"
     },
@@ -5353,7 +5353,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2020_09_metropole_5.png",
         "pngcor": "/tex/png/dnb_2020_09_metropole_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_metropole_5.tex",
         "urlcor": "/tex/dnb_2020_09_metropole_5_cor.tex"
     },
@@ -5364,7 +5364,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2020_09_polynesie_1.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_1.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_1_cor.tex"
     },
@@ -5375,7 +5375,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2020_09_polynesie_2.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_2.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_2_cor.tex"
     },
@@ -5386,7 +5386,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2020_09_polynesie_3.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_3.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_3_cor.tex"
     },
@@ -5397,7 +5397,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2020_09_polynesie_4.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_4.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_4_cor.tex"
     },
@@ -5408,7 +5408,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2020_09_polynesie_5.png",
         "pngcor": "/tex/png/dnb_2020_09_polynesie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_09_polynesie_5.tex",
         "urlcor": "/tex/dnb_2020_09_polynesie_5_cor.tex"
     },
@@ -5419,7 +5419,7 @@ export let dictionnaireDNB =
         "numeroExercice": "1",
         "png": "/tex/png/dnb_2020_12_caledonie_1.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_1_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_1.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_1_cor.tex"
     },
@@ -5430,7 +5430,7 @@ export let dictionnaireDNB =
         "numeroExercice": "2",
         "png": "/tex/png/dnb_2020_12_caledonie_2.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_2_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_2.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_2_cor.tex"
     },
@@ -5441,7 +5441,7 @@ export let dictionnaireDNB =
         "numeroExercice": "3",
         "png": "/tex/png/dnb_2020_12_caledonie_3.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_3_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_3.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_3_cor.tex"
     },
@@ -5452,7 +5452,7 @@ export let dictionnaireDNB =
         "numeroExercice": "4",
         "png": "/tex/png/dnb_2020_12_caledonie_4.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_4_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_4.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_4_cor.tex"
     },
@@ -5463,7 +5463,7 @@ export let dictionnaireDNB =
         "numeroExercice": "5",
         "png": "/tex/png/dnb_2020_12_caledonie_5.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_5_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_5.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_5_cor.tex"
     },
@@ -5474,7 +5474,7 @@ export let dictionnaireDNB =
         "numeroExercice": "6",
         "png": "/tex/png/dnb_2020_12_caledonie_6.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_6_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_6.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_6_cor.tex"
     },
@@ -5485,7 +5485,7 @@ export let dictionnaireDNB =
         "numeroExercice": "7",
         "png": "/tex/png/dnb_2020_12_caledonie_7.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_7_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_7.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_7_cor.tex"
     },
@@ -5496,7 +5496,7 @@ export let dictionnaireDNB =
         "numeroExercice": "8",
         "png": "/tex/png/dnb_2020_12_caledonie_8.png",
         "pngcor": "/tex/png/dnb_2020_12_caledonie_8_cor.png",
-        "type_exercice": "dnb",
+        "typeExercice": "dnb",
         "url": "/tex/dnb_2020_12_caledonie_8.tex",
         "urlcor": "/tex/dnb_2020_12_caledonie_8_cor.tex"
     }

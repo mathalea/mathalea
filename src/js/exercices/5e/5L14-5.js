@@ -10,6 +10,5 @@ export const titre = 'Calculer la valeur d’une expression littérale de degré
 	Calculer_la_valeur_d_une_expression_litterale.call(this);
 	this.version = "5L13-5";
 	this.titre = titre;
-	this.nb_questions = 2;
-
+	this.nbQuestions = 2;
 }

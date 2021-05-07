@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,tex_nombre,modal_pdf,num_alpha,premiers_entre_bornes,warn_message,decomp_fact_prem_array} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiersEntreBornes,warnMessage,decompositionFacteursPremiersArray} from '../../modules/outils.js'
 export const titre = 'Fractions irréductibles'
 
 /**
@@ -13,37 +13,37 @@ export default function Fractions_irreductibles() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 4 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;
-	this.nb_questions = 1;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.liste_packages = `bclogo`;
+	sortieHtml ? this.spacing = 4 : this.spacing = 2;
+	sortieHtml ? this.spacingCorr = 4 : this.spacingCorr = 2;
+	this.nbQuestions = 1;
+	//this.correctionDetailleeDisponible = true;
+	this.nbCols = 1;
+	this.nbColsCorr = 1;
+	this.listePackages = `bclogo`;
 
-	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice, "assets/pdf/FicheArithmetique-3A12.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+			//this.boutonAide = '';
+			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A12.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
+			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.listeQuestions = []; // Liste de questions
+		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
+		this.contenuCorrection = ''; // Liste de questions corrigées
 
 
 		//let type_de_questions_disponibles = [1,2,3,4];
 		let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
-		this.introduction = warn_message(`À la question ` + num_alpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
+		this.introduction = warnMessage(`À la question ` + numAlpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
 
-		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
+		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+			type_de_questions = listeTypeDeQuestions[i];
 
 			var nb_div_prem_communs; // nombre de diviseurs premiers communs
 			var candidats_premiers_communs; // tableau des candidats premiers communs
@@ -63,7 +63,7 @@ export default function Fractions_irreductibles() {
 
 
 			// on fixe le tableau de choix
-			candidats_premiers_communs = premiers_entre_bornes(2, 13);
+			candidats_premiers_communs = premiersEntreBornes(2, 13);
 			// on fixe le nombre de divisuers premiers communs
 			nb_div_prem_communs = 4;
 			// on initialise le tableau des diviseurs premiers communs
@@ -110,9 +110,9 @@ export default function Fractions_irreductibles() {
 				multiplicites_nb2[k] = multiplicites_premiers_communs[k];
 			};
 			// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
-			r_ex = randint(0, premiers_entre_bornes(2, 30).length - 1);
-			nb1_dist = premiers_entre_bornes(2, 30)[r_ex];
-			nb2_dist = premiers_entre_bornes(2, 30)[randint(0, premiers_entre_bornes(2, 30).length - 1, r_ex)];
+			r_ex = randint(0, premiersEntreBornes(2, 30).length - 1);
+			nb1_dist = premiersEntreBornes(2, 30)[r_ex];
+			nb2_dist = premiersEntreBornes(2, 30)[randint(0, premiersEntreBornes(2, 30).length - 1, r_ex)];
 			// on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre 
 			// nb1
 			let bool = false;
@@ -174,109 +174,109 @@ export default function Fractions_irreductibles() {
 
 			switch (type_de_questions) {
 				case 1: // décomposition de A
-					texte = num_alpha(0) + ` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
-					texte_corr = num_alpha(0) + ` La décomposition en produit de facteurs premier de $A = `;
+					texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `;
+					texteCorr = numAlpha(0) + ` La décomposition en produit de facteurs premier de $A = `;
 					switch (tab_prem_mult_nb1[0].mult) {
 						case 1:
-							texte_corr += `${tab_prem_mult_nb1[0].prem}`;
+							texteCorr += `${tab_prem_mult_nb1[0].prem}`;
 							break;
 						default:
-							texte_corr += `${tab_prem_mult_nb1[0].prem}^{${tab_prem_mult_nb1[0].mult}}`;
+							texteCorr += `${tab_prem_mult_nb1[0].prem}^{${tab_prem_mult_nb1[0].mult}}`;
 							break;
 					};
 					for (let k = 1; k < tab_nb1.length; k++) {
 						switch (tab_prem_mult_nb1[k].mult) {
 							case 1:
-								texte_corr += `\\times${tab_prem_mult_nb1[k].prem}`;
+								texteCorr += `\\times${tab_prem_mult_nb1[k].prem}`;
 								break;
 							default:
-								texte_corr += `\\times${tab_prem_mult_nb1[k].prem}^{${tab_prem_mult_nb1[k].mult}}`;
+								texteCorr += `\\times${tab_prem_mult_nb1[k].prem}^{${tab_prem_mult_nb1[k].mult}}`;
 								break;
 						};
 					};
-					texte_corr += `$.`;
+					texteCorr += `$.`;
 					//	break;		
 					//case 2 : // décomposition de B 	
-					texte += `<br>` + num_alpha(1) + ` Décomposer $B = ${tex_nombre(nb2)}$ en produit de facteurs premiers : `;
-					texte_corr += `<br>` + num_alpha(1) + ` La décomposition en produit de facteurs premier de $B = `;
+					texte += `<br>` + numAlpha(1) + ` Décomposer $B = ${texNombre(nb2)}$ en produit de facteurs premiers : `;
+					texteCorr += `<br>` + numAlpha(1) + ` La décomposition en produit de facteurs premier de $B = `;
 					switch (tab_prem_mult_nb2[0].mult) {
 						case 1:
-							texte_corr += `${tab_prem_mult_nb2[0].prem}`;
+							texteCorr += `${tab_prem_mult_nb2[0].prem}`;
 							break;
 						default:
-							texte_corr += `${tab_prem_mult_nb2[0].prem}^{${tab_prem_mult_nb2[0].mult}}`;
+							texteCorr += `${tab_prem_mult_nb2[0].prem}^{${tab_prem_mult_nb2[0].mult}}`;
 							break;
 					};
 					for (let k = 1; k < tab_nb2.length; k++) {
 						switch (tab_prem_mult_nb2[k].mult) {
 							case 1:
-								texte_corr += `\\times${tab_prem_mult_nb2[k].prem}`;
+								texteCorr += `\\times${tab_prem_mult_nb2[k].prem}`;
 								break;
 							default:
-								texte_corr += `\\times${tab_prem_mult_nb2[k].prem}^{${tab_prem_mult_nb2[k].mult}}`;
+								texteCorr += `\\times${tab_prem_mult_nb2[k].prem}^{${tab_prem_mult_nb2[k].mult}}`;
 								break;
 						};
 					};
-					texte_corr += `$.`;
+					texteCorr += `$.`;
 					//	break;	
 					//case 3 : // reduction de A sur B 			
-					texte += `<br>` + num_alpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
-					if (sortie_html) {
-						texte += ` à l'aide des décompositions obtenues au ` + num_alpha(0) + ` et au ` + num_alpha(1);
+					texte += `<br>` + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `;
+					if (sortieHtml) {
+						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
-						texte += ` à l'aide des questions ` + num_alpha(0) + ` et ` + num_alpha(1);
+						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);
 					};
-					texte_corr += `<br>` + num_alpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
-					texte_corr += `\\dfrac{`;
-					texte_corr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texte_corr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `<br>` + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `;
+					texteCorr += `\\dfrac{`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
-					texte_corr += `\\times ${nb1_dist}}{`;
-					texte_corr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texte_corr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\times ${nb1_dist}}{`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
-					texte_corr += `\\times ${nb2_dist}} = `;
-					texte_corr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$.`;
+					texteCorr += `\\times ${nb2_dist}} = `;
+					texteCorr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$.`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
-					texte += `<br>` + num_alpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
-					if (sortie_html) {
-						texte += ` à l'aide des décompositions obtenues au ` + num_alpha(0) + ` et au ` + num_alpha(1);
+					texte += `<br>` + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`;
+					if (sortieHtml) {
+						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
-						texte += ` à l'aide des questions ` + num_alpha(0) + ` et ` + num_alpha(1);
+						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);
 					};
-					texte_corr += `<br>` + num_alpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
-					texte_corr += `\\dfrac{`;
-					texte_corr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texte_corr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `<br>` + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `;
+					texteCorr += `\\dfrac{`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
-					texte_corr += `\\times ${nb2_dist}}{`;
-					texte_corr += `\\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[0] + `}`;
-					for (let k = 1; k < decomp_fact_prem_array(nb1 / nb1_dist).length; k++) {
-						texte_corr += `\\times \\cancel{` + decomp_fact_prem_array(nb1 / nb1_dist)[k] + `}`;
+					texteCorr += `\\times ${nb2_dist}}{`;
+					texteCorr += `\\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[0] + `}`;
+					for (let k = 1; k < decompositionFacteursPremiersArray(nb1 / nb1_dist).length; k++) {
+						texteCorr += `\\times \\cancel{` + decompositionFacteursPremiersArray(nb1 / nb1_dist)[k] + `}`;
 					};
-					texte_corr += `\\times ${nb1_dist}} = `;
-					texte_corr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$.`;
+					texteCorr += `\\times ${nb1_dist}} = `;
+					texteCorr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$.`;
 					//	break;	
 					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
-					// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$.`;
+					// texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
 					// texte += `<br>Donner le résultat sous forme de fraction irréductible.`
-					//texte += `<br>`+num_alpha(4)+` Remarque ?`
-					//texte_corr += `<br>`+num_alpha(4)+' corr type 5';
+					//texte += `<br>`+numAlpha(4)+` Remarque ?`
+					//texteCorr += `<br>`+numAlpha(4)+' corr type 5';
 					break;
 			};
 
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
+			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.listeQuestions.push(texte);
+				this.listeCorrections.push(texteCorr);
 				i++;
 			};
 			cpt++;
 		};
-		liste_de_question_to_contenu(this);
+		listeQuestionsToContenu(this);
 	};
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	//this.besoinFormulaireNumerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }

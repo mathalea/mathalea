@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { liste_de_question_to_contenu, num_alpha, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, numAlpha, calcul, randint } from '../../modules/outils.js'
 import { mathalea2d, droite, tracePointSurDroite, labelPoint, tracePoint, rotation, translation2Points, homothetie, symetrieAxiale, point } from '../../modules/2d.js'
 
 export const titre = 'Utiliser toutes les transformations'
@@ -7,34 +7,34 @@ export const titre = 'Utiliser toutes les transformations'
 export default function Exercice_zero_mathalea2d () {
   Exercice.call(this)
   this.titre = titre
-  this.nb_questions = 1 // Ici le nombre de questions
-  this.nb_questions_modifiable = false // Active le formulaire nombre de questions
-  this.nb_cols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nb_cols_corr = 1// Le nombre de colonne pour la correction LaTeX
+  this.nbQuestions = 1 // Ici le nombre de questions
+  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.consigne = 'Construire les points suivants.'
   this.video = 'hFoN9sMWnac'
-  this.type_exercice = 'IEP'
+  this.typeExercice = 'IEP'
 
-  this.nouvelle_version = function (numeroExercice) {
+  this.nouvelleVersion = function (numeroExercice) {
     const anim = new Alea2iep()
-    this.liste_questions = [] // tableau contenant la liste des questions
-    this.liste_corrections = []
+    this.listeQuestions = [] // tableau contenant la liste des questions
+    this.listeCorrections = []
 
     let objets_enonce, objets_enonceml, objets_correction, params_enonce, params_correction
 
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-      texte = `${num_alpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = `${numAlpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(1)} $M_2$ symétrique de $M$ par rapport à $O$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(1)} $M_2$ symétrique de $M$ par rapport à $O$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(2)} $M_3$ image de $M$ dans la translation qui transforme $A$ en $B$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(2)} $M_3$ image de $M$ dans la translation qui transforme $A$ en $B$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(3)} $M_4$ image de $M$ dans la rotation de centre $O$ et de $60$° dans le sens anti-horaire.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(3)} $M_4$ image de $M$ dans la rotation de centre $O$ et de $60$° dans le sens anti-horaire.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(4)} $M_5$ image de $M$ dans l'homothétie de centre $A$ et de rapport $3$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texte += `${numAlpha(4)} $M_5$ image de $M$ dans l'homothétie de centre $A$ et de rapport $3$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
       texte += '<br><br>'
-      texte += `${num_alpha(5)} $M_6$ image de $M$ dans l'homothétie de centre $A$ et de rapport $-2$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
-      texte_corr = '' // Idem pour le texte de la correction.
+      texte += `${numAlpha(5)} $M_6$ image de $M$ dans l'homothétie de centre $A$ et de rapport $-2$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
+      texteCorr = '' // Idem pour le texte de la correction.
 
       const A = point(0, 2, 'A', 'right')
       const B = point(calcul(randint(20, 30) / 10), calcul(randint(60, 80) / 10), 'B', 'right')
@@ -80,16 +80,16 @@ export default function Exercice_zero_mathalea2d () {
       texte += '<br><br>'
       texte += mathalea2d(params_enonce, objets_enonce)
       // On ajoute au texte de la correction, la figure de la correction
-      texte_corr += mathalea2d(params_correction, objets_correction)
-      texte_corr += '<br>' + anim.html(numeroExercice)
-      if (this.liste_questions.indexOf(texte) == -1) {
+      texteCorr += mathalea2d(params_correction, objets_correction)
+      texteCorr += '<br>' + anim.html(numeroExercice)
+      if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.liste_questions.push(texte)
-        this.liste_corrections.push(texte_corr)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    liste_de_question_to_contenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
