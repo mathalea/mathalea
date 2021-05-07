@@ -3,20 +3,21 @@
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
+import { iep, loadScript /*, prism */ } from './modules/loaders'
 
-// import katex from 'katex'
-import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
 
+// @todo importer katex à la demande
+// import katex from 'katex'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
+
 import '../css/style_mathalea.css'
 
-// Prism n'est utilisé que pour mathalealatex.html. Faut-il ajouter un test sur l'URL
-// Prism est utilisé pour la coloration syntaxique du LaTeX
-import '../assets/externalJs/prism.js'
-import '../assets/externalJs/prism.css'
+// Prism n'est utilisé que pour mathalealatex.html
+// => utiliser la fct prism (dans modules/loaders.js) si y'en a besoin
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -35,7 +36,6 @@ if (document.location.href.indexOf('cm.html') > 0) {
   window.est_diaporama = true
 }
 
-mathalea.listeDesScriptsCharges = []
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let liste_des_exercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
@@ -197,6 +197,7 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
   }
   if (besoinScratch) {
     await loadScript('assets/externalJs/scratchblocks-v3.5-min.js')
+    // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
     scratchTraductionFr()
     scratchblocks.renderMatching('pre.blocks', {
       style: 'scratch3',
@@ -207,15 +208,17 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
       style: 'scratch3',
       languages: ['fr']
     })
-    mathalea.listeDesScriptsCharges.push('Scratch')
   }
   if (besoinIEP) {
-    const { default: iepLoadPromise } = await import('instrumenpoche')
     for (const id of window.listeAnimationsIepACharger) {
       const element = document.getElementById(`IEPContainer${id}`)
+      if (!element) {
+        console.error(Error(`Pas d’élément IEPContainer${id} dans le dom, chargement instrumenpoche ignoré`))
+        continue
+      }
       element.style.marginTop = '30px'
       const xml = window.listeScriptsIep[id]
-      await iepLoadPromise(element, xml, { zoom: true, autostart: false })
+      await iep(element, xml)
     }
   }
 }
@@ -681,7 +684,6 @@ function mise_a_jour_du_code () {
      */
 function mise_a_jour_de_la_liste_des_exercices (preview) {
   let besoinXCas = false
-  mathalea.listeDesScriptsCharges = []
   const promises = []
   const liste_exercices = liste_des_exercices
   if (preview) {
@@ -825,7 +827,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         return loadScript('/assets/externalJs/giacsimple.js')
       }
     })
-    .then((resolve, reject) => {
+    .then(() => {
       if (besoinXCas) {
         // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
         return checkXCas()
@@ -867,21 +869,6 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
     })
 }
 
-const loadScript = src => {
-  return new Promise((resolve, reject) => {
-    if (mathalea.listeDesScriptsCharges.indexOf(src) < 0) {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.onload = resolve
-      script.onerror = reject
-      script.src = src
-      document.head.append(script)
-      mathalea.listeDesScriptsCharges.push(src)
-    } else {
-      resolve()
-    }
-  })
-}
 const checkXCas = () => {
   return new Promise((resolve, reject) => {
     const monInterval = setInterval(() => {
