@@ -29,6 +29,7 @@
     "jquery": "^3.6.0",
     "jquery-ui": "^1.12.1",
     "katex": "^0.13.9",
+    "loadjs": "^4.2.0",
     "mathjs": "^9.3.2",
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",
@@ -38,7 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-modules": "^0.1.4",
     "babel-loader": "^8.2.2",
     "browserslist": "^4.16.6",
     "copy-webpack-plugin": "^8.1.1",
@@ -60,17 +61,16 @@
     "mini-css-extract-plugin": "^1.6.0",
     "minimist": "^1.2.5",
     "playwright": "^1.10.0",
-    "sass": "^1.32.12",
-    "sass-loader": "^11.0.1",
     "sesajs-date": "git+https://framagit.org/Sesamath/sesajs-date.git#main",
     "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remiangot/MathALEA.git"
+    "url": "git+https://github.com/mathalea/mathalea.git"
   },
   "keywords": [
     "math",
@@ -93,30 +93,20 @@
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/remiangot/MathALEA/issues"
+    "url": "https://github.com/mathalea/mathalea/issues"
   },
-  "homepage": "https://github.com/remiangot/MathALEA#readme",
+  "homepage": "https://github.com/mathalea/mathalea",
   "babel": {
     "plugins": [
-      "syntax-dynamic-import"
+      "@babel/syntax-dynamic-import"
     ],
     "presets": [
       [
-        "@babel/preset-env",
-        {
-          "useBuiltIns": "usage",
-          "corejs": {
-            "version": "3.8",
-            "proposals": true
-          }
-        }
+        "@babel/preset-modules"
       ]
     ],
     "sourceType": "unambiguous"
   },
-  "browserslist": [
-    "supports es6-module-dynamic-import"
-  ],
   "eslintConfig": {
     "env": {
       "browser": true
