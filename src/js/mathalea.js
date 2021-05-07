@@ -3,7 +3,7 @@
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { iep, loadScript, prism} from './modules/loaders'
+import { iep, loadScript, prism } from './modules/loaders'
 
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
@@ -15,6 +15,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
+import loadjs from 'loadjs'
 
 // Prism n'est utilisé que pour mathalealatex.html
 // quand les html seront fusionnés on ne chargera prism que pour la sortie LaTeX
@@ -177,16 +178,19 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     }
   }
   if (besoinMG32) {
-    loadScript('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js')
-      .then(() => {
-        // Ajoute figures MG32
-        for (let i = 0; i < listeObjetsExercice.length; i++) {
-          if (listeObjetsExercice[i].typeExercice === 'MG32') {
-            MG32_ajouter_figure(i)
-          }
+    try {
+      const result = await loadjs('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js')
+      // Ajoute figures MG32
+      for (let i = 0; i < listeObjetsExercice.length; i++) {
+        if (listeObjetsExercice[i].typeExercice === 'MG32') {
+          MG32_ajouter_figure(i)
         }
-        MG32_tracer_toutes_les_figures()
-      })
+      }
+      MG32_tracer_toutes_les_figures()
+    } catch (error) {
+      // On traite l'erreur
+      console.log(error)
+    }
   }
   for (let i = 0; i < listeObjetsExercice.length; i++) {
     if (listeObjetsExercice[i].typeExercice === 'Scratch') {
@@ -197,7 +201,7 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     }
   }
   if (besoinScratch) {
-    await loadScript('assets/externalJs/scratchblocks-v3.5-min.js')
+    await loadjs('assets/externalJs/scratchblocks-v3.5-min.js')
     // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
     scratchTraductionFr()
     scratchblocks.renderMatching('pre.blocks', {
@@ -825,7 +829,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
                       </svg>
                     </div>
                   </div>`
-        return loadScript('/assets/externalJs/giacsimple.js')
+        return loadjs('/assets/externalJs/giacsimple.js')
       }
     })
     .then(() => {
