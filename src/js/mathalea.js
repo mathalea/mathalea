@@ -3,7 +3,7 @@
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { iep, loadScript /*, prism */ } from './modules/loaders'
+import { iep, loadScript, prism} from './modules/loaders'
 
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
@@ -17,7 +17,8 @@ import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 
 // Prism n'est utilisé que pour mathalealatex.html
-// => utiliser la fct prism (dans modules/loaders.js) si y'en a besoin
+// quand les html seront fusionnés on ne chargera prism que pour la sortie LaTeX
+prism()
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
