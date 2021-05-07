@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
-import SVG from 'svg.js'
+import { SVG } from '@svgdotjs/svg.js'
 
 /**
  * Trace un axe vertical gradué

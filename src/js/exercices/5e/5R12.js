@@ -6,8 +6,8 @@ export const titre = 'Déterminer les coordonnées (positives) d’un point'
  * @Auteur Jean-Claude Lhote
  * référence 5R12
  */
-export default function Reperage_point_du_quart_de_plan() {
-  Reperage_point_du_plan.call(this);
-  this.titre = titre;
-  this.quart_de_plan = true;
+export default function Reperage_point_du_quart_de_plan () {
+  Reperage_point_du_plan.call(this)
+  this.titre = titre
+  this.quart_de_plan = true
 }

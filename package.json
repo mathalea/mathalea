@@ -1,6 +1,6 @@
 {
   "name": "mathalea",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@bugsnag/js": "^7.9.2",
+    "@svgdotjs/svg.js": "^3.0.16",
     "algebrite": "^1.4.0",
     "clipboard": "^2.0.8",
     "codemirror": "^5.61.0",
@@ -32,8 +33,7 @@
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",
     "seedrandom": "^3.0.5",
-    "sval": "^0.4.8",
-    "svg.js": "^2.7.1"
+    "sval": "^0.4.8"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

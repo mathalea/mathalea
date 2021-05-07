@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenuSansNumero, creerCouples, randint, shuffle, calcul, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { SVG_tracer_point, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
+import { SVG } from '@svgdotjs/svg.js'
 
 export const titre = 'Déterminer les coordonnées (relatives) d’un point'
 
