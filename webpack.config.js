@@ -68,6 +68,8 @@ const config = {
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
     new CopyPlugin({
+      // minimized: true sert à éviter de filer le fichier à terser pour minification
+      // Cf https://webpack.js.org/plugins/copy-webpack-plugin/#info
       patterns: [
         { from: 'src/assets', to: 'assets', info: { minimized: true } },
         { from: 'src/php', to: './', info: { minimized: true } },
