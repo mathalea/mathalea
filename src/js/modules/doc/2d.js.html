@@ -402,8 +402,8 @@ export function appartientDemiDroite(C,A,B){
  */
 export function pointSurCercle(c, angle, nom, positionLabel = "above") {
   if (typeof angle != "number") angle = randint(-180, 180);
-  let x = c.centre.x + c.rayon * Math.cos(Math.radians(angle));
-  let y = c.centre.y + c.rayon * Math.sin(Math.radians(angle));
+  let x = c.centre.x + c.rayon * Math.cos(radians(angle));
+  let y = c.centre.y + c.rayon * Math.sin(radians(angle));
   return point(x, y, nom, positionLabel);
 }
 /**
@@ -4002,7 +4002,7 @@ export function affiniteOrtho(A, d, k, nom = "", positionLabel = "above") {
  */
 export function similitude(A, O, a, k, nom = "", positionLabel = "above") {
   if (A.constructor == Point) {
-    let ra = Math.radians(a);
+    let ra = radians(a);
     let x = calcul(
       O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     );
@@ -8466,8 +8466,8 @@ export function creerLutin(...args) {
 export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
-  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(Math.radians(lutin.orientation)));
-  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(Math.radians(lutin.orientation)));
+  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(radians(lutin.orientation)));
+  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(radians(lutin.orientation)));
   lutin.historiquePositions.push([lutin.x, lutin.y]);
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite]);

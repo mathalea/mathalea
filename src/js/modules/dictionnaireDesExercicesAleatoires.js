@@ -521,8 +521,14 @@ export default {
     "amcReady": false,
     "name": "3L14"
   },
+  "3L15-1": {
+    "titre": "Résoudre une équation $x^2 = a$",
+    "url": "/exercices/3e/3L15-1.js",
+    "amcReady": false,
+    "name": "3L15-1"
+  },
   "3L15": {
-    "titre": "Résoudre une équation du second degré",
+    "titre": "Équations du second degré se ramenant au premier degré",
     "url": "/exercices/3e/3L15.js",
     "amcReady": false,
     "name": "3L15"

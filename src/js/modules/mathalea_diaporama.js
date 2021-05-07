@@ -21,7 +21,7 @@ $(document).ready(function () {
       chrono = mathalea.duree
       const params = new URL(document.location).searchParams
       params.set('duree', mathalea.duree)
-      document.history.pushState(null, null, '?' + params.toString())
+      window.history.pushState(null, null, '?' + params.toString())
     }
   })
 
