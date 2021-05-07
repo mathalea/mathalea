@@ -6,7 +6,7 @@ import { combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 export const titre = 'Faire des camenberts pour travailler les fractions'
 
 /**
- * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
+ * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
  * ref P012
  * @Auteur Jean-Claude Lhote
  */
