@@ -13,6 +13,26 @@ export async function iep (elt, xml) {
 }
 
 /**
+ * Charge mathgraph dans l'élément fourni
+ * @param {HTMLElement} elt
+ * @param {Object} svgOptions Options du svg créé (taille et id, cf {@link https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad})
+ * @param {Object} mtgOptions Options pour l'appli (boutons, menus, etc., cf {@link https://www.mathgraph32.org/documentation/loading/global.html#MtgOptions}
+ * @return {Promise<MtgApp>} l'appli mathgraph {@link https://www.mathgraph32.org/documentation/loading/MtgApp.html}
+ */
+export async function mathgraph (elt, svgOptions, mtgOptions) {
+  if (loadjs.isDefined('mathgraph')) {
+    // déjà appelé, on attend que le chargement se termine
+    await loadjs.ready('mathgraph')
+  } else {
+    // 1er appel
+    await loadjs('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js', 'mathgraph')
+  }
+  // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
+  const mtgApp = await window.mtgLoad(elt, svgOptions, mtgOptions)
+  return mtgApp
+}
+
+/**
  * Charge prism
  * @return {Promise<undefined>}
  */
