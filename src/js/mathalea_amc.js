@@ -185,8 +185,8 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
           param_tooltip += (obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2]) + '\n'
         }
-        if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
-          param_tooltip += (obj.besoin_formulaire2_numerique[0] + ': \n' + obj.besoin_formulaire2_numerique[2])
+        if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+          param_tooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
         }
         param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
         contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
@@ -851,117 +851,117 @@ function parametres_exercice (exercice) {
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire2_case_a_cocher) {
+    if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup2" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire2_case_a_cocher[0] +
+                    exercice[i].besoinFormulaire2CaseACocher[0] +
                     " : </label>\
 			<input id='form_sup2" +
                     i +
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire2_numerique) {
+    if (exercice[i].besoinFormulaire2Numerique) {
       // Création d'un formulaire numérique
-      if (exercice[i].besoin_formulaire2_numerique[2]) {
+      if (exercice[i].besoinFormulaire2Numerique[2]) {
         // Si un tooltip est défini
         div_parametres_generaux.innerHTML +=
                         '<div data-tooltip="' +
-                        exercice[i].besoin_formulaire2_numerique[2] +
+                        exercice[i].besoinFormulaire2Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup2' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire2_numerique[0] +
+                        exercice[i].besoinFormulaire2Numerique[0] +
                         ' : </label><input id="form_sup2' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire2_numerique[1] +
+                        exercice[i].besoinFormulaire2Numerique[1] +
                         '"></div>'
       } else {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_sup2' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire2_numerique[0] +
+                        exercice[i].besoinFormulaire2Numerique[0] +
                         ' : </label><input id="form_sup2' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire2_numerique[1] +
+                        exercice[i].besoinFormulaire2Numerique[1] +
                         '"></div>'
       }
     }
 
-    if (exercice[i].besoin_formulaire2_texte) {
+    if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<p></p><div style='display: inline'><label for='form_sup2" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire2_texte[0] +
+                    exercice[i].besoinFormulaire2Texte[0] +
                     " : </label>\
 			<div style='display: inline' data-tooltip='" +
-                    exercice[i].besoin_formulaire2_texte[1] +
+                    exercice[i].besoinFormulaire2Texte[1] +
                     "' data-inverted=''><input id='form_sup2" +
                     i +
                     "' type='text' size='20' ></div></div>"
     }
 
-    if (exercice[i].besoin_formulaire3_case_a_cocher) {
+    if (exercice[i].besoinFormulairei3CaseACocher) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire3_case_a_cocher[0] +
+                    exercice[i].besoinFormulairei3CaseACocher[0] +
                     " : </label>\
 			<input id='form_sup3" +
                     i +
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire3_numerique) {
+    if (exercice[i].besoinFormulaire3Numerique) {
       // Création d'un formulaire numérique
-      if (exercice[i].besoin_formulaire3_numerique[2]) {
+      if (exercice[i].besoinFormulaire3Numerique[2]) {
         // Si un tooltip est défini
         div_parametres_generaux.innerHTML +=
                         '<div data-tooltip="' +
-                        exercice[i].besoin_formulaire3_numerique[2] +
+                        exercice[i].besoinFormulaire3Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup3' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire3_numerique[0] +
+                        exercice[i].besoinFormulaire3Numerique[0] +
                         ' : </label><input id="form_sup3' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire3_numerique[1] +
+                        exercice[i].besoinFormulaire3Numerique[1] +
                         '"></div>'
       } else {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_sup3' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire3_numerique[0] +
+                        exercice[i].besoinFormulaire3Numerique[0] +
                         ' : </label><input id="form_sup3' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire3_numerique[1] +
+                        exercice[i].besoinFormulaire3Numerique[1] +
                         '"></div>'
       }
     }
 
-    if (exercice[i].besoin_formulaire3_texte) {
+    if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<p></p><div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire3_texte[0] +
+                    exercice[i].besoinFormulaire3Texte[0] +
                     " : </label>\
 			<div style='display: inline' data-tooltip='" +
-                    exercice[i].besoin_formulaire3_texte[1] +
+                    exercice[i].besoinFormulaire3Texte[1] +
                     "' data-inverted=''><input id='form_sup3" +
                     i +
                     "' type='text' size='20' ></div></div>"
@@ -1058,7 +1058,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_case_a_cocher) {
+    if (exercice[i].besoinFormulaire2CaseACocher) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].checked = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup2[i].addEventListener('change', function (e) {
@@ -1068,7 +1068,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_numerique) {
+    if (exercice[i].besoinFormulaire2Numerique) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup2[i].addEventListener('change', function (e) {
@@ -1078,7 +1078,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_texte) {
+    if (exercice[i].besoinFormulaire2Texte) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
@@ -1095,7 +1095,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_case_a_cocher) {
+    if (exercice[i].besoinFormulairei3CaseACocher) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup3[i].addEventListener('change', function (e) {
@@ -1115,7 +1115,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_numerique) {
+    if (exercice[i].besoinFormulaire3Numerique) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup3[i].addEventListener('change', function (e) {
@@ -1125,7 +1125,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_texte) {
+    if (exercice[i].besoinFormulaire3Texte) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
