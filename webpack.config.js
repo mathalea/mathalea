@@ -228,7 +228,6 @@ const config = {
     // et un loader qui doit traiter le fichier, cf https://webpack.js.org/loaders/
     // https://webpack.js.org/configuration/module/#modulerules
     rules: [
-      // le js doit passer par babel
       {
         test: /\.json$/,
         loader: 'json-loader'
@@ -236,19 +235,16 @@ const config = {
       {
         // on ne veut passer par babel que notre code (et pas tout le code qu'on importe de node_modules)
         // la règle exclude: /node_modules\// marche pas forcément, à cause des symlinks (et pnpm en met partout, c'est aussi ça qui le rend efficace)
-        // on procède plutôt en incluant que ce qui est chez nous
+        // on procède plutôt en limitant à ce qui est chez nous
         test: /\.js$/,
         include: path.resolve(__dirname, 'src', 'js'),
         // pas la peine d'exclure assets/externalJs car il est pas dans l'include
-        /* test: toBabelize,
-        options: babelOptions, */
         loader: 'babel-loader'
       },
       {
         // la règle précédente étant restrictive (pour limiter le nb de js qui passent par babel), faut ajouter les qq modules dont on importe des sources
         // vu que l'on ne cible que des navigateurs récents c'est probablement inutile, mais on sait pas trop…
         test: /instrumenpoche\/src\/.+\.js$/,
-        // pas la peine d'exclure assets/externalJs car il est pas dans l'include
         loader: 'babel-loader'
       },
       // le css par css loader
