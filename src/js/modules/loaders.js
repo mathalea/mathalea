@@ -19,7 +19,7 @@ export async function iep (elt, xml) {
  * @param {Object} mtgOptions Options pour l'appli (boutons, menus, etc., cf {@link https://www.mathgraph32.org/documentation/loading/global.html#MtgOptions}
  * @return {Promise<MtgApp>} l'appli mathgraph {@link https://www.mathgraph32.org/documentation/loading/MtgApp.html}
  */
-export async function mathgraph (elt, svgOptions, mtgOptions) {
+export async function mtgLoad (elt, svgOptions, mtgOptions) {
   if (loadjs.isDefined('mathgraph')) {
     // déjà appelé, on attend que le chargement se termine
     await loadjs.ready('mathgraph')

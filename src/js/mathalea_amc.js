@@ -688,22 +688,6 @@ const checkXCas = () => {
   })
 }
 
-// GESTION DE MG32
-/**
-    * Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
-    * @Auteur Rémi Angot
-    */
-function MG32_modifie_figure (numero_figure) {
-  let code_pour_modifier_la_figure = listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
-  if (window.mtg32App.docs.length == 1) {
-    code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace('display', 'updateDisplay')
-  }
-  const modification = new Function('numero_figure', code_pour_modifier_la_figure)
-  modification(numero_figure)
-}
-
-// FIN DE GESTION DE MG32
-
 // Gestion des paramètres
 const div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
 const form_nbQuestions = []

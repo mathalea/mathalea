@@ -128,16 +128,16 @@ export default function Exercice_Trigo_angles () {
 
       this.typeExercice = 'MG32'
       this.MG32codeBase64 = codeBase64
-      this.MG32code_pour_modifier_la_figure = `
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x2", "${y2}");
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x1", "${x1}");
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "alphadeg", "${alpha1deg}");
-			mtg32App.rename("MG32svg${numeroExercice}","A","${s0}");
-			mtg32App.rename("MG32svg${numeroExercice}","B","${s1}");
-			mtg32App.rename("MG32svg${numeroExercice}","C","${s2}");
-			mtg32App.calculate("MG32svg${numeroExercice}");
-			mtg32App.display("MG32svg${numeroExercice}");
-			`
+      this.mg32init = (mtg32App, idDoc) => {
+        mtg32App.giveFormula2(idDoc, 'x2', y2)
+        mtg32App.giveFormula2(idDoc, 'x1', x1)
+        mtg32App.giveFormula2(idDoc, 'alphadeg', alpha1deg)
+        mtg32App.rename(idDoc, 'A', s0)
+        mtg32App.rename(idDoc, 'B', s1)
+        mtg32App.rename(idDoc, 'C', s2)
+        mtg32App.calculate(idDoc)
+        mtg32App.display(idDoc)
+      }
       texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`
     } else {
       // sortie Latex

@@ -3,8 +3,9 @@
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { iep, loadScript, prism } from './modules/loaders'
-
+import { iep, prism } from './modules/loaders'
+import { waitFor } from './modules/outilsDom'
+import { mg32DisplayAll } from './modules/mathgraph'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -169,40 +170,29 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
     variation: 'inverted',
     inline: true
   })
-  let besoinScratch = false
-  let besoinIEP = false
-  let besoinMG32 = false
-  for (let i = 0; i < listeObjetsExercice.length; i++) {
-    if (listeObjetsExercice[i].typeExercice === 'MG32') {
-      besoinMG32 = true
-    }
-  }
-  if (besoinMG32) {
+
+  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+  if (exosMg32.length) {
+    // faut charger mathgraph et lui filer ces figures
     try {
-      const result = await loadjs('https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js')
-      // Ajoute figures MG32
-      for (let i = 0; i < listeObjetsExercice.length; i++) {
-        if (listeObjetsExercice[i].typeExercice === 'MG32') {
-          MG32_ajouter_figure(i)
-        }
-      }
-      MG32_tracer_toutes_les_figures()
+      // faut attendre que le div soit créé
+      // @todo ce code devrait plutôt être exécuté après la création du div
+      // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
+      // => il n'y aurait plus de couplage sur le préfixe MG32div)
+      await waitFor('MG32div0')
+      await mg32DisplayAll(exosMg32)
     } catch (error) {
       // On traite l'erreur
       console.log(error)
+      // FIXME afficher un retour utilisateur
     }
   }
-  for (let i = 0; i < listeObjetsExercice.length; i++) {
-    if (listeObjetsExercice[i].typeExercice === 'Scratch') {
-      besoinScratch = true
-    }
-    if (listeObjetsExercice[i].typeExercice === 'IEP') {
-      besoinIEP = true
-    }
-  }
+
+  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
   if (besoinScratch) {
     await loadjs('assets/externalJs/scratchblocks-v3.5-min.js')
     // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
+    // @todo mettre ce code de chargement dans modules/loaders.js et l'importer
     scratchTraductionFr()
     scratchblocks.renderMatching('pre.blocks', {
       style: 'scratch3',
@@ -214,6 +204,8 @@ async function gestion_modules (isdiaporama, listeObjetsExercice) { // besoin ka
       languages: ['fr']
     })
   }
+
+  const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
   if (besoinIEP) {
     for (const id of window.listeAnimationsIepACharger) {
       const element = document.getElementById(`IEPContainer${id}`)
@@ -886,105 +878,6 @@ const checkXCas = () => {
     }, 500)
   })
 }
-
-// GESTION DE MG32
-/**
-    * Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
-    * @Auteur Rémi Angot
-    */
-function MG32_modifie_figure (numero_figure) {
-  let code_pour_modifier_la_figure = listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
-  if (window.mtg32App.docs.length === 1) {
-    code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace('display', 'updateDisplay')
-  }
-  // eslint-disable-next-line no-new-func
-  const modification = new Function('numero_figure', code_pour_modifier_la_figure)
-  modification(numero_figure)
-}
-
-/**
-    * Actualise toutes les figures MG32 avec les nouvelles valeurs
-    * @Auteur Rémi Angot
-    */
-function MG32_modifie_toutes_les_figures () {
-  for (let i = 0; i < liste_des_exercices.length; i++) {
-    if (listeObjetsExercice[i].typeExercice === 'MG32') {
-      MG32_modifie_figure(i)
-    }
-  }
-}
-
-/**
-    * Ajoute une figure MG32 dans le code HTML de la page
-    * @Auteur Rémi Angot
-    */
-function MG32_ajouter_figure (numeroExercice) {
-  if (window.mtg32App) {
-    for (let i = 0; i < mtg32App.docs.length; i++) {
-      mtg32App.removeDoc(mtg32App.docs[i].idDoc)
-    }
-  }
-  MG32_tableau_de_figures.push(
-    // pour chaque figure on précise ici ses options
-    {
-      idContainer: `MG32div${numeroExercice}`,
-      svgOptions: {
-        width: `${listeObjetsExercice[numeroExercice].dimensionsDivMg32[0]}`,
-        height: `${listeObjetsExercice[numeroExercice].dimensionsDivMg32[1]}`,
-        idSvg: `MG32svg${numeroExercice}`
-      },
-      mtgOptions: {
-        fig: listeObjetsExercice[numeroExercice].MG32codeBase64,
-        isEditable: listeObjetsExercice[numeroExercice].mg32Editable
-      }
-    }
-  )
-
-  if (listeObjetsExercice[numeroExercice].MG32codeBase64corr) {
-    MG32_tableau_de_figures.push(
-      // pour chaque figure on précise ici ses options
-      {
-        idContainer: `MG32divcorr${numeroExercice}`,
-        svgOptions: {
-          width: `${listeObjetsExercice[numeroExercice].dimensionsDivMg32[0]}`,
-          height: `${listeObjetsExercice[numeroExercice].dimensionsDivMg32[1]}`,
-          idSvg: `MG32svgcorr${numeroExercice}`
-        },
-        mtgOptions: {
-          fig: listeObjetsExercice[numeroExercice].MG32codeBase64corr,
-          isEditable: false
-        }
-      }
-    )
-  }
-}
-
-/**
-    * Pour chaque figure on récupère une promesse de chargement,
-    * on lance tout en parallèle,
-    * et quand toutes seront résolues on continue
-    * @Auteur Rémi Angot
-    */
-function MG32_tracer_toutes_les_figures () {
-  (function verifie_div_MG32 () {
-    const el = document.getElementsByClassName('MG32')
-    // Sélectionne les div de classe MG32
-    if (el.length) { // S'ils existent, on peut appeler MG32
-      Promise.all(MG32_tableau_de_figures.map(({ idContainer, svgOptions, mtgOptions }) => mtgLoad(idContainer, svgOptions, mtgOptions)))
-        .then(results => {
-          // results est le tableau des valeurs des promesses résolues, avec la même instance du player pour chacune, la 1re valeur nous suffit donc
-          window.mtg32App = results[0]
-          // on peut l'utiliser…
-          MG32_modifie_toutes_les_figures()
-        })
-        .catch(error => console.error(error))
-    } else {
-      setTimeout(verifie_div_MG32, 300) // retente dans 300 milliseconds
-    }
-  })()
-}
-
-// FIN DE GESTION DE MG32
 
 // Gestion des paramètres
 const div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
