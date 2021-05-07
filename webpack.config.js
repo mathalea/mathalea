@@ -150,10 +150,10 @@ const config = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: 'src/assets', to: 'assets' },
-        { from: 'src/php', to: './' },
-        { from: 'src/assets/favicon.ico', to: './' },
-        { from: 'src/.htaccess', to: './' }
+        { from: 'src/assets', to: 'assets', info: { minimized: true } },
+        { from: 'src/php', to: './', info: { minimized: true } },
+        { from: 'src/assets/favicon.ico', to: './', info: { minimized: true } },
+        { from: 'src/.htaccess', to: './', info: { minimized: true } }
       ]
     }),
     new MiniCssExtractPlugin({
