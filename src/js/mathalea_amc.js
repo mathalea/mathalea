@@ -305,7 +305,7 @@ function mise_a_jour_du_code () {
     for (let i = 0; i < liste_des_exercices.length; i++) {
       listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
       listeObjetsExercice[i].nouvelleVersion(i)
-      questions.push(listeObjetsExercice[i].QCM)
+      questions.push(listeObjetsExercice[i].qcm)
 
       if (typeof listeObjetsExercice[i].listePackages === 'string') {
         listePackages.add(listeObjetsExercice[i].listePackages)
