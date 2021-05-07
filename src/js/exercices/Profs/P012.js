@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/Fractions'
+import { combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 
 export const titre = 'Faire des camenberts pour travailler les fractions'
 
@@ -12,42 +13,29 @@ export const titre = 'Faire des camenberts pour travailler les fractions'
 export default function Camemberts () {
   Exercice.call(this)
   this.nb_cols = 1
-  this.nb_questions = 10
+  this.nbQuestions = 3
   this.nb_questions_modifiable = false
-  this.sup = 6 // nombre de parts
+  this.sup = '6' // nombre de parts
+
   this.sup2 = 5 // nombre de disques par ligne
-  this.sup3 = 1 // type 1: camembert, 2: rectangle, 3: segment
   this.titre = titre
 
-  this.nouvelle_version = function () {
+  this.nouvelleVersion = function () {
     this.contenu = ''
+    const nbParts = this.sup.split('-')
+    const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
     let f
-    const fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 20, scale: 0.5 }
-    for (let i = 0; i < this.nb_questions; i++) {
-      switch (parseInt(this.sup3)) {
-        case 1:
-          f = fraction(parseInt(this.sup) * parseInt(this.sup2), parseInt(this.sup)).representation(0, 0, 2, 0, 'gateau', 'white')
-
-          break
-        case 2:
-          f = fraction(parseInt(this.sup) * parseInt(this.sup2), parseInt(this.sup)).representation(0, 0, 2, 0, 'barre', 'white')
-
-          break
-        case 3:
-          f = fraction(parseInt(this.sup) * parseInt(this.sup2), parseInt(this.sup)).representation(0, 0, 2, 0, 'segment', 'white')
-
-          break
-      }
+    const fenetre = { xmin: -2.5, xmax: 35, ymin: -2.5, ymax: 2.5, pixelsParCm: 20, scale: 0.5 }
+    for (let i = 0; i < this.nbQuestions; i++) {
+      f = fraction(parseInt(secteurs[i]) * parseInt(this.sup2), parseInt(secteurs[i])).representation(0, 0, 2, 0, 'gateau', 'white')
       this.contenu += mathalea2d(fenetre, f)
-      if (sortie_html) {
+      if (sortieHtml) {
         this.contenu += '<br>'
       } else {
         this.contenu += '\\\\'
       }
     }
-
-    this.besoin_formulaire_numerique = ['Nombre de parts', 20]
-    this.besoin_formulaire2_numerique = ['Nombre de disques par ligne', 10]
-    this.besoin_formulaire3_numerique = ['Type de représentation', 3, '1: Camembert\n2: Rectangle\n3: Segment']
   }
+  this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets']
+  this.besoinFormulaire2Numerique = ['Nombre de disques par ligne', 10]
 }

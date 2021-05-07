@@ -60,7 +60,7 @@ export default function Operations_posees() {
         }
     };
     this.besoinFormulaireNumerique = ["Opération", 5, "1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale"];
-    this.besoin_formulaire2_texte = ["Deux nombres séparés par un tiret(séparateur décimal = le point)"]
-    this.besoin_formulaire3_numerique = ["Nombre de chiffres après la virgule pour le quotient"]
+    this.besoinFormulaire2Texte = ["Deux nombres séparés par un tiret(séparateur décimal = le point)"]
+    this.besoinFormulaire3Numerique = ["Nombre de chiffres après la virgule pour le quotient"]
 }
 

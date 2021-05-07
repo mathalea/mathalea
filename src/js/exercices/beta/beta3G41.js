@@ -342,8 +342,8 @@ export default function VuesEmpilementCubes() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
   this.besoinFormulaireNumerique = ['Type de questions', 2, `1 : un solide et ses trois vues\n 2 : on demande une vue par solide`]
-  this.besoin_formulaire2_numerique = ["Taille de l'empilement",5,`3 \n4 \n5 \n6 \n7`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+  this.besoinFormulaire2Numerique = ["Taille de l'empilement",5,`3 \n4 \n5 \n6 \n7`];
+  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
   
   } // Fin de l'exercice.
   

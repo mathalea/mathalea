@@ -90,5 +90,5 @@ export default function Notation_scientifique() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Traduire en notation décimale"];
-  this.besoin_formulaire2_numerique = ["Niveaux de difficulté", 3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
+  this.besoinFormulaire2Numerique = ["Niveaux de difficulté", 3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
 }

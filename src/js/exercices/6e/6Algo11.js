@@ -503,6 +503,6 @@ export default function Note_la_couleur () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireCaseACocher = ['Plateau avec numéros', true]
-  this.besoin_formulaire2_numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
-  this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)', 6]
+  this.besoinFormulaire2Numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
+  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximmum 6)', 6]
 }

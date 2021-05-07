@@ -95,6 +95,6 @@ export default function Terme_inconnu_de_somme() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"];
-  this.besoin_formulaire2_numerique = ["Valeur maximale", 9999]
-  this.besoin_formulaire3_numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
+  this.besoinFormulaire2Numerique = ["Valeur maximale", 9999]
+  this.besoinFormulaire3Numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
 }

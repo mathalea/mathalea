@@ -209,7 +209,7 @@ export default function Reduire_dinstinction_somme_produit() {
 		}
 		listeQuestionsToContenu(this);
 	}
-	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
+	//this.besoinFormulaire2CaseACocher = ["Avec décimaux.",false]
 
 }
 

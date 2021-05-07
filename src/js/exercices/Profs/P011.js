@@ -75,8 +75,8 @@ export default function Exercice_zero_mathalea2d() {
         this.contenu=texte;
     }
   this.besoinFormulaireNumerique = ['Type de triangle', 6, `1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l'angle entre ces côtés`]
-  this.besoin_formulaire2_texte = ["Nom du triangle",`ABC par exemple`];
-  this.besoin_formulaire3_texte =['paramètres séparés par des espaces','3 4 5']
+  this.besoinFormulaire2Texte = ["Nom du triangle",`ABC par exemple`];
+  this.besoinFormulaire3Texte =['paramètres séparés par des espaces','3 4 5']
   
   } // Fin de l'exercice.
   

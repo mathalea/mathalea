@@ -150,6 +150,6 @@ export default function Problemes_Thales() {
 		this.listeCorrections[0] = texteCorr;
 		listeQuestionsToContenu(this);
 		// this.besoinFormulaireNumerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
-		// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
+		// this.besoinFormulaire2CaseACocher = ['Sans figures']
 	};
 }

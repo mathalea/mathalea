@@ -162,9 +162,9 @@ export default function Premier_escape_game_mathalea() {
 		this.listeCorrections.push(texteCorr);
 		listeQuestionsToContenu(this);
 
-		//	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+		//	this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 	};
 	this.besoinFormulaireNumerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
-	this.besoin_formulaire2_texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):'];
+	this.besoinFormulaire2Texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):'];
 
 }
