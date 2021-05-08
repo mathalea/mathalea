@@ -4,6 +4,10 @@ let chrono
 let intervalID = {}
 
 $(document).ready(function () {
+  $('#prev').hide()
+  $('#next').hide()
+  $('#icones').hide()
+  $('#corrections_et_parametres').hide()
   const formChoixDeLaDuree = document.getElementById('choix_de_la_duree')
   if (mathalea.duree) {
     formChoixDeLaDuree.value = mathalea.duree
@@ -40,12 +44,6 @@ $(document).ready(function () {
     $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 0.8)
     $('.mathalea2d').css('height', parseFloat($('.mathalea2d').css('height')) * 0.8)
   })
-  // $("#btn_zoom_plus_correction").click(function () {
-  //     $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 1.2);
-  // });
-  // $("#btn_zoom_moins_correction").click(function () {
-  //     $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 0.8);
-  // });
 
   let zoom = 1
   $('#btn_zoom_plus_correction').click(function () {
@@ -63,9 +61,7 @@ $(document).ready(function () {
 
   $('#formulaire_choix_des_exercices').hide()
   $('#exercices').hide()
-  $('#icones').show()
-  $('#corrections_et_parametres').show()
-  $('#parametres_generaux').show()
+
 
   $('#pause').click(function () {
     clearInterval(intervalID)
@@ -73,6 +69,8 @@ $(document).ready(function () {
 
   $('#play').click(function () {
     if (premierClicSurPlay) {
+	  $('#prev').show()
+      $('#next').show()
       chrono = 10
       $('.mathalea2d').css('font-size', 12)
       $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 2)

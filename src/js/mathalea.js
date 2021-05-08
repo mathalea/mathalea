@@ -378,6 +378,8 @@ function mise_a_jour_du_code () {
   if (sortieHtml && est_diaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
+	  $('#icones').show() //on affiche les boutons du diaporama uniquement quand un exercice est choisi.
+	  $('#corrections_et_parametres').show()
       $('#parametres_generaux').show()
     } else {
       $('#exercices_disponibles').show()
