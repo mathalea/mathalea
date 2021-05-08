@@ -53,7 +53,6 @@ export function gestionQcmInteractif (exercice) {
 }
 
 /**
- * 
  * @param {int} numeroExercice Indice de l'exercice
  * @param {int} i Indice de la question
  * @param {*} tabrep Tableau des propositions
@@ -70,19 +69,29 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
     espace = '\\qquad'
   }
   if (!mathalea.sortieAMC) {
-    texte += `<br>  Réponses possibles : ${espace}  <form id="formEx${numeroExercice}Q${i}">`
+    if (sortieHtml) {
+      texte += `<br>  Réponses possibles : ${espace}  <form id="formEx${numeroExercice}Q${i}">`
+    } else {
+      texte += `<br>  Réponses possibles : ${espace}`
+    }
     for (let rep = 0; rep < tabrep.length; rep++) {
-      texte += `<div class="ui checkbox ex${numeroExercice}">
-          <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
-          <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
-        </div>`
+      if (sortieHtml) {
+        texte += `<div class="ui checkbox ex${numeroExercice}">
+            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
+            <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
+          </div>`
+      } else {
+        texte += `$\\square\\;$ ${tabrep[rep]}` + espace
+      }
       if (tabicone[rep] === 1) {
         texteCorr += `$\\blacksquare\\;$ ${tabrep[rep]}` + espace
       } else {
         texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
       }
     }
-    texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+    if (sortieHtml) {
+      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+    }
   }
   return { texte: texte, texteCorr: texteCorr }
 }

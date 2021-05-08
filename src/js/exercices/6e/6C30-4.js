@@ -67,7 +67,7 @@ export default function PlacerLaVirgule () {
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone, texte, texteCorr).texte
+        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
         texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
       } else {
         texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$ chaque chiffre prend une valeur $${texNombrec(10 ** (-coef))}$ fois plus petite.<br>`
