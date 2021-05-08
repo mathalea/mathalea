@@ -19,7 +19,6 @@ export default function DeterminerFonctionAffine () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    Exercice.call(this)
     this.titre = titre
     this.nbQuestions = 4 // Ici le nombre de questions
     this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
