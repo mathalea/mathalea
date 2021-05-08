@@ -2261,6 +2261,12 @@ export default {
     "amcReady": false,
     "name": "beta2L12-2"
   },
+  "beta3F22": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/beta3F22.js",
+    "amcReady": false,
+    "name": "beta3F22"
+  },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
     "url": "/exercices/beta/beta3F23.js",
