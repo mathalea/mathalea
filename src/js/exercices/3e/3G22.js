@@ -710,6 +710,6 @@ export default function Agrandissement_reduction() {
 	};
 
 	this.besoinFormulaireNumerique = ['Type d\'exercices', 3, '1 : Calcul d\' aire et de volumes\n 2 : Problème complexe\n 3 : Mélange'];
-	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+	this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 
 }

@@ -143,6 +143,6 @@ export default function Exercice_additionner_des_fractions() {
 	};
 	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
 2 : Cas général"];
-	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres relatifs'];
+	this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs'];
 
 }

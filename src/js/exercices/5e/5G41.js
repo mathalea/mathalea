@@ -375,5 +375,5 @@ export default function Constructions_parallelogrammes_particuliers() {
 
     };
     this.besoinFormulaireNumerique = ['Niveau de diffculté', 3, "1 : Figures faciles\n2 : Figures plus difficiles\n3 : Figure au hasard"];
-    // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+    // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	
 }

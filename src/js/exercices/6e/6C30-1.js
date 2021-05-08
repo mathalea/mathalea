@@ -198,6 +198,6 @@ let reponse
     3,
     "1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimales et fractionnaires",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des calculs à trous"];
+  this.besoinFormulaire2CaseACocher = ["Avec des calculs à trous"];
 }
 

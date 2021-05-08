@@ -146,5 +146,5 @@ export default function Exercice_perimetres_et_aires(difficulte = 1) {
     3,
     "1 : Carré, rectangle et triangle rectangle\n2: Cercles\n3: Mélangé",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux", false];
+  this.besoinFormulaire2CaseACocher = ["Avec des décimaux", false];
 }

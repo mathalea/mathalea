@@ -280,8 +280,8 @@ export default function Stabilisation_frequence() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
   this.besoinFormulaireNumerique = ['Type d\'expérience', 2, `1 : Tirage de dés\n 2 : Tirage dans une urne`]
-  this.besoin_formulaire2_texte = ["Nombre de tirages"];
-  this.besoin_formulaire3_case_a_cocher =['équiprobabilité',true]
+  this.besoinFormulaire2Texte = ["Nombre de tirages"];
+  this.besoinFormulaire3CaseACocher =['équiprobabilité',true]
   
   } // Fin de l'exercice.
   

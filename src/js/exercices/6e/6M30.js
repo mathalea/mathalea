@@ -213,5 +213,5 @@ export default function Calcul_de_volumes() {
     2,
     "1 : Sans conversions\n2 : Avec des conversions",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux", false];
+  this.besoinFormulaire2CaseACocher = ["Avec des décimaux", false];
 }

@@ -110,6 +110,6 @@ export default function Calculs_avec_puissances_de_dix() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Exercice à trou"];
-  this.besoin_formulaire2_numerique = ["Niveaux de difficulté", 3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
+  this.besoinFormulaire2Numerique = ["Niveaux de difficulté", 3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
 }
 

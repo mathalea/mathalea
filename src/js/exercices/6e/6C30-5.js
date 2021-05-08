@@ -166,8 +166,8 @@ export default function Multiplier_par_001() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
   this.besoinFormulaireCaseACocher = ['Nombres entiers',true]
-  this.besoin_formulaire2_numerique = ["Type de question",4,`1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à rtrouver\n 4 : Alternance des 3 types de question`];
-  //this.besoin_formulaire3_case_a_cocher =['Mode QCM',false]
+  this.besoinFormulaire2Numerique = ["Type de question",4,`1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à rtrouver\n 4 : Alternance des 3 types de question`];
+  //this.besoinFormulaire3CaseACocher =['Mode QCM',false]
    
   } // Fin de l'exercice.
   

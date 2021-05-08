@@ -77,7 +77,7 @@ export default function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9
     "Choix des tables",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     "Style de questions",
     3,
     "1 : Classique\n2: À trous\n3: Mélangé",

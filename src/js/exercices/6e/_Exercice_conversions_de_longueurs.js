@@ -209,5 +209,5 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
     "1 : De dam, hm, km vers m\n\
 2 : De dm, cm, mm vers m\n3 : Conversions en mètres\n4 : Toutes les conversions de longueurs",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des nombres décimaux"];
+  this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
 }

@@ -91,7 +91,7 @@ export default function Nombre_a_placer() {
 
   };
   this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
-  this.besoin_formulaire2_numerique = ['Saisir le nombre décimal '];
-  this.besoin_formulaire3_case_a_cocher = ['Afficher les abscisses'];
+  this.besoinFormulaire2Numerique = ['Saisir le nombre décimal '];
+  this.besoinFormulaire3CaseACocher = ['Afficher les abscisses'];
 
 }

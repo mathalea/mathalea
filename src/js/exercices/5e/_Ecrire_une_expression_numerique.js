@@ -94,8 +94,8 @@ export default function Ecrire_une_expression_numerique() {
 		listeQuestionsToContenu(this);
 	}
 	this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n 1 : Expressions de base à une opération\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip
-	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.", false]
-	this.besoin_formulaire3_case_a_cocher = ["Avec le signe × devant les parenthèses", true]
+	this.besoinFormulaire2CaseACocher = ["Avec décimaux.", false]
+	this.besoinFormulaire3CaseACocher = ["Avec le signe × devant les parenthèses", true]
 
 }
 

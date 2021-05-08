@@ -231,7 +231,7 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de dix\n3 : Encadrer entre deux multiples consécutifs de cent"];
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 
 };
 

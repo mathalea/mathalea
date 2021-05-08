@@ -92,5 +92,4 @@ export default function PlacerLaVirgule () {
   // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
   gestionQcmInteractif(this)
-  // On attend que les exercices soient affichés pour tester la présence du bouton
 } // Fin de l'exercice.

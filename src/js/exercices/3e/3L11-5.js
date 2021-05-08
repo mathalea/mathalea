@@ -261,5 +261,5 @@ export default function identites_calculs() {
 
 	};
 	this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 }

@@ -275,5 +275,5 @@ export default function Exercice_conversions_aires(niveau = 1) {
 2 : Conversions en m² avec des divisions\n3 : Conversions en m² avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n\
 5 : Conversions d'hectares et ares en m² \n6 : Toutes les conversions",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des nombres décimaux"];
+  this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
 }

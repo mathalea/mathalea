@@ -90,6 +90,6 @@ export default function Vocabulaire_et_operations() {
     4,
     "1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Décimaux", false];
+  this.besoinFormulaire2CaseACocher = ["Décimaux", false];
 }
 

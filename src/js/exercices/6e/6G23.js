@@ -84,6 +84,6 @@ export default function Construire_un_angle() {
         listeQuestionsToContenu(this)
   };
   this.besoinFormulaireNumerique = ['Précision de l\'angle',3,'1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°'];
- // this.besoin_formulaire2_numerique = ['Niveau de difficulté',2,'1 : Construire un angle\n2 : Construire 2 anles'];
+ // this.besoinFormulaire2Numerique = ['Niveau de difficulté',2,'1 : Construire un angle\n2 : Construire 2 anles'];
 }
 

@@ -196,5 +196,5 @@ export default function Colorier_Deplacement() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = [`Nombre d'instructions de déplacements`, 3, '1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
-  this.besoin_formulaire2_case_a_cocher = ["Avec une boucle"];
+  this.besoinFormulaire2CaseACocher = ["Avec une boucle"];
 }

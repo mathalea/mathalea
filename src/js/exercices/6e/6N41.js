@@ -235,6 +235,6 @@ export default function Egalites_entre_fractions() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Valeur maximale du facteur commun", 99];
-  this.besoin_formulaire2_numerique = ["Type de question",3,"1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance"]
+  this.besoinFormulaire2Numerique = ["Type de question",3,"1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance"]
 }
 

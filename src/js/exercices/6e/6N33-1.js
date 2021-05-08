@@ -105,5 +105,5 @@ let reponse;
     2,
     "1 : pourcentages 10, 20, 30, 40, 50 \n 2: pourcentages 10, 20, 25, 30, 40, 50, 60, 90",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
+  this.besoinFormulaire2CaseACocher = ["Plusieurs méthodes"];
 }
