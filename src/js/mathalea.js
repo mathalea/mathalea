@@ -448,6 +448,8 @@ function mise_a_jour_du_code () {
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestion_modules(false, listeObjetsExercice)
+    const exercicesAffiches = new Event('exercicesAffiches', {bubbles: true})
+    document.dispatchEvent(exercicesAffiches)
   }
   if (!sortieHtml) {
     // Sortie LaTeX
