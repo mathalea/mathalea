@@ -549,8 +549,8 @@ export default function variation_polynome_degre3() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireTexte = ['Coefficients de $ax^3+bx^2+cx+d$ séparés par des /', '-1/-2/3/1 par exemple'];
-  this.besoin_formulaire2_case_a_cocher = ['Représentation graphique', true]
-  this.besoin_formulaire3_case_a_cocher = ['Valeurs exactes',false]
+  this.besoinFormulaire2CaseACocher = ['Représentation graphique', true]
+  this.besoinFormulaire3CaseACocher = ['Valeurs exactes',false]
 }
 
 // python3 list-to-js.py pour faire apparaitre l'exercice dans le menu

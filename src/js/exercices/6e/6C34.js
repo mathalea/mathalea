@@ -107,8 +107,8 @@ export default function dernierChiffre() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
  	this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : sommes\n2: et produits\n3: et différences"]
-  //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
   
   } // Fin de l'exercice.
   

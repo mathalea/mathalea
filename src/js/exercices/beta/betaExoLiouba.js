@@ -162,8 +162,8 @@ mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
   //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
   
   } // Fin de l'exercice.
   

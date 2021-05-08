@@ -224,5 +224,5 @@ export default function Exercice_developper(difficulte = 1) {
   };
   this.besoinFormulaireNumerique = ["Niveau de difficulté",4,"1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un entier positif\n3 : Multiplication par un entier relatif\n4: Multiplication par un facteur relatif et expressions sous des formes différentes ",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["$x$ est la seule lettre utilisée"]
+  this.besoinFormulaire2CaseACocher = ["$x$ est la seule lettre utilisée"]
 }

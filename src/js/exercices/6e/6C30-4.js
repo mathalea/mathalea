@@ -98,7 +98,7 @@ export default function Placer_la_virgule() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true];
- // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+ // this.besoinFormulaire2CaseACocher = ["Mode QCM",false];
+  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 
 } // Fin de l'exercice.

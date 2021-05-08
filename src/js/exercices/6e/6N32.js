@@ -91,5 +91,5 @@ export default function Fractions_d_unite() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Type d\'exercices", 4, "1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
-  this.besoin_formulaire2_numerique = ["Type de cahier", 2, "1 :  petits carreaux\n2 : Cahier gros carreaux type Seyes"];
+  this.besoinFormulaire2Numerique = ["Type de cahier", 2, "1 :  petits carreaux\n2 : Cahier gros carreaux type Seyes"];
 }

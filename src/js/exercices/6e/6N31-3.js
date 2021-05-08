@@ -186,5 +186,5 @@ export default function Arrondir_une_valeur () {
     listeQuestionsToContenu(this)
   };
   this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
-  this.besoin_formulaire2_case_a_cocher = ['Affichage de la valeur donnée à la calculatrice', false]
+  this.besoinFormulaire2CaseACocher = ['Affichage de la valeur donnée à la calculatrice', false]
 }

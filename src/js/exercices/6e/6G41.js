@@ -378,7 +378,7 @@ export default function Representer_un_solide() {
 
     this.besoinFormulaireNumerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés`];
 
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,

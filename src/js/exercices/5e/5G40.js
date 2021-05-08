@@ -173,5 +173,5 @@ export default function Constructions_parallelogrammes () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de questions', 5, '1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Une des configuration au hasard']
-  // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

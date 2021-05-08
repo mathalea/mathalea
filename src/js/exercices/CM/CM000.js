@@ -108,7 +108,7 @@ export default function Tables_additions_soustractions() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Valeur maximale", 9999]; // Texte, tooltip
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     "Style de questions",
     6,
     "1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous",

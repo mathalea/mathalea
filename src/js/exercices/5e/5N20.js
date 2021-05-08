@@ -209,5 +209,5 @@ export default function Exercice_additionner_ou_soustraire_des_fractions_5e (max
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-  this.besoin_formulaire2_numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
+  this.besoinFormulaire2Numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
 }

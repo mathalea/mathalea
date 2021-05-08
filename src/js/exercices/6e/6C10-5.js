@@ -93,7 +93,7 @@ this.qcm=['6C10-5',[],'Labyrinthe de multiples',3,{}]
     listeQuestionsToContenu(this)
    }
   this.besoinFormulaireNumerique = ["Table "]
-  this.besoin_formulaire2_numerique = ["Facteur maximum "];
-  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+  this.besoinFormulaire2Numerique = ["Facteur maximum "];
+  this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 

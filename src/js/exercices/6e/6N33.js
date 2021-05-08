@@ -173,6 +173,6 @@ export default function Fraction_d_un_nombre() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireCaseACocher = ["Forcer résultat entier", true];
-  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes", false];
+  this.besoinFormulaire2CaseACocher = ["Plusieurs méthodes", false];
 }
 

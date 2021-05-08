@@ -61,5 +61,5 @@ export default function Le_compte_est_bonV3() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Limite inférieure", max_solution];
-  this.besoin_formulaire2_numerique = ["Limite supérieure", 100];
+  this.besoinFormulaire2Numerique = ["Limite supérieure", 100];
 }

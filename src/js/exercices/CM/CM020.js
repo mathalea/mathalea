@@ -74,10 +74,10 @@ export default function Le_compte_est_bonV4() {
     "Choix des nombres du tirage (de aucun à cinq)",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip
-  this.besoin_formulaire2_texte = [
+  this.besoinFormulaire2Texte = [
     "Intervalle pour la cible (ou rien pour cible non contrainte)",
     "Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)",
   ]; // Texte, tooltip
 
-  // this.besoin_formulaire2_numerique = ['Limite supérieure',100];
+  // this.besoinFormulaire2Numerique = ['Limite supérieure',100];
 }

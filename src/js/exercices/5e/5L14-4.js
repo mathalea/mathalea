@@ -71,7 +71,7 @@ export default function Calculer_une_expression_litteraleBis() {
 		listeQuestionsToContenu(this);
 	}
 	this.besoinFormulaireCaseACocher = ["Avec signes × devant les parenthèses", true]
-	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.", false]
+	this.besoinFormulaire2CaseACocher = ["Avec décimaux.", false]
 
 }
 

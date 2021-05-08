@@ -282,7 +282,7 @@ export default function Construire_Un_Diagramme() {
         listeQuestionsToContenuSansNumero(this); // On envoie l'exercice à la fonction de mise en page
     };
     this.besoinFormulaireNumerique = [`Nombre d'espèces différentes`, 3, ` 2 espèces\n 2 : 3 espèces\n 3 : 4 espèces`];
-    this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` Entre 1 et 100\n Entre 100 et 1 000`];
-    this.besoin_formulaire3_numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
+    this.besoinFormulaire2Numerique = [`Valeurs numériques`, 2, ` Entre 1 et 100\n Entre 100 et 1 000`];
+    this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
 
 }

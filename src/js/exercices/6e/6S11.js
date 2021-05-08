@@ -245,7 +245,7 @@ export default function Organiser_donnees_depuis_texte() {
     this.listeCorrections.push(texteCorr);
     listeQuestionsToContenu(this);
   }
-  this.besoin_formulaire2_numerique = ['Nombre de fruits différents', 8];
+  this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 8];
   this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false];
 }
 

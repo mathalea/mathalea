@@ -267,6 +267,6 @@ export default function Exercice_conversions_volumes(niveau = 1) {
     "1 : Conversions en mètres-cubes avec des multiplications\n\
 2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des nombres décimaux"];
+  this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
 }
 

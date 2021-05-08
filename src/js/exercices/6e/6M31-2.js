@@ -182,6 +182,6 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
     3,
     "1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Unités de volumes vers litre ou inversement ",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des nombres décimaux"];
+  this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
 }
 

@@ -257,7 +257,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
     listeQuestionsToContenu(this);
   };
   //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,

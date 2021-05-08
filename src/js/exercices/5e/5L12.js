@@ -101,5 +101,5 @@ export default function Reduire_une_expression_litterale() {
 		listeQuestionsToContenu(this);
 	};
 	this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999];
-	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres décimaux'];
+	this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux'];
 }

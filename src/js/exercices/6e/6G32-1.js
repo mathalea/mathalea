@@ -184,7 +184,7 @@ export default function Symetrie_axiale_conservation1() {
 
   }
   this.besoinFormulaireNumerique = ['Type d\'axe', 5, "1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
+  this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }
 
 
