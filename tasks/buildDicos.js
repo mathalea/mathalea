@@ -37,7 +37,8 @@ const dicoAMC = {}
 
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
-  let titre, amcReady
+  // amcType est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
+  let titre, amcReady, amcType, qcmInteractif
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -47,6 +48,12 @@ for (const file of exercicesList) {
     }
     titre = module.titre
     amcReady = Boolean(module.amcReady)
+    if (module.amcReady && !module.amcType) {
+      console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!!\x1b[0m`)
+    } else {
+      qcmInteractif = module.amcType in [1,2] ? true : false // seulement les types 1 et 2 sont de vrais qcm
+      amcType = module.amcType 
+    }    
   } catch (error) {
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code source
@@ -55,6 +62,15 @@ for (const file of exercicesList) {
     if (chunks) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
+      if (amcReady && !/export +const +amcType */.test(srcContent)) {
+        console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!!\x1b[0m`)
+      } else {
+        qcmInteractif = /export +const +amcType *= *([1-2])/.test(srcContent) // seulement les types 1 et 2 sont de vrais qcm
+        if (/export +const +amcType *= *([0-9])/.test(srcContent)) {
+          // galère ça reste à faire
+          //amcType = /export +const +amcType *= *([0-9])/
+        }        
+      }      
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -66,7 +82,7 @@ for (const file of exercicesList) {
     const url = file.substr(prefixLength).replace(/\\/g, '/')
     dicoAlea[name] = { titre, url, amcReady, name }
     if (amcReady) {
-      dicoAMC[name] = { titre, url }
+      dicoAMC[name] = { titre, url, amcType, qcmInteractif }
     }
     logIfVerbose(`${name} traité (${titre})`)
   } else {

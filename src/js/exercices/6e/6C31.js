@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi } from '../../modules/outils.js'
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Divisions décimales'
 

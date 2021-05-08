@@ -3,6 +3,7 @@ import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, r
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
 

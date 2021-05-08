@@ -4,6 +4,7 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNom
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Addition de deux entiers relatifs'
 

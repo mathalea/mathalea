@@ -4,6 +4,7 @@ import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude
 
 
 export const amcReady = true
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 

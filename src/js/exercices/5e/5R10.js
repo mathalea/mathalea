@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {calcul,listeQuestionsToContenu,randint,ecritureParentheseSiMoins,texNombrec,texNombre,arrondi,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
 

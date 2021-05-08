@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Critères de divisibilité'
 

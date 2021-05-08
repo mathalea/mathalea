@@ -4,6 +4,7 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, enleveElement, choi
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 2 // type de question AMC
 
 export const titre = 'Écrire une expression littérale'
 

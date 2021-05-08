@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js';
 export const amcReady = true
+export const amcType = 2 // type de question AMC
 
 export const titre = 'Arrondir une valeur'
 

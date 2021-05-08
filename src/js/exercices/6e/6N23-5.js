@@ -4,6 +4,7 @@ import {fraction} from '../../modules/Fractions.js'
 import { creerBoutonMathalea2d } from '../../modules/outils.js';
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Sens de l’écriture fractionnaire'
 

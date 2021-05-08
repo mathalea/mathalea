@@ -4,6 +4,7 @@ import { ecritureParentheseSiNegatif, shuffle2tableaux, listeQuestionsToContenu,
 import Exercice from '../ClasseExercice.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 

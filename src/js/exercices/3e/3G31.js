@@ -4,6 +4,7 @@ import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texN
 
 
 export const amcReady = true
+export const amcType = 5 // type de question AMC
 
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 

@@ -1,5 +1,10 @@
 import { tridictionnaire, filtreDictionnaire }  from "./outils.js" ;
-import dictionnaireDesExercicesAMC from "./dictionnaireDesExercicesAMC.js"
+//import dictionnaireDesExercicesAMC from "./dictionnaireDesExercicesAMC.js"
+import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'// pour reconstruire le dico au même format c'est
+const dictionnaireDesExercicesAMC = {}
+Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
+  if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
+})
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 

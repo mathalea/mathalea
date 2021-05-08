@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,choice,shuffle,shuffle2tableaux} from '../../modules/outils.js'
 import {point,segment,polygone,codageAngleDroit,codeSegments,mathalea2d} from '../../modules/2d.js'
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 

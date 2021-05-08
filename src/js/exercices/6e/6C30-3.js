@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {exportQcmAmc,listeQuestionsToContenu,combinaisonListes, randint,texNombre2, calcul,shuffle2tableaux} from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Opérations avec les nombres décimaux'
 
