@@ -1115,16 +1115,11 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaireTexte) {
       // Création d'un formulaire texte
+      const param_tooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
       div_parametres_generaux.innerHTML +=
-                    "<div style='display: inline'><label for='form_sup" +
-                    i +
-                    "'>" +
-                    exercice[i].besoinFormulaireTexte[0] +
-                    " : </label><div style='display: inline' data-tooltip='" +
-                    exercice[i].besoinFormulaireTexte[1] +
-                    "' data-inverted=''><input id='form_sup" +
-                    i +
-                    "' type='text' size='20' ></div></div>"
+                    `<div style='display: inline'><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
+                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <input id='form_sup${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoin_formulaire_long_texte) {
@@ -1203,16 +1198,11 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
+      const param_tooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
       div_parametres_generaux.innerHTML +=
-                    "<p></p><div style='display: inline'><label for='form_sup2" +
-                    i +
-                    "'>" +
-                    exercice[i].besoinFormulaire2Texte[0] +
-                    " : </label><div style='display: inline' data-tooltip='" +
-                    exercice[i].besoinFormulaire2Texte[1] +
-                    "' data-inverted=''><input id='form_sup2" +
-                    i +
-                    "' type='text' size='20' ></div></div>"
+                    `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
+                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoinFormulairei3CaseACocher) {
