@@ -82,6 +82,10 @@ function ajout_handlers_etiquette_exo () {
       copier_vers_exercice_form()
       $('.choix_exercices:last').focus()
     }
+	if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) { // suppression de l'étiquette.
+      copier_vers_exercice_form()
+      $('.choix_exercices:last').focus()
+    }
   })
   $('#choix_exercices_div').sortable({ cancel: 'i', placeholder: 'sortableplaceholder', update: function () { copier_vers_exercice_form() } })
   $('.choix_exercices').off('mousedown').on('mousedown', function () {
