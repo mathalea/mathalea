@@ -1,5 +1,12 @@
-/* global $ */
-export default function gestionQcm (exercice) {
+/* global $ mathalea sortieHtml */
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+export function gestionQcmInteractif (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
@@ -13,10 +20,10 @@ export default function gestionQcm (exercice) {
           let nbMauvaisesReponses = 0
           const nbBonnesReponsesAttendues = exercice.tableauSolutionsDuQcm[i].reduce((a, b) => a + b, 0)
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          exercice.tableauPropositionsDuQcm[i].forEach((proposition, rep) => {
+          exercice.tableauSolutionsDuQcm[i].forEach((solution, rep) => {
             const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${rep}`)
             const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${rep}`)
-            if (exercice.tableauSolutionsDuQcm[i][rep] === 1) {
+            if (solution === 1) {
               label.style.backgroundColor = monVert
               if (check.checked) {
                 nbBonnesReponses++
@@ -43,4 +50,39 @@ export default function gestionQcm (exercice) {
       })
     }
   })
+}
+
+/**
+ * 
+ * @param {int} numeroExercice Indice de l'exercice
+ * @param {int} i Indice de la question
+ * @param {*} tabrep Tableau des propositions
+ * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
+ * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
+ */
+export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
+  let texte = ''
+  let texteCorr = ''
+  let espace = ''
+  if (sortieHtml) {
+    espace = '&emsp;'
+  } else {
+    espace = '\\qquad'
+  }
+  if (!mathalea.sortieAMC) {
+    texte += `<br>  Réponses possibles : ${espace}  <form id="formEx${numeroExercice}Q${i}">`
+    for (let rep = 0; rep < tabrep.length; rep++) {
+      texte += `<div class="ui checkbox ex${numeroExercice}">
+          <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
+          <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
+        </div>`
+      if (tabicone[rep] === 1) {
+        texteCorr += `$\\blacksquare\\;$ ${tabrep[rep]}` + espace
+      } else {
+        texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
+      }
+    }
+    texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+  }
+  return { texte: texte, texteCorr: texteCorr }
 }

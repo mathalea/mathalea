@@ -1,6 +1,7 @@
+/* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import gestionQcm from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 
@@ -27,9 +28,6 @@ export default function PlacerLaVirgule () {
   this.modeQcm = false
   this.sup = false
 
-  //  this.modeQcm = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
-
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function (numeroExercice) {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
@@ -43,15 +41,8 @@ export default function PlacerLaVirgule () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     const rang = ['millièmes', 'centièmes', 'dixièmes']
-    let espace = ''
-    // eslint-disable-next-line no-undef
-    if (sortieHtml) {
-      espace = '&emsp;'
-    } else {
-      espace = '\\qquad'
-    }
-    // Indispensable d'exporter les propositions et les solutions pour rendre le QCM interactif
-    this.tableauPropositionsDuQcm = []
+
+    // Indispensable d'exporter les solutions pour rendre le QCM interactif
     this.tableauSolutionsDuQcm = []
     for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, tabrep, tabicone, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -73,25 +64,11 @@ export default function PlacerLaVirgule () {
 
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       // eslint-disable-next-line no-undef
+      shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
-        texte += `<br>  Réponses possibles : ${espace}  <form id="formEx${numeroExercice}Q${i}">`
-        shuffle2tableaux(tabrep, tabicone)
-        for (let rep = 0; rep < tabrep.length; rep++) {
-          // texte += `$\\square\\;$ ${tabrep[i]}` + espace
-          texte += `<div class="ui checkbox ex${numeroExercice}">
-          <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
-          <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
-        </div>`
-          if (tabicone[rep] === 1) {
-            texteCorr += `$\\blacksquare\\;$ ${tabrep[rep]}` + espace
-          } else {
-            texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
-          }
-        }
-        texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
-        // On met à jour les tableaux pour le QCM interactif
-        this.tableauPropositionsDuQcm[i] = tabrep
         this.tableauSolutionsDuQcm[i] = tabicone
+        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone, texte, texteCorr).texte
+        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
       } else {
         texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$ chaque chiffre prend une valeur $${texNombrec(10 ** (-coef))}$ fois plus petite.<br>`
         texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
@@ -114,6 +91,6 @@ export default function PlacerLaVirgule () {
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-  gestionQcm(this)
+  gestionQcmInteractif(this)
   // On attend que les exercices soient affichés pour tester la présence du bouton
 } // Fin de l'exercice.

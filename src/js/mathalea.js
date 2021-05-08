@@ -332,6 +332,9 @@ function mise_a_jour_du_code () {
       if (listeObjetsExercice[0].video.length > 1) {
         fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
+      if (listeObjetsExercice[0].modeQcm) {
+        fin_de_l_URL += ',qcm=1'
+      }
       for (let i = 1; i < liste_des_exercices.length; i++) {
         fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
         if (typeof listeObjetsExercice[i].sup !== 'undefined') {
@@ -348,6 +351,9 @@ function mise_a_jour_du_code () {
         }
         if (listeObjetsExercice[i].video.length > 1) {
           fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        }
+        if (listeObjetsExercice[i].modeQcm) {
+          fin_de_l_URL += ',qcm=1'
         }
       }
       if (typeof mathalea.duree !== 'undefined') {
@@ -784,6 +790,10 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
           if (urlVars[i].video && sortieHtml && !est_diaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
+          }
+          if (urlVars[i].qcm) {
+            listeObjetsExercice[i].modeQcm = true
+            form_modeQcm[i].checked = true
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             listeObjetsExercice[i].sup = urlVars[i].sup
