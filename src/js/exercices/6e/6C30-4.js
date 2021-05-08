@@ -1,6 +1,6 @@
-/* global $ */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
+import gestionQcm from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 
@@ -50,6 +50,7 @@ export default function PlacerLaVirgule () {
     } else {
       espace = '\\qquad'
     }
+    // Indispensable d'exporter les propositions et les solutions pour rendre le QCM interactif
     this.tableauPropositionsDuQcm = []
     this.tableauSolutionsDuQcm = []
     for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, tabrep, tabicone, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -88,6 +89,7 @@ export default function PlacerLaVirgule () {
           }
         }
         texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+        // On met à jour les tableaux pour le QCM interactif
         this.tableauPropositionsDuQcm[i] = tabrep
         this.tableauSolutionsDuQcm[i] = tabicone
       } else {
@@ -112,49 +114,6 @@ export default function PlacerLaVirgule () {
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-
+  gestionQcm(this)
   // On attend que les exercices soient affichés pour tester la présence du bouton
-  document.addEventListener('exercicesAffiches', () => {
-    // On active les checkbox
-    $('.ui.checkbox').checkbox()
-    const monRouge = 'rgba(217, 30, 24, 0.5)'
-    const monVert = 'rgba(123, 239, 178, 0.5)'
-    const button = document.querySelector(`#btnQcmEx${this.numeroExercice}`)
-    if (button) {
-      button.addEventListener('click', event => {
-        for (let i = 0; i < this.nbQuestions; i++) {
-          let nbBonnesReponses = 0
-          let nbMauvaisesReponses = 0
-          const nbBonnesReponsesAttendues = this.tableauSolutionsDuQcm[i].reduce((a, b) => a + b, 0)
-          const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-          this.tableauPropositionsDuQcm[i].forEach((proposition, rep) => {
-            const label = document.querySelector(`#labelEx${this.numeroExercice}Q${i}R${rep}`)
-            const check = document.querySelector(`#checkEx${this.numeroExercice}Q${i}R${rep}`)
-            if (this.tableauSolutionsDuQcm[i][rep] === 1) {
-              label.style.backgroundColor = monVert
-              if (check.checked) {
-                nbBonnesReponses++
-              }
-            } else if (check.checked === true) {
-              label.style.backgroundColor = monRouge
-              nbMauvaisesReponses++
-            }
-          })
-          if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-            spanReponseLigne.innerHTML = '✔︎'
-            spanReponseLigne.style.color = 'green'
-          } else {
-            spanReponseLigne.innerHTML = '✖︎'
-            spanReponseLigne.style.color = 'red'
-          }
-          spanReponseLigne.style.fontSize = 'large'
-        }
-        const uichecks = document.querySelectorAll(`.ui.checkbox.ex${this.numeroExercice}`)
-        uichecks.forEach(function (uicheck) {
-          uicheck.classList.add('read-only')
-        })
-        button.classList.add('disabled')
-      })
-    }
-  })
 } // Fin de l'exercice.
