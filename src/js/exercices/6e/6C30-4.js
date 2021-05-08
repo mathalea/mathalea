@@ -1,5 +1,6 @@
+/* global $ */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux, chercheMinMaxFonction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
 
 export const amcReady = true
 
@@ -76,7 +77,7 @@ export default function PlacerLaVirgule () {
         shuffle2tableaux(tabrep, tabicone)
         for (let rep = 0; rep < tabrep.length; rep++) {
           // texte += `$\\square\\;$ ${tabrep[i]}` + espace
-          texte += `<div class="ui checkbox">
+          texte += `<div class="ui checkbox ex${numeroExercice}">
           <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
           <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
         </div>`
@@ -86,7 +87,7 @@ export default function PlacerLaVirgule () {
             texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
           }
         }
-        texte += '</form>'
+        texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
         this.tableauPropositionsDuQcm[i] = tabrep
         this.tableauSolutionsDuQcm[i] = tabicone
       } else {
@@ -122,18 +123,37 @@ export default function PlacerLaVirgule () {
     if (button) {
       button.addEventListener('click', event => {
         for (let i = 0; i < this.nbQuestions; i++) {
+          let nbBonnesReponses = 0
+          let nbMauvaisesReponses = 0
+          const nbBonnesReponsesAttendues = this.tableauSolutionsDuQcm[i].reduce((a, b) => a + b, 0)
+          const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
           this.tableauPropositionsDuQcm[i].forEach((proposition, rep) => {
             const label = document.querySelector(`#labelEx${this.numeroExercice}Q${i}R${rep}`)
             const check = document.querySelector(`#checkEx${this.numeroExercice}Q${i}R${rep}`)
-            // FIX-ME il faudrait empêcher les élèves de changer leur réponse après vérification
-            check.classList.add('disabled')
             if (this.tableauSolutionsDuQcm[i][rep] === 1) {
               label.style.backgroundColor = monVert
+              if (check.checked) {
+                nbBonnesReponses++
+              }
             } else if (check.checked === true) {
               label.style.backgroundColor = monRouge
+              nbMauvaisesReponses++
             }
           })
+          if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
+            spanReponseLigne.innerHTML = '✔︎'
+            spanReponseLigne.style.color = 'green'
+          } else {
+            spanReponseLigne.innerHTML = '✖︎'
+            spanReponseLigne.style.color = 'red'
+          }
+          spanReponseLigne.style.fontSize = 'large'
         }
+        const uichecks = document.querySelectorAll(`.ui.checkbox.ex${this.numeroExercice}`)
+        uichecks.forEach(function (uicheck) {
+          uicheck.classList.add('read-only')
+        })
+        button.classList.add('disabled')
       })
     }
   })
