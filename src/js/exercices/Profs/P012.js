@@ -15,11 +15,17 @@ export default function Camemberts () {
   this.nb_cols = 1
   this.nbQuestions = 3
   this.nb_questions_modifiable = false
-  this.sup = '6' // nombre de parts
+  this.sup = '2-3-4-5' // nombre de parts
   this.sup2 = '5' // nombre de disques par ligne
   this.titre = titre
 
   this.nouvelleVersion = function () {
+    if (this.sup === '') {
+      this.sup = '2-3-4-5'
+    }
+    if (this.sup2 === '') {
+      this.sup2 = '5'
+    }
     this.contenu = ''
     const nbParts = this.sup.split('-')
     const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
