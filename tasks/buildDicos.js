@@ -80,7 +80,7 @@ for (const file of exercicesList) {
     // if (path.sep !== path.posix.sep) url = url.replace(new RegExp(path.sep, 'g'), path.posix.sep)
     // mais ça va bcp plus vite de faire
     const url = file.substr(prefixLength).replace(/\\/g, '/')
-    dicoAlea[name] = { titre, url, amcReady, name }
+    dicoAlea[name] = { titre, url, amcReady, amcType, qcmInteractif, name }
     if (amcReady) {
       dicoAMC[name] = { titre, url, amcType, qcmInteractif }
     }
