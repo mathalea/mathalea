@@ -63,9 +63,9 @@ export default function PlacerLaVirgule () {
         tabicone])
 
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
-      // eslint-disable-next-line no-undef
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
+        texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = \\ldots $<br>`
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
         texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr

@@ -70,9 +70,9 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
   }
   if (!mathalea.sortieAMC) {
     if (sortieHtml) {
-      texte += `<br>  Réponses possibles : ${espace}  <form id="formEx${numeroExercice}Q${i}">`
+      texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
     } else {
-      texte += `<br>  Réponses possibles : ${espace}`
+      texte += '<br>'
     }
     for (let rep = 0; rep < tabrep.length; rep++) {
       if (sortieHtml) {
