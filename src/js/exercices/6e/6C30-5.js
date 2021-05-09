@@ -32,8 +32,7 @@ export default function MultiplierPar001 () {
   //  this.modeQcm = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
@@ -74,8 +73,8 @@ export default function MultiplierPar001 () {
           if (this.modeQcm) {
             shuffle2tableaux(tabrep, tabicone)
             this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             break
           }
           texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$ chaque chiffre prend une valeur $${texNombre2(calcul(10 ** (-coef)))}$ fois plus petite.<br>`
@@ -94,8 +93,8 @@ export default function MultiplierPar001 () {
           if (this.modeQcm) {
             shuffle2tableaux(tabrep, tabicone)
             this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             break
           }
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$ chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
@@ -115,8 +114,8 @@ export default function MultiplierPar001 () {
           if (this.modeQcm) {
             shuffle2tableaux(tabrep, tabicone)
             this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             break
           }
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$ chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`

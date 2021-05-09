@@ -339,6 +339,7 @@ function mise_a_jour_du_code () {
       if (listeObjetsExercice[0].modeQcm) {
         fin_de_l_URL += ',qcm=1'
       }
+      listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < liste_des_exercices.length; i++) {
         fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
         if (typeof listeObjetsExercice[i].sup !== 'undefined') {
@@ -359,6 +360,7 @@ function mise_a_jour_du_code () {
         if (listeObjetsExercice[i].modeQcm) {
           fin_de_l_URL += ',qcm=1'
         }
+        listeObjetsExercice[i].numeroExercice = i
       }
       if (typeof mathalea.duree !== 'undefined') {
         fin_de_l_URL += `&duree=${mathalea.duree}`

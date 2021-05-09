@@ -26,8 +26,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.qcm = ['6G33', [], "Trouver la nature d'un quadrilatère.", 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -239,8 +238,8 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))
         }
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

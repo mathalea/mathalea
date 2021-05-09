@@ -28,8 +28,7 @@ export default function SensDeLaFraction () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.qcm = ['6N23-5', [], "Sens de l'écriture fractionnaire", 1]
     let tabrep, tabicone
     this.listeQuestions = []
@@ -105,8 +104,8 @@ export default function SensDeLaFraction () {
         texteCorr = ''
         texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)

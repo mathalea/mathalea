@@ -52,8 +52,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
     return result
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.qcm = ['6N43-3', [], 'Diviseur, multiple, divisible - Vrai ou faux', 1, { ordered: true, lastChoices: 2 }]
@@ -156,8 +155,8 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texteCorr = `${texte}..`
-        texte += '<br><br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

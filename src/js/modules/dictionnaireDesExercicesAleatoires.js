@@ -311,6 +311,7 @@ export default {
     "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
     "url": "/exercices/3e/3F21-2.js",
     "amcReady": false,
+    "qcmInteractif": false,
     "name": "3F21-2"
   },
   "3F21": {
@@ -3061,13 +3062,6 @@ export default {
     "amcReady": false,
     "qcmInteractif": false,
     "name": "beta2L12-2"
-  },
-  "beta3F22": {
-    "titre": "Déterminer une fonction affine",
-    "url": "/exercices/beta/beta3F22.js",
-    "amcReady": false,
-    "qcmInteractif": false,
-    "name": "beta3F22"
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",

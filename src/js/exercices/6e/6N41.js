@@ -23,10 +23,9 @@ export default function EgalitesEntreFractions () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.numeroExercice = numeroExercice
     this.qcm = ['6N41', [], 'Egalités de fractions', 1]
     let tabrep, tabicone
     this.listeQuestions = [] // Liste de questions
@@ -114,8 +113,8 @@ export default function EgalitesEntreFractions () {
               texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
-              texte += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+              texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
             break
           case 1 :
@@ -140,8 +139,8 @@ export default function EgalitesEntreFractions () {
               texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
-              texte += '<br><br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+              texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
 
             break
@@ -183,8 +182,8 @@ export default function EgalitesEntreFractions () {
               texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
-              texte += '<br><br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+              texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
             break
           case 1 :
@@ -209,8 +208,8 @@ export default function EgalitesEntreFractions () {
               texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
-              texte += '<br><br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+              texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
 
             break
