@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
+export const amcType = 1 // type de question AMC
+
 
 export const titre = 'Tables de multiplications et multiples de 10'
 
@@ -26,7 +28,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
 
   this.nouvelleVersion = function (numeroExercice) {
     this.numeroExercice = numeroExercice
-    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
+    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]    
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {

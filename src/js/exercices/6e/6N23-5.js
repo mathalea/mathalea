@@ -5,6 +5,7 @@ import { fraction } from '../../modules/Fractions.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Sens de l’écriture fractionnaire'
 

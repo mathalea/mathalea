@@ -3,6 +3,7 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,enleveElement,choice,range,combinaisonListes,ecritureParentheseSiNegatif,lettreDepuisChiffre} from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Substitution'
 

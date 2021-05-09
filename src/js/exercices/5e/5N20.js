@@ -5,6 +5,7 @@ import { shuffle2tableaux, exportQcmAmc, texNombre2, listeQuestionsToContenu, ra
 import Algebrite from 'algebrite'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 

@@ -5,6 +5,7 @@ import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Mesurer un angle'
 

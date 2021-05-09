@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, c
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Tables de multiplications et nombres décimaux'
 

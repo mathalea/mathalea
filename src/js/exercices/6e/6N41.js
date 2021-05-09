@@ -3,6 +3,8 @@ import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction, shuffle2tableaux } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const titre = 'Égalités entre fractions simples'
+export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
