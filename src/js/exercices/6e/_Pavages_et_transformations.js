@@ -1,6 +1,6 @@
 import { translation, mathalea2d, polygone, point, segment, rotation, similitude, arc, vecteur, milieu, barycentre, texteParPoint, labelPoint, mediatrice, tracePoint, symetrieAnimee, rotationAnimee, translationAnimee } from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,imagePointParTransformation,texte_en_couleur_et_gras,numAlpha} from '../../modules/outils.js'
+import {egal,listeQuestionsToContenuSansNumero,randint,choice,imagePointParTransformation,texte_en_couleur_et_gras,numAlpha} from '../../modules/outils.js'
 
 /**
  * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
@@ -44,6 +44,7 @@ export default function Pavages_et_transformations() {
 				break;
 			case 2:
 				choixPave=randint(0,7)// pavages adaptés à symétrie centrale (tous)
+				console.log(choixPave)
 				break;
 			case 3:
 				choixPave=randint(0,7); //pavages adaptés à translation (tous)
@@ -109,8 +110,8 @@ export default function Pavages_et_transformations() {
 			}
 		}
         for (let i=0;i<quad.length;i++){
-            objets_enonce.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',true))
-			objets_correction.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',true))
+            objets_enonce.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',false))
+			objets_correction.push(quad[i],texteParPoint(i,barycentre(quad[i],"",'center'),'milieu','black',1,'middle',false))
         }
 
 		mathalea.fenetreMathalea2d=[Xmin,Ymin,Xmax,Ymax]
@@ -126,7 +127,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigC[j][0] && punto[1] == tabfigC[j][1]) {
+						if (egal(punto[0],tabfigC[j][0],0.001) && egal(punto[1],tabfigC[j][1],0.001)) {
 							trouver = true;
 							num1 = tabfigA[j][2];
 							xa = tabfigA[indexA][0];
@@ -161,7 +162,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigB[j][0] && punto[1] == tabfigB[j][1]) {
+						if (egal(punto[0],tabfigB[j][0],0.001) && egal(punto[1],tabfigB[j][1],0.001)) {
 							trouver = true;
 							num2 = tabfigB[j][2];
 							xb = tabfigD[indexD][0];
@@ -198,7 +199,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigC[j][0] && punto[1] == tabfigC[j][1]) {
+						if (egal(punto[0],tabfigC[j][0],0.001) && egal(punto[1],tabfigC[j][1],0.001)) {
 							trouver = true;
 							num3 = tabfigB[j][2];
 							xc = tabfigC[indexC][0];
@@ -264,7 +265,7 @@ export default function Pavages_et_transformations() {
 				// Première question : une figure dans tabfigA, une symétrie par rapport au milieu d'un [B'C'], logiquement : l'image est dans tabfigB et B' est l'image de C !
 				indexA = randint(0, nx * ny - 1);
 				numA = tabfigA[indexA][2];
-				indexcentre1 = randint(0, nx * ny - 1, [indexA]); // indexcentre1 est l'index du bloc de 4 figures A,B,C et D, il sert dans les 4 tableaux.
+				indexcentre1 = randint(0, nx * ny - 1, indexA); // indexcentre1 est l'index du bloc de 4 figures A,B,C et D, il sert dans les 4 tableaux.
 
 				//on calcule les coordonnées du milieu de [BC] on ajoute aux coordonnées du milieu de [BC] celles du vecteur BB'. (j'aurais pu réduire mais cela aurait rendu le calcul plus opaque)
 				xmil1 = (xB + xC) / 2 + tabfigB[indexcentre1][0] - xB;
@@ -273,7 +274,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigB[j][0] && punto[1] == tabfigB[j][1]) {
+						if (egal(punto[0],tabfigB[j][0],0.001) && egal(punto[1],tabfigB[j][1],0.001)) {
 							trouver = true;
 							num1 = tabfigB[j][2];
 							xa = tabfigA[indexA][0];
@@ -284,10 +285,10 @@ export default function Pavages_et_transformations() {
 							break;
 						}
 					}
-					if (trouver == false) {
+					if (trouver === false) {
 						indexA = randint(0, nx * ny - 1);
 						numA = tabfigA[indexA][2];
-						indexcentre1 = randint(0, nx * ny - 1);
+						indexcentre1 = randint(0, nx * ny - 1,indexA);
 						xmil1 = (xB + xC) / 2 + tabfigB[indexcentre1][0] - xB;
 						ymil1 = (yB + yC) / 2 + tabfigB[indexcentre1][1] - yB;
 						punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1]);
@@ -307,7 +308,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigC[j][0] && punto[1] == tabfigC[j][1]) {
+						if (egal(punto[0],tabfigC[j][0],0.001) && egal(punto[1],tabfigC[j][1],0.001)) {
 							trouver = true;
 							num2 = tabfigA[j][2];
 							xb = tabfigA[indexD][0];
@@ -344,7 +345,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigD[j][0] && punto[1] == tabfigD[j][1]) {
+						if (egal(punto[0],tabfigD[j][0],0.001) && egal(punto[1],tabfigD[j][1],0.001)) {
 							trouver = true;
 							num3 = tabfigD[j][2];
 							xc = tabfigA[indexC][0];
@@ -439,7 +440,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigA[j][0] && punto[1] == tabfigA[j][1]) {
+						if (egal(punto[0],tabfigA[j][0],0.001) && egal(punto[1],tabfigA[j][1],0.001)) {
 							trouver = true;
 							num1 = tabfigA[j][2];
 							xa = tabfigA[indexA][0];
@@ -479,7 +480,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigB[j][0] && punto[1] == tabfigB[j][1]) {
+						if (egal(punto[0],tabfigB[j][0],0.001) && egal(punto[1],tabfigB[j][1],0.001)) {
 							trouver = true;
 							num2 = tabfigB[j][2];
 							xb = tabfigD[indexD][0];
@@ -521,7 +522,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigA[j][0] && punto[1] == tabfigA[j][1]) {
+						if (egal(punto[0],tabfigA[j][0],0.001) && egal(punto[1],tabfigA[j][1],0.001)) {
 							trouver = true;
 							num3 = tabfigA[j][2];
 							xc = tabfigC[indexC][0];
@@ -611,7 +612,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigD[j][0] && punto[1] == tabfigD[j][1]) {
+						if (egal(punto[0],tabfigD[j][0],0.001) && egal(punto[1],tabfigD[j][1],0.001)) {
 							trouver = true;
 							num1 = tabfigD[j][2];
 							xa = tabfigA[indexA][0];
@@ -644,7 +645,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == 4 + tabfigC[j][0] && punto[1] == tabfigC[j][1]) {
+						if (egal(punto[0],4 + tabfigC[j][0],0.001) && egal(punto[1],tabfigC[j][1],0.001)) {
 							trouver = true;
 							num2 = tabfigC[j][2];
 							xb = tabfigA[indexD][0];
@@ -677,7 +678,7 @@ export default function Pavages_et_transformations() {
 				trouver = false;
 				while (trouver == false) {
 					for (let j = 0; j < nx * ny; j++) {
-						if (punto[0] == tabfigD[j][0] && punto[1] == 4 + tabfigD[j][1]) {
+						if (egal(punto[0],tabfigD[j][0],0.001) && egal(punto[1],4 + tabfigD[j][1],0.001)) {
 							trouver = true;
 							num3 = tabfigD[j][2];
 							xc = tabfigA[indexC][0];
