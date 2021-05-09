@@ -820,7 +820,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
-        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre').value === 'interactif') {
+        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
             listeObjetsExercice[listeObjetsExercice.length-1].modeQcm = true
             if (form_modeQcm[listeObjetsExercice.length-1]) {
               form_modeQcm[listeObjetsExercice.length-1].checked = true
