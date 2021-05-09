@@ -291,8 +291,10 @@ function html_listes (objaff) {
 export function menuDesExercicesDisponibles () {
 // Détermine le nombre d'exercices par niveaux
   let liste_html_des_exercices, html_affichage, liste_html_des_exercicestab
-  document.getElementById('liste_des_exercices_tableau').innerHTML=''
-  document.getElementById('liste_des_exercices').innerHTML=''
+  if (document.getElementById('liste_des_exercices_tableau')) {
+    document.getElementById('liste_des_exercices_tableau').innerHTML=''
+    document.getElementById('liste_des_exercices').innerHTML=''
+  }
   const liste_themes_c3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
