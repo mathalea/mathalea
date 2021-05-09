@@ -269,6 +269,12 @@ export default {
     "amcReady": false,
     "name": "3F21"
   },
+  "3F22": {
+    "titre": "Déterminer une fonction affine",
+    "url": "/exercices/3e/3F22.js",
+    "amcReady": false,
+    "name": "3F22"
+  },
   "3G10-1": {
     "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
     "url": "/exercices/3e/3G10-1.js",
@@ -2260,12 +2266,6 @@ export default {
     "url": "/exercices/beta/beta2L12-2.js",
     "amcReady": false,
     "name": "beta2L12-2"
-  },
-  "beta3F22": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/beta3F22.js",
-    "amcReady": false,
-    "name": "beta3F22"
   },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
