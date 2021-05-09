@@ -987,6 +987,13 @@ export default {
     "qcmInteractif": false,
     "name": "4G31"
   },
+  "4G40-1": {
+    "titre": "Arrondir une valeur arrondie comprenant un cosinus",
+    "url": "/exercices/4e/4G40-1.js",
+    "amcReady": false,
+    "qcmInteractif": false,
+    "name": "4G40-1"
+  },
   "4G40-MG32": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
     "url": "/exercices/4e/4G40-MG32.js",
@@ -3118,13 +3125,6 @@ export default {
     "amcReady": false,
     "qcmInteractif": false,
     "name": "beta4G20-3"
-  },
-  "beta4N10": {
-    "titre": "Arrondir une valeur numérique",
-    "url": "/exercices/beta/beta4N10.js",
-    "amcReady": false,
-    "qcmInteractif": false,
-    "name": "beta4N10"
   },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
