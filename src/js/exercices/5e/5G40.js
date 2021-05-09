@@ -23,7 +23,7 @@ export default function Constructions_parallelogrammes () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.typeExercice = 'IEP'
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let texte = ''
@@ -167,7 +167,7 @@ export default function Constructions_parallelogrammes () {
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce)
     texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)
-    texteCorr += animIEP.htmlBouton(numeroExercice)
+    texteCorr += animIEP.htmlBouton(this.umeroExercice)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)

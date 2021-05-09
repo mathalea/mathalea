@@ -21,7 +21,7 @@ export default function Construire_un_triangle() {
     this.classe = 6
     this.typeExercice = "IEP";
     
-    this.nouvelleVersion = function (numeroExercice) {
+    this.nouvelleVersion = function () {
         this.listeQuestions = []
         this.listeCorrections = []
         let IEP;
@@ -92,7 +92,7 @@ export default function Construire_un_triangle() {
             texte += mathalea2d(params_enonce, objets_enonce)
             texteCorr += mathalea2d(params_correction, objets_correction)
 
-            texteCorr += IEP.htmlBouton(numeroExercice, i)
+            texteCorr += IEP.htmlBouton(this.numeroExercice, i)
 
             if (this.listeQuestions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en crée une autre
