@@ -381,7 +381,10 @@ export default {
     "titre": "Contrôler si deux droites sont parallèles",
     "url": "/exercices/3e/3G21.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "3G21"
   },
@@ -417,7 +420,10 @@ export default {
     "titre": "Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie",
     "url": "/exercices/3e/3G30.js",
     "amcReady": true,
-    "amcType": 5,
+    "amcType": {
+      "num": 5,
+      "text": "AMCOpen NC"
+    },
     "qcmInteractif": false,
     "name": "3G30"
   },
@@ -439,7 +445,10 @@ export default {
     "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
     "url": "/exercices/3e/3G31.js",
     "amcReady": true,
-    "amcType": 5,
+    "amcType": {
+      "num": 5,
+      "text": "AMCOpen NC"
+    },
     "qcmInteractif": false,
     "name": "3G31"
   },
@@ -447,7 +456,10 @@ export default {
     "titre": "Calcul d’un parallèle terrestre",
     "url": "/exercices/3e/3G32-1.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "3G32-1"
   },
@@ -728,7 +740,10 @@ export default {
     "titre": "Additionner ou soustraire deux fractions",
     "url": "/exercices/4e/4C21.js",
     "amcReady": true,
-    "amcType": 6,
+    "amcType": {
+      "num": 6,
+      "text": "AMCOpen double NC"
+    },
     "qcmInteractif": false,
     "name": "4C21"
   },
@@ -798,8 +813,12 @@ export default {
   "4C32-1": {
     "titre": "Calcul avec les puissances de dix",
     "url": "/exercices/4e/4C32-1.js",
-    "amcReady": false,
-    "qcmInteractif": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "qcmInteractif": true,
     "name": "4C32-1"
   },
   "4C32-2": {
@@ -819,7 +838,11 @@ export default {
   "4C32": {
     "titre": "Notation scientifique",
     "url": "/exercices/4e/4C32.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "4C32"
   },
@@ -841,7 +864,10 @@ export default {
     "titre": "Calculs utilisant les priorités opératoires et les puissances",
     "url": "/exercices/4e/4C34.js",
     "amcReady": true,
-    "amcType": 5,
+    "amcType": {
+      "num": 5,
+      "text": "AMCOpen NC"
+    },
     "qcmInteractif": false,
     "name": "4C34"
   },
@@ -940,7 +966,10 @@ export default {
     "titre": "Calculer des longueurs avec la propriété de Thalès",
     "url": "/exercices/4e/4G30.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "4G30"
   },
@@ -962,7 +991,10 @@ export default {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
     "url": "/exercices/4e/4G40.js",
     "amcReady": true,
-    "amcType": 5,
+    "amcType": {
+      "num": 5,
+      "text": "AMCOpen NC"
+    },
     "qcmInteractif": false,
     "name": "4G40"
   },
@@ -1348,7 +1380,10 @@ export default {
     "titre": "Traduire un programme de calcul par une expression littérale",
     "url": "/exercices/5e/5L10-2.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "5L10-2"
   },
@@ -1370,7 +1405,10 @@ export default {
     "titre": "Écrire une expression littérale",
     "url": "/exercices/5e/5L10.js",
     "amcReady": true,
-    "amcType": 2,
+    "amcType": {
+      "num": 2,
+      "text": "qcmMult"
+    },
     "qcmInteractif": false,
     "name": "5L10"
   },
@@ -1406,7 +1444,10 @@ export default {
     "titre": "Substitution",
     "url": "/exercices/5e/5L14-2.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "5L14-2"
   },
@@ -1505,7 +1546,10 @@ export default {
     "titre": "Égalités entre fractions simples",
     "url": "/exercices/5e/5N13-2.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "5N13-2"
   },
@@ -1513,7 +1557,10 @@ export default {
     "titre": "Simplification de fractions",
     "url": "/exercices/5e/5N13.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "5N13"
   },
@@ -1549,7 +1596,10 @@ export default {
     "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
     "url": "/exercices/5e/5N20.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "5N20"
   },
@@ -1585,7 +1635,10 @@ export default {
     "titre": "Trouver le terme manquant d’une somme de nombres relatifs",
     "url": "/exercices/5e/5R10.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "5R10"
   },
@@ -1649,7 +1702,10 @@ export default {
     "titre": "Addition de deux entiers relatifs",
     "url": "/exercices/5e/5R20.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "5R20"
   },
@@ -1741,7 +1797,10 @@ export default {
     "titre": "Tables de multiplications et multiples de 10",
     "url": "/exercices/6e/6C10-2.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C10-2"
   },
@@ -1749,7 +1808,10 @@ export default {
     "titre": "Tables de multiplications et nombres décimaux",
     "url": "/exercices/6e/6C10-3.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C10-3"
   },
@@ -1764,7 +1826,10 @@ export default {
     "titre": "Labyrinthe de multiples",
     "url": "/exercices/6e/6C10-5.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6C10-5"
   },
@@ -1772,7 +1837,10 @@ export default {
     "titre": "Additions, soustractions et multiplications posées de nombres entiers",
     "url": "/exercices/6e/6C10.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C10"
   },
@@ -1780,14 +1848,21 @@ export default {
     "titre": "Additions, soustractions, multiplications et divisions posées de nombres entiers",
     "url": "/exercices/6e/6C10bis.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6C10bis"
   },
   "6C11-1": {
     "titre": "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité",
     "url": "/exercices/6e/6C11-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6C11-1"
   },
@@ -1795,7 +1870,10 @@ export default {
     "titre": "Divisions euclidiennes",
     "url": "/exercices/6e/6C11.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6C11"
   },
@@ -1810,7 +1888,10 @@ export default {
     "titre": "Additions et soustractions de nombres décimaux",
     "url": "/exercices/6e/6C20.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C20"
   },
@@ -1818,7 +1899,10 @@ export default {
     "titre": "Divisions euclidiennes - Niveau 2",
     "url": "/exercices/6e/6C21.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6C21"
   },
@@ -1826,7 +1910,10 @@ export default {
     "titre": "Additionner ou soustraire des fractions de même dénominateur",
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C23"
   },
@@ -1834,7 +1921,10 @@ export default {
     "titre": "Multiplications d’un nombre décimal par 10, 100 ou 1 000.",
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C30-1"
   },
@@ -1842,7 +1932,10 @@ export default {
     "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
     "url": "/exercices/6e/6C30-2.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C30-2"
   },
@@ -1850,7 +1943,10 @@ export default {
     "titre": "Opérations avec les nombres décimaux",
     "url": "/exercices/6e/6C30-3.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C30-3"
   },
@@ -1858,7 +1954,10 @@ export default {
     "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)",
     "url": "/exercices/6e/6C30-4.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C30-4"
   },
@@ -1866,7 +1965,10 @@ export default {
     "titre": "Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
     "url": "/exercices/6e/6C30-5.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6C30-5"
   },
@@ -1874,7 +1976,10 @@ export default {
     "titre": "Multiplications posées de nombres décimaux",
     "url": "/exercices/6e/6C30.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C30"
   },
@@ -1889,7 +1994,10 @@ export default {
     "titre": "Divisions décimales",
     "url": "/exercices/6e/6C31.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6C31"
   },
@@ -2030,7 +2138,10 @@ export default {
     "titre": "Mesurer un angle",
     "url": "/exercices/6e/6G23-1.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6G23-1"
   },
@@ -2115,7 +2226,10 @@ export default {
     "titre": "Reconnaitre un quadrilatère particulier à partir de ses propriétés",
     "url": "/exercices/6e/6G33.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6G33"
   },
@@ -2123,7 +2237,10 @@ export default {
     "titre": "Compléter une représentation en perspective cavalière",
     "url": "/exercices/6e/6G41.js",
     "amcReady": true,
-    "amcType": 3,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen "
+    },
     "qcmInteractif": false,
     "name": "6G41"
   },
@@ -2404,7 +2521,10 @@ export default {
     "titre": "Sens de l’écriture fractionnaire",
     "url": "/exercices/6e/6N23-5.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6N23-5"
   },
@@ -2468,7 +2588,10 @@ export default {
     "titre": "Arrondir une valeur",
     "url": "/exercices/6e/6N31-3.js",
     "amcReady": true,
-    "amcType": 2,
+    "amcType": {
+      "num": 2,
+      "text": "qcmMult"
+    },
     "qcmInteractif": false,
     "name": "6N31-3"
   },
@@ -2504,7 +2627,10 @@ export default {
     "titre": "Calculer le pourcentage d’un nombre de tête",
     "url": "/exercices/6e/6N33-1.js",
     "amcReady": true,
-    "amcType": 4,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "qcmInteractif": false,
     "name": "6N33-1"
   },
@@ -2546,15 +2672,22 @@ export default {
   "6N41": {
     "titre": "Égalités entre fractions simples",
     "url": "/exercices/6e/6N41.js",
-    "amcReady": false,
-    "qcmInteractif": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "qcmInteractif": true,
     "name": "6N41"
   },
   "6N43-2": {
     "titre": "Critères de divisibilité (plusieurs possibles)",
     "url": "/exercices/6e/6N43-2.js",
     "amcReady": true,
-    "amcType": 2,
+    "amcType": {
+      "num": 2,
+      "text": "qcmMult"
+    },
     "qcmInteractif": false,
     "name": "6N43-2"
   },
@@ -2562,7 +2695,10 @@ export default {
     "titre": "Diviseur, multiple, divisible - Vrai ou faux",
     "url": "/exercices/6e/6N43-3.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6N43-3"
   },
@@ -2577,7 +2713,10 @@ export default {
     "titre": "Critères de divisibilité",
     "url": "/exercices/6e/6N43.js",
     "amcReady": true,
-    "amcType": 1,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "qcmInteractif": true,
     "name": "6N43"
   },

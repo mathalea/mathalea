@@ -1,6 +1,9 @@
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texte_gras, texte_en_couleur_et_gras } from '../../modules/outils.js'
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
+
+export const amcReady = true
+export const amcType = 3 // type de question AMC
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *

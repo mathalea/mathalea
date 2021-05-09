@@ -38,7 +38,7 @@ const dicoAMC = {}
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
   // amcType est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
-  let titre, amcReady, amcType, qcmInteractif
+  let titre, amcReady, amcType={}, qcmInteractif
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -47,16 +47,48 @@ for (const file of exercicesList) {
       continue
     }
     titre = module.titre
+    // On teste à l'ancienne la présence de this.qcm dans le code car dans ce cas le booléen amcReady doit être true
+    // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter
+    // Pour l'instant je mets ça en doublon, il faudra factoriser 
     amcReady = Boolean(module.amcReady)
+    const srcContentt = fs.readFileSync(file, { encoding: 'utf8' })
+    if (/this.qcm/.test(srcContentt) && !amcReady) {
+      console.error(`\x1b[41m${file} est amcReady mais n'a pas d'export amcReady => IL FAUT L'AJOUTER !!!\x1b[0m`)
+    }         
     if (module.amcReady && !module.amcType) {
       console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!!\x1b[0m`)
     } else {
       qcmInteractif = module.amcType in [1,2] ? true : false // seulement les types 1 et 2 sont de vrais qcm
-      amcType = module.amcType 
+    }
+    if (module.amcReady) {    
+      amcType.num = module.amcType
+      switch (amcType.num) {
+        case 1:
+          amcType.text = "qcmMono";
+          break;
+        case 2:
+          amcType.text = "qcmMult";
+          break;
+        case 3:
+          amcType.text = "AMCOpen "
+          break;
+        case 4:
+          amcType.text = "AMCOpen Num"
+          break;
+        case 5:
+          amcType.text = "AMCOpen NC"
+          break;
+        case 6:
+          amcType.text = "AMCOpen double NC"
+          break;
+        default:
+          console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
+          amcType.text = "type de question AMC non prévu"
+      }
     }    
   } catch (error) {
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
-    // on passe à l'ancienne méthode qui fouille dans le code source
+    // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
     const chunks = /export const titre *= *(['"])([^'"]+)\1/.exec(srcContent)
     if (chunks) {
@@ -80,7 +112,12 @@ for (const file of exercicesList) {
     // if (path.sep !== path.posix.sep) url = url.replace(new RegExp(path.sep, 'g'), path.posix.sep)
     // mais ça va bcp plus vite de faire
     const url = file.substr(prefixLength).replace(/\\/g, '/')
-    dicoAlea[name] = { titre, url, amcReady, amcType, qcmInteractif, name }
+    // On ajoute amcType que si amcReady est à true
+    if (amcReady) {
+      dicoAlea[name] = { titre, url, amcReady, amcType, qcmInteractif, name }
+    } else {
+      dicoAlea[name] = { titre, url, amcReady, qcmInteractif, name }
+    }    
     if (amcReady) {
       dicoAMC[name] = { titre, url, amcType, qcmInteractif }
     }

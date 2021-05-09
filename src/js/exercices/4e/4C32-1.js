@@ -3,6 +3,9 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaison
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const titre = 'Calcul avec les puissances de dix'
 
+export const amcReady = true
+export const amcType = 1 // type de question AMC
+
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
