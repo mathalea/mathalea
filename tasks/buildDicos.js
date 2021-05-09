@@ -65,30 +65,7 @@ for (const file of exercicesList) {
       qcmInteractif = module.amcType in [1,2] ? true : false // seulement les types 1 et 2 sont de vrais qcm
     }
     if (amcReady) {    
-      amcType.num = module.amcType
-      // switch (amcType.num) {
-      //   case 1:
-      //     amcType.text = "qcmMono";
-      //     break;
-      //   case 2:
-      //     amcType.text = "qcmMult";
-      //     break;
-      //   case 3:
-      //     amcType.text = "AMCOpen "
-      //     break;
-      //   case 4:
-      //     amcType.text = "AMCOpen Num"
-      //     break;
-      //   case 5:
-      //     amcType.text = "AMCOpen NC"
-      //     break;
-      //   case 6:
-      //     amcType.text = "AMCOpen double NC"
-      //     break;
-      //   default:
-      //     console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
-      //     amcType.text = "type de question AMC non prévu"
-      // }
+      amcType.num = module.amcType      
     }    
   } catch (error) {
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
@@ -105,9 +82,7 @@ for (const file of exercicesList) {
         qcmInteractif = /export +const +amcType *= *([1-2])/.test(srcContent) // seulement les types 1 et 2 sont de vrais qcm       
       }      
       if (amcReady) {
-        // Je ne sais pas récupérer le nombre dans la ligne du fichier export const amcType = 4 par exemple
-        //amcType.num = module.amcType
-      }
+        amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])      }
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
