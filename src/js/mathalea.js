@@ -253,6 +253,7 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
   let contenu_un_exercice = ''
   let contenu_une_correction = ''
   let param_tooltip = ''
+  let iconeQCM = ''
   if (isdiaporama) {
     contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
     for (const question of obj.listeQuestions) {
@@ -280,6 +281,9 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
+      if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
       } else {
@@ -290,7 +294,7 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
           param_tooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
         }
         param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
-        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeQCM}</h3>`
       }
       if (obj.video.length > 3) {
         contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modalYoutube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
@@ -475,6 +479,7 @@ function mise_a_jour_du_code () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+    $('#popup_preview .icone_qcm').remove() 
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
@@ -661,6 +666,19 @@ function mise_a_jour_du_code () {
     })
   }
 
+   $('.icone_qcm').off('click').on('click', function (e) {
+    $('#accordeon_parametres >div').addClass('active')
+    const num_ex = $(event.target).attr('data-num')
+    const checkElem = $(`#form_modeQcm${num_ex}`)
+    if (checkElem.prop("checked")) {
+      $(`#form_modeQcm${num_ex}`).prop("checked", false).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = false
+    } else {
+      $(`#form_modeQcm${num_ex}`).prop("checked", true).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = true
+    }    
+    mise_a_jour_du_code()
+  })
   // cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
   $('.icone_param').off('click').on('click', function (e) {
     $('#accordeon_parametres >div').addClass('active')
