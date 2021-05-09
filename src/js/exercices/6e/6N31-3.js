@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
-import { cos } from '../../modules/fonctionsMath.js'
+import { cos } from '../../modules/fonctionsMaths.js'
 /*********************C'est écrit correctement, l'import ci-dessus ? */
 /********************************************************************** */
 /********************************************************************** */
