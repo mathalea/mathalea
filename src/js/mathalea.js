@@ -820,6 +820,16 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
+        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[listeObjetsExercice.length-1].modeQcm = true
+            if (form_modeQcm[listeObjetsExercice.length-1]) {
+              form_modeQcm[listeObjetsExercice.length-1].checked = true
+            }
+        }
+        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[0].modeQcm = true
+            form_modeQcm[0].checked = true
+        }
         for (let i = 0; i < urlVars.length; i++) {
           if (urlVars[i].id !== liste_exercices[i]) {
             urlVars.splice(i, 1)

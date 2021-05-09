@@ -511,10 +511,16 @@ body.dragging, body.dragging * {
 	white-space:nowrap;
 }
 
+#divFiltre {
+  display:inline !important;
+  font-size:1.2rem;
+}
+
 #filtre {
-	background-color:#f15929;
-	margin:5px;
+	display:inline;
+  background-color:#f15929;
 	color:white;
+  width:200px;
 }
 
 h3 i.double {
