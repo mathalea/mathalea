@@ -256,19 +256,20 @@ export function supprimerExo (num, last) {
 
 function ligne_tableau (exercice) {
   let ligne = ''
+  const modeAmc = dictionnaireDesExercices[exercice].amcReady ? 'AMC ' : ''
+  const modeInteractif = dictionnaireDesExercices[exercice].qcmInteractif ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
-    ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
-    exercice +
-    '</span></td> <td> <a class="lien_id_exercice" data-id_exercice="' +
-    exercice + '">' + dictionnaireDesExercices[exercice].titre +
-    '</a></td><td data-tooltip="Prévisualiser l\'exercice."><i id="' +
-    exercice + '" class="eye icon icone_preview" ></td></tr>'
+    ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
+    </span></td> <td> <a class="lien_id_exercice" data-id_exercice="
+    ${exercice}">${dictionnaireDesExercices[exercice].titre}
+    </a></td><td> ${modeAmc} ${modeInteractif}
+    </td><td data-tooltip="Prévisualiser l\'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
   } else {
     ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
     exercice +
     '</span></td> <td>' +
     `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}</a> ${liste_html_des_tags(dictionnaireDesExercices[exercice])} </br>\n` +
-    '</td><td><i id=' + exercice + ' class="eye icon icone_preview"></i></td></tr>'
+    '</td><td></td><td><i id=' + exercice + ' class="eye icon icone_preview"></i></td></tr>'
   }
   return ligne
 }
@@ -507,9 +508,9 @@ export function menuDesExercicesDisponibles () {
   $('#liste_des_exercices').html(liste_html_des_exercices)
   $('.lien_id_exercice').off('click').on('click', function () { addExercice(event) })
   liste_html_des_exercicestab = `<div id="recherche"> </div><table id='listtab' class="stripe"><thead>
-    <tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Prévisualiser</th></thead><tbody>
+    <tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>Prévisualiser</th></thead><tbody>
     ${liste_html_des_exercicestab}
-    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>prévisualiser</th></tr>
+    </tbody><tfoot><tr><th class="colonnecode">Code</th><th>Intitulé de l'exercice</th><th>Mode</th><th>prévisualiser</th></tr>
     </tfoot></table>`
   $('#liste_des_exercices_tableau').html(liste_html_des_exercicestab)
   $('#liste_des_exercices_tableau').hide()
@@ -621,6 +622,7 @@ export function menuDesExercicesDisponibles () {
     }
     $('#listtab').DataTable({
       ordering: false,
+      fixedHeader: true,
       language: {
         sEmptyTable: 'Aucune donnée disponible dans le tableau',
         sInfo: "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments",
