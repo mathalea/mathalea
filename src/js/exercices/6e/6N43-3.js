@@ -1,6 +1,6 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -151,12 +151,11 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
           tabicone = [0, 1, 0]
           break
       }
-      shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texteCorr = `${texte}..`
+        // texteCorr = `${texte}..`
         texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+        // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

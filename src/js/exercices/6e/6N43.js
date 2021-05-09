@@ -1,5 +1,7 @@
+/* global mathalea */
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
+import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -15,7 +17,7 @@ export const titre = 'Critères de divisibilité'
  * @Auteur Rémi Angot
  * 6N43
  */
-export default function Criteres_de_divisibilite () {
+export default function CriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4 // Correspond au facteur commun
   this.titre = titre
@@ -28,31 +30,26 @@ export default function Criteres_de_divisibilite () {
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.qcm = ['6N43', [], 'Critères de divisibilité', 1, { ordered: true, lastChoices: 2 }]
     let tabrep, tabicone
-    let espace = ''
-    if (sortieHtml) {
-      espace = '&emsp;'
-    } else {
-      espace = '\\qquad'
-    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let liste_des_exercices_disponibles
-    if (this.sup == 1) {
-      liste_des_exercices_disponibles = [2, 5, 10]
+    let listeExercicesDisponibles
+    if (this.sup === 1) {
+      listeExercicesDisponibles = [2, 5, 10]
     }
-    if (this.sup == 2) {
-      liste_des_exercices_disponibles = [3, 9]
+    if (this.sup === 2) {
+      listeExercicesDisponibles = [3, 9]
     }
-    if (this.sup == 3) {
-      liste_des_exercices_disponibles = [2, 3, 5, 9, 10]
+    if (this.sup === 3) {
+      listeExercicesDisponibles = [2, 3, 5, 9, 10]
     }
     if (this.sup > 3) {
-      liste_des_exercices_disponibles = [2, 3, 5, 9, 10, 'autre']
+      listeExercicesDisponibles = [2, 3, 5, 9, 10, 'autre']
     }
     const listeTypeDeQuestions = combinaisonListes(
-      liste_des_exercices_disponibles,
+      listeExercicesDisponibles,
       this.nbQuestions
     )
     for (
@@ -65,7 +62,7 @@ export default function Criteres_de_divisibilite () {
           u = randint(1, 2)
           n = randint(10, 999) * 10 + u
           texte = `$${texNombre(n)}$ est-il divisible par $2$ ?`
-          if (u % 2 == 0) {
+          if (u % 2 === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $2$.`
@@ -86,7 +83,7 @@ export default function Criteres_de_divisibilite () {
           n = choice([randint(100, 999), randint(10000, 99999)]).toString() // transformé en string pour avoir accès aux chiffres
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $3$ ?`
-          if (calcul(sommeString) % 3 == 0) {
+          if (calcul(sommeString) % 3 === 0) {
             texteCorr = `$${sommeString}=${calcul(sommeString)}=3\\times${calcul(sommeString) / 3
               }$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
@@ -113,7 +110,7 @@ export default function Criteres_de_divisibilite () {
           n = choice([randint(100, 999), randint(10000, 99999)]).toString() // transformé en string pour avoir accès aux chiffres
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $9$ ?`
-          if (calcul(sommeString) % 9 == 0) {
+          if (calcul(sommeString) % 9 === 0) {
             texteCorr = `$${sommeString}=${calcul(sommeString)}=9\\times${calcul(sommeString) / 9
               }$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
@@ -140,7 +137,7 @@ export default function Criteres_de_divisibilite () {
           u = choice([randint(1, 9, [0, 5]), randint(1, 9, [0, 5]), 5, 0]) // 1 fois sur 2 ça sera divisible par 5
           n = randint(10, 9999) * 10 + u
           texte = `$${texNombre(n)}$ est-il divisible par $5$ ?`
-          if (u % 5 == 0) {
+          if (u % 5 === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $5$.`
@@ -161,7 +158,7 @@ export default function Criteres_de_divisibilite () {
           u = choice([randint(1, 9), 0]) // 1 fois sur 2 ça sera divisible par 10
           n = randint(10, 9999) * 10 + u
           texte = `$${texNombre(n)}$ est-il divisible par $10$ ?`
-          if (u == 0) {
+          if (u === 0) {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $10$.`
@@ -181,7 +178,7 @@ export default function Criteres_de_divisibilite () {
         case 'autre':
           n = randint(100, 999)
           u = choice([7, 7, 7, 7, 13, 17, 19])
-          if (u == 7) {
+          if (u === 7) {
             n = choice(
               [randint(10, 99) * 10 + 7],
               7 * randint(11, 99),
@@ -198,7 +195,7 @@ export default function Criteres_de_divisibilite () {
           texteCorr = `On ne connait pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
             n
           )}$ par $${u}$.<br>`
-          if (n % u == 0) {
+          if (n % u === 0) {
             texteCorr += `$${texNombre(n)}=${u}\\times${texNombre(
               n / u
             )}$<br>`
@@ -220,20 +217,12 @@ export default function Criteres_de_divisibilite () {
           break
       }
       if (this.modeQcm && !mathalea.sortieAMC) {
-        texteCorr = ''
-        texte += `<br><br>  Réponses possibles : ${espace}  `
-        shuffle2tableaux(tabrep, tabicone)
-        for (let i = 0; i < tabrep.length; i++) {
-          texte += `$\\square\\;$ ${tabrep[i]}` + espace
-          if (tabicone[i] == 1) {
-            texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
-          } else {
-            texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
-          }
-        }
+        this.tableauSolutionsDuQcm[i] = tabicone
+        texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -246,10 +235,6 @@ export default function Criteres_de_divisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    4,
-    '1 : Critères de divisibilité par 2, 5, 10\n\
-2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité'
-  ]
+  gestionQcmInteractif(this)
+  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Critères de divisibilité par 2, 5, 10\n2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité']
 }
