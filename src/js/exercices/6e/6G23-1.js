@@ -5,6 +5,7 @@ import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Mesurer un angle'
 
@@ -26,8 +27,7 @@ export default function MesurerUnAngle () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.qcm = ['6G23-1', [], "Estimer la mesure d'un angle.", 1]
     let tabrep, tabicone
@@ -90,8 +90,8 @@ export default function MesurerUnAngle () {
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

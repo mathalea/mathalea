@@ -3,6 +3,7 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombre} from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Additions, soustractions, multiplications et divisions posées de nombres entiers'
 

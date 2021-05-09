@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, c
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Tables de multiplications et nombres décimaux'
 
@@ -25,8 +26,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.qcm = ['6C10-3', [], 'tables de multiplications et nombres décimaux', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -94,8 +94,8 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
 
       this.listeQuestions.push(texte)

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choic
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
 
@@ -29,13 +30,9 @@ export default function PlacerLaVirgule () {
   this.sup = false
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
-    // On exporte le numéro de l'exercice pour adapter l'id du bouton de validation du QCM
-    this.numeroExercice = numeroExercice
-
     this.qcm = ['6C30-4', [], 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)', 1]
 
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -63,12 +60,12 @@ export default function PlacerLaVirgule () {
         tabicone])
 
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
-      // eslint-disable-next-line no-undef
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
+        texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = \\ldots $<br>`
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       } else {
         texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$ chaque chiffre prend une valeur $${texNombrec(10 ** (-coef))}$ fois plus petite.<br>`
         texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`

@@ -4,6 +4,7 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, enleveElement, choi
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 2 // type de question AMC
 
 export const titre = 'Écrire une expression littérale'
 
@@ -27,8 +28,7 @@ export default function EcrireUneExpressionLitterale () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
+  this.nouvelleVersion = function () {
     this.qcm = ['5L10', [], 'Écrire une expression littérale', 2, { ordered: false, lastChoices: 0 }]
     let tabrep, tabicone
 
@@ -157,8 +157,8 @@ export default function EcrireUneExpressionLitterale () {
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

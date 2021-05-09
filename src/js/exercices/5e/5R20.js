@@ -4,7 +4,7 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNom
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
-export const amcType = 1
+export const amcType = 1 // type de question AMC
 
 export const titre = 'Addition de deux entiers relatifs'
 
@@ -25,9 +25,8 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.numeroExercice = numeroExercice
-    this.qcm = ['5R20', [], 'Addition de nombres relatifs', amcType]
+  this.nouvelleVersion = function () {
+    this.qcm = ['5R20', [], 'tables et multiples de 10,100 et 1000', 1]
     let tabrep, tabicone
 
     this.listeQuestions = [] // Liste de questions
@@ -50,8 +49,8 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr
+        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
