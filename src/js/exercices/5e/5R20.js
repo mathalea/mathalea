@@ -4,6 +4,7 @@ import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNom
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
+export const amcType = 1
 
 export const titre = 'Addition de deux entiers relatifs'
 
@@ -26,7 +27,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
 
   this.nouvelleVersion = function (numeroExercice) {
     this.numeroExercice = numeroExercice
-    this.qcm = ['5R20', [], 'tables et multiples de 10,100 et 1000', 1]
+    this.qcm = ['5R20', [], 'Addition de nombres relatifs', amcType]
     let tabrep, tabicone
 
     this.listeQuestions = [] // Liste de questions
