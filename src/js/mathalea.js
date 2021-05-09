@@ -1,7 +1,7 @@
 /* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { iep, loadScript, prism} from './modules/loaders'
 
@@ -45,6 +45,28 @@ let listePackages = new Set()
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
 menuDesExercicesDisponibles()
+
+//gestion des filtres :
+
+if (document.getElementById('filtre')) {
+  const filtre = getFilterFromUrl();
+  if (filtre) {
+    document.getElementById('filtre').value = filtre
+  }
+  document.getElementById('filtre').addEventListener('change', function() {
+    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?');
+    const query = window.location.search.replace(regex, '$1').replace(/&$/, '');
+    const filtre = document.getElementById('filtre').value
+    const url = (query.length > 2 ? query + '&' : '?') + (filtre !=='tous' ? 'filtre=' + filtre : '');
+    window.history.pushState('', '',url)
+    menuDesExercicesDisponibles()
+    $('.ui.dropdown').dropdown() // Pour le menu des exercices
+    $('.ui.accordion').accordion('refresh')
+    $('.ui.checkbox').checkbox()
+  })
+}
+
+
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 
 function copier_vers_exercice_form () {

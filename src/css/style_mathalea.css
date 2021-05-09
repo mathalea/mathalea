@@ -511,6 +511,12 @@ body.dragging, body.dragging * {
 	white-space:nowrap;
 }
 
+#filtre {
+	background-color:#f15929;
+	margin:5px;
+	color:white;
+}
+
 h3 i.double {
 	cursor:pointer !important;
 }

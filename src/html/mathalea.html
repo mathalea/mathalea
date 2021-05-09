@@ -105,7 +105,16 @@
     <div class="ui stackable two column grid" dir="ltr">
       <div id="left" class="column" style="height:75vh;">
         <div id="exercices_disponibles">
-          <h3 class="ui block header">Exercices disponibles
+          <h3 class="ui block header">Exercices disponibles : 
+			<select id="filtre">
+				<option value="tous">Tous</option>
+				<option value="interactif">Interactifs</option>
+				<option value="primaire">Primaire</option>
+				<option value="college">Collège</option>
+				<option value="dnb">Brevet</option>
+				<option value="lycee">Lycée</option>				
+				<option value="outils">Outils</option>
+			</select>
             <span class="mode_choix" id="mode_choix_liste" data-tooltip="basculer vers l'affichage liste"
               data-position="bottom center"> Mode "Liste par niveau" </span>
             <span class="mode_choix" id="mode_choix_tableau" data-tooltip="basculer vers l'affichage tableau"

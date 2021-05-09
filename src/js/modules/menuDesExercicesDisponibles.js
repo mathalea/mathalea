@@ -5,7 +5,7 @@ import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
-
+import { getFilterFromUrl } from './getUrlVars.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
 // Liste tous les tags qui ont été utilisé
@@ -51,8 +51,15 @@ function span_exercice (id, titre) {
 function liste_html_des_exercices_d_un_theme (theme) {
   let liste = ''
   const dictionnaire = filtreDictionnaire(liste_des_exercices_disponibles, theme)
+  const filtre = getFilterFromUrl() 
   for (const id in dictionnaire) {
-    liste += span_exercice(id, dictionnaire[id].titre)
+    if (filtre === 'interactif') {
+      if (dictionnaire[id].qcmInteractif) {
+        liste += span_exercice(id, dictionnaire[id].titre)
+      }
+    } else {
+      liste += span_exercice(id, dictionnaire[id].titre)
+    }
   }
   return liste
 }
@@ -283,6 +290,8 @@ function html_listes (objaff) {
 export function menuDesExercicesDisponibles () {
 // Détermine le nombre d'exercices par niveaux
   let liste_html_des_exercices, html_affichage, liste_html_des_exercicestab
+  document.getElementById('liste_des_exercices_tableau').innerHTML=''
+  document.getElementById('liste_des_exercices').innerHTML=''
   const liste_themes_c3 = [
     ['c3C1', 'c3C1 - Calculs niveau 1'], ['c3C2', 'c3C2 - Calculs niveau 2'], ['c3C3', 'c3C3 - Calculs niveau 3'],
     ['c3N1', 'c3N1 - Numération Niveau 1'], ['c3N2', 'c3N2 - Numération Niveau 2'], ['c3N3', 'c3N3 - Numération Niveau 3']]
@@ -402,17 +411,27 @@ export function menuDesExercicesDisponibles () {
   }
 
   liste_html_des_exercicestab = ''
-  const queryString = window.location.search
-  const urlParams = new URLSearchParams(queryString)
-  const filtre = urlParams.get('filtre')
+  const filtre = getFilterFromUrl()
 
   for (const id in liste_des_exercices_disponibles) {
     if ((id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
-      obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].qcmInteractif) {
+          obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+        }
+      } else {
+        obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+      }
       obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligne_tableau(id)
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
-      obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].qcmInteractif) {
+          obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+        }
+      } else {
+        obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+      }
       obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
     }
     if (id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
@@ -562,7 +581,8 @@ export function menuDesExercicesDisponibles () {
   }
 
   function masquer_niveau () {
-    $('.fermer_niveau').next().html('')
+    $('.fermer_niveau').next().remove()
+    $('.fermer_niveau').removeClass('active')
     $('.fermer_niveau').addClass('ouvrir_niveau')
     $('.fermer_niveau').removeClass('fermer_niveau')
     $('.ouvrir_niveau').off('click').on('click', function () {
