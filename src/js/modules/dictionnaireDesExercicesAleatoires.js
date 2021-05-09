@@ -263,17 +263,17 @@ export default {
     "amcReady": false,
     "name": "3F21-1"
   },
+  "3F21-2": {
+    "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
+    "url": "/exercices/3e/3F21-2.js",
+    "amcReady": false,
+    "name": "3F21-2"
+  },
   "3F21": {
     "titre": "Déterminer une fonction linéaire",
     "url": "/exercices/3e/3F21.js",
     "amcReady": false,
     "name": "3F21"
-  },
-  "3F22": {
-    "titre": "Déterminer une fonction affine",
-    "url": "/exercices/3e/3F22.js",
-    "amcReady": false,
-    "name": "3F22"
   },
   "3G10-1": {
     "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
