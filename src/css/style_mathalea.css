@@ -511,6 +511,18 @@ body.dragging, body.dragging * {
 	white-space:nowrap;
 }
 
+#divFiltre {
+  display:inline !important;
+  font-size:1.2rem;
+}
+
+#filtre {
+	display:inline;
+  background-color:#f15929;
+	color:white;
+  width:220px;
+}
+
 h3 i.double {
 	cursor:pointer !important;
 }

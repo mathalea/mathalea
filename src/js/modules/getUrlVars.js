@@ -1,3 +1,10 @@
+
+export function getFilterFromUrl () {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams.get('filtre')
+}
+
 export function getUrlVars () { // Récupère les variables de l'URL
   const url = new URL(window.location.href)
   const tableauStringsExercicesParametres = url.searchParams.getAll('ex') // récupère un string pour chaque paramètre ex de l'URL

@@ -1,7 +1,7 @@
 /* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { iep, loadScript, prism} from './modules/loaders'
 
@@ -45,6 +45,31 @@ let listePackages = new Set()
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
 menuDesExercicesDisponibles()
+
+//gestion des filtres :
+
+if (document.getElementById('filtre')) {
+  const filtre = getFilterFromUrl();
+  if (filtre) {
+    document.getElementById('filtre').value = filtre
+  }
+  document.getElementById('filtre').addEventListener('change', function() {
+    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?');
+    const query = window.location.search.replace(regex, '$1').replace(/&$/, '');
+    const filtre = document.getElementById('filtre').value
+    const url = (query.length > 2 ? query + '&' : '?') + (filtre !=='tous' ? 'filtre=' + filtre : '');
+    window.history.pushState('', '',url)
+    if ($('#mode_choix_liste').is(":visible")) {
+      $('#mode_choix_liste').trigger('click')
+    }  
+    menuDesExercicesDisponibles()
+    $('.ui.dropdown').dropdown() // Pour le menu des exercices
+    $('.ui.accordion').accordion('refresh')
+    $('.ui.checkbox').checkbox()
+  })
+}
+
+
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 
 function copier_vers_exercice_form () {
@@ -232,6 +257,7 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
   let contenu_un_exercice = ''
   let contenu_une_correction = ''
   let param_tooltip = ''
+  let iconeQCM = ''
   if (isdiaporama) {
     contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
     for (const question of obj.listeQuestions) {
@@ -259,6 +285,9 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
+      if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
       } else {
@@ -269,7 +298,7 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
           param_tooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
         }
         param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
-        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeQCM}</h3>`
       }
       if (obj.video.length > 3) {
         contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modalYoutube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
@@ -456,6 +485,7 @@ function mise_a_jour_du_code () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+    $('#popup_preview .icone_qcm').remove() 
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
@@ -642,6 +672,19 @@ function mise_a_jour_du_code () {
     })
   }
 
+   $('.icone_qcm').off('click').on('click', function (e) {
+    $('#accordeon_parametres >div').addClass('active')
+    const num_ex = $(event.target).attr('data-num')
+    const checkElem = $(`#form_modeQcm${num_ex}`)
+    if (checkElem.prop("checked")) {
+      $(`#form_modeQcm${num_ex}`).prop("checked", false).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = false
+    } else {
+      $(`#form_modeQcm${num_ex}`).prop("checked", true).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = true
+    }    
+    mise_a_jour_du_code()
+  })
   // cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
   $('.icone_param').off('click').on('click', function (e) {
     $('#accordeon_parametres >div').addClass('active')
@@ -783,6 +826,16 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
+        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[listeObjetsExercice.length-1].modeQcm = true
+            if (form_modeQcm[listeObjetsExercice.length-1]) {
+              form_modeQcm[listeObjetsExercice.length-1].checked = true
+            }
+        }
+        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[0].modeQcm = true
+            form_modeQcm[0].checked = true
+        }
         for (let i = 0; i < urlVars.length; i++) {
           if (urlVars[i].id !== liste_exercices[i]) {
             urlVars.splice(i, 1)
