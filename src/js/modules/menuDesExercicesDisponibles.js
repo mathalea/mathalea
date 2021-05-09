@@ -260,8 +260,7 @@ function ligne_tableau (exercice) {
   const modeInteractif = dictionnaireDesExercices[exercice].qcmInteractif ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
     ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
-    </span></td> <td> <a class="lien_id_exercice" data-id_exercice="
-    ${exercice}">${dictionnaireDesExercices[exercice].titre}
+    </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
     </a></td><td> ${modeAmc} ${modeInteractif}
     </td><td data-tooltip="Prévisualiser l\'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
   } else {
@@ -421,30 +420,46 @@ export function menuDesExercicesDisponibles () {
       if (filtre === 'interactif') {
         if (dictionnaireDesExercices[id].qcmInteractif) {
           obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
+          obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligne_tableau(id)
         }
       } else {
         obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
-      }
-      obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligne_tableau(id)
+        obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligne_tableau(id)
+      }     
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
         if (dictionnaireDesExercices[id].qcmInteractif) {
           obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+          obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
         }
       } else {
         obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
-      }
-      obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
+        obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
+      }     
     }
     if (id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
-      obj_exercices_disponibles[id[0]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].qcmInteractif) {
+          obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+          obj_exercices_disponibles[id[0]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
+          obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
+        }
+      } else {
+        obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
+        obj_exercices_disponibles[id[0]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
+        obj_exercices_disponibles[id[0]].lignes_tableau += ligne_tableau(id)
+      }     
     }
     if ((id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
-      obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
+      if (filtre !== 'interactif') { 
+        obj_exercices_disponibles[id[0] + id[1]].liste_html_des_exercices += span_exercice(id, dictionnaireDesExercices[id].titre)
+      }
     }
     if (id[0] === 'd' && id[1] === 'n' && id[2] === 'b') {
-      obj_exercices_disponibles.DNB.lignes_tableau += ligne_tableau(id)
+      if (filtre !== 'interactif') { 
+        obj_exercices_disponibles.DNB.lignes_tableau += ligne_tableau(id)
+      }
     }
   }
 
