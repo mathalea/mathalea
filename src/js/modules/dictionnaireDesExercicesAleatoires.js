@@ -307,6 +307,12 @@ export default {
     "qcmInteractif": false,
     "name": "3F21-1"
   },
+  "3F21-2": {
+    "titre": "Déterminer une fonction affine par la donnée des images de deux nombres",
+    "url": "/exercices/3e/3F21-2.js",
+    "amcReady": false,
+    "name": "3F21-2"
+  },
   "3F21": {
     "titre": "Déterminer une fonction linéaire",
     "url": "/exercices/3e/3F21.js",

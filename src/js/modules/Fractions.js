@@ -154,12 +154,12 @@ class Fraction {
         this.numIrred = fractionSimplifiee(this.num, this.den)[0];
         this.denIrred = fractionSimplifiee(this.num, this.den)[1];
         this.pourcentage = calcul(this.numIrred * 100 / this.denIrred);
-        if (this.num == 0)
+        if (this.num === 0)
             this.signe = 0;
         else
             this.signe = unSiPositifMoinsUnSinon(this.num * this.den); // le signe de la fraction : -1, 0 ou 1
         this.texFraction = texFractionSigne(this.num, this.den); // m/n si positif - m/n si négatif.
-        if (this.signe == -1)
+        if (this.signe === -1)
             this.texFractionSignee = this.texFraction; // + m/n si positif - m/n si négatif
         else
             this.texFractionSignee = '+' + this.texFraction;
@@ -279,14 +279,14 @@ class Fraction {
             let liste = obtenirListeFacteursPremiers(den);
             let n2 = 0, n5 = 0;
             for (let n of liste) {
-                if (n == 2)
+                if (n === 2)
                     n2++;
-                else if (n == 5)
+                else if (n === 5)
                     n5++;
                 else
                     return 'NaN';
             }
-            if (n5 == n2)
+            if (n5 === n2)
                 return fraction(this.numIrred, this.fractionDecimale.denIrred);
             else if (n5 > n2)
                 return fraction(this.numIrred * 2 ** (n5 - n2), this.denIrred * 2 ** (n5 - n2));
@@ -383,7 +383,7 @@ class Fraction {
                 return false;
         };
         this.egal = function (f2) {
-            if (this.num / this.den == f2.num / f2.den)
+            if (this.num / this.den === f2.num / f2.den)
                 return true;
             else
                 return false;
@@ -410,7 +410,7 @@ class Fraction {
                 g.epaisseur = epaisseur;
                 return g;
             };
-            if (type == 'gateau') {
+            if (type === 'gateau') {
                 for (k = 0; k < n; k++) {
                     O = point(x + k * 2 * (rayon + 0.5), y);
                     C = cercle(O, rayon);
@@ -445,7 +445,7 @@ class Fraction {
                     }
                 }
             }
-            else if (type == 'segment') {
+            else if (type === 'segment') {
                 for (k = 0; k < n; k++) {
                     O = point(x + k * rayon, y);
                     C = translation(O, vecteur(rayon, 0));
@@ -480,7 +480,7 @@ class Fraction {
                 a.epaisseur = 6;
                 objets.push(a);
                 objets.push(unegraduation(x, y));
-                if (typeof (unite0) == 'number' && typeof (unite1) == 'number') {
+                if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
                     for (k = 0; k <= n + 1; k++) {
                         objets.push(texteParPosition(unite0 + k * (unite1 - unite0), x + rayon * k, y - 0.6, 'milieu', 'black', scale));
                     }
@@ -497,15 +497,15 @@ class Fraction {
             }
             else {
                 let diviseur;
-                if (this.denIrred % 6 == 0)
+                if (this.denIrred % 6 === 0)
                     diviseur = 6;
-                else if (this.denIrred % 5 == 0)
+                else if (this.denIrred % 5 === 0)
                     diviseur = 5;
-                else if (this.denIrred % 4 == 0)
+                else if (this.denIrred % 4 === 0)
                     diviseur = 4;
-                else if (this.denIrred % 3 == 0)
+                else if (this.denIrred % 3 === 0)
                     diviseur = 3;
-                else if (this.denIrred % 2 == 0)
+                else if (this.denIrred % 2 === 0)
                     diviseur = 2;
                 else
                     diviseur = 1;
@@ -567,7 +567,7 @@ class Fraction {
                 g.epaisseur = epaisseur;
                 return g;
             };
-            if (type == 'gateau') {
+            if (type === 'gateau') {
                 for (k = 0; k < n; k++) {
                     let O = point(x + k * 2 * (rayon + 0.5), y);
                     let C = cercle(O, rayon);
@@ -606,7 +606,7 @@ class Fraction {
                         }
                 }
             }
-            else if (type == 'segment') {
+            else if (type === 'segment') {
                 for (k = 0; k < n; k++) {
                     O = point(x + k * rayon, y);
                     C = translation(O, vecteur(rayon, 0));
@@ -641,7 +641,7 @@ class Fraction {
                 a.epaisseur = 6;
                 objets.push(a);
                 objets.push(unegraduation(x, y));
-                if (typeof (unite0) == 'number' && typeof (unite1) == 'number') {
+                if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
                     for (k = 0; k <= n + 1; k++) {
                         objets.push(texteParPosition(unite0 + k * (unite1 - unite0), x + rayon * k, y - 0.6, 'milieu', 'black', scale));
                     }
@@ -657,15 +657,15 @@ class Fraction {
             }
             else { //Type barre
                 let diviseur;
-                if (this.den % 6 == 0)
+                if (this.den % 6 === 0)
                     diviseur = 6;
-                else if (this.den % 5 == 0)
+                else if (this.den % 5 === 0)
                     diviseur = 5;
-                else if (this.den % 4 == 0)
+                else if (this.den % 4 === 0)
                     diviseur = 4;
-                else if (this.den % 3 == 0)
+                else if (this.den % 3 === 0)
                     diviseur = 3;
-                else if (this.den % 2 == 0)
+                else if (this.den % 2 === 0)
                     diviseur = 2;
                 else
                     diviseur = 1;
