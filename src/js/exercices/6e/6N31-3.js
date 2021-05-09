@@ -1,5 +1,13 @@
 import Exercice from '../ClasseExercice.js'
-import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js';
+import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { cos } from '../../modules/fonctionsMath.js'
+/*********************C'est écrit correctement, l'import ci-dessus ? */
+/********************************************************************** */
+/********************************************************************** */
+/********************************************************************** */
+
+
+
 export const amcReady = true
 export const amcType = 2 // type de question AMC
 
@@ -11,53 +19,54 @@ export const titre = 'Arrondir une valeur'
  * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
  */
 
-export default function Arrondir_une_valeur () {
+export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre;
+  this.titre = titre
 
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-	this.qcmDisponible = true
-	this.modeQcm = false
+  this.qcmDisponible = true
+  this.modeQcm = false
   sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     if (!this.modeQcm) {
       this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
     } else {
-      this.consigne = "Quelles sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième"
+      this.consigne = "Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième ?"
     }
     this.qcm = ['6N31-3', [], "Valeur arrondie du nombre à l'unité, au dixième et au centième", 2, { ordered: true, vertical: true }]
     let tabrep = []; let tabicone=[]; let pre_tabrep=[]; let  pre_tabicone = []
-		let espace = '';
+    let espace = ''
     if (sortieHtml) {
-		 if (this.qcm[4].vertical === true) {
-        espace = '<br>';
+      if (this.qcm[4].vertical === true) {
+        espace = '<br>'
       }
       else {
-        espace = '&emsp;';
+        espace = '&emsp;'
       }
     } else {
       if (this.qcm[4].vertical === true) {
-        space = '\\\\';
+        space = '\\\\'
       } else {
-		  espace = '\\qquad';
+        espace = '\\qquad'
       }
     }
     this.listeQuestions = []
     this.listeCorrections = []
-    let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac
+    let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac, angle, v
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       tabrep.length = 0, tabicone.length = 0, pre_tabrep.length = 0, pre_tabicone.length = 0
-      if (this.sup == 1) {
+      if (this.sup === 1) {
         m = randint(0, 9)
         c = randint(0, 9)
         d = randint(0, 9)
-        u = randint(0, 9)
+        u = randint(2, 9)
         di = randint(1, 9)
         ci = randint(1, 9)
         mi = randint(1, 9, 5)
@@ -65,8 +74,9 @@ export default function Arrondir_une_valeur () {
         ce = randint(0, 1)
         de = randint(0, 1)
         n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
+        v = u + calcul(di * 0.1 + ci * 0.01)
         nb = texNombre(n)
-      } else if (this.sup == 2) {
+      } else if (this.sup === 2) {
         den = choice([7, 9, 11, 13])
         num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
         n = num / den
@@ -74,34 +84,49 @@ export default function Arrondir_une_valeur () {
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
-      } else if (this.sup == 3) {
+      } else if (this.sup === 3) {
         rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
+      } 
+      /********************************************************************** */
+/********************************************************************** */
+      //********************************** Je m'emmèle les pinceaux entre les trucs à mettre en fonction math ou ceux à faire précéder de "calcul" et/ ou etc.
+      else if (this.sup === 4) {
+        angle = randint(1, 89, 60)
+        n = v * cos(angle)
+        nb = `${v} times ${cos(angle)}`
+        di = 10 * (troncature(n - troncature(n, 0), 1))
+        ci = 100 * (troncature(n - troncature(n, 1), 2))
+        mi = 1000 * (troncature(n - troncature(n, 2), 3))
       }
 
       texte = `$${nb}$`
-      
-        if (this.sup == 1) texte += '';
+      if (this.sup == 1) texte += ''
       else if (this.sup == 2) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${num}\\div ${den}, ~elle~renvoie : ${texNombre(n)}$`
-        else if (this.sup == 3) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${texNombre(n)}$`
-      
+      else if (this.sup == 3) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${texNombre(n)}$`
+      else if (this.sup == 4) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${texNombre(n)}$`
+      //****************************Comment on fait pour mettre si this.sup = 3 ou 4 ?
+/********************************************************************** */
+/********************************************************************** */
+
+
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
-        texteCorr += `$\\phantom{1234567}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
-      pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
-      pre_tabrep[1] = `$${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
-      pre_tabicone = [1, 0]
-      if (choice([false, true])) {
+        texteCorr += `$\\phantom{123}${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
+        pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
+        pre_tabrep[1] = `$${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
+        pre_tabicone = [1, 0]
+        if (choice([false, true])) {
           shuffle2tableaux(pre_tabrep, pre_tabicone)
-      }
+        }
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
-      tabicone.push(pre_tabicone[0], pre_tabicone[1])
+        tabicone.push(pre_tabicone[0], pre_tabicone[1])
       } else {
-        texteCorr += `$\\phantom{1234567}${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
+        texteCorr += `$\\phantom{123}${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
         pre_tabrep[0] = `$${texNombre(troncature(n, 0))} < ${nb} < ${miseEnEvidence(texNombre(troncature(n + 1, 0)))}$`
         pre_tabrep[1] = `$${miseEnEvidence(texNombre(troncature(n, 0)))} < ${nb} < ${texNombre(troncature(n + 1, 0))}$`
         pre_tabicone = [1, 0]
@@ -135,7 +160,7 @@ export default function Arrondir_une_valeur () {
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
 
-      texteCorr += '<br>Encadrement et arrondi au centième : $~$';
+      texteCorr += '<br>Encadrement et arrondi au centième : $~$'
       if (mi < 5) {
         texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
         pre_tabrep[0] = `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
@@ -158,16 +183,16 @@ export default function Arrondir_une_valeur () {
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
       if (this.modeQcm && !mathalea.sortieAMC) {
-        texte += '<br><br>Réponses possibles : <br>  ';
+        texte += '<br><br>Réponses possibles : <br>  '
         texteCorr = ''
         // shuffle2tableaux(tabrep, tabicone);
         for (let i = 0; i < 6; i++) {
-          texte += `$\\square\\;$ ${tabrep[i]}` + espace  
-         if (tabicone[i] == 1) {
+          texte += `$\\square\\;$ ${tabrep[i]}` + espace
+          if (tabicone[i] == 1) {
             texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
-         } else {
+          } else {
             texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
-         }
+          }
         }
       }
 
@@ -185,7 +210,7 @@ export default function Arrondir_une_valeur () {
       cpt++
     }
     listeQuestionsToContenu(this)
-  };
+  }
   this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
   this.besoinFormulaire2CaseACocher = ['Affichage de la valeur donnée à la calculatrice', false]
 }
