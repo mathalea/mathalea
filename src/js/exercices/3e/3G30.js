@@ -3,6 +3,7 @@ import {homothetie,codeAngle,longueur,barycentre,milieu,latexParPoint, mathalea2
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texte_en_couleur_et_gras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 5 // type de question AMC
 
 export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
 

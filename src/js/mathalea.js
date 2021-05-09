@@ -82,6 +82,10 @@ function ajout_handlers_etiquette_exo () {
       copier_vers_exercice_form()
       $('.choix_exercices:last').focus()
     }
+	if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) { // suppression de l'étiquette.
+      copier_vers_exercice_form()
+      $('.choix_exercices:last').focus()
+    }
   })
   $('#choix_exercices_div').sortable({ cancel: 'i', placeholder: 'sortableplaceholder', update: function () { copier_vers_exercice_form() } })
   $('.choix_exercices').off('mousedown').on('mousedown', function () {
@@ -378,6 +382,8 @@ function mise_a_jour_du_code () {
   if (sortieHtml && est_diaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
+	  $('#icones').show() //on affiche les boutons du diaporama uniquement quand un exercice est choisi.
+	  $('#corrections_et_parametres').show()
       $('#parametres_generaux').show()
     } else {
       $('#exercices_disponibles').show()
