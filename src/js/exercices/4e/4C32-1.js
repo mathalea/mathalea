@@ -88,11 +88,11 @@ export default function CalculsAvecPuissancesDeDix () {
       }
 
       if (this.modeQcm && !mathalea.sortieAMC) {
-        texteCorr = ''
+        // texteCorr = ''
         shuffle2tableaux(tabrep, tabicone)
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)

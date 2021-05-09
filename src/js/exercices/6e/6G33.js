@@ -1,6 +1,6 @@
 /* global sortieHtml mathalea */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, choice, shuffle, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
@@ -232,7 +232,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr += "C'est un carré."
           break
       }
-      shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         if (texteCorr.lastIndexOf('\n') > 0) {
           texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))

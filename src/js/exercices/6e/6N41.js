@@ -110,11 +110,11 @@ export default function EgalitesEntreFractions () {
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
             if (this.modeQcm && !mathalea.sortieAMC) {
-              texteCorr = ''
+              // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
               texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+              // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
             break
           case 1 :
@@ -136,11 +136,11 @@ export default function EgalitesEntreFractions () {
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
             if (this.modeQcm && !mathalea.sortieAMC) {
-              texteCorr = ''
+              // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
               texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+              // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
 
             break
@@ -179,11 +179,11 @@ export default function EgalitesEntreFractions () {
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
             if (this.modeQcm && !mathalea.sortieAMC) {
-              texteCorr = ''
+              // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
               texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+              // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
             break
           case 1 :
@@ -205,11 +205,11 @@ export default function EgalitesEntreFractions () {
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
             if (this.modeQcm && !mathalea.sortieAMC) {
-              texteCorr = ''
+              // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
               texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-              texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+              // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
             }
 
             break

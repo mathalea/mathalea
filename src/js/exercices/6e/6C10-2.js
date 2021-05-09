@@ -5,7 +5,6 @@ import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
-
 export const titre = 'Tables de multiplications et multiples de 10'
 
 /**
@@ -27,7 +26,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]    
+    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
