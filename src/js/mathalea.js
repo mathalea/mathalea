@@ -58,11 +58,16 @@ if (document.getElementById('filtre')) {
     const query = window.location.search.replace(regex, '$1').replace(/&$/, '');
     const filtre = document.getElementById('filtre').value
     const url = (query.length > 2 ? query + '&' : '?') + (filtre !=='tous' ? 'filtre=' + filtre : '');
+    let modeTableauActif = false
     window.history.pushState('', '',url)
     if ($('#mode_choix_liste').is(":visible")) {
       $('#mode_choix_liste').trigger('click')
-    }  
+      modeTableauActif=true
+    }       
     menuDesExercicesDisponibles()
+    if (modeTableauActif) {
+      $('#mode_choix_tableau').trigger('click')
+    }
     $('.ui.dropdown').dropdown() // Pour le menu des exercices
     $('.ui.accordion').accordion('refresh')
     $('.ui.checkbox').checkbox()
