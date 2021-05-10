@@ -436,6 +436,6 @@ export default function Exercice_multiplier_fractions() {
     3,
     "1 : Fractions à numérateurs et dénominateurs positifs \n 2 : Type 1 et type 3 pour 50%/50%\n 3 : Ecritures fractionnaires à numérateur et dénominateur entiers relatifs",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec décomposition"];
+  this.besoinFormulaire2CaseACocher = ["Avec décomposition"];
 }
 

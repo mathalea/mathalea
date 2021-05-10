@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne,warnMessage} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne,warnMessage} from '../../modules/outils.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
@@ -180,11 +180,11 @@ export default function Eq_resolvantes_Thales() {
 					question: ``,
 					correction: `${corrPlusPremiereLigne}
 						$${situations[k].eq}$<br>
-						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
+						${texteEnCouleurEtGras(`Les produits en croix sont égaux.`)}<br>
 						$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
-						${texte_en_couleur_et_gras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
+						${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
+						${texteEnCouleurEtGras(`On simplifie et on calcule.`)}<br>
 						$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
 						${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
 					`

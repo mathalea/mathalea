@@ -121,5 +121,5 @@ export default function Reperage_point_du_plan () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
-  this.besoin_formulaire2_case_a_cocher = ['Grille de lecture']
+  this.besoinFormulaire2CaseACocher = ['Grille de lecture']
 }

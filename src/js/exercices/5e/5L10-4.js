@@ -238,6 +238,6 @@ export default function Tableaux_et_fonction() {
 
 	}
 	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : les mêmes unités\n2 : unités différentes"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 };
 

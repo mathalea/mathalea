@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,itemize,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleurEtGras,itemize,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 export const titre = 'Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 
 /**
@@ -81,7 +81,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 					N = 2 * randint(51, 4999);
 					texte = nombre_avec_espace(N);
 					texteCorr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
 					break;
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
@@ -97,14 +97,14 @@ export default function Premier_ou_pas_critere_par7_par11() {
 						sum += Number(N.toString().charAt(k));
 					};
 					texteCorr += ` = ${sum} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
 					break;
 				case 3: // Multiple de 5
 					N = 5 * randint(20, 1999);
 					texte = nombre_avec_espace(N);
 					texteCorr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
 					texteCorr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
 					break;
 				case 4: // Multiple de 7
 					let N_longueur; // pour la taille du string N
@@ -129,7 +129,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 					};
 					texteCorr += `Comme ${N1.toString().substring(0, N1_longueur - 1)} + 5$\\times$${N1.toString().charAt(N1_longueur - 1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `;
 					texteCorr += `qui admet donc au moins trois diviseurs : 1, 7 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
 					break;
 				case 5: // multiple de 11
 					let even_sum; // pour la somme des chiffres de rang impair
@@ -191,7 +191,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 					};
 					texteCorr += `<br>`;
 					texteCorr += ` cela signifie que ${nombre_avec_espace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
 					break;
 				case 6: // produit de deux nombres premiers inférieurs à 100
 					// rang du premier facteur premier
@@ -208,7 +208,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 					} else {
 						texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1 * prime2)}, `;
 					};
-					texteCorr += texte_en_couleur_et_gras(`${N} = ` + nombre_avec_espace(prime1 * prime2) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(`${N} = ` + nombre_avec_espace(prime1 * prime2) + ` n'est donc pas premier.`);
 					break;
 				case 7: // nombre premier inférieur à 529
 					// rang du nombre premier choisi
@@ -223,7 +223,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 					};
 					texteCorr += `.`;
 					texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(Number(N)) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(Number(N)) + ` n'est donc pas premier.`);
 					break;
 			};
 

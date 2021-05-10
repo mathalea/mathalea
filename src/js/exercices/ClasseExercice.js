@@ -44,7 +44,7 @@ export default function Exercice () {
   this.qcm = false // Pour les exercices de type QCM : contient un tableau.
   this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm
   this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique)
-
+  this.tableauSolutionsDuQcm = [] // Pour sauvegarder les solutions des QCM
   this.mg32Editable = false // pas d'interface par défaut pour les figures MG32
   this.nouvelleVersion = function (numeroExercice) {}
   this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule

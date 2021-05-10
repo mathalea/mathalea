@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Contrôler si deux droites sont parallèles'
 
@@ -357,7 +358,7 @@ export default function Reciproque_Thales () {
     3,
     '1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
   ]
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     'Réciproque ou contraposée ? ',
     3,
     '1 : Réciproque \n 2 : Contraposée \n 3 : Aléatoire'

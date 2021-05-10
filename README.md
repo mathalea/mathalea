@@ -93,9 +93,9 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 
 - Intégration du lecteur InstrumEnPoche
 - Création de macros constructions pour InstrumEnPoche
-- Nouvelle argonomie (2 colonnes, possibilité de prévisualiser les exercices ou de les réordonner)
+- Nouvelle ergonomie (2 colonnes, possibilité de prévisualiser les exercices ou de les réordonner)
 
-#### 03/21
+#### 03/21pnp
 
 
 - Intégration des annales de brevet en partenariat avec l'APMEP.

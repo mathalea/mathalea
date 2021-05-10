@@ -61,5 +61,5 @@ export default function Ecrire_nombres_entiers_formates() {
     listeQuestionsToContenu(this);
   };
   //this.besoinFormulaireNumerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
-  //this.besoin_formulaire2_numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+  //this.besoinFormulaire2Numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

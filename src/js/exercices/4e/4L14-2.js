@@ -12,6 +12,6 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
   Tester_si_un_nombre_est_solution_d_une_equation.call(this);
   this.exo = "4L14-2";
   this.titre = titre
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 }
 

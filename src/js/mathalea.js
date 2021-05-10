@@ -1,7 +1,7 @@
 /* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
-import { getUrlVars } from './modules/getUrlVars.js'
+import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { iep, prism } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
@@ -47,6 +47,36 @@ let listePackages = new Set()
 window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
 menuDesExercicesDisponibles()
+
+//gestion des filtres :
+
+if (document.getElementById('filtre')) {
+  const filtre = getFilterFromUrl();
+  if (filtre) {
+    document.getElementById('filtre').value = filtre
+  }
+  document.getElementById('filtre').addEventListener('change', function() {
+    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?');
+    const query = window.location.search.replace(regex, '$1').replace(/&$/, '');
+    const filtre = document.getElementById('filtre').value
+    const url = (query.length > 2 ? query + '&' : '?') + (filtre !=='tous' ? 'filtre=' + filtre : '');
+    let modeTableauActif = false
+    window.history.pushState('', '',url)
+    if ($('#mode_choix_liste').is(":visible")) {
+      $('#mode_choix_liste').trigger('click')
+      modeTableauActif=true
+    }       
+    menuDesExercicesDisponibles()
+    if (modeTableauActif) {
+      $('#mode_choix_tableau').trigger('click')
+    }
+    $('.ui.dropdown').dropdown() // Pour le menu des exercices
+    $('.ui.accordion').accordion('refresh')
+    $('.ui.checkbox').checkbox()
+  })
+}
+
+
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 
 function copier_vers_exercice_form () {
@@ -81,6 +111,10 @@ function ajout_handlers_etiquette_exo () {
   })
   $('.choix_exercices').off('keyup').on('keyup', function (e) {
     if (e.which === 9 || e.which === 13) { // validation de l'étiquette sur tab ou entrée.
+      copier_vers_exercice_form()
+      $('.choix_exercices:last').focus()
+    }
+	if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) { // suppression de l'étiquette.
       copier_vers_exercice_form()
       $('.choix_exercices:last').focus()
     }
@@ -224,6 +258,7 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
   let contenu_un_exercice = ''
   let contenu_une_correction = ''
   let param_tooltip = ''
+  let iconeQCM = ''
   if (isdiaporama) {
     contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
     for (const question of obj.listeQuestions) {
@@ -251,17 +286,20 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
+      if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible'))) {
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
           param_tooltip += (obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2]) + '\n'
         }
-        if (obj.besoin_formulaire2_numerique && obj.besoin_formulaire2_numerique[2]) {
-          param_tooltip += (obj.besoin_formulaire2_numerique[0] + ': \n' + obj.besoin_formulaire2_numerique[2])
+        if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+          param_tooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
         }
         param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
-        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span></h3>`
+        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeQCM}</h3>`
       }
       if (obj.video.length > 3) {
         contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modalYoutube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
@@ -328,6 +366,10 @@ function mise_a_jour_du_code () {
       if (listeObjetsExercice[0].video.length > 1) {
         fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
+      if (listeObjetsExercice[0].modeQcm) {
+        fin_de_l_URL += ',qcm=1'
+      }
+      listeObjetsExercice[0].numeroExercice = 0
       for (let i = 1; i < liste_des_exercices.length; i++) {
         fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
         if (typeof listeObjetsExercice[i].sup !== 'undefined') {
@@ -345,6 +387,10 @@ function mise_a_jour_du_code () {
         if (listeObjetsExercice[i].video.length > 1) {
           fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
         }
+        if (listeObjetsExercice[i].modeQcm) {
+          fin_de_l_URL += ',qcm=1'
+        }
+        listeObjetsExercice[i].numeroExercice = i
       }
       if (typeof mathalea.duree !== 'undefined') {
         fin_de_l_URL += `&duree=${mathalea.duree}`
@@ -364,10 +410,22 @@ function mise_a_jour_du_code () {
   })()
   // mise en évidence des exercices sélectionnés.
   apparence_exercice_actif()
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: '\\[', right: '\\]', display: true },
+      { left: '$', right: '$', display: false }
+    ],
+    throwOnError: true,
+    errorColor: '#CC0000',
+    strict: 'warn',
+    trust: false
+  })
   let contenu, contenuDesExercices, contenuDesCorrections
   if (sortieHtml && est_diaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
+	  $('#icones').show() //on affiche les boutons du diaporama uniquement quand un exercice est choisi.
+	  $('#corrections_et_parametres').show()
       $('#parametres_generaux').show()
     } else {
       $('#exercices_disponibles').show()
@@ -438,12 +496,15 @@ function mise_a_jour_du_code () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+    $('#popup_preview .icone_qcm').remove() 
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestion_modules(false, listeObjetsExercice)
+    const exercicesAffiches = new Event('exercicesAffiches', {bubbles: true})
+    document.dispatchEvent(exercicesAffiches)
   }
   if (!sortieHtml) {
     // Sortie LaTeX
@@ -622,6 +683,19 @@ function mise_a_jour_du_code () {
     })
   }
 
+   $('.icone_qcm').off('click').on('click', function (e) {
+    $('#accordeon_parametres >div').addClass('active')
+    const num_ex = $(event.target).attr('data-num')
+    const checkElem = $(`#form_modeQcm${num_ex}`)
+    if (checkElem.prop("checked")) {
+      $(`#form_modeQcm${num_ex}`).prop("checked", false).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = false
+    } else {
+      $(`#form_modeQcm${num_ex}`).prop("checked", true).trigger("change");
+      listeObjetsExercice[num_ex].modeQcm = true
+    }    
+    mise_a_jour_du_code()
+  })
   // cg 04/2021 : icone_parmètres fait le focus sur les parmètres correspondant à l'exercice
   $('.icone_param').off('click').on('click', function (e) {
     $('#accordeon_parametres >div').addClass('active')
@@ -763,6 +837,16 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
+        if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[listeObjetsExercice.length-1].modeQcm = true
+            if (form_modeQcm[listeObjetsExercice.length-1]) {
+              form_modeQcm[listeObjetsExercice.length-1].checked = true
+            }
+        }
+        if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
+            listeObjetsExercice[0].modeQcm = true
+            form_modeQcm[0].checked = true
+        }
         for (let i = 0; i < urlVars.length; i++) {
           if (urlVars[i].id !== liste_exercices[i]) {
             urlVars.splice(i, 1)
@@ -778,6 +862,10 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
           if (urlVars[i].video && sortieHtml && !est_diaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
+          }
+          if (urlVars[i].qcm) {
+            listeObjetsExercice[i].modeQcm = true
+            form_modeQcm[i].checked = true
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             listeObjetsExercice[i].sup = urlVars[i].sup
@@ -1012,16 +1100,11 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaireTexte) {
       // Création d'un formulaire texte
+      const param_tooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
       div_parametres_generaux.innerHTML +=
-                    "<div style='display: inline'><label for='form_sup" +
-                    i +
-                    "'>" +
-                    exercice[i].besoinFormulaireTexte[0] +
-                    " : </label><div style='display: inline' data-tooltip='" +
-                    exercice[i].besoinFormulaireTexte[1] +
-                    "' data-inverted=''><input id='form_sup" +
-                    i +
-                    "' type='text' size='20' ></div></div>"
+                    `<div style='display: inline'><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
+                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <input id='form_sup${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoin_formulaire_long_texte) {
@@ -1056,113 +1139,108 @@ function parametres_exercice (exercice) {
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire2_case_a_cocher) {
+    if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup2" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire2_case_a_cocher[0] +
+                    exercice[i].besoinFormulaire2CaseACocher[0] +
                     " : </label><input id='form_sup2" +
                     i +
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire2_numerique) {
+    if (exercice[i].besoinFormulaire2Numerique) {
       // Création d'un formulaire numérique
-      if (exercice[i].besoin_formulaire2_numerique[2]) {
+      if (exercice[i].besoinFormulaire2Numerique[2]) {
         // Si un tooltip est défini
         div_parametres_generaux.innerHTML +=
                         '<div data-tooltip="' +
-                        exercice[i].besoin_formulaire2_numerique[2] +
+                        exercice[i].besoinFormulaire2Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup2' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire2_numerique[0] +
+                        exercice[i].besoinFormulaire2Numerique[0] +
                         ' : </label><input id="form_sup2' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire2_numerique[1] +
+                        exercice[i].besoinFormulaire2Numerique[1] +
                         '"></div>'
       } else {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_sup2' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire2_numerique[0] +
+                        exercice[i].besoinFormulaire2Numerique[0] +
                         ' : </label><input id="form_sup2' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire2_numerique[1] +
+                        exercice[i].besoinFormulaire2Numerique[1] +
                         '"></div>'
       }
     }
 
-    if (exercice[i].besoin_formulaire2_texte) {
+    if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
+      const param_tooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
       div_parametres_generaux.innerHTML +=
-                    "<p></p><div style='display: inline'><label for='form_sup2" +
-                    i +
-                    "'>" +
-                    exercice[i].besoin_formulaire2_texte[0] +
-                    " : </label><div style='display: inline' data-tooltip='" +
-                    exercice[i].besoin_formulaire2_texte[1] +
-                    "' data-inverted=''><input id='form_sup2" +
-                    i +
-                    "' type='text' size='20' ></div></div>"
+                    `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
+                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
-    if (exercice[i].besoin_formulaire3_case_a_cocher) {
+    if (exercice[i].besoinFormulairei3CaseACocher) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire3_case_a_cocher[0] +
+                    exercice[i].besoinFormulairei3CaseACocher[0] +
                     " : </label><input id='form_sup3" +
                     i +
                     "' type='checkbox'  ></div>"
     }
 
-    if (exercice[i].besoin_formulaire3_numerique) {
+    if (exercice[i].besoinFormulaire3Numerique) {
       // Création d'un formulaire numérique
-      if (exercice[i].besoin_formulaire3_numerique[2]) {
+      if (exercice[i].besoinFormulaire3Numerique[2]) {
         // Si un tooltip est défini
         div_parametres_generaux.innerHTML +=
                         '<div data-tooltip="' +
-                        exercice[i].besoin_formulaire3_numerique[2] +
+                        exercice[i].besoinFormulaire3Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup3' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire3_numerique[0] +
+                        exercice[i].besoinFormulaire3Numerique[0] +
                         ' : </label><input id="form_sup3' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire3_numerique[1] +
+                        exercice[i].besoinFormulaire3Numerique[1] +
                         '"></div>'
       } else {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_sup3' +
                         i +
                         '">' +
-                        exercice[i].besoin_formulaire3_numerique[0] +
+                        exercice[i].besoinFormulaire3Numerique[0] +
                         ' : </label><input id="form_sup3' +
                         i +
                         '" type="number"  min="1" max="' +
-                        exercice[i].besoin_formulaire3_numerique[1] +
+                        exercice[i].besoinFormulaire3Numerique[1] +
                         '"></div>'
       }
     }
 
-    if (exercice[i].besoin_formulaire3_texte) {
+    if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
       div_parametres_generaux.innerHTML +=
                     "<p></p><div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
-                    exercice[i].besoin_formulaire3_texte[0] +
+                    exercice[i].besoinFormulaire3Texte[0] +
                     " : </label><div style='display: inline' data-tooltip='" +
-                    exercice[i].besoin_formulaire3_texte[1] +
+                    exercice[i].besoinFormulaire3Texte[1] +
                     "' data-inverted=''><input id='form_sup3" +
                     i +
                     "' type='text' size='20' ></div></div>"
@@ -1382,7 +1460,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_case_a_cocher) {
+    if (exercice[i].besoinFormulaire2CaseACocher) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].checked = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup2[i].addEventListener('change', function (e) {
@@ -1392,7 +1470,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_numerique) {
+    if (exercice[i].besoinFormulaire2Numerique) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup2[i].addEventListener('change', function (e) {
@@ -1402,7 +1480,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire2_texte) {
+    if (exercice[i].besoinFormulaire2Texte) {
       form_sup2[i] = document.getElementById('form_sup2' + i)
       form_sup2[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
@@ -1419,7 +1497,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_case_a_cocher) {
+    if (exercice[i].besoinFormulairei3CaseACocher) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup3[i].addEventListener('change', function (e) {
@@ -1429,7 +1507,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_numerique) {
+    if (exercice[i].besoinFormulaire3Numerique) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
       form_sup3[i].addEventListener('change', function (e) {
@@ -1439,7 +1517,7 @@ function parametres_exercice (exercice) {
       })
     }
 
-    if (exercice[i].besoin_formulaire3_texte) {
+    if (exercice[i].besoinFormulaire3Texte) {
       form_sup3[i] = document.getElementById('form_sup3' + i)
       form_sup3[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée

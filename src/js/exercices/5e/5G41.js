@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { texNombrec, choice, texte_gras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
+import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
 import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 
@@ -67,7 +67,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 }
                 if (longueur(B, D) != longueur(A, C)) {
                     texteCorr += `Comme $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$ et que $${noms[0] + noms[2]}\\ne ${noms[3] + noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
-                    texteCorr += `${nom} ${texte_gras('est un simple paraléllogramme')}.<br>`
+                    texteCorr += `${nom} ${texteGras('est un simple paraléllogramme')}.<br>`
                 }
                 else {
                     texteCorr += `Comme $$${noms[0] + noms[2]} = ${noms[3] + noms[1]}$ et que $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$, le paralélogramme ${nom} est un rectangle.<br>`
@@ -124,7 +124,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
                 objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
 
-                texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texte_gras(nom)} ${texte_gras(' est donc un rectangle')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texteGras(nom)} ${texteGras(' est donc un rectangle')}.<br>`
                 if (this.correctionDetaillee) {
                 texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$ au milieu de $[${noms[1] + noms[3]}]$.<br>`
@@ -158,7 +158,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
                 objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
 
-                texteCorr += `Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ sont perpendiculaires, ${nom}${texte_gras(' est un losange')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ sont perpendiculaires, ${nom}${texteGras(' est un losange')}.<br>`
                 if (this.correctionDetaillee){
                 texteCorr += `Il en résulte que le triangle $${noms[0] + noms[1] + noms[3]}$ est isoclèle en $${noms[0]}$.<br>`
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
@@ -192,7 +192,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>`
                 texteCorr += `Puis le point $${noms[2]}$ symétrique  de $${noms[0]}$ par rapport à $${noms[4]}$, milieu de $[${noms[1] + noms[3]}]$.<br>`
             }
-                texteCorr += `Comme ${nom} est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, ${texte_gras('c\'est un simple parallélogramme')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, ${texteGras('c\'est un simple parallélogramme')}.<br>`
                 t1 = traceCompas(A, D, 15)
                 t2 = traceCompas(A, B, 15)
                 t3 = traceCompas(O, C, 20)
@@ -227,12 +227,12 @@ export default function Constructions_parallelogrammes_particuliers() {
                 }
                 if (c1 * c1 != (c2 * c2 + c3 * c3)) {
                     texteCorr += `le triangle $${noms[0] + noms[1] + noms[4]}$ n'est pas un triangle rectangle, donc les diagonales ne sont pas perpendiculaires.<br>`
-                    if (c2 == c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texte_gras('c\'est donc un rectangle')}.<br>`
-                    else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texte_gras('est un simple parallélogramme')}.<br>`
+                    if (c2 == c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texteGras('c\'est donc un rectangle')}.<br>`
+                    else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
                 }
                 else {
                     texteCorr += `Le triangle $${noms[0] + noms[1] + noms[4]}$ est un triangle rectangle, donc les diagonales sont perpendiculaires.<br>`
-                    if (c2 == c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texte_gras('c\'est donc un carré')}.<br>`
+                    if (c2 == c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texteGras('c\'est donc un carré')}.<br>`
                 }
                 t1 = traceCompas(A, O, 20)
                 t2 = traceCompas(B, O, 20)
@@ -273,7 +273,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                     }
                   
                         texteCorr += `Le triangle $${noms[0] + noms[1] + noms[2]}$ n'est pas un triangle isocèle car ses angles ne sont pas égaux.<br>`
-                        texteCorr += `De plus dans ce triangle  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180-c2-c3}\\degree$ donc ${nom} ${texte_gras('est un simple parallélogramme')}.<br>`
+                        texteCorr += `De plus dans ce triangle  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180-c2-c3}\\degree$ donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
                     t1 = afficheMesureAngle(O, A,B, 'blue',1,texNombre(c2)+'°')
                     t2 = afficheMesureAngle(O, C,B, 'red',1,texNombre(c3)+'°')
                     t3 = traceCompas(O, D, 30)
@@ -375,5 +375,5 @@ export default function Constructions_parallelogrammes_particuliers() {
 
     };
     this.besoinFormulaireNumerique = ['Niveau de diffculté', 3, "1 : Figures faciles\n2 : Figures plus difficiles\n3 : Figure au hasard"];
-    // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+    // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	
 }

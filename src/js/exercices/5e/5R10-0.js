@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,calcul,texNombre,miseEnEvidence,texte_en_couleur,tableauColonneLigne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,calcul,texNombre,miseEnEvidence,texteEnCouleur,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Trouver l’opposé d’un nombre relatif'
 
 /** 
@@ -87,7 +87,7 @@ export default function Trouver_oppose() {
 			enonces.push({
 				enonce: `énoncé type 2`,
 				question: ``,
-				correction: `${texte_en_couleur(`correction type2`)}`
+				correction: `${texteEnCouleur(`correction type2`)}`
 			});
 
 			switch (listeTypeDeQuestions[i]) {
@@ -125,6 +125,6 @@ export default function Trouver_oppose() {
 
 	}
 	//this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 }
 

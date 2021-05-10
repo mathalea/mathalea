@@ -77,7 +77,7 @@ export default function Determiner_derniere_operation_exp_num() {
 		}
 		listeQuestionsToContenu(this);
 	}
-	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.", false]
+	this.besoinFormulaire2CaseACocher = ["Avec décimaux.", false]
 	this.besoinFormulaireCaseACocher = ["Avec le signe × devant les parenthèses", true]
 
 }

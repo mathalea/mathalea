@@ -23,7 +23,7 @@ export default function Constructions_parallelogrammes () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.typeExercice = 'IEP'
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let texte = ''
@@ -167,11 +167,11 @@ export default function Constructions_parallelogrammes () {
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce)
     texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)
-    texteCorr += animIEP.htmlBouton(numeroExercice)
+    texteCorr += animIEP.htmlBouton(this.umeroExercice)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de questions', 5, '1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Une des configuration au hasard']
-  // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

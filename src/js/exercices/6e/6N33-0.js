@@ -141,5 +141,5 @@ export default function Fraction_d_une_quantite() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Type d\'exercices", 5, "1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu\'à 3h)\n3 : tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"];
-  this.besoin_formulaire2_case_a_cocher = ["Avec dessin", true];
+  this.besoinFormulaire2CaseACocher = ["Avec dessin", true];
 }

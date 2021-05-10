@@ -1,7 +1,8 @@
 import Exercice from '../ClasseExercice.js';
-import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const amcReady = true
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Labyrinthe de multiples'
 
@@ -53,8 +54,8 @@ this.qcm=['6C10-5',[],'Labyrinthe de multiples',3,{}]
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras("Trouve la sortie en ne passant que par les cases contenant un multiple de ","black")}$${table}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, "black")}<br>`
+    texte = `${texteEnCouleurEtGras("Trouve la sortie en ne passant que par les cases contenant un multiple de ","black")}$${table}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, "black")}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
     for (let i = 2; i <= maximum; i++){
@@ -93,7 +94,7 @@ this.qcm=['6C10-5',[],'Labyrinthe de multiples',3,{}]
     listeQuestionsToContenu(this)
    }
   this.besoinFormulaireNumerique = ["Table "]
-  this.besoin_formulaire2_numerique = ["Facteur maximum "];
-  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+  this.besoinFormulaire2Numerique = ["Facteur maximum "];
+  this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 

@@ -8,7 +8,7 @@ import Alea2iep from '../../modules/Alea2iep.js';
  * @Auteur Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
-export default function Construire_un_triangle_avec_cible(numeroExercice) {
+export default function Construire_un_triangle_avec_cible() {
   "use strict"
   Exercice.call(this)
   this.titre = "Construire un triangle avec cible auto-corrective";
@@ -19,8 +19,8 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
   this.classe = 6;
   this.typeExercice = "IEP";
 
-  this.nouvelleVersion = function (numeroExercice) {
-    let IEP; 
+  this.nouvelleVersion = function () {
+    let IEP
     this.listeQuestions = []
     this.listeCorrections = []
     let celluleAleaRonde = function (rang) {
@@ -191,7 +191,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
           texteCorr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
           IEP.triangle1longueur2angles(sommets,lAB,Math.round(angle(B, A, C)),Math.round(angle(A, B, C)))
-          animation= IEP.htmlBouton(numeroExercice, i)
+          animation= IEP.htmlBouton(this.numeroExercice, i)
           break
         case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC 
           lAC = randint(70, 80) / 10
@@ -245,7 +245,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
       params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 3), ymin: Math.min(A.y - 1, B.y - 1, C.y - 3), xmax: Math.max(A.x + 1, B.x + 1, C.x + 3), ymax: Math.max(A.y + 1, B.y + 1, C.y + 3), pixelsParCm: 30, scale: 1 }
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
       texteCorr += mathalea2d(params_correction, objets_correction)
-      texteCorr+='<br>'+IEP.htmlBouton(numeroExercice, i)
+      texteCorr+='<br>'+IEP.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
@@ -257,7 +257,7 @@ export default function Construire_un_triangle_avec_cible(numeroExercice) {
     listeQuestionsToContenu(this);
   };
   //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  this.besoin_formulaire2_numerique = [
+  this.besoinFormulaire2Numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,

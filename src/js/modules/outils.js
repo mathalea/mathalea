@@ -10,6 +10,9 @@ const math = { format: format, evaluate: evaluate }
 export function listeQuestionsToContenu (argument) {
   if (sortieHtml) {
     argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlEnumerate(argument.listeQuestions, argument.spacing)
+    if (argument.modeQcm) {
+      argument.contenu += `<button class="ui button" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+    }
     argument.contenuCorrection = htmlParagraphe(argument.consigneCorrection) + htmlEnumerate(argument.listeCorrections, argument.spacingCorr)
   } else {
     let vspace = ''
@@ -1940,7 +1943,7 @@ export function texEnumerate (liste, spacing) {
       result += '\\end{spacing}\n'
     }
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
@@ -1973,7 +1976,8 @@ export function texParagraphe (liste, spacing = false) {
   if (spacing > 1) {
     result += '\\end{spacing}'
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  // les <br> peuvent être 2 ou plus et peuvent être séparés par des sauts de ligne ou des espaces
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
@@ -1983,7 +1987,7 @@ export function texParagraphe (liste, spacing = false) {
 * @Auteur Rémi Angot
 */
 export function texIntroduction (texte) {
-  return texte.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 }
 
 /**
@@ -2250,7 +2254,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @Auteur Rémi Angot
 */
-export function texte_en_couleur (texte, couleur = '#f15929') {
+export function texteEnCouleur (texte, couleur = '#f15929') {
   if (sortieHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
@@ -2268,7 +2272,7 @@ export function texte_en_couleur (texte, couleur = '#f15929') {
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @Auteur Rémi Angot
 */
-export function texte_en_couleur_et_gras (texte, couleur = '#f15929') {
+export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
   if (sortieHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {
@@ -2338,7 +2342,7 @@ export function couleur_en_gris (color) {
 * @param {string} texte à mettre en gras
 * @Auteur Rémi Angot
 */
-export function texte_gras (texte) {
+export function texteGras (texte) {
   if (sortieHtml) {
     return `<b>${texte}</b>`
   } else {

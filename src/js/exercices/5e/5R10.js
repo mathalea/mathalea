@@ -2,6 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {calcul,listeQuestionsToContenu,randint,ecritureParentheseSiMoins,texNombrec,texNombre,arrondi,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
 
@@ -95,6 +96,6 @@ export default function Terme_inconnu_de_somme() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"];
-  this.besoin_formulaire2_numerique = ["Valeur maximale", 9999]
-  this.besoin_formulaire3_numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
+  this.besoinFormulaire2Numerique = ["Valeur maximale", 9999]
+  this.besoinFormulaire3Numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
 }

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {fractionSimplifiee,listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {fractionSimplifiee,listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,prenom,texteEnCouleurEtGras} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
 //import {fraction,ListeFraction} from '../../modules/Fractions.js'
@@ -420,7 +420,7 @@ function ListeFraction() {
         calcul(nt1 / dt1) == calcul(nt2 / dt2) &&
         calcul(nt1 / dt1) == calcul(nt3 / dt3)
       ) {
-        pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_3_f[0].correction += `<br> ${texteEnCouleurEtGras(
           `Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`
         )}`;
       } else {
@@ -445,7 +445,7 @@ function ListeFraction() {
 
         pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`;
 
-        pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_3_f[0].correction += `<br> ${texteEnCouleurEtGras(
           `C'est donc à ${pb_3_f[0].fractionsSimp[
           pb_3_f[0].fractionsSimp.indexOf(frac_rangees[4]) + 2
           ]
@@ -469,7 +469,7 @@ function ListeFraction() {
         calcul(nt1 / dt1) == calcul(nt2 / dt2) &&
         calcul(nt1 / dt1) == calcul(nt3 / dt3)
       ) {
-        pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_3_f[1].correction += `<br> ${texteEnCouleurEtGras(
           `Les trois fractions sont équivalentes, les trois candidates ont donc remporté le même nombre de suffrages.`
         )}`;
       } else {
@@ -494,7 +494,7 @@ function ListeFraction() {
 
         pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`;
 
-        pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_3_f[1].correction += `<br> ${texteEnCouleurEtGras(
           `C'est donc ${pb_3_f[1].fractionsSimp[
           pb_3_f[1].fractionsSimp.indexOf(frac_rangees[4]) + 2
           ]
@@ -807,7 +807,7 @@ function ListeFraction() {
         calcul(nq1 / dq1) == calcul(nq3 / dq3) &&
         calcul(nq1 / dq1) == calcul(nq4 / dq4)
       ) {
-        pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[0].correction += `<br> ${texteEnCouleurEtGras(
           `Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
         )}`;
       } else {
@@ -836,7 +836,7 @@ function ListeFraction() {
 
         pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`;
 
-        pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[0].correction += `<br> ${texteEnCouleurEtGras(
           `C'est donc en ${pb_4_f[0].fractionsSimp[
           pb_4_f[0].fractionsSimp.indexOf(frac_rangees[6]) + 2
           ]
@@ -864,7 +864,7 @@ function ListeFraction() {
         calcul(nq1 / dq1) == calcul(nq3 / dq3) &&
         calcul(nq1 / dq1) == calcul(nq4 / dq4)
       ) {
-        pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[1].correction += `<br> ${texteEnCouleurEtGras(
           `Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.`
         )}`;
       } else {
@@ -893,7 +893,7 @@ function ListeFraction() {
 
         pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`;
 
-        pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[1].correction += `<br> ${texteEnCouleurEtGras(
           `C'est donc par ${pb_4_f[1].fractionsSimp[
           pb_4_f[1].fractionsSimp.indexOf(frac_rangees[6]) + 2
           ]
@@ -921,7 +921,7 @@ function ListeFraction() {
         calcul(nq1 / dq1) == calcul(nq3 / dq3) &&
         calcul(nq1 / dq1) == calcul(nq4 / dq4)
       ) {
-        pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[2].correction += `<br> ${texteEnCouleurEtGras(
           `Les quatre fractions sont équivalentes, chaque catégorie a donc la même importance dans le stade.`
         )}`;
       } else {
@@ -950,7 +950,7 @@ function ListeFraction() {
 
         pb_4_f[2].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`;
 
-        pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(
+        pb_4_f[2].correction += `<br> ${texteEnCouleurEtGras(
           `C'est donc pour ${pb_4_f[2].fractionsSimp[
           pb_4_f[2].fractionsSimp.indexOf(frac_rangees[6]) + 2
           ]

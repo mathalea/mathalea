@@ -3,6 +3,7 @@ import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,texNombre,texFr
 const Algebrite = require('algebrite')
 
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Calculer le pourcentage d’un nombre de tête'
 
@@ -105,5 +106,5 @@ let reponse;
     2,
     "1 : pourcentages 10, 20, 30, 40, 50 \n 2: pourcentages 10, 20, 25, 30, 40, 50, 60, 90",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
+  this.besoinFormulaire2CaseACocher = ["Plusieurs méthodes"];
 }

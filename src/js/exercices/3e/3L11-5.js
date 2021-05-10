@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texte_gras,warnMessage} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texteGras,warnMessage} from '../../modules/outils.js'
 export const titre = 'Calcul mental et calcul littéral'
 
 /**
@@ -160,7 +160,7 @@ export default function identites_calculs() {
 					`,
 					question: ``,
 					correction1: `
-						${texte_gras(`Avec la double distributivité`)}<br>
+						${texteGras(`Avec la double distributivité`)}<br>
 						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
 						$${situations[k].lettre} = (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
 						$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
@@ -169,7 +169,7 @@ export default function identites_calculs() {
 						$${situations[k].lettre} = ${situations[k].resultat}$
 					`,
 					correction2: `
-					${texte_gras(`Avec une identité`)}<br>
+					${texteGras(`Avec une identité`)}<br>
 					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
 					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`, `(${situations[k].facteurs[1].str})`)} $<br>
 					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
@@ -261,5 +261,5 @@ export default function identites_calculs() {
 
 	};
 	this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 }

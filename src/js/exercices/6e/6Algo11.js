@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* globals mathalea */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, texte_gras, modal_url, modalPdf } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modal_url, modalPdf } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA } from '../../modules/2d.js'
 export const titre = 'Note la couleur'
 
@@ -493,9 +493,9 @@ export default function Note_la_couleur () {
       mathalea2d(params_correction, objets_enonce) +
       '</td></tr></table>'
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
-    texteCorr += `${texte_gras(couleurs[0])} `
+    texteCorr += `${texteGras(couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
-      texteCorr += `- ${texte_gras(couleurs[i])} `
+      texteCorr += `- ${texteGras(couleurs[i])} `
     }
     texteCorr += '<br><br>' + mathalea2d(params_correction, objets_correction, lutin)
     this.listeQuestions.push(texte)
@@ -503,6 +503,6 @@ export default function Note_la_couleur () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireCaseACocher = ['Plateau avec numéros', true]
-  this.besoin_formulaire2_numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
-  this.besoin_formulaire3_numerique = ['Nombre de couleurs (Maximmum 6)', 6]
+  this.besoinFormulaire2Numerique = ['Type de programme', 2, '1 : Avancer et tourner\n2 : Boucles']
+  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximmum 6)', 6]
 }

@@ -104,5 +104,5 @@ export default function Construire_symetrique_point_6e() {
 
   }
   this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
-  // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	
 }

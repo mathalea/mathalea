@@ -4,6 +4,7 @@ import {fractionSimplifiee,texFractionReduite} from '../../modules/outils.js'
 
 
 export const amcReady = true
+export const amcType = 6 // type de question AMC
 
 export const titre = 'Additionner ou soustraire deux fractions'
 
@@ -176,6 +177,6 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 	};
 	this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n\
 2 : Cas général"];
-	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres relatifs'];
+	this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs'];
 
 }

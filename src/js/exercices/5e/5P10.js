@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Tableaux et proportionnalité.'
 
 /** 
@@ -131,7 +131,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(n1, n2, n3, coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(n1, n2, n3, coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -142,7 +142,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -153,7 +153,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -164,7 +164,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(n1, n2, n3, coeff, '+', 'L1L2'),
 					justification_L2_L1: justifications_KO(n1 + coeff, n2 + coeff, n3 + coeff, -coeff, '+', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 				},
 				{//case 4 --> addition ligne1 vers ligne2 Décimaux
@@ -174,7 +174,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L1L2'),
 					justification_L2_L1: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 
 				},
@@ -185,7 +185,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(n1, n2, n3, coeff_soust, '-', 'L1L2'),
 					justification_L2_L1: justifications_KO(n1 - coeff_soust, n2 - coeff_soust, n3 - coeff_soust, -coeff_soust, '-', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 				},
 			];
@@ -282,6 +282,6 @@ export default function Tableaux_et_proportionnalite() {
 
 	}
 	//this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 };
 

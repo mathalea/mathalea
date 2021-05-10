@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texte_gras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texteGras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Le sens des règles de calculs'
 
 /**
@@ -89,11 +89,11 @@ export default function Puissances_d_un_relatif_1() {
         let sortie = '';
         if (base < 0 && exposant % 2 == 0) {
           sortie += `<br>`;
-          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
+          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
         };
         if (base < 0 && exposant % 2 == 1) {
           sortie += `$<br>`;
-          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
+          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
         };
 
         return sortie;

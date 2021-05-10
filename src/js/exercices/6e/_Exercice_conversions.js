@@ -244,5 +244,5 @@ export default function Exercice_conversions(niveau = 1) {
     "1 : De da, h, k vers l'unité de référence\n\
 2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5: Toutes les conversions",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des nombres décimaux"];
+  this.besoinFormulaire2CaseACocher = ["Avec des nombres décimaux"];
 }

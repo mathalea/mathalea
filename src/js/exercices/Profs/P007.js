@@ -73,7 +73,7 @@ export default function Pavages_mathalea2d() {
     listeQuestionsToContenu(this);
   };
   this.besoinFormulaireNumerique = ["Type de pavage", 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3'];
-  this.besoin_formulaire2_texte = ["Nombre de répétitions du motif (2 entiers séparés par un tiret)"];
-  this.besoin_formulaire3_case_a_cocher = ["Présence de numéros"];
+  this.besoinFormulaire2Texte = ["Nombre de répétitions du motif (2 entiers séparés par un tiret)"];
+  this.besoinFormulaire3CaseACocher = ["Présence de numéros"];
 } // Fin de l'exercice.
 

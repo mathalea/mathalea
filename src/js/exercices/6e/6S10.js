@@ -127,7 +127,7 @@ export default function Lecture_diagramme_barre() {
     listeQuestionsToContenu(this);
   }
   this.besoinFormulaireNumerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
-  this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
+  this.besoinFormulaire2Numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
 }
 
 

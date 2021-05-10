@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texteEnCouleur} from '../../modules/outils.js'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 
 /**
@@ -66,17 +66,17 @@ export default function Reduire_dinstinction_somme_produit() {
 				correction_somme: `La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n * p)) {
-				enonces[0].correction_produit += `${texte_en_couleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
+				enonces[0].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
 			} else {
-				enonces[0].correction_produit += `${texte_en_couleur(` $${n * p}${inc}^2$`)}`;
+				enonces[0].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`;
 			};
 			if (isUn(n * p)) {
-				enonces[0].correction_somme += `${texte_en_couleur(` $${n + p}${inc}=${inc}$`)}`;
+				enonces[0].correction_somme += `${texteEnCouleur(` $${n + p}${inc}=${inc}$`)}`;
 			} else {
-				enonces[0].correction_somme += `${texte_en_couleur(` $${n + p}${inc}$`)}`;
+				enonces[0].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`;
 			};
 			if (isUn(n) && isUn(p)) {
-				enonces[0].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
+				enonces[0].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `;
 			}
 			//===== 1 le produit puis la somme
 			enonces.push({
@@ -87,17 +87,17 @@ export default function Reduire_dinstinction_somme_produit() {
 			});
 
 			if (isUn(n * p)) {
-				enonces[1].correction_produit += `${texte_en_couleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
+				enonces[1].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
 			} else {
-				enonces[1].correction_produit += `${texte_en_couleur(` $${n * p}${inc}^2$`)}`;
+				enonces[1].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`;
 			};
 			if (isUn(n * p)) {
-				enonces[1].correction_somme += `${texte_en_couleur(` $${n + p}${inc}=${inc}$`)}`;
+				enonces[1].correction_somme += `${texteEnCouleur(` $${n + p}${inc}=${inc}$`)}`;
 			} else {
-				enonces[1].correction_somme += `${texte_en_couleur(` $${n + p}${inc}$`)}`;
+				enonces[1].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`;
 			};
 			if (isUn(n) && isUn(p)) {
-				enonces[1].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
+				enonces[1].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `;
 			}
 			//===== 2 la somme puis le produit 
 			enonces.push({
@@ -107,17 +107,17 @@ export default function Reduire_dinstinction_somme_produit() {
 				correction_somme: `La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n * p)) {
-				enonces[2].correction_produit += `${texte_en_couleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
+				enonces[2].correction_produit += `${texteEnCouleur(`$${n * p}${inc}^2=${inc}^2$`)}`;
 			} else {
-				enonces[2].correction_produit += `${texte_en_couleur(` $${n * p}${inc}^2$`)}`;
+				enonces[2].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`;
 			};
 			if (isUn(n * p)) {
-				enonces[2].correction_somme += `${texte_en_couleur(` $${inc}$`)}`;
+				enonces[2].correction_somme += `${texteEnCouleur(` $${inc}$`)}`;
 			} else {
-				enonces[2].correction_somme += `${texte_en_couleur(` $${n + p}${inc}$`)}`;
+				enonces[2].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`;
 			};
 			if (isUn(n) && isUn(p)) {
-				enonces[2].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
+				enonces[2].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `;
 			}
 			//===== 3 la somme puis le produit 
 			enonces.push({
@@ -127,17 +127,17 @@ export default function Reduire_dinstinction_somme_produit() {
 				correction_somme: `$${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n * p)) {
-				enonces[3].correction_produit += `${texte_en_couleur(`$${inc}^2$`)}`;
+				enonces[3].correction_produit += `${texteEnCouleur(`$${inc}^2$`)}`;
 			} else {
-				enonces[3].correction_produit += `${texte_en_couleur(` $${n * p}${inc}^2$`)}`;
+				enonces[3].correction_produit += `${texteEnCouleur(` $${n * p}${inc}^2$`)}`;
 			};
 			if (isUn(n * p)) {
-				enonces[3].correction_somme += `${texte_en_couleur(` $${inc}$`)}`;
+				enonces[3].correction_somme += `${texteEnCouleur(` $${inc}$`)}`;
 			} else {
-				enonces[3].correction_somme += `${texte_en_couleur(` $${n + p}${inc}$`)}`;
+				enonces[3].correction_somme += `${texteEnCouleur(` $${n + p}${inc}$`)}`;
 			};
 			if (isUn(n) && isUn(p)) {
-				enonces[3].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
+				enonces[3].correction_produit = `$${inc}\\times ${inc} =$ ${texteEnCouleur(` $${inc}^2$`)} `;
 			};
 
 			switch (listeTypeDeQuestions[i]) {
@@ -209,7 +209,7 @@ export default function Reduire_dinstinction_somme_produit() {
 		}
 		listeQuestionsToContenu(this);
 	}
-	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
+	//this.besoinFormulaire2CaseACocher = ["Avec décimaux.",false]
 
 }
 

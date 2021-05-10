@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
-import {texte_gras,lampeMessage} from '../../modules/outils.js';
+import {texteGras,lampeMessage} from '../../modules/outils.js';
 
 export const titre = 'Déterminer des médianes'
 
@@ -173,7 +173,7 @@ export default function Calculer_des_frequences() {
 				}
 				texte += lampeMessage({
 					titre : `Vocabulaire`,
-					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texte_gras(solid_name(nombre_faces))}.`,
+					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solid_name(nombre_faces))}.`,
 					couleur : `nombres`
 				})+'<br>';
 				texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>';
@@ -209,7 +209,7 @@ export default function Calculer_des_frequences() {
 						effCumulCroiss += tirages[cpt][1];						
 					};
 					scoresMedians.push(tirages[cpt][0]);
-					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
+					texteCorr += `D'où ${texteGras(`le score médian : ${texNombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
@@ -234,7 +234,7 @@ export default function Calculer_des_frequences() {
 						effCumulCroiss += tirages[cpt][1];						
 					};
 					scoresMedians.push(tirages[cpt][0]);
-					texteCorr += `D'où ${texte_gras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`;
+					texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`;
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,
 						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
@@ -288,7 +288,7 @@ export default function Calculer_des_frequences() {
 					En effet, ${underbrace_mediane(notes.length)}<br>					
 					Une médiane est donc la $${(notes.length+1)/2}^{e}$ note, lorsque ces notes sont rangées.<br>`;			
 				};
-				texteCorr += `D'où ${texte_gras(`la note médiane : ${texNombre(mediane)}`)}<br>`;
+				texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(mediane)}`)}<br>`;
 				if (notes.length%2==0) {
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,
@@ -372,7 +372,7 @@ export default function Calculer_des_frequences() {
 					En effet, ${underbrace_mediane(temperatures.length)}<br>					
 					Une médiane est donc la $${(temperatures.length+1)/2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`;			
 				};
-				texteCorr += `D'où ${texte_gras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`;
+				texteCorr += `D'où ${texteGras(`la temperature médiane : ${texNombre(mediane)}`)}<br>`;
 				if (temperatures.length%2==0) {
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,

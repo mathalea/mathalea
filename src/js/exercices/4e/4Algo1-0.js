@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texteEnCouleur} from '../../modules/outils.js'
 import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} from '../../modules/2d.js'
 import {combinaisonListes} from '../../modules/outils.js'
 
@@ -280,7 +280,7 @@ export const titre = 'Dessiner avec scratch'
           correction: `
           <br> Les figures rouges sont erronées.
           <br> La figure tracée par le programme a ${situations[0].nb_cotes} côtés de même longueur et ${situations[0].nb_cotes} angles de même mesure, c'est un ${situations[0].nom}.
-          <br>${texte_en_couleur(`La bonne figure est donc la figure verte.`)}
+          <br>${texteEnCouleur(`La bonne figure est donc la figure verte.`)}
           <br><br>
           ${situations[0].fig_corr}
           `

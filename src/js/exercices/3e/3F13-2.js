@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,texte_en_couleur_et_gras,cesar} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,texteEnCouleurEtGras,cesar} from '../../modules/outils.js'
 import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Spécial escape game'
 
@@ -44,13 +44,13 @@ export default function Premier_escape_game_mathalea() {
 		let mdp = cesar(mots[randint(0, 5) + (type - 1) * 6], 14);
 		let absc = [], ord = [], car;
 		if (this.sup2 == mdp)
-			texte += `${texte_en_couleur_et_gras(`Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
+			texte += `${texteEnCouleurEtGras(`Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
 		else
 			texte += `Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`;
 		texte += "Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>";
 		texteCorr += `Le mot de passe comporte ${2 + 2 * type} lettres.`;
 		if (this.sup2 == mdp)
-			texteCorr += `${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
+			texteCorr += `${texteEnCouleurEtGras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`;
 
 		for (let x = 0; x < type * 2 + 2; x++) {
 			car = mdp[x];
@@ -162,9 +162,9 @@ export default function Premier_escape_game_mathalea() {
 		this.listeCorrections.push(texteCorr);
 		listeQuestionsToContenu(this);
 
-		//	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+		//	this.besoinFormulaire2Numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 	};
 	this.besoinFormulaireNumerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
-	this.besoin_formulaire2_texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):'];
+	this.besoinFormulaire2Texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):'];
 
 }

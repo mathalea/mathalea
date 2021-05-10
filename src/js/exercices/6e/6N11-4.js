@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,texteEnCouleurEtGras} from '../../modules/outils.js'
 export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant'
 
 /** 
@@ -102,7 +102,7 @@ export default function Ranger_ordre_croissant_decroissant() {
         $${texNombre(nombres[0])}$   ;   $${texNombre(nombres[1])}$   ;   $${texNombre(nombres[2])}$   ;   $${texNombre(nombres[3])}$   ;   $${texNombre(nombres[4])}$   ;   $${texNombre(nombres[5])}$          
         `,
           question: ``,
-          correction: `Les nombres rangés dans l'ordre ${texte_en_couleur_et_gras(situations[k].ordre)} :<br>
+          correction: `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(situations[k].ordre)} :<br>
         $${texNombre(nombres_ranges[0])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[1])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[2])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[3])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[4])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[5])}$
         `
         });
@@ -143,7 +143,7 @@ export default function Ranger_ordre_croissant_decroissant() {
     listeQuestionsToContenu(this);
   }
   //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 };
 
 

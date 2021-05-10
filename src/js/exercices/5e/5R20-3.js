@@ -82,5 +82,5 @@ export default function Exercice_additions_de_5_relatifs(max = 20) {
 		listeQuestionsToContenuSansNumero(this);
 	};
 	this.besoinFormulaireNumerique = ['Valeur maximale', 99999];
-	this.besoin_formulaire2_case_a_cocher = ['Avec des écritures simplifiées'];
+	this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées'];
 }

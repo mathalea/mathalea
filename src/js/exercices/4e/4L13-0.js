@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texteEnCouleur} from '../../modules/outils.js'
 import {point,segment,codageCarre,polygoneRegulierParCentreEtRayon,nommePolygone,afficheCoteSegment,codeSegments,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
@@ -149,7 +149,7 @@ export default function Mettre_en_equation_sans_resoudre() {
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
+        ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
       });
       // pour être sûr d'avoir deux figures différentes
       let p = randint(3, 8, [n]);
@@ -161,7 +161,7 @@ export default function Mettre_en_equation_sans_resoudre() {
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
+        ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
       })
 
       switch (listeTypeDeQuestions[i]) {
@@ -199,6 +199,6 @@ export default function Mettre_en_equation_sans_resoudre() {
 
   }
   //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 }
 

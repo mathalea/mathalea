@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre,miseEnEvidence,texFraction} from '../../modules/outils.js'
 export const amcReady = true
+export const amcType = 4 // type de question AMC
 
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
 
@@ -198,6 +199,6 @@ let reponse
     3,
     "1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Écritures décimales et fractionnaires",
   ];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des calculs à trous"];
+  this.besoinFormulaire2CaseACocher = ["Avec des calculs à trous"];
 }
 

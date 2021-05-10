@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,texNombrec2,miseEnEvidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,texNombrec2,miseEnEvidence,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const titre = 'Labyrinthe de numération décimale'
 
@@ -52,8 +52,8 @@ export default function Exercice_labyrinthe_numeration() {
     }
     rang=randint(0,rangMax)
     chiffre=randint(0,9)
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${miseEnEvidence(chiffre,'black')}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${miseEnEvidence(chiffre,'black')}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm,Um,C,D,U,d,c,m,dm,nombretemp
     for (let i = 0; i <= 30; i++) {
@@ -219,7 +219,7 @@ export default function Exercice_labyrinthe_numeration() {
     listeQuestionsToContenu(this)
   }
 //this.besoinFormulaireCaseACocher = ["Avec des dizaines de mille et des dix-millièmes"]
-//  this.besoin_formulaire2_numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
+//  this.besoinFormulaire2Numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
  this.besoinFormulaireNumerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
 } // Fin de l'exercice.
 

@@ -226,6 +226,6 @@ export default function Rapports_sur_un_segment() {
 
   }
   //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
 };
 

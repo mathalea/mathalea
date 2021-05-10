@@ -4,6 +4,7 @@ import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
 
 export const amcReady = true
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Calcul d’un parallèle terrestre'
 

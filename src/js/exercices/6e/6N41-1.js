@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 import { fraction } from '../../modules/Fractions.js'
 
@@ -51,8 +51,8 @@ export default function Exercice_labyrinthe_fractions_egales() {
     }
     let maximum = parseInt(this.sup)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
  
@@ -102,7 +102,7 @@ export default function Exercice_labyrinthe_fractions_egales() {
   }
  // this.besoinFormulaireNumerique = ["Table "]
   this.besoinFormulaireNumerique = ["Facteur maximum "];
-  this.besoin_formulaire2_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 
 

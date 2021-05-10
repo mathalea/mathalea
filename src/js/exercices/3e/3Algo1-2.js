@@ -1,10 +1,10 @@
-import { texte_en_couleur_et_gras } from '../../modules/outils.js';
+import { texteEnCouleurEtGras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from '../../modules/2d.js'
 import {randint,calcul,modalYoutube} from '../../modules/outils.js';
 import {lampeMessage} from '../../modules/outils.js';
-import {enumerateSansPuceSansNumero,texte_gras} from '../../modules/outils.js';
+import {enumerateSansPuceSansNumero,texteGras} from '../../modules/outils.js';
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -123,14 +123,14 @@ export default function Exercice_zero_mathalea() {
         // Petite intro connaissances
         let string_intro = `En mathématiques, on appelle conjecture une proposition qui n'est pas encore démontrée.
         On a éventuellement vérifié cette proposition sur beaucoup d'exemples mais cela ne garantit pas qu'elle soit toujours vraie.<br>
-        Nous allons nous intéresser à la ${texte_gras('conjecture de Syracuse')} découverte par le mathématicien allemand ${texte_gras('Lothar Collatz')} en 1930
+        Nous allons nous intéresser à la ${texteGras('conjecture de Syracuse')} découverte par le mathématicien allemand ${texteGras('Lothar Collatz')} en 1930
         à l'université de Syracuse.`
         if (sortieHtml) {
           string_intro +=`<br><br>`;
         } else {
           string_intro += `\\par\\vspace{0.5cm}`
         };
-        string_intro += `${texte_gras('Algorithme de Syracuse :')}`;
+        string_intro += `${texteGras('Algorithme de Syracuse :')}`;
         if (sortieHtml) {
           string_intro +=`<br>`;
         };
@@ -142,9 +142,9 @@ export default function Exercice_zero_mathalea() {
           `On recommence avec le nouvel entier trouvé tant qu'il ne vaut pas 1.`
         ])}<br>                    
         `;        
-        string_intro += `${texte_gras('Conjecture de Syracuse :')}<br>`;
-        string_intro += `Encore appelée conjecture de ${texte_gras('Collatz')}, conjecture ${texte_gras('d\'Ulam')},
-        conjecture ${texte_gras('tchèque')} ou ${texte_gras('problème 3x + 1')}, est l'hypothèse mathématique selon laquelle
+        string_intro += `${texteGras('Conjecture de Syracuse :')}<br>`;
+        string_intro += `Encore appelée conjecture de ${texteGras('Collatz')}, conjecture ${texteGras('d\'Ulam')},
+        conjecture ${texteGras('tchèque')} ou ${texteGras('problème 3x + 1')}, est l'hypothèse mathématique selon laquelle
         la suite de Syracuse de n'importe quel entier strictement positif atteint 1.<br>
         En dépit de la simplicité de son énoncé, cette conjecture défie depuis de nombreuses années les mathématiciens.
         `;
@@ -242,7 +242,7 @@ export default function Exercice_zero_mathalea() {
           cas5 :{
             titre:`Temps de vol en altitude de la suite de Syracuse ${entier}`,
             texte:`C'est le plus petit nombre de fois qu'il faut appliquer l'algorithme avant que la valeur suivante soit strictement inférieure
-            à la valeur initiale. ${texte_gras('Attention')} cela ne signifie pas que l'on ne repassera jamais au dessus de la valeur initiale.
+            à la valeur initiale. ${texteGras('Attention')} cela ne signifie pas que l'on ne repassera jamais au dessus de la valeur initiale.
             `
           },
         };
@@ -250,14 +250,14 @@ export default function Exercice_zero_mathalea() {
         switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1: //étude du cas N = 1
             texte = `On choisit le nombre entier 1. Quels sont tous les entiers déterminés par cet algorithme ?`
-            texteCorr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texte_gras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            
-            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
+            texteCorr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texteGras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
             break;
           case 2: //suite de Syracuse pour un entier aléatoire          
             texte = `Déterminer tous les entiers issus de cet algorithme lorsqu'on choisit ${entier}.`;
             texteCorr = `La suite de Syracuse du nombre ${entier} est : <br>
-            ${texte_gras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
-            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
+            ${texteGras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
               texteCorr += mathalea2d(params_correction, objets_correction)
@@ -265,13 +265,13 @@ export default function Exercice_zero_mathalea() {
             break;
           case 3://altitude max
             texte = `Quelle est la valeur maximale de cette liste d'entiers ?`;
-            texteCorr = `La valeur maximale atteinte vaut : ${texte_gras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
-            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
+            texteCorr = `La valeur maximale atteinte vaut : ${texteGras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
             break;
           case 4://temps de vol
             texte = `Combien de fois au minimum faut-il appliquer l'algorithme pour trouver la valeur 1 ?`;
-            texteCorr = `Il faut  appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
-            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
+            texteCorr = `Il faut  appliquer au minimum ${texteGras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
             break;            
           case 5://temps de vol en altitude
             texte = `Au bout de combien d'application minimum de l'algorithme la valeur calculée suivante sera-t-elle strictement inférieure à la valeur initiale ?`;
@@ -279,11 +279,11 @@ export default function Exercice_zero_mathalea() {
             if (syracuse({N:entier}).tempsDeVolEnAltitude()==0) {
               texteCorr = `Dès la première application de l'algorithme la valer trouvée est inférieure à la valeur initiale.`
             } else {
-              texteCorr = `Il faut appliquer au minimum ${texte_gras(syracuse({N:entier}).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
+              texteCorr = `Il faut appliquer au minimum ${texteGras(syracuse({N:entier}).tempsDeVolEnAltitude())} fois l'algorithme pour que la valeur calculée suivante soit strictement inférieure à la valeur initiale.`
             };
             texteCorr +=`<br><br>`;
             //texteCorr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
-            texteCorr+= texte_en_couleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
               texteCorr += mathalea2d(params_correction, objets_correction_plus)
@@ -306,8 +306,8 @@ export default function Exercice_zero_mathalea() {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
   
   //	this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-  //  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
   
   } // Fin de l'exercice.
   
