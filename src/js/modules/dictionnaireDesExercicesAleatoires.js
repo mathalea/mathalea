@@ -1680,8 +1680,12 @@ export default {
   "5R20-2": {
     "titre": "Addition à trou de deux entiers relatifs",
     "url": "/exercices/5e/5R20-2.js",
-    "amcReady": false,
-    "qcmInteractif": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "qcmInteractif": true,
     "name": "5R20-2"
   },
   "5R20-3": {
