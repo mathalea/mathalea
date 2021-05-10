@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texte_en_couleur, texFractionSigne,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texteEnCouleur, texFractionSigne,texFractionReduite, ecritureAlgebrique} from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
 export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 
@@ -76,7 +76,7 @@ export default function Equations_presque_produit_null2() {
                        }
                        else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
-                       texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                       texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                        texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c+e,d+f)}=0$<br>`; 
                        texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d-f,c+e)}$<br>
                        On en déduit :  `
@@ -111,7 +111,7 @@ export default function Equations_presque_produit_null2() {
                    }
                    else {
                        texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
-                   texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                   texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                    texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c-e,d-f)}=0$<br>`; 
                    texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+f,c-e)}$<br>
                    On en déduit :  `
@@ -144,7 +144,7 @@ export default function Equations_presque_produit_null2() {
                }
                else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
-               texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+               texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(a+e,b+f)}=0$<br>`; 
                texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-b-f,a+e)}$<br>
                On en déduit :  `
@@ -178,7 +178,7 @@ export default function Equations_presque_produit_null2() {
            }
            else {
                texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>`;
-           texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+           texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
            texteCorr += ` $\\iff ${reduireAxPlusB(a,b)}=0\\quad$ ou bien $\\quad${reduireAxPlusB(c-a,d-b)}=0$<br>`; 
            texteCorr += `$\\iff x=${texFractionSigne(-b,a)}\\quad$ ou $\\quad x=${texFractionSigne(-d+b,c-a)}$<br>
            On en déduit :  `
@@ -211,7 +211,7 @@ export default function Equations_presque_produit_null2() {
             }
         texteCorr += `$\\iff (${reduireAxPlusB(a,b)})(${reduireAxPlusB(c-e,d-f)})=0$<br>`
         texteCorr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-        ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+        ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
         texteCorr +=`$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c-e,d-f)})=0$<br>`
         texteCorr+=`$\\iff ${reduireAxPlusB(a,b)}=0$ ou $${reduireAxPlusB(c-e,d-f)}=0$<br>`
         if (this.correctionDetaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.

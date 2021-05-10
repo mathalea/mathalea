@@ -4,6 +4,7 @@ import {fractionSimplifiee,texFractionReduite} from '../../modules/outils.js'
 
 
 export const amcReady = true
+export const amcType = 6 // type de question AMC
 
 export const titre = 'Additionner ou soustraire deux fractions'
 

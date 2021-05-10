@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleur} from '../../modules/outils.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
@@ -49,13 +49,13 @@ export default function Calculer_une_expression_litteraleBis() {
 						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
 						texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
 						texte += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
-						texte += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
+						texte += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 						texteCorr = ``;
 					} else {
 						texteCorr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
 						texteCorr += `<br>Le calcul serait le suivant : ${expc}.`;
 						texteCorr += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
-						texteCorr += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
+						texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 					};
 
 					break;

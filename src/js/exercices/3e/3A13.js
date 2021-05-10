@@ -76,7 +76,7 @@ export default function PPCM_Engrenages() {
 			var nb_dents_r1;
 			var nb_dents_r2;
 			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
-			//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
+			//txt_popup += texteGras('les nombres a et b sont premiers entre eux');
 			if (sortieHtml) {
 				txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 			} else {
@@ -92,13 +92,13 @@ export default function PPCM_Engrenages() {
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 						// let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
-						// //txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
+						// //txt_popup += texteGras('les nombres a et b sont premiers entre eux');
 						// if (sortieHtml) {
 						// 	txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 						// } else {
 						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 						// };
-						//${texte_gras('les nombres a et b sont premiers entre eux')}.`;
+						//${texteGras('les nombres a et b sont premiers entre eux')}.`;
 						texte += katexPopup2(
 							numeroExercice + 1,
 							1,
@@ -153,7 +153,7 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texteCorr += `<br><br>` + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
@@ -184,7 +184,7 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texte += `<br>` + numAlpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
@@ -199,7 +199,7 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texteCorr += `<br><br>` + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;

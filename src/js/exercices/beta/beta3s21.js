@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombre_avec_espace, texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombre_avec_espace, texteEnCouleur_et_gras} from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
 
@@ -94,7 +94,7 @@ export default function Stabilisation_frequence() {
             texteCorr += `d'apparaitre. <br>`
             texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
             texteCorr += `Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>`;
-            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
+            texteCorr += texteEnCouleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
           break;
   
           case 2:
@@ -137,7 +137,7 @@ export default function Stabilisation_frequence() {
             texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
             texteCorr += `Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>`;
             texteCorr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`;
-            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
+            texteCorr += texteEnCouleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
           break; 
 
           case 3:
@@ -186,7 +186,7 @@ export default function Stabilisation_frequence() {
             texteCorr += `\\\\\\hline\n`;
             texteCorr += `\\end{array}\n$ <br>`;
             texteCorr += `Les probabilités semblent très proches des fréquences observées. <br>`;
-            texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.`);
+            texteCorr += texteEnCouleur_et_gras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.`);
 
           break;  
 
@@ -238,7 +238,7 @@ export default function Stabilisation_frequence() {
               texteCorr += `\\\\\\hline\n`;
               texteCorr += `\\end{array}\n$ <br>`;
               texteCorr += `Les valeurs de fréquence et de probabilité pour les boules ${tabcoul[face]} ne correspondent pas. Il y a trop de différence. <br>`
-              texteCorr += texte_en_couleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un tirage aléatoire dans une urne.`);
+              texteCorr += texteEnCouleur_et_gras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un tirage aléatoire dans une urne.`);
 
             break;  
   

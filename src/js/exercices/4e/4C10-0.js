@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texte_en_couleur_et_gras, Relatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleur_et_gras, Relatif } from '../../modules/outils.js'
 
 export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
 
@@ -115,7 +115,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[0]
           )} \\times ${ecritureNombreRelatif(
             num.relatifs[1]
-          )} $ est ${texte_en_couleur_et_gras(
+          )} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
           break
@@ -140,7 +140,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[1]
           )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
-          )} $ est ${texte_en_couleur_et_gras(
+          )} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(
               num.relatifs[0],
               num.relatifs[1],
@@ -172,7 +172,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[2]
           )} \\times ${ecritureNombreRelatif(
             num.relatifs[3]
-          )} $ est ${texte_en_couleur_et_gras(
+          )} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(
               num.relatifs[0],
               num.relatifs[1],
@@ -194,7 +194,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[0]
           )}}{${ecritureNombreRelatif(
             num.relatifs[1]
-          )}} $ est ${texte_en_couleur_et_gras(
+          )}} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(num.relatifs[0], num.relatifs[1])
           )}.`
           break
@@ -219,7 +219,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[1]
           )} \\times ${ecritureNombreRelatif(
             num.relatifs[2]
-          )}} $ est ${texte_en_couleur_et_gras(
+          )}} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(
               num.relatifs[0],
               num.relatifs[1],
@@ -248,7 +248,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[1]
           )}}{${ecritureNombreRelatif(
             num.relatifs[2]
-          )}} $ est ${texte_en_couleur_et_gras(
+          )}} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(
               num.relatifs[0],
               num.relatifs[1],
@@ -280,7 +280,7 @@ export default function Signe_produit_quotient_relatifs () {
             num.relatifs[2]
           )} \\times ${ecritureNombreRelatif(
             num.relatifs[3]
-          )}} $ est ${texte_en_couleur_et_gras(
+          )}} $ est ${texteEnCouleur_et_gras(
             num.getSigneProduitString(
               num.relatifs[0],
               num.relatifs[1],

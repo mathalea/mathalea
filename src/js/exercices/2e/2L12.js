@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texte_en_couleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texteEnCouleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/Fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
@@ -51,7 +51,7 @@ export default function Equations_produits_nuls2() {
                 case 1:
                     texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`; 
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                    ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                     texteCorr +=texte+'<br>' //optimisation du code
                     texteCorr+=`$\\iff ${reduireAxPlusB(a,b)}=0$ ou $${reduireAxPlusB(c,d)}=0$<br>`
                     if (this.correctionDetaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
@@ -79,7 +79,7 @@ export default function Equations_produits_nuls2() {
                     f4=f2.inverse().multiplieEntier(-d)
                     texte =`$(${f1.texFraction}x${ecritureAlgebrique(b)})(${f2.texFraction}x${ecritureAlgebrique(d)})=0$`
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
+                    ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
                     $(${f1.texFraction}x${ecritureAlgebrique(b)})(${f2.texFraction}x${ecritureAlgebrique(d)})=0$<br>`
                     texteCorr+=`$\\iff ${f1.texFraction}x${ecritureAlgebrique(b)}=0$ ou $${f2.texFraction}x${ecritureAlgebrique(d)}=0$<br>`
                     if (this.correctionDetaillee){
@@ -107,7 +107,7 @@ export default function Equations_produits_nuls2() {
                         f4=f2.entierDivise(-b)
                         texte =`$(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$`
                         texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                        ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
+                        ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
                         $(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$<br>`
                         texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}${f1.texFractionSignee}=0$ ou $${reduireAxPlusB(b,0)}${f2.texFractionSignee}=0$<br>`
                         if (this.correctionDetaillee){

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,listeQuestionsToContenu,combinaisonListes,texte_gras} from '../../modules/outils.js'
+import {randint,listeQuestionsToContenu,combinaisonListes,texteGras} from '../../modules/outils.js'
 
 export const titre = 'Dernier chiffre d’un calcul'
 
@@ -61,7 +61,7 @@ export default function dernierChiffre() {
                   texteCorr += `Le dernier chiffre de $${a} + ${b}$ est le dernier chiffre de $${a%10} + ${b%10}$. `;
                   texteCorr += `Or : $${a%10} + ${b%10} = ${a%10 + b%10} $<br>`;
                 }
-                texteCorr += texte_gras(`Le dernier chiffre de $${a} + ${b}$ est : $${(b+a)%10}$.`);
+                texteCorr += texteGras(`Le dernier chiffre de $${a} + ${b}$ est : $${(b+a)%10}$.`);
                 
                 break;          
               case 'produit':
@@ -73,7 +73,7 @@ export default function dernierChiffre() {
                   texteCorr += `Le dernier chiffre de $${a} \\times ${b}$ est le dernier chiffre de $${a%10} \\times ${b%10}$. `;
                   texteCorr += `Or : $${a%10} \\times ${b%10} = ${(a%10) * (b%10)} $<br>`;
                 }
-                texteCorr += texte_gras(`Le dernier chiffre de $${a} \\times ${b}$ est : $${(b*a)%10}$.`);
+                texteCorr += texteGras(`Le dernier chiffre de $${a} \\times ${b}$ est : $${(b*a)%10}$.`);
                 break;
               
               case 'difference':
@@ -88,7 +88,7 @@ export default function dernierChiffre() {
                     texteCorr += `Comme  $${a%10} < ${b%10}$, on doit faire la soustraction : $${(a%10)+10} - ${b%10} = ${((a%10)+10)-(b%10)}$. <br>`;
                   }
                 }
-                texteCorr += texte_gras(`Le dernier chiffre de $${a} - ${b}$ est : $${(a-b)%10}$.`);
+                texteCorr += texteGras(`Le dernier chiffre de $${a} - ${b}$ est : $${(a-b)%10}$.`);
                 break;
           }
 

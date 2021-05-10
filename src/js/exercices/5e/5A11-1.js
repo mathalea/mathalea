@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleur_et_gras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 
 
@@ -79,8 +79,8 @@ export default function Exercice_labyrinthe_divisibilite() {
 				table = table * 3;
 			}
 		}
-		texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par `, 'black')}$${table}$.<br>`;
-		texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`;
+		texte = `${texteEnCouleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par `, 'black')}$${table}$.<br>`;
+		texteCorr = `${texteEnCouleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`;
 		// Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
 		let listeMultiples = [], index = 0;
 		for (let i = 200; i <= 12000; i += randint(1, 100)) {

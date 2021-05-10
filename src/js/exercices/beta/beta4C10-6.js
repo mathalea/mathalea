@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu, randint, combinaisonListes,
  Relatif, lettreDepuisChiffre, ecritureNombreRelatif,
- texte_en_couleur_et_gras} from '../../modules/outils.js'
+ texteEnCouleur_et_gras} from '../../modules/outils.js'
 export const titre = 'Multiplications et quotients de relatifs : signe avec une lettre'
 
 /**
@@ -70,7 +70,7 @@ export default function Exercice_tableau_multiplications_relatifs() {
 		let calcul = "";
 		let signe_lettre, calcul_nombres;
 		texte = `Donne le signe de $ ${lettre} $ pour que ${nom_expression} soit ${signe_expression==-1 ? 'negatif' : 'positif'}. <br>`;
-		texteCorr = `${texte_en_couleur_et_gras("Supposons que " + lettre + " soit positif : ")}`; 
+		texteCorr = `${texteEnCouleur_et_gras("Supposons que " + lettre + " soit positif : ")}`; 
 		switch (listeTypeDeQuestions[i]) {
 			case 1: // multiplications
 				calcul += `${liste_termes[0]} `;
@@ -86,8 +86,8 @@ export default function Exercice_tableau_multiplications_relatifs() {
 					//texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[parseInt(nb_termes-2)])} $ est ${num.getSigneString()[parseInt(nb_termes-2)]}`;
 					liste_nombres.push(1);
 					texteCorr += `<br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-					texteCorr += `<br><br> Donc si ${texte_en_couleur_et_gras(lettre +" est positif","black")} $ ${calcul} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
-					texteCorr += `<br><br> ${texte_en_couleur_et_gras("Supposons maintenant que " + lettre + " soit négatif : ")}`;
+					texteCorr += `<br><br> Donc si ${texteEnCouleur_et_gras(lettre +" est positif","black")} $ ${calcul} $ est ${texteEnCouleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
+					texteCorr += `<br><br> ${texteEnCouleur_et_gras("Supposons maintenant que " + lettre + " soit négatif : ")}`;
 					//texteCorr += ` $ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
 					//for (let k=1; k<nb_termes-1 ; k++) {
 					//	texteCorr += `  , $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]} `
@@ -95,8 +95,8 @@ export default function Exercice_tableau_multiplications_relatifs() {
 					//texteCorr += ` et ${lettre} est négatif.`;
 					liste_nombres.push(-1);
 					texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-					texteCorr += `<br><br> Donc si ${texte_en_couleur_et_gras(lettre +" est négatif","black")} $ ${calcul} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
-					texteCorr += `<br><br> ${texte_en_couleur_et_gras("Conclusion :")} <br>` + texte_en_couleur_et_gras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}`,"black");				
+					texteCorr += `<br><br> Donc si ${texteEnCouleur_et_gras(lettre +" est négatif","black")} $ ${calcul} $ est ${texteEnCouleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
+					texteCorr += `<br><br> ${texteEnCouleur_et_gras("Conclusion :")} <br>` + texteEnCouleur_et_gras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}`,"black");				
 				} else {
 					texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'positif' : 'négatif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}.`;
 				}
@@ -119,16 +119,16 @@ export default function Exercice_tableau_multiplications_relatifs() {
 					//	texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]}`
 					//}
 					texteCorr += `<br> ${num.setRegleSigneQuotient(...liste_nombres)}`;
-					texteCorr += `<br><br> Donc si ${texte_en_couleur_et_gras(lettre+" est positif","black")} $ ${calcul} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
-					texteCorr += `<br><br> ${texte_en_couleur_et_gras("Supposons maintenant que " + lettre + " soit négatif : ")}`
+					texteCorr += `<br><br> Donc si ${texteEnCouleur_et_gras(lettre+" est positif","black")} $ ${calcul} $ est ${texteEnCouleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
+					texteCorr += `<br><br> ${texteEnCouleur_et_gras("Supposons maintenant que " + lettre + " soit négatif : ")}`
 					//$ ${ecritureNombreRelatif(liste_nombres[0])} $ est ${num.getSigneString()[0]}`;
 					//for (let k=1; k<nb_termes-1 ; k++) {
 					//	texteCorr += `  et $ ${ecritureNombreRelatif(liste_nombres[k])} $ est ${num.getSigneString()[k]}`
 					//}
 					liste_nombres.push(-1);
 					texteCorr += `<br> ${num.setRegleSigneQuotient(...liste_nombres)}`;
-					texteCorr += `<br><br> Donc si ${texte_en_couleur_et_gras(lettre+" est négatif","black")} $ ${calcul} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
-					texteCorr += `<br><br> ${texte_en_couleur_et_gras("Conclusion :")} <br>` + texte_en_couleur_et_gras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}`,"black");				
+					texteCorr += `<br><br> Donc si ${texteEnCouleur_et_gras(lettre+" est négatif","black")} $ ${calcul} $ est ${texteEnCouleur_et_gras(num.getSigneProduitString(...liste_nombres),"black")}.`;
+					texteCorr += `<br><br> ${texteEnCouleur_et_gras("Conclusion :")} <br>` + texteEnCouleur_et_gras(`Il faut donc que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'négatif' : 'positif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}`,"black");				
 				} else {
 					texteCorr = `<br> Il faut que $ ${lettre} $ soit ${signe_expression == num.getSigneProduitNumber(...liste_nombres) ? 'positif' : 'négatif'} pour que ${nom_expression} soit ${signe_expression==-1 ? 'négatif' : 'positif'}.`;
 				}
@@ -156,18 +156,18 @@ export default function Exercice_tableau_multiplications_relatifs() {
 						texteCorr += `On trouve ${nb_lettres+1} fois le facteur $ ${lettre} $.<br> Or ${nb_lettres+1} est pair donc leur produit sera positif.`;
 						texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calcul_nombres} $`;
 						texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-						texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`,"black");
+						texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`,"black");
 					} else {
 						texteCorr += `On trouve ${nb_lettres+1} fois le facteur $ ${lettre} $. <br> Or ${nb_lettres+1} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signe_lettre==-1 ? 'négatif' : 'positif'}.`;
 						if (signe_lettre==-1) {
 							texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`;
 							texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
 							liste_nombres.push(-1);
-							texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
+							texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
 						} else {
 							texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`;
 							texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-							texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
+							texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
 						}					
 					}		
 				} else {
@@ -210,18 +210,18 @@ export default function Exercice_tableau_multiplications_relatifs() {
 						texteCorr += `On trouve ${exp_lettre} fois le facteur $ ${lettre} $.<br> Or ${exp_lettre} est pair donc leur produit sera positif.`;
 						texteCorr += `<br>Le signe de l'expression a donc le signe de : $ ${calcul_nombres} $`;
 						texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-						texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`,"black");
+						texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quelque soit le signe de $ ${lettre} $.`,"black");
 					} else {
 						texteCorr += `On trouve ${exp_lettre} fois le facteur $ ${lettre} $. <br> Or ${exp_lettre} est impair donc leur produit est du signe de $ ${lettre} $ soit ${signe_lettre==-1 ? 'négatif' : 'positif'}.`;
 						if (signe_lettre==-1) {
 							texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`;
 							texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
 							liste_nombres.push(-1);
-							texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
+							texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
 						} else {
 							texteCorr += `<br>Le signe de l'expression a donc le signe opposé à : $ ${calcul_nombres} $`;
 							texteCorr += `<br><br> ${num.setRegleSigneProduit(...liste_nombres)}`;
-							texteCorr += '<br><br>' + texte_en_couleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
+							texteCorr += '<br><br>' + texteEnCouleur_et_gras(`Donc ${nom_expression} est ${num.getSigneProduitString(...liste_nombres)} quand $ ${lettre} $ est ${signe_lettre==-1 ? 'négatif' : 'positif'}.`,"black");
 						}					
 					}		
 				} else {

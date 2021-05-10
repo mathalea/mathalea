@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texte_en_couleur} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texteEnCouleur} from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
 /**
@@ -81,7 +81,7 @@ export default function Forme_litterale_introduire_une_lettre() {
         correction: `
         ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.
         <br> C'est à dire $${n}\\times ${situation.elt1.lettre} + ${p}\\times ${situation.elt2.lettre} = ${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.
-        <br>${texte_en_couleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
+        <br>${texteEnCouleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
         `
       })
       switch (listeTypeDeQuestions[i]) {

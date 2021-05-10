@@ -4,6 +4,9 @@ import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombr
 
 export const titre = 'Notation scientifique'
 
+export const amcReady = true
+export const amcType = 4 // type de question AMC
+
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
  * @Auteur Jean-Claude Lhote
