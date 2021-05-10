@@ -1943,7 +1943,7 @@ export function texEnumerate (liste, spacing) {
       result += '\\end{spacing}\n'
     }
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
@@ -1976,7 +1976,8 @@ export function texParagraphe (liste, spacing = false) {
   if (spacing > 1) {
     result += '\\end{spacing}'
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  // les <br> peuvent être 2 ou plus et peuvent être séparés par des sauts de ligne ou des espaces
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
@@ -1986,7 +1987,7 @@ export function texParagraphe (liste, spacing = false) {
 * @Auteur Rémi Angot
 */
 export function texIntroduction (texte) {
-  return texte.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 }
 
 /**
