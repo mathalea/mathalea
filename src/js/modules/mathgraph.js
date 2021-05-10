@@ -101,5 +101,8 @@ export async function mg32DisplayAll (exos) {
   // on passe ça à setList, ça sert de contrôle d'intégrité, mais c'est pas vraiment nécessaire,
   // on pourrait directement appeler mg32Display avec le n° d'index
   setList(exos)
-  return Promise.all(listeExos.map(mg32Display))
+  return Promise.all(listeExos.map((exo, i) => {
+    const elt = document.getElementById(`MG32div${i}`)
+    return elt ? mg32Display(elt, exo) : null
+  }))
 }
