@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texteEnCouleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from '../../modules/2d.js'
 import {fraction} from '../../modules/Fractions.js'
 
@@ -156,7 +156,7 @@ export default function Placer_probabilites() {
 			else if (p < 0.75) { parrondi = 4; }
 			else if (p < 1) { parrondi = 5; }
 			else if (p == 1) { parrondi = 6; };
-			texteCorr += String.fromCharCode(65 + i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texteEnCouleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
+			texteCorr += String.fromCharCode(65 + i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texteEnCouleurEtGras(lstEchelle[parrondi][0]) + `.<br>`;
 		}
 		if (sortieHtml) {
 			texteCorr += `<p style="display:block">`;

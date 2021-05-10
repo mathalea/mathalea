@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleur_et_gras } from '../../modules/outils.js'
+import {enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { fraction, listeFractions} from '../../modules/Fractions.js'
 
 export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
@@ -228,7 +228,7 @@ export default function Problemes_additifs_fractions_bis() {
                 F1.egal(F2) &&
                 F1.egal(F3)
             ) {
-                pb_3_f[0].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_3_f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`
                 )}`;
             } else {
@@ -236,7 +236,7 @@ export default function Problemes_additifs_fractions_bis() {
 
                 pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$.`;
 
-                pb_3_f[0].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_3_f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `C'est donc à ${pb_3_f[0].fractions[
                     pb_3_f[0].fractions.indexOf(frac_rangees[2]) + 1
                     ]
@@ -260,7 +260,7 @@ export default function Problemes_additifs_fractions_bis() {
                 F1.egal(F2) &&
                 F1.egal(F3)
             ) {
-                pb_3_f[1].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_3_f[1].correction += `<br> ${texteEnCouleurEtGras(
                     `Les trois fractions sont équivalentes, les trois candidates ont donc remporté le même nombre de suffrages.`
                 )}`;
             } else {
@@ -269,7 +269,7 @@ export default function Problemes_additifs_fractions_bis() {
 
                 pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$.`;
 
-                pb_3_f[1].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_3_f[1].correction += `<br> ${texteEnCouleurEtGras(
                     `C'est donc ${pb_3_f[1].fractions[
                     pb_3_f[1].fractions.indexOf(frac_rangees[2]) + 1
                     ]
@@ -463,7 +463,7 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[4]) &&
                 pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[6]) 
             ) {
-                pb_4_f[0].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
                 )}`;
             } else {
@@ -471,7 +471,7 @@ export default function Problemes_additifs_fractions_bis() {
 
                 pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
 
-                pb_4_f[0].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `C'est donc en ${pb_4_f[0].fractions[
                     pb_4_f[0].fractions.indexOf(frac_rangees[3]) + 1
                     ]
@@ -499,14 +499,14 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[4]) &&
                 pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[6]) 
             ) {
-                pb_4_f[1].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[1].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.`
                 )}`;
             } else {
                 pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3].texFraction}$.`;
                 pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
 
-                pb_4_f[1].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[1].correction += `<br> ${texteEnCouleurEtGras(
                     `C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[3])+1]}
                      que le jardin est le plus occupé.`
                 )}`;
@@ -532,14 +532,14 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[4]) &&
                 pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[6]) 
             ) {
-                pb_4_f[2].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[2].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, chaque catégorie a donc la même importance dans le stade.`
                 )}`;
             } else {
 
                 pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3].texFraction}$.`;
                 pb_4_f[2].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
-                pb_4_f[2].correction += `<br> ${texteEnCouleur_et_gras(
+                pb_4_f[2].correction += `<br> ${texteEnCouleurEtGras(
                     `C'est donc pour ${pb_4_f[2].fractions[
                     pb_4_f[2].fractions.indexOf(frac_rangees[3]) + 1
                     ]

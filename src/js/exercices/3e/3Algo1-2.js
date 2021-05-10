@@ -1,4 +1,4 @@
-import { texteEnCouleur_et_gras } from '../../modules/outils.js';
+import { texteEnCouleurEtGras } from '../../modules/outils.js';
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from '../../modules/2d.js'
@@ -251,13 +251,13 @@ export default function Exercice_zero_mathalea() {
           case 1: //étude du cas N = 1
             texte = `On choisit le nombre entier 1. Quels sont tous les entiers déterminés par cet algorithme ?`
             texteCorr = `Si on choisit le nombre 1 au départ la suite de Syracuse est : ${texteGras(syracuse({N:1}).suiteDeSyracuse())}<br><br>`;            
-            texteCorr+= texteEnCouleur_et_gras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas1.titre)+' : '+ string_connaissance.cas1.texte;              
             break;
           case 2: //suite de Syracuse pour un entier aléatoire          
             texte = `Déterminer tous les entiers issus de cet algorithme lorsqu'on choisit ${entier}.`;
             texteCorr = `La suite de Syracuse du nombre ${entier} est : <br>
             ${texteGras(syracuse({N:entier}).suiteDeSyracuse())}<br><br>`;            
-            texteCorr+= texteEnCouleur_et_gras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
               texteCorr += mathalea2d(params_correction, objets_correction)
@@ -266,12 +266,12 @@ export default function Exercice_zero_mathalea() {
           case 3://altitude max
             texte = `Quelle est la valeur maximale de cette liste d'entiers ?`;
             texteCorr = `La valeur maximale atteinte vaut : ${texteGras(syracuse({N:entier}).altitudeMaximale())}<br><br>`;            
-            texteCorr+= texteEnCouleur_et_gras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas3.titre)+' : '+ string_connaissance.cas3.texte;              
             break;
           case 4://temps de vol
             texte = `Combien de fois au minimum faut-il appliquer l'algorithme pour trouver la valeur 1 ?`;
             texteCorr = `Il faut  appliquer au minimum ${texteGras(syracuse({N:entier}).tempsDeVol())} fois l'algorithme pour trouver la valeur 1.<br><br>`;            
-            texteCorr+= texteEnCouleur_et_gras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas4.titre)+' : '+ string_connaissance.cas4.texte;              
             break;            
           case 5://temps de vol en altitude
             texte = `Au bout de combien d'application minimum de l'algorithme la valeur calculée suivante sera-t-elle strictement inférieure à la valeur initiale ?`;
@@ -283,7 +283,7 @@ export default function Exercice_zero_mathalea() {
             };
             texteCorr +=`<br><br>`;
             //texteCorr += `${syracuse({N:entier}).tempsDeVolEnAltitude()}<br><br>`;            
-            texteCorr+= texteEnCouleur_et_gras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
+            texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
               texteCorr += mathalea2d(params_correction, objets_correction_plus)

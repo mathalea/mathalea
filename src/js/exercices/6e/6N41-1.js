@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texteEnCouleur_et_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 import { fraction } from '../../modules/Fractions.js'
 
@@ -51,8 +51,8 @@ export default function Exercice_labyrinthe_fractions_egales() {
     }
     let maximum = parseInt(this.sup)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texteEnCouleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
-    texteCorr = `${texteEnCouleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
  
