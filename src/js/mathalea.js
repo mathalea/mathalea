@@ -1582,7 +1582,9 @@ window.addEventListener('DOMContentLoaded', () => {
       taille *= 1.2
       lineHeight *= 1.2
       $('#affichage_exercices').css('font-size', `${taille}px`)
+      $('.monQcm').css('font-size', `${taille}px`)
       $('#affichage_exercices').css('line-height', `${lineHeight}px`)
+      $('.monQcm').css('line-height', `${lineHeight}px`)
       $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
       $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
       $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 1.2)
@@ -1595,6 +1597,8 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       $('#affichage_exercices').css('font-size', `${taille}px`)
       $('#affichage_exercices').css('line-height', `${lineHeight}px`)
+      $('.monQcm').css('font-size', `${taille}px`)
+      $('.monQcm').css('line-height', `${lineHeight}px`)
       $('#affichage_exercices').find('h3').css('font-size', `${taille}px`)
       $('#affichage_exercices').find('h4').css('font-size', `${taille}px`)
       $('.mathalea2d').css('width', parseFloat($('.mathalea2d').css('width')) * 0.8)

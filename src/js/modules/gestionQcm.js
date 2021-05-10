@@ -76,7 +76,7 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
     }
     for (let rep = 0; rep < tabrep.length; rep++) {
       if (sortieHtml) {
-        texte += `<div class="ui checkbox ex${numeroExercice}">
+        texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
             <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
           </div>`
