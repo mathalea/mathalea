@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions de longueur en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -85,7 +84,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
 
       if (!div && type_de_questions < 4) {
         // Si il faut multiplier pour convertir
-        resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +
@@ -108,7 +107,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
           tex_texte(unite) +
           "$";
       } else if (div && type_de_questions < 4) {
-        resultat = Algebrite.eval(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
@@ -138,7 +137,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         }
         let ecart = unite2 - unite1; // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
-          resultat = Algebrite.eval(a * Math.pow(10, ecart));
+          resultat = calcul(a * Math.pow(10, ecart));
           texte =
             "$ " +
             texNombre(a) +
@@ -160,7 +159,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
             tex_texte(liste_unite[unite1]) +
             "$";
         } else {
-          resultat = Algebrite.eval(a / Math.pow(10, ecart));
+          resultat = calcul(a / Math.pow(10, ecart));
           texte =
             "$ " +
             texNombre(a) +

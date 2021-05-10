@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenuSansNumero,randint,arrondi,calcul,choice,arrondiVirgule,texNombre,texNombre2,tex_prix} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
 
 export const titre = 'Problème - Les courses'
 
@@ -97,20 +96,20 @@ export default function Probleme_course() {
         )}~\\text{kg}\\times${tex_prix(
           prix_aliment1
         )}~\\text{\\euro{}/kg} = ${tex_prix(
-          Algebrite.eval(masse_en_kg_de_aliment1 * prix_aliment1)
+          calcul(masse_en_kg_de_aliment1 * prix_aliment1)
         )}~\\text{\\euro}$` + "<br>";
       texteCorr +=
         `Prix du ${aliment2} : $${texNombre(
-          Algebrite.eval(masse_en_g_de_aliment2 / 1000)
+          calcul(masse_en_g_de_aliment2 / 1000)
         )}~\\text{kg}\\times${tex_prix(
           prix_aliment2
         )}~\\text{\\euro{}/kg} = ${texNombre(
-          Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
+          calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
         )}~\\text{\\euro}$` + "<br>";
       texteCorr += `Prix total à payer : $${texNombre(
-        Algebrite.eval(masse_en_kg_de_aliment1 * prix_aliment1)
+        calcul(masse_en_kg_de_aliment1 * prix_aliment1)
       )}~\\text{\\euro} + ${texNombre(
-        Algebrite.eval((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
+        calcul((masse_en_g_de_aliment2 * prix_aliment2) / 1000)
       )}~\\text{\\euro}`
       if (Number.isInteger(calcul((masse_en_kg_de_aliment1 * prix_aliment1 +(masse_en_g_de_aliment2 * prix_aliment2) / 1000))*100)) {
             texteCorr+=`=`
@@ -119,7 +118,7 @@ export default function Probleme_course() {
             texteCorr+=`\\approx`
           }
       texteCorr+=` ${arrondiVirgule(
-        Algebrite.eval(
+        calcul(
           masse_en_kg_de_aliment1 * prix_aliment1 +
           (masse_en_g_de_aliment2 * prix_aliment2) / 1000
         )
