@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleur_et_gras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 3 // type de question AMC
@@ -54,8 +54,8 @@ this.qcm=['6C10-5',[],'Labyrinthe de multiples',3,{}]
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras("Trouve la sortie en ne passant que par les cases contenant un multiple de ","black")}$${table}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, "black")}<br>`
+    texte = `${texteEnCouleur_et_gras("Trouve la sortie en ne passant que par les cases contenant un multiple de ","black")}$${table}$.<br>`
+    texteCorr = `${texteEnCouleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, "black")}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
     for (let i = 2; i <= maximum; i++){

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texFraction,texte_en_couleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texFraction,texteEnCouleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
 
 export const titre = 'Résoudre des équations carrées.'
 
@@ -52,7 +52,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${a*a}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$`; 
                         texteCorr += `$\\iff (x-${a})(x+${a})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
                         texteCorr += `$\\iff x=${a}\\quad$ ou bien $\\quad x=-${a}$<br>`
                         texteCorr += `$\\iff S=\\{-${a};${a})$<br>`
@@ -67,7 +67,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${b}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-(\\sqrt{${b}})^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-\\sqrt{${b}}=0\\quad$ ou bien $\\quad x+\\sqrt{${b}}=0$<br>`
                         texteCorr += `$\\iff x=\\sqrt{${b}}\\quad$ ou bien $\\quad x=-\\sqrt{${b}}$<br>`
                         texteCorr += `$\\iff S=\\{-\\sqrt{${b}}\\quad ;\\sqrt{${b}})$<br>`
@@ -103,7 +103,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\iff x^{2}-${a*a}=0$<br>`; 
                         texteCorr += `$\\iff x^{2}-${a}^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-${a})(x+${a})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
                         texteCorr += `$\\iff x=${a}\\quad$ ou bien $\\quad x=-${a}$<br>`
                         texteCorr += `$\\iff S=\\{-${a};${a})$<br>`
@@ -134,7 +134,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${b}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-(\\sqrt{${b}})^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-\\sqrt{${b}}=0\\quad$ ou bien $\\quad x+\\sqrt{${b}}=0$<br>`
                         texteCorr += `$\\iff x=\\sqrt{${b}}\\quad$ ou bien $\\quad x=-\\sqrt{${b}}$<br>`
                         texteCorr += `$\\iff S=\\{-\\sqrt{${b}}\\quad ;\\sqrt{${b}})$<br>`

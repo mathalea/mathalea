@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texte_gras, texte_en_couleur_et_gras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleur_et_gras } from '../../modules/outils.js'
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
 
 export const amcReady = true
@@ -15,7 +15,7 @@ export default function Divisions_euclidiennes_egalite () {
   this.titre = titre
   this.consigne =
     'Répondre aux questions suivantes sans poser la division.'
-  this.consigneCorrection = texte_gras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
+  this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
   this.spacing = 2
   sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
@@ -48,11 +48,11 @@ export default function Divisions_euclidiennes_egalite () {
 	  switch (type_de_questions) {
         case 1: // égalité "directe"
 		  texte += `$ ${texNombre(a)} = ${b} \\times ${q} $<br>`
-		  texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $. <br> Le quotient est ${texte_en_couleur_et_gras(q)} et le reste est ${texte_en_couleur_et_gras(0)}.`
+		  texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $. <br> Le quotient est ${texteEnCouleur_et_gras(q)} et le reste est ${texteEnCouleur_et_gras(0)}.`
           break
         case 2: // égalité "directe"
 		  texte += `$ ${texNombre(a)} = ${b} \\times ${q} + ${r} $<br>`
-		  texteCorr = `${r} est inférieur à ${b}, l'égalité $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br> On a donc : ${texte_en_couleur_et_gras(q)} le quotient et ${texte_en_couleur_et_gras(r)} le reste.`
+		  texteCorr = `${r} est inférieur à ${b}, l'égalité $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par ${b}. <br> On a donc : ${texteEnCouleur_et_gras(q)} le quotient et ${texteEnCouleur_et_gras(r)} le reste.`
           break
         case 3:
           texte += `$ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} $<br>`
@@ -60,7 +60,7 @@ export default function Divisions_euclidiennes_egalite () {
 		  Transformons cette égalité en utilisant le fait que $ ${r + b} = ${r} + ${b} $<br>
 		  $ ${texNombre(a)} = ${b} \\times ${q - 1} + ${r + b} = ${b} \\times ${q - 1} + ${b} + ${r} = ${b} \\times ${q} + ${r} $ <br>
 		  Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $
-		  <br> On a donc : ${texte_en_couleur_et_gras(q)} le quotient et ${texte_en_couleur_et_gras(r)} le reste.`
+		  <br> On a donc : ${texteEnCouleur_et_gras(q)} le quotient et ${texteEnCouleur_et_gras(r)} le reste.`
           break
         case 4:
           texte += `$ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} $<br>`
@@ -70,7 +70,7 @@ export default function Divisions_euclidiennes_egalite () {
 		  Prenons le une fois de moins, on va donc avoir ${q} fois ${b} : <br> 
 		  $ ${texNombre(a)} = ${b} \\times ${q + 1} - ${b - r} = ${b} \\times ${q} + ${b} - ${b - r} = ${b} \\times ${q} + ${r} $ <br>
 		  Ainsi, $ ${texNombre(a)} = ${b} \\times ${q} + ${r} $
-		  <br> On a donc : ${texte_en_couleur_et_gras(q)} le quotient et ${texte_en_couleur_et_gras(r)} le reste.`
+		  <br> On a donc : ${texteEnCouleur_et_gras(q)} le quotient et ${texteEnCouleur_et_gras(r)} le reste.`
           break
       }
       if (this.listeQuestions.indexOf(texte) == -1) {

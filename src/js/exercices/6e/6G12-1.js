@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texte_en_couleur,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texteEnCouleur,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -306,7 +306,7 @@ let anim;
           )}$ cm et $AO \\approx${texNombre(
             lE
           )}$ cm.<br>`;
-          correction += `Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`, 'red')}.<br>`
+          correction += `Les angle droits en rouge se justifient par la propriété :<br> ${texteEnCouleur(`Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`, 'red')}.<br>`
           correction += `Vérifier les angles droits à l'équerre.<br>`
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)

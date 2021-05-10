@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* globals mathalea */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, texte_gras, modal_url, modalPdf } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modal_url, modalPdf } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA } from '../../modules/2d.js'
 export const titre = 'Note la couleur'
 
@@ -493,9 +493,9 @@ export default function Note_la_couleur () {
       mathalea2d(params_correction, objets_enonce) +
       '</td></tr></table>'
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
-    texteCorr += `${texte_gras(couleurs[0])} `
+    texteCorr += `${texteGras(couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
-      texteCorr += `- ${texte_gras(couleurs[i])} `
+      texteCorr += `- ${texteGras(couleurs[i])} `
     }
     texteCorr += '<br><br>' + mathalea2d(params_correction, objets_correction, lutin)
     this.listeQuestions.push(texte)
