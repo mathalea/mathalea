@@ -87,7 +87,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
