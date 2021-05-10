@@ -1,4 +1,4 @@
-/* globals mathalea $ */
+/* globals mathalea cmResize $ */
 /* eslint-disable camelcase */
 
 import CodeMirror from 'codemirror'
@@ -16,11 +16,11 @@ import 'codemirror/addon/edit/closebrackets.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import '../../css/style_mathalea.css'
-import globals from './globals.js'
+import initialiseEditeur from './initialiseEditeur.js'
 import { telechargeFichier } from './outils.js'
 
 // Les variables globales utiles pour l'autocomplétion
-globals()
+initialiseEditeur()
 
 // Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
@@ -63,6 +63,7 @@ window.addEventListener('load', function () {
     matchBrackets: true,
     lineWrapping: true
   })
+  cmResize(myCodeMirror) // Pour ajouter une poignet qui permet à l'utilisateur de changer la taille de l'éditeur
 
   const myCodeMirrorSvg = CodeMirror(divSortieSvg, {
     value: '',
@@ -278,6 +279,12 @@ window.addEventListener('load', function () {
 })
 
 function executeCode (txt) {
-  // eslint-disable-next-line no-eval
-  return eval(txt)
+  // Les variables globales utiles pour l'autocomplétion
+  // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
+  const interpreter = initialiseEditeur()
+  window.mathalea.objets2D = []
+  interpreter.run(txt)
+  // On exporte l'animation et le code SVG
+  interpreter.run('exports.codeSvgFigure = codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D)')
+  return interpreter.exports.codeSvgFigure
 }
