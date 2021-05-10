@@ -1,8 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettre_minuscule_depuis_chiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import {repere,courbe,mathalea2d,} from '../../modules/2d.js'
-const Algebrite = require('algebrite')
-
 
 
 export const titre = 'Trouver l’équation d’une parabole'
@@ -55,13 +53,13 @@ export const titre = 'Trouver l’équation d’une parabole'
             texteCorr+=`Donc $\\mathscr{${f_name[i]}}(x)=ax^2+bx${miseEnEvidence(ecritureAlgebrique(f(0)),'red')}$.<br>`
             texteCorr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
             texteCorr+=`$\\begin{cases}
-            ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecritureAlgebrique(f(0))}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(x1)+'b'+ecritureAlgebrique(f(0)))} \\\\
-            ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecritureAlgebrique(f(0))}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b'+ecritureAlgebrique(f(0)))}
+            ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecritureAlgebrique(f(0))}=${calcul(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(x1)+'b'+ecritureAlgebrique(f(0)))} \\\\
+            ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecritureAlgebrique(f(0))}=${calcul(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b'+ecritureAlgebrique(f(0)))}
          \\end{cases}$<br>`
             if (this.correctionDetaillee) {
               texteCorr+=`Ce qui équivaut à <br>$\\begin{cases}
-                 ${f(x1)}${ecritureAlgebrique(-f(0))}=${f(x1)-f(0)}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a' + ecritureAlgebriqueSauf1(x1)+'b')} \\\\
-                 ${f(-x1)}${ecritureAlgebrique(-f(0))}=${f(-x1)-f(0)}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b')}
+                 ${f(x1)}${ecritureAlgebrique(-f(0))}=${f(x1)-f(0)}=${calcul(ecritureAlgebriqueSauf1(x1**2)+'a' + ecritureAlgebriqueSauf1(x1)+'b')} \\\\
+                 ${f(-x1)}${ecritureAlgebrique(-f(0))}=${f(-x1)-f(0)}=${calcul(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b')}
                \\end{cases}$<br>`
                texteCorr+=`En ajoutant et en soustrayant les équations membre à membre, on obtient :<br>
                 $\\begin{cases}
@@ -89,7 +87,7 @@ export const titre = 'Trouver l’équation d’une parabole'
             texteCorr+=`De plus $\\mathscr{${f_name[i]}}(${x2})=${f(x2)}$`
             if (this.correctionDetaillee) {
               texteCorr+=` donc $a(${x2}${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=${f(x2)}$ `
-              texteCorr+=`soit $${Algebrite.eval(x2**2+'a'+ecritureAlgebrique(-2*x1*x2)+'a'+ecritureAlgebrique(x1**2)+'a'+ecritureAlgebrique(f(x1)))}=${f(x2)}$.<br>`
+              texteCorr+=`soit $${calcul(x2**2+'a'+ecritureAlgebrique(-2*x1*x2)+'a'+ecritureAlgebrique(x1**2)+'a'+ecritureAlgebrique(f(x1)))}=${f(x2)}$.<br>`
             if (x2**2-2*x1*x2+x1**2!=1)
               texteCorr+=`On en déduit que $a=\\dfrac{${f(x2)}${ecritureAlgebrique(-f(x1))}}{${(x2**2-2*x1*x2+x1**2)}}=${a}$.<br>`
             else
@@ -124,7 +122,7 @@ export const titre = 'Trouver l’équation d’une parabole'
               texteCorr+=`d'où $a=${f(x3)}\\div ${ecritureParentheseSiNegatif((x3-x1)*(x3-x2))}=${a}$.<br>`
             }
             else texteCorr+=`$a=${a}$.<br>`
-            texteCorr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${Algebrite.eval(`${ecritureAlgebriqueSauf1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}`)}$`
+            texteCorr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${calcul(`${ecritureAlgebriqueSauf1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}`)}$`
             break;
   
         }

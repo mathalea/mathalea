@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,shuffle,miseEnEvidence,texFraction} from '../../modules/outils.js'
-import Algebrite from 'algebrite'
+import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,calcul,shuffle,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 
@@ -45,9 +44,9 @@ export default function Exercice_comparer_quatre_fractions () {
         n4 = randint(1, 11)
       }
       const tableau_fractions = [[n1, d1, `$${texFraction(n1, d1)}$`, `$${texFraction(n1, d1)}$`]]
-      tableau_fractions.push([n2, d2, `$${texFraction(n2, d2)}=${texFraction(n2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)), d2 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d2)))}=${texFraction(Algebrite.eval(n2 * d1 / d2), d1)}$`, `$${texFraction(Algebrite.eval(n2 * d1 / d2), d1)}$`])
-      tableau_fractions.push([n3, d3, `$${texFraction(n3, d3)}=${texFraction(n3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)), d3 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d3)))}=${texFraction(Algebrite.eval(n3 * d1 / d3), d1)}$`, `$${texFraction(Algebrite.eval(n3 * d1 / d3), d1)}$`])
-      tableau_fractions.push([n4, d4, `$${texFraction(n4, d4)}=${texFraction(n4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)), d4 + miseEnEvidence('\\times ' + Algebrite.eval(d1 / d4)))}=${texFraction(Algebrite.eval(n4 * d1 / d4), d1)}$`, `$${texFraction(Algebrite.eval(n4 * d1 / d4), d1)}$`])
+      tableau_fractions.push([n2, d2, `$${texFraction(n2, d2)}=${texFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${texFraction(calcul(n2 * d1 / d2), d1)}$`, `$${texFraction(calcul(n2 * d1 / d2), d1)}$`])
+      tableau_fractions.push([n3, d3, `$${texFraction(n3, d3)}=${texFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${texFraction(calcul(n3 * d1 / d3), d1)}$`, `$${texFraction(calcul(n3 * d1 / d3), d1)}$`])
+      tableau_fractions.push([n4, d4, `$${texFraction(n4, d4)}=${texFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${texFraction(calcul(n4 * d1 / d4), d1)}$`, `$${texFraction(calcul(n4 * d1 / d4), d1)}$`])
       tableau_fractions.push([k, 1, `$${k}=${texFraction(d1 * k, d1)}$`, `$${texFraction(k * d1, d1)}$`])
       tableau_fractions.sort(compareFractions)
       const tableau_fractions_enonce = shuffle(tableau_fractions)
