@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint, listeQuestionsToContenu,combinaisonListes, nombreDecimal,exposant, calcul,texte_gras} from '../../modules/outils.js'
+import {randint, listeQuestionsToContenu,combinaisonListes, nombreDecimal,exposant, calcul,texteGras} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import {point3d, vecteur3d, sphere3d, cylindre3d} from "../../modules/3d.js"
 
@@ -52,7 +52,7 @@ export default function Volume_boule() {
             texte += `Calculer le volume d'une boule de rayon ${r} cm. `;
             texteCorr += `Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*r*r*r, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*r*r*r, 4) + ` cm` + exposant(3) + `. <br>`);
           break;
 
           case 2:
@@ -61,7 +61,7 @@ export default function Volume_boule() {
             texteCorr += `Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>`;
             texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*d*d*d, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*d*d*d, 4) + ` cm` + exposant(3) + `. <br>`);
           break
 
           case 3:
@@ -76,7 +76,7 @@ export default function Volume_boule() {
             let rayon = calcul(Math.sqrt(A/(4*Math.PI)));
             texteCorr += `On obtient donc une valeur approchée de $r$ : $r \\approx ` +nombreDecimal(rayon)+ `$. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (` +nombreDecimal(rayon)+ ` \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*rayon*rayon*rayon, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*rayon*rayon*rayon, 4) + ` cm` + exposant(3) + `. <br>`);
           break
 
           case 4:
@@ -102,7 +102,7 @@ export default function Volume_boule() {
             texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${diam} \\text{ cm})^2 \\times (${2*diam}\\text{ cm})$. <br>`;
             texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`;
             texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${diam} \\text{ cm})^2 \\times (${2*diam}\\text{ cm}) - \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume cherché est environ : ` + nombreDecimal(Math.PI*diam*diam*2*diam-4/3*Math.PI*diam*diam*diam)+ ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume cherché est environ : ` + nombreDecimal(Math.PI*diam*diam*2*diam-4/3*Math.PI*diam*diam*diam)+ ` cm` + exposant(3) + `. <br>`);
           break
         }
         if (this.listeQuestions.indexOf(texte) == -1) {

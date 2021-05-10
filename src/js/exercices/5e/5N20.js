@@ -1,7 +1,6 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
-import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import Algebrite from 'algebrite'
+import { shuffle2tableaux, calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
@@ -114,7 +113,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         // Est-ce que le résultat est simplifiable ?
         const s = pgcd(a * k + c, d)
         if (s !== 1) {
-          texteCorr += `$=${texFraction(Algebrite.eval((a * k + c) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${texFraction(Algebrite.eval((a * k + c) / s), Algebrite.eval(d / s))}$`
+          texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
         }
         shuffle2tableaux(tabrep, tabicone)
         if (this.modeQcm && !mathalea.sortieAMC) {
@@ -169,9 +168,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         const s = pgcd(a * k - c, d)
         if (!this.modeQcm) {
           if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
-            texteCorr += `$=${Algebrite.eval((abs(a * k - c)) / d)}$`
+            texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
           } else if (s !== 1) {
-            texteCorr += `$=${texFraction(Algebrite.eval((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), Algebrite.eval(d / s) + miseEnEvidence('\\times ' + s))}=${texFraction(Algebrite.eval((abs(a * k - c)) / s), Algebrite.eval(d / s))}$`
+            texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
       }

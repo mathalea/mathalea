@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
 
@@ -143,9 +143,9 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					let n2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(n1)));
 					let p2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(p1)));
 					textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
-					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texte_en_couleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texte_en_couleur(n2 % n1)}`;
+					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texteEnCouleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texteEnCouleur(n2 % n1)}`;
 					textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
-					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texte_en_couleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texte_en_couleur(p2 % p1)}`;
+					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
 					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;

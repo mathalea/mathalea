@@ -414,6 +414,16 @@ function mise_a_jour_du_code () {
   })()
   // mise en évidence des exercices sélectionnés.
   apparence_exercice_actif()
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: '\\[', right: '\\]', display: true },
+      { left: '$', right: '$', display: false }
+    ],
+    throwOnError: true,
+    errorColor: '#CC0000',
+    strict: 'warn',
+    trust: false
+  })
   let contenu, contenuDesExercices, contenuDesCorrections
   if (sortieHtml && est_diaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi

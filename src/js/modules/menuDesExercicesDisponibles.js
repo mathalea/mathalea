@@ -22,7 +22,22 @@ enleveElement(tableauTags, 'Hors programme')
 
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3 }
-const liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices)
+//console.log(dictionnaireDesExercices)
+let liste_des_exercices_disponibles
+if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+  //console.log('OK')  
+  const dictionnaireDesExercicesAMC = {}
+  Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
+    if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
+  })
+  //console.log(tridictionnaire(dictionnaireDesExercicesAMC))
+  liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercicesAMC)
+} else {
+  //console.log('KO')
+  //console.log(tridictionnaire(dictionnaireDesExercices))
+  liste_des_exercices_disponibles = tridictionnaire(dictionnaireDesExercices)
+}
+
 
 function coupe_chaine (titre, max_length) {
   for (let i = max_length; i > 5; i--) {

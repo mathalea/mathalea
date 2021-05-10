@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,shuffle,combinaisonListes,lettreDepuisChiffre,texcolors,texte_gras} from '../../modules/outils.js'
+import {listeQuestionsToContenuSansNumero,randint,shuffle,combinaisonListes,lettreDepuisChiffre,texcolors,texteGras} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,segment,demiDroite,polygone,codeAngle,texteParPosition,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'
 
@@ -26,8 +26,8 @@ export default function Symetrie_axiale_conservation1() {
     let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    this.listeQuestions.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
-    this.listeCorrections.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
+    this.listeQuestions.push(`${texteGras('Dans la symétrie d\'axe (d)...')}`);
+    this.listeCorrections.push(`${texteGras('Dans la symétrie d\'axe (d)...')}`);
     // On prépare la figure...
     let axe = parseInt(this.sup)
     let d, nonchoisi, coords = [], x, y, objets_enonce = [], objets_correction = [], nomd, label_pos

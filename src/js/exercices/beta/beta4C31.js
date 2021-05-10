@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texte_en_couleur_et_gras,texNombre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texteEnCouleur_et_gras,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 
@@ -142,16 +142,16 @@ export default function Comparer_puissance10() {
           }
 
         }
-      texteCorr += texte_en_couleur_et_gras(`Conclusion : `);
+      texteCorr += texteEnCouleur_et_gras(`Conclusion : `);
       } // fin de la correction détaillée
       // correction courte :
       if (nbA1 > nbA2) {
-        texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+        texteCorr += texteEnCouleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
        } else {
          if (nbA1 == nbA2) {
-          texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+          texteCorr += texteEnCouleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
            } else {
-           texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+           texteCorr += texteEnCouleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
          }
      }
 

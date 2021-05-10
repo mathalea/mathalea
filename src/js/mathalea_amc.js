@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import { creerDocumentAmc, strRandom, compteOccurences, introLatexCoop } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
+//import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
+import { menuDesExercicesDisponibles } from './modules/menuDesExercicesDisponibles'
 import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 //import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'// pour reconstruire le dico au même format c'est
@@ -135,7 +136,8 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 //* *******
-menuDesExercicesQcmDisponibles()
+//menuDesExercicesQcmDisponibles()
+menuDesExercicesDisponibles()
 
 // Mise à jour du formulaire de la liste des exercices
 const form_choix_des_exercices = document.getElementById('choix_des_exercices')
