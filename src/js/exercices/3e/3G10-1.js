@@ -1,6 +1,7 @@
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, latexParCoordonnees, afficheMesureAngle, vecteur} from '../../modules/2d.js';
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,imagePointParTransformation,texFractionReduite,calcul,texNombrec,texNombre} from '../../modules/outils.js'
+import { calcule } from '../../modules/fonctionsMaths.js'
 export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
 
 /**
@@ -360,7 +361,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO11 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`;
-					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 12:
@@ -394,7 +395,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO12 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`;
-					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 13:
@@ -431,7 +432,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO13 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`;
-					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 14:
@@ -465,7 +466,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO14 = yB;
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.<br>`;
-					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcul(punto[i][0], 2))};${texNombre(calcul(punto[i][1], 2))}$).<br>`;
+					texteCorr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${texNombre(calcule(punto[i][0], 2))};${texNombre(calcule(punto[i][1], 2))}$).<br>`;
 					break;
 
 				case 8:
