@@ -2272,7 +2272,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @Auteur Rémi Angot
 */
-export function texteEnCouleur_et_gras (texte, couleur = '#f15929') {
+export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
   if (sortieHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {
