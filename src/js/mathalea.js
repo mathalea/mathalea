@@ -620,6 +620,8 @@ function miseAJourDuCode () {
       $('#cache').hide() // Cache au dessus du code LaTeX
       div.innerHTML = ''
     }
+    $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
+    $('#popup_preview .icone_qcm').remove()  // dans l'aperçu pas d'icone QCM.
   }
   if (!sortieHtml) {
     // Gestion du téléchargement
@@ -966,10 +968,12 @@ function miseAJourDeLaListeDesExercices (preview) {
       //gestion de l'affichage des exercices 
         const output = sortieHtml
         sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
-        try {
-          listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
-        } catch (error) {
-          console.log(error)
+        if (typeof listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion === 'function') {
+          try {
+            listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
+          } catch (error) {
+            console.log(error)
+          }
         }
         listeObjetsExercice[liste_exercices.length - 1].id = liste_exercices[liste_exercices.length - 1]
         const contenu = contenuExerciceHtml(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false)
