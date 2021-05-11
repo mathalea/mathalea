@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -77,7 +77,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       if (listeTypeDeQuestions[i] === '+') { // une addition
         /** ***************** Choix des réponses du QCM ***********************************/
         tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${texFraction(a + c, b + d)}$`, `$${texFraction(a + c, b * d)}$`, `$${texFraction(a * c, b * d)}$`]
-        tabicone = [1, 0, 0, 0]
+        tabicone = [1, 0, 0, 0];
+        [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
         /*************************************************************************/
         const ordreDesFractions = randint(1, 2)
         if (ordreDesFractions === 1) {
@@ -124,7 +125,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
         tabrep = [`$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${texFraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${texFraction(Math.abs(a - c), b * d)}$`, `$${texFraction(a * c, b * d)}$`]
-        tabicone = [1, 0, 0, 0]
+        tabicone = [1, 0, 0, 0];
+        [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
           texte = `$${texFraction(a, b)}-${texFraction(c, d)}=$`

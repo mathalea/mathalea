@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -65,7 +65,8 @@ export default function MultiplierPar001 () {
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
           tabrep = [`$${texNombre2(resultat)}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef)))}$`, `$${texNombre2(calcul(nombre * 10 ** (coef - 1)))}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`]
-          tabicone = [1, 0, 0, 0]
+          tabicone = [1, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
@@ -85,7 +86,8 @@ export default function MultiplierPar001 () {
 
         case 2:
           tabrep = [`$${texNombre2(calcul(10 ** coef))}$`, `$${texNombre2(calcul(10 ** (coef - 1)))}$`, `$${texNombre2(calcul(10 ** (coef + 1)))}$`, `$${texNombre2(calcul(10 ** (-coef)))}$`]
-          tabicone = [1, 0, 0, 0]
+          tabicone = [1, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${texNombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])
@@ -105,7 +107,8 @@ export default function MultiplierPar001 () {
 
         case 3:
           tabrep = [`$${texNombre2(nombre)}$`, `$${texNombre2(calcul(nombre / 10))}$`, `$${texNombre2(calcul(nombre * 10))}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`]
-          tabicone = [1, 0, 0, 0]
+          tabicone = [1, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}~~ = ~~${texNombre2(resultat)}$.\\\\ \n Réponses possibles`,
             tabrep,
             tabicone])

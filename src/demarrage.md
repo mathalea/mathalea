@@ -7,12 +7,41 @@ La documentation cite partout le gestionnaire de modules [pnpm](https://pnpm.io/
 
 Pour installer pnpm c'est `npm install -g pnpm` (il faut être admin, préfixer éventuellement la commande par sudo sous linux|mac)
 
+## Démarrage
+Une fois cloné le projet localement, il faut installer les dépendances avec `pnpm i` (à refaire après chaque modif du package.json)
+
+Ensuite vous pouvez lancer `pnpm start`, cela va ouvrir votre navigateur par défaut sur http://localhost:8080/ qui va afficher ce qui serait compilé dans /build/ (les js sont générés dynamiquement, ils sont servis directement sans que le fichier ne soit créé dans le dossier build, ça reste en mémoire, c'est webpack qui gère ça).
+
+Si vous créez un nouvel exercice, lancez `pnpm build:dicos` pour mettre à jour la liste des exercices.
+
+Vous avez des modèles pour commencer votre exercice : 
+
+- src/js/beta/betaExemple.js 
+- src/js/beta/betaExemple1Type.js // Un même type de question répété 
+- src/js/beta/betaExemple1TypeCalculLettre.js // Un même type de question répété  mais présenté A=..., B=...
+- src/js/beta/betaExemple3Types.js // On créé 3 types de questions  qui seront alternés (et que l'on peut pondérer)
+
+Vous pouvez installer l'extension ESLint pour repérer les erreurs et améliorer la mise en forme de votre document (avec les règles de StandardJS).
+
+
+
+
 ## git
 * windows : https://gitforwindows.org/ (installe aussi gitBash qui vous permettra de taper les commandes trouvées un peu partout dans un terminal)
 * linux : installer le paquet git de votre distribution
 * macOs : https://git-scm.com/download/mac
 
 Cf aussi éventuellement https://git-scm.com/downloads/guis
+
+### docs
+* [L'aide-mémoire indispensable](http://ndpsoftware.com/git-cheatsheet.html)
+* un [article intéressant](https://delicious-insights.com/fr/articles/apprendre-git)
+* le [git book en français](https://git-scm.com/book/fr/v2) (2ème édition 2014)
+* la [référence](https://git-scm.com/docs) (en anglais)
+* un [cours interactif en français](https://learngitbranching.js.org/)
+* de [bon tutoriaux en français](https://fr.atlassian.com/git/tutorials)
+* Des articles de Christophe Porteneuve [généralités](https://delicious-insights.com/fr/articles/git-workflows-generality/), [git-log](https://delicious-insights.com/fr/articles/git-log/), [hooks](https://delicious-insights.com/fr/articles/git-hooks-commit/)
+* qq [recettes de cuisine](http://pioupioum.fr/developpement/git-10-commandes-utiles.html)
   
 ```shell
 ######################################################################
@@ -89,18 +118,3 @@ git checkout maBranche
 # et on efface le test
 git branch -D tmp
 ```
-
-### docs
-* [L'aide-mémoire indispensable](http://ndpsoftware.com/git-cheatsheet.html)
-* un [article intéressant](https://delicious-insights.com/fr/articles/apprendre-git)
-* le [git book en français](https://git-scm.com/book/fr/v2) (2ème édition 2014)
-* la [référence](https://git-scm.com/docs) (en anglais)
-* un [cours interactif en français](https://learngitbranching.js.org/)
-* de [bon tutoriaux en français](https://fr.atlassian.com/git/tutorials)
-* Des articles de Christophe Porteneuve [généralités](https://delicious-insights.com/fr/articles/git-workflows-generality/), [git-log](https://delicious-insights.com/fr/articles/git-log/), [hooks](https://delicious-insights.com/fr/articles/git-hooks-commit/)
-* qq [recettes de cuisine](http://pioupioum.fr/developpement/git-10-commandes-utiles.html)
-
-## Démarrage
-Une fois cloné le projet localement, il faut installer les dépendances avec `pnpm i` (à refaire après chaque modif du package.json)
-
-Ensuite vous pouvez lancer `pnpm start`, cela va ouvrir votre navigateur par défaut sur http://localhost:8080/ qui va afficher ce qui serait compilé dans /build/ (mathalea.html devient le index.html, et les js sont générés dynamiquement, ils sont servi directement sans que le fichier ne soit créé dans le dossier build, ça reste en mémoire, c'est webpack qui gère ça).
