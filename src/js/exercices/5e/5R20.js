@@ -45,14 +45,12 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       tabrep = [`$${a + b}$`, `$${a - b}$`, `$${-a + b}$`, `$${-a - b}$`]
-      tabicone = [1, 0, 0, 0]
-      tabQcm = elimineDoublons({ reponses: tabrep, statuts: tabicone })
-      tabrep = tabQcm.reponses
-      tabicone = tabQcm.statuts
-      this.qcm[1].push([`${texte}\n`,
-        tabrep,
-        tabicone])
+      tabicone = [1, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
+      this.qcm[1].push([`${texte}\n`,
+      tabrep,
+      tabicone])
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte

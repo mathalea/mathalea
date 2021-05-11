@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -104,8 +104,9 @@ export default function EgalitesEntreFractions () {
           b + miseEnEvidence('\\times' + k)
         )} = ${texFraction(c, d)}$`
             tabrep = [`$${texFraction(c, d)}$`, `$${texFraction(a, d)}$`, `$${texFraction((k - 1) * a, d)}$`, `$${texFraction((k + 1) * a, d)}$`, `$${texFraction(Math.abs(d - a), d)}$`]
-            tabicone = [1, 0, 0, 0, 0]
-            this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
+            tabicone = [1, 0, 0, 0, 0];
+            [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
+             this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
               tabrep,
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
@@ -130,7 +131,8 @@ export default function EgalitesEntreFractions () {
             b + miseEnEvidence('\\times' + k)
           )} = ${texFraction(c, d)}$`
             tabrep = [`$${texFraction(c, d)}$`, `$${texFraction(c, b)}$`, `$\\dfrac{${c}}{${(k - 1) * b}}$`, `$${texFraction(c, (k + 1) * b)}$`, `$\\dfrac{${c}}{${Math.abs(c - b)}}$`]
-            tabicone = [1, 0, 0, 0, 0]
+            tabicone = [1, 0, 0, 0, 0];
+            [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
             this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
               tabrep,
               tabicone])
@@ -173,7 +175,8 @@ export default function EgalitesEntreFractions () {
           '1' + miseEnEvidence('\\times' + d)
         )} = ${texFraction(c, d)}$`
             tabrep = [`$${texFraction(c, d)}$`, `$${texFraction(a, d)}$`, `$${texFraction(d + a, d)}$`, `$${texFraction(Math.abs(d - a), d)}$`, `$${texFraction((a + 1) * d, d)}$`]
-            tabicone = [1, 0, 0, 0, 0]
+            tabicone = [1, 0, 0, 0, 0];
+            [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
             this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
               tabrep,
               tabicone])
@@ -199,7 +202,8 @@ export default function EgalitesEntreFractions () {
             '1' + miseEnEvidence('\\times' + d)
           )} = ${texFraction(c, d)}$`
             tabrep = [`$${texFraction(c, d)}$`, `$${texFraction(c, c - a)}$`, `$${texFraction(c, a)}$`, `$${texFraction(c, c + a)}$`, `$${texFraction(c, c * a)}$`]
-            tabicone = [1, 0, 0, 0, 0]
+            tabicone = [1, 0, 0, 0, 0];
+            [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
             this.qcm[1].push([`Complète l'égalité de fractions $${texte}$.\\\\ \n `,
               tabrep,
               tabicone])

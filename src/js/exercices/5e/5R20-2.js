@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1
 export const titre = 'Addition à trou de deux entiers relatifs'
@@ -43,7 +43,8 @@ export default function Exercice_additions_relatifs_a_trou (max = 20) {
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       tabrep = [`$${b}$`, `$${a + b + a}$`, `$${-2 * a - b}$`, `$${-b}$`]
-      tabicone = [1, 0, 0, 0]
+      tabicone = [1, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
 			  this.tableauSolutionsDuQcm[i] = tabicone
