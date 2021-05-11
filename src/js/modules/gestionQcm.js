@@ -95,3 +95,36 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
   }
   return { texte: texte, texteCorr: texteCorr }
 }
+
+/**
+ * prend un objet {reponse=[a,b,c,d,e],statuts=[1,0,0,0,0]}
+ * élimine les doublons de réponses et les statuts associés avant de retourner l'objet épuré.
+ * @author Jean-Claude Lhote
+ */
+export function elimineDoublons (tabqcm) { // fonction qui va éliminer les doublons si il y en a
+  const reponses = tabqcm.reponses.slice()
+  const statuts = tabqcm.statuts.slice()
+  for (let i = 0; i < reponses.length - 1; i++) {
+    for (let j = i + 1; j < reponses.length;) {
+      if (reponses[i] === reponses[j]) {
+        console.log('doublon trouvé', reponses[i], reponses[j]) // les réponses i et j sont les mêmes
+
+        if (statuts[i] === 1) { // si la réponse i est bonne, on vire la j
+          reponses.splice(j, 1)
+          statuts.splice(j, 1)
+        } else if (statuts[j] === 1) { // si la réponse i est mauvaise et la réponse j bonne,
+          // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+          reponses.splice(j, 1)
+          statuts.splice(j, 1)
+          statuts[i] = 1
+        } else { // Les deux réponses sont mauvaises
+          reponses.splice(j, 1)
+          statuts.splice(j, 1)
+        }
+      } else {
+        j++
+      }
+    }
+  }
+  return { reponses: reponses, statuts: statuts }
+}
