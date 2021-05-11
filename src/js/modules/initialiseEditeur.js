@@ -1,5 +1,5 @@
-/* eslint-disable camelcase */
-import { angleScratchTo2d, appartientSegment, appartientDroite, appartientDemiDroite, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, polygoneRegulierIndirect, carre, carreIndirect, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, segmentMainLevee, cercleMainLevee, droiteMainLevee, polygoneMainLevee, arcMainLevee, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sens_de_rotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, CodageHauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, print2d, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage } from './2d.js'
+import { angleScratchTo2d, appartientSegment, appartientDroite, appartientDemiDroite, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, polygoneRegulierIndirect, carre, carreIndirect, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, segmentMainLevee, cercleMainLevee, droiteMainLevee, polygoneMainLevee, arcMainLevee, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, CodageHauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, print2d, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage } from './2d.js'
+import { sensDeRotation3d, cube, cube3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d } from './3d.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
@@ -91,7 +91,7 @@ export default function initialiseEditeur () {
   window.translation = translation
   window.translation2Points = translation2Points
   window.rotation = rotation
-  window.sens_de_rotation = sens_de_rotation
+  window.sensDeRotation = sensDeRotation
   window.homothetie = homothetie
   window.symetrieAxiale = symetrieAxiale
   window.distancePointDroite = distancePointDroite
@@ -181,6 +181,26 @@ export default function initialiseEditeur () {
   window.mathalea2d = mathalea2d
   window.labyrinthe = labyrinthe
   window.pavage = pavage
+
+  // La 3d
+  window.sensDeRotation3d = sensDeRotation3d
+  window.cube = cube
+  window.cube3d = cube3d
+  window.point3d = point3d
+  window.vecteur3d = vecteur3d
+  window.arete3d = arete3d
+  window.droite3d = droite3d
+  window.demicercle3d = demicercle3d
+  window.cercle3d = cercle3d
+  window.polygone3d = polygone3d
+  window.sphere3d = sphere3d
+  window.cone3d = cone3d
+  window.cylindre3d = cylindre3d
+  window.prisme3d = prisme3d
+  window.pave3d = pave3d
+  window.rotationV3d = rotationV3d
+  window.rotation3d = rotation3d
+  window.translation3d = translation3d
 
   // On réinitialise les variables
   window.anim = new Alea2iep()
@@ -275,7 +295,7 @@ export default function initialiseEditeur () {
     translation: window.translation,
     translation2Points: window.translation2Points,
     rotation: window.rotation,
-    sens_de_rotation: window.sens_de_rotation,
+    sensDeRotation: window.sensDeRotation,
     homothetie: window.homothetie,
     symetrieAxiale: window.symetrieAxiale,
     distancePointDroite: window.distancePointDroite,
@@ -365,7 +385,27 @@ export default function initialiseEditeur () {
     codeTikz: window.codeTikz,
     mathalea2d: window.mathalea2d,
     labyrinthe: window.labyrinthe,
-    pavage: window.pavage
+    pavage: window.pavage,
+
+    // 3d
+    sensDeRotation3d: window.sensDeRotation3d,
+    cube: window.cube,
+    cube3d: window.cube3d,
+    point3d: window.point3d,
+    vecteur3d: window.vecteur3d,
+    arete3d: window.arete3d,
+    droite3d: window.droite3d,
+    demicercle3d: window.demicercle3d,
+    cercle3d: window.cercle3d,
+    polygone3d: window.polygone3d,
+    sphere3d: window.sphere3d,
+    cone3d: window.cone3d,
+    cylindre3d: window.cylindre3d,
+    prisme3d: window.prisme3d,
+    pave3d: window.pave3d,
+    rotationV3d: window.rotationV3d,
+    rotation3d: window.rotation3d,
+    translation3d: window.translation3d
   })
 
   return interpreter
