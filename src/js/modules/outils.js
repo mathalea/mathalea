@@ -6657,34 +6657,6 @@ export function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (tabQCMs, idExo) {
- /* const elimineDoublons = function (tabqcm) { // fonction qui va éliminer les doublons si il y en a
-    const reponses = tabqcm[1].slice()
-    const bools = tabqcm[2].slice()
-    for (let i = 0; i < reponses.length - 1; i++) {
-      for (let j = i + 1; j < reponses.length;) {
-        if (reponses[i] === reponses[j]) {
-          console.log('doublon trouvé', reponses[i], reponses[j]) // les réponses i et j sont les mêmes
-
-          if (bools[i] === 1) { // si la réponse i est bonne, on vire la j
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-          } else if (bools[j] === 1) { // si la réponse i est mauvaise et la réponse j bonne,
-            // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-            bools[i] = 1
-          } else { // Les deux réponses sont mauvaises
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-          }
-        } else {
-          j++
-        }
-      }
-    }
-    return [tabqcm[0], reponses, bools]
-  }
-*/
   let tex_QR = ''; let type = ''; let tabQCM
   let nbBonnes; let id = 0; let nb_chiffres_pe; let nb_chiffres_pd; let nb_chiffres; let reponse
   let params, horizontalite
@@ -6963,7 +6935,7 @@ export function exportQcmAmc (tabQCMs, idExo) {
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
 export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', type_entete = 'AMCcodeGrid', format = 'A4' }) {
-  // Attention questions est maintenant un tableau de tous les this.qcm des exos
+  // Attention questions est maintenant un tableau de tous les this.amc des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
 
