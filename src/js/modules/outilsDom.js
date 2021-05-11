@@ -15,7 +15,7 @@ export function waitFor (id, timeout = 30) {
       }
       return false
     }
-    const abort = () => reject(Error()`Pas trouvé #${id} dans le dom après ${timeout}s d’attente`)
+    const abort = () => reject(Error(`Pas trouvé #${id} dans le dom après ${timeout}s d’attente`))
     const timer = setTimeout(abort, timeout * 1000)
 
     if (!found()) setTimeout(found, 250)

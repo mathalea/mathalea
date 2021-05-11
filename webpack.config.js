@@ -278,10 +278,10 @@ if (!isServeMode) {
     if (privateConfig && typeof privateConfig.bugsnagApiKey === 'string' && privateConfig.bugsnagApiKey) {
       console.log(`${privateConfigFile} existe et exporte bugsnagApiKey, on ajoute bugsnag à chaque entry`)
       // on génère un _private/bugsnag.js avec les constantes dont il a besoin
-      const {version} = require('./package.json')
+      const { version } = require('./package.json')
       const busgnagSrcFile = path.resolve(__dirname, 'src', 'js', 'bugsnag.js')
       const busgnagDstFile = path.resolve(privateDir, 'bugsnag.js')
-      const bugsnagContent = fs.readFileSync(busgnagSrcFile, {encoding: 'utf8'})
+      const bugsnagContent = fs.readFileSync(busgnagSrcFile, { encoding: 'utf8' })
         .replace(/^const apiKey *= ''/m, `const apiKey = '${privateConfig.bugsnagApiKey}'`)
         .replace(/^const appVersion *= ''/m, `const appVersion = '${version}'`)
         .replace(/^const releaseStage *= ''/m, `const releaseStage = '${config.mode}'`)
