@@ -27,6 +27,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
 
   this.nouvelleVersion = function () {
     this.autoCorrection=[]
+    let tables=[],tabrep
     this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
