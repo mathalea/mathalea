@@ -3751,7 +3751,7 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
  * centre Le centre de la rotation
  * sens Le sens (+1 ou -1) de la rotation. +1=sens trigo
  */
-function Sens_de_rotation (A1, centre, sens) {
+function SensDeRotation (A1, centre, sens) {
   ObjetMathalea2D.call(this)
   const objets = []
   const arc1 = arc(A1, centre, 20 * sens)
@@ -3777,8 +3777,8 @@ function Sens_de_rotation (A1, centre, sens) {
     return code
   }
 }
-export function sens_de_rotation (A, O, sens) {
-  return new Sens_de_rotation(A, O, sens)
+export function sensDeRotation (A, O, sens) {
+  return new SensDeRotation(A, O, sens)
 }
 /**
  * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
