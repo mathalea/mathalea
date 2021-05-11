@@ -1,6 +1,6 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, shuffle } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -26,6 +26,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
+    this.autoCorrection=[]
     this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -33,7 +34,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
-    let tables = []; let tabrep; let tabicone
     if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
@@ -67,10 +67,9 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         a = b
         b = c
       }
-      tabrep = [`$${texNombre2(a * b)}$`, `$${texNombre2(calcul(a * b / 10))}$`, `$${texNombre2(calcul(a * b * 10))}$`, `$${texNombre2(calcul(a * b / 100))}$`, `$${texNombre2(calcul(a * b * 100))}$`]
-      tabicone = [1, 0, 0, 0, 0];
-      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-       texte =
+      tabrep = [{ texte: `$${texNombre2(a * b)}$`, statut: true, feedback: 'Correct !' }, { texte: `$${texNombre2(calcul(a * b / 10))}$`, statut: false, feedback: 'Compte le nombre de zéros dans chaque facteur' }, { texte: `$${texNombre2(calcul(a * b * 10))}$`, statut: false, feedback: 'Compte le nombre de zéros dans chaque facteur' }, { texte: `$${texNombre2(calcul(a * b / 100))}$`, statut: false, feedback: 'Compte le nombre de zéros dans chaque facteur' }, { texte: `$${texNombre2(calcul(a * b * 100))}$`, statut: false, feedback: 'Compte le nombre de zéros dans chaque facteur' }]
+      elimineDoublons(tabrep)
+      texte =
         '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
       texteCorr =
         '$ ' +
@@ -80,14 +79,12 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-      this.qcm[1].push([`${texte}\n`,
-        tabrep,
-        tabicone])
+      this.autoCorrection.push({ enonce: `${texte}\n`, propositions: tabrep, options: { ordered: false, lastChoice: 5 }, reponse: [] })
+      // this.qcm[1].push([`${texte}\n`
 
-      shuffle2tableaux(tabrep, tabicone)
+      shuffle(this.autoCorrection[i].propositions)
       if (this.modeQcm && !mathalea.sortieAMC) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
