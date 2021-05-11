@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -86,7 +86,8 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       // QCM
       /**********************************/
       tabrep = [`$${texNombre2(a * b)}$`, `$${texNombre2(calcul(a * b / 10))}$`, `$${texNombre2(calcul(a * b * 10))}$`, `$${texNombre2(calcul(a * b / 100))}$`, `$${texNombre2(calcul(a * b * 100))}$`]
-      tabicone = [1, 0, 0, 0, 0]
+      tabicone = [1, 0, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       this.qcm[1].push([`${texte}\n`,
         tabrep,
         tabicone])

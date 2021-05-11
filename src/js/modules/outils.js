@@ -6657,7 +6657,7 @@ export function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (tabQCMs, idExo) {
-  const elimineDoublons = function (tabqcm) { // fonction qui va éliminer les doublons si il y en a
+ /* const elimineDoublons = function (tabqcm) { // fonction qui va éliminer les doublons si il y en a
     const reponses = tabqcm[1].slice()
     const bools = tabqcm[2].slice()
     for (let i = 0; i < reponses.length - 1; i++) {
@@ -6684,7 +6684,7 @@ export function exportQcmAmc (tabQCMs, idExo) {
     }
     return [tabqcm[0], reponses, bools]
   }
-
+*/
   let tex_QR = ''; let type = ''; let tabQCM
   let nbBonnes; let id = 0; let nb_chiffres_pe; let nb_chiffres_pd; let nb_chiffres; let reponse
   let params, horizontalite
@@ -6704,7 +6704,7 @@ export function exportQcmAmc (tabQCMs, idExo) {
     nbBonnes = 0
     switch (tabQCMs[3]) {
       case 1: // question QCM 1 bonne réponse
-        tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
+        // tabQCM = elimineDoublons(tabQCM) // Plus nécessaire, c'est fait en amont.
         nbBonnes = 0
         for (const b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
           if (b === 1) nbBonnes++

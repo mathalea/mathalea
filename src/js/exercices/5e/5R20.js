@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, texNombre } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { elimineDoublons, gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -26,8 +26,8 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['5R20', [], 'tables et multiples de 10,100 et 1000', 1]
-    let tabrep, tabicone
+    this.qcm = ['5R20', [], 'Addition de deux nombres entiers relatifs', 1]
+    let tabrep, tabicone, tabQcm
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -45,20 +45,20 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       tabrep = [`$${a + b}$`, `$${a - b}$`, `$${-a + b}$`, `$${-a - b}$`]
-      tabicone = [1, 0, 0, 0]
+      tabicone = [1, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
+      this.qcm[1].push([`${texte}\n`,
+      tabrep,
+      tabicone])
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
-
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}\n`,
-          tabrep,
-          tabicone])
         i++
       }
       cpt++
