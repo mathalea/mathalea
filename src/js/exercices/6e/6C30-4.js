@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -54,7 +54,8 @@ export default function PlacerLaVirgule () {
       nombre = calcul(nombreentier * 10 ** exposant)
       resultat = calcul(nombre * 10 ** coef)
       tabrep = [`$${texNombre2(resultat)}$`, `$${texNombre2(calcul(resultat / 10))}$`, `$${texNombre2(calcul(resultat * 10))}$`, `$${texNombre2(calcul(resultat / 100))}$`]
-      tabicone = [1, 0, 0, 0]
+      tabicone = [1, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       this.qcm[1].push([`Ou doit être placée la virgule dans le résultat ? $${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n`,
         tabrep,
         tabicone])

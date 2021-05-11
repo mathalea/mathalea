@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -97,7 +96,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           [" h", "\\times100\\times100", 10000],
           [" k", "\\times1~000\\times1~000", 1000000],
         ]; // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = Algebrite.eval(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +
@@ -129,7 +128,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           [" m", "\\div1~000\\div1~000", 1000000],
         ];
         k = randint(0, 1); // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = Algebrite.eval(a / prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
@@ -162,7 +161,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
         }
         let unite2 = unite1 + ecart;
         if (randint(0, 1) > 0) {
-          resultat = Algebrite.eval(a * Math.pow(10, 2 * ecart));
+          resultat = calcul(a * Math.pow(10, 2 * ecart));
           texte =
             "$ " +
             texNombre(a) +
@@ -189,7 +188,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
             "^2" +
             "$";
         } else {
-          resultat = Algebrite.eval(a / Math.pow(10, 2 * ecart));
+          resultat = calcul(a / Math.pow(10, 2 * ecart));
           texte =
             "$ " +
             texNombre(a) +
@@ -223,7 +222,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           ["a", 100],
         ];
         k = randint(0, 1);
-        resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +

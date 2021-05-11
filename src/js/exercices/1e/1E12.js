@@ -2,8 +2,7 @@ import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettre_minuscule_depuis_chiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import {repere,courbe,mathalea2d,} from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
-const Algebrite = require('algebrite')
-
+import Algebrite from 'algebrite'
 
 
 export const titre = 'Trouver l’équation d’une parabole'

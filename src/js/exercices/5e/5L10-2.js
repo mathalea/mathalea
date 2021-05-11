@@ -1,5 +1,5 @@
 /* global mathalea est_diaporama sortieHtml */
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 import { ecritureParentheseSiNegatif, shuffle2tableaux, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
 import Exercice from '../ClasseExercice.js'
 
@@ -103,6 +103,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           tabicone = [1, 0, 0, 0]
           break
       }
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
       if (this.modeQcm && !mathalea.sortieAMC) {
         this.tableauSolutionsDuQcm[i] = tabicone

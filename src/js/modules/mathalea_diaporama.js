@@ -2,6 +2,7 @@
 let premierClicSurPlay = true
 let chrono
 let intervalID = {}
+let pause = false
 
 $(document).ready(function () {
   $('#prev').hide()
@@ -62,14 +63,15 @@ $(document).ready(function () {
   $('#formulaire_choix_des_exercices').hide()
   $('#exercices').hide()
 
-
-  $('#pause').click(function () {
+  /*fonctions de gestion des boutons du diaporama*/
+  function pauseDiapo() {
     clearInterval(intervalID)
-  })
-
-  $('#play').click(function () {
+    pause = true
+  }
+  
+  function playDiapo() {
     if (premierClicSurPlay) {
-	  $('#prev').show()
+      $('#prev').show()
       $('#next').show()
       chrono = 10
       $('.mathalea2d').css('font-size', 12)
@@ -110,18 +112,53 @@ $(document).ready(function () {
       timer()
       $('#timer').show()
     }
-  })
-
-  $('#prev').click(function () {
+    pause = false
+  }
+  
+  function slidePrecedente() {
     chrono = mathalea.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     $('.single-item').slick('slickPrev')
-  })
-
-  $('#next').click(function () {
+  }
+  
+  function slideSuivante() {
     chrono = mathalea.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     $('.single-item').slick('slickNext')
+  }
+  
+  /*========*/
+  
+  $('#pause').click(function () {
+    pauseDiapo()
+  })
+
+  $('#play').click(function () {
+    playDiapo()
+  })
+  
+  $('#prev').click(function () {
+    slidePrecedente()
+  })
+
+  $('#next').click(function () {
+    slideSuivante()
+  })
+
+  window.addEventListener('keydown', function(e) { //gestion du calcul mental avec le clavier
+    if (e.which === 32 && pause) { //touche espace pendant la pause
+      document.getElementById("play").focus()
+      playDiapo()
+    } else if (e.which === 32 && !pause) { //touche espace pendant le diaporama
+      document.getElementById("pause").focus()
+      pauseDiapo()
+    }
+    if (e.which === 37) { //fleche gauche
+      slidePrecedente()
+    }
+    if (e.which === 39) { //fleche droite
+      slideSuivante()
+    }
   })
 
   function timer () {
@@ -139,4 +176,5 @@ $(document).ready(function () {
     }
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
   }
+ 
 })

@@ -1,7 +1,7 @@
 /* global mathalea */
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -59,8 +59,9 @@ export default function MultiplicationMentalDecimaux () {
           b = 10 * randint(1, 9) + randint(1, 9)
 
           tabrep = [`$${texNombre2(calcul(a + b))}$`, `$${texNombre2(calcul(a * b))}$`, `$${texNombre2(calcul((a + b) / 10))}$`, `$${texNombre2(calcul(10 * (a + b)))}$`, `$${texNombre2(calcul(a + b + 1))}$`] // réponses possibles
-          tabicone = [1, 0, 0, 0, 0] // 1 pour la bonne réponse
-          /**********************************************************************/
+          tabicone = [1, 0, 0, 0, 0]; // 1 pour la bonne réponse
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
+           /**********************************************************************/
           // ajouté par Jean-Caude Lhote pour générer des QCM AMC
           this.qcm[1].push([`Calcul : $${a}+${b}$.\\\\ \n Réponses possibles`, tabrep.slice(0), tabicone.slice(0)])
           // tableau pour la fonction exportQcmAmc
@@ -82,7 +83,8 @@ export default function MultiplicationMentalDecimaux () {
           a = 10 * randint(1, 9) + randint(1, 9)
           b = 10 * randint(1, 9) + randint(1, 9)
           tabrep = [`$${texNombre2(a * b)}$`, `$${texNombre2(10 * a * b)}$`, `$${texNombre2(a * b / 10)}$`, `$${texNombre2(a + b)}$`, `$${texNombre2(a * b + 1)}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          tabicone = [1, 0, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           /**********************************************************************/
           // ajouté par Jean-Caude Lhote pour générer des QCM AMC
           this.qcm[1].push([`Calcul : $${a} \\times ${b}$.\\\\ \n Réponses possibles`, tabrep.slice(0), tabicone.slice(0)])
@@ -104,7 +106,8 @@ export default function MultiplicationMentalDecimaux () {
           a = 1000 * randint(1, 9) + 100 * randint(0, 9, [3, 4, 5, 6, 7]) + 10 * randint(0, 9) + randint(0, 9)
           b = 1000 * randint(1, 9) + 100 * randint(0, 9, [3, 4, 5, 6, 7]) + 10 * randint(0, 9) + randint(0, 9)
           tabrep = [`$${texNombre2(calcul((a + b) / 100))}$`, `$${texNombre2(calcul((a * b) / 100))}$`, `$${texNombre2(calcul((a + b) / 1000))}$`, `$${texNombre2(calcul(10 * (a + b) / 100))}$`, `$${texNombre2(calcul((a + b + 1) / 100))}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          tabicone = [1, 0, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           /**********************************************************************/
           // ajouté par Jean-Caude Lhote pour générer des QCM AMC
           this.qcm[1].push([`Calcul : $${texNombre2(a / 100)}+${texNombre2(b / 100)}$.\\\\ \n Réponses possibles`, tabrep.slice(0), tabicone.slice(0)])
@@ -128,7 +131,8 @@ export default function MultiplicationMentalDecimaux () {
           a = 1000 * randint(1, 9) + 100 * randint(1, 9, [3, 4, 5, 6, 7]) + 10 * randint(1, 9) + randint(0, 9, [2, 5]) // on évite le 2*5 avec les derniers chiffres
           b = 1000 * randint(1, 9) + 100 * randint(1, 9, [3, 4, 5, 6, 7]) + 10 * randint(1, 9) + randint(0, 9)
           tabrep = [`$${texNombre2(calcul((a * b) / 10000))}$`, `$${texNombre2(calcul((10 * a * b) / 10000))}$`, `$${texNombre2(calcul((a * b) / 100000))}$`, `$${texNombre2(calcul((a + b) / 100))}$`, `$${texNombre2(calcul((a * b + 1) / 10000))}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          tabicone = [1, 0, 0, 0, 0];
+          [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
           /**********************************************************************/
           // ajouté par Jean-Caude Lhote pour générer des QCM AMC
           this.qcm[1].push([`Calcul : $${texNombre2(a / 100)} \\times ${texNombre2(b / 100)}$.\\\\ \n Réponses possibles`, tabrep.slice(0), tabicone.slice(0)])

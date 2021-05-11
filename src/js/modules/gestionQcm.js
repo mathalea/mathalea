@@ -76,7 +76,7 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
     }
     for (let rep = 0; rep < tabrep.length; rep++) {
       if (sortieHtml) {
-        texte += `<div class="ui checkbox ex${numeroExercice}">
+        texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
             <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
           </div>`
@@ -94,4 +94,37 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
     }
   }
   return { texte: texte, texteCorr: texteCorr }
+}
+
+/**
+ * prend un objet {reponse=[a,b,c,d,e],statuts=[1,0,0,0,0]}
+ * élimine les doublons de réponses et les statuts associés avant de retourner l'objet épuré.
+ * @author Jean-Claude Lhote
+ */
+export function elimineDoublons (reponses, statuts) { // fonction qui va éliminer les doublons si il y en a
+  const reponsesEpurees = reponses.slice()
+  const statutsEpures = statuts.slice()
+  for (let i = 0; i < reponsesEpurees.length - 1; i++) {
+    for (let j = i + 1; j < reponsesEpurees.length;) {
+      if (reponsesEpurees[i] === reponsesEpurees[j]) {
+        console.log('doublon trouvé', reponsesEpurees[i], reponsesEpurees[j]) // les réponses i et j sont les mêmes
+
+        if (statutsEpures[i] === 1) { // si la réponse i est bonne, on vire la j
+          reponsesEpurees.splice(j, 1)
+          statutsEpures.splice(j, 1)
+        } else if (statutsEpures[j] === 1) { // si la réponse i est mauvaise et la réponse j bonne,
+          // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
+          reponsesEpurees.splice(j, 1)
+          statutsEpures.splice(j, 1)
+          statutsEpures[i] = 1
+        } else { // Les deux réponses sont mauvaises
+          reponsesEpurees.splice(j, 1)
+          statutsEpures.splice(j, 1)
+        }
+      } else {
+        j++
+      }
+    }
+  }
+  return [reponsesEpurees, statutsEpures]
 }

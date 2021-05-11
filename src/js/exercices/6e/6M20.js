@@ -2,7 +2,6 @@ import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegme
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
 import Exercice from '../ClasseExercice.js'
 
-const Algebrite = require('algebrite')
 
 export const titre = 'Aires de triangles'
 
@@ -71,7 +70,7 @@ export default function AireDeTriangles () {
       texte = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '<br>'
       if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsCorrection) + '<br>' } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
-      Algebrite.eval((cotes[i] * hauteurs[i]) / 2)
+      calcul((cotes[i] * hauteurs[i]) / 2)
     )}~\\text{cm}^2$`
 
       this.listeQuestions.push(texte)

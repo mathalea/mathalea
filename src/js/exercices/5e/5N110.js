@@ -1,7 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,tex_prix,texFraction} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
-
+import {listeQuestionsToContenu,randint,choice,calcul,tex_prix,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Variation en pourcentages'
 
@@ -24,7 +22,7 @@ export default function Variation_en_pourcentages() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			prix = choice([randint(2, 9), randint(1, 9) * 10, randint(1, 9) * 100, Algebrite.eval(randint(11, 99) / 10)]);
+			prix = choice([randint(2, 9), randint(1, 9) * 10, randint(1, 9) * 100, calcul(randint(11, 99) / 10)]);
 			// X | X0 | X00 | X,X0
 			taux = choice([20, 30, 40, 60]);
 			if (choice([true, false])) {
@@ -34,9 +32,9 @@ export default function Variation_en_pourcentages() {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux}~\\%.`;
 				}
 
-				texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)} = ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)} = ${tex_prix(calcul(prix * taux))}\\div 100=${tex_prix(calcul(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
-				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(Algebrite.eval(prix * taux / 100))}=${tex_prix(Algebrite.eval(prix - prix * taux / 100))}$ €`;
+				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix - prix * taux / 100))}$ €`;
 			} else {
 				if (sortieHtml) {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux} \%.`;
@@ -44,9 +42,9 @@ export default function Variation_en_pourcentages() {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux}~\\%.`;
 
 				}
-				texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)}= ${tex_prix(Algebrite.eval(prix * taux))}\\div 100=${tex_prix(Algebrite.eval(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)}= ${tex_prix(calcul(prix * taux))}\\div 100=${tex_prix(calcul(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
-				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(Algebrite.eval(prix * taux / 100))}=${tex_prix(Algebrite.eval(prix * (1 + taux / 100)))}$ €`;
+				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix * (1 + taux / 100)))}$ €`;
 			}
 
 			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre

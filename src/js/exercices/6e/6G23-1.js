@@ -2,7 +2,7 @@
 import Exercice from '../ClasseExercice.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionQcmInteractif, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -47,7 +47,8 @@ export default function MesurerUnAngle () {
         angle = randint(20, 160, 90)
       }
       tabrep = [`$${angle}\\degree$`, `$${180 - angle}\\degree$`, `$${angle / 2}\\degree$`, `$${Math.round((180 + angle) / 2)}\\degree$`, '$180\\degree$', '$90\\degree$']
-      tabicone = [1, 0, 0, 0, 0, 0]
+      tabicone = [1, 0, 0, 0, 0, 0];
+      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       anglerot = randint(-180, 180)
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
