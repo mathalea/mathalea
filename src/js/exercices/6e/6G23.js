@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {listeQuestionsToContenu,randint,choice,lettreDepuisChiffre,texNombre} from '../../modules/outils.js'
-import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sensDeRotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 
@@ -60,7 +60,7 @@ export default function Construire_un_angle() {
       s.epaisseur=2
       C = rotation(B,A,angle);
       Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.9),-signe[i]*90,0.1),'milieu')
-      fleche=sens_de_rotation(B,A,signe[i])
+      fleche=sensDeRotation(B,A,signe[i])
       s2 = demiDroiteAvecExtremite(A, C);
       labels=labelPoint(A,B)
       labels2=labelPoint(A,B,C)

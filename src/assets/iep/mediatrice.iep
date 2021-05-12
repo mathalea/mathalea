@@ -1,8 +1,7 @@
 const A = point(4, 1, 'A')
 const B = point(8, -1, 'B')
 anim.traitRapide(A, B)
-anim.pointCreer(A, { tempo: 0}) // On coupe la pause pour ne pas voir le déplacement du point 
-anim.pointNommer(A,A.nom,{ dx: -0.5,dy: 0 }) // On déplace le label du point A vers la gauche
+anim.pointCreer(A, { tempo: 0, dx: -0.5, dy: 0 }) // On déplace le label du point A vers la gauche
 anim.pointCreer(B)
 const O = milieu(A, B)
 const O2 = rotation(A, O, -90)
