@@ -1,9 +1,9 @@
-/* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
+/* global mathalea sortieHtml est_diaporama MG32_tableau_de_figures Module $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { iep, prism } from './modules/loaders'
+import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import Clipboard from 'clipboard'
@@ -16,11 +16,6 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
-import loadjs from 'loadjs'
-
-// Prism n'est utilisé que pour mathalealatex.html
-// quand les html seront fusionnés on ne chargera prism que pour la sortie LaTeX
-prism()
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -246,6 +241,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
   const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
   if (besoinScratch) {
     await scratchTraductionFr()
+    /* global scratchblocks */
     // @todo ajouter un try/catch pour gérer un pb de chargement
     scratchblocks.renderMatching('pre.blocks', {
       style: 'scratch3',
@@ -268,7 +264,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
       }
       element.style.marginTop = '30px'
       const xml = window.listeScriptsIep[id]
-      await iep(element, xml)
+      await loadIep(element, xml)
     }
   }
 }
@@ -612,7 +608,10 @@ function miseAJourDuCode () {
         codeLatex = code_exercices + code_correction
       }
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
-      Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      loadPrism().then(() => {
+        /* global Prism */
+        Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      }).catch(error => console.error(error))
       const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
       clipboardURL.on('success', function (e) {
         console.info('Code LaTeX copié dans le presse-papier.')
@@ -956,13 +955,7 @@ function miseAJourDeLaListeDesExercices (preview) {
                       </svg>
                     </div>
                   </div>`
-        return loadjs('/assets/externalJs/giacsimple.js')
-      }
-    })
-    .then(() => {
-      if (besoinXCas) {
-        // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-        return checkXCas()
+        return loadGiac()
       }
     })
     .then(() => {
@@ -1002,19 +995,6 @@ function miseAJourDeLaListeDesExercices (preview) {
         miseAJourDuCode()
       }
     })
-}
-
-const checkXCas = () => {
-  return new Promise((resolve, reject) => {
-    const monInterval = setInterval(() => {
-      if (typeof (Module) !== 'undefined') {
-        if (Module.ready === true) {
-          resolve()
-          clearInterval(monInterval)
-        }
-      }
-    }, 500)
-  })
 }
 
 // Gestion des paramètres

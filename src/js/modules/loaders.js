@@ -5,6 +5,7 @@ import loadjs from 'loadjs'
  * @type {Object}
  */
 const apps = {
+  giac: '/assets/externalJs/giacsimple.js',
   mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
   prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
   scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js'
@@ -28,12 +29,46 @@ async function load (name) {
 }
 
 /**
+ * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
+ * @return {Promise<undefined,Error>} rejette en cas de timeout
+ */
+function waitForGiac () {
+  /* global Module */
+  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
+  const timeout = 60 // en s
+  const tsStart = Date.now()
+  return new Promise((resolve, reject) => {
+    const monInterval = setInterval(() => {
+      const delay = Math.round((Date.now() - tsStart) / 1000)
+      if (Module.ready === true) {
+        clearInterval(monInterval)
+        resolve()
+      } else if (delay > timeout) {
+        clearInterval(monInterval)
+        reject(Error(`xcas toujours pas chargé après ${delay}s`))
+      }
+    }, 500)
+  })
+}
+
+/**
+ * Charge giac
+ * @return {Promise} qui peut échouer…
+ */
+export async function loadGiac () {
+  await load('giac')
+  // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
+  // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
+  await waitForGiac()
+}
+
+/**
  * Charge une animation iep dans un élément
  * @param {HTMLElement} elt
  * @param {string} xml Le script xml de l'animation ou son url absolue
  * @return {Promise<iepApp>} L'appli iep
  */
-export async function iep (elt, xml) {
+export async function loadIep (elt, xml) {
   const { default: iepLoadPromise } = await import('instrumenpoche')
   const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
   return iepApp
@@ -46,7 +81,7 @@ export async function iep (elt, xml) {
  * @param {Object} mtgOptions Options pour l'appli (boutons, menus, etc., cf {@link https://www.mathgraph32.org/documentation/loading/global.html#MtgOptions}
  * @return {Promise<MtgApp>} l'appli mathgraph {@link https://www.mathgraph32.org/documentation/loading/MtgApp.html}
  */
-export async function mtgLoad (elt, svgOptions, mtgOptions) {
+export async function loadMG32 (elt, svgOptions, mtgOptions) {
   try {
     await load('mathgraph')
     if (typeof window.mtgLoad !== 'function') throw Error('mtgLoad n’existe pas')
@@ -63,7 +98,7 @@ export async function mtgLoad (elt, svgOptions, mtgOptions) {
  * Charge prism
  * @return {Promise<undefined>}
  */
-export async function prism () {
+export async function loadPrism () {
   try {
     await load('prism')
   } catch (error) {
