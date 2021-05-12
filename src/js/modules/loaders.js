@@ -1,5 +1,4 @@
 import loadjs from 'loadjs'
-import { scratchTraductionFr } from './outils'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
