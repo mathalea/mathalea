@@ -180,7 +180,7 @@ function ecrireAdditionPosee(x,y,...args){
     nString.push(texNombre(args[k]))
     n.push(args[k])
   }
-  let nb_chiffres_pe=Math.log10(Math.floor(Math.max(n)))
+  let nbChiffresPe=Math.log10(Math.floor(Math.max(n)))
 
   for (let k=0;k<args.length;k++){
 
@@ -2129,7 +2129,7 @@ export function texNombre (nb) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ') // \nombre n'est pas pris en charge par katex
   } else {
     let result
-    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
       result = nb.toString().replace('.', ',')
@@ -2201,7 +2201,7 @@ export function nombre_avec_espace (nb) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
     let result
-    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
       result = nb.toString().replace('.', ',')
@@ -2390,7 +2390,7 @@ export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).
 * Renvoie le nombre de chiffres de la partie décimale
 * @Auteur Rémi Angot
 */
-export function nombre_de_chiffres_dans_la_partie_decimale (nb) {
+export function nombreDeChiffresDansLaPartieDecimale (nb) {
   if (String(nb).indexOf('.') > 0) {
     return String(nb).split('.')[1].length
   } else {
@@ -2398,7 +2398,7 @@ export function nombre_de_chiffres_dans_la_partie_decimale (nb) {
   }
 }
 
-export function nombre_de_chiffres_dans_la_partie_entiere (nb) {
+export function nombreDeChiffresDansLaPartieEntiere (nb) {
   if (String(nb).indexOf('.') > 0) {
     return String(nb).split('.')[0].length
   } else {
@@ -6640,114 +6640,84 @@ export function scratchTraductionFr () {
 
 /**
  *
- * @param {*} tabQCMs tableau de la forme [ref du groupe,tabQCMs,titre du groupe]
- * chaque tableau de tabQCMs est constitué par 3 éléments :
- * la question énoncée, le tableau des réponses, le tableau des booléens bon=1 mauvaise=0
- * Si le troisième tableau ne comporte que des 0, il s'agit d'une question ouverte.
- * c'est la longueur du tableau des réponses qui définit le nombre de réponses et donc le nombre de booléens nécessaires
- * Si c'est pour une question ouverte, il n'y aura qu'une réponse et une seule valeur dans le tableau des booléens qui déterminera le nombre de ligne à réserver pour la réponse
- * exemple : Pour l'exo 3G30 : tabQCMs=['3G30',[texte,[texteCorr],[4]],'Calculer des longueurs avec la trigonométrie']
- * exemple de type QCM : ​["6C30-3",[["Calcul : $62+23$.\\\\ \n Réponses possibles",[85,1426,8.5,850,86],[1,0,0,0,0]],
- * 			["Calcul : $80,88+50,34$.\\\\ \n Réponses possibles",[131.22,407150,13.122,1312.2,131.23],[1,0,0,0,0]]],'Opérations avec les nombres décimaux']
- * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
- * chaque tableau est élaboré dans le corps de l'exercice
- * La fonction crée la partie préparation des groupes de questions du document AMC.
- * Elle retourne un tableau hybride contenant dans cet ordre :
- * Le code Latex du groupe de question, la référence du groupe (passée dans l'argument tabQCMs[0], le nombre de questions dans ce groupe (tabQCMs[1].length), et le titre du groupe passé dans l'argument tabQCM[2])
+ * @param {array} thisAmc tableau this.amc d'un exercice : [référence de l'exercice,this.autoCorrection de l'exercice,titre de l'exercice, type de question AMC,{options ?}]
+ * @param {number} idExo c'est un numéro unique pour gérer les noms des éléments d'un groupe de question, il est incrémenté par creerDocumentAmc()
  */
 
-export function exportQcmAmc (tabQCMs, idExo) {
-  let tex_QR = ''; let type = ''; let tabQCM
-  let nbBonnes; let id = 0; let nb_chiffres_pe; let nb_chiffres_pd; let nb_chiffres; let reponse
-  let params, horizontalite
-  if (tabQCMs.length > 4) {
-    params = tabQCMs[4]
-    if (params.vertical === 'undefined') {
-      horizontalite = 'reponseshoriz'
+export function exportQcmAmc (thisAmc, idExo) {
+  const autoCorrection = thisAmc[1]
+  const ref = thisAmc[0]
+  const titre = thisAmc[2]
+  const type = thisAmc[3]
+  let texQr = ''; let tabQCM
+  let reponse
+  let horizontalite
+  for (let j = 0; j < autoCorrection.length; j++) {
+    if (autoCorrection[j].options !== undefined) {
+      if (autoCorrection[j].options.vertical === undefined) {
+        horizontalite = 'reponseshoriz'
+      } else {
+        horizontalite = 'reponses'
+      }
     } else {
-      horizontalite = 'reponses'
+      horizontalite = 'reponseshoriz'
     }
-  } else {
-    params = { ordered: false, lastChoices: 0 }
-    horizontalite = 'reponseshoriz'
-  }
-  for (let j = 0; j < tabQCMs[1].length; j++) {
-    tabQCM = tabQCMs[1][j].slice(0)
-    nbBonnes = 0
-    switch (tabQCMs[3]) {
+    // tabQCM = tabQCMs[1][j].propositions.slice(0)
+    switch (type) {
       case 1: // question QCM 1 bonne réponse
-        // tabQCM = elimineDoublons(tabQCM) // Plus nécessaire, c'est fait en amont.
-        nbBonnes = 0
-        for (const b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
-          if (b === 1) nbBonnes++
+        texQr += `\\element{${ref}{\n `
+        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `		\\begin{${horizontalite}}`
+        if (autoCorrection[j].options.ordered) {
+          texQr += '[o]'
         }
-        if (nbBonnes === 1) {
-          type = 'question' // On est dans le cas 1 le type est question
-        } else if (nbBonnes > 1) {
-          type = 'questionmult' // On est dans le cas 2 le type est questionmult
-        }
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `		\\begin{${horizontalite}}`
-        if (params.ordered === true) {
-          tex_QR += '[o]'
-        }
-        tex_QR += '\n '
-        for (let i = 0; i < tabQCM[1].length; i++) {
-          if (params.lastChoices > 0 && i === params.lastChoices) {
-            tex_QR += '\\lastchoices\n'
+        texQr += '\n '
+        for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
+          if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
+            texQr += '\\lastchoices\n'
           }
-          switch (tabQCM[2][i]) {
-            case 1:
-              tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-              break
-            case 0:
-              tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-              break
+          if (autoCorrection[j].propositions[i].statut) {
+            texQr += `			\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+          } else {
+            texQr += `			\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        tex_QR += `		\\end{${horizontalite}}\n `
-        tex_QR += `	\\end{${type}}\n }\n `
+        texQr += `		\\end{${horizontalite}}\n `
+        texQr += '	\\end{question}\n }\n '
         id++
         break
 
       case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
-        tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-        type = 'questionmult' // On est dans le cas 2 le type est questionmult
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `		\\begin{${horizontalite}}`
-        if (params.ordered === true) {
-          tex_QR += '[o]'
+        texQr += `\\element{${ref}}{\n `
+        texQr += `	\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `		\\begin{${horizontalite}}`
+        if (autoCorrection[j].options.ordered) {
+          texQr += '[o]'
         }
-        tex_QR += ' \n '
-        for (let i = 0; i < tabQCM[1].length; i++) {
-          if (params.lastChoices > 0 && i === params.lastChoices) {
-            tex_QR += '\\lastchoices\n'
+        texQr += ' \n '
+        for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
+          if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
+            texQr += '\\lastchoices\n'
           }
-          switch (tabQCM[2][i]) {
-            case 1:
-              tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-              break
-            case 0:
-              tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-              break
+          if (autoCorrection[j].propositions[i].statut) {
+            texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+          } else {
+            texQr += `\t\t\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        tex_QR += `		\\end{${horizontalite}}\n `
-        tex_QR += `	\\end{${type}}\n }\n `
+        texQr += `\t\\end{${horizontalite}}\n `
+        texQr += ` \\end{questionmult}\n }\n `
         id++
         break
       case 3: // AMCOpen question ouverte corrigée par l'enseignant
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[2][0]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n }\n'
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `\t\t${autoCorrection[j].enonce} \n `
+        texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+        texQr += '\t\\end{question}\n }\n'
         id++
         break
       case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
@@ -6763,34 +6733,34 @@ export function exportQcmAmc (tabQCMs, idExo) {
         if (tabQCM[2].exposant_nb_chiffres === 0) {
           reponse = tabQCM[1][1]
           if (tabQCM[2].digits === 0) {
-            nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-            tabQCM[2].decimals = nb_chiffres_pd
-            nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-            tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+            tabQCM[2].decimals = nbChiffresPd
+            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+            tabQCM[2].digits = nbChiffresPd + nbChiffresPe
           }
         }
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
+        texQr += `\\element{${ref}}{\n `
+        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${tabQCM[1][0]}}\n`
+        texQr += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
         if (tabQCM[2][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+          texQr += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
         }
         if (tabQCM[2].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2].approx},`
+          texQr += `approx=${tabQCM[2].approx},`
         }
         if (typeof tabQCM[2].vertical !== 'undefined') {
-          tex_QR += `vertical=${tabQCM[2].vertical},`
+          texQr += `vertical=${tabQCM[2].vertical},`
         }
         if (typeof tabQCM[2].strict !== 'undefined') {
-          tex_QR += `strict=${tabQCM[2].strict},`
+          texQr += `strict=${tabQCM[2].strict},`
         }
         if (typeof tabQCM[2].vhead !== 'undefined') {
-          tex_QR += `vhead=${tabQCM[2].vhead},`
+          texQr += `vhead=${tabQCM[2].vhead},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-        tex_QR += '\\end{questionmultx}\n }\n'
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+        texQr += '\\end{questionmultx}\n }\n'
         id++
         break
 
@@ -6804,42 +6774,42 @@ export function exportQcmAmc (tabQCMs, idExo) {
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
         // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
         /********************************************************************/
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[1][2]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n\\end{minipage}\n'
+        texQr += `\\element{${ref}}{\n `
+        texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
+        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${tabQCM[1][0]}}\n`
+        texQr += `\\notation{${tabQCM[1][2]}}\n`
+        // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+        texQr += '\\end{question}\n\\end{minipage}\n'
         if (tabQCM[2].exposant_nb_chiffres === 0) {
           reponse = tabQCM[1][1]
           if (tabQCM[2].digits === 0) {
-            nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-            tabQCM[2].decimals = nb_chiffres_pd
-            nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-            tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+            tabQCM[2].decimals = nbChiffresPd
+            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+            tabQCM[2].digits = nbChiffresPd + nbChiffresPe
           }
         }
-        tex_QR += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
+        texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
         if (tabQCM[2][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+          texQr += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
         }
         if (tabQCM[2].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2].approx},`
+          texQr += `approx=${tabQCM[2].approx},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}}\n'
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
       case 6 : // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
-        // =======tabQCM[0] contient toujours le texte de l'énoncé
+        // =======autoCorrection[j].enonce contient toujours le texte de l'énoncé
         // =======tabQCM[1] est un tableau de tableau avec :
         // ===================tabQCM[1][0] qui contient ce qu'il faut pour le 1er numericchoice ['question 1','réponse1',réponse1 num]
         // ===================tabQCM[1][1] qui contient ce qu'il faut pour le 2e numericchoice ['question 2','réponse2',réponse2 num]
@@ -6858,60 +6828,60 @@ export function exportQcmAmc (tabQCMs, idExo) {
         // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
         /********************************************************************/
 
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
+        texQr += `\\element{${ref}}{\n `
         // premier champ de codage
-        tex_QR += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[1][0][2]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n\\end{minipage}\n'
+        texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
+        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${tabQCM[1][0][0]}}\n`
+        texQr += `\\notation{${tabQCM[1][0][2]}}\n`
+        // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+        texQr += '\\end{question}\n\\end{minipage}\n'
         // Pour les deux champs supplémentaires
         // if (tabQCM[2].exposant_nb_chiffres === 0) {
         // 	reponse = tabQCM[1][1]
         // 	if (tabQCM[2].digits === 0) {
-        // 		nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-        // 		tabQCM[2].decimals = nb_chiffres_pd
-        // 		nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-        // 		tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+        // 		nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+        // 		tabQCM[2].decimals = nbChiffresPd
+        // 		nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+        // 		tabQCM[2].digits = nbChiffresPd + nbChiffresPe
         // 	}
         // }
         // deuxième champ de codage numérique
-        tex_QR += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        tex_QR += `${tabQCM[2][0].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][0][1]}}{digits=${tabQCM[2][0].digits},decimals=${tabQCM[2][0].decimals},sign=${tabQCM[2][0].signe},`
+        texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `${tabQCM[2][0].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        texQr += `\\AMCnumericChoices{${tabQCM[1][0][1]}}{digits=${tabQCM[2][0].digits},decimals=${tabQCM[2][0].decimals},sign=${tabQCM[2][0].signe},`
         if (tabQCM[2][0][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2][0].exposant_nb_chiffres},exposign=${tabQCM[2][0].exposant_signe},`
+          texQr += `exponent=${tabQCM[2][0].exposant_nb_chiffres},exposign=${tabQCM[2][0].exposant_signe},`
         }
         if (tabQCM[2][0].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2][0].approx},`
+          texQr += `approx=${tabQCM[2][0].approx},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}\n'
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}\n'
 
         // troisième champ de codage numérique
-        tex_QR += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
-        tex_QR += `${tabQCM[2][1].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1][1]}}{digits=${tabQCM[2][1].digits},decimals=${tabQCM[2][1].decimals},sign=${tabQCM[2][1].signe},`
+        texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
+        texQr += `${tabQCM[2][1].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        texQr += `\\AMCnumericChoices{${tabQCM[1][1][1]}}{digits=${tabQCM[2][1].digits},decimals=${tabQCM[2][1].decimals},sign=${tabQCM[2][1].signe},`
         if (tabQCM[2][1][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2][1].exposant_nb_chiffres},exposign=${tabQCM[2][1].exposant_signe},`
+          texQr += `exponent=${tabQCM[2][1].exposant_nb_chiffres},exposign=${tabQCM[2][1].exposant_signe},`
         }
         if (tabQCM[2][1].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2][1].approx},`
+          texQr += `approx=${tabQCM[2][1].approx},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}}\n'
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
 
         id++
         break
     }
   }
-  return [tex_QR, tabQCMs[0], tabQCMs[1].length, tabQCMs[2]]
+  return [texQr, ref, autoCorrection.length, titre]
 }
 
 /**
@@ -6938,13 +6908,14 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   // Attention questions est maintenant un tableau de tous les this.amc des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
-
+  console.log('questions : ', questions)
   let idExo = 0; let code; let index_of_code
   const nombre_de_questions_indefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
   for (const qcm of questions) {
     code = exportQcmAmc(qcm, idExo)
+    console.log(code)
     idExo++
     index_of_code = groupeDeQuestions.indexOf(code[1])
     if (index_of_code === -1) { // si le groupe n'existe pas

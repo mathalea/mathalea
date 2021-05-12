@@ -19,7 +19,7 @@ export function gestionQcmInteractif (exercice) {
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
           let nbBonnesReponsesAttendues = 0
-          for (let k=0; k<exercice.autoCorrection[i].propositions.length;k++){
+          for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
             if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
           }
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
@@ -105,12 +105,12 @@ export function propositionsQcm (numeroExercice, i, propositions) {
  * @author Jean-Claude Lhote
  */
 export function elimineDoublons (propositions) { // fonction qui va éliminer les doublons si il y en a
-  let doublonsTrouves=false
+  let doublonsTrouves = false
   for (let i = 0; i < propositions.length - 1; i++) {
     for (let j = i + 1; j < propositions.length;) {
       if (propositions[i].texte === propositions[j].texte) {
         console.log('doublon trouvé') // les réponses i et j sont les mêmes
-        doublonsTrouves=true
+        doublonsTrouves = true
         if (propositions[i].statut) { // si la réponse i est bonne, on vire la j
           propositions.splice(j, 1)
         } else if (propositions[j].statut) { // si la réponse i est mauvaise et la réponse j bonne,

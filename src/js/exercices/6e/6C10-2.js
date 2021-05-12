@@ -28,7 +28,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.nouvelleVersion = function () {
     this.autoCorrection=[]
     let tables=[],tabrep
-    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
@@ -81,10 +80,8 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         texNombre(a * b) +
         ' $'
       this.autoCorrection.push({ enonce: `${texte}\n`, propositions: tabrep, options: { ordered: false, lastChoice: 5 }, reponse: [] })
-      // this.qcm[1].push([`${texte}\n`
-
       shuffle(this.autoCorrection[i].propositions)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !sortieAMC) {
         texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
@@ -92,6 +89,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
+    this.amc = [this.id, this.autoCorrection, titre, amcType]
   }
   gestionQcmInteractif(this)
   this.besoinFormulaireTexte = [
