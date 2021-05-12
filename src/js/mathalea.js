@@ -6,6 +6,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExercic
 import { iep, prism } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
+import { messageUtilisateur } from './modules/erreurs.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -191,6 +192,9 @@ form_choix_des_exercices.addEventListener('change', function (e) {
     liste_des_exercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
     // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
   }
+  if (document.getElementById('affichageErreur')) {
+    document.getElementById('affichageErreur').remove()
+  }
   copierExercicesFormVersAffichage(liste_des_exercices)
   miseAJourDeLaListeDesExercices()
 })
@@ -220,41 +224,49 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     variation: 'inverted',
     inline: true
   })
-
-  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
-  if (exosMg32.length) {
-    // faut charger mathgraph et lui filer ces figures
-    try {
-      // faut attendre que le div soit créé
-      // @todo ce code devrait plutôt être exécuté après la création du div
-      // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
-      // => il n'y aurait plus de couplage sur le préfixe MG32div)
-      await waitFor('MG32div0')
-      await mg32DisplayAll(exosMg32)
-    } catch (error) {
-      // On traite l'erreur
-      console.log(error)
-      // FIXME afficher un retour utilisateur
+  try {
+    const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+    if (exosMg32.length) {
+      // faut charger mathgraph et lui filer ces figures
+      try {
+        // faut attendre que le div soit créé
+        // @todo ce code devrait plutôt être exécuté après la création du div
+        // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
+        // => il n'y aurait plus de couplage sur le préfixe MG32div)
+        await waitFor('MG32div0')
+        await mg32DisplayAll(exosMg32)
+      } catch (error) {
+        // On traite l'erreur
+        console.log(error)
+        throw({code : 'mg32load'})
+      }
     }
+  
+    const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
+    if (besoinScratch) {
+      try {
+        await loadjs('assets/externalJs/scratchblocks-v3.5-min.js')
+        // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
+        // @todo mettre ce code de chargement dans modules/loaders.js et l'importer
+        scratchTraductionFr()
+        scratchblocks.renderMatching('pre.blocks', {
+          style: 'scratch3',
+          languages: ['fr']
+        })
+        scratchblocks.renderMatching('code.b', {
+          inline: true,
+          style: 'scratch3',
+          languages: ['fr']
+        })
+      } catch (error) {
+        // On traite l'erreur
+        console.log(error)
+        throw({code : 'scratchLoad'})
+      }
+    }
+  } catch (error) {
+    messageUtilisateur(error)
   }
-
-  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
-  if (besoinScratch) {
-    await loadjs('assets/externalJs/scratchblocks-v3.5-min.js')
-    // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
-    // @todo mettre ce code de chargement dans modules/loaders.js et l'importer
-    scratchTraductionFr()
-    scratchblocks.renderMatching('pre.blocks', {
-      style: 'scratch3',
-      languages: ['fr']
-    })
-    scratchblocks.renderMatching('code.b', {
-      inline: true,
-      style: 'scratch3',
-      languages: ['fr']
-    })
-  }
-
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
   if (besoinIEP) {
     for (const id of window.listeAnimationsIepACharger) {
@@ -814,6 +826,8 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
+      throw({code : 'codeExerciceInconnu',
+        exercice: id})
     }
     if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
       listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -1739,6 +1753,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     form_choix_des_exercices.value = liste_des_exercices.join(',')
     copierExercicesFormVersAffichage(liste_des_exercices)
-    miseAJourDeLaListeDesExercices()
+    try {
+      miseAJourDeLaListeDesExercices()
+    } catch(err) {
+      messageUtilisateur(err)
+    }
   }
 })
