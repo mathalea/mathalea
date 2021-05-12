@@ -6650,6 +6650,7 @@ export function exportQcmAmc (thisAmc, idExo) {
   const titre = thisAmc[2]
   const type = thisAmc[3]
   let texQr = ''; let tabQCM
+  let id=0;
   let reponse
   let horizontalite
   for (let j = 0; j < autoCorrection.length; j++) {
@@ -6714,6 +6715,7 @@ export function exportQcmAmc (thisAmc, idExo) {
       case 3: // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        console.log('sortieHtml : ',window.sortieHtml,'\n texte : ',autoCorrection[j].enonce)
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
@@ -6908,14 +6910,12 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   // Attention questions est maintenant un tableau de tous les this.amc des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
-  console.log('questions : ', questions)
   let idExo = 0; let code; let index_of_code
   const nombre_de_questions_indefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
   for (const qcm of questions) {
     code = exportQcmAmc(qcm, idExo)
-    console.log(code)
     idExo++
     index_of_code = groupeDeQuestions.indexOf(code[1])
     if (index_of_code === -1) { // si le groupe n'existe pas
