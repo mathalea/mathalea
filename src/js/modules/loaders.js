@@ -114,24 +114,3 @@ export async function loadPrism () {
 export async function loadScratchblocks () {
   await load('scratchblocks')
 }
-
-const loadScriptPromises = {}
-
-/**
- * Charge un js (il faut passer son url, absolue ou relative au html parent
- * @param {string} src
- * @return {Promise<undefined, Error>}
- */
-export function loadScript (src) {
-  if (!loadScriptPromises[src]) {
-    loadScriptPromises[src] = new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.onload = resolve
-      script.onerror = reject
-      script.src = src
-      document.head.append(script)
-    })
-  }
-  return loadScriptPromises[src]
-}
