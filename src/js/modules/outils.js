@@ -3,6 +3,7 @@ import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
+import { loadScratchblocks } from './loaders'
 const math = { format: format, evaluate: evaluate }
 
 // Fonctions diverses pour la création des exercices
@@ -6428,7 +6429,13 @@ export function preambulePersonnalise (listePackages) {
   return result
 }
 
-export function scratchTraductionFr () {
+/**
+ * Charge scratchblocks puis sa traduction fr
+ * retourne une promesse rejetée en cas de pb de chargement (à gérer par l'appelant)
+ * @return {Promise}
+ */
+export async function scratchTraductionFr () {
+  await loadScratchblocks()
   window.scratchblocks.loadLanguages({
     fr: {
       commands: {
@@ -6636,6 +6643,7 @@ export function scratchTraductionFr () {
       percentTranslated: 100
     }
   })
+  // @todo ajouter un catch avec un feedback utilisateur, en attendant on laisse comme ça pour que ça remonte au moins dans bugsnag
 }
 
 /**

@@ -1,4 +1,5 @@
 import loadjs from 'loadjs'
+import { scratchTraductionFr } from './outils'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -6,7 +7,8 @@ import loadjs from 'loadjs'
  */
 const apps = {
   mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
-  prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css']
+  prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
+  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js'
 }
 
 /**
@@ -69,6 +71,14 @@ export async function prism () {
     console.error(error)
     return Error('Erreur de chargement de prism')
   }
+}
+
+/**
+ * Charge scratchblocks
+ * @return {Promise} qui peut échouer…
+ */
+export async function loadScratchblocks () {
+  await load('scratchblocks')
 }
 
 const loadScriptPromises = {}
