@@ -6644,7 +6644,6 @@ export async function scratchTraductionFr () {
       percentTranslated: 100
     }
   })
-  // @todo ajouter un catch avec un feedback utilisateur, en attendant on laisse comme ça pour que ça remonte au moins dans bugsnag
 }
 
 /**
