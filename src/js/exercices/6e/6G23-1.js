@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -100,6 +100,6 @@ export default function MesurerUnAngle () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   this.besoinFormulaireNumerique = ['Précision de l\'angle', 3, '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°']
 }

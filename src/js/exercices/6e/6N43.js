@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -236,6 +236,6 @@ export default function CriteresDeDivisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Critères de divisibilité par 2, 5, 10\n2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité']
 }

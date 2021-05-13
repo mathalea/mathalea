@@ -104,6 +104,7 @@ class Vecteur3d {
       }
     }
     this.matrice = math.matrix([this.x3d, this.y3d, this.z3d])
+    this.norme = Math.sqrt(this.x3d**2+this.y3d**2+this.z3d**2)
     const W = math.multiply(MT, this.matrice)
     this.p2d = vecteur(W._data[0], W._data[1])
     this.representant = function (A) {
@@ -359,9 +360,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   this.sommet = sommet
   this.centrebase = centrebase
   this.normal = normal
-  this.rayon = rayon
+  this.rayon = vecteur3d(rayon,0,0)
   const objets = []; let c1; let c2; let s; let color1; let color2
-  const prodvec = vecteur3d(math.cross(normal.matrice, rayon.matrice))
+  const prodvec = vecteur3d(math.cross(normal.matrice, this.rayon.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
   if (prodscal > 0) {

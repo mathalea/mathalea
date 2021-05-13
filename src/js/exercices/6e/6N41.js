@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -225,7 +225,7 @@ export default function EgalitesEntreFractions () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    gestionQcmInteractif(this)
+    gestionAutoCorrection(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
   this.besoinFormulaire2Numerique = ['Type de question', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Alternance']
