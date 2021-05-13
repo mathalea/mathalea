@@ -28,6 +28,16 @@
   margin-top: 40px;
 }
 
+#affichageErreur {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#affichageErreur .header{
+  font-size:1.8em;
+}
+
 /* Timer pour le calcul chronométré*/
 
 #timer, #numero_question {

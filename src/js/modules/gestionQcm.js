@@ -1,4 +1,7 @@
+/* global $ */
 import { context } from './context.js'
+import { shuffle } from './outils.js'
+import { messageFeedback } from './erreurs.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
@@ -6,39 +9,57 @@ import { context } from './context.js'
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function gestionQcmInteractif (exercice) {
+export function gestionAutoCorrection (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
+    // Couleur pour surligner les label avec une opacité de 50%
     const monRouge = 'rgba(217, 30, 24, 0.5)'
     const monVert = 'rgba(123, 239, 178, 0.5)'
     const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
         for (let i = 0; i < exercice.nbQuestions; i++) {
+          // i est l'indice de la question
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
-          const nbBonnesReponsesAttendues = exercice.tableauSolutionsDuQcm[i].reduce((a, b) => a + b, 0)
+          let nbBonnesReponsesAttendues = 0
+          let indiceFeedback
+          // Compte le nombre de réponses justes attendues
+          for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
+            if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
+          }
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          exercice.tableauSolutionsDuQcm[i].forEach((solution, rep) => {
-            const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${rep}`)
-            const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${rep}`)
-            if (solution === 1) {
+          exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+            const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+            const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+            if (proposition.statut) {
               label.style.backgroundColor = monVert
               if (check.checked) {
                 nbBonnesReponses++
+                indiceFeedback = indice
               }
             } else if (check.checked === true) {
               label.style.backgroundColor = monRouge
               nbMauvaisesReponses++
+              indiceFeedback = indice
             }
           })
+          let typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-            spanReponseLigne.innerHTML = '✔︎'
+            spanReponseLigne.innerHTML = '😎'
             spanReponseLigne.style.color = 'green'
           } else {
-            spanReponseLigne.innerHTML = '✖︎'
+            spanReponseLigne.innerHTML = '☹️'
             spanReponseLigne.style.color = 'red'
+            typeFeedback = 'error'
+          }
+          if (indiceFeedback > -1 && nbMauvaisesReponses < 2 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback ) {
+            messageFeedback({
+              id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+              texte: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+              type: typeFeedback
+            })
           }
           spanReponseLigne.style.fontSize = 'large'
         }
@@ -59,7 +80,10 @@ export function gestionQcmInteractif (exercice) {
  * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
-export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
+export function propositionsQcm (exercice, i) {
+  const numeroExercice = exercice.numeroExercice
+  const autoCorrection = exercice.autoCorrection[i]
+  const propositions = autoCorrection.propositions
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -68,63 +92,72 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
   } else {
     espace = '\\qquad'
   }
+  elimineDoublons(propositions)
   if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
     } else {
       texte += '<br>'
     }
-    for (let rep = 0; rep < tabrep.length; rep++) {
+    for (let rep = 0; rep < propositions.length; rep++) {
+      if (autoCorrection.options !== undefined) {
+        if (!autoCorrection.options.ordered) {
+          if (autoCorrection.options.lastChoice === undefined || autoCorrection.options.lastChoice <= 0 || autoCorrection.options.lastChoice > propositions.length) {
+            shuffle(propositions)
+          } else {
+            if (typeof autoCorrection.options.lastChoice === 'number' && autoCorrection.options.lastChoice > 0 && autoCorrection.options.lastChoice < propositions.length) {
+              propositions.splice(0, autoCorrection.options.lastChoice, ...shuffle(propositions.slice(0, autoCorrection.options.lastChoice)))
+            }
+          }
+        }
+      }
       if (context.isHtml) {
         texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
-            <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
+            <label id="labelEx${numeroExercice}Q${i}R${rep}">${propositions[rep].texte + espace}</label>
           </div>`
       } else {
-        texte += `$\\square\\;$ ${tabrep[rep]}` + espace
+        texte += `$\\square\\;$ ${propositions[rep].texte}` + espace
       }
-      if (tabicone[rep] === 1) {
-        texteCorr += `$\\blacksquare\\;$ ${tabrep[rep]}` + espace
+      if (propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${propositions[rep].texte}` + espace
       } else {
-        texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
+        texteCorr += `$\\square\\;$ ${propositions[rep].texte}` + espace
       }
     }
     if (context.isHtml) {
-      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span>`
+      texte += `\n<div id="feedbackEx${numeroExercice}Q${i}"></span></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
 }
 
 /**
- * prend un objet {reponse=[a,b,c,d,e],statuts=[1,0,0,0,0]}
- * élimine les doublons de réponses et les statuts associés avant de retourner l'objet épuré.
+ * prend un tableau de propositions [{texte: 'prop1', statut: true, feedback: 'Correct !'}, {texte: 'prop2', statut: false, ....}
+ * élimine en cas de doublon la proposition fausse ou la deuxième proposition si elle sont toutes les deux fausses.
  * @author Jean-Claude Lhote
  */
-export function elimineDoublons (reponses, statuts) { // fonction qui va éliminer les doublons si il y en a
-  const reponsesEpurees = reponses.slice()
-  const statutsEpures = statuts.slice()
-  for (let i = 0; i < reponsesEpurees.length - 1; i++) {
-    for (let j = i + 1; j < reponsesEpurees.length;) {
-      if (reponsesEpurees[i] === reponsesEpurees[j]) {
-        console.log('doublon trouvé', reponsesEpurees[i], reponsesEpurees[j]) // les réponses i et j sont les mêmes
-
-        if (statutsEpures[i] === 1) { // si la réponse i est bonne, on vire la j
-          reponsesEpurees.splice(j, 1)
-          statutsEpures.splice(j, 1)
-        } else if (statutsEpures[j] === 1) { // si la réponse i est mauvaise et la réponse j bonne,
+export function elimineDoublons (propositions) { // fonction qui va éliminer les doublons si il y en a
+  let doublonsTrouves = false
+  for (let i = 0; i < propositions.length - 1; i++) {
+    for (let j = i + 1; j < propositions.length;) {
+      if (propositions[i].texte === propositions[j].texte) {
+        console.log('doublon trouvé') // les réponses i et j sont les mêmes
+        doublonsTrouves = true
+        if (propositions[i].statut) { // si la réponse i est bonne, on vire la j
+          propositions.splice(j, 1)
+        } else if (propositions[j].statut) { // si la réponse i est mauvaise et la réponse j bonne,
           // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
-          reponsesEpurees.splice(j, 1)
-          statutsEpures.splice(j, 1)
-          statutsEpures[i] = 1
+          propositions.splice(j, 1)
+          propositions[i].statut = true
         } else { // Les deux réponses sont mauvaises
-          reponsesEpurees.splice(j, 1)
-          statutsEpures.splice(j, 1)
+          propositions.splice(j, 1)
         }
       } else {
         j++
       }
     }
   }
-  return [reponsesEpurees, statutsEpures]
+  return doublonsTrouves
 }

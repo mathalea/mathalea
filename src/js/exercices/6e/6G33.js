@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -251,7 +251,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,'1 : ....\n2 : .....,\n3 : .....];
 }
 

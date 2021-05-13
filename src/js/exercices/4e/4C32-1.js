@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true
@@ -105,7 +105,7 @@ export default function CalculsAvecPuissancesDeDix () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Exercice à trou']
   this.besoinFormulaire2Numerique = ['Niveaux de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }
