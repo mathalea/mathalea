@@ -112,7 +112,7 @@ export default function Pavages_et_transformations () {
       objets_correction.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
     }
 
-    mathalea.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
+    context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
     switch (parseInt(this.sup)) {
       case 1: // symétrie axiale
         // Première question : une figure type A par symétrie d'axe // à [BD] est une figure type A. le symétrique du sommet A est le sommet C

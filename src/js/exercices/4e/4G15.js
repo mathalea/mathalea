@@ -133,7 +133,7 @@ anim.translationPolygone(triangle3,D,F,['A_3','B_3','C_3'],{couleur:'brown',coul
 anim.rotationPolygone(triangle4,F,alpha,['A_4','B_4','C_4'],{couleur:'green',couleurCodage:'lightgreen'})
 anim.crayonMasquer()
 
-mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+context.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
    objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
   objets_correction.push(triangle0,triangle[1],traces,labels,med,nomd,triangle2,nommePolygone(triangle2),triangle3,nommePolygone(triangle3),triangle4,nommePolygone(triangle4),triangle5,nommePolygone(triangle5),triangle2a,triangle3a,triangle4a,triangle5a)
   

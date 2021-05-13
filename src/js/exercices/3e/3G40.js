@@ -50,9 +50,9 @@ export default function ReperageSurLaSphere () {
     Axe.p2d.epaisseur = 2
     Axe.p2d.color = 'blue'
     const normalV = vecteur3d(0, 0, 1)
-    M = rotationV3d(M, normalV, mathalea.anglePerspective)
+    M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
-    const origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), mathalea.anglePerspective)
+    const origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
     const normalH = rotationV3d(vecteur3d(O, origine), normalV, 90)
     const Sph = sphere3d(O, 10, 8, 9)
     const equateur1 = demicercle3d(O, normalV, R, 'visible', 'red', 0)
@@ -125,8 +125,8 @@ export default function ReperageSurLaSphere () {
     }
 
     // paramètres pour la perspective
-    mathalea.anglePerspective = 30
-    mathalea.coeffPerspective = 0.5
+    context.anglePerspective = 30
+    context.coeffPerspective = 0.5
     paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
     // texteCorr += mathalea2d(params_correction, objets_correction)

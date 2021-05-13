@@ -10,7 +10,7 @@ export const titre = 'Signe d’un produit ou d’un quotient de nombres relatif
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
  * 4C10-0 exercice parent de 4C10-1 et 4C10-2
  * 4C10-0 contient tous les cas
- * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
+ * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 
  * @author Sébastien Lozano

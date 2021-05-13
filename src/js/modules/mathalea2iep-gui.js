@@ -103,11 +103,11 @@ function scriptJsToAnimEtSvg () {
   // Les variables globales utiles pour l'autocomplétion
   // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
   const interpreter = initialiseEditeur()
-  window.mathalea.objets2D = []
+  window.context.objets2D = []
   interpreter.run(myCodeMirror.getValue())
   // On exporte l'animation et le code SVG
   interpreter.run('exports.anim = anim')
-  interpreter.run('exports.codeSvgFigure = codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D)')
+  interpreter.run('exports.codeSvgFigure = codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)')
   xml = window.anim.script()
   const codeSvgFigure = interpreter.exports.codeSvgFigure
   document.getElementById('svg').innerHTML = codeSvgFigure

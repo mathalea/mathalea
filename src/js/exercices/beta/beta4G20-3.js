@@ -23,7 +23,7 @@ export default function Calculer_valeur_manquante_visuel_pythagore() {
     let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
   
     let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
-      mathalea.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]
+      context.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]
 let A=point(4,0,'A')
 let B=point(0,3,'B')
 let C=point(0,0,'C')

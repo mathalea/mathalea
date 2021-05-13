@@ -1,6 +1,6 @@
-/* global mathalea */
 import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
+import { context } from './context.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -27,7 +27,7 @@ function ObjetMathalea2D () {
   this.id = numId
   numId++
   //   mesObjets.push(this);
-  mathalea.objets2D.push(this)
+  context.objets2D.push(this)
 }
 
 /*
@@ -45,8 +45,8 @@ function ObjetMathalea2D () {
 */
 class Point3d {
   constructor (x3d, y3d, z3d, visible, label) {
-    const alpha = mathalea.anglePerspective * Math.PI / 180
-    const rapport = mathalea.coeffPerspective
+    const alpha = context.anglePerspective * Math.PI / 180
+    const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
     this.x3d = x3d
     this.y3d = y3d
@@ -84,8 +84,8 @@ import Exercice_fractions_decomposer from './../exercices/6e/6N20';
    */
 class Vecteur3d {
   constructor (...args) {
-    const alpha = mathalea.anglePerspective * Math.PI / 180
-    const rapport = mathalea.coeffPerspective
+    const alpha = context.anglePerspective * Math.PI / 180
+    const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
     if (args.length == 2) {
       this.x3d = args[1].x3d - args[0].x3d
@@ -188,7 +188,7 @@ export function droite3d (point3D, vecteur3D) {
  * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
  *
  */
-export function demicercle3d (centre, normal, rayon, cote, color, angledepart = mathalea.anglePerspective) {
+export function demicercle3d (centre, normal, rayon, cote, color, angledepart = context.anglePerspective) {
   let demiCercle; let signe; const M = []; const listepoints = []
   if (cote == 'caché') {
     signe = 1
@@ -223,7 +223,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
 export function cercle3d (centre, normal, rayon, visible = true, color = 'black') {
   let C; const M = []; const listepoints = []
   const d = droite3d(centre, normal)
-  M.push(rotation3d(translation3d(centre, rayon), d, mathalea.anglePerspective))
+  M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
   listepoints.push(M[0].p2d)
   for (let i = 1; i < 37; i++) {
     M.push(rotation3d(M[i - 1], d, 10))
@@ -300,25 +300,24 @@ function Sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color) {
   this.nb_paralleles = nb_paralleles
   const objets = []; let c1; let c2; let c3; let c4; let C; let D
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  let cote1, cote2, rayon2, R
-  rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
-  R = rayon
-  cote1 = 'caché'
-  cote2 = 'visible'
-  // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
+  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
+  const R = rayon
+  const cote1 = 'caché'
+  const cote2 = 'visible'
+  // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,context.anglePerspective),rotationV3d(this.rayon,this.normal,context.anglePerspective),true,this.color))
   for (let k = 0, rayon3; k < 1; k += 1 / (this.nb_paralleles + 1)) {
     C = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(k * Math.PI / 2))
     D = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(-k * Math.PI / 2))
     rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
-    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, mathalea.anglePerspective)
-    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, mathalea.anglePerspective)
-    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, mathalea.anglePerspective)
-    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, mathalea.anglePerspective)
+    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
+    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
     objets.push(c1, c2, c3, c4)
   }
   for (let k = 0, V, W; k < 1; k += 1 / this.nb_meridiens) {
-    V = rotationV3d(prodvec, this.normal, 90 + mathalea.anglePerspective + k * 90)
-    W = rotationV3d(prodvec, this.normal, 90 + mathalea.anglePerspective - (k + 1 / this.nb_meridiens) * 90)
+    V = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective + k * 90)
+    W = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective - (k + 1 / this.nb_meridiens) * 90)
     c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
     c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
     c3 = demicercle3d(this.centre, W, rayon2, cote2, this.color, 0)

@@ -80,7 +80,7 @@ export default function Construire_mediatrices_6e() {
     xMax = Math.max(A1.x + 1, A2.x + 1, B1.x + 1, B2.x + 1, I.x + 4)
     yMax = Math.max(A1.y + 1, A2.y + 1, B1.y + 1, B2.y + 1, I.y + 4)
 
-    mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+    context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
     this.listeQuestions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
     this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))

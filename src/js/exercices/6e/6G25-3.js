@@ -139,7 +139,7 @@ export default function Pavage_et_reflexion2d() {
     Ny = tailles[taillePavage-1][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     fenetre=monpavage.fenetre
-    mathalea.fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
+    context.fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
     while (couples.length<this.nbQuestions+2&&nombreTentatives<3) { // On cherche d pour avoir suffisamment de couples
     couples=[] // On vide la liste des couples pour une nouvelle recherche
     index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 2 points dans 2 polygones distincts.
