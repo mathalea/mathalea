@@ -6659,7 +6659,7 @@ export function exportQcmAmc (thisAmc, idExo) {
   const titre = thisAmc[2]
   const type = thisAmc[3]
   let texQr = ''; let tabQCM
-  let id=0;
+  let id = 0
   let reponse
   let horizontalite
   for (let j = 0; j < autoCorrection.length; j++) {
@@ -6679,8 +6679,10 @@ export function exportQcmAmc (thisAmc, idExo) {
         texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `		${autoCorrection[j].enonce} \n `
         texQr += `		\\begin{${horizontalite}}`
-        if (autoCorrection[j].options.ordered) {
-          texQr += '[o]'
+        if (autoCorrection[j].options !== undefined) {
+          if (autoCorrection[j].options.ordered) {
+            texQr += '[o]'
+          }
         }
         texQr += '\n '
         for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
@@ -6703,13 +6705,17 @@ export function exportQcmAmc (thisAmc, idExo) {
         texQr += `	\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `		${autoCorrection[j].enonce} \n `
         texQr += `		\\begin{${horizontalite}}`
-        if (autoCorrection[j].options.ordered) {
-          texQr += '[o]'
+        if (autoCorrection[j].options !== undefined) {
+          if (autoCorrection[j].options.ordered) {
+            texQr += '[o]'
+          }
         }
         texQr += ' \n '
         for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
-          if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
-            texQr += '\\lastchoices\n'
+          if (autoCorrection[j].options !== undefined) {
+            if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
+              texQr += '\\lastchoices\n'
+            }
           }
           if (autoCorrection[j].propositions[i].statut) {
             texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
@@ -6718,13 +6724,13 @@ export function exportQcmAmc (thisAmc, idExo) {
           }
         }
         texQr += `\t\\end{${horizontalite}}\n `
-        texQr += ` \\end{questionmult}\n }\n `
+        texQr += ' \\end{questionmult}\n }\n '
         id++
         break
       case 3: // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        console.log('sortieHtml : ',window.sortieHtml,'\n texte : ',autoCorrection[j].enonce)
+        console.log('sortieHtml : ', window.sortieHtml, '\n texte : ', autoCorrection[j].enonce)
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type

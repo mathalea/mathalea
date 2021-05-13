@@ -112,7 +112,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         lastChoice: 5
       }
       if (this.modeQcm && !context.isAmc) {
-        texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions).texte
+        texte += propositionsQcm(this, i).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)

@@ -47,10 +47,10 @@ export function gestionAutoCorrection (exercice) {
           })
           let typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-            spanReponseLigne.innerHTML = '✔︎'
+            spanReponseLigne.innerHTML = '😎'
             spanReponseLigne.style.color = 'green'
           } else {
-            spanReponseLigne.innerHTML = '✖︎'
+            spanReponseLigne.innerHTML = '☹️'
             spanReponseLigne.style.color = 'red'
             typeFeedback = 'error'
           }
@@ -80,7 +80,10 @@ export function gestionAutoCorrection (exercice) {
  * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
-export function propositionsQcm (numeroExercice, i, propositions) {
+export function propositionsQcm (exercice, i) {
+  const numeroExercice = exercice.numeroExercice
+  const autoCorrection = exercice.autoCorrection[i]
+  const propositions = autoCorrection.propositions
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -97,13 +100,14 @@ export function propositionsQcm (numeroExercice, i, propositions) {
       texte += '<br>'
     }
     for (let rep = 0; rep < propositions.length; rep++) {
-      if (!propositions.options.ordered) {
-        if (propositions.options.lastChoice === undefined || propositions.options.lastChoice <= 0 || propositions.options.lastChoice > propositions.length) {
-        if (true) {
-          shuffle(propositions)
-        } else {
-          if (typeof propositions.options.lastChoice === 'number' && propositions.options.lastChoice > 0 && propositions.options.lastChoice < propositions.length) {
-            propositions.splice(0, propositions.options.lastChoice, ...shuffle(propositions.slice(0, propositions.options.lastChoice)))
+      if (autoCorrection.options !== undefined) {
+        if (!autoCorrection.options.ordered) {
+          if (autoCorrection.options.lastChoice === undefined || autoCorrection.options.lastChoice <= 0 || autoCorrection.options.lastChoice > propositions.length) {
+            shuffle(propositions)
+          } else {
+            if (typeof autoCorrection.options.lastChoice === 'number' && autoCorrection.options.lastChoice > 0 && autoCorrection.options.lastChoice < propositions.length) {
+              propositions.splice(0, autoCorrection.options.lastChoice, ...shuffle(propositions.slice(0, autoCorrection.options.lastChoice)))
+            }
           }
         }
       }
