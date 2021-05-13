@@ -1,4 +1,3 @@
-/* global mathalea $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
@@ -355,8 +354,8 @@ function miseAJourDuCode () {
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
   // Fixe la graine pour les fonctions aléatoires
-  if (!mathalea.graine) {
-    mathalea.graine = strRandom({
+  if (!context.graine) {
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
@@ -364,11 +363,11 @@ function miseAJourDuCode () {
     })
     // Saisi le numéro de série dans le formulaire
     if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
-      document.getElementById('form_serie').value = mathalea.graine
+      document.getElementById('form_serie').value = context.graine
     }
   }
   // Contrôle l'aléatoire grâce à SeedRandom
-  seedrandom(mathalea.graine, { global: true });
+  seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
@@ -418,10 +417,10 @@ function miseAJourDuCode () {
         }
         listeObjetsExercice[i].numeroExercice = i
       }
-      if (typeof mathalea.duree !== 'undefined') {
-        fin_de_l_URL += `&duree=${mathalea.duree}`
+      if (typeof context.duree !== 'undefined') {
+        fin_de_l_URL += `&duree=${context.duree}`
       }
-      fin_de_l_URL += `&serie=${mathalea.graine}`
+      fin_de_l_URL += `&serie=${context.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
@@ -1358,9 +1357,9 @@ function parametres_exercice (exercice) {
       form_ModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          mathalea.sortieNB = true
+          context.sortieNB = true
         } else {
-          mathalea.sortieNB = false
+          context.sortieNB = false
         }
         miseAJourDuCode()
       })
@@ -1426,10 +1425,10 @@ function parametres_exercice (exercice) {
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
       const form_serie = document.getElementById('form_serie')
-      form_serie.value = mathalea.graine // Rempli le formulaire avec la graine
+      form_serie.value = context.graine // Rempli le formulaire avec la graine
       form_serie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        mathalea.graine = e.target.value
+        context.graine = e.target.value
         miseAJourDuCode()
       })
     }
@@ -1580,13 +1579,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
   }
   function nouvelles_donnees () {
-    mathalea.graine = strRandom({
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
       startsWithLowerCase: false
     })
-    document.getElementById('form_serie').value = mathalea.graine // mise à jour du formulaire
+    document.getElementById('form_serie').value = context.graine // mise à jour du formulaire
     miseAJourDuCode()
   }
 
@@ -1709,10 +1708,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
   if (serie) {
-    mathalea.graine = serie
+    context.graine = serie
   }
   if (params.get('duree')) {
-    mathalea.duree = params.get('duree')
+    context.duree = params.get('duree')
   }
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {

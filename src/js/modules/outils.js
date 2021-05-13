@@ -1,4 +1,3 @@
-/* global mathalea */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
