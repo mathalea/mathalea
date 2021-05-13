@@ -1,8 +1,7 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, shuffle } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -28,7 +27,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    let tables = []; let tabrep
+    let tables = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
@@ -79,12 +78,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-      if (i === 0) {
-        this.autoCorrection[i].options = {
-          ordered: false,
-          lastChoice: 5
-        }
-      }
+
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
@@ -113,15 +107,21 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }
       ]
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 5
+      }
       if (this.modeQcm && !context.isAmc) {
-        texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions, this.autoCorrection[0].options).texte
+        texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.amc = [this.id, this.autoCorrection, titre, amcType]
+    if (context.isAmc){
+      this.amc = [this.id, this.autoCorrection, titre, amcType]
+    }
   }
   gestionAutoCorrection(this)
   this.besoinFormulaireTexte = [

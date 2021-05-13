@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
+import { reduirePolynomeDegre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
 export const titre = 'étude de fonction de degré 3'
 
@@ -84,7 +84,7 @@ export default function variation_polynome_degre3() {
     c = parseFloat(coef_f[2])
     d = parseFloat(coef_f[3])
     // [a, b, c, d] = coef_f //On récupère les coefficient du polynome
-    fxstring = `${reduire_polynome_degre3(a, b, c, d)}`
+    fxstring = `${reduirePolynomeDegre3(a, b, c, d)}`
     if (a != 0) { //degré 3
       a1 = 3 * a
       b1 = 2 * b

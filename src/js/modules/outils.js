@@ -1,11 +1,11 @@
-/* global mathalea */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
-const math = { format: format, evaluate: evaluate }
 import { context } from './context.js'
+
+const math = { format: format, evaluate: evaluate }
 
 // Fonctions diverses pour la création des exercices
 
@@ -956,15 +956,15 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
 
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-  const matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-  const matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-  const matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-  const matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-  const matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-  const matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-  const matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
+  const matriceSymObl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
+  const matriceQuartDeTourDirect = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
+  const matriceQuartDeTourIndirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
+  const matriceSymCentrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
+  const matriceRotation60Direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
 
   let pointA1 = [0, 0, 0]
   let pointA2 = [0, 0, 0]
@@ -976,60 +976,60 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   const v = vecteur[1]
   const k = rapport // rapport d'homothétie
 
-  const matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-  const matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-  const matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-  const matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-  const matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
+  const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
+  const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
+  const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
+  const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
+  const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
 
   let matrice
 
   switch (transformation) {
     case 1:
-      matrice = matriceSymObl1.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 2:
-      matrice = matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymObl2.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 3:
-      matrice = matriceSymxxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymxxprime.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 4:
-      matrice = matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymYyPrime.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 5:
-      matrice = matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceQuartDeTourDirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 6:
-      matrice = matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceQuartDeTourIndirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 7:
-      matrice = matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymCentrale.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 11:
-      matrice = matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation60Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 12:
-      matrice = matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation60Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 13:
-      matrice = matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation120Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 14:
-      matrice = matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation120Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 8:
-      matrice = matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceTranslation.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 9:
-      matrice = matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceHomothetie.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 10:
-      matrice = matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceHomothetie2.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
   }
   pointA1 = matrice.multiplieVecteur(pointA)
-  pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1)
+  pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1)
   return pointA2
 }
 
@@ -1263,7 +1263,7 @@ export function reduireAxPlusB (a, b) {
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @Auteur Jean-Claude Lhote
  */
-export function reduire_polynome_degre3 (a, b, c, d) {
+export function reduirePolynomeDegre3 (a, b, c, d) {
   let result = ''
   if (a !== 0) {
     switch (a) {

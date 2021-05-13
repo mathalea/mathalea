@@ -1,4 +1,3 @@
-/* global $ mathalea */
 import { context } from './context.js'
 import { shuffle } from './outils.js'
 
@@ -64,7 +63,7 @@ export function gestionAutoCorrection (exercice) {
  * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
-export function propositionsQcm (numeroExercice, i, propositions, options) {
+export function propositionsQcm (numeroExercice, i, propositions) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -81,12 +80,12 @@ export function propositionsQcm (numeroExercice, i, propositions, options) {
       texte += '<br>'
     }
     for (let rep = 0; rep < propositions.length; rep++) {
-      if (!options.ordered) {
-        if (options.lastChoice === undefined || options.lastChoice <= 0 || options.lastChoice > propositions.length) {
+      if (!propositions.options.ordered) {
+        if (propositions.options.lastChoice === undefined || propositions.options.lastChoice <= 0 || propositions.options.lastChoice > propositions.length) {
           shuffle(propositions)
         } else {
-          if (typeof options.lastChoice === 'number' && options.lastChoice > 0 && options.lastChoice < propositions.length) {
-            propositions.splice(0, options.lastChoice, ...shuffle(propositions.slice(0, options.lastChoice)))
+          if (typeof propositions.options.lastChoice === 'number' && propositions.options.lastChoice > 0 && propositions.options.lastChoice < propositions.length) {
+            propositions.splice(0, propositions.options.lastChoice, ...shuffle(propositions.slice(0, propositions.options.lastChoice)))
           }
         }
       }

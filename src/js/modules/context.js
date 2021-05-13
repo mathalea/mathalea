@@ -12,7 +12,8 @@ export const context = {
   isMainlevee: false,
   amplitude: 1,
   fenetreMathalea2d: [-1, -10, 29, 10],
-  objets2D: []
+  objets2D: [],
+  graine: ''
 }
 
 export function setOutputHtml () {

@@ -229,8 +229,8 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
 function mise_a_jour_du_code () {
   window.MG32_tableau_de_figures = []
   // Fixe la graine pour les fonctions aléatoires
-  if (!mathalea.graine) {
-    mathalea.graine = strRandom({
+  if (!context.graine) {
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
@@ -238,11 +238,11 @@ function mise_a_jour_du_code () {
     })
     // Saisi le numéro de série dans le formulaire
     if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
-      document.getElementById('form_serie').value = mathalea.graine
+      document.getElementById('form_serie').value = context.graine
     }
   }
   // Contrôle l'aléatoire grâce à SeedRandom
-  seedrandom(mathalea.graine, { global: true });
+  seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
@@ -281,7 +281,7 @@ function mise_a_jour_du_code () {
           fin_de_l_URL += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
       }
-      fin_de_l_URL += `&serie=${mathalea.graine}`
+      fin_de_l_URL += `&serie=${context.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       // new Clipboard(".url", {
@@ -977,10 +977,10 @@ function parametres_exercice (exercice) {
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
       const form_serie = document.getElementById('form_serie')
-      form_serie.value = mathalea.graine // Rempli le formulaire avec la graine
+      form_serie.value = context.graine // Rempli le formulaire avec la graine
       form_serie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        mathalea.graine = e.target.value
+        context.graine = e.target.value
         mise_a_jour_du_code()
       })
     }
@@ -1141,13 +1141,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
   }
   function nouvelles_donnees () {
-    mathalea.graine = strRandom({
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
       startsWithLowerCase: false
     })
-    form_serie.value = mathalea.graine // mise à jour du formulaire
+    form_serie.value = context.graine // mise à jour du formulaire
     mise_a_jour_du_code()
   }
   // Gestion du nombre d'exemplaire
@@ -1231,7 +1231,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
   if (serie) {
-    mathalea.graine = serie
+    context.graine = serie
   }
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {
