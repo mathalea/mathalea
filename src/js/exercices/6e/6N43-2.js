@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenuSansNumero, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -36,7 +37,7 @@ export default function Tableau_criteres_de_divisibilite() {
     this.qcm = ['6N43-2', [], "Critères de divisibilité", 2,{ordered:true,lastChoices:4}]
     let tabrep, tabicone
     let espace = ``;
-    if (sortieHtml) {
+    if (context.isHtml) {
       espace = `&emsp;`;
     } else {
       espace = `\\qquad`;
@@ -240,7 +241,7 @@ export default function Tableau_criteres_de_divisibilite() {
             tabicone])
           break;
       }
-      if (!mathalea.sortieAMC) {
+      if (!context.isAmc) {
         if (this.modeQcm) {
           texte += `$${texNombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
           texteCorr += `$${texNombre2(tableau_de_nombres[i])}$ est divisible ${espace}  `
@@ -257,16 +258,16 @@ export default function Tableau_criteres_de_divisibilite() {
         }
       }
     }
-    if (sortieHtml&&!this.modeQcm) {
+    if (context.isHtml&&!this.modeQcm) {
            texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
       texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
     }
     else
-      if (!mathalea.sortieAMC&&!this.modeQcm) {
+      if (!context.isAmc&&!this.modeQcm) {
              texte = `$\\begin{array}{|l|c|c|c|c|}\n`;
         texteCorr = `$\\begin{array}{|l|c|c|c|c|}\n`;
       }
-    if (!mathalea.sortieAMC&&!this.modeQcm) {
+    if (!context.isAmc&&!this.modeQcm) {
           texte += `\\hline\n`;
      texteCorr += `\\hline\n`;
           texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`;
@@ -286,7 +287,7 @@ export default function Tableau_criteres_de_divisibilite() {
      }
       this.listeQuestions.push(texte);
       this.listeCorrections.push(texteCorr);
-      if (!mathalea.sortieAMC){
+      if (!context.isAmc){
       listeQuestionsToContenuSansNumero(this);
       }
   }

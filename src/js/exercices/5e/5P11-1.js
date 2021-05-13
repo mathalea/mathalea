@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombre_avec_espace, calcul, minToHour} from '../../modules/outils.js'
 export const titre = 'Problème de vitesse'
 
@@ -48,7 +49,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'vitesse': 
             texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km. Déterminer sa vitesse moyenne.`;
-            if (sortieHtml) {
+            if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {
                 texteCorr = `$\\begin{array}{|l|c|c|}\n`;
@@ -66,7 +67,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
           break;
         case 'temps': 
             texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km ?`;
-            if (sortieHtml) {
+            if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {
                 texteCorr = `$\\begin{array}{|l|c|c|}\n`;
@@ -84,7 +85,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
           break;
           case 'distance': 
           texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue.`;
-          if (sortieHtml) {
+          if (context.isHtml) {
               texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
           } else {
               texteCorr = `$\\begin{array}{|l|c|c|}\n`;

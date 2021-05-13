@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,creerCouples,choice,combinaisonListes} from '../../modules/outils.js'
 export const titre = 'Tables de multiplications et de divisions'
 
@@ -91,7 +92,7 @@ export default function Tables_de_multiplications_et_divisions(
         }
         texteCorr = `$ ${a * b} \\div ${b} = ${a}$`;
       }
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
       this.listeQuestions.push(texte);

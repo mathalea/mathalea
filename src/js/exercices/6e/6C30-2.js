@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 4 // type de question AMC
@@ -28,8 +29,8 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2;
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+  context.isHtml ? this.spacing = 3 : this.spacing = 2;
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 

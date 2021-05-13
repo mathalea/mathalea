@@ -207,8 +207,6 @@ export default function initialiseEditeur () {
   // On réinitialise les variables
   window.anim = new Alea2iep()
   window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-  window.sortieHtml = true
-  window.est_diaporama = false
   window.mathalea.lutin = window.creerLutin()
 
   const interpreter = new Sval({ ecmaVer: 10, sandBox: true }) // On créé une instance de l'interpréteur JS

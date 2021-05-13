@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
@@ -26,8 +27,8 @@ export default function Rapports_sur_un_segment() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2;
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+  context.isHtml ? this.spacing = 3 : this.spacing = 2;
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 

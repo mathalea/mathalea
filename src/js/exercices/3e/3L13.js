@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Équation du premier degré'
@@ -17,9 +18,9 @@ export default function Exercice_equation1() {
   this.titre = titre;
   this.consigne = "Résoudre les équations suivantes";
   this.spacing = 2;
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
   this.correctionDetailleeDisponible = true;
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     this.correctionDetaillee = false;
   }
   this.sup = true; // Avec des nombres relatifs

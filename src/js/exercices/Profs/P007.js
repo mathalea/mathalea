@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,nombre_avec_espace} from '../../modules/outils.js'
 import {pavage,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
@@ -25,7 +26,7 @@ export default function Pavages_mathalea2d() {
   this.sup3 = true;
   this.correctionDetaillee = false;
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
   this.nouvelleVersion = function () {
     let objets = [];
     let Nx, Ny; // nombres de dalles en x et en y

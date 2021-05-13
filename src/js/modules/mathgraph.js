@@ -1,4 +1,4 @@
-import { mtgLoad } from './loaders'
+import { loadMG32 } from './loaders'
 
 // la liste des exos mtg
 let listeExos = []
@@ -65,7 +65,7 @@ async function mg32Display (container, exo) {
     fig: MG32codeBase64,
     isEditable: Boolean(mg32Editable)
   }
-  const mtgApp = await mtgLoad(container, svgOptions, mtgOptions)
+  const mtgApp = await loadMG32(container, svgOptions, mtgOptions)
   const idDocCorr = MG32codeBase64corr ? `MG32svgcorr${indexExo}` : ''
   if (idDocCorr) {
     container = document.getElementById(`MG32divcorr${indexExo}`)
@@ -73,7 +73,7 @@ async function mg32Display (container, exo) {
       svgOptions.idSvg = idDocCorr
       mtgOptions.fig = MG32codeBase64corr
       mtgOptions.isEditable = false
-      await mtgLoad(container, svgOptions, mtgOptions)
+      await loadMG32(container, svgOptions, mtgOptions)
     } else {
       console.error(Error(`Pas trouvé d’élément #MG32divcorr${indexExo} dans le dom, abandon de l'affichage de la correction`))
     }

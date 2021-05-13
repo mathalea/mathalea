@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu, creerCouples} from '../../modules/outils.js'
 import {choice, texNombre} from '../../modules/outils.js'
 
@@ -76,7 +77,7 @@ export default function Tables_de_multiplications(tables_par_defaut = "2-3-4-5-6
 
         texteCorr = "$ " + a + " \\times " + b + " = " + a * b + " $";
       }
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
       this.listeQuestions.push(texte);

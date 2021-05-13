@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 import {point,labelPoint,segment,segmentAvecExtremites,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
@@ -18,7 +19,7 @@ export default function valeur_absolue_et_equation() {
     this.nbColsCorr = 2;
     this.sup = 1; // 
     this.correction_detaille_disponible = true;
-    sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
 
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions

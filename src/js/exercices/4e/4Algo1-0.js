@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texteEnCouleur} from '../../modules/outils.js'
 import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} from '../../modules/2d.js'
 import {combinaisonListes} from '../../modules/outils.js'
@@ -51,7 +52,7 @@ export const titre = 'Dessiner avec scratch'
       // une fonction pour gérer la sortie HTML/LaTeX
       // code est un string contenant le code svg ou tikz
       function scratchblocks_Tikz(code_svg, code_tikz) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           return code_svg;
         } else {
           return code_tikz;

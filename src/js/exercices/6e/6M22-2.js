@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { pointAdistance, point, mathalea2d, arc, codeSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires de portions de cercles'
@@ -24,7 +25,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   this.nbCols = 1
   this.nbColsCorr = 1
   // eslint-disable-next-line no-undef
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

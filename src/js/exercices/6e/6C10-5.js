@@ -1,6 +1,7 @@
-import Exercice from '../ClasseExercice.js'
-import { exportQcmAmc, listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleurEtGras} from '../../modules/outils.js'
+import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 3 // type de question AMC
 

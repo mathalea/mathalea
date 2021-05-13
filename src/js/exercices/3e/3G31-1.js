@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
 import { point, labelPoint, polygone, similitude, codageAngleDroit, codeAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
@@ -21,7 +22,7 @@ export default function MonSuperExerciceTropBeau () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.spacingCorr = 3
   this.correctionDetailleeDisponible = true
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
   // this.sup = 1; // Niveau de difficulté
   // this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,range1,combinaisonListesSansChangerOrdre,texNombrec,texFraction} from '../../modules/outils.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 
@@ -87,7 +88,7 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
-        if (!sortieHtml && i == 0) {
+        if (!context.isHtml && i == 0) {
           texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr);

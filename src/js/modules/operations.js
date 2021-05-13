@@ -1,6 +1,7 @@
-/* globals sortieHtml */
+/* globals context.isHtml */
 import { ordreDeGrandeur, calcul } from './outils.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
+import { context } from './context.js'
 import { format } from 'mathjs'
 const math = { format: format }
 /**
@@ -360,20 +361,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
   switch (type) {
     case 'addition':
-      if (sortieHtml) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
 
       break
     case 'soustraction':
-      if (sortieHtml) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2) } else { Code = `$\\opsub[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
-      if (sortieHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2) } else { Code = `$\\opmul[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'division':
-      if (sortieHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
       break
     case 'divisionE':
-      if (sortieHtml) { Code = DivisionPosee3d(operande1, operande2, 0) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
       break
   }
   return Code

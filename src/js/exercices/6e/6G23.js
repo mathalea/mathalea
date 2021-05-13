@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,lettreDepuisChiffre,texNombre} from '../../modules/outils.js'
 import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sensDeRotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
 
@@ -75,8 +76,8 @@ export default function Construire_un_angle() {
       objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
       texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
-      if ((!sortieHtml)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
-      if ((!sortieHtml)&&((i+1)%4==0)) texte+="\\newpage "
+      if ((!context.isHtml)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
+      if ((!context.isHtml)&&((i+1)%4==0)) texte+="\\newpage "
       texteCorr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

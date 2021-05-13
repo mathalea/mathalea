@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, choice, arrondiVirgule, calcul, lettreDepuisChiffre } from '../../modules/outils.js'
 export const titre = 'Calculer une longueur avec l’égalité de Pythagore (MG32)'
 
@@ -15,7 +16,7 @@ export default function Exercice_Pythagore () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-euclide'
   this.typeExercice = 'MG32'
 
@@ -69,7 +70,7 @@ export default function Exercice_Pythagore () {
     const scarre01 = arrondiVirgule(carre01, 2) // carremn = distance entre (xm;ym) et (xn;yn) au carré avec 2 décimales
     const scarre02 = arrondiVirgule(carre02, 2) // scarremn = chaine de caractère avec 2 décimales après une virgule.
     const scarre12 = arrondiVirgule(carre12, 2)
-    if (sortieHtml) {
+    if (context.isHtml) {
       let codeBase64
       if (alpha1deg < 0) {
         codeBase64 =

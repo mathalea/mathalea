@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes} from '../../modules/outils.js'
 import { choice, calcul, randint, texNombre, modalTexteCourt } from '../../modules/outils.js';
 export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
@@ -20,7 +21,7 @@ export default function ConversionsPuissancesDe10(numeroExercice) {
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.correction_detaille_disponible = true;
-  this.correctionDetaillee = sortieHtml ?  true : false;
+  this.correctionDetaillee = context.isHtml ?  true : false;
 
   this.boutonAide = modalTexteCourt(numeroExercice,
     `Téra : mille-milliards $\\times10^{12}$<br>

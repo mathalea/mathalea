@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettre_minuscule_depuis_chiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import {repere,courbe,mathalea2d,} from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'

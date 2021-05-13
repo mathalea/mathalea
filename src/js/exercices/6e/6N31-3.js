@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js';
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -22,7 +23,7 @@ export default function Arrondir_une_valeur () {
   this.sup2 = false
 	this.qcmDisponible = true
 	this.modeQcm = false
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
     if (!this.modeQcm) {
@@ -33,7 +34,7 @@ export default function Arrondir_une_valeur () {
     this.qcm = ['6N31-3', [], "Valeur arrondie du nombre à l'unité, au dixième et au centième", 2, { ordered: true, vertical: true }]
     let tabrep = []; let tabicone=[]; let pre_tabrep=[]; let  pre_tabicone = []
 		let espace = '';
-    if (sortieHtml) {
+    if (context.isHtml) {
 		 if (this.qcm[4].vertical === true) {
         espace = '<br>';
       }
@@ -157,7 +158,7 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
-        if (this.modeQcm && !mathalea.sortieAMC) {
+        if (this.modeQcm && !context.isAmc) {
         texte += '<br><br>Réponses possibles : <br>  ';
         texteCorr = ''
         // shuffle2tableaux(tabrep, tabicone);

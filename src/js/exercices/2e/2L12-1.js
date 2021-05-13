@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texFraction,texteEnCouleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
 
 export const titre = 'Résoudre des équations carrées.'

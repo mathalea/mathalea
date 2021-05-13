@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
@@ -23,7 +24,7 @@ export default function Ajouter_des_fractions_d_unite() {
     this.listeCorrections = []; // Liste de questions corrigées
     let ppc, sc, objets;
     ppc = 20;
-    if (sortieHtml) {
+    if (context.isHtml) {
       sc = 0.5;
     } else {
       sc = 0.3;

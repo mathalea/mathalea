@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes,randint} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const titre = 'Faire des phrases avec les mots : divisible, diviseur et multiple'

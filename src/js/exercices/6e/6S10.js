@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire un diagramme en barre'

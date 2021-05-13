@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {homothetie,codeAngle,longueur,tracePoint,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js';
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texNombre2,texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
@@ -26,7 +27,7 @@ export default function Calcul_de_longueur() {
     this.correctionDetailleeDisponible=true
     this.correctionDetaillee=false
 
-    if (sortieHtml) {
+    if (context.isHtml) {
         this.spacing = 0;
         this.spacingCorr = 0;
     } else {
@@ -62,7 +63,7 @@ else mEp2=''
         }
         angleABC = randint(35, 55)
  
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\\begin{minipage}{.6\\linewidth}\n'
         }
         switch (choix_rapport_trigo) {
@@ -92,7 +93,7 @@ else mEp2=''
                 break
         }
 
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
         let ratioerreur=randint(80,120,100)/100
@@ -195,22 +196,22 @@ else mEp2=''
 
         let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 3, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 17, scale: 0.37, mainlevee: true,amplitude:0.4 }
         let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 3, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .5, mainlevee: false }
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\\begin{minipage}{.4\\linewidth}\n'
         }
         if (this.sup) {
             texte += mathalea2d(params_enonce, objets_enonce) + '<br>'
         }
         if (this.correctionDetaillee){
-            if (!sortieHtml) texteCorr+='\\begin{minipage}{.5\\linewidth}\n'
+            if (!context.isHtml) texteCorr+='\\begin{minipage}{.5\\linewidth}\n'
             texteCorr += mathalea2d(params_correction, objets_correction)+'<br>'
-            if (!sortieHtml) texteCorr+='\n\\end{minipage}\n'
+            if (!context.isHtml) texteCorr+='\n\\end{minipage}\n'
             
         }    
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
-        if (this.correctionDetaillee&&!sortieHtml) texteCorr+='\\begin{minipage}{.5\\linewidth}\n'
+        if (this.correctionDetaillee&&!context.isHtml) texteCorr+='\\begin{minipage}{.5\\linewidth}\n'
         switch (choix_rapport_trigo) {
             case 'Acos': // AB=BCxcos(B)
                 texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, ${mEp2}le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
@@ -237,7 +238,7 @@ else mEp2=''
 console.log(texteCorr)
                 break
                   }
-                  if (this.correctionDetaillee&&!sortieHtml) texteCorr+='\n\\end{minipage}\n'
+                  if (this.correctionDetaillee&&!context.isHtml) texteCorr+='\n\\end{minipage}\n'
 
         /*****************************************************/
         // Pour AMC

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,shuffle,calcul,choisitLettresDifferentes,texNombre,texFraction,numAlpha} from '../../modules/outils.js'
 import {droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire des abscisses décimales sous trois formes'
@@ -11,7 +12,7 @@ export default function Lire_abscisse_decimale_trois_formes() {
   this.niveau = 'sixième'
   this.titre = titre;
   this.consigne = "";
-  if (sortieHtml) {
+  if (context.isHtml) {
     this.spacing = 2;
     this.spacingCorr = 3;
   }

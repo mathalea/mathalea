@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
 
 

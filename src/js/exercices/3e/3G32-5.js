@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { texFractionReduite, choice, texNombre, calcul,listeQuestionsToContenu, combinaisonListes, randint, arrondi, creerNomDePolygone } from '../../modules/outils.js'
 import { mathalea2d, angle, point, droite, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, projectionOrtho, segment, codageAngleDroit, labelPoint, longueur } from '../../modules/2d.js'
 

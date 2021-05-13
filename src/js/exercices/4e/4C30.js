@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,lettreDepuisChiffre,simpExp,simpNotPuissance,eclatePuissance,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances de 10 : Le sens des règles de calculs'
 
@@ -12,11 +13,11 @@ export default function Puissances_de_dix() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1;
   this.titre = titre;
-  sortieHtml
+  context.isHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{10^n}$.")
     : (this.consigne = "Écrire sous la forme $10^n$.");
-  sortieHtml ? (this.spacing = 3) : (this.spacing = 2);
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacing = 3) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
   this.nbQuestions = 5;
   this.correctionDetailleeDisponible = true;
   this.nbColsCorr = 1;

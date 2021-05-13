@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
 export const titre = 'étude de fonction de degré 3'

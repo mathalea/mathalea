@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,simplificationDeFractionAvecEtapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Calculer la fraction d’un nombre'
@@ -15,8 +16,8 @@ export default function Fraction_d_un_nombre() {
   this.titre = titre;
   this.nbQuestions = 5;
   this.consigne = "Calculer";
-  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = true;
   this.sup2 = false;
   this.nbCols = 2;

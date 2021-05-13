@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction, shuffle2tableaux } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const titre = 'Égalités entre fractions simples'
@@ -110,7 +111,7 @@ export default function EgalitesEntreFractions () {
               tabrep,
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
-            if (this.modeQcm && !mathalea.sortieAMC) {
+            if (this.modeQcm && !context.isAmc) {
               // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
@@ -137,7 +138,7 @@ export default function EgalitesEntreFractions () {
               tabrep,
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
-            if (this.modeQcm && !mathalea.sortieAMC) {
+            if (this.modeQcm && !context.isAmc) {
               // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
@@ -150,7 +151,7 @@ export default function EgalitesEntreFractions () {
       } else {
         // écrire un entier sous la forme d'une fraction
         a = randint(1, 9)
-        if (this.modeQcm && !mathalea.sortieAMC) {
+        if (this.modeQcm && !context.isAmc) {
           d = randint(3, 9, [a, 2 * a])
         } else {
           d = randint(2, 9)
@@ -181,7 +182,7 @@ export default function EgalitesEntreFractions () {
               tabrep,
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
-            if (this.modeQcm && !mathalea.sortieAMC) {
+            if (this.modeQcm && !context.isAmc) {
               // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone
@@ -208,7 +209,7 @@ export default function EgalitesEntreFractions () {
               tabrep,
               tabicone])
             shuffle2tableaux(tabrep, tabicone)
-            if (this.modeQcm && !mathalea.sortieAMC) {
+            if (this.modeQcm && !context.isAmc) {
               // texteCorr = ''
               texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
               this.tableauSolutionsDuQcm[i] = tabicone

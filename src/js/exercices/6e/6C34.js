@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {randint,listeQuestionsToContenu,combinaisonListes,texteGras} from '../../modules/outils.js'
 
 export const titre = 'Dernier chiffre d’un calcul'

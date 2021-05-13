@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, calcul, choice, texNombre} from '../../modules/outils.js'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 
@@ -18,7 +19,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   //this.sup = 1; // Niveau de difficulté 
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  sortieHtml? this.spacingCorr = 2 : this.spacingCorr = 1;
+  context.isHtml? this.spacingCorr = 2 : this.spacingCorr = 1;
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2d.js'
 import {point3d,cylindre3d,sphere3d,vecteur3d,translation3d,cone3d,cercle3d} from '../../modules/3d.js'
 

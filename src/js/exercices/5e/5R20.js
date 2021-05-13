@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, texNombre } from '../../modules/outils.js'
 import { elimineDoublons, gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 
@@ -51,7 +52,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       this.qcm[1].push([`${texte}\n`,
       tabrep,
       tabicone])
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr

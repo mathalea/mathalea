@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombrec, choice } from '../../modules/outils.js'
 export const titre = 'Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales'
 

@@ -1,5 +1,6 @@
 import Operation from '../../modules/operations.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombre} from '../../modules/outils.js'
 
 export const amcReady = true
@@ -24,7 +25,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
   this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 5;
   // this.pas_de_version_HMTL=true;
   this.listePackages = "xlop";
@@ -119,7 +120,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
-        if (!sortieHtml && i == 0) {
+        if (!context.isHtml && i == 0) {
           texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr);

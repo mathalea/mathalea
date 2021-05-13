@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul,texNombrec,creerNomDePolygone,texNombre,creerBoutonMathalea2d} from '../../modules/outils.js'
 import {point,pointSurSegment,pointAdistance,polygone,triangle2points2longueurs,homothetie,similitude,texteParPoint,longueur,angle,angleOriente,mathalea2d} from '../../modules/2d.js'
 
@@ -84,14 +85,14 @@ let reponse
 
 
 
-      if (!sortieHtml) {
+      if (!context.isHtml) {
         texte = '\\begin{minipage}{.5\\linewidth}\n';
       } else {
         texte = '';
       }
       texte += `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`;
       texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`;
-      if (!sortieHtml) {
+      if (!context.isHtml) {
         texte += '\\end{minipage}\n';
         texte += '\\begin{minipage}{.5\\linewidth}\n';
         texte += '\\centering';
@@ -106,7 +107,7 @@ let reponse
 
         ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       );
-      if (!sortieHtml) {
+      if (!context.isHtml) {
         texte += '\\end{minipage}\n';
       }
 
@@ -146,7 +147,7 @@ let reponse
       }
       //texteCorr = `$(${nomA+nomB})//(${nomM+nomN})$, les points $${nomC}$, $${nomM}$, $${nomA}$ et $${nomC}$, $${nomN}$, $${nomB}$ sont alignés dans le même ordre  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       texteCorr += `<br><br>`;
-      if (sortieHtml) {
+      if (context.isHtml) {
         texteCorr += `$\\dfrac{\\color{red}${nomC + nomM}}{\\color{blue}${nomC + nomA}}=\\dfrac{\\color{red}${nomC + nomN}}{\\color{blue}${nomC + nomB}}=\\dfrac{\\color{red}${nomM + nomN}}{\\color{blue}${nomA + nomB}}$`;
       } else {
         texteCorr += `$\\dfrac{${nomC + nomM}}{${nomC + nomA}}=\\dfrac{${nomC + nomN}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${nomA + nomB}}$`;
@@ -158,7 +159,7 @@ let reponse
       texteCorr += `<br><br>`;
       texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`;
 
-      if (sortieHtml) {
+      if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAide_mathalea2d}</div>`;
       }
 

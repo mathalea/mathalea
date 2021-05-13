@@ -1,19 +1,15 @@
 /* eslint-disable camelcase */
-import { creerDocumentAmc, strRandom, compteOccurences, introLatexCoop } from './modules/outils.js'
+import { creerDocumentAmc, strRandom, compteOccurences } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-//import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
-import { menuDesExercicesDisponibles } from './modules/menuDesExercicesDisponibles'
-import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-//import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
-import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'// pour reconstruire le dico au même format c'est
-const dictionnaireDesExercicesAMC = {}
-Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
-  if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
-})
-import { loadScript } from './modules/loaders'
+import { dictionnaireDesExercices, menuDesExercicesDisponibles } from './modules/menuDesExercicesDisponibles'
+// import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
+import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
+import { loadGiac, loadPrism } from './modules/loaders'
+import { context, setOutputAmc } from './modules/context.js'
 
+setOutputAmc()
 // import katex from 'katex'
-import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+// import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
 // import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -21,10 +17,10 @@ import seedrandom from 'seedrandom'
 import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 
-// Prism n'est utilisé que pour mathalealatex.html. Faut-il ajouter un test sur l'URL
-// Prism est utilisé pour la coloration syntaxique du LaTeX
-import '../assets/externalJs/prism.js'
-import '../assets/externalJs/prism.css'
+const dictionnaireDesExercicesAMC = {}
+Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
+  if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
+})
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -33,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = false
+window.context.isHtml = true
 window.est_diaporama = false
 
 // (function () {
@@ -136,7 +132,7 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 //* *******
-//menuDesExercicesQcmDisponibles()
+// menuDesExercicesQcmDisponibles()
 menuDesExercicesDisponibles()
 
 // Mise à jour du formulaire de la liste des exercices
@@ -327,7 +323,10 @@ function mise_a_jour_du_code () {
     $('#cache').show()
 
     div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
-    Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+    loadPrism().then(() => {
+      /* global Prism */
+      Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+    }).catch(error => console.error(error))
     const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
     clipboardURL.on('success', function (e) {
       console.info('Code LaTeX copié dans le presse-papier.')
@@ -591,7 +590,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && sortieHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !est_diaporama) {
             listeObjetsExercice[i].video = urlVars[i].video
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -625,7 +624,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
       if (besoinXCas) {
         // On charge le javascript de XCas
         let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (sortieHtml) {
+        if (context.isHtml) {
           div = document.getElementById('exercices')
         } else {
           div = document.getElementById('div_codeLatex')
@@ -637,19 +636,13 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
                         </svg>
                       </div>
                     </div>`
-        return loadScript('/assets/externalJs/giacsimple.js')
-      }
-    })
-    .then((resolve, reject) => {
-      if (besoinXCas) {
-        // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-        return checkXCas()
+        return loadGiac()
       }
     })
     .then(() => {
       if (preview) {
-        const output = sortieHtml
-        sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+        const output = context.isHtml
+        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
         try {
           listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
         } catch (error) {
@@ -674,25 +667,12 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         if (!output) {
           gestion_modules(false, listeObjetsExercice)
         }
-        sortieHtml = output
+        context.isHtml = output
         mise_a_jour_du_code() // permet de gérer les popup avec module.
       } else {
         mise_a_jour_du_code()
       }
     })
-}
-
-const checkXCas = () => {
-  return new Promise((resolve) => {
-    const monInterval = setInterval(() => {
-      if (typeof (Module) !== 'undefined') {
-        if (Module.ready == true) {
-          resolve()
-          clearInterval(monInterval)
-        }
-      }
-    }, 500)
-  })
 }
 
 // Gestion des paramètres

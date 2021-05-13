@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre, modalTexteLong, lampeMessage, Triangles } from '../../modules/outils.js'
 
 export const titre = 'Vocabulaire des triangles'
@@ -40,7 +41,7 @@ export default function VocabulaireDesTriangles () {
 
     let texteIntro = ''
     // eslint-disable-next-line no-undef
-    if (sortieHtml) {
+    if (context.isHtml) {
       if (this.classe === 6) {
         texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
         texteIntro += '<br>'

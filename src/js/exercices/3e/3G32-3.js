@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../modules/outils.js'
 import { texteSurSegment, pointAdistance,polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 export const titre = 'Calculer la hauteur d’une falaise'
@@ -25,7 +26,7 @@ export default function Calculs_trigonometriques3() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let distance, alfa,baita, beta, alpha, taille, A, B, H, S, objets = [], p
-    if (sortieHtml) {
+    if (context.isHtml) {
       alfa='α'
       baita='β'
     }

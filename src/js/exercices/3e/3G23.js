@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,texteEnCouleur,texteGras} from '../../modules/outils.js'
 import {point,tracePoint,milieu,pointSurSegment,pointIntersectionDD,labelPoint,barycentre,droite,vecteur,segment,polygone,nommePolygone,aireTriangle,arc,rotation,translationAnimee,rotationAnimee,codeSegments,grille,angleOriente,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles semblables dans différentes configurations'

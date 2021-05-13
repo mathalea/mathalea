@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texteEnCouleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/Fractions.js'
 export const titre = 'Résoudre les équations produit-nul'

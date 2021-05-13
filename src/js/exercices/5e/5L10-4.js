@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texNombre,numAlpha,tableauColonneLigne} from '../../modules/outils.js'
 import {point,polygone,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d’un tableau'
@@ -26,8 +27,8 @@ export default function Tableaux_et_fonction() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1;
 
 	let type_de_questions_disponibles;
 
