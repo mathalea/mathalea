@@ -48,7 +48,7 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
         " $";
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
         this.listeQuestions.push(texte);

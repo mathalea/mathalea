@@ -92,7 +92,7 @@ export default function Tables_de_multiplications_et_divisions(
         }
         texteCorr = `$ ${a * b} \\div ${b} = ${a}$`;
       }
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
       this.listeQuestions.push(texte);

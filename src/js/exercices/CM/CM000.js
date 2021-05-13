@@ -100,7 +100,7 @@ export default function Tables_additions_soustractions() {
           break;
       }
 
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
       this.listeQuestions.push(texte);

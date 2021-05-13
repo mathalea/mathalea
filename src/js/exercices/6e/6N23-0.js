@@ -63,15 +63,15 @@ export default function Ecrire_nombres_decimal() {
       if (part_dec % 10 != 0) nb_dec = 3
       else if (part_dec % 100 != 0) nb_dec = 2
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!est_diaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
         else texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
+        if (!context.isDiaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
         else texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}`
-        if (!est_diaporama) texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${texNombre(nombre)}$.`
         else texteCorr = `$${texNombre(nombre)}$.`
       }
       texte = texte.replace('et-un unités', 'et-une unités')

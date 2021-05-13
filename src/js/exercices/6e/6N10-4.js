@@ -47,9 +47,9 @@ export default function Ecrire_nombres_entiers_formates() {
         if (tranche[2] == 0) nombre = 0
       }
       nombrestring = zeroSuperflus(nombre)
-      if (!est_diaporama) texte = `$${nombrestring}$ : \\dotfill`
+      if (!context.isDiaporama) texte = `$${nombrestring}$ : \\dotfill`
       else texte = `$${nombrestring}$`
-      if (!est_diaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
+      if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
       else texteCorr = `${texNombre(nombre)}.`
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

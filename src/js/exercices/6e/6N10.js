@@ -58,15 +58,15 @@ export default function Ecrire_nombres_entiers() {
         if (tranche[listeTypeDeQuestions[i] - 1] == 0) nombre = 0
       }
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!est_diaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
         else texteCorr = `${nombreEnLettres(nombre)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
+        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!est_diaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
         else texteCorr = `$${texNombre(nombre)}$.`
       }
       if (this.listeQuestions.indexOf(texte) == -1) {

@@ -66,7 +66,7 @@ export default function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9
         }
       }
       texteCorr = `$ ${a * b} \\div ${a} = ${b}$`;
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
       this.listeQuestions.push(texte);

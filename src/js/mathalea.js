@@ -1,4 +1,4 @@
-/* global mathalea context.isHtml est_diaporama  $  */
+/* global mathalea $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
@@ -16,7 +16,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
-import { context, setOutputDiaporama, setOutputHtml } from './modules/context.js'
+import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.est_diaporama = false
 
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
-  setOutputHtml()
+  setOutputLatex()
 }
 if (document.location.href.indexOf('cm.html') > 0) {
   setOutputDiaporama()
@@ -374,7 +373,7 @@ function miseAJourDuCode () {
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
       let fin_de_l_URL = ''
-      if (context.isHtml && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0) {
+      if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
         fin_de_l_URL += 'exercice.html'
       }
       fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -451,7 +450,7 @@ function miseAJourDuCode () {
   // 1/ context.isHtml && diaporama => cm.html pour le calcul mental.
   // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
   // 3/ !context.isHtml => pour mathalealatex.html
-  if (context.isHtml && est_diaporama) {
+  if (context.isHtml && context.isDiaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
       $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
@@ -488,13 +487,14 @@ function miseAJourDuCode () {
   }
 
   // Ajoute le contenu dans les div #exercices et #corrections
-  if (context.isHtml && !est_diaporama) {
+  if (context.isHtml && !context.isDiaporama) {
     let scroll_level
     // récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
     //    lors des modification sur les exercices via les paramètres et/ou icones dans la colonne de droite d'affichage des exercices.
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
+    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
@@ -905,7 +905,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && context.isHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -1038,7 +1038,7 @@ function parametres_exercice (exercice) {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
       }
-      if (!est_diaporama) {
+      if (!context.isDiaporama) {
         div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
@@ -1392,7 +1392,7 @@ function parametres_exercice (exercice) {
     }
 
     // Gestion de la vidéo
-    if (context.isHtml && !est_diaporama) {
+    if (context.isHtml && !context.isDiaporama) {
       form_video[i] = document.getElementById('form_video' + i)
       form_video[i].value = exercice[i].video // Rempli le formulaire
       form_video[i].addEventListener('change', function (e) {
@@ -1590,7 +1590,7 @@ window.addEventListener('DOMContentLoaded', () => {
     miseAJourDuCode()
   }
 
-  if (context.isHtml && !est_diaporama) {
+  if (context.isHtml && !context.isDiaporama) {
     // gestion du bouton de zoom
     let taille = parseInt($('#affichage_exercices').css('font-size'))
     let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
