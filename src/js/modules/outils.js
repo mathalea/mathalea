@@ -6794,28 +6794,28 @@ export function exportQcmAmc (thisAmc, idExo) {
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
         texQr += `		${autoCorrection[j].enonce} \n `
-        texQr += `\\explain{${tabQCM[1][0]}}\n`
-        texQr += `\\notation{${tabQCM[1][2]}}\n`
+        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
-          reponse = tabQCM[1][1]
-          if (autoCorrection[j].reponse.param.digits === 0) {
+        if (autoCorrection[j].reponse[0].param.exposantNbChiffres === 0) {
+          reponse = autoCorrection[j].reponse[0].valeur
+          if (autoCorrection[j].reponse[0].param.digits === 0) {
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
-            autoCorrection[j].reponse.param.decimals = nbChiffresPd
+            autoCorrection[j].reponse[0].param.decimals = nbChiffresPd
             nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
-            autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+            autoCorrection[j].reponse[0].param.digits = nbChiffresPd + nbChiffresPe
           }
         }
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        texQr += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
-        if (tabQCM[2][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse[0].valeur}}{digits=${autoCorrection[j].reponse[0].param.digits},decimals=${autoCorrection[j].reponse[0].param.decimals},sign=${autoCorrection[j].reponse[0].param.signe},`
+        if (autoCorrection[j].reponse[0].param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse[0].param.exposantNbChiffres},exposign=${autoCorrection[j].reponse[0].param.exposantSigne},`
         }
-        if (autoCorrection[j].reponse.param.approx !== 0) {
-          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+        if (autoCorrection[j].reponse[0].param.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse[0].param.approx},`
         }
         texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
