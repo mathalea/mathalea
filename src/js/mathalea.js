@@ -6,6 +6,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExercic
 import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
+import { messageUtilisateur } from './modules/messages.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -141,7 +142,7 @@ function gestionSpanChoixExercice (elem) {
   }
 }
 
-// pour ne pas déclencher lea gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
+// pour ne pas déclencher la gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
 if (document.getElementById('choix_exercices_div')) {
   ajoutHandlersEtiquetteExo()
 }
@@ -183,6 +184,9 @@ form_choix_des_exercices.addEventListener('change', function (e) {
     liste_des_exercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
     // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
   }
+  if (document.getElementById('affichageErreur')) {
+    document.getElementById('affichageErreur').remove()
+  }
   copierExercicesFormVersAffichage(liste_des_exercices)
   miseAJourDeLaListeDesExercices()
 })
@@ -219,7 +223,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     variation: 'inverted',
     inline: true
   })
-
+  try {
   const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
   if (exosMg32.length) {
     // faut charger mathgraph et lui filer ces figures
@@ -233,24 +237,31 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     } catch (error) {
       // On traite l'erreur
       console.log(error)
-      // FIXME afficher un retour utilisateur
+      throw({code : 'mg32load'})
     }
   }
-
-  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
-  if (besoinScratch) {
-    await scratchTraductionFr()
-    /* global scratchblocks */
-    // @todo ajouter un try/catch pour gérer un pb de chargement
-    scratchblocks.renderMatching('pre.blocks', {
-      style: 'scratch3',
-      languages: ['fr']
-    })
-    scratchblocks.renderMatching('code.b', {
-      inline: true,
-      style: 'scratch3',
-      languages: ['fr']
-    })
+  } catch (error) {
+    messageUtilisateur(error)
+  }
+  try {
+    const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
+    if (besoinScratch) {
+      await scratchTraductionFr()
+      /* global scratchblocks */
+      scratchblocks.renderMatching('pre.blocks', {
+        style: 'scratch3',
+        languages: ['fr']
+      })
+      scratchblocks.renderMatching('code.b', {
+        inline: true,
+        style: 'scratch3',
+        languages: ['fr']
+      })
+    }
+  } catch (error) {
+      // On traite l'erreur
+      console.log(error)
+      messageUtilisateur({code : 'scratchLoad'})
   }
 
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
@@ -307,8 +318,10 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
-      if (obj.qcmDisponible) {
-        iconeQCM = `<span data-tooltip="Mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      if (obj.qcmDisponible && obj.modeQcm) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square icon icone_qcm"></i><span>`
+      } else if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
       }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
@@ -518,6 +531,7 @@ function miseAJourDuCode () {
           contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
+      
       }
       contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
       contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
@@ -528,7 +542,7 @@ function miseAJourDuCode () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.   
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
@@ -728,11 +742,13 @@ function miseAJourDuCode () {
     if (checkElem.prop('checked')) {
       $(`#form_modeQcm${num_ex}`).prop('checked', false).trigger('change')
       listeObjetsExercice[num_ex].modeQcm = false
+      miseAJourDuCode()
     } else {
       $(`#form_modeQcm${num_ex}`).prop('checked', true).trigger('change')
-      listeObjetsExercice[num_ex].modeQcm = true
-    }
-    miseAJourDuCode()
+      listeObjetsExercice[num_ex].modeQcm = true 
+      miseAJourDuCode()
+      $(`#boutonQcm¤${num_ex}`).removeClass('outline')      
+    }        
   })
 
   // icone_paramètres fait le focus sur les parmètres correspondant à l'exercice
@@ -815,6 +831,8 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
+      throw({code : 'codeExerciceInconnu',
+        exercice: id})
     }
     if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
       listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -1721,6 +1739,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     form_choix_des_exercices.value = liste_des_exercices.join(',')
     copierExercicesFormVersAffichage(liste_des_exercices)
+    try {
     miseAJourDeLaListeDesExercices()
+    } catch(err) {
+      messageUtilisateur(err)
+    }
   }
 })
