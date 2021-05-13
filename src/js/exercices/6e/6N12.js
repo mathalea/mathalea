@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modal_url} from '../../modules/outils.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 

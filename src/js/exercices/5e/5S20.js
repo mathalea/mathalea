@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from '../../modules/2d.js'
 import {fraction} from '../../modules/Fractions.js'
@@ -19,8 +20,8 @@ export default function Placer_probabilites() {
 	this.nbQuestionsModifiable = false;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.sup = true;
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
@@ -116,7 +117,7 @@ export default function Placer_probabilites() {
 			lstObjet.push(texteParPosition("1", L, y - 0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}
 
-		if (sortieHtml) {
+		if (context.isHtml) {
 			texte += `<p style="display:block">`;
 		} else {
 			texte += `\\begin{center}`;
@@ -127,7 +128,7 @@ export default function Placer_probabilites() {
 		}
 
 		texte += mathalea2d({ xmin: -1, xmax: L + 3, ymin: miny, ymax: 1, pixelsParCm: 40, scale: 1 }, lstObjet);
-		if (sortieHtml) {
+		if (context.isHtml) {
 			texte += `</p>`;
 		} else {
 			texte += `\\end{center}`;
@@ -158,13 +159,13 @@ export default function Placer_probabilites() {
 			else if (p == 1) { parrondi = 6; };
 			texteCorr += String.fromCharCode(65 + i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texteEnCouleurEtGras(lstEchelle[parrondi][0]) + `.<br>`;
 		}
-		if (sortieHtml) {
+		if (context.isHtml) {
 			texteCorr += `<p style="display:block">`;
 		} else {
 			texteCorr += `\\begin{center}`;
 		}
 		texteCorr += mathalea2d({ xmin: -1, xmax: L + 3, ymin: miny, ymax: 2, pixelsParCm: 40, scale: 1 }, lstObjet);
-		if (sortieHtml) {
+		if (context.isHtml) {
 			texteCorr += `</p>`;
 		} else {
 			texteCorr += `\\end{center}`;

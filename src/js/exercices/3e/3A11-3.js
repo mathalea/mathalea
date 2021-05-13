@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modalVideo,listeDiviseurs,numAlpha,cribleEratostheneN,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
 
@@ -14,8 +15,8 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 2;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -24,7 +25,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
@@ -99,7 +100,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `$, <br>`;
 					texte += numAlpha(0) + ` Compléter le tableau ci-dessous.`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `$\\medskip$`;
 					};
 					// on crée le tableau des entetes de lignes et des colonnes
@@ -135,7 +136,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `<br>`;
 					texte += tableauColonneLigne(ent_colonnes, ent_lignes, contenu_lignes);
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
 import {tracePoint,labelPoint,codageMilieu,segment,rotation,rotationAnimee,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
 
@@ -26,7 +27,7 @@ export default function Pavage_et_demi_tour2d() {
 	this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
 	this.sup2=false // On cache les barycentres par défaut.
 	this.sup3=7;
-	sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+	context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
 	this.nouvelleVersion = function () {
 	  let videcouples=function(tableau){
 		for (let k=0;k<tableau.length;k++){

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, tex_texte } from '../../modules/outils.js'
 export const titre = 'Périmètres et aires de figures composées'
 

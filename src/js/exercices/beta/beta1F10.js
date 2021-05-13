@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureAlgebriqueSauf1,lettre_minuscule_depuis_chiffre,xcas} from '../../modules/outils.js'
 import { simplify } from 'mathjs'
 const math = { simplify: simplify }

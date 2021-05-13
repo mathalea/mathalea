@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint,ecritureAlgebrique, texFractionReduite,texFraction,pgcd} from '../../modules/outils.js'
 
 export const titre = 'Déterminer un antécédent'
@@ -27,7 +28,7 @@ export default function antecedent_par_calcul() {
     this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pasDeVersionLatex=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.spacingCorr = sortieHtml ? 3 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre

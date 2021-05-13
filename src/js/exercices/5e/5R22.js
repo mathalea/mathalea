@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureAlgebriquec, signe, texNombreCoul, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre } from '../../modules/outils.js'
 
 export const titre = 'Additions et soustractions de nombres relatifs'
@@ -53,7 +54,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       s4 = choice([-1, 1])
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`
-        if (!sortieHtml) {
+        if (!context.isHtml) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
         }
         relatifs = triePositifsNegatifs([a, b, c, d, e])
@@ -65,7 +66,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] != 0) { texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0])}$` } else { texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$` }
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
-        if (!sortieHtml) {
+        if (!context.isHtml) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`

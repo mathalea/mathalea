@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texteEnCouleur,texteGras,numAlpha} from '../../modules/outils.js'
 import {point,labelPoint,segment,cercleCentrePoint,rotation,codageAngleDroit,codeAngle,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
@@ -20,8 +21,8 @@ export default function Problemes_additifs_fractions_5e () {
   this.nbCols = 1
   this.nbColsCorr = 1
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 1 : this.spacing = 1
-  sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+  context.isHtml ? this.spacing = 1 : this.spacing = 1
+  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
 
   let type_de_questions_disponibles
 

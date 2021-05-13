@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec} from '../../modules/outils.js'
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de...)'
 

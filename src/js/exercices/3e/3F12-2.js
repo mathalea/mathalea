@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,texFractionReduite,lettre_minuscule_depuis_chiffre,katexPopup2,fractionSimplifiee} from '../../modules/outils.js'
 
 

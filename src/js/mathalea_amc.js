@@ -5,7 +5,9 @@ import { dictionnaireDesExercices, menuDesExercicesDisponibles } from './modules
 // import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
 import { loadGiac, loadPrism } from './modules/loaders'
+import { context, setOutputAmc } from './modules/context.js'
 
+setOutputAmc()
 // import katex from 'katex'
 // import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = true
+window.context.isHtml = true
 window.est_diaporama = false
 
 // (function () {
@@ -588,7 +590,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && sortieHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !est_diaporama) {
             listeObjetsExercice[i].video = urlVars[i].video
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -622,7 +624,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
       if (besoinXCas) {
         // On charge le javascript de XCas
         let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (sortieHtml) {
+        if (context.isHtml) {
           div = document.getElementById('exercices')
         } else {
           div = document.getElementById('div_codeLatex')
@@ -639,8 +641,8 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
     })
     .then(() => {
       if (preview) {
-        const output = sortieHtml
-        sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+        const output = context.isHtml
+        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
         try {
           listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
         } catch (error) {
@@ -665,7 +667,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         if (!output) {
           gestion_modules(false, listeObjetsExercice)
         }
-        sortieHtml = output
+        context.isHtml = output
         mise_a_jour_du_code() // permet de gérer les popup avec module.
       } else {
         mise_a_jour_du_code()

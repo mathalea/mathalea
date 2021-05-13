@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
@@ -151,7 +152,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
           tabicone = [0, 1, 0]
           break
       }
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         // texteCorr = `${texte}..`
         texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte

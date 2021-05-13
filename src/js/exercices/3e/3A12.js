@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,modalPdf,numAlpha,premiersEntreBornes,warnMessage,decompositionFacteursPremiersArray} from '../../modules/outils.js'
 export const titre = 'Fractions irréductibles'
 
@@ -13,8 +14,8 @@ export default function Fractions_irreductibles() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 4 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 4 : this.spacingCorr = 2;
+	context.isHtml ? this.spacing = 4 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2;
 	this.nbQuestions = 1;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -23,7 +24,7 @@ export default function Fractions_irreductibles() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A12.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
@@ -221,7 +222,7 @@ export default function Fractions_irreductibles() {
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 					texte += `<br>` + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
 						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);
@@ -242,7 +243,7 @@ export default function Fractions_irreductibles() {
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 					texte += `<br>` + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += ` à l'aide des décompositions obtenues au ` + numAlpha(0) + ` et au ` + numAlpha(1);
 					} else {
 						texte += ` à l'aide des questions ` + numAlpha(0) + ` et ` + numAlpha(1);

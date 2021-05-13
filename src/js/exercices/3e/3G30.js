@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {homothetie,codeAngle,longueur,barycentre,milieu,latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
@@ -25,7 +26,7 @@ export default function Calcul_de_longueur() {
     this.correctionDetailleeDisponible=true
     this.correctionDetaillee=false
 
-    if (sortieHtml) {
+    if (context.isHtml) {
         this.spacing = 0;
         this.spacingCorr = 0;
     } else {
@@ -58,7 +59,7 @@ export default function Calcul_de_longueur() {
         }
         angleABC = randint(35, 55)
         angleABCr = angleABC * Math.PI / 180
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\\begin{minipage}{.7\\linewidth}\n'
         }
         switch (choix_rapport_trigo) {
@@ -106,7 +107,7 @@ export default function Calcul_de_longueur() {
                 break
         }
 
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
         let a = point(0, 0)
@@ -179,16 +180,16 @@ export default function Calcul_de_longueur() {
 
         let params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true,amplitude:0.4 }
         let params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: .35, mainlevee: false }
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\\begin{minipage}{.3\\linewidth}\n'
         }
         if (this.sup) {
             texte += mathalea2d(params_enonce, objets_enonce) + '<br>'
         }
-        if (!sortieHtml&&this.correctionDetaillee){
+        if (!context.isHtml&&this.correctionDetaillee){
             texteCorr += '\\begin{minipage}{.4\\linewidth}\n'+mathalea2d(params_correction, objets_correction)+'\n\\end{minipage}\n'+'\\begin{minipage}{.7\\linewidth}\n'
             }
-        if (!sortieHtml&&this.sup) {
+        if (!context.isHtml&&this.sup) {
             texte += '\n\\end{minipage}\n'
         }
         switch (choix_rapport_trigo) {
@@ -253,7 +254,7 @@ reponse =arrondi(ab,1)
                 reponse =arrondi(ab,1)
                 break
         }
-if (!sortieHtml&&this.correctionDetaillee) {
+if (!context.isHtml&&this.correctionDetaillee) {
     texteCorr+='\n\\end{minipage}\n'
 }
         /*****************************************************/

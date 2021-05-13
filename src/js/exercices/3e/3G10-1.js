@@ -1,5 +1,6 @@
 import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codeSegments, repere2, labelPoint, droiteHorizontaleParPoint, latexParCoordonnees, afficheMesureAngle, vecteur} from '../../modules/2d.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,imagePointParTransformation,texFractionReduite,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
@@ -20,7 +21,7 @@ export default function Transformations_du_plan_et_coordonnees() {
 	this.nbColsCorr = 1;
 
 	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
     this.nouvelleVersion = function (numeroExercice) {
         let A,B,C,droited,droited1,droited2,O,droitedprime,pointO
 		let Aprime,Bprime,Cprime

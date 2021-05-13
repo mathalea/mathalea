@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombre,texNombre2,puissanceEnProduit} from '../../modules/outils.js'
 export const titre = 'Écriture décimale d’une puissance de 10'
 
@@ -38,7 +39,7 @@ export default function EcritureDecimalePuissanceDe10() {
           if (n < 2) {
             texteCorr = `$10^${n}=${10 ** n}$`
           } else {
-            if (sortieHtml){
+            if (context.isHtml){
               texteCorr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${texNombre(10 ** n)}$`;
             } else {
               texteCorr = `$10^{${n}}=${texNombre(10 ** n)}$`;
@@ -48,7 +49,7 @@ export default function EcritureDecimalePuissanceDe10() {
         case '-':
           n = randint(1, 10)
           texte = `$10^{${-n}}$`;
-          if (sortieHtml){
+          if (context.isHtml){
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`;
           } else {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`;

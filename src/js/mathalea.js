@@ -1,4 +1,4 @@
-/* global mathalea sortieHtml est_diaporama MG32_tableau_de_figures Module $  */
+/* global mathalea $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
@@ -16,6 +16,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
+import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -24,14 +25,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = true
-window.est_diaporama = false
 
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
-  window.sortieHtml = false
+  setOutputLatex()
 }
 if (document.location.href.indexOf('cm.html') > 0) {
-  window.est_diaporama = true
+  setOutputDiaporama()
 }
 
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
@@ -374,7 +373,7 @@ function miseAJourDuCode () {
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
       let fin_de_l_URL = ''
-      if (sortieHtml && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0) {
+      if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
         fin_de_l_URL += 'exercice.html'
       }
       fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -448,14 +447,14 @@ function miseAJourDuCode () {
   })
   let contenu, contenuDesExercices, contenuDesCorrections
   // Dans la suite test selon les affichages :
-  // 1/ sortieHtml && diaporama => cm.html pour le calcul mental.
-  // 2/ sortieHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
-  // 3/ !sortieHtml => pour mathalealatex.html
-  if (sortieHtml && est_diaporama) {
+  // 1/ context.isHtml && diaporama => cm.html pour le calcul mental.
+  // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
+  // 3/ !context.isHtml => pour mathalealatex.html
+  if (context.isHtml && context.isDiaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
-	  $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
-	  $('#corrections_et_parametres').show()
+      $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
+      $('#corrections_et_parametres').show()
       $('#parametres_generaux').show()
     } else {
       $('#exercices_disponibles').show()
@@ -488,13 +487,14 @@ function miseAJourDuCode () {
   }
 
   // Ajoute le contenu dans les div #exercices et #corrections
-  if (sortieHtml && !est_diaporama) {
+  if (context.isHtml && !context.isDiaporama) {
     let scroll_level
     // récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
     //    lors des modification sur les exercices via les paramètres et/ou icones dans la colonne de droite d'affichage des exercices.
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
+    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
@@ -538,7 +538,7 @@ function miseAJourDuCode () {
     const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
   }
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     // Sortie LaTeX
     // code pour la sortie LaTeX
     let codeEnonces = ''
@@ -625,7 +625,7 @@ function miseAJourDuCode () {
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
     $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
   }
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     // Gestion du téléchargement
     $('#btn_telechargement').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
@@ -905,7 +905,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && sortieHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -943,7 +943,7 @@ function miseAJourDeLaListeDesExercices (preview) {
       if (besoinXCas) {
         // On charge le javascript de XCas
         let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (sortieHtml) {
+        if (context.isHtml) {
           div = document.getElementById('exercices')
         } else {
           div = document.getElementById('div_codeLatex')
@@ -961,8 +961,8 @@ function miseAJourDeLaListeDesExercices (preview) {
     .then(() => {
       if (preview) {
       // gestion de l'affichage des exercices
-        const output = sortieHtml
-        sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+        const output = context.isHtml
+        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
         if (typeof listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion === 'function') {
           try {
             listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
@@ -989,7 +989,7 @@ function miseAJourDeLaListeDesExercices (preview) {
         if (!output) {
           gestionModules(false, listeObjetsExercice)
         }
-        sortieHtml = output
+        context.isHtml = output
         miseAJourDuCode() // permet de gérer les popup avec module.
       } else {
         miseAJourDuCode()
@@ -1029,7 +1029,7 @@ function parametres_exercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (sortieHtml) {
+    if (context.isHtml) {
       div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
       if (exercice[i].pasDeVersionLatex) {
         div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
@@ -1038,7 +1038,7 @@ function parametres_exercice (exercice) {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
       }
-      if (!est_diaporama) {
+      if (!context.isDiaporama) {
         div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
@@ -1278,7 +1278,7 @@ function parametres_exercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (!sortieHtml) {
+    if (!context.isHtml) {
       // Les paramètres à ne gérer que pour la version LaTeX
       // Gestion de la consigne
       if (exercice[i].consigneModifiable) {
@@ -1392,7 +1392,7 @@ function parametres_exercice (exercice) {
     }
 
     // Gestion de la vidéo
-    if (sortieHtml && !est_diaporama) {
+    if (context.isHtml && !context.isDiaporama) {
       form_video[i] = document.getElementById('form_video' + i)
       form_video[i].value = exercice[i].video // Rempli le formulaire
       form_video[i].addEventListener('change', function (e) {
@@ -1590,7 +1590,7 @@ window.addEventListener('DOMContentLoaded', () => {
     miseAJourDuCode()
   }
 
-  if (sortieHtml && !est_diaporama) {
+  if (context.isHtml && !context.isDiaporama) {
     // gestion du bouton de zoom
     let taille = parseInt($('#affichage_exercices').css('font-size'))
     let lineHeight = parseInt($('#affichage_exercices').css('line-height'))

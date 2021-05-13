@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,miseEnEvidence,obtenir_liste_fractions_irreductibles,texFraction} from '../../modules/outils.js'
 
 
@@ -47,7 +48,7 @@ export default function Exercice_comparer_deux_fractions(max = 11) {
 			} else {
 				texte = `$${texFraction(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFraction(a, b)}$`;
 			}
-			if (!sortieHtml) {
+			if (!context.isHtml) {
 				texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots');
 			}
 			texteCorr = `$${texFraction(a, b)}=${texFraction(a + miseEnEvidence('\\times  ' + k), b + miseEnEvidence('\\times  ' + k))}=${texFraction(a * k, b * k)}\\quad$`;

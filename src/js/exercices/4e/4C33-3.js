@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,simpExp,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Calculs automatisés et règles de calculs'
 
@@ -16,7 +17,7 @@ export default function Puissances_d_un_relatif_2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   //this.sup = 1;
   this.titre = titre;
-  sortieHtml
+  context.isHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");
   this.spacing = 2;

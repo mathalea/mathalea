@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 

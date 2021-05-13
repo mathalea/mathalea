@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, arrondiVirgule, quatriemeProportionnelle, lettreDepuisChiffre, texFraction, modalYoutube } from '../../modules/outils.js'
 import { degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une longueur grâce à la trigonométrie'
@@ -21,7 +22,7 @@ export default function Exercice_Trigo_longueurs () {
   this.spacing = 1
   this.quatrieme = false
   this.sup = 1 // 1 utilisation du cosinus exclusivement 2 utilisation des 3 fonctions trigo
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-euclide'
   this.typeExercice = 'MG32'
   this.nouvelleVersion = function (numeroExercice) {
@@ -68,7 +69,7 @@ export default function Exercice_Trigo_longueurs () {
     dist12 = Math.round(dist12 * 10) / 10 // On ne garde qu'une approximation au dixième pour l'exercice
     const s12 = arrondiVirgule(dist12, 1)
     texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`
-    if (sortieHtml) {
+    if (context.isHtml) {
       // sortie html MG32
       let codeBase64
       if (alpha1deg < 0) {

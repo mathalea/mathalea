@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {calcul,listeQuestionsToContenu,randint,ecritureParentheseSiMoins,texNombrec,texNombre,arrondi,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const amcReady = true
@@ -39,7 +40,7 @@ export default function Terme_inconnu_de_somme() {
         decimal=10
     }
     for (let i = 0, a, b, texte, texteCorr,cpt=0; i < this.nbQuestions;) {
-      if (!mathalea.sortieAMC){
+      if (!context.isAmc){
       a = arrondi(randint(4*decimal, this.sup2*decimal)/decimal,1);
       b = arrondi(randint(2*decimal, this.sup2*decimal)/decimal,1);
       }
@@ -82,7 +83,7 @@ export default function Terme_inconnu_de_somme() {
 
       }
 
-      if (est_diaporama) {
+      if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
 			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre

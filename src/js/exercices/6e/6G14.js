@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,range,rangeMinMax,shuffle,combinaisonListes} from '../../modules/outils.js'
 import {point,pointIntersectionDD,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteParPointEtPente,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -37,7 +38,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
     let d = [], P = [], objets = [],  couleurd = [], droiteP, PP, Inter
     let droitecolor = function (num) {
       let couleurs
-      sortieHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
+      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
       return couleurs[num]
     }
 

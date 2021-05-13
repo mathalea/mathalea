@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, arrondiVirgule, lettreDepuisChiffre, texFraction } from '../../modules/outils.js'
 import { degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer un angle grâce à la trigonométrie'
@@ -20,7 +21,7 @@ export default function Exercice_Trigo_angles () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // 1 calcul avec Arccos
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-euclide'
   this.typeExercice = 'MG32'
 
@@ -67,7 +68,7 @@ export default function Exercice_Trigo_angles () {
     const s12 = arrondiVirgule(dist12, 1)
     let texte
     let texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`
-    if (sortieHtml) {
+    if (context.isHtml) {
       // sortie html MG32
       let codeBase64
       if (type_de_questions % 2 != 0) {

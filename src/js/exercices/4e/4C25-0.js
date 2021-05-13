@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {fractionSimplifiee,listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,prenom,texteEnCouleurEtGras} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
@@ -28,8 +29,8 @@ export default function Problemes_additifs_fractions() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5);
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15);
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5);
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15);
 
   let type_de_questions_disponibles;
 

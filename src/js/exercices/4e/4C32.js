@@ -1,5 +1,6 @@
 import { machineMathsVideo } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Notation scientifique'

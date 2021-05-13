@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,texFraction} from '../../modules/outils.js'
 export const titre = 'Résoudre une équation produit nul'
 
@@ -17,7 +18,7 @@ export default function Resoudre_une_equation_produit_nul() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.sup = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
 	this.spacing = 1;
 
 

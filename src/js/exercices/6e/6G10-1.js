@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, choice,creerNomDePolygone, calcul } from '../../modules/outils.js';
 import {mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment   } from '../../modules/2d.js';
 

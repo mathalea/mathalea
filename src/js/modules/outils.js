@@ -1,15 +1,16 @@
-/* global mathalea sortieHtml */
+/* global mathalea */
 import { texteParPosition } from './2d.js'
 import { fraction } from './Fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 const math = { format: format, evaluate: evaluate }
+import { context } from './context.js'
 
 // Fonctions diverses pour la création des exercices
 
 export function listeQuestionsToContenu (argument) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlEnumerate(argument.listeQuestions, argument.spacing)
     if (argument.modeQcm) {
       argument.contenu += `<button class="ui button" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
@@ -20,7 +21,7 @@ export function listeQuestionsToContenu (argument) {
     if (argument.vspace) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
     }
-    if (!mathalea.sortieAMC) {
+    if (!context.isAmc) {
       if (document.getElementById('supprimer_reference').checked === true) {
         argument.contenu = texConsigne(argument.consigne) + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
       } else {
@@ -31,7 +32,7 @@ export function listeQuestionsToContenu (argument) {
   }
 }
 export function listeDeChosesAImprimer (argument) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     argument.contenu = htmlLigne(argument.listeQuestions, argument.spacing)
     argument.contenuCorrection = ''
   } else {
@@ -56,7 +57,7 @@ export function listeDeChosesAImprimer (argument) {
 * @author Rémi Angot
 */
 export function listeQuestionsToContenuSansNumero (argument) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlLigne(argument.listeQuestions, argument.spacing)
     argument.contenuCorrection = htmlConsigne(argument.consigneCorrection) + htmlLigne(argument.listeCorrections, argument.spacingCorr)
   } else {
@@ -94,7 +95,7 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (argument) {
 * @author Rémi Angot
 */
 export function deuxColonnes (cont1, cont2) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div style="float:left;min-width: fit-content;max-width : 35%;margin-right: 30px">
     ${cont1}
@@ -711,7 +712,7 @@ export function rienSi1 (a) {
 * @Auteur Rémi Angot
 */
 export function exposant (texte) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
@@ -2023,7 +2024,7 @@ export function htmlEnumerate (liste, spacing) {
 * @Auteur Rémi Angot
 */
 export function enumerate (liste, spacing) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return htmlEnumerate(liste, spacing)
   } else {
     return texEnumerate(liste, spacing)
@@ -2038,7 +2039,7 @@ export function enumerate (liste, spacing) {
 * @Auteur Sébastien Lozano
 */
 export function enumerateSansPuceSansNumero (liste, spacing) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     // return htmlEnumerate(liste,spacing)
     // for (let i=0; i<liste.length;i++) {
     // liste[i]='> '+liste[i];
@@ -2125,7 +2126,7 @@ export function texConsigne (consigne) {
 */
 export function texNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  if (sortieHtml) {
+  if (context.isHtml) {
     // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}'); // .replace(',','{,}') servait à enlever l'espace disgracieux des décimaux mais ne passait qu'en mode LaTeX
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ') // \nombre n'est pas pris en charge par katex
   } else {
@@ -2185,7 +2186,7 @@ export function nombrec2 (nb) {
 export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
-    if (sortieHtml) s += '&nbsp'
+    if (context.isHtml) s += '&nbsp'
     else s += '~'
   }
   return s
@@ -2198,7 +2199,7 @@ export function sp (nb = 1) {
 */
 export function nombre_avec_espace (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  if (sortieHtml) {
+  if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
     let result
@@ -2238,7 +2239,7 @@ export function stringNombre (nb) {
 * @Auteur Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `\\mathbf{\\color{${couleur}}{${texte}}}`
   } else {
     if (couleur[0] === '#') {
@@ -2256,7 +2257,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
 * @Auteur Rémi Angot
 */
 export function texteEnCouleur (texte, couleur = '#f15929') {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
@@ -2274,7 +2275,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 * @Auteur Rémi Angot
 */
 export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
@@ -2344,7 +2345,7 @@ export function couleur_en_gris (color) {
 * @Auteur Rémi Angot
 */
 export function texteGras (texte) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {
     return `\\textbf{${texte}}`
@@ -2358,7 +2359,7 @@ export function texteGras (texte) {
 * @Auteur Rémi Angot
 */
 export function href (texte, lien) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<a target="_blank" href=${lien}> ${texte} </a>`
   } else {
     return `\\href{${lien}}{${texte}}`
@@ -2528,7 +2529,7 @@ export function tex_texte (texte) {
 */
 export function itemize (tableau_de_texte) {
   let texte = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     texte = '<div>'
     for (let i = 0; i < tableau_de_texte.length; i++) {
       texte += '<div> − ' + tableau_de_texte[i] + '</div>'
@@ -3363,7 +3364,7 @@ export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
 export function katexPopup (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
     contenu += '<div class="ui special popup" >'
     if (titrePopup !== '') {
@@ -3379,7 +3380,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
 export function katexPopupTest (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
     contenu += '<div class="ui special popup" >'
     if (titrePopup !== '') {
@@ -3436,13 +3437,13 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
     case 0:
       return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
-      if (sortieHtml) {
+      if (context.isHtml) {
         return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
       } else {
         return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
       }
     case 2:
-      if (sortieHtml) {
+      if (context.isHtml) {
         return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
@@ -3457,7 +3458,7 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
  */
 export function numAlpha (k) {
   'use strict'
-  if (sortieHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
   // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
   else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
 }
@@ -3671,7 +3672,7 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
   const L = tab_entetes_lignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableau_C_L = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     tableau_C_L += '$\\def\\arraystretch{2.5}\\begin{array}{|'
   } else {
     tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
@@ -3716,7 +3717,7 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
     tableau_C_L += '\\hline\n'
   }
   tableau_C_L += '\\end{array}\n'
-  if (sortieHtml) {
+  if (context.isHtml) {
     tableau_C_L += '$'
   } else {
     tableau_C_L += '\\renewcommand{\\arraystretch}{1}$\n'
@@ -3737,7 +3738,7 @@ export function warnMessage (texte, couleur, titre) {
   if (typeof (titre) === 'undefined') {
     titre = ''
   }
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <br>
     <div class="ui compact warning message">
@@ -3764,7 +3765,7 @@ export function warnMessage (texte, couleur, titre) {
 
 export function infoMessage ({ titre, texte, couleur }) {
   // 'use strict';
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div class="ui compact icon message">
       <i class="info circle icon"></i>
@@ -3793,7 +3794,7 @@ export function infoMessage ({ titre, texte, couleur }) {
 
 export function lampeMessage ({ titre, texte, couleur }) {
   // 'use strict';
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div class="ui compact icon message">
       <i class="lightbulb outline icon"></i>

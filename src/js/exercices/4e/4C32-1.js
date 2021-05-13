@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const titre = 'Calcul avec les puissances de dix'
@@ -87,7 +88,7 @@ export default function CalculsAvecPuissancesDeDix () {
         tabrep = [`$${exp1}$`, `$${exp1 - 1}$`, `$${exp1 + 1}$`, `$${-exp1}$`]
       }
       [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         // texteCorr = ''
         shuffle2tableaux(tabrep, tabicone)
         this.tableauSolutionsDuQcm[i] = tabicone

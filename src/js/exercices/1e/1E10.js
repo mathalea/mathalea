@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,modalTexteLong} from '../../modules/outils.js'
 import {point,segment,repere2,courbe,mathalea2d,} from '../../modules/2d.js'
 
@@ -16,7 +17,7 @@ export default function Calcul_discriminant() {
   this.nbQuestions = 6;
   this.nbCols = 2;
   this.nbColsCorr = 2;
-  if (sortieHtml) {
+  if (context.isHtml) {
     this.spacingCorr = 2;
   }
   this.nouvelleVersion = function (numeroExercice) {
@@ -93,7 +94,7 @@ export default function Calcul_discriminant() {
         default:
           break;
       }
-      if (sortieHtml) {
+      if (context.isHtml) {
         let f = x => a * x ** 2 + b * x + c;
         let graphique = courbe(f);
         graphique.color = 'blue';

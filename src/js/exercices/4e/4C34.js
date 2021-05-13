@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {calcul,listeQuestionsToContenuSansNumero,lettreDepuisChiffre,randint,sp,choice,range1,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,miseEnEvidence,liste_des_diviseurs} from '../../modules/outils.js'
 
 export const amcReady = true
@@ -65,8 +66,8 @@ export default function Priorites_et_relatifs_et_puissances() {
   this.nbColsCorr = 1;
   this.tailleDiaporama = 100;
   this.video = "https://youtu.be/0G9xWLl-0zg" // Id YouTube ou url
-  this.spacing = sortieHtml ? 3 : 1;
-  this.spacingCorr = sortieHtml ? 3 : 1;
+  this.spacing = context.isHtml ? 3 : 1;
+  this.spacingCorr = context.isHtml ? 3 : 1;
 
   this.nouvelleVersion = function () {
     this.qcm=['4C34',[],'Calculs utilisant les priorités opératoires et les puissances',5,{}]

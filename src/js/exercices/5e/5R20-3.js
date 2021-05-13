@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,choice,ecritureNombreRelatif,ecritureNombreRelatifc,ecritureAlgebrique,ecritureAlgebriquec,signe,sommeDesTermesParSigne,triePositifsNegatifs,lettreDepuisChiffre} from '../../modules/outils.js'
 
 
@@ -46,13 +47,13 @@ export default function Exercice_additions_de_5_relatifs(max = 20) {
 			s4 = 1;
 			if (this.sup2) {
 				texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`;
-				if (!sortieHtml) {
+				if (!context.isHtml) {
 					texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`;
 				}
 				texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} = ${a + b + c + d + e} $`;
 			} else {
 				texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`;
-				if (!sortieHtml) {
+				if (!context.isHtml) {
 					texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`;
 				}
 				texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`;

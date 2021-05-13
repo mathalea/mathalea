@@ -1,5 +1,6 @@
 import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, texteParPosition, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation } from '../../modules/2d.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,imagePointParTransformation,texFractionReduite,numAlpha} from '../../modules/outils.js'
 
 /**
@@ -18,7 +19,7 @@ export default function Transformations() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
   this.nouvelleVersion = function (numeroExercice) {
       let M=[],N=[],pointM,pointN
       let O=point(0,0,'O','below')

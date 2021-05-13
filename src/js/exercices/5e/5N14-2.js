@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,compareFractions,calcul,shuffle,miseEnEvidence,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
@@ -15,7 +16,7 @@ export default function Exercice_comparer_quatre_fractions () {
   this.titre = titre
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
   this.spacing = 2
-  sortieHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
+  context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
   this.nbQuestions = 2
   this.nbColsCorr = 1
 
