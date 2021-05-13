@@ -1,5 +1,6 @@
 /* global $ mathalea */
 import { context } from './context.js'
+import { shuffle } from './outils.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
@@ -7,7 +8,7 @@ import { context } from './context.js'
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function gestionQcmInteractif (exercice) {
+export function gestionAutoCorrection (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
@@ -63,7 +64,7 @@ export function gestionQcmInteractif (exercice) {
  * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
-export function propositionsQcm (numeroExercice, i, propositions) {
+export function propositionsQcm (numeroExercice, i, propositions, options) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -72,13 +73,23 @@ export function propositionsQcm (numeroExercice, i, propositions) {
   } else {
     espace = '\\qquad'
   }
+  elimineDoublons(propositions)
   if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
     } else {
       texte += '<br>'
     }
-    for (let rep = 0; rep < tabrep.length; rep++) {
+    for (let rep = 0; rep < propositions.length; rep++) {
+      if (!options.ordered) {
+        if (options.lastChoice === undefined || options.lastChoice <= 0 || options.lastChoice > propositions.length) {
+          shuffle(propositions)
+        } else {
+          if (typeof options.lastChoice === 'number' && options.lastChoice > 0 && options.lastChoice < propositions.length) {
+            propositions.splice(0, options.lastChoice, ...shuffle(propositions.slice(0, options.lastChoice)))
+          }
+        }
+      }
       if (context.isHtml) {
         texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">

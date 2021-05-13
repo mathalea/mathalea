@@ -27,10 +27,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
-// Les variables globales nécessaires aux exercices (pas terrible...)
-window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.context.isHtml = true
-window.est_diaporama = false
+context.isHtml = true
+context.isDiaporama = false
+context.isAmc = true
+context.sortieNB = false
+context.anglePerspective = 30
+context.coeffPerspective = 0.5
+context.pixelsParCm = 20
+context.scale = 1
+context.unitesLutinParCm = 50
+context.mainlevee = false
+context.amplitude = 1
+context.fenetreMathalea2d = [-1, -10, 29, 10]
+context.objets2D = []
 
 // (function () {
 // IIFE principal
@@ -303,6 +312,8 @@ function mise_a_jour_du_code () {
 
   const questions = []
   codeLatex = ''
+  const output = context.isHtml
+  context.isHtml = false
   listePackages = new Set()
   if (liste_des_exercices.length > 0) {
     for (let i = 0; i < liste_des_exercices.length; i++) {
@@ -317,6 +328,7 @@ function mise_a_jour_du_code () {
         listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
       }
     }
+    context.isHtml = output
     codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
