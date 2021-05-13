@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* globals mathalea */
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
@@ -36,7 +35,7 @@ export function ObjetMathalea2D () {
   this.id = numId
   numId++
   //   mesObjets.push(this);
-  mathalea.objets2D.push(this)
+  context.objets2D.push(this)
 }
 
 /**
@@ -58,7 +57,7 @@ function Fond_ecran (url, x, y, largeur, hauteur) {
   }
 }
 
-export function fond_ecran (url, x = 0, y = 0, largeur = mathalea.fenetreMathalea2d.xMax - mathalea.fenetreMathalea2d.xMin, hauteur = mathalea.fenetreMathalea2d.yMax - mathalea.fenetreMathalea2d.yMin) {
+export function fond_ecran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
   return new Fond_ecran(url, x, y, largeur, hauteur)
 }
 /**
@@ -209,7 +208,7 @@ function TracePoint (...points) {
   }
   this.tikz = function () {
     const objetstikz = []; let s1; let s2; let p1; let p2; let c
-    const tailletikz = this.taille * mathalea.scale / 20
+    const tailletikz = this.taille * context.scale / 20
     for (const A of points) {
       if (A.constructor === Point) {
         if (this.style === 'x') {
@@ -304,8 +303,8 @@ function TracePointSurDroite (A, O) {
     return s.svg(coeff)
   }
   this.tikz = function () {
-    const A1 = pointSurSegment(this.lieu, this.direction, this.taille / mathalea.scale)
-    const A2 = pointSurSegment(this.lieu, this.direction, -this.taille / mathalea.scale)
+    const A1 = pointSurSegment(this.lieu, this.direction, this.taille / context.scale)
+    const A2 = pointSurSegment(this.lieu, this.direction, -this.taille / context.scale)
     const s = segment(A1, A2)
     return s.tikz()
   }
@@ -664,33 +663,33 @@ function Droite (arg1, arg2, arg3, arg4) {
   if (this.nom !== '') {
     if (egal(this.b, 0, 0.1)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom = -this.c / this.a + 0.8 // l'abscisse du label est décalé de 0.8
-      ordNom = mathalea.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
+      ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
     } else if (egal(this.a, 0, 0.1)) { // by+c=0 y=-c/b est l'équation de la droite
-      absNom = mathalea.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
+      absNom = context.fenetreMathalea2d[0] + 0.8 // l'abscisse du label est xmin +1
       ordNom = -this.c / this.b + 0.8 // l'ordonnée du label est décalée de 0.8
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
       // y=(-a.x-c)/b est l'aquation cartésienne et x=(-by-c)/a
-      const y0 = (-this.a * (mathalea.fenetreMathalea2d[0] + 1) - this.c) / this.b
-      const y1 = (-this.a * (mathalea.fenetreMathalea2d[2] - 1) - this.c) / this.b
-      const x0 = (-this.b * (mathalea.fenetreMathalea2d[1] + 1) - this.c) / this.a
-      const x1 = (-this.b * (mathalea.fenetreMathalea2d[3] - 1) - this.c) / this.a
-      if (y0 > mathalea.fenetreMathalea2d[1] && y0 < mathalea.fenetreMathalea2d[3]) {
-        absNom = mathalea.fenetreMathalea2d[0] + 1
+      const y0 = (-this.a * (context.fenetreMathalea2d[0] + 1) - this.c) / this.b
+      const y1 = (-this.a * (context.fenetreMathalea2d[2] - 1) - this.c) / this.b
+      const x0 = (-this.b * (context.fenetreMathalea2d[1] + 1) - this.c) / this.a
+      const x1 = (-this.b * (context.fenetreMathalea2d[3] - 1) - this.c) / this.a
+      if (y0 > context.fenetreMathalea2d[1] && y0 < context.fenetreMathalea2d[3]) {
+        absNom = context.fenetreMathalea2d[0] + 1
         ordNom = y0 + this.pente
       } else {
-        if (y1 > mathalea.fenetreMathalea2d[1] && y1 < mathalea.fenetreMathalea2d[3]) {
-          absNom = mathalea.fenetreMathalea2d[2] - 1
+        if (y1 > context.fenetreMathalea2d[1] && y1 < context.fenetreMathalea2d[3]) {
+          absNom = context.fenetreMathalea2d[2] - 1
           ordNom = y1 - this.pente
         } else {
-          if (x0 > mathalea.fenetreMathalea2d[0] && x0 < mathalea.fenetreMathalea2d[2]) {
+          if (x0 > context.fenetreMathalea2d[0] && x0 < context.fenetreMathalea2d[2]) {
             absNom = x0
-            ordNom = mathalea.fenetreMathalea2d[1] + Math.abs(this.pente)
+            ordNom = context.fenetreMathalea2d[1] + Math.abs(this.pente)
           } else {
-            if (x1 > mathalea.fenetreMathalea2d[0] && x1 < mathalea.fenetreMathalea2d[2]) {
+            if (x1 > context.fenetreMathalea2d[0] && x1 < context.fenetreMathalea2d[2]) {
               absNom = x1
-              ordNom = mathalea.fenetreMathalea2d[3] + this.pente
+              ordNom = context.fenetreMathalea2d[3] + this.pente
             } else {
-              absNom = (mathalea.fenetreMathalea2d[0] + mathalea.fenetreMathalea2d[2]) / 2
+              absNom = (context.fenetreMathalea2d[0] + context.fenetreMathalea2d[2]) / 2
               ordNom = pointSurDroite(this, absNom).y
             }
           }
@@ -1056,8 +1055,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
     )
   }
   this.tikz = function () {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / mathalea.scale), O, this.demiangle, 1.5 / mathalea.scale, this.mark, this.color, 2, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / mathalea.scale), O, this.demiangle, 1.5 / mathalea.scale, this.mark, this.color, 2, 1)
+    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
+    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
@@ -1521,7 +1520,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     if (this.styleExtremites.length > 1) {
       if (this.styleExtremites.substr(-1) === '|') {
         // si ça termine par | on le rajoute en B
-        const M = pointSurSegment(B, A, h / mathalea.pixelsParCm)
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
         const B1 = rotation(M, B, 90)
         const B2 = rotation(M, B, -90)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
@@ -1531,7 +1530,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       }
       if (this.styleExtremites.substr(-1) === '>') {
         // si ça termine par > on rajoute une flèche en B
-        const M = pointSurSegment(B, A, h / mathalea.pixelsParCm)
+        const M = pointSurSegment(B, A, h / context.pixelsParCm)
         const B1 = rotation(B, M, 90)
         const B2 = rotation(B, M, -90)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
@@ -1544,7 +1543,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       }
       if (this.styleExtremites.substr(-1) === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
-        const M = pointSurSegment(B, A, -h / mathalea.pixelsParCm)
+        const M = pointSurSegment(B, A, -h / context.pixelsParCm)
         const B1 = rotation(B, M, 90)
         const B2 = rotation(B, M, -90)
         code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
@@ -1558,7 +1557,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       }
       if (this.styleExtremites[0] === '<') {
         // si ça commence par < on rajoute une flèche en A
-        const M = pointSurSegment(A, B, h / mathalea.pixelsParCm)
+        const M = pointSurSegment(A, B, h / context.pixelsParCm)
         const A1 = rotation(A, M, 90)
         const A2 = rotation(A, M, -90)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
@@ -1572,7 +1571,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       }
       if (this.styleExtremites[0] === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
-        const M = pointSurSegment(A, B, -h / mathalea.pixelsParCm)
+        const M = pointSurSegment(A, B, -h / context.pixelsParCm)
         const A1 = rotation(A, M, 90)
         const A2 = rotation(A, M, -90)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
@@ -1586,7 +1585,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       }
       if (this.styleExtremites[0] === '|') {
         // si ça commence par | on le rajoute en A
-        const N = pointSurSegment(A, B, h / mathalea.pixelsParCm)
+        const N = pointSurSegment(A, B, h / context.pixelsParCm)
         const A1 = rotation(N, A, 90)
         const A2 = rotation(N, A, -90)
         code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
@@ -2254,7 +2253,7 @@ function NommePolygone (p, nom = '', k = 0.5) {
     let P; const p = this.poly; const d = this.dist
     const G = barycentre(p)
     for (let i = 0; i < p.listePoints.length; i++) {
-      P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d / mathalea.scale)
+      P = pointSurSegment(G, p.listePoints[i], longueur(G, p.listePoints[i]) + d / context.scale)
       code += '\n\t' + texteParPoint(`$${p.listePoints[i].nom}$`, P, 'milieu').tikz()
     }
     return code
@@ -4535,8 +4534,8 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     return result.svg(coeff)
   }
   this.tikz = function () {
-    const a = pointSurSegment(this.sommet, this.depart, this.taille / mathalea.scale)
-    const b = pointSurSegment(this.sommet, this.arrivee, this.taille / mathalea.scale)
+    const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
+    const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
@@ -4557,8 +4556,8 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     return polyline([a, o, b], color).svgml(coeff, amp)
   }
   this.tikzml = function (amp) {
-    const a = pointSurSegment(this.sommet, this.depart, this.taille / mathalea.scale)
-    const b = pointSurSegment(this.sommet, this.arrivee, this.taille / mathalea.scale)
+    const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
+    const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
@@ -4602,7 +4601,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
   this.tikz = function () {
     const O = milieu(this.extremite1, this.extremite2)
     const M = rotation(this.extremite1, O, -90)
-    const N = pointSurSegment(O, M, this.distance / mathalea.scale)
+    const N = pointSurSegment(O, M, this.distance / context.scale)
     let angle
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
@@ -4661,7 +4660,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   this.tikz = function () {
     const O = milieu(this.extremite1, this.extremite2)
     const M = rotation(this.extremite1, O, -90)
-    const N = pointSurSegment(O, M, this.distance / mathalea.scale)
+    const N = pointSurSegment(O, M, this.distance / context.scale)
     const s = segment(this.extremite1, this.extremite2)
     s.isVisible = false
     let angle
@@ -4740,8 +4739,8 @@ function AfficheCoteSegment (
 ) {
   // let longueur=s.longueur
   ObjetMathalea2D.call(this)
-  this.positionCoteSVG = positionCote * 20 / mathalea.pixelsParCm
-  this.positionCoteTIKZ = positionCote / mathalea.scale
+  this.positionCoteSVG = positionCote * 20 / context.pixelsParCm
+  this.positionCoteTIKZ = positionCote / context.scale
   this.positionValeur = positionValeur
   this.seg = s
   this.cote = Cote
@@ -4934,7 +4933,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
   this.svg = function (coeff) {
     let code = ''
     const objets = []
-    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / mathalea.pixelsParCm)
+    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
     const d = droite(this.centre, P)
@@ -4970,9 +4969,9 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
 
   this.tikz = function () {
     let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
+    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
+    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
@@ -4989,7 +4988,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
 
   this.svgml = function (coeff, amp) {
     let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / mathalea.pixelsParCm)
+    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
@@ -5007,9 +5006,9 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
   }
   this.tikzml = function (amp) {
     let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / mathalea.scale)
+    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 / mathalea.scale)
+    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
@@ -5148,7 +5147,7 @@ function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite
   this.svgml = function (coeff, amp) {
     let code = ''
     for (const objet of objets) {
-      if (!mathalea.mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(coeff) + '\n'
+      if (!context.mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(coeff) + '\n'
       else code += '\t' + objet.svgml(coeff, amp) + '\n'
     }
     return code
@@ -5156,7 +5155,7 @@ function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite
   this.tikzml = function (amp) {
     let code = ''
     for (const objet of objets) {
-      if (!mathalea.mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
+      if (!context.mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
       else code += '\t' + objet.tikzml(amp) + '\n'
     }
     return code
@@ -5199,7 +5198,7 @@ function DroiteGraduee2 ({
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
   pointListe = false, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
-  labelDistance = (axeHauteur + 10) / mathalea.pixelsParCm,
+  labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = false,
   Legende = '',
   LegendePosition = calcul((Max - Min) * Unite + 1.5)
@@ -5229,7 +5228,7 @@ function DroiteGraduee2 ({
   }
   objets.push(S)
   let factor
-  const r = 10 / mathalea.pixelsParCm
+  const r = 10 / context.pixelsParCm
   if (thickTer) factor = calcul(1 / thickTerDist)
   else if (thickSec) factor = calcul(1 / thickSecDist)
   else factor = calcul(1 / thickDistance)
@@ -5941,7 +5940,7 @@ function Repere ({
         calcul(ymin / yscale),
         calcul(xmax / xscale),
         calcul(ymax / yscale),
-        0.2 / mathalea.scale,
+        0.2 / context.scale,
         xstep,
         ystep,
         axesEpaisseur,
@@ -5955,7 +5954,7 @@ function Repere ({
           graduationsxMax,
           xstep,
           graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX / mathalea.scale,
+          calcul(yabscisse / yscale) + positionLabelX / context.scale,
           xscale
         ).tikz()
       }
@@ -5965,7 +5964,7 @@ function Repere ({
           graduationsyMax,
           ystep,
           graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY / mathalea.scale,
+          calcul(xordonnee / xscale) + positionLabelY / context.scale,
           yscale
         ).tikz()
       }
@@ -5976,7 +5975,7 @@ function Repere ({
           -1,
           xstep,
           graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX / mathalea.scale,
+          calcul(yabscisse / yscale) + positionLabelX / context.scale,
           xscale
         ).tikz()
       }
@@ -5986,7 +5985,7 @@ function Repere ({
           -1,
           ystep,
           graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY / mathalea.scale,
+          calcul(xordonnee / xscale) + positionLabelY / context.scale,
           yscale
         ).tikz()
       }
@@ -5996,7 +5995,7 @@ function Repere ({
           graduationsxMax,
           xstep,
           graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX / mathalea.scale,
+          calcul(yabscisse / yscale) + positionLabelX / context.scale,
           xscale
         ).tikz()
       }
@@ -6006,16 +6005,16 @@ function Repere ({
           graduationsyMax,
           ystep,
           graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY / mathalea.scale,
+          calcul(xordonnee / xscale) + positionLabelY / context.scale,
           yscale
         ).tikz()
       }
     }
     if (positionLegendeX === undefined) {
-      positionLegendeX = [xmax + 0.2 / mathalea.scale, yabscisse + 0.3 / mathalea.scale]
+      positionLegendeX = [xmax + 0.2 / context.scale, yabscisse + 0.3 / context.scale]
     }
     if (positionLegendeY === undefined) {
-      positionLegendeY = [xordonnee + 0.3 / mathalea.scale, ymax + 0.2 / mathalea.scale]
+      positionLegendeY = [xordonnee + 0.3 / context.scale, ymax + 0.2 / context.scale]
     }
     code += texteParPosition(
       legendeX,
@@ -7416,7 +7415,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / mathalea.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / mathalea.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7444,7 +7443,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / mathalea.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / mathalea.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
 export function lectureImage (...args) {
@@ -7490,7 +7489,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / mathalea.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / mathalea.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = calcul(this.x / this.xscale)
@@ -7518,7 +7517,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.styleExtremites = '->'
     Sx.pointilles = true
     Sy.pointilles = true
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / mathalea.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / mathalea.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.text_ord, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
 export function lectureAntecedent (...args) {
@@ -7873,9 +7872,9 @@ function CrochetD (A, color = 'blue') {
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${calcul(A.x + this.taille / mathalea.scale)},${A.y + this.taille / mathalea.scale})--(${A.x
-      },${A.y + this.taille / mathalea.scale})--(${A.x},${A.y - this.taille / mathalea.scale})--(${calcul(A.x + this.taille / mathalea.scale)},${A.y - this.taille / mathalea.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / mathalea.scale}) node[below] {$${A.nom}$};`
+    let code = `\\draw[very thick,${this.color}] (${calcul(A.x + this.taille / context.scale)},${A.y + this.taille / context.scale})--(${A.x
+      },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${calcul(A.x + this.taille / context.scale)},${A.y - this.taille / context.scale});`
+    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -7926,9 +7925,9 @@ function CrochetG (A, color = 'blue') {
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${calcul(A.x - this.taille / mathalea.scale)},${A.y + this.taille / mathalea.scale})--(${A.x
-      },${A.y + this.taille / mathalea.scale})--(${A.x},${A.y - this.taille / mathalea.scale})--(${calcul(A.x - this.taille / mathalea.scale)},${A.y - this.taille / mathalea.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / mathalea.scale}) node[below] {$${A.nom}$};`
+    let code = `\\draw[very thick,${this.color}] (${calcul(A.x - this.taille / context.scale)},${A.y + this.taille / context.scale})--(${A.x
+      },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${calcul(A.x - this.taille / context.scale)},${A.y - this.taille / context.scale});`
+    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -8054,7 +8053,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  * @Auteur Rémi Angot
  */
 export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
-  let x; let y; const coeff = mathalea.pixelsParCm
+  let x; let y; const coeff = context.pixelsParCm
   switch (A.positionLabel) {
     case 'above':
       x = A.x; y = A.y + 15 / coeff
@@ -8102,7 +8101,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
 
   this.svg = function (coeff) {
     const demiSize = calcul(this.size / 2)
-    const centrage = 0.25 * mathalea.pixelsParCm
+    const centrage = 0.25 * context.pixelsParCm
     if (colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`
@@ -8163,12 +8162,12 @@ function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, cou
   }
 
   this.tikz = function () {
-    let code = segment(x, y, calcul(x + longueur / 30 / mathalea.scale, 2), y, couleur).tikz()
+    let code = segment(x, y, calcul(x + longueur / 30 / context.scale, 2), y, couleur).tikz()
     if (signe === -1) {
-      code += segment(calcul(x - ((longueur / 30 + 0.785) / mathalea.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / mathalea.scale / 2), 2), y, couleur).tikz()
+      code += segment(calcul(x - ((longueur / 30 + 0.785) / context.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / context.scale / 2), 2), y, couleur).tikz()
     }
-    code += texteParPosition(nombre_avec_espace(num), calcul(x + longueur / 60 / mathalea.scale, 2), calcul(y + offset / 30 / mathalea.scale, 2), 'milieu', couleur).tikz()
-    code += texteParPosition(nombre_avec_espace(den), calcul(x + longueur / 60 / mathalea.scale, 2), calcul(y - offset / 30 / mathalea.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombre_avec_espace(num), calcul(x + longueur / 60 / context.scale, 2), calcul(y + offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombre_avec_espace(den), calcul(x + longueur / 60 / context.scale, 2), calcul(y - offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
     return code
   }
 }
@@ -8398,11 +8397,11 @@ export function creerLutin (...args) {
  * @param {number} d
  * @param {objet} lutin
  */
-export function avance (d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
+export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
-  lutin.x = calcul(lutin.x + d / mathalea.unitesLutinParCm * Math.cos(radians(lutin.orientation)))
-  lutin.y = calcul(lutin.y + d / mathalea.unitesLutinParCm * Math.sin(radians(lutin.orientation)))
+  lutin.x = calcul(lutin.x + d / context.unitesLutinParCm * Math.cos(radians(lutin.orientation)))
+  lutin.y = calcul(lutin.y + d / context.unitesLutinParCm * Math.sin(radians(lutin.orientation)))
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
@@ -8412,14 +8411,14 @@ export function avance (d, lutin = mathalea.lutin) { // A faire avec pointSurCer
  * Fait entrer le lutin dans le mode "trace"
  * @param {objet} lutin
  */
-export function baisseCrayon (lutin = mathalea.lutin) {
+export function baisseCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = true
 }
 /**
  * Fait sortir le lutin du mode "trace"
  * @param {objet} lutin
  */
-export function leveCrayon (lutin = mathalea.lutin) {
+export function leveCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = false
 }
 /**
@@ -8428,7 +8427,7 @@ export function leveCrayon (lutin = mathalea.lutin) {
  * @param {number} a
  * @param {objet} lutin
  */
-export function orienter (a, lutin = mathalea.lutin) {
+export function orienter (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(a)
 }
 /**
@@ -8436,7 +8435,7 @@ export function orienter (a, lutin = mathalea.lutin) {
  * @param {number} a
  * @param {objet} lutin
  */
-export function tournerG (a, lutin = mathalea.lutin) {
+export function tournerG (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation + a)
 }
 /**
@@ -8444,7 +8443,7 @@ export function tournerG (a, lutin = mathalea.lutin) {
  * @param {number} a
  * @param {objet} lutin
  */
-export function tournerD (a, lutin = mathalea.lutin) {
+export function tournerD (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation - a)
 }
 /**
@@ -8453,11 +8452,11 @@ export function tournerD (a, lutin = mathalea.lutin) {
  * @param {number} y
  * @param {Objet} lutin
  */
-export function allerA (x, y, lutin = mathalea.lutin) {
+export function allerA (x, y, lutin = context.lutin) {
   const xdepart = lutin.x
   const ydepart = lutin.y
-  lutin.x = calcul(x / mathalea.unitesLutinParCm)
-  lutin.y = calcul(y / mathalea.unitesLutinParCm)
+  lutin.x = calcul(x / context.unitesLutinParCm)
+  lutin.y = calcul(y / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
@@ -8468,9 +8467,9 @@ export function allerA (x, y, lutin = mathalea.lutin) {
  * @param {number} x
  * @param {Objet} lutin
  */
-export function mettrexA (x, lutin = mathalea.lutin) {
+export function mettrexA (x, lutin = context.lutin) {
   const xdepart = lutin.x
-  lutin.x = calcul(x / mathalea.unitesLutinParCm)
+  lutin.x = calcul(x / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
@@ -8481,9 +8480,9 @@ export function mettrexA (x, lutin = mathalea.lutin) {
  * @param {number} y
  * @param {Objet} lutin
  */
-export function mettreyA (y, lutin = mathalea.lutin) {
+export function mettreyA (y, lutin = context.lutin) {
   const ydepart = lutin.y
-  lutin.y = calcul(y / mathalea.unitesLutinParCm)
+  lutin.y = calcul(y / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
@@ -8494,9 +8493,9 @@ export function mettreyA (y, lutin = mathalea.lutin) {
  * @param {number} x
  * @param {Objet} lutin
  */
-export function ajouterAx (x, lutin = mathalea.lutin) {
+export function ajouterAx (x, lutin = context.lutin) {
   const xdepart = lutin.x
-  lutin.x += calcul(x / mathalea.unitesLutinParCm)
+  lutin.x += calcul(x / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
@@ -8507,9 +8506,9 @@ export function ajouterAx (x, lutin = mathalea.lutin) {
  * @param {number} y
  * @param {Objet} lutin
  */
-export function ajouterAy (y, lutin = mathalea.lutin) {
+export function ajouterAy (y, lutin = context.lutin) {
   const ydepart = lutin.y
-  lutin.y += calcul(y / mathalea.unitesLutinParCm)
+  lutin.y += calcul(y / context.unitesLutinParCm)
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles])
@@ -8519,7 +8518,7 @@ export function ajouterAy (y, lutin = mathalea.lutin) {
  * fait "vibrer" le lutin tempo fois autour de sa position courante
  * @Auteur Jean-Claude Lhote
  */
-export function attendre (tempo, lutin = mathalea.lutin) {
+export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
   for (let i = 0; i < tempo; i++) {
     lutin.listeTraces.push([x, y, x + 0.1, y, lutin.color, lutin.epaisseur, lutin.pointilles])
@@ -8915,7 +8914,7 @@ function AfficherCrayon (A) {
   this.x = A.x
   this.y = A.y
   this.svg = function () {
-    const code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x - 0.2) * mathalea.pixelsParCm},${-60 - (this.y - 0.2) * mathalea.pixelsParCm}) scale(.1) ">
+    const code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x - 0.2) * context.pixelsParCm},${-60 - (this.y - 0.2) * context.pixelsParCm}) scale(.1) ">
    <path id="rect2990" d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z" stroke-width="30"/>
    <path id="path3771" d="m70.569 417.81 110.61 110.61" stroke-width="25"/>
    <path id="path3777" d="m491.47 108.37-366.69 366.68" stroke-width="25"/>
@@ -8950,7 +8949,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
           if (objet[i].isVisible) {
             if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
             else {
-              code += '\t' + objet[i].svgml(pixelsParCm, mathalea.amplitude) + '\n'
+              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
             }
           }
         } catch (error) { }
@@ -8959,7 +8958,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
     try {
       if (objet.isVisible) {
         if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, mathalea.amplitude) + '\n'
+        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
       }
     } catch (error) { }
   }
@@ -9007,7 +9006,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
         try {
           if (objet[i].isVisible) {
             if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz() + '\n'
-            else code += '\t' + objet[i].tikzml(mathalea.amplitude) + '\n'
+            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
           }
         } catch (error) { }
       }
@@ -9015,7 +9014,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     try {
       if (objet.isVisible) {
         if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
-        else code += '\t' + objet.tikzml(mathalea.amplitude) + '\n'
+        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
       }
     } catch (error) { }
   }
@@ -9253,7 +9252,7 @@ function pattern ({
     }
     return myPattern
   } else {
-    if (mathalea.sortieNB) {
+    if (context.sortieNB) {
       switch (motif) {
         case 'north east lines':
           myPattern = `pattern = ${motif}`

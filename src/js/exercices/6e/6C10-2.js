@@ -1,8 +1,7 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -27,14 +26,14 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C10-2', [], 'tables et multiples de 10,100 et 1000', 1]
+    this.autoCorrection = []
+    let tables = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
-    let tables = []; let tabrep; let tabicone
     if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
@@ -51,6 +50,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       i < this.nbQuestions;
       i++
     ) {
+      this.autoCorrection[i] = {}
       a = couples[i][0]
       b = couples[i][1]
       if (a > 1) {
@@ -68,10 +68,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         a = b
         b = c
       }
-      tabrep = [`$${texNombre2(a * b)}$`, `$${texNombre2(calcul(a * b / 10))}$`, `$${texNombre2(calcul(a * b * 10))}$`, `$${texNombre2(calcul(a * b / 100))}$`, `$${texNombre2(calcul(a * b * 100))}$`]
-      tabicone = [1, 0, 0, 0, 0];
-      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-       texte =
+      texte =
         '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
       texteCorr =
         '$ ' +
@@ -81,22 +78,52 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-      this.qcm[1].push([`${texte}\n`,
-        tabrep,
-        tabicone])
 
-      shuffle2tableaux(tabrep, tabicone)
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: `$${texNombre2(a * b)}$`,
+          statut: true,
+          feedback: 'Correct !'
+        },
+        {
+          texte: `$${texNombre2(calcul(a * b / 10))}$`,
+          statut: false,
+          feedback: 'Compte le nombre de zéros dans chaque facteur'
+        },
+        {
+          texte: `$${texNombre2(calcul(a * b * 10))}$`,
+          statut: false,
+          feedback: 'Compte le nombre de zéros dans chaque facteur'
+        },
+        {
+          texte: `$${texNombre2(calcul(a * b / 100))}$`,
+          statut: false,
+          feedback: 'Compte le nombre de zéros dans chaque facteur'
+        },
+        {
+          texte: `$${texNombre2(calcul(a * b * 100))}$`,
+          statut: false,
+          feedback: 'Compte le nombre de zéros dans chaque facteur'
+        }
+      ]
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 5
+      }
       if (this.modeQcm && !context.isAmc) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+        texte += propositionsQcm(this, i).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType]
+    }
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   this.besoinFormulaireTexte = [
     'Choix des tables',
     'Nombres séparés par des tirets'

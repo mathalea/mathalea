@@ -58,7 +58,7 @@ export default function Exercice_zero_mathalea2d () {
       objets_enonce = [d, tA, tB, lenonce, tenonce] // on initialise le tableau des objets Mathalea2d de l'enoncé
       objets_correction = [...objets_enonce, lcorr, tcorr] // Idem pour la correction
 
-      // mathalea.fenetreMathalea2d = [Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1),Math.min(M1.y-1,M2.y-1,M3.y-1,M4.y-1,M5.y-1,M6.y-1),Math.max(M1.x+1,M2.x+1,M3.x+1,M4.x+1,M5.x+1,M6.x+1),Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1)]
+      // context.fenetreMathalea2d = [Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1),Math.min(M1.y-1,M2.y-1,M3.y-1,M4.y-1,M5.y-1,M6.y-1),Math.max(M1.x+1,M2.x+1,M3.x+1,M4.x+1,M5.x+1,M6.x+1),Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1)]
 
       anim.recadre(Math.min(M1.x - 1, M2.x - 1, M3.x - 1, M4.x - 1, M5.x - 1, M6.x - 1), Math.max(M1.y + 1, M2.y + 1, M3.y + 1, M4.y + 1, M5.y + 1, M6.y + 1, B.y + 1))
       anim.vitesse = 1000

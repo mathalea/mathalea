@@ -94,7 +94,7 @@ export default function Volume_boule() {
               let normal = vecteur3d(0,0,1);
               let s = sphere3d(o,2.5,5,5,'blue');
               let c=cylindre3d(O,OO,normal,R,R,'black');
-          //mathalea.anglePerspective=20;
+          //context.anglePerspective=20;
             texteCorr +='<br>'+ mathalea2d({xmin:-5,max:9,ymin:-1.5,ymax:6,scale:.8}, s,c)+`<br>`;
             texteCorr += `Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>`;
             texteCorr += `Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>`;

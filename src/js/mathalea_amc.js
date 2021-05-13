@@ -26,6 +26,7 @@ Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
+
 context.isHtml = true
 context.isDiaporama = false
 context.isAmc = true
@@ -311,12 +312,14 @@ function mise_a_jour_du_code () {
 
   const questions = []
   codeLatex = ''
+  const output = context.isHtml
+  context.isHtml = false
   listePackages = new Set()
   if (liste_des_exercices.length > 0) {
     for (let i = 0; i < liste_des_exercices.length; i++) {
       listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
       listeObjetsExercice[i].nouvelleVersion(i)
-      questions.push(listeObjetsExercice[i].qcm)
+      questions.push(listeObjetsExercice[i].amc)
 
       if (typeof listeObjetsExercice[i].listePackages === 'string') {
         listePackages.add(listeObjetsExercice[i].listePackages)
@@ -325,6 +328,7 @@ function mise_a_jour_du_code () {
         listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
       }
     }
+    context.isHtml = output
     codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
