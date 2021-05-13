@@ -40,7 +40,7 @@ export default function Terme_inconnu_de_somme() {
         decimal=10
     }
     for (let i = 0, a, b, texte, texteCorr,cpt=0; i < this.nbQuestions;) {
-      if (!mathalea.sortieAMC){
+      if (!context.isAmc){
       a = arrondi(randint(4*decimal, this.sup2*decimal)/decimal,1);
       b = arrondi(randint(2*decimal, this.sup2*decimal)/decimal,1);
       }

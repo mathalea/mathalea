@@ -47,7 +47,7 @@ export default function Exercice_additions_relatifs_a_trou (max = 20) {
       tabicone = [1, 0, 0, 0];
       [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
 			  this.tableauSolutionsDuQcm[i] = tabicone
 			  texte += propositionsQcm(numeroExercice, i, tabrep, tabicone).texte
 			  texteCorr += propositionsQcm(numeroExercice, i, tabrep, tabicone).texteCorr

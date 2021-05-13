@@ -63,7 +63,7 @@ export default function PlacerLaVirgule () {
 
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = \\ldots $<br>`
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte

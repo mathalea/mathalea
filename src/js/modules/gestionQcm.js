@@ -69,7 +69,7 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
   } else {
     espace = '\\qquad'
   }
-  if (!mathalea.sortieAMC) {
+  if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
     } else {

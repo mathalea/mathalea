@@ -52,7 +52,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       this.qcm[1].push([`${texte}\n`,
       tabrep,
       tabicone])
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr

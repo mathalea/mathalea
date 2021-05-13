@@ -88,7 +88,7 @@ export default function CalculsAvecPuissancesDeDix () {
         tabrep = [`$${exp1}$`, `$${exp1 - 1}$`, `$${exp1 + 1}$`, `$${-exp1}$`]
       }
       [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         // texteCorr = ''
         shuffle2tableaux(tabrep, tabicone)
         this.tableauSolutionsDuQcm[i] = tabicone

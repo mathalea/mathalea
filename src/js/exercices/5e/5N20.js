@@ -118,7 +118,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
         }
         shuffle2tableaux(tabrep, tabicone)
-        if (this.modeQcm && !mathalea.sortieAMC) {
+        if (this.modeQcm && !context.isAmc) {
           this.tableauSolutionsDuQcm[i] = tabicone
           texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
           // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
@@ -149,7 +149,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           }
           texteCorr += `${texFraction(a * k + '-' + c, d)}=${texFraction(a * k - c, d)}$`
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
@@ -161,7 +161,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           }
           texteCorr += `${texFraction(c - a * k, d)}$`
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr

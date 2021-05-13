@@ -21,7 +21,7 @@ export function listeQuestionsToContenu (argument) {
     if (argument.vspace) {
       vspace = `\\vspace{${argument.vspace} cm}\n`
     }
-    if (!mathalea.sortieAMC) {
+    if (!context.isAmc) {
       if (document.getElementById('supprimer_reference').checked === true) {
         argument.contenu = texConsigne(argument.consigne) + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
       } else {

@@ -152,7 +152,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
           tabicone = [0, 1, 0]
           break
       }
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         // texteCorr = `${texte}..`
         texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte

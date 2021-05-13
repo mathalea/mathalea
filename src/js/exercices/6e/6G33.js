@@ -233,7 +233,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr += "C'est un carré."
           break
       }
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         if (texteCorr.lastIndexOf('\n') > 0) {
           texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))
         }

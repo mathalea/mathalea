@@ -158,7 +158,7 @@ export default function Arrondir_une_valeur () {
         tabrep.push(pre_tabrep[0], pre_tabrep[1])
         tabicone.push(pre_tabicone[0], pre_tabicone[1])
       }
-        if (this.modeQcm && !mathalea.sortieAMC) {
+        if (this.modeQcm && !context.isAmc) {
         texte += '<br><br>Réponses possibles : <br>  ';
         texteCorr = ''
         // shuffle2tableaux(tabrep, tabicone);

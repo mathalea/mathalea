@@ -102,7 +102,7 @@ export default function SensDeLaFraction () {
       }
       [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         texteCorr = ''
         texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
         this.tableauSolutionsDuQcm[i] = tabicone

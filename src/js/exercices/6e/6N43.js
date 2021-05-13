@@ -217,7 +217,7 @@ export default function CriteresDeDivisibilite () {
 
           break
       }
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
