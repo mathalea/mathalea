@@ -13,7 +13,7 @@ export function listeQuestionsToContenu (argument) {
   if (context.isHtml) {
     argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlEnumerate(argument.listeQuestions, argument.spacing)
     if (argument.modeQcm) {
-      argument.contenu += `<button class="ui button" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+      argument.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
     }
     argument.contenuCorrection = htmlParagraphe(argument.consigneCorrection) + htmlEnumerate(argument.listeCorrections, argument.spacingCorr)
   } else {

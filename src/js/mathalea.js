@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
-
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
   setOutputLatex()
 }
@@ -235,10 +234,10 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
       } catch (error) {
         // On traite l'erreur
         console.log(error)
-        throw({code : 'mg32load'})
+        throw ({ code: 'mg32load' })
       }
     }
-  
+
     const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
     if (besoinScratch) {
       try {
@@ -258,7 +257,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
       } catch (error) {
         // On traite l'erreur
         console.log(error)
-        throw({code : 'scratchLoad'})
+        throw ({ code: 'scratchLoad' })
       }
     }
   } catch (error) {
@@ -505,7 +504,6 @@ function miseAJourDuCode () {
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
-    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
@@ -548,6 +546,22 @@ function miseAJourDuCode () {
     gestionModules(false, listeObjetsExercice)
     const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
+    // En cas de clic sur la correction, on désactive les exercices interactifs
+    const bntCorrection = document.getElementById('btnCorrection')
+    if (bntCorrection) {
+      bntCorrection.addEventListener('click', () => {
+        // Le bouton "Vérifier les réponses" devient inactif
+        const boutonsCheck = document.querySelectorAll(`.checkReponses`)
+        boutonsCheck.forEach(function (bouton) {
+          bouton.classList.add('disabled')
+        })
+        // On ne peut plus cliquer dans les checkboxs
+        const checkboxs = document.querySelectorAll(`.monQcm`)
+        checkboxs.forEach(function (checkbox) {
+          checkbox.classList.add('read-only')
+        })
+      })
+    }
   }
   if (!context.isHtml) {
     // Sortie LaTeX
@@ -826,8 +840,10 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
-      throw({code : 'codeExerciceInconnu',
-        exercice: id})
+      throw ({
+        code: 'codeExerciceInconnu',
+        exercice: id
+      })
     }
     if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
       listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -1736,7 +1752,7 @@ window.addEventListener('DOMContentLoaded', () => {
     copierExercicesFormVersAffichage(liste_des_exercices)
     try {
       miseAJourDeLaListeDesExercices()
-    } catch(err) {
+    } catch (err) {
       messageUtilisateur(err)
     }
   }
