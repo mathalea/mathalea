@@ -26,7 +26,7 @@ export default function TableauCriteresDeDivisibilite () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
     if (!this.modeQcm) {
       this.consigne =
@@ -128,6 +128,7 @@ export default function TableauCriteresDeDivisibilite () {
     texteCorr = ''
     texte = ''
     for (let i = 0; i < this.nbQuestions; i++) {
+      this.autoCorrection[i] = {}
       switch (listeDesTypesDeNombres[i]) {
         case 'div2':
           tableauDeNombres[i] = 2 * choice(listeDeFacteurs)
@@ -480,8 +481,7 @@ export default function TableauCriteresDeDivisibilite () {
             ordered: true,
             lastChoice: 4
           }
-          texte += propositionsQcm(this.numeroExercice, i, this.autoCorrection[i].propositions).texte
-
+          texte += propositionsQcm(this, i).texte
           texte += '<br>'
           texteCorr += '<br>'
         }
