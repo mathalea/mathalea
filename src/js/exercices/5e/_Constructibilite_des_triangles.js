@@ -10,7 +10,7 @@ export const titre = 'Constructibilité des triangles via les longueurs'
  * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
  * 5G21-1
  * 5G31-1
- * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
+ * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
  * Mise à jour le 2021-01-25
  * @author Sébastien Lozano

@@ -1,6 +1,6 @@
-mathalea.fenetreMathalea2d = [-0.9,-8.1,29.1,11.9]
-mathalea.anglePerspective=30 // angle de la direction de fuite
-mathalea.coeffPerspective=0.5 // coefficient de réduction des longueurs fuyantes
+context.fenetreMathalea2d = [-0.9,-8.1,29.1,11.9]
+context.anglePerspective=30 // angle de la direction de fuite
+context.coeffPerspective=0.5 // coefficient de réduction des longueurs fuyantes
 // on définit les points par leur coordonnées cartésiennes
 let A=point3d(1,0,0),O=point3d(0,0,0),I=point3d(1,0,0)
 let J=point3d(0,1,0),K=point3d(0,0,1),B=point3d(4,0,0)

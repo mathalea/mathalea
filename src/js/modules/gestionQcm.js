@@ -1,4 +1,3 @@
-/* global $ mathalea */
 import { context } from './context.js'
 
 /**

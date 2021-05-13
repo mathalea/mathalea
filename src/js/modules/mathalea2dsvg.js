@@ -2,6 +2,7 @@ import { listeQuestionsToContenu,listeDeChosesAImprimer,listeQuestionsToContenuS
 import {scratchblock,tableau_de_variation,nomVecteurParPosition,point,tracePoint,tracePointSurDroite,milieu,pointSurSegment,pointSurCercle,pointSurDroite,pointIntersectionDD,pointAdistance,labelPoint,barycentre,droite,droiteParPointEtVecteur,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteHorizontaleParPoint,droiteVerticaleParPoint,droiteParPointEtPente,mediatrice,codageMediatrice,codageMilieu,constructionMediatrice,bissectrice,codageBissectrice,constructionBissectrice,polyline,pave,vecteur,segment,segmentAvecExtremites,demiDroite,demiDroiteAvecExtremite,polygone,polygoneAvecNom,polygoneRegulier,polygoneRegulierIndirect,carre,carreIndirect,codageCarre,polygoneRegulierParCentreEtRayon,triangle2points2longueurs,triangle2points2angles,triangle2points1angle1longueur,triangle2points1angle1longueurOppose,nommePolygone,deplaceLabel,aireTriangle,cercle,ellipse,pointIntersectionLC,pointIntersectionCC,cercleCentrePoint,arc,arcPointPointAngle,traceCompas,courbeDeBezier,segmentMainLevee,cercleMainLevee,droiteMainLevee,polygoneMainLevee,arcMainLevee,dansLaCibleCarree,dansLaCibleRonde,cibleCarree,cibleRonde,cibleCouronne,translation,translation2Points,rotation,sensDeRotation,homothetie,symetrieAxiale,distancePointDroite,projectionOrtho,affiniteOrtho,similitude,translationAnimee,rotationAnimee,homothetieAnimee,symetrieAnimee,affiniteOrthoAnimee,montrerParDiv,cacherParDiv,afficherTempo,afficherTempoId,afficherUnParUn,medianeTriangle,centreGraviteTriangle,hauteurTriangle,CodageHauteurTriangle,codageHauteurTriangle,codageMedianeTriangle,orthoCentre,centreCercleCirconscrit,codageAngleDroit,afficheLongueurSegment,texteSurSegment,afficheMesureAngle,afficheCoteSegment,codeSegment,codeSegments,codeAngle,nomAngleSaillantParPosition,nomAngleRentrantParPosition,droiteGraduee,droiteGraduee2,axes,labelX,labelY,grille,grilleHorizontale,grilleVerticale,seyes,repere,repere2,pointDansRepere,traceGraphiqueCartesien,traceBarre,traceBarreHorizontale,lectureImage,lectureAntecedent,courbe,courbe2,courbeInterpolee,graphiqueInterpole,imageInterpolee,antecedentInterpole,crochetD,crochetG,intervalle,texteParPoint,texteParPosition,latexParPoint,latexParCoordonnees,fractionParPosition,print2d,longueur,norme,angle,angleOriente,angleradian,creerLutin,avance,baisseCrayon,leveCrayon,orienter,tournerG,tournerD,allerA,mettrexA,mettreyA,ajouterAx,ajouterAy,afficherCrayon,codeSvg,codeTikz,mathalea2d,labyrinthe,pavage} from '../../modules/2d.js'
 import {sensDeRotation3d,cube,cube3d,point3d,vecteur3d,arete3d,droite3d,demicercle3d,cercle3d,polygone3d,sphere3d,cone3d,cylindre3d,prisme3d,pave3d,rotationV3d,rotation3d,translation3d} from '../../modules/3d.js'
 import{fraction,listeFractions} from '../../modules/Fractions.js'
+import { context } from './context.js'
 
 let divSvg = "";
 let script = "";
@@ -35,9 +36,9 @@ function editScript (txt) {
 
 function afficheSVG (text) {
   executeCode(
-    `mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; ${text}`
+    `context.objets2D = [] ; context.lutin = creerLutin() ; ${text}`
   )
-  divSvg.innerHTML = codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D)
+  divSvg.innerHTML = codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
 
   renderMathInElement(document.body, {
     delimiters: [
@@ -116,15 +117,15 @@ function afficheSVG (text) {
   }
 
   // We save the original values from the viewBox
-  const fenetrexmin = mathalea.fenetreMathalea2d[0]
-  const fenetreymin = mathalea.fenetreMathalea2d[3] * -(1)
-  const fenetrexmax = mathalea.fenetreMathalea2d[2]
-  const fenetreymax = mathalea.fenetreMathalea2d[1] * (-1)
+  const fenetrexmin = context.fenetreMathalea2d[0]
+  const fenetreymin = context.fenetreMathalea2d[3] * -(1)
+  const fenetrexmax = context.fenetreMathalea2d[2]
+  const fenetreymax = context.fenetreMathalea2d[1] * (-1)
   const viewBox = {
-    x: fenetrexmin * mathalea.pixelsParCm,
-    y: fenetreymin * mathalea.pixelsParCm,
-    width: (fenetrexmax - fenetrexmin) * mathalea.pixelsParCm,
-    height: (fenetreymax - fenetreymin) * mathalea.pixelsParCm
+    x: fenetrexmin * context.pixelsParCm,
+    y: fenetreymin * context.pixelsParCm,
+    width: (fenetrexmax - fenetrexmin) * context.pixelsParCm,
+    height: (fenetreymax - fenetreymin) * context.pixelsParCm
   }
 
   // The distances calculated from the pointer will be stored here

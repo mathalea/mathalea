@@ -78,7 +78,7 @@ export default function MesurerUnAngle () {
       xMax = Math.max(A.x, C.x, B.x) + 1
       yMin = Math.min(A.y, C.y, B.y) - 1
       yMax = Math.max(A.y, C.y, B.y) + 1
-      mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+      context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
       objetsCorrection = [s1, s2, labels, Apos, Bpos, Cpos, secteur]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)

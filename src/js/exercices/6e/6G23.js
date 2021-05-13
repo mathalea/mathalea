@@ -72,7 +72,7 @@ export default function Construire_un_angle() {
       xMax=Math.max(B.x,C.x)+0.5
       yMin=Math.min(A.y-4,C.y)-0.5
       yMax=Math.max(A.y+4,C.y)+0.5
-        mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+        context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
       texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
