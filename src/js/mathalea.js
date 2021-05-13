@@ -1389,9 +1389,9 @@ function parametres_exercice (exercice) {
       form_ModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          mathalea.sortieNB = true
+          context.sortieNB = true
         } else {
-          mathalea.sortieNB = false
+          context.sortieNB = false
         }
         miseAJourDuCode()
       })

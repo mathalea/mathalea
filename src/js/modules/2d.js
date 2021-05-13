@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* globals mathalea */
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'

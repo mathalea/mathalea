@@ -95,7 +95,7 @@ export default function Construire_symetrique_point_6e() {
       yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
     }
 
-    mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+    context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
     this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
     this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))

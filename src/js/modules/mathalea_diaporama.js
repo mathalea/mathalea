@@ -1,4 +1,5 @@
-/* global mathalea $ */
+import { context } from './context.js'
+
 let premierClicSurPlay = true
 let chrono
 let intervalID = {}

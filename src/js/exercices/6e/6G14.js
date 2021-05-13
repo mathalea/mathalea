@@ -203,7 +203,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
       // correction raisonnement ordonné
-      mathalea.fenetreMathalea2d = [-2, -2, 15, 10]
+      context.fenetreMathalea2d = [-2, -2, 15, 10]
       texteCorr = `À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
       texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + `<br>`
       for (let j = 0; j < code.length - 1; j++) {

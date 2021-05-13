@@ -54,7 +54,7 @@ export default function Calculs_trigonometriques1() {
             R = vecteur3d(O, M)
             Axe = arete3d(PoleSud, PoleNord)
             normalV = vecteur3d(0, 0, 1)
-            M = rotationV3d(M, normalV, mathalea.anglePerspective)
+            M = rotationV3d(M, normalV, context.anglePerspective)
             M.p2d.nom = 'M'
             normalH = rotationV3d(R, normalV, 90)
             P = rotationV3d(M, normalH, -alpha)

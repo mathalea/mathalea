@@ -1,5 +1,5 @@
-mathalea.fenetreMathalea2d = [-2,-15,28,5]
-mathalea.pixelsParCm = 40 // L'unité fait 40 pixels
+context.fenetreMathalea2d = [-2,-15,28,5]
+context.pixelsParCm = 40 // L'unité fait 40 pixels
 seyes(0,0,10,4) // Rectangle de carreaux Seyes avec xmin = ymin = 0, xmax = 10, ymax = 4
 let A = point(1,1,'A') // Créé un point A qui a pour nom...'A'
 let B = point(5,2,'B')
