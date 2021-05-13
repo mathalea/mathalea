@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte,calcul} from '../../modules/outils.js'
 
 /**
@@ -188,7 +189,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"

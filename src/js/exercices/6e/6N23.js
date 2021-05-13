@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,texNombre,texFraction,calcul} from '../../modules/outils.js'
 
 export const titre = 'Donner l’écriture décimale d’une fraction décimale'

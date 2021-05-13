@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,pgcd} from '../../modules/outils.js'
 import {fraction} from '../../modules/Fractions.js'
 export const titre = 'Déterminer les termes d’une suite définie de façon explicite'

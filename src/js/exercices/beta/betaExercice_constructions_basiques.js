@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,carre,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Programmes de constructions (en chantier)'

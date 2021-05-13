@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
 import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 

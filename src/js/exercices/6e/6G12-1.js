@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texteEnCouleur,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -150,7 +151,7 @@ let anim;
             labelPoint(A, B, C, D),
             d,
           );
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=
             numAlpha(1) +
@@ -203,7 +204,7 @@ let anim;
           objets_correction.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
           objets_enonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
 
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce += numAlpha(1) + ` Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce += numAlpha(2) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
@@ -291,7 +292,7 @@ let anim;
               "green"
             ));
           objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce += numAlpha(1) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce += numAlpha(2) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`

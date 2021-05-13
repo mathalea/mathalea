@@ -1,5 +1,6 @@
-/* global sortieHtml mathalea */
-import Exercice from '../ClasseExercice.js'
+/* global context.isHtml mathalea */
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
 import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
@@ -22,7 +23,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.correctionDetailleeDisponible = true
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
   this.qcmDisponible = true
   this.modeQcm = false
 

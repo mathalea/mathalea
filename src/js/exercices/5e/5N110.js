@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,calcul,tex_prix,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Variation en pourcentages'
@@ -26,7 +27,7 @@ export default function Variation_en_pourcentages() {
 			// X | X0 | X00 | X,X0
 			taux = choice([20, 30, 40, 60]);
 			if (choice([true, false])) {
-				if (sortieHtml) {
+				if (context.isHtml) {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux} \%.`;
 				} else {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux}~\\%.`;
@@ -36,7 +37,7 @@ export default function Variation_en_pourcentages() {
 				texteCorr += `<br>`;
 				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix - prix * taux / 100))}$ €`;
 			} else {
-				if (sortieHtml) {
+				if (context.isHtml) {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux} \%.`;
 				} else {
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux}~\\%.`;

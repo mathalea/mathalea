@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombre_avec_espace, texteEnCouleurEtGras} from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
@@ -28,7 +29,7 @@ export default function Stabilisation_frequence() {
    this.sup2 = 10000; // nbLancers
    this.sup3 = false; // true = équiprobable, false = jeu truqué
   
-  if (sortieHtml) {
+  if (context.isHtml) {
     this.consigne = `<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>`
   }
 
@@ -245,7 +246,7 @@ export default function Stabilisation_frequence() {
         }
         N = tabtitrecolonne.length;
 
-        sortieHtml ? texte +=`<br><center>` : texte +=`\\begin{center}` ;
+        context.isHtml ? texte +=`<br><center>` : texte +=`\\begin{center}` ;
 
         texte += `$\\begin{array}{|l|` + `c|`.repeat(N) + `}\n`;
         texte += `\\hline\n`;
@@ -260,7 +261,7 @@ export default function Stabilisation_frequence() {
         }
         texte += `\\\\\\hline\n`;
         texte += `\\end{array}\n$`;
-        sortieHtml ? texte +=`</center>` : texte +=`\\end{center}` ;
+        context.isHtml ? texte +=`</center>` : texte +=`\\end{center}` ;
 
         texte += `<br>`;
         texte += `Ces résultats vous semblent-ils respecter les principes des probabilités ? Détailler votre réponse en vous basant sur des calculs.<br>`;

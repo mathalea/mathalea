@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,miseEnEvidence,liste_des_diviseurs} from '../../modules/outils.js'
 export const titre = 'Calculs utilisant les priorités opératoires'
 

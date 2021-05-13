@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texteGras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Le sens des règles de calculs'
 
@@ -20,11 +21,11 @@ export default function Puissances_d_un_relatif_1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1;
   this.titre = titre;
-  sortieHtml
+  context.isHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");
-  sortieHtml ? (this.spacing = 3) : (this.spacing = 2);
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacing = 3) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
   this.nbQuestions = 5;
   this.correctionDetailleeDisponible = true;
   this.nbColsCorr = 1;

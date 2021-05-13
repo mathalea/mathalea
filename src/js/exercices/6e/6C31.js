@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi } from '../../modules/outils.js'
 export const amcReady = true
@@ -26,7 +27,7 @@ export default function Division_decimale () {
   this.titre = titre
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
   this.listePackages = 'xlop'

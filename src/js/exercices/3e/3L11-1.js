@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,egal,randint,combinaisonListes,printlatex} from '../../modules/outils.js'
 export const titre = 'Utiliser la double distributivité'
 

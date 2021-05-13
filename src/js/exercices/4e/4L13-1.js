@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texteEnCouleur} from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
@@ -24,8 +25,8 @@ export default function Forme_litterale_introduire_une_lettre() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  //sortieHtml? this.spacing = 3 : this.spacing = 2; 
-  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  //context.isHtml? this.spacing = 3 : this.spacing = 2; 
+  //context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let type_de_questions_disponibles;
 

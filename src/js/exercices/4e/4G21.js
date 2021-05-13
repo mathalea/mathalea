@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,calcul,texNombrec,creerNomDePolygone,texNombre} from '../../modules/outils.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas.'
 
@@ -15,7 +16,7 @@ export default function Reciproque_Pythagore() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   this.sup = 3;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions

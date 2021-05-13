@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 
@@ -16,7 +17,7 @@ export default function Distributivite_simple_double_reduction() {
 	this.nbQuestions = 5;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions

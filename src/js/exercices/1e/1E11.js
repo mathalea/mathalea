@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'

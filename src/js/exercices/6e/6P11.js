@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,prenomF,prenomM,texteEnCouleur,tex_prix,texteEnCouleurEtGras,numAlpha} from '../../modules/outils.js';
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 
@@ -424,8 +425,8 @@ export default function Proportionnalite_par_linearite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 1);
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 1);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
   this.nbQuestions = 5;
   this.nbCols = 1;
   this.nbColsCorr = 1;

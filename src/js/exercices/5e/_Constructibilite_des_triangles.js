@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texNombrec,texNombre,texteEnCouleur,Triangles} from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs'

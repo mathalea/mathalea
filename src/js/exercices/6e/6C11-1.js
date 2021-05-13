@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGras, texteEnCouleurEtGras } from '../../modules/outils.js'
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
 
@@ -17,7 +18,7 @@ export default function Divisions_euclidiennes_egalite () {
     'Répondre aux questions suivantes sans poser la division.'
   this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
   this.spacing = 2
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
   this.qcm = ['6C11-1', [], 'Divisions euclidiennes : déterminer reste et quotient à partir d\'une égalité', 3, {}]

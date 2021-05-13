@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,segment,polygone,translation2Points,similitude,codeSegments,grille,seyes,mathalea2d} from '../../modules/2d.js'
 /**
@@ -58,14 +59,14 @@ export default function Solide_6e() {
       switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `${nom} est un cube.<br>`
-          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (context.isHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le cube ${nom}.<br>`
           break;
 
         case 2:
           enonce = `${nom} est un pavé droit.<br>`
-          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (context.isHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le pavé droit ${nom}.<br>`
           break;

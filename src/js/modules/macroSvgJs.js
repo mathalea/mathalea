@@ -3,6 +3,7 @@
 import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
+import { context } from './context.js'
 
 /**
  * Trace un axe vertical gradué
@@ -551,7 +552,7 @@ export function Latex_reperage_sur_un_axe (zoom, origine, pas1, pas2, points_inc
  */
 export function SVG_engrenages (id_du_div, w, h) {
   'use strict'
-  if (sortieHtml) {
+  if (context.isHtml) {
     if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
     // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
     window.SVGExist[id_du_div] = setInterval(function () {

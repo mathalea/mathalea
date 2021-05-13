@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,creerNomDePolygone,texNombre} from '../../modules/outils.js'
 import {point,polygone,nommePolygone,rotation,similitude,codageAngleDroit,afficheLongueurSegment,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
@@ -70,7 +71,7 @@ export default function Pythagore2D() {
         mesObjetsATracer.push(affAB, affBC)
       }
 
-      if (!sortieHtml) { texte = '~\\\\' }
+      if (!context.isHtml) { texte = '~\\\\' }
       texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: .6 }, mesObjetsATracer);
       if (this.sup == 2) {
         if (listeTypeDeQuestions[i] == 'AB') {
@@ -83,7 +84,7 @@ export default function Pythagore2D() {
           texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
         }
       }
-      if (!sortieHtml && i != this.nbQuestions - 1) { texte += '\\columnbreak' } //pour la sortie LaTeX sauf la dernière question
+      if (!context.isHtml && i != this.nbQuestions - 1) { texte += '\\columnbreak' } //pour la sortie LaTeX sauf la dernière question
 
       texteCorr = `Le triangle $${nomDuPolygone}$ est rectangle en $${A.nom}$ donc d'après le théorème de Pythagore, on a : `;
       texteCorr += `$${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2$`

@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, texNombre } from '../../modules/outils.js'
 import { elimineDoublons, gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
 

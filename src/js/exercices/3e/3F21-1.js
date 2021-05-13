@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
 import { SVG_Tracer_droite, Latex_Tracer_droite, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
 import { SVG } from '@svgdotjs/svg.js'
@@ -19,9 +20,9 @@ export default function Lecture_expression_fonctions_affines () {
   this.nbCols = 1
   this.nbColsCorr = 1
   // eslint-disable-next-line no-undef
-  sortieHtml ? this.spacing = 2 : this.spacing = 1
+  context.isHtml ? this.spacing = 2 : this.spacing = 1
   // eslint-disable-next-line no-undef
-  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.sup = 1
   this.sup2 = 3
   this.lineaire = false
@@ -57,7 +58,7 @@ export default function Lecture_expression_fonctions_affines () {
     }
 
     // eslint-disable-next-line no-undef
-    if (sortieHtml) {
+    if (context.isHtml) {
       const mon_svg = SVG().viewbox(0, 0, 500, 500).size('100%', '100%')
       SVG_repere(mon_svg, -5, 5, -5, 5, k, k, 500, 500, true)
       SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[0][0], liste_droites[0][1], 'blue', '(d1)')

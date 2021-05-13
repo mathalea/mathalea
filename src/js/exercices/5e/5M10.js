@@ -1,6 +1,7 @@
 import { mathalea2d, pointAdistance, polygoneAvecNom, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho , milieu, droite, segment, codageAngleDroit} from '../../modules/2d.js';
 import { creerNomDePolygone } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,choice,texteEnCouleurEtGras} from '../../modules/outils.js'
 
 

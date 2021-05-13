@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, changementDeBaseOrthoTri, changementDeBaseTriOrtho, imagePointParTransformation, arrondi, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
 export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)'
 
@@ -20,7 +21,7 @@ export default function Pavages_et_reflexion () {
   this.nbCols = 1
   this.nbColsCorr = 1
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-euclide'
   this.typeExercice = 'MG32'
   this.nouvelleVersion = function (numeroExercice) {
@@ -237,7 +238,7 @@ export default function Pavages_et_reflexion () {
         'blue'
       )
 
-    if (sortieHtml) {
+    if (context.isHtml) {
       this.mg32init = (mtg32App, idDoc, idDocCorr) => {
         mtg32App.giveFormula2(idDoc, 'xB', xB)
         mtg32App.giveFormula2(idDoc, 'yB', yB)

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, quatriemeProportionnelle, texNombrec, lettreDepuisChiffre, texFraction, katexPopup2 } from '../../modules/outils.js'
 
 export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
@@ -14,8 +15,8 @@ export default function Exercice_Thales () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   this.nbCols = 1
   this.typeExercice = 'MG32'
   this.nbColsCorr = 1
@@ -68,7 +69,7 @@ export default function Exercice_Thales () {
     } // calcul de la longueur intermédiaire dans un cas classique ou en papillon
     const s35 = texNombrec(dist35) // à priori, c'est déjà arrondi au dixième, mais je me méfie des calculs flottants en js
     const niv_diff = randint(1, 2)
-    if (sortieHtml) {
+    if (context.isHtml) {
       this.typeExercice = 'MG32'
       this.dimensionsDivMg32 = [700, 500]
       let codeBase64

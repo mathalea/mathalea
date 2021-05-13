@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Ordre de grandeur et opérations sur les décimaux'
 
@@ -24,8 +25,8 @@ export default function Ordre_de_grandeur_operations_decimaux() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2;
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+  context.isHtml ? this.spacing = 3 : this.spacing = 2;
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
   let type_de_questions_disponibles;
 

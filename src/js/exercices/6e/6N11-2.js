@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -99,7 +100,7 @@ export default function Placer_un_point_abscisse_entiere () {
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
         type_de_questions[i]
       )
-      if (sortieHtml) {
+      if (context.isHtml) {
         texteCorr = ''
         this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
           abs1
@@ -181,7 +182,7 @@ export default function Placer_un_point_abscisse_entiere () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

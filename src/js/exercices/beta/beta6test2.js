@@ -1,5 +1,6 @@
 
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu, modalTexteCourt} from '../../modules/outils.js'
 import {randint, choice, combinaisonListes} from '../../modules/outils.js'
 

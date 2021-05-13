@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,texteEnCouleurEtGras,cesar} from '../../modules/outils.js'
 import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Spécial escape game'
@@ -13,8 +14,8 @@ export default function Premier_escape_game_mathalea() {
 	this.titre = titre;
 	this.consigne = "Trouver le mot de passe.";
 	this.nbQuestions = 1;
-	sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1.5;
-	sortieHtml ? this.spacing = 1 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacing = 1 : this.spacing = 2;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.sup = 1;

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombrec,creerNomDePolygone,texNombre,nombre_avec_espace,texFraction} from '../../modules/outils.js'
 import {point,milieu,pointSurSegment,labelPoint,segment,polygone,codageAngleDroit,texteSurSegment,texteParPoint,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
@@ -34,7 +35,7 @@ export default function Problemes_Thales() {
 				[A, B, C, D, E] = creerNomDePolygone(5);
 				texte = `On sait que $${A}${E}=${texNombre(x)}$ cm ; $${A}${D}=${texNombrec(k * x)}$ cm et $${E}${B}=${texNombre(y)}$ cm.<br>`;
 				texte += `Calculer la valeur exacte de $${D}${C}$.`;
-				if (sortieHtml) {
+				if (context.isHtml) {
 					// Pour le svg toutes les longueurs sont multipliées par 20
 					let fig1 = `<div><svg width="450" height="300" viewBox="-40 -40 450 300" xmlns="http://www.w3.org/2000/svg">
 					  <polygon points="0,0 ${calcul(k * x * 20)},0 ${calcul(k * x * 20)},${calcul(k * y * 20)}  " fill="none" stroke="black" />

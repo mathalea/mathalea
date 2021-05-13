@@ -1,5 +1,6 @@
 import { texteEnCouleurEtGras } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d,repere2,traceGraphiqueCartesien,point,segment,latexParCoordonnees} from '../../modules/2d.js'
 import {randint,calcul,modalYoutube} from '../../modules/outils.js';
@@ -125,13 +126,13 @@ export default function Exercice_zero_mathalea() {
         On a éventuellement vérifié cette proposition sur beaucoup d'exemples mais cela ne garantit pas qu'elle soit toujours vraie.<br>
         Nous allons nous intéresser à la ${texteGras('conjecture de Syracuse')} découverte par le mathématicien allemand ${texteGras('Lothar Collatz')} en 1930
         à l'université de Syracuse.`
-        if (sortieHtml) {
+        if (context.isHtml) {
           string_intro +=`<br><br>`;
         } else {
           string_intro += `\\par\\vspace{0.5cm}`
         };
         string_intro += `${texteGras('Algorithme de Syracuse :')}`;
-        if (sortieHtml) {
+        if (context.isHtml) {
           string_intro +=`<br>`;
         };
         string_intro += `        

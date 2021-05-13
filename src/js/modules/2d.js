@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
-/* globals mathalea sortieHtml */
+/* globals mathalea */
 import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
+import { context } from './context.js'
 /*
   MathALEA2D
  @name      mathalea2d.js
@@ -282,7 +283,7 @@ function TracePointSurDroite (A, O) {
   this.x = A.x
   this.y = A.y
   let M, d
-  // if (sortieHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
+  // if (context.isHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
   // else taille = 0.2/scale
 
   if (O.constructor === Point) {
@@ -8877,7 +8878,7 @@ export function scratchblock (stringLatex) {
     console.log("Il n'y a pas le même nombre de { que de }. Je préfère m'arrêter.")
     return false
   }
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     codeScratch = stringLatex
   } else {
     codeScratch = '<pre class=\'blocks\'>'
@@ -8978,9 +8979,9 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   const fenetreymin = fenetreMathalea2d[3] * -(1)
   const fenetrexmax = fenetreMathalea2d[2]
   const fenetreymax = fenetreMathalea2d[1] * (-1)
-  const sortie = sortieHtml
+  const sortie = context.isHtml
   // eslint-disable-next-line no-global-assign
-  sortieHtml = false
+  context.isHtml = false
   if (scale === 1) {
     code += '\\begin{tikzpicture}[baseline]\n'
   } else {
@@ -9020,7 +9021,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   }
   code += '\\end{tikzpicture}\n'
   // eslint-disable-next-line no-global-assign
-  sortieHtml = sortie
+  context.isHtml = sortie
   return code
 }
 
@@ -9038,7 +9039,7 @@ export function mathalea2d (
   ...objets
 ) {
   let code = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     code = `<svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${(ymax - ymin) * pixelsParCm
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
@@ -9164,7 +9165,7 @@ function pattern ({
   opaciteDeRemplissage = 0.5
 }) {
   let myPattern = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     if (couleurDeRemplissage.length < 1) {
       couleurDeRemplissage = 'none'
     }

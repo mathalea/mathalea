@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,pgcd,texFractionReduite,lettre_minuscule_depuis_chiffre} from '../../modules/outils.js'
 export const titre = 'Compléter un tableau de valeurs'
 
@@ -185,7 +186,7 @@ export default function Tableau_de_valeurs() {
 			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Compléter le tableau de valeurs suivant.`;
 			texteCorr = '';
 			texte += `<br><br>`;
-			if (sortieHtml) {
+			if (context.isHtml) {
 				texte += `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`;
 			} else {
 				texte += `$\\begin{array}{|l|c|c|c|}\n`;
@@ -199,7 +200,7 @@ export default function Tableau_de_valeurs() {
 			texte += `\\end{array}\n$`;
 
 
-			if (sortieHtml) {
+			if (context.isHtml) {
 				texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`;
 			} else {
 				texteCorr = `$\\begin{array}{|l|c|c|c|}\n`;

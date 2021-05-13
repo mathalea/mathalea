@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombre_avec_espace, range1 } from '../../modules/outils.js'
 import { codeSegments, point, pointIntersectionDD, longueur,pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codeAngle, texteParPoint, angle, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js';

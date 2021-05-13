@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, lettreDepuisChiffre, htmlConsigne } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -65,7 +66,7 @@ export default function Placer_points_sur_axe_relatifs () {
       abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, type_de_questions[i])
 
       texte = `Placer les points : {\\small $${l1}$(${texNombrec(abs1)}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(abs3)})}<br>`
-      if (sortieHtml) {
+      if (context.isHtml) {
         texteCorr = ''
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 110px;  "></div>`
@@ -81,7 +82,7 @@ export default function Placer_points_sur_axe_relatifs () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
 }

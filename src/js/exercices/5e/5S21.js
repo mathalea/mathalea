@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,simplificationDeFractionAvecEtapes,prenom,texFraction,numAlpha} from '../../modules/outils.js'
 
 
@@ -18,8 +19,8 @@ export default function fonctions_probabilite1() {
 	this.nbQuestionsModifiable = true;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 3 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1;
 	this.sup = 1;
 
 	this.nouvelleVersion = function () {

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Problèmes avec des calculs de pourcentages'

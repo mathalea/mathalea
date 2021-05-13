@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js';
 import {fraction} from '../../modules/Fractions.js';
@@ -21,7 +22,7 @@ export default function Encadrer_fraction_entre_2_entiers() {
   this.nbCols = 2;
   this.nbColsCorr = 1;
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []; // Liste de questions

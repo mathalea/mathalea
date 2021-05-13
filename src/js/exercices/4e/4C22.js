@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenir_liste_fractions_irreductibles,obtenirListeNombresPremiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
 export const titre = 'Mutliplier des fractions'
 

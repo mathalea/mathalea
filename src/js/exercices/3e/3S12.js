@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {randint,listeQuestionsToContenu,choice,premiereLettreEnMajuscule,numAlpha,texFractionSigne,calcul,arrondi,arrondiVirgule, texteGras} from '../../modules/outils.js';
 import {repere2,traceBarre,mathalea2d} from '../../modules/2d.js';
 

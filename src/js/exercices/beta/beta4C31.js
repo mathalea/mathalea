@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texteEnCouleurEtGras,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
@@ -26,7 +27,7 @@ export default function Comparer_puissance10() {
   this.nbQuestions = 5; // Ici le nombre de questions
   this.nbQuestionsModifiable=true // Active le formulaire nombre de questions
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
   this.spacing = 2;
   this.spacingCorr = 2;
   this.nbQuestions = 5;

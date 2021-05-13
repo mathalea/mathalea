@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenuSansNumero, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -36,7 +37,7 @@ export default function Tableau_criteres_de_divisibilite() {
     this.qcm = ['6N43-2', [], "Critères de divisibilité", 2,{ordered:true,lastChoices:4}]
     let tabrep, tabicone
     let espace = ``;
-    if (sortieHtml) {
+    if (context.isHtml) {
       espace = `&emsp;`;
     } else {
       espace = `\\qquad`;
@@ -257,7 +258,7 @@ export default function Tableau_criteres_de_divisibilite() {
         }
       }
     }
-    if (sortieHtml&&!this.modeQcm) {
+    if (context.isHtml&&!this.modeQcm) {
            texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
       texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`;
     }

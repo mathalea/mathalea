@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texteGras,warnMessage} from '../../modules/outils.js'
 export const titre = 'Calcul mental et calcul littéral'
 
@@ -25,8 +26,8 @@ export default function identites_calculs() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;	
-	sortieHtml ? this.spacing = 1 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 1 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
 
 	this.listePackages = `bclogo`;
 
@@ -35,7 +36,7 @@ export default function identites_calculs() {
 	this.nouvelleVersion = function () {
 		//une fonction pour gérer un \hfill dans la sortie LaTeX
 		function myhfill() {
-			if (sortieHtml) {
+			if (context.isHtml) {
 				return `<br><br>`;
 			} else {
 				return `\\hfill`;
@@ -189,7 +190,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;
@@ -211,7 +212,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;
@@ -233,7 +234,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;

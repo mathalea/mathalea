@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texteEnCouleur,texteGras,tex_prix,numAlpha} from '../../modules/outils.js'
 import {point,segment,repere,courbe,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l’aide d’un graphique'
@@ -23,8 +24,8 @@ export default function Graphiques_et_proportionnalite2() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 2 : this.spacing = 1;
-  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  context.isHtml ? this.spacing = 2 : this.spacing = 1;
+  //context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let type_de_questions_disponibles;
 

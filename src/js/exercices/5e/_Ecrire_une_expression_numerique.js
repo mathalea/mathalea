@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import Choisir_expression_numerique from './_Choisir_expression_numerique.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,katexPopup2} from '../../modules/outils.js'

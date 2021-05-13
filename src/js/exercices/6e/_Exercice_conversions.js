@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -89,7 +90,7 @@ export default function Exercice_conversions(niveau = 1) {
           // Choix de l'unité
           unite = choice(["m", "L", "g"]);
         } else if (k == 2) {
-          if (sortieHtml) {
+          if (context.isHtml) {
             unite = choice(["m", "L", "g"]); // pas de signe € pour KaTeX
           } else {
             unite = choice(["m", "L", "g", "€"]);
@@ -224,7 +225,7 @@ export default function Exercice_conversions(niveau = 1) {
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"

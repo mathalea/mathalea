@@ -1,5 +1,6 @@
 import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre } from '../../modules/outils.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Lire l’abscisse décimale d’un point'
@@ -82,7 +83,7 @@ export default function Lire_abscisse_decimale () {
       x11 = randint(1, 9)
       x22 = randint(1, 9)
       x33 = randint(1, 3)
-      if (sortieHtml) {
+      if (context.isHtml) {
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -158,7 +159,7 @@ export default function Lire_abscisse_decimale () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

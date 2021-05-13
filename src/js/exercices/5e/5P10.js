@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Tableaux et proportionnalité.'
 
@@ -25,8 +26,8 @@ export default function Tableaux_et_proportionnalite() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
 	let type_de_questions_disponibles;
 

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Passer de la base 10 à une autre base et inversement'
 
@@ -20,7 +21,7 @@ export default function Passer_d_une_base_a_l_autre() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions

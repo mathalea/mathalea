@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombrec } from '../../modules/outils.js'
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
@@ -32,7 +33,7 @@ export default function Calculs_trigonometriques1() {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
         let alfa, baita, alpha, O, H, M, R, R2, Axe, normalV, normalH, P, HP, Sph, OP, PoleNord, PoleSud, objets = []
-        if (sortieHtml) {
+        if (context.isHtml) {
             alfa = 'α'
             baita = 'β'
         }

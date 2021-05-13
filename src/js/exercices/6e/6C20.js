@@ -1,5 +1,6 @@
 import Operation from '../../modules/operations.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre,exportQcmAmc } from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 4 // type de question AMC
@@ -24,7 +25,7 @@ export default function Additionner_soustraires_decimaux() {
   this.titre = titre;
   this.consigne = "Poser et effectuer les calculs suivants.";
   this.spacing = 2;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 4;
   this.sup = 3;
   this.tailleDiaporama = 100;

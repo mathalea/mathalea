@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre} from '../../modules/outils.js'
 import {point,tracePoint,pointAdistance,labelPoint,droite,droiteParPointEtPerpendiculaire,codageMediatrice,segmentAvecExtremites,cercle,pointIntersectionLC,dansLaCibleCarree,cibleCarree,homothetie,similitude,texteParPoint,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modalVideo,cribleEratostheneN,premiersEntreBornes,warnMessage} from '../../modules/outils.js'
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
@@ -19,8 +20,8 @@ export default function Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 3;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -30,7 +31,7 @@ export default function Decomposition_facteurs_premiers() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');

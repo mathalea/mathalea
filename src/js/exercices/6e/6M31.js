@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombre,tex_texte} from '../../modules/outils.js'
 export const titre = 'Conversions de volume'
 
@@ -247,7 +248,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"
