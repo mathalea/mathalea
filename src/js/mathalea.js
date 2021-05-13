@@ -6,7 +6,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExercic
 import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
-import { messageUtilisateur } from './modules/erreurs.js'
+import { messageUtilisateur } from './modules/messages.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -318,8 +318,10 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
-      if (obj.qcmDisponible) {
-        iconeQCM = `<span data-tooltip="Mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      if (obj.qcmDisponible && obj.modeQcm) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square icon icone_qcm"></i><span>`
+      } else if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
       }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
@@ -529,6 +531,7 @@ function miseAJourDuCode () {
           contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
+      
       }
       contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
       contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
@@ -539,7 +542,7 @@ function miseAJourDuCode () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.   
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
@@ -739,11 +742,13 @@ function miseAJourDuCode () {
     if (checkElem.prop('checked')) {
       $(`#form_modeQcm${num_ex}`).prop('checked', false).trigger('change')
       listeObjetsExercice[num_ex].modeQcm = false
+      miseAJourDuCode()
     } else {
       $(`#form_modeQcm${num_ex}`).prop('checked', true).trigger('change')
-      listeObjetsExercice[num_ex].modeQcm = true
-    }
-    miseAJourDuCode()
+      listeObjetsExercice[num_ex].modeQcm = true 
+      miseAJourDuCode()
+      $(`#boutonQcm¤${num_ex}`).removeClass('outline')      
+    }        
   })
 
   // icone_paramètres fait le focus sur les parmètres correspondant à l'exercice
