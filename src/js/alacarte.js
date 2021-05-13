@@ -16,8 +16,6 @@ import '../css/style_mathalea.css'
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = false
-window.est_diaporama = false
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
