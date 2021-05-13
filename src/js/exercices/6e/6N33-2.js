@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 import {point,pointSurSegment,rotation,codeAngle,texteParPoint,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problèmes de calcul de pourcentage par complément à 100%'

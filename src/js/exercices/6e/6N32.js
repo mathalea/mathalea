@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes} from '../../modules/outils.js'
 import {grille,seyes,mathalea2d} from '../../modules/2d.js'
 import{fraction} from '../../modules/Fractions.js'
@@ -16,8 +17,8 @@ export default function Fractions_d_unite() {
   this.titre = titre;
   this.nbQuestions = 5;
   this.consigne = "Colorier en bleu un segment de longueur ...";
-  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
   this.sup2 = 1;
   this.nbCols = 1;

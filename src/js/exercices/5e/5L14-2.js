@@ -1,5 +1,6 @@
 
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,range,combinaisonListes,ecritureParentheseSiNegatif,lettreDepuisChiffre} from '../../modules/outils.js'
 
 export const amcReady = true
@@ -55,7 +56,7 @@ let reponse
 		enleveElement(valeurs_possibles, y);
 		let z = choice(valeurs_possibles);
 		// x, y et z sont différents
-		if (sortieHtml){
+		if (context.isHtml){
 			this.consigne = `Calculer pour $\\boldsymbol{x=${x}}$, $\\boldsymbol{y=${y}}$ et $\\boldsymbol{z=${z}}$.`;
 		} else {
 			this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`;

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, texFractionReduite, calcul, lettreDepuisChiffre, htmlConsigne, texFraction } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -82,7 +83,7 @@ export default function Lire_abscisse_fractionnaire () {
       x11 = randint(1, pas2 - 1)
       x22 = randint(1, pas2 - 1)
       x33 = randint(1, pas2 - 1)
-      if (sortieHtml) {
+      if (context.isHtml) {
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -175,7 +176,7 @@ export default function Lire_abscisse_fractionnaire () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

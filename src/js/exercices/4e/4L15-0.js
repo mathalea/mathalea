@@ -1,5 +1,6 @@
-/* global sortieHtml */
-import Exercice from '../ClasseExercice.js'
+/* global context.isHtml */
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, fractionSimplifiee, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras } from '../../modules/outils.js'
 export const titre = 'Trouver l’erreur dans une résolution d’équation du premier degré'
 
@@ -22,15 +23,15 @@ export default function TrouverErreurResolEqDeg1 () {
   this.titre = titre
   this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
   // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     this.consigne = this.consigne.replace('<br>', '')
   }
 
   this.nbCols = 1
   this.nbColsCorr = 1
   // this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+  context.isHtml ? this.spacing = 3 : this.spacing = 2
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
   let typeDeQuestionsDisponibles
 

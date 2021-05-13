@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
 export const titre = 'Facture'
 
@@ -45,7 +46,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
 
 
       if (this.sup == 1) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -67,7 +68,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortieHtml) {
+        if (context.isHtml) {
           texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -92,7 +93,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
       }
 
       if (this.sup == 2) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -118,7 +119,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortieHtml) {
+        if (context.isHtml) {
           texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;

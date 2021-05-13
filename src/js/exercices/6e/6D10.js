@@ -1,5 +1,6 @@
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 
 
 export const titre = 'Convertir des durées'

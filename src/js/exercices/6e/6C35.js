@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
@@ -14,10 +15,10 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
-	//sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacing = 1 : this.spacing = 2;
-	//sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 2;
+	//context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacing = 1 : this.spacing = 2;
+	//context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2;
 	this.nbQuestions = 5;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -25,7 +26,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');

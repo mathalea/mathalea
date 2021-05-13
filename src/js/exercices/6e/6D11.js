@@ -1,5 +1,6 @@
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Additionner des durées'
 
@@ -85,7 +86,7 @@ export default function Somme_de_durees() {
 
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
         this.listeQuestions.push(texte);

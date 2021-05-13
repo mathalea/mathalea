@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,calcul,texNombrec,prenomF} from '../../modules/outils.js'
 import {point,polyline,axes,labelX,labelY,grille,repere,courbe,courbeInterpolee,texteParPosition,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'

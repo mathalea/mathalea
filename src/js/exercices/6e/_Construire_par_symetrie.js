@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteVerticaleParPoint,droiteParPointEtPente,codageMediatrice,codageMilieu,segment,polygone,nommePolygone,rotation,symetrieAxiale,grille,seyes,mathalea2d} from '../../modules/2d.js'
 

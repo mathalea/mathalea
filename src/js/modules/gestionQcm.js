@@ -1,4 +1,5 @@
-/* global $ mathalea sortieHtml */
+/* global $ mathalea */
+import { context } from './context.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
@@ -63,19 +64,19 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
   let texte = ''
   let texteCorr = ''
   let espace = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     espace = '&emsp;'
   } else {
     espace = '\\qquad'
   }
-  if (!mathalea.sortieAMC) {
-    if (sortieHtml) {
+  if (!context.isAmc) {
+    if (context.isHtml) {
       texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
     } else {
       texte += '<br>'
     }
     for (let rep = 0; rep < tabrep.length; rep++) {
-      if (sortieHtml) {
+      if (context.isHtml) {
         texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
             <label id="labelEx${numeroExercice}Q${i}R${rep}">${tabrep[rep] + espace}</label>
@@ -89,7 +90,7 @@ export function propositionsQcm (numeroExercice, i, tabrep, tabicone) {
         texteCorr += `$\\square\\;$ ${tabrep[rep]}` + espace
       }
     }
-    if (sortieHtml) {
+    if (context.isHtml) {
       texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
     }
   }

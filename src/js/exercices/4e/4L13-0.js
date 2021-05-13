@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texteEnCouleur} from '../../modules/outils.js'
 import {point,segment,codageCarre,polygoneRegulierParCentreEtRayon,nommePolygone,afficheCoteSegment,codeSegments,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
@@ -26,8 +27,8 @@ export default function Mettre_en_equation_sans_resoudre() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  //sortieHtml? this.spacing = 3 : this.spacing = 2; 
-  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  //context.isHtml? this.spacing = 3 : this.spacing = 2; 
+  //context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let type_de_questions_disponibles;
 

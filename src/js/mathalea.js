@@ -1,9 +1,9 @@
-/* global mathalea sortieHtml est_diaporama scratchblocks Prism fetch mtg32App mtgLoad  MG32_tableau_de_figures Module $  */
+/* global mathalea $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { iep, prism } from './modules/loaders'
+import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/erreurs.js'
@@ -17,11 +17,7 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 
 import '../css/style_mathalea.css'
-import loadjs from 'loadjs'
-
-// Prism n'est utilisé que pour mathalealatex.html
-// quand les html seront fusionnés on ne chargera prism que pour la sortie LaTeX
-prism()
+import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -30,14 +26,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = true
-window.est_diaporama = false
 
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
-  window.sortieHtml = false
+  setOutputLatex()
 }
 if (document.location.href.indexOf('cm.html') > 0) {
-  window.est_diaporama = true
+  setOutputDiaporama()
 }
 
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
@@ -49,27 +43,26 @@ window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
 window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
 menuDesExercicesDisponibles()
 
-
-//gestion des filtres : 
+// gestion des filtres :
 //  au chargement de la page on vérifie s'il y a un filtre dans l'url si c'est le cas on selectionne le filtre dans la page html.
 //  gestion d'evenement sur le "select" filtre. Au changement on place la valeur dans l'url et on relance le calcul des exercices à afficher.
 if (document.getElementById('filtre')) {
-  const filtre = getFilterFromUrl();
+  const filtre = getFilterFromUrl()
   if (filtre) {
     document.getElementById('filtre').value = filtre
   }
-  document.getElementById('filtre').addEventListener('change', function() {  //gestion du changement du select.
-    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?');
-    const query = window.location.search.replace(regex, '$1').replace(/&$/, '');
+  document.getElementById('filtre').addEventListener('change', function () { // gestion du changement du select.
+    const regex = new RegExp('([?;&])filtre[^&;]*[;&]?')
+    const query = window.location.search.replace(regex, '$1').replace(/&$/, '')
     const filtre = document.getElementById('filtre').value
-    const url = (query.length > 2 ? query + '&' : '?') + (filtre !=='tous' ? 'filtre=' + filtre : '');
-    let modeTableauActif = false  //Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
-    window.history.pushState('', '',url)
-    if ($('#mode_choix_liste').is(":visible")) {
+    const url = (query.length > 2 ? query + '&' : '?') + (filtre !== 'tous' ? 'filtre=' + filtre : '')
+    let modeTableauActif = false // Gestion pour le mode tableau particulière pour gérer l'activation de "datatable"
+    window.history.pushState('', '', url)
+    if ($('#mode_choix_liste').is(':visible')) {
       $('#mode_choix_liste').trigger('click')
-      modeTableauActif=true
-    }       
-    menuDesExercicesDisponibles()  //Calcul de la liste des exercices à afficher.
+      modeTableauActif = true
+    }
+    menuDesExercicesDisponibles() // Calcul de la liste des exercices à afficher.
     if (modeTableauActif) {
       $('#mode_choix_tableau').trigger('click')
     }
@@ -79,13 +72,12 @@ if (document.getElementById('filtre')) {
   })
 }
 
-
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
 // fonctions : copierVersExerciceForm ; selectionnerCode ; ajoutHandlersEtiquetteExo ; gestionSpanChoixExercice ; copierExercicesFormVersAffichage
 
 function copierVersExerciceForm () {
   // envoie des informations depuis les étiquettes vers le formulaire et déclenchement de l'evt change.
-  //utilisé lorsque l'utilisateur valide/supprime ou déplace une étiquette exercices.
+  // utilisé lorsque l'utilisateur valide/supprime ou déplace une étiquette exercices.
   let i, texte_code
   const liste_tag = $('.choix_exercices.valide')
   const liste_tag_length = liste_tag.length
@@ -103,7 +95,7 @@ function copierVersExerciceForm () {
 }
 
 function selectionnerCode (elem) {
-  //Fonction permettant de sélectionner tout le texte de l'étiquette lors du click sur cette dernière.
+  // Fonction permettant de sélectionner tout le texte de l'étiquette lors du click sur cette dernière.
   const range = document.createRange()
   range.selectNodeContents(elem)
   const sel = window.getSelection()
@@ -111,17 +103,17 @@ function selectionnerCode (elem) {
   sel.addRange(range)
 }
 
-//Gestionnaire d'evenement sur les étiquettes d'exercice.
+// Gestionnaire d'evenement sur les étiquettes d'exercice.
 function ajoutHandlersEtiquetteExo () {
-  $('.choix_exercices').off('input').on('input', function (e) { //On détecte le changement de la valeur de l'étiquette.
-    gestionSpanChoixExercice(event.target) 
+  $('.choix_exercices').off('input').on('input', function (e) { // On détecte le changement de la valeur de l'étiquette.
+    gestionSpanChoixExercice(event.target)
   })
   $('.choix_exercices').off('keyup').on('keyup', function (e) {
     if (e.which === 9 || e.which === 13) { // validation de l'étiquette sur tab ou entrée.
       copierVersExerciceForm()
       $('.choix_exercices:last').focus()
     }
-	if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) { // suppression de l'étiquette.
+    if ((e.which === 8 || e.which === 46) && (e.target.innerText === '' || e.target.innerText === '\n')) { // suppression de l'étiquette.
       copierVersExerciceForm()
       $('.choix_exercices:last').focus()
     }
@@ -142,7 +134,7 @@ function gestionSpanChoixExercice (elem) {
     if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
       $(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
     }
-    ajoutHandlersEtiquetteExo() //On ajoute la gestion des evenements sur l'étiquette créée.
+    ajoutHandlersEtiquetteExo() // On ajoute la gestion des evenements sur l'étiquette créée.
     // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
   } else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
     // si on change le contenteditable et que l'exercice n'est plus un code valide
@@ -150,21 +142,21 @@ function gestionSpanChoixExercice (elem) {
   }
 }
 
-//pour ne pas déclencher lea gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
+// pour ne pas déclencher la gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
 if (document.getElementById('choix_exercices_div')) {
-  ajoutHandlersEtiquetteExo()  
+  ajoutHandlersEtiquetteExo()
 }
 
 function copierExercicesFormVersAffichage (exliste) {
-//fonction déclenchée à chaque mise à jour du formulaire (ajout, suppression, déplacement d'un exercice via les icones) 
-//pour mettre à jour l'affichage des étiquettes. 
-//(on créé les étiquettes à partir du formulaire)
+// fonction déclenchée à chaque mise à jour du formulaire (ajout, suppression, déplacement d'un exercice via les icones)
+// pour mettre à jour l'affichage des étiquettes.
+// (on créé les étiquettes à partir du formulaire)
   let tagexercices, i
   const liste_length = exliste.length
   tagexercices = ''
   const div_exercice = document.getElementById('choix_exercices_div')
   if (liste_length > 0 && div_exercice) {
-    for (i = 0; i < liste_length; i++) {  //création d'une étiquette pour chaque exercice trouvé dans le formulaire.
+    for (i = 0; i < liste_length; i++) { // création d'une étiquette pour chaque exercice trouvé dans le formulaire.
       tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`
     }
   }
@@ -199,15 +191,22 @@ form_choix_des_exercices.addEventListener('change', function (e) {
   miseAJourDeLaListeDesExercices()
 })
 
-if (document.getElementById('choix_exercices_div')) { //On cache le formulaire pour les feuilles qui ont les étiquettes.
+if (document.getElementById('choix_exercices_div')) { // On cache le formulaire pour les feuilles qui ont les étiquettes.
   $('#choix_des_exercices').parent().hide()
 }
 
-//*************
+//* ************
 
+/**
+ * Gère le chargement des différents modules, appelé après "création" des exercices, pour gérer leur affichage
+ * ATTENTION, fct async, elle retourne une promesse de chargement, faut attendre que la promesse
+ * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
+ * @param isdiaporama
+ * @param listeObjetsExercice
+ * @return {Promise<>}
+ */
 async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin katex, mg32, iep, scratch
-//Fonction qui gère le chargement des différents modules, appelé après "création" des exercices, pour gérer leur affichage.
-//appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+  // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
   renderMathInElement(document.body, {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
@@ -225,48 +224,41 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     inline: true
   })
   try {
-    const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
-    if (exosMg32.length) {
-      // faut charger mathgraph et lui filer ces figures
-      try {
-        // faut attendre que le div soit créé
-        // @todo ce code devrait plutôt être exécuté après la création du div
-        // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
-        // => il n'y aurait plus de couplage sur le préfixe MG32div)
-        await waitFor('MG32div0')
-        await mg32DisplayAll(exosMg32)
-      } catch (error) {
-        // On traite l'erreur
-        console.log(error)
-        throw({code : 'mg32load'})
-      }
+  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+  if (exosMg32.length) {
+    // faut charger mathgraph et lui filer ces figures
+    try {
+      // faut attendre que le div soit créé
+      // @todo ce code devrait plutôt être exécuté après la création du div
+      // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
+      // => il n'y aurait plus de couplage sur le préfixe MG32div)
+      await waitFor('MG32div0')
+      await mg32DisplayAll(exosMg32)
+    } catch (error) {
+      // On traite l'erreur
+      console.log(error)
+      throw({code : 'mg32load'})
     }
-  
-    const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
-    if (besoinScratch) {
-      try {
-        await loadjs('assets/externalJs/scratchblocks-v3.5-min.js')
-        // FIXME il faudrait un try/catch pour gérer l'erreur de chargement éventuelle (avec feedback utilisateur)
-        // @todo mettre ce code de chargement dans modules/loaders.js et l'importer
-        scratchTraductionFr()
-        scratchblocks.renderMatching('pre.blocks', {
-          style: 'scratch3',
-          languages: ['fr']
-        })
-        scratchblocks.renderMatching('code.b', {
-          inline: true,
-          style: 'scratch3',
-          languages: ['fr']
-        })
-      } catch (error) {
-        // On traite l'erreur
-        console.log(error)
-        throw({code : 'scratchLoad'})
-      }
-    }
+  }
   } catch (error) {
     messageUtilisateur(error)
   }
+  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
+  if (besoinScratch) {
+    await scratchTraductionFr()
+    /* global scratchblocks */
+    // @todo ajouter un try/catch pour gérer un pb de chargement
+    scratchblocks.renderMatching('pre.blocks', {
+      style: 'scratch3',
+      languages: ['fr']
+    })
+    scratchblocks.renderMatching('code.b', {
+      inline: true,
+      style: 'scratch3',
+      languages: ['fr']
+    })
+  }
+
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
   if (besoinIEP) {
     for (const id of window.listeAnimationsIepACharger) {
@@ -277,19 +269,19 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
       }
       element.style.marginTop = '30px'
       const xml = window.listeScriptsIep[id]
-      await iep(element, xml)
+      await loadIep(element, xml)
     }
   }
 }
 
 function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
-//appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
-//fonction construisant le html pour l'affichage d'un exercice :
+// appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+// fonction construisant le html pour l'affichage d'un exercice :
 // * mise en page du titre,
 // * icones
 // * boutons
 // * formulaires
-// renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction } 
+// renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction }
   let contenu_un_exercice = ''
   let contenu_une_correction = ''
   let param_tooltip = ''
@@ -324,7 +316,7 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
       if (obj.qcmDisponible) {
         iconeQCM = `<span data-tooltip="Mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
       }
-      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { //Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
+      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
@@ -360,7 +352,7 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
 }
 
 function miseAJourDuCode () {
-//fonction permettant de mettre à jour la liste des exercices affichées. 
+// fonction permettant de mettre à jour la liste des exercices affichées.
 // puis gère les gestionnaires d'évènements sur les éléments en provenance des exercices (icones pour supprimer/déplacer...)
 // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
 //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
@@ -387,7 +379,7 @@ function miseAJourDuCode () {
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
       let fin_de_l_URL = ''
-      if (sortieHtml && !est_diaporama && window.location.pathname.indexOf('exo.html') < 0) {
+      if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
         fin_de_l_URL += 'exercice.html'
       }
       fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
@@ -461,14 +453,14 @@ function miseAJourDuCode () {
   })
   let contenu, contenuDesExercices, contenuDesCorrections
   // Dans la suite test selon les affichages :
-  // 1/ sortieHtml && diaporama => cm.html pour le calcul mental.
-  // 2/ sortieHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
-  // 3/ !sortieHtml => pour mathalealatex.html
-  if (sortieHtml && est_diaporama) {
+  // 1/ context.isHtml && diaporama => cm.html pour le calcul mental.
+  // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
+  // 3/ !context.isHtml => pour mathalealatex.html
+  if (context.isHtml && context.isDiaporama) {
     if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
-	  $('#icones').show() //on affiche les boutons du diaporama uniquement quand un exercice est choisi.
-	  $('#corrections_et_parametres').show()
+      $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
+      $('#corrections_et_parametres').show()
       $('#parametres_generaux').show()
     } else {
       $('#exercices_disponibles').show()
@@ -501,13 +493,14 @@ function miseAJourDuCode () {
   }
 
   // Ajoute le contenu dans les div #exercices et #corrections
-  if (sortieHtml && !est_diaporama) {
-    let scroll_level  
-    //récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
+  if (context.isHtml && !context.isDiaporama) {
+    let scroll_level
+    // récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
     //    lors des modification sur les exercices via les paramètres et/ou icones dans la colonne de droite d'affichage des exercices.
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
+    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
@@ -518,13 +511,13 @@ function miseAJourDuCode () {
         listeObjetsExercice[i].id = liste_des_exercices[i]
         contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, false)
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) { // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
-          if (liste_des_exercices.length === 1) { //si on a q'un seul exercice, uniquement l'icone poubelle
+          if (liste_des_exercices.length === 1) { // si on a q'un seul exercice, uniquement l'icone poubelle
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
-          } else if (i === 0) { //si c'est le premier exercice icone poubelle plus fleche vers le bas
+          } else if (i === 0) { // si c'est le premier exercice icone poubelle plus fleche vers le bas
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
-          } else if (i === liste_des_exercices.length - 1) { //Pour le dernier exercice pas de fleche vers le bas
+          } else if (i === liste_des_exercices.length - 1) { // Pour le dernier exercice pas de fleche vers le bas
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
-          } else { //pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
+          } else { // pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           }
         } else {
@@ -541,17 +534,17 @@ function miseAJourDuCode () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove()  // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(false, listeObjetsExercice)
-    const exercicesAffiches = new Event('exercicesAffiches', {bubbles: true})
+    const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
   }
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     // Sortie LaTeX
     // code pour la sortie LaTeX
     let codeEnonces = ''
@@ -621,7 +614,10 @@ function miseAJourDuCode () {
         codeLatex = code_exercices + code_correction
       }
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
-      Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      loadPrism().then(() => {
+        /* global Prism */
+        Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+      }).catch(error => console.error(error))
       const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
       clipboardURL.on('success', function (e) {
         console.info('Code LaTeX copié dans le presse-papier.')
@@ -633,9 +629,9 @@ function miseAJourDuCode () {
       div.innerHTML = ''
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove()  // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
   }
-  if (!sortieHtml) {
+  if (!context.isHtml) {
     // Gestion du téléchargement
     $('#btn_telechargement').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
@@ -728,36 +724,35 @@ function miseAJourDuCode () {
     })
   }
 
-  //******** Gestion des évènements sur les éléments liés aux exercices ********
-  
-  $('.icone_qcm').off('click').on('click', function (e) { 
-  //Au click sur l'icone qcm on coche le modeQCM de l'exercice dans les paramètres et on relance la mise à jour des exercices.
+  //* ******* Gestion des évènements sur les éléments liés aux exercices ********
+
+  $('.icone_qcm').off('click').on('click', function (e) {
+  // Au click sur l'icone qcm on coche le modeQCM de l'exercice dans les paramètres et on relance la mise à jour des exercices.
     $('#accordeon_parametres >div').addClass('active')
     const num_ex = $(event.target).attr('data-num')
     const checkElem = $(`#form_modeQcm${num_ex}`)
-    if (checkElem.prop("checked")) {
-      $(`#form_modeQcm${num_ex}`).prop("checked", false).trigger("change");
+    if (checkElem.prop('checked')) {
+      $(`#form_modeQcm${num_ex}`).prop('checked', false).trigger('change')
       listeObjetsExercice[num_ex].modeQcm = false
     } else {
-      $(`#form_modeQcm${num_ex}`).prop("checked", true).trigger("change");
+      $(`#form_modeQcm${num_ex}`).prop('checked', true).trigger('change')
       listeObjetsExercice[num_ex].modeQcm = true
-    }    
+    }
     miseAJourDuCode()
   })
-  
+
   // icone_paramètres fait le focus sur les parmètres correspondant à l'exercice
   $('.icone_param').off('click').on('click', function (e) {
     $('#accordeon_parametres >div').addClass('active')
     const num_ex = event.target.parentElement.parentElement.parentElement.id
     $(`.${num_ex} + div :input`).focus()
   })
-  
-  
+
   // ******** possibilité de manipuler la liste des exercices via les exercices. ******
 
   function monterExo (num) {
-  //remonte un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le haut au niveau du titre d'un exercice.
-  //récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
+  // remonte un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le haut au niveau du titre d'un exercice.
+  // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
     const form_choix_des_exercices = document.getElementById('choix_des_exercices')
     liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
@@ -768,10 +763,10 @@ function miseAJourDuCode () {
       miseAJourDeLaListeDesExercices()
     }
   }
-  
+
   function descendreExo (num) {
-  //descend un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le bas au niveau du titre d'un exercice.
-  //récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
+  // descend un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le bas au niveau du titre d'un exercice.
+  // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
     const form_choix_des_exercices = document.getElementById('choix_des_exercices')
     liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
@@ -782,11 +777,11 @@ function miseAJourDuCode () {
       miseAJourDeLaListeDesExercices()
     }
   }
-  
-  //gestion des évènements sur les click sur les icones liés aux titres des exercices :
-  
+
+  // gestion des évènements sur les click sur les icones liés aux titres des exercices :
+
   $('.icone_moins').off('click').on('click', function (e) {
-    supprimerExo(event.target.id) //fonction présente dans menuDesExercicesDisponibles car utilisée aussi avec le petit icone - dans l'apparence de la ligne exercice
+    supprimerExo(event.target.id) // fonction présente dans menuDesExercicesDisponibles car utilisée aussi avec le petit icone - dans l'apparence de la ligne exercice
   })
 
   $('.icone_up').off('click').on('click', function (e) {
@@ -897,14 +892,14 @@ function miseAJourDeLaListeDesExercices (preview) {
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
         if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
-            listeObjetsExercice[listeObjetsExercice.length-1].modeQcm = true
-            if (form_modeQcm[listeObjetsExercice.length-1]) {
-              form_modeQcm[listeObjetsExercice.length-1].checked = true
-            }
+          listeObjetsExercice[listeObjetsExercice.length - 1].modeQcm = true
+          if (form_modeQcm[listeObjetsExercice.length - 1]) {
+            form_modeQcm[listeObjetsExercice.length - 1].checked = true
+          }
         }
         if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
-            listeObjetsExercice[0].modeQcm = true
-            form_modeQcm[0].checked = true
+          listeObjetsExercice[0].modeQcm = true
+          form_modeQcm[0].checked = true
         }
         for (let i = 0; i < urlVars.length; i++) {
           if (urlVars[i].id !== liste_exercices[i]) {
@@ -918,7 +913,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && sortieHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -956,7 +951,7 @@ function miseAJourDeLaListeDesExercices (preview) {
       if (besoinXCas) {
         // On charge le javascript de XCas
         let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (sortieHtml) {
+        if (context.isHtml) {
           div = document.getElementById('exercices')
         } else {
           div = document.getElementById('div_codeLatex')
@@ -968,20 +963,14 @@ function miseAJourDeLaListeDesExercices (preview) {
                       </svg>
                     </div>
                   </div>`
-        return loadjs('/assets/externalJs/giacsimple.js')
-      }
-    })
-    .then(() => {
-      if (besoinXCas) {
-        // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-        return checkXCas()
+        return loadGiac()
       }
     })
     .then(() => {
       if (preview) {
-      //gestion de l'affichage des exercices 
-        const output = sortieHtml
-        sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+      // gestion de l'affichage des exercices
+        const output = context.isHtml
+        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
         if (typeof listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion === 'function') {
           try {
             listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
@@ -1008,25 +997,12 @@ function miseAJourDeLaListeDesExercices (preview) {
         if (!output) {
           gestionModules(false, listeObjetsExercice)
         }
-        sortieHtml = output
+        context.isHtml = output
         miseAJourDuCode() // permet de gérer les popup avec module.
       } else {
         miseAJourDuCode()
       }
     })
-}
-
-const checkXCas = () => {
-  return new Promise((resolve, reject) => {
-    const monInterval = setInterval(() => {
-      if (typeof (Module) !== 'undefined') {
-        if (Module.ready === true) {
-          resolve()
-          clearInterval(monInterval)
-        }
-      }
-    }, 500)
-  })
 }
 
 // Gestion des paramètres
@@ -1061,7 +1037,7 @@ function parametres_exercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (sortieHtml) {
+    if (context.isHtml) {
       div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
       if (exercice[i].pasDeVersionLatex) {
         div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
@@ -1070,7 +1046,7 @@ function parametres_exercice (exercice) {
         div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
       }
-      if (!est_diaporama) {
+      if (!context.isDiaporama) {
         div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
@@ -1310,7 +1286,7 @@ function parametres_exercice (exercice) {
   }
 
   for (let i = 0; i < exercice.length; i++) {
-    if (!sortieHtml) {
+    if (!context.isHtml) {
       // Les paramètres à ne gérer que pour la version LaTeX
       // Gestion de la consigne
       if (exercice[i].consigneModifiable) {
@@ -1424,7 +1400,7 @@ function parametres_exercice (exercice) {
     }
 
     // Gestion de la vidéo
-    if (sortieHtml && !est_diaporama) {
+    if (context.isHtml && !context.isDiaporama) {
       form_video[i] = document.getElementById('form_video' + i)
       form_video[i].value = exercice[i].video // Rempli le formulaire
       form_video[i].addEventListener('change', function (e) {
@@ -1622,8 +1598,8 @@ window.addEventListener('DOMContentLoaded', () => {
     miseAJourDuCode()
   }
 
-  if (sortieHtml && !est_diaporama) {
-    //gestion du bouton de zoom
+  if (context.isHtml && !context.isDiaporama) {
+    // gestion du bouton de zoom
     let taille = parseInt($('#affichage_exercices').css('font-size'))
     let lineHeight = parseInt($('#affichage_exercices').css('line-height'))
     $('#btn_zoom_plus').click(function () {
@@ -1661,8 +1637,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // handlers pour la prévisualisation des exercices cg 04-20201
   function afficher_popup () {
-    //lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
-    if ($('.popuptext').is(':visible')) { 
+    // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
+    if ($('.popuptext').is(':visible')) {
       $('.popuptext').empty()
       $('.popuptext').hide()
     } else {
@@ -1676,7 +1652,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   $(document).click(function (event) {
-    //On ferme la popup si au clic partout sur la feuille.
+    // On ferme la popup si au clic partout sur la feuille.
     if ($('.popuptext').is(':visible') || !$(event.target).hasClass('poppup') || !$(event.target).hasClass('icone_ppreview')) {
       $('.popuptext').hide()
       $('.popuptext').empty()
@@ -1686,7 +1662,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  //Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
+  // Gestion de l'évènement sur le click sur les flèches pour basculer les exercices en plein écran.
   $('#exo_plein_ecran').click(function (event) {
     if ($('#exo_plein_ecran').hasClass('left')) {
       $('#left').hide()
@@ -1703,14 +1679,14 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  window.addEventListener('resize', function (e) { 
-  //Pour gérer un problème de dimension de la colonne de droite si on change la taille de fenêtre après un passage en mode plein écran des exercices.
+  window.addEventListener('resize', function (e) {
+  // Pour gérer un problème de dimension de la colonne de droite si on change la taille de fenêtre après un passage en mode plein écran des exercices.
     if ($('#exo_plein_ecran').hasClass('left')) {
       $('#right').css('width', $('#left').css('width'))
     }
   })
-  
-  //Gestion des boutons QRcode et copie du lien
+
+  // Gestion des boutons QRcode et copie du lien
   if (document.getElementById('btnQRcode')) {
     document.getElementById('btnQRcode').addEventListener('click', function () {
       $('#ModalQRcode').html('<canvas width="800" height="800" id="canvasQRCode"></canvas>')
@@ -1754,7 +1730,7 @@ window.addEventListener('DOMContentLoaded', () => {
     form_choix_des_exercices.value = liste_des_exercices.join(',')
     copierExercicesFormVersAffichage(liste_des_exercices)
     try {
-      miseAJourDeLaListeDesExercices()
+    miseAJourDeLaListeDesExercices()
     } catch(err) {
       messageUtilisateur(err)
     }

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,arrondiVirgule,calcul,texNombrec,creerNomDePolygone,texNombre} from '../../modules/outils.js'
 
 /**

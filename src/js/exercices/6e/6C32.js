@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,arrondi,calcul,choice,arrondiVirgule,texNombre,texNombre2,tex_prix} from '../../modules/outils.js'
 
 export const titre = 'Problème - Les courses'
@@ -89,7 +90,7 @@ export default function Probleme_course() {
       )
     )} €<br>`;
 
-    if (!sortieHtml) {
+    if (!context.isHtml) {
       texteCorr =
         `Prix des ${aliment1} : $${texNombre(
           masse_en_kg_de_aliment1

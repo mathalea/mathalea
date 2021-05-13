@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,range,combinaisonListes,arrondi,calcul,texNombrec,prenomF,prenomM,texNombre,miseEnEvidence,tex_prix} from '../../modules/outils.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 
@@ -12,8 +13,8 @@ export default function Proportionnalite_pas_proportionnalite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortieHtml ? this.spacing = 2 : this.spacing = 1.4;
-  sortieHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1;
+  context.isHtml ? this.spacing = 2 : this.spacing = 1.4;
+  context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1;
   this.nbQuestions = 5;
   this.nbColsCorr = 1;
   this.nbCols = 1;

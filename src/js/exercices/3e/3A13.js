@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katexPopup2,numAlpha,warnMessage,lampeMessage,ppcm} from '../../modules/outils.js'
 import {SVG_engrenages} from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
@@ -18,8 +19,8 @@ export default function PPCM_Engrenages() {
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne = ``;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 2 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 4;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -29,13 +30,13 @@ export default function PPCM_Engrenages() {
 
 	var num_ex = '3A13'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-	if (sortieHtml) {
+	if (context.isHtml) {
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 	} else { // sortie LaTeX
 	};
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
@@ -51,7 +52,7 @@ export default function PPCM_Engrenages() {
 		//let type_de_questions_disponibles = [1];
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 		let txt_intro = `Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`;
-		if (sortieHtml) {
+		if (context.isHtml) {
 			txt_intro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
 			txt_intro += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 			//this.introduction += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
@@ -68,7 +69,7 @@ export default function PPCM_Engrenages() {
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = listeTypeDeQuestions[i];
 
-			if (sortieHtml) {
+			if (context.isHtml) {
 				let id_unique = `${num_ex}_${i}_${Date.now()}`;
 				//var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`;
 			}
@@ -77,7 +78,7 @@ export default function PPCM_Engrenages() {
 			var nb_dents_r2;
 			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
 			//txt_popup += texteGras('les nombres a et b sont premiers entre eux');
-			if (sortieHtml) {
+			if (context.isHtml) {
 				txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 			} else {
 				txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
@@ -93,7 +94,7 @@ export default function PPCM_Engrenages() {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 						// let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
 						// //txt_popup += texteGras('les nombres a et b sont premiers entre eux');
-						// if (sortieHtml) {
+						// if (context.isHtml) {
 						// 	txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 						// } else {
 						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';

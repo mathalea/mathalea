@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleurEtGras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 export const titre = 'Primalité ou pas'
 
@@ -15,9 +16,9 @@ export default function Premier_ou_pas() {
 	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
-	//sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacing = 1 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	//context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacing = 1 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
 
 	//this.correctionDetailleeDisponible = true;
@@ -35,7 +36,7 @@ export default function Premier_ou_pas() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', 'assets/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, calcul, texNombre, tex_prix, arrondi} from '../../modules/outils.js'
 export const titre = 'Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage'
 

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,choisitLettresDifferentes} from '../../modules/outils.js'
 import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageAngleDroit,labelPoint,similitude, } from '../../modules/2d.js';
 export const titre = 'Nature de parallélogrammes'

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, abs, calcul, tex_graphique, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction } from '../../modules/outils.js'
 export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
 
@@ -15,7 +16,7 @@ export default function Image_graphique () {
   this.consigne = ''
   this.sup = 3
   this.spacing = 1
-  sortieHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
+  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.typeExercice = 'MG32'
@@ -34,7 +35,7 @@ export default function Image_graphique () {
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, expression_f, numa, dena, numb, denb, numc, denc, ymax
 
     function initialise_variables () {
-      if (sortieHtml) { // repère -10 || 10
+      if (context.isHtml) { // repère -10 || 10
         x1 = randint(-6, -3)
         x2 = randint(x1 + 3, 2)
         x3 = randint(x2 + 2, 8)
@@ -116,7 +117,7 @@ export default function Image_graphique () {
       texteCorr += `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.<br>`
     }
 
-    if (!sortieHtml) {
+    if (!context.isHtml) {
       texte += '\n\n'
       texte += tex_graphique(expression_f)
     }

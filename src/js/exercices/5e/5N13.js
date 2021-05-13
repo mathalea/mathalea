@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 3 // type de question AMC

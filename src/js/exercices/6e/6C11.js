@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const amcReady = true
@@ -27,7 +28,7 @@ export default function Divisions_euclidiennes() {
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.";
   this.spacing = 2;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
   this.nbQuestions = 4;
   this.sup = 1;
   this.listePackages = "xlop";

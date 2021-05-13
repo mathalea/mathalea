@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombre} from '../../modules/outils.js'
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 

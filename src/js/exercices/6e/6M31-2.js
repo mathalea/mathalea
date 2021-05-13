@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Conversions avec des unités de volumes ou de capacités'
 

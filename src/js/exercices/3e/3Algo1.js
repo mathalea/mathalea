@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint} from '../../modules/outils.js'
 export const titre = 'Instruction conditionelle'
 
@@ -21,15 +22,15 @@ export default function Instruction_conditionelle() {
 	this.nbCols = 2;
 	this.nbColsCorr = 1;
 	this.nbQuestionsModifiable = false;
-	sortieHtml ? this.spacing = 1 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 1 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
 	this.listePackages = `scratch3`;
 	//let type_de_questions_disponibles;	
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		function scratchblocks_Tikz(code_svg, code_tikz) {
-			if (sortieHtml) {
+			if (context.isHtml) {
 				return code_svg;
 			} else {
 				return code_tikz;

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,nombre_avec_espace,modalPdf,modalVideo,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,numAlpha,machineMathsVideo,infoMessage,lampeMessage} from '../../modules/outils.js'
 import {SVG_machine_diag_3F1_act_mono, SVG_machine_diag_3F12} from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
@@ -19,8 +20,8 @@ export default function fonction_notion_vocabulaire() {
 	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Étudier différents procédés de calcul.`;
-	sortieHtml ? this.spacing = 3 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	//this.nbQuestions;// = 4;
 	this.nbQuestionsModifiable = false;
 	//this.correctionDetailleeDisponible = true;
@@ -31,7 +32,7 @@ export default function fonction_notion_vocabulaire() {
 
 	var num_ex = '3F1-act'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-	if (sortieHtml) {
+	if (context.isHtml) {
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 	} else { // sortie LaTeX
 	};
@@ -80,7 +81,7 @@ export default function fonction_notion_vocabulaire() {
 			couleur: `nombres`
 		});
 
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheFonctions-3F1-act.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsFonctions', '/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo');
 			this.introduction += machineMathsVideo(`assets/videos/machineMathsIntro.mp4`);
@@ -90,7 +91,7 @@ export default function fonction_notion_vocabulaire() {
 		for (let i = 0, x, y, z, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			type_de_questions = listeTypeDeQuestions[i];
 
-			if (sortieHtml) {
+			if (context.isHtml) {
 				var id_unique = `${num_ex}_${i}_${Date.now()}`;
 				var id_du_div_diag = `div_svg_diag${numeroExercice}${id_unique}`;
 				var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`;
@@ -102,7 +103,7 @@ export default function fonction_notion_vocabulaire() {
 					var j = 0; // pour la sous-numérotation
 
 					// question
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte = `La $\\mathbf{machine\\,f}$ renvoie le ` + katexPopup(`périmètre`, `Rappel`, `Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`) + ` d'un carré de côté $x$`;
 					} else {
 						texte = `<br>La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
@@ -110,13 +111,13 @@ export default function fonction_notion_vocabulaire() {
 					texte += `<br>`;
 					// machine						
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += machineMathsVideo(`assets/videos/machineMaths-f.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikzMachineMaths('f', '---', `P\\acute{e}rim\\grave{e}tre`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `P\\acute{e}rim\\grave{e}tre`, `???\\,cm`);
 					};
 					// sous question a/						
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'La valeur du périmètre est l\'image de la valeur du côté') + `<br>`;
 						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4 * x}$ cm.<br>`;
@@ -132,7 +133,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question b/	
 					y = randint(2, 99, [x]); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot antécédent', 'Antécédent', 'un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre') + `<br>`;
 						texteCorr += numAlpha(j) + ` Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`;
@@ -146,7 +147,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question c/
 					z = randint(2, 99, [x, y]); //augmenter les possibles pour éviter les questions déjà posées?						
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Quelle est l'image de ${z} par la `;
 						texte += katexPopup('fonction', 'Vocabulaire', '<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');
 						texte += ` $\\mathbf{f}$ ? &Eacute;crire la réponse sous la forme `;
@@ -160,7 +161,7 @@ export default function fonction_notion_vocabulaire() {
 					};
 
 					// sous question d/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte += ` &Eacute;crire la réponse sous la forme `;
 						texte += katexPopup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
@@ -176,7 +177,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question e/
 					txt_info = `Voici le diagramme d'une machine qui triple `;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 't', 'x', [['3', '3x']]);
@@ -197,7 +198,7 @@ export default function fonction_notion_vocabulaire() {
 					});
 
 					// sous question f/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Ecrire maintenant la fonction f en utilisant la forme  `;
 						texte += katexPopup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');
 						texteCorr += numAlpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>`;
@@ -212,7 +213,7 @@ export default function fonction_notion_vocabulaire() {
 					break;
 				case 2: // aire d'un carré de côté x
 					var j = 0; // pour la sous-numérotation
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte = `La $\\textbf{machine\\,g}$ renvoie ` + katexPopup('l\'aire', 'Rappel', 'L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.') + ` d'un carré de côté $x$`;
 					} else {
 						texte = `<br>La $\\textbf{machine\\,g}$ renvoie \\textbf{l\'aire} \\footnote{\\textbf{Rappel :} L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.} d'un carré de côté $x$`;
@@ -220,13 +221,13 @@ export default function fonction_notion_vocabulaire() {
 					texte += `<br>`;
 					// machine
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += machineMathsVideo(`assets/videos/machineMaths-g.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikzMachineMaths('g', '---', `Aire`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `Aire`, `???\\,cm^2`);
 					};
 					// sous question a/	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'la valeur de l\'aire est l\'image de la valeur du côté') + `<br>`;
 						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
@@ -243,7 +244,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question b/	
 					y = randint(2, 99, [x]); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Combien vaut le côté si la machine renvoie  ${nombre_avec_espace(y * y)} cm<sup>2</sup> ? Formuler la réponse `;
 						texte += katexPopup('avec le mot antécédent', 'Antécédent', 'un antécédent de la valeur d\'une aire est une valeur du côté qui a pour image cette aire') + `<br>`;
 						texteCorr += numAlpha(j) + ` Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`;
@@ -258,7 +259,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question c/
 					z = randint(2, 99, [x, y]); //augmenter les possibles pour éviter les questions déjà posées?							
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Quelle est l'image de ${z} par la `;
 						texte += katexPopup('fonction', 'Vocabulaire', '<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');
 						texte += ` $g$ ? &Eacute;crire la réponse sous la forme `;
@@ -274,7 +275,7 @@ export default function fonction_notion_vocabulaire() {
 					};
 
 					// sous question d/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte += ` &Eacute;crire la réponse sous la forme `;
 						texte += katexPopup('$\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire <b>g(4)=16</b>') + `<br>`;
@@ -291,7 +292,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question e/
 					txt_info = `Voici le diagramme d'une machine qui double `;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'g', 'x', [['2', '2x']]);
@@ -312,7 +313,7 @@ export default function fonction_notion_vocabulaire() {
 					});
 
 					// sous question f/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Ecrire maintenant la fonction g en utilisant la forme `;
 						texte += katexPopup('$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$');
 						texteCorr += numAlpha(j) + ` L'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.<br>`;
@@ -329,7 +330,7 @@ export default function fonction_notion_vocabulaire() {
 					var j = 0; // pour la sous-numérotation
 
 					// consigne
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte = `<br>`;
 					} else {
 						texte = ``;
@@ -339,13 +340,13 @@ export default function fonction_notion_vocabulaire() {
 					texte += `<br>`;
 					// machine
 					x = randint(2, 99); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += machineMathsVideo(`assets/videos/machineMaths-h.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikzMachineMaths('h', '---', `Multiplier\\,par\\,3`, `Ajouter\\,1`, `nombre\\,de`, `d\\acute{e}part\\,${x}`, `nombre\\,de`, `sortie\\,?`);
 					};
 					// sous question a/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'l\'image de la valeur à la sortie de la machine') + `<br>`;
 						texteCorr = numAlpha(j) + ` Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 = ${3 * x + 1}$<br>`;
@@ -362,7 +363,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question b/
 					y = randint(2, 99, [x]); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Combien vaut le nombre de départ si la machine renvoie  ${3 * y + 1} ? Formuler la réponse `;
 						texte += katexPopup('avec le mot antécédent', 'Antécédent', 'un antécédent d\'une valeur de sortie est une valeur du nombre de départ dont l\'image est ce nombre de sortie') + `<br>`;
 						texteCorr += numAlpha(j) + ` Si la machine renvoie $${3 * y + 1}$ alors le nombre de départ vaut $(${3 * y + 1}-1)\\div 3=${y}$<br>`;
@@ -377,7 +378,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question c/
 					z = randint(2, 99, [x, y]); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Quelle est l'image de ${-z} par la `;
 						texte += katexPopup('fonction', 'Vocabulaire', '<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');
 						texte += ` $h$ ? &Eacute;crire la réponse sous la forme `;
@@ -393,7 +394,7 @@ export default function fonction_notion_vocabulaire() {
 					};
 
 					// sous question d/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut $x$ ?`;
 						texte += ` &Eacute;crire la réponse sous la forme `;
 						texte += katexPopup('$\\mathbf{h(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire <b>h(4)=16</b>') + `<br>`;
@@ -411,7 +412,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question e/
 					txt_info = `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F12(id_du_div_diag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']]);
@@ -432,7 +433,7 @@ export default function fonction_notion_vocabulaire() {
 					});
 
 					// sous question f/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Ecrire maintenant la fonction h en utilisant la forme `;
 						texte += katexPopup('$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$');
 						texteCorr += numAlpha(j) + ` L'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.<br>`;
@@ -449,7 +450,7 @@ export default function fonction_notion_vocabulaire() {
 					var j = 0; // pour la sous-numérotation
 
 					// consigne
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte = `<br>`;
 					} else {
 						texte = ``;
@@ -458,13 +459,13 @@ export default function fonction_notion_vocabulaire() {
 					texte += `<br>`;
 					// machine
 					x = randint(2, 51); //augmenter les possibles pour éviter les questions déjà posées?						
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += machineMathsVideo(`assets/videos/machineMaths-d.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikzMachineMaths('d', '---', `nombre \\, total`, `de \\, diviseurs`, `nombre\\,de`, `d\\acute{e}part\\,${x}`, `nombre \\, de`, `diviseurs`);
 					};
 					// sous question a/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'l\'image de la valeur à la sortie de la machine') + `<br>`;
 						texteCorr = numAlpha(j) + ` Pour trouver la liste des diviseurs de ${x} on cherche tous les produits de deux facteurs qui donnent ${x}<br>`;
@@ -489,13 +490,13 @@ export default function fonction_notion_vocabulaire() {
 					texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${x}<br>`;
 					texteCorr += `La liste des diviseurs de ${x} est donc ` + listeDiviseurs(x) + `; Cette liste compte ` + listeDiviseurs(x).length + ` nombres. <br>`;
 					texteCorr += `Donc ` + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texteCorr += `<br>`;
 					};
 
 					// sous question b/
 					x = randint(1, 9); //augmenter les possibles pour éviter les questions déjà posées?
-					if (sortieHtml) {
+					if (context.isHtml) {
 						//texte += numAlpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
 						texte += numAlpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ? En existe-t-il plusieurs ?<br>`;
 						texteCorr += numAlpha(j) + ` Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les`;
@@ -516,7 +517,7 @@ export default function fonction_notion_vocabulaire() {
 
 					// sous question c/
 					x = randint(51, 99); //augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += numAlpha(j) + ` Quelle est l'image de ${x} par la `;
 						texte += katexPopup('fonction', 'Vocabulaire', '<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');
 						texte += ` $d$ ? &Eacute;crire la réponse sous la forme `;
@@ -547,12 +548,12 @@ export default function fonction_notion_vocabulaire() {
 					};
 					texteCorr += ` ; Cette liste compte ` + listeDiviseurs(x).length + ` nombres.<br> `;
 					texteCorr += `Donc ` + listeDiviseurs(x).length + ` est l'image de ${x} par la fonction d.`;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texteCorr += `<br>`;
 					};
 
 					// sous question d/
-					if (sortieHtml) {
+					if (context.isHtml) {
 						// texte += numAlpha(j) + ` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
 						texte += numAlpha(j) + ` Peut-on trouver plusieurs antécédents de 3 par la fonction d ? Qu'ont-ils de commun ?<br>`;
 						texteCorr += numAlpha(j) + ` Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
@@ -577,7 +578,7 @@ export default function fonction_notion_vocabulaire() {
 					texteCorr += ` ; Cette liste compte ` + listeDiviseurs(25).length + ` nombres, `;
 					texteCorr += `donc 25 est un antécédent de 3 par la fonction d.<br>`;
 					texteCorr += `Tu peux en trouver d'autres, qu'ont ils de commun ?`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `\\end{enumerate}`;
 						texteCorr += `\\end{enumerate}`;
 					};

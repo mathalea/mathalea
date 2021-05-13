@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotation,homothetie,similitude,codageAngleDroit,codeSegments,codeAngle,grille,seyes,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
@@ -22,7 +23,7 @@ export default function Nommer_et_coder_des_polygones() {
     this.listeCorrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, carreaux
     ppc = 40
-    if (sortieHtml) {
+    if (context.isHtml) {
       sc = 0.5
     } else {
       sc = 0.4

@@ -1,7 +1,7 @@
 import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
-import Exercice from '../ClasseExercice.js'
-
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Aires de triangles'
 
@@ -20,7 +20,7 @@ export default function AireDeTriangles () {
     "Calculer l'aire des 3 triangles suivants."
   this.spacing = 2
   // eslint-disable-next-line no-undef
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

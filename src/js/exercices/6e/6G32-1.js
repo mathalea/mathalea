@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,shuffle,combinaisonListes,lettreDepuisChiffre,texcolors,texteGras} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,droite,segment,demiDroite,polygone,codeAngle,texteParPosition,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Propriétés de conservation de la symétrie axiale'

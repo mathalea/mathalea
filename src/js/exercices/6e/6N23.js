@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,texNombre,texFraction,calcul} from '../../modules/outils.js'
 
 export const titre = 'Donner l’écriture décimale d’une fraction décimale'
@@ -47,7 +48,7 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
         " $";
       if (this.listeQuestions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
         this.listeQuestions.push(texte);

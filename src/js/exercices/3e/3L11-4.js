@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,choice,combinaisonListes,abs,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 export const titre = 'Factoriser une expression'
 
@@ -16,7 +17,7 @@ export default function Factoriser_par_nombre_ou_x() {
 	this.nbQuestions = 8;
 	this.nbCols = 2;
 	this.nbColsCorr = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions

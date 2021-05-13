@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleurEtGras,itemize,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 export const titre = 'Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 
@@ -16,8 +17,8 @@ export default function Premier_ou_pas_critere_par7_par11() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 7;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 2;
@@ -26,7 +27,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 
 	this.nouvelleVersion = function (numeroExercice) {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
@@ -45,7 +46,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
 
 		let string_rappel_b = `Ces critères de divisibilité pourront être utiles :`;
-		if (sortieHtml) {
+		if (context.isHtml) {
 			string_rappel_b += `<br>`;
 			string_rappel_b += `- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l’est.<br>`;
 			string_rappel_b += `- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.`;
@@ -58,7 +59,7 @@ export default function Premier_ou_pas_critere_par7_par11() {
 			string_rappel_b += `\\par\\vspace{0.5cm}`;
 		};
 		string_rappel_b += `Ainsi que cette liste des nombres premiers inférieurs à 100 : `;
-		if (sortieHtml) {
+		if (context.isHtml) {
 			string_rappel_b += `<br>`;
 		} else {
 			string_rappel_b += `\\par\\vspace{0.25cm}`;

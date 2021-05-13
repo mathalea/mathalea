@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 
 export const amcReady = true
@@ -18,8 +19,8 @@ export default function Reciproque_Thales () {
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   this.nbCols = 1
   this.nbColsCorr = 1
   this.quatrieme = false
@@ -97,7 +98,7 @@ export default function Reciproque_Thales () {
     //   fraction2 = [];
     //  fraction1 = fractionSimplifiee(num1, den1);
     // fraction2 = fractionSimplifiee(num2, den2);
-    if (sortieHtml) {
+    if (context.isHtml) {
       this.typeExercice = 'MG32'
       this.dimensionsDivMg32 = [700, 500]
       let codeBase64

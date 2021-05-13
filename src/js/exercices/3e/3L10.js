@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 export const titre = 'Donner l’opposé d’une expression'
 
@@ -15,7 +16,7 @@ export default function Oppose_expression() {
   this.consigne = "Développer et réduire les expressions suivantes.";
   this.spacing = 1;
   this.nbQuestions = 6;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katexPopup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
@@ -16,8 +17,8 @@ export default function Problemes_grandeurs_composees() {
   this.nbQuestionsModifiable = false;
   this.nbCols = 1;
   this.nbColsCorr = 1;
-  sortieHtml ? (this.spacing = 3) : (this.spacing = 1.5);
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5);
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2);
   this.sup = false;
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -48,7 +49,7 @@ export default function Problemes_grandeurs_composees() {
 
     let liste_index = combinaisonListes(grandeurs, this.nbQuestions);
     let type_aide = 1;
-    if (!sortieHtml) type_aide = 0;
+    if (!context.isHtml) type_aide = 0;
     let solutes = [
       [`sel`, `d'eau`, 300],
       [`sucre`, `d'eau`, 2000],
@@ -187,7 +188,7 @@ export default function Problemes_grandeurs_composees() {
           texte += `.<br>Le prix d'un kWh est de ${texNombrec(
             prixkwh
           )} €.<br>`;
-          if (sortieHtml) {
+          if (context.isHtml) {
             // les boutons d'aide uniquement pour la version html
           }
           texte +=

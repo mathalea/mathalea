@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,listeDiviseurs,cribleEratostheneN,texteOuPas} from '../../modules/outils.js'
 
 
@@ -17,8 +18,8 @@ export default function Liste_des_diviseurs_5e() {
 	//this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
 	this.consigne = ``;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 3;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -26,7 +27,7 @@ export default function Liste_des_diviseurs_5e() {
 
 	this.nouvelleVersion = function () {
 		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			//this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
@@ -53,11 +54,11 @@ export default function Liste_des_diviseurs_5e() {
 					let nbre_diviseurs_M = listeDiviseurs(M).length;
 
 					texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texte += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`;
 					} else {
 
@@ -83,11 +84,11 @@ export default function Liste_des_diviseurs_5e() {
 
 					// correction
 					texteCorr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texteCorr += `$\\medskip$`;
 					};
 					texteCorr += `<br>`;
-					if (sortieHtml) {
+					if (context.isHtml) {
 						texteCorr += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`;
 					} else {
 						texteCorr += `$\\begin{array}{|c|c|c|}\n`;
@@ -109,7 +110,7 @@ export default function Liste_des_diviseurs_5e() {
 						texteCorr += `\\hline\n`;
 					};
 					texteCorr += `\\end{array}\n$`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texteCorr += `$\\medskip$`;
 					};
 					texteCorr += `<br>`;

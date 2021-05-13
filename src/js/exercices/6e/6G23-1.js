@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { gestionQcmInteractif, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
@@ -89,7 +90,7 @@ export default function MesurerUnAngle () {
         tabicone])
       /********************************************/
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr

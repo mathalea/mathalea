@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, creerCouples, randint, shuffle, calcul, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { SVG_tracer_point, SVG_repere, Latex_repere } from '../../modules/macroSvgJs.js'
 import { SVG } from '@svgdotjs/svg.js'
@@ -63,7 +64,7 @@ export default function Reperage_point_du_plan () {
     points = shuffle(points)
 
     for (let l = 0, lettre = randint(1, 20); l < 5; l++) { nom.push(lettreDepuisChiffre(l + lettre)) }
-    if (sortieHtml) {
+    if (context.isHtml) {
       const id_unique = `${Date.now()}`
       const id_du_div = `div_svg${numeroExercice}${id_unique}`
       this.consigne = `<div id="${id_du_div}" style="height: ${h}px"></div>`

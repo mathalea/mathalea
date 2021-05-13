@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, tex_prix, modal_url } from '../../modules/outils.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 

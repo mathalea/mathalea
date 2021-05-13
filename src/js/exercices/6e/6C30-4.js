@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
@@ -62,7 +63,7 @@ export default function PlacerLaVirgule () {
 
       texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = \\ldots $<br>`
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte

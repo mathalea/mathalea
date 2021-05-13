@@ -1,5 +1,5 @@
-import Exercice from '../ClasseExercice.js'
-// eslint-disable-next-line camelcase
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Exercice exemple'
 

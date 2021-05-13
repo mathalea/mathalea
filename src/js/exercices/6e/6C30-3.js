@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
@@ -70,7 +71,7 @@ export default function MultiplicationMentalDecimaux () {
           texte += `Calcul : $${a} + ${b}$. <br>`
 
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
@@ -93,7 +94,7 @@ export default function MultiplicationMentalDecimaux () {
 
           texte += `Calcul : $${a} \\times ${b}$. <br>`
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
@@ -116,7 +117,7 @@ export default function MultiplicationMentalDecimaux () {
 
           texte += `Calcul : $${texNombre2(a / 100)} + ${texNombre2(b / 100)}$. <br>`
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
@@ -141,7 +142,7 @@ export default function MultiplicationMentalDecimaux () {
 
           texte += `Calcul : $${texNombre2(a / 100)} \\times ${texNombre2(b / 100)}$. <br>`
           shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !mathalea.sortieAMC) {
+          if (this.modeQcm && !context.isAmc) {
             this.tableauSolutionsDuQcm[i] = tabicone
             texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
             texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr

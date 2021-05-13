@@ -1,5 +1,6 @@
 /* global mathalea  */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
 import { gestionQcmInteractif, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
@@ -156,7 +157,7 @@ export default function EcrireUneExpressionLitterale () {
       }
       [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
       shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
+      if (this.modeQcm && !context.isAmc) {
         this.tableauSolutionsDuQcm[i] = tabicone
         texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
         texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
