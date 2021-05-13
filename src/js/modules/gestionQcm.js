@@ -1,5 +1,7 @@
+/* global $ */
 import { context } from './context.js'
 import { shuffle } from './outils.js'
+import { messageFeedback } from './erreurs.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
@@ -11,38 +13,53 @@ export function gestionAutoCorrection (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
+    // Couleur pour surligner les label avec une opacité de 50%
     const monRouge = 'rgba(217, 30, 24, 0.5)'
     const monVert = 'rgba(123, 239, 178, 0.5)'
     const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
         for (let i = 0; i < exercice.nbQuestions; i++) {
+          // i est l'indice de la question
           let nbBonnesReponses = 0
           let nbMauvaisesReponses = 0
           let nbBonnesReponsesAttendues = 0
+          let indiceFeedback
+          // Compte le nombre de réponses justes attendues
           for (let k = 0; k < exercice.autoCorrection[i].propositions.length; k++) {
             if (exercice.autoCorrection[i].propositions[k].statut) nbBonnesReponsesAttendues++
           }
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          exercice.autoCorrection[i].propositions.forEach((prop, rep) => {
-            const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${rep}`)
-            const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${rep}`)
-            if (prop.statut) {
+          exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
+            const label = document.querySelector(`#labelEx${exercice.numeroExercice}Q${i}R${indice}`)
+            const check = document.querySelector(`#checkEx${exercice.numeroExercice}Q${i}R${indice}`)
+            if (proposition.statut) {
               label.style.backgroundColor = monVert
               if (check.checked) {
                 nbBonnesReponses++
+                indiceFeedback = indice
               }
             } else if (check.checked === true) {
               label.style.backgroundColor = monRouge
               nbMauvaisesReponses++
+              indiceFeedback = indice
             }
           })
+          let typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
             spanReponseLigne.innerHTML = '✔︎'
             spanReponseLigne.style.color = 'green'
           } else {
             spanReponseLigne.innerHTML = '✖︎'
             spanReponseLigne.style.color = 'red'
+            typeFeedback = 'error'
+          }
+          if (indiceFeedback > -1 && nbMauvaisesReponses < 2 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback ) {
+            messageFeedback({
+              id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+              texte: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+              type: typeFeedback
+            })
           }
           spanReponseLigne.style.fontSize = 'large'
         }
@@ -82,6 +99,7 @@ export function propositionsQcm (numeroExercice, i, propositions) {
     for (let rep = 0; rep < propositions.length; rep++) {
       if (!propositions.options.ordered) {
         if (propositions.options.lastChoice === undefined || propositions.options.lastChoice <= 0 || propositions.options.lastChoice > propositions.length) {
+        if (true) {
           shuffle(propositions)
         } else {
           if (typeof propositions.options.lastChoice === 'number' && propositions.options.lastChoice > 0 && propositions.options.lastChoice < propositions.length) {
@@ -104,7 +122,8 @@ export function propositionsQcm (numeroExercice, i, propositions) {
       }
     }
     if (context.isHtml) {
-      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span></form>`
+      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span>`
+      texte += `\n<div id="feedbackEx${numeroExercice}Q${i}"></span></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
