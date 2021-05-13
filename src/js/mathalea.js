@@ -494,7 +494,6 @@ function miseAJourDuCode () {
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
-    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
