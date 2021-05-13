@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -14,7 +14,7 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
  * @Auteur Rémi Angot
  * 6N43-2
  */
-export default function TableauCriteresDeDivisibilite () {
+export default function TableauCriteresDeDivisibilite() {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
 
@@ -26,7 +26,7 @@ export default function TableauCriteresDeDivisibilite () {
   this.qcmDisponible = true
   this.modeQcm = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     if (!this.modeQcm) {
       this.consigne =
@@ -472,51 +472,61 @@ export default function TableauCriteresDeDivisibilite () {
           this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
           break
       }
-      if (!context.isAmc) {
-        if (this.modeQcm) {
-          texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible ${espace}  `
-          texteCorr += `$${texNombre2(tableauDeNombres[i])}$ est divisible ${espace}  `
-
-          this.autoCorrection[i].options = {
-            ordered: true,
-            lastChoice: 4
-          }
-          texte += propositionsQcm(this, i).texte
-          texte += '<br>'
-          texteCorr += '<br>'
-        }
+      this.autoCorrection[i].options = {
+        ordered: true,
+        lastChoice: 4
       }
-    }
+      if (!context.isAmc && this.modeQcm) {
+        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible ${espace}  `
+        texte += propositionsQcm(this, i).texte
+        texte += '<br>'
+      }
+    } // fin de boucle de préparation des question
+    // mise en forme selon les cas de figures
+    //l'enoncé
     if (context.isHtml && !this.modeQcm) {
       texte = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
-      texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
-    } else
-    if (!context.isAmc && !this.modeQcm) {
+    }
+    if (!context.isHtml && !this.modeQcm) {
       texte = '$\\begin{array}{|l|c|c|c|c|}\n'
-      texteCorr = '$\\begin{array}{|l|c|c|c|c|}\n'
     }
     if (!context.isAmc && !this.modeQcm) {
       texte += '\\hline\n'
-      texteCorr += '\\hline\n'
       texte += '\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n'
-      texteCorr += '\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n'
       texte += '\\hline\n'
-      texteCorr += '\\hline\n'
       for (let k = 0; k < this.nbQuestions; k++) {
         texte += `${texNombre2(tableauDeNombres[k])} & & & & \\\\\n`
         texte += '\\hline\n'
       }
+      texte += '\\end{array}\n$'
+    }
+
+    // la correction
+    if (context.isHtml) {
+      texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
+    }
+    if (!context.isHtml && !context.isAmc) {
+      texteCorr = '$\\begin{array}{|l|c|c|c|c|}\n'
+    }
+
+    if (!context.isAmc) {
+      texteCorr += '\\hline\n'
+      texteCorr += '\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n'
+      texteCorr += '\\hline\n'
       for (let l = 0; l < this.nbQuestions; l++) {
         texteCorr += tableauDeNombresAvecCorrection[l]
         texteCorr += '\\hline\n'
       }
-      texte += '\\end{array}\n$'
       texteCorr += '\\end{array}$\n'
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     if (!context.isAmc) {
-      listeQuestionsToContenuSansNumero(this)
+      if (this.modeQcm) {
+        listeQuestionsToContenu(this)
+      } else {
+        listeQuestionsToContenuSansNumero(this)
+      }
     } else {
       this.amc = [this.id, this.autoCorrection, titre, amcType]
     }
