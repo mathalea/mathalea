@@ -1,6 +1,7 @@
 /* global mathalea */
 import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
+import { context } from './context.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -299,11 +300,10 @@ function Sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color) {
   this.nb_paralleles = nb_paralleles
   const objets = []; let c1; let c2; let c3; let c4; let C; let D
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  let cote1, cote2, rayon2, R
-  rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
-  R = rayon
-  cote1 = 'caché'
-  cote2 = 'visible'
+  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
+  const R = rayon
+  const cote1 = 'caché'
+  const cote2 = 'visible'
   // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,context.anglePerspective),rotationV3d(this.rayon,this.normal,context.anglePerspective),true,this.color))
   for (let k = 0, rayon3; k < 1; k += 1 / (this.nb_paralleles + 1)) {
     C = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(k * Math.PI / 2))
