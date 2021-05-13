@@ -43,12 +43,12 @@ export function messageUtilisateur (erreur) {
   } else if (erreur.code === 'mg32load') {
     divErreur = divMessage({titre:`Erreur de chargement du module mg32`,
       message:`Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-        Essayez de rafraichir la page. <br> Si l'erreur persiste contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
+        Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
       niveau:'warning'})
   } else if (erreur.code === 'scratchLoad') {
     divErreur = divMessage({titre:`Erreur de chargement du module scratch`,
       message:`Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-        Essayez de rafraichir la page. <br> Si l'erreur persiste contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
+        Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
       niveau:'warning'})
   }
   document.getElementById('containerErreur').innerHTML = divErreur;

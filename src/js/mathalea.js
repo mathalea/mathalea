@@ -243,20 +243,25 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
   } catch (error) {
     messageUtilisateur(error)
   }
-  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
-  if (besoinScratch) {
-    await scratchTraductionFr()
-    /* global scratchblocks */
-    // @todo ajouter un try/catch pour gérer un pb de chargement
-    scratchblocks.renderMatching('pre.blocks', {
-      style: 'scratch3',
-      languages: ['fr']
-    })
-    scratchblocks.renderMatching('code.b', {
-      inline: true,
-      style: 'scratch3',
-      languages: ['fr']
-    })
+  try {
+    const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
+    if (besoinScratch) {
+      await scratchTraductionFr()
+      /* global scratchblocks */
+      scratchblocks.renderMatching('pre.blocks', {
+        style: 'scratch3',
+        languages: ['fr']
+      })
+      scratchblocks.renderMatching('code.b', {
+        inline: true,
+        style: 'scratch3',
+        languages: ['fr']
+      })
+    }
+  } catch (error) {
+      // On traite l'erreur
+      console.log(error)
+      messageUtilisateur({code : 'scratchLoad'})
   }
 
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
