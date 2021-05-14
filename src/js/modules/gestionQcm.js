@@ -1,7 +1,7 @@
 /* global $ */
 import { context } from './context.js'
 import { shuffle } from './outils.js'
-import { messageFeedback } from './erreurs.js'
+import { messageFeedback } from './messages.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
