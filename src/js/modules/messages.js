@@ -67,15 +67,15 @@ export function messageUtilisateur (erreur) {
  * @param {id : 'id du div', texte: 'message', type:'error ou positive'}
  * @author Rémi ANGOT
  */
-export function messageFeedback (options) {
-  const typeMessage = options.type || 'error'
-  if (options.id && options.texte) {
-    const html = `<div id="messageFeedback${options.id}" class="ui ${typeMessage} message" style="width:400px"><i id="fermerFeedback${options.id}" class="close icon"></i>
-        ${options.texte}
+export function messageFeedback ({ id, texte = '', type = 'error' } = {}) {
+  const typeMessage = type || 'error'
+  if (id && texte) {
+    const html = `<div id="messageFeedback${id}" class="ui ${typeMessage} message" style="width:400px"><i id="fermerFeedback${id}" class="close icon"></i>
+        ${texte}
   </div>`
-    document.getElementById(options.id).innerHTML = html
-    document.getElementById(`fermerFeedback${options.id}`).addEventListener('click', function () {
-      document.getElementById(`messageFeedback${options.id}`).remove()
+    document.getElementById(id).innerHTML = html
+    document.getElementById(`fermerFeedback${id}`).addEventListener('click', function () {
+      document.getElementById(`messageFeedback${id}`).remove()
     })
   }
 }
