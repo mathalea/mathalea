@@ -23,6 +23,7 @@ export default function Divisions_euclidiennes_egalite () {
   this.sup = 1
   this.qcm = ['6C11-1', [], 'Divisions euclidiennes : déterminer reste et quotient à partir d\'une égalité', 3, {}]
   this.nouvelleVersion = function () {
+    this.autoCorrection=[]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let type_de_questions_disponibles, type_de_questions
@@ -78,14 +79,17 @@ export default function Divisions_euclidiennes_egalite () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        /** *************** AMC Open ************************/
-        this.qcm[1].push([texte, [texteCorr], [4]]) // [question,[reponse],[nb_lignes_cadre]]
-        /*********************************************/
-        i++
+      // Pour AMC question AmcOpen
+      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 2, feedback: '' }] }
+      i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    }
+
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

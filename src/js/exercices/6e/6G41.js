@@ -24,7 +24,7 @@ export default function RepresenterUnSolide () {
   this.classe = 6
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6G41', [], 'Compléter une représentation en perspective cavalière', 3, {}]
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles
 
     if (this.sup === 3) { typeDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typeDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typeDeQuestionsDisponibles = [1, 2, 4, 6] } else { typeDeQuestionsDisponibles = [parseInt(this.sup)] }
@@ -345,12 +345,16 @@ export default function RepresenterUnSolide () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
-        this.qcm[1][0] = [enonce, [correction], [5]]
+        // Pour AMC question AmcOpen
+        this.autoCorrection[i] = { enonce: enonce, propositions: [{ texte: correction, statut: 3, feedback: '' }] }
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    }
   }
 
   this.besoinFormulaireNumerique = ['Type de solides', 3, '1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés']

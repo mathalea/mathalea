@@ -21,8 +21,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.qcm = ['5N13', [], 'Simplification de fractions', 3]
-
+    this.autoCorrection=[]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const liste_fractions = [
@@ -86,12 +85,13 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' $'
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
-      /*****************************************************/
-      // Pour AMC
-      this.qcm[1].push([texte, [texteCorr], [1]])
-    /****************************************************/
+        // Pour AMC question AmcOpen
+        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    }
   }
   this.besoinFormulaireNumerique = [
     'Valeur maximale du facteur commun',
