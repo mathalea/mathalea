@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
+import { gestionAutoCorrection, propositionsQcm,elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -78,7 +78,7 @@ export default function MesurerUnAngle () {
       xMax = Math.max(A.x, C.x, B.x) + 1
       yMin = Math.min(A.y, C.y, B.y) - 1
       yMax = Math.max(A.y, C.y, B.y) + 1
-      mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+      context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
       objetsCorrection = [s1, s2, labels, Apos, Bpos, Cpos, secteur]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
@@ -100,6 +100,6 @@ export default function MesurerUnAngle () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+  gestionAutoCorrection(this)
   this.besoinFormulaireNumerique = ['Précision de l\'angle', 3, '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°']
 }

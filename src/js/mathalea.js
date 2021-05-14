@@ -1,4 +1,3 @@
-/* global mathalea $  */
 /* eslint-disable camelcase */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
@@ -6,6 +5,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExercic
 import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
+import { messageUtilisateur } from './modules/messages.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -22,9 +22,6 @@ import { context, setOutputDiaporama, setOutputLatex } from './modules/context.j
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
-
-// Les variables globales nécessaires aux exercices (pas terrible...)
-window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
 
 if (document.location.href.indexOf('mathalealatex.html') > 0) {
   setOutputLatex()
@@ -141,7 +138,7 @@ function gestionSpanChoixExercice (elem) {
   }
 }
 
-// pour ne pas déclencher lea gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
+// pour ne pas déclencher la gestion des evenemet sur les pages qui n'ont pas la div choix d'exercice.
 if (document.getElementById('choix_exercices_div')) {
   ajoutHandlersEtiquetteExo()
 }
@@ -183,6 +180,9 @@ form_choix_des_exercices.addEventListener('change', function (e) {
     liste_des_exercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
     // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
   }
+  if (document.getElementById('affichageErreur')) {
+    document.getElementById('affichageErreur').remove()
+  }
   copierExercicesFormVersAffichage(liste_des_exercices)
   miseAJourDeLaListeDesExercices()
 })
@@ -219,7 +219,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     variation: 'inverted',
     inline: true
   })
-
+  try {
   const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
   if (exosMg32.length) {
     // faut charger mathgraph et lui filer ces figures
@@ -233,26 +233,32 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     } catch (error) {
       // On traite l'erreur
       console.log(error)
-      // FIXME afficher un retour utilisateur
+      throw({code : 'mg32load'})
     }
   }
-
-  const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
-  if (besoinScratch) {
-    await scratchTraductionFr()
-    /* global scratchblocks */
-    // @todo ajouter un try/catch pour gérer un pb de chargement
-    scratchblocks.renderMatching('pre.blocks', {
-      style: 'scratch3',
-      languages: ['fr']
-    })
-    scratchblocks.renderMatching('code.b', {
-      inline: true,
-      style: 'scratch3',
-      languages: ['fr']
-    })
+  } catch (error) {
+    messageUtilisateur(error)
   }
-
+  try {
+    const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
+    if (besoinScratch) {
+      await scratchTraductionFr()
+      /* global scratchblocks */
+      scratchblocks.renderMatching('pre.blocks', {
+        style: 'scratch3',
+        languages: ['fr']
+      })
+      scratchblocks.renderMatching('code.b', {
+        inline: true,
+        style: 'scratch3',
+        languages: ['fr']
+      })
+    }
+  } catch (error) {
+      // On traite l'erreur
+      console.log(error)
+      messageUtilisateur({code : 'scratchLoad'})
+  }
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
   if (besoinIEP) {
     for (const id of window.listeAnimationsIepACharger) {
@@ -307,8 +313,10 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
-      if (obj.qcmDisponible) {
-        iconeQCM = `<span data-tooltip="Mode QCM"><i data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      if (obj.qcmDisponible && obj.modeQcm) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square icon icone_qcm"></i><span>`
+      } else if (obj.qcmDisponible) {
+        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
       }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
         contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
@@ -355,8 +363,8 @@ function miseAJourDuCode () {
   window.listeScriptsIep = {} // Dictionnaire de tous les scripts xml IEP
   window.listeAnimationsIepACharger = [] // Liste des id des scripts qui doivent être chargés une fois le code HTML mis à jour
   // Fixe la graine pour les fonctions aléatoires
-  if (!mathalea.graine) {
-    mathalea.graine = strRandom({
+  if (!context.graine) {
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
@@ -364,11 +372,11 @@ function miseAJourDuCode () {
     })
     // Saisi le numéro de série dans le formulaire
     if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
-      document.getElementById('form_serie').value = mathalea.graine
+      document.getElementById('form_serie').value = context.graine
     }
   }
   // Contrôle l'aléatoire grâce à SeedRandom
-  seedrandom(mathalea.graine, { global: true });
+  seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
@@ -418,10 +426,10 @@ function miseAJourDuCode () {
         }
         listeObjetsExercice[i].numeroExercice = i
       }
-      if (typeof mathalea.duree !== 'undefined') {
-        fin_de_l_URL += `&duree=${mathalea.duree}`
+      if (typeof context.duree !== 'undefined') {
+        fin_de_l_URL += `&duree=${context.duree}`
       }
-      fin_de_l_URL += `&serie=${mathalea.graine}`
+      fin_de_l_URL += `&serie=${context.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
@@ -517,6 +525,7 @@ function miseAJourDuCode () {
           contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
+      
       }
       contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
       contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
@@ -527,7 +536,7 @@ function miseAJourDuCode () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.   
     document.getElementById('exercices').innerHTML = contenuDesExercices
     if (scroll_level) {
       document.getElementById('right').scrollTop = scroll_level
@@ -536,6 +545,22 @@ function miseAJourDuCode () {
     gestionModules(false, listeObjetsExercice)
     const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
+    // En cas de clic sur la correction, on désactive les exercices interactifs
+    const bntCorrection = document.getElementById('btnCorrection')
+    if (bntCorrection) {
+      bntCorrection.addEventListener('click', () => {
+        // Le bouton "Vérifier les réponses" devient inactif
+        const boutonsCheck = document.querySelectorAll(`.checkReponses`)
+        boutonsCheck.forEach(function (bouton) {
+          bouton.classList.add('disabled')
+        })
+        // On ne peut plus cliquer dans les checkboxs
+        const checkboxs = document.querySelectorAll(`.monQcm`)
+        checkboxs.forEach(function (checkbox) {
+          checkbox.classList.add('read-only')
+        })
+      })
+    }
   }
   if (!context.isHtml) {
     // Sortie LaTeX
@@ -727,11 +752,13 @@ function miseAJourDuCode () {
     if (checkElem.prop('checked')) {
       $(`#form_modeQcm${num_ex}`).prop('checked', false).trigger('change')
       listeObjetsExercice[num_ex].modeQcm = false
+      miseAJourDuCode()
     } else {
       $(`#form_modeQcm${num_ex}`).prop('checked', true).trigger('change')
-      listeObjetsExercice[num_ex].modeQcm = true
-    }
-    miseAJourDuCode()
+      listeObjetsExercice[num_ex].modeQcm = true 
+      miseAJourDuCode()
+      $(`#boutonQcm¤${num_ex}`).removeClass('outline')      
+    }        
   })
 
   // icone_paramètres fait le focus sur les parmètres correspondant à l'exercice
@@ -814,6 +841,10 @@ function miseAJourDeLaListeDesExercices (preview) {
     } catch (error) {
       console.log(error)
       console.log(`Exercice ${id} non disponible`)
+      throw ({
+        code: 'codeExerciceInconnu',
+        exercice: id
+      })
     }
     if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
       listeObjetsExercice[i] = dictionnaireDesExercices[id]
@@ -1359,9 +1390,9 @@ function parametres_exercice (exercice) {
       form_ModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
-          mathalea.sortieNB = true
+          context.sortieNB = true
         } else {
-          mathalea.sortieNB = false
+          context.sortieNB = false
         }
         miseAJourDuCode()
       })
@@ -1427,10 +1458,10 @@ function parametres_exercice (exercice) {
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
       const form_serie = document.getElementById('form_serie')
-      form_serie.value = mathalea.graine // Rempli le formulaire avec la graine
+      form_serie.value = context.graine // Rempli le formulaire avec la graine
       form_serie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        mathalea.graine = e.target.value
+        context.graine = e.target.value
         miseAJourDuCode()
       })
     }
@@ -1581,13 +1612,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
   }
   function nouvelles_donnees () {
-    mathalea.graine = strRandom({
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
       startsWithLowerCase: false
     })
-    document.getElementById('form_serie').value = mathalea.graine // mise à jour du formulaire
+    document.getElementById('form_serie').value = context.graine // mise à jour du formulaire
     miseAJourDuCode()
   }
 
@@ -1710,10 +1741,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
   if (serie) {
-    mathalea.graine = serie
+    context.graine = serie
   }
   if (params.get('duree')) {
-    mathalea.duree = params.get('duree')
+    context.duree = params.get('duree')
   }
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {
@@ -1722,6 +1753,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     form_choix_des_exercices.value = liste_des_exercices.join(',')
     copierExercicesFormVersAffichage(liste_des_exercices)
+    try {
     miseAJourDeLaListeDesExercices()
+    } catch(err) {
+      messageUtilisateur(err)
+    }
   }
 })

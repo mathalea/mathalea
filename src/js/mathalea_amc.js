@@ -27,10 +27,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
-// Les variables globales nécessaires aux exercices (pas terrible...)
-window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.context.isHtml = true
-window.est_diaporama = false
+context.isHtml = true
+context.isDiaporama = false
+context.isAmc = true
+context.sortieNB = false
+context.anglePerspective = 30
+context.coeffPerspective = 0.5
+context.pixelsParCm = 20
+context.scale = 1
+context.unitesLutinParCm = 50
+context.mainlevee = false
+context.amplitude = 1
+context.fenetreMathalea2d = [-1, -10, 29, 10]
+context.objets2D = []
 
 // (function () {
 // IIFE principal
@@ -220,8 +229,8 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
 function mise_a_jour_du_code () {
   window.MG32_tableau_de_figures = []
   // Fixe la graine pour les fonctions aléatoires
-  if (!mathalea.graine) {
-    mathalea.graine = strRandom({
+  if (!context.graine) {
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
@@ -229,11 +238,11 @@ function mise_a_jour_du_code () {
     })
     // Saisi le numéro de série dans le formulaire
     if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
-      document.getElementById('form_serie').value = mathalea.graine
+      document.getElementById('form_serie').value = context.graine
     }
   }
   // Contrôle l'aléatoire grâce à SeedRandom
-  seedrandom(mathalea.graine, { global: true });
+  seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
@@ -272,7 +281,7 @@ function mise_a_jour_du_code () {
           fin_de_l_URL += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
       }
-      fin_de_l_URL += `&serie=${mathalea.graine}`
+      fin_de_l_URL += `&serie=${context.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       // new Clipboard(".url", {
@@ -303,12 +312,14 @@ function mise_a_jour_du_code () {
 
   const questions = []
   codeLatex = ''
+  const output = context.isHtml
+  context.isHtml = false
   listePackages = new Set()
   if (liste_des_exercices.length > 0) {
     for (let i = 0; i < liste_des_exercices.length; i++) {
       listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
       listeObjetsExercice[i].nouvelleVersion(i)
-      questions.push(listeObjetsExercice[i].qcm)
+      questions.push(listeObjetsExercice[i].amc)
 
       if (typeof listeObjetsExercice[i].listePackages === 'string') {
         listePackages.add(listeObjetsExercice[i].listePackages)
@@ -317,6 +328,7 @@ function mise_a_jour_du_code () {
         listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
       }
     }
+    context.isHtml = output
     codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
@@ -965,10 +977,10 @@ function parametres_exercice (exercice) {
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
       const form_serie = document.getElementById('form_serie')
-      form_serie.value = mathalea.graine // Rempli le formulaire avec la graine
+      form_serie.value = context.graine // Rempli le formulaire avec la graine
       form_serie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        mathalea.graine = e.target.value
+        context.graine = e.target.value
         mise_a_jour_du_code()
       })
     }
@@ -1129,13 +1141,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
   }
   function nouvelles_donnees () {
-    mathalea.graine = strRandom({
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
       startsWithLowerCase: false
     })
-    form_serie.value = mathalea.graine // mise à jour du formulaire
+    form_serie.value = context.graine // mise à jour du formulaire
     mise_a_jour_du_code()
   }
   // Gestion du nombre d'exemplaire
@@ -1219,7 +1231,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
   if (serie) {
-    mathalea.graine = serie
+    context.graine = serie
   }
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {

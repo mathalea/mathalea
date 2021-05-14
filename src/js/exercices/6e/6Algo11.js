@@ -241,8 +241,8 @@ export default function Note_la_couleur () {
     let angledepart
     let xdepart
     let ydepart
-    mathalea.unitesLutinParCm = 20 * 30 / 52
-    mathalea.pixelsParCm = 20
+    context.unitesLutinParCm = 20 * 30 / 52
+    context.pixelsParCm = 20
     let pion
     if (this.sup) {
       objets_correction = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]

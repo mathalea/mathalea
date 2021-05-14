@@ -73,8 +73,8 @@ export default function Exercice_zero_mathalea2d3d() {
   //  objets_enonceml.push()
   //  objets_correction.push()
   // paramètres pour la perspective
-  mathalea.anglePerspective=30
-  mathalea.coeffPerspective=0.5
+  context.anglePerspective=30
+  context.coeffPerspective=0.5
 
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
       //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }

@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, texNombre } from '../../modules/outils.js'
-import { elimineDoublons, gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { elimineDoublons, gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -65,7 +65,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionQcmInteractif(this)
+    gestionAutoCorrection(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
   this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']

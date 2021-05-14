@@ -35,18 +35,10 @@ export default function Calcul_de_longueur() {
     }
 
     this.nouvelleVersion = function () {
+        this.autoCorrection = []
         this.listeQuestions = []
         this.listeCorrections = []
         let reponse
-    /*********************************************************/
-    // On ajoute cette ligne pour AMC
-    if (this.level!=4){
-        this.qcm = ['3G30', [], 'Calculs de longueurs avec la trigonométrie',5]
-    }
-    else {
-        this.qcm = ['4G40', [], 'Calculs de longueurs avec la trigonométrie',5]
-    }
-    /**********************************************************/
 
         let nom = creerNomDePolygone(3)
         let texte = '', texteCorr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
@@ -259,11 +251,40 @@ if (!context.isHtml&&this.correctionDetaillee) {
 }
         /*****************************************************/
         // Pour AMC
-        this.qcm[1][0] = [texte, [texteCorr,reponse,4], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
+        this.autoCorrection[0] = {
+            enonce: texte,
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 4,
+                feedback: ''
+              }
+            ],
+            reponse: [{
+              texte: 'résultat',
+              valeur: reponse,
+              param: {
+                digits: 3,
+                decimals: 1,
+                signe: false,
+                exposantNbChiffres: 0,
+                exposantSigne: false,
+                approx: 1
+              }
+            }
+            ]
+          }
         /****************************************************/
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         listeQuestionsToContenu(this); // On envoie l'exercice à la fonction de mise en page
+            /*********************************************************/
+    // On ajoute cette ligne pour AMC
+    if (context.isAmc){
+        this.amc = [this.id, this.autoCorrection, titre, amcType]
+    }
+    /**********************************************************/
+
     };
 
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false];

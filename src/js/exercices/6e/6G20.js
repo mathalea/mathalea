@@ -38,7 +38,7 @@ export default function Nommer_et_coder_des_polygones() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      mathalea.pixelsParCm = 40;
+      context.pixelsParCm = 40;
       let pol, polcode, polsom, polnom
       function choisir_polygone(n) { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
@@ -200,7 +200,7 @@ export default function Nommer_et_coder_des_polygones() {
       cpt++;
     }
     listeQuestionsToContenu(this);
-    mathalea.pixelsParCm = 20
+    context.pixelsParCm = 20
   };
   this.besoinFormulaireNumerique = [
     "Type de cahier",
