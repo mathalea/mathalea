@@ -494,7 +494,6 @@ function miseAJourDuCode () {
     if (document.getElementById('right')) {
       scroll_level = document.getElementById('right').scrollTop
     }
-    console.log(context.isHtml)
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
@@ -911,7 +910,9 @@ function miseAJourDeLaListeDesExercices (preview) {
           }
           if (urlVars[i].qcm) {
             listeObjetsExercice[i].modeQcm = true
-            form_modeQcm[i].checked = true
+            if (form_modeQcm[i]) {
+              form_modeQcm[i].checked = true
+            }
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             listeObjetsExercice[i].sup = urlVars[i].sup

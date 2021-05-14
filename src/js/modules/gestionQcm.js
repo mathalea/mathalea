@@ -1,4 +1,4 @@
-/* global $ mathalea */
+/* global $ */
 import { context } from './context.js'
 
 /**
@@ -35,11 +35,9 @@ export function gestionQcmInteractif (exercice) {
             }
           })
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-            spanReponseLigne.innerHTML = '✔︎'
-            spanReponseLigne.style.color = 'green'
+            spanReponseLigne.innerHTML = '😎'
           } else {
-            spanReponseLigne.innerHTML = '✖︎'
-            spanReponseLigne.style.color = 'red'
+            spanReponseLigne.innerHTML = '☹️'
           }
           spanReponseLigne.style.fontSize = 'large'
         }
@@ -128,4 +126,51 @@ export function elimineDoublons (reponses, statuts) { // fonction qui va élimin
     }
   }
   return [reponsesEpurees, statutsEpures]
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+export function exerciceInteractif (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    // On active les checkbox
+    // $('.ui.checkbox').checkbox()
+    const monRouge = 'rgba(217, 30, 24, 0.5)'
+    const monVert = 'rgba(123, 239, 178, 0.5)'
+    const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
+    if (button) {
+      button.addEventListener('click', event => {
+        let nbBonnesReponses = 0
+          let nbMauvaisesReponses = 0
+          const nbBonnesReponsesAttendues = exercice.nbQuestions
+        for (let i in exercice.autoCorrection) {
+          const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value === exercice.autoCorrection[i].reponse.value.toString()) {
+            spanReponseLigne.innerHTML = '😎'
+            nbBonnesReponses ++
+          } else {
+            spanReponseLigne.innerHTML = '☹️'
+            nbMauvaisesReponses ++
+          }
+          spanReponseLigne.style.fontSize = 'large'
+        }
+      })
+    }
+  })
+}
+
+export function ajoutChampTexte ({ texte = '', texteApres = '', numeroExercice, i, inline = true } = {}) {
+  if (context.isHtml) {
+    return `<div class="ui form ${inline ? 'inline' : ''}" >
+    <div class="inline  field" >
+    <label>${texte}</label>
+      <input type="text" id="champTexteEx${numeroExercice}Q${i}" >
+      <span>${texteApres}</span>
+      <span id="resultatCheckEx${numeroExercice}Q${i}"></span>
+    </div>
+    </div>`
+  }
 }

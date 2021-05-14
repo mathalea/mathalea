@@ -28,6 +28,12 @@
   margin-top: 40px;
 }
 
+/* Pour les formulaire avec la classe inline */
+
+.ui.form.inline {
+  display: inline-block;
+}
+
 /* Timer pour le calcul chronométré*/
 
 #timer, #numero_question {
