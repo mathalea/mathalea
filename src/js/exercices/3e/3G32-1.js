@@ -29,7 +29,7 @@ export default function Calculs_trigonometriques1() {
 	this.modeQcm=false;
 
     this.nouvelleVersion = function () {
-        this.qcm=['3G32-1',[],"Calcul d'un parallèle terrestre",3,{}]
+        this.autoCorrection=[]
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
         let alfa, baita, alpha, O, H, M, R, R2, Axe, normalV, normalH, P, HP, Sph, OP, PoleNord, PoleSud, objets = []
@@ -83,12 +83,16 @@ export default function Calculs_trigonometriques1() {
                 // Si la question n'a jamais été posée, on en crée une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
-                i++;
-                this.qcm[1].push([texte,[texteCorr],[3]])
+                 // Pour AMC question AmcOpen
+      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 3, feedback: '' }] }
+      i++;
             }
             cpt++;
         }
         listeQuestionsToContenu(this);
+        if (context.isAmc) {
+            this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+          }
     };
 }
 

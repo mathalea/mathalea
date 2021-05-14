@@ -6729,7 +6729,6 @@ export function exportQcmAmc (thisAmc, idExo) {
       case 3: // AMCOpen question ouverte corrigée par l'enseignant
         texQr += `\\element{${ref}}{\n `
         texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        console.log('sortieHtml : ', window.sortieHtml, '\n texte : ', autoCorrection[j].enonce)
         texQr += `\t\t${autoCorrection[j].enonce} \n `
         texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type

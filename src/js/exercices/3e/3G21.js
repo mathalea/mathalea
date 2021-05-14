@@ -32,7 +32,7 @@ export default function Reciproque_Thales () {
   // let s1='A',s2='B',s3='C',s4='M',s5='N'
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelleVersion = function (numeroExercice) {
-    this.qcm = ['3G21', [], 'Contrôler si deux droites sont parallèles', 3, {}]
+    this.autoCorrections = []
     this.listeQuestions = []
     this.listeCorrections = []
     const lettre1 = randint(1, 26) // aleatoirisation du nom des points
@@ -345,12 +345,15 @@ export default function Reciproque_Thales () {
         if (k > 0) { texteCorr += `$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>` } else { texteCorr += `$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>` }
         texteCorr += `Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
       }
-
-      this.qcm[1][0] = [texte, [texteCorr], [6]]
+      // Pour AMC question AmcOpen
+      this.autoCorrection = [{ enonce: texte, propositions: [{ texte: texteCorr, statut: 6, feedback: '' }] }]
 
       this.listeCorrections.push(texteCorr)
 
       listeQuestionsToContenuSansNumero(this)
+      if (context.isAmc) {
+        this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+      }
     }
   }
 

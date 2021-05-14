@@ -33,7 +33,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
 
 
   this.nouvelleVersion = function () {
-    this.qcm=['6C10bis',[],'Additions, soustractions, multiplications et divisions posées de nombres entiers',3]
+    this.autoCorrection=[]
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let type_de_questions
@@ -124,11 +124,15 @@ export default function Additions_soustractions_multiplications_divisions_posees
           texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr);
-        this.qcm[1].push([texte,[texteCorr],[4]])
-        i++;
+         // Pour AMC question AmcOpen
+         this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
+         i++;
       }
       cpt++;
     }
     listeQuestionsToContenu(this);
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    }
   };
 }

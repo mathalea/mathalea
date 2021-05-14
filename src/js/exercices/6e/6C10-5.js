@@ -89,7 +89,9 @@ export default function Exercice_labyrinthe_multiples () {
     listeQuestionsToContenu(this)
     /*********************************************************/
     // On ajoute cette ligne pour AMC
+    if (context.isAmc){
     this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    }
     /**********************************************************/
   }
   this.besoinFormulaireNumerique = ['Table ']
