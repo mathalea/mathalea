@@ -40,6 +40,7 @@ export default function EcrireUneExpressionLitterale () {
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i]={}
       const lettresDisponibles = ['x', 'y', 'z', 't', 'a', 'b', 'c', 'n', 'm']
       const x = choice(lettresDisponibles)
       enleveElement(lettresDisponibles, x)
@@ -297,7 +298,7 @@ export default function EcrireUneExpressionLitterale () {
               feedback: 'Tu as confondu somme et puissance.'
             }
           ]
-       break
+          break
         case 8: // x^3
           texte = `Exprimer le cube de $${x}$  en fonction de $${x}$.`
           texteCorr = `Le cube de $${x}$  se note : $${x}^3$.`
@@ -333,66 +334,366 @@ export default function EcrireUneExpressionLitterale () {
               feedback: 'Tu as confondu somme et puissance.'
             }
           ]
-      break
+          break
         case 9: // -x
           texte = `Exprimer l'opposé de $${x}$  en fonction de $${x}$.`
           texteCorr = `L'opposé de $${x}$  se note : $-${x}$.`
-          tabrep = [`$-${x}$`, `$-1\\times ${x}$`, `$${x}-1$`, `$\\dfrac{1}{${x}}$`, `$${x}$`, `$1-${x}$`]
-          tabicone = [1, 1, 0, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$-${x}$`,
+              statut: true,
+              feedback: 'Correct, mais non simplifié'
+            },
+            {
+              texte: `$-1\\times ${x}$`,
+              statut: true,
+              feedback: 'Correct, mais non simplifié'
+            },
+            {
+              texte: `$${x}-1$`,
+              statut: false,
+              feedback: 'Tu as confondu multiplication et addition.'
+            },
+            {
+              texte: `$\\dfrac{1}{${x}}$`,
+              statut: false,
+              feedback: 'Tu as confondu opposé et inverse.'
+            },
+            {
+              texte: `$${x}$`,
+              statut: false,
+              feedback: "Cela n'est vrai que pour zéro."
+            },
+            {
+              texte: `$1-${x}$`,
+              statut: false,
+              feedback: "C'est un de trop..."
+            }
+          ]
           break
         case 10: // 1/x
           texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
           texteCorr = `L'inverse de $${x}$ se note : $${texFraction(1, x)}$.`
-          tabrep = [`$-${x}$`, `$-1\\times ${x}$`, `$${x}-1$`, `$\\dfrac{1}{${x}}$`, `$${x}$`, `$1-${x}$`]
-          tabicone = [0, 0, 0, 1, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$\\dfrac{1}{${x}}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$-1\\times ${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu inverse et opposé.'
+            },
+            {
+              texte: `$${x}-1$`,
+              statut: false,
+              feedback: 'Tu as confondu division et soustraction.'
+            },
+            {
+              texte: `$-${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu inverse et opposé.'
+            },
+            {
+              texte: `$${x}$`,
+              statut: false,
+              feedback: "Cela n'est vrai que pour 1."
+            },
+            {
+              texte: `$1-${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu division et soustraction.'
+            }
+          ]
           break
         case 11: // x+k
           texte = `Exprimer la somme de $${x}$ et ${k} en fonction de $${x}$.`
           texteCorr = `La somme de $${x}$ et ${k} se note : $${x}+${k}$.`
-          tabrep = [`$${k}+${x}$`, `$${x}+${k}$`, `$${k}${x}$`, `$${x}${k}$`, `$${x}-${k}$`, `$${k}\\times ${x}$`]
-          tabicone = [1, 1, 0, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${k}+${x}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${x}+${k}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${k}${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu addition et multiplication.'
+            },
+            {
+              texte: `$${x}${k}$`,
+              statut: false,
+              feedback: 'Cette écriture est incorrecte.'
+            },
+            {
+              texte: `$${x}-${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et différence.'
+            },
+            {
+              texte: `$${k}\\times ${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et produit.'
+            }
+          ]
           break
         case 12: // kx
           texte = `Exprimer le produit de $${x}$  par ${k} en fonction de $${x}$.`
           texteCorr = `Le produit de $${x}$ par ${k} se note : $${k}${x}$.`
-          tabrep = [`$${k}+${x}$`, `$${x}+${k}$`, `$${k}${x}$`, `$${x}${k}$`, `$${x}-${k}$`, `$${k}\\times ${x}$`]
-          tabicone = [0, 0, 1, 0, 0, 1]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${k}${x}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${k}\\times ${x}$`,
+              statut: true,
+              feedback: 'Correct, mais non simplifié.'
+            },
+            {
+              texte: `$${k}+${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu addition et multiplication.'
+            },
+            {
+              texte: `$${x}${k}$`,
+              statut: false,
+              feedback: 'Cette écriture est incorrecte.'
+            },
+            {
+              texte: `$${x}+${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et produit.'
+            },
+            {
+              texte: `$${x}-${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et produit.'
+            }
+          ]
           break
         case 13: // x/k
           texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
           texteCorr = `Le quotient de $${x}$ par ${k} se note : $${texFraction(x, k)}$.`
-          tabrep = [`$${k}\\div ${x}$`, `$${x}\\div ${k}$`, `$\\dfrac{${x}}{${k}}$`, `$${x}\\times ${k}$`, `$${x}-${k}$`, `$${k}\\times ${x}$`]
-          tabicone = [0, 1, 1, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${x}\\div ${k}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$\\dfrac{${x}}{${k}}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${k}\\div ${x}$`,
+              statut: false,
+              feedback: "C'est l'inverse"
+            },
+            {
+              texte: `$${x}\\times ${k}$`,
+              statut: false,
+              feedback: 'Cette écriture est incorrecte.'
+            },
+            {
+              texte: `$${x}+${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et quotient.'
+            },
+            {
+              texte: `$${x}-${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu différence et quotient.'
+            }
+          ]
           break
         case 14: // k/x
           texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
           texteCorr = `Le quotient de ${k} par $${x}$ se note : $${texFraction(k, x)}$.`
-          tabrep = [`$${x}\\div ${k}$`, `$${k}\\div ${x}$`, `$\\dfrac{${k}}{${x}}$`, `$${k}\\times ${x}$`, `$${k}-${x}$`, `$${x}\\times ${k}$`]
-          tabicone = [0, 1, 1, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${k}\\div ${x}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$\\dfrac{${k}}{${x}}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${x}\\div ${k}$`,
+              statut: false,
+              feedback: "C'est l'inverse"
+            },
+            {
+              texte: `$${k}\\times ${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu produit et quotient.'
+            },
+            {
+              texte: `$${x}\\times ${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu produit et quotient.'
+            },
+            {
+              texte: `$${k}-${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu différence et quotient.'
+            }
+          ]
           break
         case 15: // xy
           texte = `Comment se note le produit de $${x}$ par $${y}$ ?`
           texteCorr = `Le produit de $${x}$ par $${y}$ se note $${x}${y}$.`
-          tabrep = [`$${y}+${x}$`, `$${x}+${y}$`, `$${y}${x}$`, `$${x}${y}$`, `$${x}-${y}$`, `$${y}\\times ${x}$`]
-          tabicone = [0, 0, 1, 1, 0, 1]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${y}${x}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${x}${y}$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${y}\\times ${x}$`,
+              statut: true,
+              feedback: 'Correct, mais non simplifié.'
+            },
+            {
+              texte: `$${x}+${y}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et produit.'
+            },
+            {
+              texte: `$${y}+${x}$`,
+              statut: false,
+              feedback: 'Tu as confondu somme et produit.'
+            },
+            {
+              texte: `$${x}-${y}$`,
+              statut: false,
+              feedback: 'Tu as confondu différence et produit.'
+            }
+          ]
           break
         case 16: // pair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre pair.'
           texteCorr = 'Un nombre pair peut s\'écrire sous la forme $2n$ avec $n$ un entier naturel.'
-          tabrep = ['$2n$', '$2(n+1)$', '$n+2$', '$n-2$', '$n\\div 2$', '$n^2$']
-          tabicone = [1, 1, 0, 0, 0, 0]
-          break
+          this.autoCorrection[i].propositions = [
+            {
+              texte: '$2n$',
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: '$2(n+1)$',
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: '$n+2$',
+              statut: false,
+              feedback: 'Le nombre n est-il pair ?'
+            },
+            {
+              texte: '$n-2$',
+              statut: false,
+              feedback: 'Le nombre n est-il pair ?'
+            },
+            {
+              texte: '$n\\div 2$',
+              statut: false,
+              feedback: 'Le résultat est-il un nombre entier ?'
+            },
+            {
+              texte: '$n^2$',
+              statut: false,
+              feedback: "Le carré d'un nombre impair est-il pair ?"
+            }
+          ]
+         break
         case 17: // impair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre impair.'
           texteCorr = 'Un nombre impair peut s\'écrire sous la forme $2n+1$ avec $n$ un entier naturel.'
-          tabrep = ['$2n+1$', '$n+1$', '$n+3$', '$3n$', '$n-1$', '$n+7$']
-          tabicone = [1, 0, 0, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: '$2n+1$',
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: '$n+1$',
+              statut: false,
+              feedback: 'Que se passe-t-il si n est un nombre impair ?'
+            },
+            {
+              texte: '$n+3$',
+              statut: false,
+              feedback: 'Que se passe-t-il si n est un nombre impair ?'
+            },
+            {
+              texte: '$3n$',
+              statut: false,
+              feedback: 'Et si n est un nombre pair ?'
+            },
+            {
+              texte: '$n-1$',
+              statut: false,
+              feedback: 'Que se passe-t-il si n est un nombre impair ?'
+            },
+            {
+              texte: '$n+7$',
+              statut: false,
+              feedback: 'Que se passe-t-il si n est un nombre impair ?'
+            }
+          ]
           break
         case 18: // multiple de k
           texte = `Écrire une expression littérale qui permet de représenter un multiple de ${k}.`
           texteCorr = `Un multiple de ${k} peut s'écrire sous la forme $${k}n$ avec $n$ un entier naturel.`
-          tabrep = [`$${k}n$`, `$${k}\\times n$`, `$${k}+n$`, `$${k}-n$`, `$\\dfrac{${k}}{n}$`, `$${x}-${y}$`]
-          tabicone = [1, 1, 0, 0, 0, 0]
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${k}n$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${k}\\times n$`,
+              statut: true,
+              feedback: 'Correct !'
+            },
+            {
+              texte: `$${k}+n$`,
+              statut: false,
+              feedback: 'Tu as confondu produit et somme.'
+            },
+            {
+              texte: `$${k}-n$`,
+              statut: false,
+              feedback: 'Tu as confondu produit et différence.'
+            },
+            {
+              texte: `$\\dfrac{${k}}{n}$`,
+              statut: false,
+              feedback: ''
+            },
+            {
+              texte: `$${n}-${k}$`,
+              statut: false,
+              feedback: 'Tu as confondu produit et différence.'
+            }
+          ]
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
@@ -405,15 +706,14 @@ export default function EcrireUneExpressionLitterale () {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}\n`,
-          tabrep,
-          tabicone])
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionAutoCorrection(this)
+    if (context.isAmc) {
+      this.amc = [this.id, this.autoCorrection, titre, amcType]
+    }
   }
   // this.besoinFormulaireCaseACocher = ["Uniquement la lettre $n$."]
 }
