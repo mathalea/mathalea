@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* global $ fetch event Event */
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
@@ -6,6 +6,7 @@ import { loadIep, loadPrism, loadGiac } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/messages.js'
+import { exerciceInteractif } from './modules/gestionQcm.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -31,7 +32,7 @@ if (document.location.href.indexOf('cm.html') > 0) {
 }
 
 let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
-let liste_des_exercices = [] // Liste des identifiants des exercices
+let listeDesExercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
 // création des figures MG32 (géométrie dynamique)
@@ -74,18 +75,18 @@ if (document.getElementById('filtre')) {
 function copierVersExerciceForm () {
   // envoie des informations depuis les étiquettes vers le formulaire et déclenchement de l'evt change.
   // utilisé lorsque l'utilisateur valide/supprime ou déplace une étiquette exercices.
-  let i, texte_code
-  const liste_tag = $('.choix_exercices.valide')
-  const liste_tag_length = liste_tag.length
-  texte_code = ''
-  for (i = 0; i < liste_tag_length; i++) {
+  let i, texteCode
+  const listeTag = $('.choix_exercices.valide')
+  const listeTagLength = listeTag.length
+  texteCode = ''
+  for (i = 0; i < listeTagLength; i++) {
     if (i === 0) {
-      texte_code += liste_tag[i].textContent
+      texteCode += listeTag[i].textContent
     } else {
-      texte_code += ',' + liste_tag[i].textContent
+      texteCode += ',' + listeTag[i].textContent
     }
   }
-  document.getElementById('choix_des_exercices').value = texte_code
+  document.getElementById('choix_des_exercices').value = texteCode
   const evenement = new Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
 }
@@ -124,15 +125,15 @@ function ajoutHandlersEtiquetteExo () {
 
 function gestionSpanChoixExercice (elem) {
   // quand on donne le code d'un exercice existant, le style change et on créé un autre span à suivre.
-  const liste_codes_exercices = Object.keys(dictionnaireDesExercices)
-  if (liste_codes_exercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
+  const listeCodesExercices = Object.keys(dictionnaireDesExercices)
+  if (listeCodesExercices.indexOf($(event.target).text()) >= 0 && !$(event.target).hasClass('valide')) {
     $(event.target).addClass('valide')
     if ($('.choix_exercices:last').hasClass('valide')) { // si le dernier élément n'est pas valide on n'en créé pas un nouveau.
       $(event.target.parentElement.parentElement).append('<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br/></span></div>')
     }
     ajoutHandlersEtiquetteExo() // On ajoute la gestion des evenements sur l'étiquette créée.
     // sur la perte de focus, si le span est valide alors on met à jour la liste des exercices (maj du champ texte + event change)
-  } else if (liste_codes_exercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
+  } else if (listeCodesExercices.indexOf($(event.target).text()) < 0 && $(event.target).hasClass('valide')) {
     // si on change le contenteditable et que l'exercice n'est plus un code valide
     $(event.target).removeClass('valide')
   }
@@ -148,17 +149,17 @@ function copierExercicesFormVersAffichage (exliste) {
 // pour mettre à jour l'affichage des étiquettes.
 // (on créé les étiquettes à partir du formulaire)
   let tagexercices, i
-  const liste_length = exliste.length
+  const listeLength = exliste.length
   tagexercices = ''
-  const div_exercice = document.getElementById('choix_exercices_div')
-  if (liste_length > 0 && div_exercice) {
-    for (i = 0; i < liste_length; i++) { // création d'une étiquette pour chaque exercice trouvé dans le formulaire.
+  const divExercice = document.getElementById('choix_exercices_div')
+  if (listeLength > 0 && divExercice) {
+    for (i = 0; i < listeLength; i++) { // création d'une étiquette pour chaque exercice trouvé dans le formulaire.
       tagexercices += `<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices valide">${exliste[i]}</span></div>`
     }
   }
   tagexercices += '<div class="choix_exo sortable"><span contenteditable="true" class="choix_exercices"><br></span></div>' // ajout du <br> pour alignement dans firefox
-  if (div_exercice) {
-    div_exercice.innerHTML = tagexercices
+  if (divExercice) {
+    divExercice.innerHTML = tagexercices
     ajoutHandlersEtiquetteExo()
   }
 }
@@ -168,22 +169,22 @@ function copierExercicesFormVersAffichage (exliste) {
 //  * de l'ajout d'un exercice (click sur le lien)
 //  * du déplacement, suppression d'un exercice (manipulation des étiquettes et ou utilisation des icones.
 // A la fin appel de la fonction miseAJourDeLaListeDesExercices() => pour l'affichage des exercices choisis.
-const form_choix_des_exercices = document.getElementById('choix_des_exercices')
-form_choix_des_exercices.addEventListener('change', function (e) {
+const formChoixDesExercices = document.getElementById('choix_des_exercices')
+formChoixDesExercices.addEventListener('change', function (e) {
   // Changement du texte
   if (e.target.value === '') {
-    liste_des_exercices = []
+    listeDesExercices = []
     listeObjetsExercice = []
   } else {
-    liste_des_exercices = []
+    listeDesExercices = []
     listeObjetsExercice = []
-    liste_des_exercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
+    listeDesExercices = e.target.value.replace(/\s/g, '').replace(';', ',').split(',') // Récupère  la saisie de l'utilisateur
     // en supprimant les espaces et en remplaçant les points-virgules par des virgules.
   }
   if (document.getElementById('affichageErreur')) {
     document.getElementById('affichageErreur').remove()
   }
-  copierExercicesFormVersAffichage(liste_des_exercices)
+  copierExercicesFormVersAffichage(listeDesExercices)
   miseAJourDeLaListeDesExercices()
 })
 
@@ -220,22 +221,22 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     inline: true
   })
   try {
-  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
-  if (exosMg32.length) {
+    const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+    if (exosMg32.length) {
     // faut charger mathgraph et lui filer ces figures
-    try {
+      try {
       // faut attendre que le div soit créé
       // @todo ce code devrait plutôt être exécuté après la création du div
       // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
       // => il n'y aurait plus de couplage sur le préfixe MG32div)
-      await waitFor('MG32div0')
-      await mg32DisplayAll(exosMg32)
-    } catch (error) {
+        await waitFor('MG32div0')
+        await mg32DisplayAll(exosMg32)
+      } catch (error) {
       // On traite l'erreur
-      console.log(error)
-      throw({code : 'mg32load'})
+        console.log(error)
+        throw ({ code: 'mg32load' })
+      }
     }
-  }
   } catch (error) {
     messageUtilisateur(error)
   }
@@ -255,9 +256,9 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
       })
     }
   } catch (error) {
-      // On traite l'erreur
-      console.log(error)
-      messageUtilisateur({code : 'scratchLoad'})
+    // On traite l'erreur
+    console.log(error)
+    messageUtilisateur({ code: 'scratchLoad' })
   }
   const besoinIEP = listeObjetsExercice.some(exo => exo.typeExercice === 'IEP')
   if (besoinIEP) {
@@ -274,7 +275,7 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
   }
 }
 
-function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
+function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
 // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
 // fonction construisant le html pour l'affichage d'un exercice :
 // * mise en page du titre,
@@ -282,74 +283,75 @@ function contenuExerciceHtml (obj, num_exercice, isdiaporama) {
 // * boutons
 // * formulaires
 // renvoie un objet : { contenu_un_exercice: le html de l'exercice  ,contenu_une_correction: le html de la correction }
-  let contenu_un_exercice = ''
-  let contenu_une_correction = ''
-  let param_tooltip = ''
-  let iconeQCM = ''
+  let contenuUnExercice = ''
+  let contenuUneCorrection = ''
+  let paramTooltip = ''
+  let iconeInteractif = ''
   if (isdiaporama) {
-    contenu_un_exercice += '<section class="slider single-item" id="diaporama">'
+    contenuUnExercice += '<section class="slider single-item" id="diaporama">'
     for (const question of obj.listeQuestions) {
-      contenu_un_exercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+      contenuUnExercice += `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` + question.replace(/\\dotfill/g, '...').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
-    contenu_un_exercice += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
+    contenuUnExercice += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
     if (obj.typeExercice === 'MG32') {
-      contenu_un_exercice += `<div id="MG32div${num_exercice - 1}" class="MG32"></div>`
+      contenuUnExercice += `<div id="MG32div${numeroExercice - 1}" class="MG32"></div>`
     }
-    contenu_une_correction += obj.contenuCorrection
+    contenuUneCorrection += obj.contenuCorrection
     if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
-      contenu_une_correction += `<div id="MG32divcorr${num_exercice - 1}" class="MG32"></div>`
+      contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
     }
   }
   if (!isdiaporama) {
     if (obj.typeExercice === 'dnb') {
-      contenu_un_exercice += ` Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
-      contenu_un_exercice += `<img width="90%" src="${obj.png}">`
-      contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice},'${num_exercice - 1}')</h3>`
-      contenu_une_correction += `<img width="90%" src="${obj.pngcor}">`
+      contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
+      contenuUnExercice += `<img width="90%" src="${obj.png}">`
+      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice},'${numeroExercice - 1}')</h3>`
+      contenuUneCorrection += `<img width="90%" src="${obj.pngcor}">`
       obj.video = false
     } else {
       try {
-        obj.nouvelleVersion(num_exercice - 1)
+        obj.nouvelleVersion(numeroExercice - 1)
       } catch (error) {
         console.log(error)
       }
-      if (obj.qcmDisponible && obj.modeQcm) {
-        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square icon icone_qcm"></i><span>`
-      } else if (obj.qcmDisponible) {
-        iconeQCM = `<span data-tooltip="Mode QCM"><i id="boutonQcm¤${num_exercice - 1}" data-num="${num_exercice - 1}" class="check square outline icon icone_qcm"></i><span>`
+      if (obj.interactifReady && obj.interactif) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${numeroExercice - 1}" class="keyboard icon iconeInteractif"></i><span>`
+        exerciceInteractif(obj)
+      } else if (obj.interactifReady) {
+        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${numeroExercice - 1}" class="keyboard outline icon iconeInteractif"></i><span>`
       }
-      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.qcmDisponible) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers QCM et paramètres.
-        contenu_un_exercice += `Exercice ${num_exercice} − ${obj.id} </h3>`
+      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers interactif et paramètres.
+        contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-          param_tooltip += (obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2]) + '\n'
+          paramTooltip += (obj.besoinFormulaireNumerique[0] + ': \n' + obj.besoinFormulaireNumerique[2]) + '\n'
         }
         if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-          param_tooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
+          paramTooltip += (obj.besoinFormulaire2Numerique[0] + ': \n' + obj.besoinFormulaire2Numerique[2])
         }
-        param_tooltip = param_tooltip ? `data-tooltip="${param_tooltip}" data-position="right center"` : ''
-        contenu_un_exercice += `<span ${param_tooltip}> Exercice ${num_exercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeQCM}</h3>`
+        paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+        contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
       }
       if (obj.video.length > 3) {
-        contenu_un_exercice += `<div id=video${num_exercice - 1}>` + modalYoutube(num_exercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
+        contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
       }
       if (obj.boutonAide) {
-        contenu_un_exercice += `<div id=aide${num_exercice - 1}> ${obj.boutonAide}</div>`
+        contenuUnExercice += `<div id=aide${numeroExercice - 1}> ${obj.boutonAide}</div>`
       }
-      contenu_un_exercice += obj.contenu
+      contenuUnExercice += obj.contenu
       if (obj.typeExercice === 'MG32') {
-        contenu_un_exercice += `<div id="MG32div${num_exercice - 1}" class="MG32"></div>`
+        contenuUnExercice += `<div id="MG32div${numeroExercice - 1}" class="MG32"></div>`
       }
-      contenu_une_correction += `<h3 class="ui dividing header">Exercice ${num_exercice}</h3>`
-      contenu_une_correction += obj.contenuCorrection
+      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
+      contenuUneCorrection += obj.contenuCorrection
       if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
-        contenu_une_correction += `<div id="MG32divcorr${num_exercice - 1}" class="MG32"></div>`
+        contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
       }
     }
   }
   return {
-    contenu_un_exercice: contenu_un_exercice,
-    contenu_une_correction: contenu_une_correction
+    contenu_un_exercice: contenuUnExercice,
+    contenu_une_correction: contenuUneCorrection
   }
 }
 
@@ -379,58 +381,58 @@ function miseAJourDuCode () {
   seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
   (function gestionURL () {
-    if (liste_des_exercices.length > 0) {
-      let fin_de_l_URL = ''
+    if (listeDesExercices.length > 0) {
+      let finUrl = ''
       if (context.isHtml && !context.isDiaporama && window.location.pathname.indexOf('exo.html') < 0) {
-        fin_de_l_URL += 'exercice.html'
+        finUrl += 'exercice.html'
       }
-      fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
+      finUrl += `?ex=${listeDesExercices[0]}`
       if (typeof listeObjetsExercice[0].sup !== 'undefined') {
-        fin_de_l_URL += `,sup=${listeObjetsExercice[0].sup}`
+        finUrl += `,sup=${listeObjetsExercice[0].sup}`
       }
       if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
-        fin_de_l_URL += `,sup2=${listeObjetsExercice[0].sup2}`
+        finUrl += `,sup2=${listeObjetsExercice[0].sup2}`
       }
       if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
-        fin_de_l_URL += `,sup3=${listeObjetsExercice[0].sup3}`
+        finUrl += `,sup3=${listeObjetsExercice[0].sup3}`
       }
       if (listeObjetsExercice[0].nbQuestionsModifiable) {
-        fin_de_l_URL += `,nbQuestions=${listeObjetsExercice[0].nbQuestions}`
+        finUrl += `,nbQuestions=${listeObjetsExercice[0].nbQuestions}`
       }
       if (listeObjetsExercice[0].video.length > 1) {
-        fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
+        finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
-      if (listeObjetsExercice[0].modeQcm) {
-        fin_de_l_URL += ',qcm=1'
+      if (listeObjetsExercice[0].interactif) {
+        finUrl += ',interactif=1'
       }
       listeObjetsExercice[0].numeroExercice = 0
-      for (let i = 1; i < liste_des_exercices.length; i++) {
-        fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
+      for (let i = 1; i < listeDesExercices.length; i++) {
+        finUrl += `&ex=${listeDesExercices[i]}`
         if (typeof listeObjetsExercice[i].sup !== 'undefined') {
-          fin_de_l_URL += `,sup=${listeObjetsExercice[i].sup}`
+          finUrl += `,sup=${listeObjetsExercice[i].sup}`
         }
         if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
-          fin_de_l_URL += `,sup2=${listeObjetsExercice[i].sup2}`
+          finUrl += `,sup2=${listeObjetsExercice[i].sup2}`
         }
         if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
-          fin_de_l_URL += `,sup3=${listeObjetsExercice[i].sup3}`
+          finUrl += `,sup3=${listeObjetsExercice[i].sup3}`
         }
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
-          fin_de_l_URL += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
+          finUrl += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
         if (listeObjetsExercice[i].video.length > 1) {
-          fin_de_l_URL += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+          finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
         }
-        if (listeObjetsExercice[i].modeQcm) {
-          fin_de_l_URL += ',qcm=1'
+        if (listeObjetsExercice[i].interactif) {
+          finUrl += ',interactif=1'
         }
         listeObjetsExercice[i].numeroExercice = i
       }
       if (typeof context.duree !== 'undefined') {
-        fin_de_l_URL += `&duree=${context.duree}`
+        finUrl += `&duree=${context.duree}`
       }
-      fin_de_l_URL += `&serie=${context.graine}`
-      window.history.pushState('', '', fin_de_l_URL)
+      finUrl += `&serie=${context.graine}`
+      window.history.pushState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
       clipboardURL.on('success', function (e) {
@@ -459,7 +461,7 @@ function miseAJourDuCode () {
   // 2/ context.isHtml && !diaporama => pour mathalea.html ; exercice.html ; exo.html
   // 3/ !context.isHtml => pour mathalealatex.html
   if (context.isHtml && context.isDiaporama) {
-    if (liste_des_exercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
+    if (listeDesExercices.length > 0) { // Pour les diaporamas tout cacher quand un exercice est choisi
       $('#exercices_disponibles').hide()
       $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
       $('#corrections_et_parametres').show()
@@ -471,9 +473,9 @@ function miseAJourDuCode () {
     }
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
-    if (liste_des_exercices.length > 0) {
-      for (let i = 0; i < liste_des_exercices.length; i++) {
-        listeObjetsExercice[i].id = liste_des_exercices[i]
+    if (listeDesExercices.length > 0) {
+      for (let i = 0; i < listeDesExercices.length; i++) {
+        listeObjetsExercice[i].id = listeDesExercices[i]
         try {
           listeObjetsExercice[i].nouvelleVersion(i)
         } catch (error) {
@@ -496,27 +498,27 @@ function miseAJourDuCode () {
 
   // Ajoute le contenu dans les div #exercices et #corrections
   if (context.isHtml && !context.isDiaporama) {
-    let scroll_level
+    let scrollLevel
     // récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
     //    lors des modification sur les exercices via les paramètres et/ou icones dans la colonne de droite d'affichage des exercices.
     if (document.getElementById('right')) {
-      scroll_level = document.getElementById('right').scrollTop
+      scrollLevel = document.getElementById('right').scrollTop
     }
     document.getElementById('exercices').innerHTML = ''
     document.getElementById('corrections').innerHTML = ''
     let contenuDesExercices = ''
     let contenuDesCorrections = ''
-    if (liste_des_exercices.length > 0) {
-      for (let i = 0; i < liste_des_exercices.length; i++) {
+    if (listeDesExercices.length > 0) {
+      for (let i = 0; i < listeDesExercices.length; i++) {
         // const contenu_un_exercice = ''; const contenu_une_correction = ''
-        listeObjetsExercice[i].id = liste_des_exercices[i]
+        listeObjetsExercice[i].id = listeDesExercices[i]
         contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, false)
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) { // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour exercice.html et exo.html)
-          if (liste_des_exercices.length === 1) { // si on a q'un seul exercice, uniquement l'icone poubelle
+          if (listeDesExercices.length === 1) { // si on a q'un seul exercice, uniquement l'icone poubelle
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === 0) { // si c'est le premier exercice icone poubelle plus fleche vers le bas
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
-          } else if (i === liste_des_exercices.length - 1) { // Pour le dernier exercice pas de fleche vers le bas
+          } else if (i === listeDesExercices.length - 1) { // Pour le dernier exercice pas de fleche vers le bas
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           } else { // pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
             contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
@@ -525,7 +527,6 @@ function miseAJourDuCode () {
           contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
-      
       }
       contenuDesExercices = `<ol>\n${contenuDesExercices}\n</ol>`
       contenuDesCorrections = `<ol>\n${contenuDesCorrections}\n</ol>`
@@ -536,10 +537,10 @@ function miseAJourDuCode () {
       $('#cache').dimmer('show') // Cache au dessus du code LaTeX
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.   
+    $('#popup_preview .iconeInteractif').remove() // dans l'aperçu pas d'icone interactif.
     document.getElementById('exercices').innerHTML = contenuDesExercices
-    if (scroll_level) {
-      document.getElementById('right').scrollTop = scroll_level
+    if (scrollLevel) {
+      document.getElementById('right').scrollTop = scrollLevel
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
     gestionModules(false, listeObjetsExercice)
@@ -550,12 +551,12 @@ function miseAJourDuCode () {
     if (bntCorrection) {
       bntCorrection.addEventListener('click', () => {
         // Le bouton "Vérifier les réponses" devient inactif
-        const boutonsCheck = document.querySelectorAll(`.checkReponses`)
+        const boutonsCheck = document.querySelectorAll('.checkReponses')
         boutonsCheck.forEach(function (bouton) {
           bouton.classList.add('disabled')
         })
         // On ne peut plus cliquer dans les checkboxs
-        const checkboxs = document.querySelectorAll(`.monQcm`)
+        const checkboxs = document.querySelectorAll('.monQcm')
         checkboxs.forEach(function (checkbox) {
           checkbox.classList.add('read-only')
         })
@@ -567,12 +568,12 @@ function miseAJourDuCode () {
     // code pour la sortie LaTeX
     let codeEnonces = ''
     let codeCorrections = ''
-    const length_liste_exercices = liste_des_exercices.length
+    const listeExercicesLength = listeDesExercices.length
     codeLatex = ''
     listePackages = new Set()
-    if (length_liste_exercices > 0) {
-      for (let i = 0; i < length_liste_exercices; i++) {
-        listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
+    if (listeExercicesLength > 0) {
+      for (let i = 0; i < listeExercicesLength; i++) {
+        listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         if (listeObjetsExercice[i].typeExercice === 'dnb') {
           listePackages.add('dnb')
           codeEnonces += '\n\n\\exo{}\n\n'
@@ -602,34 +603,34 @@ function miseAJourDuCode () {
                         codeEnonces + '\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + codeCorrections + '\\end{correction}'
       }
       $('#message_liste_exercice_vide').hide()
-      copierExercicesFormVersAffichage(liste_des_exercices)
+      copierExercicesFormVersAffichage(listeDesExercices)
       $('#cache').show()
 
       // Gestion du nombre de versions
       if ($('#nombre_de_versions').val() > 1) {
         codeLatex = ''
-        let code_exercices = ''
-        let code_correction = ''
+        let codeExercices = ''
+        let codeCorrection = ''
         for (let v = 0; v < $('#nombre_de_versions').val(); v++) {
-          code_exercices += '\\version{' + (v + 1) + '}\n\n'
-          code_correction += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
-          for (let i = 0; i < liste_des_exercices.length; i++) {
+          codeExercices += '\\version{' + (v + 1) + '}\n\n'
+          codeCorrection += '\n\n\\newpage\n\\version{' + (v + 1) + '}\n\\begin{correction}'
+          for (let i = 0; i < listeDesExercices.length; i++) {
             listeObjetsExercice[i].nouvelleVersion()
-            code_exercices += listeObjetsExercice[i].contenu
-            code_exercices += '\n\n'
-            code_correction += listeObjetsExercice[i].contenuCorrection
-            code_correction += '\n\n'
+            codeExercices += listeObjetsExercice[i].contenu
+            codeExercices += '\n\n'
+            codeCorrection += listeObjetsExercice[i].contenuCorrection
+            codeCorrection += '\n\n'
           }
           if (v < $('#nombre_de_versions').val() - 1) {
             if ($('#style_classique:checked').val()) {
-              code_exercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
+              codeExercices += '\n\\newpage\n\\setcounter{exo}{0}\n'
             } else {
-              code_exercices += '\n\\newpage\n\\setcounter{section}{0}\n'
+              codeExercices += '\n\\newpage\n\\setcounter{section}{0}\n'
             }
           }
-          code_correction += '\n\\end{correction}'
+          codeCorrection += '\n\\end{correction}'
         }
-        codeLatex = code_exercices + code_correction
+        codeLatex = codeExercices + codeCorrection
       }
       div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
       loadPrism().then(() => {
@@ -647,13 +648,13 @@ function miseAJourDuCode () {
       div.innerHTML = ''
     }
     $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .icone_qcm').remove() // dans l'aperçu pas d'icone QCM.
+    $('#popup_preview .iconeInteractif').remove() // dans l'aperçu pas d'icone QCM.
   }
   if (!context.isHtml) {
     // Gestion du téléchargement
     $('#btn_telechargement').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
-      let contenu_fichier = `
+      let contenuFichier = `
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Document généré avec MathALEA sous licence CC-BY-SA
@@ -668,28 +669,28 @@ function miseAJourDuCode () {
         if ($('#entete_du_fichier').val() === '') {
           $('#entete_du_fichier').val('Exercices')
         }
-        contenu_fichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n'
-        contenu_fichier += `\\input{preambule}\n\\pagestyle{fancy}\n\\renewcommand{\\headrulewidth}{1pt}\n\\fancyhead[C]{${$('#entete_du_fichier').val()}}\n\\fancyhead[L]{}`
-        contenu_fichier += '\\fancyhead[R]{}\n\\renewcommand{\\footrulewidth}{1pt}\n\\fancyfoot[C]{}\n\\fancyfoot[L]{}\n\\fancyfoot[R]{}\n\n'
-        contenu_fichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
+        contenuFichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n'
+        contenuFichier += `\\input{preambule}\n\\pagestyle{fancy}\n\\renewcommand{\\headrulewidth}{1pt}\n\\fancyhead[C]{${$('#entete_du_fichier').val()}}\n\\fancyhead[L]{}`
+        contenuFichier += '\\fancyhead[R]{}\n\\renewcommand{\\footrulewidth}{1pt}\n\\fancyfoot[C]{}\n\\fancyfoot[L]{}\n\\fancyfoot[R]{}\n\n'
+        contenuFichier += '\\begin{document}\n\n' + codeLatex + '\n\n\\end{document}'
       } else {
-        contenu_fichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
-        contenu_fichier += '\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
-        contenu_fichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
-        contenu_fichier += '\n\n\\end{document}'
+        contenuFichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
+        contenuFichier += '\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
+        contenuFichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
+        contenuFichier += '\n\n\\end{document}'
       }
 
       if ($('#nom_du_fichier').val()) {
-        telechargeFichier(contenu_fichier, $('#nom_du_fichier').val() + '.tex')
+        telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.tex')
       } else {
-        telechargeFichier(contenu_fichier, 'mathalea.tex')
+        telechargeFichier(contenuFichier, 'mathalea.tex')
       }
     })
 
     $('#btn_overleaf').off('click').on('click', function () {
       // Gestion du style pour l'entête du fichier
 
-      let contenu_fichier = `
+      let contenuFichier = `
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Document généré avec MathALEA sous licence CC-BY-SA
@@ -702,19 +703,19 @@ function miseAJourDuCode () {
     `
 
       if ($('#style_classique:checked').val()) {
-        contenu_fichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
+        contenuFichier += introLatex($('#entete_du_fichier').val(), listePackages) + codeLatex + '\n\n\\end{document}'
       } else {
-        contenu_fichier += introLatexCoop(listePackages)
-        contenu_fichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
-        contenu_fichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
-        contenu_fichier += '\n\n\\end{document}'
+        contenuFichier += introLatexCoop(listePackages)
+        contenuFichier += '\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $('#entete_du_fichier').val() + '}'
+        contenuFichier += '{' + $('#items').val() + '}{' + $('#domaine').val() + '}\n\\begin{document}\n\n' + codeLatex
+        contenuFichier += '\n\n\\end{document}'
       }
 
       // Gestion du LaTeX statique
 
       // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
-      $('input[name=encoded_snip]').val(encodeURIComponent(contenu_fichier))
+      $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
       if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
         $('input[name=engine]').val('xelatex')
       }
@@ -744,28 +745,28 @@ function miseAJourDuCode () {
 
   //* ******* Gestion des évènements sur les éléments liés aux exercices ********
 
-  $('.icone_qcm').off('click').on('click', function (e) {
-  // Au click sur l'icone qcm on coche le modeQCM de l'exercice dans les paramètres et on relance la mise à jour des exercices.
+  $('.iconeInteractif').off('click').on('click', function (e) {
+  // Au click sur l'icone interactif on coche le mode interactif de l'exercice dans les paramètres et on relance la mise à jour des exercices.
     $('#accordeon_parametres >div').addClass('active')
-    const num_ex = $(event.target).attr('data-num')
-    const checkElem = $(`#form_modeQcm${num_ex}`)
+    const numeroExerciceExercice = $(event.target).attr('data-num')
+    const checkElem = $(`#formInteractif${numeroExerciceExercice}`)
     if (checkElem.prop('checked')) {
-      $(`#form_modeQcm${num_ex}`).prop('checked', false).trigger('change')
-      listeObjetsExercice[num_ex].modeQcm = false
+      $(`#formInteractif${numeroExerciceExercice}`).prop('checked', false).trigger('change')
+      listeObjetsExercice[numeroExerciceExercice].interactif = false
       miseAJourDuCode()
     } else {
-      $(`#form_modeQcm${num_ex}`).prop('checked', true).trigger('change')
-      listeObjetsExercice[num_ex].modeQcm = true 
+      $(`#formInteractif${numeroExerciceExercice}`).prop('checked', true).trigger('change')
+      listeObjetsExercice[numeroExerciceExercice].interactif = true
       miseAJourDuCode()
-      $(`#boutonQcm¤${num_ex}`).removeClass('outline')      
-    }        
+      $(`#boutonInteractif${numeroExerciceExercice}`).removeClass('outline')
+    }
   })
 
   // icone_paramètres fait le focus sur les parmètres correspondant à l'exercice
   $('.icone_param').off('click').on('click', function (e) {
     $('#accordeon_parametres >div').addClass('active')
-    const num_ex = event.target.parentElement.parentElement.parentElement.id
-    $(`.${num_ex} + div :input`).focus()
+    const numeroExercice = event.target.parentElement.parentElement.parentElement.id
+    $(`.${numeroExercice} + div :input`).focus()
   })
 
   // ******** possibilité de manipuler la liste des exercices via les exercices. ******
@@ -773,13 +774,13 @@ function miseAJourDuCode () {
   function monterExo (num) {
   // remonte un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le haut au niveau du titre d'un exercice.
   // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
-    const form_choix_des_exercices = document.getElementById('choix_des_exercices')
-    liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
+    const formChoixDesExercices = document.getElementById('choix_des_exercices')
+    listeDesExercices = formChoixDesExercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
     if (num !== 0) {
-      [liste_des_exercices[num - 1], liste_des_exercices[num]] = [liste_des_exercices[num], liste_des_exercices[num - 1]]
-      form_choix_des_exercices.value = liste_des_exercices.toString()
-      copierExercicesFormVersAffichage(liste_des_exercices)
+      [listeDesExercices[num - 1], listeDesExercices[num]] = [listeDesExercices[num], listeDesExercices[num - 1]]
+      formChoixDesExercices.value = listeDesExercices.toString()
+      copierExercicesFormVersAffichage(listeDesExercices)
       miseAJourDeLaListeDesExercices()
     }
   }
@@ -787,13 +788,13 @@ function miseAJourDuCode () {
   function descendreExo (num) {
   // descend un exercice d'un cran dans la liste (déclenché sur l'icone fleche vers le bas au niveau du titre d'un exercice.
   // récupère la liste des exercices dans le formulaire, la réordonne et relance la fonction miseAJourDeLaListeDesExercices()
-    const form_choix_des_exercices = document.getElementById('choix_des_exercices')
-    liste_des_exercices = form_choix_des_exercices.value.replace(/\s/g, '').replace(';', ',').split(',')
+    const formChoixDesExercices = document.getElementById('choix_des_exercices')
+    listeDesExercices = formChoixDesExercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
-    if (num !== liste_des_exercices.length - 1) {
-      [liste_des_exercices[num], liste_des_exercices[num + 1]] = [liste_des_exercices[num + 1], liste_des_exercices[num]]
-      form_choix_des_exercices.value = liste_des_exercices.toString()
-      copierExercicesFormVersAffichage(liste_des_exercices)
+    if (num !== listeDesExercices.length - 1) {
+      [listeDesExercices[num], listeDesExercices[num + 1]] = [listeDesExercices[num + 1], listeDesExercices[num]]
+      formChoixDesExercices.value = listeDesExercices.toString()
+      copierExercicesFormVersAffichage(listeDesExercices)
       miseAJourDeLaListeDesExercices()
     }
   }
@@ -828,13 +829,13 @@ function miseAJourDuCode () {
 function miseAJourDeLaListeDesExercices (preview) {
   let besoinXCas = false
   const promises = []
-  const liste_exercices = liste_des_exercices
+  const listeExercices = listeDesExercices
   if (preview) {
-    liste_exercices.push(preview)
+    listeExercices.push(preview)
   }
   listeObjetsExercice = []
-  for (let i = 0, id; i < liste_exercices.length; i++) {
-    id = liste_exercices[i]
+  for (let i = 0, id; i < listeExercices.length; i++) {
+    id = listeExercices[i]
     let url
     try {
       url = dictionnaireDesExercices[id].url
@@ -904,7 +905,7 @@ function miseAJourDeLaListeDesExercices (preview) {
   Promise.all(promises)
     .then(() => {
       if (!preview) {
-        parametres_exercice(listeObjetsExercice)
+        parametresExercice(listeObjetsExercice)
       }
     })
     .then(() => {
@@ -914,17 +915,17 @@ function miseAJourDeLaListeDesExercices (preview) {
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
         // => évite les erreurs lors de la suppression de question dans la liste.
         if (urlVars.length < listeObjetsExercice.length && document.getElementById('filtre') && document.getElementById('filtre').value === 'interactif') {
-          listeObjetsExercice[listeObjetsExercice.length - 1].modeQcm = true
-          if (form_modeQcm[listeObjetsExercice.length - 1]) {
-            form_modeQcm[listeObjetsExercice.length - 1].checked = true
+          listeObjetsExercice[listeObjetsExercice.length - 1].interactif = true
+          if (formInteractif[listeObjetsExercice.length - 1]) {
+            formInteractif[listeObjetsExercice.length - 1].checked = true
           }
         }
         if (urlVars.length < 0 && document.getElementById('filtre').value === 'interactif') {
-          listeObjetsExercice[0].modeQcm = true
-          form_modeQcm[0].checked = true
+          listeObjetsExercice[0].interactif = true
+          formInteractif[0].checked = true
         }
         for (let i = 0; i < urlVars.length; i++) {
-          if (urlVars[i].id !== liste_exercices[i]) {
+          if (urlVars[i].id !== listeExercices[i]) {
             urlVars.splice(i, 1)
           }
         }
@@ -933,37 +934,37 @@ function miseAJourDeLaListeDesExercices (preview) {
           // et les recopie dans les formulaires des paramètres
           if (urlVars[i].nbQuestions && listeObjetsExercice[i].nbQuestionsModifiable) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
-            form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
+            formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
           if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
             listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
-            form_video[i].value = listeObjetsExercice[i].video
+            formVideo[i].value = listeObjetsExercice[i].video
           }
-          if (urlVars[i].qcm) {
-            listeObjetsExercice[i].modeQcm = true
-            if (form_modeQcm[i]) {
-              form_modeQcm[i].checked = true
+          if (urlVars[i].interactif) {
+            listeObjetsExercice[i].interactif = true
+            if (formInteractif[i]) {
+              formInteractif[i].checked = true
             }
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             listeObjetsExercice[i].sup = urlVars[i].sup
             // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
             try {
-              form_sup[i].value = listeObjetsExercice[i].sup
+              formSup[i].value = listeObjetsExercice[i].sup
             } catch {
             }
           }
           if (typeof urlVars[i].sup2 !== 'undefined') {
             listeObjetsExercice[i].sup2 = urlVars[i].sup2
             try {
-              form_sup2[i].value = listeObjetsExercice[i].sup2
+              formSup2[i].value = listeObjetsExercice[i].sup2
             } catch (error) {
             }
           }
           if (typeof urlVars[i].sup3 !== 'undefined') {
             listeObjetsExercice[i].sup3 = urlVars[i].sup3
             try {
-              form_sup3[i].value = listeObjetsExercice[i].sup3
+              formSup3[i].value = listeObjetsExercice[i].sup3
             } catch (error) {
 
             }
@@ -995,15 +996,15 @@ function miseAJourDeLaListeDesExercices (preview) {
       // gestion de l'affichage des exercices
         const output = context.isHtml
         context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
-        if (typeof listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion === 'function') {
+        if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
           try {
-            listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
+            listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
           } catch (error) {
             console.log(error)
           }
         }
-        listeObjetsExercice[liste_exercices.length - 1].id = liste_exercices[liste_exercices.length - 1]
-        const contenu = contenuExerciceHtml(listeObjetsExercice[liste_exercices.length - 1], liste_exercices.length, false)
+        listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
+        const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
         $('#popup_preview').html(contenu.contenu_un_exercice)
         $('.popup').addClass('show')
         if (document.getElementById('left')) {
@@ -1017,7 +1018,7 @@ function miseAJourDeLaListeDesExercices (preview) {
           $('.popuptext').css({ top: document.documentElement.scrollTop - 10 })
         }
         $('.popuptext').show()
-        liste_des_exercices.pop()
+        listeDesExercices.pop()
         if (!output) {
           gestionModules(false, listeObjetsExercice)
         }
@@ -1032,89 +1033,89 @@ function miseAJourDeLaListeDesExercices (preview) {
 // Gestion des paramètres
 const div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
 // const div_overleaf = document.getElementById('overleaf') // Récupère le div dans lequel le code va être affiché
-const div_parametres_generaux = document.getElementById('parametres_generaux') // Récupère le div dans lequel seront inscrit les paramètres
-const form_consigne = []
-const form_nbQuestions = []
-const form_video = []
-const form_correctionDetaillee = []
-const form_nbCols = []
-const form_nbColsCorr = []
-const form_spacing = []
-const form_spacingCorr = []
-const form_sup = []
-const form_sup2 = []
-const form_sup3 = []
-const form_modeQcm = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
+const divParametresGeneraux = document.getElementById('parametres_generaux') // Récupère le div dans lequel seront inscrit les paramètres
+const formConsigne = []
+const formNbQuestions = []
+const formVideo = []
+const formCorrectionDetaillee = []
+const formNbCols = []
+const formNbColsCorr = []
+const formSpacing = []
+const formSpacingCorr = []
+const formSup = []
+const formSup2 = []
+const formSup3 = []
+const formInteractif = [] // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
-function parametres_exercice (exercice) {
+function parametresExercice (exercice) {
   /* Pour l'exercice i, on rajoute un formulaire avec 5 inputs :
         nombre de questions, nombre de colonnes,nombre de colonnes dans le corrigé,
         espacement et espacement dans le corrigé.
         Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX est mis à jour
         */
-  div_parametres_generaux.innerHTML = '' // Vide le div parametres_generaux
+  divParametresGeneraux.innerHTML = '' // Vide le div parametres_generaux
   if (exercice.length > 0) {
-    div_parametres_generaux.innerHTML += '<div class="ui hidden divider"></div>'
+    divParametresGeneraux.innerHTML += '<div class="ui hidden divider"></div>'
 
-    div_parametres_generaux.innerHTML += `<div><label for="form_serie">Clé de la série d'exercice : </label> <input id="form_serie" type="text" style="padding: 5px;
+    divParametresGeneraux.innerHTML += `<div><label for="form_serie">Clé de la série d'exercice : </label> <input id="form_serie" type="text" style="padding: 5px;
   border: 1px solid #ccc;border-radius: 4px;"></div>`
   }
 
   for (let i = 0; i < exercice.length; i++) {
     if (context.isHtml) {
-      div_parametres_generaux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + liste_des_exercices[i] + '</h4>'
+      divParametresGeneraux.innerHTML += '<h4 class="ui dividing header exercice' + i + '">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + ' − ' + listeDesExercices[i] + '</h4>'
       if (exercice[i].pasDeVersionLatex) {
-        div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
+        divParametresGeneraux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
       }
       if (exercice[i].nbQuestionsModifiable) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
       }
       if (!context.isDiaporama) {
-        div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].qcmDisponible) {
-        div_parametres_generaux.innerHTML +=
-                        '<div><label for="form_modeQcm' + i + '">Mode QCM : </label> <input id="form_modeQcm' + i + '" type="checkbox" ></div>'
+      if (exercice[i].interactifReady) {
+        divParametresGeneraux.innerHTML +=
+                        '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
-      if (!exercice[i].nbQuestionsModifiable && !exercice[i].correctionDetailleeDisponible && !exercice[i].besoinFormulaireNumerique && !exercice[i].besoinFormulaireTexte && !exercice[i].qcmDisponible) {
-        div_parametres_generaux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'
+      if (!exercice[i].nbQuestionsModifiable && !exercice[i].correctionDetailleeDisponible && !exercice[i].besoinFormulaireNumerique && !exercice[i].besoinFormulaireTexte && !exercice[i].interactif) {
+        divParametresGeneraux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'
       }
     } else {
-      div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
+      divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
       if (exercice[i].consigneModifiable) {
-        div_parametres_generaux.innerHTML += '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="form_consigne' + i + '">Consigne : </label> <input id="form_consigne' + i + '" type="texte" size="20"></div>'
       }
       if (exercice[i].nbQuestionsModifiable) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_nbQuestions' + i + '">Nombre de questions : </label> <input id="form_nbQuestions' + i + '" type="number"  min="1" max="99"></div>'
       }
       if (exercice[i].correctionDetailleeDisponible) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].qcmDisponible) {
-        div_parametres_generaux.innerHTML +=
-                        '<div><label for="form_modeQcm' + i + '">Mode QCM : </label> <input id="form_modeQcm' + i + '" type="checkbox" ></div>'
+      if (exercice[i].interactifReady) {
+        divParametresGeneraux.innerHTML +=
+                        '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
       if (exercice[i].nbColsModifiable) {
-        div_parametres_generaux.innerHTML += '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].nbColsCorrModifiable) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_nbColsCorr' + i + '">Nombre de colonnes dans la correction : </label><input id="form_nbColsCorr' + i + '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].spacingModifiable) {
-        div_parametres_generaux.innerHTML += '<div><label for="form_nbColsCorr' + i + '">Espacement : </label><input id="form_spacing' + i + '" type="number" min="1" max="99"></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="form_nbColsCorr' + i + '">Espacement : </label><input id="form_spacing' + i + '" type="number" min="1" max="99"></div>'
       }
       if (exercice[i].spacingCorrModifiable) {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_nbColsCorr' + i + '">Espacement dans la correction : </label><input id="form_spacingCorr' + i + '" type="number" min="1" max="99"></div>'
       }
 
@@ -1127,14 +1128,14 @@ function parametres_exercice (exercice) {
     // Si un formulaire supplémentaire est défini dans l'exercice alors on l'ajoute
     if (exercice[i].besoinFormulaireNumerique || exercice[i].besoinFormulaireTexte) {
       // Ajout du titre pour les réglages supplémentaires
-      div_parametres_generaux.innerHTML += "<h4 class='ui dividing header'></h4>"
+      divParametresGeneraux.innerHTML += "<h4 class='ui dividing header'></h4>"
     }
 
     if (exercice[i].besoinFormulaireNumerique) {
       // Création d'un formulaire numérique
       if (exercice[i].besoinFormulaireNumerique[2]) {
         // Si un tooltip est défini
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div data-tooltip="' +
                         exercice[i].besoinFormulaireNumerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup' +
@@ -1147,7 +1148,7 @@ function parametres_exercice (exercice) {
                         exercice[i].besoinFormulaireNumerique[1] +
                         '"></div>'
       } else {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_sup' +
                         i +
                         '">' +
@@ -1162,16 +1163,16 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaireTexte) {
       // Création d'un formulaire texte
-      const param_tooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
-      div_parametres_generaux.innerHTML +=
+      const paramTooltip = exercice[i].besoinFormulaireTexte[1] ? `data-tooltip="${exercice[i].besoinFormulaireTexte[1]}"` : ''
+      divParametresGeneraux.innerHTML +=
                     `<div style='display: inline'><label for='form_sup${i}'> ${exercice[i].besoinFormulaireTexte[0]} : </label>
-                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoin_formulaire_long_texte) {
       // Création d'un long formulaire de texte
-      div_parametres_generaux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
                     "<label for='form_sup" +
                     i +
                     "'>" +
@@ -1181,7 +1182,7 @@ function parametres_exercice (exercice) {
                     "' data-inverted=''><textarea id='form_sup" +
                     i +
                     "'></textarea></div>"
-      div_parametres_generaux.innerHTML += `<div class="ui form">
+      divParametresGeneraux.innerHTML += `<div class="ui form">
 <div class="field">
 <label>Text</label>
 <textarea></textarea>
@@ -1191,7 +1192,7 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaireCaseACocher) {
       // Création d'un formulaire texte
-      div_parametres_generaux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup" +
                     i +
                     "'>" +
@@ -1203,7 +1204,7 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaire2CaseACocher) {
       // Création d'un formulaire texte
-      div_parametres_generaux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup2" +
                     i +
                     "'>" +
@@ -1217,7 +1218,7 @@ function parametres_exercice (exercice) {
       // Création d'un formulaire numérique
       if (exercice[i].besoinFormulaire2Numerique[2]) {
         // Si un tooltip est défini
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div data-tooltip="' +
                         exercice[i].besoinFormulaire2Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup2' +
@@ -1230,7 +1231,7 @@ function parametres_exercice (exercice) {
                         exercice[i].besoinFormulaire2Numerique[1] +
                         '"></div>'
       } else {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_sup2' +
                         i +
                         '">' +
@@ -1245,16 +1246,16 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaire2Texte) {
       // Création d'un formulaire texte
-      const param_tooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
-      div_parametres_generaux.innerHTML +=
+      const paramTooltip = exercice[i].besoinFormulaire2Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire2Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML +=
                     `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire2Texte[0]} : </label>
-                    <div style='display: inline' ${param_tooltip} data-inverted=''>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
                     <input id='form_sup2${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoinFormulairei3CaseACocher) {
       // Création d'un formulaire texte
-      div_parametres_generaux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
                     "<div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
@@ -1268,7 +1269,7 @@ function parametres_exercice (exercice) {
       // Création d'un formulaire numérique
       if (exercice[i].besoinFormulaire3Numerique[2]) {
         // Si un tooltip est défini
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div data-tooltip="' +
                         exercice[i].besoinFormulaire3Numerique[2] +
                         '"" data-inverted="" data-position="top left"><label for="form_sup3' +
@@ -1281,7 +1282,7 @@ function parametres_exercice (exercice) {
                         exercice[i].besoinFormulaire3Numerique[1] +
                         '"></div>'
       } else {
-        div_parametres_generaux.innerHTML +=
+        divParametresGeneraux.innerHTML +=
                         '<div><label for="form_sup3' +
                         i +
                         '">' +
@@ -1296,7 +1297,7 @@ function parametres_exercice (exercice) {
 
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
-      div_parametres_generaux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
                     "<p></p><div style='display: inline'><label for='form_sup3" +
                     i +
                     "'>" +
@@ -1314,9 +1315,9 @@ function parametres_exercice (exercice) {
       // Les paramètres à ne gérer que pour la version LaTeX
       // Gestion de la consigne
       if (exercice[i].consigneModifiable) {
-        form_consigne[i] = document.getElementById('form_consigne' + i)
-        form_consigne[i].value = exercice[i].consigne // Rempli le formulaire avec la consigne
-        form_consigne[i].addEventListener('change', function (e) {
+        formConsigne[i] = document.getElementById('form_consigne' + i)
+        formConsigne[i].value = exercice[i].consigne // Rempli le formulaire avec la consigne
+        formConsigne[i].addEventListener('change', function (e) {
           // Dès que le texte change, on met à jour
           exercice[i].consigne = e.target.value
           miseAJourDuCode()
@@ -1325,9 +1326,9 @@ function parametres_exercice (exercice) {
 
       // Gestion du nombre de la correction détaillée
       if (exercice[i].correctionDetailleeDisponible) {
-        form_correctionDetaillee[i] = document.getElementById('form_correctionDetaillee' + i)
-        form_correctionDetaillee[i].checked = exercice[i].correctionDetaillee // Rempli le formulaire avec la valeur par défaut
-        form_correctionDetaillee[i].addEventListener('change', function (e) {
+        formCorrectionDetaillee[i] = document.getElementById('form_correctionDetaillee' + i)
+        formCorrectionDetaillee[i].checked = exercice[i].correctionDetaillee // Rempli le formulaire avec la valeur par défaut
+        formCorrectionDetaillee[i].addEventListener('change', function (e) {
           // Dès que le statut change, on met à jour
           exercice[i].correctionDetaillee = e.target.checked
           miseAJourDuCode()
@@ -1336,9 +1337,9 @@ function parametres_exercice (exercice) {
 
       // Gestion du nombre de colones
       if (exercice[i].nbColsModifiable) {
-        form_nbCols[i] = document.getElementById('form_nbCols' + i)
-        form_nbCols[i].value = exercice[i].nbCols // Rempli le formulaire avec le nombre de colonnes
-        form_nbCols[i].addEventListener('change', function (e) {
+        formNbCols[i] = document.getElementById('form_nbCols' + i)
+        formNbCols[i].value = exercice[i].nbCols // Rempli le formulaire avec le nombre de colonnes
+        formNbCols[i].addEventListener('change', function (e) {
           // Dès que le nombre change, on met à jour
           exercice[i].nbCols = e.target.value
           miseAJourDuCode()
@@ -1347,9 +1348,9 @@ function parametres_exercice (exercice) {
 
       // Gestion du nombre de colones dans la correction
       if (exercice[i].nbColsCorrModifiable) {
-        form_nbColsCorr[i] = document.getElementById('form_nbColsCorr' + i)
-        form_nbColsCorr[i].value = exercice[i].nbColsCorr // Rempli le formulaire avec le nombre de colonnes de la correction
-        form_nbColsCorr[i].addEventListener('change', function (e) {
+        formNbColsCorr[i] = document.getElementById('form_nbColsCorr' + i)
+        formNbColsCorr[i].value = exercice[i].nbColsCorr // Rempli le formulaire avec le nombre de colonnes de la correction
+        formNbColsCorr[i].addEventListener('change', function (e) {
           // Dès que le nombre change, on met à jour
           exercice[i].nbColsCorr = e.target.value
           miseAJourDuCode()
@@ -1358,9 +1359,9 @@ function parametres_exercice (exercice) {
 
       // Gestion de l'espacement
       if (exercice[i].spacingModifiable) {
-        form_spacing[i] = document.getElementById('form_spacing' + i)
-        form_spacing[i].value = exercice[i].spacing // Rempli le formulaire avec le nombre de colonnes de la correction
-        form_spacing[i].addEventListener('change', function (e) {
+        formSpacing[i] = document.getElementById('form_spacing' + i)
+        formSpacing[i].value = exercice[i].spacing // Rempli le formulaire avec le nombre de colonnes de la correction
+        formSpacing[i].addEventListener('change', function (e) {
           // Dès que le nombre change, on met à jour
           exercice[i].spacing = e.target.value
           miseAJourDuCode()
@@ -1369,9 +1370,9 @@ function parametres_exercice (exercice) {
 
       // Gestion de l'espacement dans la correction
       if (exercice[i].spacingCorrModifiable) {
-        form_spacingCorr[i] = document.getElementById('form_spacingCorr' + i)
-        form_spacingCorr[i].value = exercice[i].spacingCorr // Rempli le formulaire avec le nombre de colonnes de la correction
-        form_spacingCorr[i].addEventListener('change', function (e) {
+        formSpacingCorr[i] = document.getElementById('form_spacingCorr' + i)
+        formSpacingCorr[i].value = exercice[i].spacingCorr // Rempli le formulaire avec le nombre de colonnes de la correction
+        formSpacingCorr[i].addEventListener('change', function (e) {
           // Dès que le nombre change, on met à jour
           exercice[i].spacingCorr = e.target.value
           miseAJourDuCode()
@@ -1379,15 +1380,15 @@ function parametres_exercice (exercice) {
       }
 
       // Gestion de la suppression de la correction
-      const form_correction_affichee = document.getElementById('supprimer_correction')
-      form_correction_affichee.addEventListener('change', function (e) {
+      const formCorrectionAffichee = document.getElementById('supprimer_correction')
+      formCorrectionAffichee.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         miseAJourDuCode()
       })
 
       // Gestion du mode N&B pour les remplissages
-      const form_ModeNB = document.getElementById('ModeNB')
-      form_ModeNB.addEventListener('change', function (e) {
+      const formModeNB = document.getElementById('ModeNB')
+      formModeNB.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         if ($('#ModeNB:checked').val()) {
           context.sortieNB = true
@@ -1398,25 +1399,25 @@ function parametres_exercice (exercice) {
       })
 
       // Gestion de la suppression des identifiants
-      const form_supprimer_reference = document.getElementById('supprimer_reference')
-      form_supprimer_reference.addEventListener('change', function (e) {
+      const formSupprimerReference = document.getElementById('supprimer_reference')
+      formSupprimerReference.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         // nouvelles_donnees();
         miseAJourDuCode()
       })
 
       // Gestion du changement de style
-      const btn_radio_style_classique = document.getElementById('style_classique')
-      btn_radio_style_classique.addEventListener('change', miseAJourDuCode)
-      const btn_radio_style_CoopMaths = document.getElementById('style_CoopMaths')
-      btn_radio_style_CoopMaths.addEventListener('change', miseAJourDuCode)
+      const btnRadioStyleClassique = document.getElementById('style_classique')
+      btnRadioStyleClassique.addEventListener('change', miseAJourDuCode)
+      const btnRadioStyleCoopMaths = document.getElementById('style_CoopMaths')
+      btnRadioStyleCoopMaths.addEventListener('change', miseAJourDuCode)
     }
 
     // Gestion du nombre de questions
     if (exercice[i].nbQuestionsModifiable) {
-      form_nbQuestions[i] = document.getElementById('form_nbQuestions' + i)
-      form_nbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
-      form_nbQuestions[i].addEventListener('change', function (e) {
+      formNbQuestions[i] = document.getElementById('form_nbQuestions' + i)
+      formNbQuestions[i].value = exercice[i].nbQuestions // Rempli le formulaire avec le nombre de questions
+      formNbQuestions[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
         exercice[i].nbQuestions = e.target.value
         miseAJourDuCode()
@@ -1425,9 +1426,9 @@ function parametres_exercice (exercice) {
 
     // Gestion de la vidéo
     if (context.isHtml && !context.isDiaporama) {
-      form_video[i] = document.getElementById('form_video' + i)
-      form_video[i].value = exercice[i].video // Rempli le formulaire
-      form_video[i].addEventListener('change', function (e) {
+      formVideo[i] = document.getElementById('form_video' + i)
+      formVideo[i].value = exercice[i].video // Rempli le formulaire
+      formVideo[i].addEventListener('change', function (e) {
         // Dès que ça change, on met à jour
         exercice[i].video = e.target.value
         miseAJourDuCode()
@@ -1436,30 +1437,30 @@ function parametres_exercice (exercice) {
 
     // Gestion de la correction détaillée
     if (exercice[i].correctionDetailleeDisponible) {
-      form_correctionDetaillee[i] = document.getElementById('form_correctionDetaillee' + i)
-      form_correctionDetaillee[i].checked = exercice[i].correctionDetaillee // Rempli le formulaire avec la valeur par défaut
-      form_correctionDetaillee[i].addEventListener('change', function (e) {
+      formCorrectionDetaillee[i] = document.getElementById('form_correctionDetaillee' + i)
+      formCorrectionDetaillee[i].checked = exercice[i].correctionDetaillee // Rempli le formulaire avec la valeur par défaut
+      formCorrectionDetaillee[i].addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         exercice[i].correctionDetaillee = e.target.checked
         miseAJourDuCode()
       })
     }
 
-    // Gestion du mode QCM
-    if (exercice[i].qcmDisponible) {
-      form_modeQcm[i] = document.getElementById('form_modeQcm' + i)
-      form_modeQcm[i].checked = exercice[i].modeQcm // Rempli le formulaire avec la valeur par défaut
-      form_modeQcm[i].addEventListener('change', function (e) {
+    // Gestion du mode interactif
+    if (exercice[i].interactifReady) {
+      formInteractif[i] = document.getElementById('formInteractif' + i)
+      formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
+      formInteractif[i].addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        exercice[i].modeQcm = e.target.checked
+        exercice[i].interactif = e.target.checked
         miseAJourDuCode()
       })
     }
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
-      const form_serie = document.getElementById('form_serie')
-      form_serie.value = context.graine // Rempli le formulaire avec la graine
-      form_serie.addEventListener('change', function (e) {
+      const formSerie = document.getElementById('form_serie')
+      formSerie.value = context.graine // Rempli le formulaire avec la graine
+      formSerie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
         context.graine = e.target.value
         miseAJourDuCode()
@@ -1469,8 +1470,8 @@ function parametres_exercice (exercice) {
     // Gestion des paramètres supplémentaires s'ils existent
 
     if (exercice[i].besoinFormulaireTexte) {
-      form_sup[i] = document.getElementById('form_sup' + i)
-      form_sup[i].addEventListener('keydown', function (e) {
+      formSup[i] = document.getElementById('form_sup' + i)
+      formSup[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
         if (e.keyCode === 13) {
           exercice[i].sup = e.target.value // Récupère  la saisie de l'utilisateur
@@ -1478,7 +1479,7 @@ function parametres_exercice (exercice) {
         }
       })
 
-      form_sup[i].addEventListener('blur', function (e) {
+      formSup[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup = e.target.value
         miseAJourDuCode()
@@ -1486,8 +1487,8 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoin_formulaire_long_texte) {
-      form_sup[i] = document.getElementById('form_sup' + i)
-      form_sup[i].addEventListener('keydown', function (e) {
+      formSup[i] = document.getElementById('form_sup' + i)
+      formSup[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
         if (e.keyCode === 13) {
           exercice[i].sup = e.target.value // Récupère  la saisie de l'utilisateur
@@ -1495,7 +1496,7 @@ function parametres_exercice (exercice) {
         }
       })
 
-      form_sup[i].addEventListener('blur', function (e) {
+      formSup[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup = e.target.value
         miseAJourDuCode()
@@ -1503,9 +1504,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaireNumerique) {
-      form_sup[i] = document.getElementById('form_sup' + i)
-      form_sup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup[i].addEventListener('change', function (e) {
+      formSup[i] = document.getElementById('form_sup' + i)
+      formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
         exercice[i].sup = e.target.value
         miseAJourDuCode()
@@ -1513,9 +1514,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaireCaseACocher) {
-      form_sup[i] = document.getElementById('form_sup' + i)
-      form_sup[i].checked = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup[i].addEventListener('change', function (e) {
+      formSup[i] = document.getElementById('form_sup' + i)
+      formSup[i].checked = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].addEventListener('change', function (e) {
         //
         exercice[i].sup = e.target.checked
         miseAJourDuCode()
@@ -1523,9 +1524,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2CaseACocher) {
-      form_sup2[i] = document.getElementById('form_sup2' + i)
-      form_sup2[i].checked = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup2[i].addEventListener('change', function (e) {
+      formSup2[i] = document.getElementById('form_sup2' + i)
+      formSup2[i].checked = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].addEventListener('change', function (e) {
         //
         exercice[i].sup2 = e.target.checked
         miseAJourDuCode()
@@ -1533,9 +1534,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2Numerique) {
-      form_sup2[i] = document.getElementById('form_sup2' + i)
-      form_sup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup2[i].addEventListener('change', function (e) {
+      formSup2[i] = document.getElementById('form_sup2' + i)
+      formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
         exercice[i].sup2 = e.target.value
         miseAJourDuCode()
@@ -1543,8 +1544,8 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2Texte) {
-      form_sup2[i] = document.getElementById('form_sup2' + i)
-      form_sup2[i].addEventListener('keydown', function (e) {
+      formSup2[i] = document.getElementById('form_sup2' + i)
+      formSup2[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
         if (e.keyCode === 13) {
           exercice[i].sup2 = e.target.value // Récupère  la saisie de l'utilisateur
@@ -1552,7 +1553,7 @@ function parametres_exercice (exercice) {
         }
       })
 
-      form_sup2[i].addEventListener('blur', function (e) {
+      formSup2[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup2 = e.target.value
         miseAJourDuCode()
@@ -1560,9 +1561,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulairei3CaseACocher) {
-      form_sup3[i] = document.getElementById('form_sup3' + i)
-      form_sup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup3[i].addEventListener('change', function (e) {
+      formSup3[i] = document.getElementById('form_sup3' + i)
+      formSup3[i].checked = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].addEventListener('change', function (e) {
         //
         exercice[i].sup3 = e.target.checked
         miseAJourDuCode()
@@ -1570,9 +1571,9 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire3Numerique) {
-      form_sup3[i] = document.getElementById('form_sup3' + i)
-      form_sup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
-      form_sup3[i].addEventListener('change', function (e) {
+      formSup3[i] = document.getElementById('form_sup3' + i)
+      formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
         exercice[i].sup3 = e.target.value
         miseAJourDuCode()
@@ -1580,8 +1581,8 @@ function parametres_exercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire3Texte) {
-      form_sup3[i] = document.getElementById('form_sup3' + i)
-      form_sup3[i].addEventListener('keydown', function (e) {
+      formSup3[i] = document.getElementById('form_sup3' + i)
+      formSup3[i].addEventListener('keydown', function (e) {
         // Appui sur la touche entrée
         if (e.keyCode === 13) {
           exercice[i].sup3 = e.target.value // Récupère  la saisie de l'utilisateur
@@ -1589,7 +1590,7 @@ function parametres_exercice (exercice) {
         }
       })
 
-      form_sup3[i].addEventListener('blur', function (e) {
+      formSup3[i].addEventListener('blur', function (e) {
         // Perte du focus
         exercice[i].sup3 = e.target.value
         miseAJourDuCode()
@@ -1607,11 +1608,11 @@ window.addEventListener('DOMContentLoaded', () => {
   $('.ui.button.toggle').state() // initialise le bouton
 
   // Gestion du bouton « Nouvelles données »
-  const btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code')
-  if (btn_mise_a_jour_code) {
-    btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
+  const btnMiseAJourCode = document.getElementById('btn_mise_a_jour_code')
+  if (btnMiseAJourCode) {
+    btnMiseAJourCode.addEventListener('click', nouvellesDonnees)
   }
-  function nouvelles_donnees () {
+  function nouvellesDonnees () {
     context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
@@ -1660,7 +1661,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // handlers pour la prévisualisation des exercices cg 04-20201
-  function afficher_popup () {
+  function afficherPopup () {
     // lors du clic sur l'oeil, si la popup est affichée on la cache, sinon on ouvre la prévisulisation.
     if ($('.popuptext').is(':visible')) {
       $('.popuptext').empty()
@@ -1672,7 +1673,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   $('.popup').off('click').on('click', function (e) {
     event.stopPropagation()
-    afficher_popup()
+    afficherPopup()
   })
 
   $(document).click(function (event) {
@@ -1749,13 +1750,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {
     for (let i = 0; i < urlVars.length; i++) {
-      liste_des_exercices.push(urlVars[i].id)
+      listeDesExercices.push(urlVars[i].id)
     }
-    form_choix_des_exercices.value = liste_des_exercices.join(',')
-    copierExercicesFormVersAffichage(liste_des_exercices)
+    formChoixDesExercices.value = listeDesExercices.join(',')
+    copierExercicesFormVersAffichage(listeDesExercices)
     try {
-    miseAJourDeLaListeDesExercices()
-    } catch(err) {
+      miseAJourDeLaListeDesExercices()
+    } catch (err) {
       messageUtilisateur(err)
     }
   }

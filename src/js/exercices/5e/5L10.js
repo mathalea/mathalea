@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -174,7 +174,7 @@ export default function EcrireUneExpressionLitterale () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionAutoCorrection(this)
+    
   }
   // this.besoinFormulaireCaseACocher = ["Uniquement la lettre $n$."]
 }

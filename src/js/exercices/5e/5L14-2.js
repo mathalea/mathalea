@@ -2,8 +2,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
+import { ajoutChampTexte, exerciceInteractif } from '../../modules/gestionQcm.js'
 export const amcReady = true
+export const interactifReady = true
 export const amcType = 4 // type de question AMC NumeriqueChoice
 
 export const titre = 'Substitution'
@@ -24,10 +25,13 @@ export const titre = 'Substitution'
 * @Auteur Rémi Angot
 * 5L14-2
 */
-export default function Exercice_substituer (difficulte = 1) {
+export default function ExerciceSubstituer (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
   this.titre = titre
+  this.amcType = amcType
+  this.interactif = true
+  this.interactifReady = interactifReady
   this.consigne = 'Calculer'
   this.spacing = 1
   this.consigneModifiable = false
@@ -113,6 +117,13 @@ export default function Exercice_substituer (difficulte = 1) {
           reponse = k * x * x + k2 * x + k3
           break
       }
+      if (this.interactif) {
+        texte += ajoutChampTexte({
+          texte: '$~=$',
+          numeroExercice: this.numeroExercice,
+          i
+        })
+      }
       this.autoCorrection[i] = {
         enonce: texte + '\\\\' + this.consigne,
         propositions: [
@@ -135,11 +146,7 @@ export default function Exercice_substituer (difficulte = 1) {
           }
         }
       }
-	 /* if (this.modeQcm && !context.isAmc) {
-        texte += propositionsQcm(this, i).texte
-      }
-	  */
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
 
@@ -149,8 +156,9 @@ export default function Exercice_substituer (difficulte = 1) {
     }
     if (context.isAmc) {
       this.amc = [this.id, this.autoCorrection, titre, amcType]
-		  }
+    }
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif']
+  exerciceInteractif(this)
 }

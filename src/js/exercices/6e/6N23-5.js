@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2, shuffle2tableaux } from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -120,7 +120,7 @@ export default function SensDeLaFraction () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionAutoCorrection(this)
+    
   }
 
   // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]

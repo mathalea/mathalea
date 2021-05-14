@@ -1,11 +1,11 @@
-/* global mathalea */
+/* global */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
-
+export const interactifReady = true
 export const titre = 'Critères de divisibilité'
 
 /**
@@ -22,6 +22,8 @@ export default function CriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4 // Correspond au facteur commun
   this.titre = titre
+  this.interactifReady = interactifReady
+  this.amcType = amcType
   this.consigne = 'Répondre aux questions suivantes en justifiant.'
   this.spacing = 2
   this.spacingCorr = 1
@@ -236,6 +238,5 @@ export default function CriteresDeDivisibilite () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionAutoCorrection(this)
   this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Critères de divisibilité par 2, 5, 10\n2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité']
 }

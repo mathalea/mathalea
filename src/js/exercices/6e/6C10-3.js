@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -105,7 +105,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
     }
     listeQuestionsToContenu(this)
   }
-  gestionAutoCorrection(this)
+  
   this.besoinFormulaireTexte = [
     'Choix des tables',
     'Nombres séparés par des tirets'

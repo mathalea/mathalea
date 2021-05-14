@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
 
@@ -531,5 +531,5 @@ export default function TableauCriteresDeDivisibilite() {
       this.amc = [this.id, this.autoCorrection, titre, amcType]
     }
   }
-  gestionAutoCorrection(this)
+  
 }
