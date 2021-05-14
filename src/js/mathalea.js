@@ -647,8 +647,8 @@ function miseAJourDuCode () {
       $('#cache').hide() // Cache au dessus du code LaTeX
       div.innerHTML = ''
     }
-    $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .iconeInteractif').remove() // dans l'aperçu pas d'icone QCM.
+    $('.icone_param').remove() // dans mathalealatex pas d'engrenage pour les paramètres.
+    $('.iconeInteractif').remove() // dans l'aperçu pas d'icone QCM.
   }
   if (!context.isHtml) {
     // Gestion du téléchargement
@@ -1619,7 +1619,9 @@ window.addEventListener('DOMContentLoaded', () => {
       length: 4,
       startsWithLowerCase: false
     })
-    document.getElementById('form_serie').value = context.graine // mise à jour du formulaire
+    if (document.getElementById('form_serie')) {
+      document.getElementById('form_serie').value = context.graine // mise à jour du formulaire
+    }
     miseAJourDuCode()
   }
 
