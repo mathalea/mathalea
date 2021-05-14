@@ -28,6 +28,12 @@
   margin-top: 40px;
 }
 
+/* Pour les formulaire avec la classe inline */
+
+.ui.form.inline {
+  display: inline-block;
+}
+
 #affichageErreur {
     width: 80%;
     margin: 0 auto;

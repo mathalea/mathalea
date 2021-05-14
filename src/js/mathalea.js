@@ -941,7 +941,9 @@ function miseAJourDeLaListeDesExercices (preview) {
           }
           if (urlVars[i].qcm) {
             listeObjetsExercice[i].modeQcm = true
-            form_modeQcm[i].checked = true
+            if (form_modeQcm[i]) {
+              form_modeQcm[i].checked = true
+            }
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             listeObjetsExercice[i].sup = urlVars[i].sup
