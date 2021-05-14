@@ -122,7 +122,7 @@ export default function Exercice_substituer (difficulte = 1) {
             feedback: ''
           }
         ],
-        reponse: [{
+        reponse: {
           texte: 'résultat',
           valeur: reponse,
           param: {
@@ -134,7 +134,6 @@ export default function Exercice_substituer (difficulte = 1) {
             approx: 0
           }
         }
-        ]
       }
 	 /* if (this.modeQcm && !context.isAmc) {
         texte += propositionsQcm(this, i).texte
