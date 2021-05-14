@@ -260,7 +260,7 @@ if (!context.isHtml&&this.correctionDetaillee) {
                 feedback: ''
               }
             ],
-            reponse: [{
+            reponse: {
               texte: 'résultat',
               valeur: reponse,
               param: {
@@ -272,7 +272,6 @@ if (!context.isHtml&&this.correctionDetaillee) {
                 approx: 1
               }
             }
-            ]
           }
         /****************************************************/
         this.listeQuestions.push(texte);
