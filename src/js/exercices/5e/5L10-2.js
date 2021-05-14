@@ -1,5 +1,5 @@
 /* global mathalea context.isDiaporama context.isHtml */
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 import { ecritureParentheseSiNegatif, shuffle2tableaux, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -126,7 +126,7 @@ export default function TraduireUnProgrammeDeCalcul () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionAutoCorrection(this)
+    
   }
   // this.besoinFormulaireCaseACocher = true;
 }

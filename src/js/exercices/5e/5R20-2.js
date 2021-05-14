@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1
 export const titre = 'Addition à trou de deux entiers relatifs'
@@ -63,7 +63,7 @@ export default function Exercice_additions_relatifs_a_trou (max = 20) {
       cpt++
     }
     listeQuestionsToContenu(this)
-    gestionAutoCorrection(this)
+    
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
   this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']

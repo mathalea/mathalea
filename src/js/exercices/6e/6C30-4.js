@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -90,5 +90,5 @@ export default function PlacerLaVirgule () {
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-  gestionAutoCorrection(this)
+  
 } // Fin de l'exercice.

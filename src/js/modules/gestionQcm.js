@@ -9,7 +9,7 @@ import { messageFeedback } from './erreurs.js'
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function gestionAutoCorrection (exercice) {
+export function exerciceQcm (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
@@ -45,7 +45,7 @@ export function gestionAutoCorrection (exercice) {
               indiceFeedback = indice
             }
           })
-          let typeFeedback = 'positive'
+          const typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
             spanReponseLigne.innerHTML = '😎'
           } else {
@@ -158,7 +158,7 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function exerciceInteractif (exercice) {
+export function questionNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     // $('.ui.checkbox').checkbox()
@@ -168,16 +168,16 @@ export function exerciceInteractif (exercice) {
     if (button) {
       button.addEventListener('click', event => {
         let nbBonnesReponses = 0
-          let nbMauvaisesReponses = 0
-          const nbBonnesReponsesAttendues = exercice.nbQuestions
-        for (let i in exercice.autoCorrection) {
+        let nbMauvaisesReponses = 0
+        const nbBonnesReponsesAttendues = exercice.nbQuestions
+        for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value === exercice.autoCorrection[i].reponse.value.toString()) {
+          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value === exercice.autoCorrection[i].reponse.valeur.toString()) {
             spanReponseLigne.innerHTML = '😎'
-            nbBonnesReponses ++
+            nbBonnesReponses++
           } else {
             spanReponseLigne.innerHTML = '☹️'
-            nbMauvaisesReponses ++
+            nbMauvaisesReponses++
           }
           spanReponseLigne.style.fontSize = 'large'
         }
@@ -197,4 +197,9 @@ export function ajoutChampTexte ({ texte = '', texteApres = '', numeroExercice, 
     </div>
     </div>`
   }
+}
+
+export function exerciceInteractif (exercice) {
+  if (exercice.amcType === 4) questionNumerique(exercice)
+  if (exercice.amcType === 1) exerciceQcm(exercice)
 }

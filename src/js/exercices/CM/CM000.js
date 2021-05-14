@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
-import { ajoutChampTexte, exerciceInteractif } from '../../modules/gestionQcm.js'
+import { ajoutChampTexte } from '../../modules/gestionQcm.js'
 
 export const titre = 'Additions et de soustractions'
+export const interactifReady = true
+export const amcType = 4
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.
@@ -20,8 +22,9 @@ export default function TablesAdditionsSoustractions () {
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.modeQcm = true
-  this.qcmDisponible = true
+  this.interactif = true
+  this.interactifReady = interactifReady
+  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -74,7 +77,7 @@ export default function TablesAdditionsSoustractions () {
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
           texte = `$${a} + ${b} = \\dotfill$`
-          if (this.modeQcm) {
+          if (this.interactif) {
             texte = ajoutChampTexte({
               texte: `$${a} + ${b} = $`,
               numeroExercice: this.numeroExercice,
@@ -82,11 +85,11 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
-          this.autoCorrection[i].reponse.value = a + b
+          this.autoCorrection[i].reponse.valeur = a + b
           break
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
-          if (this.modeQcm) {
+          if (this.interactif) {
             texte = ajoutChampTexte({
               texte: `$${a}~+ $`,
               texteApres: `$= ${a + b}$`,
@@ -95,7 +98,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
-          this.autoCorrection[i].reponse.value = b
+          this.autoCorrection[i].reponse.valeur = b
           break
         case 'soustraction':
           if (a === b) {
@@ -105,7 +108,7 @@ export default function TablesAdditionsSoustractions () {
             b = [a, (a = b)][0] // échange les variables a et b
           }
           texte = `$${a} - ${b} = \\dotfill$`
-          if (this.modeQcm) {
+          if (this.interactif) {
             texte = ajoutChampTexte({
               texte: `$${a} - ${b} = $`,
               numeroExercice: this.numeroExercice,
@@ -113,7 +116,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
-          this.autoCorrection[i].reponse.value = a - b
+          this.autoCorrection[i].reponse.valeur = a - b
           break
         case 'soustraction_a_trou':
           if (a === b) {
@@ -123,7 +126,7 @@ export default function TablesAdditionsSoustractions () {
             b = [a, (a = b)][0] // échange les variables a et b
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
-          if (this.modeQcm) {
+          if (this.interactif) {
             texte = ajoutChampTexte({
               texte: `$${a}~- $`,
               texteApres: `$= ${a - b}$`,
@@ -132,7 +135,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
-          this.autoCorrection[i].reponse.value = b
+          this.autoCorrection[i].reponse.valeur = b
           break
       }
 
@@ -150,5 +153,4 @@ export default function TablesAdditionsSoustractions () {
     6,
     '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
   ]
-  exerciceInteractif(this)
 }

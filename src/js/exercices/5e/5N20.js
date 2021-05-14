@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // type de question AMC
@@ -185,7 +185,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  gestionAutoCorrection(this)
+  
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
   this.besoinFormulaire2Numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
 }

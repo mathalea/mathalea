@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
-import { gestionAutoCorrection, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
 
@@ -22,8 +22,9 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.qcmDisponible = true
-  this.modeQcm = false
+  this.interactifReady = true
+  this.interactif = true
+  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
@@ -111,7 +112,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ordered: false,
         lastChoice: 5
       }
-      if (this.modeQcm && !context.isAmc) {
+      if (this.interactif) {
         texte += propositionsQcm(this, i).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
@@ -123,7 +124,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       this.amc = [this.id, this.autoCorrection, titre, amcType]
     }
   }
-  gestionAutoCorrection(this)
   this.besoinFormulaireTexte = [
     'Choix des tables',
     'Nombres séparés par des tirets'
