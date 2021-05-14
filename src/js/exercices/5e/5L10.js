@@ -1,12 +1,11 @@
-/* global mathalea  */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { shuffle2tableaux, listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 2 // type de question AMC
-
+export const interactifReady = true
 export const titre = 'Écrire une expression littérale'
 
 /**
@@ -26,13 +25,12 @@ export default function EcrireUneExpressionLitterale () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.qcmDisponible = true
-  this.modeQcm = false
+  this.interactifReady = true
+  this.interactif = true
+  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    let tabrep, tabicone
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -40,7 +38,7 @@ export default function EcrireUneExpressionLitterale () {
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.autoCorrection[i]={}
+      this.autoCorrection[i] = {}
       const lettresDisponibles = ['x', 'y', 'z', 't', 'a', 'b', 'c', 'n', 'm']
       const x = choice(lettresDisponibles)
       enleveElement(lettresDisponibles, x)
@@ -622,7 +620,7 @@ export default function EcrireUneExpressionLitterale () {
               feedback: "Le carré d'un nombre impair est-il pair ?"
             }
           ]
-         break
+          break
         case 17: // impair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre impair.'
           texteCorr = 'Un nombre impair peut s\'écrire sous la forme $2n+1$ avec $n$ un entier naturel.'
@@ -689,7 +687,7 @@ export default function EcrireUneExpressionLitterale () {
               feedback: ''
             },
             {
-              texte: `$${n}-${k}$`,
+              texte: `$n-${k}$`,
               statut: false,
               feedback: 'Tu as confondu produit et différence.'
             }
@@ -697,13 +695,14 @@ export default function EcrireUneExpressionLitterale () {
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
-      if (this.modeQcm && !context.isAmc) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 5
       }
-
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texN
 import { propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
+export const interactifReady = true
 
 export const titre = 'Tables de multiplications et multiples de 10'
 
@@ -114,7 +115,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
-        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
