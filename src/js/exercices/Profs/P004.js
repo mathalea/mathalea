@@ -20,7 +20,7 @@ export default function Feuille_de_zooms() {
   this.nouvelleVersion = function () {
     this.contenu = "";
     let d1, d2, d3, texte = "", extremite, extreme, noms = [],xmin,origine,xmax;
-    let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0,pA1,pA2,pB2,pB1,sA,sB;
+    let x1 = 0, x2 = 0, x3 = 0, x21, x31, objets = [], fenetre, thickOff = 0,pA1,pA2,pB2,pB1,pC1,pC2,pD1,pD2,sA,sB,sC,sD;
     for (let n = 0; n < 8 / parseInt(this.sup); n++) {
       noms = choisitLettresDifferentes(5, 'QFN');
       objets.length = 0;
