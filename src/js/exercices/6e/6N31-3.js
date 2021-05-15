@@ -32,7 +32,7 @@ export default function ArrondirUneValeur () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    if (!this.modeQcm) {
+    if (!context.isAmc && !this.interactif) {
       this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
     } else {
       this.consigne = "Quelles sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième"
