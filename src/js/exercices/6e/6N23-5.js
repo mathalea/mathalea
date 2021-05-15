@@ -1,13 +1,11 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2, shuffle2tableaux } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2 } from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
-
+export const amcType = 1 // QCM
+export const interactifReady = true
 export const titre = 'Sens de l’écriture fractionnaire'
 
 /**
@@ -17,9 +15,11 @@ export const titre = 'Sens de l’écriture fractionnaire'
  * Publié le 10/03/2021
  */
 export default function SensDeLaFraction () {
-  'use strict'
   Exercice.call(this)
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -31,7 +31,6 @@ export default function SensDeLaFraction () {
 
   this.nouvelleVersion = function () {
     this.qcm = ['6N23-5', [], "Sens de l'écriture fractionnaire", 1]
-    let tabrep, tabicone
     this.listeQuestions = []
     this.listeCorrections = []
     const typeDeQuestionsDisponibles = [1, 2, 3, 4]
@@ -50,8 +49,30 @@ export default function SensDeLaFraction () {
               '\\phantom{00000}'
             )}$`
           texteCorr = `Le quotient de $${a}$ par $${b}$ s'écrit $${texFraction(a, b)}$.`
-          tabrep = [`$${texFraction(a, b)}$`, `$${texFraction(b, a)}$`, `$${texFraction(Math.abs(a - b), b)}$`, `$${texFraction(a + b, b)}$`, `$${texFraction(a * 10, b)}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texFraction(a, b)}$`,
+              statut: true
+            },
+            {
+              texte: `$${texFraction(b, a)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a + b, b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a * 10, b)}$`,
+              statut: false
+            }
+          ]
           break
 
         case 2:
@@ -62,8 +83,30 @@ export default function SensDeLaFraction () {
               '\\phantom{00000}'
             )}$`
           texteCorr = `Le nombre qui, multiplié par $${b}$, donne $${a}$ s'écrit $${texFraction(a, b)}$.`
-          tabrep = [`$${texFraction(a, b)}$`, `$${texFraction(b, a)}$`, `$${texFraction(Math.abs(a - b), b)}$`, `$${texFraction(a + b, b)}$`, `$${texFraction(a * 10, b)}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texFraction(a, b)}$`,
+              statut: true
+            },
+            {
+              texte: `$${texFraction(b, a)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a + b, b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a * 10, b)}$`,
+              statut: false
+            }
+          ]
           break
 
         case 3:
@@ -74,8 +117,30 @@ export default function SensDeLaFraction () {
               '\\phantom{00000}'
             )}$`
           texteCorr = `$${a}\\div ${b}$ s'écrit  $${texFraction(a, b)}$.`
-          tabrep = [`$${texFraction(a, b)}$`, `$${texFraction(b, a)}$`, `$${texFraction(Math.abs(a - b), b)}$`, `$${texFraction(a + b, b)}$`, `$${texFraction(a * 10, b)}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texFraction(a, b)}$`,
+              statut: true
+            },
+            {
+              texte: `$${texFraction(b, a)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(Math.abs(a - b), b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a + b, b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a * 10, b)}$`,
+              statut: false
+            }
+          ]
           break
 
         case 4:
@@ -96,31 +161,48 @@ export default function SensDeLaFraction () {
           if (f.fractionDecimale().texFraction !== f.texFractionSimplifiee) {
             texteCorr += ` ou $${f.texFractionSimplifiee}$.`
           } else texte += '.'
-          tabrep = [`$${f.fractionDecimale().texFraction}$`, `$${texFraction(b, a)}$`, `$${texFraction(a, b * 10)}$`, `$${texFraction(a * 10, b)}$`, `$${texFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().num)}$`]
-          tabicone = [1, 0, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${f.fractionDecimale().texFraction}$`,
+              statut: true
+            },
+            {
+              texte: `$${texFraction(b, a)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a, b * 10)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(a * 10, b)}$`,
+              statut: false
+            },
+            {
+              texte: `$${texFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().num)}$`,
+              statut: false
+            }
+          ]
           break
       }
-      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-      shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !context.isAmc) {
-        texteCorr = ''
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 5
+      }
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
         texte = texte.replace(`$${texFraction('\\phantom{00000}', '\\phantom{00000}')}$`, '')
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}. \n `,
-          tabrep,
-          tabicone])
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    
   }
 
   // this.besoinFormulaireNumerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]

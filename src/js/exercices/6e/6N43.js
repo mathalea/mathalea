@@ -1,6 +1,4 @@
-/* global */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionQcm.js'
 export const amcReady = true
@@ -34,8 +32,6 @@ export default function CriteresDeDivisibilite () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.qcm = ['6N43', [], 'Critères de divisibilité', 1, { ordered: true, lastChoices: 2 }]
-    let tabrep, tabicone
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeExercicesDisponibles
@@ -55,11 +51,24 @@ export default function CriteresDeDivisibilite () {
       listeExercicesDisponibles,
       this.nbQuestions
     )
-    for (
-      let i = 0, n, u, texte, texteCorr, sommeString, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-
-    ) {
+    for (let i = 0, n, u, texte, texteCorr, sommeString, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Oui',
+          statut: false
+        },
+        {
+          texte: 'Non',
+          statut: false
+        },
+        {
+          texte: 'Je ne sais pas',
+          statut: false
+        }
+      ]
+      this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       switch (listeTypeDeQuestions[i]) {
         case 2:
           u = randint(1, 2)
@@ -69,16 +78,14 @@ export default function CriteresDeDivisibilite () {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $2$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $2$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
@@ -94,8 +101,7 @@ export default function CriteresDeDivisibilite () {
             )}$ est divisible par $3$ donc $${texNombre(
               n
             )}$ est divisible par $3$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `$${sommeString}=${calcul(sommeString)}=3\\times${(calcul(sommeString) - (calcul(sommeString) % 3)) / 3
               }+${calcul(sommeString) % 3}$<br>`
@@ -104,8 +110,7 @@ export default function CriteresDeDivisibilite () {
             )}$ n'est pas divisible par $3$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $3$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
@@ -121,8 +126,7 @@ export default function CriteresDeDivisibilite () {
             )}$ est divisible par $9$ donc $${texNombre(
               n
             )}$ est divisible par $9$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `$${sommeString}=${calcul(sommeString)}=9\\times${(calcul(sommeString) - (calcul(sommeString) % 9)) / 9
               }+${calcul(sommeString) % 9}$<br>`
@@ -131,8 +135,7 @@ export default function CriteresDeDivisibilite () {
             )}$ n'est pas divisible par $9$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $9$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
@@ -144,16 +147,14 @@ export default function CriteresDeDivisibilite () {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $5$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $5$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
@@ -165,16 +166,14 @@ export default function CriteresDeDivisibilite () {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(n)}$ est divisible par $10$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr = `Le chiffre des unités de $${texNombre(
               n
             )}$ est $${u}$ donc $${texNombre(
               n
             )}$ n'est pas divisible par $10$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
           break
 
@@ -205,24 +204,20 @@ export default function CriteresDeDivisibilite () {
             texteCorr += `Le reste de la division euclidienne est nul donc $${texNombre(
               n
             )}$ est divisible par $${u}$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [1, 0, 0]
+            this.autoCorrection[i].propositions[0].statut = true
           } else {
             texteCorr += `$${texNombre(n)}=${u}\\times${(n - (n % u)) / u}+${n % u
               }$<br>`
             texteCorr += `Le reste de la division euclidienne n'est pas nul donc $${texNombre(
               n
             )}$ n'est pas divisible par $${u}$.`
-            tabrep = ['Oui', 'Non', 'Je ne sais pas']
-            tabicone = [0, 1, 0]
+            this.autoCorrection[i].propositions[1].statut = true
           }
 
           break
       }
-      if (this.modeQcm && !context.isAmc) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -230,9 +225,6 @@ export default function CriteresDeDivisibilite () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-        this.qcm[1].push([`${texte}. \n `,
-          tabrep,
-          tabicone])
       }
       cpt++
     }

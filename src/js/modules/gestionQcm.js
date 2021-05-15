@@ -91,7 +91,7 @@ export function propositionsQcm (exercice, i) {
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice.autoCorrection[i].options !== undefined) {
     if (!exercice.autoCorrection[i].options.ordered) {
-      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].propositions.options.lastChoice)
+      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
     }
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
