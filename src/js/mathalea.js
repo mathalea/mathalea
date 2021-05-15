@@ -314,11 +314,13 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       } catch (error) {
         console.log(error)
       }
-      if (obj.interactifReady && obj.interactif) {
+      if (obj.interactifReady && obj.interactif && !obj.interactifObligatoire) {
         iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${numeroExercice - 1}" class="keyboard icon iconeInteractif"></i><span>`
-        exerciceInteractif(obj)
-      } else if (obj.interactifReady) {
+      } else if (obj.interactifReady && !obj.interactifObligatoire) {
         iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${numeroExercice - 1}" class="keyboard outline icon iconeInteractif"></i><span>`
+      }
+      if (obj.interactif || obj.interactifObligatoire) {
+        exerciceInteractif(obj)
       }
       if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers interactif et paramètres.
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
@@ -1078,9 +1080,8 @@ function parametresExercice (exercice) {
         divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady) {
-        divParametresGeneraux.innerHTML +=
-                        '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
+      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) {
+          divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
       if (!exercice[i].nbQuestionsModifiable && !exercice[i].correctionDetailleeDisponible && !exercice[i].besoinFormulaireNumerique && !exercice[i].besoinFormulaireTexte && !exercice[i].interactif) {
@@ -1100,9 +1101,9 @@ function parametresExercice (exercice) {
         divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady) {
+      if (exercice[i].interactifReady && (exercice[i].amcType === 1 || exercice[i].amcType === 2)) { // En LaTeX les seuls exercices interactifs sont les QCM
         divParametresGeneraux.innerHTML +=
-                        '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
+                        '<div><label for="formInteractif' + i + '">QCM : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
       if (exercice[i].nbColsModifiable) {
         divParametresGeneraux.innerHTML += '<div><label for="form_nbCols' + i + '">Nombre de colonnes : </label><input id="form_nbCols' + i + '" type="number" min="1" max="99"></div>'
@@ -1447,7 +1448,7 @@ function parametresExercice (exercice) {
     }
 
     // Gestion du mode interactif
-    if (exercice[i].interactifReady) {
+    if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { //Pour un exercice qui n'a que la version QCM, pas de menu
       formInteractif[i] = document.getElementById('formInteractif' + i)
       formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
       formInteractif[i].addEventListener('change', function (e) {

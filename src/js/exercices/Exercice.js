@@ -42,6 +42,7 @@ export default function Exercice () {
   // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
   this.pasDeVersionLatex = false
   this.interactif = false // Exercice sans saisie utilisateur par défaut
+  this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive
   this.qcm = false // Pour les exercices de type QCM : contient un tableau.
   this.qcmDisponible = false // Pour ajouter une case à cocher Mode QCM qui permet de changer le statut de this.modeQcm
   this.modeQcm = false // Pour choisir la version QCM ou la version classique (false = version classique)
