@@ -1,7 +1,7 @@
 /* global $ */
 import { context } from './context.js'
 import { shuffle } from './outils.js'
-import { messageFeedback } from './erreurs.js'
+import { messageFeedback } from './messages.js'
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
@@ -45,13 +45,21 @@ export function exerciceQcm (exercice) {
               indiceFeedback = indice
             }
           })
-          const typeFeedback = 'positive'
+          let typeFeedback = 'positive'
           if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
             spanReponseLigne.innerHTML = '😎'
           } else {
             spanReponseLigne.innerHTML = '☹️'
+            typeFeedback = 'error'
           }
           spanReponseLigne.style.fontSize = 'large'
+          if (indiceFeedback > -1) {
+            messageFeedback({
+              id: `feedbackEx${exercice.numeroExercice}Q${i}`,
+              texte: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+              type: typeFeedback
+            })
+          }
         }
         const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
         uichecks.forEach(function (uicheck) {
@@ -72,6 +80,9 @@ export function exerciceQcm (exercice) {
  */
 export function propositionsQcm (exercice, i) {
   const numeroExercice = exercice.numeroExercice
+  // FIX ME
+  exercice.autoCorrection[i].propositions = shuffle(exercice.autoCorrection[i].propositions)
+
   const autoCorrection = exercice.autoCorrection[i]
   const propositions = autoCorrection.propositions
   let texte = ''
@@ -202,4 +213,5 @@ export function ajoutChampTexte ({ texte = '', texteApres = '', numeroExercice, 
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4) questionNumerique(exercice)
   if (exercice.amcType === 1) exerciceQcm(exercice)
+  if (exercice.amcType === 2) exerciceQcm(exercice) // Avec des paramètres différents ??? @jeanClaude, qu'en penses-tu ?
 }

@@ -14,7 +14,7 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
  * @Auteur Rémi Angot
  * 6N43-2
  */
-export default function TableauCriteresDeDivisibilite() {
+export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
 
@@ -483,7 +483,7 @@ export default function TableauCriteresDeDivisibilite() {
       }
     } // fin de boucle de préparation des question
     // mise en forme selon les cas de figures
-    //l'enoncé
+    // l'enoncé
     if (context.isHtml && !this.modeQcm) {
       texte = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n'
     }
@@ -531,5 +531,4 @@ export default function TableauCriteresDeDivisibilite() {
       this.amc = [this.id, this.autoCorrection, titre, amcType]
     }
   }
-  
 }
