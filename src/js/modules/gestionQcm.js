@@ -171,10 +171,6 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  */
 export function questionNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
-    // On active les checkbox
-    // $('.ui.checkbox').checkbox()
-    const monRouge = 'rgba(217, 30, 24, 0.5)'
-    const monVert = 'rgba(123, 239, 178, 0.5)'
     const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {

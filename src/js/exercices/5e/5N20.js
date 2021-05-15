@@ -1,11 +1,11 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { shuffle2tableaux, calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 1 // QCM
+export const interactifReady = true
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
@@ -22,6 +22,9 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 */
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.sup = max // Correspond au facteur commun
   this.sup2 = false // Si true alors il n'y aura que des soustractions
   this.titre = titre
@@ -52,12 +55,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     if (this.sup2 === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
-
-    /** ************* Pour QCM html/latex hors AMC *****************************/
-    let tabrep; let tabicone = [1, 0, 0, 0]
-    /**************************************************************************/
-
     for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {
+      this.autoCorrection[i] = {}
       texteCorr = ''
       // les numérateurs
       a = randint(1, 9)
@@ -77,24 +76,44 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       }
       if (listeTypeDeQuestions[i] === '+') { // une addition
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${texFractionReduite(a * d + c * b, b * d)}$`, `$${texFraction(a + c, b + d)}$`, `$${texFraction(a + c, b * d)}$`, `$${texFraction(a * c, b * d)}$`]
-        tabicone = [1, 0, 0, 0];
-        [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
+        this.autoCorrection[i].propositions = [
+          {
+            texte: `$${texFractionReduite(a * d + c * b, b * d)}$`,
+            statut: true
+          },
+          {
+            texte: `$${texFraction(a + c, b + d)}$`,
+            statut: false
+          },
+          {
+            texte: `$${texFraction(a + c, b * d)}$`,
+            statut: false
+          },
+          {
+            texte: `$${texFraction(a * c, b * d)}$`,
+            statut: false
+          }
+        ]
+        this.autoCorrection[i].options = {
+          ordered: false,
+          lastChoice: 5
+        }
+        if (this.level === 6) {
+          // En 6e, pas de fraction simplifiée
+          // Les fractions ont le même dénominateur (b=d)
+          this.autoCorrection[i].propositions[0].texte = `$${texFraction(a + c, b )}$`
+        }
         /*************************************************************************/
         const ordreDesFractions = randint(1, 2)
         if (ordreDesFractions === 1) {
           texte = `$${texFraction(a, b)}+${texFraction(c, d)}=$`
           /** ****************** AMC question/questionmult ********************************/
-          this.qcm[1].push([`$${texFraction(a, b)}+${texFraction(c, d)}=$\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
+          this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
         } else {
           texte = `$${texFraction(c, d)}+${texFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.qcm[1].push([`$${texFraction(c, d)}+${texFraction(a, b)}=$\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
+          this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
         }
 
@@ -117,29 +136,45 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (s !== 1) {
           texteCorr += `$=${texFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
         }
-        shuffle2tableaux(tabrep, tabicone)
-        if (this.modeQcm && !context.isAmc) {
-          this.tableauSolutionsDuQcm[i] = tabicone
-          texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-          // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+        if ((this.modeQcm && !context.isAmc) || this.interactif) {
+          texte += '<br>' + propositionsQcm(this, i).texte
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
-        tabrep = [`$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`, `$${texFraction(Math.abs(a - c), Math.abs(b - d))}$`, `$${texFraction(Math.abs(a - c), b * d)}$`, `$${texFraction(a * c, b * d)}$`]
-        tabicone = [1, 0, 0, 0];
-        [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
+        this.autoCorrection[i].propositions = [
+          {
+            texte: `$${texFractionReduite(Math.abs(a * d - c * b), Math.abs(b * d))}$`,
+            statut: true
+          },
+          {
+            texte: `$${texFraction(Math.abs(a - c), Math.abs(b - d))}$`,
+            statut: false
+          },
+          {
+            texte: `$${texFraction(Math.abs(a - c), b * d)}$`,
+            statut: false
+          },
+          {
+            texte: `$${texFraction(a * c, b * d)}$`,
+            statut: false
+          }
+        ]
+        this.autoCorrection[i].options = {
+          ordered: false,
+          lastChoice: 5
+        }
+        if (this.level === 6) {
+          // En 6e, pas de fraction simplifiée
+          // Les fractions ont le même dénominateur (b=d)
+          this.autoCorrection[i].propositions[0].texte = `$${texFraction(Math.abs(a - c), b )}$`
+        }
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
           texte = `$${texFraction(a, b)}-${texFraction(c, d)}=$`
-          this.qcm[1].push([`$${texFraction(a, b)}-${texFraction(c, d)}=$\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
         } else {
-          texte = texte = `$${texFraction(c, d)}-${texFraction(a, b)}=$`
+          texte = `$${texFraction(c, d)}-${texFraction(a, b)}=$`
           /** ****************** AMC question/questionmult ******************************/
-          this.qcm[1].push([`$${texFraction(c, d)}-${texFraction(a, b)}=$\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
+
           /*****************************************************************************/
         }
         if ((a / b) > (c / d)) {
@@ -148,24 +183,12 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}-${texFraction(c, d)}=${texFraction(a * k, b * k)}-${texFraction(c, d)}=`
           }
           texteCorr += `${texFraction(a * k + '-' + c, d)}=${texFraction(a * k - c, d)}$`
-          shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !context.isAmc) {
-            this.tableauSolutionsDuQcm[i] = tabicone
-            texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-            // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-          }
         } else {
           texteCorr = `$${texFraction(c, d)}-${texFraction(a, b)}=`
           if (this.level !== 6) {
             texteCorr += `${texFraction(c, d)}-${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}=${texFraction(c, d)}-${texFraction(a * k, b * k)}=${texFraction(c + '-' + a * k, d)}=`
           }
           texteCorr += `${texFraction(c - a * k, d)}$`
-          shuffle2tableaux(tabrep, tabicone)
-          if (this.modeQcm && !context.isAmc) {
-            this.tableauSolutionsDuQcm[i] = tabicone
-            texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-            // texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-          }
         }
         // Est-ce que le résultat est simplifiable ?
         const s = pgcd(a * k - c, d)
@@ -176,6 +199,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
+        if ((this.modeQcm && !context.isAmc) || this.interactif) {
+          texte += '<br>' + propositionsQcm(this, i).texte
+        }
       }
 
       texte = texte.replaceAll('$$', ' ')
@@ -185,7 +211,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  
+
   this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
   this.besoinFormulaire2Numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions']
 }
