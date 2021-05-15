@@ -115,7 +115,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
-        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

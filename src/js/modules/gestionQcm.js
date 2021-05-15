@@ -81,7 +81,8 @@ export function exerciceQcm (exercice) {
 export function propositionsQcm (exercice, i) {
   const numeroExercice = exercice.numeroExercice
   const autoCorrection = exercice.autoCorrection[i]
-  const propositions = autoCorrection.propositions
+  const options = autoCorrection.options
+  let propositions = autoCorrection.propositions
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -91,12 +92,12 @@ export function propositionsQcm (exercice, i) {
     espace = '\\qquad'
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
-  if (exercice.autoCorrection[i].options !== undefined) {
-    if (!exercice.autoCorrection[i].options.ordered) {
-      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
+  if (options !== undefined) {
+    if (!options.ordered) {
+      propositions = shuffleJusqua(propositions, options.lastChoice)
     }
   } else { // Si les options ne sont pas définies, on mélange
-    exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
+    propositions = shuffleJusqua(propositions)
   }
   elimineDoublons(propositions)
   if (!context.isAmc) {
