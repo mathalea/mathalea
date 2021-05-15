@@ -1,4 +1,4 @@
-//const { dictionnaireDesExercicesAleatoires, dictionnaireDesExercicesAMC } = require('../esm/dictionnaires')
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const { dictionnaireDesExercicesAleatoires } = require('../esm/dictionnaires')
 const prefs = require('prefs')
 
@@ -8,7 +8,7 @@ const prefs = require('prefs')
  * @return {Promise<boolean>}
  */
 async function test (page) {
-  //const exos = Object.keys(dictionnaireDesExercicesAleatoires).concat(Object.keys(dictionnaireDesExercicesAMC))
+  // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
   const exos = Object.keys(dictionnaireDesExercicesAleatoires)
   for (const exo of exos) {
     const url = `${prefs.baseUrl}exercice.html?ex=${exo}`

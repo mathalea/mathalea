@@ -33,7 +33,7 @@ const prefixLength = jsDir.length
 const exercicesList = getAllFiles(exercicesDir)
 
 const dicoAlea = {}
-//const dicoAMC = {}
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
@@ -122,33 +122,7 @@ for (const file of exercicesList) {
     } else {
       dicoAlea[name] = { titre, url, amcReady, qcmInteractif, name }
     }    
-    // // En attendant de virer le fichier dictionnaireDesExercicesAMC.js
-    // if (amcReady) {
-    //   switch (amcType.num) {
-    //     case 1:
-    //       amcType.text = "qcmMono";
-    //       break;
-    //     case 2:
-    //       amcType.text = "qcmMult";
-    //       break;
-    //     case 3:
-    //       amcType.text = "AMCOpen "
-    //       break;
-    //     case 4:
-    //       amcType.text = "AMCOpen Num"
-    //       break;
-    //     case 5:
-    //       amcType.text = "AMCOpen NC"
-    //       break;
-    //     case 6:
-    //       amcType.text = "AMCOpen double NC"
-    //       break;
-    //     default:
-    //       console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!(pour dictionnaireDesExercicesAMC.js en attendant sa suppression)\x1b[0m`)
-    //       amcType.text = "type de question AMC non prévu"
-    //   }
-    //   dicoAMC[name] = { titre, url, amcType, qcmInteractif }
-    // }
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
     logIfVerbose(`${name} traité (${titre})`)
   } else {
     console.error(`${name} ignoré (pas de titre)`)
@@ -158,8 +132,6 @@ for (const file of exercicesList) {
 let dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoires.js')
 fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`)
 console.log(`${dictFile} généré`)
-//dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAMC.js')
-//fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAMC, null, 2)}`)
-//console.log(`${dictFile} généré`)
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)

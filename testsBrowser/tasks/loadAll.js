@@ -9,8 +9,7 @@ const { flushPage, getPage, initCurrentBrowser, loadUrl } = require('helpers/bro
 const { getFileLogger, log, logError } = require('helpers/log')
 const { waitMs } = require('helpers/promise')
 
-//
-//const { dictionnaireDesExercicesAleatoires, dictionnaireDesExercicesAMC } = require('../esm/dictionnaires')
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const { dictionnaireDesExercicesAleatoires } = require('../esm/dictionnaires')
 
 const logDir = path.join(__dirname, '..', '..', 'log')
@@ -47,7 +46,7 @@ async function run () {
     addRequestListener(page)
 
     // reste à boucler sur les exos
-    //let exos = Object.keys(dictionnaireDesExercicesAleatoires).concat(Object.keys(dictionnaireDesExercicesAMC))
+    // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
     let exos = Object.keys(dictionnaireDesExercicesAleatoires)
     // avec éventuellement des bornes
     const { skip, limit } = prefs

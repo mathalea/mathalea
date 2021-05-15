@@ -1,6 +1,6 @@
 import { tridictionnaire, filtreDictionnaire }  from "./outils.js" ;
-//import dictionnaireDesExercicesAMC from "./dictionnaireDesExercicesAMC.js"
-import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'// pour reconstruire le dico au même format c'est
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 const dictionnaireDesExercicesAMC = {}
 Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
   if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
