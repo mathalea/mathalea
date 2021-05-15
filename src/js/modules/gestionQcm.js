@@ -84,7 +84,7 @@ export function propositionsQcm (exercice, i) {
   exercice.autoCorrection[i].propositions = shuffle(exercice.autoCorrection[i].propositions)
 
   const autoCorrection = exercice.autoCorrection[i]
-  const propositions = autoCorrection.propositions
+  let propositions = autoCorrection.propositions
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -104,7 +104,7 @@ export function propositionsQcm (exercice, i) {
       if (autoCorrection.options !== undefined) {
         if (!autoCorrection.options.ordered) {
           if (autoCorrection.options.lastChoice === undefined || autoCorrection.options.lastChoice <= 0 || autoCorrection.options.lastChoice > propositions.length) {
-            shuffle(propositions)
+            propositions = shuffle(propositions)
           } else {
             if (typeof autoCorrection.options.lastChoice === 'number' && autoCorrection.options.lastChoice > 0 && autoCorrection.options.lastChoice < propositions.length) {
               propositions.splice(0, autoCorrection.options.lastChoice, ...shuffle(propositions.slice(0, autoCorrection.options.lastChoice)))
