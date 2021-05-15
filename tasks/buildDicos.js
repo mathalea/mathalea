@@ -37,12 +37,9 @@ const dicoAlea = {}
 
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
-  // Pour l'instant je fais comme ça car je ne sais pas fair autrement
-  // Je systematise la lecture du contenu du fichier en esperant que ça ne ralentisse pas trop l'execution
-  const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
-  // qcmInteractif est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
+  // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
-  let titre, amcReady, amcType={}, qcmInteractif
+  let titre, amcReady, amcType={}, interactifReady
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -54,38 +51,35 @@ for (const file of exercicesList) {
     // On teste à l'ancienne la présence de this.qcm dans le code car dans ce cas le booléen amcReady doit être true
     // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter    
     amcReady = Boolean(module.amcReady)
-    // Pour l'instant je mets ça en doublon, il faudra factoriser/nettoyer aussi qq lignes plus bas 
-    // const srcContentt = fs.readFileSync(file, { encoding: 'utf8' })    
-    if (/this.qcm/.test(srcContent) && !amcReady) {
-      console.error(`\x1b[41m${file} est amcReady mais n'a pas d'export amcReady => IL FAUT L'AJOUTER !!!\x1b[0m`)
-    }         
+    interactifReady = Boolean(module.interactifReady)         
     if (amcReady && !module.amcType) {
       console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[0m`)
-    } else {
-      qcmInteractif = module.amcType in [1,2] ? true : false // seulement les types 1 et 2 sont de vrais qcm
-    }
+    } 
+    // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
     if (amcReady) {    
       amcType.num = module.amcType      
     }    
   } catch (error) {
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
-    //const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
+    const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
     const chunks = /export const titre *= *(['"])([^'"]+)\1/.exec(srcContent)
     if (chunks) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
-      // Pas sûr que ce qui suit fonctionne, notamment pour mes regex
+      interactifReady = /export +const +interactifReady *= *true/.test(srcContent)      
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
         console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[0m`)
-      } else {
-        qcmInteractif = /export +const +amcType *= *([1-2])/.test(srcContent) // seulement les types 1 et 2 sont de vrais qcm       
-      }      
+      }
+      // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
       if (amcReady) {
         amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])      }
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
+  }
+  if (interactifReady && !amcReady) {
+    console.error(`\x1b[41m${file} est interactifReady mais n'a pas d'export amcReady => VÉRIFIER S'IL FAUT L'AJOUTER !!!\x1b[0m`)
   }
   if (titre) {
     // Attention, on veut des séparateurs posix (/), pour faire propre faudrait
@@ -118,9 +112,9 @@ for (const file of exercicesList) {
           console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
           amcType.text = "type de question AMC non prévu"
       }
-      dicoAlea[name] = { titre, url, amcReady, amcType, qcmInteractif, name }
+      dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
     } else {
-      dicoAlea[name] = { titre, url, amcReady, qcmInteractif, name }
+      dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
     }    
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
     logIfVerbose(`${name} traité (${titre})`)
