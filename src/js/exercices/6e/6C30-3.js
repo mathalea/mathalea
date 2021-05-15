@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul, shuffle2tableaux } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM
@@ -47,7 +46,8 @@ export default function MultiplicationMentalDecimaux () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
-      let a = 0; let b = 0; let tabrep = []; let tabicone = [] // les deux opérandes
+      let a = 0
+      let b = 0 // les deux opérandes
 
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 'add':

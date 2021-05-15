@@ -105,10 +105,10 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }
       ]
-      this.autoCorrection[i].options = {
-        ordered: false,
-        lastChoice: 5
-      }
+      // this.autoCorrection[i].options = {
+      //   ordered: false,
+      //   lastChoice: 5
+      // }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
