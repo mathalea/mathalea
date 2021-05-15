@@ -1,6 +1,6 @@
 /* global $ */
 import { context } from './context.js'
-import { shuffle } from './outils.js'
+import { shuffle, shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 
 /**
@@ -80,9 +80,6 @@ export function exerciceQcm (exercice) {
  */
 export function propositionsQcm (exercice, i) {
   const numeroExercice = exercice.numeroExercice
-  // FIX ME
-  exercice.autoCorrection[i].propositions = shuffle(exercice.autoCorrection[i].propositions)
-
   const autoCorrection = exercice.autoCorrection[i]
   let propositions = autoCorrection.propositions
   let texte = ''
@@ -93,6 +90,14 @@ export function propositionsQcm (exercice, i) {
   } else {
     espace = '\\qquad'
   }
+  // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
+  if (exercice.autoCorrection[i].options !== undefined) {
+    if (!exercice.autoCorrection[i].options.ordered) {
+      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].options.lastChoice)
+    }
+  } else { // Si les options ne sont pas définies, on mélange
+    exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
+  }
   elimineDoublons(propositions)
   if (!context.isAmc) {
     if (context.isHtml) {
@@ -101,17 +106,6 @@ export function propositionsQcm (exercice, i) {
       texte += '<br>'
     }
     for (let rep = 0; rep < propositions.length; rep++) {
-      if (autoCorrection.options !== undefined) {
-        if (!autoCorrection.options.ordered) {
-          if (autoCorrection.options.lastChoice === undefined || autoCorrection.options.lastChoice <= 0 || autoCorrection.options.lastChoice > propositions.length) {
-            propositions = shuffle(propositions)
-          } else {
-            if (typeof autoCorrection.options.lastChoice === 'number' && autoCorrection.options.lastChoice > 0 && autoCorrection.options.lastChoice < propositions.length) {
-              propositions.splice(0, autoCorrection.options.lastChoice, ...shuffle(propositions.slice(0, autoCorrection.options.lastChoice)))
-            }
-          }
-        }
-      }
       if (context.isHtml) {
         texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
             <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">

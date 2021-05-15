@@ -19,13 +19,13 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.titre = titre
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []

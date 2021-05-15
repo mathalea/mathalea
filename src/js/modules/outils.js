@@ -541,6 +541,16 @@ export function shuffle (array) {
   return arrayBis
 }
 
+export function shuffleJusqua (array, indice) {
+  if (indice > array.length || indice < 0 || indice === undefined) {
+    return shuffle(array)
+  } else {
+    const tableau1 = array.slice(0, indice)
+    const tableau2 = array.slice(indice)
+    return [...shuffle(tableau1), ...tableau2]
+  }
+}
+
 /*
 * Mélange les lettres d'un string
 *

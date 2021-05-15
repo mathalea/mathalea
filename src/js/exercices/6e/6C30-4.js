@@ -1,8 +1,6 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction, shuffle2tableaux } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionQcm.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM
@@ -48,7 +46,7 @@ export default function PlacerLaVirgule () {
 
     // Indispensable d'exporter les solutions pour rendre le QCM interactif
     this.tableauSolutionsDuQcm = []
-    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, tabrep, tabicone, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
