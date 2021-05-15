@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2 } from '../../modules/outils.js'
 import { fraction } from '../../modules/Fractions.js'
-import { propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM

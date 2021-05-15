@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajoutChampTexte, exerciceInteractif } from '../../modules/gestionQcm.js'
+import { ajoutChampTexte, exerciceInteractif } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const interactifReady = true
 export const amcType = 4 // type de question AMC NumeriqueChoice

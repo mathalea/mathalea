@@ -1,4 +1,4 @@
-import { propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

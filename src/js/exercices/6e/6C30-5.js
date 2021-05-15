@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM

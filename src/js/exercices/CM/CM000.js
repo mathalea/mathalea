@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
-import { ajoutChampTexte } from '../../modules/gestionQcm.js'
+import { ajoutChampTexte } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
