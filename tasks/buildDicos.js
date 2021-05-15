@@ -54,6 +54,9 @@ for (const file of exercicesList) {
     interactifReady = Boolean(module.interactifReady)         
     if (amcReady && !module.amcType) {
       console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[0m`)
+    }
+    if (module.amcType && !module.amcReady) {
+      console.error(`\x1b[41m${file} a un export amcType mais pas d'export amcReady => IL FAUT L'AJOUTER !!! (module)\x1b[0m`)
     } 
     // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
     if (amcReady) {    
@@ -70,6 +73,9 @@ for (const file of exercicesList) {
       interactifReady = /export +const +interactifReady *= *true/.test(srcContent)      
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
         console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[0m`)
+      }
+      if (/export +const +amcType */.test(srcContent) && !amcReady) {
+        console.error(`\x1b[41m${file} a un export amcType mais pas d'export amcReady => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[0m`)
       }
       // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
       if (amcReady) {
