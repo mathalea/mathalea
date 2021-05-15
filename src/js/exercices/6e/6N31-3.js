@@ -23,6 +23,9 @@ export default function ArrondirUneValeur () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
+  this.interactifReady = true
+  this.interactif = true
+  this.amcType = amcType
   this.qcmDisponible = true
   this.modeQcm = false
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
@@ -34,21 +37,12 @@ export default function ArrondirUneValeur () {
     } else {
       this.consigne = "Quelles sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième"
     }
-    this.qcm = ['6N31-3', [], "Valeur arrondie du nombre à l'unité, au dixième et au centième", 2, { ordered: true, vertical: true }]
     const tabrep = []; const tabicone = []; const preTabRep = []; let preTabIcone = []
     let espace = ''
     if (context.isHtml) {
-		 if (this.qcm[4].vertical === true) {
-        espace = '<br>'
-      } else {
-        espace = '&emsp;'
-      }
+      espace = '<br>'
     } else {
-      if (this.qcm[4].vertical === true) {
-        space = '\\\\'
-      } else {
-		  espace = '\\qquad'
-      }
+      espace = '\\\\'
     }
     this.listeQuestions = []
     this.listeCorrections = []
@@ -162,6 +156,7 @@ export default function ArrondirUneValeur () {
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
       this.autoCorrection[i].enonce = `Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`
+      this.autoCorrection[i].options = { vertical: true, ordered: true }
       this.autoCorrection[i].propositions = [
         {
           texte: tabrep[0],

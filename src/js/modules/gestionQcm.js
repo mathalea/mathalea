@@ -86,9 +86,17 @@ export function propositionsQcm (exercice, i) {
   let texteCorr = ''
   let espace = ''
   if (context.isHtml) {
-    espace = '&emsp;'
+    if (autoCorrection.options.vertical) {
+      espace = '<br>'
+    } else {
+      espace = '&emsp;'
+    }
   } else {
-    espace = '\\qquad'
+    if (autoCorrection.options.vertical) {
+      espace = '\\\\'
+    } else {
+      espace = '\\qquad'
+    }
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
   if (exercice.autoCorrection[i].options !== undefined) {
@@ -99,6 +107,18 @@ export function propositionsQcm (exercice, i) {
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
   elimineDoublons(propositions)
+  console.log(autoCorrection.options, propositions)
+  if (autoCorrection.options !== undefined) {
+    if (!autoCorrection.options.ordered) {
+      if (autoCorrection.options.lastChoice === undefined || autoCorrection.options.lastChoice <= 0 || autoCorrection.options.lastChoice > propositions.length) {
+        propositions = shuffle(propositions)
+      } else {
+        if (typeof autoCorrection.options.lastChoice === 'number' && autoCorrection.options.lastChoice > 0 && autoCorrection.options.lastChoice < propositions.length) {
+          propositions.splice(0, autoCorrection.options.lastChoice, ...shuffle(propositions.slice(0, autoCorrection.options.lastChoice)))
+        }
+      }
+    }
+  }
   if (!context.isAmc) {
     if (context.isHtml) {
       texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
