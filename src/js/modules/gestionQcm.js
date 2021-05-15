@@ -1,6 +1,6 @@
 /* global $ */
 import { context } from './context.js'
-import { shuffle, shuffleJusqua } from './outils.js'
+import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 
 /**
@@ -79,10 +79,7 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
-  const numeroExercice = exercice.numeroExercice
-  const autoCorrection = exercice.autoCorrection[i]
-  const options = autoCorrection.options
-  let propositions = autoCorrection.propositions
+  exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -92,38 +89,38 @@ export function propositionsQcm (exercice, i) {
     espace = '\\qquad'
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
-  if (options !== undefined) {
-    if (!options.ordered) {
-      propositions = shuffleJusqua(propositions, options.lastChoice)
+  if (exercice.autoCorrection[i].propositions.options !== undefined) {
+    if (!exercice.autoCorrection[i].propositions.options.ordered) {
+      exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions, exercice.autoCorrection[i].propositions.options.lastChoice)
     }
   } else { // Si les options ne sont pas définies, on mélange
-    propositions = shuffleJusqua(propositions)
+    exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  elimineDoublons(propositions)
+  elimineDoublons(exercice.autoCorrection[i].propositions)
   if (!context.isAmc) {
     if (context.isHtml) {
-      texte += `<br>  <form id="formEx${numeroExercice}Q${i}">`
+      texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
     } else {
       texte += '<br>'
     }
-    for (let rep = 0; rep < propositions.length; rep++) {
+    for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       if (context.isHtml) {
-        texte += `<div class="ui checkbox ex${numeroExercice} monQcm">
-            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${numeroExercice}Q${i}R${rep}">
-            <label id="labelEx${numeroExercice}Q${i}R${rep}">${propositions[rep].texte + espace}</label>
+        texte += `<div class="ui checkbox ex${exercice.numeroExercice} monQcm">
+            <input type="checkbox" tabindex="0" class="hidden" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
+            <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
           </div>`
       } else {
-        texte += `$\\square\\;$ ${propositions[rep].texte}` + espace
+        texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
-      if (propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${propositions[rep].texte}` + espace
+      if (exercice.autoCorrection[i].propositions[rep].statut) {
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       } else {
-        texteCorr += `$\\square\\;$ ${propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
       }
     }
     if (context.isHtml) {
-      texte += `<span id="resultatCheckEx${numeroExercice}Q${i}"></span>`
-      texte += `\n<div id="feedbackEx${numeroExercice}Q${i}"></span></form>`
+      texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      texte += `\n<div id="feedbackEx${exercice.numeroExercice}Q${i}"></span></form>`
     }
   }
   return { texte: texte, texteCorr: texteCorr }
@@ -139,7 +136,7 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
   for (let i = 0; i < propositions.length - 1; i++) {
     for (let j = i + 1; j < propositions.length;) {
       if (propositions[i].texte === propositions[j].texte) {
-        console.log('doublon trouvé') // les réponses i et j sont les mêmes
+        // les réponses i et j sont les mêmes
         doublonsTrouves = true
         if (propositions[i].statut) { // si la réponse i est bonne, on vire la j
           propositions.splice(j, 1)
