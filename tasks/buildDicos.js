@@ -79,7 +79,8 @@ for (const file of exercicesList) {
       }
       // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
       if (amcReady) {
-        amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])      }
+        amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
+      }
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -95,29 +96,35 @@ for (const file of exercicesList) {
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
       // On ajuste la propriété text de amcType
-      switch (amcType.num) {
-        case 1:
-          amcType.text = "qcmMono";
-          break;
-        case 2:
-          amcType.text = "qcmMult";
-          break;
-        case 3:
-          amcType.text = "AMCOpen "
-          break;
-        case 4:
-          amcType.text = "AMCOpen Num"
-          break;
-        case 5:
-          amcType.text = "AMCOpen NC"
-          break;
-        case 6:
-          amcType.text = "AMCOpen double NC"
-          break;
-        default:
-          console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
-          amcType.text = "type de question AMC non prévu"
-      }
+      amcType.text = []
+      amcType.num.forEach(
+        function(num) { 
+          switch (num) {
+            case 1:
+              amcType.text.push("qcmMono");
+              break;
+            case 2:
+              amcType.text.push("qcmMult");
+              break;
+            case 3:
+              amcType.text.push("AMCOpen");
+              break;
+            case 4:
+              amcType.text.push("AMCOpen Num");
+              break;
+            case 5:
+              amcType.text.push("AMCOpen NC");
+              break;
+            case 6:
+              amcType.text.push("AMCOpen double NC");
+              break;
+            default:
+              console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
+              amcType.text.push("type de question AMC non prévu");
+          }
+        }        
+      )
+      
       dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
     } else {
       dicoAlea[name] = { titre, url, amcReady, interactifReady, name }

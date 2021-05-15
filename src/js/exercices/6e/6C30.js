@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = [4] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Multiplications posées de nombres décimaux'
 

@@ -1,6 +1,6 @@
 import Egalites_entre_fractions from '../6e/6N41.js'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = [1] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Égalités entre fractions simples'
 

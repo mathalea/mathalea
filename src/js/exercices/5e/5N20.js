@@ -4,7 +4,7 @@ import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, ab
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = [1] // QCM, tableau en prévision du plusieurs types
 export const interactifReady = true
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'

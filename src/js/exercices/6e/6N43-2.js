@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 2 // type de question AMC
+export const amcType = [2] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Critères de divisibilité (plusieurs possibles)'
 

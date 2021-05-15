@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.j
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = [1] // QCM, tableau en prévision du plusieurs types
 export const interactifReady = true
 
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'

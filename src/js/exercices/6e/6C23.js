@@ -2,7 +2,7 @@ import ExerciceAdditionnerOuSoustraireDesFractions5e from '../5e/5N20.js'
 
 export const amcReady = true
 export const interactifReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = [1] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Additionner ou soustraire des fractions de même dénominateur'
 

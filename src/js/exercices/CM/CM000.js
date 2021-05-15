@@ -2,10 +2,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
 import { ajoutChampTexte } from '../../modules/gestionInteractif.js'
+// on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
-export const amcType = 4
+export const amcReady = true
+export const amcType = [4] // tableau en prévision du plusieurs types
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.

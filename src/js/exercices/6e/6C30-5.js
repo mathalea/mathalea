@@ -4,7 +4,7 @@ import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, r
 import { propositionsQcm, elimineDoublons } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType = [1] // QCM, tableau en prévision du plusieurs types
 export const interactifReady = true
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'

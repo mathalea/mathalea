@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre,exportQcmAmc } from '../../modules/outils.js'
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = [4] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Additions et soustractions de nombres décimaux'
 

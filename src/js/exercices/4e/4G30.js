@@ -1,6 +1,6 @@
 import Thales2D from './_Thales2D.js'
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = [4] // type de question AMC, tableau en prévision du plusieurs types
 
 export const titre = 'Calculer des longueurs avec la propriété de Thalès'
 
