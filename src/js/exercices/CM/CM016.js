@@ -33,7 +33,7 @@ export default function DiviserPar101001000 () {
     ) {
       a = choice([randint(1, 9), randint(11, 99), randint(101, 999)])
       b = choice([10, 100, 1000])
-      texte = `$${texNombre(a)}\\div${texNombre(b)}$`
+      texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombrec(
         a / b
       )}$`
