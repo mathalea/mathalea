@@ -31,6 +31,7 @@ export default function ArrondirUneValeur () {
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.autoCorrection = []
     if (!context.isAmc && !this.interactif) {
       this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
@@ -51,7 +52,7 @@ export default function ArrondirUneValeur () {
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       tabrep.length = 0, tabicone.length = 0, preTabRep.length = 0, preTabIcone.length = 0
-      if (this.sup == 1) {
+      if (this.sup === 1) {
         m = randint(0, 9)
         c = randint(0, 9)
         d = randint(0, 9)
@@ -72,7 +73,7 @@ export default function ArrondirUneValeur () {
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
-      } else if (this.sup == 3) {
+      } else if (this.sup === 3) {
         rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`

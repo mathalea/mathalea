@@ -171,7 +171,7 @@ export function questionNumerique (exercice) {
         const nbBonnesReponsesAttendues = exercice.nbQuestions
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value === exercice.autoCorrection[i].reponse.valeur.toString()) {
+          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value.replaceAll(' ','') === exercice.autoCorrection[i].reponse.valeur.toString()) {
             spanReponseLigne.innerHTML = '😎'
             nbBonnesReponses++
           } else {

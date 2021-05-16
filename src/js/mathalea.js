@@ -935,7 +935,7 @@ function miseAJourDeLaListeDesExercices (preview) {
           // récupère les éventuels paramètres dans l'URL
           // et les recopie dans les formulaires des paramètres
           if (urlVars[i].nbQuestions && listeObjetsExercice[i].nbQuestionsModifiable) {
-            listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
+            listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].nbQuestions)
             formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
           if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
