@@ -1,11 +1,10 @@
-/* global mathalea context.isDiaporama context.isHtml */
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
-import { ecritureParentheseSiNegatif, shuffle2tableaux, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, combinaisonListes, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
-
+export const interactifReady = true
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
 /**
@@ -16,6 +15,9 @@ export const titre = 'Traduire un programme de calcul par une expression littér
 export default function TraduireUnProgrammeDeCalcul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1
@@ -26,8 +28,6 @@ export default function TraduireUnProgrammeDeCalcul () {
   this.modeQcm = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['5L10-2', [], 'Traduire un programme de calcul par une expression littérale', 1, { ordered: false, lastChoices: 0 }]
-    let tabrep, tabicone
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -47,8 +47,26 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}=${b}x+${a * b}\\xrightarrow{+${c}}${b}x+${a * b + c}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${b}x+${a * b + c}$.`
-          tabrep = [`$${b}x+${a * b + c}$`, `$${b}x+${a + c}$`, `$${b}x+${a * c}$`, `$${b * a}x+${c}$`]
-          tabicone = [1, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${b}x+${a * b + c}$`,
+              statut: true
+            },
+            {
+              texte: `$${b}x+${a + c}$`,
+              statut: false
+            },
+            {
+              texte: `$${b}x+${a * c}$`,
+              statut: false
+            },
+            {
+              texte: `$${b * a}x+${c}$`,
+              statut: false
+            }
+          ]
           break
         case 2: // (ax+b)*c
           texte = 'Voici un programme de calcul : \n'
@@ -57,8 +75,26 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}=${a * c}y+${b * c}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a * c}y+${b * c}$.`
-          tabrep = [`$${a * c}y+${b * c}$`, `$${a}y+${b * c}$`, `$${b * a}y+${c}$`, `$${b}y+${a * c}$`]
-          tabicone = [1, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${a * c}y+${b * c}$`,
+              statut: true
+            },
+            {
+              texte: `$${a}y+${b * c}$`,
+              statut: false
+            },
+            {
+              texte: `$${b * a}y+${c}$`,
+              statut: false
+            },
+            {
+              texte: `$${b}y+${a * c}$`,
+              statut: false
+            }
+          ]
           break
         case 3: // ax+b-2x
           texte = 'Voici un programme de calcul : \n'
@@ -67,8 +103,26 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a - 2}a+${b}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a - 2}a+${b}$.`
-          tabrep = [`$${a - 2}a+${b}$`, `$${a + b - 2}a$`, `$${a}a+${b - 2}$`, `$${a + b}-2a$`]
-          tabicone = [1, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${a - 2}a+${b}$`,
+              statut: true
+            },
+            {
+              texte: `$${a + b - 2}a$`,
+              statut: false
+            },
+            {
+              texte: `$${a}a+${b - 2}$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b}-2a$`,
+              statut: false
+            }
+          ]
           break
         case 4: // ax+b+3x
           texte = 'Voici un programme de calcul : \n'
@@ -77,9 +131,26 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a + 3}t+${b}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a + 3}t+${b}$.`
-          tabrep = [`$${a + 3}t+${b}$`, `$${a + b + 3}t$`, `$${a + b}t+3t$`, `$${a + b}t-3t$`]
-          tabicone = [1, 0, 0, 0]
-
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${a + 3}t+${b}$`,
+              statut: true
+            },
+            {
+              texte: `$${a + b + 3}t$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b}t+3t$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b}t-3t$`,
+              statut: false
+            }
+          ]
           break
         case 5: // (ax+b)*c-d
           texte = 'Voici un programme de calcul : \n'
@@ -88,9 +159,26 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$x\\xrightarrow{\\times  ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times  ${c}}(${a}x+${b})\\times  ${c}=${a * c}x+${b * c}\\xrightarrow{-${d}}${a * c}x+${b * c - d}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a * c}x+${b * c - d}$.`
-          tabrep = [`$${a * c}x+${b * c - d}$`, `$${a}x+${ecritureParentheseSiNegatif(b * c - d)}$`, `$${a + b}x+${ecritureParentheseSiNegatif(c - d)}$`, `$${a + b * c}x-${d}$`]
-          tabicone = [1, 0, 0, 0]
-
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${a * c}x+${b * c - d}$`,
+              statut: true
+            },
+            {
+              texte: `$${a}x+${ecritureParentheseSiNegatif(b * c - d)}$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b}x+${ecritureParentheseSiNegatif(c - d)}$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b * c}x-${d}$`,
+              statut: false
+            }
+          ]
           break
         case 6: // (ax+b)*c+x
           texte = 'Voici un programme de calcul : \n'
@@ -99,16 +187,30 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}=${a * c}y+${b * c}\\rightarrow ${a * c}y+${b * c}+y=${a * c + 1}y+${b * c}$`
           texteCorr += '<br>'
           texteCorr += `Le résultat du programme est donc $${a * c + 1}y+${b * c}$.`
-          tabrep = [`$${a * c + 1}y+${b * c}$`, `$${a + 1}y+${b * c}$`, `$${a}y+${c}$`, `$${a + b + c + 1}y$`]
-          tabicone = [1, 0, 0, 0]
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${a * c + 1}y+${b * c}$`,
+              statut: true
+            },
+            {
+              texte: `$${a + 1}y+${b * c}$`,
+              statut: false
+            },
+            {
+              texte: `$${a}y+${c}$`,
+              statut: false
+            },
+            {
+              texte: `$${a + b + c + 1}y$`,
+              statut: false
+            }
+          ]
           break
       }
-      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-      shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !context.isAmc) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      if (this.interactif) {
+        texte += propositionsQcm(this, i).texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -118,15 +220,11 @@ export default function TraduireUnProgrammeDeCalcul () {
         if (!context.isHtml && i === 0) { texte = '\\setlength\\itemsep{1em}' + texte }; // espacement entre les questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}\n`,
-          tabrep,
-          tabicone])
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    
   }
   // this.besoinFormulaireCaseACocher = true;
 }

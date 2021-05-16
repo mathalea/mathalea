@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, texFraction } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 2 // type de question AMC

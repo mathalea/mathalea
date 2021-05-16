@@ -1,12 +1,11 @@
-/* global mathalea */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
-import { shuffle2tableaux, listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
-import { propositionsQcm, elimineDoublons } from '../../modules/gestionQcm.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 1 // QCM
+export const interactifReady = true
 
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
@@ -19,18 +18,18 @@ export default function CalculsAvecPuissancesDeDix () {
   this.sup = 1
   this.sup2 = 1
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
   this.qcmDisponible = true
-  this.modeQcm = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.qcm = ['4C32-1', [], 'Calcul avec les puissances de dix', 1]
-    let tabrep = []
-    let tabicone = [1, 0, 0, 0]
 
     if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Compléter l\'égalité des nombres suivants.'
@@ -77,35 +76,73 @@ export default function CalculsAvecPuissancesDeDix () {
 
       decimalstring = `${texNombrec(mantisse1)} \\times 10^{${exp1}}`
       scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
-      tabicone = [1, 0, 0, 0]
       if (this.sup === 1) {
         texte = `$${decimalstring}$`
         texteCorr = `$${miseEnEvidence(`${texNombrec(mantisse1)}`, 'blue')}\\times ${miseEnEvidence(`10^{${exp1}}`)} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
-        tabrep = [`$${scientifiquestring}$`, `$${texNombre(mantisse)} \\times 10^{${exp - 1}}$`, `$${texNombre(mantisse)} \\times 10^{${exp + 1}}$`, `$${texNombre(mantisse)} \\times 10^{${-exp}}$`]
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: `$${scientifiquestring}$`,
+            statut: true
+          },
+          {
+            texte: `$${texNombre(mantisse)} \\times 10^{${exp - 1}}$`,
+            statut: false
+          },
+          {
+            texte: `$${texNombre(mantisse)} \\times 10^{${exp + 1}}$`,
+            statut: false
+          },
+          {
+            texte: `$${texNombre(mantisse)} \\times 10^{${-exp}}$`,
+            statut: false
+          }
+        ]
       } else {
         texteCorr = `$${miseEnEvidence(texNombre(mantisse1), 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)}=${miseEnEvidence(texNombre(mantisse) + `\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} =${scientifiquestring}$`
         texte = `$${texNombre(mantisse1)}\\times 10^{${miseEnEvidence('....')}}=${scientifiquestring}$`
-        tabrep = [`$${exp1}$`, `$${exp1 - 1}$`, `$${exp1 + 1}$`, `$${-exp1}$`]
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: `$${exp1}$`,
+            statut: true
+          },
+          {
+            texte: `$${exp1 - 1}$`,
+            statut: false
+          },
+          {
+            texte: `$${exp1 + 1}$`,
+            statut: false
+          },
+          {
+            texte: `$${-exp1}$`,
+            statut: false
+          }
+        ]
+        this.autoCorrection[i].options = {
+          ordered: false,
+          lastChoice: 5
+        }
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
       }
-      [tabrep, tabicone] = elimineDoublons(tabrep, tabicone)
-      if (this.modeQcm && !context.isAmc) {
-        // texteCorr = ''
-        shuffle2tableaux(tabrep, tabicone)
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      if (this.interactif) {
+        texte += propositionsQcm(this, i).texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}\n`, tabrep, tabicone])
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  
+
   this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Exercice à trou']
   this.besoinFormulaire2Numerique = ['Niveaux de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

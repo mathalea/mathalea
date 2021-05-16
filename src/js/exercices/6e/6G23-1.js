@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM

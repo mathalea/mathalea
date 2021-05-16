@@ -2,10 +2,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 1 // type de question AMC
-
+export const interactifReady = true
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**
@@ -16,6 +16,9 @@ export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -81,82 +84,87 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       // Boucle principale où i+1 correspond au numéro de la question
       N = listeDeN[i]
       a = randint(199, 999) * N
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Oui',
+          statut: false
+        },
+        {
+          texte: 'Non',
+          statut: false
+        },
+        {
+          texte: 'Je ne sais pas',
+          statut: false
+        }
+      ]
+      this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Ndiviseur':
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [1, 0, 0]
+          this.autoCorrection[i].propositions[0].statut = true
           break
         case 'divisibleParN':
           texte = `$${texNombre(a)}$ est divisible par $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [1, 0, 0]
+          this.autoCorrection[i].propositions[0].statut = true
           break
         case 'multipleDeN':
           texte = `$${texNombre(a)}$ est un multiple de $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Vrai'
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [1, 0, 0]
+          this.autoCorrection[i].propositions[0].statut = true
           break
         case 'NdiviseurF':
           a += randint(1, N - 1)
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
         case 'divisibleParNF':
           a += randint(1, N - 1)
           texte = `$${texNombre(a)}$ est divisible par $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
         case 'multipleDeNF':
           a += randint(1, N - 1)
           texte = `$${texNombre(a)}$ est un multiple de $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += justification(N, a, false)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
         case 'NdiviseurEnvers':
           texte = `$${texNombre(a)}$ est un diviseur de $${N}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${texNombre(a)}$`
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
         case 'divisibleParNEnvers':
           texte = `$${N}$ est divisible par $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${texNombre(a)}$ est divisible par $${N}$`
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
         case 'multipleDeNEnvers':
           texte = `$${N}$ est un multiple de $${texNombre(a)}$.`
           texteCorr = texte.replace('.', ' ') + ' : Faux'
           texteCorr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
           texteCorr += justification(N, a, true)
-          tabrep = ['Vrai', 'Faux', 'Je ne sais pas']
-          tabicone = [0, 1, 0]
+          this.autoCorrection[i].propositions[1].statut = true
           break
       }
-      if (this.modeQcm && !context.isAmc) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        // texteCorr = `${texte}..`
-        texte += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        // texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
