@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+  import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
@@ -41,27 +41,27 @@ export default function Exercice_conversions(niveau = 1) {
       div,
       resultat,
       unite,
-      type_de_questions,
+      typesDeQuestions,
       texte,
       texteCorr,
       liste_unite_info,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 4);
+        typesDeQuestions = randint(1, 4);
       }
       k = randint(0, 2); // Choix du préfixe
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
-      } else if (type_de_questions == 3) {
+      } else if (typesDeQuestions == 3) {
         div = choice([true, false]); // Avec des multiplications ou des divisions
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         liste_unite_info = ["o", "ko", "Mo", "Go", "To"];
       }
 
@@ -84,7 +84,7 @@ export default function Exercice_conversions(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         if (k < 2) {
           // Choix de l'unité
@@ -120,7 +120,7 @@ export default function Exercice_conversions(niveau = 1) {
           tex_texte(unite) +
           "$";
       } else if (div &&
-        type_de_questions < 4 &&
+        typesDeQuestions < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(["m", "L", "g"]);
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
@@ -142,7 +142,7 @@ export default function Exercice_conversions(niveau = 1) {
           texNombre(resultat) +
           tex_texte(unite) +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         unite = choice(["m", "L", "g"]);
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
@@ -220,7 +220,7 @@ export default function Exercice_conversions(niveau = 1) {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

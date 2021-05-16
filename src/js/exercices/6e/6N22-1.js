@@ -30,21 +30,21 @@ export default function Rapports_sur_un_segment() {
   context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.beta) {
-      type_de_questions_disponibles = [0, 1];
+      typesDeQuestionsDisponibles = [0, 1];
     } else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
-      type_de_questions_disponibles = [0, 1];
+      //typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+      typesDeQuestionsDisponibles = [0, 1];
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour le singulier pluriel
@@ -216,7 +216,7 @@ export default function Rapports_sur_un_segment() {
           break;
       };
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

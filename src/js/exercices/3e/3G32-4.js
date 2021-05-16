@@ -27,7 +27,7 @@ export default function Calculs_trigonometriques4() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let distance, hauteur,alfa,baita, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
-    let type_de_questions_disponibles
+    let typesDeQuestionsDisponibles
     if (context.isHtml) {
       alfa='α'
       baita='β'
@@ -111,7 +111,7 @@ export default function Calculs_trigonometriques4() {
           texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}\\times \\sin(${alpha})}{\\sin(${beta}-${alpha})}\\times \\sin(${beta})$`
           texteCorr  +=`$=\\dfrac{${distance}\\times \\sin(${alpha})\\times \\sin(${beta})}{\\sin(${beta-alpha})}\\approx ${Math.round(taille)}$ m.<br>`
   
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

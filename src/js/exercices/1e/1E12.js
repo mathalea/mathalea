@@ -31,11 +31,11 @@ export const titre = 'Trouver l’équation d’une parabole'
       var pixelsParCm=20
       this.listeQuestions = []; // Liste de questions
       this.listeCorrections = []; // Liste de questions corrigées
-      let listeTypeDeQuestions,type_de_questions_disponibles;
-      if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
-      else type_de_questions_disponibles=[1,2,2,3,3]
+      let listeTypeDeQuestions,typesDeQuestionsDisponibles;
+      if (this.sup<4) typesDeQuestionsDisponibles=[parseInt(this.sup)]
+      else typesDeQuestionsDisponibles=[1,2,2,3,3]
       let f_name=[],Ymin,Yscale,Ymax
-      listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+      listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
       for (let i = 0, texte, texteCorr, a, b, c, x1, x2,x3,f,r,svgYmin,svgYmax,F, cpt = 0;i < this.nbQuestions && cpt < 50;) {
         f_name.push(lettre_minuscule_depuis_chiffre(i+6))
         texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré `
@@ -154,7 +154,7 @@ export const titre = 'Trouver l’équation d’une parabole'
         svgYmax=Math.max(calcule(Ymax/Yscale),1)
         F = x => a*x**2+b*x+c;
         texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+2,pixelsParCm:pixelsParCm,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);
           i++;

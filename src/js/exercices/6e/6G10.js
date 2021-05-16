@@ -69,7 +69,7 @@ export default function Notation_segment_droite_demi_droite() {
       );
       texteCorr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

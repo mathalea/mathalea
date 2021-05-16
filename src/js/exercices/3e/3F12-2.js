@@ -29,23 +29,23 @@ export default function Image_fonction_algebrique() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [];
+		let typesDeQuestionsDisponibles = [];
 		if (this.sup == 1) {
-			type_de_questions_disponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b'];
+			typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b'];
 		}
 		if (this.sup == 2) {
-			type_de_questions_disponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx', '-ax2+bx-c', '-ax2-bx-c', '-ax2-bx+c', '-ax2-bx'];
+			typesDeQuestionsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx', '-ax2+bx-c', '-ax2-bx-c', '-ax2-bx+c', '-ax2-bx'];
 		}
 		if (this.sup == 3) {
-			type_de_questions_disponibles = ['a/cx+d', 'ax+b/cx+d'];
+			typesDeQuestionsDisponibles = ['a/cx+d', 'ax+b/cx+d'];
 		}
 		if (this.sup == 4) {
-			type_de_questions_disponibles = ['(ax+b)(cx+d)', '(ax+b)2'];
+			typesDeQuestionsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2'];
 		}
 		if (this.sup == 5) {
-			type_de_questions_disponibles = ['ax+b', 'ax-b', '-ax+b', 'ax2+bx+c', '-ax2+bx-c', '-ax2-bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2'];
+			typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', 'ax2+bx+c', '-ax2+bx-c', '-ax2-bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2'];
 		}
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_signes_de_x = combinaisonListes([true, false], this.nbQuestions);
 		for (let i = 0, texte, texteCorr, a, b, c, d, expression, nomdef, x, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			x = randint(1, 12);
@@ -145,7 +145,7 @@ export default function Image_fonction_algebrique() {
 			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Calculer $${nomdef}(${x})$.`
 
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

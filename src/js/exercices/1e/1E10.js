@@ -111,7 +111,7 @@ export default function Calcul_discriminant() {
 
         texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correction_complementaire, label_bouton = "Complément graphique", icone = "info circle");
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

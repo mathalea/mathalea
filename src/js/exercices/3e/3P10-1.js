@@ -27,17 +27,17 @@ export default function Coefficient_evolution () {
     this.boutonAide = modal_url(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
     this.sup = parseInt(this.sup)
 
-    let type_de_questions_disponibles = []
+    let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
-      type_de_questions_disponibles = ['coef+', 'coef-']
+      typesDeQuestionsDisponibles = ['coef+', 'coef-']
     }
     if (this.sup === 2) {
-      type_de_questions_disponibles = ['taux+', 'taux-']
+      typesDeQuestionsDisponibles = ['taux+', 'taux-']
     }
     if (this.sup === 3) {
-      type_de_questions_disponibles = ['coef+', 'coef-', 'taux+', 'taux-']
+      typesDeQuestionsDisponibles = ['coef+', 'coef-', 'taux+', 'taux-']
     }
-    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       taux = choice([randint(1, 9) * 10, randint(1, 9)])
       switch (listeTypeDeQuestions[i]) {

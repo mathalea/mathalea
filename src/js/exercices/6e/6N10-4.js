@@ -51,7 +51,7 @@ export default function Ecrire_nombres_entiers_formates() {
       else texte = `$${nombrestring}$`
       if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
       else texteCorr = `${texNombre(nombre)}.`
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

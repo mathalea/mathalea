@@ -29,8 +29,8 @@ export default function Terme_inconnu_de_somme() {
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles=[1,2,3,4]
-    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+    let typesDeQuestionsDisponibles=[1,2,3,4]
+    let listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
     let decimal;
     let inconnue;
     if (this.sup==1) {
@@ -86,7 +86,7 @@ export default function Terme_inconnu_de_somme() {
       if (context.isDiaporama) {
         texte = texte.replace("= \\dotfill", "");
       }
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
         this.qcm[1].push([this.consigne+'\\\\'+texte, [texteCorr,calcul(b-a)], {digits:2+Math.log10(decimal),decimals:Math.log10(decimal),signe:true,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])

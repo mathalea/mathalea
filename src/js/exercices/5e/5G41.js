@@ -37,13 +37,13 @@ export default function Constructions_parallelogrammes_particuliers() {
         let nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
         let A, B, C, D, O, p, d1, d2, c1, c2, c3, c4, dd1, dd2, dd3, dd4, alpha, tri, t1, t2, t3, t4,t5
         let objets_enonce = [], objets_correction = [], result2, result1, cible1, cible2, cible3, cellule1, cellule2, cellule3, result3
-        let type_de_question, type_de_questions_disponibles
+        let type_de_question, typesDeQuestionsDisponibles
         let xMin, yMin, xMax, yMax,xm,ym,xM,yM
-        if (this.sup == 1) type_de_questions_disponibles = [1, 2, 3]
-        else if (this.sup == 2) type_de_questions_disponibles = [4, 5, 6,7]
-        else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6,7]
+        if (this.sup == 1) typesDeQuestionsDisponibles = [1, 2, 3]
+        else if (this.sup == 2) typesDeQuestionsDisponibles = [4, 5, 6,7]
+        else typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6,7]
 
-        type_de_question = choice(type_de_questions_disponibles)
+        type_de_question = choice(typesDeQuestionsDisponibles)
         switch (type_de_question) {
             case 1:
                 A = point(0, 0, noms[0])

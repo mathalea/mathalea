@@ -45,19 +45,19 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let type_de_questions;
+      let typesDeQuestions;
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 4);
+        typesDeQuestions = randint(1, 4);
       }
       // k = randint(0,2); // Choix du préfixe
       k = liste_de_k[i]; //Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
       } else {
@@ -83,7 +83,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
@@ -107,7 +107,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
           texNombre(resultat) +
           tex_texte(unite) +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
@@ -184,7 +184,7 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

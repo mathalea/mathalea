@@ -31,8 +31,8 @@ export default function VuesEmpilementCubes() {
   this.nouvelleVersion = function () {  
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
     
     function empilementCubes(long, larg, hmax) {
@@ -328,7 +328,7 @@ export default function VuesEmpilementCubes() {
           texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
         break
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

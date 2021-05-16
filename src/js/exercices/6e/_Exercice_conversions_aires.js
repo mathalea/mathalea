@@ -47,27 +47,27 @@ export default function Exercice_conversions_aires(niveau = 1) {
       k,
       div,
       resultat,
-      type_de_questions,
+      typesDeQuestions,
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 6) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 5);
+        typesDeQuestions = randint(1, 5);
       }
       // k = randint(0,2); // Choix du préfixe
       k = liste_de_k[i];
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
-      } else if (type_de_questions == 3) {
+      } else if (typesDeQuestions == 3) {
         div = choice([true, false]); // Avec des multiplications ou des divisions
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         div = choice([true, false]); // Avec des multiplications ou des divisions sans toujours revenir au m^2
       }
 
@@ -90,7 +90,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         prefixe_multi = [
           [" da", "\\times10\\times10", 100],
@@ -122,7 +122,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           tex_texte(unite) +
           "^2" +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         prefixe_div = [
           [" d", "\\div10\\div10", 100],
           [" c", "\\div100\\div100", 10000],
@@ -154,7 +154,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           tex_texte(unite) +
           "^2" +
           "$";
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         let unite1 = randint(0, 3);
         let ecart = randint(1, 2); // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (ecart > 4 - unite1) {
@@ -216,8 +216,8 @@ export default function Exercice_conversions_aires(niveau = 1) {
             "^2" +
             "$";
         }
-      } else if (type_de_questions == 5) {
-        // Pour type_de_questions==5
+      } else if (typesDeQuestions == 5) {
+        // Pour typesDeQuestions==5
         prefixe_multi = [
           ["ha", 10000],
           ["a", 100],
@@ -249,7 +249,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           "$";
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

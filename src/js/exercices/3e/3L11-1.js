@@ -23,23 +23,23 @@ export default function Double_distributivite() {
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let type_de_questions_disponibles = [1, 2];
+		let typesDeQuestionsDisponibles = [1, 2];
 		if (this.sup == 2) {
-			type_de_questions_disponibles = [3, 4];
+			typesDeQuestionsDisponibles = [3, 4];
 		}
 		if (this.sup == 3) {
-			type_de_questions_disponibles = [1, 2, 3, 4];
+			typesDeQuestionsDisponibles = [1, 2, 3, 4];
 		}
 
 
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-		for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+		for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+			typesDeQuestions = listeTypeDeQuestions[i];
 			a = randint(2, 9);
 			b = randint(2, 9);
 			c = randint(2, 9, [a]);
 			d = randint(2, 9, [b]);
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: //(x+b)(x+d)
 					b = randint(2, 10);
 					d = randint(2, 12);
@@ -62,7 +62,7 @@ export default function Double_distributivite() {
 					texteCorr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`;
 					break;
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) {
+			if (this.listeQuestions.indexOf(texte) === -1) {
 				// Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);

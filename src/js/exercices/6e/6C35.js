@@ -30,8 +30,8 @@ export default function ModelisationProblemes () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    const type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)

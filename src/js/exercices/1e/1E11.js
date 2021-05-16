@@ -149,7 +149,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$\\mathcal{S}=\\emptyset$`;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

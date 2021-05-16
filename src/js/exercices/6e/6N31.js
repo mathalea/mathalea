@@ -33,7 +33,7 @@ export default function Comparer_decimaux() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       choice([1, 4, 5]),
       2,
       2,
@@ -44,7 +44,7 @@ export default function Comparer_decimaux() {
       9,
     ]; // une seule question du type inversion de chiffres (1,4,5)
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -162,7 +162,7 @@ export default function Comparer_decimaux() {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

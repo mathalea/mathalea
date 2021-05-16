@@ -25,15 +25,15 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [];
+        let typesDeQuestionsDisponibles = [];
        
-        type_de_questions_disponibles = [1,2,3,4,5,6,7,8]; 
+        typesDeQuestionsDisponibles = [1,2,3,4,5,6,7,8]; 
         
         
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nbQuestions && cpt < 50;) 
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) 
         {
-            type_de_questions = listeTypeDeQuestions[i];
+            typesDeQuestions = listeTypeDeQuestions[i];
             k = choice([-1, 1]); 
 			a = randint(2, 9);
             a = a * k;
@@ -46,7 +46,7 @@ export default function Factoriser_Identites_remarquables2() {
             
             
            
-                      switch (type_de_questions) {
+                      switch (typesDeQuestions) {
                 case 1:
                         texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduireAxPlusB(a,b)}$`; //f(x)=ax + b
                         texteCorr = ` $f(x)=${reduireAxPlusB(a,b)}$<br>`
@@ -116,7 +116,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr +=`$f$ est donc bien une fonction affine.<br>` 
                 break;   
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

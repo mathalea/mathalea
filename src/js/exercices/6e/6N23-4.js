@@ -24,8 +24,8 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = range1(5);
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestionsDisponibles = range1(5);
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, choix; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 9);
@@ -85,7 +85,7 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         if (!context.isHtml && i == 0) {

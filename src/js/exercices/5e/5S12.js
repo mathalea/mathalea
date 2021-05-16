@@ -27,16 +27,16 @@ export default function Construire_Un_Diagramme() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []
         this.listeCorrections = []
-        let type_de_questions_disponibles
+        let typesDeQuestionsDisponibles
         if (this.sup3 < 5) {
-            type_de_questions_disponibles = [parseInt(this.sup3)]
+            typesDeQuestionsDisponibles = [parseInt(this.sup3)]
         }
         else {
-            type_de_questions_disponibles = [randint(1, 4)]
+            typesDeQuestionsDisponibles = [randint(1, 4)]
         }
         let liste_hachures_disponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
         let liste_motifs = combinaisonListes(liste_hachures_disponibles, 4)
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
         let N = 0, nom, texte, texteCorr;
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
         let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice

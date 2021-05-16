@@ -29,22 +29,22 @@ export default function Tableaux_et_proportionnalite() {
 	context.isHtml ? this.spacing = 3 : this.spacing = 2;
 	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		if (this.debug) {
-			type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
+			typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5];
 		} else {
-			//type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-			type_de_questions_disponibles = [choice([0, 1]), 2, choice([3, 4]), 5];
-			type_de_questions_disponibles = shuffle(type_de_questions_disponibles);
+			//typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+			typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5];
+			typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles);
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -272,7 +272,7 @@ export default function Tableaux_et_proportionnalite() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

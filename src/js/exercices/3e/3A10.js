@@ -25,7 +25,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.nbColsCorr = 1;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
@@ -38,19 +38,19 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4, 5];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			var dividende;
 			var diviseur;
 			var quotient;
 			var reste;
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // plus grand reste dans une division euclidienne
 					diviseur = randint(2, 99);
 					texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
@@ -206,7 +206,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

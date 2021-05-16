@@ -28,25 +28,25 @@ export default function Exercice_tableau_multiplications_relatifs () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let type_de_questions_disponibles
+    let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // multiplications
-        type_de_questions_disponibles = [1]
+        typesDeQuestionsDisponibles = [1]
         break
       case 2: // Quotient
-        type_de_questions_disponibles = [2]
+        typesDeQuestionsDisponibles = [2]
         break
       case 3: // multiplications et quotients
-        type_de_questions_disponibles = [1, 2]
+        typesDeQuestionsDisponibles = [1, 2]
         break
       case 4: // avec puissances
-        type_de_questions_disponibles = [3, 4]
+        typesDeQuestionsDisponibles = [3, 4]
         break
       case 5: // mélange
-        type_de_questions_disponibles = [1, 2, 3, 4]
+        typesDeQuestionsDisponibles = [1, 2, 3, 4]
         break
     }
-    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
       const nbMax = 20
@@ -241,7 +241,7 @@ export default function Exercice_tableau_multiplications_relatifs () {
           }
           break
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

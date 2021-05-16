@@ -949,7 +949,12 @@ function miseAJourDeLaListeDesExercices (preview) {
             }
           }
           if (typeof urlVars[i].sup !== 'undefined') {
-            listeObjetsExercice[i].sup = urlVars[i].sup
+            // Si le string peut être convertit en int alors on le fait
+            if (!isNaN(urlVars[i].sup)) {
+              listeObjetsExercice[i].sup = parseInt(urlVars[i].sup)
+            } else {
+              listeObjetsExercice[i].sup = urlVars[i].sup
+            }
             // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
             try {
               formSup[i].value = listeObjetsExercice[i].sup
@@ -957,14 +962,22 @@ function miseAJourDeLaListeDesExercices (preview) {
             }
           }
           if (typeof urlVars[i].sup2 !== 'undefined') {
-            listeObjetsExercice[i].sup2 = urlVars[i].sup2
+            if (!isNaN(urlVars[i].sup2)) {
+              listeObjetsExercice[i].sup2 = parseInt(urlVars[i].sup2)
+            } else {
+              listeObjetsExercice[i].sup2 = urlVars[i].sup2
+            }
             try {
               formSup2[i].value = listeObjetsExercice[i].sup2
             } catch (error) {
             }
           }
           if (typeof urlVars[i].sup3 !== 'undefined') {
-            listeObjetsExercice[i].sup3 = urlVars[i].sup3
+            if (!isNaN(urlVars[i].sup3)) {
+              listeObjetsExercice[i].sup3 = parseInt(urlVars[i].sup3)
+            } else {
+              listeObjetsExercice[i].sup3 = urlVars[i].sup3
+            }
             try {
               formSup3[i].value = listeObjetsExercice[i].sup3
             } catch (error) {
@@ -1450,12 +1463,14 @@ function parametresExercice (exercice) {
     // Gestion du mode interactif
     if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { //Pour un exercice qui n'a que la version QCM, pas de menu
       formInteractif[i] = document.getElementById('formInteractif' + i)
-      formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
-      formInteractif[i].addEventListener('change', function (e) {
-        // Dès que le statut change, on met à jour
-        exercice[i].interactif = e.target.checked
-        miseAJourDuCode()
-      })
+      if (formInteractif[i]) {
+        formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
+        formInteractif[i].addEventListener('change', function (e) {
+          // Dès que le statut change, on met à jour
+          exercice[i].interactif = e.target.checked
+          miseAJourDuCode()
+        })
+      }
     }
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {

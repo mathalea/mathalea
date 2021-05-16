@@ -26,14 +26,14 @@ export default function Divisions_euclidiennes_egalite () {
     this.autoCorrection=[]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let type_de_questions_disponibles, type_de_questions
+    let typesDeQuestionsDisponibles, typesDeQuestions
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1, 2, 2]
+      typesDeQuestionsDisponibles = [1, 2, 2]
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [1, 2, 3, 4]
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
     const listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
@@ -41,13 +41,13 @@ export default function Divisions_euclidiennes_egalite () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i]
+      typesDeQuestions = listeTypeDeQuestions[i]
       q = randint(7, 75)
 	  b = randint(3, 25)
-	  r = type_de_questions === 1 ? 0 : randint(1, b - 1)
+	  r = typesDeQuestions === 1 ? 0 : randint(1, b - 1)
 	  a = b * q + r
 	  texte = `Utilise l'égalité suivante pour donner le quotient et le reste de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $<br>`
-	  switch (type_de_questions) {
+	  switch (typesDeQuestions) {
         case 1: // égalité "directe"
 		  texte += `$ ${texNombre(a)} = ${b} \\times ${q} $<br>`
 		  texteCorr = `L'égalité $ ${texNombre(a)} = ${b} \\times ${q} $ correspond bien à l'expression de la division euclidienne de $ ${texNombre(a)} $ par $ ${b} $. <br> Le quotient est ${texteEnCouleurEtGras(q)} et le reste est ${texteEnCouleurEtGras(0)}.`
@@ -75,7 +75,7 @@ export default function Divisions_euclidiennes_egalite () {
 		  <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

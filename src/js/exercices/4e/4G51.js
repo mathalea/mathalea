@@ -21,19 +21,19 @@ export default function Representer_un_solide4e() {
   this.sup2 = 1;
   this.classe=4;
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
 
     if (this.sup == 3)
-      type_de_questions_disponibles = [1, 2];
+      typesDeQuestionsDisponibles = [1, 2];
     else if (this.sup == 5)
-      type_de_questions_disponibles = [1, 2, 4];
+      typesDeQuestionsDisponibles = [1, 2, 4];
     else if (this.sup == 7)
-      type_de_questions_disponibles = [1, 2, 4, 6];
+      typesDeQuestionsDisponibles = [1, 2, 4, 6];
     else
-      type_de_questions_disponibles = [parseInt(this.sup)];
+      typesDeQuestionsDisponibles = [parseInt(this.sup)];
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -42,15 +42,15 @@ export default function Representer_un_solide4e() {
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
 
     if (this.classe == 6)
-      type_de_questions_disponibles = [1, 2];
+      typesDeQuestionsDisponibles = [1, 2];
 
     // sixième : cube et pavé droit
     else if (this.classe == 5)
-      type_de_questions_disponibles = [1, 2, 4];
+      typesDeQuestionsDisponibles = [1, 2, 4];
 
     // cinquième : on ajoute le prisme
     else if (this.classe == 4)
-      type_de_questions_disponibles = [1, 2, 4, 6];
+      typesDeQuestionsDisponibles = [1, 2, 4, 6];
     // Quatrième : on ajoute la pyramide
     if (this.sup2 == 1)
       sc = 0.5;
@@ -360,7 +360,7 @@ export default function Representer_un_solide4e() {
       }
 
       correction += mathalea2d(params, objets_correction);
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");
         this.listeCorrections.push(correction + "<br>");

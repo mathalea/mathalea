@@ -40,7 +40,7 @@ export default function Additionner_soustraires_decimaux() {
     this.qcm[1]=[]
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions,reponse
+    let typesDeQuestions,reponse
     let liste_de_type_d_additions = combinaisonListes(
       [5, 6, 7, 8],
       this.nbQuestions
@@ -70,8 +70,8 @@ export default function Additionner_soustraires_decimaux() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case 1: // xxx-xx,x
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10);
@@ -155,7 +155,7 @@ export default function Additionner_soustraires_decimaux() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -36,14 +36,14 @@ export default function Notation_scientifique() {
     let reponse
     if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
     else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    if (this.sup2 == 1) type_de_questions_disponibles = [0, 0, 0, 1, 1];
-    else if (this.sup2 == 2) type_de_questions_disponibles = [0, 1, 1, 2, 2];
-    else type_de_questions_disponibles = [2, 2, 3, 3, 3];
+    if (this.sup2 == 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1];
+    else if (this.sup2 == 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2];
+    else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3];
 
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
@@ -78,7 +78,7 @@ export default function Notation_scientifique() {
         texte = `$${scientifiquestring}$`
 
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         if (this.sup==1) {

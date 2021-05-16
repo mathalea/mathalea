@@ -23,7 +23,7 @@ export default function Fractions_irreductibles() {
 	this.listePackages = `bclogo`;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A12.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
@@ -37,14 +37,14 @@ export default function Fractions_irreductibles() {
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
 
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		//let typesDeQuestionsDisponibles = [1,2,3,4];
+		let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		this.introduction = warnMessage(`À la question ` + numAlpha(3) + ` une observation judicieuse et argumentée pourra faire gagner du temps!`, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			var nb_div_prem_communs; // nombre de diviseurs premiers communs
 			var candidats_premiers_communs; // tableau des candidats premiers communs
@@ -173,7 +173,7 @@ export default function Fractions_irreductibles() {
 				nb2 = nb2 * tab_prem_mult_nb2[k].prem ** tab_prem_mult_nb2[k].mult;
 			};
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // décomposition de A
 					texte = numAlpha(0) + ` Décomposer $A = ${texNombre(nb1)}$ en produit de facteurs premiers : `;
 					texteCorr = numAlpha(0) + ` La décomposition en produit de facteurs premier de $A = `;
@@ -270,7 +270,7 @@ export default function Fractions_irreductibles() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

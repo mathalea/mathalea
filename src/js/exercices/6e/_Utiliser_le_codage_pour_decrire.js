@@ -13,16 +13,16 @@ export default function Utiliser_le_codage_pour_decrire() {
   this.sup = 1;
   this.sup2 = 1;
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let nom, sommets = [], params_enonce, params_correction, objets_enonce, objets_correction;
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF;
     if (this.classe == 6)
-      type_de_questions_disponibles = [1, 2, 3];
+      typesDeQuestionsDisponibles = [1, 2, 3];
     else
-      type_de_questions_disponibles = [1, 2, 3, 4];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+      typesDeQuestionsDisponibles = [1, 2, 3, 4];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets_enonce = [];
       objets_correction = [];
@@ -146,7 +146,7 @@ export default function Utiliser_le_codage_pour_decrire() {
         texte += mathalea2d(params_enonce, objets_enonce);
       if (objets_correction.length > 0)
         texteCorr += mathalea2d(params_correction, objets_correction);
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

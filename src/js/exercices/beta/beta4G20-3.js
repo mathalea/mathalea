@@ -19,8 +19,8 @@ export default function Calculer_valeur_manquante_visuel_pythagore() {
     this.nouvelleVersion = function () {
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestionsDisponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
   
     let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
       context.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]
@@ -93,7 +93,7 @@ let q3=latexParPoint('16 \\text{ cm}^2',bar3)
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texteCorr += mathalea2d(params_correction, objets_correction)
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

@@ -32,23 +32,23 @@ export default function Produit_de_decimaux_a_partir_d_un_produit_connu() {
   context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     this.qcm=['6C30-2',[],'Calculer le produit de deux décimaux connaissant le produit de deux entiers',4]
     if (this.beta) {
-      type_de_questions_disponibles = [0, 1, 2];
+      typesDeQuestionsDisponibles = [0, 1, 2];
     } else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0, 1, 2]);
+      //typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      typesDeQuestionsDisponibles = shuffle([0, 1, 2]);
 
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 let reponse
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -138,7 +138,7 @@ let reponse
           reponse=enonces[2].reponse
           break;
       };
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

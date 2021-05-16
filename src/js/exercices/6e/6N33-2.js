@@ -20,8 +20,8 @@ export default function Calculer_un_pourcentage() {
   this.nbColsCorr = 1;
 
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles = [1, 2, 3]
-    let liste_choix = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles = [1, 2, 3]
+    let liste_choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let liste_moyens = [`en bus`, `en deux-roues`, `à  pieds`, `en voiture`]
@@ -70,7 +70,7 @@ export default function Calculer_un_pourcentage() {
       objets.push(codeAngle(depart, centre, -p3 * 3.6, 4.9, '', 'black', 2, 1, 'yellow', 0.4), texteParPoint(`${moy3.substring(3)}`, pointSurSegment(centre, rotation(depart, centre, -p3 * 1.8), 3), 0))
       texteCorr += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false, amplitude: 1 }, ...objets)
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

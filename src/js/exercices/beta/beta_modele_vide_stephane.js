@@ -25,17 +25,17 @@ export default function totoche() {// nom de fonction à donner
   this.nouvelleVersion = function () {
     this.listeQuestions = [];
     this.listeCorrections = [];
-    let type_de_questions_disponibles = [];
-    type_de_questions_disponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
+    let typesDeQuestionsDisponibles = [];
+    typesDeQuestionsDisponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
 
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
 
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, type_de_questions;
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
 
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1:
         // on utilise les variables définies dans la boucle et les fonctions définies dans import
         texte=`totoche` // pour l'énoncé
@@ -49,7 +49,7 @@ export default function totoche() {// nom de fonction à donner
       } // fin de switch
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

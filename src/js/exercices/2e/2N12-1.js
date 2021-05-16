@@ -20,11 +20,11 @@ export default function identites_remarquables_et_racine_carree() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1, 2, 3, 4, 5],type_de_questions
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5],typesDeQuestions
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
         for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
-            switch (type_de_questions) {
+            typesDeQuestions = listeTypeDeQuestions[i];
+            switch (typesDeQuestions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
                 case 1:
@@ -116,7 +116,7 @@ export default function identites_remarquables_et_racine_carree() {
 
                     break;
             }
-            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
                 i++;

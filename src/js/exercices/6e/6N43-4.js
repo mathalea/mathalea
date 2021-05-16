@@ -31,8 +31,8 @@ export default function DivisibleDiviseurMultiple() {
     this.introduction += Operation({ operande1 :a, operande2 :b, type :'divisionE'})
     this.introduction +=Operation({ operande1 :a1, operande2 :b, type :'divisionE'})
 
-    let type_de_questions_disponibles = [1,2,3,4,5,6]; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = [1,2,3,4,5,6]; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -63,7 +63,7 @@ export default function DivisibleDiviseurMultiple() {
         
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

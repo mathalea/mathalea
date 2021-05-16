@@ -38,8 +38,8 @@ export default function Comparer_puissance10() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [];       
-    type_de_questions_disponibles = [1,2,3,4,5]; 
+    let typesDeQuestionsDisponibles = [];       
+    typesDeQuestionsDisponibles = [1,2,3,4,5]; 
 
     for (let i = 0, texte=``, texteCorr=``, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a1 = 0; // mantisse 1
@@ -50,8 +50,8 @@ export default function Comparer_puissance10() {
       let nbA2 = 0; // valeur numérique du nombre 2
       this.listeQuestions = [] // tableau contenant la liste des questions 
       this.listeCorrections = []
-      let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+      let typesDeQuestionsDisponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
+      let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       switch (listeTypeDeQuestions[i]) {
         case 1:
           a1 = 1;
@@ -156,7 +156,7 @@ export default function Comparer_puissance10() {
          }
      }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -22,12 +22,12 @@ export default function Determiner_derniere_operation_exp_num() {
 	this.titre = titre
 
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles
+		let typesDeQuestionsDisponibles
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		type_de_questions_disponibles = [5] //expressions complexes
+		typesDeQuestionsDisponibles = [5] //expressions complexes
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats, last_op
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			nb_operations = parseInt(listeTypeDeQuestions[i])
@@ -69,7 +69,7 @@ export default function Determiner_derniere_operation_exp_num() {
 					break;
 
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

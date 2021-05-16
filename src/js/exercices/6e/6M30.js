@@ -21,25 +21,25 @@ export default function Calcul_de_volumes() {
   this.sup = 1;
   this.classe=6
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.classe == 6)
-      type_de_questions_disponibles = [1, 2];
+      typesDeQuestionsDisponibles = [1, 2];
 
     // sixième : cube et pavé droit
     else if (this.classe == 5)
-      type_de_questions_disponibles = [1, 2, 3, 4];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4];
 
     // cinquième : on ajoute les prismes et le cylindre
     else if (this.classe == 4)
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6];
 
     // Quatrième : on ajoute pyramides et cones
     else
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7]; // Troisième : on ajoute les boules.
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; // Troisième : on ajoute les boules.
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -199,7 +199,7 @@ export default function Calcul_de_volumes() {
           )}${liste_unites[j][1]}$`;
           break;
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

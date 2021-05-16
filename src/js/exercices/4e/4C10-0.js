@@ -24,7 +24,7 @@ export default function Signe_produit_quotient_relatifs () {
   this.nbQuestionsModifiable = false
   this.sup = 1
 
-  let type_de_questions_disponibles
+  let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
@@ -32,61 +32,61 @@ export default function Signe_produit_quotient_relatifs () {
       // signe d'un produit
       switch (this.sup) {
         case 1: // 2 facteurs
-          type_de_questions_disponibles = [1, 1, 1]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [1, 1, 1]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 2: // 3 facteurs
-          type_de_questions_disponibles = [2, 2, 2]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [2, 2, 2]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 3: // 4 facteurs
-          type_de_questions_disponibles = [3, 3, 3]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [3, 3, 3]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 4: // Mélange
-          type_de_questions_disponibles = [1, 2, 3]
-          this.nbQuestions = type_de_questions_disponibles.length
+          typesDeQuestionsDisponibles = [1, 2, 3]
+          this.nbQuestions = typesDeQuestionsDisponibles.length
           break
       }
     } else if (this.exo === this.beta + '4C10-2') {
       // signe d'un quotient
       switch (this.sup) {
         case 1: // quotient de 2 nombres
-          type_de_questions_disponibles = [4, 4, 4]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [4, 4, 4]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 2: // quotient d'1 nombre sur un produit de 2 nombres
-          type_de_questions_disponibles = [5, 5, 5]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [5, 5, 5]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 3: // quotient d'1 produit de 2 nombres sur 1 nombre
-          type_de_questions_disponibles = [6, 6, 6]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [6, 6, 6]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 4: // quotient de 2 produits de 2 nombres
-          type_de_questions_disponibles = [7, 7, 7]
-          // this.nbQuestions = type_de_questions_disponibles.length;
+          typesDeQuestionsDisponibles = [7, 7, 7]
+          // this.nbQuestions = typesDeQuestionsDisponibles.length;
           this.nbQuestions = 3
           break
         case 5: // Mélange
-          type_de_questions_disponibles = [4, 5, 6, 7]
-          this.nbQuestions = type_de_questions_disponibles.length
+          typesDeQuestionsDisponibles = [4, 5, 6, 7]
+          this.nbQuestions = typesDeQuestionsDisponibles.length
           break
       }
     } else {
       // signe d'un produit et/ou d'un quotient
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7]
-      this.nbQuestions = type_de_questions_disponibles.length
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
+      this.nbQuestions = typesDeQuestionsDisponibles.length
     }
 
-    // let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

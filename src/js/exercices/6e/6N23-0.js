@@ -26,9 +26,9 @@ export default function Ecrire_nombres_decimal() {
       this.consigne = "Écrire le nombre en lettres"
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
+    let typesDeQuestionsDisponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
@@ -76,7 +76,7 @@ export default function Ecrire_nombres_decimal() {
       }
       texte = texte.replace('et-un unités', 'et-une unités')
       texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

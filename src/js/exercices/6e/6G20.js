@@ -191,7 +191,7 @@ export default function Nommer_et_coder_des_polygones() {
       pol.epaisseur = 2
       texte += `<br>` + mathalea2d(params, pol, polnom, g, carreaux)
       texteCorr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

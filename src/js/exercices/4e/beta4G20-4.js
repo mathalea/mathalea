@@ -23,8 +23,8 @@ export default function Calculer_une_expression_litterale_pythagore() {
     this.listeQuestions = []; 
     this.listeCorrections = []; 
     let a, b, n,s,d,racs,racd,miracs, miracd;
-    let type_de_questions_disponibles = ['type1','type2'];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let typesDeQuestionsDisponibles = ['type1','type2'];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions);
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
     
@@ -81,7 +81,7 @@ miracd = troncature(racd-troncature(racd,2),3);
   }}
   
 
-  if (this.listeQuestions.indexOf(texte) == -1) {
+  if (this.listeQuestions.indexOf(texte) === -1) {
     // Si la question n'a jamais été posée, on en crée une autre
     this.listeQuestions.push(texte);
     this.listeCorrections.push(texteCorr);

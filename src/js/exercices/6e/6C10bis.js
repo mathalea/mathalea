@@ -36,18 +36,18 @@ export default function Additions_soustractions_multiplications_divisions_posees
     this.autoCorrection=[]
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5,6];
+    let typesDeQuestions
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5,6];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     if (this.nbQuestions <= 3) {
       listeTypeDeQuestions = [1, 2, 5];
     }
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, g, x, y; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case 1: // abcde + fgh
           a =
             randint(1, 9) * 10000 +
@@ -117,7 +117,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
           texteCorr = Operation({operande1:x,operande2:c,type:'division'})
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         if (!context.isHtml && i == 0) {

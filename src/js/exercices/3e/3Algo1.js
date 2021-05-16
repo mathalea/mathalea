@@ -25,7 +25,7 @@ export default function Instruction_conditionelle() {
 	context.isHtml ? this.spacing = 1 : this.spacing = 1;
 	context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
 	this.listePackages = `scratch3`;
-	//let type_de_questions_disponibles;	
+	//let typesDeQuestionsDisponibles;	
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées

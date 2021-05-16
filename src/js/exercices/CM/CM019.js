@@ -51,7 +51,7 @@ export default function Le_compte_est_bonV3() {
       for (let i = 0; i < 4; i++) {
         texteCorr += `$${solution_mathador[2][i]}$<br>`;
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

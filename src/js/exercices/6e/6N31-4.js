@@ -104,7 +104,7 @@ export default function Intercaler_decimal_entre_2_decimaux() {
           texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`;
           texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`;
 
-          if (this.listeQuestions.indexOf(texte) == -1) {
+          if (this.listeQuestions.indexOf(texte) === -1) {
               // Si la question n'a jamais été posée, on en crée une autre
               this.listeQuestions.push(texte);
               this.listeCorrections.push(texteCorr);

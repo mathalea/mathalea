@@ -106,11 +106,11 @@ export default function VocabulaireDesTriangles () {
       if (this.sup === 1) {
         typeDeQuestionsDisponibles = [1, 3, 5, 7] // 6e facile isocèle, équilatéral et rectangle.
       } else if (this.sup === 2) {
-        // type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+        // typesDeQuestionsDisponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
         typeDeQuestionsDisponibles = [1, 4, 6, 8, 9] // 6e les autres cas sauf par les angles
       }
     } else if (this.classe === 5) {
-      // type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+      // typesDeQuestionsDisponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
       typeDeQuestionsDisponibles = [
         choice([1, 2]),
         choice([3, 4, 10]),
@@ -124,7 +124,7 @@ export default function VocabulaireDesTriangles () {
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    // let listeTypeDeQuestions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

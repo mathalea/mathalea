@@ -29,7 +29,7 @@ export default function Eq_resolvantes_Thales() {
 
 	this.listePackages = `bclogo`;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		// une fonction pour dire que c'est trivial dans ce cas
@@ -52,17 +52,17 @@ export default function Eq_resolvantes_Thales() {
 		};
 
 		if (this.debug) {
-			type_de_questions_disponibles = [0, 1, 2, 3];
+			typesDeQuestionsDisponibles = [0, 1, 2, 3];
 		} else {
-			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
+			typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -237,7 +237,7 @@ export default function Eq_resolvantes_Thales() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

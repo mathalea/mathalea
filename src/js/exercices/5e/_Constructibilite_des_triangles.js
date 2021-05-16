@@ -41,33 +41,33 @@ export default function Constructibilite_des_triangles() {
 
 	this.listePackages = `bclogo`;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 
 		if (this.exo == this.beta + '5G21-1') { // via longueurs
 			if (this.sup == 1) {
-				type_de_questions_disponibles = shuffle([1, 2, 3]);
-				this.nbQuestions = type_de_questions_disponibles.length;
+				typesDeQuestionsDisponibles = shuffle([1, 2, 3]);
+				this.nbQuestions = typesDeQuestionsDisponibles.length;
 			} else if (this.sup == 2) {
-				type_de_questions_disponibles = [choice([1, 2, 3]), 4];
-				this.nbQuestions = type_de_questions_disponibles.length;
+				typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4];
+				this.nbQuestions = typesDeQuestionsDisponibles.length;
 			};
 		} else if (this.exo == this.beta + '5G31-1') { //via angles
 			if (this.sup == 1) {
-				type_de_questions_disponibles = shuffle([5, 6, 7]);
-				this.nbQuestions = type_de_questions_disponibles.length;
+				typesDeQuestionsDisponibles = shuffle([5, 6, 7]);
+				this.nbQuestions = typesDeQuestionsDisponibles.length;
 			} else if (this.sup == 2) {
-				type_de_questions_disponibles = [choice([5, 6, 7]), 8];
-				this.nbQuestions = type_de_questions_disponibles.length;
+				typesDeQuestionsDisponibles = [choice([5, 6, 7]), 8];
+				this.nbQuestions = typesDeQuestionsDisponibles.length;
 			};
 		} else {
-			type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8];
-			this.nbQuestions = type_de_questions_disponibles.length;
+			typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8];
+			this.nbQuestions = typesDeQuestionsDisponibles.length;
 		};
 
-		//let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = type_de_questions_disponibles; // Tous les types de questions sont posées --> à remettre comme ci dessus
+		//let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = typesDeQuestionsDisponibles; // Tous les types de questions sont posées --> à remettre comme ci dessus
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
@@ -375,7 +375,7 @@ export default function Constructibilite_des_triangles() {
 					texteCorr += `<br> On les obtient les uns à partir des autres par un agrandissement ou une réduction.`;
 					break;
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

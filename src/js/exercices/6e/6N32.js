@@ -27,13 +27,13 @@ export default function Fractions_d_unite() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles, g, carreaux, sc, unit
+    let typesDeQuestionsDisponibles, g, carreaux, sc, unit
     let listeTypeDeQuestions = []
     if (this.sup < 5)
-      type_de_questions_disponibles = [parseInt(this.sup)]
+      typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else
-      type_de_questions_disponibles = [1, 2, 3, 4]
-    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]
+    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, den, num, frac, frac_unite, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -81,7 +81,7 @@ export default function Fractions_d_unite() {
 
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -28,7 +28,7 @@ export default function Exercice_trouver_l_inverse() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     let liste_entiers = [
       [1, 1],
       [2, 0.5],
@@ -86,13 +86,13 @@ export default function Exercice_trouver_l_inverse() {
     // [n,d,bol] inverse d/n à simplifier si besoin. si bol = true, alors d/n est décimal.
     let couples_d_inverses;
     if (this.sup == 4) {
-      type_de_questions_disponibles = [1, 1, 2, 2, 3];
+      typesDeQuestionsDisponibles = [1, 1, 2, 2, 3];
     } // nombre entier,fraction,décimal]
     else {
-      type_de_questions_disponibles = [parseInt(this.sup)];
+      typesDeQuestionsDisponibles = [parseInt(this.sup)];
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (let i = 0,
@@ -102,10 +102,10 @@ export default function Exercice_trouver_l_inverse() {
       nombre_inverse_den,
       texte,
       texteCorr,
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case 1: //inverse d'entier
           couples_d_inverses = choice(liste_entiers);
           nombre_choisi = couples_d_inverses[0];
@@ -344,7 +344,7 @@ export default function Exercice_trouver_l_inverse() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

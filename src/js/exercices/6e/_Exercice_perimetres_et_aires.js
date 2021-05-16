@@ -34,12 +34,12 @@ export default function Exercice_perimetres_et_aires(difficulte = 1) {
       [21, 20, 29],
       [9, 40, 41],
     ];
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       "carre",
       "rectangle",
       "triangle_rectangle",
       "cercle",
-    ],type_de_questions;
+    ],typesDeQuestions;
     let partieDecimale1, partieDecimale2, partieDecimale3;
     if (this.sup2) {
       partieDecimale1 = calcul(randint(1, 9) / 10);
@@ -53,18 +53,18 @@ export default function Exercice_perimetres_et_aires(difficulte = 1) {
     }
 
     if (this.sup == 1) {
-      enleveElement(type_de_questions_disponibles, "cercle");
+      enleveElement(typesDeQuestionsDisponibles, "cercle");
       this.nbCols = 1;
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = ["cercle"];
+      typesDeQuestionsDisponibles = ["cercle"];
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case "carre":
           let cote = calcul(randint(2, 11) + partieDecimale1);
           let nom_carre = creerNomDePolygone(4);
@@ -132,7 +132,7 @@ export default function Exercice_perimetres_et_aires(difficulte = 1) {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

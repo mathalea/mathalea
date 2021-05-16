@@ -35,7 +35,7 @@ export default function PPCM_Engrenages() {
 	} else { // sortie LaTeX
 	};
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
@@ -48,9 +48,9 @@ export default function PPCM_Engrenages() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 		let txt_intro = `Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`;
 		if (context.isHtml) {
 			txt_intro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
@@ -67,7 +67,7 @@ export default function PPCM_Engrenages() {
 		});
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			if (context.isHtml) {
 				let id_unique = `${num_ex}_${i}_${Date.now()}`;
@@ -84,7 +84,7 @@ export default function PPCM_Engrenages() {
 				txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 			};
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // avec de petits nombres on calcule les mutliples
 					nb_dents_r1 = randint(5, 30);
 					nb_dents_r2 = randint(5, 30, nb_dents_r1);
@@ -255,7 +255,7 @@ export default function PPCM_Engrenages() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

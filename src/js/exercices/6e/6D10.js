@@ -37,12 +37,12 @@ export default function Conversions_de_durees() {
         [0, 1, 2],
         this.nbQuestions
       );
-      let type_de_questions = [];
+      let typesDeQuestions = [];
       if (this.sup < 5) {
-        type_de_questions = combinaisonListes([this.sup], this.nbQuestions);
+        typesDeQuestions = combinaisonListes([this.sup], this.nbQuestions);
       }
       if (this.sup == 5) {
-        type_de_questions = combinaisonListes([1, 2, 3, 4], this.nbQuestions);
+        typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions);
       }
   
       for (
@@ -50,7 +50,7 @@ export default function Conversions_de_durees() {
         i < this.nbQuestions && cpt < 50;
   
       ) {
-        if (type_de_questions[i] == 1) {
+        if (typesDeQuestions[i] == 1) {
           let sous_type_de_question = liste_sous_type_de_questionv1[i];
           if (sous_type_de_question == 1) {
             h = randint(2, 11);
@@ -84,7 +84,7 @@ export default function Conversions_de_durees() {
             )}~\\text{s}$`;
           }
         }
-        if (type_de_questions[i] == 2) {
+        if (typesDeQuestions[i] == 2) {
           j = randint(1, 6);
           h = randint(1, 23);
           texte = `$${texNombre(h + 24 * j)}~\\text{h en jours et heures}$`;
@@ -93,7 +93,7 @@ export default function Conversions_de_durees() {
           )}~\\text{h} = ${j}\\times24~\\text{h} + ${h}~\\text{h} = ${j}~\\text{j}~${h}~\\text{h}$`;
         }
   
-        if (type_de_questions[i] == 3) {
+        if (typesDeQuestions[i] == 3) {
           h = liste_sous_type_de_questionv2[i];
           m = randint(1, 59);
           s = randint(1, 59);
@@ -113,7 +113,7 @@ export default function Conversions_de_durees() {
             )}~\\text{s} = ${m}\\times60~\\text{s}+${s}~\\text{s}=${m}~\\text{min}~${s}~\\text{s}$`;
           }
         }
-        if (type_de_questions[i] == 4) {
+        if (typesDeQuestions[i] == 4) {
           s = randint(1, 9); // nombre de semaines
           j = randint(1, 6);
           h = randint(1, 23);
@@ -135,7 +135,7 @@ export default function Conversions_de_durees() {
             }~\\text{j}~${h}~\\text{h} = ${s}\\times7~\\text{j} + ${j}~\\text{j}~${h}~\\text{h} = ${s}~\\text{semaine}~${j}~\\text{j}~${h}~\\text{h}$`;
           }
         }
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on en crée une autre
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

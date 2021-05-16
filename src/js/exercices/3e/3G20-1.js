@@ -23,11 +23,11 @@ export default function Problemes_Thales() {
 		this.listeCorrections = []; // Liste de questions corrigées
 		let texte = '';
 		let texteCorr = '';
-		let type_de_questions = randint(1, 2);
+		let typesDeQuestions = randint(1, 2);
 		let A, B, C, D,E, M, N, x, k, y, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels, BC, BD, MN;
 
 
-		switch (type_de_questions) {
+		switch (typesDeQuestions) {
 			case 1:
 				x = randint(6, 10);
 				k = calcul(randint(12, 19) / 10);

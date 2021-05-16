@@ -79,7 +79,7 @@ export default function Calculs_trigonometriques1() {
             texteCorr += `$HP=6400\\times \\cos(${alpha})\\approx ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
             texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}\\approx ${texNombrec(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))}$ km.<br>`
 
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en crée une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

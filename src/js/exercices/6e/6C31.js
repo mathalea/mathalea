@@ -36,23 +36,23 @@ export default function Division_decimale () {
     this.qcm = ['6C31', [], 'Divisions décimales', 4]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let type_de_questions_disponibles
+    let typesDeQuestionsDisponibles
 
     this.sup == 1
-      ? (type_de_questions_disponibles = [choice([1, 2, 3]), 4, 5, 6])
-      : (type_de_questions_disponibles = [7, 8, 9])
+      ? (typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4, 5, 6])
+      : (typesDeQuestionsDisponibles = [7, 8, 9])
     const listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let type_de_questions
+    let typesDeQuestions
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i]
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i]
+      switch (typesDeQuestions) {
         case 1: // entier divisé par 4 quotient : xx,25 ou xx,75
           b = 4
           a = (randint(2, 9) * 10 + randint(2, 9)) * 4 + choice([1, 3])
@@ -133,7 +133,7 @@ export default function Division_decimale () {
         texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

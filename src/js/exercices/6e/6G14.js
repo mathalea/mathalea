@@ -20,16 +20,16 @@ export default function Proprietes_paralleles_perpendiculaires() {
   this.correctionDetailleeDisponible = true;
   this.correctionDetaillee = false;
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles, questions_par_niveau = [];
+    let typesDeQuestionsDisponibles, questions_par_niveau = [];
     questions_par_niveau.push(range(3))
     questions_par_niveau.push(rangeMinMax(9, 15))
     questions_par_niveau.push(rangeMinMax(19, 31, 20))
 
-    if (this.sup < 4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup) - 1]
-    else type_de_questions_disponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
+    if (this.sup < 4) typesDeQuestionsDisponibles = questions_par_niveau[parseInt(this.sup) - 1]
+    else typesDeQuestionsDisponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions
@@ -245,7 +245,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + "<br>");
         this.listeCorrections.push(texteCorr + "<br>");

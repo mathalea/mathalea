@@ -50,7 +50,7 @@ export default function Representer_une_fraction() {
       texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'));
       texteCorr = `Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`;
       texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'));
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

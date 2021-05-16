@@ -29,17 +29,17 @@ export default function Equations_produits_nuls2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+             let typesDeQuestionsDisponibles = [];
         if (this.sup <4) {
-            type_de_questions_disponibles = [parseInt(this.sup)];
+            typesDeQuestionsDisponibles = [parseInt(this.sup)];
       }
       else {
-        type_de_questions_disponibles = [1,2,3];
+        typesDeQuestionsDisponibles = [1,2,3];
       }
      
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
 			a = randint(-9, 9,0);
             b = randint(-9, 9,0);
             c = randint(-9, 9,[0,a]);
@@ -48,7 +48,7 @@ export default function Equations_produits_nuls2() {
             f = randint(1, 9,[0,b,d]);
             
                  
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                     texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`; 
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
@@ -127,7 +127,7 @@ export default function Equations_produits_nuls2() {
                         else  texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
                         break
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
