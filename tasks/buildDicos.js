@@ -168,5 +168,18 @@ let dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoire
 fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`)
 console.log(`${dictFile} généré`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
+let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
+fs.writeFileSync(csvFile,`amc,interactif\r\n`)
+Object.entries(dicoAlea).forEach(([id,props]) => {
+  if (props.amcReady && props.interactifReady) {
+    fs.appendFileSync(csvFile,`${id},${id}\r\n`)
+  } else if (props.amcReady && !props.interactifReady) {
+    fs.appendFileSync(csvFile,`${id},\r\n`)
+  } else if (!props.amcReady && props.interactifReady) {
+    fs.appendFileSync(csvFile,`,${id}\r\n`) 
+  }
+})
+console.log(`${csvFile} généré`)
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)
