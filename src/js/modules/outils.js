@@ -6671,6 +6671,7 @@ export function exportQcmAmc (thisAmc, idExo) {
   let id = 0
   let reponse
   let horizontalite
+  let nbChiffresPd,nbChiffresPe
   for (let j = 0; j < autoCorrection.length; j++) {
     if (autoCorrection[j].options !== undefined) {
       if (autoCorrection[j].options.vertical === undefined) {
@@ -6762,6 +6763,8 @@ export function exportQcmAmc (thisAmc, idExo) {
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
             nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
             autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+          } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+            autoCorrection[j].reponse.param.decimals = 0
           }
         }
         texQr += `\\element{${ref}}{\n `
@@ -6769,19 +6772,19 @@ export function exportQcmAmc (thisAmc, idExo) {
         texQr += `		${autoCorrection[j].enonce} \n `
         texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
-        if (autoCorrection[j].reponse.param.exposantNbChiffres!==0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0 ) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
-        if (autoCorrection[j].reponse.param.approx !== 0) {
+        if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
           texQr += `approx=${autoCorrection[j].reponse.param.approx},`
         }
-        if (typeof autoCorrection[j].reponse.param.vertical !== 'undefined') {
+        if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
           texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
         }
-        if (typeof autoCorrection[j].reponse.param.strict !== 'undefined') {
+        if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
           texQr += `strict=${autoCorrection[j].reponse.param.strict},`
         }
-        if (typeof autoCorrection[j].reponse.param.vhead !== 'undefined') {
+        if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
           texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
         }
         texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'

@@ -127,7 +127,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${x}\\times${y}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(x * y)
-          setReponse(this, i, reponse)
+          setReponse(this, i, reponse, { digits: 0 })
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
       }
