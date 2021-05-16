@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre} from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType =3 //type de question AMC 
 
 export const titre = 'Divisions euclidiennes'
 

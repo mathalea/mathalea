@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, range, combina
 import { ajouteChampTexte, exerciceInteractif } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const interactifReady = true
-export const amcType = 4 // type de question AMC NumeriqueChoice
+export const amcType =4 //type de question AMC NumeriqueChoice 
 
 export const titre = 'Substitution'
 

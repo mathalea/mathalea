@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choic
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType =1 // QCM 
 export const interactifReady = true
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'

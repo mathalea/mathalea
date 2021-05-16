@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonLis
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType =1 // QCM 
 export const interactifReady = true
 
 /**

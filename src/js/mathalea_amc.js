@@ -2,7 +2,7 @@
 import { creerDocumentAmc, strRandom, compteOccurences } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
 import { dictionnaireDesExercices, menuDesExercicesDisponibles } from './modules/menuDesExercicesDisponibles'
-// import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
 import { loadGiac, loadPrism } from './modules/loaders'
 import { context, setOutputAmc } from './modules/context.js'

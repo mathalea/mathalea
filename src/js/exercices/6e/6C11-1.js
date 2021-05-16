@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texteGr
 export const titre = "Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité"
 
 export const amcReady = true
-export const amcType = 3 // type de question AMC
+export const amcType =3 //type de question AMC 
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *

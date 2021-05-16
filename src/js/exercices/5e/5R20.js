@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritu
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType =1 //type de question AMC 
 export const interactifReady = true
 
 export const titre = 'Addition de deux entiers relatifs'

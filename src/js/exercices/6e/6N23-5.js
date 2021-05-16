@@ -4,7 +4,7 @@ import { fraction } from '../../modules/Fractions.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // QCM
+export const amcType =1 // QCM 
 export const interactifReady = true
 export const titre = 'Sens de l’écriture fractionnaire'
 

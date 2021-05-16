@@ -70,7 +70,8 @@ function listeHtmlDesExercicesDUnTheme (theme) {
   const filtre = getFilterFromUrl() 
   for (const id in dictionnaire) {
     if (filtre === 'interactif') {
-      if (dictionnaire[id].qcmInteractif) {
+      // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
+      if (dictionnaire[id].interactifReady) {
         liste += spanExercice(id, dictionnaire[id].titre)
       }
     } else {
@@ -279,7 +280,8 @@ function ligneTableau (exercice) {
   //Construction d'une ligne du tableau pour l'affichage en mode tableau
   let ligne = ''
   const modeAmc = dictionnaireDesExercices[exercice].amcReady ? 'AMC ' : ''
-  const modeInteractif = dictionnaireDesExercices[exercice].qcmInteractif ? ' Interactif' : ''
+  // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
+  const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
     ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
     </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
@@ -446,7 +448,8 @@ export function menuDesExercicesDisponibles () {
   for (const id in liste_des_exercices_disponibles) {
     if ((id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
       if (filtre === 'interactif') {
-        if (dictionnaireDesExercices[id].qcmInteractif) {
+        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
+        if (dictionnaireDesExercices[id].interactifReady) {
           obj_exercices_disponibles[id[0] + id[1]].nombre_exercices_dispo += 1
           obj_exercices_disponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
         }
@@ -457,7 +460,8 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        if (dictionnaireDesExercices[id].qcmInteractif) {
+        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
+        if (dictionnaireDesExercices[id].interactifReady) {
           obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
           obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
         }
@@ -468,7 +472,8 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        if (dictionnaireDesExercices[id].qcmInteractif) {
+        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
+        if (dictionnaireDesExercices[id].interactifReady) {
           obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
           obj_exercices_disponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
           obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
