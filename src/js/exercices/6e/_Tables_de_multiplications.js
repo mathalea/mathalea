@@ -20,8 +20,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.spacing = 2
   this.interactif = true
   this.amcType = 4
-  this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
-
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
@@ -47,6 +45,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
       this.autoCorrection[i].reponse = {}
+      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
       a = couples[i][0]
       b = couples[i][1]
       if (this.sup2 === 1) {
@@ -73,7 +72,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         // a trous
         if (tables.length > 2) {
           // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
-          if (randint(1,2) === 1) {
+          if (randint(1, 2) === 1) {
             texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
             if (this.interactif) texte = `$ ${a} \\times $` + ajouteChampTexte(this, i) + `$ = ${a * b} $`
           } else {
