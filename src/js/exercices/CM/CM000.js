@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
-import { ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
@@ -73,8 +73,6 @@ export default function TablesAdditionsSoustractions () {
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-      this.autoCorrection[i] = {}
-      this.autoCorrection[i].reponse = {}
 
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
@@ -85,7 +83,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
-          this.autoCorrection[i].reponse.valeur = a + b
+          setReponse(this, i, a + b)
           break
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
@@ -96,7 +94,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
-          this.autoCorrection[i].reponse.valeur = b
+          setReponse(this, i, b)
           break
         case 'soustraction':
           if (a === b) {
@@ -112,7 +110,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
-          this.autoCorrection[i].reponse.valeur = a - b
+          setReponse(this, i, a - b)
           break
         case 'soustraction_a_trou':
           if (a === b) {
@@ -129,7 +127,7 @@ export default function TablesAdditionsSoustractions () {
             })
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
-          this.autoCorrection[i].reponse.valeur = b
+          setReponse(this, i, b)
           break
       }
 

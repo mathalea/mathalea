@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, randint } from '../../modules/outils.js'
-import { ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 /**
  * Tables de multiplications classiques, à trou ou un mélange des deux.
@@ -43,9 +43,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     let typesDeQuestions = 'a_trous'
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
-      this.autoCorrection[i] = {}
-      this.autoCorrection[i].reponse = {}
-      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
       a = couples[i][0]
       b = couples[i][1]
       if (this.sup2 === 1) {
@@ -61,12 +58,12 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = \\dotfill$`
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
           if (this.interactif) texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = $` + ajouteChampTexte(this, i)
-          this.autoCorrection[i].reponse.valeur = a * b
+          setReponse(this, i, a * b)
         } else {
           texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = \\dotfill$`
           texteCorr = `$ ${texNombre(b)} \\times ${texNombre(a)} = ${texNombre(a * b)}$`
           if (this.interactif) texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = $` + ajouteChampTexte(this, i)
-          this.autoCorrection[i].reponse.valeur = a * b
+          setReponse(this, i, a * b)
         }
       } else {
         // a trous
@@ -79,18 +76,19 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
             texte = '$ \\ldots\\ldots' + ' \\times ' + b + ' = ' + a * b + ' $'
             if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
           }
-          this.autoCorrection[i].reponse.valeur = a
+          setReponse(this, i, a)
         } else {
           // Sinon on demande forcément le 2e facteur
           texte = '$ ' + a + ' \\times \\ldots\\ldots = ' + a * b + ' $'
           if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\times ${b}  = ${a * b} $`
-          this.autoCorrection[i].reponse.valeur = b
+          setReponse(this, i, b)
         }
         texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
       }
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
+      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

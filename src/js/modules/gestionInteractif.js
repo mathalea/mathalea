@@ -198,6 +198,22 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
   }
 }
 
+/**
+ * Précise la réponse attendue
+ * @param {'objet exercice'} exercice
+ * @param {'numero de la question'} i
+ * @param {'réponse'} a
+ */
+export function setReponse (exercice, i, a) {
+  if (exercice.autoCorrection[i] === undefined) {
+    exercice.autoCorrection[i] = {}
+  }
+  if (exercice.autoCorrection[i].reponse === undefined) {
+    exercice.autoCorrection[i].reponse = {}
+  }
+  exercice.autoCorrection[i].reponse.valeur = a
+}
+
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4) questionNumerique(exercice)
   if (exercice.amcType === 1) exerciceQcm(exercice)
