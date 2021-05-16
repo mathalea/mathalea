@@ -81,7 +81,7 @@ this.autoCorrection[i] = {
           texte: 'le texte affiché au dessus du formulaire numerique dans AMC',
           valeur: nombre (la réponse numérique à comparer à celle de l'élève),
           param: {
-            digits: 3 (le nombre de chiffres pour AMC),
+            digits: 3 (le nombre de chiffres pour AMC, si digits=0, alors il sera déterminé pour coller au nombre décimal demandé),
             decimals: 0 (le nombre de chiffres après la virgule pour AMC),
             signe: false (présence d'une case + ou - pour AMC),
             exposantNbChiffres: 0 (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant),
