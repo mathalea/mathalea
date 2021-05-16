@@ -185,14 +185,14 @@ export function questionNumerique (exercice) {
   })
 }
 
-export function ajoutChampTexte ({ texte = '', texteApres = '', numeroExercice, i, inline = true } = {}) {
+export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true } = {}) {
   if (context.isHtml) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
     <div class="inline  field" >
     <label>${texte}</label>
-      <input type="text" id="champTexteEx${numeroExercice}Q${i}" >
+      <input type="text" id="champTexteEx${exercice.numeroExercice}Q${i}" >
       <span>${texteApres}</span>
-      <span id="resultatCheckEx${numeroExercice}Q${i}"></span>
+      <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
     </div>
     </div>`
   }
