@@ -19,6 +19,11 @@ import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
+// "3" isNumeric (pour gérer le sup venant de l'URL)
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
@@ -950,7 +955,7 @@ function miseAJourDeLaListeDesExercices (preview) {
           }
           if (typeof urlVars[i].sup !== 'undefined') {
             // Si le string peut être convertit en int alors on le fait
-            if (!isNaN(urlVars[i].sup)) {
+            if (isNumeric(urlVars[i].sup)) {
               listeObjetsExercice[i].sup = parseInt(urlVars[i].sup)
             } else {
               listeObjetsExercice[i].sup = urlVars[i].sup
@@ -962,7 +967,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             }
           }
           if (typeof urlVars[i].sup2 !== 'undefined') {
-            if (!isNaN(urlVars[i].sup2)) {
+            if (isNumeric(urlVars[i].sup2)) {
               listeObjetsExercice[i].sup2 = parseInt(urlVars[i].sup2)
             } else {
               listeObjetsExercice[i].sup2 = urlVars[i].sup2
@@ -973,7 +978,7 @@ function miseAJourDeLaListeDesExercices (preview) {
             }
           }
           if (typeof urlVars[i].sup3 !== 'undefined') {
-            if (!isNaN(urlVars[i].sup3)) {
+            if (isNumeric(urlVars[i].sup3)) {
               listeObjetsExercice[i].sup3 = parseInt(urlVars[i].sup3)
             } else {
               listeObjetsExercice[i].sup3 = urlVars[i].sup3
