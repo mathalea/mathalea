@@ -1,13 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
-import { ajoutChampTexte } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 4
+
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.
@@ -27,6 +28,7 @@ export default function TablesAdditionsSoustractions () {
   this.interactif = true
   this.interactifReady = interactifReady
   this.amcType = amcType
+  this.amcReady = amcReady
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -73,34 +75,28 @@ export default function TablesAdditionsSoustractions () {
     for (let i = 0, a, b, texte, texteCorr; i < this.nbQuestions; i++) {
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-      this.autoCorrection[i] = {}
-      this.autoCorrection[i].reponse = {}
 
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
           texte = `$${a} + ${b} = \\dotfill$`
           if (this.interactif) {
-            texte = ajoutChampTexte({
-              texte: `$${a} + ${b} = $`,
-              numeroExercice: this.numeroExercice,
-              i
+            texte = ajouteChampTexte(this, i, {
+              texte: `$${a} + ${b} = $`
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
-          this.autoCorrection[i].reponse.valeur = a + b
+          setReponse(this, i, a + b)
           break
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
           if (this.interactif) {
-            texte = ajoutChampTexte({
+            texte = ajouteChampTexte(this, i, {
               texte: `$${a}~+ $`,
-              texteApres: `$= ${a + b}$`,
-              numeroExercice: this.numeroExercice,
-              i
+              texteApres: `$= ${a + b}$`
             })
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
-          this.autoCorrection[i].reponse.valeur = b
+          setReponse(this, i, b)
           break
         case 'soustraction':
           if (a === b) {
@@ -111,14 +107,12 @@ export default function TablesAdditionsSoustractions () {
           }
           texte = `$${a} - ${b} = \\dotfill$`
           if (this.interactif) {
-            texte = ajoutChampTexte({
-              texte: `$${a} - ${b} = $`,
-              numeroExercice: this.numeroExercice,
-              i
+            texte = ajouteChampTexte(this, i, {
+              texte: `$${a} - ${b} = $`
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
-          this.autoCorrection[i].reponse.valeur = a - b
+          setReponse(this, i, a - b)
           break
         case 'soustraction_a_trou':
           if (a === b) {
@@ -129,21 +123,20 @@ export default function TablesAdditionsSoustractions () {
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
           if (this.interactif) {
-            texte = ajoutChampTexte({
+            texte = ajouteChampTexte(this, i, {
               texte: `$${a}~- $`,
-              texteApres: `$= ${a - b}$`,
-              numeroExercice: this.numeroExercice,
-              i
+              texteApres: `$= ${a - b}$`
             })
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
-          this.autoCorrection[i].reponse.valeur = b
+          setReponse(this, i, b)
           break
       }
 
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
+      this.autoCorrection[i].reponse.param = { digits: Math.ceil(2 * this.sup / 100), decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

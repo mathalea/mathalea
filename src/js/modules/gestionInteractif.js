@@ -171,7 +171,7 @@ export function questionNumerique (exercice) {
         const nbBonnesReponsesAttendues = exercice.nbQuestions
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
-          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value === exercice.autoCorrection[i].reponse.valeur.toString()) {
+          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value.replaceAll(' ','') === exercice.autoCorrection[i].reponse.valeur.toString()) {
             spanReponseLigne.innerHTML = '😎'
             nbBonnesReponses++
           } else {
@@ -185,17 +185,33 @@ export function questionNumerique (exercice) {
   })
 }
 
-export function ajoutChampTexte ({ texte = '', texteApres = '', numeroExercice, i, inline = true } = {}) {
+export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true } = {}) {
   if (context.isHtml) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
     <div class="inline  field" >
     <label>${texte}</label>
-      <input type="text" id="champTexteEx${numeroExercice}Q${i}" >
+      <input type="text" id="champTexteEx${exercice.numeroExercice}Q${i}" >
       <span>${texteApres}</span>
-      <span id="resultatCheckEx${numeroExercice}Q${i}"></span>
+      <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
     </div>
     </div>`
   }
+}
+
+/**
+ * Précise la réponse attendue
+ * @param {'objet exercice'} exercice
+ * @param {'numero de la question'} i
+ * @param {'réponse'} a
+ */
+export function setReponse (exercice, i, a) {
+  if (exercice.autoCorrection[i] === undefined) {
+    exercice.autoCorrection[i] = {}
+  }
+  if (exercice.autoCorrection[i].reponse === undefined) {
+    exercice.autoCorrection[i].reponse = {}
+  }
+  exercice.autoCorrection[i].reponse.valeur = a
 }
 
 export function exerciceInteractif (exercice) {
