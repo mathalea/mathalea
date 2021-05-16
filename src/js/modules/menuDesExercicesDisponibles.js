@@ -474,14 +474,10 @@ export function menuDesExercicesDisponibles () {
       if (filtre === 'interactif') {
         // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
-          obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
           obj_exercices_disponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
-          obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
         }
       } else {
-        obj_exercices_disponibles[id[0]].nombre_exercices_dispo += 1
         obj_exercices_disponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
-        obj_exercices_disponibles[id[0]].lignes_tableau += ligneTableau(id)
       }     
     }
     if ((id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e')) {
