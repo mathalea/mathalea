@@ -6663,10 +6663,11 @@ export async function scratchTraductionFr () {
  */
 
 export function exportQcmAmc (thisAmc, idExo) {
-  const autoCorrection = thisAmc[1]
-  const ref = thisAmc[0]
-  const titre = thisAmc[2]
-  const type = thisAmc[3]
+  const exercice= thisAmc[0]
+  const ref = thisAmc[1]
+  const autoCorrection = exercice.autoCorrection
+  const titre = exercice.titre
+  const type = exercice.amcType
   let texQr = ''; let tabQCM
   let id = 0
   let reponse
@@ -6766,6 +6767,12 @@ export function exportQcmAmc (thisAmc, idExo) {
           } else if (autoCorrection[j].reponse.param.decimals === undefined) {
             autoCorrection[j].reponse.param.decimals = 0
           }
+        }
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
         }
         texQr += `\\element{${ref}}{\n `
         texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `

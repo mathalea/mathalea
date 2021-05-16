@@ -215,12 +215,8 @@ export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = f
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  if (exercice.autoCorrection[i].enonce === undefined) {
-    exercice.autoCorrection[i].enonce = exercice.listeQuestions[i]
-  }
-  if (exercice.autoCorrection[i].propositions === undefined) {
-    exercice.autoCorrection[i].propositions = [{ texte: exercice.listeCorrections[i], statut: '', feedback: '' }]
-  }
+
+
   exercice.autoCorrection[i].reponse.valeur = a
   exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
 }

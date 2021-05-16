@@ -559,10 +559,8 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             if (module) {
               listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
               listeObjetsExercice[i].amc = [
+                listeObjetsExercice[i],
                 liste_exercices[i],
-                listeObjetsExercice[i].autoCorrection,
-                listeObjetsExercice[i].titre,
-                listeObjetsExercice[i].amcType
               ]
               if (dictionnaireDesExercices[id].sup !== undefined) {
                 listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
