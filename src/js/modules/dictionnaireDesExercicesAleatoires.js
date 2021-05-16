@@ -1854,11 +1854,7 @@ export default {
   "6C10": {
     "titre": "Additions, soustractions et multiplications posées de nombres entiers",
     "url": "/exercices/6e/6C10.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 4,
-      "text": "AMCOpen Num"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "name": "6C10"
   },
