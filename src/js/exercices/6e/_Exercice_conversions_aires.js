@@ -249,7 +249,7 @@ export default function Exercice_conversions_aires(niveau = 1) {
           "$";
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

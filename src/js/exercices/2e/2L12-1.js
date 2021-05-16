@@ -141,7 +141,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\iff S=\\{-\\sqrt{${b}}\\quad ;\\sqrt{${b}})$<br>`
                         break;        
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

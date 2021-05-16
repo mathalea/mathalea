@@ -154,7 +154,7 @@ export const titre = 'Trouver l’équation d’une parabole'
         svgYmax=Math.max(calcule(Ymax/Yscale),1)
         F = x => a*x**2+b*x+c;
         texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+2,pixelsParCm:pixelsParCm,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);
           i++;

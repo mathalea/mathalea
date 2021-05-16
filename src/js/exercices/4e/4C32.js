@@ -78,7 +78,7 @@ export default function Notation_scientifique() {
         texte = `$${scientifiquestring}$`
 
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         if (this.sup==1) {

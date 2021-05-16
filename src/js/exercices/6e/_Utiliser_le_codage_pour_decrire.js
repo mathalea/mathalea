@@ -146,7 +146,7 @@ export default function Utiliser_le_codage_pour_decrire() {
         texte += mathalea2d(params_enonce, objets_enonce);
       if (objets_correction.length > 0)
         texteCorr += mathalea2d(params_correction, objets_correction);
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

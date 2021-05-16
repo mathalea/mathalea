@@ -120,7 +120,7 @@ export default function Encadrer_un_decimal_par_deux_entiers_consecutifs() {
           };
           break;
       };
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

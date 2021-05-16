@@ -208,7 +208,7 @@ export default function Exercice_equation1() {
         )}$.`;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte); //replace(/1x/g,'x')); //remplace 1x par x
         this.listeCorrections.push(texteCorr); //.replace(/1x/g,'x')); //remplace 1x par x

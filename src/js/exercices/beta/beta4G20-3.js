@@ -93,7 +93,7 @@ let q3=latexParPoint('16 \\text{ cm}^2',bar3)
         texte += mathalea2d(params_enonce, objets_enonce)
   // On ajoute au texte de la correction, la figure de la correction
         texteCorr += mathalea2d(params_correction, objets_correction)
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

@@ -48,7 +48,7 @@ export default function Variation_en_pourcentages() {
 				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix * (1 + taux / 100)))}$ €`;
 			}
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

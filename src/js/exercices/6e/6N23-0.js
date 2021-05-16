@@ -76,7 +76,7 @@ export default function Ecrire_nombres_decimal() {
       }
       texte = texte.replace('et-un unités', 'et-une unités')
       texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

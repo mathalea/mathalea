@@ -81,7 +81,7 @@ export default function Calculs_trigonometriques2() {
           texteCorr += `$BS=BH+HS=${texNombre(hauteur)}+${texNombrec(taille - hauteur)}=${texNombre(taille)}$ m.<br>`
           texteCorr += `Cet${objet[index][2]} ${objet[index][0]} mesure $${texNombre(Math.round(taille))}$ m de hauteur.`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

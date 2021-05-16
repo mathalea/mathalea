@@ -199,7 +199,7 @@ export default function Calcul_de_volumes() {
           )}${liste_unites[j][1]}$`;
           break;
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

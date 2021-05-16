@@ -245,7 +245,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + "<br>");
         this.listeCorrections.push(texteCorr + "<br>");

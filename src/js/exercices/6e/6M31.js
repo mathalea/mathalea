@@ -243,7 +243,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       // 		 + ' = ' + texNombre(resultat) + tex_texte(unite)+ '^2' + '$';
       // }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

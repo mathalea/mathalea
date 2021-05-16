@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+  import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
 /**
@@ -220,7 +220,7 @@ export default function Exercice_conversions(niveau = 1) {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");

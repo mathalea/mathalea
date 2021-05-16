@@ -135,7 +135,7 @@ export default function Conversions_de_durees() {
             }~\\text{j}~${h}~\\text{h} = ${s}\\times7~\\text{j} + ${j}~\\text{j}~${h}~\\text{h} = ${s}~\\text{semaine}~${j}~\\text{j}~${h}~\\text{h}$`;
           }
         }
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on en crée une autre
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

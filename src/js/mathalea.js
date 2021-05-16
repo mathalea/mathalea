@@ -1463,12 +1463,14 @@ function parametresExercice (exercice) {
     // Gestion du mode interactif
     if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { //Pour un exercice qui n'a que la version QCM, pas de menu
       formInteractif[i] = document.getElementById('formInteractif' + i)
-      formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
-      formInteractif[i].addEventListener('change', function (e) {
-        // Dès que le statut change, on met à jour
-        exercice[i].interactif = e.target.checked
-        miseAJourDuCode()
-      })
+      if (formInteractif[i]) {
+        formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
+        formInteractif[i].addEventListener('change', function (e) {
+          // Dès que le statut change, on met à jour
+          exercice[i].interactif = e.target.checked
+          miseAJourDuCode()
+        })
+      }
     }
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {

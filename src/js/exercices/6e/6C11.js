@@ -91,7 +91,7 @@ export default function Divisions_euclidiennes() {
         texteCorr = `${Operation({operande1:a,operande2:b,type:'divisionE'})}$${texNombre(a)}=${b}\\times${q}+${r}$`;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

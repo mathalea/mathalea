@@ -100,7 +100,7 @@ export default function Terme_d_une_suite_definie_par_recurrence() {
       }
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte); // Sinon on enregistre la question dans listeQuestions
         this.listeCorrections.push(texteCorr); // On fait pareil pour la correction
         i++; // On passe à la question suivante

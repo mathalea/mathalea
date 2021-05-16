@@ -117,7 +117,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
           texteCorr = Operation({operande1:x,operande2:c,type:'division'})
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         if (!context.isHtml && i == 0) {

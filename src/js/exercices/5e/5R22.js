@@ -84,7 +84,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         } else if (sommesSignees[0] != 0) { texteCorr += `<br>$ \\phantom{A}=${ecritureAlgebriquec(sommesSignees[0])}$` } else { texteCorr += `<br>$ \\phantom{A}=${ecritureAlgebriquec(sommesSignees[1])}$<br>` }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

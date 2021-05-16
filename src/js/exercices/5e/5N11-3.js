@@ -45,7 +45,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
             texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den/100)}}}{${den}{\\color{blue}\\div${calcul(den/100)}}}=\\dfrac{${calcul(num*100/den)}}{100}=${calcul(num*100/den)}~\\%$`
         }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

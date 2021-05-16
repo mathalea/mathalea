@@ -106,7 +106,7 @@ export default function Volume_boule() {
             texteCorr += texteGras(`Le volume cherché est environ : ` + nombreDecimal(Math.PI*diam*diam*2*diam-4/3*Math.PI*diam*diam*diam)+ ` cm` + exposant(3) + `. <br>`);
           break
         }
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

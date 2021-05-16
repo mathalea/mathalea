@@ -147,7 +147,7 @@ export default function Compte_Est_Bon() {
       texte += `${tirage[5]}.<br>`;
       texte += `Et le nombre à trouver est : ${cible}.`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

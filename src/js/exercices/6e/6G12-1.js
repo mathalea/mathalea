@@ -358,7 +358,7 @@ let anim;
         objets_correction
       );
       correction += anim.htmlBouton(this.numeroExercice, i)
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");
         this.listeCorrections.push(correction + "<br>");

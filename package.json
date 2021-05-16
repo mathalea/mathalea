@@ -12,7 +12,7 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "npm run build:dicos && webpack --mode=production && npm run doc",
     "prepare": "husky install",
-    "start": "webpack serve --host 0.0.0.0",
+    "start": "webpack serve",
     "test": "node testsBrowser/start.js",
     "test:all": "node testsBrowser/start.js --task runAll --verbose",
     "test:list": "node testsBrowser/start.js --list",

@@ -328,7 +328,7 @@ export default function VuesEmpilementCubes() {
           texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
         break
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

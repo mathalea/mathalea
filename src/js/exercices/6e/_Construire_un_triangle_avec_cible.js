@@ -247,7 +247,7 @@ export default function Construire_un_triangle_avec_cible() {
       texte += mathalea2d(params_enonceml, objets_enonceml) + mathalea2d(params_enonce, objets_enonce)
       texteCorr += mathalea2d(params_correction, objets_correction)
       texteCorr+='<br>'+IEP.htmlBouton(this.numeroExercice, i)
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
