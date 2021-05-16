@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = [1] // type de question AMC, tableau en prévision du plusieurs types
+export const amcType =1 //type de question AMC 
 export const interactifReady = true
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 

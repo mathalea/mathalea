@@ -7,7 +7,7 @@ import { ajoutChampTexte } from '../../modules/gestionInteractif.js'
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
 export const amcReady = true
-export const amcType = [4] // tableau en prévision du plusieurs types
+export const amcType = 4 // type de question AMC
 
 /**
  * Additions et/ou soustractions classique et/ou à trou.

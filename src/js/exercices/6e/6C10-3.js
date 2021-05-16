@@ -4,7 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const interactifReady = true
-export const amcType = [1] // type de question AMC, tableau en prévision du plusieurs types
+export const amcType =1 //type de question AMC 
 
 export const titre = 'Tables de multiplications et nombres décimaux'
 

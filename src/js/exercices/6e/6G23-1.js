@@ -5,7 +5,7 @@ import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = [1] // QCM, tableau en prévision du plusieurs types
+export const amcType =1 // QCM 
 export const interactifReady = true
 
 export const titre = 'Mesurer un angle'

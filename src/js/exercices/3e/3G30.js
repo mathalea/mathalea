@@ -4,7 +4,7 @@ import {homothetie,codeAngle,longueur,barycentre,milieu,latexParPoint, mathalea2
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const amcReady = true
-export const amcType = [5] // type de question AMC, tableau en prévision du plusieurs types
+export const amcType =5 //type de question AMC 
 
 export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
 

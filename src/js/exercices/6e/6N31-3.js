@@ -4,7 +4,7 @@ import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuesti
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = [2] // type de question AMC, tableau en prévision du plusieurs types
+export const amcType =2 //type de question AMC 
 export const interactifReady = true
 export const titre = 'Arrondir une valeur'
 

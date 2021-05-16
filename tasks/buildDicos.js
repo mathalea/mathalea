@@ -95,36 +95,64 @@ for (const file of exercicesList) {
     const url = file.substr(prefixLength).replace(/\\/g, '/')
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
-      // On ajuste la propriété text de amcType
-      amcType.text = []
-      amcType.num.forEach(
-        function(num) { 
-          switch (num) {
-            case 1:
-              amcType.text.push("qcmMono");
-              break;
-            case 2:
-              amcType.text.push("qcmMult");
-              break;
-            case 3:
-              amcType.text.push("AMCOpen");
-              break;
-            case 4:
-              amcType.text.push("AMCOpen Num");
-              break;
-            case 5:
-              amcType.text.push("AMCOpen NC");
-              break;
-            case 6:
-              amcType.text.push("AMCOpen double NC");
-              break;
-            default:
-              console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
-              amcType.text.push("type de question AMC non prévu");
-          }
-        }        
-      )
-      
+      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non      
+      if (typeof amcType.num === 'number')  {        
+        switch (amcType.num) {
+          case 1:
+            amcType.text = "qcmMono";
+            break;
+          case 2:
+            amcType.text = "qcmMult";
+            break;
+          case 3:
+            amcType.text = "AMCOpen";
+            break;
+          case 4:
+            amcType.text = "AMCOpen Num";
+            break;
+          case 5:
+            amcType.text = "AMCOpen NC";
+            break;
+          case 6:
+            amcType.text = "AMCOpen double NC";
+            break;
+          default:
+            console.error(`\x1b[41m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[0m`)
+            amcType.text = "type de question AMC non prévu";
+        }
+      } else  if (typeof amcType.num === 'object')  {
+        amcType.text = []
+        amcType.num.forEach(
+          function(num) { 
+            switch (num) {
+              case 1:
+                amcType.text.push("qcmMono");
+                break;
+              case 2:
+                amcType.text.push("qcmMult");
+                break;
+              case 3:
+                amcType.text.push("AMCOpen");
+                break;
+              case 4:
+                amcType.text.push("AMCOpen Num");
+                break;
+              case 5:
+                amcType.text.push("AMCOpen NC");
+                break;
+              case 6:
+                amcType.text.push("AMCOpen double NC");
+                break;
+              default:
+                console.error(`\x1b[41m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[0m`)
+                amcType.text.push("type de question AMC non prévu");
+            }
+          }        
+        )
+      } else {
+        console.error(`\x1b[41m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
+        amcType.text = "bug amcType.num"
+      }      
       dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
     } else {
       dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
