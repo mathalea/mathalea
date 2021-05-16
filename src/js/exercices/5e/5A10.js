@@ -26,7 +26,7 @@ export default function Liste_des_diviseurs_5e() {
 	this.nbColsCorr = 1;
 
 	this.nouvelleVersion = function () {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			//this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
@@ -39,14 +39,14 @@ export default function Liste_des_diviseurs_5e() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 1, 2];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1, 1, 2];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // Compléter un tableau pour trouver la liste de tous les diviseurs d'un entier
 					// on choisit un entier non premier inférieur à 99
 					let M = randint(2, 99, cribleEratostheneN(99));

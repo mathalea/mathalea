@@ -34,7 +34,7 @@ export default function fonctions_calculs_d_images () {
   } else { // sortie LaTeX
   };
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions
+    let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       //			 this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
       //			 this.boutonAide += modalVideo('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
@@ -42,23 +42,23 @@ export default function fonctions_calculs_d_images () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let type_de_questions_disponibles = []
+    let typesDeQuestionsDisponibles = []
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1] // prog de calcul
+      typesDeQuestionsDisponibles = [1] // prog de calcul
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [2] // diagramme
+      typesDeQuestionsDisponibles = [2] // diagramme
     } else if (this.sup == 3) {
-      type_de_questions_disponibles = [3] // f(x) = ...
+      typesDeQuestionsDisponibles = [3] // f(x) = ...
     } else if (this.sup == 4) {
-      type_de_questions_disponibles = [4] // f : x ---> ...
+      typesDeQuestionsDisponibles = [4] // f : x ---> ...
     } else if (this.sup == 5) {
-      type_de_questions_disponibles = [1, 2, 3, 4] // mélange
+      typesDeQuestionsDisponibles = [1, 2, 3, 4] // mélange
     };
-    // let type_de_questions_disponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+    // let typesDeQuestionsDisponibles = [1];
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i]
+      typesDeQuestions = listeTypeDeQuestions[i]
 
       if (context.isHtml) {
         const id_unique = `${num_ex}_${i}_${Date.now()}`
@@ -70,7 +70,7 @@ export default function fonctions_calculs_d_images () {
       b = randint(2, 9)
       c = randint(2, 9)
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1:
           var j = 0 // pour la sous-numérotation
           texte = 'On donne le programme de calcul suivant qui correspond à une certaine fonction :'

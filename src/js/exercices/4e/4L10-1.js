@@ -36,7 +36,7 @@ export default function Reductions_pieges_classiques() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       'ax+b',
       'a+bx',
       'ax-a',
@@ -51,16 +51,16 @@ export default function Reductions_pieges_classiques() {
       'ax^2-a',
       'ax^2-ax^2'
     ];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions),type_de_questions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions),typesDeQuestions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       a = randint(2, 11)
       b = randint(2, 11)
       if (this.sup) {
         a *= choice([-1, 1])
         b *= choice([-1, 1])
       }
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case "ax+b":
           texte = `$${lettreDepuisChiffre(i + 1)}=${a}x${ecritureAlgebrique(b)}$`
           texteCorr = texte

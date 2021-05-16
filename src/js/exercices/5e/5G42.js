@@ -23,8 +23,8 @@ export default function demonstrations_parallelogrammes() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0,objets,O,A,B,C,D,p,t1,t2,t3,t4,s1,s2,s3,s4,d1,d2, texte, texteCorr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       noms=choisitLettresDifferentes(5,'Q')
       nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`

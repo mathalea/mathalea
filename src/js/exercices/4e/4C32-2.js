@@ -37,8 +37,8 @@ nano : milliardième $\\times10^{-9}$<br>
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['m>km','u>M','u>G','g>t','M>G','M>T','G>T','m>mm','m>um','m>nm']; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['m>km','u>M','u>G','g>t','M>G','M>T','G>T','m>mm','m>um','m>nm']; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let liste_de_sens = combinaisonListes(['div','fois'],this.nbQuestions)
     for (let i = 0, a, n, unite, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question

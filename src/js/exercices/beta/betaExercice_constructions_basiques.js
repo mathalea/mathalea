@@ -31,13 +31,13 @@ export default function Exercice_constructions_basiques() {
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles = [1]; // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestionsDisponibles = [1]; // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
     /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
-    if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-        else type_de_questions_disponibles = [1, 2, 3,4]
-    listeTypeDeQuestions = combin,aison_listes(type_de_questions_disponibles, this.nbQuestions)
+    if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]
+        else typesDeQuestionsDisponibles = [1, 2, 3,4]
+    listeTypeDeQuestions = combin,aison_listes(typesDeQuestionsDisponibles, this.nbQuestions)
     */
     // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
     // La boucle s'arrête après 50 tentatives.

@@ -17,15 +17,15 @@ export default function Solide_6e() {
   this.sup2 = 1;
   this.titre = "";
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
-    if (this.sup == 3) type_de_questions_disponibles = [1, 2]
-    else type_de_questions_disponibles = [parseInt(this.sup)];
+    let typesDeQuestionsDisponibles;
+    if (this.sup == 3) typesDeQuestionsDisponibles = [1, 2]
+    else typesDeQuestionsDisponibles = [parseInt(this.sup)];
 
     if (this.type == "vocabulaire")
-      for (let n = 0; n < type_de_questions_disponibles.length; n++)
-        type_de_questions_disponibles[n] += 2
+      for (let n = 0; n < typesDeQuestionsDisponibles.length; n++)
+        typesDeQuestionsDisponibles[n] += 2
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions

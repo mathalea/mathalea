@@ -34,16 +34,16 @@ export default function Calculer_la_valeur_d_une_expression_litterale() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let type_de_questions_disponibles = range1(10)
-		let type_de_questions_disponibles;
+		//let typesDeQuestionsDisponibles = range1(10)
+		let typesDeQuestionsDisponibles;
 
 		if (this.version == "5L13-5") {
-			type_de_questions_disponibles = range1(2);
+			typesDeQuestionsDisponibles = range1(2);
 		} else {
-			type_de_questions_disponibles = range1(10);
+			typesDeQuestionsDisponibles = range1(10);
 		};
 
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d, x, y;

@@ -37,12 +37,12 @@ export default function Divisions_euclidiennes() {
     this.autoCorrection=[]
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles,type_de_questions
-    if (this.sup == 0) type_de_questions_disponibles = [1, 1, 1, 1]
-    else if (this.sup == 1) type_de_questions_disponibles = [1, 2, 2, 3]
-    else if (this.sup == 2) type_de_questions_disponibles = [4, 4, 5, 6];
+    let typesDeQuestionsDisponibles,typesDeQuestions
+    if (this.sup == 0) typesDeQuestionsDisponibles = [1, 1, 1, 1]
+    else if (this.sup == 1) typesDeQuestionsDisponibles = [1, 2, 2, 3]
+    else if (this.sup == 2) typesDeQuestionsDisponibles = [4, 4, 5, 6];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -51,8 +51,8 @@ export default function Divisions_euclidiennes() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case 1: // division par 2, 3 , 4 ou 5
           q = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5);
           b = randint(2, 5);

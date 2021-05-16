@@ -27,13 +27,13 @@ export default function Placer_un_point_abscisse_entiere () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      type_de_questions = combinaisonListes(
+    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
@@ -63,7 +63,7 @@ export default function Placer_un_point_abscisse_entiere () {
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
 
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 0.001
@@ -90,15 +90,15 @@ export default function Placer_un_point_abscisse_entiere () {
       x33 = randint(1, 3)
       abs1 = arrondi(
         abs0 + x1 / pas1 + x11 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       ) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(
         abs0 + x2 / pas1 + x22 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       )
       abs3 = arrondi(
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       )
       if (context.isHtml) {
         texteCorr = ''

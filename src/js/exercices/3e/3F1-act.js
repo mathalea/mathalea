@@ -37,40 +37,40 @@ export default function fonction_notion_vocabulaire() {
 	} else { // sortie LaTeX
 	};
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
-		let type_de_questions_disponibles;
+		let typesDeQuestionsDisponibles;
 		this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 		switch (this.sup) {
 			case 1:
-				type_de_questions_disponibles = [1];
+				typesDeQuestionsDisponibles = [1];
 				this.nbQuestions = 1;
 				break;
 			case 2:
-				type_de_questions_disponibles = [2];
+				typesDeQuestionsDisponibles = [2];
 				this.nbQuestions = 1;
 				break;
 			case 3:
-				type_de_questions_disponibles = [3];
+				typesDeQuestionsDisponibles = [3];
 				this.nbQuestions = 1;
 				break;
 			case 4:
-				type_de_questions_disponibles = [4];
+				typesDeQuestionsDisponibles = [4];
 				this.nbQuestions = 1;
 				break;
 			case 5:
-				type_de_questions_disponibles = [1, 2, 3, 4];
+				typesDeQuestionsDisponibles = [1, 2, 3, 4];
 				this.nbQuestions = 4;
 				break;
 		}
 
 
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		this.introduction = lampeMessage({
 			titre: `Introduction`,
@@ -89,7 +89,7 @@ export default function fonction_notion_vocabulaire() {
 			this.introduction += tikzMachineMaths('maths', '---', `Proc\\acute{e}d\\acute{e}`, 'de\\,calcul', `ant\\acute{e}c\\acute{e}dent`, `\\textit{x}`, `image`, `\\textit{y}`);
 		};
 		for (let i = 0, x, y, z, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			if (context.isHtml) {
 				var id_unique = `${num_ex}_${i}_${Date.now()}`;
@@ -98,7 +98,7 @@ export default function fonction_notion_vocabulaire() {
 			}
 			let txt_info;
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // périmètre d'un carré de côté x			
 					var j = 0; // pour la sous-numérotation
 

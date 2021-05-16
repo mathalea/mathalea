@@ -31,14 +31,14 @@ export default function DenombrerCubes() {
   this.nouvelleVersion = function () {  
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[] // tableau à compléter par valeurs possibles des types de questions
+    let typesDeQuestionsDisponibles=[] // tableau à compléter par valeurs possibles des types de questions
     switch (parseInt(this.sup)) {
       case 1:
-        type_de_questions_disponibles =[1]
+        typesDeQuestionsDisponibles =[1]
       case 2:
-        type_de_questions_disponibles=[2]
+        typesDeQuestionsDisponibles=[2]
       case 3:
-        type_de_questions_disponibles=[1,2]
+        typesDeQuestionsDisponibles=[1,2]
     }
 
     function empilementCubes(long, larg, hmax) {
@@ -72,7 +72,7 @@ export default function DenombrerCubes() {
     return lstCoordonneesCubes;
     } 
     
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
     let longueur = 2 + parseInt(this.sup2); // longueur de l'empilement
     let largeur = longueur; // largeur de l'empilement

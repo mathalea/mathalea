@@ -26,14 +26,14 @@ export default function Ecrire_nombres_entiers() {
       this.consigne = "Écrire le nombre en lettres"
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles;
-    if (this.sup2 == 1) type_de_questions_disponibles = [1, 1, 1, 2, 2]
-    else if (this.sup2 == 2) type_de_questions_disponibles = [1, 2, 2, 2, 3]
-    else if (this.sup2 == 3) type_de_questions_disponibles = [2, 2, 3, 3, 4]
-    else type_de_questions_disponibles = [2, 3, 3, 4, 4]
+    let typesDeQuestionsDisponibles;
+    if (this.sup2 == 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
+    else if (this.sup2 == 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
+    else if (this.sup2 == 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
+    else typesDeQuestionsDisponibles = [2, 3, 3, 4, 4]
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (

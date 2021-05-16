@@ -29,9 +29,9 @@ export default function Puissances_d_un_relatif_2() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8];
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
 
@@ -47,9 +47,9 @@ export default function Puissances_d_un_relatif_2() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      let type_de_questions = listeTypeDeQuestions[i];
+      let typesDeQuestions = listeTypeDeQuestions[i];
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1:
           base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])]; // on a besoin de 3 exposants distincts

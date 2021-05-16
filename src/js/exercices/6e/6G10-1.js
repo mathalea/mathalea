@@ -21,8 +21,8 @@ export default function Description_segment_droite_demi_droite(){
   this.nouvelleVersion = function(numeroExercice) {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1, 4, choice([2, 3])];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let typesDeQuestionsDisponibles = [1, 4, choice([2, 3])];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let p = creerNomDePolygone(2, "P");
       let A = point(0, calcul(randint(0, 20) / 10), p[0]);

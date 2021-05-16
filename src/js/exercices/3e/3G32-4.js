@@ -27,7 +27,7 @@ export default function Calculs_trigonometriques4() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let distance, hauteur,alfa,baita, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
-    let type_de_questions_disponibles
+    let typesDeQuestionsDisponibles
     if (context.isHtml) {
       alfa='α'
       baita='β'

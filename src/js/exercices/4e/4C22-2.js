@@ -25,11 +25,11 @@ export default function Exercice_diviser_fractions() {
     this.listeCorrections = []; // Liste de questions corrigées
     let liste_fractions = obtenir_liste_fractions_irreductibles();
 
-    let type_de_questions_disponibles;
-    type_de_questions_disponibles = [parseInt(this.sup)];
+    let typesDeQuestionsDisponibles;
+    typesDeQuestionsDisponibles = [parseInt(this.sup)];
     let nombre_de_signe_moins;
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (
@@ -44,12 +44,12 @@ export default function Exercice_diviser_fractions() {
       signe,
       texte,
       texteCorr,
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       ab = choice(liste_fractions);
       cd = choice(liste_fractions);
       a = ab[0];
@@ -59,7 +59,7 @@ export default function Exercice_diviser_fractions() {
 
       p = pgcd(a * d, b * c);
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         //	case 0 : // entier * fraction (tout positif)
         //		texte=`$${texFraction(a,1)}\\div${texFraction(c,d)}=$`;
         //		if (pgcd(a*d,c)==1) {

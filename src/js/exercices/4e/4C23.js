@@ -26,25 +26,25 @@ export default function Exercice_additionner_fraction_produit() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     let liste_fractions = obtenir_liste_fractions_irreductibles();
     let liste_fractions_faciles = obtenirListeFractionsIrreductiblesFaciles();
     let nombre_de_signe_moins;
     if (this.sup == 1)  {
-      type_de_questions_disponibles = [1, 2, 3, 4];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4];
     } // fractions faciles, relatifs
     else if (this.sup == 2)  {
-      type_de_questions_disponibles = [1, 2, 3, 2];
+      typesDeQuestionsDisponibles = [1, 2, 3, 2];
     } // 1*nombre entier,3*fraction (pas de négatifs)
     else if (this.sup == 3) {
-      type_de_questions_disponibles = [3, 3, 4, 4];
+      typesDeQuestionsDisponibles = [3, 3, 4, 4];
     } // fractions, 2*positifs, 2*relatifs
     else {
-      type_de_questions_disponibles = [4];
+      typesDeQuestionsDisponibles = [4];
     }
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (
@@ -66,12 +66,12 @@ export default function Exercice_additionner_fraction_produit() {
       texte,
       texteCorr,
       produit=[],
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       if (this.sup==1) {ab = choice(liste_fractions_faciles);cd = choice(liste_fractions_faciles);ef = choice(liste_fractions_faciles);}
       else {ab = choice(liste_fractions);cd = choice(liste_fractions);ef = choice(liste_fractions);}
 
@@ -81,7 +81,7 @@ export default function Exercice_additionner_fraction_produit() {
       d = cd[1];
       e = ef[0];
       f = ef[1];
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
           texte = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}$`;
 

@@ -28,12 +28,12 @@ export default function Equations_presque_produit_null2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1,2,3,4,5];
+        let typesDeQuestionsDisponibles = [1,2,3,4,5];
         
         
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, f1,f2,type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f,  k, f1,f2,typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             k = choice([-1, 1]); 
 			a = randint(2, 9);
             a = a * k;
@@ -60,7 +60,7 @@ export default function Equations_presque_produit_null2() {
                 d=d+1;
             };
                
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1: // (ax+b)(cx+d)+(ax+b)(ex+f)=0
                         texte = ` ($${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$`;
                         texteCorr = ` $(${reduireAxPlusB(a,b)})( ${reduireAxPlusB(c,d)})+(${reduireAxPlusB(a,b)})(${reduireAxPlusB(e,f)})=0$<br>`;

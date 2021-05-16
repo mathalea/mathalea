@@ -23,7 +23,7 @@ export default function Puissances_de_dix() {
   this.nbColsCorr = 1;
   this.sup = 1;
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions;
+    let typesDeQuestions;
     this.boutonAide = modalPdf(
       numeroExercice,
       "assets/pdf/FichePuissances-4N21.pdf",
@@ -34,16 +34,16 @@ export default function Puissances_de_dix() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [];
+    let typesDeQuestionsDisponibles = [];
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1, 2, 3]; // produit, quotient et exponentiation de puissances de 10
+      typesDeQuestionsDisponibles = [1, 2, 3]; // produit, quotient et exponentiation de puissances de 10
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [4, 5, 6, 7, 8, 9, 10, 11]; // calculs première série
+      typesDeQuestionsDisponibles = [4, 5, 6, 7, 8, 9, 10, 11]; // calculs première série
     } else if (this.sup == 3) {
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // calculs deuxième série
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // calculs deuxième série
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
 
@@ -65,14 +65,14 @@ export default function Puissances_de_dix() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
 
       exp0 = randint(1, 9);
       exp1 = randint(1, 9, [exp0]);
       exp = [exp0, exp1]; // on choisit deux exposants différents c'est mieux
       lettre = lettreDepuisChiffre(i + 1); // on utilise des lettres pour les calculs
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`;
 

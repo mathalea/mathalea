@@ -27,18 +27,18 @@ export default function Somme_de_durees() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions;
+    let typesDeQuestions;
 
     if (this.sup == 1) {
-      type_de_questions = combinaisonListes([1, 3], this.nbQuestions);
+      typesDeQuestions = combinaisonListes([1, 3], this.nbQuestions);
     } else {
-      type_de_questions = combinaisonListes(
+      typesDeQuestions = combinaisonListes(
         [1, 2, 3, 4, 5],
         this.nbQuestions
       );
     }
     for (let i = 0, h1, h2, m1, m2, s1, s2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (type_de_questions[i] == 1) {
+      if (typesDeQuestions[i] == 1) {
         s1 = randint(11, 39);
         s2 = randint(1, 20);
         m1 = randint(20, 59);
@@ -46,7 +46,7 @@ export default function Somme_de_durees() {
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`;
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}= 1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`;
       }
-      if (type_de_questions[i] == 2) {
+      if (typesDeQuestions[i] == 2) {
         s1 = randint(21, 39);
         s2 = randint(40, 59);
         m1 = randint(20, 59);
@@ -54,7 +54,7 @@ export default function Somme_de_durees() {
         texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`;
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} = 1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}$`;
       }
-      if (type_de_questions[i] == 3) {
+      if (typesDeQuestions[i] == 3) {
         h1 = randint(2, 12);
         h2 = randint(2, 11);
         m1 = randint(30, 50);
@@ -62,7 +62,7 @@ export default function Somme_de_durees() {
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=\\dotfill$`;
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}$`;
       }
-      if (type_de_questions[i] == 4) {
+      if (typesDeQuestions[i] == 4) {
         h1 = randint(2, 12);
         h2 = randint(2, 11);
         m1 = randint(30, 50);
@@ -72,7 +72,7 @@ export default function Somme_de_durees() {
         texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`;
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`;
       }
-      if (type_de_questions[i] == 5) {
+      if (typesDeQuestions[i] == 5) {
         h1 = randint(2, 12);
         h2 = randint(2, 11);
         m1 = randint(30, 50);

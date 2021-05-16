@@ -31,8 +31,8 @@ export default function VuesEmpilementCubes() {
   this.nouvelleVersion = function () {  
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let objets_enonce,objets_correction,params_enonce,params_correction ;
     
     function empilementCubes(long, larg, hmax) {

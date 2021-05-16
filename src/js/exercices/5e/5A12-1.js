@@ -28,7 +28,7 @@ export default function Premier_ou_pas_5e() {
 	this.listePackages = `bclogo`;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-5A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
@@ -41,11 +41,11 @@ export default function Premier_ou_pas_5e() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7];
-		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7];
+		typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles); // on mélange l'ordre des questions
 
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>` + cribleEratostheneN(100)[0];
 		for (let k = 1; k < cribleEratostheneN(30).length; k++) {
@@ -56,11 +56,11 @@ export default function Premier_ou_pas_5e() {
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			var N; // le nombre de la question
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // nombre pair
 					N = 2 * randint(51, 4999);
 					texte = nombre_avec_espace(N);

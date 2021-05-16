@@ -42,11 +42,11 @@ export default function Exercice_Trigo_longueurs () {
     lettre2 = randint(11, 25, [lettre0, lettre1])
     const s2 = lettreDepuisChiffre(lettre2)
     let angle1
-    let type_de_questions
-    if (this.sup == 1) { type_de_questions = choice([1, 3, 5]) } // on multiplie par cos, sin ou tan
-    if (this.sup == 2) { type_de_questions = choice([2, 4, 6]) } // on divise par cos, sin ou tan
-    if (this.sup == 3) { type_de_questions = randint(1, 6) }
-    if (this.quatrieme) { type_de_questions = ((type_de_questions - 1) % 2) + 1 } // on n'utilise que le cosinus.
+    let typesDeQuestions
+    if (this.sup == 1) { typesDeQuestions = choice([1, 3, 5]) } // on multiplie par cos, sin ou tan
+    if (this.sup == 2) { typesDeQuestions = choice([2, 4, 6]) } // on divise par cos, sin ou tan
+    if (this.sup == 3) { typesDeQuestions = randint(1, 6) }
+    if (this.quatrieme) { typesDeQuestions = ((typesDeQuestions - 1) % 2) + 1 } // on n'utilise que le cosinus.
     const nom_du_triangle = choice([
       s0 + s1 + s2,
       s0 + s2 + s1,
@@ -81,32 +81,32 @@ export default function Exercice_Trigo_longueurs () {
       }
       texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$.<br>`
 
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // calcul du côté adjacent (cosinus)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s1 + s2}=${s12}$ cm.<br>`
         texte += `Calculer $${s0 + s1}$.`
       }
-      if (type_de_questions == 2) {
+      if (typesDeQuestions == 2) {
         // Calcul de l'hypoténuse (1/cosinus)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s1}=${s01}$ cm.<br>`
         texte += `Calculer $${s1 + s2}$.`
       }
-      if (type_de_questions == 3) {
+      if (typesDeQuestions == 3) {
         // calcul du côté opposé (sinus)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s1 + s2}=${s12}$ cm.<br>`
         texte += `Calculer $${s0 + s2}$.`
       }
-      if (type_de_questions == 4) {
+      if (typesDeQuestions == 4) {
         // Calcul de l'hypoténuse (1/sinus)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s2}=${s02}$ cm.<br>`
         texte += `Calculer $${s1 + s2}$.`
       }
-      if (type_de_questions == 5) {
+      if (typesDeQuestions == 5) {
         // calcul du côté opposé (tangente)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s1}=${s01}$ cm.<br>`
         texte += `Calculer $${s0 + s2}$.`
       }
-      if (type_de_questions == 6) {
+      if (typesDeQuestions == 6) {
         // Calcul du côté adjacent (1/tangente)
         texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s2}=${s02}$ cm.<br>`
         texte += `Calculer $${s0 + s1}$.`
@@ -130,37 +130,37 @@ export default function Exercice_Trigo_longueurs () {
       texte = '\\begin{minipage}{.7 \\linewidth} \t\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
       texte += `\n\t\\item Le triangle $${nom_du_triangle}$ est rectangle en $${s0}$~;`
 
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // Calcul du coté adjacent (cosinus)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s1}$ à 0,1 près. \\end{minipage}`
       }
-      if (type_de_questions == 2) {
+      if (typesDeQuestions == 2) {
         // Calcul de l'hypoténuse (1/cosinus)
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s1 + s2}$ à 0,1 près. \\end{minipage}`
       }
-      if (type_de_questions == 3) {
+      if (typesDeQuestions == 3) {
         // Calcul du coté opposé (sinus)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s2}$ à 0,1 près. \\end{minipage}`
       }
-      if (type_de_questions == 4) {
+      if (typesDeQuestions == 4) {
         // Calcul de l'hypoténuse (1/sinus)
         texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s1 + s2}$ à 0,1 près. \\end{minipage}`
       }
-      if (type_de_questions == 5) {
+      if (typesDeQuestions == 5) {
         // Calcul du côté opposé (tangente)
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s2}$ à 0,1 près. \\end{minipage}`
       }
-      if (type_de_questions == 6) {
+      if (typesDeQuestions == 6) {
         // Calcul du côté adjacent (1/tangente)
         texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`
         texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`
@@ -229,7 +229,7 @@ export default function Exercice_Trigo_longueurs () {
       texte += '\n \\end{tikzpicture}' // Balise de fin de figure
       texte += '\\end{minipage}'
     }
-    if (type_de_questions == 1) {
+    if (typesDeQuestions == 1) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -245,7 +245,7 @@ export default function Exercice_Trigo_longueurs () {
       )}$<br>` // ${s12}\\times\\cos\\left(${angle1}\\degree\\right)$<br>`;
       texteCorr += `Soit $${s0 + s1}\\approx${s01}$ cm.`
     }
-    if (type_de_questions == 2) {
+    if (typesDeQuestions == 2) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -261,7 +261,7 @@ export default function Exercice_Trigo_longueurs () {
       )}$<br>` // ${s01}\\div\\cos\\left(${angle1}\\degree\\right)$<br>`;
       texteCorr += `Soit $${s1 + s2}\\approx${s12}$ cm.`
     }
-    if (type_de_questions == 3) {
+    if (typesDeQuestions == 3) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -277,7 +277,7 @@ export default function Exercice_Trigo_longueurs () {
       )}$<br>`
       texteCorr += `Soit $${s0 + s2}\\approx${s02}$ cm.`
     }
-    if (type_de_questions == 4) {
+    if (typesDeQuestions == 4) {
       texteCorr = `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -293,7 +293,7 @@ export default function Exercice_Trigo_longueurs () {
       )}$<br>`
       texteCorr += `Soit $${s1 + s2}\\approx${s12}$ cm.`
     }
-    if (type_de_questions == 5) {
+    if (typesDeQuestions == 5) {
       texteCorr = `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`
       texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -309,7 +309,7 @@ export default function Exercice_Trigo_longueurs () {
       )}$<br>`
       texteCorr += `Soit $${s0 + s2}\\approx${s02}$ cm.`
     }
-    if (type_de_questions == 6) {
+    if (typesDeQuestions == 6) {
       texteCorr = `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`
       texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'

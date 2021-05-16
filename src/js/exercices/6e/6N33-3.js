@@ -22,8 +22,8 @@ export default function Appliquer_un_pourcentage() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1, 2]
-    let choix = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles = [1, 2]
+    let choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let liste_pourcentages = [10, 20, 30, 40, 50];
     let article = [[`Un pull`, 20, 40], [`Une chemise`, 15, 35], [`Un pantalon`, 30, 60], [`Un T-shirt`, 15, 25], [`Une jupe`, 20, 40]]
     let legume = [[`Une aubergine`, 100, 200], [`Un melon`, 200, 300], [`Une tomate`, 50, 100], [`Une betterave`, 75, 100], [`Une carotte`, 30, 50]]

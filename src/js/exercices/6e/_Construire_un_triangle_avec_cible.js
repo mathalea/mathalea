@@ -30,10 +30,10 @@ export default function Construire_un_triangle_avec_cible() {
       return lettre + chiffre
     }
 
-    let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets,montriangle
-    if (this.classe == 6) type_de_questions_disponibles = range1(6)
-    else type_de_questions_disponibles = range1(9)
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets,montriangle
+    if (this.classe == 6) typesDeQuestionsDisponibles = range1(6)
+    else typesDeQuestionsDisponibles = range1(9)
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       IEP = new Alea2iep()
       objets_enonce = []

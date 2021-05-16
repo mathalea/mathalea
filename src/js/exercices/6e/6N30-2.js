@@ -27,15 +27,15 @@ export default function Placer_points_sur_axe() {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions;
+    let typesDeQuestions;
     this.listeQuestions = [];
     this.listeCorrections = [];
     this.contenu = ""; // Liste de questions
     this.contenuCorrection = ""; // Liste de questions corrigées
     if (this.sup == 4)
-      type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions);
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions);
     else
-      type_de_questions = combinaisonListes(
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       );
@@ -68,7 +68,7 @@ export default function Placer_points_sur_axe() {
       l2 = lettreDepuisChiffre(i * 3 + 2);
       l3 = lettreDepuisChiffre(i * 3 + 3);
 
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1: // Placer un point sur un axe (1 décimale)
           abs0 = randint(0, 9);
           pas1 = 1;
@@ -95,15 +95,15 @@ export default function Placer_points_sur_axe() {
       x33 = randint(1, 3);
       abs1 = arrondi(
         abs0 + x1 / pas1 + x11 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       ); // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(
         abs0 + x2 / pas1 + x22 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       );
       abs3 = arrondi(
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       );
 
       if (context.isHtml) {

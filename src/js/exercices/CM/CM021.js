@@ -21,22 +21,22 @@ export default function Compte_Est_Bon() {
   this.sup = 1; // niveau de calcul souhaité
 
   this.nouvelleVersion = function () {
-    let type_de_questions, a, b, c, d, cible, tirage, choix;
+    let typesDeQuestions, a, b, c, d, cible, tirage, choix;
     if (!this.sup) {
       // Si rien n'est saisi
-      type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions);
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions);
     } else {
       if (typeof this.sup == "number") {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        type_de_questions = combinaisonListes(
+        typesDeQuestions = combinaisonListes(
           [parseInt(this.sup)],
           this.nbQuestions
         );
       } else {
-        type_de_questions = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < type_de_questions.length; i++)
-          type_de_questions[i] = parseInt(type_de_questions[i]);
-        this.nbQuestions = type_de_questions.length;
+        typesDeQuestions = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestions.length; i++)
+          typesDeQuestions[i] = parseInt(typesDeQuestions[i]);
+        this.nbQuestions = typesDeQuestions.length;
       }
     }
     choix = combinaisonListes(range1(5), this.nbQuestions);
@@ -44,7 +44,7 @@ export default function Compte_Est_Bon() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1:
           a = randint(2, 9);
           b = randint(2, 8, a);

@@ -32,7 +32,7 @@ export default function Problemes_additifs_fractions() {
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5);
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15);
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   /**
  * @class ListeFraction
@@ -172,14 +172,14 @@ function ListeFraction() {
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      type_de_questions_disponibles = [1, 2, 3, 4, 5];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5];
     } else {
-      type_de_questions_disponibles = [choice([1, 2]), choice([3, 4, 5])];
+      typesDeQuestionsDisponibles = [choice([1, 2]), choice([3, 4, 5])];
     }
 
-    //let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées --> à remettre comme ci dessus
 

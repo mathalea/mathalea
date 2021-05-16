@@ -27,21 +27,21 @@ export default function Exercice_multiplier_fractions() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     let liste_fractions = obtenir_liste_fractions_irreductibles();
 
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1, 2, 2, 2];
+      typesDeQuestionsDisponibles = [1, 2, 2, 2];
     } // 1*nombre entier,3*fraction (pas de négatifs)
     else if (this.sup == 2) {
-      type_de_questions_disponibles = [2, 2, 3, 3];
+      typesDeQuestionsDisponibles = [2, 2, 3, 3];
     } // fractions, 2*positifs, 2*relatifs
     else {
-      type_de_questions_disponibles = [3];
+      typesDeQuestionsDisponibles = [3];
     }
     let nombre_de_signe_moins;
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (
@@ -63,12 +63,12 @@ export default function Exercice_multiplier_fractions() {
       index,
       texte,
       texteCorr,
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       ab = choice(liste_fractions);
       cd = choice(liste_fractions);
       a = ab[0];
@@ -77,7 +77,7 @@ export default function Exercice_multiplier_fractions() {
       d = cd[1];
       if (this.sup2 == false) {
         // methode 1 : simplifications finale
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             if (a == 1) {
               a = randint(2, 9);
@@ -180,7 +180,7 @@ export default function Exercice_multiplier_fractions() {
         var listed = obtenirListeFacteursPremiers(d);
         var listeavf, listebvf;
 
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             texte = `$${a}\\times${texFraction(c, d)}=$`;
             texteCorr = `$${a}\\times${texFraction(c, d)}$`;

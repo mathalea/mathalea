@@ -27,24 +27,24 @@ export default function Developper_Identites_remarquables2() {
         let liste_fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
         [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
         [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]];
-        let type_de_questions_disponibles = [];
+        let typesDeQuestionsDisponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1, 2, 3]; // coef de x = 1
+            typesDeQuestionsDisponibles = [1, 2, 3]; // coef de x = 1
         }
         else if (this.sup == 2) {
-            type_de_questions_disponibles = [4, 5, 6]; // coef de x > 1
+            typesDeQuestionsDisponibles = [4, 5, 6]; // coef de x > 1
         }
-        else { type_de_questions_disponibles = [7, 8, 9]; } // coef de x relatif
+        else { typesDeQuestionsDisponibles = [7, 8, 9]; } // coef de x relatif
 
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, type_de_questions, fraction = [], ds, ns; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions, fraction = [], ds, ns; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             a = randint(1, 9);
             b = randint(2, 9);
             fraction = choice(liste_fractions);
             ns = fraction[0];
             ds = fraction[1];
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                     texte = `$(x+${a})^2$`; // (x+a)²
                     texteCorr = `$(x+${a})^2=x^2+2 \\times ${a} \\times x+${a}^2=x^2+${2 * a}x+${a * a}$`;

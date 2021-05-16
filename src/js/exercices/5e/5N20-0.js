@@ -24,21 +24,21 @@ export default function Problemes_additifs_fractions_5e () {
   context.isHtml ? this.spacing = 1 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
 
-  let type_de_questions_disponibles
+  let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      type_de_questions_disponibles = [0]
+      typesDeQuestionsDisponibles = [0]
     } else {
-      // type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = [0]
+      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      typesDeQuestionsDisponibles = [0]
     };
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées		
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on définit les fractions pour les vols et les arguments pour le graphique

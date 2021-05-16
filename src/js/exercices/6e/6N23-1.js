@@ -24,22 +24,22 @@ export default function Exercice_differentes_ecritures_nombres_decimaux() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestions
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     if (this.nbQuestions == 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       let u = randint(2, 9); //chiffre des unités
       let d = randint(1, 9); //chiffre des dixièmes
       let c = randint(1, 9); //chiffre des centièmes
       let n = 100 * u + 10 * d + c;
       let ecriture_decimale;
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // n/100 = .../10 + .../100
           ecriture_decimale = texNombre(calcul(u + d / 10 + c / 100));
           texte = `$${texFraction(n, "100")}=\\ldots\\ldots+${texFraction(

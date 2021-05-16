@@ -24,11 +24,11 @@ export default function DroiteRemarquableDuTriangle() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		let triangles = [], sommets = [[]], A = [], B = [], C = [], t = [], d = [], n = [], c = [], objets = [], A0, B0, C0, tri, G
-		let type_de_questions_disponibles, listeTypeDeQuestions
-		if (this.sup == 1) type_de_questions_disponibles = [1, 2]
-		if (this.sup == 2) type_de_questions_disponibles = [3, 4]
-		if (this.sup == 3) type_de_questions_disponibles = [1, 2, 3, 4]
-		listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let typesDeQuestionsDisponibles, listeTypeDeQuestions
+		if (this.sup == 1) typesDeQuestionsDisponibles = [1, 2]
+		if (this.sup == 2) typesDeQuestionsDisponibles = [3, 4]
+		if (this.sup == 3) typesDeQuestionsDisponibles = [1, 2, 3, 4]
+		listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 		for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) {// this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i] = triangles[i].getSommets(false);

@@ -21,29 +21,29 @@ export default function Puissances_encadrement() {
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 
     switch (this.sup) {
       case 1: // nombre enier positif
-        type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-        //this.nbQuestions = type_de_questions_disponibles.length;
+        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6];
+        //this.nbQuestions = typesDeQuestionsDisponibles.length;
         //this.nbQuestions = 3;
         break;
       case 2: // nombre décimal positif
-        type_de_questions_disponibles = [7, 8, 9, 10];
-        //this.nbQuestions = type_de_questions_disponibles.length;
+        typesDeQuestionsDisponibles = [7, 8, 9, 10];
+        //this.nbQuestions = typesDeQuestionsDisponibles.length;
         //this.nbQuestions = 3;
         break;
       case 3: // nombre décimal positif inférieur à 1
-        type_de_questions_disponibles = [11, 12, 13, 14];
-        //this.nbQuestions = type_de_questions_disponibles.length;
+        typesDeQuestionsDisponibles = [11, 12, 13, 14];
+        //this.nbQuestions = typesDeQuestionsDisponibles.length;
         //this.nbQuestions = 3;
         break;
       case 4: // Mélange
-        type_de_questions_disponibles = [
+        typesDeQuestionsDisponibles = [
           choice([1, 2, 3]),
           choice([4, 5, 6]),
           choice([7, 8]),
@@ -51,15 +51,15 @@ export default function Puissances_encadrement() {
           choice([11, 12]),
           choice([13, 14]),
         ];
-        //this.nbQuestions = type_de_questions_disponibles.length;
+        //this.nbQuestions = typesDeQuestionsDisponibles.length;
         break;
     }
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées

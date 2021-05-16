@@ -24,11 +24,11 @@ export default function Vocabulaire_et_operations() {
   this.nouvelleVersion = function () {
     let decimal;
     let expf, expn, expc, resultats;
-    let type_de_questions_disponibles;
-    if (this.sup < 4) type_de_questions_disponibles = [parseInt(this.sup)];
-    else type_de_questions_disponibles = [1, 2, 3];
+    let typesDeQuestionsDisponibles;
+    if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)];
+    else typesDeQuestionsDisponibles = [1, 2, 3];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions

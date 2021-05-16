@@ -46,7 +46,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       k,
       div,
       resultat,
-      type_de_questions,
+      typesDeQuestions,
       texte,
       texteCorr,
       cpt = 0;
@@ -55,20 +55,20 @@ export default function Exercice_conversions_volumes(niveau = 1) {
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 4);
+        typesDeQuestions = randint(1, 4);
       }
       k = randint(0, 2); // Choix du préfixe
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
-      } else if (type_de_questions == 3) {
+      } else if (typesDeQuestions == 3) {
         div = choice([true, false]); // Avec des multiplications ou des divisions
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         div = choice([true, false]); // Avec des multiplications ou des divisions sans toujours revenir au m^2
       }
 
@@ -91,7 +91,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
 
         resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
@@ -120,7 +120,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           tex_texte(unite) +
           "^3" +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1); // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
         resultat = calcul(a / prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
@@ -148,7 +148,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           tex_texte(unite) +
           "^3" +
           "$";
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         let unite1 = randint(0, 3);
         let ecart = randint(1, 2); // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (ecart > 4 - unite1) {
@@ -234,7 +234,7 @@ export default function Exercice_conversions_volumes(niveau = 1) {
             "$";
         }
       }
-      // else if(type_de_questions==5) { // Pour type_de_questions==5
+      // else if(typesDeQuestions==5) { // Pour typesDeQuestions==5
       // 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // 	k = randint(0,1)
       // 	resultat = calcul(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux

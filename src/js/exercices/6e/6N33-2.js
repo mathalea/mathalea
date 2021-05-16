@@ -20,8 +20,8 @@ export default function Calculer_un_pourcentage() {
   this.nbColsCorr = 1;
 
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles = [1, 2, 3]
-    let liste_choix = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles = [1, 2, 3]
+    let liste_choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let liste_moyens = [`en bus`, `en deux-roues`, `à  pieds`, `en voiture`]

@@ -20,8 +20,8 @@ export default function Deviner_nombre_relatif() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles=[1,2,3]
-    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+    let typesDeQuestionsDisponibles=[1,2,3]
+    let listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
     let dixieme,signe,centieme,unite,somme,produit,facteurs,type=['négatif','nul','positif'];
     for (let i = 0, texte, texteCorr,cpt=0; i < this.nbQuestions;) {
         signe=choice([-1,1])

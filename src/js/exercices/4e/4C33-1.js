@@ -34,7 +34,7 @@ export default function Puissances_d_un_relatif_1() {
   this.listePackages = 'bclogo';
 
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions;
+    let typesDeQuestions;
     this.boutonAide = modalPdf(
       numeroExercice,
       "assets/pdf/FichePuissances-4N21.pdf",
@@ -45,21 +45,21 @@ export default function Puissances_d_un_relatif_1() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [];
+    let typesDeQuestionsDisponibles = [];
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1]; // produit de puissances de même base
+      typesDeQuestionsDisponibles = [1]; // produit de puissances de même base
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [2]; // quotient de puissances de même base
+      typesDeQuestionsDisponibles = [2]; // quotient de puissances de même base
     } else if (this.sup == 3) {
-      type_de_questions_disponibles = [3]; // puissance de puissance
+      typesDeQuestionsDisponibles = [3]; // puissance de puissance
     } else if (this.sup == 4) {
-      type_de_questions_disponibles = [4]; // produit de puissances de même exposant
+      typesDeQuestionsDisponibles = [4]; // produit de puissances de même exposant
     } else if (this.sup == 5) {
-      type_de_questions_disponibles = [1, 2, 3, 4]; // mélange
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]; // mélange
     }
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
 
@@ -100,7 +100,7 @@ export default function Puissances_d_un_relatif_1() {
         return sortie;
       };
 
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
 
       base = randint(2, 9) * choice([-1, 1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
       exp0 = randint(1, 9);
@@ -117,7 +117,7 @@ export default function Puissances_d_un_relatif_1() {
 
       texteCorr = ``;
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 

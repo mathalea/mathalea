@@ -27,9 +27,9 @@ export default function Problemes_Pythagore() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     if (this.nbQuestions >= 5) {
-      type_de_questions_disponibles = [
+      typesDeQuestionsDisponibles = [
         "losange",
         "rectangle_diagonale_connue",
         "rectangle_diagonale_a_trouver",
@@ -39,7 +39,7 @@ export default function Problemes_Pythagore() {
         "parallelogramme_n_est_pas_rectangle",
       ];
     } else {
-      type_de_questions_disponibles = [
+      typesDeQuestionsDisponibles = [
         "losange",
         "rectangle_diagonale_connue",
         "rectangle_diagonale_a_trouver",
@@ -49,7 +49,7 @@ export default function Problemes_Pythagore() {
       ];
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     let liste_triplets_pythagoriciens = [

@@ -31,7 +31,7 @@ export default function identites_calculs() {
 
 	this.listePackages = `bclogo`;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		//une fonction pour gérer un \hfill dans la sortie LaTeX
@@ -44,19 +44,19 @@ export default function identites_calculs() {
 		};
 		switch (Number(this.sup)) {
 			case 1:
-				type_de_questions_disponibles = [0, 0, 0]; //shuffle([choice([1,3]),choice([2,3]),0]);
+				typesDeQuestionsDisponibles = [0, 0, 0]; //shuffle([choice([1,3]),choice([2,3]),0]);
 				this.introduction = warnMessage(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 2:
-				type_de_questions_disponibles = [1, 1, 1]; //shuffle([choice([1,3]),choice([2,3]),0]); 
+				typesDeQuestionsDisponibles = [1, 1, 1]; //shuffle([choice([1,3]),choice([2,3]),0]); 
 				this.introduction = warnMessage(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 3:
-				type_de_questions_disponibles = [2, 2, 2]; //shuffle([choice([1,3]),choice([2,3]),0]);      			
+				typesDeQuestionsDisponibles = [2, 2, 2]; //shuffle([choice([1,3]),choice([2,3]),0]);      			
 				this.introduction = warnMessage(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 4:
-				type_de_questions_disponibles = shuffle([0, 1, 2]); //shuffle([choice([1,3]),choice([2,3]),0]);      			
+				typesDeQuestionsDisponibles = shuffle([0, 1, 2]); //shuffle([choice([1,3]),choice([2,3]),0]);      			
 				this.introduction = warnMessage(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 		};
@@ -65,8 +65,8 @@ export default function identites_calculs() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

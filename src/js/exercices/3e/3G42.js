@@ -33,21 +33,21 @@ export default function Volume_boule() {
 
     this.listeQuestions = []; // tableau contenant la liste des questions
     this.listeCorrections = [];
-    let type_de_questions_disponibles = []; // tableau à compléter par valeurs possibles des types de questions
-    type_de_questions_disponibles = [1,2,3,4];
+    let typesDeQuestionsDisponibles = []; // tableau à compléter par valeurs possibles des types de questions
+    typesDeQuestionsDisponibles = [1,2,3,4];
     let listeTypeDeQuestions = [];
-    type_de_questions_disponibles.splice(this.sup, 5-parseInt(this.sup));
-    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    typesDeQuestionsDisponibles.splice(this.sup, 5-parseInt(this.sup));
+    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
       // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
       // La boucle s'arrête après 50 tentatives.
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         texte = ``; // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = ``; // Idem pour le texte de la correction.
-        let type_de_questions = [];
-        type_de_questions = listeTypeDeQuestions[i];
+        let typesDeQuestions = [];
+        typesDeQuestions = listeTypeDeQuestions[i];
 
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1:
             let r = randint(2,30);
             texte += `Calculer le volume d'une boule de rayon ${r} cm. `;

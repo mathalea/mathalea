@@ -108,8 +108,8 @@ export default function Exercice_zero_mathalea() {
       
       this.listeQuestions = [] // tableau contenant la liste des questions 
       this.listeCorrections = []
-      let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+      let typesDeQuestionsDisponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
+      let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
       // On choisit un entier pour l'étude de la suite de Syracuse correspondante
       // On contraint le temps de vol entre 5 et 25
       // On contraint l'altitude maximale en dessous de 100

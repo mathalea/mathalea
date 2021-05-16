@@ -18,9 +18,9 @@ export default function Terme_d_une_suite_definie_explicitement() {
     this.listeQuestions = []; // Vide la liste de questions
     this.listeCorrections = []; // Vide la liste de questions corrigées
 
-    let type_de_questions_disponibles = [1, 2, 3];
+    let typesDeQuestionsDisponibles = [1, 2, 3];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 

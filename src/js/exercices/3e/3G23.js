@@ -22,8 +22,8 @@ export default function TrianglesSemblables() {
 		this.listeCorrections = []; // Liste de questions corrigées
 		let texte = '';
 		let texteCorr = '';
-		let type_de_questions = randint(1, 1);
-		switch (type_de_questions) {
+		let typesDeQuestions = randint(1, 1);
+		switch (typesDeQuestions) {
 			case 1:
 				let trouve = false, aireABC, A, B, C, M, p, q, r, s, X, G, Gq, nom1, grid;
 				// on génère le triangle ABC avec une contrainte sur son aire

@@ -21,21 +21,21 @@ export default function Ecrire_une_expression_numerique() {
 	this.version = 1; // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles = [];
+		let typesDeQuestionsDisponibles = [];
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune liste n'est saisie
-			type_de_questions_disponibles = [1, 2, 3, 4, 5]
+			typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 		}
 		else {
 			if (typeof (this.sup) == 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-				type_de_questions_disponibles[0] = this.sup
+				typesDeQuestionsDisponibles[0] = this.sup
 			} else {
-				type_de_questions_disponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				typesDeQuestionsDisponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 			}
 		}
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			nb_operations = parseInt(listeTypeDeQuestions[i])

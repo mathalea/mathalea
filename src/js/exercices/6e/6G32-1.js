@@ -19,12 +19,12 @@ export default function Symetrie_axiale_conservation1() {
   this.sup = 1;
 
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles = ["Segment", "Droite", "1/2droite", "Triangle", "Angle"];
+    let typesDeQuestionsDisponibles = ["Segment", "Droite", "1/2droite", "Triangle", "Angle"];
     let points = [], traces = [], nom = [], alternance
     for (let i = 0; i < 25; i++) nom.push(lettreDepuisChiffre(i + 1))
     let noms = shuffle(nom)
 
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     this.listeQuestions.push(`${texteGras('Dans la symétrie d\'axe (d)...')}`);

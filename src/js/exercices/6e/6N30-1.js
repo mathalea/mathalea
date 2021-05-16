@@ -27,13 +27,13 @@ export default function Lire_abscisse_decimale_bis () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 5) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      type_de_questions = combinaisonListes(
+    if (this.sup == 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
@@ -59,7 +59,7 @@ export default function Lire_abscisse_decimale_bis () {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 3: // Placer des demis ou des quarts sur un axe
           abs0 = 0
           pas1 = 1

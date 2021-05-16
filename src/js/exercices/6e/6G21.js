@@ -26,11 +26,11 @@ export default function Construire_un_triangle() {
         this.listeQuestions = []
         this.listeCorrections = []
         let IEP;
-        let type_de_questions_disponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonce, objets_correction, params_enonce, params_correction, nom, sommets
-        if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-        // else type_de_questions_disponibles = [1, 2, 3]
-        else type_de_questions_disponibles = [1]
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonce, objets_correction, params_enonce, params_correction, nom, sommets
+        if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]
+        // else typesDeQuestionsDisponibles = [1, 2, 3]
+        else typesDeQuestionsDisponibles = [1]
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
         for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
             IEP = new Alea2iep()
             objets_enonce = []

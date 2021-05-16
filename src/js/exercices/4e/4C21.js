@@ -34,19 +34,19 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 		this.qcm=['4C21',[],'Additionner ou soustraire deux fractions',6,{}]
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let type_de_questions_disponibles;
+		let typesDeQuestionsDisponibles;
 		if (this.sup == 1) {
-			type_de_questions_disponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
+			typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
 		}
 		if (this.sup == 2) {
-			type_de_questions_disponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
+			typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
 		}
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_plus_ou_moins = combinaisonListes(['-', '-', '+', '+'], this.nbQuestions);
-		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, type_de_questions; i < this.nbQuestions; i++) {
+		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, typesDeQuestions; i < this.nbQuestions; i++) {
 			let plus_ou_moins = liste_de_plus_ou_moins[i];
-			type_de_questions = listeTypeDeQuestions[i];
-			switch (type_de_questions) {
+			typesDeQuestions = listeTypeDeQuestions[i];
+			switch (typesDeQuestions) {
 				case 'ppcm':
 					let liste_couples_de_denominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75],];
 					let couples_de_denominateurs = choice(liste_couples_de_denominateurs);
@@ -96,11 +96,11 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 				[a, b, c, d] = [c, d, a, b]; // on échange les 2 fractions
 				k1 = ppcm(b, d) / b;
 				k2 = ppcm(b, d) / d;
-				if (type_de_questions == 'd_multiple_de_b') {
-					type_de_questions = 'b_multiple_de_d'; //comme on a échangé les 2 fractions, le type de la question change
+				if (typesDeQuestions == 'd_multiple_de_b') {
+					typesDeQuestions = 'b_multiple_de_d'; //comme on a échangé les 2 fractions, le type de la question change
 					k = b / d;
-				} else if (type_de_questions == 'b_multiple_de_d') {
-					type_de_questions = 'd_multiple_de_b'; //comme on a échangé les 2 fractions, le type de la question change
+				} else if (typesDeQuestions == 'b_multiple_de_d') {
+					typesDeQuestions = 'd_multiple_de_b'; //comme on a échangé les 2 fractions, le type de la question change
 					k = d / b;
 				}
 				let echange = true;
@@ -109,7 +109,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 			texteCorr = `$${texFraction(a, b)}${plus_ou_moins}${texFraction(c, d)}`;
 
 			// a/b(+ou-)c/d = num/den (résultat non simplifié)
-			if (type_de_questions == 'ppcm' || type_de_questions == 'premiers_entre_eux') {
+			if (typesDeQuestions == 'ppcm' || typesDeQuestions == 'premiers_entre_eux') {
 				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plus_ou_moins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
 				num = calcul(a * k1 + plus_ou_moins + ecritureNombreRelatif(c * k2));
 				den = b * k1;
@@ -117,21 +117,21 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 
 			}
 
-			if (type_de_questions == 'd_multiple_de_b') {
+			if (typesDeQuestions == 'd_multiple_de_b') {
 				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plus_ou_moins}${texFraction(c, d)}`;
 				num = calcul(a * k + plus_ou_moins + ecritureNombreRelatif(c));
 				den = b * k;
 				texteCorr += `=${texFraction(a * k + plus_ou_moins + ecritureParentheseSiNegatif(c), den)}`;
 			}
 
-			if (type_de_questions == 'b_multiple_de_d') {
+			if (typesDeQuestions == 'b_multiple_de_d') {
 				texteCorr += `=${texFraction(a, b)}${plus_ou_moins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
 				num = calcul(a + plus_ou_moins + ecritureNombreRelatif(c * k));
 				den = b;
 				texteCorr += `=${texFraction(a + plus_ou_moins + ecritureParentheseSiNegatif(c * k), den)}`;
 			}
 
-			if (type_de_questions == "entier") {
+			if (typesDeQuestions == "entier") {
 				a = randint(1, 9);
 				b = randint(2, 9, [a]);
 				let n = randint(1, 9);

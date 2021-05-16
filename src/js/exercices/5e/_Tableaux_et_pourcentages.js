@@ -40,47 +40,47 @@ export default function Tableaux_et_pourcentages() {
 	// context.isHtml? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 	this.correctionDetailleeDisponible = true;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		if (this.debug) {
 			if (this.sup2 == 1) {
-				type_de_questions_disponibles = [0];
+				typesDeQuestionsDisponibles = [0];
 			};
 			if (this.sup2 == 2) {
-				type_de_questions_disponibles = [1];
+				typesDeQuestionsDisponibles = [1];
 			};
 			if (this.sup2 == 3) {
-				type_de_questions_disponibles = [2];
+				typesDeQuestionsDisponibles = [2];
 			};
 			if (this.sup2 == 4) {
-				type_de_questions_disponibles = [3];
+				typesDeQuestionsDisponibles = [3];
 			};
 			if (this.sup3) {
-				type_de_questions_disponibles = [4];
+				typesDeQuestionsDisponibles = [4];
 			};
 		} else {
 			if (this.sup2 == 1) {
-				type_de_questions_disponibles = [0];
+				typesDeQuestionsDisponibles = [0];
 			};
 			if (this.sup2 == 2) {
-				type_de_questions_disponibles = [1];
+				typesDeQuestionsDisponibles = [1];
 			};
 			if (this.sup2 == 3) {
-				type_de_questions_disponibles = [2];
+				typesDeQuestionsDisponibles = [2];
 			};
 			if (this.sup2 == 4) {
-				type_de_questions_disponibles = [3];
+				typesDeQuestionsDisponibles = [3];
 			};
 			if (this.sup3) {
-				type_de_questions_disponibles = [4];
+				typesDeQuestionsDisponibles = [4];
 			};
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées		
 
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			// une fonction pour les textes de correction

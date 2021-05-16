@@ -28,21 +28,21 @@ export default function Evolutions_en_pourcentage() {
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let type_de_questions_disponibles = [];
+		let typesDeQuestionsDisponibles = [];
 		if (this.sup == 1) {
-			type_de_questions_disponibles = ['finale'];
+			typesDeQuestionsDisponibles = ['finale'];
 		}
 		if (this.sup == 2) {
-			type_de_questions_disponibles = ['evolution'];
+			typesDeQuestionsDisponibles = ['evolution'];
 		}
 		if (this.sup == 3) {
-			type_de_questions_disponibles = ['initiale'];
+			typesDeQuestionsDisponibles = ['initiale'];
 		}
 		if (this.sup == 4) {
-			type_de_questions_disponibles = ['finale', 'evolution', 'initiale'];
+			typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale'];
 		}
 		let type_de_situations_disponibles = ['prix', 'etablissement', 'facture', 'population'];
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_situations = combinaisonListes(type_de_situations_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 

@@ -21,17 +21,17 @@ export default function Construire_par_Symetrie() {
 	this.sup2 = 1;
 	this.figure = false
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles;
+		let typesDeQuestionsDisponibles;
 		if (this.sup == 3) 	  //Symétrie axiale ou centrale
-			if (this.figure == false) type_de_questions_disponibles = [0, 1, 2]; // points
-			else type_de_questions_disponibles = [3, 4, 5] // triangle
+			if (this.figure == false) typesDeQuestionsDisponibles = [0, 1, 2]; // points
+			else typesDeQuestionsDisponibles = [3, 4, 5] // triangle
 
 		else
-			if (this.figure == false) type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
-			else type_de_questions_disponibles = [parseInt(this.sup) + 3] //figures
+			if (this.figure == false) typesDeQuestionsDisponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
+			else typesDeQuestionsDisponibles = [parseInt(this.sup) + 3] //figures
 
 		let listeTypeDeQuestions = combinaisonListes(
-			type_de_questions_disponibles,
+			typesDeQuestionsDisponibles,
 			this.nbQuestions
 		);
 		this.listeQuestions = []; // Liste de questions

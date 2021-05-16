@@ -34,22 +34,22 @@ export default function Multiplier_decimaux_par_10_100_1000() {
  
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [],type_de_questions;
-    if (this.sup == 1 && !this.sup2) type_de_questions_disponibles = [1, 2];
+    let typesDeQuestionsDisponibles = [],typesDeQuestions;
+    if (this.sup == 1 && !this.sup2) typesDeQuestionsDisponibles = [1, 2];
     if (this.sup == 1 && this.sup2)
-      type_de_questions_disponibles = [1, 2, 5, 6];
-    if (this.sup == 2 && !this.sup2) type_de_questions_disponibles = [3, 4];
+      typesDeQuestionsDisponibles = [1, 2, 5, 6];
+    if (this.sup == 2 && !this.sup2) typesDeQuestionsDisponibles = [3, 4];
     if (this.sup == 2 && this.sup2)
-      type_de_questions_disponibles = [3, 4, 3, 4, 7, 8, 9, 10];
+      typesDeQuestionsDisponibles = [3, 4, 3, 4, 7, 8, 9, 10];
     if (this.sup == 3 && !this.sup2)
-      type_de_questions_disponibles = [1, 2, 3, 4];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4];
     if (this.sup == 3 && this.sup2)
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if (this.sup2) this.consigne = "Calculer et compléter.";
 let reponse
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let liste_de_facteurs = combinaisonListes(
@@ -62,8 +62,8 @@ let reponse
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i];
+      switch (typesDeQuestions) {
         case 1: // a,abcd × 10
           a = choice([randint(11, 99), randint(100, 999)]);
           a = calcul(a / choice([10, 100, 1000, 10000]));

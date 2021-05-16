@@ -24,22 +24,22 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+             let typesDeQuestionsDisponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1]; // (ax+b)²-c²
+            typesDeQuestionsDisponibles = [1]; // (ax+b)²-c²
         }
         if (this.sup == 2) {
-            type_de_questions_disponibles = [2]; // c²-(ax+b)²
+            typesDeQuestionsDisponibles = [2]; // c²-(ax+b)²
         }
         if (this.sup ==3) {
-            type_de_questions_disponibles = [3]; // (ax+b)²-(cx+d)²
+            typesDeQuestionsDisponibles = [3]; // (ax+b)²-(cx+d)²
         }
         if (this.sup ==4) {
-            type_de_questions_disponibles = [1,2,3]; //méli-mélo
+            typesDeQuestionsDisponibles = [1,2,3]; //méli-mélo
         }
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             k = choice([-1, 1]); 
 			a = randint(2, 9);
             a = a * k;
@@ -54,7 +54,7 @@ export default function Factoriser_Identites_remarquables2() {
                 a==a+1;
                 b==b-2;
             }
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                     texte = `$(${a}x${ecritureAlgebrique(b)})^2-${c*c}$`; // (ax+b)²-c²
                     texteCorr = `$(${a}x${ecritureAlgebrique(b)})^2-${c*c}=(${a}x${ecritureAlgebrique(b)})^2-${c}^2$<br>

@@ -27,12 +27,12 @@ export default function Placer_points_sur_axe_relatifs () {
   this.listePackages = 'tkz-euclide'
 
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { type_de_questions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
+    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, pas1, pas2, id_unique, texte, texteCorr; i < this.nbQuestions; i++) {
@@ -40,7 +40,7 @@ export default function Placer_points_sur_axe_relatifs () {
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
 
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux relatifs sur un axe (1 décimale)
           abs0 = randint(-7, -3)
           pas1 = 1
@@ -61,9 +61,9 @@ export default function Placer_points_sur_axe_relatifs () {
       }
       x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6)
       x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
-      abs1 = arrondi(abs0 + x1 / pas1 + x11 / pas1 / pas2, type_de_questions[i]) // le type de questions est égal au nombre de décimales.
-      abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, type_de_questions[i])
-      abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, type_de_questions[i])
+      abs1 = arrondi(abs0 + x1 / pas1 + x11 / pas1 / pas2, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
+      abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, typesDeQuestions[i])
+      abs3 = arrondi(abs0 + x3 / pas1 + x33 / pas1 / pas2, typesDeQuestions[i])
 
       texte = `Placer les points : {\\small $${l1}$(${texNombrec(abs1)}), $${l2}$(${texNombrec(abs2)}), $${l3}$(${texNombrec(abs3)})}<br>`
       if (context.isHtml) {

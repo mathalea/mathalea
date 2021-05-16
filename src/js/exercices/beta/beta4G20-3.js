@@ -19,8 +19,8 @@ export default function Calculer_valeur_manquante_visuel_pythagore() {
     this.nouvelleVersion = function () {
     this.listeQuestions = []; // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestionsDisponibles=[1,2,3,4]; // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
   
     let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
       context.fenetreMathalea2d = [-11.7,-6.4,18.3,13.6]

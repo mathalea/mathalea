@@ -29,8 +29,8 @@ export default function Terme_inconnu_de_somme() {
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles=[1,2,3,4]
-    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+    let typesDeQuestionsDisponibles=[1,2,3,4]
+    let listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
     let decimal;
     let inconnue;
     if (this.sup==1) {

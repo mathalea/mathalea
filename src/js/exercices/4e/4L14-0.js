@@ -31,21 +31,21 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     if (this.exo == "4L14-1") {
-      //type_de_questions_disponibles = [1, 2, 3, 4, 5, 8];
-      type_de_questions_disponibles = [choice([1, 2]), 3, choice([4, 5]), 8];
+      //typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8];
+      typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8];
     } else if (this.exo == "4L14-2") {
-      type_de_questions_disponibles = [9, 6, 7];
+      typesDeQuestionsDisponibles = [9, 6, 7];
     } else {
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9];
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

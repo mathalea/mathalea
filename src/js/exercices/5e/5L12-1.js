@@ -23,19 +23,19 @@ export default function Reduire_dinstinction_somme_produit() {
 	this.nbColsCorr = 1;
 	//this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.titre = titre;
-	let type_de_questions_disponibles
+	let typesDeQuestionsDisponibles
 	this.nouvelleVersion = function () {
-		//let type_de_questions_disponibles
+		//let typesDeQuestionsDisponibles
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		if (this.debug) {
-			type_de_questions_disponibles = [0, 1, 2, 3];
+			typesDeQuestionsDisponibles = [0, 1, 2, 3];
 		} else {
-			type_de_questions_disponibles = [choice([0, 2]), choice([1, 3])];
+			typesDeQuestionsDisponibles = [choice([0, 2]), choice([1, 3])];
 		}
 
-		//let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) 
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+		//let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) 
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
 		//if (this.sup2) decimal=10;
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

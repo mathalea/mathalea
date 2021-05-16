@@ -25,15 +25,15 @@ export default function Lire_abscisse_relative() {
 	this.listePackages = 'tkz-euclide';
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		this.listeQuestions = [];
 		this.listeCorrections = [];
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 		if (this.sup == 4)
-			type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions);
+			typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions);
 		else
-			type_de_questions = combinaisonListes([parseInt(this.sup)], this.nbQuestions);
+			typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions);
 
 
 		this.contenu = htmlConsigne(this.consigne);
@@ -41,7 +41,7 @@ export default function Lire_abscisse_relative() {
 			l1 = lettreDepuisChiffre(i * 3 + 1);
 			l2 = lettreDepuisChiffre(i * 3 + 2);
 			l3 = lettreDepuisChiffre(i * 3 + 3);
-			switch (type_de_questions[i]) {
+			switch (typesDeQuestions[i]) {
 				case 1: // Placer des décimaux relatifs sur un axe (1 décimale)
 					abs0 = randint(-6, -3);
 					pas1 = 1;

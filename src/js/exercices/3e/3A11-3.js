@@ -24,7 +24,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	this.sup = 1;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
+		let typesDeQuestions;
 		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
@@ -37,15 +37,15 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
 					texte = `Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers`;
 					//let premiers_dispos = premiersEntreBornes(2,11);

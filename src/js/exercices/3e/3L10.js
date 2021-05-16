@@ -21,9 +21,9 @@ export default function Oppose_expression() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = ["-(ax+b)", "-(ax2+bx+c)"];
+    let typesDeQuestionsDisponibles = ["-(ax+b)", "-(ax2+bx+c)"];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {

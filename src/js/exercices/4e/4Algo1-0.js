@@ -25,7 +25,7 @@ export const titre = 'Dessiner avec scratch'
   this.listePackages = "scratch3";
 	this.typeExercice = "Scratch";
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
   this.nbQuestions = 3;
   this.debug = false;
 
@@ -33,9 +33,9 @@ export const titre = 'Dessiner avec scratch'
   this.nouvelleVersion = function () {
 
     if (this.debug) {
-      type_de_questions_disponibles = [1,2,3,4,5];
+      typesDeQuestionsDisponibles = [1,2,3,4,5];
     } else {
-      type_de_questions_disponibles = [1,2,3,4,5];
+      typesDeQuestionsDisponibles = [1,2,3,4,5];
     };
 
     this.listeQuestions = []; // Liste de questions
@@ -45,8 +45,8 @@ export const titre = 'Dessiner avec scratch'
 //    var unitesLutinParCm = 100;
 
 
-    let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer la sortie HTML/LaTeX

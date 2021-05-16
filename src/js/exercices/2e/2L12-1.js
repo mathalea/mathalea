@@ -25,25 +25,25 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+             let typesDeQuestionsDisponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1]; //x²-a²=0
+            typesDeQuestionsDisponibles = [1]; //x²-a²=0
         }
         if (this.sup == 2) {
-            type_de_questions_disponibles = [2]; //x²-b=0
+            typesDeQuestionsDisponibles = [2]; //x²-b=0
         }
         if (this.sup == 3) {
-            type_de_questions_disponibles = [3,4,5,6,7]; //x²-b=0
+            typesDeQuestionsDisponibles = [3,4,5,6,7]; //x²-b=0
         }
         if (this.sup == 4) {
-            type_de_questions_disponibles = [1,2,3,4,5,6,7]; //x²-b=0
+            typesDeQuestionsDisponibles = [1,2,3,4,5,6,7]; //x²-b=0
         }
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             a = randint(1, 9);
             b = randint(2, 19, [4, 8, 9, 12, 16]);               
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                         texte = `$x^{2}-${a*a}=0$`; // x²-a²=0
                         texteCorr = `$x^{2}-${a*a}=0$<br>`; 

@@ -27,11 +27,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6']; // On créé 3 types de questions
+    let typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6']; // On créé 3 types de questions
     if (this.sup == 1) {
-      type_de_questions_disponibles = ['type1', 'type5']
+      typesDeQuestionsDisponibles = ['type1', 'type5']
     }
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
