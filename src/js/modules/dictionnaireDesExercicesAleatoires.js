@@ -1859,7 +1859,7 @@ export default {
       "num": 4,
       "text": "AMCOpen Num"
     },
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C10"
   },
   "6C10bis": {
@@ -2795,14 +2795,14 @@ export default {
     "titre": "Tables de multiplication",
     "url": "/exercices/CM/CM001.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "CM001"
   },
   "CM002": {
     "titre": "Tables de divisions",
     "url": "/exercices/CM/CM002.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "CM002"
   },
   "CM003": {
