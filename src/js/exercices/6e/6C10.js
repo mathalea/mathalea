@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 
-export const amcReady = false
+export const amcReady = true
 export const amcType = 4 // type de question AMC
 export const interactifReady = true
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
@@ -66,8 +66,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(a)}+${b}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(a + b)
-          setReponse(this, i, reponse)
-
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
         case 2: // abc0-efg
@@ -82,7 +80,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}-${y}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(x - y)
-          setReponse(this, i, reponse)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
         case 3: // 1abc-def
@@ -97,8 +94,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}-${y}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(x - y)
-          setReponse(this, i, reponse)
-
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
         case 4: // abc*d0e tables de 2 à 5
@@ -112,8 +107,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${texNombre(x)}\\times${y}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(x * y)
-          setReponse(this, i, reponse)
-
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
         case 5: // abc*de tables de 5 à 9
@@ -127,7 +120,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte = `$${x}\\times${y}$`
           if (this.interactif) texte += '$=$' + ajouteChampTexte(this, i)
           reponse = calcul(x * y)
-          setReponse(this, i, reponse, { digits: 0 })
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
       }
@@ -139,6 +131,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texteCorr = '\\setlength\\itemsep{2em}' + texteCorr
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr)
+        setReponse(this, i, reponse, { digits: 0 })
         i++
       }
       cpt++

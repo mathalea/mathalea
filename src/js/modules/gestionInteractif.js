@@ -207,15 +207,22 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * @param {'numero de la question'} i
  * @param {'réponse'} a
  */
-export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposant_nb_chiffres = 0, exposant_signe = false, approx = 0} = {}) {
+export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) {
+  console.log(exercice,i)
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
+  if (exercice.autoCorrection[i].enonce === undefined) {
+    exercice.autoCorrection[i].enonce = exercice.listeQuestions[i]
+  }
+  if (exercice.autoCorrection[i].propositions === undefined) {
+    exercice.autoCorrection[i].propositions = [{ texte: exercice.listeCorrections[i], statut: '', feedback: '' }]
+  }
   exercice.autoCorrection[i].reponse.valeur = a
-  exercice.autoCorrection[i].reponse.valeur = { digits, decimals, signe, exposant_nb_chiffres, exposant_signe, approx }
+  exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
 }
 
 export function exerciceInteractif (exercice) {

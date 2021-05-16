@@ -136,7 +136,7 @@ export default function TablesAdditionsSoustractions () {
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
-      this.autoCorrection[i].reponse.param = { digits: Math.ceil(2 * this.sup / 100), decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
+      this.autoCorrection[i].reponse.param = { digits: Math.ceil(2 * this.sup / 100), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
