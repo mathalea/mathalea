@@ -207,7 +207,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * @param {'numero de la question'} i
  * @param {'réponse'} a
  */
-export function setReponse (exercice, i, a) {
+export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposant_nb_chiffres = 0, exposant_signe = false, approx = 0} = {}) {
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }
@@ -215,6 +215,7 @@ export function setReponse (exercice, i, a) {
     exercice.autoCorrection[i].reponse = {}
   }
   exercice.autoCorrection[i].reponse.valeur = a
+  exercice.autoCorrection[i].reponse.valeur = { digits, decimals, signe, exposant_nb_chiffres, exposant_signe, approx }
 }
 
 export function exerciceInteractif (exercice) {
