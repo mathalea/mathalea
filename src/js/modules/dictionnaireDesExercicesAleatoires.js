@@ -3318,10 +3318,7 @@ export default {
   "CM019": {
     "titre": "Générateur de compte est bon",
     "url": "/exercices/CM/CM019.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "bug amcType.num"
-    },
+    "amcReady": false,
     "interactifReady": false,
     "name": "CM019"
   },

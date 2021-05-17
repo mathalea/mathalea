@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon'
-export const amcReady = true
+export const amcReady = false
 export const interactifReady = false
 
 /**
