@@ -121,7 +121,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      this.amc = [this.id, this.autoCorrection, titre, amcType]
+      this.amc = [this, this.id]
     }
   }
   this.besoinFormulaireTexte = [

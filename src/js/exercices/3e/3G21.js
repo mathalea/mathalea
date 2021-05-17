@@ -352,7 +352,7 @@ export default function Reciproque_Thales () {
 
       listeQuestionsToContenuSansNumero(this)
       if (context.isAmc) {
-        this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+        this.amc = [this, this.id]
       }
     }
   }
