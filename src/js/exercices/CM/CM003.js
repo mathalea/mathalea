@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
 export const amcType = 4
 

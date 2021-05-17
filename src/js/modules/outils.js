@@ -6760,6 +6760,7 @@ export function exportQcmAmc (thisAmc, idExo) {
         if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
+            console.log(reponse,nombreDeChiffresDansLaPartieEntiere(reponse),nombreDeChiffresDansLaPartieDecimale(reponse))
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
             nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)

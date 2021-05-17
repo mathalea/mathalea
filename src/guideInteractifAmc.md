@@ -85,7 +85,7 @@ this.autoCorrection[i] = {
         ],
         reponse: {
           texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
-          valeur: nombre // obligatoire (la réponse numérique à comparer à celle de l'élève),
+          valeur: nombre // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
           param: {
             digits: 3 // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé),
             decimals: 0 // facultatif si il n'est pas mis, il sera mis à 0 (le nombre de chiffres après la virgule pour AMC voir ci-dessus pour digit),
