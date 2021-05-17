@@ -27,7 +27,7 @@ export default function Notation_scientifique() {
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-			// {int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx}
+			// {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
 			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
 			/********************************************************************/
 
@@ -82,10 +82,10 @@ export default function Notation_scientifique() {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         if (this.sup==1) {
-          this.qcm[1].push([`Donner l\'écriture scientifique de ${texte}`, [texteCorr,reponse], {strict:true,vertical:false,digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposant_nb_chiffres:1,exposant_signe:true,approx:0}])
+          this.qcm[1].push([`Donner l\'écriture scientifique de ${texte}`, [texteCorr,reponse], {strict:true,vertical:false,digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposantNbChiffres:1,exposantSigne:true,approx:0}])
         }
         else {
-          this.qcm[1].push([`Donner l\'écriture décimale de ${texte}`, [texteCorr,reponse], {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposant_nb_chiffres:0,exposant_signe:true,approx:0}])
+          this.qcm[1].push([`Donner l\'écriture décimale de ${texte}`, [texteCorr,reponse], {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposantNbChiffres:0,exposantSigne:true,approx:0}])
         }
         i++;
       }

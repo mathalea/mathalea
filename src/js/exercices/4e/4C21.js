@@ -171,7 +171,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions() {
 			this.qcm[1].push([
 				`Calculer $${texte.substring(1, texte.length - 2)}$ et donner le résultat sous forme irreductible`,
 				[[texteCorr,reponse.num,3],[texteCorr,reponse.den,3]],
-				[{texte:'numérateur',digits:reponse.num.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0},{texte:'dénominateur',digits:reponse.den.toString().length,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}]				
+				[{texte:'numérateur',digits:reponse.num.toString().length,decimals:0,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:0},{texte:'dénominateur',digits:reponse.den.toString().length,decimals:0,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:0}]				
 			]);			
 		}
 		listeQuestionsToContenu(this); //Espacement de 2 em entre chaque questions.

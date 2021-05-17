@@ -169,7 +169,7 @@ let reponse
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;
-        this.qcm[1].push([texte, [texteCorr,calcul(bc)], {digits:4,decimals:2,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:10}])
+        this.qcm[1].push([texte, [texteCorr,calcul(bc)], {digits:4,decimals:2,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:10}])
         }
        cpt++;
     }

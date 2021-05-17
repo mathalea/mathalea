@@ -94,7 +94,7 @@ let reponse;
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
-		this.qcm[1].push([texte, [texteCorr,reponse], {digits:3,decimals:1,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+		this.qcm[1].push([texte, [texteCorr,reponse], {digits:3,decimals:1,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:0}])
         i++;
       }
       cpt++;

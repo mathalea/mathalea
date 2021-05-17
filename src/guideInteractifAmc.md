@@ -64,7 +64,7 @@ type 3 : (uniquement pour AMC) ici un exemple pour une exercice ne produisant qu
           propositions: [
               { 
                   texte: 'Ce qui apparaitra sur le corrigé',
-                  statut: 3 (ici c'est le nombre de ligne du cadre pour la réponse de l'élève sur AMC),
+                  statut: 3 // (ici c'est le nombre de ligne du cadre pour la réponse de l'élève sur AMC),
                   feedback: ''
              }
            ]
@@ -84,13 +84,13 @@ this.autoCorrection[i] = {
           }
         ],
         reponse: {
-          texte: 'le texte affiché au dessus du formulaire numerique dans AMC',
-          valeur: nombre // (la réponse numérique à comparer à celle de l'élève),
+          texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
+          valeur: nombre // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
           param: {
-            digits: 3 // (le nombre de chiffres pour AMC, si digits=0, alors il sera déterminé pour coller au nombre décimal demandé),
-            decimals: 0 // (le nombre de chiffres après la virgule pour AMC),
+            digits: 3 // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé),
+            decimals: 0 // facultatif si il n'est pas mis, il sera mis à 0 (le nombre de chiffres après la virgule pour AMC voir ci-dessus pour digit),
             signe: false // (présence d'une case + ou - pour AMC),
-            exposantNbChiffres: 0 // (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant),
+            exposantNbChiffres: 0 // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant),
             exposantSigne: false // (présence d'une case + ou - pour l'exposant précédent),
             approx: 0 // (0 = valeur exacte attendue, sinon valeur de tolérance... voire AMC)
           }

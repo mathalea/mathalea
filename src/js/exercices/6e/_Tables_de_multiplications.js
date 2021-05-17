@@ -88,7 +88,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
-      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }
+      this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

@@ -2,7 +2,7 @@ import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
 
 export const titre = 'Tables de multiplication'
 export const interactifReady = true
-export const amcReady = false
+export const amcReady = true
 export const amcType = 4 // Question numérique
 
 /**
