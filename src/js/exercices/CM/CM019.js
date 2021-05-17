@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Générateur de compte est bon'
-export const amcReady = true
+export const amcReady = false
 export const interactifReady = false
+export const amcType = 3
 
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
@@ -16,6 +18,7 @@ export default function LeCompteEstBonV3 () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.amcType = amcType
   this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
   this.nbQuestions = 5
@@ -26,6 +29,7 @@ export default function LeCompteEstBonV3 () {
   let maxSolution = 70
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let solutionMathador = []
@@ -41,6 +45,7 @@ export default function LeCompteEstBonV3 () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      this.autoCorrection[i] = {}
       solutionMathador = TrouverSolutionMathador(minSolution, maxSolution)
       tirage = solutionMathador[0]
       solution = solutionMathador[1]
@@ -50,18 +55,23 @@ export default function LeCompteEstBonV3 () {
       texteCorr = `Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
       texteCorr += `ou $${solutionMathador[4]}$.<br>`
       texteCorr += 'En effet : <br>'
-      for (let i = 0; i < 4; i++) {
-        texteCorr += `$${solutionMathador[2][i]}$<br>`
+      for (let j = 0; j < 4; j++) {
+        texteCorr += `$${solutionMathador[2][j]}$<br>`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
+    if (context.isAmc){
+      this.amc = [this,this.id]
+      }
+     
   }
   this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution]
   this.besoinFormulaire2Numerique = ['Limite supérieure', 100]

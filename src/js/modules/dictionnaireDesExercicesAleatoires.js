@@ -3320,7 +3320,8 @@ export default {
     "url": "/exercices/CM/CM019.js",
     "amcReady": true,
     "amcType": {
-      "text": "bug amcType.num"
+      "num": 3,
+      "text": "AMCOpen"
     },
     "interactifReady": false,
     "name": "CM019"

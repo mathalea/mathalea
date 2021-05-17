@@ -208,7 +208,6 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * @param {'réponse'} a
  */
 export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) {
-  console.log(exercice,i)
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }

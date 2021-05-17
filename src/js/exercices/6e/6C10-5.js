@@ -3,8 +3,8 @@ import { context } from '../../modules/context.js'
 import {exportQcmAmc,listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const amcReady = true
-export const amcType =3 //type de question AMC 
-
+export const amcType = 3 //type de question AMC 
+export const interactifReady = false
 export const titre = 'Labyrinthe de multiples'
 
 /**
@@ -17,6 +17,8 @@ export const titre = 'Labyrinthe de multiples'
 export default function Exercice_labyrinthe_multiples () {
   'use strict'
   Exercice.call(this)
+  this.amcReady = amcReady
+  this.interactifReady = interactifReady
   this.titre = titre
   this.consigne = ''
   this.niveau = '6e'
@@ -90,7 +92,7 @@ export default function Exercice_labyrinthe_multiples () {
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (context.isAmc){
-    this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+    this.amc = [this,this.id]
     }
     /**********************************************************/
   }
