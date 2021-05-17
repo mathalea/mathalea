@@ -69,7 +69,7 @@ export default function LeCompteEstBonV3 () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc){
-      this.amc = [this,this.id]
+      
       }
      
   }

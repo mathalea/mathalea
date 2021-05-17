@@ -91,7 +91,7 @@ export default function Calculs_trigonometriques1() {
         }
         listeQuestionsToContenu(this);
         if (context.isAmc) {
-            this.amc = [this, this.id]
+            
           }
     };
 }

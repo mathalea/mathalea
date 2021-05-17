@@ -132,7 +132,7 @@ export default function Additions_soustractions_multiplications_divisions_posees
     }
     listeQuestionsToContenu(this);
     if (context.isAmc) {
-      this.amc = [this, this.id]
+      
     }
   };
 }

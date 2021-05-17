@@ -103,7 +103,7 @@ export default function Divisions_euclidiennes() {
     }
     listeQuestionsToContenu(this);
     if (context.isAmc) {
-      this.amc = [this, this.id]
+      
     }
   };
   this.besoinFormulaireNumerique = [

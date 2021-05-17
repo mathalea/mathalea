@@ -90,7 +90,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
     if (context.isAmc) {
-      this.amc = [this, this.id]
+      
     }
   }
   this.besoinFormulaireNumerique = [

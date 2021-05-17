@@ -5,8 +5,8 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 ## Tout d'abord les 'marqueurs' :
     ```js
   this.interactif = true // définit le mode dans lequel l'exercice va s'afficher.
-  this.amc = [this, this.id] // on passe à AMC l'exercice et sa référence.
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
+  this.amcReady = amcReady // définit si l'exercice peut servir à AMC
   this.amcType = amcType // définit le type d'exercice interactif.
 
   interactifReady est une constante qui est à exporter pour établir la liste des exercices interactifs et utiliser le filtre.
@@ -25,7 +25,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
   this.autoCorrection doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
   this.autoCorrection[0] définit la première question, this.autoCorrection[1] la deuxième et ainsi de suite.
-
+```
   Selon les types, l'objet s'adapte :
 
   type 1 :

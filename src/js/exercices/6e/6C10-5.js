@@ -92,7 +92,7 @@ export default function Exercice_labyrinthe_multiples () {
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (context.isAmc){
-    this.amc = [this,this.id]
+    
     }
     /**********************************************************/
   }

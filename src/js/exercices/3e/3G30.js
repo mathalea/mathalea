@@ -279,7 +279,7 @@ export default function Calcul_de_longueur () {
     /*********************************************************/
     // On ajoute cette ligne pour AMC
     if (context.isAmc) {
-      this.amc = [this, this.id]
+      
     }
     /**********************************************************/
   }

@@ -6662,9 +6662,8 @@ export async function scratchTraductionFr () {
  * @param {number} idExo c'est un numéro unique pour gérer les noms des éléments d'un groupe de question, il est incrémenté par creerDocumentAmc()
  */
 
-export function exportQcmAmc (thisAmc, idExo) {
-  const exercice = thisAmc[0]
-  const ref = thisAmc[1]
+export function exportQcmAmc (exercice, idExo) {
+  const ref = exercice.id
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
   const type = exercice.amcType
@@ -6944,8 +6943,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   const nombre_de_questions_indefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
-  for (const qcm of questions) {
-    code = exportQcmAmc(qcm, idExo)
+  for (const exercice of questions) {
+    code = exportQcmAmc(exercice, idExo)
     idExo++
     index_of_code = groupeDeQuestions.indexOf(code[1])
     if (index_of_code === -1) { // si le groupe n'existe pas
