@@ -11,5 +11,5 @@ export default function Traduire_une_phrase_par_une_expression() {
 	this.version = 1
 	this.sup = false
 	this.sup2 = false
-	this.titre = titre;
+	this.titre = titre
 }
