@@ -3,10 +3,11 @@
 Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la possibilité d'avoir un mode interactif.
 
 ## Tout d'abord les 'marqueurs' :
-  
-  this.interactif = true définit le mode dans lequel l'exercice va s'afficher.
-  this.interactifReady = interactifReady définit si l'exercice peut s'afficher en mode interactif.
-  this.amcType = amcType définit le type d'exercice interactif.
+    ```js
+  this.interactif = true // définit le mode dans lequel l'exercice va s'afficher.
+  this.amc = [this, this.id] // on passe à AMC l'exercice et sa référence.
+  this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
+  this.amcType = amcType // définit le type d'exercice interactif.
 
   interactifReady est une constante qui est à exporter pour établir la liste des exercices interactifs et utiliser le filtre.
   amcType est une constante à exporter pour compléter cette liste avec une information sur le type.
@@ -99,3 +100,5 @@ this.autoCorrection[i] = {
 type 5 : idem type 3 avec présence comme pour le type 4 d'un attribut reponse.
 
 type 6 : idem type 4 avec présence d'autres attributs réponse...
+
+### Les fonctions
