@@ -187,7 +187,7 @@ export function questionNumerique (exercice) {
 }
 
 export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true } = {}) {
-  if (context.isHtml) {
+  if (context.isHtml && exercice.interactif) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
     <div class="inline  field" >
     <label>${texte}</label>
