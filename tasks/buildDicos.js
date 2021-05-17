@@ -170,14 +170,14 @@ console.log(`${dictFile} généré`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
 let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
-fs.writeFileSync(csvFile,`amc,interactif\r\n`)
+fs.writeFileSync(csvFile,`id,titre,amcReady,amcType,interactifReady,\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${id}\r\n`)
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK\r\n`)
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},\r\n`)
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO\r\n`)
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`,${id}\r\n`) 
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK\r\n`)
   }
 })
 console.log(`${csvFile} généré`)
