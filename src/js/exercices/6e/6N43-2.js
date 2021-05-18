@@ -528,7 +528,7 @@ export default function TableauCriteresDeDivisibilite () {
         listeQuestionsToContenuSansNumero(this)
       }
     } else {
-      this.amc = [this, this.id]
+      
     }
   }
 }

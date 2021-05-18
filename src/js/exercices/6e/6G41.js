@@ -353,7 +353,7 @@ export default function RepresenterUnSolide () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      this.amc = [this, this.id]
+      
     }
   }
 
