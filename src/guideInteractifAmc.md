@@ -1,8 +1,8 @@
-# Guide pour l'autoCorrection et pour l'export AMC
+### Guide pour l'autoCorrection et pour l'export AMC
 
 Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la possibilité d'avoir un mode interactif.
 
-## Tout d'abord les 'marqueurs' :
+# Tout d'abord les 'marqueurs' :
     ```js
   this.interactif = true // définit le mode dans lequel l'exercice va s'afficher.
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
@@ -20,12 +20,13 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   4 : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse)
   5 : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte
   6 : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...)
-
-  ### La variable this.autoCorrection
-
-  this.autoCorrection doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
-  this.autoCorrection[0] définit la première question, this.autoCorrection[1] la deuxième et ainsi de suite.
 ```
+  # La variable this.autoCorrection
+  ```js
+  this.autoCorrection // doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
+  this.autoCorrection[0] // définit la première question
+  this.autoCorrection[1] // definit la deuxième et ainsi de suite.
+  ```
   Selon les types, l'objet s'adapte :
 
   type 1 :
@@ -99,6 +100,13 @@ this.autoCorrection[i] = {
 ```
 type 5 : idem type 3 avec présence comme pour le type 4 d'un attribut reponse.
 
-type 6 : idem type 4 avec présence d'autres attributs réponse...
+type 6 : idem type 4 avec présence d'un autre attribut reponse2 qui fonctionne comme le reponse du type 5.
 
-### Les fonctions
+# Les fonctions
+Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
+```js
+function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) // cette fonction permet de fixer une réponse numérique à une exercice interactif/AMC de type 4 ou de type 5. ( à développer une fonction setReponses() qui fixent les réponses des exercices de type 6). Les trois premiers arguments sont obligatoires : l'exercice appelant (this), l'index de la question (i), une réponse numérique (a). le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse)
+function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true } = {}) // Cette fonction permet d'ajouter facilement un formulaire texte en bout d'une question pour récupérer la réponses de l'utilisateur. Les deux premiers arguments sont obligatoires.
+function propositionsQcm (exercice, i) // Cette fonction va retourner un objet {texte,texteCorr} qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (texte) et pour la correction (texteCorr). Si le premier est toujours utilisé, on préférera au deuxième souvent la correction classique (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
+
+
