@@ -2411,10 +2411,16 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
 }
 
 export function nombreDeChiffresDansLaPartieEntiere (nb) {
-  if (String(nb).indexOf('.') > 0) {
-    return String(nb).split('.')[0].length
+  let nombre
+  if (nb<0) {
+    nombre=-nb
   } else {
-    return String(nb).length
+    nombre = nb
+  }
+  if (String(nombre).indexOf('.') > 0) {
+    return String(nombre).split('.')[0].length
+  } else {
+    return String(nombre).length
   }
 }
 
@@ -6759,7 +6765,6 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           reponse = autoCorrection[j].reponse.valeur
           if (autoCorrection[j].reponse.param.digits === 0) {
-            console.log(reponse, nombreDeChiffresDansLaPartieEntiere(reponse), nombreDeChiffresDansLaPartieDecimale(reponse))
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
             autoCorrection[j].reponse.param.decimals = nbChiffresPd
             nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)

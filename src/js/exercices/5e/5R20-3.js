@@ -57,20 +57,20 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
 	  reponse = a + b + c + d + e
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte = ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $` })
         }
-        if (!context.isHtml) {
+        if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} = ${a + b + c + d + e} $`
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte = ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $` })
         }
 
-        if (!context.isHtml) {
+        if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`
@@ -87,6 +87,9 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 		setReponse(this, i, reponse, { signe: true })
+		if ( context.isAmc) {
+console.log(texte)
+		}
 		this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
