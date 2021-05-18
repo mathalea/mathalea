@@ -87,9 +87,6 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 		setReponse(this, i, reponse, { signe: true })
-		if ( context.isAmc) {
-console.log(texte)
-		}
 		this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
