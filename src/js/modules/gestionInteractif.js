@@ -72,10 +72,8 @@ export function exerciceQcm (exercice) {
 }
 
 /**
- * @param {int} numeroExercice Indice de l'exercice
- * @param {int} i Indice de la question
- * @param {*} tabrep Tableau des propositions
- * @param {*} tabicone Tableau ordonné comme tabrep avec 0 si la proposition est fausse et 1 si la proposition est juste
+ * @param {exercice}
+ * @param {i} i indice de la question
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
