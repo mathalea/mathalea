@@ -535,6 +535,14 @@ export function menuDesExercicesDisponibles () {
     })
     liste_html_des_exercices += html_affichage.liste + '</div>'
     liste_html_des_exercicestab += html_affichage.lignes
+  } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    html_affichage = htmlListes({
+      liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
+      active: '',
+      obj_ex: obj_exercices_disponibles
+    })
+    liste_html_des_exercices += html_affichage.liste + '</div>'
+    liste_html_des_exercicestab += html_affichage.lignes
   } else {
     html_affichage = htmlListes({
       liste_affichage: ['c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'PE', 'C'],
