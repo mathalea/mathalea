@@ -153,7 +153,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
       cpt++
     }
     if (context.isAmc) {
-      this.amc = [this.id, this.autoCorrection, titre, amcType]
+      
     }
     listeQuestionsToContenu(this)
   }

@@ -3318,13 +3318,14 @@ export default {
     "interactifReady": false,
     "name": "betaPuissances"
   },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
-  },
+  "CM019": {
+    "titre": "Générateur de compte est bon",
+    "url": "/exercices/CM/CM019.js",
+    "amcReady": true,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen"
+    },
   "beta_modele_vide_stephane": {
     "titre": "titre à donner",
     "url": "/exercices/beta/beta_modele_vide_stephane.js",

@@ -219,7 +219,7 @@ export default function ArrondirUneValeur () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      this.amc = [this.id, this.autoCorrection, titre, amcType]
+      
     }
   }
   this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
