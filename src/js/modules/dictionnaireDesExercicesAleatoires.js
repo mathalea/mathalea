@@ -2996,10 +2996,7 @@ export default {
   "CM019": {
     "titre": "Générateur de compte est bon",
     "url": "/exercices/CM/CM019.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "bug amcType.num"
-    },
+    "amcReady": false,
     "interactifReady": false,
     "name": "CM019"
   },
@@ -3318,14 +3315,13 @@ export default {
     "interactifReady": false,
     "name": "betaPuissances"
   },
-  "CM019": {
-    "titre": "Générateur de compte est bon",
-    "url": "/exercices/CM/CM019.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 3,
-      "text": "AMCOpen"
-    },
+  "betaXcas": {
+    "titre": "Test de XCas",
+    "url": "/exercices/beta/betaXcas.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaXcas"
+  },
   "beta_modele_vide_stephane": {
     "titre": "titre à donner",
     "url": "/exercices/beta/beta_modele_vide_stephane.js",
