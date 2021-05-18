@@ -170,7 +170,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
-        this.qcm[1].push([texte, [texteCorr,reponse,3], {digits:3,decimals:0,signe:true,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+        this.qcm[1].push([texte, [texteCorr,reponse,3], {digits:3,decimals:0,signe:true,exposantNbChiffres:0,exposantSigne:false,approx:0}])
         i++;
       }
       cpt++;

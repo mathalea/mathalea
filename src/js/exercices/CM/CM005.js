@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, modalTexteCourt } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Ajouter 9'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
 export const amcType = 4
 

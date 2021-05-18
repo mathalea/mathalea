@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Somme de deux nombres mariés'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
 export const amcType = 4
 

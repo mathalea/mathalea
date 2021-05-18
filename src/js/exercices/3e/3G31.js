@@ -242,7 +242,7 @@ console.log(texteCorr)
 
         /*****************************************************/
         // Pour AMC
-        this.qcm[1][0] = [texte, [texteCorr,angleABC,4],{digits:2,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:1}]
+        this.qcm[1][0] = [texte, [texteCorr,angleABC,4],{digits:2,decimals:0,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:1}]
         /****************************************************/
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

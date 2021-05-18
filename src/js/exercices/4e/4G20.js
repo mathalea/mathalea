@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi } from '../../modules/outils.js'
 import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 4 // Question numérique
-export const amcReady = false // Il reste à gérer les options numériques
+export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
 
 /**
@@ -32,6 +32,7 @@ export default function Pythagore2D () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []
     const listeDeNomsDePolygones = []
+    let reponse
     if (this.sup === 1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
     } else if (this.sup === 2) {
@@ -116,17 +117,20 @@ export default function Pythagore2D () {
           texteCorr += `<br> $${A.nom + B.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
+            reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
             texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm.`
             texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + B.nom} = $`, texteApres: 'cm' })
           } else {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
-            texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
+            reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
+           texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
             texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + B.nom}\\approx$`, texteApres: 'cm' })
           }
-          setReponse(this, i, AB)
+          setReponse(this, i, reponse)
         }
         if (listeTypeDeQuestions[i] === 'BC') {
           const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
+          reponse = arrondi(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1)
           texteCorr += `<br> $${B.nom + C.nom}^2=${texNombre(longueurAB)}^2+${texNombre(longueurAC)}^2=${texNombrec(longueurAB ** 2 + longueurAC ** 2)}$`
           texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
           if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
@@ -136,10 +140,11 @@ export default function Pythagore2D () {
             texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm.`
             texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${B.nom + C.nom}\\approx$`, texteApres: 'cm' })
           }
-          setReponse(this, i, BC)
+          setReponse(this, i, reponse)
         }
         if (listeTypeDeQuestions[i] === 'AC') {
           const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
+          reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1)
           texteCorr += ` donc $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$`
           texteCorr += `<br> $${A.nom + C.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAB)}^2=${texNombrec(longueurBC ** 2 - longueurAB ** 2)}$`
           texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
@@ -150,7 +155,7 @@ export default function Pythagore2D () {
             texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm.`
             texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + C.nom}\\approx$`, texteApres: 'cm' })
           }
-          setReponse(this, i, AC)
+          setReponse(this, i, reponse)
         }
       }
 

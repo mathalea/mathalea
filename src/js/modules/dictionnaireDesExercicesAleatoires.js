@@ -944,7 +944,11 @@ export default {
   "4G20": {
     "titre": "Calculer une longueur avec le théorème de Pythagore",
     "url": "/exercices/4e/4G20.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "4G20"
   },
@@ -1854,7 +1858,11 @@ export default {
   "6C10": {
     "titre": "Additions, soustractions et multiplications posées de nombres entiers",
     "url": "/exercices/6e/6C10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C10"
   },
@@ -2790,133 +2798,208 @@ export default {
   "CM001": {
     "titre": "Tables de multiplication",
     "url": "/exercices/CM/CM001.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM001"
   },
   "CM002": {
     "titre": "Tables de divisions",
     "url": "/exercices/CM/CM002.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM002"
   },
   "CM003": {
     "titre": "Tables de multiplications et de divisions",
     "url": "/exercices/CM/CM003.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM003"
   },
   "CM004": {
     "titre": "Les quatre opérations",
     "url": "/exercices/CM/CM004.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM004"
   },
   "CM005": {
     "titre": "Ajouter 9",
     "url": "/exercices/CM/CM005.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM005"
   },
   "CM006": {
     "titre": "Soustraire 9",
     "url": "/exercices/CM/CM006.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM006"
   },
   "CM007": {
     "titre": "Ajouter 11",
     "url": "/exercices/CM/CM007.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM007"
   },
   "CM008": {
     "titre": "Soustraire 11",
     "url": "/exercices/CM/CM008.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM008"
   },
   "CM009": {
     "titre": "Moitié",
     "url": "/exercices/CM/CM009.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM009"
   },
   "CM010": {
     "titre": "Tiers",
     "url": "/exercices/CM/CM010.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM010"
   },
   "CM011": {
     "titre": "Quart",
     "url": "/exercices/CM/CM011.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM011"
   },
   "CM012": {
     "titre": "Complément à 100",
     "url": "/exercices/CM/CM012.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM012"
   },
   "CM013": {
     "titre": "Complément à une dizaine",
     "url": "/exercices/CM/CM013.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM013"
   },
   "CM014": {
     "titre": "Double, moitié, tiers, triple",
     "url": "/exercices/CM/CM014.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM014"
   },
   "CM015": {
     "titre": "Somme de deux nombres mariés",
     "url": "/exercices/CM/CM015.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM015"
   },
   "CM016": {
     "titre": "Diviser un entier par 10, 100 ou 1000",
     "url": "/exercices/CM/CM016.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM016"
   },
   "CM017": {
     "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
     "url": "/exercices/CM/CM017.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM017"
   },
   "CM018": {
     "titre": "Somme de deux nombres mariés et un entier",
     "url": "/exercices/CM/CM018.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "CM018"
   },
   "CM019": {
     "titre": "Générateur de compte est bon",
     "url": "/exercices/CM/CM019.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "bug amcType.num"
+    },
     "interactifReady": false,
     "name": "CM019"
   },
@@ -3235,13 +3318,14 @@ export default {
     "interactifReady": false,
     "name": "betaPuissances"
   },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
-  },
+  "CM019": {
+    "titre": "Générateur de compte est bon",
+    "url": "/exercices/CM/CM019.js",
+    "amcReady": true,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen"
+    },
   "beta_modele_vide_stephane": {
     "titre": "titre à donner",
     "url": "/exercices/beta/beta_modele_vide_stephane.js",

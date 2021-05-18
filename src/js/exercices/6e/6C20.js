@@ -33,7 +33,7 @@ export default function Additionner_soustraires_decimaux() {
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
 			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-			// {int digits,int decimals,bool signe,int exposant_nb_chiffres,bool exposant_signe,int approx}
+			// {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
 			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
 			/********************************************************************/
   this.nouvelleVersion = function () {
@@ -159,7 +159,7 @@ export default function Additionner_soustraires_decimaux() {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
-        this.qcm[1].push([texte, [texteCorr,reponse], {digits:0,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}])
+        this.qcm[1].push([texte, [texteCorr,reponse], {digits:0,decimals:0,signe:false,exposantNbChiffres:0,exposantSigne:false,approx:0}])
         i++;
       }
       cpt++;

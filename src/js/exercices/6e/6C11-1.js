@@ -87,7 +87,7 @@ export default function Divisions_euclidiennes_egalite () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      this.amc = [this.id, this.autoCorrection, titre, amcType, {}]
+      
     }
 
   }

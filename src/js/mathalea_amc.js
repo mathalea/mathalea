@@ -319,7 +319,7 @@ function mise_a_jour_du_code () {
     for (let i = 0; i < liste_des_exercices.length; i++) {
       listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
       listeObjetsExercice[i].nouvelleVersion(i)
-      questions.push(listeObjetsExercice[i].amc)
+      questions.push(listeObjetsExercice[i])
 
       if (typeof listeObjetsExercice[i].listePackages === 'string') {
         listePackages.add(listeObjetsExercice[i].listePackages)
@@ -559,10 +559,8 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             if (module) {
               listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
               listeObjetsExercice[i].amc = [
+                listeObjetsExercice[i],
                 liste_exercices[i],
-                listeObjetsExercice[i].autoCorrection,
-                listeObjetsExercice[i].titre,
-                listeObjetsExercice[i].amcType
               ]
               if (dictionnaireDesExercices[id].sup !== undefined) {
                 listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup

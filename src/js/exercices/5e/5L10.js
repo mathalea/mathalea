@@ -711,7 +711,7 @@ export default function EcrireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
     if (context.isAmc) {
-      this.amc = [this.id, this.autoCorrection, titre, amcType]
+      
     }
   }
   // this.besoinFormulaireCaseACocher = ["Uniquement la lettre $n$."]
