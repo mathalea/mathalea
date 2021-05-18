@@ -8,6 +8,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
   this.amcReady = amcReady // définit si l'exercice peut servir à AMC
   this.amcType = amcType // définit le type d'exercice interactif.
+  ```
 
   interactifReady est une constante qui est à exporter pour établir la liste des exercices interactifs et utiliser le filtre.
   amcType est une constante à exporter pour compléter cette liste avec une information sur le type.
@@ -20,8 +21,9 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   4 : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse)
   5 : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte
   6 : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...)
-```
+
   # La variable this.autoCorrection
+
   ```js
   this.autoCorrection // doit contenir un tableau d'objets avec autant d'éléments qu'il y a de répétitions de l'énoncé (this.nbQuestions).
   this.autoCorrection[0] // définit la première question

@@ -59,6 +59,9 @@ export function listeDeChosesAImprimer (argument) {
 export function listeQuestionsToContenuSansNumero (argument) {
   if (context.isHtml) {
     argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlLigne(argument.listeQuestions, argument.spacing)
+    if (argument.interactif) {
+      argument.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+    }
     argument.contenuCorrection = htmlConsigne(argument.consigneCorrection) + htmlLigne(argument.listeCorrections, argument.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
