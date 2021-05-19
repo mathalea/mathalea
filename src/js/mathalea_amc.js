@@ -141,7 +141,7 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 //* *******
-// menuDesExercicesQcmDisponibles()
+// il y avait un fonctionnement avec un fork de la fonction ci-dessous cf commit 5f307cb
 menuDesExercicesDisponibles()
 
 // Mise à jour du formulaire de la liste des exercices
