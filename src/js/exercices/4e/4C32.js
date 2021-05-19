@@ -2,11 +2,12 @@ import { machineMathsVideo } from '../../modules/outils.js';
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Notation scientifique'
-
+export const interactifReady = false
 export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType =4 //type de question AMC 
+export const amcType = 4 //type de question AMC 
 
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
@@ -22,7 +23,10 @@ export default function Notation_scientifique() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   this.nbQuestions = 5
-  this.qcm = ['4C32', [], 'Notation scientifique',4]
+  this.interactif = false
+this.interactifReady = interactifReady
+this.amcType = amcType
+this.amcReady = amcReady
 
  			/********************************************************************/
       /** Type 4 : questionmultx avec AMCnumericChoices */
@@ -32,7 +36,6 @@ export default function Notation_scientifique() {
 			/********************************************************************/
 
   this.nouvelleVersion = function () {
-    this.qcm[1]=[]
     let reponse
     if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
     else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
@@ -72,21 +75,32 @@ export default function Notation_scientifique() {
       if (this.sup == 1) {
         texte = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
+        if (this.interactif) {
+          texte = ajouteChampTexte(this, i, {
+            texte: `$${decimalstring} = $`
+          })
+        }
       }
       else {
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
         texte = `$${scientifiquestring}$`
-
+        if (this.interactif) {
+          texte = ajouteChampTexte(this, i, {
+            texte: `$${scientifiquestring} = $`
+          })
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
+        
         if (this.sup==1) {
-          this.qcm[1].push([`Donner l\'écriture scientifique de ${texte}`, [texteCorr,reponse], {strict:true,vertical:false,digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposantNbChiffres:1,exposantSigne:true,approx:0}])
+          setReponse(this, i,reponse, {digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposantNbChiffres:1,exposantSigne:true,approx:0})
         }
         else {
-          this.qcm[1].push([`Donner l\'écriture décimale de ${texte}`, [texteCorr,reponse], {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposantNbChiffres:0,exposantSigne:true,approx:0}])
+          setReponse(this, i, reponse, {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposantNbChiffres:0,exposantSigne:true,approx:0})
         }
+        
         i++;
       }
       cpt++;
