@@ -89,13 +89,21 @@ Le code est libre, (AGPL), vous pouvez donc télécharger les sources sur [GitHu
 
 ### Changelog
 
+### Changelog
+
+#### 05/21
+
+- Ajout d'exercices interactifs (QCM - réponse numérique)
+- Nouvel objet pour gérer la sortie AMC
+
 #### 04/21
 
 - Intégration du lecteur InstrumEnPoche
-- Création de macros constructions pour InstrumEnPoche
-- Nouvelle ergonomie (2 colonnes, possibilité de prévisualiser les exercices ou de les réordonner)
+- Création de macros constructions pour InstrumEnPoche et
+- Arrivée de Liouba Leroux pour la création d'exercices avec InstrumEnPoche
+- Arrivée de Daniel Caillibaud (salarié de Sésamath) pour le passage à NodeJS, webpack, pour l'intégration de nombreux outils (JSDoc, Playwright) et pour l'amélioratio du code
 
-#### 03/21pnp
+#### 03/21
 
 
 - Intégration des annales de brevet en partenariat avec l'APMEP.

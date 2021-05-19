@@ -26,6 +26,7 @@ build
 log
 # la doc
 documentation
+src/js/modules/doc
 # la conf privée
 _private
 

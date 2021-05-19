@@ -3,6 +3,11 @@ import { context } from './context.js'
 import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 
+export function exerciceInteractif (exercice) {
+  if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
+  if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
+}
+
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
  * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
@@ -56,7 +61,7 @@ export function exerciceQcm (exercice) {
           if (indiceFeedback > -1) {
             messageFeedback({
               id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-              texte: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+              message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
               type: typeFeedback
             })
           }
@@ -170,15 +175,18 @@ export function questionNumerique (exercice) {
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-          if (document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`).value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '')) {
+          const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+          if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.',',')) {
             spanReponseLigne.innerHTML = '😎'
             nbBonnesReponses++
           } else {
             spanReponseLigne.innerHTML = '☹️'
             nbMauvaisesReponses++
           }
+          champTexte.readOnly = true
           spanReponseLigne.style.fontSize = 'large'
         }
+        button.classList.add('disabled')
       })
     }
   })
@@ -216,11 +224,4 @@ export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = f
 
   exercice.autoCorrection[i].reponse.valeur = a
   exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
-}
-
-export function exerciceInteractif (exercice) {
-  if (exercice.amcType === 4) questionNumerique(exercice)
-  if (exercice.amcType === 1) exerciceQcm(exercice)
-  if (exercice.amcType === 2) exerciceQcm(exercice) // Avec des paramètres différents ??? @jeanClaude, qu'en penses-tu ?
-  if (exercice.amcType === 5) questionNumerique(exercice)
 }

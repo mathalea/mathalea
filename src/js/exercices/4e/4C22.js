@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenir_liste_fractions_irreductibles,obtenirListeNombresPremiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
-export const titre = 'Mutliplier des fractions'
+export const titre = 'Multiplier des fractions'
 
 /**
  * Exercice de calcul de produit de deux fractions.
