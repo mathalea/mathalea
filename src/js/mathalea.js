@@ -205,7 +205,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
  * @param isdiaporama
  * @param listeObjetsExercice
- * @return {Promise<undefined>}
+ * @return {Promise}
  */
 async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin katex, mg32, iep, scratch
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.

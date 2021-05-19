@@ -24,10 +24,10 @@
       "static": true,
       "sort": true,
       "search": true,
-      "collapse": true
+      "collapse": true,
+      "commonNav": true
     },
     "templates": {
       "cleverLinks": true
     }
   }
-  
