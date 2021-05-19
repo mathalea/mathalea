@@ -52,7 +52,7 @@ export default function DroiteRemarquableDuTriangle() {
 					d[i].epaisseur = 1
 					c[i] = codageHauteurTriangle(C[i], B[i], A[i])
 					objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
-					texteCorr = `La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
+					texteCorr = `La droite tracée est la hauteur issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
 					texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: .5, pixelsParCm: 20 }, ...objets[i])
 					break
 				case 2:
@@ -66,9 +66,9 @@ export default function DroiteRemarquableDuTriangle() {
 				case 3:
 					d[i] = medianeTriangle(C[i], B[i], A[i], 'blue')
 					d[i].epaisseur = 1
-					c[i] = codageMedianeTriangle(C[i], B[i], A[i], color = 'black', mark = '//')
+					c[i] = codageMedianeTriangle( B[i], A[i], 'black', '//')
 					objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
-					texteCorr = `La droite tracée est la médiane issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
+					texteCorr = `La droite tracée est la médiane issue de $${sommets[i][2]}$ dans le triangle ${triangles[i].getNom()}.<br>`
 					texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: .5, pixelsParCm: 20 }, ...objets[i])
 					break
 				case 4:
@@ -77,7 +77,7 @@ export default function DroiteRemarquableDuTriangle() {
 					c[i] = codageBissectrice(A[i], B[i], C[i])
 					objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
 					texteCorr = `La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
-					texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: .5, pixelsParCm: 20 }, ...objets[i], constructionBissectrice(A[i], B[i], C[i], detail = false, color = 'red', mark = '×', tailleLosange = 3, couleurBissectrice = 'blue', epaiseurBissectrice = 1))
+					texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: .5, pixelsParCm: 20 }, ...objets[i], constructionBissectrice(A[i], B[i], C[i], false, 'red', '×', 3, 'blue', 1))
 					break
 
 			}
