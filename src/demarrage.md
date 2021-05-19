@@ -7,6 +7,25 @@ La documentation cite partout le gestionnaire de modules [pnpm](https://pnpm.io/
 
 Pour installer pnpm c'est `npm install -g pnpm` (il faut être admin, préfixer éventuellement la commande par sudo sous linux|mac)
 
+### Utilisation d'un PPA NodeSource pour Linux Mint et surement toute distrib basée sur Debian
+Pour installer nodejs 15.x
+```shell
+# Éventuellement installer curl dans un premier temps
+sudo apt-get install curl
+# Recuperation de l'installateur
+sudo curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+# Installation
+sudo apt-get install -y nodejs
+# Vérifier la version de nodejs installée
+node --version
+# Vérifier la version de npm installée
+npm --version
+# Installer pnpm
+sudo npm install -g pnpm
+# mettre à jour pnpm
+pnpm -g i pnpm
+```
+
 ## Démarrage
 Une fois cloné le projet localement, il faut installer les dépendances avec `pnpm i` (à refaire après chaque modif du package.json)
 
