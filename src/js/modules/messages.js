@@ -1,81 +1,103 @@
-// Module regroupant les fonctions de gestions des erreurs.
+import { addElement, addText, get } from './dom'
+/**
+ * Fonctions pour gérer les messages utilisateur (feedback erreur|warning ou messages positifs)
+ * @module
+ */
 
-function divMessage (erreur) {
-// Construit le message d'erreur pour insertion dans la page.
-  if (erreur.niveau === 'erreur') {
-    return `<div id="affichageErreur" class="ui error message"><i id="fermerMessageErreur" class="close icon"></i>
-    <div class="header">
-      <i class="frown outline icon"></i> ${erreur.titre}
-    </div>
-      ${erreur.message}
-  </div>`
+/**
+ * Les types possibles
+ * @type {string[]}
+ */
+const types = ['info', 'warning', 'error', 'positive']
+
+/**
+ * Ajoute le feedback dans container
+ * @param {HTMLElement} container
+ * @param {Object} feedback
+ * @param {string} [feedback.message]
+ * @param {string} [feedback.type]
+ * @param {string} [feedback.titre]
+ * @return {HTMLElement} L'élément du feedback (déjà ajouté dans le container)
+ */
+export function addFeedback (container, { message = 'Une erreur est survenue', type = 'erreur', titre } = {}) {
+  if (!types.includes(type)) {
+    console.error(Error(`type de message inconnu : ${type}`))
+    type = 'error'
   }
-  if (erreur.niveau === 'warning') {
-    return `<div id="affichageErreur" class="ui warning message"><i id="fermerMessageErreur" class="close icon"></i>
-    <div class="header">
-      <i class="bullhorn icon"></i> ${erreur.titre}
-    </div>
-      ${erreur.message}
-  </div>`
+  const cssDiv = type === 'info' ? '' : type
+  const div = addElement(container, 'div', { className: `ui message ${cssDiv}` })
+  const cssIcon = type === 'error'
+    ? 'frown outline'
+    : (type === 'warning')
+        ? 'bullhorn'
+        : 'bell outline' // info
+  const iconClose = addElement(div, 'i', { className: 'close icon' })
+  iconClose.addEventListener('click', () => div.remove())
+  if (titre) {
+    const divTitre = addElement(div, 'div', { className: 'header' })
+    addElement(divTitre, 'i', { className: `${cssIcon} icon` })
+    addText(divTitre, titre)
   }
-  if (erreur.niveau === 'info') {
-    return `<div id="affichageErreur" class="ui message"><i id="fermerMessageErreur" class="close icon"></i>
-    <div class="header">
-      <i class="bell outline icon"></i> ${erreur.titre}
-    </div>
-      ${erreur.message}
-  </div>`
-  }
+  if (/<[a-zA-Z0-9_ "']+/.test(message)) div.innerHTML += message
+  else addText(div, message)
+  return div
 }
 
 /**
-*
-* @param {code:'code de l'erreur',[exercice : 'identifiant de l'exercice']}
+* Affiche un message à l'utilisateur
 * @author Cédric GROLLEAU
+* @param {Object} datas
+* @param {string} datas.code codeExerciceInconnu|mg32load|scratchLoad
+* @param {string} [datas.exercice] à fournir si code vaut 'codeExerciceInconnu'
 */
-export function messageUtilisateur (erreur) {
-  let divErreur = ''
-  if (erreur.code === 'codeExerciceInconnu') {
-    divErreur = divMessage({
-      titre: 'le code de l\'exercice n\'est pas valide',
-      message: `L'identifiant ${erreur.exercice} ne correspond à aucun exercice MathALEA. <br> Ceci est peut-être dû à un lien incomplet ou obsolète. `,
-      niveau: 'erreur'
-    })
-  } else if (erreur.code === 'mg32load') {
-    divErreur = divMessage({
-      titre: 'Erreur de chargement du module mg32',
-      message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-        Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-      niveau: 'warning'
-    })
-  } else if (erreur.code === 'scratchLoad') {
-    divErreur = divMessage({
-      titre: 'Erreur de chargement du module scratch',
-      message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
-        Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-      niveau: 'warning'
-    })
+export function messageUtilisateur ({ code, exercice }) {
+  const container = get('containerErreur')
+  switch (code) {
+    case 'codeExerciceInconnu':
+      addFeedback(container, {
+        titre: 'le code de l’exercice n’est pas valide',
+        message: `L'identifiant ${exercice} ne correspond à aucun exercice MathALEA. <br> Ceci est peut-être dû à un lien incomplet ou obsolète. `,
+        type: 'error'
+      })
+      break
+    case 'mg32load':
+      addFeedback(container, {
+        titre: 'Erreur de chargement du module mg32',
+        message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
+          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
+        type: 'warning'
+      })
+      break
+    case 'scratchLoad':
+      addFeedback(container, {
+        titre: 'Erreur de chargement du module scratch',
+        message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
+          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
+        type: 'warning'
+      })
+      break
+    default:
+      console.error(Error(`code ${code} non géré par messageUtilisateur`))
+      addFeedback(container, {
+        titre: 'Erreur interne',
+        message: `Une erreur est survenue.<br>
+          Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
+        type: 'warning'
+      })
   }
-  document.getElementById('containerErreur').innerHTML = divErreur
-  document.getElementById('fermerMessageErreur').addEventListener('click', function () {
-    document.getElementById('affichageErreur').remove()
-  })
 }
 
 /**
- *
- * @param {id : 'id du div', texte: 'message', type:'error ou positive'}
+ * Ajoute un feedback (erreur ou encouragement)
+ * @param {Object} feedback
+ * @param {string} feedback.id id du div conteneur à utiliser
+ * @param {string} feedback.message Le message à afficher
+ * @param {string} feedback.type error|positive
  * @author Rémi ANGOT
  */
-export function messageFeedback ({ id, texte = '', type = 'error' } = {}) {
-  const typeMessage = type || 'error'
-  if (id && texte) {
-    const html = `<div id="messageFeedback${id}" class="ui ${typeMessage} message" style="width:400px"><i id="fermerFeedback${id}" class="close icon"></i>
-        ${texte}
-  </div>`
-    document.getElementById(id).innerHTML = html
-    document.getElementById(`fermerFeedback${id}`).addEventListener('click', function () {
-      document.getElementById(`messageFeedback${id}`).remove()
-    })
-  }
+export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
+  if (!id || !message) return console.error(TypeError('arguments manquants'))
+  const container = get(id)
+  const div = addFeedback(container, { message, type })
+  div.style.width = '400px'
 }

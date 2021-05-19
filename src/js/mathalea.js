@@ -205,7 +205,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
  * @param isdiaporama
  * @param listeObjetsExercice
- * @return {Promise<>}
+ * @return {Promise}
  */
 async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin katex, mg32, iep, scratch
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
@@ -225,25 +225,21 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     variation: 'inverted',
     inline: true
   })
-  try {
-    const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
-    if (exosMg32.length) {
-    // faut charger mathgraph et lui filer ces figures
-      try {
-      // faut attendre que le div soit créé
-      // @todo ce code devrait plutôt être exécuté après la création du div
-      // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
-      // => il n'y aurait plus de couplage sur le préfixe MG32div)
-        await waitFor('MG32div0')
-        await mg32DisplayAll(exosMg32)
-      } catch (error) {
-      // On traite l'erreur
-        console.log(error)
-        throw ({ code: 'mg32load' })
-      }
+  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+  if (exosMg32.length) {
+  // faut charger mathgraph et lui filer ces figures
+    try {
+    // faut attendre que le div soit créé
+    // @todo ce code devrait plutôt être exécuté après la création du div
+    // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
+    // => il n'y aurait plus de couplage sur le préfixe MG32div)
+      await waitFor('MG32div0')
+      await mg32DisplayAll(exosMg32)
+    } catch (error) {
+    // On traite l'erreur
+      console.log(error)
+      messageUtilisateur({ code: 'mg32load' })
     }
-  } catch (error) {
-    messageUtilisateur(error)
   }
   try {
     const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
@@ -409,7 +405,7 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].video.length > 1) {
         finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
-      if (listeObjetsExercice[0].interactif) {
+      if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
         finUrl += ',interactif=1'
       }
       listeObjetsExercice[0].numeroExercice = 0
@@ -430,12 +426,12 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video.length > 1) {
           finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
         }
-        if (listeObjetsExercice[i].interactif) {
+        if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',interactif=1'
         }
         listeObjetsExercice[i].numeroExercice = i
       }
-      if (typeof context.duree !== 'undefined') {
+      if (typeof context.duree !== 'undefined' && context.isDiaporama) {
         finUrl += `&duree=${context.duree}`
       }
       finUrl += `&serie=${context.graine}`
@@ -483,6 +479,7 @@ function miseAJourDuCode () {
     if (listeDesExercices.length > 0) {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i]
+        listeObjetsExercice[i].interactif = false
         try {
           listeObjetsExercice[i].nouvelleVersion(i)
         } catch (error) {
@@ -1098,7 +1095,7 @@ function parametresExercice (exercice) {
         divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) {
+      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isDiaporama) {
           divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
@@ -1466,7 +1463,7 @@ function parametresExercice (exercice) {
     }
 
     // Gestion du mode interactif
-    if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { //Pour un exercice qui n'a que la version QCM, pas de menu
+    if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { // Pour un exercice qui n'a que la version QCM, pas de menu
       formInteractif[i] = document.getElementById('formInteractif' + i)
       if (formInteractif[i]) {
         formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut

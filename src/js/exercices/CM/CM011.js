@@ -51,7 +51,7 @@ export default function Quart () {
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${a * 4 + b
             } \\text{ est } ${texNombrec(a + b / 4)}$`
-          setReponse(this, i, texNombrec(a + b / 4))
+          setReponse(this, i, calcul(a + b / 4))
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 3: // Table de 400
@@ -60,7 +60,7 @@ export default function Quart () {
           texteCorr = `$\\text{Le quart de }${texNombre(
             a * 4 * 100
           )} \\text{ est } ${texNombre(a * 100)}$`
-          setReponse(this, i, texNombre(a * 100))
+          setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 4: // Table de 40
@@ -69,7 +69,7 @@ export default function Quart () {
           texteCorr = `$\\text{Le quart de }${texNombre(
             a * 4 * 10
           )} \\text{ est } ${texNombre(a * 10)}$`
-          setReponse(this, i, texNombre(a * 10))
+          setReponse(this, i, a * 10)
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 5: // a,b avec a et b divisibles par 4
@@ -79,7 +79,7 @@ export default function Quart () {
           texteCorr = `$\\text{Le quart de }${texNombrec(
             a * 4 + (b * 4) / 100
           )} \\text{ est } ${texNombrec(a + b / 100)}$`
-          setReponse(this, i, texNombrec(a + b / 100))
+          setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
       }

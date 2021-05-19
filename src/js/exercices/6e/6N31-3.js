@@ -4,7 +4,7 @@ import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuesti
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =2 //type de question AMC 
+export const amcType = 2 // type de question AMC
 export const interactifReady = true
 export const titre = 'Arrondir une valeur'
 
@@ -49,7 +49,6 @@ export default function ArrondirUneValeur () {
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      tabrep.length = 0, tabicone.length = 0, preTabRep.length = 0, preTabIcone.length = 0
       if (this.sup === 1) {
         m = randint(0, 9)
         c = randint(0, 9)
@@ -63,7 +62,7 @@ export default function ArrondirUneValeur () {
         de = randint(0, 1)
         n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
         nb = texNombre(n)
-      } else if (this.sup == 2) {
+      } else if (this.sup === 2) {
         den = choice([7, 9, 11, 13])
         num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
         n = num / den
@@ -80,11 +79,9 @@ export default function ArrondirUneValeur () {
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
       }
 
-      texte = `$${nb}$`
-
-      if (this.sup == 1) texte += ''
-      else if (this.sup == 2) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${num}\\div ${den}, ~elle~renvoie : ${texNombre(n)}$`
-      else if (this.sup == 3) texte += `$\\phantom{1234567}Quand~on~écrit~sur~la~calculatrice~ ${nb}, ~elle~renvoie : ${texNombre(n)}$`
+      if (this.sup === 1) texte = `$${nb}$`
+      else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+      else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
 
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
@@ -194,7 +191,7 @@ export default function ArrondirUneValeur () {
         // shuffle2tableaux(tabrep, tabicone);
         for (let i = 0; i < 6; i++) {
           texte += `$\\square\\;$ ${tabrep[i]}` + espace
-          if (tabicone[i] == 1) {
+          if (tabicone[i] === 1) {
             texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
           } else {
             texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
@@ -216,9 +213,6 @@ export default function ArrondirUneValeur () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (context.isAmc) {
-      
-    }
   }
   this.besoinFormulaireNumerique = ['Type de nombre', 2, '1 : Nombre décimal\n 2 : Fraction']
   this.besoinFormulaire2CaseACocher = ['Affichage de la valeur donnée à la calculatrice', false]
