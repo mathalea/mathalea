@@ -30,7 +30,8 @@ export function addFeedback (container, { message = 'Une erreur est survenue', t
     addElement(divTitre, 'i', { className: `${cssIcon} icon` })
     addText(divTitre, titre)
   }
-  addText(div, message)
+  if (/<[a-zA-Z0-9_ "']+/.test(message)) div.innerHTML += message
+  else addText(div, message)
   return div
 }
 
