@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,pgcd,calcul,texNombrec,texNombre,texFraction} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
-import{fraction} from '../../modules/Fractions.js'
+import{fraction} from '../../modules/fractions.js'
 export const titre = 'Calculer la fraction d’une quantité'
 
 /**
@@ -30,7 +30,7 @@ export default function Fraction_d_une_quantite() {
     let choixdenh=combinaisonListes([3,4,5,10,12,20,30],this.nbQuestions)
     let choixdent=combinaisonListes([20,24,30],this.nbQuestions)
     let choixdenb=combinaisonListes([4,5,10,12],this.nbQuestions)
-     
+
     if (this.sup < 5)
       typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else

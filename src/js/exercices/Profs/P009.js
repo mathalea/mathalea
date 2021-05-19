@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNombre, randint, calcul, arrondiVirgule, nombre_avec_espace } from '../../modules/outils.js'
-import { fraction } from '../../modules/Fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 
 export const titre = 'Simulation d’expériences aléatoires'
@@ -11,7 +11,7 @@ export const titre = 'Simulation d’expériences aléatoires'
 * @auteur Erwan Duplessy
 * 6C30-1
 * D'après le document "Attendus en fin de 3eme"
-* On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers. 
+* On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers.
 * L’élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
@@ -43,7 +43,7 @@ export default function SimulateurAleatoire() {
     let texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
     let texteCorr = ''
     let nbFaces = 2 * randint(1, 5) + 2; // nombre de faces du dé : 4, 6, 8, 10 ou 12
-    let nbLancers = parseInt(this.sup2); // nombre de lancers 
+    let nbLancers = parseInt(this.sup2); // nombre de lancers
     let tabEff = new Array();// tableau d'effectifs temporaires - une dimension [eff]
     let S = 0; // effectif total
     let tabRes = new Array(); // tableau des fréqeunces observées - deux dimensions [val, freq]
@@ -57,7 +57,7 @@ export default function SimulateurAleatoire() {
     }
 
 
-    switch (parseInt(this.sup)) { // 
+    switch (parseInt(this.sup)) { //
       case 1: // Tirages de dés
         f = fraction(1, nbFaces)
         texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.<br>`
