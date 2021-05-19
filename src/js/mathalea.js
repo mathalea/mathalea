@@ -409,7 +409,7 @@ function miseAJourDuCode () {
       if (listeObjetsExercice[0].video.length > 1) {
         finUrl += `,video=${encodeURIComponent(listeObjetsExercice[0].video)}`
       }
-      if (listeObjetsExercice[0].interactif) {
+      if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
         finUrl += ',interactif=1'
       }
       listeObjetsExercice[0].numeroExercice = 0
@@ -430,12 +430,12 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].video.length > 1) {
           finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
         }
-        if (listeObjetsExercice[i].interactif) {
+        if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',interactif=1'
         }
         listeObjetsExercice[i].numeroExercice = i
       }
-      if (typeof context.duree !== 'undefined') {
+      if (typeof context.duree !== 'undefined' && context.isDiaporama) {
         finUrl += `&duree=${context.duree}`
       }
       finUrl += `&serie=${context.graine}`
@@ -483,6 +483,7 @@ function miseAJourDuCode () {
     if (listeDesExercices.length > 0) {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i]
+        listeObjetsExercice[i].interactif = false
         try {
           listeObjetsExercice[i].nouvelleVersion(i)
         } catch (error) {
@@ -1098,7 +1099,7 @@ function parametresExercice (exercice) {
         divParametresGeneraux.innerHTML +=
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
-      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) {
+      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isDiaporama) {
           divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
@@ -1466,7 +1467,7 @@ function parametresExercice (exercice) {
     }
 
     // Gestion du mode interactif
-    if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { //Pour un exercice qui n'a que la version QCM, pas de menu
+    if (exercice[i].interactifReady && !exercice[i].interactifObligatoire) { // Pour un exercice qui n'a que la version QCM, pas de menu
       formInteractif[i] = document.getElementById('formInteractif' + i)
       if (formInteractif[i]) {
         formInteractif[i].checked = exercice[i].interactif // Rempli le formulaire avec la valeur par défaut
