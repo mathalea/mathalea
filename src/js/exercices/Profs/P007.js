@@ -8,7 +8,7 @@ export const titre = 'Fabriquer des pavages pour travailler les transformations'
 
 /**
  * Outil de création de pavages pour le prof
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 12/12/2020
  * Ref : P007
  */

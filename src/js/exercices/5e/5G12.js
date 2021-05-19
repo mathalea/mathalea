@@ -10,7 +10,7 @@ export const titre = 'Trouver l’image d’une figure par symétrie centrale da
  * Publié le 14/12/2020
  * Trouver l'image par symétrie centrale d'une figure dans un pavage
  * Version Latex & Html grâce à Mathalea2d
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Ref 5G12
  */
 export default function Pavage_et_demi_tour2d() {

@@ -9,7 +9,7 @@ export const titre = 'Construire des parallélogrammes avec dispositif d’auto-
 /**
  * Terminer la construction d'un parallélogramme
  * Ref 5G40
- * @Auteur Jean-Claude Lhote (exercice) et Rémi Angot (animations)
+ * @author Jean-Claude Lhote (exercice) et Rémi Angot (animations)
  * Publié le 30/11/2020
  */
 export default function Constructions_parallelogrammes () {

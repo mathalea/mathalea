@@ -5,7 +5,7 @@ export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 
 /**
  * Problèmes avec des multiplications ou des divisions avec des puissances de 10 et des conversions
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4C32-3
  * 2021-02-05
 */

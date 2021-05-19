@@ -7,7 +7,7 @@ export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
 
 /**
  * Lire l'abscisse entière d'un point
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11
  */
 export default function Lire_abscisse_entiere () {

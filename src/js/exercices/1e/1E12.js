@@ -9,7 +9,7 @@ import Algebrite from 'algebrite'
 export const titre = 'Trouver l’équation d’une parabole'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Trois type de questions proposées :
  * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
  * 2) Passant par un point et dont on connait le sommet

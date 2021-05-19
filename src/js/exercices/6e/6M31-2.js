@@ -15,7 +15,7 @@ export const titre = 'Conversions avec des unités de volumes ou de capacités'
  * * 5 :
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M31-2
  */
 export default function Unites_de_volumes_et_de_capacite(niveau = 1) {

@@ -12,7 +12,7 @@ export const titre = 'Variations en pourcentage'
 * * Exprimer l'évolution en pourcentage
 * * Retrouver la situation initiale
 * * Mélange des 3 types de problèmes
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3P10
 */
 export default function Evolutions_en_pourcentage() {

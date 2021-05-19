@@ -6,7 +6,7 @@ export const titre = 'Tables d’addition'
  * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
  * ref 6N23-2
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Tables_additions_cycle3() {
     Exercice_tables_d_additions.call(this,10);

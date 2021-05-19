@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Un nombre à 2 chiffres -11
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM008
 */
 export default function Soustraire11 () {

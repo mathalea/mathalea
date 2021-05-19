@@ -9,7 +9,7 @@ export const titre = 'Puissances : Calculs automatisés et règles de calculs'
  * * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
  * * Date initiale non renseignée
  * * Mise à jour le 2021-01-24
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  * 4C33-3
  */
 export default function Puissances_d_un_relatif_2() {

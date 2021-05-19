@@ -6,7 +6,7 @@ export const titre = 'Reconnaitre un parallélogramme à partir du codage d’un
 
 /**
  * Description didactique de l'exercice
- * @Auteur
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

@@ -4,7 +4,7 @@ import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdr
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
- * 3A11-2 - Decomposition_facteurs_premiers
+ * 3A11-2 - decompositionFacteursPremiers
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
  * plusieurs type de nombres à décomposer
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
@@ -12,7 +12,7 @@ export const titre = 'Décomposition en facteurs premiers d’un entier'
  * type 3 : un gros premiers au delà de 1000 et inférieur à 2 000
  * @author Sébastien Lozano
  */
-export default function Decomposition_facteurs_premiers() {
+export default function decompositionFacteursPremiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;

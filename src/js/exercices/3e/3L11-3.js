@@ -6,7 +6,7 @@ export const titre = 'Utiliser la distributivité (simple ou double) et réduire
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3L11-3
 */
 export default function Distributivite_simple_double_reduction() {

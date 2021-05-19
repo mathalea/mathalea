@@ -13,7 +13,7 @@ export const titre = 'Additionner ou soustraire deux fractions'
 * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
 * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
 * * 2 fois sur 4 il faut faire une soustraction
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C21
 */
 export default function Exercice_additionner_ou_soustraire_des_fractions () {

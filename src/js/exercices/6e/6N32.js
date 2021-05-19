@@ -7,7 +7,7 @@ export const titre = 'Représenter une fraction de l’unité'
 
 /**
  * Tracer un segment de longueur une fraction de l'unité.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 6N32
  */
 

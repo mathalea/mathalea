@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,texFractionSigne,obtenir_liste_fractions_irreductibles,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,abs,pgcd,texFractionSigne,obtenirListeFractionsIrreductibles,texFraction} from '../../modules/outils.js'
 export const titre = 'Diviser des fractions'
 
 /**
  * Calcul du quotient de deux fractions. Paramétrages possibles :
  * * 1 : Nombres positifs exclusivement
  * * 2 : nombres relatifs
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C22-2
  */
 export default function Exercice_diviser_fractions() {
@@ -23,7 +23,7 @@ export default function Exercice_diviser_fractions() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let liste_fractions = obtenir_liste_fractions_irreductibles();
+    let liste_fractions = obtenirListeFractionsIrreductibles();
 
     let typesDeQuestionsDisponibles;
     typesDeQuestionsDisponibles = [parseInt(this.sup)];

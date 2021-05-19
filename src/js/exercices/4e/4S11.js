@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,choice,prenom,tirerLesDes,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
 import {texteGras,lampeMessage} from '../../modules/outils.js';
 
 export const titre = 'Déterminer des médianes'
 
 /**
  * Calculs de médianes dans des séries statistiques
-* @auteur Sébastien Lozano forked de Jean-Claude Lhote
+* @author Sébastien Lozano forked de Jean-Claude Lhote
 * Référence 4S11
 * Date initiale 2021-01-12
 * Mise à jour le ...
@@ -28,7 +28,7 @@ export default function Calculer_des_frequences() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {			
+		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {			
 			var underbrace_mediane = (nb_val) => {
 				let sortie;
 				if (nb_val%2 == 0) {// nb pair de valeurs
@@ -159,33 +159,33 @@ export default function Calculer_des_frequences() {
 							break;
 					};
 				};				
-				nombre_des = randint(1, 2);
-				nombre_faces = choice([4, 6, 8, 10]);
-				nombre_tirages = choice([50, 99, 100, 199, 200, 299, 500, 999, 1000, 1999, 2000]);
-				tirages = tirer_les_des(nombre_tirages, nombre_faces, nombre_des); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
+				nombreDes = randint(1, 2);
+				nombreFaces = choice([4, 6, 8, 10]);
+				nombreTirages = choice([50, 99, 100, 199, 200, 299, 500, 999, 1000, 1999, 2000]);
+				tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
 				do
 					index_valeur = randint(0, tirages.length - 1);
 				while (tirages[index_valeur][1] == 0); // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
-				if (nombre_des > 1) {
-					texte = `On a réalisé $${nombre_tirages}$ lancers de $${nombre_des}$ dés à $${nombre_faces}$ faces.<br>`;					
+				if (nombreDes > 1) {
+					texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`;					
 				}
 				else {
-					texte = `On a réalisé $${nombre_tirages}$ lancers d'un dé à $${nombre_faces}$ faces.<br>`;
+					texte = `On a réalisé $${nombreTirages}$ lancers d'un dé à $${nombreFaces}$ faces.<br>`;
 				}
 				texte += lampeMessage({
 					titre : `Vocabulaire`,
-					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solid_name(nombre_faces))}.`,
+					texte :  `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solid_name(nombreFaces))}.`,
 					couleur : `nombres`
 				})+'<br>';
 				texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>';
 				texte += des_tab_eff_cumul(tirages,false)+ '<br>';				
 				texte += `<br><br> Déterminer une médiane de cette série.`;
-				texteCorr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;				
-				if (nombre_tirages%2 == 0) {
+				texteCorr = `On a réalisé $${nombreTirages}$ lancers en tout.<br>`;				
+				if (nombreTirages%2 == 0) {
 					texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
-					Les deux valeurs centrales sont la $${nombre_tirages/2}^{e}$ et la $${nombre_tirages/2+1}^{e}$ valeur.<br>
-					En effet, ${underbrace_mediane(nombre_tirages)} <br>
-					Une médiane est donc un score compris entre le $${nombre_tirages/2}^{e}$ et le $${nombre_tirages/2+1}^{e}$ score.<br>
+					Les deux valeurs centrales sont la $${nombreTirages/2}^{e}$ et la $${nombreTirages/2+1}^{e}$ valeur.<br>
+					En effet, ${underbrace_mediane(nombreTirages)} <br>
+					Une médiane est donc un score compris entre le $${nombreTirages/2}^{e}$ et le $${nombreTirages/2+1}^{e}$ score.<br>
 					On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
 					${des_tab_eff_cumul(tirages,true)}<br><br>
 					`;
@@ -196,7 +196,7 @@ export default function Calculer_des_frequences() {
 					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
 					let effCumulCroiss = tirages[0][1];
 					// On récupère le premier score médian
-					while (effCumulCroiss <= nombre_tirages/2) {
+					while (effCumulCroiss <= nombreTirages/2) {
 						cpt+=1;
 						effCumulCroiss += tirages[cpt][1];						
 					};
@@ -205,7 +205,7 @@ export default function Calculer_des_frequences() {
 					// On récupère le second score médian
 					cpt = 0;
 					effCumulCroiss = tirages[0][1];
-					while (effCumulCroiss <= nombre_tirages/2+1) {
+					while (effCumulCroiss <= nombreTirages/2+1) {
 						cpt+=1;
 						effCumulCroiss += tirages[cpt][1];						
 					};
@@ -213,14 +213,14 @@ export default function Calculer_des_frequences() {
 					texteCorr += `D'où ${texteGras(`le score médian : ${texNombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombreTirages)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				} else { // Le nombre de lancers est impair ici
 					texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'odre croissant.<br>
-					La valeur centrale est la $${(nombre_tirages-1)/2+1}^{e}$ valeur.<br>
-					En effet, ${underbrace_mediane(nombre_tirages)} <br>
-					Une médiane est donc le $${(nombre_tirages-1)/2+1}^{e}$ score.<br>
+					La valeur centrale est la $${(nombreTirages-1)/2+1}^{e}$ valeur.<br>
+					En effet, ${underbrace_mediane(nombreTirages)} <br>
+					Une médiane est donc le $${(nombreTirages-1)/2+1}^{e}$ score.<br>
 					On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
 					${des_tab_eff_cumul(tirages,true)}<br><br>`;
 					// on récupère le score des deux lancers médians
@@ -230,7 +230,7 @@ export default function Calculer_des_frequences() {
 					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
 					let effCumulCroiss = tirages[0][1];
 					// On récupère le premier score médian
-					while (effCumulCroiss <= nombre_tirages/2) {
+					while (effCumulCroiss <= nombreTirages/2) {
 						cpt+=1;
 						effCumulCroiss += tirages[cpt][1];						
 					};
@@ -238,7 +238,7 @@ export default function Calculer_des_frequences() {
 					texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`;
 					texteCorr += lampeMessage({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombreTirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				}

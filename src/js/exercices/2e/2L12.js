@@ -6,7 +6,7 @@ export const titre = 'Résoudre les équations produit-nul'
 
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
-* @auteur Stéphane Guyon & Jean-claude Lhote
+* @author Stéphane Guyon & Jean-claude Lhote
 * 2L12
 * publié le 6/02/2021
 */

@@ -8,7 +8,7 @@ export const titre = 'Placer un nombre décimal avec des zooms successifs'
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
  * ref P006
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Nombre_a_placer() {
   Exercice.call(this);

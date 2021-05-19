@@ -5,7 +5,7 @@ import {point,polygoneRegulier,repere2,graphiqueInterpole,mathalea2d,} from '../
 export const titre = 'Spécial escape game'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le  15/11/2020
  * ref 3F13-2
  */

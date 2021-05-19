@@ -8,7 +8,7 @@ export const titre = 'Coefficient multiplicateur d’une variation en pourcentag
 * Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
 *
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3P10-1
 */
 export default function Coefficient_evolution () {

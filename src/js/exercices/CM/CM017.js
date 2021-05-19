@@ -7,7 +7,7 @@ export const interactifReady = true
 export const amcType = 4
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM017
 */
 export default function DiviserDecimalPar101001000 () {

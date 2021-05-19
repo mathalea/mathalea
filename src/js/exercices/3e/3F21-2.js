@@ -14,7 +14,7 @@ export const titre = 'Déterminer une fonction affine par la donnée des images 
  * cas 3 : f(x1) et f(x2) donnés a et b entiers
  * cas 4 : f(x1) et f(x2) donnés a et b rationnels
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3F21-2
 */
 export default function DeterminerFonctionAffine () {

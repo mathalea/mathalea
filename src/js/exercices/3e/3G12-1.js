@@ -4,7 +4,7 @@ export const titre = 'Trouver l’image d’une figure par une rotation de 90 de
 
 /**
  * Exercice en html seulement. Rotationss dans un pavage.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 3G12-1
  */
 export default function Pavages_et_rotation() {

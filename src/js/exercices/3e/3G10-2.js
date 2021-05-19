@@ -3,7 +3,7 @@ export const titre = 'Trouver l’image d’un point par une transformation choi
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 3G10-2
  */
 

@@ -6,7 +6,7 @@ export const titre = 'Trouver l’image d’une figure par une rotation dans un 
 
 /**
  * Publié le 16/12/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */

@@ -6,7 +6,7 @@ export const titre = 'Factoriser avec les identités remarquables'
 
 /**
  * Factoriser en utilisant les 3 identités remarquables
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 2L11
 */
 export default function Factoriser_Identites_remarquables2 () {

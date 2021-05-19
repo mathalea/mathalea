@@ -7,7 +7,7 @@ export const titre = 'Calculer des étendues'
 
 /**
  * Calculer des étendues de séries statistiques
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 3S15
 */
 export default function Calculer_des_etendues() {

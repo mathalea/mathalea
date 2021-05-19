@@ -7,7 +7,7 @@ export const titre = 'Construire le symétrique d’un point avec cible auto-cor
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
  * Ref 6G24-3 
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
 export default function Construire_symetrique_point_6e() {

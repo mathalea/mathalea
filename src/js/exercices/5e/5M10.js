@@ -13,7 +13,7 @@ export const titre = 'Aire du parallélogramme'
 * Il faut calculer leurs aires.
 *
 * Pas de version LaTeX
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5M10
 */
 export default function Aire_du_parallelogramme() {

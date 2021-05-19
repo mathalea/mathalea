@@ -7,7 +7,7 @@ import { fraction } from '../../modules/fractions.js'
 export const titre = 'Labyrinthe de fractions égales'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 11/12/2020
  * Ref : 6N41-1
  * Parcourir un labyrinthe de fractions en passant par des fractions égales.

@@ -9,7 +9,7 @@ export const titre = 'Calculer le pourcentage d’un nombre de tête'
 
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
- * @Auteur Rémi Angot + Jean-claude Lhote
+ * @author Rémi Angot + Jean-claude Lhote
  * 6N33-1
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */

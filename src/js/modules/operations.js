@@ -7,7 +7,7 @@ const math = { format: format }
 /**
  *
  * Pose une opération
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * les types possibles sont : addition, soustraction, multiplication, division, additiond, soustractiond, multiplicationd, divisiond
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */

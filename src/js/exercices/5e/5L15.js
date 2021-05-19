@@ -11,7 +11,7 @@ export const titre = 'Tester une égalité'
 * * 3x+a=5x-b
 * * ax+b=(a+1)x-c
 * * a-2x=b+2x
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L15
 */
 export default function Tester_une_egalite() {

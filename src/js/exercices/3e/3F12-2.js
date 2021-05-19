@@ -13,7 +13,7 @@ export const titre = 'Déterminer l’image d’un nombre par une fonction d’a
 * * Niveau 3 : Quotients de fonctions affines
 * * Niveau 4 : (ax+b)(cx+d)
 * * Niveau 5 : Mélange
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3F12-2
 */
 export default function Image_fonction_algebrique() {

@@ -8,7 +8,7 @@ export const titre = 'Représentation de solides'
 
 /**
 * Compter des cubes
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 6G43
 * mars 2021
 * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf

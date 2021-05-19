@@ -11,7 +11,7 @@ export const titre = 'Note la couleur'
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
  * Ref : 6Algo11
  * Publié le 11/04/2021
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * A faire : ajouter d'autres niveaux avec des boucles, des instructions conditionnelles, des blocs définis...
  * Ajouter un pion et la correction animée.
  */

@@ -2,7 +2,7 @@
  *
  *  Classe parente de tous les exercices
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export default function Exercice () {
   // Classe parente de tous les exercices qui seront créés

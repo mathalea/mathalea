@@ -12,7 +12,7 @@ export const amcType = 4
 *
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R21
 */
 export default function ExerciceSoustractionsRelatifs (max = 20) {

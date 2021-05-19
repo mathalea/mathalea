@@ -6,7 +6,7 @@ export const titre = 'Dernier chiffre d’un calcul'
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 6C34
 */
 

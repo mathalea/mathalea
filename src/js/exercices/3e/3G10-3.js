@@ -7,7 +7,7 @@ export const titre = 'Construire l’image d’un point par une rotation avec ci
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
  * Ref 3G10-3
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
 export default function Construire_rotation_point_3e() {

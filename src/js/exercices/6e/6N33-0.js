@@ -7,7 +7,7 @@ export const titre = 'Calculer la fraction d’une quantité'
 
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 6N33-0
  */
 export default function Fraction_d_une_quantite() {

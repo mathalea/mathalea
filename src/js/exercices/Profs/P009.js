@@ -8,7 +8,7 @@ export const titre = 'Simulation d’expériences aléatoires'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 6C30-1
 * D'après le document "Attendus en fin de 3eme"
 * On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers.

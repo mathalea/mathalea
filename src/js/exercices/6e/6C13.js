@@ -7,7 +7,7 @@ export const titre = 'Traduire des phrases en calculs et réciproquement'
 /**
  * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
  * Exercice sur le vocabulaire : somme,différence, produit, quotient...
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6C13
  */
 export default function Vocabulaire_et_operations() {

@@ -9,7 +9,7 @@ export const titre = 'Construire des quadrilatères particuliers'
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
  * Ref 4G41
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 3/02/2020
  */
 export default function Constructions_parallelogrammes_particuliers() {

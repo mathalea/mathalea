@@ -13,7 +13,7 @@ export const amcType = 5
 *
 * * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
 * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
-* @Auteur Rémi Angot modifications par Jean-Claude Lhote
+* @author Rémi Angot modifications par Jean-Claude Lhote
 * Référence 5R22
 */
 export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {

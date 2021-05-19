@@ -5,7 +5,7 @@ export const titre = 'Reconnaître une situation de proportionnalité'
 
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 6P10
  */
 export default function Proportionnalite_pas_proportionnalite() {

@@ -5,7 +5,7 @@ export const titre = 'Exprimer une fractions sous la forme d’une valeur approc
 
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5N11-4
  * 2021-02-06
 */

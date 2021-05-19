@@ -11,7 +11,7 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
  * Un nombre est-il divisible par 2, 3, 5, 9 ?
  *
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N43-2
  */
 export default function TableauCriteresDeDivisibilite () {

@@ -6,7 +6,7 @@ export const titre = 'Problèmes avec des calculs de pourcentages'
 
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N33-3
  */
 export default function Appliquer_un_pourcentage() {

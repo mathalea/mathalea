@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,enleveElement,choice,miseEnEvidence,obtenir_liste_fractions_irreductibles,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,miseEnEvidence,obtenirListeFractionsIrreductibles,texFraction} from '../../modules/outils.js'
 
 
 export const titre = 'Comparer des fractions (dénominateurs multiples)'
 
 /**
 * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5N14
 */
 export default function Exercice_comparer_deux_fractions(max = 11) {
@@ -23,7 +23,7 @@ export default function Exercice_comparer_deux_fractions(max = 11) {
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let liste_fractions = obtenir_liste_fractions_irreductibles();
+		let liste_fractions = obtenirListeFractionsIrreductibles();
 		for (let i = 0, fraction, a, b, k, texte, texteCorr, signe, signe2; i < this.nbQuestions; i++) {
 			fraction = choice(liste_fractions); //
 			a = fraction[0];

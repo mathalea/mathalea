@@ -12,7 +12,7 @@ const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot
 /*
  * Classe parente de tous les objets de MathALEA2D
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 let numId = 0
 function ObjetMathalea2D () {
@@ -39,7 +39,7 @@ function ObjetMathalea2D () {
 /**
  * LE POINT
  *
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
 * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
 */
@@ -65,7 +65,7 @@ export function point3d (x3d, y3d, z3d = 0, visible = true, label = '') {
 /**
    * LE VECTEUR
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
    * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
 s et dans toutes les transformations.import Nature_polygone from './../exercices/2e/2G12';
@@ -119,7 +119,7 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
 
 /**
    * L'ARETE
-   * @Auteur Jean-Claude lhote
+   * @author Jean-Claude lhote
    *
    *
    *
@@ -149,7 +149,7 @@ export function arete3d (p1, p2, color = 'black') {
 /**
    * LA DROITE
    *
-   * @Auteur Jean-claude Lhote
+   * @author Jean-claude Lhote
    * Droite de l'espace définie par point et vecteur directeur droite3d(A,v)
    * Droite de l'espace définie par 2 points droite3d(A,B)
    * Les droites servent principalement à définir des axes de rotation dans l'espace
@@ -176,7 +176,7 @@ export function droite3d (point3D, vecteur3D) {
 /**
  * LE DEMI-CERCLE
  *
- *@Auteur Jean-Claude Lhote
+ *@author Jean-Claude Lhote
  * Le nom est trompeur, il s'agit le plus souvent d'une demi-ellipse représentant un cercle projeté
  * Utilisé pour représenter un cercle dont une moitié est visible mais pas l'autre.
  *
@@ -214,7 +214,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
 /**
     * LE CERCLE
     *
-    * @Auteur Jean-Claude Lhote
+    * @author Jean-Claude Lhote
     *
     * C'est la version entière du cercle : soit totalement visible, soit totalement caché.
     * visible est un booléen
@@ -239,7 +239,7 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
 /**
    * LE POLYGONE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
    */
 class Polygone3d {
@@ -281,7 +281,7 @@ export function polygone3d (...args) {
 /**
    * LA SPHERE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Produit une sphère : choisir un nombre de parallèles impair pour avoir l'équateur. normal défini l'axe Nord-Sud.
    * rayon est le rayon de la sphère. l'équateur est dans le plan xy l'axe Nord-Sud est sur z
    * @param {Point3d} centre
@@ -347,7 +347,7 @@ export function sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color = 'b
 /**
     * LE CONE
     *
-    * @Auteur Jean-Claude Lhote
+    * @author Jean-Claude Lhote
     *
     * centrebase est le centre du disque de base
     * sommet est le sommet du cône
@@ -425,7 +425,7 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
 /**
    * LE CYLINDRE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Crée un cylindre de révolution définit par les centres de ses 2 bases
    * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes
    * @param {Point3d} centrebase1
@@ -508,7 +508,7 @@ export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, col
 /**
    * LE PRISME
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
    */
 class Prisme3d {
@@ -556,7 +556,7 @@ export function prisme3d (base, vecteur, color = 'black') {
 
 /**
    * LE cube
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
    * le face avant est dans le plan xz
    *
@@ -673,7 +673,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 
 /**
    * LE PAVE
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] sont délimitent 3 faces adjacentes.
    *
 */
@@ -721,7 +721,7 @@ export function pave3d (A, B, C, E, color = 'black') {
 /**
    * LA ROTATION VECTORIELLE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Cette rotation se distingue de la rotation d'axe (d) par le fait qu'on tourne autour d'une droite vectorielle
    * Elle sert à faire tourner des vecteurs essentiellement.
    * Si on l'utilise sur un point, alors il tournera autour d'une droite passant par l'origine.
@@ -752,7 +752,7 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
 /**
    * LA ROTATION D'AXE UNE DROITE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    *
    * @param {Point3d} point3D Pour l'instant on ne fait tourner qu'un point3d
    * Remarque : ça n'a aucun sens de faire tourner un vecteur autour d'une droite particulière, on utilise la rotation vectorielle pour ça.
@@ -834,7 +834,7 @@ export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
 /**
    * LA TRANSLATION
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * @param {Point3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
    * @param {Vecteur3d} vecteur3D
    */

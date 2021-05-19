@@ -7,7 +7,7 @@ export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa
  * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
  */
-export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
+export default function Lister_Diviseurs_Par_decompositionFacteursPremiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;

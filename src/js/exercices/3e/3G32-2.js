@@ -7,7 +7,7 @@ export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'
 
 /**
  * propose de mesurer la hauteur d'un objet en utilisant l'angle sous lequel on voit l'objet et la distance à l'objet. 
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32-2
 */
 export default function Calculs_trigonometriques2() {

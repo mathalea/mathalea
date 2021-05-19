@@ -7,7 +7,7 @@ export const titre = 'Description et notation des droites, segments et demi-droi
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G10-1
  */
 export default function Description_segment_droite_demi_droite(){

@@ -5,7 +5,7 @@ export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pou
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5N11-3
  * 2021-02-06
 */

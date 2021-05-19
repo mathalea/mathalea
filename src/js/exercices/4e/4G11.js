@@ -5,7 +5,7 @@ import {tracePoint,vecteur,segment,translation,translationAnimee,codeSegment,tex
 export const titre = 'Trouver l’image d’une figure par une translation dans un pavage'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 16/12/2020
  * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.

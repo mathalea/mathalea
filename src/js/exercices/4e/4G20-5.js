@@ -3,7 +3,7 @@ export const titre = 'Trouver la valeur arrondie d’une racine carrée'
 
 /**
  * Arrondir une racine carrée
- * @Auteur Mireille Gain, 13 avril 2021
+ * @author Mireille Gain, 13 avril 2021
  * référence 4G20-5
  */
 

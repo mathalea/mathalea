@@ -3,7 +3,7 @@ import Ecrire_une_expression_numerique from './_Ecrire_une_expression_numerique.
 export const titre = 'Traduire une phrase par une expression'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 5L10-1
  */
 export default function Traduire_une_phrase_par_une_expression_litterale() {

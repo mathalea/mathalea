@@ -3,7 +3,7 @@ export const titre = 'Construire le symétrique d’un point par symétrie centr
 
 /**
  * Référence 6G11-2
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Symetrie_centrale_point() {
 	Construire_par_Symetrie.call(this);

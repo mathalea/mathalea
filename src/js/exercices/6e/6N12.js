@@ -5,7 +5,7 @@ export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N12
  */
 export default function Multiplier_entier_par_10_100_1000() {

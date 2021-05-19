@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM011
 */
 export default function Quart () {

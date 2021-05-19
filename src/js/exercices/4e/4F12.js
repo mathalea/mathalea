@@ -6,7 +6,7 @@ export const titre = 'Problème s’appuyant sur la lecture d’une représentat
 
 /**
  * Problème avec lecture de représentation graphique d'une fonction
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4F12
  */
 export default function Exploiter_representation_graphique() {

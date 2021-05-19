@@ -124,7 +124,7 @@ export function deuxColonnes (cont1, cont2) {
  * @param {number} b deuxième nombre
  * @param {number} tolerance seuil positif en dessous duquel une valeur est considérée comme nulle
  * valeur de tolérance par défaut : 0.000001 = constante epsilon définie ci-dessous.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 const epsilon = 0.000001
 export function egal (a, b, tolerance = epsilon) {
@@ -359,7 +359,7 @@ export function compteOccurences (array, value) {
 
 /**
  * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
- * @Auteur Rémi Angot & Jean-Claude Lhote
+ * @author Rémi Angot & Jean-Claude Lhote
  */
 
 export function enleveElementBis (array, item = undefined) {
@@ -377,14 +377,14 @@ export function enleveElementBis (array, item = undefined) {
 
 /**
  * Enlève l'élément index d'un tableau
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function enleveElementNo (array, index) {
   array.splice(index, 1)
 }
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function enleveElementNoBis (array, index) {
   const tableaucopie = []
@@ -615,7 +615,7 @@ export function tridictionnaire (dict) {
 *
 * @Example
 * filtreDictionnaire(dict,'6N') renvoie un dictionnaire où toutes les clés commencent par 6N
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaire (dict, sub) {
   return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({ [k]: v }))
@@ -650,7 +650,7 @@ if (!Object.fromEntries) {
 *
 * @Example
 * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
@@ -661,7 +661,7 @@ export function filtreDictionnaireValeurCle (dict, key, val) {
 *
 * @Example
 * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaireValeurTableauCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => cleExisteEtContient(v[key], val)))
@@ -683,7 +683,7 @@ function cleExisteEtContient (v, val) {
 * combinaisonListes([A,B,C],7)
 * // [B,C,A,C,B,A,A,B,C]
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function combinaisonListes (liste, tailleMinimale) {
   if (liste.length === 0) return []
@@ -706,7 +706,7 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @Example
 * //rienSi1(1)+'x' -> x
 * //rienSi1(-1)+'x' -> -x
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function rienSi1 (a) {
   if (a === 1) {
@@ -722,7 +722,7 @@ export function rienSi1 (a) {
 * Gère l'écriture de l'exposant en mode text
 * @Example
 * // 'dm'+exposant(3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function exposant (texte) {
   if (context.isHtml) {
@@ -736,7 +736,7 @@ export function exposant (texte) {
 * Ajoute les parenthèses et le signe
 * @Example
 * //(+3) ou (-3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureNombreRelatif (a) {
   let result = ''
@@ -769,7 +769,7 @@ export function ecritureNombreRelatifc (a) {
 * Ajoute le + devant les nombres positifs
 * @Example
 * //+3 ou -3
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureAlgebrique (a) {
   let result = ''
@@ -785,7 +785,7 @@ export function ecritureAlgebrique (a) {
 * Ajoute le + devant les nombres positifs, n'écrit rien si 1
 * @Example
 * //+3 ou -3
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureAlgebriqueSauf1 (a) {
   let result = ''
@@ -822,7 +822,7 @@ export function ecritureAlgebriquec (a) {
 * Ajoute des parenthèses aux nombres négatifs
 * @Example
 * // 3 ou (-3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
@@ -838,7 +838,7 @@ export function ecritureParentheseSiNegatif (a) {
 * Ajoute des parenthèses si une expression commence par un moins
 * @Example
 * // (-3x)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureParentheseSiMoins (expr) {
   let result = ''
@@ -852,7 +852,7 @@ export function ecritureParentheseSiMoins (expr) {
 
 /**
  *
- * @Auteur Jean-claude Lhote
+ * @author Jean-claude Lhote
  * @param {numero} 1=A, 2=B ..
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
@@ -869,7 +869,7 @@ export function calculAligne (numero, etapes) {
 /**
 * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function valeurBase (n) {
   switch (n) {
@@ -889,7 +889,7 @@ export function valeurBase (n) {
  * @param {array} vecteur A tableau 3 nombres
  * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
  * elle retourne le vecteur [x,y,z] résultat de M.A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
@@ -906,7 +906,7 @@ export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un 
  * @param {array} matrice1 Matrice A
  * @param {array} matrice2 Matrice B
  * retourne la matrice A.B
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
@@ -922,7 +922,7 @@ export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matr
  *
  * @param {array} point
  * calcule les coordonnées d'un point donné par ses coordonnées en repère orthonormal en repère (O,I,J) tel que IOJ=60°
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function changementDeBaseOrthoTri (point) {
   if (point.length === 2) point.push(1)
@@ -932,7 +932,7 @@ export function changementDeBaseOrthoTri (point) {
  *
  * @param {array} point
  * Changement de base inverse de la fonction précédente
- * @Auteur Jean-CLaude Lhote
+ * @author Jean-CLaude Lhote
  */
 export function changementDeBaseTriOrtho (point) {
   if (point.length === 2) point.push(1)
@@ -960,7 +960,7 @@ export function changementDeBaseTriOrtho (point) {
 * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
 * @param {array} vecteur Vecteur de la translation
 * @param {number} rapport rapport d'homothétie
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
   // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
@@ -1050,7 +1050,7 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
 * Retourne le signe d'un nombre
 * @Example
 * // + ou -
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function signe (a) { // + ou -
   let result = ''
@@ -1066,7 +1066,7 @@ export function signe (a) { // + ou -
  *
  * @param {number} a
  * -1 si a est négatif, 1 sinon.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function unSiPositifMoinsUnSinon (a) {
   if (a < 0) return -1
@@ -1077,7 +1077,7 @@ export function unSiPositifMoinsUnSinon (a) {
 * @Example
 * sommeDesChiffress(123)
 * // 6
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */export function sommeDesChiffres (n) {
   let sommeString = ''
   for (let i = 0; i < n.length - 1; i++) {
@@ -1100,7 +1100,7 @@ export function arrondi (nombre, precision = 2) {
 }
 /**
  * Retourne la troncature signée de nombre.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function troncature (nombre, precision) {
   const tmp = Math.pow(10, precision)
@@ -1112,7 +1112,7 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function abs (a) {
   return Math.abs(a)
@@ -1120,7 +1120,7 @@ export function abs (a) {
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function arrondiVirgule (nombre, precision = 2) { //
   const tmp = Math.pow(10, precision)
@@ -1129,7 +1129,7 @@ export function arrondiVirgule (nombre, precision = 2) { //
 
 /**
 * Renvoie le PGCD de deux nombres
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function pgcd (a, b) {
   return parseInt(Algebrite.run(`gcd(${a},${b})`))
@@ -1137,7 +1137,7 @@ export function pgcd (a, b) {
 
 /**
 * Renvoie le PPCM de deux nombres
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export const ppcm = (a, b) => {
   return parseInt(Algebrite.run(`lcm(${a},${b})`))
@@ -1146,7 +1146,7 @@ export const ppcm = (a, b) => {
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
 * * **ATTENTION Fonction clonée dans la classe Fraction()**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function fractionSimplifiee (n, d) {
   const p = pgcd(n, d)
@@ -1163,7 +1163,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
 * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texFractionReduite (n, d) {
   if (Math.abs(n) % Math.abs(d) === 0) {
@@ -1203,7 +1203,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 *
 * Simplifie une fraction en montrant les étapes
 * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
   // Est-ce que le résultat est simplifiable ?
@@ -1222,7 +1222,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
 /**
  * Retourne l'égalité des produits en croix à partir d'un tableau contenant les deux fractions [[a,b],[c,d]] pour a/b=c/d retourne ad=bc
  * Le résultat est un string en mode maths inline
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
@@ -1234,7 +1234,7 @@ export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a
 /**
  * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c/a
@@ -1257,7 +1257,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
  */
@@ -1276,7 +1276,7 @@ export function reduireAxPlusB (a, b) {
 }
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function reduirePolynomeDegre3 (a, b, c, d) {
   let result = ''
@@ -1376,17 +1376,17 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 /**
 *
 * Donne la liste des facteurs premiers d'un nombre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const liste_nombres_premiers = obtenirListeNombresPremiers()
+  const listeNombresPremiers = obtenirListeNombresPremiers()
   let i = 0
-  while (n > 1 && liste_nombres_premiers[i] <= n) {
-    if (n % liste_nombres_premiers[i] === 0) {
-      liste.push(liste_nombres_premiers[i])
-      n /= liste_nombres_premiers[i]
+  while (n > 1 && listeNombresPremiers[i] <= n) {
+    if (n % listeNombresPremiers[i] === 0) {
+      liste.push(listeNombresPremiers[i])
+      n /= listeNombresPremiers[i]
     } else {
       i++
     }
@@ -1398,7 +1398,7 @@ export function obtenirListeFacteursPremiers (n) {
  *
  * @param {Entier} n
  * Retourne la factorisation d'un entier sous la forme [[a0,n0],[a1,n1],...] où a0,a1 sont les facteurs premiers et n0, n1 sont les exposants de ces facteurs.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function factorisation (n) {
@@ -1425,7 +1425,7 @@ export function factorisation (n) {
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a,b] pour a²b=n
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
   const facto = factorisation(n)
@@ -1444,7 +1444,7 @@ export function extraireRacineCarree (n) {
  *
  * @param {Entier} n
  * retourne le code Latex de la racine carrée de n "réduite"
- * @Auteur Jean-CLaude Lhote
+ * @author Jean-CLaude Lhote
  */
 export function texRacineCarree (n) {
   const result = extraireRacineCarree(n)
@@ -1456,7 +1456,7 @@ export function texRacineCarree (n) {
 /**
 * Utilise giac/xcas
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function xcas (expression) {
   // eslint-disable-next-line no-undef
@@ -1466,7 +1466,7 @@ export function xcas (expression) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function calcul (expression, arrondir = false) {
   if (!arrondir) {
@@ -1479,7 +1479,7 @@ export function calcul (expression, arrondir = false) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
@@ -1491,7 +1491,7 @@ export function nombreDecimal (expression, arrondir = false) {
 
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombrec (expression) {
   return texNombre(parseFloat(Algebrite.eval(expression)))
@@ -1522,23 +1522,23 @@ export function triePositifsNegatifs (liste) {
 
 /**
 * Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function sommeDesTermesParSigne (liste) {
-  let somme_des_positifs = 0; let somme_des_negatifs = 0
+  let sommeDesPositifs = 0; let sommeDesNegatifs = 0
   for (let i = 0; i < liste.length; i++) {
     if (liste[i] > 0) {
-      somme_des_positifs += liste[i]
+      sommeDesPositifs += liste[i]
     } else {
-      somme_des_negatifs += liste[i]
+      sommeDesNegatifs += liste[i]
     }
   }
-  return [somme_des_positifs, somme_des_negatifs]
+  return [sommeDesPositifs, sommeDesNegatifs]
 }
 
 /**
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
@@ -1565,7 +1565,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
 
 /**
 * Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function possedeUnCaractereInterdit (texte, listeAEviter) {
   let result = false
@@ -1582,7 +1582,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter
  * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
  * les valeurs sont dans un ordre aléatoire.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  *
  */
 export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
@@ -1602,7 +1602,7 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
  * il y aura nombre lettres dans un ordre aléatoire
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function choisitLettresDifferentes (nombre, lettres_a_eviter = '', majuscule = true) {
   const listeAEviter = []; const lettres = []
@@ -1636,7 +1636,7 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
-* @Auteur Rémi Angot
+* @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
@@ -1659,7 +1659,7 @@ export function lettreDepuisChiffre (i) {
 
 /**
 * Renvoie une lettre minuscule depuis un nombre compris entre 1 et 702
-* @Auteur Rémi Angot
+* @author Rémi Angot
 *@Example
 * // 0 -> @ 1->a ; 2->b...
 * // 27->aa ; 28 ->ab ...
@@ -1669,7 +1669,7 @@ export function lettre_minuscule_depuis_chiffre (i) {
 }
 
 /**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * @Example
 * //0h24 est accepté
 */
@@ -1687,7 +1687,7 @@ export function minToHoraire (minutes) {
 }
 
 /**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * @Example
 * //on écrira 24 minutes plutôt que 0h24
 */
@@ -1710,7 +1710,7 @@ export function minToHour (minutes) {
 
 /**
 * Renvoie un prénom féminin au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenomF (n = 1) {
   if (n === 1) {
@@ -1722,7 +1722,7 @@ export function prenomF (n = 1) {
 
 /**
 * Renvoie un prénom masculin au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenomM (n = 1) {
   if (n === 1) {
@@ -1734,7 +1734,7 @@ export function prenomM (n = 1) {
 
 /**
 * Renvoie un prénom au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenom (n = 1) {
   if (n === 1) {
@@ -1746,7 +1746,7 @@ export function prenom (n = 1) {
 
 /**
 * Renvoie un petit objet féminin au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objetF () {
   return choice(['boîtes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'petites peluches'])
@@ -1754,7 +1754,7 @@ export function objetF () {
 
 /**
 * Renvoie un petit objet masculin au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objetM () {
   return choice(['auto-collants', 'gâteaux', 'cahiers', 'livres', 'stylos', 'crayons'])
@@ -1762,7 +1762,7 @@ export function objetM () {
 
 /**
 * Renvoie un petit objet au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objet () {
   return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
@@ -1770,7 +1770,7 @@ export function objet () {
 
 /**
  * Définit l'objet personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 class Personne {
@@ -1798,7 +1798,7 @@ class Personne {
 
 /**
  * crée une instance de la classe Personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
@@ -1807,7 +1807,7 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
 
 /**
  * Crée un tableau de n objet de la classe Personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 export function personnes (n) {
@@ -1831,7 +1831,7 @@ export function personnes (n) {
 
 /**
  * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
- *  @Auteur Jean-Claue Lhote
+ *  @author Jean-Claue Lhote
  */
 export function prenomPronom () {
   if (choice([true, false])) {
@@ -1843,18 +1843,18 @@ export function prenomPronom () {
 
 /**
 * Renvoie un tableau avec les résultats des tirages successifs
-* @param nombre_tirages Combien de tirages ?
-* @param nombre_faces Pour spécifier le type de dés
-* @param nombre_des Combien de dés à chaque tirage ?
-* @auteur Jean-Claude Lhote
+* @param nombreTirages Combien de tirages ?
+* @param nombreFaces Pour spécifier le type de dés
+* @param nombreDes Combien de dés à chaque tirage ?
+* @author Jean-Claude Lhote
 */
-export function tirer_les_des (nombre_tirages, nombre_faces, nombre_des) {
+export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
   const tirages = []
-  for (let i = 0; i <= (nombre_faces - 1) * nombre_des; i++) tirages.push([i + nombre_des, 0])
-  for (let i = 0, resultat; i < nombre_tirages; i++) {
+  for (let i = 0; i <= (nombreFaces - 1) * nombreDes; i++) tirages.push([i + nombreDes, 0])
+  for (let i = 0, resultat; i < nombreTirages; i++) {
     resultat = 0
-    for (let j = 0; j < nombre_des; j++) resultat += randint(1, nombre_faces)
-    tirages[resultat - nombre_des][1]++
+    for (let j = 0; j < nombreDes; j++) resultat += randint(1, nombreFaces)
+    tirages[resultat - nombreDes][1]++
   }
   return tirages
 }
@@ -1863,7 +1863,7 @@ export function tirer_les_des (nombre_tirages, nombre_faces, nombre_des) {
 * @param nombre_notes
 * @param note_min
 * @param note_max
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function liste_de_notes (nombre_notes, note_min, note_max) {
   const notes = []
@@ -1874,7 +1874,7 @@ export function liste_de_notes (nombre_notes, note_min, note_max) {
 /**
 * Renvoie le nombre de jour d'un mois donné
 * @param n quantième du mois (janvier=1...)
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function jours_par_mois (n) {
   const jours_mois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -1885,7 +1885,7 @@ export function jours_par_mois (n) {
 * @param base température médiane
 * @mois quantième du mois (janvier=1...)
 * @annee pour déterminer si elle est bissextile ou non
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function unMoisDeTemperature (base, mois, annee) {
   const temperatures = []
@@ -1902,7 +1902,7 @@ export function unMoisDeTemperature (base, mois, annee) {
 /**
 * Renvoie le nom du mois
 * @param n quantième du mois
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function nom_du_mois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
@@ -1912,7 +1912,7 @@ export function nom_du_mois (n) {
 /**
 * Renvoie le nom du jour
 * @param n quantième du jour
-* @auteur Mireille Gain
+* @author Mireille Gain
 */
 export function nom_du_jour (n) {
   const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
@@ -1922,7 +1922,7 @@ export function nom_du_jour (n) {
 /**
 * Renvoie le nom d'un jour au hasard
 * @param n quantième du jour
-* @auteur Mireille Gain
+* @author Mireille Gain
 */
 export function jour () {
   return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
@@ -1935,7 +1935,7 @@ export function jour () {
 * * `<br>`est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texEnumerate (liste, spacing) {
   let result = ''
@@ -1968,7 +1968,7 @@ export function texEnumerate (liste, spacing) {
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texEnumerateSansNumero (liste, spacing) {
   // return texEnumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
@@ -1979,7 +1979,7 @@ export function texEnumerateSansNumero (liste, spacing) {
 * * Concatène les éléments d'une liste avec un saut de ligne entre chaque élément
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texParagraphe (liste, spacing = false) {
   let result = ''
@@ -2001,7 +2001,7 @@ export function texParagraphe (liste, spacing = false) {
 * * Recopie le texte.
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texIntroduction (texte) {
   return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
@@ -2012,7 +2012,7 @@ export function texIntroduction (texte) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlEnumerate (liste, spacing) {
   let result = ''
@@ -2036,7 +2036,7 @@ export function htmlEnumerate (liste, spacing) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function enumerate (liste, spacing) {
   if (context.isHtml) {
@@ -2051,7 +2051,7 @@ export function enumerate (liste, spacing) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Sébastien Lozano
+* @author Sébastien Lozano
 */
 export function enumerateSansPuceSansNumero (liste, spacing) {
   if (context.isHtml) {
@@ -2070,7 +2070,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 *  Renvoie un paragraphe HTML à partir d'un string
 *
 * @param string
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlParagraphe (texte) {
   if (texte.length > 1) {
@@ -2085,7 +2085,7 @@ export function htmlParagraphe (texte) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlLigne (liste, spacing) {
   let result = ''
@@ -2106,7 +2106,7 @@ export function htmlLigne (liste, spacing) {
 
 /**
 * Renvoie un environnent LaTeX multicolonnes
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texMulticols (texte, nbCols = 2) {
   let result
@@ -2121,7 +2121,7 @@ export function texMulticols (texte, nbCols = 2) {
 
 /**
 * Renvoie la consigne en titre 4
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlConsigne (consigne) {
   return '<h4>' + consigne + '</h4>\n\n'
@@ -2129,7 +2129,7 @@ export function htmlConsigne (consigne) {
 
 /**
 * Renvoie \exo{consigne}
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texConsigne (consigne) {
   return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
@@ -2137,7 +2137,7 @@ export function texConsigne (consigne) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
@@ -2157,7 +2157,7 @@ export function texNombre (nb) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombre2 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
@@ -2196,7 +2196,7 @@ export function nombrec2 (nb) {
 
 /**
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function sp (nb = 1) {
   let s = ''
@@ -2210,7 +2210,7 @@ export function sp (nb = 1) {
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à texNombre()
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function nombre_avec_espace (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
@@ -2229,7 +2229,7 @@ export function nombre_avec_espace (nb) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
@@ -2251,7 +2251,7 @@ export function stringNombre (nb) {
 /**
 * Met en couleur et en gras
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (context.isHtml) {
@@ -2269,7 +2269,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
 * Met en couleur un texte
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texteEnCouleur (texte, couleur = '#f15929') {
   if (context.isHtml) {
@@ -2287,7 +2287,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 * Met en couleur et gras un texte
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
   if (context.isHtml) {
@@ -2303,7 +2303,7 @@ export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
 /**
  * couleurAleatoire() renvoie le code d'une couleur au hasard
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function couleurAleatoire () {
   // let color = "#";
@@ -2357,7 +2357,7 @@ export function couleur_en_gris (color) {
 /**
 * Met gras un texte
 * @param {string} texte à mettre en gras
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texteGras (texte) {
   if (context.isHtml) {
@@ -2371,7 +2371,7 @@ export function texteGras (texte) {
 * Affiche un lien vers une URL
 * @param {string} texte à afficher
 * @param {string} URL
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function href (texte, lien) {
   if (context.isHtml) {
@@ -2383,7 +2383,7 @@ export function href (texte, lien) {
 
 /**
 * Pour bien afficher les centimes avec 2 chiffres après la virgule
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function tex_prix (nb) {
   // Remplace le . par la ,
@@ -2399,13 +2399,13 @@ export function tex_prix (nb) {
 
 /**
 * Convertit en majuscule la première lettre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function nombreDeChiffresDansLaPartieDecimale (nb) {
   if (String(nb).indexOf('.') > 0) {
@@ -2417,8 +2417,8 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
 
 export function nombreDeChiffresDansLaPartieEntiere (nb) {
   let nombre
-  if (nb<0) {
-    nombre=-nb
+  if (nb < 0) {
+    nombre = -nb
   } else {
     nombre = nb
   }
@@ -2430,34 +2430,36 @@ export function nombreDeChiffresDansLaPartieEntiere (nb) {
 }
 
 /**
-* Écrit une fraction avec - devant si le numérateur ou le dénominateur est négatif
-* @Auteur Jean-Claude Lhote
-*/
-export function texFractionSigne (a, b) {
-  if (b !== 1) {
-    if (a * b > 0) {
-      return '\\dfrac{' + Math.abs(a) + '}{' + Math.abs(b) + '}'
-    } else {
-      return '-\\dfrac{' + Math.abs(a) + '}{' + Math.abs(b) + '}'
-    }
-  } else {
-    return a
+ * Retourne la string LaTeX de la fraction
+ * @param num
+ * @param den
+ * @return {string}
+ * @author Jean-Claude Lhote
+ */
+export function texFractionSigne (num, den) {
+  if (den === 1) return String(num)
+  if (num * den > 0) {
+    return `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
   }
+  if (num * den < 0) {
+    return `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+  }
+  return '0'
 }
 
 /**
 * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function texFraction_parentheses (a, b) {
+export function texFractionParentheses (a, b) {
   if (a * b > 0) { return texFractionSigne(a, b) } else { return '\\left(' + texFractionSigne(a, b) + '\\right)' }
 }
 
 /**
 * Retourne une liste de fractions irréductibles
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function obtenir_liste_fractions_irreductibles () { // sous forme de tableaux [numérateur,dénominateur]
+export function obtenirListeFractionsIrreductibles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
     [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
     [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
@@ -2465,7 +2467,7 @@ export function obtenir_liste_fractions_irreductibles () { // sous forme de tabl
 
 /**
 * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 5], [2, 5], [3, 5], [4, 5],
@@ -2474,7 +2476,7 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 
 /**
 * Retourne la liste des nombres premiers inférieurs à 300
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function obtenirListeNombresPremiers () {
   return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
@@ -2482,9 +2484,9 @@ export function obtenirListeNombresPremiers () {
 
 /**
 * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function decomposition_facteurs_premiers (n) {
+export function decompositionFacteursPremiers (n) {
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -2496,9 +2498,9 @@ export function decomposition_facteurs_premiers (n) {
 
 /**
 * Retourne la liste des diviseurs d'un entier
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function liste_des_diviseurs (n) {
+export function listeDesDiviseurs (n) {
   let k = 2
   const liste = [1]
   while (k <= n) {
@@ -2513,7 +2515,7 @@ export function liste_des_diviseurs (n) {
 
 /**
 * Retourne le code LaTeX d'une fraction a/b
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texFraction (a, b) {
   if (b !== 1) {
@@ -2529,7 +2531,7 @@ export function texFraction (a, b) {
 
 /**
 * Utilise printlatex et quote de Algebrite
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 
 export function printlatex (e) {
@@ -2538,28 +2540,28 @@ export function printlatex (e) {
 
 /**
 * Écrit du texte en mode mathématiques
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function tex_texte (texte) {
+export function texTexte (texte) {
   return '~\\text{' + texte + '}'
 }
 
 /**
 * Retourne un environnement LaTeX itemize à partir d'une liste
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function itemize (tableau_de_texte) {
+export function itemize (tableauDeTexte) {
   let texte = ''
   if (context.isHtml) {
     texte = '<div>'
-    for (let i = 0; i < tableau_de_texte.length; i++) {
-      texte += '<div> − ' + tableau_de_texte[i] + '</div>'
+    for (let i = 0; i < tableauDeTexte.length; i++) {
+      texte += '<div> − ' + tableauDeTexte[i] + '</div>'
     }
     texte += '</div>'
   } else {
     texte = '\t\\begin{itemize}\n'
-    for (let i = 0; i < tableau_de_texte.length; i++) {
-      texte += '\t\t\\item ' + tableau_de_texte[i] + '\n'
+    for (let i = 0; i < tableauDeTexte.length; i++) {
+      texte += '\t\t\\item ' + tableauDeTexte[i] + '\n'
     }
     texte += '\t\\end{itemize}'
   }
@@ -2573,7 +2575,7 @@ export function itemize (tableau_de_texte) {
 * @author Rémi Angot
 */
 
-export function tex_graphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
+export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
   return `
   \\pgfplotsset{width=10cm,
       compat=1.9,
@@ -2610,7 +2612,7 @@ export function tex_graphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
  * Générateur de Matrice :
  * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
  * Sinon, c'est le tableau qui sert à remplir la Matrice
- *  @Auteur Jean-Claude Lhote
+ *  @author Jean-Claude Lhote
  */
 export function MatriceCarree (table) {
   let ligne
@@ -2628,7 +2630,7 @@ export function MatriceCarree (table) {
   }
   /**
    * Méthode : Calcule le déterminant de la matrice carrée
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.determinant = function () {
     const n = this.dim // taille de la matrice = nxn
@@ -2645,7 +2647,7 @@ export function MatriceCarree (table) {
   /**
    * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.matriceReduite = function (l, c) {
     const resultat = []; let ligne
@@ -2767,7 +2769,7 @@ export function matriceCarree (table) {
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
@@ -2781,7 +2783,7 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
@@ -2802,7 +2804,7 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
  * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10
  * sont des entiers compris eux aussi entre -10 et 10
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function criblePolynomeEntier () {
   let trouve = false
@@ -2829,7 +2831,7 @@ export function criblePolynomeEntier () {
 /**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
@@ -2840,7 +2842,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
 }
 /**
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
   const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
@@ -2997,7 +2999,7 @@ export function puissanceEnProduit (b, e) {
  * @param e exposant
  * @param couleur1
  * @param couleur2
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
   switch (e) {
@@ -3036,7 +3038,7 @@ export function ordreDeGrandeur (x, type) {
 * @param numeroExercice
 * @param contenu code HTML
 * @param icone
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function creerModal (numeroExercice, contenu, label_bouton, icone) {
   const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
@@ -3050,7 +3052,7 @@ export function creerModal (numeroExercice, contenu, label_bouton, icone) {
 * @param numeroExercice
 * @param contenu code HTML
 * @param icone
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 'Aide', icone = 'info circle') {
   const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${label_bouton}</button>`
@@ -3064,7 +3066,7 @@ export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 
 * @param texte Texte court qui sera affiché comme un titre
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function modalTexteCourt (numeroExercice, texte, label_bouton = 'Aide', icone = 'info circle') {
   const contenu = `<div class="header">${texte}</div>`
@@ -3078,7 +3080,7 @@ export function modalTexteCourt (numeroExercice, texte, label_bouton = 'Aide', i
 * @param texte Texte court qui sera affiché comme un titre
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
@@ -3106,7 +3108,7 @@ export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 
 * @param texte
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Aide', icone = 'info circle') {
   let contenu = `<div class="header">${titre}</div>`
@@ -3121,7 +3123,7 @@ export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Ai
 * @param texte
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function modal_url (numeroExercice, url, label_bouton = 'Aide', icone = 'info circle') {
   const contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
@@ -3135,7 +3137,7 @@ export function modal_url (numeroExercice, url, label_bouton = 'Aide', icone = '
 * @param texte Texte court qui sera affiché comme un titre
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton = 'Aide - PDF', icone = 'file pdf') {
   const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${url_pdf} width=90% height=500 type='application/pdf'/></p></div>`
@@ -3149,7 +3151,7 @@ export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton 
  * @param texte Texte court qui sera affiché comme un titre
  * @param label_bouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function modalVideo (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
   // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
@@ -3181,7 +3183,7 @@ export function modalImage (numeroExercice, url_image, texte, label_bouton = 'Il
 /**
  * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant
  * @param {integer} n
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function listeDiviseurs (n) {
   'use strict'
@@ -3380,7 +3382,7 @@ export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
  * @param {string} texte
  * @param {string} titrePopup
  * @param {string} textePopup
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function katexPopup (texte, titrePopup, textePopup) {
   'use strict'
@@ -3449,7 +3451,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
 * @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
 * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
-* @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
+* @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
@@ -3475,7 +3477,7 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function numAlpha (k) {
   'use strict'
@@ -3533,15 +3535,15 @@ export function machineMathsVideo (url_video) {
  */
 export function detectSafariChromeBrowser () {
   'use strict'
-  let is_chrome = navigator.userAgent.indexOf('Chrome') > -1
+  let isChrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
   // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
-  let is_safari = navigator.userAgent.indexOf('Safari') > -1
-  const is_opera = navigator.userAgent.toLowerCase().indexOf('op') > -1
-  if ((is_chrome) && (is_safari)) { is_safari = false }
-  if ((is_chrome) && (is_opera)) { is_chrome = false }
+  let isSafari = navigator.userAgent.indexOf('Safari') > -1
+  const isOpera = navigator.userAgent.toLowerCase().indexOf('op') > -1
+  if ((isChrome) && (isSafari)) { isSafari = false }
+  if ((isChrome) && (isOpera)) { isChrome = false }
 
-  return (is_chrome || is_safari)
+  return (isChrome || isSafari)
 }
 
 /**
@@ -3692,59 +3694,59 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
   // on définit le nombre de lignes
   const L = tab_entetes_lignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-  let tableau_C_L = ''
+  let tableauCL = ''
   if (context.isHtml) {
-    tableau_C_L += '$\\def\\arraystretch{2.5}\\begin{array}{|'
+    tableauCL += '$\\def\\arraystretch{2.5}\\begin{array}{|'
   } else {
-    tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
-    tableau_C_L += '\\begin{array}{|'
+    tableauCL += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
+    tableauCL += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
   for (let k = 0; k < C; k++) {
-    tableau_C_L += 'c|'
+    tableauCL += 'c|'
   }
-  tableau_C_L += '}\n'
+  tableauCL += '}\n'
 
-  tableau_C_L += '\\hline\n'
+  tableauCL += '\\hline\n'
   if (typeof tab_entetes_colonnes[0] === 'number') {
-    tableau_C_L += texNombre(tab_entetes_colonnes[0])
+    tableauCL += texNombre(tab_entetes_colonnes[0])
   } else {
-    tableau_C_L += tab_entetes_colonnes[0]
+    tableauCL += tab_entetes_colonnes[0]
   }
   for (let k = 1; k < C; k++) {
     if (typeof tab_entetes_colonnes[k] === 'number') {
-      tableau_C_L += ' & ' + texNombre(tab_entetes_colonnes[k]) + ''
+      tableauCL += ' & ' + texNombre(tab_entetes_colonnes[k]) + ''
     } else {
-      tableau_C_L += ' & ' + tab_entetes_colonnes[k] + ''
+      tableauCL += ' & ' + tab_entetes_colonnes[k] + ''
     }
   }
-  tableau_C_L += '\\\\\n'
-  tableau_C_L += '\\hline\n'
+  tableauCL += '\\\\\n'
+  tableauCL += '\\hline\n'
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
     if (typeof tab_entetes_lignes[k] === 'number') {
-      tableau_C_L += '' + texNombre(tab_entetes_lignes[k]) + ''
+      tableauCL += '' + texNombre(tab_entetes_lignes[k]) + ''
     } else {
-      tableau_C_L += '' + tab_entetes_lignes[k] + ''
+      tableauCL += '' + tab_entetes_lignes[k] + ''
     }
     for (let m = 1; m < C; m++) {
       if (typeof tab_lignes[(C - 1) * k + m - 1] === 'number') {
-        tableau_C_L += ' & ' + texNombre(tab_lignes[(C - 1) * k + m - 1])
+        tableauCL += ' & ' + texNombre(tab_lignes[(C - 1) * k + m - 1])
       } else {
-        tableau_C_L += ' & ' + tab_lignes[(C - 1) * k + m - 1]
+        tableauCL += ' & ' + tab_lignes[(C - 1) * k + m - 1]
       }
     }
-    tableau_C_L += '\\\\\n'
-    tableau_C_L += '\\hline\n'
+    tableauCL += '\\\\\n'
+    tableauCL += '\\hline\n'
   }
-  tableau_C_L += '\\end{array}\n'
+  tableauCL += '\\end{array}\n'
   if (context.isHtml) {
-    tableau_C_L += '$'
+    tableauCL += '$'
   } else {
-    tableau_C_L += '\\renewcommand{\\arraystretch}{1}$\n'
+    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
   }
 
-  return tableau_C_L
+  return tableauCL
 }
 
 /**
@@ -5499,7 +5501,7 @@ export function partieEntiereEnLettres (nb) {
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
@@ -5528,10 +5530,10 @@ export function TrouverSolutionMathador (
   let expression_en_cours_f
   let expression_en_cours_d
   let op
-  let part1_f
-  let part2_f
-  let part1_d
-  let part2_d
+  let part1f
+  let part2f
+  let part1d
+  let part2d
   let operations_successives = []
   let solution
   const liste_choix = [
@@ -5572,24 +5574,24 @@ export function TrouverSolutionMathador (
     20
   ]
   eureka = false
-  const nb_determines = arguments.length - 2
+  const nbDetermines = arguments.length - 2
   while (eureka === false) {
     tirage = []
 
-    if (nb_determines < 1) a = parseInt(choice(liste_choix))
+    if (nbDetermines < 1) a = parseInt(choice(liste_choix))
     else a = A
-    if (nb_determines < 2) { b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
-    if (nb_determines < 3) {
+    if (nbDetermines < 2) { b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
+    if (nbDetermines < 3) {
       c = parseInt(
         choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
       )
     } else c = C
-    if (nb_determines < 4) {
+    if (nbDetermines < 4) {
       d = parseInt(
         choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
       )
     } else d = D
-    if (nb_determines < 5) { e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
+    if (nbDetermines < 5) { e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
     tirage.push(a, b, c, d, e)
     nombres_restants = shuffle(tirage)
     operations_restantes = ['\\times', '+', '-', '\\div']
@@ -5612,55 +5614,55 @@ export function TrouverSolutionMathador (
     while (nombres_restants.length > 1) {
       b = nombres_restants.pop()
       a = nombres_restants.pop()
-      part2_f = expression_en_cours_f.pop()
-      part1_f = expression_en_cours_f.pop()
-      part2_d = expression_en_cours_d.pop()
-      part1_d = expression_en_cours_d.pop()
+      part2f = expression_en_cours_f.pop()
+      part1f = expression_en_cours_f.pop()
+      part2d = expression_en_cours_d.pop()
+      part1d = expression_en_cours_d.pop()
 
       op = operations_restantes.pop()
       if (op === '\\times') {
         c = a * b
-        expression_en_cours_f.push(`${part1_f}${op}${part2_f}`)
-        expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
+        expression_en_cours_f.push(`${part1f}${op}${part2f}`)
+        expression_en_cours_d.push(`${part1d}${op}${part2d}`)
         nombres_restants.push(c)
       } else if (op === '\\div') {
         if (a % b === 0) {
           c = a / b
-          if (part1_f[0] === '\\') {
-            part1_f = part1_f.substring(6, part1_f.length)
-            part1_f = part1_f.substring(0, part1_f.length - 7)
+          if (part1f[0] === '\\') {
+            part1f = part1f.substring(6, part1f.length)
+            part1f = part1f.substring(0, part1f.length - 7)
           }
-          if (part2_f[0] === '\\') {
-            part2_f = part2_f.substring(6, part2_f.length)
-            part2_f = part2_f.substring(0, part2_f.length - 7)
+          if (part2f[0] === '\\') {
+            part2f = part2f.substring(6, part2f.length)
+            part2f = part2f.substring(0, part2f.length - 7)
           }
-          expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`)
-          expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
+          expression_en_cours_f.push(`\\dfrac{${part1f}}{${part2f}}`)
+          expression_en_cours_d.push(`${part1d}${op}${part2d}`)
           nombres_restants.push(c)
         } else break
       } else if (op === '-') {
         if (a > b) {
           c = a - b
           expression_en_cours_f.push(
-            `\\left(${part1_f}${op}${part2_f}\\right)`
+            `\\left(${part1f}${op}${part2f}\\right)`
           )
           expression_en_cours_d.push(
-            `\\left(${part1_d}${op}${part2_d}\\right)`
+            `\\left(${part1d}${op}${part2d}\\right)`
           )
           nombres_restants.push(c)
         } else break
       } else if (op === '+') {
         c = a + b
-        if (part2_f.substring(0, 2) === '\\l') {
-          part2_f = part2_f.substring(6, part2_f.length)
-          part2_f = part2_f.substring(0, part2_f.length - 7)
+        if (part2f.substring(0, 2) === '\\l') {
+          part2f = part2f.substring(6, part2f.length)
+          part2f = part2f.substring(0, part2f.length - 7)
         }
-        expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`)
-        if (part2_d.substring(0, 2) === '\\l') {
-          part2_d = part2_d.substring(6, part2_d.length)
-          part2_d = part2_d.substring(0, part2_d.length - 7)
+        expression_en_cours_f.push(`\\left(${part1f}${op}${part2f}\\right)`)
+        if (part2d.substring(0, 2) === '\\l') {
+          part2d = part2d.substring(6, part2d.length)
+          part2d = part2d.substring(0, part2d.length - 7)
         }
-        expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`)
+        expression_en_cours_d.push(`\\left(${part1d}${op}${part2d}\\right)`)
         nombres_restants.push(c)
       }
       operations_successives.push(`${a}` + op + `${b}=${c}`)
@@ -6926,7 +6928,7 @@ export function exportQcmAmc (exercice, idExo) {
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
  *
  *  questions est un tableau d'éléments de type Exercice.QCM

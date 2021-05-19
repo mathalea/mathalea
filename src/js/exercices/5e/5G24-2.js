@@ -6,7 +6,7 @@ export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5G24-1
 */
 export default function TrianglesEgaux () {

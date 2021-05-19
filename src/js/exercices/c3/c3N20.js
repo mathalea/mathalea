@@ -5,7 +5,7 @@ export const titre = 'Donner l’écriture décimale à partir d’un somme d’
 
 /**
  * Description didactique de l'exercice
- * @Auteur Benjamin Angot
+ * @author Benjamin Angot
  * Référence C3N20
  * 2021-03-24
 */

@@ -6,7 +6,7 @@ export const titre = 'Lecture graphique d’images et d’antécédents'
 
 /**
  * Lecture d'images et antécédents sur un graphe sinusoidale
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3F13-1
 */
 export default function Antecedent_et_image_graphique() {

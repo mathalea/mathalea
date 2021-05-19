@@ -7,7 +7,7 @@ export const titre = 'Calculs de dérivés'
 
 /**
  * Calculs de dérivés
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 1F10
 */
 export default function CalculsDeDerives() {

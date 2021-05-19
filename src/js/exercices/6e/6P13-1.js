@@ -5,7 +5,7 @@ export const titre = 'Facture'
 
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6P13-1
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {

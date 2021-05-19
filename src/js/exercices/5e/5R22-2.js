@@ -9,7 +9,7 @@ export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et ca
 * Simplifier l'écriture d'une somme de 2 relatifs et calculer
 *
 * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R22-2
 */
 export default function Exercice_simplification_somme_algebrique(max = 20) {

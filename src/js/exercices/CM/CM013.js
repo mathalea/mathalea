@@ -9,7 +9,7 @@ export const amcType = 4
 
 /**
  * Une soustraction dont le premier terme est un multiple de 10
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM013
 */
 export default function ComplementAUneDizaine () {

@@ -11,7 +11,7 @@ export const titre = 'Trouver le terme manquant d’une somme de nombres relatif
 /**
  * Additions à trou dans les relatifs
  *
- *  @Auteur Jean-Claude Lhote à partir de CM000 de Rémi Angot
+ *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
 export default function Terme_inconnu_de_somme () {

@@ -12,7 +12,7 @@ export const titre = 'Périmètres et aires carrés, rectangles et triangles rec
  * Il faut calculer les aires et périmètres.
  *
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M11-1
  */
 export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {

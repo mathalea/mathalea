@@ -5,7 +5,7 @@ export const titre = 'Résoudre une équation produit nul'
 
 /**
  * Résolution d'équations de type (ax+b)(cx+d)=0
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Tout est dans le nom de la fonction.
 * 3L14
 */

@@ -6,7 +6,7 @@ export const titre = 'Utiliser la distance entre deux points dans un repère ort
 
 /**
  * 2G10
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Distance() {
     Exercice.call(this); // Héritage de la classe Exercice()

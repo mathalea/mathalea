@@ -6,7 +6,7 @@ export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 
 /**
  * Ref 6G14
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 22/11/2020
  */
 export default function Proprietes_paralleles_perpendiculaires() {

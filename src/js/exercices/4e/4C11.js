@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,miseEnEvidence,liste_des_diviseurs} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,enleveElement,choice,range1,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,miseEnEvidence,listeDesDiviseurs} from '../../modules/outils.js'
 export const titre = 'Calculs utilisant les priorités opératoires'
 
 /**
@@ -34,7 +34,7 @@ export const titre = 'Calculs utilisant les priorités opératoires'
  * * a*(b÷c+d)
  * * a-(b+c)
  * * (a+b+c)*d
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4C11
  */
 export default function Priorites_et_relatifs() {
@@ -311,11 +311,11 @@ export default function Priorites_et_relatifs() {
         case 18: //a*b/(c+d)
           a = randint(2, 11);
           b = randint(2, 11);
-          while (liste_des_diviseurs(a * b).length < 5) {
+          while (listeDesDiviseurs(a * b).length < 5) {
             a = randint(2, 11);
             b = randint(2, 11);
           }
-          let liste = liste_des_diviseurs(a * b);
+          let liste = listeDesDiviseurs(a * b);
           if (liste.length > 2) {
             liste.pop(); //on supprime le plus grand diviseur qui est le produit
             enleveElement(liste, a); //on supprime a

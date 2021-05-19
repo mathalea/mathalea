@@ -5,7 +5,7 @@ export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de..
 
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N10-2
  */
 export default function Decomposition_nombre_decimal() {

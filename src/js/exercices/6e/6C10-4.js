@@ -6,7 +6,7 @@ export const titre = 'Addition de deux entiers'
 
 /**
  * Additionner deux entiers
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C10-4
  */
 export default function Exercice_tables_d_additions (max = 20) {

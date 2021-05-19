@@ -8,7 +8,7 @@ export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un
 * 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant ou décroissant
 *
 * Pour la correction, les fractions sont toute écrites avec un dénominateur commun avant d'être classées
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5N14-2
 */
 export default function Exercice_comparer_quatre_fractions () {

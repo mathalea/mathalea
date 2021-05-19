@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenir_liste_fractions_irreductibles,obtenirListeNombresPremiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenirListeFractionsIrreductibles,obtenirListeNombresPremiers,decompositionFacteursPremiers,texFraction} from '../../modules/outils.js'
 export const titre = 'Multiplier des fractions'
 
 /**
@@ -11,7 +11,7 @@ export const titre = 'Multiplier des fractions'
  * * 2 : deux questions niveau 1 puis deux questions niveau 3
  * * 3 : Produits de nombres relatifs
  * * Si décomposition cochée : les nombres utilisés sont plus importants.
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C22
  */
 export default function Exercice_multiplier_fractions() {
@@ -28,7 +28,7 @@ export default function Exercice_multiplier_fractions() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let typesDeQuestionsDisponibles;
-    let liste_fractions = obtenir_liste_fractions_irreductibles();
+    let liste_fractions = obtenirListeFractionsIrreductibles();
 
     if (this.sup == 1) {
       typesDeQuestionsDisponibles = [1, 2, 2, 2];
@@ -186,12 +186,12 @@ export default function Exercice_multiplier_fractions() {
             texteCorr = `$${a}\\times${texFraction(c, d)}$`;
             texteCorr += `$=${texFraction(a + "\\times" + c, d)}$`;
             texteCorr += `$=${texFraction(
-              decomposition_facteurs_premiers(a) +
+              decompositionFacteursPremiers(a) +
               "\\times" +
-              decomposition_facteurs_premiers(c),
-              decomposition_facteurs_premiers(d)
+              decompositionFacteursPremiers(c),
+              decompositionFacteursPremiers(d)
             )}$`;
-            // texteCorr += `$=${texFraction(decomposition_facteurs_premiers(a * c), decomposition_facteurs_premiers(d))}$`
+            // texteCorr += `$=${texFraction(decompositionFacteursPremiers(a * c), decompositionFacteursPremiers(d))}$`
             for (let k in listec) {
               listea.push(listec[k]);
             }

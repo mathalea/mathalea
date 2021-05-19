@@ -6,7 +6,7 @@ export const titre = 'Trouver l’image d’une figure par une symétrie axiale 
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié en 02/2020
  * référence 6G25-1
  */

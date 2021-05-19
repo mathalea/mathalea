@@ -5,7 +5,7 @@ import {tracePoint,mediatrice,codageMediatrice,segment,symetrieAxiale,symetrieAn
 export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 14/12/2020
  * Réf : 6G25-3
  * Trouver une figure symétrique dans un pavage. Symétrie axiale. 6 pavages différents.

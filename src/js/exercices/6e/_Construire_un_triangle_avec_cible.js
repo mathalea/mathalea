@@ -6,7 +6,7 @@ import Alea2iep from '../../modules/Alea2iep.js';
 
 /**
  * publié le 1/12/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
 export default function Construire_un_triangle_avec_cible() {

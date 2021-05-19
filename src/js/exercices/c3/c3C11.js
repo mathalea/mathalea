@@ -6,7 +6,7 @@ export const titre = 'Divisions euclidiennes'
  * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
  * ref 6N23-2
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Division_cycle3() {
     Divisions_euclidiennes.call(this);

@@ -6,7 +6,7 @@ import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../
 export const titre = 'Déterminer les coordonnées d’un vecteur.'
 
 /**
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function calculer_coordonnees_vecteurs() {
     Exercice.call(this); // Héritage de la classe Exercice()

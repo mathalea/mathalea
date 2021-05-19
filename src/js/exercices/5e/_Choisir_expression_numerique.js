@@ -9,7 +9,7 @@ import {randint,arrondi,calcul,texNombrec,texNombre,nombre_avec_espace,katexPopu
  * * l'expression en français commençant par une majuscule sans point final
  * * l'expression en mode maths LaTex
  * * Le détaillé du calcul en mode maths LaTex
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Fonction utilisée dans plusieurs exercices.
  */
 export default function Choisir_expression_numerique(nb_operations, decimal, times_on = true) {

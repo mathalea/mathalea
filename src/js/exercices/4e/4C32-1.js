@@ -10,7 +10,7 @@ export const interactifReady = true
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C32-1
  */
 export default function CalculsAvecPuissancesDeDix () {

@@ -6,7 +6,7 @@ export const titre = 'Stabilisation des fréquences'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 3S21
 * D'après le document "Attendus en fin de 3eme"
 * On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers. 

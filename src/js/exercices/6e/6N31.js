@@ -18,7 +18,7 @@ export const titre = 'Comparer des nombres décimaux'
  * * a+1,bb  a,cccc avec cccc>bb
  *
  * aa, bb, cc correspondent à des nombres à 2 chiffres (ces 2 chiffres pouvant être distincts)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N31
  */
 export default function Comparer_decimaux() {

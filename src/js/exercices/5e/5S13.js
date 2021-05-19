@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirerLesDes,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
 
 
 export const titre = 'Calculer des fréquences'
 
 /**
  * Calculs de fréquences dans des séries statistiques
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 5S13
 */
 export default function Calculer_des_frequences() {
@@ -25,20 +25,20 @@ export default function Calculer_des_frequences() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			if (this.sup == 1) { // ici on lance des dés
-				nombre_des = randint(1, 2);
-				nombre_faces = choice([4, 6, 8, 10]);
-				nombre_tirages = choice([50, 100, 200, 500, 1000]);
-				tirages = tirer_les_des(nombre_tirages, nombre_faces, nombre_des); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
+				nombreDes = randint(1, 2);
+				nombreFaces = choice([4, 6, 8, 10]);
+				nombreTirages = choice([50, 100, 200, 500, 1000]);
+				tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
 				do
 					index_valeur = randint(0, tirages.length - 1);
 				while (tirages[index_valeur][1] == 0); // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
-				if (nombre_des > 1) {
-					texte = `On a réalisé $${nombre_tirages}$ lancers de $${nombre_des}$ dés à $${nombre_faces}$ faces.<br>`;
+				if (nombreDes > 1) {
+					texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`;
 				}
 				else {
-					texte = `On a réalisé $${nombre_tirages}$ lancers d'un dé à $${nombre_faces}$ faces.<br>`;
+					texte = `On a réalisé $${nombreTirages}$ lancers d'un dé à $${nombreFaces}$ faces.<br>`;
 				}
 				texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>';
 				if (tirages.length > 12) {
@@ -77,10 +77,10 @@ export default function Calculer_des_frequences() {
 					texte += '\\\\\\hline\\end{array}$';
 				}
 
-				texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$.`;
-				texteCorr = 'La valeur ' + `$${calcul(nombre_des + index_valeur)}$ apparaît ` + `$${tirages[index_valeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombre_tirages)}$.<br>`;
-				texteCorr += 'La fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$` + ' est ' + `$${texFraction(tirages[index_valeur][1], texNombre(nombre_tirages))}=${texNombre(calcul(tirages[index_valeur][1] / nombre_tirages))}$<br>`;
-				texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[index_valeur][1] * 100 / nombre_tirages))}\\thickspace\\%$.`;
+				texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calcul(nombreDes + index_valeur)}$.`;
+				texteCorr = 'La valeur ' + `$${calcul(nombreDes + index_valeur)}$ apparaît ` + `$${tirages[index_valeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombreTirages)}$.<br>`;
+				texteCorr += 'La fréquence de la valeur ' + `$${calcul(nombreDes + index_valeur)}$` + ' est ' + `$${texFraction(tirages[index_valeur][1], texNombre(nombreTirages))}=${texNombre(calcul(tirages[index_valeur][1] / nombreTirages))}$<br>`;
+				texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[index_valeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`;
 			}
 			else if (this.sup == 2) { // ici on trie des notes
 				nombre_notes = choice([8, 10, 12]);

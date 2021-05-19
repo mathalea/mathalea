@@ -11,7 +11,7 @@ export const titre = 'Compléter un tableau de valeurs'
 * * Niveau 3 : Quotients de fonctions affines
 * * Niveau 4 : (ax+b)(cx+d)
 * * Niveau 5 : Mélange
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3F12-3
 */
 export default function Tableau_de_valeurs() {

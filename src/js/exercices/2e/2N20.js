@@ -7,7 +7,7 @@ export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel 
 
 /**
  * 2N20
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function ensemble_de_nombres() {
     Exercice.call(this); // Héritage de la classe Exercice()

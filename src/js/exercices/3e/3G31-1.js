@@ -8,7 +8,7 @@ export const titre = 'Calculer toutes les mesures d’angle d’une figure compl
 
 /**
  * Deux triangles rectangles accolés, on connait deux longueurs et un angle, il faut déterminer tous les autres angles
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3G31-1
  * Février 2021
 */

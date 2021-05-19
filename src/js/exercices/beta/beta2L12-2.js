@@ -6,7 +6,7 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul.'
 
 /**
  * Résoudre des équations se ramenant au produit-nul
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2L12-2
 */
 export default function Equations_presque_produit_null2() {

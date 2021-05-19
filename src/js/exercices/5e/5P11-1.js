@@ -5,7 +5,7 @@ export const titre = 'Problème de vitesse'
 
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5P11-1
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {

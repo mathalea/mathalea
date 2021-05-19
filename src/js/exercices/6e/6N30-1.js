@@ -8,7 +8,7 @@ export const titre = 'Lire l’abscisse décimale d’un point repéré par une 
 /**
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
  * demis, quart, cinquièmes dixièmes et centièmes
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N30-1
  */
 export default function Lire_abscisse_decimale_bis () {

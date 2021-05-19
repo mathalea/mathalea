@@ -11,7 +11,7 @@ export const amcType = 4 // type de question AMC
 
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C32
  */
 

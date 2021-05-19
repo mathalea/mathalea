@@ -10,7 +10,7 @@ export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
  * Exercice bilan
  * @author Sébastien Lozano
  */
-export default function Liste_des_diviseurs_5e() {
+export default function listeDesDiviseurs_5e() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = titre;

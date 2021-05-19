@@ -7,7 +7,7 @@ export const titre = 'Mettre bout à bout des segments'
 
 /**
  * Représenter une somme de fracions de même dénominateur sur un segment gradué de façon adaptée.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 6N14-2
  */
 export default function Ajouter_des_fractions_d_unite() {

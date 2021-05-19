@@ -7,7 +7,7 @@ export const titre = 'Lire l’abscisse fractionnaire d’un point'
 
 /**
  * Lire l'abscisse fractionnaire d'un point
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N21
  */
 export default function Lire_abscisse_fractionnaire () {

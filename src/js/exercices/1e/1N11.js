@@ -6,7 +6,7 @@ export const titre = 'Déterminer les termes d’une suite définie par récurre
 
 /**
  * 1N11
- * @Auteur Gaelle Morvan
+ * @author Gaelle Morvan
  */
 export default function Terme_d_une_suite_definie_par_recurrence() {
   Exercice.call(this); // Héritage de la classe Exercice()

@@ -10,7 +10,7 @@ export const interactifReady = true
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4G20
  */
 export default function Pythagore2D () {

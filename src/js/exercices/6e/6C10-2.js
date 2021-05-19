@@ -10,7 +10,7 @@ export const titre = 'Tables de multiplications et multiples de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence 6C10-2
  */
 export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (

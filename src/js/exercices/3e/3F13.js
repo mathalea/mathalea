@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, tex_graphique, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calcul, texGraphique, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
 export const titre = 'Lire les antécédents d’un nombre à partir d’un graphique'
 
 /**
 * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3F13
 */
 export default function Antecedent_graphique () {
@@ -111,7 +111,7 @@ export default function Antecedent_graphique () {
 
     if (!context.isHtml) {
       texte += '\n\n'
-      texte += tex_graphique(expressionF)
+      texte += texGraphique(expressionF)
     }
 
     this.MG32codeBase64 = codeBase64

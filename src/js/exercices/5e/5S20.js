@@ -8,7 +8,7 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
 
 /**
  * Placer un événement sur une échelle de probabilités.
- * @Auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * Référence 5S20
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf

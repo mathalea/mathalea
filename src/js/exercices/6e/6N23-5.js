@@ -10,7 +10,7 @@ export const titre = 'Sens de l’écriture fractionnaire'
 
 /**
  * Donner la fraction correspondant à un nombre ou à un calcul
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Ref 6N23-5
  * Publié le 10/03/2021
  */

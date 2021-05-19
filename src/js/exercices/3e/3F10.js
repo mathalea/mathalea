@@ -5,7 +5,7 @@ export const titre = 'Lectures d’images et d’antécédents depuis un tableau
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3F10
 */
 export default function Image_antecedent_depuis_tableau_ou_fleche() {

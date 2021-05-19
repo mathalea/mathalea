@@ -9,7 +9,7 @@ export const interactifReady = true
 
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4G21
  */
 export default function ReciproquePythagore () {

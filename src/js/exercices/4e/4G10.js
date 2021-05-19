@@ -3,7 +3,7 @@ export const titre = 'Trouver l’image d’un point par une symétrie axiale ou
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations sauf rotation et homothetie
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 4G10
  * Pas de version LaTeX
  */

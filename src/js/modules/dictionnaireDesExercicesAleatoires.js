@@ -768,7 +768,7 @@ export default {
     "name": "4C22-2"
   },
   "4C22": {
-    "titre": "Mutliplier des fractions",
+    "titre": "Multiplier des fractions",
     "url": "/exercices/4e/4C22.js",
     "amcReady": false,
     "interactifReady": false,
@@ -782,7 +782,7 @@ export default {
     "name": "4C23"
   },
   "4C25-0": {
-    "titre": "Problèmes additifs et de comparaison sur les rationnels",
+    "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
     "url": "/exercices/4e/4C25-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -819,11 +819,7 @@ export default {
   "4C32-1": {
     "titre": "Calcul avec les puissances de dix",
     "url": "/exercices/4e/4C32-1.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 1,
-      "text": "qcmMono"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "name": "4C32-1"
   },
@@ -915,7 +911,7 @@ export default {
     "titre": "Racine carré d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "4G20-2"
   },
   "4G20-5": {
@@ -947,7 +943,7 @@ export default {
     "titre": "Déterminer si un triangle est rectangle ou pas.",
     "url": "/exercices/4e/4G21.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "4G21"
   },
   "4G22": {
@@ -2843,13 +2839,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta3s21"
-  },
-  "beta4C25-00": {
-    "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
-    "url": "/exercices/beta/beta4C25-00.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4C25-00"
   },
   "beta4C31": {
     "titre": "Puissances de 10",

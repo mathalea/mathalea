@@ -6,7 +6,7 @@ export const titre = 'Variation en pourcentages'
 
 /**
 * Calculer +/- 20, 30, 40 ou 60 %
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5N110
 */
 export default function Variation_en_pourcentages() {

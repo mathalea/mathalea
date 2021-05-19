@@ -8,7 +8,7 @@ export const titre = 'Réduire une expression de la forme $ax+bx$ '
 /**
 * Réduire des expressions de la forme ax+bx
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L13
 */
 export default function Reduction_ax_bx() {

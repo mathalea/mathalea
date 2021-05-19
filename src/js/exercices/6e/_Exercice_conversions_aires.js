@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,texTexte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -14,7 +14,7 @@ import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNomb
  * * 5 : Conversions avec des ares, des centiares et des hectares
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M23
  */
 export default function Exercice_conversions_aires(niveau = 1) {
@@ -101,25 +101,25 @@ export default function Exercice_conversions_aires(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^2" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^2" +
           " =  " +
           texNombre(a) +
           prefixe_multi[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
       } else if (div && typesDeQuestions < 4) {
@@ -133,25 +133,25 @@ export default function Exercice_conversions_aires(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^2" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^2" +
           " =  " +
           texNombre(a) +
           prefixe_div[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
       } else if (typesDeQuestions == 4) {
@@ -166,26 +166,26 @@ export default function Exercice_conversions_aires(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " =  " +
             texNombre(a) +
             "\\times" +
             texNombre(Math.pow(10, 2 * ecart)) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             "$";
         } else {
@@ -193,26 +193,26 @@ export default function Exercice_conversions_aires(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " =  " +
             texNombre(a) +
             "\\div" +
             texNombre(Math.pow(10, 2 * ecart)) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             "$";
         }
@@ -227,24 +227,24 @@ export default function Exercice_conversions_aires(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0]) +
+          texTexte(prefixe_multi[k][0]) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0]) +
+          texTexte(prefixe_multi[k][0]) +
           " =  " +
           texNombre(a) +
           "\\times" +
           texNombre(prefixe_multi[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
       }

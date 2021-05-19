@@ -10,7 +10,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 * * Convertir vers une base entre 2 et 7
 * * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export default function Passer_de_la_base_12_ou_16_a_la_10() {
 	'use strict';

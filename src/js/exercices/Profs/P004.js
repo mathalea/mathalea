@@ -9,7 +9,7 @@ export const titre = 'Droites graduées avec zoom'
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
  * ref P004
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Feuille_de_zooms() {
   Exercice.call(this);

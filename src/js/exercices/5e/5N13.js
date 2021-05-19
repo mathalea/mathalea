@@ -9,7 +9,7 @@ export const titre = 'Simplification de fractions'
 
 /**
  * Simplifier une fraction, le facteur commun est inférieur à une valeur donnée en paramètre qui est 11 par défaut
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  *  5N13
  */
 export default function Exercice_fractions_simplifier (max = 11) {

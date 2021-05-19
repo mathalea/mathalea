@@ -11,7 +11,7 @@ export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses 
 
 /**
  * Reconnaitre un quadrilatère particulier à partir de ses propriétés
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G33
 */
 export default function ReconnaitreQuadrilatereParticulier () {

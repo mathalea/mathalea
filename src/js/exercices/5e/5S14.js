@@ -6,7 +6,7 @@ export const titre = 'Calculer des moyennes'
 
 /**
  * Calcul de moyennes de série statistiques
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 5S14
 */
 export default function Calculer_des_moyennes () {

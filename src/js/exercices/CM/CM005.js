@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM005
 */
 export default function Ajouter9 () {

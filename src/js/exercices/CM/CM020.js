@@ -4,7 +4,7 @@ import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
   * référence CM020
  * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
  */

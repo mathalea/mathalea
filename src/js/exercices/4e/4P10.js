@@ -5,7 +5,7 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
 
 /**
  * problèmes de grandeurs composées
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence : 4P10
  */
 export default function Problemes_grandeurs_composees() {

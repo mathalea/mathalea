@@ -12,7 +12,7 @@ export const titre = 'Convertir des durées'
  * * 3 : s vers HMS
  * * 4 : h vers semaines j h
  * * 5 : toutes les conversions
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6D10
  */
 export default function Conversions_de_durees() {

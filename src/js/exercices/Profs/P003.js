@@ -6,7 +6,7 @@ export const titre = 'Tracer des droites graduées'
 
 /**
  * Pour imprimer des repères vierges pour les élèves.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence : P003
  * publié le ?/2/2020
  */

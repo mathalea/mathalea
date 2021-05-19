@@ -6,7 +6,7 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3G20-1
 */
 export default function Problemes_Thales() {

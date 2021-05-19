@@ -9,7 +9,7 @@ export const titre = 'Utiliser les heures décimales'
  * Convertir une heure décimale dans le format HMS
  *
  * La partie décimale est 25, 75 ou un seul chiffre
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6D101
  */
 export default function Heures_decimales() {

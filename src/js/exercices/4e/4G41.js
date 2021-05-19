@@ -2,7 +2,7 @@ import Exercice_Trigo_angles from '../3e/3G31.js'
 export const titre = 'Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G31
  * Calcul d'angle dans le triangle rectangle
  * Le niveau 1 se limite à l'utilisation de Arccos

@@ -7,7 +7,7 @@ export const titre = 'Propriétés de conservation de la symétrie axiale'
 /**
  * Ref 6G32-1
  * Publié le 26/10/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()

@@ -7,7 +7,7 @@ export const titre = 'Connaître les propriétés calculatoires des racines carr
 
 /**
  * 2N10-1
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function proprietes_racine_carree() {
 

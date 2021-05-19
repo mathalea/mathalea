@@ -16,7 +16,7 @@ export const titre = 'Additions, soustractions, multiplications et divisions pos
  * * 1abc-def
  * * abc*d0e tables de 2 à 5
  * * abc*de tables de 5 à 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * fork de Jean-Claude Lhote avec apport des opérations posées
  * Référence 6C10
  */

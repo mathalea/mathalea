@@ -6,7 +6,7 @@ export const titre = 'Problème - Les courses'
 
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C32
  */
 export default function Probleme_course() {

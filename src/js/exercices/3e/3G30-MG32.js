@@ -5,7 +5,7 @@ import { degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une longueur grâce à la trigonométrie'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G30-MG32 initialement 3G30.
  * Publié au printemps 2020
  * Version de remplacement utilisant 2D mise au point en Mars 2021.
