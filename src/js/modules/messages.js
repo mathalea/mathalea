@@ -1,6 +1,13 @@
 import { addElement, addText, get } from './dom'
-// Module regroupant les fonctions de gestions des erreurs.
+/**
+ * Fonctions pour gérer les messages utilisateur (feedback erreur|warning ou messages positifs)
+ * @module
+ */
 
+/**
+ * Les types possibles
+ * @type {string[]}
+ */
 const types = ['info', 'warning', 'error', 'positive']
 
 /**
@@ -10,6 +17,7 @@ const types = ['info', 'warning', 'error', 'positive']
  * @param {string} [feedback.message]
  * @param {string} [feedback.type]
  * @param {string} [feedback.titre]
+ * @return {HTMLElement} L'élément du feedback (déjà ajouté dans le container)
  */
 export function addFeedback (container, { message = 'Une erreur est survenue', type = 'erreur', titre } = {}) {
   if (!types.includes(type)) {
