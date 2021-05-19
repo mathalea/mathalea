@@ -6,21 +6,21 @@ const types = ['info', 'warning', 'error', 'positive']
 /**
  * Ajoute le feedback dans container
  * @param {HTMLElement} container
- * @param {Object} erreur
- * @param {string} [erreur.message]
- * @param {string} [erreur.level]
- * @param {string} [erreur.titre]
+ * @param {Object} feedback
+ * @param {string} [feedback.message]
+ * @param {string} [feedback.type]
+ * @param {string} [feedback.titre]
  */
-export function addFeedback (container, { message = 'Une erreur est survenue', level = 'erreur', titre = 'Erreur interne' } = {}) {
-  if (!types.includes(level)) {
-    console.error(Error(`type de message inconnu : ${level}`))
-    level = 'error'
+export function addFeedback (container, { message = 'Une erreur est survenue', type = 'erreur', titre } = {}) {
+  if (!types.includes(type)) {
+    console.error(Error(`type de message inconnu : ${type}`))
+    type = 'error'
   }
-  const cssDiv = level === 'info' ? '' : level
+  const cssDiv = type === 'info' ? '' : type
   const div = addElement(container, 'div', { className: `ui message ${cssDiv}` })
-  const cssIcon = level === 'error'
+  const cssIcon = type === 'error'
     ? 'frown outline'
-    : (level === 'warning')
+    : (type === 'warning')
         ? 'bullhorn'
         : 'bell outline' // info
   const iconClose = addElement(div, 'i', { className: 'close icon' })
@@ -31,6 +31,7 @@ export function addFeedback (container, { message = 'Une erreur est survenue', l
     addText(divTitre, titre)
   }
   addText(div, message)
+  return div
 }
 
 /**
@@ -47,7 +48,7 @@ export function messageUtilisateur ({ code, exercice }) {
       addFeedback(container, {
         titre: 'le code de l’exercice n’est pas valide',
         message: `L'identifiant ${exercice} ne correspond à aucun exercice MathALEA. <br> Ceci est peut-être dû à un lien incomplet ou obsolète. `,
-        level: 'error'
+        type: 'error'
       })
       break
     case 'mg32load':
@@ -55,7 +56,7 @@ export function messageUtilisateur ({ code, exercice }) {
         titre: 'Erreur de chargement du module mg32',
         message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
           Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        level: 'warning'
+        type: 'warning'
       })
       break
     case 'scratchLoad':
@@ -63,7 +64,7 @@ export function messageUtilisateur ({ code, exercice }) {
         titre: 'Erreur de chargement du module scratch',
         message: `Une erreur est survenue lors du chargement d'un module pour l'affichage de l'exercice. <br>
           Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        level: 'warning'
+        type: 'warning'
       })
       break
     default:
@@ -72,22 +73,22 @@ export function messageUtilisateur ({ code, exercice }) {
         titre: 'Erreur interne',
         message: `Une erreur est survenue.<br>
           Essayez de rafraichir la page. <br> Si l'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>`,
-        level: 'warning'
+        type: 'warning'
       })
   }
 }
 
 /**
  * Ajoute un feedback (erreur ou encouragement)
- * @param {Object} data
- * @param {string} data.id id du div conteneur à utiliser
- * @param {string} data.texte Le texte à afficher
- * @param {string} data.type error|positive
+ * @param {Object} feedback
+ * @param {string} feedback.id id du div conteneur à utiliser
+ * @param {string} feedback.message Le message à afficher
+ * @param {string} feedback.type error|positive
  * @author Rémi ANGOT
  */
-export function messageFeedback ({ id, texte = '', type = 'error' } = {}) {
-  if (!id || !texte) return console.error(TypeError('arguments manquants'))
+export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
+  if (!id || !message) return console.error(TypeError('arguments manquants'))
   const container = get(id)
-  const div = addFeedback(container, { message: texte, level: type })
+  const div = addFeedback(container, { message, type })
   div.style.width = '400px'
 }

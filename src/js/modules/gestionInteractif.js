@@ -61,7 +61,7 @@ export function exerciceQcm (exercice) {
           if (indiceFeedback > -1) {
             messageFeedback({
               id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-              texte: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+              message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
               type: typeFeedback
             })
           }
