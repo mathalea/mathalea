@@ -34,8 +34,6 @@ export default function MultiplicationMentalDecimaux () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.qcmDisponible = true
-  this.modeQcm = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions

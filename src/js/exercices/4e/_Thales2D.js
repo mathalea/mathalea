@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul,texNombrec,creerNomDePolygone,texNombre,creerBoutonMathalea2d} from '../../modules/outils.js'
 import {point,pointSurSegment,pointAdistance,polygone,triangle2points2longueurs,homothetie,similitude,texteParPoint,longueur,angle,angleOriente,mathalea2d} from '../../modules/2d.js'
-
+export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
@@ -18,6 +18,7 @@ export default function Thales2D() {
   this.nbColsCorr = 1;
   this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
   this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
 
   this.nouvelleVersion = function (numeroExercice) {
     this.qcm=['4G30',[],'Calcul de longueur avec Thales',4]

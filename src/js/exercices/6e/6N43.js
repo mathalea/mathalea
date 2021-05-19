@@ -26,9 +26,6 @@ export default function CriteresDeDivisibilite () {
   this.spacing = 2
   this.spacingCorr = 1
   this.nbQuestions = 5
-  this.nbColsCorr = 1
-  this.qcmDisponible = true
-  this.modeQcm = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

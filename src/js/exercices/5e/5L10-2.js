@@ -24,9 +24,11 @@ export default function TraduireUnProgrammeDeCalcul () {
   this.nbColsCorr = 1
   this.spacingCorr = 1
   this.spacing = 1
-  this.qcmDisponible = true
-  this.modeQcm = false
-
+  this.interactif = false
+  this.interactifReady = interactifReady
+  this.amcType = amcType
+  this.amcReady = amcReady
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -26,11 +26,9 @@ export default function SensDeLaFraction () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.qcmDisponible = true
-  this.modeQcm = false
+
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6N23-5', [], "Sens de l'écriture fractionnaire", 1]
     this.listeQuestions = []
     this.listeCorrections = []
     const typeDeQuestionsDisponibles = [1, 2, 3, 4]

@@ -29,7 +29,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6G33', [], "Trouver la nature d'un quadrilatère.", 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -65,9 +64,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [1, 0, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(2, 3)
           C = point(0, 6)
@@ -89,9 +85,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant 3 angles droits ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [0, 1, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant 3 angles droits ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -118,9 +111,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [0, 1, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -147,9 +137,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -176,9 +163,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -202,9 +186,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ?"
           tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
           tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)

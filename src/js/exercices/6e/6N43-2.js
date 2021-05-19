@@ -23,8 +23,7 @@ export default function TableauCriteresDeDivisibilite () {
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.nbCols = 1
-  this.qcmDisponible = true
-  this.modeQcm = false
+
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []

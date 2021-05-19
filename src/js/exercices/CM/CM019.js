@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Générateur de compte est bon'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = false
 export const amcType = 3
 
@@ -68,10 +68,6 @@ export default function LeCompteEstBonV3 () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (context.isAmc){
-      
-      }
-     
   }
   this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution]
   this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
