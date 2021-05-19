@@ -183,8 +183,8 @@ class NoteLaCouleur {
     /**
      *
      * @param {number} repetitions
-     * @param {la séquence d'instructions à répéter} codes
-     * @returns true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
+     * @param {string[]} codes la séquence d'instructions à répéter
+     * @returns {boolean} true si la boucle n'a à aucun moment fait sortir le lutin du plateau, false sinon
      */
     this.testBoucle = function (repetitions, codes) {
       let sortiboucle = false

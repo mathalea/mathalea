@@ -7,9 +7,6 @@
     "include": [
       "./src/js/mathalea.js",
       "./src/demarrage.md"
-    ],
-    "exclude": [
-      "./src/js/modules/MathJax"
     ]
   },
   "plugins"  : ["plugins/markdown"],
@@ -28,7 +25,8 @@
     "static": true,
     "sort": true,
     "search": true,
-    "collapse": true
+    "collapse": true,
+    "commonNav": true
   },
   "templates": {
     "cleverLinks": true
