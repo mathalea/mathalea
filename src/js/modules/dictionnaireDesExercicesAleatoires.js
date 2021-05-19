@@ -1702,8 +1702,12 @@ export default {
   "5R20-3": {
     "titre": "Additions de 5 nombres relatifs",
     "url": "/exercices/5e/5R20-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
+    "interactifReady": true,
     "name": "5R20-3"
   },
   "5R20-4": {
