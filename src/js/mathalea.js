@@ -205,7 +205,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
  * @param isdiaporama
  * @param listeObjetsExercice
- * @return {Promise<>}
+ * @return {Promise<undefined>}
  */
 async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin katex, mg32, iep, scratch
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
@@ -225,25 +225,21 @@ async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin kat
     variation: 'inverted',
     inline: true
   })
-  try {
-    const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
-    if (exosMg32.length) {
-    // faut charger mathgraph et lui filer ces figures
-      try {
-      // faut attendre que le div soit créé
-      // @todo ce code devrait plutôt être exécuté après la création du div
-      // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
-      // => il n'y aurait plus de couplage sur le préfixe MG32div)
-        await waitFor('MG32div0')
-        await mg32DisplayAll(exosMg32)
-      } catch (error) {
-      // On traite l'erreur
-        console.log(error)
-        throw ({ code: 'mg32load' })
-      }
+  const exosMg32 = listeObjetsExercice.filter(exo => exo.typeExercice === 'MG32')
+  if (exosMg32.length) {
+  // faut charger mathgraph et lui filer ces figures
+    try {
+    // faut attendre que le div soit créé
+    // @todo ce code devrait plutôt être exécuté après la création du div
+    // (et ce serait même mieux d'ajouter les conteneurs comme propriétés des exos passés à mg32DisplayAll
+    // => il n'y aurait plus de couplage sur le préfixe MG32div)
+      await waitFor('MG32div0')
+      await mg32DisplayAll(exosMg32)
+    } catch (error) {
+    // On traite l'erreur
+      console.log(error)
+      messageUtilisateur({ code: 'mg32load' })
     }
-  } catch (error) {
-    messageUtilisateur(error)
   }
   try {
     const besoinScratch = listeObjetsExercice.some(exo => exo.typeExercice === 'Scratch')
