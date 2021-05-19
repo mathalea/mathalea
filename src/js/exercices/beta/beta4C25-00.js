@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { fraction, listeFractions} from '../../modules/Fractions.js'
+import { fraction, listeFractions} from '../../modules/fractions.js'
 
 export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
 
@@ -78,8 +78,8 @@ export default function Problemes_additifs_fractions_bis() {
             pb_3_f = [];
             // les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
             // et on veut des fractions distinctes !
-            
-            
+
+
             // on choisit un tableau de dénominateurs qui vont bien
             denoms_cool_3 = denoms_amis[randint(0, denoms_amis.length - 1)];
             F1 = fraction(1, 2)
@@ -115,7 +115,7 @@ export default function Problemes_additifs_fractions_bis() {
             });
 
             // les 3 prénomns doivent être distincts
-   
+
             while (p1 == p2 || p1 == p3 || p2 == p3) {
                 p1 = prenomF();
                 p2 = prenomF();
@@ -462,7 +462,7 @@ export default function Problemes_additifs_fractions_bis() {
             if (
                 pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[2]) &&
                 pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[4]) &&
-                pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[6]) 
+                pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[6])
             ) {
                 pb_4_f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
@@ -498,7 +498,7 @@ export default function Problemes_additifs_fractions_bis() {
             if (
                 pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[2]) &&
                 pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[4]) &&
-                pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[6]) 
+                pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[6])
             ) {
                 pb_4_f[1].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.`
@@ -531,7 +531,7 @@ export default function Problemes_additifs_fractions_bis() {
             if (
                 pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[2]) &&
                 pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[4]) &&
-                pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[6]) 
+                pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[6])
             ) {
                 pb_4_f[2].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, chaque catégorie a donc la même importance dans le stade.`

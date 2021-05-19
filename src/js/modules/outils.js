@@ -1,5 +1,5 @@
 import { texteParPosition } from './2d.js'
-import { fraction } from './Fractions.js'
+import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
 import { loadScratchblocks } from './loaders'
@@ -1088,10 +1088,12 @@ export function unSiPositifMoinsUnSinon (a) {
 }
 
 /**
-* Retourne l'arrondi (par défaut au centième près)
-*
-* @Auteur Rémi Angot
-*/
+ * Retourne l'arrondi (par défaut au centième près)
+ * @author Rémi Angot
+ * @param {number} nombre
+ * @param {number} precision
+ * @return {number}
+ */
 export function arrondi (nombre, precision = 2) {
   const tmp = Math.pow(10, precision)
   return Math.round(nombre * tmp) / tmp

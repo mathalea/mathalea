@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js'
-import {fraction} from '../../modules/Fractions.js'
+import {fraction} from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
 
 /**

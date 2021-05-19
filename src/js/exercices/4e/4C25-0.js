@@ -3,7 +3,8 @@ import { context } from '../../modules/context.js'
 import {fractionSimplifiee,listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenomF,prenomM,prenom,texteEnCouleurEtGras} from '../../modules/outils.js'
 const Algebrite = require('algebrite')
 
-//import {fraction,ListeFraction} from '../../modules/Fractions.js'
+// import { fraction } from '../../modules/fractions.js'
+// import ListeFraction from '../../modules/ListeFraction.js'
 
 export const titre = 'Problèmes additifs et de comparaison sur les rationnels'
 
@@ -35,12 +36,12 @@ export default function Problemes_additifs_fractions() {
   let typesDeQuestionsDisponibles;
 
   /**
- * @class ListeFraction
+ * @class ListeFractionLocal
  * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
  * @author Sébastien Lozano
  */
 
-function ListeFraction() {
+function ListeFractionLocal() {
   //'use strict'; pas de use strict avec un paramètre du reste
   /**
    * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
@@ -50,13 +51,13 @@ function ListeFraction() {
   let denominateurs_amis = [[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
 
  /**
-  * 
+  *
   * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
   * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
-  * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
+  * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2]
   */
  let sortFractions=function(...fractions) {
-     try {		
+     try {
          fractions.forEach(function(element) {
              if (typeof element != 'number') {
                  throw new TypeError(`${element} n'est pas un nombre !`);
@@ -64,7 +65,7 @@ function ListeFraction() {
              if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
                  throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
              };
-         });	
+         });
          if (Math.floor(fractions.length/2) <= 1 ) {
              throw new Error(`Il faut au moins deux fractions !`);
          };
@@ -119,7 +120,7 @@ function ListeFraction() {
  };
 
  /**
-  * 
+  *
   * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
   * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
   * * Le dénominateur choisi est toujours le ppcm
@@ -127,7 +128,7 @@ function ListeFraction() {
   * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
   */
   function reduceSameDenominateur(...fractions) {
-     try {		
+     try {
       fractions.forEach(function(element) {
              if (typeof element != 'number') {
                  throw new TypeError(`${element} n'est pas un nombre !`);
@@ -135,7 +136,7 @@ function ListeFraction() {
              if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
                  throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
              };
-         });	
+         });
          if (Math.floor(fractions.length/2) <= 1 ) {
              throw new Error(`Il faut au moins deux fractions !`);
          };
@@ -192,7 +193,7 @@ function ListeFraction() {
 
     ) {
       // on aura besoin des méthodes de la classe Fraction()
-      let frac = new ListeFraction();
+      let frac = new ListeFractionLocal();
       // on récupère les dénominateurs qui vont bien
       //let denoms_amis = frac.denominateurs_amis;
       //C'est mieux avec ceux là, l'algo trouve plus rapidement une solution avec les contraintes à ajouter dans mathsalea_outils.js quand ça sera possible.
