@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {calcul,listeQuestionsToContenuSansNumero,lettreDepuisChiffre,randint,sp,choice,range1,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,miseEnEvidence,liste_des_diviseurs} from '../../modules/outils.js'
 
-export const amcReady = true
+export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType =5 //type de question AMC 
 
 export const titre = 'Calculs utilisant les priorités opératoires et les puissances'

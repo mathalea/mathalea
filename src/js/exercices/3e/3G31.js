@@ -4,9 +4,8 @@ import {homothetie,codeAngle,longueur,tracePoint,barycentre,milieu,latexParPoint
 import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texNombre2,texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js';
 
 
-export const amcReady = true
+export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType =5 //type de question AMC 
-
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 
 /**

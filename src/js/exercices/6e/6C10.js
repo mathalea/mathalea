@@ -64,7 +64,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
             randint(1, 9)
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a)}+${b}`
-          if (this.interactif) texte += '=$' + ajouteChampTexte(this, i)
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte +='$'
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
@@ -79,7 +79,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = a * 1000 + b * 100 + c * 10
           y = e * 100 + f * 10 + g
           texte = `$${texNombre(x)}-${y}`
-          if (this.interactif) texte += '=$' + ajouteChampTexte(this, i)
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte +='$'
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
@@ -94,7 +94,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 1000 + a * 100 + b * 10 + c
           y = d * 100 + e * 10 + f
           texte = `$${texNombre(x)}-${y}`
-          if (this.interactif) texte += '=$' + ajouteChampTexte(this, i)
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte +='$'
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
@@ -108,7 +108,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 100 * a + 10 * b + c
           y = d * 100 + e
           texte = `$${texNombre(x)}\\times${y}`
-          if (this.interactif) texte += '=$' + ajouteChampTexte(this, i)
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte+='$'
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
@@ -122,7 +122,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 100 * a + 10 * b + c
           y = 10 * d + e
           texte = `$${x}\\times${y}`
-          if (this.interactif) texte += '=$' + ajouteChampTexte(this, i)
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte +='$'
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
@@ -136,7 +136,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texteCorr = '\\setlength\\itemsep{2em}' + texteCorr
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, reponse, { digits: 0 })
+        setReponse(this, i, reponse, { digits: 0 }) // fonction qui va renseigner this.autocorrection[i]
         i++
       }
       cpt++

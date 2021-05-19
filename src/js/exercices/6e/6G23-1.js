@@ -31,7 +31,6 @@ export default function MesurerUnAngle () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.qcm = ['6G23-1', [], "Estimer la mesure d'un angle.", 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

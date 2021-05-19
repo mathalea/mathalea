@@ -26,8 +26,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   this.sup = 1 // Niveau de difficulté 
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.qcmDisponible = true
-  this.modeQcm = false
+
 
   function justification (N, a, booleen) {
     let result
@@ -59,8 +58,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.qcm = ['6N43-3', [], 'Diviseur, multiple, divisible - Vrai ou faux', 1, { ordered: true, lastChoices: 2 }]
-    let tabrep, tabicone
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -170,9 +167,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([`${texte}.\\\\ \n `,
-          tabrep,
-          tabicone])
         i++
       }
       cpt++

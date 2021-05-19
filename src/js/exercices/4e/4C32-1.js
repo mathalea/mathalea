@@ -18,7 +18,7 @@ export default function CalculsAvecPuissancesDeDix () {
   this.sup = 1
   this.sup2 = 1
   this.titre = titre
-  this.amcReady = amcReady
+  export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.nbCols = 1

@@ -24,8 +24,6 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   this.interactifReady = interactifReady
   this.consigne = 'Compléter'
   this.spacing = 2
-  this.qcmDisponible = true
-  this.modeQcm = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
