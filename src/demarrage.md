@@ -71,7 +71,9 @@ Si vous créez un nouvel exercice, lancez `pnpm build:dicos` pour mettre à jour
 
 Pour générer la documentation, lancer `pnpm run build:doc`
 
-Et ensuite, pour visualiser cette documentation, lancer `pnpm run doc`
+Et ensuite, pour visualiser cette documentation, lancer `pnpm run doc:show`
+
+Ou bien réaliser les deux opérations précédentes en une seule commande avec `pnpm run doc`
 
 Vous avez des modèles pour commencer votre exercice : 
 
