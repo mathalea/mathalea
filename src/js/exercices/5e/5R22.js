@@ -6,7 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
 export const amcReady = true
-export const amcType = 4 // Je voudrais du type 5, mais ça ne fonctionne pas en ligne...
+export const amcType = 5 // Je voudrais du type 5, mais ça ne fonctionne pas en ligne...
 
 /**
 * Effectuer la somme ou la différence de deux nombres relatifs

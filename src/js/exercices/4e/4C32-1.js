@@ -3,7 +3,8 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Calcul avec les puissances de dix'
 
-export const amcReady = true
+export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
+
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
 
@@ -18,19 +19,17 @@ export default function CalculsAvecPuissancesDeDix () {
   this.sup = 1
   this.sup2 = 1
   this.titre = titre
-  export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
-  this.qcmDisponible = true
+
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.qcm = ['4C32-1', [], 'Calcul avec les puissances de dix', 1]
-
+    
     if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Compléter l\'égalité des nombres suivants.'
     let typeDeQuestionsDisponibles
@@ -81,6 +80,10 @@ export default function CalculsAvecPuissancesDeDix () {
         texteCorr = `$${miseEnEvidence(`${texNombrec(mantisse1)}`, 'blue')}\\times ${miseEnEvidence(`10^{${exp1}}`)} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
         this.autoCorrection[i] = {}
         this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].options = {
+          ordered: false,
+          lastChoice: 5
+        }
         this.autoCorrection[i].propositions = [
           {
             texte: `$${scientifiquestring}$`,

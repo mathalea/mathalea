@@ -222,4 +222,5 @@ export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4) questionNumerique(exercice)
   if (exercice.amcType === 1) exerciceQcm(exercice)
   if (exercice.amcType === 2) exerciceQcm(exercice) // Avec des paramètres différents ??? @jeanClaude, qu'en penses-tu ?
+  if (exercice.amcType === 5) questionNumerique(exercice)
 }
