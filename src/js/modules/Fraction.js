@@ -18,6 +18,14 @@ function texFractionSigne (num, den) {
   return '0'
 }
 
+const definePropRo = (obj, prop, get) => {
+  Object.defineProperty(obj, prop, {
+    enumerable: true,
+    writable: false,
+    get
+  })
+}
+
 /**
  * Méthodes utiles sur les fractions
  * @class
@@ -40,46 +48,83 @@ export default class Fraction {
     this.den = den || 1
     if (typeof this.den !== 'number' || Number.isNaN(this.den)) throw Error(`Dénominateur invalide ${this.den}`)
     if (this.den === 0) throw Error('Dénominateur nul impossible')
+    // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
+    // (qui permet de ne faire le calcul qu'à la première lecture de la propriété)
     /**
      * Numérateur réduit
+     * @property numIrred
      * @type {number}
      */
-    this.numIrred = fractionSimplifiee(this.num, this.den)[0]
+    let numIrred
+    definePropRo(this, 'numIrred', () => {
+      if (!numIrred) numIrred = fractionSimplifiee(this.num, this.den)[0]
+      return numIrred
+    })
     /**
      * Dénominateur réduit
+     * @property denIrred
      * @type {number}
      */
-    this.denIrred = fractionSimplifiee(this.num, this.den)[1]
+    let denIrred
+    definePropRo(this, 'denIrred', () => {
+      if (!denIrred) denIrred = fractionSimplifiee(this.num, this.den)[1]
+      return denIrred
+    })
     /**
      * Valeur de la fraction × 100
+     * @property pourcentage
      * @type {number}
      */
-    this.pourcentage = calcul(this.numIrred * 100 / this.denIrred)
+    let pourcentage
+    definePropRo(this, 'pourcentage', () => {
+      if (!pourcentage) pourcentage = calcul(this.numIrred * 100 / this.denIrred)
+      return pourcentage
+    })
     /**
      * le signe de la fraction : -1, 0 ou 1
      * @type {number}
      */
     this.signe = (this.num === 0) ? 0 : unSiPositifMoinsUnSinon(this.num * this.den)
     /**
-     * n/d si positif -n/d si négatif.
+     * n/d si positif -n/d si négatif
+     * @property texFraction
      * @type {string}
      */
-    this.texFraction = texFractionSigne(this.num, this.den)
+    let texFraction
+    definePropRo(this, 'texFraction', () => {
+      if (!texFraction) texFraction = texFractionSigne(this.num, this.den)
+      return texFraction
+    })
     /**
      * +n/d si positif, -n/d si négatif
+     * @property texFractionSignee
      * @type {string}
      */
-    this.texFractionSignee = (this.signe === -1) ? this.texFraction : '+' + this.texFraction
+    let texFractionSignee
+    definePropRo(this, 'texFractionSignee', () => {
+      if (!texFractionSignee) texFractionSignee = (this.signe === -1) ? this.texFraction : '+' + this.texFraction
+      return texFractionSignee
+    })
     /**
      * n/d si positif, (-n/d) sinon
+     * @property texFractionSigneeParentheses
      * @type {string}
      */
-    this.texFractionSigneeParentheses = (this.signe >= 0) ? this.texFraction : `(${this.texFractionSignee})`
+    let texFractionSigneeParentheses
+    definePropRo(this, 'texFractionSigneeParentheses', () => {
+      if (!texFractionSigneeParentheses) texFractionSigneeParentheses = (this.signe >= 0) ? this.texFraction : `(${this.texFractionSignee})`
+      return texFractionSigneeParentheses
+    })
     /**
      * le code LaTeX de la fraction simplifiée
+     * @property texFractionSimplifiee
      * @type {string}
      */
-    this.texFractionSimplifiee = texFractionSigne(this.numIrred, this.denIrred)
+    let texFractionSimplifiee
+    definePropRo(this, 'texFractionSimplifiee', () => {
+      if (!texFractionSimplifiee) texFractionSimplifiee = texFractionSigne(this.numIrred, this.denIrred)
+      return texFractionSimplifiee
+    })
     /**
      * Valeurs avec 6 décimales
      * @type {number}
