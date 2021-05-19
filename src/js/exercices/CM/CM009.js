@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
 export const titre = 'Moitié'
 export const amcReady = true
 export const interactifReady = true
@@ -51,7 +51,7 @@ export default function Moitie () {
           texte = `$\\text{La moitié de }${a * 2 + 1}$`
           texteCorr = `$\\text{La moitié de }${a * 2 + 1
             } \\text{ est } ${texNombrec(a + 5 / 10)}$`
-          setReponse(this, i, texNombrec(a + 5 / 10))
+          setReponse(this, i, calcul(a + 5 / 10))
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 3: // Table de 200
@@ -60,7 +60,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${texNombre(
             a * 2 * 100
           )} \\text{ est } ${texNombre(a * 100)}$`
-          setReponse(this, i, texNombre(a * 100))
+          setReponse(this, i, a * 100)
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 4: // a00 avec a impair
@@ -69,7 +69,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${texNombre(
             (a * 2 + 1) * 100
           )} \\text{ est } ${texNombre(a * 100 + 50)}$`
-          setReponse(this, i, texNombre(a * 100 + 50))
+          setReponse(this, i, a * 100 + 50)
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 5: // a,b avec a et b pairs
@@ -81,7 +81,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${texNombrec(
             a * 2 + (b * 2) / 100
           )} \\text{ est } ${texNombrec(a + b / 100)}$`
-          setReponse(this, i, texNombrec(a + b / 100))
+          setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break
         case 6: // 1xx avec xx un nombre pair
