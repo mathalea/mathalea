@@ -176,7 +176,7 @@ export function questionNumerique (exercice) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-          if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.',',')) {
+          if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
             spanReponseLigne.innerHTML = '😎'
             nbBonnesReponses++
           } else {
@@ -213,14 +213,13 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * @param {'numero de la question'} i
  * @param {'réponse'} a
  */
-export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) {
+export function setReponse (exercice, i, a, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0 } = {}) {
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-
 
   exercice.autoCorrection[i].reponse.valeur = a
   exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }

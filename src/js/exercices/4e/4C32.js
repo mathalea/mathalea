@@ -1,13 +1,13 @@
-import { machineMathsVideo } from '../../modules/outils.js';
+import { machineMathsVideo, listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
+
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Notation scientifique'
 export const interactifReady = false
 export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
-export const amcType = 4 //type de question AMC 
+export const amcType = 4 // type de question AMC
 
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
@@ -15,38 +15,38 @@ export const amcType = 4 //type de question AMC
  * 4C32
  */
 
-export default function Notation_scientifique() {
+export default function NotationScientifique () {
   Exercice.call(this)
-  this.sup = 1;
-  this.sup2 = 1;
+  this.sup = 1
+  this.sup2 = 1
   this.titre = titre
-  this.nbCols = 1;
-  this.nbColsCorr = 1;
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.nbQuestions = 5
   this.interactif = false
-this.interactifReady = interactifReady
-this.amcType = amcType
-this.amcReady = amcReady
+  this.interactifReady = interactifReady
+  this.amcType = amcType
+  this.amcReady = amcReady
 
- 			/********************************************************************/
-      /** Type 4 : questionmultx avec AMCnumericChoices */
-			// Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
-			// {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
-			// La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
-			/********************************************************************/
+  /********************************************************************/
+  /** Type 4 : questionmultx avec AMCnumericChoices */
+  // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
+  // {int digits,int decimals,bool signe,int exposantNbChiffres,bool exposantSigne,int approx}
+  // La correction est dans tabQCM[1][0] et la réponse numlérique est dans tabQCM[1][1]
+  /********************************************************************/
 
   this.nouvelleVersion = function () {
     let reponse
-    if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
-    else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
-    let typesDeQuestionsDisponibles;
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
-    if (this.sup2 == 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1];
-    else if (this.sup2 == 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2];
-    else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3];
+    if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
+    else this.consigne = 'Donner l\'écriture décimale des nombres suivants.'
+    let typesDeQuestionsDisponibles
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    if (this.sup2 === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
+    else if (this.sup2 === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
+    else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
-    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
@@ -57,22 +57,22 @@ this.amcReady = amcReady
         case 1:
           mantisse = calcul(randint(11, 99) / 10)
           exp = randint(1, 5)
-          break;
+          break
         case 2:
-          if (randint(0, 1) == 1) mantisse = calcul(randint(111, 999) / 100)
+          if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
           else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
           exp = randint(1, 7) * choice([-1, 1])
-          break;
+          break
         case 3:
-          if (randint(0, 1) == 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
+          if (randint(0, 1) === 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
           else mantisse = calcul(randint(1111, 9999) / 1000)
           exp = randint(3, 7) * choice([-1, 1])
-          break;
+          break
       }
-      reponse=calcul(mantisse * 10 ** exp)
+      reponse = calcul(mantisse * 10 ** exp)
       decimalstring = texNombrec(mantisse * 10 ** exp)
       scientifiquestring = `${texNombre(mantisse)}\\times 10^{${exp}}`
-      if (this.sup == 1) {
+      if (this.sup === 1) {
         texte = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
         if (this.interactif) {
@@ -80,8 +80,7 @@ this.amcReady = amcReady
             texte: `$${decimalstring} = $`
           })
         }
-      }
-      else {
+      } else {
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
         texte = `$${scientifiquestring}$`
         if (this.interactif) {
@@ -91,22 +90,21 @@ this.amcReady = amcReady
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        
-        if (this.sup==1) {
-          setReponse(this, i,reponse, {digits:listeTypeDeQuestions[i]+3,decimals:listeTypeDeQuestions[i]+1,signe:false,exposantNbChiffres:1,exposantSigne:true,approx:0})
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+
+        if (this.sup === 1) {
+          setReponse(this, i, reponse, { digits: listeTypeDeQuestions[i] + 3, decimals: listeTypeDeQuestions[i] + 1, signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
+        } else {
+          setReponse(this, i, reponse, { strict: false, vertical: false, digits: 2 * Math.abs(exp) + 2, decimals: Math.abs(exp) + 1, signe: false, exposantNbChiffres: 0, exposantSigne: true, approx: 0 })
         }
-        else {
-          setReponse(this, i, reponse, {strict:false,vertical:false,digits:2*Math.abs(exp)+2,decimals:Math.abs(exp)+1,signe:false,exposantNbChiffres:0,exposantSigne:true,approx:0})
-        }
-        
-        i++;
+
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
-  this.besoinFormulaireNumerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Traduire en notation décimale"];
-  this.besoinFormulaire2Numerique = ["Niveaux de difficulté", 3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ["Type d'exercices", 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
+  this.besoinFormulaire2Numerique = ['Niveaux de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }

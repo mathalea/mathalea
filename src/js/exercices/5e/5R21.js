@@ -15,7 +15,7 @@ export const amcType = 4
 * @Auteur Rémi Angot
 * 5R21
 */
-export default function Exercice_soustractions_relatifs (max = 20) {
+export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max
   this.sup2 = false // écriture simplifiée
@@ -38,9 +38,9 @@ export default function Exercice_soustractions_relatifs (max = 20) {
       b = b * k[1]
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = \\dotfill $`
-		if (this.interactif && !context.isAmc) {
-			texte = ajouteChampTexte(this, i, { texte: `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` })
-		  }
+        if (this.interactif && !context.isAmc) {
+          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexte(this, i, { texte: '' })
+        }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
         } else {
@@ -48,15 +48,15 @@ export default function Exercice_soustractions_relatifs (max = 20) {
         }
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
-		if (this.interactif && !context.isAmc) {
-			texte = ajouteChampTexte(this, i, { texte: `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` })
-		  }
+        if (this.interactif && !context.isAmc) {
+          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexte(this, i, { texte: '' })
+        }
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-		setReponse(this, i, a - b, { signe: true })
+        setReponse(this, i, a - b, { signe: true })
         i++
       }
       cpt++
