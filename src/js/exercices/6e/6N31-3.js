@@ -26,8 +26,6 @@ export default function ArrondirUneValeur () {
   this.interactifReady = true
   this.interactif = true
   this.amcType = amcType
-  this.qcmDisponible = true
-  this.modeQcm = false
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {

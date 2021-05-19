@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombrec,texNombre,miseEnEvidence,texFraction} from '../../modules/outils.js'
-export const amcReady = true
+export const amcReady = false // jusqu'à ce qu'il soit adapté à la version 2.6
+
 export const amcType =4 //type de question AMC 
 
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'

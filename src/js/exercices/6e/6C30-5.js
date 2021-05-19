@@ -29,8 +29,7 @@ export default function MultiplierPar001 () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Compléter les pointillés.'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.qcmDisponible = true
-  this.modeQcm = false
+
   this.sup = false
   this.sup2 = 4
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
@@ -42,8 +41,6 @@ export default function MultiplierPar001 () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
-    this.qcm = ['6C30-5', [], 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)', 1]
-
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     let typeDeQuestionsDisponibles
@@ -54,8 +51,7 @@ export default function MultiplierPar001 () {
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const rang = ['millièmes', 'centièmes', 'dixièmes']
-    let tabrep; let tabicone = [1, 0, 0, 0]
-    this.qcm[1] = []
+
     for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.

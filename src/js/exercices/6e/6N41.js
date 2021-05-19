@@ -24,8 +24,7 @@ export default function EgalitesEntreFractions () {
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2
-  this.qcmDisponible = true
-  this.modeQcm = false
+
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

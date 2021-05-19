@@ -4,7 +4,8 @@ import { listeQuestionsToContenu, randint, texNombrec } from '../../modules/outi
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js';
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
 
-export const amcReady = true
+export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
+
 export const amcType =3 //type de question AMC 
 
 export const titre = 'Calcul d’un parallèle terrestre'

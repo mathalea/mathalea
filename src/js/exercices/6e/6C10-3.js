@@ -23,14 +23,11 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.qcmDisponible = true
-  this.modeQcm = false
   this.interactifReady = true
   this.interactif = true
   this.amcType = amcType
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C10-3', [], 'tables de multiplications et nombres décimaux', 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {

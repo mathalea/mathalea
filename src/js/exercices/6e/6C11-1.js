@@ -5,6 +5,7 @@ export const titre = "Divisions euclidiennes : déterminer reste et quotient à 
 
 export const amcReady = true
 export const amcType =3 //type de question AMC 
+export const interactifReady = true
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *
@@ -21,7 +22,10 @@ export default function Divisions_euclidiennes_egalite () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  this.qcm = ['6C11-1', [], 'Divisions euclidiennes : déterminer reste et quotient à partir d\'une égalité', 3, {}]
+  this.interactif = true
+  this.interactifReady = interactifReady
+  this.amcType = amcType
+  this.amcReady = amcReady
   this.nouvelleVersion = function () {
     this.autoCorrection=[]
     this.listeQuestions = [] // Liste de questions

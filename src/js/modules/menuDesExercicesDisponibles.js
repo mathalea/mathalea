@@ -74,6 +74,8 @@ function listeHtmlDesExercicesDUnTheme (theme) {
       if (dictionnaire[id].interactifReady) {
         liste += spanExercice(id, dictionnaire[id].titre)
       }
+    } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+      liste += spanExercice(id, dictionnaire[id].titre +' <b>'+ dictionnaire[id].amcType.text+'</b>')
     } else {
       liste += spanExercice(id, dictionnaire[id].titre)
     }
@@ -279,14 +281,21 @@ export function supprimerExo (num, last) {
 function ligneTableau (exercice) {
   //Construction d'une ligne du tableau pour l'affichage en mode tableau
   let ligne = ''
-  const modeAmc = dictionnaireDesExercices[exercice].amcReady ? 'AMC ' : ''
+  const modeAmc = dictionnaireDesExercices[exercice].amcReady ? `AMC <b>${dictionnaireDesExercices[exercice].amcType.text}</b>` : ''
   // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
   const modeInteractif = dictionnaireDesExercices[exercice].interactifReady ? ' Interactif' : ''
   if (dictionnaireDesExercices[exercice].titre) {
-    ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
-    </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
-    </a></td><td> ${modeAmc} ${modeInteractif}
-    </td><td data-tooltip="Prévisualiser l\'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
+    if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
+      </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
+      </a></td><td> ${modeAmc} <br> ${modeInteractif}
+      </td><td data-tooltip="Prévisualiser l\'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`
+    } else {
+      ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}
+      </span></td> <td> <a class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].titre}
+      </a></td><td> ${modeAmc} ${modeInteractif}
+      </td><td data-tooltip="Prévisualiser l\'exercice."><i id="${exercice}" class="eye icon icone_preview" ></td></tr>`    
+    }
   } else {
     ligne = '<tr><td class="colonnecode"><span class="id_exercice">' +
     exercice +
@@ -530,6 +539,14 @@ export function menuDesExercicesDisponibles () {
   } else if (filtre === 'lycee') {
     html_affichage = htmlListes({
       liste_affichage: [2, 1, 'T'],
+      active: '',
+      obj_ex: obj_exercices_disponibles
+    })
+    liste_html_des_exercices += html_affichage.liste + '</div>'
+    liste_html_des_exercicestab += html_affichage.lignes
+  } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
+    html_affichage = htmlListes({
+      liste_affichage: ['c3', 6, 5, 4, 3, 2, 1, 'T', 'PE', 'C'],
       active: '',
       obj_ex: obj_exercices_disponibles
     })
