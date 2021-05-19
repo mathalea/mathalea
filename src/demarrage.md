@@ -8,7 +8,11 @@ La documentation cite partout le gestionnaire de modules [pnpm](https://pnpm.io/
 Pour installer pnpm c'est `npm install -g pnpm` (il faut être admin, préfixer éventuellement la commande par sudo sous linux|mac)
 
 ### Utilisation d'un PPA NodeSource pour Linux Mint et surement toute distrib basée sur Debian
-Pour installer nodejs 15.x
+Au 19 mai 2021 :
+- la version avec les dernières fonctionnalités est la 16.2.0
+- la version LTS est la 14.17.0
+
+Pour installer nodejs 15.x 
 ```shell
 # Éventuellement installer curl dans un premier temps
 sudo apt-get install curl
