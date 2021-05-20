@@ -2,7 +2,7 @@
 /* globals mathalea */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modal_url, modalPdf } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, texteGras, modalUrl, modalPdf } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, fond_ecran, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA } from '../../modules/2d.js'
 export const titre = 'Note la couleur'
 
@@ -483,9 +483,9 @@ export default function Note_la_couleur () {
     //    texte += mathalea2d(params_enonce, objets_enonce);
     //  texteCorr += mathalea2d(params_correction, objets_correction);
     pion.codeScratch += '\\end{scratch}'
-    texte = `Cet exercice est tiré de l'excellente activité débranchée ${modal_url(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
+    texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
     texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-    texte += `N'hésitez pas à vous rendre sur le site ${modal_url(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+    texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
     texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
     texte += 'Exécuter le programme et trouver la succession de couleur.<br>'
     texte += '<table><tr><td>' +

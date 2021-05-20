@@ -25,22 +25,22 @@ export default function Heures_decimales() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    for (let i = 0, partie_entiere, partie_decimale, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      partie_entiere = randint(1, 12);
-      partie_decimale = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 75]);
-      texte = `$${partie_entiere},${partie_decimale}~\\text{h}=\\dotfill$`;
-      if (partie_decimale == 25) {
-        texteCorr = `$${partie_entiere},${partie_decimale}~\\text{h}=${partie_entiere}~\\text{h}+\\dfrac{1}{4}~\\text{h}`;
-        texteCorr += `=${partie_entiere}~\\text{h}~15~\\text{min}$`;
-      } else if (partie_decimale == 75) {
-        texteCorr = `$${partie_entiere},${partie_decimale}~\\text{h}=${partie_entiere}~\\text{h}+\\dfrac{3}{4}~\\text{h}`;
-        texteCorr += `=${partie_entiere}~\\text{h}~45~\\text{min}$`;
-      } else if (partie_decimale == 5) {
-        texteCorr = `$${partie_entiere},${partie_decimale}~\\text{h}=${partie_entiere}~\\text{h}+\\dfrac{1}{2}~\\text{h}`;
-        texteCorr += `=${partie_entiere}~\\text{h}~30~\\text{min}$`;
+    for (let i = 0, partieEntiere, partieDecimale, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      partieEntiere = randint(1, 12);
+      partieDecimale = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 75]);
+      texte = `$${partieEntiere},${partieDecimale}~\\text{h}=\\dotfill$`;
+      if (partieDecimale == 25) {
+        texteCorr = `$${partieEntiere},${partieDecimale}~\\text{h}=${partieEntiere}~\\text{h}+\\dfrac{1}{4}~\\text{h}`;
+        texteCorr += `=${partieEntiere}~\\text{h}~15~\\text{min}$`;
+      } else if (partieDecimale == 75) {
+        texteCorr = `$${partieEntiere},${partieDecimale}~\\text{h}=${partieEntiere}~\\text{h}+\\dfrac{3}{4}~\\text{h}`;
+        texteCorr += `=${partieEntiere}~\\text{h}~45~\\text{min}$`;
+      } else if (partieDecimale == 5) {
+        texteCorr = `$${partieEntiere},${partieDecimale}~\\text{h}=${partieEntiere}~\\text{h}+\\dfrac{1}{2}~\\text{h}`;
+        texteCorr += `=${partieEntiere}~\\text{h}~30~\\text{min}$`;
       } else {
-        texteCorr = `$${partie_entiere},${partie_decimale}~\\text{h}=${partie_entiere}~\\text{h}+\\dfrac{${partie_decimale}}{10}~\\text{h}`;
-        texteCorr += `=${partie_entiere}~\\text{h}+${partie_decimale}\\times6~\\text{min}=${partie_entiere}~\\text{h}~${partie_decimale * 6}~\\text{min}$`;
+        texteCorr = `$${partieEntiere},${partieDecimale}~\\text{h}=${partieEntiere}~\\text{h}+\\dfrac{${partieDecimale}}{10}~\\text{h}`;
+        texteCorr += `=${partieEntiere}~\\text{h}+${partieDecimale}\\times6~\\text{min}=${partieEntiere}~\\text{h}~${partieDecimale * 6}~\\text{min}$`;
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

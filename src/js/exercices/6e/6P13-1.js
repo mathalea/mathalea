@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texPrix } from '../../modules/outils.js'
 export const titre = 'Facture'
 
 /**
@@ -54,11 +54,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
         texte += `\\text{Prix total (H.T.)} & & & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
@@ -76,17 +76,17 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texteCorr += `\\hline\n`
         texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calcul(p2 * q2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calcul(p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total (H.T.)} & & & ${texPrix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
         texteCorr += `\\hline\n`
 
         texteCorr += `\\end{array}$`
@@ -101,11 +101,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
         texte += `\\text{Prix total brut (H.T.)} & & & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
@@ -127,21 +127,21 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texteCorr += `\\hline\n`
         texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calcul(p2 * q2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calcul(p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${texPrix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
+        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total net (H.T.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
+        texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
         texteCorr += `\\hline\n`
 
         texteCorr += `\\end{array}$`

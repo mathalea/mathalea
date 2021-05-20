@@ -35,10 +35,10 @@ export default function Exercice () {
   this.video = ''
   this.boutonAide = false
   this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré
-  // this.boutonAide = modalTexteCourt(numeroExercice,texte,label_bouton="Aide",icone="info circle")
-  // this.boutonAide = modalTexteLong(numeroExercice,titre,texte,label_bouton="Aide",icone="info circle")
-  // this.boutonAide = modalYoutube(numeroExercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
-  // this.boutonAide = modalPdf(numeroExercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
+  // this.boutonAide = modalTexteCourt(numeroExercice,texte,labelBouton="Aide",icone="info circle")
+  // this.boutonAide = modalTexteLong(numeroExercice,titre,texte,labelBouton="Aide",icone="info circle")
+  // this.boutonAide = modalYoutube(numeroExercice,idYoutube,texte,labelBouton="Aide - Vidéo",icone="youtube")
+  // this.boutonAide = modalPdf(numeroExercice,urlPdf,texte="Aide",labelBouton="Aide - PDF",icone="file pdf")
   // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
   this.pasDeVersionLatex = false
   this.interactif = false // Exercice sans saisie utilisateur par défaut

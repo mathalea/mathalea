@@ -169,7 +169,7 @@ export function carreParfait (x) {
 
 // Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
 export function ecrireNombre2D (x, y, n) {
-  const nString = nombre_avec_espace(n)
+  const nString = nombreAvecEspace(n)
   const nombre2D = []
   for (let k = 0; k < nString.length; k++) {
     nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
@@ -1569,9 +1569,9 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
 */
 export function possedeUnCaractereInterdit (texte, listeAEviter) {
   let result = false
-  for (const mot_a_eviter of listeAEviter) {
-    for (let i = 0; i < mot_a_eviter.length; i++) {
-      if (texte.indexOf(mot_a_eviter[i]) > -1) {
+  for (const motAeviter of listeAEviter) {
+    for (let i = 0; i < motAeviter.length; i++) {
+      if (texte.indexOf(motAeviter[i]) > -1) {
         result = true
       }
     }
@@ -1604,15 +1604,15 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @author Jean-Claude Lhote
  */
-export function choisitLettresDifferentes (nombre, lettres_a_eviter = '', majuscule = true) {
+export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscule = true) {
   const listeAEviter = []; const lettres = []
-  for (const l of lettres_a_eviter) {
+  for (const l of lettresAeviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
   }
   const index = choisitNombresEntreMetN(1, 26, nombre, listeAEviter)
   for (const n of index) {
     if (majuscule) lettres.push(lettreDepuisChiffre(n))
-    else lettres.push(lettre_minuscule_depuis_chiffre(n))
+    else lettres.push(lettreMinusculeDepuisChiffre(n))
   }
   return lettres
 }
@@ -1664,7 +1664,7 @@ export function lettreDepuisChiffre (i) {
 * // 0 -> @ 1->a ; 2->b...
 * // 27->aa ; 28 ->ab ...
 */
-export function lettre_minuscule_depuis_chiffre (i) {
+export function lettreMinusculeDepuisChiffre (i) {
   return lettreDepuisChiffre(i).toLowerCase()
 }
 
@@ -1860,14 +1860,14 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
 }
 /**
 * Renvoie un tableau de nombres
-* @param nombre_notes
-* @param note_min
-* @param note_max
+* @param nombreNotes
+* @param noteMin
+* @param noteMax
 * @author Jean-Claude Lhote
 */
-export function liste_de_notes (nombre_notes, note_min, note_max) {
+export function listeDeNotes (nombreNotes, noteMin, noteMax) {
   const notes = []
-  for (let i = 0; i < nombre_notes; i++) notes.push(randint(note_min, note_max))
+  for (let i = 0; i < nombreNotes; i++) notes.push(randint(noteMin, noteMax))
   return notes
 }
 
@@ -1876,9 +1876,9 @@ export function liste_de_notes (nombre_notes, note_min, note_max) {
 * @param n quantième du mois (janvier=1...)
 * @author Jean-Claude Lhote
 */
-export function jours_par_mois (n) {
-  const jours_mois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  return jours_mois[n - 1]
+export function joursParMois (n) {
+  const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  return joursMois[n - 1]
 }
 /**
 * Renvoie un tableau de températures
@@ -1889,13 +1889,13 @@ export function jours_par_mois (n) {
 */
 export function unMoisDeTemperature (base, mois, annee) {
   const temperatures = []
-  let nombre_jours = jours_par_mois(mois)
+  let nombreJours = joursParMois(mois)
   if (mois === 2) {
-    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) nombre_jours = 29 // années bissextiles.
-    else nombre_jours = 28
+    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) nombreJours = 29 // années bissextiles.
+    else nombreJours = 28
   }
   temperatures.push(randint(-3, 3) + base)
-  for (let i = 1; i < nombre_jours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
+  for (let i = 1; i < nombreJours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
   return temperatures
 }
 
@@ -1904,7 +1904,7 @@ export function unMoisDeTemperature (base, mois, annee) {
 * @param n quantième du mois
 * @author Jean-Claude Lhote
 */
-export function nom_du_mois (n) {
+export function nomDuMois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   return mois[n - 1]
 }
@@ -1914,7 +1914,7 @@ export function nom_du_mois (n) {
 * @param n quantième du jour
 * @author Mireille Gain
 */
-export function nom_du_jour (n) {
+export function nomDuJour (n) {
   const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
   return jour[n - 1]
 }
@@ -2161,29 +2161,29 @@ export function texNombre (nb) {
 */
 export function texNombre2 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
-  const rang_virgule = nombre.indexOf(',')
-  let partie_entiere = ''
-  if (rang_virgule !== -1) {
-    partie_entiere = nombre.substring(0, rang_virgule)
+  const rangVirgule = nombre.indexOf(',')
+  let partieEntiere = ''
+  if (rangVirgule !== -1) {
+    partieEntiere = nombre.substring(0, rangVirgule)
   } else {
-    partie_entiere = nombre
+    partieEntiere = nombre
   }
-  let partie_decimale = ''
-  if (rang_virgule !== -1) {
-    partie_decimale = nombre.substring(rang_virgule + 1)
+  let partieDecimale = ''
+  if (rangVirgule !== -1) {
+    partieDecimale = nombre.substring(rangVirgule + 1)
   }
 
-  for (let i = partie_entiere.length - 3; i > 0; i -= 3) {
-    partie_entiere = partie_entiere.substring(0, i) + '\\thickspace ' + partie_entiere.substring(i)
+  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
   }
-  for (let i = 3; i <= partie_decimale.length; i += 3) {
-    partie_decimale = partie_decimale.substring(0, i) + '\\thickspace ' + partie_decimale.substring(i)
+  for (let i = 3; i <= partieDecimale.length; i += 3) {
+    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
     i += 12
   }
-  if (partie_decimale === '') {
-    nombre = partie_entiere
+  if (partieDecimale === '') {
+    nombre = partieEntiere
   } else {
-    nombre = partie_entiere + ',' + partie_decimale
+    nombre = partieEntiere + ',' + partieDecimale
   }
   return nombre
 }
@@ -2212,7 +2212,7 @@ export function sp (nb = 1) {
 * Fonctionne sans le mode maths contrairement à texNombre()
 * @author Rémi Angot
 */
-export function nombre_avec_espace (nb) {
+export function nombreAvecEspace (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
@@ -2234,18 +2234,18 @@ export function nombre_avec_espace (nb) {
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   const nombre = nb.toString()
-  const partie_entiere = nombre.split('.')[0]
-  const partie_decimale = nombre.split('.')[1]
+  const partieEntiere = nombre.split('.')[0]
+  const partieDecimale = nombre.split('.')[1]
   let result = ''
   let i
-  if (partie_entiere.length > 3) {
-    for (let i = 0; i < Math.floor(partie_entiere.length / 3); i++) {
-      result = ' ' + partie_entiere.slice(partie_entiere.length - i * 3 - 3, partie_entiere.length - i * 3) + result
+  if (partieEntiere.length > 3) {
+    for (let i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
+      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
     }
-    result = partie_entiere.slice(0, partie_entiere.length - i * 3) + result
-  } else result = partie_entiere
+    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
+  } else result = partieEntiere
   if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partie_decimale !== undefined) result += ',' + partie_decimale
+  if (partieDecimale !== undefined) result += ',' + partieDecimale
   return result
 }
 /**
@@ -2342,17 +2342,6 @@ export function texcolors (i, fondblanc = true) {
   if (fondblanc && i % 19 >= 17) i += 2
   return couleurs[i % 19]
 }
-export function couleur_en_gris (color) {
-  switch (color) {
-    case 'black':
-      return color
-    case 'white':
-      return color
-    case 'gray':
-      return color
-    case 'blue':
-  }
-}
 
 /**
 * Met gras un texte
@@ -2385,7 +2374,7 @@ export function href (texte, lien) {
 * Pour bien afficher les centimes avec 2 chiffres après la virgule
 * @author Rémi Angot
 */
-export function tex_prix (nb) {
+export function texPrix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
   let result
@@ -2636,7 +2625,7 @@ export function MatriceCarree (table) {
     const n = this.dim // taille de la matrice = nxn
     let determinant = 0; let M
     for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
-      //	if (n==1) determinant=this.table[0][0]
+      // if (n==1) determinant=this.table[0][0]
       if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
         M = this.matriceReduite(0, i)
         determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
@@ -2796,8 +2785,8 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
     if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
       const fa = fraction(a, determinant); const fb = fraction(b, determinant); const fc = fraction(c, determinant)
       return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred], [fc.numIrred, fc.denIrred]]
-    } // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-    else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1], [calcul(b / determinant), 1]]
+      // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+    } else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1], [calcul(b / determinant), 1]]
   }
 }
 /**
@@ -2957,13 +2946,14 @@ export function simpNotPuissance (b, e) {
  * @author Sébastien Lozano
  */
 export function eclatePuissance (b, e, couleur) {
+  let str
   switch (e) {
     case 0:
       return `\\mathbf{\\color{${couleur}}{1}}`
     case 1:
       return `\\mathbf{\\color{${couleur}}{${b}}}`
     default:
-      let str = `\\mathbf{\\color{${couleur}}{${b}}} `
+      str = `\\mathbf{\\color{${couleur}}{${b}}} `
       for (let i = 1; i < e; i++) {
         str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`
       }
@@ -2978,13 +2968,14 @@ export function eclatePuissance (b, e, couleur) {
  * @author Rémi Angot
  */
 export function puissanceEnProduit (b, e) {
+  let str
   switch (e) {
     case 0:
       return '1'
     case 1:
       return `${b}`
     default:
-      let str = `${b}`
+      str = `${b}`
       for (let i = 1; i < e; i++) {
         str = str + `\\times ${b}`
       }
@@ -3002,13 +2993,14 @@ export function puissanceEnProduit (b, e) {
  * @author Sébastien Lozano
  */
 export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
+  let str
   switch (e) {
     case 0:
       return '1'
     case 1:
       return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
     default:
-      let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
+      str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
       for (let i = 1; i < e; i++) {
         str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
       }
@@ -3022,11 +3014,11 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
  */
 export function ordreDeGrandeur (x, type) {
-  let signe, P
+  let signe
   if (x < 0) signe = -1
   else signe = 1
   x = Math.abs(x)
-  P = 10 ** Math.floor(Math.log10(x))
+  const P = 10 ** Math.floor(Math.log10(x))
   if (type === 0) return P * signe
   else if (type === 1) return P * 10 * signe
   else if (x - P < 10 * P - x) return P * signe
@@ -3040,8 +3032,8 @@ export function ordreDeGrandeur (x, type) {
 * @param icone
 * @author Rémi Angot
 */
-export function creerModal (numeroExercice, contenu, label_bouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
+export function creerModal (numeroExercice, contenu, labelBouton, icone) {
+  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
     <div class="ui modal" id="modal${numeroExercice}">
     ${contenu}
     </div>`
@@ -3054,8 +3046,8 @@ export function creerModal (numeroExercice, contenu, label_bouton, icone) {
 * @param icone
 * @author Rémi Angot
 */
-export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 'Aide', icone = 'info circle') {
-  const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${label_bouton}</button>`
+export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = 'Aide', icone = 'info circle') {
+  const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
 
   return HTML
 }
@@ -3064,41 +3056,41 @@ export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 
 * Créé un bouton pour une aide modale avec un texte court
 * @param numeroExercice
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalTexteCourt (numeroExercice, texte, label_bouton = 'Aide', icone = 'info circle') {
+export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<div class="header">${texte}</div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
-* @param id_youtube
+* @param idYoutube
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 'Aide - Vidéo', icone = 'youtube') {
+export function modalYoutube (numeroExercice, idYoutube, texte, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
-  if (id_youtube.substr(0, 4) === 'http') {
-    if (id_youtube.slice(-4) === '.pdf') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
+  if (idYoutube.substr(0, 4) === 'http') {
+    if (idYoutube.slice(-4) === '.pdf') {
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
-    if (id_youtube.substr(0, 17) === 'https://youtu.be/') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
-  } else if (id_youtube.substr(0, 4) === '<ifr') {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${id_youtube}</p></div>`
+  } else if (idYoutube.substr(0, 4) === '<ifr') {
+    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   }
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
@@ -3106,14 +3098,14 @@ export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 
 * @param numeroExercice
 * @param titre
 * @param texte
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Aide', icone = 'info circle') {
+export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle') {
   let contenu = `<div class="header">${titre}</div>`
   contenu += `<div class="content">${texte}</div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
@@ -3121,63 +3113,63 @@ export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Ai
 * @param numeroExercice
 * @param titre
 * @param texte
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modal_url (numeroExercice, url, label_bouton = 'Aide', icone = 'info circle') {
+export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
-* @param url_pdf
+* @param urlPdf
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @author Rémi Angot
 */
-export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton = 'Aide - PDF', icone = 'file pdf') {
-  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${url_pdf} width=90% height=500 type='application/pdf'/></p></div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+export function modalPdf (numeroExercice, urlPdf, texte = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
+  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec une vidéo
- * @param id_du_modal désigne l'id du modal qui doit être unique
- * @param url_video
+ * @param idDuModal désigne l'id du modal qui doit être unique
+ * @param urlVideo
  * @param texte Texte court qui sera affiché comme un titre
- * @param label_bouton Titre du bouton (par défaut Vidéo)
+ * @param labelBouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
  * @author Sébastien Lozano
  */
-export function modalVideo (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
-  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', icone = 'file video outline') {
+  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
   <div class="header">${texte}</div>
   <div class="content">
     <div class="embed-responsive embed-responsive-16by9" align="center">
       <video width="560" height="315" controls  preload="none" style="max-width: 100%">
-        <source src="` + url_video + `">
-        Votre navigateur ne gère pas l\'élément <code>video</code>.
+        <source src="` + urlVideo + `">
+        Votre navigateur ne gère pas l'élément <code>video</code>.
       </video>
       </div>
   </div>`
-  return creerModal(id_du_modal, contenu, label_bouton, icone)
+  return creerModal(idDuModal, contenu, labelBouton, icone)
 }
 /**
  *
  * @param {number} numeroExercice
- * @param {string} url_image
+ * @param {string} urlImage
  * @param {string} texte = ce qui est écrit sur le bouton à côté de l'icône d'image.
- * @param {string} label_bouton = ce qui est écrit en titre de l'image
+ * @param {string} labelBouton = ce qui est écrit en titre de l'image
  * @param {string} icone
  */
-export function modalImage (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
-  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+export function modalImage (numeroExercice, urlImage, texte, labelBouton = 'Illustration', icone = 'image') {
+  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
@@ -3208,14 +3200,14 @@ export function listeDiviseurs (n) {
 * @param {string} etape1 chaine en mode maths attention aux espaces et accents
 * @param {string} etape2 chaine en mode maths attention aux espaces et accents
 * @param {string} etape3 chaine en mode maths attention aux espaces et accents
-* @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
-* @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
-* @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
-* @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+* @param {string} xLigne1 chaine en mode maths attention aux espaces et accents
+* @param {string} xLigne2 chaine en mode maths attention aux espaces et accents
+* @param {string} yLigne1 chaine en mode maths attention aux espaces et accents
+* @param {string} yLigne2 chaine en mode maths attention aux espaces et accents
 * @author Sébastien Lozano
 */
 
-export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
   'use strict'
   return `
@@ -3232,142 +3224,142 @@ export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne
   \\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
   \\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
   \\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${xLigne1}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${xLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
   %\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${yLigne1}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${yLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-  \\end{tikzpicture}	
+  \\end{tikzpicture}
   `
 }
 
 /**
  * Crée un diagramme tikz pour une machine maths
  * @param {string} nom nom de la fonction
- * @param {string} x_ant nom du nombre de départ
- * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
+ * @param {string} xAnt nom du nombre de départ
+ * @param {array} etapesExpressions tableau contenant les etapes et le expressions algébriques
  * attention mode maths pour les chaines
  * @author Sébastien Lozano
  */
-export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
+export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
   'use strict'
-  const x_init = -10
+  const xInit = -10
   let saut = 0
   const pas = 1
   let sortie = ''
   sortie += `
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-  \\draw [line width=3pt,color=frvzsz] (` + x_init + ',0.5) -- (' + (x_init + pas) + ',0.5) -- (' + (x_init + pas) + ',-0.5) -- (' + x_init + `,-0.5) -- cycle;
-  \\node[text width=3cm,text centered, scale=1] at(` + (x_init + 0.5) + `,0){$${x_ant}$};
+  \\draw [line width=3pt,color=frvzsz] (` + xInit + ',0.5) -- (' + (xInit + pas) + ',0.5) -- (' + (xInit + pas) + ',-0.5) -- (' + xInit + `,-0.5) -- cycle;
+  \\node[text width=3cm,text centered, scale=1] at(` + (xInit + 0.5) + `,0){$${xAnt}$};
   `
   saut = saut + pas
-  for (let i = 0; i < etapes_expressions.length; i++) {
+  for (let i = 0; i < etapesExpressions.length; i++) {
     // si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere
     // on affiche donc chaque fois avec le nom de la fonction
-    if (etapes_expressions.length === i + 1) {
+    if (etapesExpressions.length === i + 1) {
       // si il y a une operation et une expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + `,0) circle(0.5);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (x_init + saut + 5 * pas / 2) + `,-0.5) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + `,0) circle(0.5);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (xInit + saut + 5 * pas / 2) + `,-0.5) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
         `
       }
       // si il y a une operation et pas d'expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = `${nom}(x)=\\ldots`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = `${nom}(x)=\\ldots`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
         `
       }
       // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
         `
       }
       // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = `${nom}(x)=\\ldots`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = `${nom}(x)=\\ldots`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
         `
       }
     } else { // sinon c'est une étape intermédiaire
       // si il y a une operation et une expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il y a une operation et pas d'expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = '\\ldots'.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = '\\ldots'.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = '\\ldots'.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = '\\ldots'.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
     }
   }
@@ -3512,16 +3504,16 @@ export function texCadreParOrange (texte) {
  * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
  * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
  * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
- * @param {string} url_video
+ * @param {string} urlVideo
  * @author Sébastien Lozano
  */
 
-export function machineMathsVideo (url_video) {
+export function machineMathsVideo (urlVideo) {
   'use strict'
   const video = `
   <div style="text-align:center"> 
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
-    <source src="` + url_video + `">
+    <source src="` + urlVideo + `">
     Votre navigateur ne gère pas l\'élément <code>video</code>.
   </video>
   </div>`
@@ -4414,31 +4406,31 @@ export function Relatif (...relatifs) {
 }
 
 export function nombreEnLettres (nb, type = 1) {
-  let partie_entiere, partie_decimale, nbstring, nb_dec, decstring
+  let partieEntiere, partieDecimale, nbstring, nb_dec, decstring
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
-    partie_entiere = Math.floor(nb)
-    partie_decimale = calcul(nb - partie_entiere)
-    nb_dec = partie_decimale.toString().replace(/\d*\./, '').length
-    partie_decimale = calcul(partie_decimale * 10 ** nb_dec)
+    partieEntiere = Math.floor(nb)
+    partieDecimale = calcul(nb - partieEntiere)
+    nb_dec = partieDecimale.toString().replace(/\d*\./, '').length
+    partieDecimale = calcul(partieDecimale * 10 ** nb_dec)
 
     switch (nb_dec) {
       case 1:
-        if (partie_decimale > 1) decstring = ' dixièmes'
+        if (partieDecimale > 1) decstring = ' dixièmes'
         else decstring = ' dixième'
         break
       case 2:
-        if (partie_decimale > 1) decstring = ' centièmes'
+        if (partieDecimale > 1) decstring = ' centièmes'
         else decstring = ' centième'
         break
       case 3:
-        if (partie_decimale > 1) decstring = ' millièmes'
+        if (partieDecimale > 1) decstring = ' millièmes'
         else decstring = ' millième'
         break
     }
 
-    if (type === 1) nbstring = partieEntiereEnLettres(partie_entiere) + ' unités et ' + partieEntiereEnLettres(partie_decimale) + decstring
-    else nbstring = partieEntiereEnLettres(partie_entiere) + ' virgule ' + partieEntiereEnLettres(partie_decimale)
+    if (type === 1) nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
+    else nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule ' + partieEntiereEnLettres(partieDecimale)
   }
   return nbstring
 }

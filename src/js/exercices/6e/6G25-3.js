@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,egal,randint,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,nombreAvecEspace,texcolors} from '../../modules/outils.js'
 import {tracePoint,mediatrice,codageMediatrice,segment,symetrieAxiale,symetrieAnimee,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
 export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage'
 
@@ -178,7 +178,7 @@ export default function Pavage_et_reflexion2d() {
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {

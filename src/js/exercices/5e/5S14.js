@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction,personne} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,prenom,listeDeNotes,joursParMois,unMoisDeTemperature,nomDuMois,texNombre,texFraction,personne} from '../../modules/outils.js'
 
 export const titre = 'Calculer des moyennes'
 
@@ -24,44 +24,44 @@ export default function Calculer_des_moyennes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-		for (let i = 0, nombre_notes,eleve, notes, somme, nombre_temperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+		for (let i = 0, nombreNotes,eleve, notes, somme, nombre_temperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			if (this.sup == 1) { // ici on trie des notes
-				nombre_notes = choice([8, 10, 12]);
-				notes = liste_de_notes(nombre_notes, randint(0, 7), randint(13, 20)); // on récupère une série de notes (série brute)
+				nombreNotes = choice([8, 10, 12]);
+				notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)); // on récupère une série de notes (série brute)
 				somme = 0;
 				eleve = personne()
-				for (let j = 0; j < nombre_notes; j++)
+				for (let j = 0; j < nombreNotes; j++)
 					somme += notes[j];
 
 				texte = `${eleve.prenom} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`;
 				texte += `$${notes[0]}$`;
-				for (let j = 1; j < nombre_notes - 1; j++)
+				for (let j = 1; j < nombreNotes - 1; j++)
 					texte += `; $${notes[j]}$ `; // On liste les notes
-				texte += `et $${notes[nombre_notes - 1]}$.<br>`;
-				texteCorr = `La somme des notes est : $${somme}$.<br> Il y a $${nombre_notes}$ notes<br>`;
+				texte += `et $${notes[nombreNotes - 1]}$.<br>`;
+				texteCorr = `La somme des notes est : $${somme}$.<br> Il y a $${nombreNotes}$ notes<br>`;
 			
 				if (eleve.genre==='masculin') {
 					texte += `Calculer la moyenne de cet élève en mathématiques.`;
-					texteCorr += 'Donc la moyenne de cet élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombre_notes))}$`;
+					texteCorr += 'Donc la moyenne de cet élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombreNotes))}$`;
 				}
 				else {
 					texte += `Calculer la moyenne de cette élève en mathématiques.`;
-					texteCorr += 'Donc la moyenne de cette élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombre_notes))}$`;
+					texteCorr += 'Donc la moyenne de cette élève est : ' + `$${texFraction(texNombre(somme), texNombre(nombreNotes))}$`;
 				}
 
-				if (arrondi(somme / nombre_notes, 2) == somme / nombre_notes)
-					texteCorr += `$=${arrondiVirgule(somme / nombre_notes, 2)}$<br>`; // moyenne exacte
+				if (arrondi(somme / nombreNotes, 2) == somme / nombreNotes)
+					texteCorr += `$=${arrondiVirgule(somme / nombreNotes, 2)}$<br>`; // moyenne exacte
 				else
-					texteCorr += `$\\approx${arrondiVirgule(somme / nombre_notes, 2)}$`; // moyenne arrondie
+					texteCorr += `$\\approx${arrondiVirgule(somme / nombreNotes, 2)}$`; // moyenne arrondie
 			}
 			else { // ici on relève des températures
 				let mois = randint(1, 12);
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
-				nombre_temperatures = jours_par_mois(mois);
+				nombre_temperatures = joursParMois(mois);
 				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // série brute de un mois de température
 				somme = 0;
-				texte = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
+				texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
 				texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c'; // tableau des températures 1/2
 				texte += '|c';
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
@@ -90,7 +90,7 @@ export default function Calculer_des_moyennes () {
 				texte += '\\\\\\hline\\end{array}$<br><br>';
 
         texte += 'Calculer la température moyenne de ce mois.'
-        texteCorr = `En ${nom_du_mois(mois)} ${annee}, la somme des températures est ` + `$${somme}^\\circ\\text{C}$.<br> Il y a $${temperatures.length}$ jours ce mois-ci.<br> La température moyenne est :<br>`
+        texteCorr = `En ${nomDuMois(mois)} ${annee}, la somme des températures est ` + `$${somme}^\\circ\\text{C}$.<br> Il y a $${temperatures.length}$ jours ce mois-ci.<br> La température moyenne est :<br>`
         texteCorr += `$${texFraction(texNombre(somme) + '^\\circ\\text{C}', texNombre(nombre_temperatures))}$`
 
         if (arrondi(somme / nombre_temperatures, 2) === somme / nombre_temperatures) {

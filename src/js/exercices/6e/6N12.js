@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modal_url} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modalUrl} from '../../modules/outils.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 
 /**
@@ -18,7 +18,7 @@ export default function Multiplier_entier_par_10_100_1000() {
   this.sup = 2;
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modal_url(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
+    this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
       "Glisse-nombre"
     );
     this.listeQuestions = []; // Liste de questions

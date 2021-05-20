@@ -580,11 +580,11 @@ export function SVG_engrenages (id_du_div, w, h) {
  * @param {number} w largeur du div du svg
  * @param {numer} h hauteur du div du svg
  * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @param {string} xAnt antécédent de départ
+ * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
  * @author Sébastien Lozano
  */
-export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expressions) {
+export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -605,7 +605,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + x_ant + `</span>
+                                                  <span class="mord mathdefault">` + xAnt + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -626,7 +626,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
+                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -643,7 +643,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + etapes_expressions[0][1] + `</span>
+                                                  <span class="mord mathdefault">` + etapesExpressions[0][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -665,7 +665,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">+` + etapes_expressions[1][0] + `</span>
+                                                  <span class="mord mathdefault">+` + etapesExpressions[1][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -683,7 +683,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[1][1] + `</span>
+                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[1][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -728,11 +728,11 @@ export function SVG_chemin (groupe, chemin, couleur) {
    * @param {number} w largeur du div du svg
    * @param {numer} h hauteur du div du svg
    * @param {string} nom nom de la fonction
-   * @param {string} x_ant antécédent de départ
-   * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+   * @param {string} xAnt antécédent de départ
+   * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
    * @author Sébastien Lozano
    */
-export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etapes_expressions) {
+export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -753,7 +753,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + x_ant + `</span>
+                                                  <span class="mord mathdefault">` + xAnt + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -774,7 +774,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
+                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -792,7 +792,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
                                                   
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[0][1] + `</span>
+                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[0][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -842,13 +842,13 @@ export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
    * @param {string} etape1 etape 1 du procédé de calcul
    * @param {string} etape2 etape 2 du procédé de calcul
    * @param {string} etape3 etape 3 du procédé de calcul
-   * @param {string} x_ligne1 antécédent ligne1
-   * @param {string} x_ligne2 antécédent ligne2
-   * @param {string} y_ligne1 image ligne1
-   * @param {string} y_ligne2 image ligne2
+   * @param {string} xLigne1 antécédent ligne1
+   * @param {string} xLigne2 antécédent ligne2
+   * @param {string} yLigne1 image ligne1
+   * @param {string} yLigne2 image ligne2
    * @author Sébastien Lozano
    */
-export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   'use strict'
   const interligne = 15 // pour un interligne uniforme
   const prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
@@ -880,15 +880,15 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
 
       // ------------PREPARATION DES DIMENSIONS NECESSAIRES----
       // ------------Dimension Antécédent----------------------
-      const ant_ligne1 = ant.text(x_ligne1).font(prop_font)
-      const ant_ligne2 = ant.text(x_ligne2).font(prop_font)
+      const ant_ligne1 = ant.text(xLigne1).font(prop_font)
+      const ant_ligne2 = ant.text(xLigne2).font(prop_font)
       const w_ant = Math.max(ant_ligne1.length(), ant_ligne2.length()) + interligne
       ant_ligne1.clear()
       ant_ligne2.clear()
 
       // ------------Dimension Image---------------------------
-      const im_ligne1 = im.text(y_ligne1).font(prop_font)
-      const im_ligne2 = im.text(y_ligne2).font(prop_font)
+      const im_ligne1 = im.text(yLigne1).font(prop_font)
+      const im_ligne2 = im.text(yLigne2).font(prop_font)
       const w_im = Math.max(im_ligne1.length(), im_ligne2.length()) + interligne
       im_ligne1.clear()
       im_ligne2.clear()
@@ -931,7 +931,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------GROUPE ANTECEDENT-------------------------
       const ant_ligne = ant.foreignObject(w_ant, h).attr({ x: '0', y: '0' })
       const antDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-      katex.render(x_ligne1 + '\\newline ' + x_ligne2, antDiv, {
+      katex.render(xLigne1 + '\\newline ' + xLigne2, antDiv, {
         displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
       })
       ant_ligne.add(antDiv)
@@ -944,7 +944,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------GROUPE IMAGE-------------------------
       const im_ligne = im.foreignObject(w_im, h).attr({ x: '0', y: '0' })
       const imDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-      katex.render(y_ligne1 + '\\newline ' + y_ligne2, imDiv, {
+      katex.render(yLigne1 + '\\newline ' + yLigne2, imDiv, {
         displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
       })
       im_ligne.add(imDiv)

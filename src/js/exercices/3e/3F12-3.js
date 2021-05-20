@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,pgcd,texFractionReduite,lettre_minuscule_depuis_chiffre} from '../../modules/outils.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,pgcd,texFractionReduite,lettreMinusculeDepuisChiffre} from '../../modules/outils.js'
 export const titre = 'Compléter un tableau de valeurs'
 
 /**
@@ -48,7 +48,7 @@ export default function Tableau_de_valeurs() {
 		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_x = combinaisonListes([[-3, 0, 3], [-2, 0, 2], [1, 2, 5], [-3, 6, 9]], this.nbQuestions);
 		for (let i = 0, texte, texteCorr, a, b, c, d, x1, x2, x3, expression, nomdef, ligne2, calculs = "", cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			nomdef = lettre_minuscule_depuis_chiffre(6 + i); // on commence par f puis on continue dans l'ordre alphabétique
+			nomdef = lettreMinusculeDepuisChiffre(6 + i); // on commence par f puis on continue dans l'ordre alphabétique
 			x1 = liste_de_x[i][0];
 			x2 = liste_de_x[i][1];
 			x3 = liste_de_x[i][2];

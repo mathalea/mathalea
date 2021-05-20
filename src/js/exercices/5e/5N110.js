@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,calcul,tex_prix,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,calcul,texPrix,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Variation en pourcentages'
 
@@ -28,24 +28,24 @@ export default function Variation_en_pourcentages() {
 			taux = choice([20, 30, 40, 60]);
 			if (choice([true, false])) {
 				if (context.isHtml) {
-					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux} \%.`;
+					texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux} \%.`;
 				} else {
-					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux}~\\%.`;
+					texte = `Un article coûtait ${texPrix(prix)} € et son prix diminue de ${taux}~\\%.`;
 				}
 
-				texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)} = ${tex_prix(calcul(prix * taux))}\\div 100=${tex_prix(calcul(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Diminution : }${texFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
-				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix - prix * taux / 100))}$ €`;
+				texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}-${texPrix(calcul(prix * taux / 100))}=${texPrix(calcul(prix - prix * taux / 100))}$ €`;
 			} else {
 				if (context.isHtml) {
-					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux} \%.`;
+					texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux} \%.`;
 				} else {
-					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux}~\\%.`;
+					texte = `Un article coûtait ${texPrix(prix)} € et son prix augmente de ${taux}~\\%.`;
 
 				}
-				texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${tex_prix(prix)}= ${tex_prix(calcul(prix * taux))}\\div 100=${tex_prix(calcul(prix * taux / 100))}$ €`;
+				texteCorr = `$\\text{Augmentation : }${texFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(calcul(prix * taux))}\\div 100=${texPrix(calcul(prix * taux / 100))}$ €`;
 				texteCorr += `<br>`;
-				texteCorr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(calcul(prix * taux / 100))}=${tex_prix(calcul(prix * (1 + taux / 100)))}$ €`;
+				texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}+${texPrix(calcul(prix * taux / 100))}=${texPrix(calcul(prix * (1 + taux / 100)))}$ €`;
 			}
 
 			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

@@ -102,14 +102,14 @@ export default function Calcul_discriminant() {
         s.epaisseur = 3;
         s.color = 'red';
         let r = repere2({ afficheLabels: false, xLabelListe: [], yLabelListe: [] });
-        let label_bouton,icone
+        let labelBouton,icone
         let correction_complementaire = `Notons $f : x \\mapsto ${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`;
         correction_complementaire += `<br>On observe que la courbe représentative de $f$ ${a_nb_points_intersection} avec l'axe des abscisses.`;
         correction_complementaire += '<br>';
         correction_complementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
           graphique, r, s);
 
-        texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correction_complementaire, label_bouton = "Complément graphique", icone = "info circle");
+        texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correction_complementaire, labelBouton = "Complément graphique", icone = "info circle");
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);

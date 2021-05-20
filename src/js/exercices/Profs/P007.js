@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,nombre_avec_espace} from '../../modules/outils.js'
+import {listeQuestionsToContenu,nombreAvecEspace} from '../../modules/outils.js'
 import {pavage,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 
@@ -51,7 +51,7 @@ export default function Pavages_mathalea2d() {
     monpavage.construit(type_de_pavage, Nx, Ny, 3); // On initialise toutes les propriétés de l'objet.
     if (this.sup3) { // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
-        objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true));
+        objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true));
       }
     }
     if (this.correctionDetaillee) { // Doit-on montrer les centres des figures ?

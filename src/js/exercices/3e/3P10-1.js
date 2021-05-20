@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, tex_prix, modal_url } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 
 /**
@@ -24,7 +24,7 @@ export default function Coefficient_evolution () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.boutonAide = modal_url(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
+    this.boutonAide = modalUrl(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
     this.sup = parseInt(this.sup)
 
     let typesDeQuestionsDisponibles = []
@@ -43,12 +43,12 @@ export default function Coefficient_evolution () {
       switch (listeTypeDeQuestions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`
-          coeff = tex_prix(calcul(1 + taux / 100))
+          coeff = texPrix(calcul(1 + taux / 100))
           texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
           break
         case 'coef-':
           texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`
-          coeff = tex_prix(calcul(1 - taux / 100))
+          coeff = texPrix(calcul(1 - taux / 100))
           texteCorr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
           break
         case 'taux+':

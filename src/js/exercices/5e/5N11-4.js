@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,combinaisonListes, randint, calcul, texNombre, tex_prix, arrondi} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, calcul, texNombre, texPrix, arrondi} from '../../modules/outils.js'
 export const titre = 'Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage'
 
 /**
@@ -38,7 +38,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         }
         texte = `$\\dfrac{${num}}{${den}}\\approx \\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$`
         if (this.sup == 1) {
-            texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${tex_prix(calcul(num/den,2))} $ soit environ $${calcul(calcul(num/den,2)*100)}~\\%$ $\\left(\\text{car } ${tex_prix(calcul(num/den,2))}=\\dfrac{${calcul(calcul(num/den,2)*100)}}{100}\\right)$.`
+            texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texPrix(calcul(num/den,2))} $ soit environ $${calcul(calcul(num/den,2)*100)}~\\%$ $\\left(\\text{car } ${texPrix(calcul(num/den,2))}=\\dfrac{${calcul(calcul(num/den,2)*100)}}{100}\\right)$.`
         }
         if (this.sup == 2) {
             texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(calcul(num/den,3))} $ soit environ $${texNombre(calcul(num/den*100,1))}~\\%$ $\\left(\\text{car } ${texNombre(calcul(num/den,3))}=\\dfrac{${texNombre(calcul(num/den*100,1))}}{100}\\right)$.`

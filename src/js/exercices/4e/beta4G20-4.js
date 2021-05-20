@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,troncature,calcul,texNombre,texNombrec,tex_prix,carreParfait} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,combinaisonListes,troncature,calcul,texNombre,texNombrec,texPrix,carreParfait} from '../../modules/outils.js';
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**
@@ -61,9 +61,9 @@ miracd = troncature(racd-troncature(racd,2),3);
   if (carreParfait(calcul(100*s))) {texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racs)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a*a+b*b)}}$)`;
 }else{
   if (1000*miracs < 5) {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs, 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racs, 2))}$`;
   } else {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs+0.01,2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racs+0.01,2))}$`;
   }}
 
   texteCorr += `<br><br>$\\begin{aligned}a^2 - b^2& 
@@ -75,9 +75,9 @@ miracd = troncature(racd-troncature(racd,2),3);
   if (carreParfait(calcul(100*d))) {texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racd)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a*a-b*b)}}$)`;
 }else{
   if (1000*miracd < 5) {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racd, 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racd, 2))}$`;
   } else {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature((racd+0.01), 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature((racd+0.01), 2))}$`;
   }}
   
 

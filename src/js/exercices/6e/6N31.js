@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,texPrix} from '../../modules/outils.js'
 export const titre = 'Comparer des nombres décimaux'
 
 /**
@@ -142,22 +142,22 @@ export default function Comparer_decimaux() {
 
       if (zero_inutile) {
         if (randint(1, 2) == 1) {
-          texte = `${tex_prix(x)}\\ldots\\ldots${texNombre(y)}`;
+          texte = `${texPrix(x)}\\ldots\\ldots${texNombre(y)}`;
           if (parseFloat(x) > parseFloat(y)) {
-            texteCorr = `${tex_prix(x)} > ${texNombre(y)}`;
+            texteCorr = `${texPrix(x)} > ${texNombre(y)}`;
           } else if (parseFloat(x) < parseFloat(y)) {
-            texteCorr = `${tex_prix(x)} < ${texNombre(y)}`;
+            texteCorr = `${texPrix(x)} < ${texNombre(y)}`;
           } else {
-            texteCorr = `${tex_prix(x)} = ${texNombre(y)}`;
+            texteCorr = `${texPrix(x)} = ${texNombre(y)}`;
           }
         } else {
-          texte = `${texNombre(x)}\\ldots\\ldots${tex_prix(y)}`;
+          texte = `${texNombre(x)}\\ldots\\ldots${texPrix(y)}`;
           if (parseFloat(x) > parseFloat(y)) {
-            texteCorr = `${texNombre(x)} > ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} > ${texPrix(y)}`;
           } else if (parseFloat(x) < parseFloat(y)) {
-            texteCorr = `${texNombre(x)} < ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} < ${texPrix(y)}`;
           } else {
-            texteCorr = `${texNombre(x)} = ${tex_prix(y)}`;
+            texteCorr = `${texNombre(x)} = ${texPrix(y)}`;
           }
         }
       }

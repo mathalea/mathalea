@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,nombre_avec_espace,modalPdf,modalVideo,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,numAlpha,machineMathsVideo,infoMessage,lampeMessage} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,nombreAvecEspace,modalPdf,modalVideo,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,numAlpha,machineMathsVideo,infoMessage,lampeMessage} from '../../modules/outils.js'
 import {SVG_machine_diag_3F1_act_mono, SVG_machine_diag_3F12} from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Notion et vocabulaire'
 
@@ -231,7 +231,7 @@ export default function fonction_notion_vocabulaire() {
 						texte += numAlpha(j) + ` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						texte += katexPopup('avec le mot image', 'Image', 'la valeur de l\'aire est l\'image de la valeur du côté') + `<br>`;
 						texteCorr = numAlpha(j) + ` Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
-						texteCorr += `On dit que ${nombre_avec_espace(x * x)} est l'image de ${x} par la fonction g.<br>`;
+						texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.<br>`;
 						j++; //incrémente la sous question
 					} else { //sortie LaTeX
 						texte += `\\begin{enumerate}[itemsep=1em]`;
@@ -239,22 +239,22 @@ export default function fonction_notion_vocabulaire() {
 						texte += `avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur de l\'aire est l\'image de la valeur du côté.}`;
 						texteCorr = `\\begin{enumerate}[itemsep=1em]`;
 						texteCorr += `\\item Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${texNombre(x * x)}\\,cm^2$.<br>`;
-						texteCorr += `On dit que ${nombre_avec_espace(x * x)} est l'image de ${x} par la fonction g.`;
+						texteCorr += `On dit que ${nombreAvecEspace(x * x)} est l'image de ${x} par la fonction g.`;
 					};
 
 					// sous question b/	
 					y = randint(2, 99, [x]); //augmenter les possibles pour éviter les questions déjà posées?	
 					if (context.isHtml) {
-						texte += numAlpha(j) + ` Combien vaut le côté si la machine renvoie  ${nombre_avec_espace(y * y)} cm<sup>2</sup> ? Formuler la réponse `;
+						texte += numAlpha(j) + ` Combien vaut le côté si la machine renvoie  ${nombreAvecEspace(y * y)} cm<sup>2</sup> ? Formuler la réponse `;
 						texte += katexPopup('avec le mot antécédent', 'Antécédent', 'un antécédent de la valeur d\'une aire est une valeur du côté qui a pour image cette aire') + `<br>`;
 						texteCorr += numAlpha(j) + ` Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`;
 						texteCorr += `On dit que ${y} est <b>un</b> antécédent de ${y * y} par la fonction g.<br>`;
 						j++; //incrémente la sous question	
 					} else { //sortie LaTeX
-						texte += `\\item  Combien vaut la longueur du côté si la machine renvoie  ${nombre_avec_espace(y * y)} $cm^2$ ? Formuler la réponse `;
+						texte += `\\item  Combien vaut la longueur du côté si la machine renvoie  ${nombreAvecEspace(y * y)} $cm^2$ ? Formuler la réponse `;
 						texte += `avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'une aire est une valeur du côté qui a pour image cette aire}`;
 						texteCorr += `\\item Si la machine renvoie une aire de $${texNombre(y * y)}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${texNombre(y * y)}}=${y}\\,cm$.<br>`;
-						texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${nombre_avec_espace(y * y)} par la fonction g.`;
+						texteCorr += `On dit que ${y} est \\textbf{un} antécédent de ${nombreAvecEspace(y * y)} par la fonction g.`;
 					};
 
 					// sous question c/

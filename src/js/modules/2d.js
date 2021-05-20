@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 /*
@@ -3492,7 +3492,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     c.color = this.color
     objets.push(c)
   }
-  const numero = texteParPosition(nombre_avec_espace(num), this.x, this.y, 0, 'gray')
+  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, 'gray')
   numero.opacite = 0.5
   numero.taille = 30
   numero.contour = true
@@ -5120,7 +5120,7 @@ function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite
       g.epaisseur = 2
       objets.push(g)
       if (gradue && k !== 0 && k !== division) {
-        objets.push(texteParPosition(nombre_avec_espace(arrondi(calcul(origin + i / longueurUnite * pasprincipal), 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
+        objets.push(texteParPosition(nombreAvecEspace(arrondi(calcul(origin + i / longueurUnite * pasprincipal), 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
       }
     } else {
       g = segment(point(x + i * absord[0] - 0.2 * absord[1], y - 0.2 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.2 * absord[1], y + 0.2 * absord[0] + i * absord[1]))
@@ -5258,7 +5258,7 @@ function DroiteGraduee2 ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step1 * pas1) === 0) {
         i = calcul((j - Min * factor) / factor)
-        T = texteParPosition(`${nombre_avec_espace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
+        T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
       }
     }
@@ -5267,7 +5267,7 @@ function DroiteGraduee2 ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step2 * pas2) === 0 && j % pas1 !== 0) {
         i = calcul((j - Min * factor) / factor)
-        T = texteParPosition(`${nombre_avec_espace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
+        T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
       }
     }
@@ -8151,9 +8151,9 @@ function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, cou
     if (signe === -1) {
       code += segment(calcul(x - ((longueur + 15) / coeff / 2), 0), y, calcul(x - ((longueur + 5) / coeff / 2), 0), y, couleur).svg(coeff)
     }
-    const t1 = texteParPosition(nombre_avec_espace(num), x, calcul(y + offset / coeff), 'milieu', couleur)
+    const t1 = texteParPosition(nombreAvecEspace(num), x, calcul(y + offset / coeff), 'milieu', couleur)
     code += t1.svg(coeff)
-    const t2 = texteParPosition(nombre_avec_espace(den), x, calcul(y - offset / coeff), 'milieu', couleur)
+    const t2 = texteParPosition(nombreAvecEspace(den), x, calcul(y - offset / coeff), 'milieu', couleur)
     code += t2.svg(coeff)
     t1.isVisible = false
     t2.isVisible = false
@@ -8166,8 +8166,8 @@ function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, cou
     if (signe === -1) {
       code += segment(calcul(x - ((longueur / 30 + 0.785) / context.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / context.scale / 2), 2), y, couleur).tikz()
     }
-    code += texteParPosition(nombre_avec_espace(num), calcul(x + longueur / 60 / context.scale, 2), calcul(y + offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
-    code += texteParPosition(nombre_avec_espace(den), calcul(x + longueur / 60 / context.scale, 2), calcul(y - offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombreAvecEspace(num), calcul(x + longueur / 60 / context.scale, 2), calcul(y + offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombreAvecEspace(den), calcul(x + longueur / 60 / context.scale, 2), calcul(y - offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
     return code
   }
 }
@@ -9565,7 +9565,7 @@ function Labyrinthe () {
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
-          objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
         } else {
@@ -10086,7 +10086,7 @@ function Pavage () {
       this.tracesCentres[i].color = 'blue'
       this.tracesCentres[i].taille = 2
       this.coordonnees.push([arrondi(this.barycentres[i].x, 2), arrondi(this.barycentres[i].y, 2)])
-      this.numeros.push(texteParPosition(nombre_avec_espace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))
+      this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))
     }
   }
 }

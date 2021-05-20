@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirerLesDes,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,arrondiVirgule,calcul,prenom,tirerLesDes,listeDeNotes,joursParMois,unMoisDeTemperature,nomDuMois,texNombre,texFraction} from '../../modules/outils.js'
 
 
 export const titre = 'Calculer des fréquences'
@@ -25,7 +25,7 @@ export default function Calculer_des_frequences() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+		for (let i = 0, temperatures, nombre_temperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			if (this.sup == 1) { // ici on lance des dés
 				nombreDes = randint(1, 2);
 				nombreFaces = choice([4, 6, 8, 10]);
@@ -83,8 +83,8 @@ export default function Calculer_des_frequences() {
 				texteCorr += 'Soit ' + `$${texNombre(calcul(tirages[index_valeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`;
 			}
 			else if (this.sup == 2) { // ici on trie des notes
-				nombre_notes = choice([8, 10, 12]);
-				notes = liste_de_notes(nombre_notes, randint(0, 7), randint(13, 20)); // on récupère une liste de notes (série brute)
+				nombreNotes = choice([8, 10, 12]);
+				notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)); // on récupère une liste de notes (série brute)
 				index_valeur = randint(0, notes.length - 1); // on choisi une des notes au hasard
 				frequence = 0;
 				for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
@@ -93,20 +93,20 @@ export default function Calculer_des_frequences() {
 				}
 				texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`;
 				texte += `$${notes[0]}$`;
-				for (let j = 1; j < nombre_notes - 1; j++)
+				for (let j = 1; j < nombreNotes - 1; j++)
 					texte += `; $${notes[j]}$ `; // On liste les notes (série brute)
-				texte += `et $${notes[nombre_notes - 1]}$.`;
+				texte += `et $${notes[nombreNotes - 1]}$.`;
 
 				texte += `<br><br>Calculer la fréquence de la note $${notes[index_valeur]}$.`;
-				texteCorr = `La note $${notes[index_valeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombre_notes}$ notes<br>`;
-				texteCorr += `Donc la fréquence de la note $${notes[index_valeur]}$ est : ` + `$${texFraction(texNombre(frequence), texNombre(nombre_notes))}$`;
-				if (arrondi(frequence / nombre_notes, 3) == frequence / nombre_notes) { // valeurs exactes
-					texteCorr += `$=${arrondiVirgule(frequence / nombre_notes, 3)}$<br>`; // fréquence à 3 chiffres significatifs
-					texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombre_notes))}\\thickspace\\%$.`; // fréquence en pourcentage avec 1 décimale
+				texteCorr = `La note $${notes[index_valeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombreNotes}$ notes<br>`;
+				texteCorr += `Donc la fréquence de la note $${notes[index_valeur]}$ est : ` + `$${texFraction(texNombre(frequence), texNombre(nombreNotes))}$`;
+				if (arrondi(frequence / nombreNotes, 3) == frequence / nombreNotes) { // valeurs exactes
+					texteCorr += `$=${arrondiVirgule(frequence / nombreNotes, 3)}$<br>`; // fréquence à 3 chiffres significatifs
+					texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreNotes))}\\thickspace\\%$.`; // fréquence en pourcentage avec 1 décimale
 				}
 				else {
-					texteCorr += `$\\approx${arrondiVirgule(frequence / nombre_notes, 3)}$`; // valeurs arrondies
-					texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombre_notes), 1)}\\thickspace\\%$.`;
+					texteCorr += `$\\approx${arrondiVirgule(frequence / nombreNotes, 3)}$`; // valeurs arrondies
+					texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombreNotes), 1)}\\thickspace\\%$.`;
 				}
 
 			}
@@ -114,7 +114,7 @@ export default function Calculer_des_frequences() {
 				let mois = randint(1, 12);
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
-				nombre_temperatures = jours_par_mois(mois);
+				nombre_temperatures = joursParMois(mois);
 				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
@@ -122,7 +122,7 @@ export default function Calculer_des_frequences() {
 					if (temperatures[j] == temperatures[index_valeur])
 						frequence++; // frequence contient l'effectif de cette valeur
 				}
-				texte = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
+				texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
 
 				texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c'; // On construit le tableau des températures
 				texte += '|c';
@@ -149,9 +149,9 @@ export default function Calculer_des_frequences() {
 
 
 				texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[index_valeur]}^\\circ\\text{C}$.`;
-				texteCorr = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[index_valeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`;
-				texteCorr += `Il y a $${jours_par_mois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[index_valeur]}^\\circ\\text{C}$ est :<br>`;
-				texteCorr += `$${texFraction(texNombre(frequence), texNombre(jours_par_mois(mois)))}$`;
+				texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[index_valeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`;
+				texteCorr += `Il y a $${joursParMois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[index_valeur]}^\\circ\\text{C}$ est :<br>`;
+				texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois)))}$`;
 				if (arrondi(frequence / nombre_temperatures, 3) == frequence / nombre_temperatures) { // valeurs exactes
 					texteCorr += `$=${arrondiVirgule(frequence / nombre_temperatures, 3)}$<br>`;
 					texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombre_temperatures))}\\thickspace\\%$.`;

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, texNombre, randint, calcul, arrondiVirgule, nombre_avec_espace } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre, randint, calcul, arrondiVirgule, nombreAvecEspace } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 
@@ -62,7 +62,7 @@ export default function SimulateurAleatoire() {
         f = fraction(1, nbFaces)
         texteCorr = `Chaque face a la même probabilité de sortir : $${f.texFraction}\\approx ${arrondiVirgule(f.pourcentage)}\\%$.<br>`
 
-        texte += `On lance un dé à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`;
+        texte += `On lance un dé à ${nbFaces} faces ${nombreAvecEspace(nbLancers)} fois.<br>On étudie les fréquences d'apparition de chaque face.<br>On obtient les résultats suivants : <br>`;
         if (this.sup3) {
           for (let i = 0; i < nbFaces; i++) {
             tabEff.push(0)

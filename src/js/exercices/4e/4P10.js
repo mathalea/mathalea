@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombre_avec_espace,miseEnEvidence,tex_prix,katexPopup2,numAlpha} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,exposant,arrondi,arrondiVirgule,texFractionReduite,produitsEnCroix,quatriemeProportionnelle,calcul,texNombrec,prenomF,prenom,texNombre,nombreAvecEspace,miseEnEvidence,texPrix,katexPopup2,numAlpha} from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -582,7 +582,7 @@ export default function Problemes_grandeurs_composees() {
                 ` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`;
               texte +=
                 numAlpha(1) +
-                ` Si ${quidam} veut parcourir ${nombre_avec_espace(
+                ` Si ${quidam} veut parcourir ${nombreAvecEspace(
                   distance
                 )} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`;
               texteCorr =
@@ -605,7 +605,7 @@ export default function Problemes_grandeurs_composees() {
               )}\\text{ km}$<br>`;
               texteCorr +=
                 numAlpha(1) +
-                ` Pour parcourir ${nombre_avec_espace(
+                ` Pour parcourir ${nombreAvecEspace(
                   distance
                 )} km à cette vitesse, ${quidam} mettra :<br>`;
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesse_moy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
@@ -687,7 +687,7 @@ export default function Problemes_grandeurs_composees() {
               )}\\times 1\\text{ s}}=\\dfrac{${texNombrec(
                 duree * 340
               )}\\text{ m}}{${duree}\\text{ s}}$<br>`;
-              texteCorr += `La distance à laquelle l'éclair est tombé est donc de ${nombre_avec_espace(
+              texteCorr += `La distance à laquelle l'éclair est tombé est donc de ${nombreAvecEspace(
                 duree * 340
               )} m.<br>`;
               texteCorr +=
@@ -864,12 +864,12 @@ export default function Problemes_grandeurs_composees() {
           quidam = prenomF();
           texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète ${texNombre(
             masse
-          )} kg de ${fruits[index1][0]} à ${tex_prix(
+          )} kg de ${fruits[index1][0]} à ${texPrix(
             fruits[index1][1]
-          )} €/kg et pour ${tex_prix(prix2)} € de ${fruits[index2][0]
-            } à ${tex_prix(fruits[index2][1])} €/kg.<br>`;
+          )} €/kg et pour ${texPrix(prix2)} € de ${fruits[index2][0]
+            } à ${texPrix(fruits[index2][1])} €/kg.<br>`;
           texte += `Enfin, elle achète ${texNombre(masse3)} kg de ${fruits[index][0]
-            } pour ${tex_prix(prix3)} €.<br>`;
+            } pour ${texPrix(prix3)} €.<br>`;
           texte +=
             numAlpha(0) +
             ` Combien lui coûtent les ${fruits[index1][0]} ?<br>`;
@@ -883,21 +883,21 @@ export default function Problemes_grandeurs_composees() {
             numAlpha(0) +
             ` ${quidam} dépense pour les ${fruits[index1][0]} : $${texNombre(
               masse
-            )}\\text{ kg} \\times ${tex_prix(
+            )}\\text{ kg} \\times ${texPrix(
               fruits[index1][1]
-            )}$ €$\\text{/kg} = ${tex_prix(prix1)}$ €.<br>`;
+            )}$ €$\\text{/kg} = ${texPrix(prix1)}$ €.<br>`;
           texteCorr +=
             numAlpha(1) +
             ` La masse de ${fruits[index2][0]
-            } qu'elle a achetée est : $${tex_prix(prix2)} $ €$ \\div ${tex_prix(
+            } qu'elle a achetée est : $${texPrix(prix2)} $ €$ \\div ${texPrix(
               fruits[index2][1]
             )}$ €$\\text{/kg} = ${texNombre(masse2)}\\text{ kg}$.<br>`;
           texteCorr +=
             numAlpha(2) +
             ` Enfin, ${quidam} a acheté des ${fruits[index][0]
-            } au prix unitaire de : $${tex_prix(prix3)}$ € $\\div ${texNombre(
+            } au prix unitaire de : $${texPrix(prix3)}$ € $\\div ${texNombre(
               masse3
-            )}\\text{ kg} = ${tex_prix(fruits[index][1])}$ €$\\text{/kg}$.`;
+            )}\\text{ kg} = ${texPrix(fruits[index][1])}$ €$\\text{/kg}$.`;
           break;
         case 9: //problème de prix horaire
           index1 = randint(0, 3);
@@ -909,30 +909,30 @@ export default function Problemes_grandeurs_composees() {
           texte = `${quidam} a prévu de louer ${locations[index1][0]
             } pendant ${texNombre(
               nbheures
-            )} heures. L'heure de location coûte ${tex_prix(prix1)} €.<br>`;
+            )} heures. L'heure de location coûte ${texPrix(prix1)} €.<br>`;
           texte += numAlpha(0) + ` Combien cette location va lui coûter ?<br>`;
           texte +=
             numAlpha(1) +
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
             }. En tout ce mois-ci elle a eu ${texNombrec(
               prix2 / cours[index2][1]
-            )} heures de cours pour ${tex_prix(
+            )} heures de cours pour ${texPrix(
               prix2
             )} €. Combien demande son professeur pour une heure de cours ?<br>`;
           texteCorr =
             numAlpha(0) +
             ` ${quidam} va dépenser pour sa location : $${texNombre(
               nbheures
-            )}\\text{ h} \\times ${tex_prix(prix1)}$ €$\\text{/h} = ${tex_prix(
+            )}\\text{ h} \\times ${texPrix(prix1)}$ €$\\text{/h} = ${texPrix(
               nbheures * prix1
             )}$ €.<br>`;
           texteCorr +=
             numAlpha(1) +
-            ` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(
+            ` L'heure de cours ${cours[index2][0]} coûte : $${texPrix(
               prix2
             )}$ € $ \\div ${texNombre(
               prix2 / cours[index2][1]
-            )}\\text{ h} = ${tex_prix(cours[index2][1])}$ €$\\text{/h}$.<br>`;
+            )}\\text{ h} = ${texPrix(cours[index2][1])}$ €$\\text{/h}$.<br>`;
           break;
         case 10: //problème de densité de population
           index1 = randint(0, 14);
@@ -1110,7 +1110,7 @@ export default function Problemes_grandeurs_composees() {
           texte +=
             numAlpha(1) +
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
-            }${rivieres[index2][0]} a débité ${nombre_avec_espace(
+            }${rivieres[index2][0]} a débité ${nombreAvecEspace(
               vmax
             )} m${exposant(
               3

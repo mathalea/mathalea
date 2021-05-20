@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,prenom,tirerLesDes,liste_de_notes,jours_par_mois,unMoisDeTemperature,nom_du_mois,texNombre} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,choice,prenom,tirerLesDes,listeDeNotes,joursParMois,unMoisDeTemperature,nomDuMois,texNombre} from '../../modules/outils.js';
 import {texteGras,lampeMessage} from '../../modules/outils.js';
 
 export const titre = 'Déterminer des médianes'
@@ -28,7 +28,7 @@ export default function Calculer_des_frequences() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {			
+		for (let i = 0, temperatures, nombre_temperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, index_valeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {			
 			var underbrace_mediane = (nb_val) => {
 				let sortie;
 				if (nb_val%2 == 0) {// nb pair de valeurs
@@ -244,8 +244,8 @@ export default function Calculer_des_frequences() {
 				}
 			}
 			else if (this.sup == 2) { // ici on trie des notes
-				nombre_notes = choice([7, 8, 9, 10, 11, 12]);
-				notes = liste_de_notes(nombre_notes, randint(0, 7), randint(13, 20)); // on récupère une liste de notes (série brute)
+				nombreNotes = choice([7, 8, 9, 10, 11, 12]);
+				notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)); // on récupère une liste de notes (série brute)
 				index_valeur = randint(0, notes.length - 1); // on choisi une des notes au hasard
 				frequence = 0;
 				for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
@@ -254,9 +254,9 @@ export default function Calculer_des_frequences() {
 				}
 				texte = `${prenom()} a obtenu ces notes ce trimestre-ci en mathématiques :<br>`;
 				texte += `$${notes[0]}$`;
-				for (let j = 1; j < nombre_notes - 1; j++)
+				for (let j = 1; j < nombreNotes - 1; j++)
 					texte += `; $${notes[j]}$ `; // On liste les notes (série brute)
-				texte += `et $${notes[nombre_notes - 1]}$.`;
+				texte += `et $${notes[nombreNotes - 1]}$.`;
 
 				texte += `<br><br>Déterminer une médiane de cette série.`;
 				let notes_rangees = notes.sort((a, b) => a - b);
@@ -276,9 +276,9 @@ export default function Calculer_des_frequences() {
 					texteCorr += `Le nombre de notes est impair.<br>`;					
 				};
 				texteCorr += `Il faut par exemple ranger les notes dans l'ordre croissant : <br> $${notes[0]}$`;
-				for (let j = 1; j < nombre_notes - 1; j++)
+				for (let j = 1; j < nombreNotes - 1; j++)
 					texteCorr += `; $${notes[j]}$ `; // On liste les notes (série brute)
-				texteCorr += `et $${notes[nombre_notes - 1]}$.<br>`;
+				texteCorr += `et $${notes[nombreNotes - 1]}$.<br>`;
 
 				if (notes.length%2==0) {
 					texteCorr += `Les notes centrales sont la $${notes.length/2}^{e}$ et la $${notes.length/2+1}^{e}$.<br>
@@ -308,7 +308,7 @@ export default function Calculer_des_frequences() {
 				let mois = randint(1, 12);
 				let annee = randint(1980, 2019);
 				let temperatures_de_base = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5];
-				nombre_temperatures = jours_par_mois(mois);
+				nombre_temperatures = joursParMois(mois);
 				temperatures = unMoisDeTemperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
@@ -316,7 +316,7 @@ export default function Calculer_des_frequences() {
 					if (temperatures[j] == temperatures[index_valeur])
 						frequence++; // frequence contient l'effectif de cette valeur
 				}
-				texte = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
+				texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`;
 
 				texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c'; // On construit le tableau des températures
 				texte += '|c';
