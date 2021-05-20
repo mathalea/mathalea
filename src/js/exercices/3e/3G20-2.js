@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, ar
 export const titre = 'Déterminer une longueur avec la propriété de Thales (MG32)'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G20-2
  */
 export default function Exercice_Thales () {

@@ -6,7 +6,7 @@ export const titre = 'Déterminer une fonction affine à partir de deux images.'
 
 /**
  * Déterminer une fonction affine à partir de deux images
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2F20
 */
 export default function Factoriser_Identites_remarquables2() {

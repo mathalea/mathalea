@@ -6,7 +6,7 @@ export const titre = 'Déterminer la nature d’un polygone.'
 
 /**
  * 2G12
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Nature_polygone() {
   Exercice.call(this); // Héritage de la classe Exercice()

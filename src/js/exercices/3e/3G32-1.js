@@ -12,7 +12,7 @@ export const titre = 'Calcul d’un parallèle terrestre'
 
 /**
  * propose de calculer la longueur d'un parallèle terrestre à partir de la latitde
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32-1 
 */
 export default function Calculs_trigonometriques1() {

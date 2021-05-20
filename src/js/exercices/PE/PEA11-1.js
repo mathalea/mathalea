@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,valeurBase,texNombre,nombre_avec_espace,miseEnEvidence} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,valeurBase,texNombre,nombreAvecEspace,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
 /**
@@ -10,7 +10,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 * * Convertir vers une base entre 2 et 7
 * * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export default function Passer_de_la_base_12_ou_16_a_la_10() {
 	'use strict';
@@ -71,7 +71,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 						chiffre3 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
 					n = valeurBase(chiffre1) * b ** 2 + valeurBase(chiffre2) * b + valeurBase(chiffre3);
-					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte = `Écrire en base ${b} le nombre ${nombreAvecEspace(n)}.`;
 					texteCorr = `$${texNombre(n)}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`;
 					texteCorr += `<br>$${Math.floor(n / b)}=${b}\\times${miseEnEvidence(valeurBase(chiffre1))}+${miseEnEvidence(valeurBase(chiffre2))}$`;
 					texteCorr += `<br> Finalement $${texNombre(n)}=(${chiffre1}${chiffre2}${chiffre3})_{${b}}$`;
@@ -89,7 +89,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 						chiffre4 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
 					n = valeurBase(chiffre1) * b ** 3 + valeurBase(chiffre2) * b ** 2 + valeurBase(chiffre3) * b + valeurBase(chiffre4);
-					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte = `Écrire en base ${b} le nombre ${nombreAvecEspace(n)}.`;
 					texteCorr = `$${texNombre(n)}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`;
 					texteCorr += `<br>$${texNombre(Math.floor(n / b))}=${b}\\times${Math.floor(Math.floor(n / b) / b)}+${miseEnEvidence(Math.floor(n / b) % b)}$`;
 					texteCorr += `<br>$${texNombre(Math.floor(Math.floor(n / b) / b))}=${b}\\times${miseEnEvidence(valeurBase(chiffre1))}+${miseEnEvidence(valeurBase(chiffre2))}$`;

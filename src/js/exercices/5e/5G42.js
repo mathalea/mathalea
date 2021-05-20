@@ -6,7 +6,7 @@ export const titre = 'Nature de parallélogrammes'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function demonstrations_parallelogrammes() {

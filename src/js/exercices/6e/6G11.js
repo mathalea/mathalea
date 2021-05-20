@@ -2,7 +2,7 @@ import Parallele_et_Perpendiculaires from './6G12-1.js'
 export const titre = 'Tracer des perpendiculaires'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 6G11
  */
 export default function Tracer_des_perpendiculaires() {

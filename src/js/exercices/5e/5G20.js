@@ -2,7 +2,7 @@ import Construire_un_triangle_avec_cible from '../6e/_Construire_un_triangle_ave
 export const titre = 'Construire un triangle avec cible auto-corrective'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 5G20
  * 
  */

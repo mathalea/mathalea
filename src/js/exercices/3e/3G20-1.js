@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombrec,creerNomDePolygone,texNombre,nombre_avec_espace,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombrec,creerNomDePolygone,texNombre,nombreAvecEspace,texFraction} from '../../modules/outils.js'
 import {point,milieu,pointSurSegment,labelPoint,segment,polygone,codageAngleDroit,texteSurSegment,texteParPoint,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3G20-1
 */
 export default function Problemes_Thales() {
@@ -123,9 +123,9 @@ export default function Problemes_Thales() {
 				sCote = segment(point(N.x - 1.3, N.y), point(D.x - 1.3, D.y));
 				sCote.styleExtremites = '<->';
 				texte1 = texteParPoint('?', milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)), 'gauche');
-				texte2 = texteSurSegment(nombre_avec_espace(BD) + ' cm', B, D);
-				texte3 = texteSurSegment(nombre_avec_espace(MN) + ' cm', M, N);
-				texte4 = texteSurSegment(nombre_avec_espace(BC) + ' cm', B, C);
+				texte2 = texteSurSegment(nombreAvecEspace(BD) + ' cm', B, D);
+				texte3 = texteSurSegment(nombreAvecEspace(MN) + ' cm', M, N);
+				texte4 = texteSurSegment(nombreAvecEspace(BC) + ' cm', B, C);
 
 				labels = labelPoint(M, N, A, B, C, D);
 

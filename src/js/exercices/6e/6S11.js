@@ -5,7 +5,7 @@ export const titre = 'Organiser des données dans un tableau'
 
 /**
  * Organiser donnees depuis texte
- * @Auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * Référence 6S11
  */
 

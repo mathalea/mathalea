@@ -9,7 +9,7 @@ export const titre = 'Modéliser des problèmes'
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
- * @Auteur Mireille Gain, 24 avril 2021
+ * @author Mireille Gain, 24 avril 2021
  * Référence 6C35
 */
 export default function ModelisationProblemes () {

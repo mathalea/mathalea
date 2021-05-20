@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, calcul, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { fraction } from '../../modules/Fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import { repere2, courbe2, mathalea2d, tracePoint, point } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
@@ -14,7 +14,7 @@ export const titre = 'Déterminer une fonction affine par la donnée des images 
  * cas 3 : f(x1) et f(x2) donnés a et b entiers
  * cas 4 : f(x1) et f(x2) donnés a et b rationnels
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3F21-2
 */
 export default function DeterminerFonctionAffine () {

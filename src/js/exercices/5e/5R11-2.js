@@ -7,7 +7,7 @@ export const titre = 'Placer un point d’abscisse un nombre relatif'
 
 /**
 * Placer un point d'abscisse un nombre relatif
-* @Auteur Jean-Claude Lhote et Rémi Angot
+* @author Jean-Claude Lhote et Rémi Angot
 * Référence 5R11-2
 */
 export default function Placer_points_sur_axe_relatifs () {

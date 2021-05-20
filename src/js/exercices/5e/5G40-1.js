@@ -5,7 +5,7 @@ export const titre = 'Citer les propriétés des parallélogrammes'
 
 /**
  * Description didactique de l'exercice
- * @Auteur
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

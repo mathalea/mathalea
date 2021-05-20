@@ -2,13 +2,13 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js'
-import {fraction} from '../../modules/Fractions.js'
+import {fraction} from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
 
 /**
  * 6N14
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Representer_une_fraction() {
   Exercice.call(this); // Héritage de la classe Exercice()

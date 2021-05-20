@@ -6,7 +6,7 @@ export const titre = 'Multiplications de deux entiers relatifs dans un tableau �
 /**
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-5
 */
 export default function Exercice_tableau_multiplications_relatifs() {

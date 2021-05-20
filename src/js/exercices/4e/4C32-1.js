@@ -10,7 +10,7 @@ export const interactifReady = true
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C32-1
  */
 export default function CalculsAvecPuissancesDeDix () {
@@ -24,13 +24,12 @@ export default function CalculsAvecPuissancesDeDix () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5
-  this.qcmDisponible = true
+
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.qcm = ['4C32-1', [], 'Calcul avec les puissances de dix', 1]
-
+    
     if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Compléter l\'égalité des nombres suivants.'
     let typeDeQuestionsDisponibles
@@ -81,6 +80,10 @@ export default function CalculsAvecPuissancesDeDix () {
         texteCorr = `$${miseEnEvidence(`${texNombrec(mantisse1)}`, 'blue')}\\times ${miseEnEvidence(`10^{${exp1}}`)} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
         this.autoCorrection[i] = {}
         this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].options = {
+          ordered: false,
+          lastChoice: 5
+        }
         this.autoCorrection[i].propositions = [
           {
             texte: `$${scientifiquestring}$`,

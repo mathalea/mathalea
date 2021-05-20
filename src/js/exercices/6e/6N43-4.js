@@ -6,7 +6,7 @@ export const titre = 'Faire des phrases avec les mots : divisible, diviseur et m
 
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N43-4
 */
 export default function DivisibleDiviseurMultiple() {

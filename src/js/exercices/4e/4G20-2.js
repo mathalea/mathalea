@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
- * @auteur Stéphane Guyon
+ * @author Stéphane Guyon
  * 4G20-2
  */
 export default function RacineCareeDeCarresParfaits () {

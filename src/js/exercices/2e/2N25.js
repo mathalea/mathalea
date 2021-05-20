@@ -7,7 +7,7 @@ export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ a
 
 /**
  * 2N25
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function union_et_intersection_intervalles_de_R() {
     Exercice.call(this); // Héritage de la classe Exercice()

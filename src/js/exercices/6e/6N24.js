@@ -2,7 +2,7 @@ import Exercice_conversions from './_Exercice_conversions.js';
 export const titre = 'Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)'
 
 /**
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * référence 6N14
  * 
  */

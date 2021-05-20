@@ -2,7 +2,7 @@ import Exercice_perimetres_et_aires from './_Exercice_perimetres_et_aires.js'
 export const titre = 'Calculer des périmètres et des aires de figures usuelles'
 
 /**
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M10
  */
 export default function Reglages_6M10() {

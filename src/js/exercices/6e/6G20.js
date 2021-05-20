@@ -5,7 +5,7 @@ import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotati
 export const titre = 'Nommer et coder des polygones'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Placer les sommets et les égalités de longueur...
  * Référence 6G20
  */

@@ -6,7 +6,7 @@ export const titre = 'Déterminer un antécédent'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 3F23
 * date : 2021/02/21
 * référentiel 3F23 - Déterminer de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré.

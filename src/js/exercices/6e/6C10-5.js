@@ -8,7 +8,7 @@ export const interactifReady = false
 export const titre = 'Labyrinthe de multiples'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.

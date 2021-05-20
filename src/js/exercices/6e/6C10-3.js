@@ -10,7 +10,7 @@ export const titre = 'Tables de multiplications et nombres décimaux'
 
 /**
  * Multiplier deux nombres décimaux
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C10-3
  */
 export default function ExerciceTablesMultiplicationsEtDecimaux (

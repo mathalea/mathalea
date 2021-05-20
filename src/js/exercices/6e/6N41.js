@@ -9,8 +9,8 @@ export const interactifReady = true
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
- * @Auteur Rémi Angot
- * @auteur Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
+ * @author Rémi Angot
+ * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
  * 5N13-2 et 6N41
  */
 export default function EgalitesEntreFractions () {

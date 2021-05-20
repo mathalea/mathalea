@@ -8,7 +8,7 @@ import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,a
  * * 1 : Carré, rectangle et triangle rectangle
  * * 2: Uniquement des cercles
  * * 3 : Les 4 sont demandés
- * @Auteur Rémi Angot// modifié par Mireille Gain pour le support des décimaux
+ * @author Rémi Angot// modifié par Mireille Gain pour le support des décimaux
  */
 export default function Exercice_perimetres_et_aires(difficulte = 1) {
   //Calculer le périmètre et l'aire de figures

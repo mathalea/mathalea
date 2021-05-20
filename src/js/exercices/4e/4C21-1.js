@@ -11,7 +11,7 @@ export const titre = 'Additionner deux fractions'
 * * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
 * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
 * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C21-1
 */
 export default function Exercice_additionner_des_fractions() {

@@ -5,7 +5,7 @@ export const titre = 'Utiliser la double distributivité'
 
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 3L11-1
 */
 export default function Double_distributivite() {

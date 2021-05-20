@@ -9,7 +9,7 @@ export const titre = 'Opérations avec les nombres décimaux'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 6C30-1
 * Trouver la réposne exacte. 4 cas :
 * - somme de deux entiers

@@ -6,7 +6,7 @@ export const titre = 'Lire un diagramme en barre'
 
 /**
  * Lire un diagramme en barre
- * @Auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * Référence 6S10
  */
 

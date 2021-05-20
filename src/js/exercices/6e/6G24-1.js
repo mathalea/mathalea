@@ -3,7 +3,7 @@ export const titre = 'Construire le symétrique d’un point par rapport à une 
 
 /**
  * Référence 6G24-1
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Symetrie_axiale_point_6e() {
 	Construire_par_Symetrie.call(this);

@@ -6,7 +6,7 @@ export const amcReady = false // tant qu'il n'a pas été adapté à la version 
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Utilisée dans 4G30 et 3G20
 */
 export default function Thales2D() {

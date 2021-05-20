@@ -9,7 +9,7 @@ export const titre = 'Contrôler si deux droites sont parallèles'
 
 /**
  * Reciproque_Thales
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G21
  */
 export default function Reciproque_Thales () {

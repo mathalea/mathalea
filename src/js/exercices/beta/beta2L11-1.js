@@ -6,7 +6,7 @@ export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 
 /**
  * Factoriser avec a²-b² avec a ou b expression algébrique 1er degré
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2L11-1
 */
 export default function Factoriser_Identites_remarquables2() {

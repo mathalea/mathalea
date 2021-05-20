@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,pgcd} from '../../modules/outils.js'
-import {fraction} from '../../modules/Fractions.js'
+import {fraction} from '../../modules/fractions.js'
 export const titre = 'Déterminer les termes d’une suite définie de façon explicite'
 
 /**
  * 1N10
- * @Auteur Gaelle Morvan
+ * @author Gaelle Morvan
  */
 export default function Terme_d_une_suite_definie_explicitement() {
   Exercice.call(this); // Héritage de la classe Exercice()

@@ -11,7 +11,7 @@ export const titre = 'Différentes écritures des nombres décimaux'
  * * u = .../10
  * * u = .../100
  * * n/10 = ... + .../10 + .../100
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N23-1
  */
 export default function Exercice_differentes_ecritures_nombres_decimaux() {

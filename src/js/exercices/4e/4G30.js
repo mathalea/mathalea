@@ -6,7 +6,7 @@ export const titre = 'Calculer des longueurs avec la propriété de Thalès'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4G30
 */
 

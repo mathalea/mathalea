@@ -10,7 +10,7 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Parallele_et_Perpendiculaires() {
   "use strict";

@@ -6,7 +6,7 @@ export const titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
 
 /**
  * 2N11
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Extraire_un_carre_parfait_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()

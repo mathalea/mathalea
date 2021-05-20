@@ -5,7 +5,7 @@ import {point,labelPoint,segment,polygone,translation2Points,similitude,codeSegm
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Solide_6e() {
   "use strict";

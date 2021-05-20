@@ -5,7 +5,7 @@ export const titre = 'Connaitre le cours sur le périmètre et l’aire'
 
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M25
  */
 export default function Connaitre_formules_de_perimetre_et_aires() {

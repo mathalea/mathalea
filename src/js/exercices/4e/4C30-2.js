@@ -5,7 +5,7 @@ export const titre = 'Écriture décimale d’une puissance de 10'
 
 /**
  * Donner l'écriture décimale d'une puissance de 10
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence 4C30-2
  */
 export default function EcritureDecimalePuissanceDe10() {

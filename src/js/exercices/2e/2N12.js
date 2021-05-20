@@ -7,7 +7,7 @@ export const titre = 'Appliquer la double distributivité avec les racines carr�
 
 /**
  * 2N12
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Double_distributivité_avec_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()

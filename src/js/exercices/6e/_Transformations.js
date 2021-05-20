@@ -5,7 +5,7 @@ import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,image
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Pas de version LaTeX
  */
 export default function Transformations() {

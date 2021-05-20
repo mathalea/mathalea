@@ -8,7 +8,7 @@ export const titre = 'Résoudre une équation avec des valeurs absolues'
 
 /**
  * 2N23
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function valeur_absolue_et_equation() {
     Exercice.call(this); // Héritage de la classe Exercice()

@@ -11,7 +11,7 @@ export const titre = 'Problèmes utilisant le théorème de Pythagore'
  * * Dans un rectangle on connait la longueur et la largeur, il faut calculer la diagonale.
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4G22
  */
 export default function Problemes_Pythagore() {

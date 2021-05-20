@@ -6,7 +6,7 @@ export const titre = 'Résoudre des équations carrées.'
 
 /**
  * Résoudre des équations produit-nul
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2L11-1
 */
 export default function Factoriser_Identites_remarquables2() {

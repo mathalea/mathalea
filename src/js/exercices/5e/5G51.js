@@ -9,7 +9,7 @@ export const titre = 'Compléter une représentation en perspective cavalière'
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
  * référence : 6G41
- * @Auteur Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
+ * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
 export default function Representer_un_solide5e() {
   Exercice.call(this); // Héritage de la classe Exercice ()

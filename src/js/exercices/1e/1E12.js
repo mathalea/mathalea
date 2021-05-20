@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettre_minuscule_depuis_chiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettreMinusculeDepuisChiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import {repere,courbe,mathalea2d,} from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import Algebrite from 'algebrite'
@@ -9,7 +9,7 @@ import Algebrite from 'algebrite'
 export const titre = 'Trouver l’équation d’une parabole'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Trois type de questions proposées :
  * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
  * 2) Passant par un point et dont on connait le sommet
@@ -37,7 +37,7 @@ export const titre = 'Trouver l’équation d’une parabole'
       let f_name=[],Ymin,Yscale,Ymax
       listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
       for (let i = 0, texte, texteCorr, a, b, c, x1, x2,x3,f,r,svgYmin,svgYmax,F, cpt = 0;i < this.nbQuestions && cpt < 50;) {
-        f_name.push(lettre_minuscule_depuis_chiffre(i+6))
+        f_name.push(lettreMinusculeDepuisChiffre(i+6))
         texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré `
         texteCorr=``
         switch (listeTypeDeQuestions[i]) {

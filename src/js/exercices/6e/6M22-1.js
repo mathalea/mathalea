@@ -12,7 +12,7 @@ export const titre = 'Périmètres et aires de disques'
  * * 3 : Calculer le périmètre et l'aire de disques
  *
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M22-1
  */
 export default function Perimetre_aire_disques (pa = 3) {

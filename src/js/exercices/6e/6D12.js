@@ -12,7 +12,7 @@ export const titre = 'Calculer des durées ou déterminer un horaire'
  * * 2 : calculer l'heure de début
  * * 3 : calculer l'heure de fin
  * * 4 : mélange des 3 types précédents
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6D12
  */
 export default function Calculs_de_durees_ou_d_horaires() {

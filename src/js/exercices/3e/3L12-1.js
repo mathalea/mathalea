@@ -5,7 +5,7 @@ export const titre = 'Développer (a-b)(a+b)'
 
 /**
  * Développer (ax-b)(ax+b)
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 3L12-1
 */
 export default function Developper_Identites_remarquables3() {

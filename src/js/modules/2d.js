@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombre_avec_espace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 /*
@@ -21,7 +21,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
 /*
  * Classe parente de tous les objets de MathALEA2D
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function ObjetMathalea2D () {
   this.positionLabel = 'above'
@@ -96,7 +96,7 @@ export function clone (obj) {
  * A = point(x,y,'A') //ses coordonnées et son nom
  * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   // ObjetMathalea2D.call(this);
@@ -134,7 +134,7 @@ export function point (...args) {
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
  * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
  *
- * @Auteur Rémi Angot & Jean-Claude Lhote
+ * @author Rémi Angot & Jean-Claude Lhote
  */
 function TracePoint (...points) {
   ObjetMathalea2D.call(this)
@@ -273,7 +273,7 @@ export function tracePoint (...args) {
  * P=tracePointSurDroite(A,d) //Ajoute un trait perpendiculaire à d supposée tracée marquant la posiion du point A
  * P=tracePointSurDroite(A,B) //Ajoute un trait perpendiculaire à la droite (AB) supposée tracée marquant la posiion du point A
  *
- * @Auteur Rémi Angot & Jean-Claude Lhote
+ * @author Rémi Angot & Jean-Claude Lhote
  */
 function TracePointSurDroite (A, O) {
   ObjetMathalea2D.call(this)
@@ -325,7 +325,7 @@ export function tracePointSurDroite (A, O) {
  * M = milieu(A,B,'M') //M est le milieu [AB] et se nomme M
  * M = milieu(A,B,'M','below') //M est le milieu [AB], se nomme M et le nom est en dessous du point
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {
   const x = calcul((A.x + B.x) / 2)
@@ -340,7 +340,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  *
  * M = pointSurSegment(A,B,'h','M') // M est un point au hasard sur [AB] (on peut écrire n'importe quel texte à la place de 'h')
  * M = pointSurSegment(A,B) // M est un point au hasard sur [AB]
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
   if (l === undefined || typeof l === 'string') {
@@ -353,7 +353,7 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  *
  * Est-ce que le point C appartien au segment [AB]
  * C'est ce que dira cette fonction
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function appartientSegment (C, A, B) {
@@ -386,7 +386,7 @@ export function appartientDemiDroite (C, A, B) {
  * M = pointSurCercle(c,'','M') // M est un point choisi au hasard sur le cercle c et se nomme M.
  * N = pointSurCercle(c,90) // N est le point du cercle c situé à 90° par rapport à l'horizontale, donc au dessus du centre de c
  * P = pointSurCercle(c,-90) // P est le point du cercle c situé à l'opposé du point N précédent.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
   if (typeof angle !== 'number') angle = randint(-180, 180)
@@ -396,7 +396,7 @@ export function pointSurCercle (c, angle, nom, positionLabel = 'above') {
 }
 /**
  * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function pointSurDroite (d, x, nom, positionLabel = 'above') {
   // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
@@ -408,7 +408,7 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 /**
  * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
@@ -427,7 +427,7 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
  * pointAdistance(A,d,angle,nom="",positionLabel="above")
  * Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
  * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function pointAdistance (...args) {
   const l = args.length
@@ -449,7 +449,7 @@ export function pointAdistance (...args) {
  * labelPoint(A,B) pour nommer les points A et B
  * Le nombre d'arguments n'est pas limité
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function LabelPoint (...points) {
   ObjetMathalea2D.call(this)
@@ -519,7 +519,7 @@ export function labelPoint (...args) {
 /**
  * P = barycentre(p,'P','below') Crée le point P barycentre du polygone p, son nom 'P' sera placé sous le point si il est tracé et labelisé.
  * @param {Polygone} p
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function barycentre (p, nom = '', positionLabel = 'above') {
   let sommex = 0
@@ -547,7 +547,7 @@ export function barycentre (p, nom = '', positionLabel = 'above') {
  * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!==(0,0))
  * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function Droite (arg1, arg2, arg3, arg4) {
   let a, b, c
@@ -809,7 +809,7 @@ export function droite (...args) {
 
 /**
  * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
   const B = point(calcul(A.x + v.x), calcul(A.y + v.y))
@@ -817,28 +817,28 @@ export function droiteParPointEtVecteur (A, v, nom = '', color = 'black') {
 }
 /**
  * d = droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la parallèle à la droite (d) passant par A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.directeur, nom, color)
 }
 /**
  * d = droiteParPointEtPerpendiculaire(A,d,'d1',red') // Trace en rouge la perpendiculaire à la droite (d) passant par A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.normal, nom, color)
 }
 /**
  * d = droiteHorizontaleParPoint(A,'d1',red') // Trace en rouge la droite horizontale passant par A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
   return droiteParPointEtPente(A, 0, nom, color)
 }
 /**
  * d = droiteVerticaleParPoint(A,'d1',red') // Trace en rouge la droite verticale passant par A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function droiteVerticaleParPoint (A, nom = '', color) {
   return droiteParPointEtVecteur(A, vecteur(0, 1), nom, color)
@@ -846,7 +846,7 @@ export function droiteVerticaleParPoint (A, nom = '', color) {
 
 /**
  * d = droiteParPointEtPente(A,p,'d1',red') //Droite passant par A, de pente p et de couleur rouge
- *@Auteur Jean-Claude Lhote
+ *@author Jean-Claude Lhote
  */
 export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
   const B = point(calcul(A.x + 1), calcul(A.y + k))
@@ -863,7 +863,7 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * d = mediatrice(A,B) // Médiatrice de [AB]
  * d = mediatrice(A,B,'d', 'blue') // Médiatrice de [AB] nommée (d) en bleu
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
   const O = milieu(A, B)
@@ -875,7 +875,7 @@ export function mediatrice (A, B, nom = '', color = 'black') {
 /**
  * m = codageMediatrice(A,B,'blue','×') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
   ObjetMathalea2D.call(this)
@@ -907,7 +907,7 @@ export function codageMediatrice (...args) {
 /**
  * c=codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
  * m=codageMilieu(C,D) marque l'emplacement du milieu de [CD] et marque avec X les deux moitiés.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   ObjetMathalea2D.call(this)
@@ -937,7 +937,7 @@ export function codageMilieu (...args) {
 /**
  * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function ConstructionMediatrice (
   A,
@@ -1022,7 +1022,7 @@ export function constructionMediatrice (...args) {
  * d = bissectrice(A,O,B) // Bissectrice de l'angle AOB
  * d = bissectrice(A,O,B,'blue') // Bissectrice de l'angle AOB en bleu
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function bissectrice (A, O, B, color = 'black') {
   const demiangle = calcul(angleOriente(A, O, B) / 2)
@@ -1032,7 +1032,7 @@ export function bissectrice (A, O, B, color = 'black') {
 }
 /**
  * m = codagebissectrice(A,O,B) ajoute des arcs marqués de part et d'autres de la bissectrice mais ne trace pas celle-ci.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
   ObjetMathalea2D.call(this)
@@ -1068,7 +1068,7 @@ export function codageBissectrice (...args) {
 /**
  * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function ConstructionBissectrice (
   A,
@@ -1133,7 +1133,7 @@ export function constructionBissectrice (...args) {
 /**
  * polyline(A,B,C,D,E) //Trace la ligne brisée ABCDE
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Polyline (...points) {
   ObjetMathalea2D.call(this)
@@ -1336,7 +1336,7 @@ export function pave (...args) {
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
  *
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
   ObjetMathalea2D.call(this)
@@ -1385,7 +1385,7 @@ export function vecteur (...args) {
   return new Vecteur(...args)
 }
 /**
- * @Auteur Jean-Claude Lhote le 31/01/2021
+ * @author Jean-Claude Lhote le 31/01/2021
  * crée un nom de vecteur avec sa petite flèche
  * l'angle formé par avec l'horizontale est à donner comme argument, par défaut c'est 0
  * la taille impactera le nom et la flèche en proportion.
@@ -1445,7 +1445,7 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  * s = segment(x1,y1,x2,y2) //Segment défini par les coordonnées des deux extrémités
  * s = segment(x1,y1,x2,y2,'blue') //Segment défini par les coordonnées des deux extrémités et de couleur bleue
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Segment (arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this)
@@ -1702,7 +1702,7 @@ export function segment (...args) {
  * s = segmentAvecExtremites(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
  * s = segmentAvecExtremites(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function segmentAvecExtremites (...args) {
   const s = segment(...args)
@@ -1720,7 +1720,7 @@ export function segmentAvecExtremites (...args) {
  * s = demiDroite(A,B) //Demi-droite d'origine A passant par B
  * s = demiDroite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function demiDroite (A, B, color = 'black') {
   const B1 = pointSurSegment(B, A, -10)
@@ -1731,7 +1731,7 @@ export function demiDroite (A, B, color = 'black') {
  * s = DemiDroiteAvecExtremite(A,B) //Demi-droite d'origine A passant par B avec l'origine marquée
  * s = DemiDroiteAvecExtremite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue avec l'origine marquée
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function demiDroiteAvecExtremite (A, B, color = 'black') {
   const B1 = pointSurSegment(B, A, -10)
@@ -1749,7 +1749,7 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this)
@@ -1952,7 +1952,7 @@ export function renommePolygone (p, noms) {
 /**
  * polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function polygoneRegulier (A, B, n, color = 'black') {
   const listePoints = [A, B]
@@ -1969,7 +1969,7 @@ export function polygoneRegulier (A, B, n, color = 'black') {
 /**
  * polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function polygoneRegulierIndirect (A, B, n, color = 'black') {
   const listePoints = [A, B]
@@ -1986,7 +1986,7 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black') {
 /**
  * carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
  * carre(A,B,'blue') //Trace en bleu le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function carre (A, B, color) {
   return polygoneRegulier(A, B, 4, color)
@@ -2058,7 +2058,7 @@ export function codageCarre (...args) {
 /**
  * polygoneRegulierParCentreEtRayon(O,r,n) //Trace le polygone régulier à n côtés et de rayon r
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
   const p = []
@@ -2079,7 +2079,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * @param {number} h hauteur du triangle en cm
  * @param {number} d valeur algébrique de AH où H est le pied de la hauteur
  * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @returns {objet} {triangle, pied}
  */
 export function triangle2points1hauteur (A, B, h, d, n = 1) {
@@ -2095,7 +2095,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
  * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
  * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
   const c1 = cercle(A, l1)
@@ -2115,7 +2115,7 @@ export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
  * t = triangle2points2angles(A,B,40,60) // Trace le triangle ABC tel que CAB = +40° et CBA = -60°
  * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function triangle2points2angles (A, B, a1, a2, n = 1) {
   if (n === 1) {
@@ -2142,7 +2142,7 @@ export function triangle2points2angles (A, B, a1, a2, n = 1) {
  * @param {number} l la longueur du deuxième côté de l'angle
  * @param {number} n n=1 l'angle a est pris dans le sens direct, n différent de 1, l'angle a est pris dans le sens indirect.
  * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
   if (n === 1) {
@@ -2164,7 +2164,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
  * n=3 l'angle a est pris dans le sens direct et le point est le plus loin de A
  * n=4 l'angle est pris dans le sens indirect et le point est le plus loin de A
  * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   let M
@@ -2228,7 +2228,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
 
 /**
  * nommePolygone (p,'ABCDE',0.5) nomme les sommets du polygone p. Les labels sont placés à une distance paramètrable en cm des sommets (0.5 par défaut)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function NommePolygone (p, nom = '', k = 0.5) {
   ObjetMathalea2D.call(this)
@@ -2266,7 +2266,7 @@ export function nommePolygone (...args) {
 
 /**
  * deplaceLabel(p1,'AB','below') // Si il y a un point nommé 'A' ou 'B' dans le polygone son nom sera mis en dessous du point
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function deplaceLabel (p, nom, positionLabel) {
   for (let i = 0; i < p.listePoints.length; i++) {
@@ -2280,7 +2280,7 @@ export function deplaceLabel (p, nom, positionLabel) {
 }
 /**
  * aireTriangle(p) retourne l'aire du triangle si p est un triangle, false sinon.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function aireTriangle (p) {
   if (p.listePoints.length !== 3) return false
@@ -2300,7 +2300,7 @@ export function aireTriangle (p) {
 
 /**
  * c = cercle(O,r) //Cercle de centre O et de rayon r
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Cercle (O, r, color) {
   ObjetMathalea2D.call(this)
@@ -2466,7 +2466,7 @@ export function cercle (...args) {
 
 /**
  * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Ellipse (O, rx, ry, color) {
   ObjetMathalea2D.call(this)
@@ -2598,7 +2598,7 @@ export function ellipse (...args) {
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function pointIntersectionLC (d, C, nom = '', n = 1) {
   const O = C.centre
@@ -2696,7 +2696,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
  * M = pointIntersectionCC(c1,c2,'M') // M est le point d'intersection le plus haut des cercles c1 et c2
  * M = pointIntersectionCC(c1,c2,'M',2) // M est le point d'intersection le plus bas des cercles c1 et c2
  * La fonction ne renvoie rien si les cercles n'ont pas de points d'intersection
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * @Source https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
 export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
@@ -2746,7 +2746,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  *  c = cercleCentrePoint(O,A) //Cercle de centre O passant par A
  *  c = cercleCentrePoint(O,A,'blue') //Cercle de centre O passant par A en bleu
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function CercleCentrePoint (O, M, color = 'black') {
   Cercle.call(this, O, longueur(O, M), color)
@@ -2756,7 +2756,7 @@ export function cercleCentrePoint (...args) {
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {object} M point de départ de l'arc
  * @param {object} Omega centre de l'arc
  * @param {number} angle compris entre -360 et 360 valeur négative = sens indirect
@@ -3039,7 +3039,7 @@ export function arc (...args) {
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
  * @param {string} color //couleur de l'arc
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
   let anglerot
@@ -3061,7 +3061,7 @@ export function arcPointPointAngle (...args) {
 }
 /**
  * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
- *@Auteur Jean-Claude Lhote
+ *@author Jean-Claude Lhote
  */
 export function traceCompas (
   O,
@@ -3111,7 +3111,7 @@ export function courbeDeBezier (...args) {
 
 /**
  * Trace un segment entre A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function SegmentMainLevee (A, B, amp, color = 'black') {
   ObjetMathalea2D.call(this)
@@ -3163,7 +3163,7 @@ export function segmentMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
 }
 /**
  * Trace un cercle de centre A et de rayon r qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function CercleMainLevee (A, r, amp, color = 'black') {
   ObjetMathalea2D.call(this)
@@ -3215,7 +3215,7 @@ export function cercleMainLevee (A, r, amp, color = 'black', epaisseur = 1) {
 }
 /**
  * Trace une droite passant par A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function DroiteMainLevee (A, B, amp, color = 'black') {
   ObjetMathalea2D.call(this)
@@ -3235,7 +3235,7 @@ export function droiteMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
 }
 /**
  * Trace un polygone qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function PolygoneMainLevee (points, amp) {
   ObjetMathalea2D.call(this)
@@ -3280,7 +3280,7 @@ export function polygoneMainLevee (points, amp, color = 'black') {
 }
 /**
  * Une fonction pour dessiner des arcs à main levée comme son nom l'indique.
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
  */
 
 function ArcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
@@ -3368,7 +3368,7 @@ export function arcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none'
  * retourne un couple de coordonnées correspondant au centre d'une cible
  * afin xue le point (x,y) se trouve dans la case correspondante à cellule
  * cellule est une chaine comme 'A1' ou 'B3'
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
@@ -3385,7 +3385,7 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
  * Cellule va de A1 à Hn où n est le rang de la cible.
  * taille c'est la différence entre deux rayons successifs.
  * x et y sont les coordonnées du point à cibler.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
@@ -3406,7 +3406,7 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
 
 /**
  * création d'une cible carrée pour l'auto-correction
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {} param0
  */
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
@@ -3459,7 +3459,7 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6 }) {
 }
 /**
  * création d'une cible ronde pour l'auto-correction
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
@@ -3492,7 +3492,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     c.color = this.color
     objets.push(c)
   }
-  const numero = texteParPosition(nombre_avec_espace(num), this.x, this.y, 0, 'gray')
+  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, 'gray')
   numero.opacite = 0.5
   numero.taille = 30
   numero.contour = true
@@ -3517,7 +3517,7 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
 }
 /**
  * création d'une cible ronde pour l'auto-correction
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
@@ -3594,7 +3594,7 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisio
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
   if (O.constructor === Point) {
@@ -3640,7 +3640,7 @@ export function translation (O, v, nom = '', positionLabel = 'above') {
  * M = translation2Points(O,A,B,'M') //M est l'image de O dans la translation qui transforme A en B et se nomme M
  * M = translation2Points(O,A,B,'M','below') //M est l'image de O dans la translation qui transforme A en B, se nomme M et le nom est en dessous du point
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 
 export function translation2Points (O, A, B, nom = '', positionLabel = 'above') {
@@ -3687,7 +3687,7 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
  * M = rotation(A,O,angle,'M') //M est l'image de A dans la rotation de centre O et d'angle angle et se nomme M
  * M = rotation(A,O,angle,'M','below') //M est l'image de A dans la rotation de centre O et d'angle angle, se nomme M et le nom est en dessous
  *
- * @Auteur Rémi Angot et Jean-Claude Lhote
+ * @author Rémi Angot et Jean-Claude Lhote
  */
 export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
   if (A.constructor === Point) {
@@ -3746,7 +3746,7 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * A1 Le point de départ de la flèche
  * centre Le centre de la rotation
  * sens Le sens (+1 ou -1) de la rotation. +1=sens trigo
@@ -3785,7 +3785,7 @@ export function sensDeRotation (A, O, sens) {
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
   if (A.constructor === Point) {
@@ -3833,7 +3833,7 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
  * M = pointParSymetrieAxiale(A,d)// M est l'image de A dans la symétrie axiale d'axe d.
  * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
  * A est un objet de type Point (ses coordonnées x et y renseignées)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
   let x, y
@@ -3901,7 +3901,7 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
  * Calcule la distance entre un point et une droite.
  * 1ere version utilisant la projection orthogonale
  * 2eme version utilisant la symétrie axiale (abandonnée)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {*} A
  * @param {*} d
  */
@@ -3911,7 +3911,7 @@ export function distancePointDroite (A, d) {
 }
 /**
  * N = projectionOrtho(M,d,'N','below left')
- *@Auteur Jean-Claude Lhote
+ *@author Jean-Claude Lhote
  */
 export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
   const a = d.a
@@ -3944,7 +3944,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
 }
 /**
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
- * @Auteur = Jean-Claude Lhote
+ * @author = Jean-Claude Lhote
  */
 export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
   const a = d.a
@@ -4017,7 +4017,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
  * @param {string} nom
  * @param {string} positionLabel
  * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
   if (A.constructor === Point) {
@@ -4074,7 +4074,7 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
  * translationAnimee(s,v) //Animation de la translation de vecteur v pour s
  * translationAnimee([a,b,c],v) //Animation de la translation de vecteur v pour les objets a, b et v
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
   ObjetMathalea2D.call(this)
@@ -4109,7 +4109,7 @@ export function translationAnimee (...args) {
  * rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
  * rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function RotationAnimee (
   liste,
@@ -4147,7 +4147,7 @@ export function rotationAnimee (...args) {
  * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
  * homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function HomothetieAnimee (
   p,
@@ -4178,7 +4178,7 @@ export function homothetieAnimee (...args) {
  * symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
  * symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function SymetrieAnimee (
   p,
@@ -4232,7 +4232,7 @@ export function affiniteOrthoAnimee (...args) {
 /**
  * Rend visible un element d'après son id
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * @param {string} id
  *
  */
@@ -4243,7 +4243,7 @@ export function montrerParDiv (id) {
 /**
  * Rend invisible un element d'après son id
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * @param {string} id
  *
  */
@@ -4334,7 +4334,7 @@ export function afficherTempoId (id, t0 = 1, t = 5, r = 'Infinity') {
 /**
  * Rend visible un element d'après son id
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * @param {any} id
  *
  */
@@ -4355,7 +4355,7 @@ export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 
 
 /**
  * Médiane issue de A relative à [BC]
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
@@ -4368,7 +4368,7 @@ export function medianeTriangle (A, B, C, color = 'black') {
 
 /**
  * Centre de gravité du triangle ABC
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
@@ -4387,7 +4387,7 @@ export function centreGraviteTriangle (A, B, C, nom = '') {
 
 /**
  * Hauteur issue de A relative à [BC]
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
@@ -4463,7 +4463,7 @@ export function codageMedianeTriangle (...args) {
 
 /**
  * Orthocentre du triangle ABC
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
@@ -4482,7 +4482,7 @@ export function orthoCentre (A, B, C, nom = '', positionLabel = 'above') {
 
 /**
  * Centre du cercle circonscrit au triangle ABC
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
@@ -4509,7 +4509,7 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 4 mm pour l'angle direct AOB
  * codageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
   ObjetMathalea2D.call(this)
@@ -4573,7 +4573,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function AfficheLongueurSegment (A, B, color = 'black', d = 0.5) {
   ObjetMathalea2D.call(this)
@@ -4621,7 +4621,7 @@ export function afficheLongueurSegment (...args) {
 /**
  * texteSurSegment(A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   ObjetMathalea2D.call(this)
@@ -4679,7 +4679,7 @@ export function texteSurSegment (...args) {
 /**
  * afficheMesureAngle(A,B,C) // Affiche la mesure de l'angle ABC arrondie au degré près
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '') {
   ObjetMathalea2D.call(this)
@@ -4726,7 +4726,7 @@ export function afficheMesureAngle (...args) {
 }
 /**
  * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function AfficheCoteSegment (
   s,
@@ -4808,7 +4808,7 @@ export function afficheCoteSegment (...args) {
  * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
  * Attention le premier argument ne peut pas être un segment
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function CodeSegment (A, B, mark = '||', color = 'black') {
   ObjetMathalea2D.call(this)
@@ -4833,7 +4833,7 @@ export function codeSegment (...args) {
  * codeSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  * codeSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function CodeSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this)
@@ -4910,7 +4910,7 @@ export function codeSegments (mark = '||', color = 'black', ...args) {
  * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4)
  * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesure_on = false) {
   ObjetMathalea2D.call(this)
@@ -5120,7 +5120,7 @@ function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite
       g.epaisseur = 2
       objets.push(g)
       if (gradue && k !== 0 && k !== division) {
-        objets.push(texteParPosition(nombre_avec_espace(arrondi(calcul(origin + i / longueurUnite * pasprincipal), 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
+        objets.push(texteParPosition(nombreAvecEspace(arrondi(calcul(origin + i / longueurUnite * pasprincipal), 3)), x + i * absord[0] - 0.8 * absord[1], y + i * absord[1] - 0.8 * absord[0]))
       }
     } else {
       g = segment(point(x + i * absord[0] - 0.2 * absord[1], y - 0.2 * absord[0] + i * absord[1]), point(x + i * absord[0] + 0.2 * absord[1], y + 0.2 * absord[0] + i * absord[1]))
@@ -5166,7 +5166,7 @@ export function droiteGraduee (...args) {
   return new DroiteGraduee(...args)
 }
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Paramètres :
  * Unite : Nombre de cm par Unité
  * Min,Max : Valeur minimum et maximum labelisées sur l'axe (les graduations commencent un peu avant et finissent un peu après)
@@ -5258,7 +5258,7 @@ function DroiteGraduee2 ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step1 * pas1) === 0) {
         i = calcul((j - Min * factor) / factor)
-        T = texteParPosition(`${nombre_avec_espace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
+        T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
       }
     }
@@ -5267,7 +5267,7 @@ function DroiteGraduee2 ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step2 * pas2) === 0 && j % pas1 !== 0) {
         i = calcul((j - Min * factor) / factor)
-        T = texteParPosition(`${nombre_avec_espace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
+        T = texteParPosition(`${nombreAvecEspace(arrondi(calcul(Min + i), 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0])
         objets.push(T)
       }
     }
@@ -5333,7 +5333,7 @@ export function droiteGraduee2 (...args) {
 /**
 * axes(xmin,ymin,xmax,ymax,thick,xstep,ystep,epaisseur) // Trace les axes des abscisses et des ordonnées
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 
 function Axes (
@@ -5438,7 +5438,7 @@ function LabelX (
 /**
  * labelX(xmin,xmax,step,color,pos,coeff) // Place des graduations
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function labelX (...args) {
   return new LabelX(...args)
@@ -5447,7 +5447,7 @@ export function labelX (...args) {
 /**
  * labelY(ymin,ymax,step,color,pos,coeff) // Place des graduations
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function LabelY (
   ymin = 1,
@@ -5494,7 +5494,7 @@ function LabelY (
 /**
  * labelY(ymin,ymax,step,color,pos,coeff) // Place des graduations
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function labelY (...args) {
   return new LabelY(...args)
@@ -5503,7 +5503,7 @@ export function labelY (...args) {
 /**
  * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function Grille (
   xmin = -30,
@@ -5557,7 +5557,7 @@ function Grille (
 /**
  * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function grille (...args) {
   return new Grille(...args)
@@ -5566,7 +5566,7 @@ export function grille (...args) {
 /**
  * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les parallèle à l'axe des ordonnées
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function GrilleHorizontale (
   xmin = -30,
@@ -5610,7 +5610,7 @@ function GrilleHorizontale (
 /**
  * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function grilleHorizontale (...args) {
   return new GrilleHorizontale(...args)
@@ -5657,7 +5657,7 @@ function GrilleVerticale (
 /**
  * grilleVerticale(xmin,ymin,xmax,ymax,color,opacite,pas)
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function grilleVerticale (...args) {
   return new GrilleVerticale(...args)
@@ -5700,7 +5700,7 @@ function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacit
  * @param {integer} ymin
  * @param {integer} xmax
  * @param {integer} ymax
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function seyes (...args) {
   return new Seyes(...args)
@@ -6350,7 +6350,7 @@ export function repere2 (...args) {
  * @param {integer} x
  * @param {integer} y
  * @param {object} repere
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function pointDansRepere (x, y, repere = { xUnite: 1, yUnite: 1 }) {
   return point(calcul(x * repere.xUnite), calcul(y * repere.yUnite))
@@ -6362,7 +6362,7 @@ export function pointDansRepere (x, y, repere = { xUnite: 1, yUnite: 1 }) {
  *
  * @param {array} data
  * @param {object} repere
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TraceGraphiqueCartesien (data, repere, {
   couleurDesPoints = 'red',
@@ -6442,7 +6442,7 @@ export function traceGraphiqueCartesien (...args) {
  * tabInit:[[[texte1,taille1,long1],[texte2,taille2,long2]...],[valeur1,long1,valeur2,long2,valeur3,long3...]]
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
  * @param {*} param0
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 function Tableau_de_variation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
   ObjetMathalea2D.call(this)
@@ -7314,7 +7314,7 @@ export function tableau_de_variation ({ tabInit = ['', ''], tabLines = [], lgt =
  * @param {string} couleur
  * @param {integer} opaciteDeRemplissage
  * @param {integer} angle
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
@@ -7349,7 +7349,7 @@ export function traceBarre (...args) {
  * @param {string} couleur
  * @param {integer} opaciteDeRemplissage
  * @param {integer} angle
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TraceBarreHorizontale (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1 } = {}) {
   ObjetMathalea2D.call(this)
@@ -7526,7 +7526,7 @@ export function lectureAntecedent (...args) {
 /**
  * courbe(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 
 function Courbe (
@@ -7584,7 +7584,7 @@ export function courbe (
 /**
  * courbe2(f,{color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 
 function Courbe2 (f, {
@@ -7734,7 +7734,7 @@ function CourbeInterpolee (
  * @param {number} xmin
  * @param {number} xmax
  *
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function courbeInterpolee (...args) {
   return new CourbeInterpolee(...args)
@@ -7781,7 +7781,7 @@ function GraphiqueInterpole (
 /**
  *
  *
- * @auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function graphiqueInterpole (...args) {
   return new GraphiqueInterpole(...args)
@@ -7956,7 +7956,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', math_on = false) {
   ObjetMathalea2D.call(this)
@@ -8040,7 +8040,7 @@ export function texteParPoint (...args) {
  * texteParPoint('mon texte',x,y,'droite') // Écrit 'mon texte' à droite de le point de coordonnées (x,y) (qui sera le début du texte)
  * texteParPoint('mon texte',x,y,45) // Écrit 'mon texte'  centré sur le point de coordonnées (x,y) avec une rotation de 45°
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function texteParPosition (texte, x, y, orientation = 'milieu', color, scale = 1, ancrageDeRotation = 'middle', math_on = false) {
   return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, math_on)
@@ -8050,7 +8050,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
  * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
  * si colorBackground="", le fond est transparent.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
   let x; let y; const coeff = context.pixelsParCm
@@ -8133,7 +8133,7 @@ export function latexParCoordonnees (texte, x, y, color = 'black', size = 200, h
  * permet d'afficher une fraction à une position donnée en SVG et Latex
  * Les nombres ne sont pas en mode Maths
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
@@ -8151,9 +8151,9 @@ function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, cou
     if (signe === -1) {
       code += segment(calcul(x - ((longueur + 15) / coeff / 2), 0), y, calcul(x - ((longueur + 5) / coeff / 2), 0), y, couleur).svg(coeff)
     }
-    const t1 = texteParPosition(nombre_avec_espace(num), x, calcul(y + offset / coeff), 'milieu', couleur)
+    const t1 = texteParPosition(nombreAvecEspace(num), x, calcul(y + offset / coeff), 'milieu', couleur)
     code += t1.svg(coeff)
-    const t2 = texteParPosition(nombre_avec_espace(den), x, calcul(y - offset / coeff), 'milieu', couleur)
+    const t2 = texteParPosition(nombreAvecEspace(den), x, calcul(y - offset / coeff), 'milieu', couleur)
     code += t2.svg(coeff)
     t1.isVisible = false
     t2.isVisible = false
@@ -8166,8 +8166,8 @@ function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, cou
     if (signe === -1) {
       code += segment(calcul(x - ((longueur / 30 + 0.785) / context.scale / 2), 2), y, calcul(x - ((longueur / 30 + 0.25) / context.scale / 2), 2), y, couleur).tikz()
     }
-    code += texteParPosition(nombre_avec_espace(num), calcul(x + longueur / 60 / context.scale, 2), calcul(y + offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
-    code += texteParPosition(nombre_avec_espace(den), calcul(x + longueur / 60 / context.scale, 2), calcul(y - offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombreAvecEspace(num), calcul(x + longueur / 60 / context.scale, 2), calcul(y + offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
+    code += texteParPosition(nombreAvecEspace(den), calcul(x + longueur / 60 / context.scale, 2), calcul(y - offset / 30 / context.scale, 2), 'milieu', couleur).tikz()
     return code
   }
 }
@@ -8196,7 +8196,7 @@ export function print2d (...args) {
 /**
  * longueur(A,B) renvoie la distance de A à B
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function longueur (A, B, arrondi) {
   if (arrondi === undefined) {
@@ -8209,7 +8209,7 @@ export function longueur (A, B, arrondi) {
 /**
  * norme(V) renvoie la norme du vecteur
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function norme (v) {
   return calcul(Math.sqrt(v.x ** 2 + v.y ** 2))
@@ -8218,7 +8218,7 @@ export function norme (v) {
 /**
  * angle(A,O,B) renvoie l'angle AOB en degré
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function angle (A, O, B) {
   const OA = longueur(O, A)
@@ -8241,7 +8241,7 @@ export function angle (A, O, B) {
 
 /**
  * Retourne la valeur signée de l'angle AOB en degré.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
@@ -8251,7 +8251,7 @@ export function angleOriente (A, O, B) {
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function angleradian (A, O, B) {
   const OA = longueur(O, A)
@@ -8516,7 +8516,7 @@ export function ajouterAy (y, lutin = context.lutin) {
 }
 /**
  * fait "vibrer" le lutin tempo fois autour de sa position courante
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
@@ -8533,7 +8533,7 @@ export function attendre (tempo, lutin = context.lutin) {
  * Elle retourne une chaine de caractères contenant l'équivalent en langage scratchblocks
  * http://mirrors.ctan.org/macros/latex/contrib/scratch3/scratch3-fr.pdf
  * https://scratchblocks.github.io
- * @Auteur Jean-Claude Lhote.
+ * @author Jean-Claude Lhote.
  */
 
 export function scratchblock (stringLatex) {
@@ -8969,7 +8969,7 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
 /**
  * codeTikz(segment(A,B),polygone(D,E,F),labelPoints(A,B))
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 
 export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
@@ -9027,7 +9027,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
 /**
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  *
  *
  * Le paramètre optionsTikz est un tableau de strings contenant exclusivement des options Tikz à ajouter
@@ -9338,7 +9338,7 @@ function pattern ({
  * Fonction créant un labyrinthe de nombres
  * Le tableau de nombres doit être de format [6][3]
  * Le niveau doit être un entier entre 1 et 6 inclus
- * @Auteur Jean-Claude
+ * @author Jean-Claude
  * Publié le 6/12/2020
  */
 function Labyrinthe () {
@@ -9565,7 +9565,7 @@ function Labyrinthe () {
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
-          objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+          objets.push(texteParPoint(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
         } else {
@@ -9582,7 +9582,7 @@ export function labyrinthe () {
 
 /**
  * Classe Pavage : permet de créer des pavages de polygones en un tour de main et de manipuler les polygones qu'il contient
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 10/12/2020
  */
 function Pavage () {
@@ -10086,7 +10086,7 @@ function Pavage () {
       this.tracesCentres[i].color = 'blue'
       this.tracesCentres[i].taille = 2
       this.coordonnees.push([arrondi(this.barycentres[i].x, 2), arrondi(this.barycentres[i].y, 2)])
-      this.numeros.push(texteParPosition(nombre_avec_espace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))
+      this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))
     }
   }
 }

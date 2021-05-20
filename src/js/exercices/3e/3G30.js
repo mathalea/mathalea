@@ -9,7 +9,7 @@ export const amcType = 5 // type de question AMC
 export const titre = 'Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
- * @auteur Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
+ * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
  * 3G30 Exercice remplaçant l'exercice initial utilisant MG32
  * Calculer une longueur en utilisant l'un des trois rapport trigonométrique.
  * * Si this.level=4 alors seul le cosinus sera utilisé.

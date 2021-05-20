@@ -9,7 +9,7 @@ export const amcType = 3
 
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence CM019
  */
 

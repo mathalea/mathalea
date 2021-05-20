@@ -8,7 +8,7 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  * Multiplier ou diviser un nombre entier par 10, 100 ou 1 000
  *
  * Le nombre entier est de la forme X, XX, X0X, X00X ou XXX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N24-1
  */
 export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {

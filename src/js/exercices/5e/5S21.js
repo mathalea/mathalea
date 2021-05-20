@@ -7,7 +7,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 5S21
  */
 export default function fonctions_probabilite1() {

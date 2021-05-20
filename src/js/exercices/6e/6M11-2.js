@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, tex_texte } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
 export const titre = 'Périmètres et aires de figures composées'
 
 /**
@@ -11,7 +11,7 @@ export const titre = 'Périmètres et aires de figures composées'
  * Pas de version LaTeX
  *
  * Un seul type de figure pour l'instant.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M11-2
  */
 export default function Perimetre_ou_aire_de_figures_composees () {
@@ -48,7 +48,7 @@ export default function Perimetre_ou_aire_de_figures_composees () {
       DA
     )}+${L1}+${l1}=${texNombrec(L1 + L2 + DA + L1 + l1)}$ cm.<br>`
     texteCorr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
-      }+${calcul((L2 * l1) / 2)}=${calcul(L1 * l1 + (L2 * l1) / 2)}~${tex_texte(
+      }+${calcul((L2 * l1) / 2)}=${calcul(L1 * l1 + (L2 * l1) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
     texteCorr += '<br><br>'
@@ -57,7 +57,7 @@ export default function Perimetre_ou_aire_de_figures_composees () {
       t1
     )}+${texNombre(t2)}=${texNombrec(3 * c + t1 + t2)}$ cm<br>`
     texteCorr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
-      }-${(c * h) / 2}=${texNombrec(c ** 2 - (c * h) / 2)}~${tex_texte(
+      }-${(c * h) / 2}=${texNombrec(c ** 2 - (c * h) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
 

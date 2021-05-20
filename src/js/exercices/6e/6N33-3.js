@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,tex_prix,texFraction} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,texPrix,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Problèmes avec des calculs de pourcentages'
 
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N33-3
  */
 export default function Appliquer_un_pourcentage() {
@@ -43,7 +43,7 @@ export default function Appliquer_un_pourcentage() {
           texte += `Quel est le montant en euro de cette réduction ?`
           texteCorr = `On doit calculer $${pourcent[i]}\\%$ de $${prix[i]}$€ :<br>`
           texteCorr += `$${pourcent[i]}\\%\\text{ de }${prix[i]}=${texFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(calcul((pourcent[i] * prix[i]) / 100))}$<br>`;
-          texteCorr += `Le montant de la réduction est de ${tex_prix(calcul(prix[i] * pourcent[i] / 100))}€`
+          texteCorr += `Le montant de la réduction est de ${texPrix(calcul(prix[i] * pourcent[i] / 100))}€`
           break;
         case 2:
           masse[i] = randint(legume[index[i]][1], article[index[i]][2])

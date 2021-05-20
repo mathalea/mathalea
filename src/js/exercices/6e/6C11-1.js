@@ -9,7 +9,7 @@ export const interactifReady = true
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
  *
- * @Auteur Cédric GROLLEAU
+ * @author Cédric GROLLEAU
  * Référence 6C11-1
  */
 export default function Divisions_euclidiennes_egalite () {

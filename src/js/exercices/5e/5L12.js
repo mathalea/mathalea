@@ -13,7 +13,7 @@ export const titre = 'Réduire une expression littérale'
 * * a+x+b+c+dx
 * * ax+y+bx+c+dy
 * * ax+b-cx
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L12
 */
 export default function Reduire_une_expression_litterale() {

@@ -6,7 +6,7 @@ export const titre = 'Lire abscisse décimale avec zoom'
  * L'abscisse est à donner sous trois formes.
  * ref 6N23-3
  * Publié le 13/11/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function lireUneAbscisseAvecZoomCM() {
   LireUneAbscisseAvecZoom.call(this);

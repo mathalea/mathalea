@@ -18,7 +18,7 @@ export const titre = 'Calculer la valeur d’une expression littérale'
 * * ax^2-bx+c
 * * axy+x+y
 * * (ax+b)(cy-d)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L14
 */
 export default function Calculer_la_valeur_d_une_expression_litterale() {

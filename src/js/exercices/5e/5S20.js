@@ -2,13 +2,13 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {point,tracePoint,segment,texteParPosition,fractionParPosition,mathalea2d} from '../../modules/2d.js'
-import {fraction} from '../../modules/Fractions.js'
+import {fraction} from '../../modules/fractions.js'
 
 export const titre = 'Placer un événement sur une échelle de probabilités'
 
 /**
  * Placer un événement sur une échelle de probabilités.
- * @Auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * Référence 5S20
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
@@ -25,7 +25,7 @@ export default function Placer_probabilites() {
 	this.sup = true;
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
-		this.listeCorrections = []; // Liste de questions corrigées		
+		this.listeCorrections = []; // Liste de questions corrigées
 		let lstEvenenementA = []; // liste des évènements disponibles : p == 0 ou p == 1
 		let lstEvenenementB = []; // liste des évènements disponibles : p < 0.5
 		let lstEvenenementC = []; // liste des évènements disponibles : p = 0.5
@@ -67,7 +67,7 @@ export default function Placer_probabilites() {
 		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
 		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm`, 1]);
 		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm`, 1]);
-		// Evenement divers : 
+		// Evenement divers :
 		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
 		let n = randint(1, m); //nombre à obtenir
 		lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1 / m]);
@@ -86,7 +86,7 @@ export default function Placer_probabilites() {
 		let lstEvenenementExo = [];
 		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)); // p == 0 ou p == 1
 		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)); // p < 0.5
-		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5 
+		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5
 		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo)); // p > 0.5
 		lstEvenenementExo = shuffle(lstEvenenementExo);
 
@@ -112,7 +112,7 @@ export default function Placer_probabilites() {
 			}
 		}
 		else {
-			lstObjet.push(fractionParPosition({ x: L / 2, y: -1, fraction: fraction(1, 2), couleur: 'black' })); // fraction 1/2 
+			lstObjet.push(fractionParPosition({ x: L / 2, y: -1, fraction: fraction(1, 2), couleur: 'black' })); // fraction 1/2
 			lstObjet.push(texteParPosition("0", 0, y - 0.25, 0, 'black', 1, 'middle')); // abscisse 0
 			lstObjet.push(texteParPosition("1", L, y - 0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}

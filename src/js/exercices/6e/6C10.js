@@ -17,7 +17,7 @@ export const titre = 'Additions, soustractions et multiplications posées de nom
  * * 1abc-def
  * * abc*d0e tables de 2 à 5
  * * abc*de tables de 5 à 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Support des opérations posées en html par Jean-Claude Lhote.
  * Référence 6C10
  */

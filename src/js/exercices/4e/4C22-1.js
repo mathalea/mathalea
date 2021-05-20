@@ -11,7 +11,7 @@ export const titre = 'Trouver l’inverse d’un nombre'
  * * 2 : inverse d'une fraction
  * * 3 : inverse d'un nombre décimal
  * * 4 : mélange des trois autres niveaux
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C22-1
  */
 export default function Exercice_trouver_l_inverse() {

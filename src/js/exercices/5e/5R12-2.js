@@ -8,7 +8,7 @@ export const titre = 'Déterminer les coordonnées (relatives) d’un point'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Références 5R12-2
  */
 export default function Reperage_point_du_plan () {

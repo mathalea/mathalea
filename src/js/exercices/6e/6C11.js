@@ -19,7 +19,7 @@ export const titre = 'Divisions euclidiennes'
  * * division par 11, 12, 15, 25
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C11
  */
 export default function Divisions_euclidiennes() {

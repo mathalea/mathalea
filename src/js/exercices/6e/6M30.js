@@ -6,7 +6,7 @@ export const titre = 'Calculs de volumes'
 
 /**
  * Calcul de volumes (cube et pavé droit).
- * @Auteur Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
+ * @author Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
  * référence 6M30
  */
 

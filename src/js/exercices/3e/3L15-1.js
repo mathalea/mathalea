@@ -5,7 +5,7 @@ export const titre = 'Résoudre une équation $x^2 = a$'
 
 /**
  * Résoudre une équation de type x²=a
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 3L15
 */
 export default function ResoudreEquatioeX2EgalA () {

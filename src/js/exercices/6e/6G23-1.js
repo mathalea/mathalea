@@ -12,7 +12,7 @@ export const titre = 'Mesurer un angle'
 
 /**
  * Construire un angle
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6G23
  */
 export default function MesurerUnAngle () {

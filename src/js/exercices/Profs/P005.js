@@ -7,7 +7,7 @@ export const titre = 'Grilles décimales'
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
  * ref P005
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Feuille_de_grilles() {
   Exercice.call(this);

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
+import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombreAvecEspace,texcolors} from '../../modules/outils.js'
 import {tracePoint,labelPoint,codageMilieu,segment,rotation,rotationAnimee,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
 
 
@@ -10,7 +10,7 @@ export const titre = 'Trouver l’image d’une figure par symétrie centrale da
  * Publié le 14/12/2020
  * Trouver l'image par symétrie centrale d'une figure dans un pavage
  * Version Latex & Html grâce à Mathalea2d
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Ref 5G12
  */
 export default function Pavage_et_demi_tour2d() {
@@ -181,7 +181,7 @@ export default function Pavage_et_demi_tour2d() {
 	  objets.push(B) // et son label
 	  couples=shuffle(couples) // on mélange les couples
 	  for (let i = 0; i < monpavage.nb_polygones; i++) {
-		objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+		objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
 	  }
 	  if (this.sup2) { // Doit-on montrer les centres des figures ?
 		for (let i = 0; i < monpavage.nb_polygones; i++) {

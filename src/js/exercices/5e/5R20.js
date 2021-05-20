@@ -12,7 +12,7 @@ export const titre = 'Addition de deux entiers relatifs'
 * Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
 *
 * Paramètre supplémentaire ; utilisation des écritures simplifiées
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R20
 */
 export default function ExerciceAdditionsRelatifs (max = 20) {

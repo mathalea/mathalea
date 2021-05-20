@@ -21,7 +21,7 @@ export const titre = 'Réduire, si possible, une expression littérale simple'
  * * ax^2-ax
  * 
  * 
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4L10-1
  */
 export default function Reductions_pieges_classiques() {

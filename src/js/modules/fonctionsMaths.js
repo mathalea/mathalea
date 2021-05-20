@@ -3,7 +3,7 @@ import { calcul, arrondi } from './outils.js'
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
 * // PI->180
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function degres (radians) {
   return radians * 180 / Math.PI

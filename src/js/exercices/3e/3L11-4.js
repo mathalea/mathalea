@@ -6,7 +6,7 @@ export const titre = 'Factoriser une expression'
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3L11-4
 */
 export default function Factoriser_par_nombre_ou_x() {

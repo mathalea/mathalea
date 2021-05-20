@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, abs, calcul, tex_graphique, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, abs, calcul, texGraphique, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction } from '../../modules/outils.js'
 export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
 
 /**
 * Un graphique étant tracé, déterminer l'image de nombres donnés.
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3F12-4
 */
 export default function Image_graphique () {
@@ -119,7 +119,7 @@ export default function Image_graphique () {
 
     if (!context.isHtml) {
       texte += '\n\n'
-      texte += tex_graphique(expression_f)
+      texte += texGraphique(expression_f)
     }
 
     this.MG32codeBase64 = codeBase64

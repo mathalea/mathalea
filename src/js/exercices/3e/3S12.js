@@ -7,7 +7,7 @@ export const titre = 'Calculer des effectifs et des fréquences'
 
 /**
 * Calculer des effectifs et des fréquences.
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 3S12
 * 2021-02-07
 */

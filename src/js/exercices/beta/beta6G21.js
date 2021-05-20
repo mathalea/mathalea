@@ -8,7 +8,7 @@ export const titre = 'Construire un triangle aux instruments'
 
 /**
  * Publié le 30/08/202
- * @Auteur Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
+ * @author Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
  * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
  * Modifié 2021/04/02
  */

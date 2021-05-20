@@ -6,7 +6,7 @@ export const titre = 'Calculer la hauteur d’une falaise'
 
 /**
  * Propose de calculer la hauteur d'une falaise en utilisant les angles de vue depuis deux positions d'un bateau sans s'en approcher.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32-3
 */
 export default function Calculs_trigonometriques3() {

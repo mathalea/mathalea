@@ -5,7 +5,7 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 3G22
 */
 export default function Agrandissement_reduction () {

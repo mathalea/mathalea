@@ -16,7 +16,7 @@ export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 00
  *
  *
  *  * Sup2 : avec ou sans calculs à trous
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence 6C30-1
   *
  */

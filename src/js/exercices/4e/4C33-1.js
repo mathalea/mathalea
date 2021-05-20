@@ -13,7 +13,7 @@ export const titre = 'Puissances : Le sens des règles de calculs'
  * * 3 : puissance de puissance
  * * 4 : produit de puissances de même exposant
  * * 5 : mélange des trois autres niveaux
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  * 4C33-1
  */
 export default function Puissances_d_un_relatif_1() {

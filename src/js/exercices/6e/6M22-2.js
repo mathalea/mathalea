@@ -12,7 +12,7 @@ export const titre = 'Périmètres et aires de portions de cercles'
  * * 2 : Calculer les aires
  * * 3 : Calculer les périmètres et aires
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Rééférence 6M22-2
  */
 export default function Perimetre_aire_et_portions_de_disques (pa = 3) {

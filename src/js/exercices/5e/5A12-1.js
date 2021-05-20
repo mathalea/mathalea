@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texteEnCouleurEtGras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombreAvecEspace,texteEnCouleurEtGras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 
 export const titre = 'Primalité ou pas'
 
@@ -63,9 +63,9 @@ export default function Premier_ou_pas_5e() {
 			switch (typesDeQuestions) {
 				case 1: // nombre pair
 					N = 2 * randint(51, 4999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
-					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 2: // Multiple de 3
 					let sum3 = 0; // pour la valeur de la somme;
@@ -73,22 +73,22 @@ export default function Premier_ou_pas_5e() {
 					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 3 * randint(34, 3333);
 					};
-					texte = nombre_avec_espace(N);
+					texte = nombreAvecEspace(N);
 					texteCorr = `Comme ` + N.toString().charAt(0);
 					sum3 = Number(N.toString().charAt(0));
 					for (let k = 1; k < N.toString().length; k++) {
 						texteCorr += ` + ` + N.toString().charAt(k);
 						sum3 += Number(N.toString().charAt(k));
 					};
-					texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
-					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 3: // Multiple de 5
 					N = 5 * randint(20, 1999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `;
 					texteCorr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, `;
-					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 4: // Multiple de 9
 					let sum9 = 0; // pour la valeur de la somme;
@@ -96,22 +96,22 @@ export default function Premier_ou_pas_5e() {
 					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 9 * randint(34, 3333);
 					};
-					texte = nombre_avec_espace(N);
+					texte = nombreAvecEspace(N);
 					texteCorr = `Comme ` + N.toString().charAt(0);
 					sum9 = Number(N.toString().charAt(0));
 					for (let k = 1; k < N.toString().length; k++) {
 						texteCorr += ` + ` + N.toString().charAt(k);
 						sum9 += Number(N.toString().charAt(k));
 					};
-					texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `;
-					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 5: // multiple de 10
 					N = 10 * randint(10, 999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme le nombre ${nombre_avec_espace(N)} se termine par un ${N.toString().charAt(N.toString().length - 1)} alors ${nombre_avec_espace(N)} est un multiple de 10, `;
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme le nombre ${nombreAvecEspace(N)} se termine par un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est un multiple de 10, `;
 					texteCorr += `il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même, `;
-					texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 6: // produit de deux nombres premiers inférieurs à 30
 					// rang du premier facteur premier
@@ -124,11 +124,11 @@ export default function Premier_ou_pas_5e() {
 					texte = N;
 					texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
 					if (prime1 == prime2) {
-						texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1 * prime2)} `;
+						texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)} `;
 					} else {
-						texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1 * prime2)}, `;
+						texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `;
 					};
-					texteCorr += texteEnCouleurEtGras(`${N} = ` + nombre_avec_espace(prime1 * prime2) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ` n'est donc pas premier.`);
 					break;
 				case 7: // nombre premier inférieur à 29
 					// rang du nombre premier choisi
@@ -145,8 +145,8 @@ export default function Premier_ou_pas_5e() {
 					//texteCorr += `.`;
 					// texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
 					texteCorr += `, le reste n'est jamais nul.`;
-					// texteCorr += texteEnCouleurEtGras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
-					texteCorr += `<br>` + texteEnCouleurEtGras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					// texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
+					texteCorr += `<br>` + texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
 					break;
 			};
 

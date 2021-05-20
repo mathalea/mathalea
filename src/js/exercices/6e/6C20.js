@@ -17,7 +17,7 @@ export const titre = 'Additions et soustractions de nombres décimaux'
  * * xxx+xx,xx
  * * xxx,x+xxx
  * * x0x+xx9,x
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C20
  */
 export default function Additionner_soustraires_decimaux() {

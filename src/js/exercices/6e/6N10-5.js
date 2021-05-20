@@ -5,7 +5,7 @@ import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const titre = 'Labyrinthe de numération décimale'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 9/12/2020
  * Ref 6N10-5
  * Sortir du labyrinthe en utilisant la numération décimale.

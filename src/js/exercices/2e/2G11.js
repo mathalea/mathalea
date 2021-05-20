@@ -7,7 +7,7 @@ export const titre = 'Déterminer les coordonnées milieu d’un segment dans un
 
 /**
  * 2G11
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Milieu() {
     Exercice.call(this); // Héritage de la classe Exercice()

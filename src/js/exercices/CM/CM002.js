@@ -11,7 +11,7 @@ export const amcType = 4 // Question numérique
  * Tables de divisions classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence CM002
   */
 export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {

@@ -8,7 +8,7 @@ export const titre = 'Volume d’une boule'
 
 /**
 * Calculer le volume d'une boule
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 3G42
 * date : 2021/02/09
 */

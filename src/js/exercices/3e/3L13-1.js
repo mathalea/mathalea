@@ -9,7 +9,7 @@ export const titre = 'Équation du premier degré (utilisant la distributivité)
 * * Type 2 : k(ax+b)=cx+d
 * * Type 3 : k-(ax+b)=cx+d
 * * Tous les types
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3L13-1
 */
 export default function Exercice_equation1_2() {

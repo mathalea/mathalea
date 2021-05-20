@@ -5,7 +5,7 @@ import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointPar
 
 /**
  * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * fonction servant à tous les niveaux
  * Pas de version Latex !
  * Références 5G12-1, 6G25-2, 4G11-1, 3G12-1

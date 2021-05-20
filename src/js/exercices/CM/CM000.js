@@ -14,7 +14,7 @@ export const amcType = 4
  * Additions et/ou soustractions classique et/ou à trou.
  *
  * Par défaut c'est un mélange d'additions, soustractions avec et sans trou avec des nombres jusqu'à 20.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM000
  */
 export default function TablesAdditionsSoustractions () {

@@ -7,7 +7,7 @@ export const titre = 'Additionner ou soustraire une expression entre parenthèse
  * Développer et réduire des expressions avec des parenthèses précédées d'un signe + ou -
  *
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3L10-1
  */
 export default function Parentheses_precedes_de_moins_ou_plus() {

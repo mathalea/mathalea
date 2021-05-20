@@ -5,7 +5,7 @@ export const titre = 'Décomposer une fraction (partie entière + fraction infé
 
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N20-2
  */
 export default function Exercice_fractions_differentes_ecritures() {
