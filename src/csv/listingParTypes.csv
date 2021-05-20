@@ -2,8 +2,10 @@ id,titre,amcReady,amcType,interactifReady,
 3G21,Contrôler si deux droites sont parallèles,OK,AMCOpen,KO
 3G30,Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO
 4C21,Additionner ou soustraire deux fractions,OK,AMCOpen double NC,KO
-4C32-1,Calcul avec les puissances de dix,OK,qcmMono,OK
+4C32-1,Calcul avec les puissances de dix,KO,KO,OK
+4G20-2,Racine carré d’un carré parfait (calcul mental),KO,KO,OK
 4G20,Calculer une longueur avec le théorème de Pythagore,OK,AMCOpen Num,OK
+4G21,Déterminer si un triangle est rectangle ou pas.,KO,KO,OK
 4G30,Calculer des longueurs avec la propriété de Thalès,OK,AMCOpen Num,KO
 4G40,Utiliser le cosinus pour calculer une longueur dans un triangle rectangle,OK,AMCOpen NC,KO
 5L10-2,Traduire un programme de calcul par une expression littérale,OK,qcmMono,OK
