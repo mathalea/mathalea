@@ -232,6 +232,7 @@ function addExercice (e) {
 
 export function apparenceExerciceActif () {
   //Fonction permettant la mise en gras des exercices sélectionnés, d'ajouter l'icone moins et le nombre de fois ou on l'a sélectionné
+  //appelée dans miseajourducode et afficheniveau (dès lors que les listes sont susceptibles d'être changées) 
   $('.exerciceactif').removeClass('exerciceactif')
   $('.delexercice').remove()
   const liste_exercices_selectionnes = document.getElementById('choix_des_exercices').value.split(',')

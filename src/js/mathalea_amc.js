@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { creerDocumentAmc, strRandom, compteOccurences } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-import { dictionnaireDesExercices, menuDesExercicesDisponibles } from './modules/menuDesExercicesDisponibles'
+import { dictionnaireDesExercices, menuDesExercicesDisponibles, apparenceExerciceActif } from './modules/menuDesExercicesDisponibles'
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
 import { loadGiac, loadPrism } from './modules/loaders'
@@ -291,8 +291,7 @@ function mise_a_jour_du_code () {
       // });
     }
   })()
-  // mise en évidence des exercices sélectionnés.
-  $('.exerciceactif').removeClass('exerciceactif')
+  apparenceExerciceActif()
   for (let i = 0; i < liste_des_exercices.length; i++) {
     $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass('exerciceactif')
     // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé

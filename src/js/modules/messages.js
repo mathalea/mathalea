@@ -77,6 +77,13 @@ export function messageUtilisateur ({ code, exercice }) {
         type: 'warning'
       })
       break
+    case 'noLatex':
+      addFeedback(container, {
+        titre: 'Pas de contenu Latex pour cet exercice',
+        message: `L'exercice ${exercice} n'a, pour l'instant, pas de version Latex`,
+        type: 'warning'
+      })
+      break
     default:
       console.error(Error(`code ${code} non géré par messageUtilisateur`))
       addFeedback(container, {
