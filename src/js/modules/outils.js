@@ -6751,7 +6751,7 @@ export function exportQcmAmc (exercice, idExo) {
     // tabQCM = tabQCMs[1][j].propositions.slice(0)
     switch (type) {
       case 1: // question QCM 1 bonne réponse
-        texQr += `\\element{${ref}{\n `
+        texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\\begin{${horizontalite}}`

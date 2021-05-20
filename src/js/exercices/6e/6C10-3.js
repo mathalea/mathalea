@@ -23,11 +23,14 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  this.interactifReady = true
-  this.interactif = true
+  //this.interactifReady = true  
+  //this.interactif = true
+  this.interactifReady = interactifReady
+  this.amcReady = amcReady
   this.amcType = amcType
 
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
@@ -102,10 +105,10 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }
       ]
-      // this.autoCorrection[i].options = {
-      //   ordered: false,
-      //   lastChoice: 5
-      // }
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 5
+      }
       if (this.interactif) {
         texte += propositionsQcm(this, i).texte
         // texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
