@@ -3493,7 +3493,7 @@ export function texCadreParOrange (texte) {
    \\setlength{\\fboxrule}{1.5mm}
    \\par\\vspace{0.25cm}
    \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{` + texte + `}}
-   \\par\\vspace{0.25cm}		 
+   \\par\\vspace{0.25cm} 
    `
 
   return sortie
@@ -3514,7 +3514,7 @@ export function machineMathsVideo (urlVideo) {
   <div style="text-align:center"> 
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
     <source src="` + urlVideo + `">
-    Votre navigateur ne gère pas l\'élément <code>video</code>.
+    Votre navigateur ne gère pas l'élément <code>video</code>.
   </video>
   </div>`
 
@@ -3546,6 +3546,7 @@ export function detectSafariChromeBrowser () {
 */
 export function premierMultipleSuperieur (k, n) {
   let result = n
+  let reste
   if (Number.isInteger(k) && Number.isInteger(n)) {
     while (result % k !== 0) {
       result += 1
@@ -3590,27 +3591,27 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  */
 export function cribleEratostheneN (n) {
   'use strict'
-  const tab_entiers = [] // pour tous les entiers de 2 à n
-  const test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
+  const tabEntiers = [] // pour tous les entiers de 2 à n
+  const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
 
   // On rempli un tableau avec des booléeens de 2 à n
   for (let i = 0; i < n + 1; i++) {
-    tab_entiers.push(true)
+    tabEntiers.push(true)
   }
 
   // On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
-  for (let i = 2; i <= test_max; i++) {
-    if (tab_entiers[i]) {
+  for (let i = 2; i <= testMax; i++) {
+    if (tabEntiers[i]) {
       for (let j = i * i; j < n + 1; j += i) {
-        tab_entiers[j] = false
+        tabEntiers[j] = false
       }
     }
   }
 
   // On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
   for (let i = 2; i < n + 1; i++) {
-    if (tab_entiers[i]) {
+    if (tabEntiers[i]) {
       liste.push(i)
     }
   }
@@ -3630,13 +3631,13 @@ export function cribleEratostheneN (n) {
 export function premiersEntreBornes (min, max) {
   'use strict'
   // on crée les premiers jusque min
-  const premiers_a_suppr = cribleEratostheneN(min - 1)
+  const premiersASupprimer = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
-  const premiers_jusque_max = cribleEratostheneN(max)
+  const premiersJusqueMax = cribleEratostheneN(max)
   // on supprime le début de la liste jusque min
-  premiers_jusque_max.splice(0, premiers_a_suppr.length)
+  premiersJusqueMax.splice(0, premiersASupprimer.length)
   // on renvoie le tableau restant
-  return premiers_jusque_max
+  return premiersJusqueMax
 }
 
 /**
@@ -3666,13 +3667,13 @@ export function texteOuPas (texte) {
  * ------------------
  * |  2   | A2 | B2 |
  * ------------------
-* @param {array} tab_entetes_colonnes contient les entetes des colonnes
+* @param {array} tabEntetesColonnes contient les entetes des colonnes
  * @param {array} tab_entetes_lignes contient les entetes des lignes
  * @param {array} tab_lignes contient les elements de chaque ligne
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
+export function tableauColonneLigne (tabEntetesColonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
   'use strict'
   let myLatexArraystretch
   if (typeof arraystretch === 'undefined') {
@@ -3682,7 +3683,7 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
   }
 
   // on définit le nombre de colonnes
-  const C = tab_entetes_colonnes.length
+  const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tab_entetes_lignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
@@ -3700,16 +3701,16 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
   tableauCL += '}\n'
 
   tableauCL += '\\hline\n'
-  if (typeof tab_entetes_colonnes[0] === 'number') {
-    tableauCL += texNombre(tab_entetes_colonnes[0])
+  if (typeof tabEntetesColonnes[0] === 'number') {
+    tableauCL += texNombre(tabEntetesColonnes[0])
   } else {
-    tableauCL += tab_entetes_colonnes[0]
+    tableauCL += tabEntetesColonnes[0]
   }
   for (let k = 1; k < C; k++) {
-    if (typeof tab_entetes_colonnes[k] === 'number') {
-      tableauCL += ' & ' + texNombre(tab_entetes_colonnes[k]) + ''
+    if (typeof tabEntetesColonnes[k] === 'number') {
+      tableauCL += ' & ' + texNombre(tabEntetesColonnes[k]) + ''
     } else {
-      tableauCL += ' & ' + tab_entetes_colonnes[k] + ''
+      tableauCL += ' & ' + tabEntetesColonnes[k] + ''
     }
   }
   tableauCL += '\\\\\n'

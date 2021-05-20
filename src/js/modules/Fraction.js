@@ -1,23 +1,6 @@
 import { texFractionSigne, unSiPositifMoinsUnSinon, arrondi, fractionSimplifiee, obtenirListeFacteursPremiers, calcul, texFraction, quotientier } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 
-/**
- * Retourne la string LaTeX de la fraction
- * @param num
- * @param den
- * @return {string}
- */
-function texFractionSigne (num, den) {
-  if (den === 1) return String(num)
-  if (num * den > 0) {
-    return '\\dfrac{' + Math.abs(num) + '}{' + Math.abs(den) + '}'
-  }
-  if (num * den < 0) {
-    return '-\\dfrac{' + Math.abs(num) + '}{' + Math.abs(den) + '}'
-  }
-  return '0'
-}
-
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
     enumerable: true,
