@@ -591,6 +591,9 @@ function miseAJourDuCode () {
           codeCorrections += '\n\n'
         } else {
           listeObjetsExercice[i].nouvelleVersion()
+          if (listeObjetsExercice[i].contenu.substr(0,6)==="\\exo{}" || listeObjetsExercice[i].pasDeVersionLatex) {
+            messageUtilisateur({ code: 'noLatex',exercice: listeObjetsExercice[i].id })
+          }
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'
           codeCorrections += listeObjetsExercice[i].contenuCorrection
