@@ -199,6 +199,11 @@ const config = {
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
+      template: 'src/html/2dsvg.html',
+      filename: '2dsvg.html',
+      chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
       template: 'src/html/2d.html',
       filename: '2d.html',
       chunks: ['mathalea2d']

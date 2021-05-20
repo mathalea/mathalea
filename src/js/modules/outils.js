@@ -6,97 +6,111 @@ import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 
 const math = { format: format, evaluate: evaluate }
+const epsilon = 0.000001
 
-// Fonctions diverses pour la création des exercices
+/**
+ * Fonctions diverses pour la création des exercices
+ * @module
+ */
 
-export function listeQuestionsToContenu (argument) {
+/**
+ * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
+ * @param {Exercice} exercice
+ */
+export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
-    argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlEnumerate(argument.listeQuestions, argument.spacing)
-    if (argument.interactif) {
-      argument.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
+    if (exercice.interactif) {
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnQcmEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
-    argument.contenuCorrection = htmlParagraphe(argument.consigneCorrection) + htmlEnumerate(argument.listeCorrections, argument.spacingCorr)
+    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     let vspace = ''
-    if (argument.vspace) {
-      vspace = `\\vspace{${argument.vspace} cm}\n`
+    if (exercice.vspace) {
+      vspace = `\\vspace{${exercice.vspace} cm}\n`
     }
     if (!context.isAmc) {
       if (document.getElementById('supprimer_reference').checked === true) {
-        argument.contenu = texConsigne(argument.consigne) + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
+        exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       } else {
-        argument.contenu = texConsigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
+        exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       }
     }
-    argument.contenuCorrection = texConsigne('') + texIntroduction(argument.consigneCorrection) + texMulticols(texEnumerate(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+    exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   }
 }
-export function listeDeChosesAImprimer (argument) {
+
+/**
+ * À documenter
+ * @param {Exercice} exercice
+ */
+export function listeDeChosesAImprimer (exercice) {
   if (context.isHtml) {
-    argument.contenu = htmlLigne(argument.listeQuestions, argument.spacing)
-    argument.contenuCorrection = ''
+    exercice.contenu = htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenuCorrection = ''
   } else {
     // let vspace = ''
-    // if (argument.vspace) {
-    //   vspace = `\\vspace{${argument.vspace} cm}\n`
+    // if (exercice.vspace) {
+    //   vspace = `\\vspace{${exercice.vspace} cm}\n`
     // }
     if (document.getElementById('supprimer_reference').checked === true) {
-      argument.contenu = texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     } else {
-      argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     }
-    argument.contenuCorrection = ''
+    exercice.contenuCorrection = ''
   }
 }
 
 /**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenuCorrection
-*
-* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
-* @param {exercice}
-* @author Rémi Angot
-*/
-export function listeQuestionsToContenuSansNumero (argument) {
+ * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
+ * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
+ * @param {Exercice} exercice
+ * @author Rémi Angot
+ */
+export function listeQuestionsToContenuSansNumero (exercice) {
   if (context.isHtml) {
-    argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlLigne(argument.listeQuestions, argument.spacing)
-    if (argument.interactif) {
-      argument.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    if (exercice.interactif) {
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnQcmEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
-    argument.contenuCorrection = htmlConsigne(argument.consigneCorrection) + htmlLigne(argument.listeCorrections, argument.spacingCorr)
+    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
-      argument.contenu = texConsigne(argument.consigne) + texIntroduction(argument.introduction) + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     } else {
-      argument.contenu = texConsigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + texIntroduction(argument.introduction) + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     }
-    // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
-    argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+    // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   }
 }
 
 /**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenuCorrection
-*
-* Uniquement en version LaTeX
-* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
-* @param {exercice}
-* @author Rémi Angot
-*/
-export function listeQuestionsToContenuSansNumeroEtSansConsigne (argument) {
+ * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
+ *
+ * Uniquement en version LaTeX
+ * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
+ * @param {Exercice} exercice
+ * @author Rémi Angot
+ */
+export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
   if (document.getElementById('supprimer_reference').checked === true) {
-    argument.contenu = texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+    exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
   } else {
-    argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+    exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
   }
-  // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
-  argument.contenuCorrection = texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+  // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+  exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
 }
 
 /**
-* Renvoie 2 chaines de caractères sur 2 colonnes différentes
-*
-* @author Rémi Angot
-*/
+ * Renvoie le html qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * @author Rémi Angot
+ * @param {string} cont1
+ * @param {string} cont2
+ * @return {string}
+ */
 export function deuxColonnes (cont1, cont2) {
   if (context.isHtml) {
     return `
@@ -119,49 +133,83 @@ export function deuxColonnes (cont1, cont2) {
 }
 
 /**
- * fonctions de comparaison pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante.
+ * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
+ * @author Jean-Claude Lhote
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
- * @param {number} tolerance seuil positif en dessous duquel une valeur est considérée comme nulle
- * valeur de tolérance par défaut : 0.000001 = constante epsilon définie ci-dessous.
- * @author Jean-Claude Lhote
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
  */
-const epsilon = 0.000001
 export function egal (a, b, tolerance = epsilon) {
-  if (Math.abs(a - b) < tolerance) return true
-  else return false
+  return (Math.abs(a - b) < tolerance)
 }
+
+/**
+ * Retourne true si a > b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function superieur (a, b, tolerance = epsilon) {
-  if (a - b > tolerance && (!egal(a, b, tolerance))) return true
-  else return false
+  return (a - b > tolerance)
 }
+/**
+ * Retourne true si a < b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function inferieur (a, b, tolerance = epsilon) {
-  if (b - a > tolerance && (!egal(a, b, tolerance))) return true
-  else return false
+  return (b - a > tolerance)
 }
+/**
+ * Retourne true si a ≥ b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function superieurouegal (a, b, tolerance = epsilon) {
-  if (a - b > tolerance || egal(a, b, tolerance)) return true
-  else return false
+  return (a - b > tolerance || egal(a, b, tolerance))
 }
+/**
+ * Retourne true si a ≤ b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function inferieurouegal (a, b, tolerance = epsilon) {
-  if (b - a > tolerance || egal(a, b, tolerance)) return true
-  else return false
+  return (b - a > tolerance || egal(a, b, tolerance))
 }
+/**
+ * Retourne true si a est entier ou "presque" entier
+ * @param {number} a premier nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function estentier (a, tolerance = epsilon) {
-  if (Math.abs(a - Math.round(a)) < tolerance) return true
-  else return false
+  return (Math.abs(a - Math.round(a)) < tolerance)
 }
+
+/**
+ * Retourne le quotient entier (donc sans le reste) de a/b si a & b sont entiers, false sinon
+ * @param {number} a
+ * @param {number} b
+ * @return {boolean|number}
+ */
 export function quotientier (a, b) {
-  if (Number.isInteger(a) && Number.isInteger(b)) {
-    let reste = a
-    let quotient = 0
-    while (reste >= b) {
-      reste -= b
-      quotient++
-    }
-    return quotient
-  } else return false
+  if (estentier(a) && estentier(b)) return Math.floor(a / b)
+  return false
 }
+
+/**
+ * Retourne true si x est un carré parfait (à epsilon près)
+ * @param {number} x
+ * @return {boolean}
+ */
 export function carreParfait (x) {
   if (estentier(Math.sqrt(x))) return true
   else return false
@@ -228,6 +276,9 @@ class NombreDecimal {
 export function decimal (n) {
   return new NombreDecimal(n)
 }
+
+// FIXME {liste} n'existe pas dans jsdoc, si c'est un array de strings ça se note {string[]}
+
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
@@ -236,10 +287,8 @@ export function decimal (n) {
 * @param {liste} E1 - Liste
 * @param {liste} E2 - Liste
 * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
-*
 * @author Rémi Angot
 */
-
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
   let result = []; let temp = []
   for (const i in E1) {
@@ -2765,29 +2814,41 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const determinant = matrice.determinant()
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
   if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant); const fb = fraction(b, determinant)
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  } else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
+  }
+  return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
  * @author Jean-Claude Lhote
  */
-
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
   const determinant = matrice.determinant()
-  if (determinant === 0) return [[0, 0], [0, 0], [0, 0]]
-  else {
-    const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-    if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-      const fa = fraction(a, determinant); const fb = fraction(b, determinant); const fc = fraction(c, determinant)
-      return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred], [fc.numIrred, fc.denIrred]]
-      // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-    } else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1], [calcul(b / determinant), 1]]
+  if (determinant === 0) {
+    return [[0, 0], [0, 0], [0, 0]]
   }
+  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
+  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
+    const fc = fraction(c, determinant)
+    return [
+      [fa.numIrred, fa.denIrred],
+      [fb.numIrred, fb.denIrred],
+      [fc.numIrred, fc.denIrred]
+    ]
+    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+  }
+  return [
+    [calcul(a / determinant), 1],
+    [calcul(b / determinant), 1],
+    [calcul(b / determinant), 1]
+  ]
 }
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d

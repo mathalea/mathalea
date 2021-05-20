@@ -116,9 +116,7 @@ window.addEventListener('load', function () {
       if (buttonURL) {
         buttonURL.style.visibility = 'visible'
       }
-      executeCode(
-         `context.objets2D = [] ; context.lutin = creerLutin() ; ${myCodeMirror.getValue()}`
-      )
+      executeCode(myCodeMirror.getValue())
       const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
       const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
@@ -283,9 +281,5 @@ function executeCode (txt) {
   // Les variables globales utiles pour l'autocomplétion
   // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
   const interpreter = initialiseEditeur()
-  window.context.objets2D = []
   interpreter.run(txt)
-  // On exporte l'animation et le code SVG
-  interpreter.run('exports.codeSvgFigure = codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)')
-  return interpreter.exports.codeSvgFigure
 }

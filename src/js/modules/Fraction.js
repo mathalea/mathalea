@@ -4,19 +4,18 @@ import { point, vecteur, segment, carre, cercle, arc, translation, rotation, tex
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
     enumerable: true,
-    writable: false,
-    get
+    get,
+    set: () => { throw Error(`${prop} est en lecture seule`) }
   })
 }
 
 /**
- * Méthodes utiles sur les fractions
  * @class
  * @param {number} num numérateur
  * @param {number} den dénominateur
  * @author Jean-Claude Lhote et Sébastien Lozano
 */
-export default class Fraction {
+class Fraction {
   constructor (num, den) {
     /**
      * Numérateur (0 par défaut)
@@ -533,7 +532,7 @@ export default class Fraction {
    * @param unite1 idem
    * @param scale
    * @param label
-   * @return {*[]}
+   * @return {Object[]}
    */
   representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
     const objets = []
@@ -672,3 +671,5 @@ export default class Fraction {
     return objets
   }
 }
+
+export default Fraction

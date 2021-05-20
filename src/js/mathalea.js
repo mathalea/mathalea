@@ -20,8 +20,8 @@ import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+function isNumeric (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
 // Pour le menu du haut
@@ -203,6 +203,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  * Gère le chargement des différents modules, appelé après "création" des exercices, pour gérer leur affichage
  * ATTENTION, fct async, elle retourne une promesse de chargement, faut attendre que la promesse
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
+ * @private
  * @param isdiaporama
  * @param listeObjetsExercice
  * @return {Promise}
@@ -423,8 +424,10 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
           finUrl += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
-        if (listeObjetsExercice[i].video.length > 1) {
-          finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        if (listeObjetsExercice[i].video) {
+          if (listeObjetsExercice[i].video.length > 1) { // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+          }
         }
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',interactif=1'
@@ -820,16 +823,16 @@ function miseAJourDuCode () {
 }
 
 /**
-     * Fonction à lancer une fois que la liste des exercices a été mise à jour.
-     * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
-     * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
-     * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
-     * Enfin, elle délègue à mise_a_jour du code l'affichage
-     *
-     * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
-     * sans l'ajouter à la liste
-     *
-     */
+ * Fonction à lancer une fois que la liste des exercices a été mise à jour.
+ * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
+ * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
+ * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
+ * Enfin, elle délègue à mise_a_jour du code l'affichage
+ *
+ * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
+ * sans l'ajouter à la liste
+ * @private
+ */
 function miseAJourDeLaListeDesExercices (preview) {
   let besoinXCas = false
   const promises = []
@@ -1096,7 +1099,7 @@ function parametresExercice (exercice) {
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
       if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isDiaporama) {
-          divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
       if (!exercice[i].nbQuestionsModifiable && !exercice[i].correctionDetailleeDisponible && !exercice[i].besoinFormulaireNumerique && !exercice[i].besoinFormulaireTexte && !exercice[i].interactif) {
