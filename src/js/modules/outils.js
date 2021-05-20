@@ -4244,9 +4244,8 @@ export function Relatif (...relatifs) {
     } catch (err) {
       console.log(err.message)
       console.log(err.stack)
-    } finally {
-      return signes
     }
+    return signes
   }
 
   /**
