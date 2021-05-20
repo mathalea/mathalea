@@ -14,16 +14,17 @@ const types = ['info', 'warning', 'error', 'positive']
  * Ajoute le feedback dans container
  * @param {HTMLElement} container
  * @param {Object} feedback
- * @param {string} [feedback.message]
- * @param {string} [feedback.type]
+ * @param {string} feedback.message
+ * @param {string} [feedback.type=error]
  * @param {string} [feedback.titre]
  * @return {HTMLElement} L'élément du feedback (déjà ajouté dans le container)
  */
-export function addFeedback (container, { message = 'Une erreur est survenue', type = 'erreur', titre } = {}) {
+export function addFeedback (container, { message, type = 'error', titre } = {}) {
   if (!types.includes(type)) {
     console.error(Error(`type de message inconnu : ${type}`))
     type = 'error'
   }
+  if (!message) throw Error('Message obligatoire pour tout retour utilisateur')
   const cssDiv = type === 'info' ? '' : type
   const div = addElement(container, 'div', { className: `ui message ${cssDiv}` })
   const cssIcon = type === 'error'
