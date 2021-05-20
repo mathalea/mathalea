@@ -29,7 +29,7 @@ function setStyles (elt, styles) {
           }
         })
       } else if (typeof styles === 'object') {
-        for (var prop in styles) {
+        for (const prop in styles) {
           if (hasProp(styles, prop)) {
             elt.style[prop] = styles[prop]
           }

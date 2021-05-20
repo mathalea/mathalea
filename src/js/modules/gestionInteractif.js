@@ -58,7 +58,7 @@ export function exerciceQcm (exercice) {
             typeFeedback = 'error'
           }
           spanReponseLigne.style.fontSize = 'large'
-          if (indiceFeedback > -1) {
+          if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
             messageFeedback({
               id: `feedbackEx${exercice.numeroExercice}Q${i}`,
               message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
@@ -176,7 +176,7 @@ export function questionNumerique (exercice) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-          if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.',',')) {
+          if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
             spanReponseLigne.innerHTML = '😎'
             nbBonnesReponses++
           } else {
@@ -192,12 +192,12 @@ export function questionNumerique (exercice) {
   })
 }
 
-export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true } = {}) {
+export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true, indice } = {}) {
   if (context.isHtml && exercice.interactif) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
     <div class="inline  field" >
     <label>${texte}</label>
-      <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}" >
+      <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}${indice || ''}" >
       <span>${texteApres}</span>
       <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
     </div>
@@ -211,17 +211,23 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
  * Précise la réponse attendue
  * @param {'objet exercice'} exercice
  * @param {'numero de la question'} i
- * @param {'réponse'} a
+ * @param {array || number} a
  */
-export function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) {
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0 } = {}) {
+  let reponses = []
+  if (!Array.isArray(valeurs)) {
+    reponses = [valeurs]
+  } else {
+    reponses = valeurs
+  }
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-
-
-  exercice.autoCorrection[i].reponse.valeur = a
   exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
+  for (const reponse of reponses) {
+    exercice.autoCorrection[i].reponse.valeur = reponse
+  }
 }

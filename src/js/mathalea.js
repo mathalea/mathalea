@@ -20,8 +20,8 @@ import '../css/style_mathalea.css'
 import { context, setOutputDiaporama, setOutputLatex } from './modules/context.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+function isNumeric (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
 // Pour le menu du haut
@@ -423,8 +423,10 @@ function miseAJourDuCode () {
         if (listeObjetsExercice[i].nbQuestionsModifiable) {
           finUrl += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
-        if (listeObjetsExercice[i].video.length > 1) {
-          finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        if (listeObjetsExercice[i].video) {
+          if (listeObjetsExercice[i].video.length > 1) { // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
+            finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+          }
         }
         if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
           finUrl += ',interactif=1'
@@ -1096,7 +1098,7 @@ function parametresExercice (exercice) {
                         '<div><label for="form_correctionDetaillee' + i + '">Correction détaillée : </label> <input id="form_correctionDetaillee' + i + '" type="checkbox" ></div>'
       }
       if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isDiaporama) {
-          divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
+        divParametresGeneraux.innerHTML += '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
 
       if (!exercice[i].nbQuestionsModifiable && !exercice[i].correctionDetailleeDisponible && !exercice[i].besoinFormulaireNumerique && !exercice[i].besoinFormulaireTexte && !exercice[i].interactif) {
