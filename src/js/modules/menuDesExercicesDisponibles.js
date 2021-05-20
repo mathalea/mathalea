@@ -58,8 +58,9 @@ function spanExercice (id, titre) {
   const tooltip = titre.length > max_length
     ? 'data-tooltip="' + coupeChaine(titre, max_length + 20) + '"'
     : ''
-  const titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre
-  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titre_tronque}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
+  const titre_tronque = titre.length > max_length ? titre.substr(0, max_length) + '...' : titre    
+  const amcPrecisionType = window.location.href.indexOf('mathalea_amc.html') > 0 ? `<span style="color:#f15929;"> ${liste_des_exercices_disponibles[id].amcType.text} </span>` : ``  
+  return `<span class="id_exercice">${id}</span> - <a class="ui bouton lien_id_exercice" ${tooltip} data-id_exercice="${id}">${titre_tronque} - ${amcPrecisionType}</a></a><span data-content="Prévisualiser l'exercice."><i id="${id}" class="eye icon icone_preview" size="mini"></i></span></br>\n`
 }
 
 function listeHtmlDesExercicesDUnTheme (theme) {
@@ -75,7 +76,8 @@ function listeHtmlDesExercicesDUnTheme (theme) {
         liste += spanExercice(id, dictionnaire[id].titre)
       }
     } else if (window.location.href.indexOf('mathalea_amc.html') > 0) {
-      liste += spanExercice(id, dictionnaire[id].titre +' <b>'+ dictionnaire[id].amcType.text+'</b>')
+      //à supprimer avant push liste += '<b>'+ dictionnaire[id].amcType.text+'</b> '
+      liste += spanExercice(id, dictionnaire[id].titre)      
     } else {
       liste += spanExercice(id, dictionnaire[id].titre)
     }
