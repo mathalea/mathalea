@@ -4,8 +4,8 @@ import { point, vecteur, segment, carre, cercle, arc, translation, rotation, tex
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
     enumerable: true,
-    writable: false,
-    get
+    get,
+    set: () => { throw Error(`${prop} est en lecture seule`) }
   })
 }
 
