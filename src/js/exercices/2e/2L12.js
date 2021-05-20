@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texteEnCouleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
-import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/Fractions.js'
+import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
-* @auteur Stéphane Guyon & Jean-claude Lhote
+* @author Stéphane Guyon & Jean-claude Lhote
 * 2L12
 * publié le 6/02/2021
 */
@@ -36,7 +36,7 @@ export default function Equations_produits_nuls2() {
       else {
         typesDeQuestionsDisponibles = [1,2,3];
       }
-     
+
         let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
             typesDeQuestions = listeTypeDeQuestions[i];
@@ -46,11 +46,11 @@ export default function Equations_produits_nuls2() {
             d = randint(1, 9,[0,b]);
             e = randint(-9, 9,[0,a,c]);
             f = randint(1, 9,[0,b,d]);
-            
-                 
+
+
             switch (typesDeQuestions) {
                 case 1:
-                    texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`; 
+                    texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`;
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                     ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                     texteCorr +=texte+'<br>' //optimisation du code
@@ -68,7 +68,7 @@ export default function Equations_produits_nuls2() {
                         texteCorr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
                     }
                     else texteCorr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
-                   
+
                     break;
                 case 2:
                     fractions=obtenirListeFractionsIrreductiblesFaciles()

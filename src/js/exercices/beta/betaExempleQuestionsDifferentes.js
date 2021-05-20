@@ -5,7 +5,7 @@ export const titre = 'Exercice exemple avec un nombre fixe de questions différe
 
 /**
  * Description didactique de l'exercice
- * @Auteur
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

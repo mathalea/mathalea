@@ -1,16 +1,16 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, calcul, choice, texNombre2 } from '../../modules/outils.js'
-import { fraction } from '../../modules/Fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType =1 // QCM
 export const interactifReady = true
 export const titre = 'Sens de l’écriture fractionnaire'
 
 /**
  * Donner la fraction correspondant à un nombre ou à un calcul
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Ref 6N23-5
  * Publié le 10/03/2021
  */

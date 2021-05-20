@@ -4,7 +4,7 @@ export const titre = 'Trouver l’image d’une figure par une symétrie axiale 
 
 /**
  * Exercice en html seulement. Symétrie axiale dans un pavage.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 6G25-2
  */
 export default function Pavages_et_symetries() {

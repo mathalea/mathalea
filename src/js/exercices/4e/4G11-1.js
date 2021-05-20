@@ -4,7 +4,7 @@ export const titre = 'Trouver l’image d’une figure par une translation dans 
 
 /**
  * Exercice en html seulement. Translations dans un pavage.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 4G11-1
  */
 export default function Pavages_et_translation() {

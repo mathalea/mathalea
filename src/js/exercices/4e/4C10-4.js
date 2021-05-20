@@ -7,7 +7,7 @@ export const titre = 'Quotient de deux entiers relatifs'
 * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
 *
 * * On peut choisir de n'avoir que des tables de multiplications, par défaut il y a aussi des divisions simples par 2, 3 ou 4
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-4
 */
 export default function Exercice_quotients_relatifs() {

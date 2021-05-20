@@ -7,7 +7,7 @@ export const titre = 'Calculer la largeur d’une rivière'
 
 /**
  * Propose de calculer la largeur d'une rivière
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32
 */
 export default function Calculs_trigonometriques() {

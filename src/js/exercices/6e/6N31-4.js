@@ -5,7 +5,7 @@ export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux
 
 /**
  * Intercaler un nombre décimal entre deux décimaux
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N31-4
 */
 export default function Intercaler_decimal_entre_2_decimaux() {

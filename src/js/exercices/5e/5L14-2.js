@@ -22,7 +22,7 @@ export const titre = 'Substitution'
 * * x^2+y^2
 * * ax^2+y^2
 * * ax^2+bx+c
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L14-2
 */
 export default function ExerciceSubstituer (difficulte = 1) {

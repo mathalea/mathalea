@@ -15,7 +15,7 @@ export const titre = 'Écrire une expression littérale'
 * * Carré, cube, opposé, inverse
 * * Somme, produit, quotient
 * * Nombre pair, nombre impair, multiple d'un nombre donné
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L10
 */
 export default function EcrireUneExpressionLitterale () {

@@ -7,7 +7,7 @@ export const titre = 'Déterminer la parité d’une expression'
 
 /**
  * 2N21
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function parite() {
     Exercice.call(this); // Héritage de la classe Exercice()

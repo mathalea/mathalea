@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '..
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
 
 /**
- * @auteur Rémi Angot
+ * @author Rémi Angot
  * 3G30-1
  * Donner un rapport trigonométriques en fonctions des longueurs des côtés (pas de valeurs numériques)
  * * Donner les 3 rapports d'un angle

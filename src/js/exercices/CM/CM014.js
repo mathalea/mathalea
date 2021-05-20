@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence CM014
  */
 export default function DoubleMoitieTiersTriple () {

@@ -10,7 +10,7 @@ export const titre = 'Multiplication de deux entiers relatifs'
 *
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-3
 */
 export default function Exercice_multiplications_relatifs(max = 10) {

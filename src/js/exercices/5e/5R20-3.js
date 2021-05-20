@@ -15,7 +15,7 @@ export const amcType = 4
 *
 * * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
 * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R20-3
 */
 export default function ExerciceAdditionsDe5Relatifs (max = 20) {

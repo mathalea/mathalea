@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence CM010
  */
 export default function Tiers () {

@@ -5,7 +5,7 @@ import { degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer un angle grâce à la trigonométrie'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G31
  * Calcul d'angle dans le triangle rectangle
  * Le niveau 1 se limite à l'utilisation de Arccos

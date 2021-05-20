@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Un nombre à 2 chiffres ne terminant pas par 9 - 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM006
 */
 export default function Soustraire9 () {

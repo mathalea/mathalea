@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombre_avec_espace, calcul, minToHour} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombreAvecEspace, calcul, minToHour} from '../../modules/outils.js'
 export const titre = 'Problème de vitesse'
 
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5P11-1
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
@@ -48,7 +48,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         }
         switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'vitesse': 
-            texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km. Déterminer sa vitesse moyenne.`;
+            texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne.`;
             if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {
@@ -66,7 +66,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
              texteCorr += `Sa vitesse moyenne est de ${v} km/h.`
           break;
         case 'temps': 
-            texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km ?`;
+            texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km ?`;
             if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {

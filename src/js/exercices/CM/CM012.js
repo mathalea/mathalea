@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * 100-...=
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence CM012
  */
 export default function ComplementA100 () {

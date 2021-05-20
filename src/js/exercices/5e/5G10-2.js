@@ -4,7 +4,7 @@ export const titre = 'Construire le symétrique d’une figure par rapport à un
 
 /**
  * Référence 5G10-2
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Symetrie_axiale_figure_5e() {
 	Construire_par_Symetrie.call(this);

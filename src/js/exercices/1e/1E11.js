@@ -6,7 +6,7 @@ export const titre = 'Résoudre une équation du second degré'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 1E11
 */
 export default function Resoudre_equation_degre_2() {

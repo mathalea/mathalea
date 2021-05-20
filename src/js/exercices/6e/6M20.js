@@ -10,7 +10,7 @@ export const titre = 'Aires de triangles'
  *
  * Une figure dynamique est disponible sur laquelle on peut déplacer le pied de la hauteur.
  *
- * @Auteur Rémi Angot conversion mathalea2d Jean-Claude Lhote
+ * @author Rémi Angot conversion mathalea2d Jean-Claude Lhote
  * Référence 6M20
  */
 export default function AireDeTriangles () {

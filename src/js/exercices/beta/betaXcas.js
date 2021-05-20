@@ -6,7 +6,7 @@ export const titre = 'Test de XCas'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {

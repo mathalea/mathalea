@@ -5,7 +5,7 @@ import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,katexPopup2} from '../../modules/outils.js'
 /**
 * Fonction noyau pour 7 fonctions qui utilisent les mêmes variables et la fonction Choisir_expression_numerique
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 5C11,5C11-1, 5C11-2, 5C12, 5C12-1, 5L13, 5L13-1, 5L13-2, 5L13-3
 */
 export default function Ecrire_une_expression_numerique() {

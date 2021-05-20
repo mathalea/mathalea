@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte,calcul} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,texTexte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions de longueur en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -10,7 +10,7 @@ import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNomb
  * * 3 : Conversions en mètres
  * * 4 : Toutes les conversions de longueurs
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export default function Exercice_conversions_de_longueurs(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -89,45 +89,45 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
 
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\times" +
           texNombre(prefixe_multi[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
       } else if (div && typesDeQuestions < 4) {
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\div" +
           texNombre(prefixe_div[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
       } else {
         // pour type de question = 4
@@ -142,44 +142,44 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " =  " +
             texNombre(a) +
             "\\times" +
             texNombre(Math.pow(10, ecart)) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "$";
         } else {
           resultat = calcul(a / Math.pow(10, ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " =  " +
             texNombre(a) +
             "\\div" +
             texNombre(Math.pow(10, ecart)) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "$";
         }
       }

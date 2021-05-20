@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint, choice, texNombrec } from '../../modu
 export const titre = 'Probabilités simples'
 /**
  * Description didactique de l'exercice
- * @Auteur Rémi Angot et Matthieu Devillers
+ * @author Rémi Angot et Matthieu Devillers
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

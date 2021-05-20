@@ -7,7 +7,7 @@ export const titre = 'Décomposition en facteurs premiers'
 
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 5A13
 */
 export default function Exercice_decomposer_en_facteurs_premiers() {

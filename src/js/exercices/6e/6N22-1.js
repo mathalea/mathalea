@@ -2,10 +2,10 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
-import{fraction} from '../../modules/Fractions.js'
+import{fraction} from '../../modules/fractions.js'
 export const titre = 'Rapport de deux longueurs sur un segment'
 
-/** 
+/**
  * * Exprimer un rapport de longueurs sur un segment
  * * 6N22-1
  * @author Sébastien Lozano
@@ -36,7 +36,7 @@ export default function Rapports_sur_un_segment() {
     if (this.beta) {
       typesDeQuestionsDisponibles = [0, 1];
     } else {
-      //typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+      //typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       typesDeQuestionsDisponibles = [0, 1];
     };
 
@@ -44,7 +44,7 @@ export default function Rapports_sur_un_segment() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour le singulier pluriel
@@ -227,6 +227,6 @@ export default function Rapports_sur_un_segment() {
 
   }
   //this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];	
+  //this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 };
 

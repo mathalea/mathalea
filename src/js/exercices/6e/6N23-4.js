@@ -11,7 +11,7 @@ export const titre = 'Donner l’écriture décimale d’un nombre à partir de 
  * * 5 dixièmes
  * * 128/10
  * * 8+5/100+7/100
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N23-4
  */
 export default function Nombre_decimal_oralise_de_differentes_manieres() {

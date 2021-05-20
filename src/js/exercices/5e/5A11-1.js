@@ -7,7 +7,7 @@ import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const titre = 'Labyrinthe de multiples basé sur les critères de divisibilité'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 7/12/2020
  * Ref 5A11-1
  * Sortir du labyrinthe en utilisant les critères de divisibilité.

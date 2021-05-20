@@ -8,7 +8,7 @@ export const titre = 'Construire l’image d’un point par une homothetie avec 
 /**
 * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
 * Ref 3G11
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Publié le 30/11/2020
 */
 export default function Construire_homothetie_point_3e () {

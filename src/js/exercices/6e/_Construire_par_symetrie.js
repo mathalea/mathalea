@@ -4,7 +4,7 @@ import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolyg
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteVerticaleParPoint,droiteParPointEtPente,codageMediatrice,codageMilieu,segment,polygone,nommePolygone,rotation,symetrieAxiale,grille,seyes,mathalea2d} from '../../modules/2d.js'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc

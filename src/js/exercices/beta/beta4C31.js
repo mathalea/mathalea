@@ -15,7 +15,7 @@ export const titre = 'Puissances de 10'
  * 5 : mantisses (négatives) et exposants différents
  * 6 : Tous types
  * Programmes : p130 : "Comparer, ranger, encadrer des nombres rationnels en écriture décimale, fractionnaire ou scientifique
- * @auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * date : 15/11/2020
  * 4C30-4
  */

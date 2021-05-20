@@ -5,7 +5,7 @@ export const amcType =3 //type de question AMC
 export const titre = 'Divisions euclidiennes - Niveau 2'
 
 /** 
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * référence 6C21
 */
 

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, ch
 export const titre = 'Calculer une longueur avec l’égalité de Pythagore (MG32)'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4G20MG32
  */
 export default function Exercice_Pythagore () {

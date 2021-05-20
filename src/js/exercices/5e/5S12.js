@@ -6,7 +6,7 @@ import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motif
 export const titre = 'Représenter des données par un diagramme'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 
  */
 export default function Construire_Un_Diagramme() {

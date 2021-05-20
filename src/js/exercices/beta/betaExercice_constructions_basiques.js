@@ -6,7 +6,7 @@ export const titre = 'Programmes de constructions (en chantier)'
 
 /**
  * Non Publié : base servant à faire des tutoriels vidéos
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Réf : betaExoConstruction
  * publié le 1/12/2020
  */

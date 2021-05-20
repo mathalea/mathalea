@@ -4,7 +4,7 @@ import {listeQuestionsToContenu,randint,enleveElement,choice,texFraction} from '
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
 
 /**
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N20
  */
 export default function Exercice_fractions_decomposer() {

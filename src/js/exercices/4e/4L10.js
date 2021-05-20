@@ -17,7 +17,7 @@ export const titre = 'Utiliser la simple distributivité'
  * Niveau de difficulté :
  * * 1 : Multiplication par un facteur positif
  * * 2: Multiplication par un facteur relatif
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4L10 et 3L11
  */
 export default function Exercice_developper(difficulte = 1) {

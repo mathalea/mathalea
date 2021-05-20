@@ -19,7 +19,7 @@ export const titre = 'Divisions décimales'
  * * un 0 dans le quotient
  *
  * Niveau de difficulté 2 : division par 3, 7 ou 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C31
  */
 export default function Division_decimale () {

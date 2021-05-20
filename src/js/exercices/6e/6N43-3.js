@@ -10,7 +10,7 @@ export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**
  * Vrai ou faux sur les notions de diviseur ou multiple
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N43-3
 */
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {

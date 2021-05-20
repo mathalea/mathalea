@@ -6,7 +6,7 @@ export const titre = 'Reconnaître une fonction affine.'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2F20
 */
 export default function Factoriser_Identites_remarquables2() {

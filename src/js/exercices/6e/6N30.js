@@ -7,7 +7,7 @@ export const titre = 'Lire l’abscisse décimale d’un point'
 
 /**
  * Lire l'abscisse décimale d'un point
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
 export default function Lire_abscisse_decimale () {

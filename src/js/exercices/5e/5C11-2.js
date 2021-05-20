@@ -7,7 +7,7 @@ export const titre = 'Traduire une succession des opérations par une expression
 
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 5C11-2
  */
 export default function Ecrire_une_expression_mathador() {

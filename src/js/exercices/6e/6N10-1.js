@@ -7,7 +7,7 @@ export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de 
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
  *
  * 2 fois sur 5 il y a chevauchement entre les classes
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N10-1
  */
 export default function Exercice_numeration_entier() {

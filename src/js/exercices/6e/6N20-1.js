@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js';
-import {fraction} from '../../modules/Fractions.js';
+import {fraction} from '../../modules/fractions.js';
 
 
 
@@ -10,7 +10,7 @@ export const titre = 'Encadrer une fraction entre deux nombres entiers'
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadredr entre 2 entiers
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N20-1
 */
 export default function Encadrer_fraction_entre_2_entiers() {

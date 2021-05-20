@@ -17,7 +17,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 * Le coefficient est paramétrable, par défaut il est inférieur à 11.
 *
 * On peut paramétrer de n'avoir que des soustractions.
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5N20
 */
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {

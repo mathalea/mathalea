@@ -37,7 +37,7 @@ const listePackages = new Set()
 *
 * On ajoute un dernnier element qui est une simplification du nom du répertoire (pas de points, pas /items)
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function creeIdPourComparaison (item, index, arr) {
   item[3] = item[0].replace(/\./g, '').replace('items/', '')
@@ -54,7 +54,7 @@ tableau_url_tex.forEach(creeIdPourComparaison)
 *
 * Premier séparateur le saut de ligne ; deuxième séparateur le point-virgule.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function textarea_to_array (textarea_id_textarea) {
   const text = textarea_id_textarea.value// .replace(/[ ]/g,'');
@@ -73,7 +73,7 @@ function textarea_to_array (textarea_id_textarea) {
 *
 * Affiche un message d'erreur s'il n'y a pas d'exercice disponible.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 // function id_to_url (id) {
 //   // Retourne les éléments du tableau qui inclue l'id demandé
@@ -93,7 +93,7 @@ function textarea_to_array (textarea_id_textarea) {
 *
 * txt_to_objet_parametres_exercice('6C10,sup=false,nbQuestions=5')
 * {id: "6C10", sup: false, nbQuestions: 5}
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function txt_to_objet_parametres_exercice (txt) { //
   'use strict'
@@ -125,7 +125,7 @@ function txt_to_objet_parametres_exercice (txt) { //
 *
 * //// ANNULÉ   //// Si ce n'est pas le cas, on cherche dans le répertoire /items s'il y a un répertoire qui correspond
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function item_to_contenu (txt) {
   // De préférence un exercice aléatoire
@@ -167,7 +167,7 @@ function item_to_contenu (txt) {
 /**
 * Met à jour le message d'erreur en évitant les doublons.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function updateMessageErreur (text) {
   if (message_d_erreur.indexOf(text) === -1) {

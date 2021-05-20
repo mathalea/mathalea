@@ -7,7 +7,7 @@ export const titre = 'Simplifier une somme de racines carrées'
 
 /**
  * 2N11-1
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Simplifier_une_somme_de_racines_carrees() {
     Exercice.call(this); // Héritage de la classe Exercice()

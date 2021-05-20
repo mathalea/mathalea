@@ -7,7 +7,7 @@ export const titre = 'Construire des médiatrices avec cible auto-corrective'
 /**
  * Construction de médiatrices avec dispositif d'auto-correction aléatoire
  * Ref 6G25
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
 export default function Construire_mediatrices_6e() {

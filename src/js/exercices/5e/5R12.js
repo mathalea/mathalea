@@ -3,7 +3,7 @@ export const titre = 'Déterminer les coordonnées (positives) d’un point'
 
 /**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 5R12
  */
 export default function Reperage_point_du_quart_de_plan () {

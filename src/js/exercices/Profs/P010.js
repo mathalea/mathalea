@@ -6,7 +6,7 @@ export const titre = 'étude de fonction de degré 3'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function variation_polynome_degre3() {

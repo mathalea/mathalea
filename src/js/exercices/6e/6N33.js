@@ -8,7 +8,7 @@ export const titre = 'Calculer la fraction d’un nombre'
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
- * @Auteur Rémi Angot + Jean-Claude Lhote
+ * @author Rémi Angot + Jean-Claude Lhote
  * référence 6N33
  */
 export default function Fraction_d_un_nombre() {

@@ -6,7 +6,7 @@ export const titre = 'Additions de deux entiers relatifs dans un tableau à doub
 /**
 * Effectuer des additions de relatifs dans un tableau à double entrée
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R20-5
 */
 export default function Exercice_tableau_additions_relatifs() {

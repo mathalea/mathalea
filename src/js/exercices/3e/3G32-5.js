@@ -8,7 +8,7 @@ export const titre = 'Problème trigonométrique - Triangle rectangle inscrit da
 
 /**
  * Calculer un angle pour pouvoir ensuite calculer une longueur avec 2 triangles rectangles imbriqués
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3G32-5
  * 2021-02-14
 */

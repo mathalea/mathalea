@@ -10,7 +10,7 @@ export const titre = 'Multiplications et quotients de relatifs : signe avec une 
 /**
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
-* @Auteur Cédric GROLLEAU
+* @author Cédric GROLLEAU
 * 4C10-6
 */
 export default function Exercice_tableau_multiplications_relatifs () {

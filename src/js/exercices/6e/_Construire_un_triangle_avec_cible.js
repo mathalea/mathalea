@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombre_avec_espace, range1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListes, calcul, creerNomDePolygone, lettreDepuisChiffre, nombreAvecEspace, range1 } from '../../modules/outils.js'
 import { codeSegments, point, pointIntersectionDD, longueur,pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, segmentAvecExtremites, polygoneAvecNom, cercle, pointIntersectionLC, pointIntersectionCC, traceCompas, dansLaCibleRonde, cibleRonde, rotation, similitude, codageAngleDroit, afficheLongueurSegment, afficheMesureAngle, codeAngle, texteParPoint, angle, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js';
 
 /**
  * publié le 1/12/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
 export default function Construire_un_triangle_avec_cible() {
@@ -167,7 +167,7 @@ export default function Construire_un_triangle_avec_cible() {
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
           cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
           objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
-          objets_enonceml.push(codeAngle(B, A, CC, 1.1), afficheLongueurSegment(B, A), texteParPoint(nombre_avec_espace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), afficheLongueurSegment(A, C, 'black', 1))
+          objets_enonceml.push(codeAngle(B, A, CC, 1.1), afficheLongueurSegment(B, A), texteParPoint(nombreAvecEspace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), afficheLongueurSegment(A, C, 'black', 1))
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheLongueurSegment(A, C, 'black', 1))
           texteCorr += `Pour cette construction, nous avons utilisé le rapporteur et la règle graduée.<br>`
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
@@ -187,7 +187,7 @@ export default function Construire_un_triangle_avec_cible() {
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
           cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
           objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
-          objets_enonceml.push(codeAngle(B, A, CC, 1.1), texteParPoint(nombre_avec_espace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), codeAngle(A, B, CC, 1.1), texteParPoint(nombre_avec_espace(Math.round(angle(A, B, C))) + `°`, similitude(A, B, -angle(A, B, C) / 2, 1 / lAB + 0.1)))
+          objets_enonceml.push(codeAngle(B, A, CC, 1.1), texteParPoint(nombreAvecEspace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), codeAngle(A, B, CC, 1.1), texteParPoint(nombreAvecEspace(Math.round(angle(A, B, C))) + `°`, similitude(A, B, -angle(A, B, C) / 2, 1 / lAB + 0.1)))
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1))
           texteCorr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
@@ -230,7 +230,7 @@ export default function Construire_un_triangle_avec_cible() {
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
           cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
           objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
-          objets_enonceml.push(codeAngle(B, A, CC, 1.1), afficheLongueurSegment(B, A), texteParPoint(nombre_avec_espace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), codeAngle(A, CC, B, 1.1), texteParPoint(nombre_avec_espace(Math.round(angle(A, C, B))) + `°`, similitude(A, CC, angle(A, CC, B) / 2, 1 / lAC + 0.1)))
+          objets_enonceml.push(codeAngle(B, A, CC, 1.1), afficheLongueurSegment(B, A), texteParPoint(nombreAvecEspace(Math.round(angle(B, A, C))) + `°`, similitude(B, A, angle(B, A, C) / 2, 1 / lAB + 0.1)), codeAngle(A, CC, B, 1.1), texteParPoint(nombreAvecEspace(Math.round(angle(A, C, B))) + `°`, similitude(A, CC, angle(A, CC, B) / 2, 1 / lAC + 0.1)))
           objets_correction.push(cible, afficheLongueurSegment(B, A), afficheMesureAngle(B, A, C, 'black', 1), afficheMesureAngle(A, B, C, 'black', 1), afficheMesureAngle(A, C, B, 'black', 1))
           texteCorr += `Pour cette construction, il a fallu calculer l'angle $\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$.<br>$\\widehat{${sommets[0] + sommets[1] + sommets[2]}}=180-\\widehat{${sommets[1] + sommets[0] + sommets[2]}}-\\widehat{${sommets[0] + sommets[2] + sommets[1]}}=180-${Math.round(angle(B, A, C))}-${Math.round(angle(B, C, A))}=${Math.round(angle(A, B, C))}$.<br>Nous avons utilisé le rapporteur pour effectuer cette construction.<br>`
           texteCorr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`

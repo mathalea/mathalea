@@ -7,7 +7,7 @@ export const titre = 'Placer un point d’abscisse entière (grands nombres)'
 
 /**
  * Placer un point d'abscisse entière
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  */
 export default function Placer_un_point_abscisse_entiere () {

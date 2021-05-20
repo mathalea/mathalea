@@ -6,7 +6,7 @@ export const titre = 'Le compte est bon original'
 
 /**
  * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
- *  @Auteur Jean-Claude Lhote
+ *  @author Jean-Claude Lhote
  * Référence CM021
  */
 export default function Compte_Est_Bon() {

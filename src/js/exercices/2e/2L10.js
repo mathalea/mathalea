@@ -6,7 +6,7 @@ export const titre = 'Développer avec les identités remarquables'
 
 /**
  * Développer avec les 3 identités remarquables
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 2L10
 */
 export default function Developper_Identites_remarquables2() {

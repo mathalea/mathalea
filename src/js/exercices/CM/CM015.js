@@ -8,7 +8,7 @@ export const amcType = 4
 
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM015
 */
 export default function SommeDeDeuxNombresMaries () {

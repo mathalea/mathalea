@@ -7,7 +7,7 @@ import { SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe } from '../../modules
 
 /**
  * Placer un point d'abscisse décimale
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence : 6N30-2
  */
 export default function Placer_points_sur_axe() {

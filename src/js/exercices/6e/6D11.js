@@ -11,7 +11,7 @@ export const titre = 'Additionner des durées'
  * * HM+HM avec retenue
  * * HMS+HMS avec retenue sur les min
  * * HMS+HMS avec retenues min et s
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6D11
  */
 export default function Somme_de_durees() {

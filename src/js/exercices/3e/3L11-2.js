@@ -6,7 +6,7 @@ export const titre = 'Réduire une expression'
 /**
 * Réduire des expressions lorsque c'est possible
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3L11-2
 */
 export default function Reduction_si_possible() {

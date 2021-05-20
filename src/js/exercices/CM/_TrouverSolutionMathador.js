@@ -1,7 +1,7 @@
 import {choice,shuffle} from '../../modules/outils.js'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
@@ -30,10 +30,10 @@ export default function TrouverSolutionMathador(
     expression_en_cours_f,
     expression_en_cours_d,
     op,
-    part1_f,
-    part2_f,
-    part1_d,
-    part2_d,
+    part1f,
+    part2f,
+    part1d,
+    part2d,
     operations_successives = [],
     solution;
   let liste_choix = [
@@ -74,31 +74,31 @@ export default function TrouverSolutionMathador(
     20,
   ];
   eureka = false;
-  let nb_determines = arguments.length - 2;
+  let nbDetermines = arguments.length - 2;
   while (eureka == false) {
     tirage = [];
 
-    if (nb_determines < 1)
+    if (nbDetermines < 1)
       a = parseInt(choice(liste_choix));
     else
       a = A;
-    if (nb_determines < 2)
+    if (nbDetermines < 2)
       b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a]));
     else
       b = B;
-    if (nb_determines < 3)
+    if (nbDetermines < 3)
       c = parseInt(
         choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
       );
     else
       c = C;
-    if (nb_determines < 4)
+    if (nbDetermines < 4)
       d = parseInt(
         choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
       );
     else
       d = D;
-    if (nb_determines < 5)
+    if (nbDetermines < 5)
       e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20]));
     else
       e = E;
@@ -124,30 +124,30 @@ export default function TrouverSolutionMathador(
     while (nombres_restants.length > 1) {
       b = nombres_restants.pop();
       a = nombres_restants.pop();
-      part2_f = expression_en_cours_f.pop();
-      part1_f = expression_en_cours_f.pop();
-      part2_d = expression_en_cours_d.pop();
-      part1_d = expression_en_cours_d.pop();
+      part2f = expression_en_cours_f.pop();
+      part1f = expression_en_cours_f.pop();
+      part2d = expression_en_cours_d.pop();
+      part1d = expression_en_cours_d.pop();
 
       op = operations_restantes.pop();
       if (op == "\\times") {
         c = a * b;
-        expression_en_cours_f.push(`${part1_f}${op}${part2_f}`);
-        expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
+        expression_en_cours_f.push(`${part1f}${op}${part2f}`);
+        expression_en_cours_d.push(`${part1d}${op}${part2d}`);
         nombres_restants.push(c);
       } else if (op == "\\div") {
         if (a % b == 0) {
           c = a / b;
-          if (part1_f[0] == "\\") {
-            part1_f = part1_f.substring(6, part1_f.length);
-            part1_f = part1_f.substring(0, part1_f.length - 7);
+          if (part1f[0] == "\\") {
+            part1f = part1f.substring(6, part1f.length);
+            part1f = part1f.substring(0, part1f.length - 7);
           }
-          if (part2_f[0] == "\\") {
-            part2_f = part2_f.substring(6, part2_f.length);
-            part2_f = part2_f.substring(0, part2_f.length - 7);
+          if (part2f[0] == "\\") {
+            part2f = part2f.substring(6, part2f.length);
+            part2f = part2f.substring(0, part2f.length - 7);
           }
-          expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`);
-          expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
+          expression_en_cours_f.push(`\\dfrac{${part1f}}{${part2f}}`);
+          expression_en_cours_d.push(`${part1d}${op}${part2d}`);
           nombres_restants.push(c);
         } else
           break;
@@ -155,26 +155,26 @@ export default function TrouverSolutionMathador(
         if (a > b) {
           c = a - b;
           expression_en_cours_f.push(
-            `\\left(${part1_f}${op}${part2_f}\\right)`
+            `\\left(${part1f}${op}${part2f}\\right)`
           );
           expression_en_cours_d.push(
-            `\\left(${part1_d}${op}${part2_d}\\right)`
+            `\\left(${part1d}${op}${part2d}\\right)`
           );
           nombres_restants.push(c);
         } else
           break;
       } else if (op == "+") {
         c = a + b;
-        if (part2_f.substring(0, 2) == "\\l") {
-          part2_f = part2_f.substring(6, part2_f.length);
-          part2_f = part2_f.substring(0, part2_f.length - 7);
+        if (part2f.substring(0, 2) == "\\l") {
+          part2f = part2f.substring(6, part2f.length);
+          part2f = part2f.substring(0, part2f.length - 7);
         }
-        expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`);
-        if (part2_d.substring(0, 2) == "\\l") {
-          part2_d = part2_d.substring(6, part2_d.length);
-          part2_d = part2_d.substring(0, part2_d.length - 7);
+        expression_en_cours_f.push(`\\left(${part1f}${op}${part2f}\\right)`);
+        if (part2d.substring(0, 2) == "\\l") {
+          part2d = part2d.substring(6, part2d.length);
+          part2d = part2d.substring(0, part2d.length - 7);
         }
-        expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`);
+        expression_en_cours_d.push(`\\left(${part1d}${op}${part2d}\\right)`);
         nombres_restants.push(c);
       }
       operations_successives.push(`${a}` + op + `${b}=${c}`);

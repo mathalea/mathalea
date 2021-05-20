@@ -6,7 +6,7 @@ export const titre = 'Développer les identités remarquables avec des racines c
 
 /**
  * 2N12-1
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function identites_remarquables_et_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()

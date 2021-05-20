@@ -19,7 +19,7 @@ export const titre = 'Somme des angles dans un triangle'
 * * Dans un triangle rectangle, un angle aigu mesure 5 fois l'autre.
 * * Un triangle a 3 angles égaux.
 * * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 5G31
 */
 export default function Exercice_angles_triangles() {

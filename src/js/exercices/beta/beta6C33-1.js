@@ -5,7 +5,7 @@ export const titre = 'Parenthèses manquantes'
 
 /**
  * Priorités opératoires, placer les parenthèses.
- * @Auteur Cédric Grolleau
+ * @author Cédric Grolleau
  * Référence 6C33-1
  */
 export default function Priorites() {

@@ -7,7 +7,7 @@ export const titre = 'Donner l’opposé d’une expression'
  * Donner l'opposé d'une expression.
  *
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3L10
  */
 export default function Oppose_expression() {

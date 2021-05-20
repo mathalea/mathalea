@@ -9,7 +9,7 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
  *
  * Résoudre une équation du type ax2 + bx = 0
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3L15
 */
 export default function ExerciceEquations () {

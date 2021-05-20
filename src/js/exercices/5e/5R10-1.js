@@ -7,7 +7,7 @@ export const titre = 'Deviner un nombre relatif'
 /**
  * Additions à trou dans les relatifs
  *
- *  @Auteur Jean-Claude Lhote à partir de CM000 de Rémi Angot
+ *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
 export default function Deviner_nombre_relatif() {

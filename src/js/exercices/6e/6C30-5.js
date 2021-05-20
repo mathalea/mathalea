@@ -10,7 +10,7 @@ export const interactifReady = true
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
 
 /**
- * @Auteur Jean-claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 20/02/2021
  * Référence 6C30-5
  */

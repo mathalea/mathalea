@@ -6,7 +6,7 @@ export const titre = 'Problèmes de calcul de pourcentage par complément à 100
 
 /**
  * Déduire un pourcentage par complément à 100%
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N33-2
  */
 export default function Calculer_un_pourcentage() {

@@ -6,7 +6,7 @@ export const titre = 'Labyrinthe de multiples'
  * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
  * ref 6N23-2
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Labyrinthe_de_multiplesCM() {
     Exercice_labyrinthe_multiples.call(this);

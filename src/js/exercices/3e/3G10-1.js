@@ -7,7 +7,7 @@ export const titre = 'Trouver les coordonnées de l’image d’un point par une
 
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G10-1
  */
 export default function Transformations_du_plan_et_coordonnees() {

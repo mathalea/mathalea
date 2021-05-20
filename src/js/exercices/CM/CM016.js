@@ -7,7 +7,7 @@ export const interactifReady = true
 export const amcType = 4
 /**
  * Division d'un entier par 10, 100, 1000
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM016
 */
 export default function DiviserPar101001000 () {

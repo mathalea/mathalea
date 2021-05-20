@@ -6,11 +6,11 @@ export const titre = 'Trouver l’image d’une figure par une symétrie axiale 
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié en 02/2020
  * référence 6G25-1
  */
-export default function Pavages_et_reflexion () {
+export default function PavagesEtReflexion () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -45,7 +45,6 @@ export default function Pavages_et_reflexion () {
     const xC = 0
     const yC = 6
     const zoom = 8
-    let xM1, yM1, xN1, yN1, xM2, yM2, xN2, yN2, xM3, yM3, xN3, yN3
     let trouver = false
     let indexa
     let numa
@@ -75,7 +74,7 @@ export default function Pavages_et_reflexion () {
       }
     }
 
-    // Première question : une figure dans tabfigA, une symétrie par rapport à une droite parallèle à y=-x, l'image est dans tabfigB	 !
+    // Première question : une figure dans tabfigA, une symétrie par rapport à une droite parallèle à y=-x, l'image est dans tabfigB !
     // L'axe de symétrie est la médiatrice du segment d'extrémités les centres de gravités des figures A et B.
 
     indexa = randint(0, nx * ny - 1)
@@ -86,17 +85,16 @@ export default function Pavages_et_reflexion () {
     ymil1 = tabfigA[indexaxe1][1] - 2
     point = [tabfigA[indexa][0], tabfigA[indexa][1]]
     point = imagePointParTransformation(2, point, [xmil1, ymil1])
-
     trouver = false
-    while (trouver == false) {
+    while (trouver === false) {
       for (let j = 0; j < nx * ny; j++) {
-        if (point[0] == tabfigB[j][0] && point[1] == tabfigB[j][1]) {
+        if (point[0] === tabfigB[j][0] && point[1] === tabfigB[j][1]) {
           trouver = true
           anum = tabfigB[j][2]
           break
         }
       }
-      if (trouver == false) {
+      if (trouver === false) {
         indexa = randint(0, nx * ny - 1)
         numa = tabfigA[indexa][2]
         indexaxe1 = randint(0, nx * ny - 1)
@@ -106,10 +104,10 @@ export default function Pavages_et_reflexion () {
         point = imagePointParTransformation(2, point, [xmil1, ymil1])
       }
     }
-    xM1 = tabfigA[indexa][0]
-    yM1 = tabfigA[indexa][1]
-    xN1 = point[0]
-    yN1 = point[1]
+    const xM1 = tabfigA[indexa][0]
+    const yM1 = tabfigA[indexa][1]
+    const xN1 = point[0]
+    const yN1 = point[1]
 
     texte = 'Le point O peut être déplacé pour recadrer éventuellement le pavage.<br>'
     texte +=
@@ -137,15 +135,15 @@ export default function Pavages_et_reflexion () {
       [xmil2, ymil2]
     )
     trouver = false
-    while (trouver == false) {
+    while (trouver === false) {
       for (let j = 0; j < nx * ny; j++) {
-        if (point[0] == tabfigA[j][0] && point[1] == tabfigA[j][1]) {
+        if (point[0] === tabfigA[j][0] && point[1] === tabfigA[j][1]) {
           trouver = true
           bnum = tabfigA[j][2]
           break
         }
       }
-      if (trouver == false) {
+      if (trouver === false) {
         indexb = randint(0, nx * ny - 1)
         numb = tabfigA[indexb][2]
         indexaxe2 = randint(0, nx * ny - 1)
@@ -158,10 +156,10 @@ export default function Pavages_et_reflexion () {
         )
       }
     }
-    xM2 = tabfigA[indexb][0]
-    yM2 = tabfigA[indexb][1]
-    xN2 = point[0]
-    yN2 = point[1]
+    const xM2 = tabfigA[indexb][0]
+    const yM2 = tabfigA[indexb][1]
+    const xN2 = point[0]
+    const yN2 = point[1]
 
     texte +=
       numAlpha(1) +
@@ -193,15 +191,15 @@ export default function Pavages_et_reflexion () {
     point[0] = arrondi(point[0], 1) // Les coordonnées sont censées être entières mais les calculs JS laissent toujours de cent-milliardièmes indésirables.
     point[1] = arrondi(point[1], 1)
     trouver = false
-    while (trouver == false) {
+    while (trouver === false) {
       for (let j = 0; j < nx * ny; j++) {
-        if (point[0] == tabfigA[j][0] && point[1] == tabfigA[j][1]) {
+        if (point[0] === tabfigA[j][0] && point[1] === tabfigA[j][1]) {
           trouver = true
           cnum = tabfigA[j][2]
           break
         }
       }
-      if (trouver == false) {
+      if (trouver === false) {
         indexc = randint(0, nx * ny - 1)
         numc = tabfigB[indexc][2]
         indexaxe3 = randint(0, nx * ny - 1)
@@ -220,10 +218,10 @@ export default function Pavages_et_reflexion () {
       }
     }
 
-    xM3 = tabfigB[indexc][0]
-    yM3 = tabfigB[indexc][1]
-    xN3 = point[0]
-    yN3 = point[1]
+    const xM3 = tabfigB[indexc][0]
+    const yM3 = tabfigB[indexc][1]
+    const xN3 = point[0]
+    const yN3 = point[1]
 
     texte +=
       numAlpha(2) +
@@ -293,8 +291,8 @@ export default function Pavages_et_reflexion () {
       this.listeCorrections.push(texteCorr)
       listeQuestionsToContenuSansNumero(this)
     } else {
-      texte = ''
-      texte_cor = ''
+      texte = "Il n'y a pas de version Latex de cet exercice pour l'instant"
+      texteCorr = ''
       this.listeQuestions.push(texte) // on envoie la question
       this.listeCorrections.push(texteCorr)
       listeQuestionsToContenuSansNumero(this)

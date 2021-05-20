@@ -10,7 +10,7 @@ export const titre = 'Équation du premier degré'
  * * Type 2 : ax+b=c
  * * Type 3 : ax+b=cx+d
  * * Tous les types
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4L20 et 3L13
  */
 export default function Exercice_equation1() {

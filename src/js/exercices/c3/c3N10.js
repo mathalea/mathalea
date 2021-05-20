@@ -4,7 +4,7 @@ export const titre = 'Écrire un nombre en chiffres ou en lettres'
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N10
  */
 export default function Ecrire_entiers_cycle3() {

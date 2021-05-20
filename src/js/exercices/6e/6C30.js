@@ -15,7 +15,7 @@ export const titre = 'Multiplications posées de nombres décimaux'
  * * xx,x * x,x
  * * x,xx * x0x
  * * 0,xx * x,x
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C30
  */
 export default function Multiplier_decimaux () {

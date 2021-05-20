@@ -7,7 +7,7 @@ export const titre = 'Calculer la hauteur d’une montagne'
 
 /**
  * Propose de calculer la hauteur d'une montagne à partir de deux relevés d'angle 
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32-4
 */
 export default function Calculs_trigonometriques4() {

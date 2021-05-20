@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombre_avec_espace, texteEnCouleurEtGras} from '../../modules/outils.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, calcul, arrondiVirgule, nombreAvecEspace, texteEnCouleurEtGras} from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 3S21
 * D'après le document "Attendus en fin de 3eme"
 * On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers. 
@@ -65,7 +65,7 @@ export default function Stabilisation_frequence() {
           case 1:
             // avec un dé
             // Cas où les fréquesnces rejoignent les proba
-            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
+            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombreAvecEspace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
             for (let i = 0; i<nbFaces ; i++) {
               tabValeur[i]=i+1;
               tabEff[i] = [randint(90,110)];
@@ -93,7 +93,7 @@ export default function Stabilisation_frequence() {
                 break
             }
             texteCorr += `d'apparaitre. <br>`
-            texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
+            texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `;
             texteCorr += `Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>`;
             texteCorr += texteEnCouleurEtGras(`Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. `);
           break;
@@ -101,7 +101,7 @@ export default function Stabilisation_frequence() {
           case 2:
           // avec un dé  
           // Cas où les fréquences ne rejoignent pas les proba
-            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombre_avec_espace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
+            texte += `On lance un dé équilibré à ${nbFaces} faces ${nombreAvecEspace(nbLancers)} fois. On étudie les fréquences d'apparition de chaque face. On obtient les résultats suivants : <br>`;
             face = randint(1, nbFaces); // on choisit une face au hasard. Elle aura une fréquence déséquilibrée.
             for (let i = 0; i<nbFaces ; i++) {
               tabValeur[i]=i+1;
@@ -135,7 +135,7 @@ export default function Stabilisation_frequence() {
                 break
             }
             texteCorr += `d'apparaitre. <br>`;
-            texteCorr += `Comme le dé a été lancé ${nombre_avec_espace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
+            texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
             texteCorr += `Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>`;
             texteCorr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`;
             texteCorr += texteEnCouleurEtGras(`Conclusion : les résultats ne semblent pas respecter le principe de stabilisation des fréquences ; le tableau n'est pas compatible avec un lancer aléatoire de dé.`);
@@ -156,7 +156,7 @@ export default function Stabilisation_frequence() {
               texte += `${tabEff[i]} boules ${tabcoul[i]}, `;
             }
             texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`;
-            texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombre_avec_espace(nbLancers)} fois. `
+            texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
             texte += `On étudie les fréquences d'apparition de chaque couleur. On obtient les résultats suivants : <br>`;
             tabEffModif = tabEff.map(x=>x*(1+randint(-50,50)/1000)); // on modifie très légèrement le tirage max 5%
             S2 = tabEff.reduce((a, b)=> a + b,0);
@@ -206,7 +206,7 @@ export default function Stabilisation_frequence() {
                 texte += `${tabEff[i]} boules ${tabcoul[i]}, `;
               }
               texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`;
-              texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombre_avec_espace(nbLancers)} fois. `
+              texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
               texte += `On étudie les fréquences d'apparition de chaque couleur. On obtient les résultats suivants : `;
               tabEffModif = tabEff.map(x=>x*(1+randint(-50,50)/1000)); // on modifie très légèrement le tirage de max 5%
               tabEffModif[face] = 1.75*tabEff[face]; // on augmente de 75% l'effectif d'une couleur

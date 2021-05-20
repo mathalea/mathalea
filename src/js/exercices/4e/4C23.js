@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenirListeFractionsIrreductiblesFaciles,texFraction,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenirListeFractionsIrreductibles,obtenirListeFractionsIrreductiblesFaciles,texFraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -8,7 +8,7 @@ export const titre = 'Fractions et priorités opératoires'
  * 1 : Calcul avec nombres positifs sans piège de priorité
  * * 2 : Calcul avec nombres positifs avec piège
  * * 3 : Calcul avec nombres relatifs
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C23
  */
 export default function Exercice_additionner_fraction_produit() {
@@ -27,7 +27,7 @@ export default function Exercice_additionner_fraction_produit() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let typesDeQuestionsDisponibles;
-    let liste_fractions = obtenir_liste_fractions_irreductibles();
+    let liste_fractions = obtenirListeFractionsIrreductibles();
     let liste_fractions_faciles = obtenirListeFractionsIrreductiblesFaciles();
     let nombre_de_signe_moins;
     if (this.sup == 1)  {

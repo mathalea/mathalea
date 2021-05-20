@@ -3,7 +3,7 @@ import Exercice_conversions from './_Exercice_conversions.js';
 export const titre = 'Conversions de longueurs, masses, contenance, prix ou unités informatiques'
 
 /**
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * référence 6N13
  */
 export default function Exercice_6N13() {

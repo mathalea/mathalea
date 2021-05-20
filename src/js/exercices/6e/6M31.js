@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombre,tex_texte} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,calcul,texNombre,texTexte} from '../../modules/outils.js'
 export const titre = 'Conversions de volume'
 
 /**
@@ -13,7 +13,7 @@ export const titre = 'Conversions de volume'
  * * 3 : Conversions en mètres-cubes avec des multiplications ou divisions
  * * 4 : Conversions avec des multiplications ou divisions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M31
  */
 export default function Exercice_conversions_volumes(niveau = 1) {
@@ -98,26 +98,26 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^3" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^3" +
           " =  " +
           texNombre(a) +
           "\\times" +
           prefixe_multi[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           "$";
       } else if (div && typesDeQuestions < 4) {
@@ -126,26 +126,26 @@ export default function Exercice_conversions_volumes(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^3" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^3" +
           " =  " +
           texNombre(a) +
           "\\div" +
           prefixe_div[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^3" +
           "$";
       } else if (typesDeQuestions == 4) {
@@ -174,25 +174,25 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^3" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^3" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^3" +
             " =  " +
             texNombre(a) +
             multiplications_par_1000 +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^3" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^3" +
             "$";
         } else {
@@ -211,25 +211,25 @@ export default function Exercice_conversions_volumes(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^3" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^3" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^3" +
             " =  " +
             texNombre(a) +
             multiplications_par_1000 +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^3" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^3" +
             "$";
         }
@@ -238,9 +238,9 @@ export default function Exercice_conversions_volumes(niveau = 1) {
       // 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // 	k = randint(0,1)
       // 	resultat = calcul(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-      // 	texte = '$ '+ texNombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
-      // 	texteCorr = '$ '+ texNombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^3'
-      // 		 + ' = ' + texNombre(resultat) + tex_texte(unite)+ '^2' + '$';
+      // 	texte = '$ '+ texNombre(a) + texTexte(prefixe_multi[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
+      // 	texteCorr = '$ '+ texNombre(a) + texTexte(prefixe_multi[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixe_multi[k][1]) + texTexte(unite)  + '^3'
+      // 		 + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';
       // }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

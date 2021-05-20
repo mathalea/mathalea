@@ -7,7 +7,7 @@ export const titre = 'Existence d’une racine carrée'
 
 /**
  * 2N10
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Existence_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()

@@ -8,7 +8,7 @@ export const amcType = 4
 /**
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence CM009
 */
 export default function Moitie () {

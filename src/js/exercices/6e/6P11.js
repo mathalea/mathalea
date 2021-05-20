@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,prenomF,prenomM,texteEnCouleur,tex_prix,texteEnCouleurEtGras,numAlpha} from '../../modules/outils.js';
+import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,prenomF,prenomM,texteEnCouleur,texPrix,texteEnCouleurEtGras,numAlpha} from '../../modules/outils.js';
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
 
 /**
@@ -97,7 +97,7 @@ function question_achat() { //questions d'origine du 6P11 : achat.
     }
     let z = calcul(p * pu, 2);
     let texte = `${numAlpha(0)} ${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent.<br\> ` +
-		`Elle lit que ${n} ${objet} coûtent ${tex_prix(x)} €. ` +
+		`Elle lit que ${n} ${objet} coûtent ${texPrix(x)} €. ` +
 		`Elle veut en acheter ${y}.<br\> Combien va-t-elle dépenser ?<br\>`;
     let texteCorr = `${numAlpha(0)} ${y} ${objet}, c'est ${texteEnCouleur(
         texNombrec(y / n)
@@ -107,31 +107,31 @@ function question_achat() { //questions d'origine du 6P11 : achat.
       )} ${objet}.<br\> Si ${texteEnCouleur(
         n,
         "blue"
-      )} ${objet} coûtent ${tex_prix(x)} €, alors ${texteEnCouleur(
+      )} ${objet} coûtent ${texPrix(x)} €, alors ${texteEnCouleur(
         texNombrec(y / n)
       )} fois ${texteEnCouleur(
         n,
         "blue"
       )} ${objet} coutent ${texteEnCouleur(
         texNombrec(y / n)
-      )} fois ${tex_prix(x)} €.<br\>` +
+      )} fois ${texPrix(x)} €.<br\>` +
 	  texteEnCouleurEtGras(`Donc ${prenoms[0]} dépensera ${texteEnCouleur(
         texNombrec(y / n)
-      )} $\\times$ ${tex_prix(x)} € = ${tex_prix(somme)} €.`,"black") + "<br\><br\>";
+      )} $\\times$ ${texPrix(x)} € = ${texPrix(somme)} €.`,"black") + "<br\><br\>";
     texte += `${numAlpha(1)} ${prenoms[1]
-        } veut lui aussi acheter ces ${objet}. Il dispose de ${tex_prix(
+        } veut lui aussi acheter ces ${objet}. Il dispose de ${texPrix(
           z
         )} €.<br\> Combien peut-il en acheter ?<br\>`;
-    texteCorr += `${numAlpha(1)} ${tex_prix(z)} €, c'est ${texteEnCouleur(
+    texteCorr += `${numAlpha(1)} ${texPrix(z)} €, c'est ${texteEnCouleur(
         texNombrec(z / x)
-      )} fois ${tex_prix(x)} €.<br\> Si avec ${tex_prix(
+      )} fois ${texPrix(x)} €.<br\> Si avec ${texPrix(
         x
       )} € on peut acheter ${texteEnCouleur(
         n,
         "blue"
       )} ${objet}, alors avec ${texteEnCouleur(
         texNombrec(z / x)
-      )} fois ${tex_prix(x)} €, on peut acheter ${texteEnCouleur(
+      )} fois ${texPrix(x)} €, on peut acheter ${texteEnCouleur(
         texNombrec(z / x)
       )} fois ${texteEnCouleur(n, "blue")} ${objet}.<br\>`;
       texteCorr += texteEnCouleurEtGras(`Donc ${prenoms[1]} pourra acheter ${texteEnCouleur(

@@ -6,7 +6,7 @@ export const titre = 'Écrire correctement les grands nombres entiers.'
 /**
  * 6N10-4
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Ecrire_nombres_entiers_formates() {
   "use strict"

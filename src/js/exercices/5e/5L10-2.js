@@ -9,7 +9,7 @@ export const titre = 'Traduire un programme de calcul par une expression littér
 
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L10-2
 */
 export default function TraduireUnProgrammeDeCalcul () {

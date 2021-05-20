@@ -4,7 +4,7 @@ import {listeQuestionsToContenu,randint,choice, combinaisonListes,ecritureParent
 export const titre = 'Déterminer les coordonnées d’un vecteur.'
 
 /**
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function calculer_coordonnees_vecteurs() {
     Exercice.call(this); // Héritage de la classe Exercice()

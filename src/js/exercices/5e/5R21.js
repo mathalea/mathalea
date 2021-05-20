@@ -12,7 +12,7 @@ export const amcType = 4
 *
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R21
 */
 export default function ExerciceSoustractionsRelatifs (max = 20) {
@@ -39,7 +39,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = \\dotfill $`
         if (this.interactif && !context.isAmc) {
-          texte = ajouteChampTexte(this, i, { texte: `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` })
+          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexte(this, i, { texte: '' })
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
@@ -49,7 +49,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
         if (this.interactif && !context.isAmc) {
-          texte = ajouteChampTexte(this, i, { texte: `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` })
+          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexte(this, i, { texte: '' })
         }
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
       }

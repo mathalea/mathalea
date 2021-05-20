@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katexPopup2,numAlpha,warnMessage,lampeMessage,ppcm} from '../../modules/outils.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decompositionFacteursPremiers,modalPdf,katexPopup2,numAlpha,warnMessage,lampeMessage,ppcm} from '../../modules/outils.js'
 import {SVG_engrenages} from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
 
@@ -190,9 +190,9 @@ export default function PPCM_Engrenages() {
 					};
 					texte += `<br>` + numAlpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
 					texteCorr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`;
-					texteCorr += `<br>` + numAlpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
-					texteCorr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
-					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
+					texteCorr += `<br>` + numAlpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decompositionFacteursPremiers(nb_dents_r1)}$.`;
+					texteCorr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decompositionFacteursPremiers(nb_dents_r2)}$.`;
+					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decompositionFacteursPremiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
 						texteCorr += katexPopup2(

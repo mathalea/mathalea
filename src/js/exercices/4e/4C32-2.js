@@ -6,7 +6,7 @@ export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
 
 /**
  * Utiliser les puissances de 10 et les préfixes kilo, Méga, Giga, Téra
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4C32-2
  * 2021-02-05
 */

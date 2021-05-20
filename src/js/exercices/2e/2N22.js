@@ -8,7 +8,7 @@ export const titre = 'Utiliser la notion de valeur absolue d’une quantité'
 
 /**
  * 2N22
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function valeur_absolue() {
     Exercice.call(this); // Héritage de la classe Exercice()

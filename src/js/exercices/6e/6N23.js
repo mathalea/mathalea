@@ -8,7 +8,7 @@ export const titre = 'Donner l’écriture décimale d’une fraction décimale'
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  *
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N23
  */
 export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {

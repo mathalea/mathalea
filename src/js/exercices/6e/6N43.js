@@ -13,7 +13,7 @@ export const titre = 'Critères de divisibilité'
  * * 3, 9 ?
  * * 2, 3, 5, 9, 10 ?
  * * 2, 3, 5, 9, 10  et un autre nombre qui peut être 7, 13, 17, ou 19 ?
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N43
  */
 export default function CriteresDeDivisibilite () {
