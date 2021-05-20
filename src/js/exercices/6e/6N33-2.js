@@ -21,7 +21,7 @@ export default function Calculer_un_pourcentage() {
 
   this.nouvelleVersion = function () {
     let typesDeQuestionsDisponibles = [1, 2, 3]
-    let liste_choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeChoix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let liste_moyens = [`en bus`, `en deux-roues`, `à  pieds`, `en voiture`]
@@ -38,7 +38,7 @@ export default function Calculer_un_pourcentage() {
       p1 = randint(6, 9) * 5
       p2 = randint(6, 9) * 5
       p3 = 100 - p1 - p2
-      switch (liste_choix[i]) {
+      switch (listeChoix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1, moy2, moy3] = combinaisonListes(liste_moyens, 3)
           texte = `Dans un collège, $${p1}\\%$ des élèves se déplacent ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>`

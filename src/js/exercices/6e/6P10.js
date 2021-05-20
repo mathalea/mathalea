@@ -33,7 +33,7 @@ export default function Proportionnalite_pas_proportionnalite() {
     let liste_choix_disponibles
     if (this.sup) liste_choix_disponibles = [1, 2, 3, 4, 5];
     else liste_choix_disponibles=[1, 2, 3, 4, 5, 6];
-    let liste_choix = combinaisonListes(
+    let listeChoix = combinaisonListes(
       liste_choix_disponibles,
       this.nbQuestions
     );
@@ -131,7 +131,7 @@ export default function Proportionnalite_pas_proportionnalite() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_choix[i]) {
+      switch (listeChoix[i]) {
         case 1:
           index1 = liste_index[i];
           prenoms = [prenomF(), prenomM()];

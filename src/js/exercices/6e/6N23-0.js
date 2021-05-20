@@ -32,7 +32,7 @@ export default function Ecrire_nombres_decimal() {
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, part_ent, part_dec, nb_dec, cpt = 0;
+      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, part_ent, part_dec, nbDec, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -60,8 +60,8 @@ export default function Ecrire_nombres_decimal() {
         if (tranche[0] == 0) nombre = 0
 
       }
-      if (part_dec % 10 != 0) nb_dec = 3
-      else if (part_dec % 100 != 0) nb_dec = 2
+      if (part_dec % 10 != 0) nbDec = 3
+      else if (part_dec % 100 != 0) nbDec = 2
       if (this.sup == 1) {
         if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
