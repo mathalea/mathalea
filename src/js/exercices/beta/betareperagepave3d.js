@@ -1,4 +1,4 @@
-import { labelPoint, mathalea2d, point, segment, tracePoint } from '../../modules/2d.js'
+import { labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { radians } from '../../modules/fonctionsMaths.js'
@@ -58,7 +58,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const J = point3d(0, deltay, 0, false, 'J', 'left')
     const K = point3d(0, 0, deltaz, true, 'K', 'left')
 
-    objetsAtracer.push(labelPoint(A.p2d, B.p2d, C.p2d, D.p2d, E.p2d, F.p2d, G.p2d, H.p2d, I.p2d, J.p2d, K.p2d))
+    objetsAtracer.push(labelPoint(A, B, C, D, E, F, G, H, I, J, K))
 
     for (let i = 0; i <= nbgraduationy; i++) {
       for (let j = 0, M, N, s; j <= nbgraduationz; j++) {
@@ -111,19 +111,22 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       objetsAtracer.push(s.p2d)
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       pointCoord = [randint(0, nbgraduationx), randint(0, nbgraduationy), randint(0, nbgraduationz)]
       texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]},${pointCoord[1]},${pointCoord[2]})$`
-      pointAplacer = point3d(pointCoord[0]*deltax, pointCoord[1]*deltay, pointCoord[2]*deltaz, lettreDepuisChiffre(i + 12),`${lettreDepuisChiffre(i + 12)}`, 'below right')
+      pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'red', true)
       s2 = arete3d(point3d(pointAplacer.x, 0, 0), point3d(pointAplacer.x, pointAplacer.y, 0), 'red', true)
       s3 = arete3d(point3d(pointAplacer.x, pointAplacer.y, 0), pointAplacer, 'red', true)
       s1.p2d.epaisseur = 3
       s2.p2d.epaisseur = 3
       s3.p2d.epaisseur = 3
-      
-      objetsAtracerCorr = [s1.p2d, s2.p2d, s3.p2d, labelPoint(pointAplacer.p2d)].concat(objetsAtracer)
+      t = tracePoint(pointAplacer)
+      t.epaisseur = 2
+      t.color = 'red'
+      t.taille = 6
+      objetsAtracerCorr = [s1.p2d, s2.p2d, s3.p2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: 1 + hauteur + profondeur * Math.sin(radians(context.anglePerspective)) }, objetsAtracerCorr)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
