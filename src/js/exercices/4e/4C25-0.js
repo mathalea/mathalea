@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { fraction, listeFractions } from '../../modules/Fractions.js'
+import { fraction, listeFractions } from '../../modules/Fraction.js'
 
 export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
 

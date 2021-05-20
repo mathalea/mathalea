@@ -47,10 +47,10 @@ let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let liste_des_exercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
-let nb_exemplaires = 1
+let nbExemplaires = 1
 let nbQuestions = []
 let nom_fichier = ''
-let type_entete = 'AMCcodeGrid'
+let typeEntete = 'AMCcodeGrid'
 let format = 'A4'
 
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
@@ -329,7 +329,7 @@ function mise_a_jour_du_code () {
       }
     }
     context.isHtml = output
-    codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+    codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
     $('#cache').show()
@@ -1160,11 +1160,11 @@ window.addEventListener('DOMContentLoaded', () => {
   form_nb_exemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
   form_nb_exemplaires.addEventListener('change', function (e) {
     // Dès que le nombre change, on met à jour
-    if (type_entete == 'AMCassociation') {
-      nb_exemplaires = 1
+    if (typeEntete == 'AMCassociation') {
+      nbExemplaires = 1
       form_nb_exemplaires.value = 1
     } else {
-      nb_exemplaires = e.target.value
+      nbExemplaires = e.target.value
     }
     mise_a_jour_du_code()
   })
@@ -1176,9 +1176,9 @@ window.addEventListener('DOMContentLoaded', () => {
   $('#type_champnom').hide()
   $('#type_AMCassociation').hide()
   form_entete.addEventListener('change', function (e) {
-    type_entete = e.target.value
-    if (type_entete == 'AMCassociation') {
-      nb_exemplaires = 1
+    typeEntete = e.target.value
+    if (typeEntete == 'AMCassociation') {
+      nbExemplaires = 1
       form_nb_exemplaires.value = 1
     }
     mise_a_jour_du_code()

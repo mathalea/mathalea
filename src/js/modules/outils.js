@@ -3668,12 +3668,12 @@ export function texteOuPas (texte) {
  * |  2   | A2 | B2 |
  * ------------------
 * @param {array} tabEntetesColonnes contient les entetes des colonnes
- * @param {array} tab_entetes_lignes contient les entetes des lignes
- * @param {array} tab_lignes contient les elements de chaque ligne
+ * @param {array} tabEntetesLignes contient les entetes des lignes
+ * @param {array} tabLignes contient les elements de chaque ligne
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch) {
   'use strict'
   let myLatexArraystretch
   if (typeof arraystretch === 'undefined') {
@@ -3685,7 +3685,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tab_entetes_lignes, tab
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
-  const L = tab_entetes_lignes.length
+  const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableauCL = ''
   if (context.isHtml) {
@@ -3717,16 +3717,16 @@ export function tableauColonneLigne (tabEntetesColonnes, tab_entetes_lignes, tab
   tableauCL += '\\hline\n'
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
-    if (typeof tab_entetes_lignes[k] === 'number') {
-      tableauCL += '' + texNombre(tab_entetes_lignes[k]) + ''
+    if (typeof tabEntetesLignes[k] === 'number') {
+      tableauCL += '' + texNombre(tabEntetesLignes[k]) + ''
     } else {
-      tableauCL += '' + tab_entetes_lignes[k] + ''
+      tableauCL += '' + tabEntetesLignes[k] + ''
     }
     for (let m = 1; m < C; m++) {
-      if (typeof tab_lignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ' & ' + texNombre(tab_lignes[(C - 1) * k + m - 1])
+      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
+        tableauCL += ' & ' + texNombre(tabLignes[(C - 1) * k + m - 1])
       } else {
-        tableauCL += ' & ' + tab_lignes[(C - 1) * k + m - 1]
+        tableauCL += ' & ' + tabLignes[(C - 1) * k + m - 1]
       }
     }
     tableauCL += '\\\\\n'
@@ -4407,15 +4407,15 @@ export function Relatif (...relatifs) {
 }
 
 export function nombreEnLettres (nb, type = 1) {
-  let partieEntiere, partieDecimale, nbstring, nb_dec, decstring
+  let partieEntiere, partieDecimale, nbstring, nbDec, decstring
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
     partieDecimale = calcul(nb - partieEntiere)
-    nb_dec = partieDecimale.toString().replace(/\d*\./, '').length
-    partieDecimale = calcul(partieDecimale * 10 ** nb_dec)
+    nbDec = partieDecimale.toString().replace(/\d*\./, '').length
+    partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 
-    switch (nb_dec) {
+    switch (nbDec) {
       case 1:
         if (partieDecimale > 1) decstring = ' dixièmes'
         else decstring = ' dixième'
@@ -5498,7 +5498,7 @@ export function partieEntiereEnLettres (nb) {
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
- * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operations_successives=[string1,string2,string3,string4,string5],expression]
+ * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operationsSuccessives=[string1,string2,string3,string4,string5],expression]
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
  * sert dans les exercices CM019,
  */
@@ -5518,18 +5518,18 @@ export function TrouverSolutionMathador (
   let d
   let e
   let tirage
-  let nombres_restants
-  let operations_restantes
-  let expression_en_cours_f
-  let expression_en_cours_d
+  let nombresRestants
+  let operationsRestantes
+  let expressionEnCoursF
+  let expressionEnCoursD
   let op
   let part1f
   let part2f
   let part1d
   let part2d
-  let operations_successives = []
+  let operationsSuccessives = []
   let solution
-  const liste_choix = [
+  const listeChoix = [
     1,
     2,
     2,
@@ -5571,53 +5571,53 @@ export function TrouverSolutionMathador (
   while (eureka === false) {
     tirage = []
 
-    if (nbDetermines < 1) a = parseInt(choice(liste_choix))
+    if (nbDetermines < 1) a = parseInt(choice(listeChoix))
     else a = A
-    if (nbDetermines < 2) { b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
+    if (nbDetermines < 2) { b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
     if (nbDetermines < 3) {
       c = parseInt(
-        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
       )
     } else c = C
     if (nbDetermines < 4) {
       d = parseInt(
-        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
       )
     } else d = D
-    if (nbDetermines < 5) { e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
+    if (nbDetermines < 5) { e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
     tirage.push(a, b, c, d, e)
-    nombres_restants = shuffle(tirage)
-    operations_restantes = ['\\times', '+', '-', '\\div']
-    operations_restantes = shuffle(operations_restantes)
-    expression_en_cours_f = [
-      `${nombres_restants[0]}`,
-      `${nombres_restants[1]}`,
-      `${nombres_restants[2]}`,
-      `${nombres_restants[3]}`,
-      `${nombres_restants[4]}`
+    nombresRestants = shuffle(tirage)
+    operationsRestantes = ['\\times', '+', '-', '\\div']
+    operationsRestantes = shuffle(operationsRestantes)
+    expressionEnCoursF = [
+      `${nombresRestants[0]}`,
+      `${nombresRestants[1]}`,
+      `${nombresRestants[2]}`,
+      `${nombresRestants[3]}`,
+      `${nombresRestants[4]}`
     ]
-    expression_en_cours_d = [
-      `${nombres_restants[0]}`,
-      `${nombres_restants[1]}`,
-      `${nombres_restants[2]}`,
-      `${nombres_restants[3]}`,
-      `${nombres_restants[4]}`
+    expressionEnCoursD = [
+      `${nombresRestants[0]}`,
+      `${nombresRestants[1]}`,
+      `${nombresRestants[2]}`,
+      `${nombresRestants[3]}`,
+      `${nombresRestants[4]}`
     ]
 
-    while (nombres_restants.length > 1) {
-      b = nombres_restants.pop()
-      a = nombres_restants.pop()
-      part2f = expression_en_cours_f.pop()
-      part1f = expression_en_cours_f.pop()
-      part2d = expression_en_cours_d.pop()
-      part1d = expression_en_cours_d.pop()
+    while (nombresRestants.length > 1) {
+      b = nombresRestants.pop()
+      a = nombresRestants.pop()
+      part2f = expressionEnCoursF.pop()
+      part1f = expressionEnCoursF.pop()
+      part2d = expressionEnCoursD.pop()
+      part1d = expressionEnCoursD.pop()
 
-      op = operations_restantes.pop()
+      op = operationsRestantes.pop()
       if (op === '\\times') {
         c = a * b
-        expression_en_cours_f.push(`${part1f}${op}${part2f}`)
-        expression_en_cours_d.push(`${part1d}${op}${part2d}`)
-        nombres_restants.push(c)
+        expressionEnCoursF.push(`${part1f}${op}${part2f}`)
+        expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+        nombresRestants.push(c)
       } else if (op === '\\div') {
         if (a % b === 0) {
           c = a / b
@@ -5629,20 +5629,20 @@ export function TrouverSolutionMathador (
             part2f = part2f.substring(6, part2f.length)
             part2f = part2f.substring(0, part2f.length - 7)
           }
-          expression_en_cours_f.push(`\\dfrac{${part1f}}{${part2f}}`)
-          expression_en_cours_d.push(`${part1d}${op}${part2d}`)
-          nombres_restants.push(c)
+          expressionEnCoursF.push(`\\dfrac{${part1f}}{${part2f}}`)
+          expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+          nombresRestants.push(c)
         } else break
       } else if (op === '-') {
         if (a > b) {
           c = a - b
-          expression_en_cours_f.push(
+          expressionEnCoursF.push(
             `\\left(${part1f}${op}${part2f}\\right)`
           )
-          expression_en_cours_d.push(
+          expressionEnCoursD.push(
             `\\left(${part1d}${op}${part2d}\\right)`
           )
-          nombres_restants.push(c)
+          nombresRestants.push(c)
         } else break
       } else if (op === '+') {
         c = a + b
@@ -5650,56 +5650,56 @@ export function TrouverSolutionMathador (
           part2f = part2f.substring(6, part2f.length)
           part2f = part2f.substring(0, part2f.length - 7)
         }
-        expression_en_cours_f.push(`\\left(${part1f}${op}${part2f}\\right)`)
+        expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
         if (part2d.substring(0, 2) === '\\l') {
           part2d = part2d.substring(6, part2d.length)
           part2d = part2d.substring(0, part2d.length - 7)
         }
-        expression_en_cours_d.push(`\\left(${part1d}${op}${part2d}\\right)`)
-        nombres_restants.push(c)
+        expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
+        nombresRestants.push(c)
       }
-      operations_successives.push(`${a}` + op + `${b}=${c}`)
+      operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
     }
 
-    if (nombres_restants.length === 1 && operations_restantes.length === 0) {
-      solution = nombres_restants[0]
+    if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
+      solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
         eureka = true
         if (
-          expression_en_cours_f[0][0] === '\\' &&
-          expression_en_cours_f[0][1] === 'l'
+          expressionEnCoursF[0][0] === '\\' &&
+          expressionEnCoursF[0][1] === 'l'
         ) {
-          expression_en_cours_f[0] = expression_en_cours_f[0].substring(
+          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             6,
-            expression_en_cours_f[0].length
+            expressionEnCoursF[0].length
           )
-          expression_en_cours_f[0] = expression_en_cours_f[0].substring(
+          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             0,
-            expression_en_cours_f[0].length - 7
+            expressionEnCoursF[0].length - 7
           )
         }
         if (
-          expression_en_cours_d[0][0] === '\\' &&
-          expression_en_cours_d[0][1] === 'l'
+          expressionEnCoursD[0][0] === '\\' &&
+          expressionEnCoursD[0][1] === 'l'
         ) {
-          expression_en_cours_d[0] = expression_en_cours_d[0].substring(
+          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             6,
-            expression_en_cours_d[0].length
+            expressionEnCoursD[0].length
           )
-          expression_en_cours_d[0] = expression_en_cours_d[0].substring(
+          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             0,
-            expression_en_cours_d[0].length - 7
+            expressionEnCoursD[0].length - 7
           )
         }
         return [
           tirage,
           solution,
-          operations_successives,
-          expression_en_cours_f,
-          expression_en_cours_d
+          operationsSuccessives,
+          expressionEnCoursF,
+          expressionEnCoursD
         ]
-      } else operations_successives = []
-    } else operations_successives = []
+      } else operationsSuccessives = []
+    } else operationsSuccessives = []
   }
 }
 
@@ -5727,14 +5727,14 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
 \\usepackage[french]{babel}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
+\\usepackage{multicol} 
+\\usepackage{calc} 
 \\usepackage{enumerate}
 \\usepackage{enumitem}
-\\usepackage{graphicx}				
+\\usepackage{graphicx}
 \\usepackage{tabularx}
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
@@ -5745,10 +5745,10 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          	
-\\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
-\\usepackage{setspace}	
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
+\\usepackage{setspace}
 \\usepackage{colortbl}
 \\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
@@ -5758,21 +5758,21 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   \\definecolor{geo}{cmyk}{.62,.1,0,0}
   \\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}					
+\\usepackage{pgf,tikz}
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\newcounter{exo}          				
-\\setcounter{exo}{0}   				
-\\newcommand{\\exo}[1]{				
-  \\stepcounter{exo}        		
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\newcounter{exo}          
+\\setcounter{exo}{0}   
+\\newcommand{\\exo}[1]{
+  \\stepcounter{exo}        
   \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
 }
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
 \\setlength{\\fboxsep}{3mm}
 \\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
@@ -5796,30 +5796,30 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCoop (listePackages) {
   const introLatexCoop = `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
 \\usepackage[french]{babel}
 \\usepackage{hyperref}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
+\\usepackage{multicol} 
+\\usepackage{calc} 
 \\usepackage{enumerate}
 \\usepackage{enumitem}
-\\usepackage{graphicx}				
+\\usepackage{graphicx}
 \\usepackage{tabularx}
 %\\usepackage[autolanguage]{numprint}
-\\usepackage[autolanguage,np]{numprint}			
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          	
-\\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{xcolor}
-\\usepackage{pgf,tikz}					% Pour les images et figures gÃ©omÃ©triques
+\\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
@@ -5838,14 +5838,14 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
 \\usepackage{colortbl}
-\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+\\arrayrulecolor{couleur_theme} % Couleur des filets des tableaux
 
 %%% MISE EN PAGE %%%
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\setlength{\\fboxsep}{3mm}
 
 \\setlength{\\headheight}{14.5pt}
@@ -6008,7 +6008,7 @@ export function preambulePersonnalise (listePackages) {
   \\ifthenelse { \\equal {#5} {} }
   {%pas d'argument optionnel, on trace juste l'axe ci-dessous
   }
-  {% un nombre est Ã  placer sur l'axe avec son label
+  {% un nombre est Ã placer sur l'axe avec son label
     \\placePoints{#5}
     %\\draw (#5,-.08) -- (#5,.08) node[above] {#6};
   }
@@ -6020,10 +6020,10 @@ export function preambulePersonnalise (listePackages) {
   % dÃ©but du segment reprÃ©sentant l'axe numÃ©ro 1
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 	
+    \\def\\Xorigine{\\Xmin} 
   }
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
     % pour la dÃ©co :
     \\draw (\\Xmin-1/\\Decoupage,-.05) -- (\\Xmin-1/\\Decoupage,.05);
   }
@@ -6037,7 +6037,7 @@ export function preambulePersonnalise (listePackages) {
         \\draw (\\Xgrad,-.05) -- (\\Xgrad,.05);
       }
   };
-  % derniÃ¨re graduation Ã  la mano 
+  % derniÃ¨re graduation Ã la mano 
   \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[below=.3] {\\Xmax};
 
 \\end{tikzpicture}
@@ -6048,8 +6048,8 @@ export function preambulePersonnalise (listePackages) {
 \\newcommand{\\axesZoom}[5]{
 {} \\hfill 
 \\begin{tikzpicture}
-  \\def\\XA{#1} % nombre (positif pour l'instant) Ã  placer (avec deux dÃ©cimales)
-  \\def\\Nom{#2} % nom du point Ã  placer. Laisser vide si vous ne souhaitez pas voir le point
+  \\def\\XA{#1} % nombre (positif pour l'instant) Ã placer (avec deux dÃ©cimales)
+  \\def\\Nom{#2} % nom du point Ã placer. Laisser vide si vous ne souhaitez pas voir le point
   \\def\\Xmin{#3} % premiÃ¨re valeur de x entiÃ¨re sur l'axe
   \\setboolean{affichePointilles}{true}  % affiche les pointillÃ©s indiquant le grossissement
   \\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction. 
@@ -6062,25 +6062,25 @@ export function preambulePersonnalise (listePackages) {
   }
   {
     \\def\\DebordementAGauche{0.5} % mettre 0.5 dans les autres cas.
-  }	
+  }
   
   \\pgfmathparse{int(\\Xmin+10)}\\let\\Xmax\\pgfmathresult; % Xmax vaut toujours Xmin+10
     
   \\pgfmathparse{int(\\XA)}\\let\\Unites\\pgfmathresult;
   \\pgfmathparse{int((\\XA-\\Unites)*10)}\\let\\Dixiemes\\pgfmathresult;
-  \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;	
+  \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;
 
   \\pgfmathparse{int(\\Unites+1)}\\let\\UnitesMaj\\pgfmathresult;
   \\pgfmathparse{int(\\Dixiemes+1)}\\let\\DixiemesMaj\\pgfmathresult;
-  \\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;				
+  \\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;
 
   \\pgfmathparse{\\Xmax+1}\\let\\Xfleche\\pgfmathresult;
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 	
+    \\def\\Xorigine{\\Xmin} 
   }
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }
 
   \\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
@@ -6103,7 +6103,7 @@ export function preambulePersonnalise (listePackages) {
   \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[above] {\\Xmax};
   \\ifthenelse{\\not\\equal{\\Unites}{0}}
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }{}
   \\draw[->,>=latex] (\\Xorigine,-2) -- (\\Xfleche,-2);
   \\foreach \\x in {1,...,9}{
@@ -6114,19 +6114,19 @@ export function preambulePersonnalise (listePackages) {
     }
     {
       \\draw (\\X,-2.1) -- (\\X,-1.9);
-    }		
+    }
     \\pgfmathparse{int(\\Dixiemes+\\Xmin)+\\x/10}\\let\\Xtirets\\pgfmathresult;
     \\draw (\\Xtirets,-2.05) -- (\\Xtirets,-1.95);
   };
   
   \\ifthenelse{\\boolean{afficheGraduations}}
-  {	
+  {
     \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) node[above] {\\UnitesMaj};
     \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) node[above] {\\Unites};
   }
   {
     \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) ;
-    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;		
+    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;
   }
   
   \\pgfmathparse{int(\\Dixiemes+\\Xmin)}\\let\\XGaucheAxeBis\\pgfmathresult;
@@ -6142,7 +6142,7 @@ export function preambulePersonnalise (listePackages) {
   
   \\ifthenelse{\\not\\equal{\\Dixiemes}{0}}
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }{}
   \\draw[->,>=latex] (\\Xorigine,-4) -- (\\Xfleche,-4);
   \\foreach \\x in {1,...,9}{
@@ -6161,35 +6161,35 @@ export function preambulePersonnalise (listePackages) {
   {
   \\ifthenelse{\\equal{\\Dixiemes}{9}}
     {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};		
-    }	
+    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};
+    }
     {
     \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\Unites,\\DixiemesMaj};
-    }	
+    }
   
   \\ifthenelse{\\equal{\\Dixiemes}{0}}
     {
     \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites};
     }
     {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};	
+    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};
     }
   }
   {
   \\ifthenelse{\\equal{\\Dixiemes}{9}}
     {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);		
-    }	
+    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);
+    }
     {
     \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) ;
-    }	
+    }
   
   \\ifthenelse{\\equal{\\Dixiemes}{0}}
     {
     \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
     }
     {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;	
+    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
     }
   \\pgfmathparse{int(\\Centiemes+\\Xmin)}\\let\\XGaucheAxeTer\\pgfmathresult;
   \\draw (\\XGaucheAxeTer,-4) node[below] {\\Nom};
@@ -6217,7 +6217,7 @@ export function preambulePersonnalise (listePackages) {
         result += '\\usepackage{tkz-euclide}'
         break
       case 'dnb':
-        // 	result += `
+        // result += `
         // \\usepackage{fourier}
         // \\usepackage[scaled=0.875]{helvet}
         // \\renewcommand{\\ttdefault}{lmtt}
@@ -6435,7 +6435,7 @@ export function preambulePersonnalise (listePackages) {
         %\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
         
         
-        %Tapuscrit : Denis Vergès				
+        %Tapuscrit : Denis Vergès
         
         `
         break
@@ -6692,9 +6692,9 @@ export function exportQcmAmc (exercice, idExo) {
     switch (type) {
       case 1: // question QCM 1 bonne réponse
         texQr += `\\element{${ref}{\n `
-        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        texQr += `		${autoCorrection[j].enonce} \n `
-        texQr += `		\\begin{${horizontalite}}`
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\begin{${horizontalite}}`
         if (autoCorrection[j].options !== undefined) {
           if (autoCorrection[j].options.ordered) {
             texQr += '[o]'
@@ -6706,21 +6706,21 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += '\\lastchoices\n'
           }
           if (autoCorrection[j].propositions[i].statut) {
-            texQr += `			\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+            texQr += `\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
           } else {
-            texQr += `			\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
+            texQr += `\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        texQr += `		\\end{${horizontalite}}\n `
-        texQr += '	\\end{question}\n }\n '
+        texQr += `\\end{${horizontalite}}\n `
+        texQr += '\\end{question}\n }\n '
         id++
         break
 
       case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
         texQr += `\\element{${ref}}{\n `
-        texQr += `	\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        texQr += `		${autoCorrection[j].enonce} \n `
-        texQr += `		\\begin{${horizontalite}}`
+        texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\begin{${horizontalite}}`
         if (autoCorrection[j].options !== undefined) {
           if (autoCorrection[j].options.ordered) {
             texQr += '[o]'
@@ -6780,8 +6780,8 @@ export function exportQcmAmc (exercice, idExo) {
           exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
         }
         texQr += `\\element{${ref}}{\n `
-        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -6816,8 +6816,8 @@ export function exportQcmAmc (exercice, idExo) {
         /********************************************************************/
         texQr += `\\element{${ref}}{\n `
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
@@ -6833,7 +6833,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -6860,8 +6860,8 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         // premier champ de codage
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        texQr += `	\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        texQr += `		${autoCorrection[j].enonce} \n `
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
@@ -6877,7 +6877,7 @@ export function exportQcmAmc (exercice, idExo) {
         // deuxième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
         texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -6892,7 +6892,7 @@ export function exportQcmAmc (exercice, idExo) {
         // troisième champ de codage numérique
         texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        texQr += `	\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
         reponse2 = autoCorrection[j].reponse2.valeur
         if (autoCorrection[j].reponse2.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
@@ -6940,37 +6940,37 @@ export function exportQcmAmc (exercice, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', type_entete = 'AMCcodeGrid', format = 'A4' }) {
+export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', typeEntete = 'AMCcodeGrid', format = 'A4' }) {
   // Attention questions est maintenant un tableau de tous les this.amc des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
-  let idExo = 0; let code; let index_of_code
-  const nombre_de_questions_indefinie = []
+  let idExo = 0; let code; let indexOfCode
+  const nombreDeQuestionsIndefinie = []
   const graine = randint(1, 100000)
-  const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
+  const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []
   for (const exercice of questions) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
-    index_of_code = groupeDeQuestions.indexOf(code[1])
-    if (index_of_code === -1) { // si le groupe n'existe pas
+    indexOfCode = groupeDeQuestions.indexOf(code[1])
+    if (indexOfCode === -1) { // si le groupe n'existe pas
       groupeDeQuestions.push(code[1])
-      index_of_code = groupeDeQuestions.indexOf(code[1])
-      tex_questions[index_of_code] = code[0]
+      indexOfCode = groupeDeQuestions.indexOf(code[1])
+      texQuestions[indexOfCode] = code[0]
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-      if (typeof nbQuestions[index_of_code] === 'undefined') {
-        nombre_de_questions_indefinie[index_of_code] = true
-        nbQuestions[index_of_code] = code[2]
+      if (typeof nbQuestions[indexOfCode] === 'undefined') {
+        nombreDeQuestionsIndefinie[indexOfCode] = true
+        nbQuestions[indexOfCode] = code[2]
       } else { // Si le nombre de question (à restituer pour ce groupe de question) a été défini par l'utilisateur, alors on le laisse !
-        nombre_de_questions_indefinie[index_of_code] = false
+        nombreDeQuestionsIndefinie[indexOfCode] = false
       }
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-      titre_question[index_of_code] = code[3]
+      titreQuestion[indexOfCode] = code[3]
     } else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
-      if (tex_questions[index_of_code].indexOf(code[0]) === -1) {
-        tex_questions[index_of_code] += code[0]
+      if (texQuestions[indexOfCode].indexOf(code[0]) === -1) {
+        texQuestions[indexOfCode] += code[0]
         // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-        if (nombre_de_questions_indefinie[index_of_code]) {
-          nbQuestions[index_of_code] += code[2]
+        if (nombreDeQuestionsIndefinie[indexOfCode]) {
+          nbQuestions[indexOfCode] += code[2]
         }
       }
     }
@@ -6990,17 +6990,17 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '	 \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
   } else {
-    preambule += '	 	 \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
   }
 
-  preambule += `	 
+  preambule += `\t 
   %%%%% PACKAGES LANGUE %%%%%
    \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
    \\usepackage[utf8x]{inputenc}
-   \\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
+   \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
    \\usepackage{fp}
   
   %%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
@@ -7013,22 +7013,22 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    \\usepackage{multicol} 
    \\usepackage{wrapfig}  
    \\usepackage{fancybox}  % pour \\doublebox \\shadowbox  \\ovalbox \\Ovalbox
-   \\usepackage{calc} 						% Calculs 
-   \\usepackage{enumerate}					% Pour modifier les numérotations
+   \\usepackage{calc} \t% Calculs 
+   \\usepackage{enumerate}\t% Pour modifier les numérotations
    \\usepackage{enumitem}
-   \\usepackage{tabularx}					% Pour faire des tableaux
+   \\usepackage{tabularx}\t% Pour faire des tableaux
 
   %%%%% PACKAGES FIGURES %%%%%
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage{etex}	  % pour avoir plus de "registres" mémoires / tikz...
+  \\usepackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
     shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-  \\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+  \\usepackage{tkz-tab,tkz-euclide,tkz-fct}\t% Géométrie euclidienne avec TikZ
   %\\usetkzobj{all} %problème de compilation
   
   %%%%% PACKAGES MATHS %%%%%
@@ -7046,34 +7046,34 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    %  sous Ubuntu, paquet texlive-science à installer
    %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans introLatex
    \\usepackage{mathrsfs}  % Spécial math
-   %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
-   \\usepackage{pifont}						% Pour les symboles "ding"
-   \\usepackage{bbding}						% Pour les symboles
-   \\usepackage[misc]{ifsym}					% Pour les symboles
-   \\usepackage{cancel}						% Pour pouvoir barrer les nombres
+   %\\usepackage[squaren]{SIunits}\t% Pour les unités (gère le conflits avec  \\square de l'extension amssymb)
+   \\usepackage{pifont}\t% Pour les symboles "ding"
+   \\usepackage{bbding}\t% Pour les symboles
+   \\usepackage[misc]{ifsym}\t% Pour les symboles
+   \\usepackage{cancel}\t% Pour pouvoir barrer les nombres
 
 
   %%%%% AUTRES %%%%%
    \\usepackage{ifthen}
-   \\usepackage{url} 			        		% Pour afficher correctement les url
-   \\urlstyle{sf}                          	% qui s'afficheront en police sans serif
-   \\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
-    \\pagestyle{fancy}                      	% de pages personnalisés
-   \\usepackage{fancybox}					% Pour les encadrés
-   \\usepackage{xlop}						% Pour les calculs posés
-  %\\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
-   \\usepackage{multido}					% Pour faire des boucles
-  %\\usepackage{hyperref}					% Pour gérer les liens hyper-texte
+   \\usepackage{url} \t        \t% Pour afficher correctement les url
+   \\urlstyle{sf}                          \t% qui s'afficheront en police sans serif
+   \\usepackage{fancyhdr,lastpage}          \t% En-têtes et pieds
+    \\pagestyle{fancy}                      \t% de pages personnalisés
+   \\usepackage{fancybox}\t% Pour les encadrés
+   \\usepackage{xlop}\t% Pour les calculs posés
+  %\\usepackage{standalone}\t% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+   \\usepackage{multido}\t% Pour faire des boucles
+  %\\usepackage{hyperref}\t% Pour gérer les liens hyper-texte
    \\usepackage{fourier}
-   \\usepackage{colortbl} 					% Pour des tableaux en couleur
-   \\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
-   \\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
-  %\\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+   \\usepackage{colortbl} \t% Pour des tableaux en couleur
+   \\usepackage{setspace}\t% Pour \\begin{spacing}{2.0} \\end{spacing}
+   \\usepackage{multirow}\t% Pour des cellules multilignes dans un tableau
+  %\\usepackage{import}\t% Equivalent de input mais en spécifiant le répertoire de travail
   %\\usepackage[]{qrcode}
   %\\usepackage{pdflscape}
    \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
    \\usepackage{tikzsymbols}
-  %\\usepackage{tasks}						% Pour les listes horizontales
+  %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   
   %%%%% Librairies utilisées par Mathgraphe32 %%%% 
@@ -7113,10 +7113,10 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    
   %%%%%% Définition des barèmes 
   \\baremeDefautS{
-    e=0.0001,	% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
-    b=1,		% bonne réponse 1
-    m=-0.01,		% mauvaise réponse 0,01 pour différencier de la 
-    v=0} 		% non réponse qui reste à 0
+    e=0.0001,% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
+    b=1,% bonne réponse 1
+    m=-0.01,% mauvaise réponse 0,01 pour différencier de la 
+    v=0} % non réponse qui reste à 0
   
   \\baremeDefautM{formula=((NBC-NMC)/NB)*((NBC-NMC)/NB>0)} % nombre de bonnes réponses cochées minorées des mauvaises réponses cochées, ramenées à 1, et ramenée à 0 si résultat négatif.
   
@@ -7146,12 +7146,12 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
 
   for (const g of groupeDeQuestions) {
     const i = groupeDeQuestions.indexOf(g)
-    debutDocument += tex_questions[i]
+    debutDocument += texQuestions[i]
   }
 
   // Variable qui contient l'entête d'une copie
   // A faire : Proposer différent type d'entête en fonction d'un paramètre ?
-  const entete_type_CodeGrid =	`\\begin{minipage}{10cm}
+  const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
    \\\\
@@ -7171,7 +7171,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ}
   `
-  const entete_type_champnom_simple =	`\\begin{minipage}{10cm}
+  const enteteTypeChampnomSimple = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
    \\\\
@@ -7181,7 +7181,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %\\\\
   \\vspace{2mm}
   `
-  const entete_type_preremplie = `\\begin{center}
+  const enteteTypePreremplie = `\\begin{center}
   \\noindent{}\\fbox{\\vspace*{3mm}
        \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}% 
         \\vspace*{3mm}
@@ -7189,7 +7189,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\end{center}\n`
 
   let enteteCopie = ''
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     enteteCopie += '\\newcommand{\\sujet}{\n'
   }
   enteteCopie += ` 
@@ -7198,7 +7198,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \\exemplaire{${nb_exemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ===  %
+  \\exemplaire{${nbExemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ===  %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
@@ -7213,7 +7213,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   
   \\vspace{5mm}
   %\\noindent\\AMCcode{num.etud}{8}\\hspace*{\\fill} % Pour la version "verticale"
-  %\\noindent\\AMCcodeH{num.etud}{8}	 % version "horizontale"
+  %\\noindent\\AMCcodeH{num.etud}{8}\t % version "horizontale"
   \\begin{minipage}{7cm}
   \\begin{center} 
     \\textbf{${matiere}}
@@ -7222,12 +7222,12 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\end{center}
   \\end{minipage}
   \\hfill\n`
-  if (type_entete === 'AMCassociation') {
-    enteteCopie += entete_type_preremplie
-  } else if (type_entete === 'AMCcodeGrid') {
-    enteteCopie += entete_type_CodeGrid
+  if (typeEntete === 'AMCassociation') {
+    enteteCopie += enteteTypePreremplie
+  } else if (typeEntete === 'AMCcodeGrid') {
+    enteteCopie += enteteTypeCodeGrid
   } else {
-    enteteCopie += entete_type_champnom_simple
+    enteteCopie += enteteTypeChampnomSimple
   }
   enteteCopie +=
   `\n{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
@@ -7242,8 +7242,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   // nb_question est un tableau passé en paramètre à la fonction creerDocumentAmc pour déterminer le nombre de questions à restituer par groupe.
   // si ce nombre est 0, on restitue toutes les questions du groupe
   let contenuCopie = ''
-  if (type_entete === 'AMCcodeGrid') {
-    contenuCopie += '		\\def\\AMCchoiceLabel##1{}'
+  if (typeEntete === 'AMCcodeGrid') {
+    contenuCopie += '\t \\def\\AMCchoiceLabel##1{}'
   }
   for (const g of groupeDeQuestions) {
     const i = groupeDeQuestions.indexOf(g)
@@ -7251,7 +7251,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\begin{center}
     \\hrule
     \\vspace{2mm}
-    \\bf\\Large ${titre_question[i]}
+    \\bf\\Large ${titreQuestion[i]}
     \\vspace{1mm}
     \\hrule
   \\end{center}\n`
@@ -7264,7 +7264,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   if (format === 'A3') {
     contenuCopie += '\\end{multicols}\n'
   }
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     contenuCopie += `\\AMCassociation{\\id}\n
     }
   }\n`
@@ -7274,7 +7274,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
 
   // On assemble les différents morceaux et on retourne le résultat
   codeLatex = preambule + '\n' + debutDocument + '\n' + enteteCopie + contenuCopie
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     codeLatex += '\n \n \\csvreader[head to column names]{liste.csv}{}{\\sujet}\n'
   }
   codeLatex += '\\end{document}\n'
