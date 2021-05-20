@@ -468,7 +468,9 @@ function LabelPoint (...points) {
     } else {
       this.listePoints = points
     }
-    for (const point of this.listePoints) {
+    for (const unPoint of this.listePoints) {
+      console.log(typeof unPoint)
+      let point = unPoint
       x = point.x
       y = point.y
       switch (point.positionLabel) {

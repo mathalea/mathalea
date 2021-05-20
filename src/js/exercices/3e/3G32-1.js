@@ -60,7 +60,7 @@ export default function Calculs_trigonometriques1() {
             normalH = rotationV3d(R, normalV, 90)
             P = rotationV3d(M, normalH, -alpha)
             P.p2d.nom = 'P'
-            H = point3d(0, 0, P.z3d, false)
+            H = point3d(0, 0, P.z, false)
             R2 = vecteur3d(H, P)
             H.p2d.nom = 'H'
             Sph = sphere3d(O, 5, 1, 3)

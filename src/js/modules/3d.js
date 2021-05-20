@@ -44,22 +44,22 @@ function ObjetMathalea2D () {
 * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
 */
 class Point3d {
-  constructor (x3d, y3d, z3d, visible, label) {
+  constructor (x, y, z, visible, label,positionLabel) {
     const alpha = context.anglePerspective * Math.PI / 180
     const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
-    this.x3d = x3d
-    this.y3d = y3d
-    this.z3d = z3d
+    this.x = x
+    this.y = y
+    this.z = z
     this.visible = visible
     this.label = label
-    const V = math.matrix([this.x3d, this.y3d, this.z3d])
+    const V = math.matrix([this.x, this.y, this.z])
     const W = math.multiply(MT, V)
-    this.p2d = point(W._data[0], W._data[1], this.label)
+    this.p2d = point(W._data[0], W._data[1], this.label, positionLabel)
   }
 }
-export function point3d (x3d, y3d, z3d = 0, visible = true, label = '') {
-  return new Point3d(x3d, y3d, z3d, visible, label)
+export function point3d (x, y, z = 0, visible = true, label = '',positionLabel) {
+  return new Point3d(x, y, z, visible, label,positionLabel)
 }
 
 /**
@@ -88,22 +88,22 @@ class Vecteur3d {
     const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
     if (args.length == 2) {
-      this.x3d = args[1].x3d - args[0].x3d
-      this.y3d = args[1].y3d - args[0].y3d
-      this.z3d = args[1].z3d - args[0].z3d
+      this.x = args[1].x - args[0].x
+      this.y = args[1].y - args[0].y
+      this.z = args[1].z - args[0].z
     } else {
       if (typeof (args[0]) === 'number') {
-        this.x3d = args[0]
-        this.y3d = args[1]
-        this.z3d = args[2]
+        this.x = args[0]
+        this.y = args[1]
+        this.z = args[2]
       } else if (args.length == 1) {
-        this.x3d = args[0]._data[0]
-        this.y3d = args[0]._data[1]
-        this.z3d = args[0]._data[2]
+        this.x = args[0]._data[0]
+        this.y = args[0]._data[1]
+        this.z = args[0]._data[2]
       }
     }
-    this.matrice = math.matrix([this.x3d, this.y3d, this.z3d])
-    this.norme = Math.sqrt(this.x3d**2+this.y3d**2+this.z3d**2)
+    this.matrice = math.matrix([this.x, this.y, this.z])
+    this.norme = Math.sqrt(this.x**2+this.y**2+this.z**2)
     const W = math.multiply(MT, this.matrice)
     this.p2d = vecteur(W._data[0], W._data[1])
     this.representant = function (A) {
@@ -125,11 +125,11 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
    *
    */
 class Arete3d {
-  constructor (point1, point2, color) {
+  constructor (point1, point2, color, visible) {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = color
-    if (!point1.visible || !point2.visible) {
+    if (!point1.visible || !point2.visible || !visible) {
       this.visible = false
     } else {
       this.visible = true
@@ -142,8 +142,8 @@ class Arete3d {
     }
   }
 }
-export function arete3d (p1, p2, color = 'black') {
-  return new Arete3d(p1, p2, color)
+export function arete3d (p1, p2, color = 'black',visible=true) {
+  return new Arete3d(p1, p2, color,visible)
 }
 
 /**
@@ -306,8 +306,8 @@ function Sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color) {
   const cote2 = 'visible'
   // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,context.anglePerspective),rotationV3d(this.rayon,this.normal,context.anglePerspective),true,this.color))
   for (let k = 0, rayon3; k < 1; k += 1 / (this.nb_paralleles + 1)) {
-    C = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(k * Math.PI / 2))
-    D = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(-k * Math.PI / 2))
+    C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
+    D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
     rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
     c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
     c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
@@ -739,7 +739,7 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
   const k = 1 - c
   matrice = math.matrix([[u * u * k + c, u * v * k - w * s, u * w * k + v * s], [u * v * k + w * s, v * v * k + c, v * w * k - u * s], [u * w * k - v * s, v * w * k + u * s, w * w * k + c]])
   if (point3D.constructor == Point3d) {
-    V = math.matrix([point3D.x3d, point3D.y3d, point3D.z3d])
+    V = math.matrix([point3D.x, point3D.y, point3D.z])
     p2 = math.multiply(matrice, V)
     return point3d(p2._data[0], p2._data[1], p2._data[2])
   } else if (point3D.constructor == Vecteur3d) {
@@ -840,9 +840,9 @@ export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
    */
 export function translation3d (point3D, vecteur3D) {
   if (point3D.constructor == Point3d) {
-    const x = point3D.x3d + vecteur3D.x3d
-    const y = point3D.y3d + vecteur3D.y3d
-    const z = point3D.z3d + vecteur3D.z3d
+    const x = point3D.x + vecteur3D.x
+    const y = point3D.y + vecteur3D.y
+    const z = point3D.z + vecteur3D.z
     return point3d(x, y, z)
   } else if (point3D.constructor == Polygone3d) {
     const p = []
@@ -857,15 +857,15 @@ export function homothetie3d (point3D, centre, rapport, color) {
   const p = []
   if (point3D.constructor == Point3d) {
     V = vecteur3d(centre, point3D)
-    V.x3d *= rapport
-    V.y3d *= rapport
-    V.y3d *= rapport
+    V.x *= rapport
+    V.y *= rapport
+    V.y *= rapport
     return translation3d(centre, V)
   } else if (point3D.constructor == Vecteur3d) {
     V = point3D
-    V.x3d *= rapport
-    V.y3d *= rapport
-    V.y3d *= rapport
+    V.x *= rapport
+    V.y *= rapport
+    V.y *= rapport
     return V
   } else if (point3D.constructor == Polygone3d) {
     for (let i = 0; i < point3D.listePoints.length; i++) {
