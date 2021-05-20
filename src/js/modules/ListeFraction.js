@@ -7,16 +7,17 @@ function ppcm ([...n]) {
 
 /**
  * Trie la liste pour la retourner dans l'ordre croissant
+ * @private
  * @param {Fraction[]} liste
  * @return {Fraction[]}
  */
 const sortFractions = liste => liste.sort((f1, f2) => f1.valeurDecimale > f2.valeurDecimale)
 
 /**
- * Classe ListeFraction - Méthodes utiles sur les collections de fractions
+ * Classe ListeFraction qui propose des méthodes utiles sur les collections de fractions
  * @author Jean-Claude Lhote sur une idée de Sébastien Lozano
  */
-export default class ListeFraction {
+class ListeFraction {
   constructor (...fractions) {
     /**
      * La liste des fractions passées au constructeur (une par argument)
@@ -109,3 +110,5 @@ export default class ListeFraction {
     this.listeRangeeSimplifiee = sortFractions(this.listeSimplifiee)
   }
 }
+
+export default ListeFraction

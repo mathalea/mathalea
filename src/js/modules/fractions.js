@@ -2,6 +2,11 @@ import Fraction from './Fraction'
 import ListeFraction from './ListeFraction'
 
 /**
+ * Des fonctions pour manipuler des objets Fraction ou ListeFraction
+ * @module
+ */
+
+/**
  * Retourne une liste de fractions irréducibles
  * @return {Fraction[]}
  */
