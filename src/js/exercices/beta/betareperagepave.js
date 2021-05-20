@@ -102,10 +102,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       // Boucle principale où i+1 correspond au numéro de la question
       const pointcoord = [randint(0, nbgraduationx), randint(0, nbgraduationy), randint(0, nbgraduationz)]
       texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointcoord[0]},${pointcoord[1]},${pointcoord[2]})$`
-      const pointaplacer = point(pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationz, pointcoord[1] * deltay / nbgraduationz + pointcoord[2] * hauteur / nbgraduationz, lettreDepuisChiffre(i + 12), 'below right')
+      const pointaplacer = point(pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationy, pointcoord[1] * deltay / nbgraduationy + pointcoord[2] * hauteur / nbgraduationz, lettreDepuisChiffre(i + 12), 'below right')
       const s1 = segment(A.x, A.y, A.x + pointcoord[0] * largeur / nbgraduationx, A.y)
-      const s2 = segment(A.x + pointcoord[0] * largeur / nbgraduationx, A.y, A.x + pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationz, A.y + pointcoord[1] * deltay / nbgraduationz)
-      const s3 = segment(A.x + pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationz, A.y + pointcoord[1] * deltay / nbgraduationz, pointaplacer.x, pointaplacer.y)
+      const s2 = segment(A.x + pointcoord[0] * largeur / nbgraduationx, A.y, A.x + pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationy, A.y + pointcoord[1] * deltay / nbgraduationy)
+      const s3 = segment(A.x + pointcoord[0] * largeur / nbgraduationx + pointcoord[1] * deltax / nbgraduationy, A.y + pointcoord[1] * deltay / nbgraduationy, pointaplacer.x, pointaplacer.y)
       s1.color = 'red'
       s2.color = 'red'
       s3.color = 'red'
