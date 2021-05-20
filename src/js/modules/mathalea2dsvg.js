@@ -1,17 +1,14 @@
-import { listeQuestionsToContenu,listeDeChosesAImprimer,listeQuestionsToContenuSansNumero,listeQuestionsToContenuSansNumeroEtSansConsigne,deuxColonnes,egal,superieur,inferieur,superieurouegal,inferieurouegal,estentier,quotientier,carreParfait,ecrireNombre2D,decimal,creerCouples,randint,strRandom,enleveElement,enleveElementBis,enleveElementNo,enleveElementNoBis,choice,range,rangeMinMax,range1,compareFractions,compareNombres,numTrie,shuffle,shuffle2tableaux,tridictionnaire,filtreDictionnaire,combinaisonListes,combinaisonListesSansChangerOrdre,rienSi1,exposant,ecritureNombreRelatif,ecritureNombreRelatifc,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureAlgebriquec,ecritureParentheseSiNegatif,ecritureParentheseSiMoins,valeurBase,produitMatriceVecteur3x3,produitMatriceMatrice3x3,changementDeBaseOrthoTri,changementDeBaseTriOrtho,imagePointParTransformation,signe,unSiPositifMoinsUnSinon,sommeDesChiffres,arrondi,troncature,abs,arrondiVirgule,pgcd,fractionSimplifiee,texFractionReduite,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,produitsEnCroix,quatriemeProportionnelle,reduireAxPlusB,obtenirListeFacteursPremiers,factorisation,extraireRacineCarree,texRacineCarree,calcul,nombreDecimal,texNombrec,texNombreCoul,triePositifsNegatifs,sommeDesTermesParSigne,creerNomDePolygone,possedeUnCaractereInterdit,choisitNombresEntreMetN,choisitLettresDifferentes,cesar,codeCesar,lettreDepuisChiffre,lettreMinusculeDepuisChiffre,minToHoraire,minToHour,prenomF,prenomM,prenom,tirerLesDes,listeDeNotes,joursParMois,unMoisDeTemperature,nomDuMois,texEnumerate,texEnumerateSansNumero,texParagraphe,texIntroduction,htmlEnumerate,enumerate,htmlParagraphe,htmlLigne,texMulticols,htmlConsigne,texConsigne,texNombre,texNombre2,texNombrec2,sp,nombreAvecEspace,stringNombre,miseEnEvidence,texteEnCouleur,texteEnCouleurEtGras,couleurAleatoire,arcenciel,texcolors,texteGras,href,texPrix,premiereLettreEnMajuscule,nombreDeChiffresDansLaPartieDecimale,texFractionSigne,texFractionParentheses,obtenirListeFractionsIrreductibles,obtenirListeFractionsIrreductiblesFaciles,obtenirListeNombresPremiers,decompositionFacteursPremiers,listeDesDiviseurs,texFraction,printlatex,texTexte,itemize,MG32_modifie_figure,MG32_modifie_toutes_les_figures,MG32_ajouter_figure,MG32_tracer_toutes_les_figures,SVG_Axe_vertical,SVG_Axe_horizontal,SVG_grille,SVG_graduation,SVG_label,SVG_fraction,SVG_tracer_point,SVG_tracer_flecheV,SVG_tracer_droite_flecheV,SVG_tracer_droite_flecheH,SVG_Tracer_droite,Latex_Tracer_droite,SVG_repere,Latex_repere,SVG_reperage_sur_un_axe,Latex_reperage_sur_un_axe,texGraphique,MatriceCarree,matriceCarree,resolutionSystemeLineaire2x2,resolutionSystemeLineaire3x3,criblePolynomeEntier,chercheMinMaxFonction,cherchePolynomeDegre3aExtremaFixes,simpExp,puissance,ecriturePuissance,simpNotPuissance,eclatePuissance,puissanceEnProduit,reorganiseProduitPuissance,creerModal,creerBoutonMathalea2d,modalTexteCourt,modalYoutube,modalTexteLong,modalUrl,modalPdf,modalVideo,modalImage,listeDiviseurs,tikzMachineMaths,tikzMachineDiag,katexPopup,katexPopupTest,katexPopup2,numAlpha,SVG_fleche_machine_maths,SVG_chemin,SVG_machine_diag_3F1_act_mono,my_svg_font,SVG_machine_maths,texCadreParOrange,SVG_machine_diag_3F12,machineMathsVideo,detectSafariChromeBrowser,premierMultipleSuperieur,premierMultipleInferieur,listeNombresPremiersStrictJusqua,cribleEratostheneN,premiersEntreBornes,texteOuPas,tableauColonneLigne,warnMessage,infoMessage,lampeMessage,SVG_engrenages,decompositionFacteursPremiersArray,Triangles,Relatif,ppcm,nombreEnLettres,partieEntiereEnLettres,telechargeFichier,introLatex,introLatexCoop,preambulePersonnalise,scratchTraductionFr} from '../../modules/outils.js'
-import {scratchblock,tableau_de_variation,nomVecteurParPosition,point,tracePoint,tracePointSurDroite,milieu,pointSurSegment,pointSurCercle,pointSurDroite,pointIntersectionDD,pointAdistance,labelPoint,barycentre,droite,droiteParPointEtVecteur,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteHorizontaleParPoint,droiteVerticaleParPoint,droiteParPointEtPente,mediatrice,codageMediatrice,codageMilieu,constructionMediatrice,bissectrice,codageBissectrice,constructionBissectrice,polyline,pave,vecteur,segment,segmentAvecExtremites,demiDroite,demiDroiteAvecExtremite,polygone,polygoneAvecNom,polygoneRegulier,polygoneRegulierIndirect,carre,carreIndirect,codageCarre,polygoneRegulierParCentreEtRayon,triangle2points2longueurs,triangle2points2angles,triangle2points1angle1longueur,triangle2points1angle1longueurOppose,nommePolygone,deplaceLabel,aireTriangle,cercle,ellipse,pointIntersectionLC,pointIntersectionCC,cercleCentrePoint,arc,arcPointPointAngle,traceCompas,courbeDeBezier,segmentMainLevee,cercleMainLevee,droiteMainLevee,polygoneMainLevee,arcMainLevee,dansLaCibleCarree,dansLaCibleRonde,cibleCarree,cibleRonde,cibleCouronne,translation,translation2Points,rotation,sensDeRotation,homothetie,symetrieAxiale,distancePointDroite,projectionOrtho,affiniteOrtho,similitude,translationAnimee,rotationAnimee,homothetieAnimee,symetrieAnimee,affiniteOrthoAnimee,montrerParDiv,cacherParDiv,afficherTempo,afficherTempoId,afficherUnParUn,medianeTriangle,centreGraviteTriangle,hauteurTriangle,CodageHauteurTriangle,codageHauteurTriangle,codageMedianeTriangle,orthoCentre,centreCercleCirconscrit,codageAngleDroit,afficheLongueurSegment,texteSurSegment,afficheMesureAngle,afficheCoteSegment,codeSegment,codeSegments,codeAngle,nomAngleSaillantParPosition,nomAngleRentrantParPosition,droiteGraduee,droiteGraduee2,axes,labelX,labelY,grille,grilleHorizontale,grilleVerticale,seyes,repere,repere2,pointDansRepere,traceGraphiqueCartesien,traceBarre,traceBarreHorizontale,lectureImage,lectureAntecedent,courbe,courbe2,courbeInterpolee,graphiqueInterpole,imageInterpolee,antecedentInterpole,crochetD,crochetG,intervalle,texteParPoint,texteParPosition,latexParPoint,latexParCoordonnees,fractionParPosition,print2d,longueur,norme,angle,angleOriente,angleradian,creerLutin,avance,baisseCrayon,leveCrayon,orienter,tournerG,tournerD,allerA,mettrexA,mettreyA,ajouterAx,ajouterAy,afficherCrayon,codeSvg,codeTikz,mathalea2d,labyrinthe,pavage} from '../../modules/2d.js'
-import {sensDeRotation3d,cube,cube3d,point3d,vecteur3d,arete3d,droite3d,demicercle3d,cercle3d,polygone3d,sphere3d,cone3d,cylindre3d,prisme3d,pave3d,rotationV3d,rotation3d,translation3d} from '../../modules/3d.js'
-import{fraction,listeFractions} from '../../modules/fractions.js'
+import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+import { codeSvg, creerLutin } from './2d'
 import { context } from './context.js'
 
-let divSvg = "";
-let script = "";
-let url = new URL(window.location.href);
-window.addEventListener('load', function()  {
-
-  divSvg = document.getElementById("svg");
-  if (url.searchParams.get("url")) { // Si on spécifie une url
-	  fetch(`/m2d/${url.searchParams.get("url")}.m2d`)
+let divSvg = ''
+let script = ''
+const url = new URL(window.location.href)
+window.addEventListener('load', function () {
+  divSvg = document.getElementById('svg')
+  if (url.searchParams.get('url')) { // Si on spécifie une url
+    fetch(`/m2d/${url.searchParams.get('url')}.m2d`)
       .then(function (response) {
         if (response.ok) {
           return response.text()
@@ -26,18 +23,11 @@ window.addEventListener('load', function()  {
   }
 })
 
-function executeCode (txt) {
-  return eval(txt)
-}
-
-function editScript (txt) {
-  window.open(window.location.href.replace('mathalea2dsvg.html', 'mathalea2d.html'))
-}
-
 function afficheSVG (text) {
-  executeCode(
-    `context.objets2D = [] ; context.lutin = creerLutin() ; ${text}`
-  )
+  context.objets2D = []
+  context.lutin = creerLutin()
+  // FIXME ce truc est une grosse faille de sécurité, text vient de l'url, on permet à n'importe qui d'exécuter le code qu'il veut dans notre contexte !
+  eval(text)
   divSvg.innerHTML = codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
 
   renderMathInElement(document.body, {
