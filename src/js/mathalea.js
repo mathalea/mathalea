@@ -203,6 +203,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  * Gère le chargement des différents modules, appelé après "création" des exercices, pour gérer leur affichage
  * ATTENTION, fct async, elle retourne une promesse de chargement, faut attendre que la promesse
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
+ * @private
  * @param isdiaporama
  * @param listeObjetsExercice
  * @return {Promise}
@@ -822,16 +823,16 @@ function miseAJourDuCode () {
 }
 
 /**
-     * Fonction à lancer une fois que la liste des exercices a été mise à jour.
-     * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
-     * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
-     * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
-     * Enfin, elle délègue à mise_a_jour du code l'affichage
-     *
-     * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
-     * sans l'ajouter à la liste
-     *
-     */
+ * Fonction à lancer une fois que la liste des exercices a été mise à jour.
+ * Elle va importer les différents exercices depuis ./exercices/id.js et remplir listeObjetsExercice.
+ * Une fois que tout est importé, elle créé les formulaires pour les paramètres des exercices.
+ * Ensuite, elle regarde dans l'URL si il y a des paramètres à récupérer et à saisir dans le formulaire.
+ * Enfin, elle délègue à mise_a_jour du code l'affichage
+ *
+ * cg 04-2021 ajout de l'argument preview (facultatif (un code exercice)) permettant l'affichage dans une popup
+ * sans l'ajouter à la liste
+ * @private
+ */
 function miseAJourDeLaListeDesExercices (preview) {
   let besoinXCas = false
   const promises = []
