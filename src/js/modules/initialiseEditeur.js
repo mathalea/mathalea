@@ -219,7 +219,7 @@ export default function initialiseEditeur () {
   interpreter.import({
     anim: window.anim,
     mathalea: window.mathalea,
-    fenetreMathalea2d : [-1, -10, 29, 10],
+    fenetreMathalea2d: [-1, -10, 29, 10],
     randint: window.randint,
     texNombre: window.texNombre,
     nombreDecimal: window.nombreDecimal,

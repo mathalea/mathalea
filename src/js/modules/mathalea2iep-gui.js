@@ -16,7 +16,6 @@ import '../../css/style_mathalea.css'
 import { telechargeFichier } from './outils'
 import { context } from './context.js'
 
-
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
