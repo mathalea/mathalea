@@ -19,7 +19,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nbQuestionsModifiable = false // à modifier si besoin
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
+  this.sup = 1 // 30+ pour la persperctive
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
@@ -31,8 +31,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const hauteur = 12
     const largeur = 12
     const profondeur = 12
-    context.anglePerspective = 60
-    context.coeffPerspective = 0.4
+    if (parseInt(this.sup) === 3) {
+      context.anglePerspective = 60
+      context.coeffPerspective = 0.4
+    } else if (parseInt(this.sup) === 2) {
+      context.anglePerspective = 25
+      context.coeffPerspective = 0.3
+    } else if (parseInt(this.sup) === 1) {
+      context.anglePerspective = 30
+      context.coeffPerspective = 0.4
+    }
     const A = point3d(0, 0, 0, true, 'A', 'below left')
     const B = point3d(largeur, 0, 0, true, 'B', 'below right')
     const C = point3d(largeur, profondeur, 0, true, 'C', 'above right')
@@ -140,6 +148,5 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
-  // M recupérable dans this.sup
+  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30\n2 : 45\n3 : 60']
 }
