@@ -9,6 +9,7 @@ import { ObjetMathalea2D, point, tracePoint } from './2d.js'
 function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, clic = { opacity: 1 }, rayon = 1, epaisseur = 1, color = 'black', taille = 3, style = 'x' } = {}) {
   ObjetMathalea2D.call(this)
   const A = point(x, y)
+  this.etat = false // Pour récupérer si le point est affiché ou pas
   this.svg = function (coeff) {
     let code
     const trace = tracePoint(A)
@@ -25,8 +26,7 @@ function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, 
     code += '</g>'
     return code
   }
-  document.addEventListener('svgAffiche', () => {
-    let etat = false // Est-ce que le point a déjà été cliqué ?
+  document.addEventListener('exercicesAffiches', () => {
     const groupe = document.getElementById(`${this.id}`)
     // On initialise avec le style de out
     if (groupe) {
@@ -47,7 +47,7 @@ function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, 
         }
       }
       function mouseClick () {
-        if (etat) {
+        if (this.etat) {
           // On désactive le point
           groupe.addEventListener('mouseover', mouseOverEffect)
           groupe.addEventListener('mouseout', mouseOutEffect)
@@ -55,7 +55,7 @@ function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, 
           for (const key in out) {
             this.style[key] = out[key]
           }
-          etat = false
+          this.etat = false
         } else {
           // On désactive les listeners
           groupe.removeEventListener('mouseover', mouseOverEffect)
@@ -64,7 +64,7 @@ function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, 
           for (const key in clic) {
             this.style[key] = clic[key]
           }
-          etat = true
+          this.etat = true
         }
       }
     }

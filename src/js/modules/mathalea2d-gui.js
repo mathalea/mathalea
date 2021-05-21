@@ -120,8 +120,8 @@ window.addEventListener('load', function () {
       const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
       const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
-      const svgAffiche = new Event('svgAffiche', { bubbles: true })
-      document.dispatchEvent(svgAffiche)
+      const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+      document.dispatchEvent(exercicesAffiches)
       dragNReplace()
       myCodeMirrorSvg.setValue(codeSvgcomplet)
       context.objets2D = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
