@@ -4,11 +4,12 @@ import { ObjetMathalea2D, point, tracePoint } from './2d.js'
  * @author Rémi ANGOT
  * @param {number} x abscisse du point
  * @param {number} y ordonnée du point
- * @param {object} params over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
+ * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
  */
 function PointCliquable (x, y, options) {
   ObjetMathalea2D.call(this)
   const A = point(x, y)
+  if (!options) options = {}
   const out = options.out || { opacity: 0 }
   const over = options.over || { opacity: 0.5 }
   const click = options.click || { opacity: 1 }
@@ -69,6 +70,7 @@ function PointCliquable (x, y, options) {
             this.style[key] = click[key]
           }
           this.etat = true
+          console.log(this.etat)
         }
       }
     }

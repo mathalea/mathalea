@@ -3242,6 +3242,13 @@ export default {
     "interactifReady": false,
     "name": "betaExemple3Types"
   },
+  "betaExempleFigureClic": {
+    "titre": "Sommets du triangle",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleFigureClic"
+  },
   "betaExempleQuestionsDifferentes": {
     "titre": "Exercice exemple avec un nombre fixe de questions différentes",
     "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",

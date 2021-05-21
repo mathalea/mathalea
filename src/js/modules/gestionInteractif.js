@@ -6,6 +6,7 @@ import { messageFeedback } from './messages.js'
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
+  if (exercice.amcType === 'geo') exerciceGeo(exercice)
 }
 
 /**
@@ -230,4 +231,24 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   for (const reponse of reponses) {
     exercice.autoCorrection[i].reponse.valeur = reponse
   }
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+ export function exerciceGeo (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
+    if (button) {
+      button.addEventListener('click', event => {
+        console.log('clic')
+        const exerciceValide = new Event(`exercice${exercice.numeroExercice}`, { bubbles: true })
+        document.dispatchEvent(exerciceValide)
+        button.classList.add('disabled')
+      })
+    }
+  })
 }
