@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d, point, polygone } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { messageFeedback } from '../../modules/messages.js'
+import { get, setStyles } from '../../modules/dom.js'
 export const titre = 'Sommets du triangle'
 export const interactifReady = true
 export const amcType = 'geo'
@@ -49,13 +50,19 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.listeQuestions.push(question)
     this.listeCorrections.push(correction)
 
-    document.addEventListener(`exercice${this.numeroExercice}`, () => {
+    const gestionFeedback = () => {
+      document.removeEventListener(listenerCorrection, gestionFeedback)
+      const eltFeedback = get(`feedbackEx${this.numeroExercice}`)
+      setStyles(eltFeedback, 'marginBottom: 20px')
+      if (eltFeedback) eltFeedback.innerHTML = ''
       let cpt = 0
       if (s1.etat) cpt++
       if (s2.etat) cpt++
       if (s3.etat) cpt++
+      // eltFeedback.remove()
       messageFeedback({ id: `feedbackEx${this.numeroExercice}`, message: `Tu as cliqué sur ${cpt} ${cpt > 1 ? 'points' : 'point'}.`, type: 'positive' })
-    })
+    }
+    const listenerCorrection = document.addEventListener(`exercice${this.numeroExercice}`, gestionFeedback)
 
     listeQuestionsToContenu(this)
   }

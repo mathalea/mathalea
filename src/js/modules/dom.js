@@ -13,10 +13,11 @@ const hasProp = (object, prop) => typeof object === 'object' && Object.prototype
 /**
  * Affecte des styles à un élément html (on peut pas affecter elt.style directement car read only, faut faire du elt.style.foo = bar)
  * sans planter en cas de pb (on le signale juste en console)
+ * Les styles doivent être écrits en camelCase dans le version JS et non CSS
  * @param {HTMLElement} elt
  * @param {string|object} styles
  */
-function setStyles (elt, styles) {
+export function setStyles (elt, styles) {
   try {
     if (elt && elt.style) {
       if (typeof styles === 'string') {

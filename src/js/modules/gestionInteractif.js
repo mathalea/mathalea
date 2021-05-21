@@ -244,7 +244,6 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
     const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
-        console.log('clic')
         const exerciceValide = new Event(`exercice${exercice.numeroExercice}`, { bubbles: true })
         document.dispatchEvent(exerciceValide)
         button.classList.add('disabled')
