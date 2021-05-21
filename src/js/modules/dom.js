@@ -107,3 +107,28 @@ export function addElement (parent, tag, attrs, content) {
   parent.appendChild(elt)
   return elt
 }
+
+/**
+ * S'assure que elt est bien un élément du DOM et le retourne (throw sinon)
+ * @param {string|HTMLElement|SVGElement|Element} elt Si c'est une string on ira chercher l'élément avec getElementById
+ * @param {string} [type] pour restreindre à un type d'élément, html|svg
+ * @return {HTMLElement|SVGElement|Element}
+ * @throws {TypeError} Si elt n'était pas un élément du type voulu
+ */
+export function enforceElt (elt, type) {
+  if (typeof elt === 'string') {
+    elt = document.getElementById(elt)
+    if (!elt) throw Error(`Aucun élément d’id ${elt}`)
+  }
+  switch (type) {
+    case 'html':
+      if (elt instanceof HTMLElement) return elt
+      throw TypeError('HTMLElement indispensable manquant')
+    case 'svg':
+      if (elt instanceof SVGElement) return elt
+      throw TypeError('SVGElement indispensable manquant')
+    default:
+      if (elt instanceof Element) return elt
+  }
+  throw TypeError('Element indispensable manquant')
+}

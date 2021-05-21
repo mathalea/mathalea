@@ -292,20 +292,6 @@ function mise_a_jour_du_code () {
     }
   })()
   apparenceExerciceActif()
-  for (let i = 0; i < liste_des_exercices.length; i++) {
-    $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass('exerciceactif')
-    // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-    if (compteOccurences(liste_des_exercices, liste_des_exercices[i]) > 1) {
-      // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-      const txt = ancienTexte.split('✖︎')[0] + ` ✖︎ ${compteOccurences(liste_des_exercices, liste_des_exercices[i])}`
-      $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-    } else {
-      const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-      const txt = ancienTexte.split('✖︎')[0]
-      $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-    }
-  }
   // Sortie LaTeX quoi qu'il advienne !
   // code pour la sortie LaTeX
 

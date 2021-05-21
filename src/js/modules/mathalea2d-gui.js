@@ -120,6 +120,8 @@ window.addEventListener('load', function () {
       const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
       const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
+      const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+      document.dispatchEvent(exercicesAffiches)
       dragNReplace()
       myCodeMirrorSvg.setValue(codeSvgcomplet)
       context.objets2D = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
@@ -252,10 +254,10 @@ window.addEventListener('load', function () {
           const xmax = window.calcul(xmin + viewBox.width / context.pixelsParCm, 1)
           const ymax = window.calcul(newViewBox.y / context.pixelsParCm * (-1), 1)
           const ymin = window.calcul(ymax - viewBox.height / context.pixelsParCm, 1)
-          if (myCodeMirror.getValue().indexOf('context.fenetreMathalea2d') > -1) {
-            myCodeMirror.setValue(myCodeMirror.getValue().replace(/context.fenetreMathalea2d.*/, `context.fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
+          if (myCodeMirror.getValue().indexOf('fenetreMathalea2d') > -1) {
+            myCodeMirror.setValue(myCodeMirror.getValue().replace(/fenetreMathalea2d.*/, `fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
           } else {
-            myCodeMirror.setValue(`context.fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]\n` + myCodeMirror.getValue())
+            myCodeMirror.setValue(`fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]\n` + myCodeMirror.getValue())
           }
           myCodeMirrorTikz.setValue(myCodeMirrorTikz.getValue().replace(/\\clip.*/, `\\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});`))
 
@@ -281,5 +283,8 @@ function executeCode (txt) {
   // Les variables globales utiles pour l'autocomplétion
   // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
   const interpreter = initialiseEditeur()
-  interpreter.run(txt)
+  let code = txt
+  code += 'exports.fenetreMathalea2d = fenetreMathalea2d'
+  interpreter.run(code)
+  context.fenetreMathalea2d = interpreter.exports.fenetreMathalea2d
 }
