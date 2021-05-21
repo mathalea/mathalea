@@ -166,6 +166,7 @@ function TracePoint (...points) {
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
           c = cercle(p1, this.taille / coeff, this.color)
+          c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
@@ -175,6 +176,7 @@ function TracePoint (...points) {
           p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
           p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
           c = carre(p1, p2, this.color)
+          c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color

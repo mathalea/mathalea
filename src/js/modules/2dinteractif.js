@@ -1,6 +1,6 @@
 import { ObjetMathalea2D, point, tracePoint } from './2d.js'
 
-function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, clic = { opacity: 1 }, rayon = 1, epaisseur = 1, color = 'black', taille = 3 } = {}) {
+function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, clic = { opacity: 1 }, rayon = 1, epaisseur = 1, color = 'black', taille = 3, style = 'x' } = {}) {
   ObjetMathalea2D.call(this)
   const A = point(x, y)
   this.svg = function (coeff) {
@@ -10,6 +10,7 @@ function PointCliquable (x, y, { over = { opacity: 0.5 }, out = { opacity: 0 }, 
     trace.epaisseur = epaisseur
     trace.taille = taille
     trace.isVisible = false
+    trace.style = style
     code = `<g id="${this.id}">\n`
     code += trace.svg(coeff) + '\n'
     // Le cercle est la zone d'effet pour les évènements
