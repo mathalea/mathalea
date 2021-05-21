@@ -14,6 +14,8 @@ import 'codemirror/addon/edit/closebrackets.js'
 import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
 import { telechargeFichier } from './outils'
+import { context } from './context.js'
+
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -103,13 +105,11 @@ function scriptJsToAnimEtSvg () {
   // Les variables globales utiles pour l'autocomplétion
   // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
   const interpreter = initialiseEditeur()
-  window.context.objets2D = []
   interpreter.run(myCodeMirror.getValue())
   // On exporte l'animation et le code SVG
   interpreter.run('exports.anim = anim')
-  interpreter.run('exports.codeSvgFigure = codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)')
+  const codeSvgFigure = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
   xml = window.anim.script()
-  const codeSvgFigure = interpreter.exports.codeSvgFigure
   document.getElementById('svg').innerHTML = codeSvgFigure
   document.getElementById('xmlSrc').value = xml
   iepLoadPromise(container, xml, { autostart: true }).then(iepApp => {
