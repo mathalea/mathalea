@@ -284,7 +284,7 @@ function executeCode (txt) {
   // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
   const interpreter = initialiseEditeur()
   let code = txt
-  code += 'exports.fenetreMathalea2d = fenetreMathalea2d'
+  code += '\n exports.fenetreMathalea2d = fenetreMathalea2d'
   interpreter.run(code)
   context.fenetreMathalea2d = interpreter.exports.fenetreMathalea2d
 }
