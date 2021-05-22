@@ -148,8 +148,13 @@ function TracePoint (...points) {
     points.length--
   } else this.color = 'black'
   this.svg = function (coeff) {
-    const objetssvg = []; let s1; let s2; let p1; let p2; let c
-    for (const A of points) {
+    const objetssvg = []; let s1; let s2; let p1; let p2; let c, A
+    for (const unPoint of points) {
+      if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - this.taille / coeff, A.y + this.taille / coeff),
@@ -209,9 +214,15 @@ function TracePoint (...points) {
     return code
   }
   this.tikz = function () {
-    const objetstikz = []; let s1; let s2; let p1; let p2; let c
+    const objetstikz = []; let s1; let s2; let p1; let p2; let c, A
     const tailletikz = this.taille * context.scale / 20
-    for (const A of points) {
+    for (const unPoint of points) {
+      if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
+
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - tailletikz, A.y + tailletikz),
@@ -463,40 +474,45 @@ function LabelPoint (...points) {
     this.color = 'black'
   }
   this.svg = function (coeff) {
-    let code = ''; let x; let y
+    let code = ''; let x; let y, A
     if (Array.isArray(points[0])) {
       // Si le premier argument est un tableau
       this.listePoints = points[0]
     } else {
       this.listePoints = points
     }
-    for (const point of this.listePoints) {
-      x = point.x
-      y = point.y
-      switch (point.positionLabel) {
+    for (const unPoint of this.listePoints) {
+      if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
+      x = A.x
+      y = A.y
+      switch (A.positionLabel) {
         case 'left':
-          code += latexParCoordonnees(point.nom, x - 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'right':
-          code += latexParCoordonnees(point.nom, x + 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'below':
-          code += latexParCoordonnees(point.nom, x, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'above':
-          code += latexParCoordonnees(point.nom, x, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'above right':
-          code += latexParCoordonnees(point.nom, x + 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'below left':
-          code += latexParCoordonnees(point.nom, x - 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         case 'below right':
-          code += latexParCoordonnees(point.nom, x + 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x + 10 / coeff, y - 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
         default:
-          code += latexParCoordonnees(point.nom, x - 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x - 10 / coeff, y + 10 / coeff, this.color, 10, this.taille * 10, '').svg(coeff) + '\n'
           break
       }
     }
@@ -504,13 +520,18 @@ function LabelPoint (...points) {
     return code
   }
   this.tikz = function () {
-    let code = ''
+    let code = ''; let A
     let style = ''
     if (this.color !== 'black') {
       style = `,${this.color}`
     }
-    for (const point of points) {
-      code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {$${point.nom}$};\n`
+    for (const unPoint of points) {
+      if (unPoint.typeObjet === 'point3d') {
+        A = unPoint.p2d
+      } else {
+        A = unPoint
+      }
+      code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
   }
