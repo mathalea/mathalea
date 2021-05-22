@@ -567,6 +567,13 @@ export default {
     "interactifReady": false,
     "name": "3L11-5"
   },
+  "3L11-6": {
+    "titre": "Factoriser une expression complexe",
+    "url": "/exercices/3e/3L11-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3L11-6"
+  },
   "3L11": {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/3e/3L11.js",
@@ -2832,13 +2839,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta3G41"
-  },
-  "beta3L11-6": {
-    "titre": "Factoriser une expression",
-    "url": "/exercices/beta/beta3L11-6.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3L11-6"
   },
   "beta3s21": {
     "titre": "Stabilisation des fréquences",
