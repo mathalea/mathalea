@@ -2833,6 +2833,13 @@ export default {
     "interactifReady": false,
     "name": "beta3G41"
   },
+  "beta3L11-6": {
+    "titre": "Factoriser une expression",
+    "url": "/exercices/beta/beta3L11-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3L11-6"
+  },
   "beta3s21": {
     "titre": "Stabilisation des fréquences",
     "url": "/exercices/beta/beta3s21.js",
@@ -2930,6 +2937,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaExemple3Types"
+  },
+  "betaExempleFigureClic": {
+    "titre": "Sommets du triangle",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "name": "betaExempleFigureClic"
   },
   "betaExempleQuestionsDifferentes": {
     "titre": "Exercice exemple avec un nombre fixe de questions différentes",
@@ -3228,20 +3242,6 @@ export default {
     "interactifReady": true,
     "name": "CM012"
   },
-  "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
-  }, 
   "CM013": {
     "titre": "Complément à une dizaine",
     "url": "/exercices/CM/CM013.js",
