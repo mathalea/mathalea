@@ -1,3 +1,4 @@
+/* global HTMLElement SVGElement Element */
 /**
  * Fonctions de gestion du dom
  * @module

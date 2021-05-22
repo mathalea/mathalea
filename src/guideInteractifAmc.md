@@ -21,6 +21,7 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
   4 : réponse numérique à entrer dans un formulaire texte. AmcNumeriqueChoice (voire attribut reponse). Modèle : 6C10
   5 : réponse identique au type 4 mais AMC ajoute une zone pour une réponse ouverte. Modèle : 3G30
   6 : plusieures réponses numériques (plusieurs attributs reponse, reponse2,...). Modèle : 4C21
+  custom : Ces exercices ne sont pas prédéfinis, ils partagent le bouton de validation puis appellent la méthode correctionInteractive() définie dans l'exercice. Ils ne sont pas compatibles avec AMC
 
   # La variable this.autoCorrection
 

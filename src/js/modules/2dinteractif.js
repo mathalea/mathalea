@@ -30,14 +30,13 @@ function PointCliquable (x, y, options) {
     code += '</g>'
     return code
   }
-  const moi = this // Pour utiliser this dans les fonctions 
+  const moi = this // Pour utiliser this dans les fonctions
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
     const groupe = document.getElementById(`${this.id}`)
     const changeEtatPoint = (etat) => {
       this.etat = etat
     }
-    const changeEtat = changeEtatPoint.bind(this)
     // On initialise avec le style de out
     if (groupe) {
       for (const key in out) {
@@ -81,6 +80,11 @@ function PointCliquable (x, y, options) {
     }
   }
   document.addEventListener('exercicesAffiches', gestionDeLaSouris)
+  this.stopCliquable = () => {
+    const groupe = document.getElementById(`${this.id}`)
+    // On retire tous les listener en le remplaçant par un clone
+    groupe.replaceWith(groupe.cloneNode(true))
+  }
 }
 
 export function pointCliquable (...args) {
