@@ -2,15 +2,18 @@
 import { context } from './context.js'
 import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
+import { addElement, get, setStyles } from './dom.js'
 
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
+  if (exercice.amcType === 'custom') exerciceCustom(exercice)
+  // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
 }
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
- * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
@@ -21,7 +24,7 @@ export function exerciceQcm (exercice) {
     // Couleur pour surligner les label avec une opacité de 50%
     const monRouge = 'rgba(217, 30, 24, 0.5)'
     const monVert = 'rgba(123, 239, 178, 0.5)'
-    const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
         for (let i = 0; i < exercice.nbQuestions; i++) {
@@ -160,13 +163,13 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
 
 /**
  * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
- * on vérifie la présence du bouton de validation d'id btnQcmEx{i} créé par listeQuestionsToContenu
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
 export function questionNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
-    const button = document.querySelector(`#btnQcmEx${exercice.numeroExercice}`)
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
         let nbBonnesReponses = 0
@@ -230,4 +233,32 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   for (const reponse of reponses) {
     exercice.autoCorrection[i].reponse.valeur = reponse
   }
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses cochées
+ * @param {object} exercice
+ */
+export function exerciceCustom (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    if (button) {
+      button.addEventListener('click', event => {
+        // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
+        let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
+        // On ajoute le div pour le feedback
+        if (!eltFeedback) {
+          const eltExercice = get(`exercice${exercice.numeroExercice}`)
+          eltFeedback = addElement(eltExercice, 'div', { id: `feedbackEx${exercice.numeroExercice}` })
+        }
+        setStyles(eltFeedback, 'marginBottom: 20px')
+        if (eltFeedback) eltFeedback.innerHTML = ''
+        // On utilise la correction définie dans l'exercice
+        exercice.correctionInteractive(eltFeedback)
+        button.classList.add('disabled')
+      })
+    }
+  })
 }

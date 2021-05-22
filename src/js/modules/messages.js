@@ -108,4 +108,5 @@ export function messageFeedback ({ id, message = '', type = 'error' } = {}) {
   const container = get(id)
   const div = addFeedback(container, { message, type })
   div.style.width = '400px'
+  return div
 }

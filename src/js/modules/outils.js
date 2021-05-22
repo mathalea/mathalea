@@ -21,7 +21,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnQcmEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -72,7 +72,7 @@ export function listeQuestionsToContenuSansNumero (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnQcmEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
@@ -2288,7 +2288,7 @@ export function stringNombre (nb) {
   let result = ''
   let i
   if (partieEntiere.length > 3) {
-    for (let i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
+    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
       result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
     }
     result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result

@@ -3228,6 +3228,20 @@ export default {
     "interactifReady": true,
     "name": "CM012"
   },
+  "betaExempleFigureClic": {
+    "titre": "Sommets du triangle",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleFigureClic"
+  },
+  "betaExempleQuestionsDifferentes": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleQuestionsDifferentes"
+  }, 
   "CM013": {
     "titre": "Complément à une dizaine",
     "url": "/exercices/CM/CM013.js",
