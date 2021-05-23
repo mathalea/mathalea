@@ -1,8 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,ecritureParentheseSiMoins,signe,abs,lettreDepuisChiffre} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre } from '../../modules/outils.js'
+import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Utiliser la simple distributivité'
+
+export const interactifReady = true
 
 /**
  * Développer en utilisant la distributivité simple
@@ -19,98 +22,90 @@ export const titre = 'Utiliser la simple distributivité'
  * @author Rémi Angot
  * 4L10 et 3L11
  */
-export default function Exercice_developper(difficulte = 1) {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.sup = difficulte;
-  this.titre = titre;
-  this.consigne = "Développer.";
-  this.spacing = 1;
-  this.nbQuestions = 5;
-  this.nbColsCorr = 1;
+export default function ExerciceDevelopper (difficulte = 1) {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.sup = difficulte
+  this.sup = parseInt(this.sup)
+  this.titre = titre
+  this.interactifType = 'mathlive'
+  this.interactifReady = interactifReady
+  this.consigne = 'Développer.'
+  this.spacing = 1
+  this.nbQuestions = 5
+  this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
 
-    let lettre = ["x", "y", "z", "t", "a", "b", "c"];
-    let typesDeQuestionsDisponibles = [
-      "simple",
-      "simple",
-      "simple2",
-      "x_en_facteur",
-      "developper_et_reduire",
-    ];
+    const lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
+    const typesDeQuestionsDisponibles = [
+      'simple',
+      'simple',
+      'simple2',
+      'x_en_facteur',
+      'developper_et_reduire'
+    ]
     let typesDeQuestions
-    let listeTypeDeQuestions = combinaisonListes(
+    const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i];
-      let k = randint(2, 11);
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      typesDeQuestions = listeTypeDeQuestions[i]
+      let k = randint(2, 11)
       if (this.sup > 1) {
         // si difficulté 2, k peut être négatif
-        k = k * choice([-1, 1]);
+        k = k * choice([-1, 1])
       }
-      let a = randint(1, 9);
-      let b = randint(1, 9) * choice([-1, 1]);
-      let inconnue = choice(lettre);
+      const a = randint(1, 9)
+      const b = randint(1, 9) * choice([-1, 1])
+      const inconnue = choice(lettre)
       switch (typesDeQuestions) {
-        case "simple":
-          if (a == 1) {
+        case 'simple':
+          if (a === 1) {
             // ne pas écrire 1x
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}(${inconnue}${ecritureAlgebrique(b)})$`;
+            )}=${k}(${inconnue}${ecritureAlgebrique(b)})$`
           } else {
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}(${a}${inconnue}${ecritureAlgebrique(b)})$`;
+            )}=${k}(${a}${inconnue}${ecritureAlgebrique(b)})$`
           }
 
-          if (a == 1) {
+          if (a === 1) {
             // ne pas écrire 1x
-            texteCorr = `$${lettreDepuisChiffre(
-              i + 1
-            )}=${k}(${inconnue}${ecritureAlgebrique(b)})=${k}
-						\\times ${inconnue}+${ecritureParentheseSiNegatif(
-              k
-            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`;
+            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${inconnue}${ecritureAlgebrique(b)})=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           } else {
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
             )}=${k}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}
-						\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(
+            \\times ${a}${inconnue}+${ecritureParentheseSiNegatif(
               k
-            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`;
+            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           }
-          break;
-        case "simple2":
-          if (a == 1) {
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
+          break
+        case 'simple2':
+          if (a === 1) {
             // ne pas écrire 1x
             texte = `$${lettreDepuisChiffre(
               i + 1
             )}=(${inconnue}${ecritureAlgebrique(
               b
-            )})\\times${ecritureParentheseSiNegatif(k)}$`;
+            )})\\times${ecritureParentheseSiNegatif(k)}$`
           } else {
             texte = `$${lettreDepuisChiffre(
               i + 1
             )}=(${a}${inconnue}${ecritureAlgebrique(
               b
-            )})\\times${ecritureParentheseSiNegatif(k)}$`;
+            )})\\times${ecritureParentheseSiNegatif(k)}$`
           }
 
-          if (a == 1) {
+          if (a === 1) {
             // ne pas écrire 1x
-            texteCorr = `$${lettreDepuisChiffre(
-              i + 1
-            )}=(${inconnue}${ecritureAlgebrique(
-              b
-            )})\\times${ecritureParentheseSiNegatif(k)}=${k}
-						\\times ${inconnue}+${ecritureParentheseSiNegatif(
-              k
-            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`;
+            texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           } else {
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
@@ -119,22 +114,23 @@ export default function Exercice_developper(difficulte = 1) {
             )})\\times${ecritureParentheseSiNegatif(k)}=${k}
 						\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(
               k
-            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`;
+            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           }
-          break;
-        case "x_en_facteur":
-          if (a == 1) {
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
+          break
+        case 'x_en_facteur':
+          if (a === 1) {
             // ne pas écrire 1x
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`;
+            )}=${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
           } else {
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`;
+            )}=${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
           }
 
-          if (a == 1) {
+          if (a === 1) {
             // ne pas écrire 1x
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
@@ -142,7 +138,7 @@ export default function Exercice_developper(difficulte = 1) {
               b
             )})=${k}${inconnue}\\times ${inconnue} ${signe(
               k * b
-            )}${k}${inconnue}\\times ${abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`;
+            )}${k}${inconnue}\\times ${abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
           } else {
             if (k > 0) {
               texteCorr = `$${lettreDepuisChiffre(
@@ -153,7 +149,7 @@ export default function Exercice_developper(difficulte = 1) {
                 b
               )}=${k * a}${inconnue}^2${ecritureAlgebrique(
                 k * b
-              )}${inconnue}$`;
+              )}${inconnue}$`
             } else {
               texteCorr = `$${lettreDepuisChiffre(
                 i + 1
@@ -163,24 +159,25 @@ export default function Exercice_developper(difficulte = 1) {
                 b
               )}=${k * a}${inconnue}^2${ecritureAlgebrique(
                 k * b
-              )}${inconnue}$`;
+              )}${inconnue}$`
             }
           }
-          break;
-        case "developper_et_reduire":
-          let c = randint(2, 9);
-          if (a == 1) {
+          reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
+          break
+        case 'developper_et_reduire':
+          const c = randint(2, 9)
+          if (a === 1) {
             // ne pas écrire 1x
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}(${inconnue}${ecritureAlgebrique(b)})+${c}$`;
+            )}=${k}(${inconnue}${ecritureAlgebrique(b)})+${c}$`
           } else {
             texte = `$${lettreDepuisChiffre(
               i + 1
-            )}=${k}(${a}${inconnue}${ecritureAlgebrique(b)})+${c}$`;
+            )}=${k}(${a}${inconnue}${ecritureAlgebrique(b)})+${c}$`
           }
 
-          if (a == 1) {
+          if (a === 1) {
             // ne pas écrire 1x
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
@@ -189,7 +186,7 @@ export default function Exercice_developper(difficulte = 1) {
             )})+${c}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(
               k
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
-						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`;
+						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           } else {
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
@@ -200,24 +197,27 @@ export default function Exercice_developper(difficulte = 1) {
             )}+${ecritureParentheseSiNegatif(
               k
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
-						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`;
+						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           }
-          break;
+          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
+          break
       }
+      setReponse(this, i, reponse)
+      texte += ajouteChampTexteLiveMath(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
+    listeQuestionsToContenu(this)
+  }
   this.besoinFormulaireNumerique = [
-    "Niveau de difficulté",
+    'Niveau de difficulté',
     2,
-    "1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif",
-  ];
+    '1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif'
+  ]
 }
