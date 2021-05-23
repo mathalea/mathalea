@@ -1840,7 +1840,7 @@ export default {
     "titre": "Addition de deux entiers",
     "url": "/exercices/6e/6C10-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C10-4"
   },
   "6C10-5": {
@@ -1884,7 +1884,7 @@ export default {
       "num": 3,
       "text": "AMCOpen"
     },
-    "interactifReady": true,
+    "interactifReady": false,
     "name": "6C11-1"
   },
   "6C11": {
@@ -1909,7 +1909,7 @@ export default {
     "titre": "Additions et soustractions de nombres décimaux",
     "url": "/exercices/6e/6C20.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C20"
   },
   "6C21": {
@@ -1938,14 +1938,14 @@ export default {
     "titre": "Multiplications d’un nombre décimal par 10, 100 ou 1 000.",
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C30-1"
   },
   "6C30-2": {
     "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
     "url": "/exercices/6e/6C30-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C30-2"
   },
   "6C30-3": {
@@ -1989,7 +1989,7 @@ export default {
       "num": 4,
       "text": "AMCOpen Num"
     },
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C30"
   },
   "6C31-2": {
@@ -2003,7 +2003,7 @@ export default {
     "titre": "Divisions décimales",
     "url": "/exercices/6e/6C31.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C31"
   },
   "6C32": {
@@ -2017,14 +2017,14 @@ export default {
     "titre": "Calculer en utilisant les priorités opératoires",
     "url": "/exercices/6e/6C33.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C33"
   },
   "6C34": {
     "titre": "Dernier chiffre d’un calcul",
     "url": "/exercices/6e/6C34.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "6C34"
   },
   "6C35": {
@@ -3081,20 +3081,6 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
-  "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
-  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
@@ -3263,16 +3249,19 @@ export default {
     "interactifReady": false,
     "name": "betaExemple3Types"
   },
-  "CM013": {
-    "titre": "Complément à une dizaine",
-    "url": "/exercices/CM/CM013.js",
-    "amcReady": true,
-    "amcType": {
-      "num": 4,
-      "text": "AMCOpen Num"
-    },
+  "betaExempleFigureClic": {
+    "titre": "Sommets du triangle",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
     "interactifReady": true,
-    "name": "CM013"
+    "name": "betaExempleFigureClic"
+  },
+  "betaExempleQuestionsDifferentes": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleQuestionsDifferentes"
   },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",

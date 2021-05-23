@@ -3534,7 +3534,7 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
  */
 export function numAlpha (k) {
   'use strict'
-  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ') &nbsp;</span>'
   // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
   else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
 }

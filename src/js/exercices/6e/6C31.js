@@ -2,9 +2,10 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi } from '../../modules/outils.js'
+import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = false // Jusqu'à l'adaptation à la version 2.6
-export const amcType =4 //type de question AMC 
-
+export const interactifReady = true
+export const amcType = 4 // Question numérique
 export const titre = 'Divisions décimales'
 
 /**
@@ -22,9 +23,12 @@ export const titre = 'Divisions décimales'
  * @author Rémi Angot
  * Référence 6C31
  */
-export default function Division_decimale () {
+export default function DivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.interactifReady = interactifReady
+  this.amcType = amcType
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
@@ -33,12 +37,12 @@ export default function Division_decimale () {
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C31', [], 'Divisions décimales', 4]
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
 
-    this.sup == 1
+    this.sup === 1
       ? (typesDeQuestionsDisponibles = [choice([1, 2, 3]), 4, 5, 6])
       : (typesDeQuestionsDisponibles = [7, 8, 9])
     const listeTypeDeQuestions = combinaisonListes(
@@ -91,7 +95,7 @@ export default function Division_decimale () {
           a = calcul(b * q)
           break
         case 6: // un 0 dans le quotient
-          if (randint(1, 2) == 1) {
+          if (randint(1, 2) === 1) {
             // x0x,x
             q = calcul(
               randint(2, 9) * 100 + randint(2, 9) + randint(2, 9) / 10
@@ -120,24 +124,25 @@ export default function Division_decimale () {
           b = 3
           q = arrondi(a / b, 3)
       }
-      if (this.sup == 2) {
+      if (this.sup === 2) {
         this.consigne =
           'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
       texte = `$${texNombre(a)}\\div${b}$`
-      if (this.sup == 1) {
+      if (this.sup === 1) {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
         texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
       } else {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
         texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
       }
-
+      setReponse(this, i, q)
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        this.qcm[1].push([texte, [texteCorr, q], { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }])
         i++
       }
       cpt++

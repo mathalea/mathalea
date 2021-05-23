@@ -25,11 +25,10 @@ export default function CalculsAvecPuissancesDeDix () {
   this.nbColsCorr = 1
   this.nbQuestions = 5
 
-
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    
+
     if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Compléter l\'égalité des nombres suivants.'
     let typeDeQuestionsDisponibles
