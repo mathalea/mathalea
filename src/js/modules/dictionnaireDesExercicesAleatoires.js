@@ -300,6 +300,13 @@ export default {
     "interactifReady": false,
     "name": "3F13"
   },
+  "3F21-1-2d": {
+    "titre": "Déterminer une fonction affine",
+    "url": "/exercices/3e/3F21-1-2d.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3F21-1-2d"
+  },
   "3F21-1": {
     "titre": "Déterminer une fonction affine",
     "url": "/exercices/3e/3F21-1.js",
