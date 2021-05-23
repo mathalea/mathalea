@@ -298,66 +298,6 @@ export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, poi
 }
 
 /**
-   *
-   * @param {string} mon_svg l'Identifiant du SVG
-   * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
-   * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
-   * @param {number} subX coefficient de fractionnement de l'unité en X
-   * @param {number} subY coefficient de fractionnement de l'unité en Y
-   * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
-   * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
-   * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
-   * @returns Les coordonnées des axes dans le SVG
-   * @author Jean-Claude Lhote
-   */
-export function SVG_repere (mon_svg, Xmin, Xmax, Ymin, Ymax, subX, subY, tailleX, tailleY, grille) {
-  'use strict'
-  if (Xmin > 0) Xmin = 0
-  if (Ymin > 0) Ymin = 0
-  const DeltaX = Xmax - Xmin
-  const DeltaY = Ymax - Ymin
-  const Dx = (tailleX - 20) / DeltaX
-  const Dy = (tailleY - 20) / DeltaY
-  if (grille) SVG_grille(mon_svg, 20, 0, tailleX - 20, tailleY - 20, DeltaX, DeltaY, subX, subY)
-  SVG_Axe_horizontal(mon_svg, 20, tailleX, tailleY - 20 + Ymin * Dy, DeltaX, subX)
-  SVG_tracer_flecheH(mon_svg, tailleX - 2, tailleY - 20 + Ymin * Dy)
-  SVG_Axe_vertical(mon_svg, 0, tailleY - 20, 20 - Xmin * Dx, DeltaY, subY)
-  SVG_tracer_flecheV(mon_svg, 20 - Xmin * Dx, -3)
-  for (let i = 0; i < DeltaX; i++) {
-    if (i + Xmin == 0) SVG_label(mon_svg, [[stringNombre(i + Xmin), i * Dx + 15, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-    else SVG_label(mon_svg, [[stringNombre(i + Xmin), i * Dx + 20, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-  }
-  for (let i = 0; i < DeltaY; i++) {
-    if (i + Ymin == 0) SVG_label(mon_svg, [[stringNombre(i + Ymin), 10 - Xmin * Dx, tailleY - 15 - i * Dy]], 0, 'black', 0.5)
-    else SVG_label(mon_svg, [[stringNombre(i + Ymin), 10 - Xmin * Dx, tailleY - 25 - i * Dy]], 1, 'black', 0.5)
-  }
-  return [20 - Xmin * Dx, tailleY - 20 + Ymin * Dy]
-}
-/**
-   * Trace un repère en Latex avec une grille
-   * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
-   * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
-   * @param {number} subX coefficient de fractionnement de l'unité en X
-   * @param {number} subY coefficient de fractionnement de l'unité en Y
-   * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
-   * @returns {string} Renvoie le code Latex correspondant
-   * @author Jean-Claude Lhote
-   */
-export function Latex_repere (Xmin, Xmax, Ymin, Ymax, subX, subY, grille) {
-  'use strict'
-  let result = ''
-  result += `\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`
-  if (grille) result += `\n\t \\tkzGrid[sub,subxstep=${1 / subX},subystep=${1 / subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`
-  result += '\n\t \\tkzAxeXY'
-  result += '\n\t \\tkzClip[space=1]'
-  return result
-}
-
-/**
   * Trace une graduation sur le SVG
   * @param origine la première abscisse de la droite ou demi-droite
   * @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
