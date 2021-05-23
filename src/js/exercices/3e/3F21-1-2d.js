@@ -35,8 +35,9 @@ export default function LectureExpressionFonctionsAffines () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const listeDroites = []
-    let OrdX0
+    context.fenetreMathalea2d = [-5.5, -5.5, 5.5, 5.5]
     const Pente = []
+    let OrdX0
     if (!this.lineaire) {
       Pente.push(randint(-2 * k, 2 * k))
       Pente.push(randint(-2 * k, 2 * k, [Pente[0]]))
