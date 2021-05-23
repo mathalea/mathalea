@@ -62,3 +62,4 @@ CM016,Diviser un entier par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM017,Diviser un nombre décimal par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM018,Somme de deux nombres mariés et un entier,OK,AMCOpen Num,OK
 CM019,Générateur de compte est bon,OK,AMCOpen,KO
+betaExempleFigureClic,Sommets du triangle,KO,KO,OK
