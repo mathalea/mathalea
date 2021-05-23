@@ -567,6 +567,13 @@ export default {
     "interactifReady": false,
     "name": "3L11-5"
   },
+  "3L11-6": {
+    "titre": "Factoriser une expression complexe",
+    "url": "/exercices/3e/3L11-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3L11-6"
+  },
   "3L11": {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/3e/3L11.js",
@@ -3074,6 +3081,20 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "betaExempleFigureClic": {
+    "titre": "Sommets du triangle",
+    "url": "/exercices/beta/betaExempleFigureClic.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "name": "betaExempleFigureClic"
+  },
+  "betaExempleQuestionsDifferentes": {
+    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
+    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleQuestionsDifferentes"
+  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
@@ -3242,19 +3263,16 @@ export default {
     "interactifReady": false,
     "name": "betaExemple3Types"
   },
-  "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
+  "CM013": {
+    "titre": "Complément à une dizaine",
+    "url": "/exercices/CM/CM013.js",
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
+    "name": "CM013"
   },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
