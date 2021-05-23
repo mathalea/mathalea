@@ -48,9 +48,9 @@ export default function FactoriserUneExpression3e () {
           if (this.correctionDetaillee) {
             texteCorr += `${sp(2)}On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence(c, 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}+${miseEnEvidence('x', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
-            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + '+x)', 'blue')}$`
+            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + '+x)', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}+x)$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}+x)$<br>`
           }
           break
         case 'c(ax+b)-x(ax+b)':
@@ -59,9 +59,9 @@ export default function FactoriserUneExpression3e () {
           if (this.correctionDetaillee) {
             texteCorr += `${sp(2)}On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence(c, 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}-${miseEnEvidence('x', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
-            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + '-x)', 'blue')}$`
+            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + '-x)', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)$<br>`
           }
           break
         case 'x(ax+b)+c(ax+b)':
@@ -70,9 +70,9 @@ export default function FactoriserUneExpression3e () {
           if (this.correctionDetaillee) {
             texteCorr += `${sp(2)}On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('x', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}+${miseEnEvidence(c, 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
-            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(x+' + c + ')', 'blue')}$`
+            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(x+' + c + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x+${c})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x+${c})$<br>`
           }
           break
         case 'x(ax+b)-c(ax+b)':
@@ -81,9 +81,9 @@ export default function FactoriserUneExpression3e () {
           if (this.correctionDetaillee) {
             texteCorr += `${sp(2)}On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('x', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}-${miseEnEvidence(c, 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
-            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(x-' + c + ')', 'blue')}$`
+            texteCorr += `<br>$\\phantom{ABC}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(x-' + c + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x-${c})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x-${c})$<br>`
           }
           break
         case '(ax+b)(cx+d)+(ax+b)(ex+f)':
@@ -93,9 +93,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}+${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '+' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
           break
         case '(ax+b)(cx+d)-(ax+b)(ex+f)':
@@ -106,9 +106,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}-${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + '))', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-' + rienSi1(e) + 'x' + ecritureAlgebrique(-f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
           break
         case '(cx+d)(ax+b)+(ax+b)(ex+f)':
@@ -118,9 +118,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}+${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '+' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
           break
         case '(cx+d)(ax+b)-(ax+b)(ex+f)':
@@ -131,9 +131,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}-${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + '))', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-' + rienSi1(e) + 'x' + ecritureAlgebrique(-f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
           break
         case '(ax+b)(cx+d)+(ex+f)(ax+b)':
@@ -143,9 +143,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}+${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '+' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
           break
         case '(ax+b)(cx+d)-(ex+f)(ax+b)':
@@ -156,9 +156,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}-${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + '))', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-' + rienSi1(e) + 'x' + ecritureAlgebrique(-f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
           break
         case '(cx+d)(ax+b)+(ex+f)(ax+b)':
@@ -168,9 +168,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>On remarque que $(${rienSi1(a)}x${ecritureAlgebrique(b)})$ est un facteur commun.`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}+${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '+' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c + e) + 'x' + ecritureAlgebrique(d + f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
           break
         case '(cx+d)(ax+b)-(ex+f)(ax+b)':
@@ -181,9 +181,9 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}-${miseEnEvidence('(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + ')', 'blue')}${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-(' + rienSi1(e) + 'x' + ecritureAlgebrique(f) + '))', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-' + rienSi1(e) + 'x' + ecritureAlgebrique(-f) + ')', 'blue')}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$<br>`
           } else {
-            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$`
+            texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
           break
       }
