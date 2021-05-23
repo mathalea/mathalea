@@ -8,6 +8,7 @@ export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
   if (exercice.amcType === 'custom') exerciceCustom(exercice)
+  if (exercice.interactifType === 'mathlive') exerciceMathLive(exercice)
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
 }
 
@@ -195,16 +196,30 @@ export function questionNumerique (exercice) {
   })
 }
 
+/**
+ *
+ * @param {Exercice} exercice
+ * @param {number} i
+ * @param {*} param2
+ * @returns {string} code HTML du champ texte avec identifiant champTexteEx__Q__ et le span pour le résultat de la question
+ */
 export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true, indice } = {}) {
   if (context.isHtml && exercice.interactif) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
-    <div class="inline  field" >
-    <label>${texte}</label>
-      <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}${indice || ''}" >
-      <span>${texteApres}</span>
-      <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
-    </div>
-    </div>`
+      <div class="inline  field" >
+      <label>${texte}</label>
+        <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}${indice || ''}" >
+        <span>${texteApres}</span>
+        <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
+      </div>
+      </div>`
+  } else {
+    return ''
+  }
+}
+export function ajouteChampTexteLiveMath (exercice, i) {
+  if (context.isHtml && exercice.interactif) {
+    return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   } else {
     return ''
   }
@@ -230,9 +245,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
     exercice.autoCorrection[i].reponse = {}
   }
   exercice.autoCorrection[i].reponse.param = { digits: digits, decimals: decimals, signe: signe, exposantNbChiffres: exposantNbChiffres, exposantSigne: exposantSigne, approx: approx }
-  for (const reponse of reponses) {
-    exercice.autoCorrection[i].reponse.valeur = reponse
-  }
+  exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
 /**
@@ -257,6 +270,50 @@ export function exerciceCustom (exercice) {
         if (eltFeedback) eltFeedback.innerHTML = ''
         // On utilise la correction définie dans l'exercice
         exercice.correctionInteractive(eltFeedback)
+        button.classList.add('disabled')
+      })
+    }
+  })
+}
+
+/**
+ * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
+ * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
+ * et on y ajoute un listenner pour vérifier les réponses saisies dans les math-field
+ * @param {object} exercice
+ */
+export function exerciceMathLive (exercice) {
+  document.addEventListener('exercicesAffiches', () => {
+    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
+    if (button) {
+      button.addEventListener('click', event => {
+        let nbBonnesReponses = 0
+        let nbMauvaisesReponses = 0
+        const nbBonnesReponsesAttendues = exercice.nbQuestions
+        for (const i in exercice.autoCorrection) {
+          const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+          // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
+          const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+          let reponses = []
+          if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
+            reponses = [exercice.autoCorrection[i].reponse.valeur]
+          } else {
+            reponses = exercice.autoCorrection[i].reponse.valeur
+          }
+          let resultat = 'KO'
+          for (const reponse of reponses) {
+            if (champTexte.value === reponse) resultat = 'OK'
+          }
+          if (resultat === 'OK') {
+            spanReponseLigne.innerHTML = '😎'
+            nbBonnesReponses++
+          } else {
+            spanReponseLigne.innerHTML = '☹️'
+            nbMauvaisesReponses++
+          }
+          champTexte.readOnly = true
+          spanReponseLigne.style.fontSize = 'large'
+        }
         button.classList.add('disabled')
       })
     }
