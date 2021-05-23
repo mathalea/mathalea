@@ -35,6 +35,29 @@ const exercicesList = getAllFiles(exercicesDir)
 const dicoAlea = {}
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 
+var warnings = 0;
+
+function beginWarnText() {
+  warnings+=1
+  if (warnings === 1) {
+    return console.log(`\x1b[33m ======================================== WARNINGS ========================================\x1b[37m`)
+  }  
+}
+
+function endWarnText() {
+  return console.log(`\x1b[33m ==================================== END WARNINGS ========================================\x1b[37m`)
+}
+
+
+function sumWarnings() {    
+    if (warnings === 1) {
+      out = `avec \x1b[33m ${warnings} WARNING\x1b[37m`
+    } else {
+      out = `avec \x1b[33m ${warnings} WARNINGS\x1b[37m`
+    };
+    return out;  
+}
+
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
   // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
@@ -52,11 +75,13 @@ for (const file of exercicesList) {
     // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter    
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)         
-    if (amcReady && !module.amcType) {
-      console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[0m`)
+    if (amcReady && !module.amcType) {      
+     beginWarnText()
+      console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
     }
     if (module.amcType && !module.amcReady) {
-      console.error(`\x1b[41m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (module)\x1b[0m`)
+     beginWarnText()
+      console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
     } 
     // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
     if (amcReady) {    
@@ -72,10 +97,12 @@ for (const file of exercicesList) {
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
       interactifReady = /export +const +interactifReady *= *true/.test(srcContent)      
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
-        console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[0m`)
+       beginWarnText()
+        console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
       if (/export +const +amcType */.test(srcContent) && !amcReady) {
-        console.error(`\x1b[41m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (à l'ancienne)\x1b[0m`)
+       beginWarnText()
+        console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (à l'ancienne)\x1b[37m`)
       }
       // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
       if (amcReady) {
@@ -86,7 +113,8 @@ for (const file of exercicesList) {
     }
   }
   if (interactifReady && !amcReady) {
-    console.error(`\x1b[41m${file} est interactifReady mais amcReady est false => VÉRIFIER S'IL FAUT L'AJOUTER !!!\x1b[0m`)
+   beginWarnText()
+    console.error(`\x1b[33m${file} est interactifReady mais amcReady est false => VÉRIFIER S'IL FAUT L'AJOUTER !!!\x1b[37m`)
   }
   if (titre) {
     // Attention, on veut des séparateurs posix (/), pour faire propre faudrait
@@ -117,7 +145,8 @@ for (const file of exercicesList) {
             amcType.text = "AMCOpen double NC";
             break;
           default:
-            console.error(`\x1b[41m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[0m`)
+           beginWarnText()
+            console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
             amcType.text = "type de question AMC non prévu";
         }
       } else  if (typeof amcType.num === 'object')  {
@@ -144,13 +173,15 @@ for (const file of exercicesList) {
                 amcType.text.push("AMCOpen double NC");
                 break;
               default:
-                console.error(`\x1b[41m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[0m`)
+               beginWarnText()
+                console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
                 amcType.text.push("type de question AMC non prévu");
             }
           }        
         )
       } else {
-        console.error(`\x1b[41m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
+       beginWarnText()
+        console.error(`\x1b[33m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
         amcType.text = "bug amcType.num"
       }      
       dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
@@ -166,7 +197,8 @@ for (const file of exercicesList) {
 
 let dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoires.js')
 fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`)
-console.log(`${dictFile} généré`)
+endWarnText()
+console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
 let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')

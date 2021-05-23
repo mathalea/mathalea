@@ -65,7 +65,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a)}+${b}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
-          else texte +='$'
+          else texte += '$'
           reponse = calcul(a + b)
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
@@ -80,7 +80,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           y = e * 100 + f * 10 + g
           texte = `$${texNombre(x)}-${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
-          else texte +='$'
+          else texte += '$'
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
@@ -95,7 +95,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           y = d * 100 + e * 10 + f
           texte = `$${texNombre(x)}-${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
-          else texte +='$'
+          else texte += '$'
           reponse = calcul(x - y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
@@ -109,7 +109,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           y = d * 100 + e
           texte = `$${texNombre(x)}\\times${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
-          else texte+='$'
+          else texte += '$'
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
@@ -123,7 +123,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           y = 10 * d + e
           texte = `$${x}\\times${y}`
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexte(this, i) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
-          else texte +='$'
+          else texte += '$'
           reponse = calcul(x * y)
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break

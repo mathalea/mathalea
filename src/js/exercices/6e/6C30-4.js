@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choic
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 1 // QCM
 export const interactifReady = true
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)'
@@ -20,6 +20,8 @@ export default function PlacerLaVirgule () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactif = true
+  this.interactifObligatoire = true
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -110,5 +112,4 @@ export default function PlacerLaVirgule () {
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   // this.besoin_formulaire2_case_a_cocher = ["Mode QCM",false];
   // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-  
 } // Fin de l'exercice.

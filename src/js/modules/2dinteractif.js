@@ -26,7 +26,7 @@ function PointCliquable (x, y, options) {
     code += trace.svg(coeff) + '\n'
     // Le cercle est la zone d'effet pour les évènements
     // Comme fill est à none, il faut ajouter pointer-events="visible" cf https://www.smashingmagazine.com/2018/05/svg-interaction-pointer-events-property/
-    code += `<circle cx="${A.xSVG(coeff)}" cy="${A.ySVG(coeff)}" r="${options.radius || options.rayon || 1 * coeff}" fill="none" pointer-events="visible" />\n`
+    code += `<circle cx="${A.xSVG(coeff)}" cy="${A.ySVG(coeff)}" r="${(options.radius || options.rayon || 1) * coeff}" fill="none" pointer-events="visible" />\n`
     code += '</g>'
     return code
   }

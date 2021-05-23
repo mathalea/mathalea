@@ -63,6 +63,9 @@ Redirect permanent /referentiel https://coopmaths.fr/pdf/CoopMaths-Referentiel.p
 
 ### URL Raccourcies pour les vidéos
 
+Redirect permanent /youtube https://www.youtube.com/playlist?list=PLfYukflRZmooU0kzZSu9fnjcqDFhVdP4R
+
+
 # Vocabulaire géométrie Labouche
 Redirect permanent /video6G10 https://www.youtube-nocookie.com/embed/58ZI3W-efDg?rel=0&showinfo=0
 # Tracer parallele Labouche

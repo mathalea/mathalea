@@ -22,17 +22,24 @@ id,titre,amcReady,amcType,interactifReady,
 5R22,Additions et soustractions de nombres relatifs,OK,AMCOpen NC,OK
 6C10-2,Tables de multiplications et multiples de 10,OK,qcmMono,OK
 6C10-3,Tables de multiplications et nombres décimaux,OK,qcmMono,OK
+6C10-4,Addition de deux entiers,KO,KO,OK
 6C10-5,Labyrinthe de multiples,OK,AMCOpen,KO
 6C10,Additions soustractions et multiplications posées de nombres entiers,OK,AMCOpen Num,OK
 6C10bis,Additions soustractions multiplications et divisions posées de nombres entiers,OK,AMCOpen,KO
-6C11-1,Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité,OK,AMCOpen,OK
+6C11-1,Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité,OK,AMCOpen,KO
 6C11,Divisions euclidiennes,OK,AMCOpen,KO
+6C20,Additions et soustractions de nombres décimaux,KO,KO,OK
 6C21,Divisions euclidiennes - Niveau 2,OK,AMCOpen,KO
 6C23,Additionner ou soustraire des fractions de même dénominateur,OK,qcmMono,OK
+6C30-1,Multiplications d’un nombre décimal par 10 100 ou 1 000.,KO,KO,OK
+6C30-2,Calculer le produit de deux décimaux connaissant le produit de deux entiers,KO,KO,OK
 6C30-3,Opérations avec les nombres décimaux,OK,qcmMono,OK
 6C30-4,Multiplication par 01  001  0001 (Placer la virgule),OK,qcmMono,OK
 6C30-5,Multiplication par 01  001  0001 (compléter avec le nombre qui convient),OK,qcmMono,OK
-6C30,Multiplications posées de nombres décimaux,OK,AMCOpen Num,KO
+6C30,Multiplications posées de nombres décimaux,OK,AMCOpen Num,OK
+6C31,Divisions décimales,KO,KO,OK
+6C33,Calculer en utilisant les priorités opératoires,KO,KO,OK
+6C34,Dernier chiffre d’un calcul,KO,KO,OK
 6G23-1,Mesurer un angle,OK,qcmMono,OK
 6G33,Reconnaitre un quadrilatère particulier à partir de ses propriétés,OK,qcmMono,OK
 6G41,Compléter une représentation en perspective cavalière,OK,AMCOpen,KO
@@ -62,3 +69,4 @@ CM016,Diviser un entier par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM017,Diviser un nombre décimal par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM018,Somme de deux nombres mariés et un entier,OK,AMCOpen Num,OK
 CM019,Générateur de compte est bon,OK,AMCOpen,KO
+betaExempleFigureClic,Sommets du triangle,KO,KO,OK

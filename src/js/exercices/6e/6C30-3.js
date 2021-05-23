@@ -3,12 +3,11 @@ import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 1 // QCM
 export const interactifReady = true
 export const titre = 'Opérations avec les nombres décimaux'
 
 /**
- * Reconnaître une fonction affine
 * @author Erwan Duplessy
 * 6C30-1
 * Trouver la réposne exacte. 4 cas :
@@ -26,6 +25,7 @@ export default function MultiplicationMentalDecimaux () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactifObligatoire = true // Il n'existe pas de version non QCM
+  this.interactif = true
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.video = ''

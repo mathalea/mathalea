@@ -1,8 +1,12 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
+import { context } from '../../modules/context.js'
 export const titre = 'Addition de deux entiers'
+export const amcReady = false
+export const interactifReady = true
+export const amcType = 4 // Question numérique
 
 /**
  * Additionner deux entiers
@@ -12,6 +16,9 @@ export const titre = 'Addition de deux entiers'
 export default function Exercice_tables_d_additions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.interactifReady = interactifReady
+  this.amcType = amcType
   this.consigne = 'Calculer'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2
@@ -27,15 +34,13 @@ export default function Exercice_tables_d_additions (max = 20) {
     ) {
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-      texte = '$ ' + texNombre(a) + ' + ' + texNombre(b) + ' = \\dotfill $'
-      texteCorr =
-        '$ ' +
-        texNombre(a) +
-        ' + ' +
-        texNombre(b) +
-        ' = ' +
-        texNombre(a + b) +
-        ' $'
+      texte = `$ ${texNombre(a)} + ${texNombre(b)} = \\dotfill $`
+      texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
+      setReponse(this, i, a + b)
+      if (context.isHtml && this.interactif) {
+        texte = texte.replace('\\dotfill', '')
+        texte += ajouteChampTexte(this, i)
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
