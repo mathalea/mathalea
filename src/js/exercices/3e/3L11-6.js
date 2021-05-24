@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, combinaisonListes, randint, lettreDepuisChiffre, ecritureAlgebrique, rienSi1, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, randint, lettreDepuisChiffre, ecritureAlgebrique, rienSi1, miseEnEvidence, sp } from '../../modules/outils.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true

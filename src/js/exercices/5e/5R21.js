@@ -57,6 +57,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         setReponse(this, i, a - b, { signe: true })
+        console.log('a = ',a,'  b = ',b,'  a-b = ',a-b)
         i++
       }
       cpt++
