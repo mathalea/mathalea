@@ -4,10 +4,12 @@ Plusieurs attributs de la classe Exercice() sont nécessaires pour activer la po
 
 # Tout d'abord les 'marqueurs' :
     ```js
-  this.interactif = true // définit le mode dans lequel l'exercice va s'afficher.
+  this.interactif = false // définit le mode dans lequel l'exercice va s'afficher par défaut
   this.interactifReady = interactifReady // définit si l'exercice peut s'afficher en mode interactif.
   this.amcReady = amcReady // définit si l'exercice peut servir à AMC
   this.amcType = amcType // définit le type d'exercice interactif.
+  this.interactifType = // 'mathLive' pour avoir un champ avec clavier et vérification d'égalité formelle, 
+                        // 'custom' pour appeler la fonction this.correctionInteractive() définie dans l'exercice
   ```
 
   interactifReady est une constante qui est à exporter pour établir la liste des exercices interactifs et utiliser le filtre.
@@ -111,5 +113,10 @@ Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont 
 function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) // cette fonction permet de fixer une réponse numérique à une exercice interactif/AMC de type 4 ou de type 5. ( à développer une fonction setReponses() qui fixent les réponses des exercices de type 6). Les trois premiers arguments sont obligatoires : l'exercice appelant (this), l'index de la question (i), une réponse numérique (a). le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse)
 function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true } = {}) // Cette fonction permet d'ajouter facilement un formulaire texte en bout d'une question pour récupérer la réponses de l'utilisateur. Les deux premiers arguments sont obligatoires.
 function propositionsQcm (exercice, i) // Cette fonction va retourner un objet {texte,texteCorr} qui contient les propositions faites pour le qcm avec leur case à cocher pour l'énoncé (texte) et pour la correction (texteCorr). Si le premier est toujours utilisé, on préférera au deuxième souvent la correction classique (à réfléchir : pourquoi ne pas activer la correction classique avec le bouton 'correction détaillée' ?)
+```
+
+# MathLive
+
+Il suffit de définir `this.interactiveType = 'mathLive'`, de mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans texNombre ou des équivalents) puis de faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
 
