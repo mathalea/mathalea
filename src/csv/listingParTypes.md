@@ -35,18 +35,18 @@
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK| |
 |6C10-4|Addition de deux entiers|KO|KO|OK| |
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|-|
-|6C10|Additions soustractions et multiplications posées de nombres entiers|OK|AMCOpen Num|OK| |
-|6C10bis|Additions soustractions multiplications et divisions posées de nombres entiers|OK|AMCOpen|KO|-|
+|6C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCOpen Num|OK| |
+|6C10bis|Additions, soustractions, multiplications et divisions posées de nombres entiers|OK|AMCOpen|KO|-|
 |6C11-1|Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité|OK|AMCOpen|KO|-|
 |6C11|Divisions euclidiennes|OK|bug amcType.num|OK|mathLive|
 |6C20|Additions et soustractions de nombres décimaux|KO|KO|OK| |
 |6C21|Divisions euclidiennes - Niveau 2|OK|AMCOpen|KO|-|
 |6C23|Additionner ou soustraire des fractions de même dénominateur|OK|qcmMono|OK| |
-|6C30-1|Multiplications d’un nombre décimal par 10 100 ou 1 000.|KO|KO|OK| |
+|6C30-1|Multiplications d’un nombre décimal par 10, 100 ou 1 000.|KO|KO|OK| |
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|KO|KO|OK| |
 |6C30-3|Opérations avec les nombres décimaux|OK|qcmMono|OK| |
-|6C30-4|Multiplication par 01  001  0001 (Placer la virgule)|OK|qcmMono|OK| |
-|6C30-5|Multiplication par 01  001  0001 (compléter avec le nombre qui convient)|OK|qcmMono|OK| |
+|6C30-4|Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)|OK|qcmMono|OK| |
+|6C30-5|Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK| |
 |6C30|Multiplications posées de nombres décimaux|OK|AMCOpen Num|OK| |
 |6C31|Divisions décimales|KO|KO|OK| |
 |6C33|Calculer en utilisant les priorités opératoires|KO|KO|OK| |
@@ -60,7 +60,7 @@
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK| |
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK| |
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|-|
-|6N43-3|Diviseur multiple divisible - Vrai ou faux|OK|qcmMono|OK| |
+|6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK| |
 |6N43|Critères de divisibilité|OK|qcmMono|OK| |
 |CM000|Additions et de soustractions|OK|AMCOpen Num|OK| |
 |CM001|Tables de multiplication|OK|AMCOpen Num|OK| |
@@ -76,10 +76,10 @@
 |CM011|Quart|OK|AMCOpen Num|OK| |
 |CM012|Complément à 100|OK|AMCOpen Num|OK| |
 |CM013|Complément à une dizaine|OK|AMCOpen Num|OK| |
-|CM014|Double moitié tiers triple|OK|AMCOpen Num|OK| |
+|CM014|Double, moitié, tiers, triple|OK|AMCOpen Num|OK| |
 |CM015|Somme de deux nombres mariés|OK|AMCOpen Num|OK| |
-|CM016|Diviser un entier par 10 100 ou 1000|OK|AMCOpen Num|OK| |
-|CM017|Diviser un nombre décimal par 10 100 ou 1000|OK|AMCOpen Num|OK| |
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCOpen Num|OK| |
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCOpen Num|OK| |
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCOpen Num|OK| |
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|-|
 |betaExempleFigureClic|Sommets du triangle|KO|KO|OK|custom|
