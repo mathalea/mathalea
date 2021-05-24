@@ -106,6 +106,10 @@ export default function DivisionsEuclidiennes () {
       }
       texte += ajouteChampTexteLiveMath(this, i)
       // Pour AMC question AmcOpen
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions[0].texte = texteCorr
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
