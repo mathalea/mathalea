@@ -303,11 +303,20 @@ export function exerciceMathLive (exercice) {
             reponses = exercice.autoCorrection[i].reponse.valeur
           }
           let resultat = 'KO'
-          for (const reponse of reponses) {
-            // console.log(engine.canonical(parse(champTexte.value)), engine.canonical(parse(reponse)))
+          let saisie = champTexte.value
+          for (let reponse of reponses) {
+            // Pour le calcul littéral on remplace dfrac en frac
+            if (typeof reponse === 'string') {
+              reponse = reponse.replaceAll('dfrac', 'frac')
+              // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
+              // saisie = neTientCompteQueDuDernierMembre(saisie)
+            }
+            // Pour le calcul numérique, on transforme la saisie en nombre décimal
+            if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+            console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
             if (engine.same(
-              engine.canonical(parse(champTexte.value)),
-              engine.canonical(parse(reponse.replaceAll('dfrac', 'frac')))
+              engine.canonical(parse(saisie)),
+              engine.canonical(parse(reponse))
             )) resultat = 'OK'
           }
           if (resultat === 'OK') {
@@ -325,3 +334,12 @@ export function exerciceMathLive (exercice) {
     }
   })
 }
+
+// function neTientCompteQueDuDernierMembre (texte) {
+//   const i = texte.lastIndexOf('=')
+//   if (i > -1) {
+//     return texte.substring(i + 1)
+//   } else {
+//     return texte
+//   }
+// }

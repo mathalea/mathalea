@@ -1,6 +1,15 @@
 id,titre,amcReady,amcType,interactifReady,
 3G21,Contrôler si deux droites sont parallèles,OK,AMCOpen,KO
 3G30,Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO
+3L11-1,Utiliser la double distributivité,KO,KO,OK
+3L11-2,Réduire une expression,KO,KO,OK
+3L11-3,Utiliser la distributivité (simple ou double) et réduire,KO,KO,OK
+3L11-4,Factoriser une expression,KO,KO,OK
+3L11-6,Factoriser une expression complexe,KO,KO,OK
+3L11,Utiliser la simple distributivité,KO,KO,OK
+3L12-1,Développer (a-b)(a+b),KO,KO,OK
+3P10-1,Coefficient multiplicateur d’une variation en pourcentage,KO,KO,OK
+3P10,Variations en pourcentage,KO,KO,OK
 4C21,Additionner ou soustraire deux fractions,OK,AMCOpen double NC,KO
 4C32-1,Calcul avec les puissances de dix,KO,KO,OK
 4G20-2,Racine carré d’un carré parfait (calcul mental),KO,KO,OK
@@ -27,7 +36,7 @@ id,titre,amcReady,amcType,interactifReady,
 6C10,Additions soustractions et multiplications posées de nombres entiers,OK,AMCOpen Num,OK
 6C10bis,Additions soustractions multiplications et divisions posées de nombres entiers,OK,AMCOpen,KO
 6C11-1,Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité,OK,AMCOpen,KO
-6C11,Divisions euclidiennes,OK,AMCOpen,KO
+6C11,Divisions euclidiennes,OK,bug amcType.num,KO
 6C20,Additions et soustractions de nombres décimaux,KO,KO,OK
 6C21,Divisions euclidiennes - Niveau 2,OK,AMCOpen,KO
 6C23,Additionner ou soustraire des fractions de même dénominateur,OK,qcmMono,OK
@@ -43,6 +52,8 @@ id,titre,amcReady,amcType,interactifReady,
 6G23-1,Mesurer un angle,OK,qcmMono,OK
 6G33,Reconnaitre un quadrilatère particulier à partir de ses propriétés,OK,qcmMono,OK
 6G41,Compléter une représentation en perspective cavalière,OK,AMCOpen,KO
+6N20-2,Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.,KO,KO,OK
+6N20,Décomposer une fraction (partie entière + fraction inférieure à 1).,KO,KO,OK
 6N23-5,Sens de l’écriture fractionnaire,OK,qcmMono,OK
 6N31-3,Arrondir une valeur,OK,qcmMult,OK
 6N41,Égalités entre fractions simples,OK,qcmMono,OK

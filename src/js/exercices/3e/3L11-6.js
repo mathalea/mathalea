@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, combinaisonListes, randint, lettreDepuisChiffre, ecritureAlgebrique, rienSi1, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, randint, lettreDepuisChiffre, ecritureAlgebrique, rienSi1, miseEnEvidence, sp } from '../../modules/outils.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
@@ -25,7 +25,12 @@ export default function FactoriserUneExpression3e () {
   this.sup = 1
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  if (context.isHtml) {
+    this.spacingCorr = 2
+    this.spacing = 2
+  } else {
+    this.spacingCorr = 1
+  }
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
