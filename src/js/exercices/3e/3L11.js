@@ -37,7 +37,8 @@ export default function ExerciceDevelopper (difficulte = 1) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
+    let lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
+    if (this.interactif) lettre = ['x']
     const typesDeQuestionsDisponibles = [
       'simple',
       'simple',

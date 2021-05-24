@@ -47,31 +47,31 @@ export default function DoubleDistributivite () {
           d = randint(2, 12)
           texte = `$(x+${b})(x+${d})$`
           texteCorr = `$(x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
-		  reponse = `x^2+${b + d}x+${b * d}`
+          reponse = `x^2+${b + d}x+${b * d}`
           break
         case 2: // (ax+b)(cx+d)
           texte = `$(${a}x+${b})(${c}x+${d})$`
           texteCorr = `$(${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
-		  reponse = `${a * c}x^2+${a * d + b * c}x+${b * d}`
+          reponse = `${a * c}x^2+${a * d + b * c}x+${b * d}`
           break
         case 3: // (ax-b)(cx+d)
           texte = `$(${a}x-${b})(${c}x+${d})$`
           if (egal(a * d - b * c, 0)) {
-			  texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
-			  reponse = printlatex(`${a * c}*x^2-${b * d}`)
+            texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
+            reponse = printlatex(`${a * c}*x^2-${b * d}`)
           } else {
             texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
             reponse = printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)
-			 }
-		  break
+          }
+          break
         case 4: // (ax-b)(cx-d)
           texte = `$(${a}x-${b})(${c}x-${d})$`
           texteCorr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`
-		  reponse = `${a * c}x^2-${a * d + b * c}x+${b * d}`
+          reponse = `${a * c}x^2-${a * d + b * c}x+${b * d}`
           break
       }
-	  texte += ajouteChampTexteLiveMath(this, i)
-	  setReponse(this, i, reponse)
+      texte += ajouteChampTexteLiveMath(this, i)
+      setReponse(this, i, reponse)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
