@@ -3,7 +3,6 @@ import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParenthese
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Réduire une expression'
 export const interactifReady = true
-export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

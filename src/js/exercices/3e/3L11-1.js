@@ -3,7 +3,6 @@ import { listeQuestionsToContenu, egal, randint, combinaisonListes, printlatex }
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
-export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

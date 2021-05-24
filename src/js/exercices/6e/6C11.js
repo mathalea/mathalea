@@ -8,8 +8,7 @@ export const amcReady = true
 // export const amcType = 3 // type de question AMC
 // export const amcType = 4 // type de question AMC
 export const interactifReady = true
-export const interactifType = ''
-export const interactifType = 'mathlive'
+export const interactifType = 'mathLive'
 
 export const titre = 'Divisions euclidiennes'
 

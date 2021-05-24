@@ -4,7 +4,6 @@ import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, randint, 
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
-export const interactifType = ''
 export const interactifType = 'mathLive'
 // Il y a un problème avec l'ordre de la multiplication
 

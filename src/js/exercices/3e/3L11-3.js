@@ -4,7 +4,6 @@ import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffr
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
-export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**
