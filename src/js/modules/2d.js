@@ -721,7 +721,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
     absNom = arrondi(absNom, 2)
     ordNom = arrondi(ordNom, 2)
-    leNom = latexParCoordonnees(this.nom, absNom, ordNom, 'black', 20, 0, '')
+    leNom = latexParCoordonnees(this.nom, absNom, ordNom, this.color, 20, 12, '')
   }
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {

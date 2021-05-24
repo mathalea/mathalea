@@ -2304,12 +2304,12 @@ export function stringNombre (nb) {
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (context.isHtml) {
-    return `\\mathbf{\\color{${couleur}}{${texte}}}`
+    return `\\bm{\\color{${couleur}}{${texte}}}`
   } else {
     if (couleur[0] === '#') {
-      return `\\mathbf{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
     } else {
-      return `\\mathbf{\\color{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{\\color{${couleur.replace('#', '')}}${texte}}`
     }
   }
 }
