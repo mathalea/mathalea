@@ -3,6 +3,8 @@ import { context } from './context.js'
 import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 import { addElement, get, setStyles } from './dom.js'
+import { ComputeEngine, parse } from '@cortex-js/math-json'
+
 
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
@@ -219,7 +221,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 }
 export function ajouteChampTexteLiveMath (exercice, i) {
   if (context.isHtml && exercice.interactif) {
-    return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
   } else {
     return ''
   }
@@ -283,6 +285,7 @@ export function exerciceCustom (exercice) {
  * @param {object} exercice
  */
 export function exerciceMathLive (exercice) {
+  const engine = new ComputeEngine();
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
@@ -302,7 +305,11 @@ export function exerciceMathLive (exercice) {
           }
           let resultat = 'KO'
           for (const reponse of reponses) {
-            if (champTexte.value === reponse) resultat = 'OK'
+            // if (champTexte.value === reponse) resultat = 'OK'
+            if (engine.same(
+              engine.canonical(parse(champTexte.value)),
+              engine.canonical(parse(reponse))
+            )) resultat = 'OK'
           }
           if (resultat === 'OK') {
             spanReponseLigne.innerHTML = '😎'

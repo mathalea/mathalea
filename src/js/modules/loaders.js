@@ -128,7 +128,8 @@ export async function loadMathLive () {
       mf.setOptions({
         inlineShortcuts: {
           '*': { mode: 'math', value: '\\times' }
-        }
+        },
+        virtualKeyboards: 'numeric roman'
       })
       mf.style = 'font-size: 20px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
     }
