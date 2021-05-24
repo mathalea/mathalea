@@ -5,7 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Tables de multiplications et de divisions'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = ''
+export const interactifType = ' '
 export const amcType = 4
 
 /**

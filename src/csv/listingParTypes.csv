@@ -8,6 +8,7 @@ id,titre,amcReady,amcType,interactifReady,
 3L11-6,Factoriser une expression complexe,KO,KO,OK
 3L11,Utiliser la simple distributivité,KO,KO,OK
 3L12-1,Développer (a-b)(a+b),KO,KO,OK
+3L12,Factoriser a²-b²,KO,KO,OK
 3P10-1,Coefficient multiplicateur d’une variation en pourcentage,KO,KO,OK
 3P10,Variations en pourcentage,KO,KO,OK
 4C21,Additionner ou soustraire deux fractions,OK,AMCOpen double NC,KO
@@ -36,7 +37,7 @@ id,titre,amcReady,amcType,interactifReady,
 6C10,Additions soustractions et multiplications posées de nombres entiers,OK,AMCOpen Num,OK
 6C10bis,Additions soustractions multiplications et divisions posées de nombres entiers,OK,AMCOpen,KO
 6C11-1,Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité,OK,AMCOpen,KO
-6C11,Divisions euclidiennes,OK,bug amcType.num,KO
+6C11,Divisions euclidiennes,OK,bug amcType.num,OK
 6C20,Additions et soustractions de nombres décimaux,KO,KO,OK
 6C21,Divisions euclidiennes - Niveau 2,OK,AMCOpen,KO
 6C23,Additionner ou soustraire des fractions de même dénominateur,OK,qcmMono,OK

@@ -592,7 +592,7 @@ export default {
     "titre": "Factoriser a²-b²",
     "url": "/exercices/3e/3L12.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
     "name": "3L12"
   },
   "3L13-1": {
@@ -937,6 +937,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "4G20"
   },
   "4G20MG32": {
@@ -1390,6 +1391,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5L10-2"
   },
   "5L10-3": {
@@ -1415,6 +1417,7 @@ export default {
       "text": "qcmMult"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5L10"
   },
   "5L12-1": {
@@ -1454,6 +1457,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5L14-2"
   },
   "5L14-3": {
@@ -1606,6 +1610,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5N20"
   },
   "5P10": {
@@ -1645,6 +1650,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R10"
   },
   "5R11-2": {
@@ -1684,6 +1690,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R20-2"
   },
   "5R20-3": {
@@ -1695,6 +1702,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R20-3"
   },
   "5R20-4": {
@@ -1720,6 +1728,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R20"
   },
   "5R21": {
@@ -1731,6 +1740,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R21"
   },
   "5R22-2": {
@@ -1749,6 +1759,7 @@ export default {
       "text": "AMCOpen NC"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "5R22"
   },
   "5S12": {
@@ -1823,6 +1834,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C10-2"
   },
   "6C10-3": {
@@ -1834,6 +1846,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C10-3"
   },
   "6C10-4": {
@@ -1863,6 +1876,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C10"
   },
   "6C10bis": {
@@ -1894,7 +1908,8 @@ export default {
     "amcType": {
       "text": "bug amcType.num"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6C11"
   },
   "6C13": {
@@ -1931,6 +1946,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C23"
   },
   "6C30-1": {
@@ -1956,6 +1972,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30-3"
   },
   "6C30-4": {
@@ -1967,6 +1984,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30-4"
   },
   "6C30-5": {
@@ -1978,6 +1996,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30-5"
   },
   "6C30": {
@@ -1989,6 +2008,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30"
   },
   "6C31-2": {
@@ -2147,6 +2167,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6G23-1"
   },
   "6G23-2": {
@@ -2235,6 +2256,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6G33"
   },
   "6G41": {
@@ -2530,6 +2552,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6N23-5"
   },
   "6N23": {
@@ -2597,6 +2620,7 @@ export default {
       "text": "qcmMult"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6N31-3"
   },
   "6N31-4": {
@@ -2678,6 +2702,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6N41"
   },
   "6N43-2": {
@@ -2700,6 +2725,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6N43-3"
   },
   "6N43-4": {
@@ -2718,6 +2744,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6N43"
   },
   "6P10": {
@@ -2771,6 +2798,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM000"
   },
   "CM001": {
@@ -2782,6 +2810,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM001"
   },
   "CM002": {
@@ -2793,6 +2822,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM002"
   },
   "CM003": {
@@ -2804,6 +2834,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM003"
   },
   "CM004": {
@@ -2815,6 +2846,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM004"
   },
   "CM005": {
@@ -2826,6 +2858,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM005"
   },
   "CM006": {
@@ -2837,6 +2870,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM006"
   },
   "CM007": {
@@ -2848,6 +2882,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM007"
   },
   "CM008": {
@@ -2859,6 +2894,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM008"
   },
   "CM009": {
@@ -2870,6 +2906,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM009"
   },
   "CM010": {
@@ -2881,6 +2918,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM010"
   },
   "CM011": {
@@ -2892,6 +2930,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM011"
   },
   "CM012": {
@@ -2903,6 +2942,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM012"
   },
   "CM013": {
@@ -2914,6 +2954,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM013"
   },
   "CM014": {
@@ -2925,6 +2966,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM014"
   },
   "CM015": {
@@ -2936,6 +2978,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM015"
   },
   "CM016": {
@@ -2947,6 +2990,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM016"
   },
   "CM017": {
@@ -2958,6 +3002,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM017"
   },
   "CM018": {
@@ -2969,6 +3014,7 @@ export default {
       "text": "AMCOpen Num"
     },
     "interactifReady": true,
+    "interactifType": " ",
     "name": "CM018"
   },
   "CM019": {

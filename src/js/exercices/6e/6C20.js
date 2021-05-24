@@ -6,7 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const amcReady = false // jusqu'à ce qu'il soit adapté à la version 2.6
 export const amcType = 4 // Question numérique
 export const interactifReady = true
-export const interactifType = ''
+export const interactifType = ' '
 
 export const titre = 'Additions et soustractions de nombres décimaux'
 
