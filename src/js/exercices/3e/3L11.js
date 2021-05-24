@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 
@@ -27,7 +26,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
   this.sup = difficulte
   this.sup = parseInt(this.sup)
   this.titre = titre
-  this.interactifType = 'mathlive'
+  this.interactifType = 'mathLive'
   this.interactifReady = interactifReady
   this.consigne = 'Développer.'
   this.spacing = 1
@@ -109,12 +108,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
           } else {
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
-            )}=(${a}${inconnue}${ecritureAlgebrique(
-              b
-            )})\\times${ecritureParentheseSiNegatif(k)}=${k}
-						\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(
-              k
-            )}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
+            )}=(${a}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}=${k}\\times ${a}${inconnue}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}${ecritureAlgebrique(k * b)}$`
           }
           reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
           break
@@ -186,7 +180,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
             )})+${c}=${k}\\times ${inconnue}+${ecritureParentheseSiNegatif(
               k
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
-						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
+            =${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           } else {
             texteCorr = `$${lettreDepuisChiffre(
               i + 1
@@ -197,7 +191,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
             )}+${ecritureParentheseSiNegatif(
               k
             )}\\times${ecritureParentheseSiNegatif(b)}+${c}
-						=${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
+            =${k * a}${inconnue}${ecritureAlgebrique(k * b)}+${c}=${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}$`
           }
           reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
           break
