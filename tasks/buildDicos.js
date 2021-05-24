@@ -239,11 +239,11 @@ let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
 fs.writeFileSync(csvFile,`id,titre,amcReady,amcType,interactifReady,\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK\r\n`)
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK,${props.interactifType}\r\n`)
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO\r\n`)
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO,-\r\n`)
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK\r\n`)
+    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK,${props.interactifType}\r\n`)
   }
 })
 console.log(`${csvFile} généré`)
