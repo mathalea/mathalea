@@ -64,6 +64,8 @@ export function exerciceQcm (exercice) {
           }
           spanReponseLigne.style.fontSize = 'large'
           if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
+            const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+            if (eltFeedback) eltFeedback.innerHTML = ''
             messageFeedback({
               id: `feedbackEx${exercice.numeroExercice}Q${i}`,
               message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
