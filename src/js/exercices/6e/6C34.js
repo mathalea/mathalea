@@ -6,6 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Dernier chiffre d’un calcul'
 export const amcReady = false
 export const interactifReady = true
+export const interactifType = ''
 export const amcType = 4 // Question numérique
 
 /**

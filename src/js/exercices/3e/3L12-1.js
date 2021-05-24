@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, choice, texFraction } from '../../mod
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, choice, combinaisonListes, abs, lettreDepuisCh
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

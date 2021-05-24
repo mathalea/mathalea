@@ -4,6 +4,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Racine carré d’un carré parfait (calcul mental)'
 export const amcReady = false
 export const interactifReady = true
+export const interactifType = ''
 export const amcType = 4
 
 /**

@@ -4,6 +4,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Les quatre opérations'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ''
 export const amcType = 4
 
 /**

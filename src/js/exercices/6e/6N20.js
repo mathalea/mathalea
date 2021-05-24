@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } 
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

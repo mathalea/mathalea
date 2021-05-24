@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
+export const interactifType = ''
 
 export const titre = 'Tables de multiplications et multiples de 10'
 

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, range1, combinaisonListes } from '../
 export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ''
 export const amcType = 4
 
 /**

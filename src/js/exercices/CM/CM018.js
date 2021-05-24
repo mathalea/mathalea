@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modul
 export const titre = 'Somme de deux nombres mariés et un entier'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ''
 export const amcType = 4
 
 /**

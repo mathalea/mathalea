@@ -7,6 +7,7 @@ import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js
 export const amcReady = true
 export const amcType = 4 // Question numérique
 export const interactifReady = true
+export const interactifType = ''
 
 export const titre = 'Multiplications posées de nombres décimaux'
 

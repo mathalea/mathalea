@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

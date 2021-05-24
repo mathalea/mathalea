@@ -5,6 +5,7 @@ import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInter
 export const titre = 'Utiliser la simple distributivité'
 
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**

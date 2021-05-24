@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 1 // QCM
 export const interactifReady = true
+export const interactifType = ''
 export const titre = 'Opérations avec les nombres décimaux'
 
 /**

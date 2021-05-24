@@ -6,6 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
+export const interactifType = ''
 export const amcReady = true
 export const amcType = 4
 

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes } from
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de divisions'
 export const interactifReady = true
+export const interactifType = ''
 export const amcReady = true
 export const amcType = 4 // Question numérique
 

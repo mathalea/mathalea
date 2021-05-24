@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcu
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
+export const interactifType = ''
 export const interactifType = 'mathLive'
 
 /**
