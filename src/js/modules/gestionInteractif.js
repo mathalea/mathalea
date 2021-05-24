@@ -5,7 +5,6 @@ import { messageFeedback } from './messages.js'
 import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 
-
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
@@ -175,19 +174,19 @@ export function questionNumerique (exercice) {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
-        let nbBonnesReponses = 0
-        let nbMauvaisesReponses = 0
-        const nbBonnesReponsesAttendues = exercice.nbQuestions
+        // let nbBonnesReponses = 0
+        // let nbMauvaisesReponses = 0
+        // const nbBonnesReponsesAttendues = exercice.nbQuestions
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
           const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
           if (champTexte.value.replaceAll(' ', '') === exercice.autoCorrection[i].reponse.valeur.toString().replaceAll(' ', '').replaceAll('.', ',')) {
             spanReponseLigne.innerHTML = '😎'
-            nbBonnesReponses++
+            // nbBonnesReponses++
           } else {
             spanReponseLigne.innerHTML = '☹️'
-            nbMauvaisesReponses++
+            // nbMauvaisesReponses++
           }
           champTexte.readOnly = true
           spanReponseLigne.style.fontSize = 'large'
@@ -285,14 +284,14 @@ export function exerciceCustom (exercice) {
  * @param {object} exercice
  */
 export function exerciceMathLive (exercice) {
-  const engine = new ComputeEngine();
+  const engine = new ComputeEngine()
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {
       button.addEventListener('click', event => {
-        let nbBonnesReponses = 0
-        let nbMauvaisesReponses = 0
-        const nbBonnesReponsesAttendues = exercice.nbQuestions
+        // let nbBonnesReponses = 0
+        // let nbMauvaisesReponses = 0
+        // const nbBonnesReponsesAttendues = exercice.nbQuestions
         for (const i in exercice.autoCorrection) {
           const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
           // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
@@ -305,17 +304,18 @@ export function exerciceMathLive (exercice) {
           }
           let resultat = 'KO'
           for (const reponse of reponses) {
+            // console.log(engine.canonical(parse(champTexte.value)), engine.canonical(parse(reponse)))
             if (engine.same(
               engine.canonical(parse(champTexte.value)),
-              engine.canonical(parse(reponse))
+              engine.canonical(parse(reponse.replaceAll('dfrac', 'frac')))
             )) resultat = 'OK'
           }
           if (resultat === 'OK') {
             spanReponseLigne.innerHTML = '😎'
-            nbBonnesReponses++
+            // nbBonnesReponses++
           } else {
             spanReponseLigne.innerHTML = '☹️'
-            nbMauvaisesReponses++
+            // nbMauvaisesReponses++
           }
           champTexte.readOnly = true
           spanReponseLigne.style.fontSize = 'large'
