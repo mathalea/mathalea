@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } 
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
@@ -13,7 +14,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne =
     "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale"
   this.spacing = 2

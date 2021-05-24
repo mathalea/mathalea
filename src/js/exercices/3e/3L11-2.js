@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParenthese
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Réduire une expression'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Réduire des expressions lorsque c'est possible
@@ -14,7 +15,7 @@ export default function ReductionSiPossible () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Réduire les expressions suivantes, si cela est possible.'
   this.nbQuestions = 5
   this.nbCols = 1
