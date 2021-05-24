@@ -537,6 +537,7 @@ export default {
     "url": "/exercices/3e/3L11-1.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-1"
   },
   "3L11-2": {
@@ -544,6 +545,7 @@ export default {
     "url": "/exercices/3e/3L11-2.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-2"
   },
   "3L11-3": {
@@ -551,6 +553,7 @@ export default {
     "url": "/exercices/3e/3L11-3.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-3"
   },
   "3L11-4": {
@@ -558,6 +561,7 @@ export default {
     "url": "/exercices/3e/3L11-4.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-4"
   },
   "3L11-5": {
@@ -572,6 +576,7 @@ export default {
     "url": "/exercices/3e/3L11-6.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11-6"
   },
   "3L11": {
@@ -579,6 +584,7 @@ export default {
     "url": "/exercices/3e/3L11.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L11"
   },
   "3L12-1": {
@@ -586,6 +592,7 @@ export default {
     "url": "/exercices/3e/3L12-1.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L12-1"
   },
   "3L12": {
@@ -593,6 +600,7 @@ export default {
     "url": "/exercices/3e/3L12.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L12"
   },
   "3L13-1": {
@@ -649,6 +657,7 @@ export default {
     "url": "/exercices/3e/3P10-1.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3P10-1"
   },
   "3P10": {
@@ -656,6 +665,7 @@ export default {
     "url": "/exercices/3e/3P10.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3P10"
   },
   "3S12": {
@@ -828,6 +838,7 @@ export default {
     "url": "/exercices/4e/4C32-1.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "4C32-1"
   },
   "4C32-2": {
@@ -919,6 +930,7 @@ export default {
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "4G20-2"
   },
   "4G20-5": {
@@ -952,6 +964,7 @@ export default {
     "url": "/exercices/4e/4G21.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "4G21"
   },
   "4G22": {
@@ -1854,6 +1867,7 @@ export default {
     "url": "/exercices/6e/6C10-4.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C10-4"
   },
   "6C10-5": {
@@ -1924,6 +1938,7 @@ export default {
     "url": "/exercices/6e/6C20.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C20"
   },
   "6C21": {
@@ -1954,6 +1969,7 @@ export default {
     "url": "/exercices/6e/6C30-1.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30-1"
   },
   "6C30-2": {
@@ -1961,6 +1977,7 @@ export default {
     "url": "/exercices/6e/6C30-2.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C30-2"
   },
   "6C30-3": {
@@ -2023,6 +2040,7 @@ export default {
     "url": "/exercices/6e/6C31.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C31"
   },
   "6C32": {
@@ -2037,6 +2055,7 @@ export default {
     "url": "/exercices/6e/6C33.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C33"
   },
   "6C34": {
@@ -2044,6 +2063,7 @@ export default {
     "url": "/exercices/6e/6C34.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": " ",
     "name": "6C34"
   },
   "6C35": {
@@ -2478,6 +2498,7 @@ export default {
     "url": "/exercices/6e/6N20-2.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N20-2"
   },
   "6N20": {
@@ -2485,6 +2506,7 @@ export default {
     "url": "/exercices/6e/6N20.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N20"
   },
   "6N21": {
@@ -3306,6 +3328,7 @@ export default {
     "url": "/exercices/beta/betaExempleFigureClic.js",
     "amcReady": false,
     "interactifReady": true,
+    "interactifType": "custom",
     "name": "betaExempleFigureClic"
   },
   "betaExempleQuestionsDifferentes": {

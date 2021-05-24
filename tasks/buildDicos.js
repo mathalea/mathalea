@@ -216,9 +216,9 @@ for (const file of exercicesList) {
       }            
     } else {
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
-      } else {
         dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name }
+      } else {
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
       }
       
     }    
@@ -249,15 +249,15 @@ Object.entries(dicoAlea).forEach(([id,props]) => {
 console.log(`${csvFile} généré`)
 // Je laisse dans le dossier csvFile pour le moment
 let mdFile  = path.resolve(csvDir,'.','listingParTypes.md')
-fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|\r\n`)
-fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|\r\n`)
+fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
+fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|OK|\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(csvFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|KO\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|KO|-|\r\n`)    
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|KO|KO|OK\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|KO|KO|OK|${props.interactifType}|\r\n`)    
   }
 })
 console.log(`${mdFile} généré`)
