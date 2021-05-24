@@ -2,7 +2,7 @@
 import { strRandom, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl } from './modules/getUrlVars.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { loadIep, loadPrism, loadGiac } from './modules/loaders'
+import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
 import { waitFor } from './modules/outilsDom'
 import { mg32DisplayAll } from './modules/mathgraph'
 import { messageUtilisateur } from './modules/messages.js'
@@ -10,6 +10,8 @@ import { exerciceInteractif } from './modules/gestionInteractif.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
+
+// import { MathfieldElement } from 'mathlive'
 
 // @todo importer katex à la demande
 // import katex from 'katex'
@@ -210,6 +212,7 @@ if (document.getElementById('choix_exercices_div')) { // On cache le formulaire 
  */
 async function gestionModules (isdiaporama, listeObjetsExercice) { // besoin katex, mg32, iep, scratch
   // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+  loadMathLive()
   renderMathInElement(document.body, {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
@@ -591,8 +594,8 @@ function miseAJourDuCode () {
           codeCorrections += '\n\n'
         } else {
           listeObjetsExercice[i].nouvelleVersion()
-          if (listeObjetsExercice[i].contenu.substr(0,6)==="\\exo{}" || listeObjetsExercice[i].pasDeVersionLatex) {
-            messageUtilisateur({ code: 'noLatex',exercice: listeObjetsExercice[i].id })
+          if (listeObjetsExercice[i].contenu.substr(0, 6) === '\\exo{}' || listeObjetsExercice[i].pasDeVersionLatex) {
+            messageUtilisateur({ code: 'noLatex', exercice: listeObjetsExercice[i].id })
           }
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'

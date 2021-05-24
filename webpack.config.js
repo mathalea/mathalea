@@ -155,7 +155,9 @@ const config = {
         { from: 'src/assets', to: 'assets', info: { minimized: true } },
         { from: 'src/php', to: './', info: { minimized: true } },
         { from: 'src/assets/favicon.ico', to: './', info: { minimized: true } },
-        { from: 'src/.htaccess', to: './', info: { minimized: true } }
+        { from: 'src/.htaccess', to: './', info: { minimized: true } },
+        { from: 'node_modules/mathlive/dist/fonts', to: 'js/fonts', info: { minimized: true } },
+        { from: 'node_modules/mathlive/dist/sounds', to: 'js/sounds', info: { minimized: true } }
       ]
     }),
     new MiniCssExtractPlugin({

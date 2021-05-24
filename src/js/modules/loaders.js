@@ -114,3 +114,24 @@ export async function loadPrism () {
 export async function loadScratchblocks () {
   await load('scratchblocks')
 }
+
+/**
+ * Charge MathLive et personnalise les réglages
+ * MathLive est chargé dès qu'un tag math-field est créé
+ */
+export async function loadMathLive () {
+  const champs = document.getElementsByTagName('math-field')
+  if (champs.length > 0) {
+    const { default: MathfieldElement } = await import('mathlive')
+    // Ne pourrait-on pas donner un style par défaut ?
+    for (const mf of champs) {
+      mf.setOptions({
+        inlineShortcuts: {
+          '*': { mode: 'math', value: '\\times' }
+        },
+        virtualKeyboards: 'numeric roman'
+      })
+      mf.style = 'font-size: 20px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
+    }
+  }
+}
