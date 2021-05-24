@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType =2 //type de question AMC 
+export const amcType = 2 // type de question AMC
 
 export const titre = 'Critères de divisibilité (plusieurs possibles)'
 
@@ -17,13 +17,12 @@ export const titre = 'Critères de divisibilité (plusieurs possibles)'
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-
+  this.amcType = amcType
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 5
   this.nbColsCorr = 1
   this.nbCols = 1
-
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
@@ -128,6 +127,7 @@ export default function TableauCriteresDeDivisibilite () {
     texte = ''
     for (let i = 0; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = {}
       switch (listeDesTypesDeNombres[i]) {
         case 'div2':
           tableauDeNombres[i] = 2 * choice(listeDeFacteurs)
@@ -521,13 +521,11 @@ export default function TableauCriteresDeDivisibilite () {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     if (!context.isAmc) {
-      if (this.modeQcm) {
+      if (this.interactif) {
         listeQuestionsToContenu(this)
       } else {
         listeQuestionsToContenuSansNumero(this)
       }
-    } else {
-      
     }
   }
 }

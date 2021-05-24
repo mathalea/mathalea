@@ -6731,12 +6731,15 @@ export async function scratchTraductionFr () {
 export function exportQcmAmc (exercice, idExo) {
   const ref = exercice.id
   const autoCorrection = exercice.autoCorrection
+  console.log(exercice.autoCorrection,exercice.amcType)
   const titre = exercice.titre
   const type = exercice.amcType
   let texQr = ''
   let id = 0
   let reponse, reponse2
-  let horizontalite
+  let horizontalite = 'reponseshoriz'
+  let lastchoice = false
+  let ordered = false
   let nbChiffresPd, nbChiffresPe
   for (let j = 0; j < autoCorrection.length; j++) {
     if (autoCorrection[j].options !== undefined) {
@@ -6745,8 +6748,12 @@ export function exportQcmAmc (exercice, idExo) {
       } else {
         horizontalite = 'reponses'
       }
-    } else {
-      horizontalite = 'reponseshoriz'
+      if (autoCorrection[j].options.ordered) {
+        ordered = true
+      }
+      if (autoCorrection[j].options.lastChoice !== undefined) {
+        lastchoice = autoCorrection[j].options.lastChoice
+      }
     }
     // tabQCM = tabQCMs[1][j].propositions.slice(0)
     switch (type) {
@@ -6754,24 +6761,22 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\begin{${horizontalite}}`
-        if (autoCorrection[j].options !== undefined) {
-          if (autoCorrection[j].options.ordered) {
-            texQr += '[o]'
-          }
+        texQr += `\t\\begin{${horizontalite}}`
+        if (ordered) {
+          texQr += '[o]'
         }
         texQr += '\n '
         for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
-          if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
-            texQr += '\\lastchoices\n'
+          if (lastchoice > 0 && i === lastchoice) {
+            texQr += '\t\t\\lastchoices\n'
           }
           if (autoCorrection[j].propositions[i].statut) {
-            texQr += `\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+            texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
           } else {
-            texQr += `\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
+            texQr += `\t\t\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        texQr += `\\end{${horizontalite}}\n `
+        texQr += `\t\\end{${horizontalite}}\n `
         texQr += '\\end{question}\n }\n '
         id++
         break
@@ -6780,18 +6785,14 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n `
         texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
-        texQr += `\\begin{${horizontalite}}`
-        if (autoCorrection[j].options !== undefined) {
-          if (autoCorrection[j].options.ordered) {
-            texQr += '[o]'
-          }
+        texQr += `\t\\begin{${horizontalite}}`
+        if (ordered) {
+          texQr += '[o]'
         }
-        texQr += ' \n '
+        texQr += '\n '
         for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
-          if (autoCorrection[j].options !== undefined) {
-            if (autoCorrection[j].options.lastChoices > 0 && i === autoCorrection[j].options.lastChoices) {
-              texQr += '\\lastchoices\n'
-            }
+          if (lastchoice > 0 && i === lastchoice) {
+            texQr += '\t\t\\lastchoices\n'
           }
           if (autoCorrection[j].propositions[i].statut) {
             texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
@@ -7294,7 +7295,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   Les questions précédées de \\multiSymbole peuvent avoir plusieurs réponses.\\\\ Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
   
-  → Il est fortement conseillé de faire les calculs dans sa tête ou sur la partie blanche de la feuille sans regarder les solutions proposées avant de remplir la bonne case plutôt que d'essayer de choisir entre les propositions (ce qui demande de toutes les examiner et prend donc plus de temps) ←}
+   Il est fortement conseillé de faire les calculs dans sa tête ou sur la partie blanche de la feuille sans regarder les solutions proposées avant de remplir la bonne case plutôt que d'essayer de choisir entre les propositions (ce qui demande de toutes les examiner et prend donc plus de temps) }
   
   `
 
