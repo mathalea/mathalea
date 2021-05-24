@@ -124,6 +124,19 @@ for (const file of exercicesList) {
       if (amcReady) {
         amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
       }
+
+      // On verifie s'il y a une incohérence interactifType interactifReady et on affiche un warning au besoin         
+      if (interactifReady && !/export +const +interactifType */.test(srcContent)) {
+        beginWarnText()
+        console.error(`\x1b[34m${file} n'a pas d'export interactifType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
+      }
+      if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
+      beginWarnText()
+        console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+      }
+      if (interactifReady) {//regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
+        interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
+      } 
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -234,5 +247,19 @@ Object.entries(dicoAlea).forEach(([id,props]) => {
   }
 })
 console.log(`${csvFile} généré`)
+// Je laisse dans le dossier csvFile pour le moment
+let mdFile  = path.resolve(csvDir,'.','listingParTypes.md')
+fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|\r\n`)
+fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|\r\n`)
+Object.entries(dicoAlea).forEach(([id,props]) => {
+  if (props.amcReady && props.interactifReady) {
+    fs.appendFileSync(mdFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|OK|\r\n`)    
+  } else if (props.amcReady && !props.interactifReady) {
+    fs.appendFileSync(csvFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|OK|${props.amcType.text}|KO\r\n`)    
+  } else if (!props.amcReady && props.interactifReady) {
+    fs.appendFileSync(csvFile,`|${id}|${props.titre.replace(/[,;]/g, '')}|KO|KO|OK\r\n`)    
+  }
+})
+console.log(`${mdFile} généré`)
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)
