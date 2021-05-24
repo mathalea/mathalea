@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
@@ -50,7 +51,6 @@ export default function CriteresDeDivisibilite () {
     )
     for (let i = 0, n, u, texte, texteCorr, sommeString, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
           texte: 'Oui',
@@ -213,6 +213,7 @@ export default function CriteresDeDivisibilite () {
 
           break
       }
+      this.autoCorrection[i].enonce = `${texte}\n`
       if (this.interactif) {
         texte += '<br>' + propositionsQcm(this, i).texte
       }
