@@ -3185,6 +3185,13 @@ export default {
     "interactifReady": false,
     "name": "beta4N10"
   },
+  "beta5N14-3": {
+    "titre": "Fractions égales et égalité des produits en croix",
+    "url": "/exercices/beta/beta5N14-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta5N14-3"
+  },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
     "url": "/exercices/beta/beta6C33-1.js",
