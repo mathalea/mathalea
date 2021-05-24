@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.14.3
   '@babel/plugin-syntax-dynamic-import': ^7.8.3
   '@babel/preset-modules': ^0.1.4
-  '@bugsnag/js': ^7.9.2
+  '@bugsnag/js': ^7.10.0
   '@cortex-js/math-json': ^0.1.1
   '@svgdotjs/svg.js': ^3.0.16
   algebrite: ^1.4.0
@@ -14,7 +14,7 @@ specifiers:
   codemirror: ^5.61.1
   copy-webpack-plugin: ^8.1.1
   core-js: ^3.12.1
-  css-loader: ^5.2.5
+  css-loader: ^5.2.6
   datatables.net: ^1.10.24
   datatables.net-dt: ^1.10.24
   docdash: ^1.2.0
@@ -34,7 +34,7 @@ specifiers:
   json-loader: ^0.5.7
   katex: ^0.13.11
   loadjs: ^4.2.0
-  mathjs: ^9.3.2
+  mathjs: ^9.4.1
   mathlive: ^0.67.0
   mini-css-extract-plugin: ^1.6.0
   minimist: ^1.2.5
@@ -51,19 +51,19 @@ specifiers:
   webpack-dev-server: ^3.11.2
 
 dependencies:
-  '@bugsnag/js': 7.9.2
+  '@bugsnag/js': 7.10.0
   '@cortex-js/math-json': 0.1.1
   '@svgdotjs/svg.js': 3.0.16
   algebrite: 1.4.0
   clipboard: 2.0.8
-  codemirror: 5.61.0
-  core-js: 3.12.0
+  codemirror: 5.61.1
+  core-js: 3.12.1
   instrumenpoche: framagit.org/Sesamath/instrumenpoche/b7176a91ba82ecc28b0a5b30d8f972b37a021988
   jquery: 3.6.0
   jquery-ui: 1.12.1
   katex: 0.13.11
   loadjs: 4.2.0
-  mathjs: 9.3.2
+  mathjs: 9.4.1
   mathlive: 0.67.0
   qrcode: 1.4.4
   regenerator-runtime: 0.13.7
@@ -77,7 +77,7 @@ devDependencies:
   babel-loader: 8.2.2_303f800143e2efa12d42f5e3c0abbfbc
   browserslist: 4.16.6
   copy-webpack-plugin: 8.1.1_webpack@5.37.1
-  css-loader: 5.2.5_webpack@5.37.1
+  css-loader: 5.2.6_webpack@5.37.1
   datatables.net: 1.10.24
   datatables.net-dt: 1.10.24
   docdash: 1.2.0
@@ -411,8 +411,8 @@ packages:
     engines: {node: '>=12.0.0', npm: '>=6.14.8'}
     dev: false
 
-  /@discoveryjs/json-ext/0.5.2:
-    resolution: {integrity: sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==}
+  /@discoveryjs/json-ext/0.5.3:
+    resolution: {integrity: sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==}
     engines: {node: '>=10.0.0'}
     dev: true
 
@@ -1038,7 +1038,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001228
       colorette: 1.2.2
-      electron-to-chromium: 1.3.735
+      electron-to-chromium: 1.3.736
       escalade: 3.1.1
       node-releases: 1.1.72
     dev: true
@@ -1406,8 +1406,8 @@ packages:
       which: 2.0.2
     dev: true
 
-  /css-loader/5.2.5_webpack@5.37.1:
-    resolution: {integrity: sha512-bH6QQacvSRtLX0lycAOs43S173n+lfXxB5cx4FjVkTLw5tAEwk5bxNLbkt5K1iETd5KxazRx70GpqOxsuwKiFA==}
+  /css-loader/5.2.6_webpack@5.37.1:
+    resolution: {integrity: sha512-0wyN5vXMQZu6BvjbrPdUJvkCzGEO24HC7IS7nW4llc6BBFC+zwR9CKtYGv63Puzsg10L/o12inMY5/2ByzfD6w==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       webpack: ^4.27.0 || ^5.0.0
@@ -1698,8 +1698,8 @@ packages:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
     dev: true
 
-  /electron-to-chromium/1.3.735:
-    resolution: {integrity: sha512-cp7MWzC3NseUJV2FJFgaiesdrS+A8ZUjX5fLAxdRlcaPDkaPGFplX930S5vf84yqDp4LjuLdKouWuVOTwUfqHQ==}
+  /electron-to-chromium/1.3.736:
+    resolution: {integrity: sha512-DY8dA7gR51MSo66DqitEQoUMQ0Z+A2DSXFi7tK304bdTVqczCAfUuyQw6Wdg8hIoo5zIxkU1L24RQtUce1Ioig==}
     dev: true
 
   /emoji-regex/7.0.3:
@@ -2342,8 +2342,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /fraction.js/4.1.0:
-    resolution: {integrity: sha512-o9lSKpK0TDqDwTL24Hxqi6I99s942l6TYkfl6WvGWgLOIFz/YonSGKfiSeMadoiNvTfqnfOa9mjb5SGVbBK9/w==}
+  /fraction.js/4.1.1:
+    resolution: {integrity: sha512-MHOhvvxHTfRFpF1geTK9czMIZ6xclsEor2wkIGYYq+PxcQqT7vStJqjhe6S1TenZrMZzo+wlqOufBDVepUEgPg==}
     dev: false
 
   /fragment-cache/0.2.1:
@@ -2904,11 +2904,6 @@ packages:
   /is-date-object/1.0.4:
     resolution: {integrity: sha512-/b4ZVsG7Z5XVtIxs/h9W8nvfLgSAyKYdtGWQLbqy6jA1icmgjf8WCoTKgeS4wy5tYaPePouzFMANbnj94c2Z+A==}
     engines: {node: '>= 0.4'}
-    dev: true
-
-  /is-date-object/1.0.4:
-    resolution: {integrity: sha512-/b4ZVsG7Z5XVtIxs/h9W8nvfLgSAyKYdtGWQLbqy6jA1icmgjf8WCoTKgeS4wy5tYaPePouzFMANbnj94c2Z+A==}
-    engines: {node: '>= 0.4'}
 
   /is-descriptor/0.1.6:
     resolution: {integrity: sha512-avDYr0SB3DwO9zsMov0gKCESFYqCnE4hq/4z3TdUlukEy5t9C0YRq7HLrsN52NAcqXKaepeCD0n+B0arnVG3Hg==}
@@ -3020,14 +3015,6 @@ packages:
     dependencies:
       call-bind: 1.0.2
       has-symbols: 1.0.2
-    dev: true
-
-  /is-regex/1.1.3:
-    resolution: {integrity: sha512-qSVXFz28HM7y+IWX6vLCsexdlvzT1PJNFSBuaQLQ5o0IEw8UDYW6/2+eCMVyIsbM8CNLX2a/QWmSpyxYEHY7CQ==}
-    engines: {node: '>= 0.4'}
-    dependencies:
-      call-bind: 1.0.2
-      has-symbols: 1.0.2
 
   /is-stream/1.1.0:
     resolution: {integrity: sha1-EtSj3U5o4Lec6428hBc66A2RykQ=}
@@ -3037,11 +3024,6 @@ packages:
   /is-stream/2.0.0:
     resolution: {integrity: sha512-XCoy+WlUr7d1+Z8GgSuXmpuUFC9fOhRXglJMx+dwLKTkL44Cjd4W1Z5P+BQZpr+cR93aGP4S/s7Ftw6Nd/kiEw==}
     engines: {node: '>=8'}
-    dev: true
-
-  /is-string/1.0.6:
-    resolution: {integrity: sha512-2gdzbKUuqtQ3lYNrUTQYoClPhm7oQu4UdpSZMp1/DGgkHBT8E2Z1l0yMdb6D4zNAxwDiMv8MdulKROJGNl0Q0w==}
-    engines: {node: '>= 0.4'}
     dev: true
 
   /is-string/1.0.6:
@@ -3414,8 +3396,8 @@ packages:
     hasBin: true
     dev: true
 
-  /mathjs/9.4.0:
-    resolution: {integrity: sha512-76kvZgxtcLfBejFPM21xpJsHWCP57qlCOmz9qH92qnl+wrKf3fyNxKlLkzLLD+MOiF+q7jW9YvmuoX6M2zHMlQ==}
+  /mathjs/9.4.1:
+    resolution: {integrity: sha512-zAepVEfVyv4C7PM8gZ5jDzC7bZscdIcqTKsNqiqmFP+0SFHFffWT84l2v3z2zT41n9Rmdn3aWR8/bpFlnNjC6g==}
     engines: {node: '>= 10'}
     hasBin: true
     dependencies:
@@ -3423,7 +3405,7 @@ packages:
       complex.js: 2.0.13
       decimal.js: 10.2.1
       escape-latex: 1.2.0
-      fraction.js: 4.1.0
+      fraction.js: 4.1.1
       javascript-natural-sort: 0.7.1
       seedrandom: 3.0.5
       tiny-emitter: 2.1.0
