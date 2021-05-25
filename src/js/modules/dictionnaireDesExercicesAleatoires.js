@@ -937,7 +937,11 @@ export default {
   "4G20-2": {
     "titre": "Racine carré d’un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "4G20-2"
   },
@@ -969,7 +973,11 @@ export default {
   "4G21": {
     "titre": "Déterminer si un triangle est rectangle ou pas.",
     "url": "/exercices/4e/4G21.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
     "interactifReady": true,
     "name": "4G21"
   },
@@ -1866,7 +1874,11 @@ export default {
   "6C10-4": {
     "titre": "Addition de deux entiers",
     "url": "/exercices/6e/6C10-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C10-4"
   },
@@ -1935,7 +1947,11 @@ export default {
   "6C20": {
     "titre": "Additions et soustractions de nombres décimaux",
     "url": "/exercices/6e/6C20.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C20"
   },
@@ -1964,14 +1980,22 @@ export default {
   "6C30-1": {
     "titre": "Multiplications d’un nombre décimal par 10, 100 ou 1 000.",
     "url": "/exercices/6e/6C30-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C30-1"
   },
   "6C30-2": {
     "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
     "url": "/exercices/6e/6C30-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C30-2"
   },
@@ -2029,7 +2053,11 @@ export default {
   "6C31": {
     "titre": "Divisions décimales",
     "url": "/exercices/6e/6C31.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C31"
   },
@@ -2043,14 +2071,22 @@ export default {
   "6C33": {
     "titre": "Calculer en utilisant les priorités opératoires",
     "url": "/exercices/6e/6C33.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C33"
   },
   "6C34": {
     "titre": "Dernier chiffre d’un calcul",
     "url": "/exercices/6e/6C34.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": true,
     "name": "6C34"
   },
@@ -2658,7 +2694,11 @@ export default {
   "6N33-1": {
     "titre": "Calculer le pourcentage d’un nombre de tête",
     "url": "/exercices/6e/6N33-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 4,
+      "text": "AMCOpen Num"
+    },
     "interactifReady": false,
     "name": "6N33-1"
   },
