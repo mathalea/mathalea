@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
 export const titre = 'Quart'
 export const amcReady = true
 export const interactifReady = true
