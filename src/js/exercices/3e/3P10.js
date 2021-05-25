@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcu
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Problèmes de variations en pourcentage
@@ -20,7 +21,7 @@ export default function EvolutionsEnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1

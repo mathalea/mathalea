@@ -5,6 +5,7 @@ import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInter
 export const titre = 'Utiliser la simple distributivité'
 
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Développer en utilisant la distributivité simple
@@ -26,7 +27,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
   this.sup = difficulte
   this.sup = parseInt(this.sup)
   this.titre = titre
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.interactifReady = interactifReady
   this.consigne = 'Développer.'
   this.spacing = 1

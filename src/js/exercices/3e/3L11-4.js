@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, choice, combinaisonListes, abs, lettreDepuisCh
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
@@ -15,7 +16,7 @@ export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbQuestions = 8
   this.nbCols = 2

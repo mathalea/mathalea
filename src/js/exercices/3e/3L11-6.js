@@ -4,6 +4,7 @@ import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, randint, 
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 // Il y a un problème avec l'ordre de la multiplication
 
 /**
@@ -17,7 +18,7 @@ export default function FactoriserUneExpression3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = true
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbQuestions = 8
   this.nbCols = 2

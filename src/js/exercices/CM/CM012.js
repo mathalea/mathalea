@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Complément à 100'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4
 
 /**

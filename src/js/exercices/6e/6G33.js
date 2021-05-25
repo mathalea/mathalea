@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 2 // QCM
 export const interactifReady = true
+export const interactifType = ' '
 
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 

@@ -7,8 +7,8 @@ import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInter
 export const amcReady = true
 export const amcType = 3 // type de question AMC
 // export const amcType = 4 // type de question AMC
-export const interActifReady = true
-export const interactifType = 'mathlive'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Divisions euclidiennes'
 

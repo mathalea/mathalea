@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, randint, choice, texFraction } from '../../mod
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Développer (ax-b)(ax+b)
@@ -13,7 +14,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Développer les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
