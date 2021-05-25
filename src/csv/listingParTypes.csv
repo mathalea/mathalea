@@ -3,7 +3,7 @@ id,titre,amcReady,amcType,interactifReady,
 3G30,Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO,KO
 3G31,Calculer un angle dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO,KO
 3G32-1,Calcul d’un parallèle terrestre,OK,AMCOpen,KO,KO
-3L11-1,Utiliser la double distributivité,KO,KO,OK,mathLive
+3L11-1,Utiliser la double distributivité,OK,type de question AMC non prévu,OK,mathLive
 3L11-2,Réduire une expression,KO,KO,OK,mathLive
 3L11-3,Utiliser la distributivité (simple ou double) et réduire,KO,KO,OK,mathLive
 3L11-4,Factoriser une expression,KO,KO,OK,mathLive
@@ -66,6 +66,7 @@ id,titre,amcReady,amcType,interactifReady,
 6N43-2,Critères de divisibilité (plusieurs possibles),OK,qcmMult,KO,KO
 6N43-3,Diviseur multiple divisible - Vrai ou faux,OK,qcmMono,OK, 
 6N43,Critères de divisibilité,OK,qcmMono,OK, 
+betaExempleFigureClic,Sommets du triangle,KO,KO,OK,custom
 CM000,Additions et de soustractions,OK,AMCOpen Num,OK, 
 CM001,Tables de multiplication,OK,AMCOpen Num,OK, 
 CM002,Tables de divisions,OK,AMCOpen Num,OK, 
@@ -86,4 +87,3 @@ CM016,Diviser un entier par 10 100 ou 1000,OK,AMCOpen Num,OK,
 CM017,Diviser un nombre décimal par 10 100 ou 1000,OK,AMCOpen Num,OK, 
 CM018,Somme de deux nombres mariés et un entier,OK,AMCOpen Num,OK, 
 CM019,Générateur de compte est bon,OK,AMCOpen,KO,KO
-betaExempleFigureClic,Sommets du triangle,KO,KO,OK,custom

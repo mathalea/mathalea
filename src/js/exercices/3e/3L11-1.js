@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, egal, randint, combinaisonListes, printlatex } from '../../modules/outils.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 7
 
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
@@ -15,6 +18,8 @@ export default function DoubleDistributivite () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
+  this.amcReady = amcReady
+  this.amcType = amcType
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -36,7 +41,7 @@ export default function DoubleDistributivite () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 9)
       b = randint(2, 9)
@@ -49,30 +54,52 @@ export default function DoubleDistributivite () {
           texte = `$(x+${b})(x+${d})$`
           texteCorr = `$(x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
           reponse = `x^2+${b + d}x+${b * d}`
+          reponse1 = 1
+          reponse2 = b + d
+          reponse3 = b * d
           break
         case 2: // (ax+b)(cx+d)
           texte = `$(${a}x+${b})(${c}x+${d})$`
           texteCorr = `$(${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
           reponse = `${a * c}x^2+${a * d + b * c}x+${b * d}`
+          reponse1 = a * c
+          reponse2 = a * d + b * c
+          reponse3 = b * d
           break
         case 3: // (ax-b)(cx+d)
           texte = `$(${a}x-${b})(${c}x+${d})$`
           if (egal(a * d - b * c, 0)) {
             texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
             reponse = printlatex(`${a * c}*x^2-${b * d}`)
+            reponse1 = a * c
+            reponse2 = 0
+            reponse3 = -b * d
           } else {
             texteCorr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
             reponse = printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)
+            reponse1 = a * c
+            reponse2 = a * d - b * c
+            reponse3 = -b * d
           }
           break
         case 4: // (ax-b)(cx-d)
           texte = `$(${a}x-${b})(${c}x-${d})$`
           texteCorr = `$(${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`
           reponse = `${a * c}x^2-${a * d + b * c}x+${b * d}`
+          reponse1 = a * c
+          reponse2 = -a * d - b * c
+          reponse3 = b * d
           break
       }
       texte += ajouteChampTexteLiveMath(this, i)
       setReponse(this, i, reponse)
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 4 }]
+        this.autoCorrection[i].reponse = { texte: '$x^2 $ ', textePosition: 'right', valeur: reponse1, param: { digits: 2, decimals: 0, approx: 0, signe: false, exposantNbChiffres: 0, vertical: true } }
+        this.autoCorrection[i].reponse2 = { texte: '$x $ ', textePosition: 'right', valeur: reponse2, param: { digits: 3, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
+        this.autoCorrection[i].reponse3 = { texte: '', textePosition: 'right', valeur: reponse3, param: { digits: 2, decimals: 0, approx: 0, signe: true, exposantNbChiffres: 0, vertical: true } }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
