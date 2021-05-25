@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombrec, texNombre, arrondi, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombrec, texNombre, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const interactifReady = true
@@ -14,7 +14,7 @@ export const titre = 'Trouver le terme manquant d’une somme de nombres relatif
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
-export default function Terme_inconnu_de_somme () {
+export default function TermeInconnuDeSomme () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5
@@ -36,12 +36,12 @@ export default function Terme_inconnu_de_somme () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
     let inconnue
-    if (this.sup == 1) {
+    if (parseInt(this.sup) === 1) {
       decimal = 1
     } else {
       decimal = 10
     }
-    for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions;) {
+    for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (!context.isAmc) {
         a = arrondi(randint(4 * decimal, this.sup2 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, this.sup2 * decimal) / decimal, 1)
@@ -49,7 +49,7 @@ export default function Terme_inconnu_de_somme () {
         a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
       }
-      if (this.sup3 == 1) {
+      if (parseInt(this.sup3) === 1) {
         inconnue = ' \\ldots\\ldots '
       } else {
         inconnue = ` ${choice(['x', 'y', 'z', 'a', 't', 'n'])} `
@@ -99,7 +99,7 @@ export default function Terme_inconnu_de_somme () {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, b - a, { signe: true })
+        setReponse(this, i, b - a, { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)), decimals: 0 })
         i++
       }
       cpt++

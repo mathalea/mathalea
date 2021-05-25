@@ -8,7 +8,7 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 * @author Jean-Claude Lhote
 * 3G22
 */
-export default function Agrandissement_reduction () {
+export default function AgrandissementReduction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -33,9 +33,9 @@ export default function Agrandissement_reduction () {
     this.dimensionsDivMg32 = [600, 700]
     let codeBase64
     let choix
-    if (this.sup == 1) {
+    if (parseInt(this.sup) === 1) {
       choix = randint(1, 3)
-    } else if (this.sup == 2) {
+    } else if (parseInt(this.sup) === 2) {
       choix = randint(4, 5)
     } else {
       choix = randint(1, 5)
@@ -46,16 +46,16 @@ export default function Agrandissement_reduction () {
         h1 = calcul(randint(12, 20) / 2)
         h2 = randint(3, Math.floor(h1) - 1)
         if (this.sup2 < 3) {
-          if (this.sup2 == 1) {
+          if (parseInt(this.sup2) === 1) {
             // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
-            while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
+            while (calcul(h2 / h1) !== arrondi(h2 / h1, 1)) {
               c = calcul(randint(30, 60) / 10)
               h1 = calcul(randint(12, 20) / 2)
               h2 = randint(3, Math.floor(h1) - 1)
             }
           } else {
             // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
-            while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
+            while (calcul(h2 / h1) === arrondi(h2 / h1, 1)) {
               c = calcul(randint(30, 60) / 10)
               h1 = calcul(randint(12, 20) / 2)
               h2 = randint(3, Math.floor(h1) - 1)
@@ -170,16 +170,14 @@ export default function Agrandissement_reduction () {
         h1 = calcul(randint(12, 20) / 2)
         h2 = randint(3, Math.floor(h1) - 1)
         if (this.sup2 < 3) {
-          if (this.sup2 == 1) // coefficient de réduction décimal
-          {
-            while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
+          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+            while (calcul(h2 / h1) !== arrondi(h2 / h1, 1)) {
               r = calcul(randint(12, 35) / 10)
               h1 = calcul(randint(12, 20) / 2)
               h2 = randint(3, Math.floor(h1) - 1)
             }
-          } else // coefficient de réduction rationnel
-          {
-            while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
+          } else { // coefficient de réduction rationnel
+            while (calcul(h2 / h1) === arrondi(h2 / h1, 1)) {
               r = calcul(randint(12, 35) / 10)
               h1 = calcul(randint(12, 20) / 2)
               h2 = randint(3, Math.floor(h1) - 1)
@@ -317,17 +315,15 @@ export default function Agrandissement_reduction () {
         h1 = calcul(randint(12, 20) / 2)
         h2 = randint(3, Math.floor(h1) - 1)
         if (this.sup2 < 3) {
-          if (this.sup2 == 1) // coefficient de réduction décimal
-          {
-            while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
+          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+            while (calcul(h2 / h1) !== arrondi(h2 / h1, 1)) {
               c = calcul(randint(30, 60) / 10)
               c2 = calcul(randint(30, 60) / 10)
               h1 = calcul(randint(12, 20) / 2)
               h2 = randint(3, Math.floor(h1) - 1)
             }
-          } else // coefficient de réduction rationnel
-          {
-            while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
+          } else { // coefficient de réduction rationnel
+            while (calcul(h2 / h1) === arrondi(h2 / h1, 1)) {
               c = calcul(randint(30, 60) / 10)
               c2 = calcul(randint(30, 60) / 10)
               h1 = calcul(randint(12, 20) / 2)
@@ -421,10 +417,10 @@ export default function Agrandissement_reduction () {
 
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'c', '${c}')
-          mtg32App.giveFormula2(idDoc, 'h1', '${h1}')
-          mtg32App.giveFormula2(idDoc, 'h2', '${h2}')
-          mtg32App.giveFormula2(idDoc, "c'", '${c2}')
+          mtg32App.giveFormula2(idDoc, 'c', `${c}`)
+          mtg32App.giveFormula2(idDoc, 'h1', `${h1}`)
+          mtg32App.giveFormula2(idDoc, 'h2', `${h2}`)
+          mtg32App.giveFormula2(idDoc, "c'", `${c2}`)
           mtg32App.calculate(idDoc)
           mtg32App.display(idDoc)
         }
@@ -436,7 +432,7 @@ export default function Agrandissement_reduction () {
         h3 = calcul(randint(10, 15) / 5)
         h2 = calcul(r2 * h3 / (r - r2))
         h1 = calcul(h2 + h3)
-        while (calcul(h2 / h1) != arrondi(h2 / h1, 1) || calcul((h3 / 2 + h2) / h1) != arrondi((h3 / 2 + h2) / h1, 1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
+        while (calcul(h2 / h1) !== arrondi(h2 / h1, 1) || calcul((h3 / 2 + h2) / h1) !== arrondi((h3 / 2 + h2) / h1, 1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
           r = calcul(randint(15, 20) / 10)
           r2 = calcul(randint(11, r * 10 - 3) / 10)
           h3 = calcul(randint(10, 15) / 5)
@@ -541,16 +537,14 @@ export default function Agrandissement_reduction () {
         h2 = randint(1, 3)
 
         if (this.sup2 < 3) {
-          if (this.sup2 == 1) // coefficient de réduction décimal
-          {
-            while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
+          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+            while (calcul(h2 / h1) !== arrondi(h2 / h1, 1)) {
               r = calcul(randint(20, 28) / 10)
               h1 = calcul(randint(20, 28) / 2)
               h2 = randint(1, 3)
             }
-          } else // coefficient de réduction rationnel
-          {
-            while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
+          } else { // coefficient de réduction rationnel
+            while (calcul(h2 / h1) === arrondi(h2 / h1, 1)) {
               r = calcul(randint(20, 28) / 10)
               h1 = calcul(randint(20, 28) / 2)
               h2 = randint(1, 3)
@@ -657,7 +651,7 @@ export default function Agrandissement_reduction () {
           \\draw [color=black , dotted, line width = 0.4](4.641,21.447)--(4.641,21.063)--(5.041,21.063)--(5.041,21.447)--(4.641,21.447)--cycle;
           \\end{tikzpicture} \n\t \\end{minipage}`
         }
-        texteCorr = numAlpha(0) + ` Le volume du cône est $\\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${texNombrec(r * r)}\\pi}{3} \\times ${texNombre(h1)}$ cm${exposant(3)} $= \\dfrac{${texNombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${texNombrec(arrondi(r * r * h1 * Math.PI / 3, 3))}$ cm${exposant(3)}.<br>`
+        texteCorr = numAlpha(0) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${texNombrec(r * r)}\\pi}{3} \\times ${texNombre(h1)}$ cm${exposant(3)} $= \\dfrac{${texNombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${texNombrec(arrondi(r * r * h1 * Math.PI / 3, 3))}$ cm${exposant(3)}.<br>`
         texteCorr += numAlpha(1) + ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${texNombre(h2)}}{${texNombre(h1)}}`
         if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) { texteCorr += `=${texFractionReduite(h2 * 10, h1 * 10)}$.<br>` } else { texteCorr += '.$<br>' }
         texteCorr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
@@ -665,10 +659,10 @@ export default function Agrandissement_reduction () {
         texteCorr += numAlpha(2) + ' Le volume de glace est la différence entre les deux volumes précédents :<br>'
         texteCorr += `$${texNombrec(arrondi(r * r * h1 * Math.PI / 3, 3))}$ cm${exposant(3)}$ - ${texNombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 3))}$ cm${exposant(3)} $ \\approx ${texNombrec(arrondi(r * r * h1 * Math.PI / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 2))}$ cm${exposant(3)}.<br>`
         texteCorr += numAlpha(3) + ' Si on verse la glace au fond du cône, on obtient une nouvelle réduction du cône complet.<br>'
-        texteCorr += `Soit k\' le coefficient de cette réduction, on a : k\'${exposant(3)} $= 1- \\text{k}^3$`
+        texteCorr += `Soit k' le coefficient de cette réduction, on a : k'${exposant(3)} $= 1- \\text{k}^3$`
         texteCorr += ', d\'où k\' '
         texteCorr += '$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>'
-        texteCorr += `Donc k\' = $\\sqrt[3]{1 - \\left(${texFractionReduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${texNombre(arrondi(Math.cbrt(1 - (h2 / h1) ** 3), 4))}$.<br>`
+        texteCorr += `Donc k' = $\\sqrt[3]{1 - \\left(${texFractionReduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${texNombre(arrondi(Math.cbrt(1 - (h2 / h1) ** 3), 4))}$.<br>`
         texteCorr += `On en déduit que la hauteur de glace est approximativement : $${texNombre(arrondi(Math.cbrt(1 - (h2 / h1) ** 3), 4))} \\times ${texNombre(h1)}$ cm $\\approx ${texNombre(arrondi(h1 * Math.cbrt(1 - (h2 / h1) ** 3), 4))}$ cm.<br>`
         texteCorr += numAlpha(4) + ` L'épaisseur de chocolat est alors de : $${texNombre(h1)}\\text{ cm}-${texNombre(arrondi(h1 * Math.cbrt(1 - (h2 / h1) ** 3), 4))} \\text{ cm}\\approx ${texNombre(arrondi(10 * (h1 - h1 * Math.cbrt(1 - (h2 / h1) ** 3)), 3))}$ mm !`
         this.MG32codeBase64 = codeBase64

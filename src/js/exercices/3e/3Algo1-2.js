@@ -158,7 +158,7 @@ export default function Exercice_zero_mathalea() {
 
        
         // Pour les objets de mathALEA2D
-        let objets_correction= [], objets_correction_plus = [], params_correction = {};        
+        let objetsCorrection= [], objetsCorrection_plus = [], paramsCorrection = {};        
         // On crée la liste de coordonnées de la suite de Syracuse 
         let coord_Syracuse = syracuse({N:entier}).coordonneesSuiteDeSyracuse(syracuse({N:entier}).suiteDeSyracuse());
 
@@ -190,7 +190,7 @@ export default function Exercice_zero_mathalea() {
         let g = traceGraphiqueCartesien(coord_Syracuse,r2)
         
         // On pousse tout ça dans les objets, le repère aussi coño !!!
-        objets_correction.push(r2,g);
+        objetsCorrection.push(r2,g);
         
         let A = point(0,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
         let B = point(syracuse({N:entier}).tempsDeVol()/x_coeff,syracuse({N:entier}).suiteDeSyracuse()[0]/y_coeff);
@@ -206,10 +206,10 @@ export default function Exercice_zero_mathalea() {
           'white'
         );
         
-        objets_correction_plus.push(r2,g,s,t);
+        objetsCorrection_plus.push(r2,g,s,t);
 
         // On fixe la fenetre pour le SVG/Tikz
-        params_correction = {
+        paramsCorrection = {
            xmin: -2,
            ymin: -2,
            xmax:calcul((syracuse({N:entier}).tempsDeVol()+20)/x_coeff),
@@ -261,7 +261,7 @@ export default function Exercice_zero_mathalea() {
             texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas2.titre)+' : '+ string_connaissance.cas2.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
-              texteCorr += mathalea2d(params_correction, objets_correction)
+              texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
             }            
             break;
           case 3://altitude max
@@ -287,7 +287,7 @@ export default function Exercice_zero_mathalea() {
             texteCorr+= texteEnCouleurEtGras('Remarque - '+string_connaissance.cas5.titre)+' : '+ string_connaissance.cas5.texte+'<br><br>';              
 
             if (this.correctionDetaillee) {
-              texteCorr += mathalea2d(params_correction, objets_correction_plus)
+              texteCorr += mathalea2d(paramsCorrection, objetsCorrection_plus)
             } 
             break;
         };         

@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Racine carré d’un carré parfait (calcul mental)'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
 export const amcType = 4
 
@@ -39,6 +40,11 @@ export default function RacineCareeDeCarresParfaits () {
       setReponse(this, i, a)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
+        if (context.isAmc) {
+          this.autoCorrection[i].enonce = `$\\sqrt{${c}}=\\dotfill$`
+          this.autoCorrection[i].propositions = [{ texte : `$\\sqrt{${c}}=${a}$`, statut: '' }]
+          this.autoCorrection[i].reponse = { valeur: a, param: { digits:2, decimals: 0, exposantNbChiffres: 0, signe: 0 } }
+        }
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -67,8 +67,8 @@ let anim;
       BB,
       carreaux,
       k,
-      objets_enonce = [],
-      objets_correction = [],
+      objetsEnonce = [],
+      objetsCorrection = [],
 
       p;
     for (
@@ -78,8 +78,8 @@ let anim;
     ) {
       anim=new Alea2iep()
       anim.equerreZoom(150)
-      objets_enonce.length=0
-      objets_correction.length=0
+      objetsEnonce.length=0
+      objetsCorrection.length=0
       if (this.sup == 2)
         k = 0.8;
       else
@@ -116,7 +116,7 @@ let anim;
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          objets_correction.push(s1,
+          objetsCorrection.push(s1,
             s2,
             dC,
             dD,
@@ -146,7 +146,7 @@ let anim;
               "red"
             )
           );
-          objets_enonce.push(
+          objetsEnonce.push(
             tracePoint(A, B, C, D),
             labelPoint(A, B, C, D),
             d,
@@ -201,8 +201,8 @@ let anim;
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          objets_correction.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
-          objets_enonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
+          objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
+          objetsEnonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
 
           if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
@@ -264,7 +264,7 @@ let anim;
           cF = codageAngleDroit(C, EE, E, 'red')
           cG = codageAngleDroit(C, FF, D, 'red')
 
-          objets_correction.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
+          objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
             segment(A, CC),
             `${texNombre(lC)} cm`,
             0.5,
@@ -291,7 +291,7 @@ let anim;
               -0.5,
               "green"
             ));
-          objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
+          objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
           if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce += numAlpha(1) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
@@ -332,8 +332,8 @@ let anim;
         sc = 0.5;
         carreaux = "";
       }
-      objets_enonce.push(g, carreaux)
-      objets_correction.push(g, carreaux)
+      objetsEnonce.push(g, carreaux)
+      objetsCorrection.push(g, carreaux)
 
       enonce += mathalea2d(
         {
@@ -344,7 +344,7 @@ let anim;
           pixelsParCm: ppc,
           scale: sc,
         },
-        objets_enonce
+        objetsEnonce
       );
       correction += mathalea2d(
         {
@@ -355,7 +355,7 @@ let anim;
           pixelsParCm: ppc,
           scale: sc,
         },
-        objets_correction
+        objetsCorrection
       );
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
