@@ -21,7 +21,7 @@ export default function Eq_resolvantes_Thales() {
 	this.amcReady = amcReady
 	this.interactifReady = interactifReady
 	this.titre = titre;
-	this.debug = true;
+	this.debug = false;
 	if (this.debug) {
 		this.nbQuestions = 4;
 	} else {
