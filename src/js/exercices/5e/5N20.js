@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 // QCM 
 export const interactifReady = true
+export const interactifType = ' '
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
@@ -57,6 +58,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
     }
     for (let i = 0, a, b, c, d, k, texte, texteCorr; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
+      texte = ''
       texteCorr = ''
       // les numérateurs
       a = randint(1, 9)
@@ -206,6 +208,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
       texte = texte.replaceAll('$$', ' ')
       texteCorr = texteCorr.replaceAll('$$', ' ')
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

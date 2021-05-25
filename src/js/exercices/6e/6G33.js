@@ -4,8 +4,9 @@ import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.j
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType =1 // QCM 
+export const amcType = 2 // QCM
 export const interactifReady = true
+export const interactifType = ' '
 
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 
@@ -31,12 +32,13 @@ export default function ReconnaitreQuadrilatereParticulier () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    if (this.interactif) this.consigne = 'Cocher toutes les réponses possibles.'
 
     const listeDeQuestions = shuffle([choice(['losange1', 'losange2']), choice(['rectangle1', 'rectangle2']), choice(['carre1', 'carre2', 'carre3'])])
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
-      let A, B, C, D, O, ABCD, codage, codage1, codage2, codage3, sAC, sBD, marquesDemiDiagonales, marquesDemiDiagonales1, marquesDemiDiagonales2, marquesCotes, tabrep, tabicone
+      let A, B, C, D, O, ABCD, codage, codage1, codage2, codage3, sAC, sBD, marquesDemiDiagonales, marquesDemiDiagonales1, marquesDemiDiagonales2, marquesCotes
       switch (listeDeQuestions[i]) {
         case 'losange1':
           texte = "Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ?"
@@ -62,8 +64,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'losange2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [1, 0, 0, 0, 0]
           A = point(0, 0)
           B = point(2, 3)
           C = point(0, 6)
@@ -83,8 +83,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'rectangle1':
           texte = "Quelle est la nature d'un quadrilatère ayant 3 angles droits ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 1, 0, 0, 0]
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -109,8 +107,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'rectangle2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 1, 0, 0, 0]
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -135,8 +131,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre1':
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -161,8 +155,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -184,8 +176,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre3':
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)

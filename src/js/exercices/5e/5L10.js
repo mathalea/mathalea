@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =2 //type de question AMC qcm Mult 
 export const interactifReady = true
+export const interactifType = ' '
 export const titre = 'Écrire une expression littérale'
 
 /**
@@ -695,10 +696,6 @@ export default function EcrireUneExpressionLitterale () {
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
-      this.autoCorrection[i].options = {
-        ordered: false,
-        lastChoice: 5
-      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += propositionsQcm(this, i).texte
@@ -710,9 +707,6 @@ export default function EcrireUneExpressionLitterale () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (context.isAmc) {
-      
-    }
   }
   // this.besoinFormulaireCaseACocher = ["Uniquement la lettre $n$."]
 }

@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes } from
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de divisions'
 export const interactifReady = true
+export const interactifType = ' '
 export const amcReady = true
 export const amcType = 4 // Question numérique
 
@@ -66,17 +67,17 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       if (typeDeQuestions === 'classique') {
         // classique
         texte = '$ ' + a * b + ' \\div ' + a + ' = \\dotfill $'
-        if (this.interactif) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexte(this, i)
+        if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexte(this, i)
         setReponse(this, i, b)
       } else {
         // a trous
         if (choice([true, false])) {
           texte = `$ ${a * b} \\div \\ldots\\ldots = ${b}$`
-          if (this.interactif) texte = `$ ${a * b} \\div $` + ajouteChampTexte(this, i) + `$ = ${a} $`
-          setReponse(this, i, b)
+          if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div $` + ajouteChampTexte(this, i) + `$ = ${b} $`
+          setReponse(this, i, a)
         } else {
           texte = `$ \\ldots\\ldots \\div ${a}  = ${b}$`
-          if (this.interactif) texte = ajouteChampTexte(this, i) + `$ \\div ${b} = ${a} $`
+          if (this.interactif && context.isHtml) texte = ajouteChampTexte(this, i) + `$ \\div ${b} = ${a} $`
           setReponse(this, i, a * b)
         }
       }

@@ -4,9 +4,10 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec
 import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
-export const amcType = 4 // Question numérique
+export const amcType = 5 // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
+export const interactifType = ' '
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
@@ -123,7 +124,7 @@ export default function Pythagore2D () {
           } else {
             AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
             reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
-           texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
+            texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm.`
             texte += '<br>' + ajouteChampTexte(this, i, { texte: `$${A.nom + B.nom}\\approx$`, texteApres: 'cm' })
           }
           setReponse(this, i, reponse)

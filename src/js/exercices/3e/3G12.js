@@ -106,7 +106,7 @@ export default function Pavage_et_rotation2d() {
 			return result;
 		};
 
-		let objets = [], objets_correction = [];
+		let objets = [], objetsCorrection = [];
 		let taillePavage = parseInt(this.sup);
 		if (taillePavage < 1 || taillePavage > 2) {
 			taillePavage = 1;
@@ -236,12 +236,12 @@ export default function Pavage_et_rotation2d() {
 				P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`);
 				P3.color = texcolors(i);
 				P3.epaisseur = 2;
-				objets_correction.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codeAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3);
+				objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codeAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3);
 
 			}
 		}
 		if (this.correctionDetaillee) {
-			texteCorr += mathalea2d(fenetre, objets, objets_correction);
+			texteCorr += mathalea2d(fenetre, objets, objetsCorrection);
 		}
 		this.listeQuestions.push(texte);
 		this.listeCorrections.push(texteCorr);

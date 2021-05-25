@@ -3,8 +3,9 @@ import { ecritureParentheseSiNegatif, listeQuestionsToContenu, randint, combinai
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
-export const amcType =1 //type de question AMC 
+export const amcType = 1 //type de question AMC 
 export const interactifReady = true
+export const interactifType = ' '
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
 /**

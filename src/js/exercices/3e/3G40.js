@@ -129,7 +129,7 @@ export default function ReperageSurLaSphere () {
     context.coeffPerspective = 0.5
     paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
-    // texteCorr += mathalea2d(params_correction, objets_correction)
+    // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
     texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)

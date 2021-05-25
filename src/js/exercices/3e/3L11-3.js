@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffr
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
@@ -16,7 +17,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = true
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1

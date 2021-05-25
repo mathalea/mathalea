@@ -8,7 +8,7 @@ import { ComputeEngine, parse } from '@cortex-js/math-json'
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
-  if (exercice.amcType === 'custom') exerciceCustom(exercice)
+  if (exercice.interactifType === 'custom') exerciceCustom(exercice)
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
   if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
 }
@@ -64,6 +64,8 @@ export function exerciceQcm (exercice) {
           }
           spanReponseLigne.style.fontSize = 'large'
           if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
+            const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
+            if (eltFeedback) eltFeedback.innerHTML = ''
             messageFeedback({
               id: `feedbackEx${exercice.numeroExercice}Q${i}`,
               message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
@@ -303,11 +305,20 @@ export function exerciceMathLive (exercice) {
             reponses = exercice.autoCorrection[i].reponse.valeur
           }
           let resultat = 'KO'
-          for (const reponse of reponses) {
-            // console.log(engine.canonical(parse(champTexte.value)), engine.canonical(parse(reponse)))
+          let saisie = champTexte.value
+          for (let reponse of reponses) {
+            // Pour le calcul littéral on remplace dfrac en frac
+            if (typeof reponse === 'string') {
+              reponse = reponse.replaceAll('dfrac', 'frac')
+              // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
+              // saisie = neTientCompteQueDuDernierMembre(saisie)
+            }
+            // Pour le calcul numérique, on transforme la saisie en nombre décimal
+            if (typeof reponse === 'number') saisie = saisie.toString().replace(',', '.')
+            console.log(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))
             if (engine.same(
-              engine.canonical(parse(champTexte.value)),
-              engine.canonical(parse(reponse.replaceAll('dfrac', 'frac')))
+              engine.canonical(parse(saisie)),
+              engine.canonical(parse(reponse))
             )) resultat = 'OK'
           }
           if (resultat === 'OK') {
@@ -325,3 +336,12 @@ export function exerciceMathLive (exercice) {
     }
   })
 }
+
+// function neTientCompteQueDuDernierMembre (texte) {
+//   const i = texte.lastIndexOf('=')
+//   if (i > -1) {
+//     return texte.substring(i + 1)
+//   } else {
+//     return texte
+//   }
+// }

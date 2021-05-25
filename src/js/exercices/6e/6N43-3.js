@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
+export const interactifType = ' '
 export const titre = 'Diviseur, multiple, divisible - Vrai ou faux'
 
 /**
@@ -164,6 +165,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
         texte += '<br>' + propositionsQcm(this, i).texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
+        this.autoCorrection[i].enonce = `${texte}\n`
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

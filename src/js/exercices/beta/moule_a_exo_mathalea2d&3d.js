@@ -40,12 +40,12 @@ export default function Exercice_zero_mathalea2d3d() {
   // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
   // La boucle s'arrête après 50 tentatives.
   
-      let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_correction
+      let objetsEnonce,objetsEnonceml,objetsCorrection,paramsEnonce,paramsCorrection
   
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-        objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-        objets_enonceml = [] // Idem pour l'enoncé à main levée si besoin
-        objets_correction = [] // Idem pour la correction
+        objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+        objetsEnonceml = [] // Idem pour l'enoncé à main levée si besoin
+        objetsCorrection = [] // Idem pour la correction
   
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = `` // Idem pour le texte de la correction.
@@ -69,23 +69,23 @@ export default function Exercice_zero_mathalea2d3d() {
           break  
             
         }
-  //  objets_enonce.push () // On rempli les tableaux d'objets Mathalea2d
-  //  objets_enonceml.push()
-  //  objets_correction.push()
+  //  objetsEnonce.push () // On rempli les tableaux d'objets Mathalea2d
+  //  objetsEnonceml.push()
+  //  objetsCorrection.push()
   // paramètres pour la perspective
   context.anglePerspective=30
   context.coeffPerspective=0.5
 
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-      //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
+      //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
   //paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-        params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false}
+        paramsEnonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false}
   //paramètres de la fenêtre Mathalea2d pour la correction
-        params_correction = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
+        paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
   // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-        texte += mathalea2d(params_enonce, objets_enonce)
+        texte += mathalea2d(paramsEnonce, objetsEnonce)
   // On ajoute au texte de la correction, la figure de la correction
-        texteCorr += mathalea2d(params_correction, objets_correction)
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
         if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);

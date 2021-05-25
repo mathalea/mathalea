@@ -26,15 +26,15 @@ export default function Construire_un_triangle() {
         this.listeQuestions = []
         this.listeCorrections = []
         let IEP;
-        let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonce, objets_correction, params_enonce, params_correction, nom, sommets
+        let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets
         if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]
         // else typesDeQuestionsDisponibles = [1, 2, 3]
         else typesDeQuestionsDisponibles = [1]
         let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
         for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
             IEP = new Alea2iep()
-            objets_enonce = []
-            objets_correction = []
+            objetsEnonce = []
+            objetsCorrection = []
             texte = `Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>`
             texteCorr = `Voici la construction que tu devais réaliser.<br>`
             nom = creerNomDePolygone(3, "PQ")
@@ -56,8 +56,8 @@ export default function Construire_un_triangle() {
                     C.positionLabel = 'above'
                     CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
-                    objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
-                    objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
+                    objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
+                    objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
                     texteCorr += `Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
                    
                     IEP.triangle3longueurs(sommets,lAB,lAC,lBC)
@@ -73,8 +73,8 @@ export default function Construire_un_triangle() {
                     C = pointIntersectionLC(dBC, cA, sommets[2], 1)
                     CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
-                    objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
-                    objets_correction.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
+                    objetsEnonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, A), codageAngleDroit(A, B, C))
+                    objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
                     texteCorr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
                    
                     IEP.triangleRectangleCoteHypotenuse(sommets,lAB,lAC)
@@ -86,12 +86,12 @@ export default function Construire_un_triangle() {
             }
             T = polygoneAvecNom(A, B, C)
             TT = polygoneAvecNom(A, B, CC)
-            objets_enonce.push(TT[0], TT[1])
-            objets_correction.push(T[0], T[1])
-            params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.3 }
-            params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 2), ymin: Math.min(A.y - 1, B.y - 1, C.y - 2), xmax: Math.max(A.x + 1, B.x + 1, C.x + 2), ymax: Math.max(A.y + 1, B.y + 1, C.y + 2), pixelsParCm: 30, scale: 1 }
-            texte += mathalea2d(params_enonce, objets_enonce)
-            texteCorr += mathalea2d(params_correction, objets_correction)
+            objetsEnonce.push(TT[0], TT[1])
+            objetsCorrection.push(T[0], T[1])
+            paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.3 }
+            paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 2), ymin: Math.min(A.y - 1, B.y - 1, C.y - 2), xmax: Math.max(A.x + 1, B.x + 1, C.x + 2), ymax: Math.max(A.y + 1, B.y + 1, C.y + 2), pixelsParCm: 30, scale: 1 }
+            texte += mathalea2d(paramsEnonce, objetsEnonce)
+            texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
 
             texteCorr += IEP.htmlBouton(this.numeroExercice, i)
 

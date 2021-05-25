@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser a²-b²'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'mathLive'
 // C'est presque prêt mais il y a un problème avec la saisie de la parenthèse. L'ordre des facteurs est inutilement prise en compte par mathLive
 
 /**
@@ -14,7 +15,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1

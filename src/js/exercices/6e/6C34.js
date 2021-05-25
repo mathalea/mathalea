@@ -4,8 +4,9 @@ import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Dernier chiffre d’un calcul'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4 // Question numérique
 
 /**
@@ -104,7 +105,13 @@ export default function dernierChiffre () {
       }
 
       if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexte(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte.substring(0,texte.length-1) + '~=$'
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse.param.digits = 1
+        this.autoCorrection[i].reponse.param.decimals = 0
+      }
+     if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

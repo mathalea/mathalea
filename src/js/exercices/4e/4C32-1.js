@@ -3,9 +3,10 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Calcul avec les puissances de dix'
 
-export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
+export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType = 1 // QCM
 export const interactifReady = true
+export const interactifType = ' '
 
 /**
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique

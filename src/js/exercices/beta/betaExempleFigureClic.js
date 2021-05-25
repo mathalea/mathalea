@@ -5,7 +5,8 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 import { addFeedback } from '../../modules/messages.js'
 export const titre = 'Sommets du triangle'
 export const interactifReady = true
-export const amcType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+// il y avait un fonctionnement avec amcType cf commit 3ae7c43
+export const interactifType = 'custom' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
 
 /**
  * Description didactique de l'exercice

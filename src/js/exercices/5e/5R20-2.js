@@ -4,6 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 // qcm 
 export const interactifReady = true
+export const interactifType = ' '
 export const titre = 'Addition à trou de deux entiers relatifs'
 
 /**

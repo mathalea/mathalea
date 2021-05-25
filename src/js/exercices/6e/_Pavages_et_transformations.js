@@ -25,8 +25,8 @@ export default function Pavages_et_transformations () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
-    const objets_enonce = []
-    const objets_correction = []
+    const objetsEnonce = []
+    const objetsCorrection = []
 
     // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
@@ -108,8 +108,8 @@ export default function Pavages_et_transformations () {
       }
     }
     for (let i = 0; i < quad.length; i++) {
-      objets_enonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
-      objets_correction.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
+      objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
+      objetsCorrection.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
     }
 
     context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
@@ -165,7 +165,7 @@ export default function Pavages_et_transformations () {
               num2 = tabfigB[j][2]
               xb = tabfigD[indexD][0]
               yb = tabfigD[indexD][1] - 4
-              objets_enonce.push(tracePoint(point(xb, yb), point(punto[0], punto[1])))
+              objetsEnonce.push(tracePoint(point(xb, yb), point(punto[0], punto[1])))
               mediatrice2 = mediatrice(point(xb, yb + 4), point(punto[0], punto[1]), '(d_2)')
               mediatrice2.color = 'red'
               mediatrice2.epaisseur = 2
@@ -222,8 +222,8 @@ export default function Pavages_et_transformations () {
         }
         texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ ?<br>`, 'blue')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à $(d_3)$ porte le numéro ${num3}.<br>`, 'blue')
-        objets_enonce.push(mediatrice1, mediatrice2, mediatrice3)
-        objets_correction.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
+        objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         texte += mathalea2d({
           xmin: Xmin,
@@ -234,7 +234,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_enonce
+        }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
         quad1.couleurDeRemplissage = 'green'
@@ -245,7 +245,7 @@ export default function Pavages_et_transformations () {
         quad3 = translation(quad[num3], vecteur(0, 0))
         quad3.couleurDeRemplissage = 'blue'
         quad3.opaciteDeRemplissage = 0.3
-        objets_correction.push(quad1, quad2, quad3)
+        objetsCorrection.push(quad1, quad2, quad3)
         texteCorr += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -255,7 +255,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_correction
+        }, objetsCorrection
         )
 
         break
@@ -366,8 +366,8 @@ export default function Pavages_et_transformations () {
         texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, 'blue')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, 'blue')
 
-        objets_enonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
-        objets_correction.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
+        objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
+        objetsCorrection.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
           , rotationAnimee(quad[numA], centre1, 180, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 180, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, 180, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         texte += mathalea2d({
@@ -379,7 +379,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_enonce
+        }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
         quad1.couleurDeRemplissage = 'green'
@@ -408,7 +408,7 @@ export default function Pavages_et_transformations () {
         rayon31.pointilles = 2
         rayon32.pointilles = 2
         arc3.pointilles = 2
-        objets_correction.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
+        objetsCorrection.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
         texteCorr += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -418,7 +418,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_correction
+        }, objetsCorrection
         )
 
         break
@@ -548,8 +548,8 @@ export default function Pavages_et_transformations () {
         texte += numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} quelle est le numéro de l'image de la figure ${numC} ?<br>`, 'blue')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, 'blue')
 
-        objets_enonce.push(vecteur1, vecteur2, vecteur3)
-        objets_correction.push(vecteur1, vecteur2, vecteur3
+        objetsEnonce.push(vecteur1, vecteur2, vecteur3)
+        objetsCorrection.push(vecteur1, vecteur2, vecteur3
           , translationAnimee(quad[numA], vector1, `id="anim${numeroExercice}A" dur="2s" repeatcount="1"`), translationAnimee(quad[numD], vector2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), translationAnimee(quad[numC], vector3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         texte += mathalea2d({
@@ -561,7 +561,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_enonce
+        }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
         quad1.couleurDeRemplissage = 'green'
@@ -581,7 +581,7 @@ export default function Pavages_et_transformations () {
         rayon31 = vector3.representant(point(xc, yc))
         rayon31.color = 'blue'
         rayon31.epaisseur = 2
-        objets_correction.push(quad1, quad2, quad3, rayon11, rayon21, rayon31)
+        objetsCorrection.push(quad1, quad2, quad3, rayon11, rayon21, rayon31)
         texteCorr += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -591,7 +591,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_correction
+        }, objetsCorrection
         )
 
         break
@@ -697,8 +697,8 @@ export default function Pavages_et_transformations () {
         texte += numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre ?<br>`, 'blue')
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC} dans la rotation de centre ${s2} et d'angle 90° dans le sens des aiguilles d'une montre porte le numéro ${num3}.<br>`, 'blue')
 
-        objets_enonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
-        objets_correction.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
+        objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
+        objetsCorrection.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
           , rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         texte += mathalea2d({
@@ -710,7 +710,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_enonce
+        }, objetsEnonce
         )
         quad1 = translation(quad[num1], vecteur(0, 0))
         quad1.couleurDeRemplissage = 'green'
@@ -745,7 +745,7 @@ export default function Pavages_et_transformations () {
         arc3.pointilles = 2
         arc3.epaisseur = 2
         arc3.color = 'blue'
-        objets_correction.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
+        objetsCorrection.push(quad1, quad2, quad3, arc1, arc2, arc3, rayon11, rayon12, rayon21, rayon22, rayon31, rayon32)
         texteCorr += mathalea2d({
           xmin: Xmin,
           xmax: Xmax,
@@ -755,7 +755,7 @@ export default function Pavages_et_transformations () {
           scale: 0.3,
           optionsTikz: ['every node/.style={scale=0.6}'],
           mainlevee: false
-        }, objets_correction
+        }, objetsCorrection
         )
 
         break

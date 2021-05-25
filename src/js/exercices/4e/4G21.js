@@ -3,9 +3,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas.'
-export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
+export const amcReady = true
 export const amcType = 1 // QCM
 export const interactifReady = true
+export const interactifType = ' '
 
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
@@ -108,6 +109,8 @@ export default function ReciproquePythagore () {
 
     ) {
       this.autoCorrection[i] = {}
+
+      this.autoCorrection[i].options = { ordered: true }
       this.autoCorrection[i].propositions = [
         {
           texte: 'Oui',
@@ -118,7 +121,6 @@ export default function ReciproquePythagore () {
           statut: false
         }
       ]
-      this.autoCorrection[i].options = { ordered: true }
       nomTriangle = creerNomDePolygone(3, nomsTriangles)
       nomsTriangles.push(nomTriangle)
       A = nomTriangle[0]
@@ -177,6 +179,10 @@ export default function ReciproquePythagore () {
         this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
           }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nomTriangle}$ n'est pas rectangle.`
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions[0].feedback = texteCorr
       }
       texte += propositionsQcm(this, i).texte
       if (this.listeQuestions.indexOf(texte) === -1) {

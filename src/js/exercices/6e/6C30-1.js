@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence, texFraction, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-export const amcReady = false // jusqu'à ce qu'il soit adapté à la version 2.6
+export const amcReady = true
 export const amcType = 4 // Question numérique
 export const interactifReady = true
+export const interactifType = ' '
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
 
 /**
@@ -66,7 +67,7 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999)])
           a = calcul(a / choice([10, 100, 1000, 10000]))
           b = facteurs[i]
-          texte = `$${texNombre(a)}\\times${texNombre(b)}$`
+          texte = `$${texNombre(a)}\\times${texNombre(b)}=\\ldots$`
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
             b
           )} = ${texNombrec(a * b)}$`
@@ -76,7 +77,7 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999)])
           a = calcul(a / choice([10, 100, 1000, 10000]))
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texNombre(a)}$`
+          texte = `$${texNombre(b)}\\times${texNombre(a)}=\\ldots$`
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
             a
           )} = ${texNombrec(a * b)}$`
@@ -86,7 +87,7 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
           den = choice([10, 100, 1000])
           b = facteurs[i]
-          texte = `$${texFraction(a, den)}\\times${texNombre(b)}$`
+          texte = `$${texFraction(a, den)}\\times${texNombre(b)}=\\ldots$`
           texteCorr = `$${texFraction(a, den)} \\times ${texNombre(
             b
           )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`
@@ -96,7 +97,7 @@ export default function MultiplierDecimauxPar101001000 () {
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
           den = choice([10, 100, 1000])
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texFraction(a, den)}$`
+          texte = `$${texNombre(b)}\\times${texFraction(a, den)}=\\ldots$`
           texteCorr = `$${texNombre(b)} \\times ${texFraction(
             a,
             den
@@ -111,7 +112,7 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${miseEnEvidence(
             texNombre(a)
           )} \\times ${texNombre(b)} = ${texNombrec(a * b)}$`
-          reponse = calcul(a * b)
+          reponse = a
           break
         case 6: // 10 × .... = a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
@@ -121,7 +122,7 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
             texNombre(a)
           )}  = ${texNombrec(a * b)}$`
-          reponse = a
+          reponse = b
           break
         case 7: // case 3 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -148,7 +149,7 @@ export default function MultiplierDecimauxPar101001000 () {
             a * b,
             den
           )} = ${texNombrec((a / den) * b)}$`
-          reponse = calcul(b)
+          reponse = b
           break
         case 9: // case 3 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -164,7 +165,7 @@ export default function MultiplierDecimauxPar101001000 () {
             a * b,
             den
           )} = ${texNombrec((a / den) * b)}$`
-          calcul(a * b / den)
+          reponse = den
           break
         case 10: // case 4 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -178,13 +179,16 @@ export default function MultiplierDecimauxPar101001000 () {
             a,
             miseEnEvidence(texNombre(den))
           )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`
-          calcul(a * b / den)
+          reponse = den
           break
       }
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
       setReponse(this, i, reponse)
-      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
-
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse = { valeur: reponse, param: { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 } }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

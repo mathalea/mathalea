@@ -21,7 +21,7 @@ export default function Exercice_zero_mathalea2d () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
 
-    let objets_enonce, objets_enonceml, objets_correction, params_enonce, params_correction
+    let objetsEnonce, objetsEnonceml, objetsCorrection, paramsEnonce, paramsCorrection
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = `${numAlpha(0)} $M_1$ symétrique de $M$ par rapport à $(AB)$.` // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -55,8 +55,8 @@ export default function Exercice_zero_mathalea2d () {
       const lenonce = labelPoint(A, B, M, O)
       const lcorr = labelPoint(M1, M2, M3, M4, M5, M6)
 
-      objets_enonce = [d, tA, tB, lenonce, tenonce] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objets_correction = [...objets_enonce, lcorr, tcorr] // Idem pour la correction
+      objetsEnonce = [d, tA, tB, lenonce, tenonce] // on initialise le tableau des objets Mathalea2d de l'enoncé
+      objetsCorrection = [...objetsEnonce, lcorr, tcorr] // Idem pour la correction
 
       // context.fenetreMathalea2d = [Math.min(M1.x-1,M2.x-1,M3.x-1,M4.x-1,M5.x-1,M6.x-1),Math.min(M1.y-1,M2.y-1,M3.y-1,M4.y-1,M5.y-1,M6.y-1),Math.max(M1.x+1,M2.x+1,M3.x+1,M4.x+1,M5.x+1,M6.x+1),Math.max(M1.y+1,M2.y+1,M3.y+1,M4.y+1,M5.y+1,M6.y+1,B.y+1)]
 
@@ -73,15 +73,15 @@ export default function Exercice_zero_mathalea2d () {
       anim.homothetiePoint(M, A, 3, 'M5', { couleur: 'purple', couleurCodage: 'magenta' })
       anim.homothetiePoint(M, A, -2, 'M6', { couleur: 'black', couleurCodage: 'grey' })
 
-      params_enonce = { xmin: Math.min(M1.x - 1, M2.x - 1, M3.x - 1, M4.x - 1, M5.x - 1, M6.x - 1), ymin: Math.min(M1.y - 1, M2.y - 1, M3.y - 1, M4.y - 1, M5.y - 1, M6.y - 1), xmax: Math.max(M1.x + 1, M2.x + 1, M3.x + 1, M4.x + 1, M5.x + 1, M6.x + 1), ymax: Math.max(M1.y + 1, M2.y + 1, M3.y + 1, M4.y + 1, M5.y + 1, M6.y + 1, B.y + 1), pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsEnonce = { xmin: Math.min(M1.x - 1, M2.x - 1, M3.x - 1, M4.x - 1, M5.x - 1, M6.x - 1), ymin: Math.min(M1.y - 1, M2.y - 1, M3.y - 1, M4.y - 1, M5.y - 1, M6.y - 1), xmax: Math.max(M1.x + 1, M2.x + 1, M3.x + 1, M4.x + 1, M5.x + 1, M6.x + 1), ymax: Math.max(M1.y + 1, M2.y + 1, M3.y + 1, M4.y + 1, M5.y + 1, M6.y + 1, B.y + 1), pixelsParCm: 20, scale: 1, mainlevee: false }
       // paramètres de la fenêtre Mathalea2d pour la correction
-      params_correction = { xmin: Math.min(M1.x - 1, M2.x - 1, M3.x - 1, M4.x - 1, M5.x - 1, M6.x - 1), ymin: Math.min(M1.y - 1, M2.y - 1, M3.y - 1, M4.y - 1, M5.y - 1, M6.y - 1), xmax: Math.max(M1.x + 1, M2.x + 1, M3.x + 1, M4.x + 1, M5.x + 1, M6.x + 1), ymax: Math.max(M1.y + 1, M2.y + 1, M3.y + 1, M4.y + 1, M5.y + 1, M6.y + 1, B.y + 1), pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsCorrection = { xmin: Math.min(M1.x - 1, M2.x - 1, M3.x - 1, M4.x - 1, M5.x - 1, M6.x - 1), ymin: Math.min(M1.y - 1, M2.y - 1, M3.y - 1, M4.y - 1, M5.y - 1, M6.y - 1), xmax: Math.max(M1.x + 1, M2.x + 1, M3.x + 1, M4.x + 1, M5.x + 1, M6.x + 1), ymax: Math.max(M1.y + 1, M2.y + 1, M3.y + 1, M4.y + 1, M5.y + 1, M6.y + 1, B.y + 1), pixelsParCm: 20, scale: 1, mainlevee: false }
 
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br><br>'
-      texte += mathalea2d(params_enonce, objets_enonce)
+      texte += mathalea2d(paramsEnonce, objetsEnonce)
       // On ajoute au texte de la correction, la figure de la correction
-      texteCorr += mathalea2d(params_correction, objets_correction)
+      texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       texteCorr += '<br>' + anim.html(numeroExercice)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions

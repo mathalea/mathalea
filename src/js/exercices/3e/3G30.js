@@ -15,7 +15,7 @@ export const titre = 'Calculer une longueurs dans un triangle rectangle en utili
  * * Si this.level=4 alors seul le cosinus sera utilisé.
  * Mars 2021
  */
-export default function Calcul_de_longueur () {
+export default function CalculDeLongueur () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
@@ -25,6 +25,8 @@ export default function Calcul_de_longueur () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
+  this.amcReady = amcReady
+  this.amcType = amcType
 
   if (context.isHtml) {
     this.spacing = 0
@@ -41,19 +43,19 @@ export default function Calcul_de_longueur () {
     let reponse
 
     const nom = creerNomDePolygone(3)
-    let texte = ''; let texteCorr = ''; const objets_enonce = []; const objets_correction = []; let choix_rapport_trigo
-    let ab, bc, ac, angleABC, angleABCr
-    if (this.level == 4) {
-      choix_rapport_trigo = choice(['cosinus', 'invCosinus'])
+    let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
+    let ab, bc, ac
+    if (this.level === 4) {
+      choixRapportTrigo = choice(['cosinus', 'invCosinus'])
     } else {
-      choix_rapport_trigo = choice(['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'])
+      choixRapportTrigo = choice(['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'])
     }
-    angleABC = randint(35, 55)
-    angleABCr = angleABC * Math.PI / 180
+    const angleABC = randint(35, 55)
+    const angleABCr = angleABC * Math.PI / 180
     if (!context.isHtml && this.sup) {
       texte += '\\begin{minipage}{.7\\linewidth}\n'
     }
-    switch (choix_rapport_trigo) {
+    switch (choixRapportTrigo) {
       case 'cosinus': // AB=BCxcos(B)
         bc = randint(10, 15)
         ab = calcul(bc * Math.cos(angleABCr))
@@ -111,14 +113,16 @@ export default function Calcul_de_longueur () {
     const B = p2.listePoints[1]
     const C = p2.listePoints[2]
     const codage = codageAngleDroit(B, A, C)
-    A.nom = nom[0], B.nom = nom[1], C.nom = nom[2]
-    const nomme = nommePolygone(p2, nom); let codeangle
+    A.nom = nom[0]
+    B.nom = nom[1]
+    C.nom = nom[2]
+    const nomme = nommePolygone(p2, nom)
     const hypo = segment(C, B)
     hypo.epaisseur = 2
     hypo.color = 'blue'
     //   codageAngle.epaisseur = 3
     //  codageAngle2.epaisseur = 3
-    codeangle = codeAngle(A, B, C, 2)
+    const codageDeAngle = codeAngle(A, B, C, 2)
     const M1 = milieu(A, B)
     const M2 = milieu(A, C)
     const M3 = milieu(B, C)
@@ -128,7 +132,7 @@ export default function Calcul_de_longueur () {
     const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2), 'm2', 'center')
     let m4
     let t1, t2, t3
-    switch (choix_rapport_trigo) {
+    switch (choixRapportTrigo) {
       case 'cosinus': // AB=BCxcos(B)
         t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
         t2 = latexParPoint('?', m1, 'black', 120, 12, '')
@@ -166,24 +170,24 @@ export default function Calcul_de_longueur () {
         t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
         break
     }
-    objets_enonce.push(p2, codage, nomme, t1, t2, t3, codeangle)
-    objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo, codeangle)
+    objetsEnonce.push(p2, codage, nomme, t1, t2, t3, codageDeAngle)
+    objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageDeAngle)
 
-    const params_enonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true, amplitude: 0.4 }
-    const params_correction = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.35, mainlevee: false }
+    const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.37, mainlevee: true, amplitude: 0.4 }
+    const paramsCorrection = { xmin: Math.min(A.x, B.x, C.x) - 4, ymin: Math.min(A.y, B.y, C.y) - 4, xmax: Math.max(A.x, B.x, C.x) + 2, ymax: Math.max(A.y, B.y, C.y) + 2, pixelsParCm: 20, scale: 0.35, mainlevee: false }
     if (!context.isHtml && this.sup) {
       texte += '\\begin{minipage}{.3\\linewidth}\n'
     }
     if (this.sup) {
-      texte += mathalea2d(params_enonce, objets_enonce) + '<br>'
+      texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
     }
     if (!context.isHtml && this.correctionDetaillee) {
-      texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(params_correction, objets_correction) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+      texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(paramsCorrection, objetsCorrection) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
     }
     if (!context.isHtml && this.sup) {
       texte += '\n\\end{minipage}\n'
     }
-    switch (choix_rapport_trigo) {
+    switch (choixRapportTrigo) {
       case 'cosinus': // AB=BCxcos(B)
         texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
         texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
@@ -278,9 +282,6 @@ export default function Calcul_de_longueur () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
     /*********************************************************/
     // On ajoute cette ligne pour AMC
-    if (context.isAmc) {
-      
-    }
     /**********************************************************/
   }
 

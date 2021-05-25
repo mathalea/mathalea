@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4 // Question numérique
 
 /**
@@ -53,6 +54,7 @@ export default function Priorites () {
   this.sup = 3
 
   this.nouvelleVersion = function () {
+    let reponse
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -316,6 +318,12 @@ export default function Priorites () {
       }
       if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexte(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
+        if (context.isAmc) {
+          this.autoCorrection[i].enonce = texte + '$~=$'
+          this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+          this.autoCorrection[i].reponse.param.digits = nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur) + 1
+          this.autoCorrection[i].reponse.param.decimals = 0
+        }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
