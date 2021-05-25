@@ -54,7 +54,7 @@ export default function Construire_mediatrices_6e() {
     sB.color = 'black'
 
 
-    let cible, objets_enonce = [], objets_correction = [], cellule
+    let cible, objetsEnonce = [], objetsCorrection = [], cellule
     let xMin, yMin, xMax, yMax
     let nomA1 = texteParPoint(noms[0], homothetie(A1, A2, 1.1), 'milieu', 'black', 1, '', true)
     let nomA2 = texteParPoint(noms[1], homothetie(A2, A1, 1.1), 'milieu', 'black', 1, '', true)
@@ -68,12 +68,12 @@ export default function Construire_mediatrices_6e() {
     cible.color = 'orange'
     cible.opacite = 0.7
 
-    objets_enonce.push(cible, sA, sB, nomA1, nomA2, nomB1, nomB2)
-    objets_correction.push(cible, sA, sB, tracePoint(I), labelPoint(I), nomA1, nomA2, nomB1, nomB2)
-    objets_correction.push(medA, medB, codageMediatrice(A1, A2, 'blue', marks[1]), codageMediatrice(B1, B2, 'green', marks[2]))
+    objetsEnonce.push(cible, sA, sB, nomA1, nomA2, nomB1, nomB2)
+    objetsCorrection.push(cible, sA, sB, tracePoint(I), labelPoint(I), nomA1, nomA2, nomB1, nomB2)
+    objetsCorrection.push(medA, medB, codageMediatrice(A1, A2, 'blue', marks[1]), codageMediatrice(B1, B2, 'green', marks[2]))
 
-    //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
-    //      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
+    //      objetsCorrection.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
+    //      objetsCorrection.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
     texteCorr += `Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
     xMin = Math.min(A1.x - 1, A2.x - 1, B1.x - 1, B2.x - 1, I.x - 4)
     yMin = Math.min(A1.y - 1, A2.y - 1, B1.y - 1, B2.y - 1, I.y - 4)
@@ -82,8 +82,8 @@ export default function Construire_mediatrices_6e() {
 
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
 
-    this.listeQuestions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
+    this.listeQuestions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection))
     listeQuestionsToContenu(this)
   }
 }

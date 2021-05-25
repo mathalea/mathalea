@@ -73,14 +73,14 @@ export default function DenombrerCubes() {
     } 
     
     let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let objets_enonce,objets_correction,params_enonce,params_correction ;
+    let objetsEnonce,objetsCorrection,paramsEnonce,paramsCorrection ;
     let longueur = 2 + parseInt(this.sup2); // longueur de l'empilement
     let largeur = longueur; // largeur de l'empilement
     let hauteur = longueur; // hauteur de l'empilement
 
     for (let q = 0, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
-      objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objets_correction = [] // Idem pour la correction
+      objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+      objetsCorrection = [] // Idem pour la correction
 
       texte = `Un empilement de cubes est représenté ci-dessous. <br>`; // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = ``; // Idem pour le texte de la correction.      
@@ -95,15 +95,15 @@ export default function DenombrerCubes() {
           //dessin 1
           alpha = 30; // choix de la projection
           beta = -25; // choix de la projection
-          objets_enonce = [];
+          objetsEnonce = [];
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+             objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -111,15 +111,15 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " "; 
           //dessin 2
           alpha = 15;
           beta = -30;
-          objets_enonce = [] ;          
+          objetsEnonce = [] ;          
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2],alpha,beta,{}));
+             objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2],alpha,beta,{}));
           }  
-          params_enonce = { 
+          paramsEnonce = { 
             xmin:-sina*largeur-0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -127,7 +127,7 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " <br>";
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " <br>";
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>";
           alpha =30;
@@ -136,7 +136,7 @@ export default function DenombrerCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-3*sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: 3*cosa*longueur + 0.5, 
@@ -144,11 +144,11 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(3*L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(3*L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
           texteCorr += `Il y a au total ${L.length} cubes.`;     
         break;
 
@@ -158,15 +158,15 @@ export default function DenombrerCubes() {
           //dessin 1
           alpha =30;
           beta = -25;
-          objets_enonce = [];
+          objetsEnonce = [];
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+             objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }  
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = { 
+          paramsEnonce = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -174,19 +174,19 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " ";
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " ";
           //dessin 2
           alpha =15;
           beta = -30;
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-             objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+             objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }  
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = { 
+          paramsEnonce = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -194,7 +194,7 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + "<br>";
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + "<br>";
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>";
           alpha =30;
@@ -203,7 +203,7 @@ export default function DenombrerCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-3*sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: 3*cosa*longueur + 0.5, 
@@ -211,11 +211,11 @@ export default function DenombrerCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(3*L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(3*L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction)+ "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection)+ "<br>";   
           texteCorr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur*largeur*hauteur}$. <br>`;
           texteCorr += `Il manque $${longueur*largeur*hauteur-L.length}$ cubes.`  ;     
         break

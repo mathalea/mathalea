@@ -232,8 +232,8 @@ export default function Note_la_couleur () {
     this.listeQuestions = []
     this.listeCorrections = []
     let j, test
-    let objets_enonce, objets_correction
-    const params_correction = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 }
+    let objetsEnonce, objetsCorrection
+    const paramsCorrection = { xmin: -22.5, ymin: -17.25, xmax: 22.5, ymax: 17.25, pixelsParCm: 20, scale: 1 }
 
     let commandes_disponibles; const sequences_disponibles = []; let sequence; let result; let nb_couleurs; let instruction; let couleurs; let liste_instructions
 
@@ -245,11 +245,11 @@ export default function Note_la_couleur () {
     context.pixelsParCm = 20
     let pion
     if (this.sup) {
-      objets_correction = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
-      objets_enonce = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
+      objetsCorrection = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
+      objetsEnonce = [fond_ecran('assets/images/nlc_an.png', -450, -345, 900, 690)]
     } else {
-      objets_correction = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
-      objets_enonce = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
+      objetsCorrection = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
+      objetsEnonce = [fond_ecran('assets/images/nlc_sn.png', -450, -345, 900, 690)]
     }
     let texte = ''
     let texteCorr = ''
@@ -269,7 +269,7 @@ export default function Note_la_couleur () {
         }
         retour_a_la_case_depart = true
         while (retour_a_la_case_depart) {
-          objets_enonce.length = 1
+          objetsEnonce.length = 1
           lutin = creerLutin()
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
@@ -283,7 +283,7 @@ export default function Note_la_couleur () {
           lutindepart = clone(lutin)
           baisseCrayon(lutindepart)
           allerA(xdepart, ydepart, lutindepart)
-          objets_enonce.push(lutindepart)
+          objetsEnonce.push(lutindepart)
           baisseCrayon(lutin)
           compteur++
           if (compteur > 5) break
@@ -361,7 +361,7 @@ export default function Note_la_couleur () {
         liste_instructions = []
         const repetitions = nb_couleurs - 1
         while (retour_a_la_case_depart) {
-          objets_enonce.length = 1
+          objetsEnonce.length = 1
           lutin = creerLutin()
           angledepart = choice([90, 0, -90, 180])
           xdepart = -195 + randint(4, 9) * 30
@@ -374,7 +374,7 @@ export default function Note_la_couleur () {
           allerA(xdepart, ydepart, lutin)
           orienter(angleScratchTo2d(angledepart), lutin)
           lutindepart = clone(lutin)
-          objets_enonce.push(lutindepart)
+          objetsEnonce.push(lutindepart)
           baisseCrayon(lutin)
           compteur++
           if (compteur > 5) break // 5 tentatives infructueuses -> On sort de la boucle.
@@ -476,12 +476,12 @@ export default function Note_la_couleur () {
 
         break
     }
-    //  objets_enonce.push ();
-    // objets_correction.push();
+    //  objetsEnonce.push ();
+    // objetsCorrection.push();
 
-    //      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
-    //    texte += mathalea2d(params_enonce, objets_enonce);
-    //  texteCorr += mathalea2d(params_correction, objets_correction);
+    //      paramsEnonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false};
+    //    texte += mathalea2d(paramsEnonce, objetsEnonce);
+    //  texteCorr += mathalea2d(paramsCorrection, objetsCorrection);
     pion.codeScratch += '\\end{scratch}'
     texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
     texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
@@ -491,14 +491,14 @@ export default function Note_la_couleur () {
     texte += '<table><tr><td>' +
       scratchblock(pion.codeScratch) +
       '</td><td>' +
-      mathalea2d(params_correction, objets_enonce) +
+      mathalea2d(paramsCorrection, objetsEnonce) +
       '</td></tr></table>'
     texteCorr = 'On obtient la série de couleurs suivante :<br> '
     texteCorr += `${texteGras(couleurs[0])} `
     for (let i = 1; i < couleurs.length; i++) {
       texteCorr += `- ${texteGras(couleurs[i])} `
     }
-    texteCorr += '<br><br>' + mathalea2d(params_correction, objets_correction, lutin)
+    texteCorr += '<br><br>' + mathalea2d(paramsCorrection, objetsCorrection, lutin)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)

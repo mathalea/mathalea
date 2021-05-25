@@ -1,6 +1,8 @@
 id,titre,amcReady,amcType,interactifReady,
 3G21,Contrôler si deux droites sont parallèles,OK,AMCOpen,KO
 3G30,Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO
+3G31,Calculer un angle dans un triangle rectangle en utilisant la trigonométrie,OK,AMCOpen NC,KO
+3G32-1,Calcul d’un parallèle terrestre,OK,AMCOpen,KO
 3L11-1,Utiliser la double distributivité,KO,KO,OK
 3L11-2,Réduire une expression,KO,KO,OK
 3L11-3,Utiliser la distributivité (simple ou double) et réduire,KO,KO,OK
@@ -11,11 +13,13 @@ id,titre,amcReady,amcType,interactifReady,
 3P10-1,Coefficient multiplicateur d’une variation en pourcentage,KO,KO,OK
 3P10,Variations en pourcentage,KO,KO,OK
 4C21,Additionner ou soustraire deux fractions,OK,AMCOpen double NC,KO
-4C32-1,Calcul avec les puissances de dix,KO,KO,OK
+4C32-1,Calcul avec les puissances de dix,OK,qcmMono,OK
+4C32,Notation scientifique,OK,AMCOpen Num,KO
+4C34,Calculs utilisant les priorités opératoires et les puissances,OK,AMCOpen NC,KO
 4G20-2,Racine carré d’un carré parfait (calcul mental),KO,KO,OK
-4G20,Calculer une longueur avec le théorème de Pythagore,OK,AMCOpen Num,OK
+4G20,Calculer une longueur avec le théorème de Pythagore,OK,AMCOpen NC,OK
 4G21,Déterminer si un triangle est rectangle ou pas.,KO,KO,OK
-4G30,Calculer des longueurs avec la propriété de Thalès,OK,AMCOpen Num,KO
+4G30,Calculer des longueurs avec la propriété de Thalès,OK,AMCOpen NC,KO
 4G40,Utiliser le cosinus pour calculer une longueur dans un triangle rectangle,OK,AMCOpen NC,KO
 5L10-2,Traduire un programme de calcul par une expression littérale,OK,qcmMono,OK
 5L10,Écrire une expression littérale,OK,qcmMult,OK
@@ -36,7 +40,7 @@ id,titre,amcReady,amcType,interactifReady,
 6C10,Additions soustractions et multiplications posées de nombres entiers,OK,AMCOpen Num,OK
 6C10bis,Additions soustractions multiplications et divisions posées de nombres entiers,OK,AMCOpen,KO
 6C11-1,Divisions euclidiennes : déterminer reste et quotient à partir d'une égalité,OK,AMCOpen,KO
-6C11,Divisions euclidiennes,OK,bug amcType.num,KO
+6C11,Divisions euclidiennes,OK,AMCOpen,KO
 6C20,Additions et soustractions de nombres décimaux,KO,KO,OK
 6C21,Divisions euclidiennes - Niveau 2,OK,AMCOpen,KO
 6C23,Additionner ou soustraire des fractions de même dénominateur,OK,qcmMono,OK
@@ -50,7 +54,7 @@ id,titre,amcReady,amcType,interactifReady,
 6C33,Calculer en utilisant les priorités opératoires,KO,KO,OK
 6C34,Dernier chiffre d’un calcul,KO,KO,OK
 6G23-1,Mesurer un angle,OK,qcmMono,OK
-6G33,Reconnaitre un quadrilatère particulier à partir de ses propriétés,OK,qcmMono,OK
+6G33,Reconnaitre un quadrilatère particulier à partir de ses propriétés,OK,qcmMult,OK
 6G41,Compléter une représentation en perspective cavalière,OK,AMCOpen,KO
 6N20-2,Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale.,KO,KO,OK
 6N20,Décomposer une fraction (partie entière + fraction inférieure à 1).,KO,KO,OK
@@ -60,6 +64,7 @@ id,titre,amcReady,amcType,interactifReady,
 6N43-2,Critères de divisibilité (plusieurs possibles),OK,qcmMult,KO
 6N43-3,Diviseur multiple divisible - Vrai ou faux,OK,qcmMono,OK
 6N43,Critères de divisibilité,OK,qcmMono,OK
+betaExempleFigureClic,Sommets du triangle,KO,KO,OK
 CM000,Additions et de soustractions,OK,AMCOpen Num,OK
 CM001,Tables de multiplication,OK,AMCOpen Num,OK
 CM002,Tables de divisions,OK,AMCOpen Num,OK
@@ -80,4 +85,3 @@ CM016,Diviser un entier par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM017,Diviser un nombre décimal par 10 100 ou 1000,OK,AMCOpen Num,OK
 CM018,Somme de deux nombres mariés et un entier,OK,AMCOpen Num,OK
 CM019,Générateur de compte est bon,OK,AMCOpen,KO
-betaExempleFigureClic,Sommets du triangle,KO,KO,OK

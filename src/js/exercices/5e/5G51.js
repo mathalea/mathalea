@@ -63,8 +63,8 @@ export default function Representer_un_solide5e() {
       enonce,
       correction,
       carreaux, g,
-      objets_enonce = [],
-      objets_correction = [], matrace = tracePoint(I);
+      objetsEnonce = [],
+      objetsCorrection = [], matrace = tracePoint(I);
 
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let nom = creerNomDePolygone(8, "PQ"),
@@ -73,8 +73,8 @@ export default function Representer_un_solide5e() {
         coeffpersp = 0.6;
       else
         coeffpersp = 0.4;
-      objets_correction = [];
-      objets_enonce = [];
+      objetsCorrection = [];
+      objetsEnonce = [];
 
       switch (listeTypeDeQuestions[i]) {
         case 1: //cube
@@ -255,34 +255,34 @@ export default function Representer_un_solide5e() {
       };
 
       if (listeTypeDeQuestions[i] == 1) {
-        objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 2) {
-        objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 4) {
-        objets_enonce.push(AB, DA, BD, AE,
+        objetsEnonce.push(AB, DA, BD, AE,
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 6) {
-        objets_enonce.push(AB, BF, tracePoint(I, .5, 'red'), labelPoint(I),
+        objetsEnonce.push(AB, BF, tracePoint(I, .5, 'red'), labelPoint(I),
           g,
           carreaux
         );
       }
 
-      enonce += mathalea2d(params, objets_enonce);
+      enonce += mathalea2d(params, objetsEnonce);
       if (listeTypeDeQuestions[i] == 1) {
         AB.color = 'green';
         BC.color = 'red';
@@ -296,7 +296,7 @@ export default function Representer_un_solide5e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
         );
@@ -315,7 +315,7 @@ export default function Representer_un_solide5e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
         );
@@ -334,7 +334,7 @@ export default function Representer_un_solide5e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
+        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
           g,
           carreaux
         );
@@ -353,13 +353,13 @@ export default function Representer_un_solide5e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
+        objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
           g,
           carreaux
         );
       }
 
-      correction += mathalea2d(params, objets_correction);
+      correction += mathalea2d(params, objetsCorrection);
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");

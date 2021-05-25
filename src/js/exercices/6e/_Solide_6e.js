@@ -42,8 +42,8 @@ export default function Solide_6e() {
       enonce,
       correction,
       carreaux, g,
-      objets_enonce = [],
-      objets_correction = [],
+      objetsEnonce = [],
+      objetsCorrection = [],
       p;
     for (
       let i = 0, texte, cpt = 0;
@@ -54,8 +54,8 @@ export default function Solide_6e() {
         anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
       if (anglepersp % 10 == 0) coeffpersp = 0.6
       else coeffpersp = 0.4
-      objets_correction = []
-      objets_enonce = []
+      objetsCorrection = []
+      objetsEnonce = []
       switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `${nom} est un cube.<br>`
@@ -242,7 +242,7 @@ export default function Solide_6e() {
         carreaux = "";
         sc = 0.5
       }
-      objets_enonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
+      objetsEnonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
         g,
         carreaux
       );
@@ -256,7 +256,7 @@ export default function Solide_6e() {
         scale: sc,
       }
 
-      enonce += mathalea2d(params, objets_enonce);
+      enonce += mathalea2d(params, objetsEnonce);
       if (listeTypeDeQuestions[i] == 1) {
         codesseg = [codeSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codeSegments('||', 'green', B, F, C, G, D, H)]
         AB.color = 'green'
@@ -288,12 +288,12 @@ export default function Solide_6e() {
         DH.color = 'red'
       }
 
-      objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+      objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
         g,
         carreaux
       );
 
-      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objets_correction, codesseg);
+      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objetsCorrection, codesseg);
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

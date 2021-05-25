@@ -111,7 +111,7 @@ export default function Pavage_et_reflexion2d() {
       return result
     } 
 
-    let objets=[],objets_correction=[],P1,P2,P3,t
+    let objets=[],objetsCorrection=[],P1,P2,P3,t
     let codes=['/','//','///','o','w','X','U','*']
     let taillePavage=parseInt(this.sup)
     if (taillePavage<1||taillePavage>2) {
@@ -211,11 +211,11 @@ export default function Pavage_et_reflexion2d() {
         P3=symetrieAnimee(P1,d,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nbQuestions}s" id="poly-${i}-anim"`)
         P3.color=texcolors(i)
         P3.epaisseur=2
-        objets_correction.push(tracePoint(A,B),segment(A,B,texcolors(i)),codageMediatrice(A,B,texcolors(i),codes[i]),P1,P2,P3)
+        objetsCorrection.push(tracePoint(A,B),segment(A,B,texcolors(i)),codageMediatrice(A,B,texcolors(i),codes[i]),P1,P2,P3)
       }
     }
     if (this.correctionDetaillee){
-      texteCorr+=mathalea2d(fenetre, objets,objets_correction)
+      texteCorr+=mathalea2d(fenetre, objets,objetsCorrection)
     }
     this.listeQuestions.push(texte);
     this.listeCorrections.push(texteCorr);

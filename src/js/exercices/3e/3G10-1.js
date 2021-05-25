@@ -25,8 +25,8 @@ export default function Transformations_du_plan_et_coordonnees() {
     this.nouvelleVersion = function (numeroExercice) {
         let A,B,C,droited,droited1,droited2,O,droitedprime,pointO
 		let Aprime,Bprime,Cprime
-        let objets_enonce = []
-        let objets_correction = []
+        let objetsEnonce = []
+        let objetsCorrection = []
 	
 		this.listeQuestions = [];
 		this.listeCorrections = []; // Liste de questions corrigées
@@ -123,25 +123,25 @@ export default function Transformations_du_plan_et_coordonnees() {
 					bis1 = 1;
 					t[1] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A),labelPoint(A))
-                        objets_correction.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited1,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
+                        objetsEnonce.push(tracePoint(A),labelPoint(A))
+                        objetsCorrection.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited1,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
                         xP[1] = xA;
 						yP[1] = yA;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,Bprime),labelPoint(B,Bprime))
-						objets_correction.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited1,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
+						objetsEnonce.push(tracePoint(B,Bprime),labelPoint(B,Bprime))
+						objetsCorrection.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited1,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
 						xP[1] = xB;
 						yP[1] = yB;
 					}
 					else {
-						objets_enonce.push(tracePoint(C),labelPoint(C))
-						objets_correction.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited1,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
+						objetsEnonce.push(tracePoint(C),labelPoint(C))
+						objetsCorrection.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited1,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
 						xP[1] = xC;
 						yP[1] = yC;
 					}
-                    objets_enonce.push(droited1,latexParCoordonnees('(d_1)',-10,-7-xO+yO,'green',2))
-					objets_correction.push(droited1,latexParCoordonnees('(d_1)',-10,-7-xO+yO,'green',2))
+                    objetsEnonce.push(droited1,latexParCoordonnees('(d_1)',-10,-7-xO+yO,'green',2))
+					objetsCorrection.push(droited1,latexParCoordonnees('(d_1)',-10,-7-xO+yO,'green',2))
 					
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`;
 					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
@@ -151,25 +151,25 @@ export default function Transformations_du_plan_et_coordonnees() {
 					bis2 = 1;
 					t[2] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A),labelPoint(A))
-                        objets_correction.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited2,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
+                        objetsEnonce.push(tracePoint(A),labelPoint(A))
+                        objetsCorrection.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited2,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
                         xP[2] = xA;
 						yP[2] = yA;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B),labelPoint(B))
-						objets_correction.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited2,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
+						objetsEnonce.push(tracePoint(B),labelPoint(B))
+						objetsCorrection.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited2,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
 						xP[2] = xB;
 						yP[2] = yB;
 					}
 					else {
-                        objets_enonce.push(tracePoint(C),labelPoint(C))
-						objets_correction.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited2,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
+                        objetsEnonce.push(tracePoint(C),labelPoint(C))
+						objetsCorrection.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited2,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
 					xP[2] = xC;
 						yP[2] = yC;
 					}
-					objets_enonce.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
-					objets_correction.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
+					objetsEnonce.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
+					objetsCorrection.push(droited2,latexParCoordonnees('(d_2)',8,-7+xO+yO,'green',2))
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`;
 					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
@@ -178,25 +178,25 @@ export default function Transformations_du_plan_et_coordonnees() {
 					xx = 1;
 					t[3] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A),labelPoint(A))
-						objets_correction.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
+                        objetsEnonce.push(tracePoint(A),labelPoint(A))
+						objetsCorrection.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droited,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
 						xP[3] = xA;
 						yP[3] = yA;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B),labelPoint(B))
-						objets_correction.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
+                        objetsEnonce.push(tracePoint(B),labelPoint(B))
+						objetsCorrection.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droited,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
 					xP[3] = xB;
 						yP[3] = yB;
 					}
 					else {
-						objets_enonce.push(tracePoint(C),labelPoint(C))
-						objets_correction.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
+						objetsEnonce.push(tracePoint(C),labelPoint(C))
+						objetsCorrection.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droited,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
 						xP[3] = xC;
 						yP[3] = yC;
 					}
-					objets_enonce.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
-					objets_correction.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
+					objetsEnonce.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
+					objetsCorrection.push(droited,latexParCoordonnees('(d)',-14,yO+1,'green',2))
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`;
 					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
@@ -205,25 +205,25 @@ export default function Transformations_du_plan_et_coordonnees() {
 					yy = 1;
 					t[4] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A),labelPoint(A))
-						objets_correction.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droitedprime,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
+                        objetsEnonce.push(tracePoint(A),labelPoint(A))
+						objetsCorrection.push(tracePoint(A,Aprime),labelPoint(A,Aprime),segment(A,Aprime,'blue'),codageAngleDroit(A,milieu(A,Aprime),pointSurDroite(droitedprime,-15)),codeSegments('||','red',A,milieu(A,Aprime),milieu(A,Aprime),Aprime))
 						xP[4] = xA;
 						yP[4] = yA;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B),labelPoint(B))
-						objets_correction.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droitedprime,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
+						objetsEnonce.push(tracePoint(B),labelPoint(B))
+						objetsCorrection.push(tracePoint(B,Bprime),labelPoint(B,Bprime),segment(B,Bprime,'blue'),codageAngleDroit(B,milieu(B,Bprime),pointSurDroite(droitedprime,-15)),codeSegments('O','red',B,milieu(B,Bprime),milieu(B,Bprime),Bprime))
 						xP[4] = xB;
 						yP[4] = yB;
 					}
 					else {
-						objets_enonce.push(tracePoint(C),labelPoint(C))
-						objets_correction.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droitedprime,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
+						objetsEnonce.push(tracePoint(C),labelPoint(C))
+						objetsCorrection.push(tracePoint(C,Cprime),labelPoint(C,Cprime),segment(C,Cprime,'blue'),codageAngleDroit(C,milieu(C,Cprime),pointSurDroite(droitedprime,-15)),codeSegments('X','red',C,milieu(C,Cprime),milieu(C,Cprime),Cprime))
 						xP[4] = xC;
 						yP[4] = yC;
 					}
-					objets_enonce.push(droitedprime,latexParCoordonnees("(d\')",xO+0.2,13,'green',2))
-					objets_correction.push(droitedprime)
+					objetsEnonce.push(droitedprime,latexParCoordonnees("(d\')",xO+0.2,13,'green',2))
+					objetsCorrection.push(droitedprime)
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`;
 					texteCorr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${texNombre(punto[i][0])};${texNombre(punto[i][1])}$).<br>`;
 					break;
@@ -232,8 +232,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[5] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime)
 						)
                         xP[5] = xA;
@@ -242,8 +242,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO5 = yO;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+						objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 						xP[5] = xB;
 						yP[5] = yB;
@@ -251,8 +251,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO5 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+						objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 						xP[5] = xC;
 						yP[5] = yC;
@@ -267,8 +267,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[6] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime))
                         xP[6] = xA;
 						yP[6] = yA;
@@ -276,8 +276,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO6 = yO;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,A),labelPoint(B,A),
+						objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,A),labelPoint(B,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 						xP[6] = xB;
 						yP[6] = yB;
@@ -285,8 +285,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO6 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+						objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 						xP[6] = xC;
 						yP[6] = yC;
@@ -301,8 +301,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[7] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),codeSegments('//','red',O,A,O,Aprime))
                         xP[7] = xA;
 						yP[7] = yA;
@@ -310,8 +310,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO7 = yO;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+                        objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),codeSegments('O','red',A,B,A,Bprime))
 					xP[7] = xB;
 						yP[7] = yB;
@@ -319,8 +319,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO7 = yA;
 					}
 					else {
-                        objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+                        objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),codeSegments('X','red',B,C,B,Cprime))
 					xP[7] = xC;
 						yP[7] = yC;
@@ -335,8 +335,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[11] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime))
                         xP[11] = xA;
 						yP[11] = yA;
@@ -344,8 +344,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO11 = yO;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+						objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 						xP[11] = xB;
 						yP[11] = yB;
@@ -353,8 +353,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO11 = yA;
 					}
 					else {
-                        objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+                        objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 					xP[11] = xC;
 						yP[11] = yC;
@@ -369,8 +369,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[12] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime))
                         xP[12] = xA;
 						yP[12] = yA;
@@ -378,8 +378,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO12 = yO;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+                        objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 					xP[12] = xB;
 						yP[12] = yB;
@@ -387,8 +387,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO12 = yA;
 					}
 					else {
-                        objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+                        objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 					xP[12] = xC;
 						yP[12] = yC;
@@ -406,8 +406,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[13] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime))
                         xP[13] = xA;
 						yP[13] = yA;
@@ -415,8 +415,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO13 = yO;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+						objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 						xP[13] = xB;
 						yP[13] = yB;
@@ -424,8 +424,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO13 = yA;
 					}
 					else {
-                        objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+                        objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 					xP[13] = xC;
 						yP[13] = yC;
@@ -440,8 +440,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[14] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'blue'),afficheMesureAngle(A,O,Aprime),codeSegments('//','red',O,A,O,Aprime))
                         xP[14] = xA;
 						yP[14] = yA;
@@ -449,8 +449,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO14 = yO;
 					}
 					else if (i == 1) {
-						objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+						objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'blue'),afficheMesureAngle(B,A,Bprime),codeSegments('O','red',A,B,A,Bprime))
 						xP[14] = xB;
 						yP[14] = yB;
@@ -458,8 +458,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO14 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+						objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'blue'),afficheMesureAngle(C,B,Cprime),codeSegments('X','red',B,C,B,Cprime))
 						xP[14] = xC;
 						yP[14] = yC;
@@ -474,8 +474,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					AfficheO = 1;
 					t[8] = 1;
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O,pointO),labelPoint(A,O,pointO),vecteur(pointO,O).representant(pointO))
-                        objets_correction.push(tracePoint(A,Aprime,O,pointO),labelPoint(A,Aprime,O,pointO),
+                        objetsEnonce.push(tracePoint(A,O,pointO),labelPoint(A,O,pointO),vecteur(pointO,O).representant(pointO))
+                        objetsCorrection.push(tracePoint(A,Aprime,O,pointO),labelPoint(A,Aprime,O,pointO),
 						vecteur(pointO,O).representant(A),vecteur(pointO,O).representant(pointO))
                         xP[8] = xA;
 						yP[8] = yA;
@@ -483,8 +483,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO8 = yO;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B,A,pointO),labelPoint(B,A,pointO),vecteur(pointO,A).representant(pointO))
-						objets_correction.push(tracePoint(B,Bprime,A,pointO),labelPoint(B,Bprime,A,pointO),
+                        objetsEnonce.push(tracePoint(B,A,pointO),labelPoint(B,A,pointO),vecteur(pointO,A).representant(pointO))
+						objetsCorrection.push(tracePoint(B,Bprime,A,pointO),labelPoint(B,Bprime,A,pointO),
 						vecteur(pointO,A).representant(B),vecteur(pointO,A).representant(pointO))
 					xP[8] = xB;
 						yP[8] = yB;
@@ -492,8 +492,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO8 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B,pointO),labelPoint(C,B,pointO),vecteur(pointO,B).representant(pointO))
-						objets_correction.push(tracePoint(C,Cprime,B,pointO),labelPoint(C,Cprime,B,pointO),
+						objetsEnonce.push(tracePoint(C,B,pointO),labelPoint(C,B,pointO),vecteur(pointO,B).representant(pointO))
+						objetsCorrection.push(tracePoint(C,Cprime,B,pointO),labelPoint(C,Cprime,B,pointO),
 						vecteur(pointO,B).representant(C),vecteur(pointO,B).representant(pointO))
 						xP[8] = xC;
 						yP[8] = yC;
@@ -510,8 +510,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					t[9] = 1;
 					k1 = k[i];
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'orange'))
                         xP[9] = xA;
 						yP[9] = yA;
@@ -519,8 +519,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO9 = yO;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+                        objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(O,B,'blue'),segment(O,Bprime,'orange'))
 
 					xP[9] = xB;
@@ -529,8 +529,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO9 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+						objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(O,C,'blue'),segment(O,Cprime,'orange'))
 
 						xP[9] = xC;
@@ -547,8 +547,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 					t[10] = 1;
 					k2 = k[i];
 					if (i == 0) {
-                        objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
-                        objets_correction.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
+                        objetsEnonce.push(tracePoint(A,O),labelPoint(A,O))
+                        objetsCorrection.push(tracePoint(A,Aprime,O),labelPoint(A,Aprime,O),
 						segment(O,A,'blue'),segment(O,Aprime,'orange'))
                         xP[10] = xA;
 						yP[10] = yA;
@@ -556,8 +556,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO10 = yO;
 					}
 					else if (i == 1) {
-                        objets_enonce.push(tracePoint(B,A),labelPoint(B,A))
-						objets_correction.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
+                        objetsEnonce.push(tracePoint(B,A),labelPoint(B,A))
+						objetsCorrection.push(tracePoint(B,Bprime,A),labelPoint(B,Bprime,A),
 						segment(A,B,'blue'),segment(A,Bprime,'orange'))
 					xP[10] = xB;
 						yP[10] = yB;
@@ -565,8 +565,8 @@ export default function Transformations_du_plan_et_coordonnees() {
 						yO10 = yA;
 					}
 					else {
-						objets_enonce.push(tracePoint(C,B),labelPoint(C,B))
-						objets_correction.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
+						objetsEnonce.push(tracePoint(C,B),labelPoint(C,B))
+						objetsCorrection.push(tracePoint(C,Cprime,B),labelPoint(C,Cprime,B),
 						segment(B,C,'blue'),segment(B,Cprime,'orange'))
 						xP[10] = xC;
 						yP[10] = yC;
@@ -588,11 +588,11 @@ export default function Transformations_du_plan_et_coordonnees() {
 			AfficheOO' affiche le vecteur OO' vecteur de translation
 		    
 			*/
-			objets_enonce.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
-			objets_correction.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
+			objetsEnonce.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
+			objetsCorrection.push(repere2({xMin:-14,yMin:-14,xMax:14,yMax:14,grilleOpacite:0.2}))
 			
-			this.listeQuestions.push(texte+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_enonce));
-			this.listeCorrections.push(texteCorr+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objets_correction));
+			this.listeQuestions.push(texte+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objetsEnonce));
+			this.listeCorrections.push(texteCorr+'<br>'+mathalea2d({xmin:-14,ymin:-14,xmax:14,ymax:14,pixelsParCm:20,scale:0.6,mainlevee:false},objetsCorrection));
 			listeQuestionsToContenuSansNumero(this);
 
 

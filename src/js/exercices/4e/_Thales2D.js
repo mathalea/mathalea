@@ -164,7 +164,7 @@ export default function Thales2D () {
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { valeur: reponse, param:{ digits: 2, decimals: 1, signe: false, exposantNbChiffres: 0 } }
+            reponse: { valeur: reponse, param: { digits: 2, decimals: 1, signe: false, exposantNbChiffres: 0 } }
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre
