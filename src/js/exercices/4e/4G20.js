@@ -7,6 +7,7 @@ export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 5 // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
 export const interactifReady = true
+export const interactifType = ' '
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D

@@ -5,6 +5,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4 // Question numérique
 export const titre = 'Divisions décimales'
 

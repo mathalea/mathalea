@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000

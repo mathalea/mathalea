@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChanger
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4 // Question numérique
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
 

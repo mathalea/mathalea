@@ -3,6 +3,7 @@ import { listeQuestionsToContenu, egal, randint, combinaisonListes, printlatex }
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
@@ -13,7 +14,7 @@ export default function DoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1
   this.nbColsCorr = 1

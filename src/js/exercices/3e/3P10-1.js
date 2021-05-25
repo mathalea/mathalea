@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage ou l'inverse
@@ -16,7 +17,7 @@ export default function Coefficient_evolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Compléter.'
   this.nbQuestions = 4
   this.nbCols = 1

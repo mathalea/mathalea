@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombrec
 export const titre = 'Moitié'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = ' '
 export const amcType = 4
 /**
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme

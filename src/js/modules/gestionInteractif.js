@@ -8,7 +8,7 @@ import { ComputeEngine, parse } from '@cortex-js/math-json'
 export function exerciceInteractif (exercice) {
   if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
   if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
-  if (exercice.amcType === 'custom') exerciceCustom(exercice)
+  if (exercice.interactifType === 'custom') exerciceCustom(exercice)
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
   if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
 }

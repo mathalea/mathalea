@@ -6,6 +6,7 @@ export const titre = 'Déterminer si un triangle est rectangle ou pas.'
 export const amcReady = true
 export const amcType = 1 // QCM
 export const interactifReady = true
+export const interactifType = ' '
 
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
