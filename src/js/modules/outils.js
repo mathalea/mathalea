@@ -6731,7 +6731,7 @@ export async function scratchTraductionFr () {
 export function exportQcmAmc (exercice, idExo) {
   const ref = exercice.id
   const autoCorrection = exercice.autoCorrection
-  console.log(exercice.autoCorrection,exercice.amcType)
+  console.log(exercice.autoCorrection, exercice.amcType)
   const titre = exercice.titre
   const type = exercice.amcType
   let texQr = ''
@@ -6875,6 +6875,12 @@ export function exportQcmAmc (exercice, idExo) {
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
         // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
         /********************************************************************/
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: 2, feedback: '' }]
+        }
         texQr += `\\element{${ref}}{\n `
         texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
@@ -6892,6 +6898,7 @@ export function exportQcmAmc (exercice, idExo) {
             autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
           }
         }
+
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
