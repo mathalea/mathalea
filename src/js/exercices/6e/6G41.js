@@ -22,6 +22,8 @@ export default function RepresenterUnSolide () {
   this.sup = 1
   this.sup2 = 1
   this.classe = 6
+  this.amcReady = amcReady
+  this.amcType = amcType
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []

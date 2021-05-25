@@ -43,7 +43,7 @@ export default function Construire_homothetie_point_3e () {
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par l\'homothétie de centre $O$`
     this.consigne += ` et de rapport $${texNombre(k)}$.`
-    const cibles = []; const M = []; const N = []; const objets_enonce = []; const objets_correction = [] // cibles, M point marqués, N symétrique de M
+    const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []
     let xMin, yMin, xMax, yMax;
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
@@ -68,8 +68,8 @@ export default function Construire_homothetie_point_3e () {
       }
     }
 
-    objets_enonce.push(tracePoint(O), labelPoint(O))
-    objets_correction.push(tracePoint(O), labelPoint(O))
+    objetsEnonce.push(tracePoint(O), labelPoint(O))
+    objetsCorrection.push(tracePoint(O), labelPoint(O))
 
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
@@ -83,8 +83,8 @@ export default function Construire_homothetie_point_3e () {
     for (let i = 0; i < nbpoints; i++) {
       M.push(homothetie(N[i], O, 1 / k, noms[i]))
 
-      objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
-      objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
+      objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
+      objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
       if (k < 0) {
         s = segment(M[i], N[i])
       } else {
@@ -95,7 +95,7 @@ export default function Construire_homothetie_point_3e () {
         }
       }
       s.color = arcenciel(i)
-      objets_correction.push(s)
+      objetsCorrection.push(s)
       texteCorr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
     }
 
@@ -118,11 +118,11 @@ export default function Construire_homothetie_point_3e () {
       anim.pointCreer(M[i])
       anim.homothetiePoint(M[i], O, k, '', { positionTexte: { x: 2, y: -1 } })
     }
-    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction) + anim.html(numeroExercice))
+    this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection) + anim.html(numeroExercice))
     listeQuestionsToContenu(this)
 
-    //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+    //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
   this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, '1\n2\n3\n4\n5']
   // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];

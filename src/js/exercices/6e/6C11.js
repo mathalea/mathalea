@@ -5,7 +5,7 @@ import Operation from '../../modules/operations.js'
 import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-// export const amcType = 3 // type de question AMC
+export const amcType = 3 // type de question AMC
 // export const amcType = 4 // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +33,7 @@ export default function DivisionsEuclidiennes () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interActifReady
-  // this.amcType = amcType
+  this.amcType = amcType
   this.interactifType = interactifType
   this.consigne =
     "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
@@ -57,7 +57,7 @@ export default function DivisionsEuclidiennes () {
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
-      let i = 0, texte, texteCorr, cpt = 0, a, b, q, r;
+      let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -106,6 +106,10 @@ export default function DivisionsEuclidiennes () {
       }
       texte += ajouteChampTexteLiveMath(this, i)
       // Pour AMC question AmcOpen
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions[0].texte = texteCorr
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -114,6 +118,7 @@ export default function DivisionsEuclidiennes () {
       }
       cpt++
     }
+    console.log(this.listeQuestions, this.autoCorrection)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = [

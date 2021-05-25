@@ -1,4 +1,4 @@
-import { machineMathsVideo, listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
@@ -6,7 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 
 export const titre = 'Notation scientifique'
 export const interactifReady = false
-export const amcReady = false // tant qu'il n'a pas été adapté à la version 2.6
+export const amcReady = true
 export const amcType = 4 // type de question AMC
 
 /**
@@ -37,13 +37,13 @@ export default function NotationScientifique () {
 
   this.nouvelleVersion = function () {
     let reponse
-    if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
+    if (parseInt(this.sup) === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Donner l\'écriture décimale des nombres suivants.'
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.sup2 === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
-    else if (this.sup2 === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
+    if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
+    else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -52,26 +52,43 @@ export default function NotationScientifique () {
       switch (listeTypeDeQuestions[i]) {
         case 0:
           mantisse = randint(1, 9)
-          exp = randint(1, 5)
+          if (!context.isAmc) {
+            exp = randint(1, 5)
+          } else {
+            exp = randint(1, 3)
+          }
+
           break
         case 1:
           mantisse = calcul(randint(11, 99) / 10)
-          exp = randint(1, 5)
+          if (!context.isAmc) {
+            exp = randint(1, 5)
+          } else {
+            exp = randint(1, 3)
+          }
           break
         case 2:
           if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
           else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
-          exp = randint(1, 7) * choice([-1, 1])
+          if (!context.isAmc) {
+            exp = randint(1, 7) * choice([-1, 1])
+          } else {
+            exp = randint(1, 3) * choice([-1, 1])
+          }
           break
         case 3:
           if (randint(0, 1) === 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
           else mantisse = calcul(randint(1111, 9999) / 1000)
-          exp = randint(3, 7) * choice([-1, 1])
+          if (!context.isAmc) {
+            exp = randint(1, 7) * choice([-1, 1])
+          } else {
+            exp = randint(1, 3) * choice([-1, 1])
+          }
           break
       }
       reponse = calcul(mantisse * 10 ** exp)
       decimalstring = texNombrec(mantisse * 10 ** exp)
-      scientifiquestring = `${texNombre(mantisse)}\\times 10^{${exp}}`
+      scientifiquestring = `${texNombrec(mantisse)}\\times 10^{${exp}}`
       if (this.sup === 1) {
         texte = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
@@ -93,12 +110,42 @@ export default function NotationScientifique () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
 
-        if (this.sup === 1) {
+        if (parseInt(this.sup) === 1) {
           setReponse(this, i, reponse, { digits: listeTypeDeQuestions[i] + 3, decimals: listeTypeDeQuestions[i] + 1, signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
-          setReponse(this, i, reponse, { strict: false, vertical: false, digits: 2 * Math.abs(exp) + 2, decimals: Math.abs(exp) + 1, signe: false, exposantNbChiffres: 0, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse, { strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: true, approx: 0 })
         }
-
+        if (context.isAmc) {
+          if (parseInt(this.sup) === 1) {
+            this.amcType = 4
+            this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte
+          } else {
+            this.amcType = 1
+            this.autoCorrection[i].enonce = "Donner l'écriture décimale du nombre " + texte
+            this.autoCorrection[i].options = {
+              ordered: false,
+              lastChoice: 5
+            }
+            this.autoCorrection[i].propositions = [
+              {
+                texte: `$${decimalstring}$`,
+                statut: true
+              },
+              {
+                texte: `$${texNombrec(mantisse * 10 ** (exp - 1))}$`,
+                statut: false
+              },
+              {
+                texte: `$${texNombrec(mantisse * 10 ** (exp + 1))}$`,
+                statut: false
+              },
+              {
+                texte: `$${texNombrec(mantisse * 10 ** (-exp))}$`,
+                statut: false
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++

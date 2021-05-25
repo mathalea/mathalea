@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureAlgebriquec, signe, texNombreCoul, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureAlgebriquec, signe, texNombreCoul, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
 export const interactifType = ' '
 export const amcReady = true
-export const amcType = 5 
+export const amcType = 5
 
 /**
 * Effectuer la somme ou la différence de deux nombres relatifs
@@ -69,7 +69,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         if (this.interactif && context.isHtml) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` + ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` })
         }
-       if (!context.isHtml && !context.isAmc) {
+        if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
         }
         relatifs = triePositifsNegatifs([a, b, c, d, e])
@@ -84,9 +84,9 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         if (this.interactif && context.isHtml) {
           texte = ajouteChampTexte(this, i, { texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $` })
         }
-       if (!context.isHtml && !context.isAmc) {
-       texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
-       }
+        if (!context.isHtml && !context.isAmc) {
+          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
+        }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         texteCorr += `<br>$ \\phantom{A}= ${ecritureNombreRelatifc(a)}+${ecritureNombreRelatifc(s1 * b)}+${ecritureNombreRelatifc(s2 * c)}+${ecritureNombreRelatifc(s3 * d)}+${ecritureNombreRelatifc(s4 * e)} $`
 
@@ -120,7 +120,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
               texte: 'résultat',
               valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
               param: {
-                digits: 0,
+                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
                 decimals: 0,
                 signe: true,
                 exposantNbChiffres: 0,

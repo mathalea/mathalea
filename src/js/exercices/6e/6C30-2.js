@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-export const amcReady = false // jusqu'à ce qu'il soit adapté à la version 2.6
+export const amcReady = true
 export const interactifReady = true
 export const interactifType = ' '
 export const amcType = 4 // Question numérique
@@ -38,7 +38,6 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C30-2', [], 'Calculer le produit de deux décimaux connaissant le produit de deux entiers', 4]
     if (this.beta) {
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {
@@ -54,6 +53,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // pour les situations, autant de situations que de cas dans le switch !
+      this.autoCorrection[i] = {}
       const situations = [
         { // case 0 --> (d1u1xp1)xd2u2
           d1: randint(1, 9),
@@ -141,11 +141,15 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
       };
       if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i, { inline: false })
       setReponse(this, i, reponse)
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse = { valeur: reponse, param: { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 } }
+      } 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
-        this.qcm[1].push([texte, [texteCorr, reponse], { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }])
       }
       cpt++
     }

@@ -37,7 +37,7 @@ export default function Mon_Exercice() {
     this.listeCorrections = []
   
   
-    let texte = '', texteCorr = '', objets_enonce = [], objets_correction = [], choix_rapport_trigo;
+    let texte = '', texteCorr = '', objetsEnonce = [], objetsCorrection = [], choix_rapport_trigo;
 
     let a = point (0,0)
     let b = point(randint(3,7),0)
@@ -99,19 +99,19 @@ export default function Mon_Exercice() {
     hypo3.epaisseur = 2
     hypo3.color = 'blue'
 
-    objets_enonce.push(p2, codage, nomme)
-    objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)
+    objetsEnonce.push(p2, codage, nomme)
+    objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)
 
     if (this.sup == 3) {
-        objets_enonce.push(sAH, t4, codage2)
+        objetsEnonce.push(sAH, t4, codage2)
     }
 
-    let params_enonce = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
-    let params_correction = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
+    let paramsEnonce = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
+    let paramsCorrection = { xmin : Math.min(A.x,B.x,C.x)-1, ymin : Math.min(A.y,B.y,C.y)-1, xmax : Math.max(A.x,B.x,C.x)+1, ymax : Math.max(A.y,B.y,C.y)+1, pixelsParCm: 20, scale: .5, mainlevee: false}
     if (!context.isHtml){
         texte += '\\begin{minipage}{.4\\linewidth}\n'
     }
-    texte += mathalea2d(params_enonce, objets_enonce)+'<br>'
+    texte += mathalea2d(paramsEnonce, objetsEnonce)+'<br>'
     if (!context.isHtml){
         texte += '\n\\end{minipage}\n'
         texte += '\\begin{minipage}{.6\\linewidth}\n'
@@ -133,15 +133,15 @@ export default function Mon_Exercice() {
         texte += '\n\\end{minipage}\n'
     }
     if (this.sup == 1 || this.sup == 2 || this.sup == 3) {
-        texteCorr += mathalea2d(params_correction, objets_correction)
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     }
     if (this.sup == 2) {
-        let objets_correction2 = [p2, codage, nomme, t1, t22, t32, hypo, codageAngle2]
-        texteCorr += mathalea2d(params_correction, objets_correction2)
+        let objetsCorrection2 = [p2, codage, nomme, t1, t22, t32, hypo, codageAngle2]
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection2)
     }
     if (this.sup == 3) {
-        let objets_correction3 = [p2, codage2, nomme, t13, t23, t33, t4, hypo3, codageAngle, sAH]
-        texteCorr += mathalea2d(params_correction, objets_correction3)
+        let objetsCorrection3 = [p2, codage2, nomme, t13, t23, t33, t4, hypo3, codageAngle, sAH]
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection3)
     }
 
     if (this.sup == 1 || this.sup == 2) {

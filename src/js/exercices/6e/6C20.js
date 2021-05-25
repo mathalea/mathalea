@@ -1,9 +1,9 @@
 import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-export const amcReady = false // jusqu'à ce qu'il soit adapté à la version 2.6
+export const amcReady = true
 export const amcType = 4 // Question numérique
 export const interactifReady = true
 export const interactifType = ' '
@@ -55,6 +55,7 @@ export default function AdditionnerSoustrairesDecimaux () {
       listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
       for (let i = 0; i < this.nbQuestions; i++) {
+        this.autoCorrection[i] = {}
         if (i + 1 <= this.nbQuestions / 2) {
           // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
           listeTypeDeQuestions.push(typesAdditions[i])
@@ -155,7 +156,11 @@ export default function AdditionnerSoustrairesDecimaux () {
       }
       setReponse(this, i, reponse)
       if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexte(this, i)
-
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{texte: texteCorr, statut: ''}]
+        this.autoCorrection[i].reponse = { valeur: reponse, param: { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 } }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

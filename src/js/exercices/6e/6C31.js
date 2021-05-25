@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
-export const amcReady = false // Jusqu'à l'adaptation à la version 2.6
+export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
 export const interactifType = ' '
 export const amcType = 4 // Question numérique
@@ -139,7 +139,11 @@ export default function DivisionDecimale () {
       }
       setReponse(this, i, q)
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
-      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse = { valeur: q, param: { digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1, signe: false, exposantNbChiffres: 0 } }
+      } 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

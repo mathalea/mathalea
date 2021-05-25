@@ -26,7 +26,7 @@ export default function CalculsTrigo() {
         this.listeQuestions = [] // tableau contenant la liste des questions 
         this.listeCorrections = []
 
-        let objets_enonce = [], objets_correction = [], params_enonce = {}, params_correction = {}, texte = '', texteCorr = '';
+        let objetsEnonce = [], objetsCorrection = [], paramsEnonce = {}, paramsCorrection = {}, texte = '', texteCorr = '';
         let AD = randint(5,9)
         let AE = randint(AD+1,AD+4)
         let AC = randint(3,AD-1)
@@ -63,14 +63,14 @@ export default function CalculsTrigo() {
         }
         let sBC = segment(B,C)
 
-        objets_enonce = [p, sBC, codage1, codage2, labels]
-        objets_correction = [p, sBC, codage1, codage2, labels]
-        params_enonce = { xmin: -10, ymin: -1, xmax:10, ymax: E.y+1.5 , pixelsParCm: 20, scale: 1, mainlevee: false }
-        params_correction = { xmin: -1, ymin: -1, xmax:D.x+1.5, ymax: E.y+1.5 , pixelsParCm: 20, scale: 1, mainlevee: false }
-        texte += mathalea2d(params_enonce, objets_enonce)
+        objetsEnonce = [p, sBC, codage1, codage2, labels]
+        objetsCorrection = [p, sBC, codage1, codage2, labels]
+        paramsEnonce = { xmin: -10, ymin: -1, xmax:10, ymax: E.y+1.5 , pixelsParCm: 20, scale: 1, mainlevee: false }
+        paramsCorrection = { xmin: -1, ymin: -1, xmax:D.x+1.5, ymax: E.y+1.5 , pixelsParCm: 20, scale: 1, mainlevee: false }
+        texte += mathalea2d(paramsEnonce, objetsEnonce)
         texte += `<br><br> $${A.nom+E.nom} = ${AE}~\\text{cm}$, $${A.nom+D.nom} = ${AD}~\\text{cm}$ et $${A.nom+C.nom} = ${AC}~\\text{cm}$.`
         texte += `<br> Calculer la longueur $${A.nom+B.nom}$ et donner une valeur approchée au millimètre près.`
-        //texteCorr += mathalea2d(params_correction, objets_correction)
+        //texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
         texteCorr += `Dans le triangle $${A.nom+D.nom+E.nom}$ rectangle en $${D.nom}$ : `
         texteCorr += `<br>$\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${A.nom+D.nom}}{${A.nom+E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom+A.nom+E.nom}})=\\dfrac{${AD}}{${AE}}$,`
         texteCorr += `<br> d'où $\\widehat{${D.nom+A.nom+E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(arrondi(angle(D,A,E),1))}\\degree$.`

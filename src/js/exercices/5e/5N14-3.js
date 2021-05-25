@@ -1,13 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {fraction} from '../../modules/fractions.js'
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre2,texteEnCouleur,tableauColonneLigne,warnMessage} from '../../modules/outils.js'
-import { equal } from 'mathjs'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,texNombre2,texteEnCouleur} from '../../modules/outils.js'
+
 export const titre = 'Fractions égales et égalité des produits en croix'
+
+export const amcReady = false
+export const interactifReady = false
 
 /**
  * * Fractions et égalité des produits en croix
- * * 5n14-3
+ * * 5N14-3
  * * publication initiale le 23/05/2021
  * * modification le jj/mm/aaaa pour ....
  * @author Sébastien Lozano
@@ -15,6 +18,8 @@ export const titre = 'Fractions égales et égalité des produits en croix'
 export default function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
+	this.amcReady = amcReady
+	this.interactifReady = interactifReady
 	this.titre = titre;
 	this.debug = false;
 	if (this.debug) {
@@ -113,8 +118,6 @@ export default function Eq_resolvantes_Thales() {
 				}
 				return strOut
 			}
-
-
 			k = randint(2,9)    
 			// On prépare tous les contenus selon le type de questions
 			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !			
@@ -124,7 +127,7 @@ export default function Eq_resolvantes_Thales() {
 					num = randint(1,9)
 					den = randint(2,9,num)
 					egalite = `
-					$${fracEqualOrNot(equalOrNot,num,den).frac.texFraction}=${fracEqualOrNot(equalOrNot,num,den).fracEqualOrNot.texFraction}$`					
+					$${fracEqualOrNot(equalOrNot,num,den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot,num,den).fracEqualOrNot.texFraction}$`					
 					justification = justifyEq(equalOrNot,fracEqualOrNot(equalOrNot,num,den).frac,fracEqualOrNot(equalOrNot,num,den).fracEqualOrNot)
 					break
 				case 2: //grands entiers
@@ -174,21 +177,12 @@ export default function Eq_resolvantes_Thales() {
 					break
 			};
 
-			// pour les situations, autant de situations que de cas dans le switch !
-			let situations = [];
-			for (let k = 0; k < 4 ; k++) {
-				situations.push({
-					egalite: egalite,
-					justification: justification
-				});
-			};
-
 			let enonces = [];
-			for (let k = 0; k < situations.length; k++) {
+			for (let k = 0; k < 4; k++) {
 				enonces.push({
-					enonce: situations[k].egalite,
+					enonce: egalite,
 					question: ``,
-					correction: `${situations[k].justification}`
+					correction: justification
 				});
 			};
 

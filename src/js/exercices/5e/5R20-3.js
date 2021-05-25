@@ -11,7 +11,8 @@ import {
   signe,
   sommeDesTermesParSigne,
   triePositifsNegatifs,
-  lettreDepuisChiffre
+  lettreDepuisChiffre,
+  nombreDeChiffresDansLaPartieEntiere
 } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
@@ -125,7 +126,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        setReponse(this, i, reponse, { signe: true })
+        setReponse(this, i, reponse, { signe: true, digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)), decimals: 0 })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

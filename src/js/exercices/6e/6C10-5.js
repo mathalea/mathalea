@@ -19,6 +19,7 @@ export default function Exercice_labyrinthe_multiples () {
   Exercice.call(this)
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.amcType = amcType
   this.titre = titre
   this.consigne = ''
   this.niveau = '6e'

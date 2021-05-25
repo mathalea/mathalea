@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, nombreDeChiffresDansLaPartieEntiere, randint, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 import { context } from '../../modules/context.js'
 export const titre = 'Addition de deux entiers'
-export const amcReady = false
+export const amcReady = true
 export const interactifReady = true
 export const interactifType = ' '
 export const amcType = 4 // Question numérique
@@ -33,6 +33,7 @@ export default function Exercice_tables_d_additions (max = 20) {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      this.autoCorrection[i] = {}
       a = randint(2, this.sup)
       b = randint(2, this.sup)
       texte = `$ ${texNombre(a)} + ${texNombre(b)} = \\dotfill $`
@@ -41,6 +42,11 @@ export default function Exercice_tables_d_additions (max = 20) {
       if (context.isHtml && this.interactif) {
         texte = texte.replace('\\dotfill', '')
         texte += ajouteChampTexte(this, i)
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
+        this.autoCorrection[i].reponse = { valeur: a + b, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)), decimals: 0, exposantNbChiffres: 0, signe: false } }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

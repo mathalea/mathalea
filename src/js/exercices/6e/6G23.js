@@ -26,7 +26,7 @@ export default function Construire_un_angle() {
     this.listeCorrections = []; // Liste de questions corrigées
 
       let angle,anglerot,Apos,Bpos,Cpos,fleche,signe=[],p,texte,texteCorr,A,B,s,C,s2
-      let labels,labels2,secteur,cible,xMin,xMax,yMin,yMax,objets_enonce,objets_correction
+      let labels,labels2,secteur,cible,xMin,xMax,yMin,yMax,objetsEnonce,objetsCorrection
       for (let i=0;i<this.nbQuestions;i++){
         signe.push((-1)**i)
       }
@@ -73,12 +73,12 @@ export default function Construire_un_angle() {
       yMin=Math.min(A.y-4,C.y)-0.5
       yMax=Math.max(A.y+4,C.y)+0.5
         context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
-      objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
-      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
+      objetsEnonce=[s,labels,cible,Apos,Bpos,fleche]
+      objetsCorrection=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
+      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
       if ((!context.isHtml)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
       if ((!context.isHtml)&&((i+1)%4==0)) texte+="\\newpage "
-      texteCorr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
+      texteCorr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
   }

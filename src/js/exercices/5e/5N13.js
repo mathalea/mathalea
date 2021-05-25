@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 export const amcReady = true
-export const amcType =3 //type de question AMC 
+export const amcType = 3 // type de question AMC
 
 export const titre = 'Simplification de fractions'
 
@@ -19,9 +19,11 @@ export default function Exercice_fractions_simplifier (max = 11) {
   this.consigne = 'Simplifier les fractions suivantes.'
   this.spacing = 2
   this.spacingCorr = 2
+  this.amcType = amcType
+  this.amcReady = amcReady
 
   this.nouvelleVersion = function () {
-    this.autoCorrection=[]
+    this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const liste_fractions = [
@@ -85,13 +87,10 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' $'
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
-        // Pour AMC question AmcOpen
-        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
+      // Pour AMC question AmcOpen
+      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
-    if (context.isAmc) {
-      
-    }
   }
   this.besoinFormulaireNumerique = [
     'Valeur maximale du facteur commun',

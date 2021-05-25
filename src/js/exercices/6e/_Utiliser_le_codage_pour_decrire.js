@@ -16,7 +16,7 @@ export default function Utiliser_le_codage_pour_decrire() {
     let typesDeQuestionsDisponibles;
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let nom, sommets = [], params_enonce, params_correction, objets_enonce, objets_correction;
+    let nom, sommets = [], paramsEnonce, paramsCorrection, objetsEnonce, objetsCorrection;
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF;
     if (this.classe == 6)
       typesDeQuestionsDisponibles = [1, 2, 3];
@@ -24,10 +24,10 @@ export default function Utiliser_le_codage_pour_decrire() {
       typesDeQuestionsDisponibles = [1, 2, 3, 4];
     let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      objets_enonce = [];
-      objets_correction = [];
-      params_enonce = {};
-      params_correction = {};
+      objetsEnonce = [];
+      objetsCorrection = [];
+      paramsEnonce = {};
+      paramsCorrection = {};
       nom = creerNomDePolygone(6, "PQ");
       for (let i = 0; i < 6; i++)
         sommets.push(nom[i]);
@@ -57,8 +57,8 @@ export default function Utiliser_le_codage_pour_decrire() {
           s7 = segment(C, F);
           s8 = segment(E, F);
           s4 = segment(B, C);
-          params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1.5), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
-          objets_enonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codeSegments('//', 'black', A, F, F, C), codeSegments('|||', 'black', A, E, E, C), codeSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F));
+          paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1.5), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
+          objetsEnonce.push(s1, s2, s4, s8, s7, s3, s6, s5, codageAngleDroit(B, A, C), codeSegments('//', 'black', A, F, F, C), codeSegments('|||', 'black', A, E, E, C), codeSegments('O', 'black', B, D, D, C), labelPoint(A, B, C, D, E, F), codageAngleDroit(A, E, F));
           texte = `<br>À l'aide du schéma ci-dessous, déterminer :<br>`;
           texte += `- deux segments de même longueur ;<br>`;
           texte += `- le milieu d'un segment ;<br>`;
@@ -81,10 +81,10 @@ export default function Utiliser_le_codage_pour_decrire() {
           s4 = segment(C, F);
           s5 = segment(B, F);
           s6 = polygone(A, B, C, D);
-          params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
-          objets_correction.push(labelPoint(A, B, C, D, E, F), s1, s2, s4, s5, s6);
-          objets_correction.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A));
-          objets_correction.push(codeSegments('||', 'black', D, E, C, E), codeSegments('O', 'black', A, B, B, C, C, D, D, A), codeSegments('|||', 'black', F, C, B, F));
+          paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
+          objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s4, s5, s6);
+          objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A));
+          objetsCorrection.push(codeSegments('||', 'black', D, E, C, E), codeSegments('O', 'black', A, B, B, C, C, D, D, A), codeSegments('|||', 'black', F, C, B, F));
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`;
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`;
           texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.`;
@@ -101,10 +101,10 @@ export default function Utiliser_le_codage_pour_decrire() {
           s3 = polygone(A, B, C, D);
           s4 = segment(B, F);
           s5 = segment(C, F);
-          params_correction = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
-          objets_correction.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5);
-          objets_correction.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A));
-          objets_correction.push(codeSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codeSegments('O', 'black', A, B, D, C), codeSegments('/', 'black', A, D, B, C));
+          paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 };
+          objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5);
+          objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A));
+          objetsCorrection.push(codeSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codeSegments('O', 'black', A, B, D, C), codeSegments('/', 'black', A, D, B, C));
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`;
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`;
           texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécssaires.`;
@@ -121,13 +121,13 @@ export default function Utiliser_le_codage_pour_decrire() {
           s5 = segment(A, F);
           s1 = segment(B, D);
           s2 = segment(A, C);
-          params_enonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.8 };
-          objets_enonce.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5);
-          objets_enonce.push(codeAngle(D, A, B, 2, '|', 'red', 2), codeAngle(B, C, D, 2, '|', 'red', 2), codeAngle(A, B, F, 2, '|', 'red', 2));
-          objets_enonce.push(codeAngle(A, B, C, 2, '||', 'blue', 2), codeAngle(A, D, C, 2, '||', 'blue', 2));
-          objets_enonce.push(codeAngle(B, A, F, 2, '///', 'green', 3), codeAngle(B, F, A, 2, '///', 'green', 3));
+          paramsEnonce = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 0.8 };
+          objetsEnonce.push(labelPoint(A, B, C, D, E, F), s1, s2, s3, s4, s5);
+          objetsEnonce.push(codeAngle(D, A, B, 2, '|', 'red', 2), codeAngle(B, C, D, 2, '|', 'red', 2), codeAngle(A, B, F, 2, '|', 'red', 2));
+          objetsEnonce.push(codeAngle(A, B, C, 2, '||', 'blue', 2), codeAngle(A, D, C, 2, '||', 'blue', 2));
+          objetsEnonce.push(codeAngle(B, A, F, 2, '///', 'green', 3), codeAngle(B, F, A, 2, '///', 'green', 3));
 
-          objets_enonce.push(codeSegments('||', 'black', B, E, E, D), codeSegments('O', 'black', A, E, E, C));
+          objetsEnonce.push(codeSegments('||', 'black', B, E, E, D), codeSegments('O', 'black', A, E, E, C));
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`;
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`;
           texte = `<br>À l'aide du schéma ci-dessous, déterminer :<br>`;
@@ -142,10 +142,10 @@ export default function Utiliser_le_codage_pour_decrire() {
 
           break;
       }
-      if (objets_enonce.length > 0)
-        texte += mathalea2d(params_enonce, objets_enonce);
-      if (objets_correction.length > 0)
-        texteCorr += mathalea2d(params_correction, objets_correction);
+      if (objetsEnonce.length > 0)
+        texte += mathalea2d(paramsEnonce, objetsEnonce);
+      if (objetsCorrection.length > 0)
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection);
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);

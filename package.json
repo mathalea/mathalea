@@ -21,7 +21,7 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "@bugsnag/js": "^7.9.2",
+    "@bugsnag/js": "^7.10.0",
     "@cortex-js/math-json": "^0.1.1",
     "@svgdotjs/svg.js": "^3.0.16",
     "algebrite": "^1.4.0",
@@ -33,7 +33,7 @@
     "jquery-ui": "^1.12.1",
     "katex": "^0.13.11",
     "loadjs": "^4.2.0",
-    "mathjs": "^9.3.2",
+    "mathjs": "^9.4.1",
     "mathlive": "^0.67.0",
     "qrcode": "^1.4.4",
     "regenerator-runtime": "^0.13.7",
@@ -47,7 +47,7 @@
     "babel-loader": "^8.2.2",
     "browserslist": "^4.16.6",
     "copy-webpack-plugin": "^8.1.1",
-    "css-loader": "^5.2.5",
+    "css-loader": "^5.2.6",
     "datatables.net": "^1.10.24",
     "datatables.net-dt": "^1.10.24",
     "docdash": "^1.2.0",

@@ -47,7 +47,7 @@ export default function Aire_du_parallelogramme() {
 		this.listeQuestions=[]
 		let texte='',params
         let nom=creerNomDePolygone(12,'Q')
-		let objets_enonce=[]
+		let objetsEnonce=[]
 		let c1 = randint(3, 7);
 		let h1 = randint(2, 4);
 		let c2 = randint(3, 7);
