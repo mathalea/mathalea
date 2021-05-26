@@ -5,7 +5,7 @@
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpenNum|KO|KO|
 |3G32-1|Calcul d’un parallèle terrestre|pas de description|OK|AMCOpen|KO|KO|
-|3L11-1|Utiliser la double distributivité|pas de description|OK|AMCOpenNum✖︎3|OK|mathLive|
+|3L11-1|Utiliser la double distributivité|pas de description|OK|AMCOpenNum×3|OK|mathLive|
 |3L11-2|Réduire une expression|pas de description|KO|KO|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|pas de description|KO|KO|OK|mathLive|
 |3L11-4|Factoriser une expression|pas de description|KO|KO|OK|mathLive|
@@ -15,7 +15,7 @@
 |3L12|Factoriser a²-b²|pas de description|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|pas de description|KO|KO|OK|mathLive|
 |3P10|Variations en pourcentage|pas de description|KO|KO|OK|mathLive|
-|4C21|Additionner ou soustraire deux fractions|pas de description|OK|AMCOpenNum✖︎2|KO|KO|
+|4C21|Additionner ou soustraire deux fractions|pas de description|OK|AMCOpenNum×2|KO|KO|
 |4C32-1|Calcul avec les puissances de dix|pas de description|OK|qcmMono|OK| |
 |4C32|Notation scientifique|pas de description|OK|AMCNum|KO|KO|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|pas de description|OK|AMCOpenNum|KO|KO|
