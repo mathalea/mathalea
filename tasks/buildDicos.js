@@ -153,29 +153,30 @@ for (const file of exercicesList) {
     const url = file.substr(prefixLength).replace(/\\/g, '/')
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
-      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non      
+      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
+      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNumx2","AMCOpenNumx3"]      
       if (typeof amcType.num === 'number')  {        
         switch (amcType.num) {
           case 1:
-            amcType.text = "qcmMono";
+            amcType.text = typeText[0];
             break;
           case 2:
-            amcType.text = "qcmMult";
+            amcType.text = typeText[1];
             break;
           case 3:
-            amcType.text = "AMCOpen";
+            amcType.text = typeText[2];
             break;
           case 4:
-            amcType.text = "AMCOpen Num";
+            amcType.text = typeText[3];
             break;
           case 5:
-            amcType.text = "AMCOpen NC";
+            amcType.text = typeText[4];
             break;
           case 6:
-            amcType.text = "AMCOpen double NC";
+            amcType.text = typeText[5];
             break;
           case 7:
-            amcType.text = "AMCOpen triple NC";
+            amcType.text = typeText[6];
             break;  
           default:
            beginWarnText()
@@ -188,25 +189,25 @@ for (const file of exercicesList) {
           function(num) { 
             switch (num) {
               case 1:
-                amcType.text.push("qcmMono");
+                amcType.text = typeText[0];
                 break;
               case 2:
-                amcType.text.push("qcmMult");
+                amcType.text = typeText[1];
                 break;
               case 3:
-                amcType.text.push("AMCOpen");
+                amcType.text = typeText[2];
                 break;
               case 4:
-                amcType.text.push("AMCOpen Num");
+                amcType.text = typeText[3];
                 break;
               case 5:
-                amcType.text.push("AMCOpen NC");
+                amcType.text = typeText[4];
                 break;
               case 6:
-                amcType.text.push("AMCOpen double NC");
+                amcType.text = typeText[5];
                 break;
               case 7:
-                amcType.text = "AMCOpen triple NC";
+                amcType.text = typeText[6];
                 break;  
               default:
                beginWarnText()
