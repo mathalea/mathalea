@@ -624,7 +624,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 7,
-      "text": "AMCOpenNumx3"
+      "text": "AMCOpenNum✖︎3"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -886,7 +886,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 6,
-      "text": "AMCOpenNumx2"
+      "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": false,
     "name": "4C21",

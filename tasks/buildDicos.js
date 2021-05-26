@@ -154,7 +154,7 @@ for (const file of exercicesList) {
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
       // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
-      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNumx2","AMCOpenNumx3"]      
+      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum✖︎2","AMCOpenNum✖︎3"]      
       if (typeof amcType.num === 'number')  {        
         switch (amcType.num) {
           case 1:
