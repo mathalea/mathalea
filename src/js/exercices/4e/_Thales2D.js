@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 5
@@ -164,7 +164,7 @@ export default function Thales2D () {
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { valeur: reponse, param: { digits: 2, decimals: 1, signe: false, exposantNbChiffres: 0 } }
+            reponse: { valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, signe: false, exposantNbChiffres: 0 } }
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre
