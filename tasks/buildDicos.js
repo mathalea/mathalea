@@ -45,7 +45,9 @@ function beginWarnText() {
 }
 
 function endWarnText() {
-  return console.log(`\x1b[33m ==================================== END WARNINGS ========================================\x1b[37m`)
+  if (warnings != 0) {
+    return console.log(`\x1b[33m ==================================== END WARNINGS ========================================\x1b[37m`)
+  }
 }
 
 
@@ -62,7 +64,7 @@ for (const file of exercicesList) {
   const name = path.basename(file, '.js')
   // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
-  let titre, amcReady, amcType={}, interactifReady, interactifType
+  let titre, amcReady, amcType={}, interactifReady, interactifType, description
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -75,6 +77,7 @@ for (const file of exercicesList) {
     // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter    
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
+    description = module.description ? module.description : 'pas de description'
     // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin         
     if (amcReady && !module.amcType) {      
      beginWarnText()
@@ -136,7 +139,9 @@ for (const file of exercicesList) {
       }
       if (interactifReady) {//regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
         interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
-      } 
+      }
+      
+    // ajouter la description avec une regex ?!
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -210,15 +215,15 @@ for (const file of exercicesList) {
         amcType.text = "bug amcType.num"
       }
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name, description }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name, description }
       }            
     } else {
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name, description }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, name }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name, description }
       }
       
     }    
@@ -234,30 +239,31 @@ fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`
 endWarnText()
 console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
-const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
-let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
-fs.writeFileSync(csvFile,`id,titre,amcReady,amcType,interactifReady,\r\n`)
+// const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
+// let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
+// fs.writeFileSync(csvFile,`id,titre,amcReady,amcType,interactifReady,\r\n`)
+// Object.entries(dicoAlea).forEach(([id,props]) => {
+//   if (props.amcReady && props.interactifReady) {
+//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK,${props.interactifType}\r\n`)
+//   } else if (props.amcReady && !props.interactifReady) {
+//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO,KO\r\n`)
+//   } else if (!props.amcReady && props.interactifReady) {
+//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK,${props.interactifType}\r\n`)
+//   }
+// })
+// console.log(`${csvFile} généré`)
+
+const mdDir = path.resolve(__dirname, '..', 'src', '.')
+let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
+fs.writeFileSync(mdFile,`|id|titre|description|amcReady|amcType|interactifReady|interactifType|\r\n`)
+fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK,${props.interactifType}\r\n`)
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO,KO\r\n`)
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|OK|${props.amcType.text}|KO|KO|\r\n`)    
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK,${props.interactifType}\r\n`)
-  }
-})
-console.log(`${csvFile} généré`)
-// Je laisse dans le dossier csvFile pour le moment
-let mdFile  = path.resolve(csvDir,'.','listingParTypes.md')
-fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
-fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|\r\n`)
-Object.entries(dicoAlea).forEach(([id,props]) => {
-  if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
-  } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)    
-  } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|KO|KO|OK|${props.interactifType}|\r\n`)    
   }
 })
 console.log(`${mdFile} généré`)
