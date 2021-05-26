@@ -303,7 +303,11 @@ export default {
   "3F21-1": {
     "titre": "Déterminer une fonction affine",
     "url": "/exercices/3e/3F21-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 3,
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "3F21-1"
   },

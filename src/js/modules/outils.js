@@ -6899,8 +6899,13 @@ export function exportQcmAmc (exercice, idExo) {
           } else if (autoCorrection[j].reponse.param.decimals === undefined) {
             autoCorrection[j].reponse.param.decimals = 0
           }
+          if (autoCorrection[j].reponse.param.exposantSigne === undefined) {
+            autoCorrection[j].reponse.param.exposantSigne = false
+          }
         }
-
+        if (autoCorrection[j].reponse.param.signe === undefined) {
+          autoCorrection[j].reponse.param.signe = false
+        }
         texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
@@ -6908,8 +6913,17 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
-        if (autoCorrection[j].reponse.param.approx !== 0) {
+        if (autoCorrection[j].reponse.param.approx !== 0 && autoCorrection[j].reponse.param.approx !== undefined) {
           texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+        }
+        if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
+          texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
+        }
+        if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
+          texQr += `strict=${autoCorrection[j].reponse.param.strict},`
+        }
+        if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
+          texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
         }
         texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'

@@ -111,9 +111,9 @@ export default function NotationScientifique () {
         this.listeCorrections.push(texteCorr)
 
         if (parseInt(this.sup) === 1) {
-          setReponse(this, i, reponse, { digits: listeTypeDeQuestions[i] + 3, decimals: listeTypeDeQuestions[i] + 1, signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse, { digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
-          setReponse(this, i, reponse, { strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: true, approx: 0 })
+          setReponse(this, i, reponse, { strict: false, vertical: false, digits: 2 * Math.abs(exp) + 1, decimals: Math.abs(exp), signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 })
         }
         if (context.isAmc) {
           if (parseInt(this.sup) === 1) {

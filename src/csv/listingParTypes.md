@@ -1,5 +1,6 @@
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-----:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|
+|3F21-1|Déterminer une fonction affine|OK|AMCOpen|KO|KO|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpen NC|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpen NC|KO|KO|

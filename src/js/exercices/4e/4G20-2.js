@@ -44,7 +44,7 @@ export default function RacineCareeDeCarresParfaits () {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = `$\\sqrt{${c}}=\\dotfill$`
           this.autoCorrection[i].propositions = [{ texte : `$\\sqrt{${c}}=${a}$`, statut: '' }]
-          this.autoCorrection[i].reponse = { valeur: a, param: { digits:2, decimals: 0, exposantNbChiffres: 0, signe: 0 } }
+          this.autoCorrection[i].reponse = { valeur: a, param: { digits:2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
         }
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

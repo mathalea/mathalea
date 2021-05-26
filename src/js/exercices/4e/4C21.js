@@ -162,7 +162,6 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
       texteCorr += `=${texFraction(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       // Pour l'instant pour tester je mets num et den dans reponse
-      const reponse = { num: fractionSimplifiee(num, den)[0], den: fractionSimplifiee(num, den)[1] }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       this.autoCorrection[i] = {
@@ -181,7 +180,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
             digits: 2,
             decimals: 0,
             exposantNbChiffres: 0,
-            exposantSigne: 0,
+            exposantSigne: false,
             signe: true,
             approx: 0
           }
@@ -193,7 +192,7 @@ export default function Exercice_additionner_ou_soustraire_des_fractions () {
             digits: 2,
             decimals: 0,
             exposantNbChiffres: 0,
-            exposantSigne: 0,
+            exposantSigne: false,
             signe: false,
             approx: 0
           }

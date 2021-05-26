@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
@@ -80,7 +80,7 @@ export default function TablesAdditionsSoustractions () {
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
           texte = `$${a} + ${b} = \\dotfill$`
-          if (this.interactif) {
+          if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a} + ${b} = $`
             })
@@ -90,7 +90,7 @@ export default function TablesAdditionsSoustractions () {
           break
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
-          if (this.interactif) {
+          if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a}~+ $`,
               texteApres: `$= ${a + b}$`
@@ -107,7 +107,7 @@ export default function TablesAdditionsSoustractions () {
             b = [a, (a = b)][0] // échange les variables a et b
           }
           texte = `$${a} - ${b} = \\dotfill$`
-          if (this.interactif) {
+          if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a} - ${b} = $`
             })
@@ -123,7 +123,7 @@ export default function TablesAdditionsSoustractions () {
             b = [a, (a = b)][0] // échange les variables a et b
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
-          if (this.interactif) {
+          if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a}~- $`,
               texteApres: `$= ${a - b}$`
@@ -137,7 +137,8 @@ export default function TablesAdditionsSoustractions () {
       if (context.isDiaporama) {
         texte = texte.replace('= \\dotfill', '')
       }
-      this.autoCorrection[i].reponse.param = { digits: Math.ceil(2 * this.sup / 100), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      this.autoCorrection[i].enonce = texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
