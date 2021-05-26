@@ -2304,12 +2304,12 @@ export function stringNombre (nb) {
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (context.isHtml) {
-    return `\\bm{\\color{${couleur}}{${texte}}}`
+    return `\\bm{{\\color{${couleur}}{${texte}}}}`
   } else {
     if (couleur[0] === '#') {
-      return `\\bm{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
-      return `\\bm{\\color{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{{\\color{${couleur.replace('#', '')}}${texte}}}`
     }
   }
 }
@@ -7067,7 +7067,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
 
   preambule += `\t 
   %%%%% PACKAGES LANGUE %%%%%
-   \\usepackage{babel} % sans option => langue définie dans la classe du document
+  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
+  \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
    \\usepackage[utf8x]{inputenc}
    \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
@@ -7092,7 +7093,6 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
@@ -7103,6 +7103,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   
   %%%%% PACKAGES MATHS %%%%%
    \\usepackage{ucs}
+   \\usepackage{bm}
    \\usepackage{amsmath}
    \\usepackage{amsfonts}
    \\usepackage{amssymb}

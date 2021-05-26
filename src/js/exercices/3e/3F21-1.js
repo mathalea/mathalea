@@ -4,6 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
 import { droiteParPointEtPente, point, repere2, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Déterminer une fonction affine'
+export const amcReady = true
+export const amcType = 3
 
 /**
  * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
@@ -26,6 +28,8 @@ export default function LectureExpressionFonctionsAffines () {
   this.sup2 = 3
   this.lineaire = false
   this.listePackages = 'tkz-euclide'
+  this.amcReady = amcReady
+  this.amcType = amcType
 
   this.nouvelleVersion = function (numeroExercice) {
     const k = Math.pow(2, parseInt(this.sup) - 1)
@@ -67,8 +71,8 @@ export default function LectureExpressionFonctionsAffines () {
     for (let i = 0; i < nbDroites; i++) {
       objets2d.push(d[i])
     }
-    
-    this.introduction = mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm : 30, scale: 0.75 }, objets2d)
+
+    this.introduction = mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.75 }, objets2d)
     for (let i = 0; i < nbDroites; i++) {
       this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.`)
       if (this.lineaire || listeDroites[i][0] === 0) {
@@ -77,12 +81,17 @@ export default function LectureExpressionFonctionsAffines () {
         this.listeCorrections.push(`La droite $d_${i + 1}$ passe par le point de coordonnées $(0;${texNombre(listeDroites[i][0])})$. Elle représente donc la fonction affine $f_${i + 1}(x)=ax+b$ dont la constante $b$ est égale à $f_${i + 1}(0)=a\\times 0+b$, c'est à dire  $${texNombre(listeDroites[i][0])}=0+b$ donc $b=${texNombre(listeDroites[i][0])}$.<br> De plus $(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1] + listeDroites[i][0])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1] + listeDroites[i][0])}=a\\times 1${ecritureAlgebrique(listeDroites[i][0])}=a${ecritureAlgebrique(listeDroites[i][0])}$ donc $a=${texNombre(listeDroites[i][1] + listeDroites[i][0])}${ecritureAlgebrique(-listeDroites[i][0])}=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], listeDroites[i][0])}$.`)
       }
     }
-
     listeQuestionsToContenu(this)
     if (!this.lineaire) {
       this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection
     } else {
       this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
+    }
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: "Déterminer l'expression  des fonctions représentées ci dessous : <br>" + mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.75 }, objets2d),
+        propositions: [{ texte: this.contenuCorrection, statut: 5 }]
+      }
     }
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"]
