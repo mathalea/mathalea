@@ -106,7 +106,7 @@ export default function dernierChiffre () {
 
       if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexte(this, i)
       if (context.isAmc) {
-        this.autoCorrection[i].enonce = texte + '$~=$'
+        this.autoCorrection[i].enonce = texte.substring(0,texte.length-1) + '~=$'
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse.param.digits = 1
         this.autoCorrection[i].reponse.param.decimals = 0
