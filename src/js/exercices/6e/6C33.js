@@ -316,10 +316,10 @@ export default function Priorites () {
           setReponse(this, i, a * (b / c + d))
           break
       }
-      if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length-1) + '~=$' + ajouteChampTexte(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
-          this.autoCorrection[i].enonce = texte + '$~=$'
+          this.autoCorrection[i].enonce = texte.substring(0, texte.length-1) + '~=$'
           this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
           this.autoCorrection[i].reponse.param.digits = nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur) + 1
           this.autoCorrection[i].reponse.param.decimals = 0

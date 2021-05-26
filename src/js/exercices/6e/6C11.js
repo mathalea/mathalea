@@ -32,7 +32,7 @@ export default function DivisionsEuclidiennes () {
   this.sup = parseInt(this.sup)
   this.titre = titre
   this.amcReady = amcReady
-  this.interactifReady = interActifReady
+  this.interactifReady = interactifReady
   this.amcType = amcType
   this.interactifType = interactifType
   this.consigne =
