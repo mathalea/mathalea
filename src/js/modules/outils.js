@@ -7066,8 +7066,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   }
 
   preambule += `\t 
-  %%%%% PACKAGES LANGUE %%%%%
-  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
+  %%%%% PACKAGES LANGUE %%%%%  
   \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
    \\usepackage[utf8x]{inputenc}
@@ -7093,6 +7092,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
+  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
