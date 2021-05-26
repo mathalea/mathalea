@@ -111,7 +111,7 @@ export default function dernierChiffre () {
         this.autoCorrection[i].reponse.param.digits = 1
         this.autoCorrection[i].reponse.param.decimals = 0
       }
-     if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
