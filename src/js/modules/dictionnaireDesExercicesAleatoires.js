@@ -400,7 +400,8 @@ export default {
     "url": "/exercices/3e/3G11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3G11"
+    "name": "3G11",
+    "description": "pas de description (à l'ancienne)"
   },
   "3G12-1": {
     "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",

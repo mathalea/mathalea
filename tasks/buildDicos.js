@@ -40,13 +40,13 @@ var warnings = 0;
 function beginWarnText() {
   warnings+=1
   if (warnings === 1) {
-    return console.log(`\x1b[33m ======================================== WARNINGS ========================================\x1b[37m`)
+    return console.log(`\x1b[33m ============================================================= WARNINGS =============================================================\x1b[37m`)
   }  
 }
 
 function endWarnText() {
   if (warnings != 0) {
-    return console.log(`\x1b[33m ==================================== END WARNINGS ========================================\x1b[37m`)
+    return console.log(`\x1b[33m =========================================================== END WARNINGS ===========================================================\x1b[37m`)
   }
 }
 
@@ -71,7 +71,7 @@ for (const file of exercicesList) {
     if (!module.titre) {
       console.error(`${file} n’a pas d’export titre => IGNORÉ`)
       continue
-    }
+    } 
     titre = module.titre
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
@@ -101,9 +101,9 @@ for (const file of exercicesList) {
     }
     if (interactifReady) {
       interactifType = module.interactifType
-    } 
-     
+    }      
   } catch (error) {
+    console.log(`${error} dans ${file}`)
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
@@ -112,6 +112,12 @@ for (const file of exercicesList) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
       interactifReady = /export +const +interactifReady *= *true/.test(srcContent)
+      const chunksForDescription = /export const description *= *(['"])([^'"]+)\1/.exec(srcContent)
+      if (chunksForDescription) {
+        description = chunksForDescription[2]
+      } else {
+        description = `pas de description (à l'ancienne)`
+      }
       // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin               
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
        beginWarnText()
@@ -137,9 +143,7 @@ for (const file of exercicesList) {
       }
       if (interactifReady) {//regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
         interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
-      }
-      
-    // ajouter la description avec une regex ?!
+      }    
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
