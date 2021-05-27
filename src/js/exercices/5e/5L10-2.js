@@ -16,9 +16,6 @@ export const titre = 'Traduire un programme de calcul par une expression littér
 export default function TraduireUnProgrammeDeCalcul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1
