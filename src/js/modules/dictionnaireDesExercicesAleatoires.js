@@ -492,7 +492,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "3G30",
@@ -520,7 +520,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "3G31",
@@ -624,7 +624,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 7,
-      "text": "AMCOpen triple NC"
+      "text": "AMCOpenNum✖︎3"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -886,7 +886,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 6,
-      "text": "AMCOpen double NC"
+      "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": false,
     "name": "4C21",
@@ -999,7 +999,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": false,
     "name": "4C32",
@@ -1027,7 +1027,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4C34",
@@ -1087,7 +1087,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1108,7 +1108,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1158,7 +1158,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4G30",
@@ -1186,7 +1186,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4G40",
@@ -1704,7 +1704,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1935,7 +1935,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1993,7 +1993,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2035,7 +2035,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2056,7 +2056,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2167,7 +2167,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2192,7 +2192,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2250,7 +2250,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2288,7 +2288,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2301,7 +2301,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2353,7 +2353,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2374,7 +2374,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2395,7 +2395,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2408,7 +2408,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3111,7 +3111,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": false,
     "name": "6N33-1",
@@ -3270,7 +3270,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3283,7 +3283,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3296,7 +3296,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3309,7 +3309,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3322,7 +3322,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3335,7 +3335,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3348,7 +3348,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3361,7 +3361,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3374,7 +3374,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3387,7 +3387,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3400,7 +3400,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3413,7 +3413,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3426,7 +3426,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3439,7 +3439,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3452,7 +3452,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3465,7 +3465,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3478,7 +3478,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3491,7 +3491,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3504,7 +3504,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
