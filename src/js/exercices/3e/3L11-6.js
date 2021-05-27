@@ -63,7 +63,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}+x)$<br>`
           }
-          reponse = `(${c}+x)(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+          reponse = [`(${c}+x)(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}+x)`]
           break
         case 'c(ax+b)-x(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = ${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})-x(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -75,7 +75,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)$<br>`
           }
-          reponse = `(${c}-x)(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+          reponse = [`(${c}-x)(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)`]
           break
         case 'x(ax+b)+c(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = x(${rienSi1(a)}x${ecritureAlgebrique(b)})+${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -87,7 +87,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x+${c})$<br>`
           }
-          reponse = `(x+${c})(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+          reponse = [`(x+${c})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(x+${c})`]
           break
         case 'x(ax+b)-c(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = x(${rienSi1(a)}x${ecritureAlgebrique(b)})-${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -99,7 +99,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x-${c})$<br>`
           }
-          reponse = `(x-${c})(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+          reponse = [`(x-${c})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(x-${c})`]
           break
         case '(ax+b)(cx+d)+(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -112,7 +112,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`, `(${c + e}x${ecritureAlgebrique(d + f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(ax+b)(cx+d)-(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})-(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -126,7 +126,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`, `(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(cx+d)(ax+b)+(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -139,7 +139,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`, `(${c + e}x${ecritureAlgebrique(d + f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(cx+d)(ax+b)-(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})-(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -153,7 +153,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`, `(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(ax+b)(cx+d)+(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})+(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -166,7 +166,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`, `(${c + e}x${ecritureAlgebrique(d + f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(ax+b)(cx+d)-(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})-(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -180,7 +180,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          reponse = `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`
+          reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`, `(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`]
           break
         case '(cx+d)(ax+b)+(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})+(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -193,7 +193,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          reponse = `(${c + e}x${ecritureAlgebrique(d + f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+          reponse = [`(${c + e}x${ecritureAlgebrique(d + f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})`]
           break
         case '(cx+d)(ax+b)-(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})-(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -205,7 +205,7 @@ export default function FactoriserUneExpression3e () {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + c + 'x' + ecritureAlgebrique(d) + '-' + rienSi1(e) + 'x' + ecritureAlgebrique(-f) + ')', 'blue')}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence('(' + rienSi1(a) + 'x' + ecritureAlgebrique(b) + ')')}${miseEnEvidence('(' + rienSi1(c - e) + 'x' + ecritureAlgebrique(d - f) + ')', 'blue')}$<br>`
           } else {
-            reponse = `(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`
+            reponse = [`(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})`]
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
           break
