@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser a²-b²'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -54,7 +54,7 @@ export default function FactoriserIdentitesRemarquables3 () {
         texteCorr = `$${texFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)$`
         reponse = [`\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)`, `\\left(${texFraction(ns, ds)}x+${a}\\right)\\left(${texFraction(ns, ds)}x-${a}\\right)`]
       }
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
 
       if (this.listeQuestions.indexOf(texte) === -1) {

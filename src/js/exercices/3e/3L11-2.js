@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre, printlatex } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Réduire une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -108,7 +108,7 @@ export default function ReductionSiPossible () {
           break
       }
       setReponse(this, i, reponse)
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

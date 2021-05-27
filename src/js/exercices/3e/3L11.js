@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -199,7 +199,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
           break
       }
       setReponse(this, i, reponse)
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

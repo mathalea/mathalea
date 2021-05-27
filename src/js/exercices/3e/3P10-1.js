@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -49,7 +49,6 @@ export default function Coefficient_evolution () {
           coeff = texPrix(calcul(1 + taux / 100))
           texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
           reponse = calcul(1 + taux / 100)
-          console.log(reponse)
           break
         case 'coef-':
           texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`
@@ -71,7 +70,7 @@ export default function Coefficient_evolution () {
           break
       }
       setReponse(this, i, reponse)
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

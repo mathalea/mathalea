@@ -89,7 +89,7 @@ export function exerciceQcm (exercice) {
  * @returns {object} {texte, texteCorr} le texte à ajouter pour la question traitée
  */
 export function propositionsQcm (exercice, i) {
- // exercice.titre = 'cacaboudin'
+// exercice.titre = 'cacaboudin'
   let texte = ''
   let texteCorr = ''
   let espace = ''
@@ -220,7 +220,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
     return ''
   }
 }
-export function ajouteChampTexteLiveMath (exercice, i) {
+export function ajouteChampTexteMathLive (exercice, i) {
   if (context.isHtml && exercice.interactif) {
     return `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><div style="margin-top:10px" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
   } else {

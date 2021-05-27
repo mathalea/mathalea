@@ -2573,7 +2573,11 @@ export function texFraction (a, b) {
 */
 
 export function printlatex (e) {
-  return Algebrite.run(`printlatex(quote(${e}))`)
+  if (e === '0x') {
+    return '0'
+  } else {
+    return Algebrite.run(`printlatex(quote(${e}))`)
+  }
 }
 
 /**

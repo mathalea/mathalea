@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1).'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -91,7 +91,7 @@ export default function ExerciceFractionsDecomposer () {
       setReponse(this, i, reponse)
       if (this.interactif) {
         texte = `$ ${texFraction(a, b)} = $`
-        texte += ajouteChampTexteLiveMath(this, i)
+        texte += ajouteChampTexteMathLive(this, i)
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

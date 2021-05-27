@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -51,7 +51,7 @@ export default function DevelopperIdentitesRemarquables3 () {
         texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
         reponse = `${texFraction(ns * ns, ds * ds)}x^2-${a * a}`
       }
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

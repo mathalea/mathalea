@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, choice, combinaisonListes, randint, lettreDepuisChiffre, ecritureAlgebrique, rienSi1, miseEnEvidence, sp } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -210,7 +210,7 @@ export default function FactoriserUneExpression3e () {
           }
           break
       }
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

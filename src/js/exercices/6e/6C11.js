@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 3 // type de question AMC
@@ -104,7 +104,7 @@ export default function DivisionsEuclidiennes () {
         texteCorr = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}$${texNombre(a)}=${b}\\times${q}+${r}$`
         setReponse(this, i, [`${a}=${b}\\times${q}+${r}`, `${a}=${q}\\times${b}+${r}`])
       }
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
