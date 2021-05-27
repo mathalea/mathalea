@@ -254,7 +254,7 @@ console.log(`${dictFile} généré ${sumWarnings()}`)
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
 let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
 fs.writeFileSync(mdFile,`|id|titre|description|amcReady|amcType|interactifReady|interactifType|\r\n`)
-fs.appendFileSync(mdFile,`|:-----:|:-----------------------------------------------:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|\r\n`)
+fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
     fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
