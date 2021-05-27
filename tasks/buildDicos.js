@@ -174,6 +174,9 @@ for (const file of exercicesList) {
           case 6:
             amcType.text = "AMCOpen double NC";
             break;
+          case 7:
+            amcType.text = "AMCOpen triple NC";
+            break;  
           default:
            beginWarnText()
             console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
@@ -202,6 +205,9 @@ for (const file of exercicesList) {
               case 6:
                 amcType.text.push("AMCOpen double NC");
                 break;
+              case 7:
+                amcType.text = "AMCOpen triple NC";
+                break;  
               default:
                beginWarnText()
                 console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)

@@ -5,7 +5,7 @@
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpen NC|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpen NC|KO|KO|
 |3G32-1|Calcul d’un parallèle terrestre|pas de description|OK|AMCOpen|KO|KO|
-|3L11-1|Utiliser la double distributivité|pas de description|KO|KO|OK|mathLive|
+|3L11-1|Utiliser la double distributivité|pas de description|OK|AMCOpen triple NC|OK|mathLive|
 |3L11-2|Réduire une expression|pas de description|KO|KO|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|pas de description|KO|KO|OK|mathLive|
 |3L11-4|Factoriser une expression|pas de description|KO|KO|OK|mathLive|
@@ -29,6 +29,7 @@
 |5L14-2|Substitution|pas de description|OK|AMCOpen Num|OK| |
 |5N13-2|Égalités entre fractions simples|pas de description|OK|qcmMono|KO|KO|
 |5N13|Simplification de fractions|pas de description|OK|AMCOpen|KO|KO|
+|5N14-3|Fractions égales et égalité des produits en croix|Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange.|OK|qcmMono|OK| |
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|pas de description|OK|qcmMono|OK| |
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|pas de description|OK|AMCOpen Num|OK| |
 |5R20-2|Addition à trou de deux entiers relatifs|pas de description|OK|qcmMono|OK| |
