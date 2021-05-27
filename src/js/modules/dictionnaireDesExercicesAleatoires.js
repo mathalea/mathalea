@@ -1859,7 +1859,7 @@ export default {
     "interactifReady": true,
     "interactifType": "export const interactifType non présent",
     "name": "5N14-3",
-    "description": "Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange."
+    "description": "Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange."
   },
   "5N14": {
     "titre": "Comparer des fractions (dénominateurs multiples)",

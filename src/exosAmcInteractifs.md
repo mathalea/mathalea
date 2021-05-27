@@ -29,7 +29,7 @@
 |5L14-2|Substitution|pas de description|OK|AMCNum|OK|export const interactifType non présent|
 |5N13-2|Égalités entre fractions simples|pas de description|OK|qcmMono|KO|KO|
 |5N13|Simplification de fractions|pas de description|OK|AMCOpen|KO|KO|
-|5N14-3|Fractions égales et égalité des produits en croix|Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange.|OK|qcmMono|OK|export const interactifType non présent|
+|5N14-3|Fractions égales et égalité des produits en croix|Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix.<br> 4 niveaux : petits entiers, grands entiers, décimaux, mélange.|OK|qcmMono|OK|export const interactifType non présent|
 |5N20|Additionner ou soustraire deux fractions (dénominateurs multiples)|pas de description|OK|qcmMono|OK|export const interactifType non présent|
 |5R10|Trouver le terme manquant d’une somme de nombres relatifs|pas de description|OK|AMCNum|OK|export const interactifType non présent|
 |5R20-2|Addition à trou de deux entiers relatifs|pas de description|OK|qcmMono|OK|export const interactifType non présent|
