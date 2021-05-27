@@ -64,7 +64,8 @@ for (const file of exercicesList) {
   const name = path.basename(file, '.js')
   // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
-  let titre, amcReady, amcType={}, interactifReady, interactifType, description
+  // On avait un fonctionnement avec description cf commit 832f123  
+  let titre, amcReady, amcType={}, interactifReady, interactifType
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
@@ -75,7 +76,7 @@ for (const file of exercicesList) {
     titre = module.titre
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
-    description = module.description ? module.description : 'pas de description'
+    // On avait un fonctionnement avec description cf commit 832f123  
     // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin         
     if (amcReady && !module.amcType) {      
      beginWarnText()
@@ -113,12 +114,7 @@ for (const file of exercicesList) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
       interactifReady = /export +const +interactifReady *= *true/.test(srcContent)
-      const chunksForDescription = /export const description *= *(['"])([^'"]+)\1/.exec(srcContent)
-      if (chunksForDescription) {
-        description = chunksForDescription[2]
-      } else {
-        description = `pas de description (à l'ancienne)`
-      }
+      // On avait un fonctionnement avec description cf commit 832f123  
       // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin               
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
        beginWarnText()
@@ -226,16 +222,17 @@ for (const file of exercicesList) {
         console.error(`\x1b[33m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
         amcType.text = "bug amcType.num"
       }
+      // On avait un fonctionnement avec description cf commit 832f123  
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name, description }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name }
       } else {
-        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name, description }
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name}
       }            
     } else {
       if (interactifReady) {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name, description }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name}
       } else {
-        dicoAlea[name] = { titre, url, amcReady, interactifReady, name, description }
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name}
       }
       
     }    
@@ -253,15 +250,16 @@ console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
 let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
-fs.writeFileSync(mdFile,`|id|titre|description|amcReady|amcType|interactifReady|interactifType|\r\n`)
-fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
+// On avait un fonctionnement avec description cf commit 832f123  
+fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
+fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
 Object.entries(dicoAlea).forEach(([id,props]) => {
   if (props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
   } else if (props.amcReady && !props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|OK|${props.amcType.text}|KO|KO|\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)    
   } else if (!props.amcReady && props.interactifReady) {
-    fs.appendFileSync(mdFile,`|${id}|${props.titre}|${props.description}|KO|KO|OK|${props.interactifType}|\r\n`)    
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)    
   }
 })
 console.log(`${mdFile} généré`)
