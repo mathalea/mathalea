@@ -6198,7 +6198,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'gauche', 'black', 1, 'middle', false)
     l.isVisible = false
     objets.push(l)
   }
