@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { combinaisonListes, combinaisonListesSansChangerOrdre, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
+import { choice, combinaisonListes, combinaisonListesSansChangerOrdre, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, texteParPoint, translation, vecteur } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
@@ -78,14 +78,14 @@ export default function betaExoPavage6e () {
           figA = axes[typeAxe][index][0] - axes[typeAxe][index][0] % 14 // figA est le triangle en tête de rangée dont le point A définit l'axe
           rangA = Math.floor(figA / 14)
           if (rangA < 4) { // On est avec un axe bas...
-            if (rangA < 3 ) {
-            antecedent = randint(0, rangA-1) * 14 + randint(6, 13)
+            if (rangA < 3) {
+              antecedent = randint(0, rangA - 1) * 14 + randint(6, 13)
             } else {
-              antecedent = randint(1, rangA-1) * 14 + randint(8, 13)
+              antecedent = randint(1, rangA - 1) * 14 + randint(8, 13)
             }
           } else { // on est avec un axe haut ...
             if (rangA > 4) {
-            antecedent = randint(rangA, 6) * 14 + randint(0, 7)
+              antecedent = randint(rangA, 6) * 14 + randint(0, 7)
             } else {
               antecedent = randint(rangA, 5) * 14 + randint(0, 7)
             }
@@ -106,6 +106,48 @@ export default function betaExoPavage6e () {
 
           break
         case 1:
+          figA = axes[typeAxe][index][0] % 13 // figA est le triangle en pied de verticale dont le centre de gravité est sur l'axe
+          rangA = figA // le numéro c'est aussi le rang de gauche à droite
+          // sur la rangée rangM, rangA + rangM*13 est le numéro de la figure croisée par l'axe
+          rangM = randint(2, 5) // on choisit la rangée de l'antécédent
+          if (rangA < 10) { // On est avec un axe à gauche
+          // l'antécédent doit être choisit entre rangM*14 et rangA +rangM*13
+            antecedent = randint(rangM * 14 + 1, rangA + rangM * 13 - 1)
+          } else { // on est avec un axe à droite
+          // l'antécédent doit être choisit entre rangA +rangM*13 et rangM*14-1
+            antecedent = randint(rangA + rangM * 13 + 1, rangA + rangM * 14)
+          }
+          deltaRang = rangA + rangM * 13 - antecedent
+          console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
+          if (deltaRang > 0) { // l'axe est à droite de l'antécédent
+            image = rangA + rangM * 13 + deltaRang
+            distracteurs.push(image - 1)
+            if (image + 13 < 98) distracteurs.push(image + 13)
+            if (image - 13 > 0) {
+              if (image % 14 === 13) {
+                distracteurs.push(image - 2)
+              } else {
+                if (choice([false, true])) {
+                  distracteurs.push(image - 13)
+                } else {
+                  distracteurs.push(image - 14)
+                }
+              }
+            }
+            if (image % 14 !== 13) distracteurs.push(image + 1)
+          } else { // l'axe est à gauche de l'antécédent
+            image = rangA + rangM * 13 + deltaRang
+            distracteurs.push(image + 1)
+            if (image + 14 < 98) {
+              if (image % 14 === 0) {
+                distracteurs.push(image + 14)
+              } else {
+                distracteurs.push(image + 13)
+              }
+            }
+            if (image - 13 > 0) distracteurs.push(image - 13)
+            if (image % 14 !== 0) distracteurs.push(image - 1)
+          }
 
           break
         case 2:
@@ -134,7 +176,7 @@ export default function betaExoPavage6e () {
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
+      typesDeQuestionsDisponibles = [1, 0, 2, 3, 4, 5]
     }
     const listeTypesDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, 3)
     const couleurs = ['blue', 'green', 'red']
@@ -192,4 +234,5 @@ export default function betaExoPavage6e () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
 }
