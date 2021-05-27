@@ -492,7 +492,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "3G30",
@@ -520,7 +520,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "3G31",
@@ -624,7 +624,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 7,
-      "text": "type de question AMC non prévu"
+      "text": "AMCOpenNum✖︎3"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -886,7 +886,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 6,
-      "text": "AMCOpen double NC"
+      "text": "AMCOpenNum✖︎2"
     },
     "interactifReady": false,
     "name": "4C21",
@@ -999,7 +999,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": false,
     "name": "4C32",
@@ -1027,7 +1027,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4C34",
@@ -1087,7 +1087,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1108,7 +1108,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1158,7 +1158,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4G30",
@@ -1186,7 +1186,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": false,
     "name": "4G40",
@@ -1704,7 +1704,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1850,8 +1850,13 @@ export default {
   "5N14-3": {
     "titre": "Fractions égales et égalité des produits en croix",
     "url": "/exercices/5e/5N14-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": " ",
     "name": "5N14-3",
     "description": "Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange."
   },
@@ -1930,7 +1935,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -1988,7 +1993,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2030,7 +2035,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2051,7 +2056,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 5,
-      "text": "AMCOpen NC"
+      "text": "AMCOpenNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2162,7 +2167,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2187,7 +2192,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2245,7 +2250,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2283,7 +2288,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2296,7 +2301,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2348,7 +2353,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2369,7 +2374,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2390,7 +2395,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -2403,7 +2408,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3106,7 +3111,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": false,
     "name": "6N33-1",
@@ -3259,350 +3264,13 @@ export default {
     "name": "6S11",
     "description": "pas de description"
   },
-  "beta1F10": {
-    "titre": "Calculs de dérivés",
-    "url": "/exercices/beta/beta1F10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta1F10"
-  },
-  "beta2F20": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20"
-  },
-  "beta2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/beta/beta2F21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21"
-  },
-  "beta2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22"
-  },
-  "beta2G13": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G13"
-  },
-  "beta2G14": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/beta/beta2G14.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2G14"
-  },
-  "beta2L11-1": {
-    "titre": "Factoriser avec les identités remarquables (niveau II)",
-    "url": "/exercices/beta/beta2L11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2L11-1"
-  },
-  "beta2L12-2": {
-    "titre": "Résoudre des équations se ramenant au produit-nul.",
-    "url": "/exercices/beta/beta2L12-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2L12-2"
-  },
-  "beta3F23": {
-    "titre": "Déterminer un antécédent",
-    "url": "/exercices/beta/beta3F23.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3F23"
-  },
-  "beta3G15": {
-    "titre": "Utiliser toutes les transformations",
-    "url": "/exercices/beta/beta3G15.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3G15"
-  },
-  "beta3G41": {
-    "titre": "Représentation de solides",
-    "url": "/exercices/beta/beta3G41.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3G41"
-  },
-  "beta3s21": {
-    "titre": "Stabilisation des fréquences",
-    "url": "/exercices/beta/beta3s21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3s21"
-  },
-  "beta4C31": {
-    "titre": "Puissances de 10",
-    "url": "/exercices/beta/beta4C31.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4C31"
-  },
-  "beta4G20-3": {
-    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
-    "url": "/exercices/beta/beta4G20-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-3"
-  },
-  "beta4N10": {
-    "titre": "Arrondir une valeur numérique",
-    "url": "/exercices/beta/beta4N10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4N10"
-  },
-  "beta6C33-1": {
-    "titre": "Parenthèses manquantes",
-    "url": "/exercices/beta/beta6C33-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6C33-1"
-  },
-  "beta6G21": {
-    "titre": "Construire un triangle aux instruments",
-    "url": "/exercices/beta/beta6G21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6G21"
-  },
-  "beta6test2": {
-    "titre": "Mon test",
-    "url": "/exercices/beta/beta6test2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6test2"
-  },
-  "beta6test2021": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/beta6test2021.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta6test2021"
-  },
-  "beta999": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/beta999.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta999"
-  },
-  "betabonhomme": {
-    "titre": "bonhomme de neige",
-    "url": "/exercices/beta/betabonhomme.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betabonhomme"
-  },
-  "betaExemple": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple"
-  },
-  "betaExemple1Type": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1Type.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1Type"
-  },
-  "betaExemple1TypeCalculLettre": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple1TypeCalculLettre.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple1TypeCalculLettre"
-  },
-  "betaExemple3Types": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaExemple3Types.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExemple3Types"
-  },
-  "betaExempleFigureClic": {
-    "titre": "Sommets du triangle",
-    "url": "/exercices/beta/betaExempleFigureClic.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "custom",
-    "name": "betaExempleFigureClic"
-  },
-  "betaExempleQuestionsDifferentes": {
-    "titre": "Exercice exemple avec un nombre fixe de questions différentes",
-    "url": "/exercices/beta/betaExempleQuestionsDifferentes.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExempleQuestionsDifferentes"
-  },
-  "betaExercice_constructions_basiques": {
-    "titre": "Programmes de constructions (en chantier)",
-    "url": "/exercices/beta/betaExercice_constructions_basiques.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExercice_constructions_basiques"
-  },
-  "betaExoLiouba": {
-    "titre": "Tranformations de triangle",
-    "url": "/exercices/beta/betaExoLiouba.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoLiouba"
-  },
-  "betaExoSimpleMatthieu": {
-    "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
-    "url": "/exercices/beta/betaExoSimpleMatthieu.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoSimpleMatthieu"
-  },
-  "betaProbabilites": {
-    "titre": "Probabilités simples",
-    "url": "/exercices/beta/betaProbabilites.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaProbabilites"
-  },
-  "betaPuissances": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaPuissances.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaPuissances"
-  },
-  "betareperagepave": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave"
-  },
-  "betareperagepave3d": {
-    "titre": "Exercice de repérage dans un pavé droit",
-    "url": "/exercices/beta/betareperagepave3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betareperagepave3d"
-  },
-  "betarotation3d": {
-    "titre": "Rotation 3d de polygones",
-    "url": "/exercices/beta/betarotation3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betarotation3d"
-  },
-  "betaXcas": {
-    "titre": "Test de XCas",
-    "url": "/exercices/beta/betaXcas.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaXcas"
-  },
-  "beta_modele_vide_stephane": {
-    "titre": "titre à donner",
-    "url": "/exercices/beta/beta_modele_vide_stephane.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta_modele_vide_stephane"
-  },
-  "moule_a_exo_mathalea": {
-    "titre": "Exo zéro Mathalea",
-    "url": "/exercices/beta/moule_a_exo_mathalea.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea"
-  },
-  "moule_a_exo_mathalea2d&3d": {
-    "titre": "Exo zéroMathalea2d3d",
-    "url": "/exercices/beta/moule_a_exo_mathalea2d&3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d&3d"
-  },
-  "moule_a_exo_mathalea2d": {
-    "titre": "Exo zéro Mathalea2d",
-    "url": "/exercices/beta/moule_a_exo_mathalea2d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea2d"
-  },
-  "c3C10-1": {
-    "titre": "Tables de multiplications",
-    "url": "/exercices/c3/c3C10-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3C10-1"
-  },
-  "c3C10-2": {
-    "titre": "Labyrinthe de multiples",
-    "url": "/exercices/c3/c3C10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3C10-2"
-  },
-  "c3C10-4": {
-    "titre": "Tables d’addition",
-    "url": "/exercices/c3/c3C10-4.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3C10-4"
-  },
-  "c3C11": {
-    "titre": "Divisions euclidiennes",
-    "url": "/exercices/c3/c3C11.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3C11"
-  },
-  "c3N10": {
-    "titre": "Écrire un nombre en chiffres ou en lettres",
-    "url": "/exercices/c3/c3N10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3N10"
-  },
-  "c3N20": {
-    "titre": "Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales",
-    "url": "/exercices/c3/c3N20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3N20"
-  },
-  "c3N22": {
-    "titre": "Lire abscisse décimale sous trois formes",
-    "url": "/exercices/c3/c3N22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3N22"
-  },
-  "c3N23": {
-    "titre": "Lire abscisse décimale avec zoom",
-    "url": "/exercices/c3/c3N23.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "c3N23"
-  },
   "CM000": {
     "titre": "Additions et de soustractions",
     "url": "/exercices/CM/CM000.js",
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3615,7 +3283,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3628,7 +3296,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3641,7 +3309,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3654,7 +3322,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3667,7 +3335,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3680,7 +3348,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3693,7 +3361,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3706,7 +3374,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3719,7 +3387,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3732,7 +3400,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3745,7 +3413,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3758,7 +3426,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3771,7 +3439,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3784,7 +3452,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3797,7 +3465,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3810,7 +3478,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3823,7 +3491,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",
@@ -3836,7 +3504,7 @@ export default {
     "amcReady": true,
     "amcType": {
       "num": 4,
-      "text": "AMCOpen Num"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": " ",

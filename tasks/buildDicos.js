@@ -73,8 +73,6 @@ for (const file of exercicesList) {
       continue
     }
     titre = module.titre
-    // On teste à l'ancienne la présence de this.qcm dans le code car dans ce cas le booléen amcReady doit être true
-    // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter    
     amcReady = Boolean(module.amcReady)
     interactifReady = Boolean(module.interactifReady)
     description = module.description ? module.description : 'pas de description'
@@ -153,27 +151,32 @@ for (const file of exercicesList) {
     const url = file.substr(prefixLength).replace(/\\/g, '/')
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
-      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non      
+      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
+      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum✖︎2","AMCOpenNum✖︎3"]      
+      //let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum×2","AMCOpenNum×3"]      
       if (typeof amcType.num === 'number')  {        
         switch (amcType.num) {
           case 1:
-            amcType.text = "qcmMono";
+            amcType.text = typeText[0];
             break;
           case 2:
-            amcType.text = "qcmMult";
+            amcType.text = typeText[1];
             break;
           case 3:
-            amcType.text = "AMCOpen";
+            amcType.text = typeText[2];
             break;
           case 4:
-            amcType.text = "AMCOpen Num";
+            amcType.text = typeText[3];
             break;
           case 5:
-            amcType.text = "AMCOpen NC";
+            amcType.text = typeText[4];
             break;
           case 6:
-            amcType.text = "AMCOpen double NC";
+            amcType.text = typeText[5];
             break;
+          case 7:
+            amcType.text = typeText[6];
+            break;  
           default:
            beginWarnText()
             console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
@@ -185,23 +188,26 @@ for (const file of exercicesList) {
           function(num) { 
             switch (num) {
               case 1:
-                amcType.text.push("qcmMono");
+                amcType.text = typeText[0];
                 break;
               case 2:
-                amcType.text.push("qcmMult");
+                amcType.text = typeText[1];
                 break;
               case 3:
-                amcType.text.push("AMCOpen");
+                amcType.text = typeText[2];
                 break;
               case 4:
-                amcType.text.push("AMCOpen Num");
+                amcType.text = typeText[3];
                 break;
               case 5:
-                amcType.text.push("AMCOpen NC");
+                amcType.text = typeText[4];
                 break;
               case 6:
-                amcType.text.push("AMCOpen double NC");
+                amcType.text = typeText[5];
                 break;
+              case 7:
+                amcType.text = typeText[6];
+                break;  
               default:
                beginWarnText()
                 console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
@@ -239,20 +245,6 @@ fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`
 endWarnText()
 console.log(`${dictFile} généré ${sumWarnings()}`)
 // ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
-// const csvDir = path.resolve(__dirname, '..', 'src', 'csv')
-// let csvFile = path.resolve(csvDir,'.','listingParTypes.csv')
-// fs.writeFileSync(csvFile,`id,titre,amcReady,amcType,interactifReady,\r\n`)
-// Object.entries(dicoAlea).forEach(([id,props]) => {
-//   if (props.amcReady && props.interactifReady) {
-//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},OK,${props.interactifType}\r\n`)
-//   } else if (props.amcReady && !props.interactifReady) {
-//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},OK,${props.amcType.text},KO,KO\r\n`)
-//   } else if (!props.amcReady && props.interactifReady) {
-//     fs.appendFileSync(csvFile,`${id},${props.titre.replace(/[,;]/g, '')},KO,KO,OK,${props.interactifType}\r\n`)
-//   }
-// })
-// console.log(`${csvFile} généré`)
-
 const mdDir = path.resolve(__dirname, '..', 'src', '.')
 let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
 fs.writeFileSync(mdFile,`|id|titre|description|amcReady|amcType|interactifReady|interactifType|\r\n`)

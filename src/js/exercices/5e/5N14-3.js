@@ -2,11 +2,14 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {fraction} from '../../modules/fractions.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,texNombre2,texteEnCouleur} from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
 
-export const amcReady = false
-export const interactifReady = false
+export const amcReady = true
+export const amcType = 1
+export const interactifReady = true
+export const interactifType = ' '
 export const description = `Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange.`
 
 /**
@@ -20,7 +23,9 @@ export default function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.amcReady = amcReady
+	this.amcType = amcType
 	this.interactifReady = interactifReady
+	this.interactifType = interactifType
 	this.titre = titre;
 	this.debug = false;
 	if (this.debug) {
@@ -186,7 +191,6 @@ export default function Eq_resolvantes_Thales() {
 					correction: justification
 				});
 			};
-
 			// autant de case que d'elements dans le tableau des situations
 			switch (listeTypeDeQuestions[i]) {
 				case 0:
@@ -231,7 +235,26 @@ export default function Eq_resolvantes_Thales() {
 					};
 					break;
 			};
-
+			this.autoCorrection[i] = {}
+			this.autoCorrection[i].enonce = `${texte}\n`
+			this.autoCorrection[i].propositions = [
+			  {
+				texte: `L'égalité est vraie`,
+				statut: equalOrNot
+			  },
+			  {
+				texte: `L'égalité est fausse`,
+				statut: !equalOrNot
+			  },
+			  {
+				texte: 'Je ne sais pas',
+				statut: false
+			  }
+			]
+			this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
+			if (this.interactif) {
+				texte += '<br>' + propositionsQcm(this, i).texte
+			}
 			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
