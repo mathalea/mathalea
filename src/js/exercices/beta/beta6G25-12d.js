@@ -150,7 +150,36 @@ export default function betaExoPavage6e () {
           }
 
           break
-        case 2:
+        case 2: // axe parallèle à [AC]
+          figA = axes[typeAxe][index][0] % 14 // figA est le triangle de la première rangée dont le côté [AC] définit l'axe
+          rangA = figA >> 1 // le rang de gauche à droite est le numéro de la figure divisé par 2 car il n'y a que les figures paires qui comptent ici
+          // sur la rangée rangM, rangA + rangM*13 est le numéro de la figure croisée par l'axe
+          rangM = randint(rangA, 6 - rangA) // on choisit la rangée verticale de l'antécédent
+          if (rangA < 4) { // On est avec un axe à gauche
+          // l'antécédent doit être choisit entre rangM*14 et 2*(rangA-1) + rangM*14
+            antecedent = randint(rangM * 14, (rangA - 1) * 2 + rangM * 14)
+          } else { // on est avec un axe à droite
+          // l'antécédent doit être choisit entre rangA*2 + 1 + rangM*14 et rangM*14+(rangA+1)*2
+            antecedent = randint(rangA * 2 + 1 + rangM * 14, rangM * 14 + (rangA + 1) * 2)
+          }
+          deltaRang = rangA - ((antecedent % 14 - antecedent % 2) >> 1)
+          console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
+          // l'axe est à droite de l'antécédent
+          image = antecedent - 10 * deltaRang - 1 + 12 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
+          distracteurs.push(image - 1)
+          if (deltaRang > 0) {
+            distracteurs.push(antecedent + 2*(deltaRang+1))
+          } else {
+            distracteurs.push(antecedent + 3 * (deltaRang -1))
+          }
+          if (image - 13 > 0) {
+            if (image % 14 === 13) {
+              distracteurs.push(image - 2)
+            } else {
+                distracteurs.push(image - 13)
+            }
+          }
+          if (image % 14 !== 13) distracteurs.push(image + 1)
 
           break
         case 3:
@@ -174,7 +203,7 @@ export default function betaExoPavage6e () {
       [[9, 10], [11, 12], [23, 24], [25, 26], [37, 38], [39, 40], [51, 52], [53, 54], [65, 66]] // axes perpendiculaires à [AC]
     ]
     if (parseInt(this.sup) === 1) {
-      typesDeQuestionsDisponibles = [0, 1, 2]
+      typesDeQuestionsDisponibles = [2, 1, 0]
     } else {
       typesDeQuestionsDisponibles = [1, 0, 2, 3, 4, 5]
     }
