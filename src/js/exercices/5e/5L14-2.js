@@ -6,7 +6,7 @@ import { ajouteChampTexte, exerciceInteractif } from '../../modules/gestionInter
 export const amcReady = true
 export const amcType = 4 //type de question AMC NumeriqueChoice 
 export const interactifReady = true
-export const interactifType = ' '
+
 
 
 export const titre = 'Substitution'

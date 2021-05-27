@@ -9,7 +9,7 @@ export const titre = 'Fractions égales et égalité des produits en croix'
 export const amcReady = true
 export const amcType = 1
 export const interactifReady = true
-export const interactifType = ' '
+
 export const description = `Déterminer si une égalité de deux fractions est vraie en utilisant les produits en croix. 4 niveaux : petits entiers, grands entiers, décimaux, mélange.`
 
 /**

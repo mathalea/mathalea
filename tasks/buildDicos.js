@@ -90,20 +90,21 @@ for (const file of exercicesList) {
       amcType.num = module.amcType      
     }    
 
-    // On verifie s'il y a une incohérence interactifType interactifReady et on affiche un warning au besoin         
-    if (interactifReady && !module.interactifType) {      
-      beginWarnText()
-      console.error(`\x1b[34m${file} n'a pas d'export interactifType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
-    }
     if (module.interactifType && !module.interactifReady) {
     beginWarnText()
       console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
     }
     if (interactifReady) {
-      interactifType = module.interactifType
+      // On verifie s'il y a un interactifType
+      if (!module.interactifType) {
+        interactifType = 'export const interactifType non présent'
+      } else {
+        interactifType = module.interactifType
+      }
+      
     }      
   } catch (error) {
-    console.log(`${error} dans ${file}`)
+    //console.log(`${error} dans ${file}`)
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
@@ -131,18 +132,19 @@ for (const file of exercicesList) {
       if (amcReady) {
         amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
       }
-
-      // On verifie s'il y a une incohérence interactifType interactifReady et on affiche un warning au besoin         
-      if (interactifReady && !/export +const +interactifType */.test(srcContent)) {
-        beginWarnText()
-        console.error(`\x1b[34m${file} n'a pas d'export interactifType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
-      }
+      // On vérifie la cohérence interactifType, interactifReady
       if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
       beginWarnText()
         console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
       }
-      if (interactifReady) {//regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
-        interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
+      if (interactifReady) {
+        // On verifie s'il y a un interactifType
+        if (/export +const +interactifType */.test(srcContent)) {
+          //regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
+          interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
+        } else {
+          interactifType = `export const interactifType non présent (à l'ancienne)`
+        }        
       }    
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
