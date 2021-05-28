@@ -1,4 +1,4 @@
-import Arrondir_une_valeur from '../6e/6N31-3.js'
+import ArrondirUneValeur from '../6e/6N31-3.js'
 export const titre = 'Trouver la valeur arrondie d’une racine carrée'
 
 /**
@@ -7,10 +7,9 @@ export const titre = 'Trouver la valeur arrondie d’une racine carrée'
  * référence 4G20-5
  */
 
-export default function Arrondir_une_valeur_4e() {
-  Arrondir_une_valeur.call(this);
-  this.titre = titre;
-  this.sup = 3;
-  this.sup2 = true;
-  this.besoinFormulaireNumerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
+export default function ArrondirUneValeur4e () {
+  ArrondirUneValeur.call(this)
+  this.titre = titre
+  this.sup = 3
+  this.sup2 = true
 }

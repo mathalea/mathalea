@@ -1044,6 +1044,13 @@ export default {
     "interactifReady": false,
     "name": "4G31"
   },
+  "4G40-1": {
+    "titre": "Arrondir une valeur arrondie comprenant un cosinus",
+    "url": "/exercices/4e/4G40-1.js",
+    "amcReady": false,
+    "qcmInteractif": false,
+    "name": "4G40-1"
+  },
   "4G40-MG32": {
     "titre": "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle",
     "url": "/exercices/4e/4G40-MG32.js",
