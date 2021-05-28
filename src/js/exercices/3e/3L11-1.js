@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, egal, randint, combinaisonListes, printlatex } from '../../modules/outils.js'
-import { ajouteChampTexteLiveMath, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -91,7 +91,7 @@ export default function DoubleDistributivite () {
           reponse3 = b * d
           break
       }
-      texte += ajouteChampTexteLiveMath(this, i)
+      texte += ajouteChampTexteMathLive(this, i)
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
