@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { choice, combinaisonListes, listeQuestionsToContenu, listeQuestionsToContenuSansNumero, miseEnEvidence, numAlpha, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
+import { choice, combinaisonListes, combinaisonListesSansChangerOrdre, listeQuestionsToContenu, listeQuestionsToContenuSansNumero, miseEnEvidence, numAlpha, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Exo zéro Mathalea2d'
@@ -19,8 +19,10 @@ export default function betaExoPavage6e () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  context.fenetreMathalea2d = [0, -0.1, 22, 14]
+  context.fenetreMathalea2d = [0, -0.1, 21, 13]
   this.sup = 1
   this.amcReady = amcReady
   this.interactifReady = interactifReady
@@ -41,7 +43,7 @@ export default function betaExoPavage6e () {
     [[46, 59], [47, 60], [48, 61], [49, 62], [50, 63], [51, 64]], // axes verticaux
     [[32, 46], [34, 48], [36, 50], [38, 52]], // axes // à [AC]
     [[44, 56], [46, 58], [48, 60], [50, 62], [52, 64], [54, 66]], // axes // à [BC]
-    [[6, 7], [20, 21], [18, 19], [32, 33], [30, 31], [44, 45], [42, 43]], // axes perpendiculaires à [BC]
+    [[4, 5], [2, 3], [0, 1], [14, 15], [28, 29]], // axes perpendiculaires à [BC]
     [[9, 10], [11, 12], [23, 24], [25, 26], [37, 38], [39, 40], [51, 52], [53, 54], [65, 66]] // axes perpendiculaires à [AC]
   ]
   // fonction qui *choisit un triangle selon le type d'axe et sa position retourne le triangle choisi, son image et des distracteurs pour un QCM
@@ -209,10 +211,92 @@ export default function betaExoPavage6e () {
         }
         break
       case 4:
-
+        figA = axes[typeAxe][index][0] // figA un nombre pair entre 44 et 54 inclus. l'axe passe par son sommet gauche
+        rangA = figA % 14 // le rang de gauche à droite. rangA va de 1 à 6 inclus
+        if (index < 2) { // l'antécédent sera sous l'axe qui est sous la diagonale
+          rangM = randint(0, 3 + index) // on choisit la rangée verticale de l'antécédent
+          antecedent = rangM * 14 + randint((3 + rangM - index) * 2, 13)
+        } else if (index > 2) { // l'antécédent sera au dessus de l'axe qui est au dessus
+          rangM = randint(index, 6) // on choisit la rangée verticale de l'antécédent
+          antecedent = rangM * 14 + randint(0, rangM + 2 * (4 - index))
+        } else { // l'antécédent est partout sauf sur la diagonale car c'est l'axe
+          rangM = randint(0, 6)
+          antecedent = rangM * 14 + randint(0, 13, [rangM * 2, rangM * 2 + 1, rangM * 2 - 1])
+        }
+        deltaRang = 4 - index * 2 + 16 * rangM - (antecedent>>1)*2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
+        if (deltaRang > 0) {
+          deltaRang >>= 1
+        } else {
+          deltaRang = -((-deltaRang) >> 1)
+        }
+        // l'axe est à droite de l'antécédent
+        image = antecedent - 12 * deltaRang
+        if (image > 0) {
+          distracteurs.push(image - 1)
+        }
+        if (image < 97) {
+          distracteurs.push(image + 1)
+        }
+        if (image - 13 > 0) {
+          if (image % 14 === 13) {
+            distracteurs.push(image - 2)
+          } else {
+            distracteurs.push(image - 13)
+          }
+        } else {
+          distracteurs.push(image + 14)
+        }
+        if (image + 13 < 97) {
+          if (image % 14 === 0) {
+            distracteurs.push(image + 2)
+          } else {
+            distracteurs.push(image + 13)
+          }
+        }
         break
       case 5:
-
+        figA = axes[typeAxe][index][0] // figA un nombre pair entre 44 et 54 inclus. l'axe passe par son sommet gauche
+        rangA = figA % 14 // le rang de gauche à droite. rangA va de 1 à 6 inclus
+        if (index < 2) { // l'antécédent sera sous l'axe qui est sous la diagonale
+          rangM = randint(0, 3 + index) // on choisit la rangée verticale de l'antécédent
+          antecedent = rangM * 14 + randint((3 + rangM - index) * 2, 13)
+        } else if (index > 2) { // l'antécédent sera au dessus de l'axe qui est au dessus
+          rangM = randint(index, 6) // on choisit la rangée verticale de l'antécédent
+          antecedent = rangM * 14 + randint(0, rangM + 2 * (4 - index))
+        } else { // l'antécédent est partout sauf sur la diagonale car c'est l'axe
+          rangM = randint(0, 6)
+          antecedent = rangM * 14 + randint(0, 13, [rangM * 2, rangM * 2 + 1, rangM * 2 - 1])
+        }
+        deltaRang = 4 - index * 2 + 16 * rangM - (antecedent>>1)*2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
+        if (deltaRang > 0) {
+          deltaRang >>= 1
+        } else {
+          deltaRang = -((-deltaRang) >> 1)
+        }
+        // l'axe est à droite de l'antécédent
+        image = antecedent - 12 * deltaRang
+        if (image > 0) {
+          distracteurs.push(image - 1)
+        }
+        if (image < 97) {
+          distracteurs.push(image + 1)
+        }
+        if (image - 13 > 0) {
+          if (image % 14 === 13) {
+            distracteurs.push(image - 2)
+          } else {
+            distracteurs.push(image - 13)
+          }
+        } else {
+          distracteurs.push(image + 14)
+        }
+        if (image + 13 < 97) {
+          if (image % 14 === 0) {
+            distracteurs.push(image + 2)
+          } else {
+            distracteurs.push(image + 13)
+          }
+        }
         break
     }
     return { antecedent: antecedent, image: image, distracteurs: distracteurs }
@@ -251,20 +335,20 @@ export default function betaExoPavage6e () {
       triAngles[i].num = texteParPoint(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 1)
       objetsEnonce.push(triAngles[i].tri, triAngles[i].num)
     }
-    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 22, ymax: 14, pixelsParCm: 30, scale: 0.5, mainlevee: false }
+    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 21, ymax: 13, pixelsParCm: 30, scale: 0.5, mainlevee: false }
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3, 1, 2]
+      typesDeQuestionsDisponibles = [5, 1, 2, 3, 4, 2]
     }
-    const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
-    const couleurs = ['blue', 'green', 'red']
+    const listeTypesDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, 3)
+    const couleurs = ['blue', 'green', 'red', 'grey', 'cyan', 'purple']
     let M
     let N
     const d = []
     const question = []
     let choix
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < this.nbQuestions; i++) {
       choix = randint(0, axes[listeTypesDeQuestions[i]].length - 1)
       switch (listeTypesDeQuestions[i]) { // ici on définit les 3 axes
         case 0: // axe horizontal
@@ -295,17 +379,17 @@ export default function betaExoPavage6e () {
       console.log('Antécédent : ', question[i].antecedent, ' Image : ', question[i].image, ' Distracteurs : ', question[i].distracteurs[0], question[i].distracteurs[1], question[i].distracteurs[2], question[i].distracteurs[3])
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
-      // triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
-      // triAngles[question[i].image].tri.opaciteDeRemplissage = 0.7
-    /*  for (let j = 0; j < question[i].distracteurs.length; j++) {
+      triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
+      triAngles[question[i].image].tri.opaciteDeRemplissage = 0.7
+      for (let j = 0; j < question[i].distracteurs.length; j++) {
         triAngles[question[i].distracteurs[j]].tri.couleurDeRemplissage = 'brown'
         triAngles[question[i].distracteurs[j]].tri.opaciteDeRemplissage = 0.3
-      } */
+      }
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
-    for (let i = 0; i < 3; i++) {
-      texte = `<br>${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
-      texteCorr = `<br>${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
+    for (let i = 0; i < this.nbQuestions; i++) {
+      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
+      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
       this.autoCorrection[i] = {
         enonce: texte,
         propositions: [{
@@ -338,8 +422,8 @@ export default function betaExoPavage6e () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
     this.contenuCorrection += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
     if (context.isHtml) {
-      for (let i = 0; i < 3; i++) {
-        this.contenuCorrection +=`<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}-${i}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la symétrie par rapport à ${d[i].nom}</button>`
+      for (let i = 0; i < this.nbQuestions; i++) {
+        this.contenuCorrection += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}-${i}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la symétrie par rapport à ${d[i].nom}</button>`
       }
     }
   }
