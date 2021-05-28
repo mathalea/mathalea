@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { choice, combinaisonListes, combinaisonListesSansChangerOrdre, listeQuestionsToContenu, listeQuestionsToContenuSansNumero, miseEnEvidence, numAlpha, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
+import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Exo zéro Mathalea2d'
@@ -19,7 +19,7 @@ export default function betaExoPavage6e () {
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.nbQuestions = 1
+  this.nbQuestions = 6
   this.nbQuestionsModifiable = false
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   context.fenetreMathalea2d = [0, -0.1, 21, 13]
@@ -44,7 +44,7 @@ export default function betaExoPavage6e () {
     [[32, 46], [34, 48], [36, 50], [38, 52]], // axes // à [AC]
     [[44, 56], [46, 58], [48, 60], [50, 62], [52, 64], [54, 66]], // axes // à [BC]
     [[4, 5], [2, 3], [0, 1], [14, 15], [28, 29]], // axes perpendiculaires à [BC]
-    [[9, 10], [11, 12], [23, 24], [25, 26], [37, 38], [39, 40], [51, 52], [53, 54], [65, 66]] // axes perpendiculaires à [AC]
+    [[42, 31], [43, 44], [56, 45], [57, 58], [70, 59], [71, 72]] // axes perpendiculaires à [AC]
   ]
   // fonction qui *choisit un triangle selon le type d'axe et sa position retourne le triangle choisi, son image et des distracteurs pour un QCM
   const choisitTriangle = function (typeAxe, index) { // retourne {antecedent: number, image: number, distracteurs: [number]}
@@ -101,7 +101,6 @@ export default function betaExoPavage6e () {
           antecedent = randint(rangA + rangM * 13 + 1, rangA + rangM * 14)
         }
         deltaRang = rangA + rangM * 13 - antecedent
-        console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
         if (deltaRang > 0) { // l'axe est à droite de l'antécédent
           image = rangA + rangM * 13 + deltaRang
           distracteurs.push(image - 1)
@@ -146,7 +145,7 @@ export default function betaExoPavage6e () {
           antecedent = randint(rangA * 2 + 1 + rangM * 14, rangM * 14 + (rangA + 1) * 2)
         }
         deltaRang = rangA - ((antecedent % 14 - antecedent % 2) >> 1)
-        console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
+        // console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
         // l'axe est à droite de l'antécédent
         image = antecedent - 10 * deltaRang - 1 + 12 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
         distracteurs.push(image - 1)
@@ -184,7 +183,6 @@ export default function betaExoPavage6e () {
         rangN -= rangN % 2
         rangN = rangN / 2
         deltaRang = rangA - rangN + 3 - rangM
-        console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA, ' rangN : ', rangN)
         // l'axe est à droite de l'antécédent
         image = antecedent + 16 * deltaRang - 15 - 2 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
         if (image > 0) {
@@ -223,7 +221,7 @@ export default function betaExoPavage6e () {
           rangM = randint(0, 6)
           antecedent = rangM * 14 + randint(0, 13, [rangM * 2, rangM * 2 + 1, rangM * 2 - 1])
         }
-        deltaRang = 4 - index * 2 + 16 * rangM - (antecedent>>1)*2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
+        deltaRang = 4 - index * 2 + 16 * rangM - (antecedent >> 1) * 2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
         if (deltaRang > 0) {
           deltaRang >>= 1
         } else {
@@ -256,25 +254,24 @@ export default function betaExoPavage6e () {
         break
       case 5:
         figA = axes[typeAxe][index][0] // figA un nombre pair entre 44 et 54 inclus. l'axe passe par son sommet gauche
-        rangA = figA % 14 // le rang de gauche à droite. rangA va de 1 à 6 inclus
-        if (index < 2) { // l'antécédent sera sous l'axe qui est sous la diagonale
-          rangM = randint(0, 3 + index) // on choisit la rangée verticale de l'antécédent
-          antecedent = rangM * 14 + randint((3 + rangM - index) * 2, 13)
-        } else if (index > 2) { // l'antécédent sera au dessus de l'axe qui est au dessus
-          rangM = randint(index, 6) // on choisit la rangée verticale de l'antécédent
-          antecedent = rangM * 14 + randint(0, rangM + 2 * (4 - index))
-        } else { // l'antécédent est partout sauf sur la diagonale car c'est l'axe
-          rangM = randint(0, 6)
-          antecedent = rangM * 14 + randint(0, 13, [rangM * 2, rangM * 2 + 1, rangM * 2 - 1])
+        rangA = Math.floor(figA / 14) // le rang de gauche à droite. rangA va de 1 à 6 inclus
+        if (index < 4) { // l'antécédent sera sous l'axe
+          rangM = randint(1, rangA - 2) // on choisit la rangée verticale de l'antécédent
+          rangN = randint(rangA - rangM, 4 * (rangA - rangM) + 2 * (figA % 2) - 2)
+          antecedent = rangM * 14 + rangN
+        } else { // l'antécédent sera au dessus de l'axe
+          rangM = randint(rangA - 1, 5) // on choisit la rangée verticale de l'antécédent
+          rangN = randint(4 * (rangA - rangM) + 2 * (figA % 2) + 2, 12)
+          antecedent = rangM * 14 + rangN
         }
-        deltaRang = 4 - index * 2 + 16 * rangM - (antecedent>>1)*2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
+        deltaRang = 44 + 14 * (index >> 1) + 2 * (index % 2) + 10 * (rangM - rangA) - (antecedent >> 1) * 2 // Vaudrait mieux que ça marche... je ne sais pas où je vais chercher tout ça !
         if (deltaRang > 0) {
           deltaRang >>= 1
         } else {
           deltaRang = -((-deltaRang) >> 1)
         }
         // l'axe est à droite de l'antécédent
-        image = antecedent - 12 * deltaRang
+        image = antecedent + 14 * deltaRang - 14 * (1 + antecedent % 2)
         if (image > 0) {
           distracteurs.push(image - 1)
         }
@@ -337,11 +334,13 @@ export default function betaExoPavage6e () {
     }
     paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 21, ymax: 13, pixelsParCm: 30, scale: 0.5, mainlevee: false }
     if (parseInt(this.sup) === 1) {
+      this.nbQuestions = 3
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {
-      typesDeQuestionsDisponibles = [5, 1, 2, 3, 4, 2]
+      this.nbQuestions = 6
+      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     }
-    const listeTypesDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, 3)
+    const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
     const couleurs = ['blue', 'green', 'red', 'grey', 'cyan', 'purple']
     let M
     let N
@@ -354,7 +353,6 @@ export default function betaExoPavage6e () {
         case 0: // axe horizontal
         case 2: // axe parallèle à [AC]
         case 3: // axe parallèle à [BC]
-          console.log(axes[listeTypesDeQuestions[i]][choix][0], axes[listeTypesDeQuestions[i]][choix][1])
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
           d[i] = droite(M, N, `(d_${i + 1})`)
@@ -376,15 +374,14 @@ export default function betaExoPavage6e () {
       objetsEnonce.push(d[i])
       // ici on choisit les figures et on crée les questions
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
-      console.log('Antécédent : ', question[i].antecedent, ' Image : ', question[i].image, ' Distracteurs : ', question[i].distracteurs[0], question[i].distracteurs[1], question[i].distracteurs[2], question[i].distracteurs[3])
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
-      triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
-      triAngles[question[i].image].tri.opaciteDeRemplissage = 0.7
-      for (let j = 0; j < question[i].distracteurs.length; j++) {
+      //  triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
+      //  triAngles[question[i].image].tri.opaciteDeRemplissage = 0.2
+      /* for (let j = 0; j < question[i].distracteurs.length; j++) {
         triAngles[question[i].distracteurs[j]].tri.couleurDeRemplissage = 'brown'
         triAngles[question[i].distracteurs[j]].tri.opaciteDeRemplissage = 0.3
-      }
+      } */
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
