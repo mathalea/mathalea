@@ -1,6 +1,7 @@
 |id|titre|description|amcReady|amcType|interactifReady|interactifType|
 |:-----:|:-----------------------------------------------:|:-----------------------------------------------:|:-----:|:----------------:|:-----:|:----------:|
 |3F21-1|Déterminer une fonction affine|pas de description|OK|AMCOpen|KO|KO|
+|3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|pas de description|KO|KO|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|pas de description|OK|AMCOpen|KO|KO|
 |3G30|Calculer une longueurs dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpenNum|KO|KO|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|pas de description|OK|AMCOpenNum|KO|KO|
@@ -26,6 +27,7 @@
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|pas de description|OK|AMCOpenNum|KO|KO|
 |5L10-2|Traduire un programme de calcul par une expression littérale|pas de description|OK|qcmMono|OK| |
 |5L10|Écrire une expression littérale|pas de description|OK|qcmMult|OK| |
+|5L13|Réduire une expression de la forme $ax+bx$ |pas de description|KO|KO|OK|mathLive|
 |5L14-2|Substitution|pas de description|OK|AMCNum|OK| |
 |5N13-2|Égalités entre fractions simples|pas de description|OK|qcmMono|KO|KO|
 |5N13|Simplification de fractions|pas de description|OK|AMCOpen|KO|KO|

@@ -363,6 +363,15 @@ export default {
     "name": "3F21-2",
     "description": "pas de description"
   },
+  "3F21-3": {
+    "titre": "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine",
+    "url": "/exercices/3e/3F21-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3F21-3",
+    "description": "pas de description"
+  },
   "3F21": {
     "titre": "Déterminer une fonction linéaire",
     "url": "/exercices/3e/3F21.js",
@@ -1686,7 +1695,8 @@ export default {
     "titre": "Réduire une expression de la forme $ax+bx$ ",
     "url": "/exercices/5e/5L13.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5L13",
     "description": "pas de description"
   },

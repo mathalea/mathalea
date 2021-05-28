@@ -4,6 +4,7 @@ import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInter
 
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
 * Réduire des expressions de la forme ax+bx
@@ -15,7 +16,7 @@ export default function Reductionaxbx () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
-  this.interactifType = 'mathLive'
+  this.interactifType = interactifType
   this.consigne = 'Réduire les expressions suivantes, si cela est possible.'
   this.nbQuestions = 5
   this.nbCols = 1
