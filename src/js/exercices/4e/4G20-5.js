@@ -12,5 +12,4 @@ export default function ArrondirUneValeur4e () {
   this.titre = titre
   this.sup = 3
   this.sup2 = true
-  this.besoinFormulaireNumerique = ['Type de nombre', 3, '1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée']
 }

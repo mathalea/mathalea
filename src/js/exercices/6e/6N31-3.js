@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { cos } from '../../modules/fonctionsMaths.js'
 
 export const amcReady = true
 export const amcType = 2 // type de question AMC
@@ -63,7 +64,6 @@ export default function ArrondirUneValeur () {
         ce = randint(0, 1)
         de = randint(0, 1)
         n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
-        v = u + calcul(di * 0.1 + ci * 0.01)
         nb = texNombre(n)
       } else if (this.sup === 2) {
         den = choice([7, 9, 11, 13])
@@ -80,22 +80,29 @@ export default function ArrondirUneValeur () {
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
-      } 
-      /********************************************************************** */
-/********************************************************************** */
-      //********************************** Je m'emmèle les pinceaux entre les trucs à mettre en fonction math ou ceux à faire précéder de "calcul" et/ ou etc.
-      else if (this.sup === 4) {
+      } else if (this.sup === 4) {
+        v = randint(11, 99) / 10
         angle = randint(1, 89, 60)
+        if (choice([true, false])) {
         n = v * cos(angle)
-        nb = `${v} times ${cos(angle)}`
+        nb = `${texNombre(v)}\\cos(${angle})`
         di = 10 * (troncature(n - troncature(n, 0), 1))
         ci = 100 * (troncature(n - troncature(n, 1), 2))
         mi = 1000 * (troncature(n - troncature(n, 2), 3))
+        } else {
+        n = v / cos(angle)
+        nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+        di = 10 * (troncature(n - troncature(n, 0), 1))
+        ci = 100 * (troncature(n - troncature(n, 1), 2))
+        mi = 1000 * (troncature(n - troncature(n, 2), 3))
+        }
       }
 
       if (this.sup === 1) texte = `$${nb}$`
       else if (this.sup === 2) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$`
       else if (this.sup === 3) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+      else if (this.sup === 4) texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$`
+
 
       texteCorr = "Encadrement et arrondi à l'unité : "
       if (di < 5) {
