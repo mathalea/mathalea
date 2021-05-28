@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, choice, texNombrec, texNombre, calcul
 export const titre = 'Diviser un entier par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = ' '
+
 export const amcType = 4
 /**
  * Division d'un entier par 10, 100, 1000

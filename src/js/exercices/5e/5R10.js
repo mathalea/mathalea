@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombrec
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const interactifReady = true
-export const interactifType = ' '
+
 export const amcReady = true
 export const amcType = 4
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'

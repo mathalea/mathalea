@@ -6,7 +6,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 2 // type de question AMC
 export const interactifReady = true
-export const interactifType = ' '
+
 export const titre = 'Arrondir une valeur'
 
 /**
@@ -24,8 +24,9 @@ export default function ArrondirUneValeur () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
-  this.interactifReady = true
+  this.interactifReady = interactifReady
   this.interactif = true
+  this.amcReady = amcReady
   this.amcType = amcType
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 

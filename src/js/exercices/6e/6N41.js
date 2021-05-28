@@ -6,7 +6,7 @@ export const titre = 'Égalités entre fractions simples'
 export const amcReady = true
 export const amcType =1 // QCM 
 export const interactifReady = true
-export const interactifType = ' '
+
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
