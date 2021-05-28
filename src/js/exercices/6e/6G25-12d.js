@@ -221,6 +221,7 @@ export default function betaExoPavage6e () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autocorrection = []
     const objetsEnonce = []
     let paramsEnonce = {}
     let texte = ''
@@ -303,8 +304,8 @@ export default function betaExoPavage6e () {
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < 3; i++) {
-      texte = `<br>${numAlpha(i)} ${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
-      texteCorr = `<br>${numAlpha(i)} ${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
+      texte = `<br>${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ ?', couleurs[i])}`
+      texteCorr = `<br>${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe $" + d[i].nom + '$ est la figure ' + question[i].image + '.', couleurs[i])}`
       this.autoCorrection[i] = {
         enonce: texte,
         propositions: [{
@@ -334,13 +335,13 @@ export default function betaExoPavage6e () {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
-    this.listeCorrections.push('<br>' + mathalea2d(paramsEnonce, objetsEnonce))
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    this.contenuCorrection += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
     if (context.isHtml) {
       for (let i = 0; i < 3; i++) {
-        this.listeCorrections.push(`<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}-${i}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la symétrie par rapport à ${d[i].nom}</button>`)
+        this.contenuCorrection +=`<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}-${i}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la symétrie par rapport à ${d[i].nom}</button>`
       }
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
 }
