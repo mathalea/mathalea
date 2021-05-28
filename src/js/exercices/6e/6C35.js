@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { choice, randint, objet, jour, listeQuestionsToContenu, combinaisonListes, prenomF, prenomM, objetF, objetM } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
 
@@ -8,7 +9,7 @@ export const titre = 'Modéliser des problèmes'
 
 /**
  * Associer huit problèmes à huit types de modélisation différents
- * @Auteur Mireille Gain, 24 avril 2021
+ * @author Mireille Gain, 24 avril 2021
  * Référence 6C35
 */
 export default function ModelisationProblemes () {
@@ -29,8 +30,8 @@ export default function ModelisationProblemes () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    const type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8]
-    const listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)

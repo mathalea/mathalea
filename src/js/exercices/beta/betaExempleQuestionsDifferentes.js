@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Exercice exemple avec un nombre fixe de questions différentes'
 
 /**
  * Description didactique de l'exercice
- * @Auteur
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

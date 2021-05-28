@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombrec } from '../../modules/outils.js';
 export const titre = 'Probabilités simples'
 
 /**
  * Description didactique de l'exercice
- * @Auteur Rémi Angot et Matthieu Devillers
+ * @author Rémi Angot et Matthieu Devillers
  * Référence 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
@@ -14,7 +15,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestionsModifiable = false;
   this.nbCols = 2; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  //this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = ""; // Id YouTube ou url
 

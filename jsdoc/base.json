@@ -1,0 +1,37 @@
+{
+  "comment"  : "cf http://usejsdoc.org/about-configuring-jsdoc.html",
+  "tags"     : {
+    "allowUnknownTags": true
+  },
+  "source"   : {
+    "include": [
+      "./src/js/modules/outils.js",
+      "./src/js/modules/fractions.js",
+      "./src/js/modules/Fraction.js",
+      "./src/js/modules/ListeFraction.js",
+      "./src/demarrage.md"
+    ]
+  },
+  "plugins"  : ["plugins/markdown"],
+  "markdown" : {
+    "idInHeadings": true
+  },
+  "opts"     : {
+    "destination": "./documentation",
+    "recurse"    : true,
+    "private"    : false,
+    "template": "node_modules/docdash",
+    "tutorials": "./jsdoc/tutorials"
+  },
+  "docdash": {
+    "comment": "Cf https://github.com/clenemt/docdash (options)",
+    "static": true,
+    "sort": true,
+    "search": true,
+    "collapse": true,
+    "commonNav": true
+  },
+  "templates": {
+    "cleverLinks": true
+  }
+}

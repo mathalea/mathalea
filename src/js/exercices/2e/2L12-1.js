@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texFraction,texte_en_couleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,reduireAxPlusB,texFraction,texteEnCouleur, ecritureAlgebrique,texFractionSigne} from '../../modules/outils.js'
 
 export const titre = 'Résoudre des équations carrées.'
 
 /**
  * Résoudre des équations produit-nul
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2L11-1
 */
 export default function Factoriser_Identites_remarquables2() {
@@ -24,25 +25,25 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+             let typesDeQuestionsDisponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1]; //x²-a²=0
+            typesDeQuestionsDisponibles = [1]; //x²-a²=0
         }
         if (this.sup == 2) {
-            type_de_questions_disponibles = [2]; //x²-b=0
+            typesDeQuestionsDisponibles = [2]; //x²-b=0
         }
         if (this.sup == 3) {
-            type_de_questions_disponibles = [3,4,5,6,7]; //x²-b=0
+            typesDeQuestionsDisponibles = [3,4,5,6,7]; //x²-b=0
         }
         if (this.sup == 4) {
-            type_de_questions_disponibles = [1,2,3,4,5,6,7]; //x²-b=0
+            typesDeQuestionsDisponibles = [1,2,3,4,5,6,7]; //x²-b=0
         }
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             a = randint(1, 9);
             b = randint(2, 19, [4, 8, 9, 12, 16]);               
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                         texte = `$x^{2}-${a*a}=0$`; // x²-a²=0
                         texteCorr = `$x^{2}-${a*a}=0$<br>`; 
@@ -52,7 +53,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${a*a}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$`; 
                         texteCorr += `$\\iff (x-${a})(x+${a})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
                         texteCorr += `$\\iff x=${a}\\quad$ ou bien $\\quad x=-${a}$<br>`
                         texteCorr += `$\\iff S=\\{-${a};${a})$<br>`
@@ -67,7 +68,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${b}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-(\\sqrt{${b}})^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-\\sqrt{${b}}=0\\quad$ ou bien $\\quad x+\\sqrt{${b}}=0$<br>`
                         texteCorr += `$\\iff x=\\sqrt{${b}}\\quad$ ou bien $\\quad x=-\\sqrt{${b}}$<br>`
                         texteCorr += `$\\iff S=\\{-\\sqrt{${b}}\\quad ;\\sqrt{${b}})$<br>`
@@ -103,7 +104,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\iff x^{2}-${a*a}=0$<br>`; 
                         texteCorr += `$\\iff x^{2}-${a}^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-${a})(x+${a})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
                         texteCorr += `$\\iff x=${a}\\quad$ ou bien $\\quad x=-${a}$<br>`
                         texteCorr += `$\\iff S=\\{-${a};${a})$<br>`
@@ -134,13 +135,13 @@ export default function Factoriser_Identites_remarquables2() {
                         texteCorr += `$\\phantom{\\iff}x^{2}-${b}=0$<br>`; 
                         texteCorr += `$\\phantom{\\iff}x^{2}-(\\sqrt{${b}})^{2}=0$<br>`; 
                         texteCorr += `$\\iff (x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$<br>`
-                        texteCorr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
+                        texteCorr += `${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texteCorr += `$\\iff x-\\sqrt{${b}}=0\\quad$ ou bien $\\quad x+\\sqrt{${b}}=0$<br>`
                         texteCorr += `$\\iff x=\\sqrt{${b}}\\quad$ ou bien $\\quad x=-\\sqrt{${b}}$<br>`
                         texteCorr += `$\\iff S=\\{-\\sqrt{${b}}\\quad ;\\sqrt{${b}})$<br>`
                         break;        
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

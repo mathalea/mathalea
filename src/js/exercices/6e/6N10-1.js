@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombre} from '../../modules/outils.js'
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 
@@ -6,7 +7,7 @@ export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de 
  * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
  *
  * 2 fois sur 5 il y a chevauchement entre les classes
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N10-1
  */
 export default function Exercice_numeration_entier() {
@@ -54,7 +55,7 @@ export default function Exercice_numeration_entier() {
           b * Math.pow(10, rang_b) + a * Math.pow(10, rang_a)
         )}$`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

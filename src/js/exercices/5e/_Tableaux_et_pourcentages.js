@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,texNombrec,texNombre,miseEnEvidence,tex_prix,tableauColonneLigne} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,texNombrec,texNombre,miseEnEvidence,texPrix,tableauColonneLigne} from '../../modules/outils.js'
 
 
 /**
@@ -35,51 +36,51 @@ export default function Tableaux_et_pourcentages() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.nbQuestionsModifiable = false;
-	// sortieHtml? this.spacing = 3 : this.spacing = 2; 
-	// sortieHtml? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+	// context.isHtml? this.spacing = 3 : this.spacing = 2; 
+	// context.isHtml? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 	this.correctionDetailleeDisponible = true;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		if (this.debug) {
 			if (this.sup2 == 1) {
-				type_de_questions_disponibles = [0];
+				typesDeQuestionsDisponibles = [0];
 			};
 			if (this.sup2 == 2) {
-				type_de_questions_disponibles = [1];
+				typesDeQuestionsDisponibles = [1];
 			};
 			if (this.sup2 == 3) {
-				type_de_questions_disponibles = [2];
+				typesDeQuestionsDisponibles = [2];
 			};
 			if (this.sup2 == 4) {
-				type_de_questions_disponibles = [3];
+				typesDeQuestionsDisponibles = [3];
 			};
 			if (this.sup3) {
-				type_de_questions_disponibles = [4];
+				typesDeQuestionsDisponibles = [4];
 			};
 		} else {
 			if (this.sup2 == 1) {
-				type_de_questions_disponibles = [0];
+				typesDeQuestionsDisponibles = [0];
 			};
 			if (this.sup2 == 2) {
-				type_de_questions_disponibles = [1];
+				typesDeQuestionsDisponibles = [1];
 			};
 			if (this.sup2 == 3) {
-				type_de_questions_disponibles = [2];
+				typesDeQuestionsDisponibles = [2];
 			};
 			if (this.sup2 == 4) {
-				type_de_questions_disponibles = [3];
+				typesDeQuestionsDisponibles = [3];
 			};
 			if (this.sup3) {
-				type_de_questions_disponibles = [4];
+				typesDeQuestionsDisponibles = [4];
 			};
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées		
 
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			// une fonction pour les textes de correction
@@ -95,29 +96,29 @@ export default function Tableaux_et_pourcentages() {
 					case 'pourcentage':
 						sortie = `-- L'énoncé indique le montant pour une remise de $${remise_init.str}$ du prix initial or $${texNombre(remise.nb / remise_init.nb)} \\times ${remise_init.str} = ${remise.str}$.<br>
 						Donc pour une remise de $${remise.str}$ du prix initial, le montant de la remise sera $${texNombre(remise.nb / remise_init.nb)}$ fois celui de la remise de $${remise_init.str}$ du prix initial,<br>
-						d'où le calul pour le montant de la remise : $${miseEnEvidence(`${tex_prix(prix * remise_init.nb / 100)} \\times ${texNombre(remise.nb / remise_init.nb)} = ${tex_prix(prix * remise.nb / 100)}`)}$.<br>
-						Et celui pour le nouveau prix : $${miseEnEvidence(`${tex_prix(prix)}-${tex_prix(prix * remise.nb / 100)} = ${tex_prix(prix - prix * remise.nb / 100)}`)}$.<br><br>
+						d'où le calul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remise_init.nb / 100)} \\times ${texNombre(remise.nb / remise_init.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+						Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 						Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-						$${miseEnEvidence(`${tex_prix(prix)} \\times (100\\% - ${remise.str}) = ${tex_prix(prix)} \\times ${100 - remise.nb}\\% = ${tex_prix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${tex_prix(prix * calcul(1 - remise.nb / 100))}`)}$
+						$${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
 						`;
 						break;
 					case 'remise':
-						sortie = `-- L'énoncé indique $${tex_prix(prix * remise.nb / 100)}$ € de remise pour un montant de $${tex_prix(prix)}$ €<br>
-						d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${tex_prix(prix * remise.nb / 100)} \\div ${tex_prix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.<br>
-						Et celui pour le nouveau prix : $${miseEnEvidence(`${tex_prix(prix)}-${tex_prix(prix * remise.nb / 100)} = ${tex_prix(prix - prix * remise.nb / 100)}`)}$.`;
+						sortie = `-- L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €<br>
+						d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.<br>
+						Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.`;
 
 						break;
 					case 'nouveau_prix':
-						sortie = `-- L'énoncé indique un nouveau prix de $${tex_prix(prix - prix * remise.nb / 100)}$ € pour un montant de $${tex_prix(prix)}$ €<br>
-						d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${tex_prix(prix)} - ${tex_prix(prix - prix * remise.nb / 100)} = ${tex_prix(prix * remise.nb / 100)}`)}$.<br>
-						Et celui pour le pourcentage de remise : $${miseEnEvidence(`${tex_prix(prix * remise.nb / 100)} \\div ${tex_prix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.`;
+						sortie = `-- L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €<br>
+						d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)} - ${texPrix(prix - prix * remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+						Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.`;
 						break;
 					case 'pourcentage_constant':
-						sortie = `-- L'énoncé indique un prix de $${tex_prix(prix)}$ € et une remise de $${remise.str}$ du prix initial<br>
-						d'où le calul pour le montant de la remise : $${miseEnEvidence(`${tex_prix(prix)} \\times ${remise.str} = ${tex_prix(prix)} \\times ${texNombre(remise.nb / 100)} = ${tex_prix(prix * remise.nb / 100)}`)}$.<br>
-						Et celui pour le nouveau prix : $${miseEnEvidence(`${tex_prix(prix)}-${tex_prix(prix * remise.nb / 100)} = ${tex_prix(prix - prix * remise.nb / 100)}`)}$.<br><br>
+						sortie = `-- L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial<br>
+						d'où le calul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+						Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 						Mais on peut aussi calculer directement le prix réduit en faisant :<br>
-						$${miseEnEvidence(`${tex_prix(prix)} \\times (100\\% - ${remise.str}) = ${tex_prix(prix)} \\times ${100 - remise.nb}\\% = ${tex_prix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${tex_prix(prix * calcul(1 - remise.nb / 100))}`)}$
+						$${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
 						`;
 						break;
 				};
@@ -208,51 +209,51 @@ export default function Tableaux_et_pourcentages() {
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{
-					tableau: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str,
-						tex_prix(prix[0] * remises[0].nb / 100), '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '',
+						texPrix(prix[0] * remises[0].nb / 100), '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '',
 					]),
-					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str,
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] * remises[1].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] - prix[1] * remises[1].nb / 100)}`),
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] * remises[1].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] - prix[1] * remises[1].nb / 100)}`),
 					]),
 				},
 				{
-					tableau: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str,
-						tex_prix(prix[0] * remises[0].nb / 100), '', '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', '',
+						texPrix(prix[0] * remises[0].nb / 100), '', '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', '',
 					]),
-					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str,
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] * remises[2].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] - prix[2] * remises[2].nb / 100)}`),
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] * remises[2].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] - prix[2] * remises[2].nb / 100)}`),
 					]),
 				},
 				{
-					tableau: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2]), tex_prix(prix[3])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2]), texPrix(prix[3])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str, remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), '', '', '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', '', '',
+						texPrix(prix[0] * remises[0].nb / 100), '', '', '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', '', '',
 					]),
-					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2]), tex_prix(prix[3])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2]), texPrix(prix[3])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str, remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[3] * remises[3].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] - prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[3] - prix[3] * remises[3].nb / 100)}`),
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[3] * remises[3].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] - prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[3] - prix[3] * remises[3].nb / 100)}`),
 					]),
 				},
 				{
-					tableau: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2]), tex_prix(prix[3]), tex_prix(prix[4])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2]), texPrix(prix[3]), texPrix(prix[4])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str, remises[3].str, remises[4].str,
-						tex_prix(prix[0] * remises[0].nb / 100), '', '', '', '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', '', '', '',
+						texPrix(prix[0] * remises[0].nb / 100), '', '', '', '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', '', '', '',
 					]),
-					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[1]), tex_prix(prix[2]), tex_prix(prix[3]), tex_prix(prix[4])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
+					tableau_corr: tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[1]), texPrix(prix[2]), texPrix(prix[3]), texPrix(prix[4])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`], [
 						remises[0].str, remises[1].str, remises[2].str, remises[3].str, remises[4].str,
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[3] * remises[3].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[4] * remises[4].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[2] - prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[3] - prix[3] * remises[3].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[4] - prix[4] * remises[4].nb / 100)}`),
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[3] * remises[3].nb / 100)}`), miseEnEvidence(`${texPrix(prix[4] * remises[4].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[1] - prix[1] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[2] - prix[2] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[3] - prix[3] * remises[3].nb / 100)}`), miseEnEvidence(`${texPrix(prix[4] - prix[4] * remises[4].nb / 100)}`),
 					]),
 				},
 				{
@@ -266,64 +267,64 @@ export default function Tableaux_et_pourcentages() {
 				let interieur_tableau_tableau_corr = choice([
 					{
 						tableau_case_4: [remises[0].str, remises[1].str, '', '',
-						tex_prix(prix[0] * remises[0].nb / 100), '', `${tex_prix(prix[0] * remises[2].nb / 100)}`, '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', '', `${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`],
+						texPrix(prix[0] * remises[0].nb / 100), '', `${texPrix(prix[0] * remises[2].nb / 100)}`, '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', '', `${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`],
 						tableau_case_4_corr: [remises[0].str, remises[1].str, miseEnEvidence(remises[2].str), miseEnEvidence(remises[3].str),
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] * remises[1].nb / 100)}`), `${tex_prix(prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] * remises[3].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`), `${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`],
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] * remises[1].nb / 100)}`), `${texPrix(prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] * remises[3].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`), `${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`],
 						corrections: `${justifCorrType('pourcentage', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('remise', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('nouveau_prix', remises[0], remises[3], prix[0])}`
 					},
 					{
 						tableau_case_4: [remises[0].str, remises[1].str, '', '',
-						tex_prix(prix[0] * remises[0].nb / 100), '', '', `${tex_prix(prix[0] * remises[3].nb / 100)}`,
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', `${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`, ''],
+						texPrix(prix[0] * remises[0].nb / 100), '', '', `${texPrix(prix[0] * remises[3].nb / 100)}`,
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', `${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`, ''],
 						tableau_case_4_corr: [remises[0].str, remises[1].str, miseEnEvidence(remises[2].str), miseEnEvidence(remises[3].str),
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] * remises[2].nb / 100)}`), `${tex_prix(prix[0] * remises[3].nb / 100)}`,
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`), `${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] * remises[2].nb / 100)}`), `${texPrix(prix[0] * remises[3].nb / 100)}`,
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`), `${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
 						corrections: `${justifCorrType('pourcentage', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('nouveau_prix', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('remise', remises[0], remises[3], prix[0])}`
 					},
 					{
 						tableau_case_4: [remises[0].str, '', remises[2].str, '',
-						tex_prix(prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] * remises[1].nb / 100)}`, '', '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', '', `${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`],
+						texPrix(prix[0] * remises[0].nb / 100), `${texPrix(prix[0] * remises[1].nb / 100)}`, '', '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', '', `${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`],
 						tableau_case_4_corr: [remises[0].str, miseEnEvidence(remises[1].str), remises[2].str, miseEnEvidence(remises[3].str),
-						tex_prix(prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] * remises[3].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`), `${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`],
+						texPrix(prix[0] * remises[0].nb / 100), `${texPrix(prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] * remises[3].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`), `${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`],
 						corrections: `${justifCorrType('remise', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('pourcentage', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('nouveau_prix', remises[0], remises[3], prix[0])}`
 					},
 					{
 						tableau_case_4: [remises[0].str, '', '', remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] * remises[1].nb / 100)}`, '', '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), '', `${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`, ''],
+						texPrix(prix[0] * remises[0].nb / 100), `${texPrix(prix[0] * remises[1].nb / 100)}`, '', '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), '', `${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`, ''],
 						tableau_case_4_corr: [remises[0].str, miseEnEvidence(remises[1].str), miseEnEvidence(remises[2].str), remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] * remises[3].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`), `${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
+						texPrix(prix[0] * remises[0].nb / 100), `${texPrix(prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] * remises[3].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`), `${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
 						corrections: `${justifCorrType('remise', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('nouveau_prix', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('pourcentage', remises[0], remises[3], prix[0])}`
 					},
 					{
 						tableau_case_4: [remises[0].str, '', remises[2].str, '',
-						tex_prix(prix[0] * remises[0].nb / 100), '', '', `${tex_prix(prix[0] * remises[3].nb / 100)}`,
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`, '', ''],
+						texPrix(prix[0] * remises[0].nb / 100), '', '', `${texPrix(prix[0] * remises[3].nb / 100)}`,
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), `${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`, '', ''],
 						tableau_case_4_corr: [remises[0].str, miseEnEvidence(remises[1].str), remises[2].str, miseEnEvidence(remises[3].str),
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] * remises[2].nb / 100)}`), `${tex_prix(prix[0] * remises[3].nb / 100)}`,
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] * remises[1].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] * remises[2].nb / 100)}`), `${texPrix(prix[0] * remises[3].nb / 100)}`,
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), `${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
 						corrections: `${justifCorrType('nouveau_prix', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('pourcentage', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('remise', remises[0], remises[3], prix[0])}`
 					},
 					{
 						tableau_case_4: [remises[0].str, '', '', remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), '', `${tex_prix(prix[0] * remises[2].nb / 100)}`, '',
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`, '', ''],
+						texPrix(prix[0] * remises[0].nb / 100), '', `${texPrix(prix[0] * remises[2].nb / 100)}`, '',
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), `${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`, '', ''],
 						tableau_case_4_corr: [remises[0].str, miseEnEvidence(remises[1].str), miseEnEvidence(remises[2].str), remises[3].str,
-						tex_prix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${tex_prix(prix[0] * remises[1].nb / 100)}`), `${tex_prix(prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] * remises[3].nb / 100)}`),
-						tex_prix(prix[0] - prix[0] * remises[0].nb / 100), `${tex_prix(prix[0] - prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${tex_prix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
+						texPrix(prix[0] * remises[0].nb / 100), miseEnEvidence(`${texPrix(prix[0] * remises[1].nb / 100)}`), `${texPrix(prix[0] * remises[2].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] * remises[3].nb / 100)}`),
+						texPrix(prix[0] - prix[0] * remises[0].nb / 100), `${texPrix(prix[0] - prix[0] * remises[1].nb / 100)}`, miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[2].nb / 100)}`), miseEnEvidence(`${texPrix(prix[0] - prix[0] * remises[3].nb / 100)}`)],
 						corrections: `${justifCorrType('nouveau_prix', remises[0], remises[1], prix[0])}<br><br>${justifCorrType('remise', remises[0], remises[2], prix[0])}<br><br>${justifCorrType('pourcentage', remises[0], remises[3], prix[0])}`
 					}
 				]);
 
-				let tableau_case_4 = tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[0]), tex_prix(prix[0]), tex_prix(prix[0])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`],
+				let tableau_case_4 = tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[0]), texPrix(prix[0]), texPrix(prix[0])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`],
 					interieur_tableau_tableau_corr.tableau_case_4
 				);
-				let tableau_case_4_corr = tableauColonneLigne([`\\text{Prix en €}`, tex_prix(prix[0]), tex_prix(prix[0]), tex_prix(prix[0]), tex_prix(prix[0])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`],
+				let tableau_case_4_corr = tableauColonneLigne([`\\text{Prix en €}`, texPrix(prix[0]), texPrix(prix[0]), texPrix(prix[0]), texPrix(prix[0])], [`\\text{Remise en pourcentage}`, `\\text{Montant de la remise en €}`, `\\text{Nouveau prix en €}`],
 					interieur_tableau_tableau_corr.tableau_case_4_corr
 				);
 				if (this.correctionDetaillee) {
@@ -432,7 +433,7 @@ export default function Tableaux_et_pourcentages() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

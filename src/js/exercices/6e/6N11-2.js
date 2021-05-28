@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, lettreDepuisChiffre, htmlConsigne, stringNombre } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -6,7 +7,7 @@ export const titre = 'Placer un point d’abscisse entière (grands nombres)'
 
 /**
  * Placer un point d'abscisse entière
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N11-2
  */
 export default function Placer_un_point_abscisse_entiere () {
@@ -26,13 +27,13 @@ export default function Placer_un_point_abscisse_entiere () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      type_de_questions = combinaisonListes(
+    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
@@ -62,7 +63,7 @@ export default function Placer_un_point_abscisse_entiere () {
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
 
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1: // Placer des entiers sur un axe (milliers)
           abs0 = randint(1, 9) * 1000
           pas1 = 0.001
@@ -89,17 +90,17 @@ export default function Placer_un_point_abscisse_entiere () {
       x33 = randint(1, 3)
       abs1 = arrondi(
         abs0 + x1 / pas1 + x11 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       ) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(
         abs0 + x2 / pas1 + x22 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       )
       abs3 = arrondi(
         abs0 + x3 / pas1 + x33 / pas1 / pas2,
-        type_de_questions[i]
+        typesDeQuestions[i]
       )
-      if (sortieHtml) {
+      if (context.isHtml) {
         texteCorr = ''
         this.contenu += `<h3> Placer les points : ${l1}(${stringNombre(
           abs1
@@ -181,7 +182,7 @@ export default function Placer_un_point_abscisse_entiere () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

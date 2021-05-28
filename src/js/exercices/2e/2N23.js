@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 import {point,labelPoint,segment,segmentAvecExtremites,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
@@ -7,7 +8,7 @@ export const titre = 'Résoudre une équation avec des valeurs absolues'
 
 /**
  * 2N23
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function valeur_absolue_et_equation() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -18,16 +19,16 @@ export default function valeur_absolue_et_equation() {
     this.nbColsCorr = 2;
     this.sup = 1; // 
     this.correction_detaille_disponible = true;
-    sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
 
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1, 2, 2, 2, 2, 2],type_de_questions
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2],typesDeQuestions
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
         for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
-            switch (type_de_questions) {
+            typesDeQuestions = listeTypeDeQuestions[i];
+            switch (typesDeQuestions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
                 case 1:
@@ -84,7 +85,7 @@ export default function valeur_absolue_et_equation() {
             }
 
 
-            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
                 i++;

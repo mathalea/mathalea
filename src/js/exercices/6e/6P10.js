@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,range,combinaisonListes,arrondi,calcul,texNombrec,prenomF,prenomM,texNombre,miseEnEvidence,tex_prix} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,range,combinaisonListes,arrondi,calcul,texNombrec,prenomF,prenomM,texNombre,miseEnEvidence,texPrix} from '../../modules/outils.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence 6P10
  */
 export default function Proportionnalite_pas_proportionnalite() {
@@ -12,8 +13,8 @@ export default function Proportionnalite_pas_proportionnalite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = titre;
   this.consigne = "Répondre aux questions posées en justifiant";
-  sortieHtml ? this.spacing = 2 : this.spacing = 1.4;
-  sortieHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1;
+  context.isHtml ? this.spacing = 2 : this.spacing = 1.4;
+  context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1;
   this.nbQuestions = 5;
   this.nbColsCorr = 1;
   this.nbCols = 1;
@@ -32,7 +33,7 @@ export default function Proportionnalite_pas_proportionnalite() {
     let liste_choix_disponibles
     if (this.sup) liste_choix_disponibles = [1, 2, 3, 4, 5];
     else liste_choix_disponibles=[1, 2, 3, 4, 5, 6];
-    let liste_choix = combinaisonListes(
+    let listeChoix = combinaisonListes(
       liste_choix_disponibles,
       this.nbQuestions
     );
@@ -130,7 +131,7 @@ export default function Proportionnalite_pas_proportionnalite() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (liste_choix[i]) {
+      switch (listeChoix[i]) {
         case 1:
           index1 = liste_index[i];
           prenoms = [prenomF(), prenomM()];
@@ -144,26 +145,26 @@ export default function Proportionnalite_pas_proportionnalite() {
           p = y * randint(2, 5);
           z = calcul(p * pu, 2);
           texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-          texte += `Elle  repart avec ${y} ${objet} pour $${tex_prix(
+          texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(
             somme
           )}$€. ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${tex_prix(
+            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
           texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            tex_prix(somme),
+            texPrix(somme),
             "blue"
           )}$€.<br>`;
           texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
             texNombre(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
             } pour $${miseEnEvidence(
-              tex_prix(somme),
+              texPrix(somme),
               "blue"
-            )}$€.<br>Il a payé $${tex_prix(z)}$€ $=${miseEnEvidence(
+            )}$€.<br>Il a payé $${texPrix(z)}$€ $=${miseEnEvidence(
               texNombrec(p / y)
-            )}\\times${miseEnEvidence(tex_prix(somme), "blue")}$€.<br>`;
+            )}\\times${miseEnEvidence(texPrix(somme), "blue")}$€.<br>`;
           texteCorr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
           break;
         case 2:
@@ -180,24 +181,24 @@ export default function Proportionnalite_pas_proportionnalite() {
           p = y * randint(2, 5);
           z = calcul(p * pu, 2);
           texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-          texte += `Elle a obtenu ${y} ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]
-            } achète quant à lui, au même endroit ${p} ${objet} pour $${tex_prix(
+          texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€. ${prenoms[1]
+            } achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(
               z
             )}$€.<br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
           texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(
-            tex_prix(somme),
+            texPrix(somme),
             "blue"
           )}$€.<br>`;
           texteCorr = `${prenoms[1]} a acheté  $${miseEnEvidence(
             texNombrec(p / y)
           )}$ fois la quantité des ${objet} achetée par ${prenoms[0]
             } pour $${miseEnEvidence(
-              tex_prix(somme),
+              texPrix(somme),
               "blue"
-            )}$€.<br>Il a payé $${tex_prix(z)}$€.<br>Mais $${miseEnEvidence(
+            )}$€.<br>Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(
               texNombrec(p / y)
-            )}\\times${miseEnEvidence(tex_prix(somme), "blue")}$€ $=${tex_prix(
+            )}\\times${miseEnEvidence(texPrix(somme), "blue")}$€ $=${texPrix(
               calcul((p * somme) / y)
             )}$€.<br>`;
           texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
@@ -277,7 +278,7 @@ export default function Proportionnalite_pas_proportionnalite() {
           for (let j = 0; j < tirages.length; j++) texte += `&${tirages[j][0]}`;
           texte += `\\\\\\hline \\text{Prix (en €})`;
           for (let j = 0; j < tirages.length; j++)
-            texte += `&${tex_prix(arrondi(tirages[j][1], 2))}`;
+            texte += `&${texPrix(arrondi(tirages[j][1], 2))}`;
           texte += `\\\\\\hline\\end{array}$<br> <br>`;
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`;
           texteCorr = `Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`;
@@ -285,15 +286,15 @@ export default function Proportionnalite_pas_proportionnalite() {
           else index3 = range(3, [p]);
           texteCorr += `$`;
           for (let j = 0; j < index3.length; j++) {
-            texteCorr += `\\dfrac{${tex_prix(
+            texteCorr += `\\dfrac{${texPrix(
               arrondi(tirages[index3[j]][1], 2)
             )}}{${tirages[index3[j]][0]}}=`;
           }
-          texteCorr += `${tex_prix(pu)}$<br><br>`;
+          texteCorr += `${texPrix(pu)}$<br><br>`;
           if (!met) {
-            texteCorr += `Mais $\\dfrac{${tex_prix(
+            texteCorr += `Mais $\\dfrac{${texPrix(
               arrondi(tirages[p][1], 2)
-            )}}{${tirages[p][0]}}=${tex_prix(
+            )}}{${tirages[p][0]}}=${texPrix(
               arrondi(calcul(tirages[p][1] / tirages[p][0]), 2)
             )}$€/${objet.substring(0, objet.length - 1)}<br>`;
             texteCorr += `Le prix des ${objet} n'est pas proportionnel à leur nombre.<br>`;
@@ -302,7 +303,7 @@ export default function Proportionnalite_pas_proportionnalite() {
           }
           break;
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

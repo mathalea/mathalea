@@ -3,6 +3,7 @@
 import { calcul, texNombrec, texFractionSigne, stringNombre } from './outils.js'
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
+import { context } from './context.js'
 
 /**
  * Trace un axe vertical gradué
@@ -11,7 +12,7 @@ import { SVG } from '@svgdotjs/svg.js'
  * @param {number} end ordonnée de fin del'axe en pixels
  * @param {number} absO position en abscisse de l'axe en pixels
  * @param {number} DeltaY Nombre entier de graduations à faire sur la longueur de l'axe.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function SVG_Axe_vertical (mon_svg, start, end, absO, DeltaY, subY) {
   const droite = mon_svg.line(absO, start + 2, absO, end)
@@ -34,7 +35,7 @@ export function SVG_Axe_vertical (mon_svg, start, end, absO, DeltaY, subY) {
    * @param {number} end abscisse de fin del'axe en pixels
    * @param {number} absO position en ordonnée de l'axe en pixels
    * @param {number} DeltaX Nombre entier de graduations à faire sur la longueur de l'axe.
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
 export function SVG_Axe_horizontal (mon_svg, start, end, ordO, DeltaX, subX) {
   const droite = mon_svg.line(start, ordO, end - 2, ordO)
@@ -62,7 +63,7 @@ export function SVG_Axe_horizontal (mon_svg, start, end, ordO, DeltaX, subX) {
    * @param {number} DeltaY nombre de graduations verticales
    * @param {number} subX coefficient de fractionnement de la grille en abscisse
    * @param {number} subY coefficient de fractionnement de la grille en ordonéée
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
 export function SVG_grille (mon_svg, absO, ordO, tailleX, tailleY, DeltaX, DeltaY, subX, subY) {
   let line_grille
@@ -101,7 +102,7 @@ export function SVG_grille (mon_svg, absO, ordO, tailleX, tailleY, DeltaX, Delta
   * @param y ordonnée de la droite
   * @param couleur couleur de la graduation
   * @param width largeur de la graduation
-  * @Auteur Rémi Angot
+  * @author Rémi Angot
   */
 export function SVG_graduation (mon_svg, origine, pas, derniere_graduation, taille = 10, y = 50, couleur = 'black', width = 5) {
   for (let i = origine; i < derniere_graduation; i += pas) {
@@ -116,7 +117,7 @@ export function SVG_graduation (mon_svg, origine, pas, derniere_graduation, tail
    * @param {number} y leading pour position du texte sur la ligne
    * @param {string} couleur couleur du nombre
    * @param {number} opacite valeur d'opacité entre 0 et 1
-   * @Auteur Rémi Angot
+   * @author Rémi Angot
    */
 export function SVG_label (mon_svg, liste_d_abscisses, y, couleur, opacite) {
   'use strict'
@@ -143,7 +144,7 @@ export function SVG_label (mon_svg, liste_d_abscisses, y, couleur, opacite) {
    * @param {number} x l'abscisse de sa position
    * @param {number} y l'ordonnée de sa position
    * @param {string} couleur la couleur de la fraction
-   * @Auteur Rémi Angot
+   * @author Rémi Angot
    */
 export function SVG_fraction (mon_svg, num, den, x, y, couleur) {
   'use strict'
@@ -178,7 +179,7 @@ export function SVG_fraction (mon_svg, num, den, x, y, couleur) {
    * @param {number} shiftxnom décallage en abscisse pour le nom du point
    * @param {number} shiftynom décallage en ordonnée pour le nom du point
    * @param {array} montrer_coord cas 1 : [false] rien n'est ajouté, cas 2 : [true, absAxeX, ordAxeY] trace des flèches jusqu'aux axes
-   * @Auteur Rémi Angot et Jean-Claude Lhote
+   * @author Rémi Angot et Jean-Claude Lhote
    */
 export function SVG_tracer_point (mon_svg, x, y, nom, couleur, shiftxnom, shiftynom, montrer_coord) {
   // creer un groupe pour la croix
@@ -211,7 +212,7 @@ export function SVG_tracer_point (mon_svg, x, y, nom, couleur, shiftxnom, shifty
    * @param {any} mon_svg l'identifiant du SVG
    * @param {number} x l'abscisse de la pointe
    * @param {number} y l'ordonnée de la pointe
-   * @Auteur Rémi Angot
+   * @author Rémi Angot
    */
 function SVG_tracer_flecheH (mon_svg, x, y) {
   // creer un groupe pour la fleche
@@ -226,7 +227,7 @@ function SVG_tracer_flecheH (mon_svg, x, y) {
    * @param {string} mon_svg l'identifiant du SVG
    * @param {number} x l'abscisse de la pointe de la flèche
    * @param {number} y l'ordonnée de la pointe de la flèche
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
 export function SVG_tracer_flecheV (mon_svg, x, y) {
   // creer un groupe pour la fleche
@@ -249,7 +250,7 @@ export function SVG_tracer_flecheV (mon_svg, x, y) {
    * @param {number} y2
    * @param {string} couleur couleur de la flèche
    * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
 export function SVG_tracer_droite_flecheV (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
   const fleche = mon_svg.group()
@@ -277,7 +278,7 @@ export function SVG_tracer_droite_flecheV (mon_svg, x1, y1, x2, y2, couleur, poi
    * @param {number} y2
    * @param {string} couleur couleur de la flèche
    * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
 export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, pointilles) {
   const fleche = mon_svg.group()
@@ -295,136 +296,6 @@ export function SVG_tracer_droite_flecheH (mon_svg, x1, y1, x2, y2, couleur, poi
     c3.stroke({ color: couleur, width: 1, linecap: 'round', opacity: 0.5 })
   }
 }
-/**
-   *
-   * @param {string} mon_svg l'identifiant du SVG
-   * @param {number} tailleX largeur en pixels du SVG
-   * @param {number} tailleY hauteur en pixels du SVG
-   * @param {number} Xmin l'abscisse minimale du repère
-   * @param {number} Xmax l'abscisse maximale du repère
-   * @param {number} Ymin l'ordonnée minimale du repère
-   * @param {number} Ymax l'ordonnée maximale du repère
-   * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
-   * @param {number} Pente la Pente de la droite à tracer.
-   * @param {string} couleur la couleur de la droite à tracer
-   * @param {string} nom le nom de la droite à tracer
-   * @Auteur Jean-Claude Lhote
-   */
-export function SVG_Tracer_droite (mon_svg, tailleX, tailleY, Xmin, Xmax, Ymin, Ymax, OrdX0, Pente, couleur, nom) {
-  'use strict'
-  let k = 0
-  const Pente_r = Pente * (Xmax - Xmin) / (Ymax - Ymin) // Pente adaptée au ratio d'échelle des axes.
-  while ((k > Xmin) & ((OrdX0 + Pente * k) < Ymax) & ((OrdX0 + Pente * k) > Ymin)) k--
-  const X1 = k
-  const Y1 = OrdX0 + Pente * k
-  const DeltaX = Xmax - Xmin
-  const DeltaY = Ymax - Ymin
-  const Dx = (tailleX - 20) / DeltaX
-  const Dy = (tailleY - 20) / DeltaY
-  const X0 = 20 + Dx * (X1 - Xmin)
-  const Y0 = tailleY - 20 - Dy * (Y1 - Ymin)
-  const droite = mon_svg.line(X0, Y0, X0 + tailleX, Y0 - tailleX * Pente_r)
-  droite.stroke({ color: couleur, width: 2, linecap: 'round' })
-  let Ynom
-  if (Y0 > tailleY / 2) Ynom = -Math.round(Pente)
-  else Ynom = -Math.round(Pente)
-  const text = mon_svg.text(nom).attr({ x: X0 + 20, y: Y0 - 20 * Pente_r })
-  // ecrit le nom
-  text.font({
-    fill: couleur,
-    family: 'Helvetica',
-    size: 15,
-    anchor: 'middle',
-    leading: Ynom
-  })
-}
-
-/**
-   *
-   * @param {number} Xmin l'abscisse minimum du repère
-   * @param {number} Xmax  l'abscisse maximum du repère
-   * @param {number} Ymin l'ordonnée minimum du repère
-   * @param {number} Ymax l'ordonnée maximum du repère
-   * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
-   * @param {number} Pente le coefficient directeur de la droite à tracer
-   * @param {string} couleur la couleur de la droite à tracer
-   * @param {string} nom le nom de la droite
-   * @returns {string} Le code Latex à intégrer dans un environnement {tikzpicture}
-   * @Auteur Jean-Claude Lhote et Rémi Angot
-   */
-export function Latex_Tracer_droite (Xmin, Xmax, Ymin, Ymax, OrdX0, Pente, couleur, nom) {
-  'use strict'
-  let k = 0
-  // let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
-  while ((k > Xmin) & ((OrdX0 + Pente * k) < Ymax) & ((OrdX0 + Pente * k) > Ymin)) k--
-  const X1 = k
-  const Y1 = OrdX0 + Pente * k
-  const DeltaX = Xmax - Xmin
-  // let DeltaY=Ymax-Ymin;
-  const X2 = X1 + DeltaX
-  const Y2 = Y1 + DeltaX * Pente
-  return `\n\t \\draw[color=${couleur},thick](${X1},${Y1})--(${X2},${Y2}) node[pos=.1,above] {$${nom}$};`
-}
-
-/**
-   *
-   * @param {string} mon_svg l'Identifiant du SVG
-   * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
-   * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
-   * @param {number} subX coefficient de fractionnement de l'unité en X
-   * @param {number} subY coefficient de fractionnement de l'unité en Y
-   * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
-   * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
-   * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
-   * @returns Les coordonnées des axes dans le SVG
-   * @Auteur Jean-Claude Lhote
-   */
-export function SVG_repere (mon_svg, Xmin, Xmax, Ymin, Ymax, subX, subY, tailleX, tailleY, grille) {
-  'use strict'
-  if (Xmin > 0) Xmin = 0
-  if (Ymin > 0) Ymin = 0
-  const DeltaX = Xmax - Xmin
-  const DeltaY = Ymax - Ymin
-  const Dx = (tailleX - 20) / DeltaX
-  const Dy = (tailleY - 20) / DeltaY
-  if (grille) SVG_grille(mon_svg, 20, 0, tailleX - 20, tailleY - 20, DeltaX, DeltaY, subX, subY)
-  SVG_Axe_horizontal(mon_svg, 20, tailleX, tailleY - 20 + Ymin * Dy, DeltaX, subX)
-  SVG_tracer_flecheH(mon_svg, tailleX - 2, tailleY - 20 + Ymin * Dy)
-  SVG_Axe_vertical(mon_svg, 0, tailleY - 20, 20 - Xmin * Dx, DeltaY, subY)
-  SVG_tracer_flecheV(mon_svg, 20 - Xmin * Dx, -3)
-  for (let i = 0; i < DeltaX; i++) {
-    if (i + Xmin == 0) SVG_label(mon_svg, [[stringNombre(i + Xmin), i * Dx + 15, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-    else SVG_label(mon_svg, [[stringNombre(i + Xmin), i * Dx + 20, tailleY + 2 + Ymin * Dy]], 0, 'black', 0.5)
-  }
-  for (let i = 0; i < DeltaY; i++) {
-    if (i + Ymin == 0) SVG_label(mon_svg, [[stringNombre(i + Ymin), 10 - Xmin * Dx, tailleY - 15 - i * Dy]], 0, 'black', 0.5)
-    else SVG_label(mon_svg, [[stringNombre(i + Ymin), 10 - Xmin * Dx, tailleY - 25 - i * Dy]], 1, 'black', 0.5)
-  }
-  return [20 - Xmin * Dx, tailleY - 20 + Ymin * Dy]
-}
-/**
-   * Trace un repère en Latex avec une grille
-   * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
-   * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
-   * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
-   * @param {number} subX coefficient de fractionnement de l'unité en X
-   * @param {number} subY coefficient de fractionnement de l'unité en Y
-   * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
-   * @returns {string} Renvoie le code Latex correspondant
-   * @Auteur Jean-Claude Lhote
-   */
-export function Latex_repere (Xmin, Xmax, Ymin, Ymax, subX, subY, grille) {
-  'use strict'
-  let result = ''
-  result += `\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`
-  if (grille) result += `\n\t \\tkzGrid[sub,subxstep=${1 / subX},subystep=${1 / subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`
-  result += '\n\t \\tkzAxeXY'
-  result += '\n\t \\tkzClip[space=1]'
-  return result
-}
 
 /**
   * Trace une graduation sur le SVG
@@ -435,7 +306,7 @@ export function Latex_repere (Xmin, Xmax, Ymin, Ymax, subX, subY, grille) {
   * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
   * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
   * @param fraction booléen : true pour fractions, false pour décimaux
-  * @Auteur Jean-Claude Lhote
+  * @author Jean-Claude Lhote
   */
 export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas2, points_inconnus, points_connus, fraction) {
   let arrondir = 1 + Math.round(Math.log10(pas1))
@@ -495,7 +366,7 @@ export function SVG_reperage_sur_un_axe (id_du_div, origine, longueur, pas1, pas
   * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
   * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
   * @param fraction booléen : true pour fraction, false pour décimaux
-  * @Auteur Jean-Claude Lhote
+  * @author Jean-Claude Lhote
   */
 export function Latex_reperage_sur_un_axe (zoom, origine, pas1, pas2, points_inconnus, points_connus, fraction) {
   'use strict'
@@ -551,7 +422,7 @@ export function Latex_reperage_sur_un_axe (zoom, origine, pas1, pas2, points_inc
  */
 export function SVG_engrenages (id_du_div, w, h) {
   'use strict'
-  if (sortieHtml) {
+  if (context.isHtml) {
     if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
     // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
     window.SVGExist[id_du_div] = setInterval(function () {
@@ -579,11 +450,11 @@ export function SVG_engrenages (id_du_div, w, h) {
  * @param {number} w largeur du div du svg
  * @param {numer} h hauteur du div du svg
  * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @param {string} xAnt antécédent de départ
+ * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
  * @author Sébastien Lozano
  */
-export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expressions) {
+export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -604,7 +475,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + x_ant + `</span>
+                                                  <span class="mord mathdefault">` + xAnt + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -625,7 +496,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
+                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -642,7 +513,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + etapes_expressions[0][1] + `</span>
+                                                  <span class="mord mathdefault">` + etapesExpressions[0][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -664,7 +535,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">+` + etapes_expressions[1][0] + `</span>
+                                                  <span class="mord mathdefault">+` + etapesExpressions[1][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -682,7 +553,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[1][1] + `</span>
+                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[1][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -703,7 +574,7 @@ export function SVG_machine_diag_3F12 (id_du_div, w, h, nom, x_ant, etapes_expre
 * @param {object} groupe groupe svg
 * @param {string} chemin path pour la ligne
 * @param {string} couleur couleur
-* @Auteur Sébastien Lozano
+* @author Sébastien Lozano
 */
 export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
   'use strict'
@@ -714,7 +585,7 @@ export function SVG_fleche_machine_maths (groupe, chemin, couleur) {
   * @param {object} groupe groupe
   * @param {string} chemin path
   * @param {string} couleur couleur
-  * @Auteur Sébastien Lozano
+  * @author Sébastien Lozano
   */
 export function SVG_chemin (groupe, chemin, couleur) {
   'use strict'
@@ -727,11 +598,11 @@ export function SVG_chemin (groupe, chemin, couleur) {
    * @param {number} w largeur du div du svg
    * @param {numer} h hauteur du div du svg
    * @param {string} nom nom de la fonction
-   * @param {string} x_ant antécédent de départ
-   * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
-   * @Auteur Sébastien Lozano
+   * @param {string} xAnt antécédent de départ
+   * @param {array} etapesExpressions tableau contenant les opérations et les expressions algébriques des étapes
+   * @author Sébastien Lozano
    */
-export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etapes_expressions) {
+export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   'use strict'
   const interligne = 10// w/80; //h/10; // unité d'espacement
   if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
@@ -752,7 +623,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">` + x_ant + `</span>
+                                                  <span class="mord mathdefault">` + xAnt + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -773,7 +644,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                       <span class="katex">
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
-                                                  <span class="mord mathdefault">×` + etapes_expressions[0][0] + `</span>
+                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -791,7 +662,7 @@ export function SVG_machine_diag_3F1_act_mono (id_du_div, w, h, nom, x_ant, etap
                                           <span class="katex-html" aria-hidden="true">
                                               <span class="base">
                                                   
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + x_ant + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapes_expressions[0][1] + `</span>
+                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[0][1] + `</span>
                                               </span>
                                           </span>
                                       </span>
@@ -841,13 +712,13 @@ export function my_svg_font (font, interligne, ancre, f_style, f_weight) {
    * @param {string} etape1 etape 1 du procédé de calcul
    * @param {string} etape2 etape 2 du procédé de calcul
    * @param {string} etape3 etape 3 du procédé de calcul
-   * @param {string} x_ligne1 antécédent ligne1
-   * @param {string} x_ligne2 antécédent ligne2
-   * @param {string} y_ligne1 image ligne1
-   * @param {string} y_ligne2 image ligne2
+   * @param {string} xLigne1 antécédent ligne1
+   * @param {string} xLigne2 antécédent ligne2
+   * @param {string} yLigne1 image ligne1
+   * @param {string} yLigne2 image ligne2
    * @author Sébastien Lozano
    */
-export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   'use strict'
   const interligne = 15 // pour un interligne uniforme
   const prop_font = my_svg_font('Helvetica', interligne, 'start', 'normal', 'normal')
@@ -879,15 +750,15 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
 
       // ------------PREPARATION DES DIMENSIONS NECESSAIRES----
       // ------------Dimension Antécédent----------------------
-      const ant_ligne1 = ant.text(x_ligne1).font(prop_font)
-      const ant_ligne2 = ant.text(x_ligne2).font(prop_font)
+      const ant_ligne1 = ant.text(xLigne1).font(prop_font)
+      const ant_ligne2 = ant.text(xLigne2).font(prop_font)
       const w_ant = Math.max(ant_ligne1.length(), ant_ligne2.length()) + interligne
       ant_ligne1.clear()
       ant_ligne2.clear()
 
       // ------------Dimension Image---------------------------
-      const im_ligne1 = im.text(y_ligne1).font(prop_font)
-      const im_ligne2 = im.text(y_ligne2).font(prop_font)
+      const im_ligne1 = im.text(yLigne1).font(prop_font)
+      const im_ligne2 = im.text(yLigne2).font(prop_font)
       const w_im = Math.max(im_ligne1.length(), im_ligne2.length()) + interligne
       im_ligne1.clear()
       im_ligne2.clear()
@@ -930,7 +801,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------GROUPE ANTECEDENT-------------------------
       const ant_ligne = ant.foreignObject(w_ant, h).attr({ x: '0', y: '0' })
       const antDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-      katex.render(x_ligne1 + '\\newline ' + x_ligne2, antDiv, {
+      katex.render(xLigne1 + '\\newline ' + xLigne2, antDiv, {
         displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
       })
       ant_ligne.add(antDiv)
@@ -943,7 +814,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       // ------------GROUPE IMAGE-------------------------
       const im_ligne = im.foreignObject(w_im, h).attr({ x: '0', y: '0' })
       const imDiv = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
-      katex.render(y_ligne1 + '\\newline ' + y_ligne2, imDiv, {
+      katex.render(yLigne1 + '\\newline ' + yLigne2, imDiv, {
         displayMode: true, throwOnError: true, errorColor: '#CC0000', strict: 'ignore', trust: false
       })
       im_ligne.add(imDiv)

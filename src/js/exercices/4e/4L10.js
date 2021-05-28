@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,ecritureParentheseSiMoins,signe,abs,lettreDepuisChiffre} from '../../modules/outils.js'
 
 export const titre = 'Utiliser la simple distributivité'
@@ -16,7 +17,7 @@ export const titre = 'Utiliser la simple distributivité'
  * Niveau de difficulté :
  * * 1 : Multiplication par un facteur positif
  * * 2: Multiplication par un facteur relatif
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4L10 et 3L11
  */
 export default function Exercice_developper(difficulte = 1) {
@@ -37,7 +38,7 @@ export default function Exercice_developper(difficulte = 1) {
     if (this.sup2){
       lettre = ["x"]
     }
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       "simple",
       "simple",
       "simple2",
@@ -45,12 +46,12 @@ export default function Exercice_developper(difficulte = 1) {
       "developper_et_reduire",
     ];
     if (this.sup < 4) {
-      type_de_questions_disponibles = ["simple"]
+      typesDeQuestionsDisponibles = ["simple"]
     }
-    let type_de_questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       let k = randint(2, 11);
       if (this.sup > 2) {
         // si difficulté 2, k peut être négatif
@@ -62,7 +63,7 @@ export default function Exercice_developper(difficulte = 1) {
         b = randint(1, 9)
       }
       let inconnue = choice(lettre);
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case "simple":
           if (a == 1) {
             // ne pas écrire 1x
@@ -212,7 +213,7 @@ export default function Exercice_developper(difficulte = 1) {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

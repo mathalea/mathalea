@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,range,rangeMinMax,shuffle,combinaisonListes} from '../../modules/outils.js'
 import {point,pointIntersectionDD,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,droiteParPointEtPente,rotation,codageAngleDroit,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
 
 /**
  * Ref 6G14
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 22/11/2020
  */
 export default function Proprietes_paralleles_perpendiculaires() {
@@ -19,16 +20,16 @@ export default function Proprietes_paralleles_perpendiculaires() {
   this.correctionDetailleeDisponible = true;
   this.correctionDetaillee = false;
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles, questions_par_niveau = [];
+    let typesDeQuestionsDisponibles, questions_par_niveau = [];
     questions_par_niveau.push(range(3))
     questions_par_niveau.push(rangeMinMax(9, 15))
     questions_par_niveau.push(rangeMinMax(19, 31, 20))
 
-    if (this.sup < 4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup) - 1]
-    else type_de_questions_disponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
+    if (this.sup < 4) typesDeQuestionsDisponibles = questions_par_niveau[parseInt(this.sup) - 1]
+    else typesDeQuestionsDisponibles = questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions
@@ -37,7 +38,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
     let d = [], P = [], objets = [],  couleurd = [], droiteP, PP, Inter
     let droitecolor = function (num) {
       let couleurs
-      sortieHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
+      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black'];
       return couleurs[num]
     }
 
@@ -202,7 +203,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
       // correction raisonnement ordonné
-      mathalea.fenetreMathalea2d = [-2, -2, 15, 10]
+      context.fenetreMathalea2d = [-2, -2, 15, 10]
       texteCorr = `À partir de l\'énoncé, on peut réaliser le schéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
       texteCorr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + `<br>`
       for (let j = 0; j < code.length - 1; j++) {
@@ -244,7 +245,7 @@ export default function Proprietes_paralleles_perpendiculaires() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + "<br>");
         this.listeCorrections.push(texteCorr + "<br>");

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,arcPointPointAngle,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Construire l’image d’un point par une rotation avec cible auto-corrective'
@@ -6,7 +7,7 @@ export const titre = 'Construire l’image d’un point par une rotation avec ci
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
  * Ref 3G10-3
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
 export default function Construire_rotation_point_3e() {
@@ -42,7 +43,7 @@ export default function Construire_rotation_point_3e() {
 			this.consigne += ` dans le sens des aiguilles d'une montre.`;
 		else
 			this.consigne += ` dans le sens contraire des aiguilles d'une montre.`;
-		let cibles = [], M = [], N = [], objets_enonce = [], objets_correction = []; //cibles, M point marqués, N symétrique de M
+		let cibles = [], M = [], N = [], objetsEnonce = [], objetsCorrection = []; //cibles, M point marqués, N symétrique de M
 		let cellules = [];
 		let xMin, yMin, xMax, yMax;
 		[xMin, yMin, xMax, yMax] = [0, 0, 0, 0];
@@ -71,8 +72,8 @@ export default function Construire_rotation_point_3e() {
 			}
 		}
 
-		objets_enonce.push(tracePoint(O), labelPoint(O));
-		objets_correction.push(tracePoint(O), labelPoint(O));
+		objetsEnonce.push(tracePoint(O), labelPoint(O));
+		objetsCorrection.push(tracePoint(O), labelPoint(O));
 
 		for (let i = 0; i < nbpoints; i++) {
 			cellules.push(celluleAlea(4));
@@ -85,9 +86,9 @@ export default function Construire_rotation_point_3e() {
 		}
 		for (let i = 0; i < nbpoints; i++) {
 			M.push(rotation(N[i], O, -angle, noms[i]));
-			objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i]);
-			objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i]);
-			objets_correction.push(arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2));
+			objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i]);
+			objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i]);
+			objetsCorrection.push(arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2));
 			texteCorr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`;
 		}
 
@@ -100,11 +101,11 @@ export default function Construire_rotation_point_3e() {
 
 		let fenetreMathalea2d = [xMin, yMin, xMax, yMax];
 
-		this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce));
-		this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction));
+		this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objetsEnonce));
+		this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection));
 		listeQuestionsToContenu(this);
 
-		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+		//  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
 	};
 	this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
 	// this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,pgcd,simplificationDeFractionAvecEtapes,miseEnEvidence,texFraction,ppcm} from '../../modules/outils.js'
 
 
@@ -10,7 +11,7 @@ export const titre = 'Additionner deux fractions'
 * * Niveau 1 : 4 fois sur 5 un dénominateur est un multiple de l'autre et une fois sur 5 il faut additionner une fraction et un entier
 * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
 * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C21-1
 */
 export default function Exercice_additionner_des_fractions() {
@@ -27,17 +28,17 @@ export default function Exercice_additionner_des_fractions() {
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		let type_de_questions_disponibles;
+		let typesDeQuestionsDisponibles;
 		if (this.sup == 1) {
-			type_de_questions_disponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
+			typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier'];
 		}
 		if (this.sup == 2) {
-			type_de_questions_disponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
+			typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier'];
 		}
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, type_de_questions; i < this.nbQuestions; i++) {
-			type_de_questions = listeTypeDeQuestions[i];
-			switch (type_de_questions) {
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, typesDeQuestions; i < this.nbQuestions; i++) {
+			typesDeQuestions = listeTypeDeQuestions[i];
+			switch (typesDeQuestions) {
 				case 'ppcm':
 					let liste_couples_de_denominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75],];
 					let couples_de_denominateurs = choice(liste_couples_de_denominateurs);
@@ -87,7 +88,7 @@ export default function Exercice_additionner_des_fractions() {
 			texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}`;
 
 			// a/b+c/d = num/den (résultat non simplifié)
-			if (type_de_questions == 'ppcm' || type_de_questions == 'premiers_entre_eux') {
+			if (typesDeQuestions == 'ppcm' || typesDeQuestions == 'premiers_entre_eux') {
 				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`;
 				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a * k1 + c * k2;
@@ -96,7 +97,7 @@ export default function Exercice_additionner_des_fractions() {
 
 			}
 
-			if (type_de_questions == 'd_multiple_de_b') {
+			if (typesDeQuestions == 'd_multiple_de_b') {
 				texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFraction(c, d)}`;
 				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a * k + c;
@@ -104,7 +105,7 @@ export default function Exercice_additionner_des_fractions() {
 				texteCorr += `=${texFraction(a * k + `+` + ecritureParentheseSiNegatif(c), den)}`;
 			}
 
-			if (type_de_questions == 'b_multiple_de_d') {
+			if (typesDeQuestions == 'b_multiple_de_d') {
 				texteCorr += `=${texFraction(a, b)}+${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`;
 				//texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
 				num = a + c * k;
@@ -112,7 +113,7 @@ export default function Exercice_additionner_des_fractions() {
 				texteCorr += `=${texFraction(a + `+` + ecritureParentheseSiNegatif(c * k), den)}`;
 			}
 
-			if (type_de_questions == "entier") {
+			if (typesDeQuestions == "entier") {
 				a = randint(1, 9);
 				b = randint(2, 9, [a]);
 				let n = randint(1, 9);

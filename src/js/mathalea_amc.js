@@ -1,13 +1,15 @@
 /* eslint-disable camelcase */
-import { creerDocumentAmc, strRandom, compteOccurences, introLatexCoop } from './modules/outils.js'
+import { creerDocumentAmc, strRandom, compteOccurences } from './modules/outils.js'
 import { getUrlVars } from './modules/getUrlVars.js'
-import { menuDesExercicesQcmDisponibles } from './modules/menuDesExercicesQcmDisponibles'
-import { dictionnaireDesExercices, apparence_exercice_actif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import dictionnaireDesExercicesAMC from './modules/dictionnaireDesExercicesAMC.js'
-import { loadScript } from './modules/loaders'
+import { dictionnaireDesExercices, menuDesExercicesDisponibles, apparenceExerciceActif } from './modules/menuDesExercicesDisponibles'
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+import dictionnaireDesExercicesAleatoires from './modules/dictionnaireDesExercicesAleatoires.js'
+import { loadGiac, loadPrism } from './modules/loaders'
+import { context, setOutputAmc } from './modules/context.js'
 
+setOutputAmc()
 // import katex from 'katex'
-import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+// import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Clipboard from 'clipboard'
 // import QRCode from 'qrcode'
 import seedrandom from 'seedrandom'
@@ -15,20 +17,29 @@ import seedrandom from 'seedrandom'
 import 'katex/dist/katex.min.css'
 import '../css/style_mathalea.css'
 
-// Prism n'est utilisé que pour mathalealatex.html. Faut-il ajouter un test sur l'URL
-// Prism est utilisé pour la coloration syntaxique du LaTeX
-import '../assets/externalJs/prism.js'
-import '../assets/externalJs/prism.css'
+const dictionnaireDesExercicesAMC = {}
+Object.entries(dictionnaireDesExercicesAleatoires).forEach(([id, props]) => {
+  if (props.amcReady) dictionnaireDesExercicesAMC[id] = props
+})
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
   $('.ui.dropdown').dropdown()
 })
 
-// Les variables globales nécessaires aux exercices (pas terrible...)
-window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = true
-window.est_diaporama = false
+context.isHtml = true
+context.isDiaporama = false
+context.isAmc = true
+context.sortieNB = false
+context.anglePerspective = 30
+context.coeffPerspective = 0.5
+context.pixelsParCm = 20
+context.scale = 1
+context.unitesLutinParCm = 50
+context.mainlevee = false
+context.amplitude = 1
+context.fenetreMathalea2d = [-1, -10, 29, 10]
+context.objets2D = []
 
 // (function () {
 // IIFE principal
@@ -36,10 +47,10 @@ let listeObjetsExercice = [] // Liste des objets listeObjetsExercices
 let liste_des_exercices = [] // Liste des identifiants des exercices
 let codeLatex = ''
 let listePackages = new Set()
-let nb_exemplaires = 1
+let nbExemplaires = 1
 let nbQuestions = []
 let nom_fichier = ''
-let type_entete = 'AMCcodeGrid'
+let typeEntete = 'AMCcodeGrid'
 let format = 'A4'
 
 // fonctions de gestion de la liste des exercices cg 04-2021 ****
@@ -130,7 +141,8 @@ if (document.getElementById('choix_exercices_div')) {
   $('#choix_des_exercices').parent().hide()
 }
 //* *******
-menuDesExercicesQcmDisponibles()
+// il y avait un fonctionnement avec un fork de la fonction ci-dessous cf commit 5f307cb
+menuDesExercicesDisponibles()
 
 // Mise à jour du formulaire de la liste des exercices
 const form_choix_des_exercices = document.getElementById('choix_des_exercices')
@@ -217,8 +229,8 @@ function contenu_exercice_html (obj, num_exercice, isdiaporama) {
 function mise_a_jour_du_code () {
   window.MG32_tableau_de_figures = []
   // Fixe la graine pour les fonctions aléatoires
-  if (!mathalea.graine) {
-    mathalea.graine = strRandom({
+  if (!context.graine) {
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
@@ -226,11 +238,11 @@ function mise_a_jour_du_code () {
     })
     // Saisi le numéro de série dans le formulaire
     if (document.getElementById('form_serie')) { // pas de formulaire existant si premier preview
-      document.getElementById('form_serie').value = mathalea.graine
+      document.getElementById('form_serie').value = context.graine
     }
   }
   // Contrôle l'aléatoire grâce à SeedRandom
-  seedrandom(mathalea.graine, { global: true });
+  seedrandom(context.graine, { global: true });
   // ajout des paramètres des exercices dans l'URL
   (function gestionURL () {
     if (liste_des_exercices.length > 0) {
@@ -269,7 +281,7 @@ function mise_a_jour_du_code () {
           fin_de_l_URL += `,nbQuestions=${listeObjetsExercice[i].nbQuestions}`
         }
       }
-      fin_de_l_URL += `&serie=${mathalea.graine}`
+      fin_de_l_URL += `&serie=${context.graine}`
       window.history.pushState('', '', fin_de_l_URL)
       const url = window.location.href.split('&serie')[0] // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       // new Clipboard(".url", {
@@ -279,33 +291,20 @@ function mise_a_jour_du_code () {
       // });
     }
   })()
-  // mise en évidence des exercices sélectionnés.
-  $('.exerciceactif').removeClass('exerciceactif')
-  for (let i = 0; i < liste_des_exercices.length; i++) {
-    $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).addClass('exerciceactif')
-    // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
-    if (compteOccurences(liste_des_exercices, liste_des_exercices[i]) > 1) {
-      // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
-      const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-      const txt = ancienTexte.split('✖︎')[0] + ` ✖︎ ${compteOccurences(liste_des_exercices, liste_des_exercices[i])}`
-      $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-    } else {
-      const ancienTexte = $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).first().text()
-      const txt = ancienTexte.split('✖︎')[0]
-      $(`a.lien_id_exercice[numero='${liste_des_exercices[i]}']`).text(txt)
-    }
-  }
+  apparenceExerciceActif()
   // Sortie LaTeX quoi qu'il advienne !
   // code pour la sortie LaTeX
 
   const questions = []
   codeLatex = ''
+  const output = context.isHtml
+  context.isHtml = false
   listePackages = new Set()
   if (liste_des_exercices.length > 0) {
     for (let i = 0; i < liste_des_exercices.length; i++) {
       listeObjetsExercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
       listeObjetsExercice[i].nouvelleVersion(i)
-      questions.push(listeObjetsExercice[i].qcm)
+      questions.push(listeObjetsExercice[i])
 
       if (typeof listeObjetsExercice[i].listePackages === 'string') {
         listePackages.add(listeObjetsExercice[i].listePackages)
@@ -314,13 +313,17 @@ function mise_a_jour_du_code () {
         listeObjetsExercice[i].listePackages.forEach(listePackages.add, listePackages)
       }
     }
-    codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nb_exemplaires: nb_exemplaires, type_entete: type_entete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+    context.isHtml = output
+    codeLatex = creerDocumentAmc({ questions: questions, nbQuestions: nbQuestions, nbExemplaires: nbExemplaires, typeEntete: typeEntete, format: format }).replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 
     $('#message_liste_exercice_vide').hide()
     $('#cache').show()
 
     div.innerHTML = '<pre><code class="language-latex">' + codeLatex + '</code></pre>'
-    Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+    loadPrism().then(() => {
+      /* global Prism */
+      Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
+    }).catch(error => console.error(error))
     const clipboardURL = new Clipboard('#btnCopieLatex', { text: () => codeLatex })
     clipboardURL.on('success', function (e) {
       console.info('Code LaTeX copié dans le presse-papier.')
@@ -540,6 +543,10 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
           .then((module) => {
             if (module) {
               listeObjetsExercice[i] = new module.default() // Ajoute l'objet dans la liste des
+              listeObjetsExercice[i].amc = [
+                listeObjetsExercice[i],
+                liste_exercices[i],
+              ]
               if (dictionnaireDesExercices[id].sup !== undefined) {
                 listeObjetsExercice[i].sup = dictionnaireDesExercices[id].sup
               }
@@ -584,7 +591,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
             listeObjetsExercice[i].nbQuestions = urlVars[i].nbQuestions
             form_nbQuestions[i].value = listeObjetsExercice[i].nbQuestions
           }
-          if (urlVars[i].video && sortieHtml && !est_diaporama) {
+          if (urlVars[i].video && context.isHtml && !est_diaporama) {
             listeObjetsExercice[i].video = urlVars[i].video
             form_video[i].value = listeObjetsExercice[i].video
           }
@@ -618,7 +625,7 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
       if (besoinXCas) {
         // On charge le javascript de XCas
         let div // le div dans lequel on fera apparaitre le cercle de chargement
-        if (sortieHtml) {
+        if (context.isHtml) {
           div = document.getElementById('exercices')
         } else {
           div = document.getElementById('div_codeLatex')
@@ -630,19 +637,13 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
                         </svg>
                       </div>
                     </div>`
-        return loadScript('/assets/externalJs/giacsimple.js')
-      }
-    })
-    .then((resolve, reject) => {
-      if (besoinXCas) {
-        // On vérifie que le code WebAssembly est bien chargé en mémoire et disponible
-        return checkXCas()
+        return loadGiac()
       }
     })
     .then(() => {
       if (preview) {
-        const output = sortieHtml
-        sortieHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+        const output = context.isHtml
+        context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
         try {
           listeObjetsExercice[liste_exercices.length - 1].nouvelleVersion(0)
         } catch (error) {
@@ -667,42 +668,13 @@ function mise_a_jour_de_la_liste_des_exercices (preview) {
         if (!output) {
           gestion_modules(false, listeObjetsExercice)
         }
-        sortieHtml = output
+        context.isHtml = output
         mise_a_jour_du_code() // permet de gérer les popup avec module.
       } else {
         mise_a_jour_du_code()
       }
     })
 }
-
-const checkXCas = () => {
-  return new Promise((resolve) => {
-    const monInterval = setInterval(() => {
-      if (typeof (Module) !== 'undefined') {
-        if (Module.ready == true) {
-          resolve()
-          clearInterval(monInterval)
-        }
-      }
-    }, 500)
-  })
-}
-
-// GESTION DE MG32
-/**
-    * Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
-    * @Auteur Rémi Angot
-    */
-function MG32_modifie_figure (numero_figure) {
-  let code_pour_modifier_la_figure = listeObjetsExercice[numero_figure].MG32code_pour_modifier_la_figure
-  if (window.mtg32App.docs.length == 1) {
-    code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace('display', 'updateDisplay')
-  }
-  const modification = new Function('numero_figure', code_pour_modifier_la_figure)
-  modification(numero_figure)
-}
-
-// FIN DE GESTION DE MG32
 
 // Gestion des paramètres
 const div = document.getElementById('div_codeLatex') // Récupère le div dans lequel le code va être affiché
@@ -994,10 +966,10 @@ function parametres_exercice (exercice) {
     // Gestion de l'identifiant de la série
     if (exercice.length > 0) {
       const form_serie = document.getElementById('form_serie')
-      form_serie.value = mathalea.graine // Rempli le formulaire avec la graine
+      form_serie.value = context.graine // Rempli le formulaire avec la graine
       form_serie.addEventListener('change', function (e) {
         // Dès que le statut change, on met à jour
-        mathalea.graine = e.target.value
+        context.graine = e.target.value
         mise_a_jour_du_code()
       })
     }
@@ -1158,13 +1130,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees)
   }
   function nouvelles_donnees () {
-    mathalea.graine = strRandom({
+    context.graine = strRandom({
       includeUpperCase: true,
       includeNumbers: true,
       length: 4,
       startsWithLowerCase: false
     })
-    form_serie.value = mathalea.graine // mise à jour du formulaire
+    form_serie.value = context.graine // mise à jour du formulaire
     mise_a_jour_du_code()
   }
   // Gestion du nombre d'exemplaire
@@ -1173,11 +1145,11 @@ window.addEventListener('DOMContentLoaded', () => {
   form_nb_exemplaires.value = 1 // Rempli le formulaire avec le nombre de questions
   form_nb_exemplaires.addEventListener('change', function (e) {
     // Dès que le nombre change, on met à jour
-    if (type_entete == 'AMCassociation') {
-      nb_exemplaires = 1
+    if (typeEntete == 'AMCassociation') {
+      nbExemplaires = 1
       form_nb_exemplaires.value = 1
     } else {
-      nb_exemplaires = e.target.value
+      nbExemplaires = e.target.value
     }
     mise_a_jour_du_code()
   })
@@ -1189,9 +1161,9 @@ window.addEventListener('DOMContentLoaded', () => {
   $('#type_champnom').hide()
   $('#type_AMCassociation').hide()
   form_entete.addEventListener('change', function (e) {
-    type_entete = e.target.value
-    if (type_entete == 'AMCassociation') {
-      nb_exemplaires = 1
+    typeEntete = e.target.value
+    if (typeEntete == 'AMCassociation') {
+      nbExemplaires = 1
       form_nb_exemplaires.value = 1
     }
     mise_a_jour_du_code()
@@ -1248,7 +1220,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URL(document.location).searchParams
   const serie = params.get('serie')
   if (serie) {
-    mathalea.graine = serie
+    context.graine = serie
   }
   const urlVars = getUrlVars()
   if (urlVars.length > 0) {

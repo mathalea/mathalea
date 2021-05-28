@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,texNombrec,lettreDepuisChiffre} from '../../modules/outils.js'
 
 
@@ -18,7 +19,7 @@ export const titre = 'Somme des angles dans un triangle'
 * * Dans un triangle rectangle, un angle aigu mesure 5 fois l'autre.
 * * Un triangle a 3 angles égaux.
 * * Dans un triangle rectangle, un angle mesure le tiers de l'autre.
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Référence 5G31
 */
 export default function Exercice_angles_triangles() {
@@ -26,15 +27,15 @@ export default function Exercice_angles_triangles() {
 	this.sup = 1;
 	this.titre = titre;
 	this.consigne = '';
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
-	sortieHtml ? this.spacing = 2 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacing = 2 : this.spacing = 2;
 	this.nbQuestions = 5;
 	this.consigneModifiable = false;
 	this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 	let troisieme_angle = function (a1, a2) {
 		if (a1 + a2 <= 180)
 			return 180 - (a1 + a2);
@@ -46,14 +47,14 @@ export default function Exercice_angles_triangles() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		if (this.sup == 1)
-			type_de_questions_disponibles = [1, 2, 4, 5, 9];
+			typesDeQuestionsDisponibles = [1, 2, 4, 5, 9];
 
 		else if (this.sup == 2)
-			type_de_questions_disponibles = [3, 6, 7, 8, 10, 11, 12];
+			typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12];
 		else
-			type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+			typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		this.consigne = `Calculer l'angle demandé dans les triangles suivants :`;
 		let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2;
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -217,7 +218,7 @@ export default function Exercice_angles_triangles() {
 
 			}
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

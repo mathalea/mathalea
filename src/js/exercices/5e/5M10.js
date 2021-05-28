@@ -1,7 +1,8 @@
 import { mathalea2d, pointAdistance, polygoneAvecNom, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho , milieu, droite, segment, codageAngleDroit} from '../../modules/2d.js';
 import { creerNomDePolygone } from '../../modules/outils.js';
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,texteEnCouleurEtGras} from '../../modules/outils.js'
 
 
 export const titre = 'Aire du parallélogramme'
@@ -12,7 +13,7 @@ export const titre = 'Aire du parallélogramme'
 * Il faut calculer leurs aires.
 *
 * Pas de version LaTeX
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5M10
 */
 export default function Aire_du_parallelogramme() {
@@ -46,7 +47,7 @@ export default function Aire_du_parallelogramme() {
 		this.listeQuestions=[]
 		let texte='',params
         let nom=creerNomDePolygone(12,'Q')
-		let objets_enonce=[]
+		let objetsEnonce=[]
 		let c1 = randint(3, 7);
 		let h1 = randint(2, 4);
 		let c2 = randint(3, 7);
@@ -89,8 +90,8 @@ export default function Aire_du_parallelogramme() {
 		texte+='br'+mathalea2d(params,P3[0],P3[1],afficheLongueurSegment(B3,A3),afficheLongueurSegment(C3,B3),afficheLongueurSegment(I3,H3),s3,codageAngleDroit(A3,I3,H3),codageAngleDroit(C3,H3,I3))
 		
 		
-		let texteCorr = `Dans chaque parallélogramme, le segment en pointillés est ${texte_en_couleur_et_gras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texte_en_couleur_et_gras("hauteur")}.<br>`;
-		texteCorr += `Pour obtenir l'aire, il faut multiplier cette ${texte_en_couleur_et_gras("hauteur")} par la longueur de la ${texte_en_couleur_et_gras("base")} correspondante.`;
+		let texteCorr = `Dans chaque parallélogramme, le segment en pointillés est ${texteEnCouleurEtGras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texteEnCouleurEtGras("hauteur")}.<br>`;
+		texteCorr += `Pour obtenir l'aire, il faut multiplier cette ${texteEnCouleurEtGras("hauteur")} par la longueur de la ${texteEnCouleurEtGras("base")} correspondante.`;
 		texteCorr += "<br><br>";
 		texteCorr += `$\\mathcal{A}_{${nom.slice(0,4)}}=${c1}~\\text{cm}\\times  ${h1}~\\text{cm}=${c1 * h1}~\\text{cm}^2$`;
 		texteCorr += `<br>$\\mathcal{A}_{${nom.slice(4,8)}}=${c2}~\\text{cm}\\times  ${h2}~\\text{cm}=${c2 * h2}~\\text{cm}^2$`;

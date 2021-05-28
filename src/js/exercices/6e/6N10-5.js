@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,texNombrec2,miseEnEvidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,texNombrec2,miseEnEvidence,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
 export const titre = 'Labyrinthe de numération décimale'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 9/12/2020
  * Ref 6N10-5
  * Sortir du labyrinthe en utilisant la numération décimale.
@@ -52,8 +53,8 @@ export default function Exercice_labyrinthe_numeration() {
     }
     rang=randint(0,rangMax)
     chiffre=randint(0,9)
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${miseEnEvidence(chiffre,'black')}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${miseEnEvidence(chiffre,'black')}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm,Um,C,D,U,d,c,m,dm,nombretemp
     for (let i = 0; i <= 30; i++) {

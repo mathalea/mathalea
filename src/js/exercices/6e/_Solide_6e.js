@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,segment,polygone,translation2Points,similitude,codeSegments,grille,seyes,mathalea2d} from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Solide_6e() {
   "use strict";
@@ -16,15 +17,15 @@ export default function Solide_6e() {
   this.sup2 = 1;
   this.titre = "";
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
-    if (this.sup == 3) type_de_questions_disponibles = [1, 2]
-    else type_de_questions_disponibles = [parseInt(this.sup)];
+    let typesDeQuestionsDisponibles;
+    if (this.sup == 3) typesDeQuestionsDisponibles = [1, 2]
+    else typesDeQuestionsDisponibles = [parseInt(this.sup)];
 
     if (this.type == "vocabulaire")
-      for (let n = 0; n < type_de_questions_disponibles.length; n++)
-        type_de_questions_disponibles[n] += 2
+      for (let n = 0; n < typesDeQuestionsDisponibles.length; n++)
+        typesDeQuestionsDisponibles[n] += 2
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions
@@ -41,8 +42,8 @@ export default function Solide_6e() {
       enonce,
       correction,
       carreaux, g,
-      objets_enonce = [],
-      objets_correction = [],
+      objetsEnonce = [],
+      objetsCorrection = [],
       p;
     for (
       let i = 0, texte, cpt = 0;
@@ -53,19 +54,19 @@ export default function Solide_6e() {
         anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
       if (anglepersp % 10 == 0) coeffpersp = 0.6
       else coeffpersp = 0.4
-      objets_correction = []
-      objets_enonce = []
+      objetsCorrection = []
+      objetsEnonce = []
       switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `${nom} est un cube.<br>`
-          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (context.isHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le cube ${nom}.<br>`
           break;
 
         case 2:
           enonce = `${nom} est un pavé droit.<br>`
-          if (sortieHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          if (context.isHtml) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction = `Le pavé droit ${nom}.<br>`
           break;
@@ -241,7 +242,7 @@ export default function Solide_6e() {
         carreaux = "";
         sc = 0.5
       }
-      objets_enonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
+      objetsEnonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
         g,
         carreaux
       );
@@ -255,7 +256,7 @@ export default function Solide_6e() {
         scale: sc,
       }
 
-      enonce += mathalea2d(params, objets_enonce);
+      enonce += mathalea2d(params, objetsEnonce);
       if (listeTypeDeQuestions[i] == 1) {
         codesseg = [codeSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codeSegments('||', 'green', B, F, C, G, D, H)]
         AB.color = 'green'
@@ -287,14 +288,14 @@ export default function Solide_6e() {
         DH.color = 'red'
       }
 
-      objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+      objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
         g,
         carreaux
       );
 
-      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objets_correction, codesseg);
+      if (listeTypeDeQuestions[i] < 3) correction += mathalea2d(params, objetsCorrection, codesseg);
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");
         this.listeCorrections.push(correction + "<br>");

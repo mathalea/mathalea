@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texFractionReduite,texFraction} from '../../modules/outils.js'
 export const titre = 'Résoudre une équation produit nul'
 
 /**
  * Résolution d'équations de type (ax+b)(cx+d)=0
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Tout est dans le nom de la fonction.
 * 3L14
 */
@@ -17,7 +18,7 @@ export default function Resoudre_une_equation_produit_nul() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.sup = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5;
 	this.spacing = 1;
 
 
@@ -119,7 +120,7 @@ export default function Resoudre_une_equation_produit_nul() {
 
 					break;
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				// alert(this.listeQuestions)

@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,nombreEnLettres} from '../../modules/outils.js'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 6N23-0
  */
 
@@ -25,13 +26,13 @@ export default function Ecrire_nombres_decimal() {
       this.consigne = "Écrire le nombre en lettres"
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
+    let typesDeQuestionsDisponibles = [parseInt(this.sup2) + 1]; // <1 000, <1 000 000) 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, part_ent, part_dec, nb_dec, cpt = 0;
+      let i = 0, texte, texteCorr, a, b, c, nombre, tranche, part_ent, part_dec, nbDec, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -59,23 +60,23 @@ export default function Ecrire_nombres_decimal() {
         if (tranche[0] == 0) nombre = 0
 
       }
-      if (part_dec % 10 != 0) nb_dec = 3
-      else if (part_dec % 100 != 0) nb_dec = 2
+      if (part_dec % 10 != 0) nbDec = 3
+      else if (part_dec % 100 != 0) nbDec = 2
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!est_diaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
         else texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
+        if (!context.isDiaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
         else texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}`
-        if (!est_diaporama) texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${texNombre(nombre)}$.`
         else texteCorr = `$${texNombre(nombre)}$.`
       }
       texte = texte.replace('et-un unités', 'et-une unités')
       texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

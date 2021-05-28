@@ -1,11 +1,11 @@
-import Exercice from '../ClasseExercice.js'
-// eslint-disable-next-line camelcase
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Résoudre une équation $x^2 = a$'
 
 /**
  * Résoudre une équation de type x²=a
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * 3L15
 */
 export default function ResoudreEquatioeX2EgalA () {
@@ -18,7 +18,7 @@ export default function ResoudreEquatioeX2EgalA () {
   this.nbColsCorr = 1
   this.sup = 1
   // eslint-disable-next-line no-undef
-  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   this.spacing = 1
 
   this.nouvelleVersion = function () {

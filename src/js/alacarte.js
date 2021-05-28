@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-/* globals jQuery Prism $ */
+/* globals jQuery $ */
 /*
   Alacarte
  @name      alacarte.js
@@ -11,14 +11,13 @@
 
 import { telechargeFichier, introLatex, introLatexCoop } from './modules/outils.js'
 import dictionnaireDesExercices from './modules/dictionnaireDesExercicesAleatoires'
-import '../assets/externalJs/prism.js'
-import '../assets/externalJs/prism.css'
+import { loadPrism } from './modules/loaders'
+import { setOutputLatex } from './modules/context.js'
 import '../css/style_mathalea.css'
 
 // Les variables globales nécessaires aux exercices (pas terrible...)
 window.mathalea = { sortieNB: false, anglePerspective: 30, coeffPerspective: 0.5, pixelsParCm: 20, scale: 1, unitesLutinParCm: 50, mainlevee: false, amplitude: 1, fenetreMathalea2d: [-1, -10, 29, 10], objets2D: [] }
-window.sortieHtml = false
-window.est_diaporama = false
+setOutputLatex()
 
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -38,7 +37,7 @@ const listePackages = new Set()
 *
 * On ajoute un dernnier element qui est une simplification du nom du répertoire (pas de points, pas /items)
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function creeIdPourComparaison (item, index, arr) {
   item[3] = item[0].replace(/\./g, '').replace('items/', '')
@@ -55,7 +54,7 @@ tableau_url_tex.forEach(creeIdPourComparaison)
 *
 * Premier séparateur le saut de ligne ; deuxième séparateur le point-virgule.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function textarea_to_array (textarea_id_textarea) {
   const text = textarea_id_textarea.value// .replace(/[ ]/g,'');
@@ -74,7 +73,7 @@ function textarea_to_array (textarea_id_textarea) {
 *
 * Affiche un message d'erreur s'il n'y a pas d'exercice disponible.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 // function id_to_url (id) {
 //   // Retourne les éléments du tableau qui inclue l'id demandé
@@ -94,7 +93,7 @@ function textarea_to_array (textarea_id_textarea) {
 *
 * txt_to_objet_parametres_exercice('6C10,sup=false,nbQuestions=5')
 * {id: "6C10", sup: false, nbQuestions: 5}
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function txt_to_objet_parametres_exercice (txt) { //
   'use strict'
@@ -126,7 +125,7 @@ function txt_to_objet_parametres_exercice (txt) { //
 *
 * //// ANNULÉ   //// Si ce n'est pas le cas, on cherche dans le répertoire /items s'il y a un répertoire qui correspond
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function item_to_contenu (txt) {
   // De préférence un exercice aléatoire
@@ -168,7 +167,7 @@ function item_to_contenu (txt) {
 /**
 * Met à jour le message d'erreur en évitant les doublons.
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 function updateMessageErreur (text) {
   if (message_d_erreur.indexOf(text) === -1) {
@@ -263,7 +262,6 @@ window.addEventListener('load', function () {
     })
 
     const promises = []
-    let besoinXCas = false
     for (let i = 0, id; i < listeDesExercicesDemandes.length; i++) {
       id = listeDesExercicesDemandes[i]
       let url
@@ -285,18 +283,15 @@ window.addEventListener('load', function () {
         import(/* webpackMode: "lazy" */ './exercices/' + path)
           .catch((error) => {
             console.log(error)
+            // FIXME si c'est effectivement un [i] et pas [id], mettre un commentaire ici pour dire pourquoi, car en survolant le code ça semble un bug
             listeObjetsExercice[i] = { titre: "Cet exercice n'existe pas", contenu: '', contenuCorrection: '' } // Un exercice vide pour l'exercice qui n'existe pas
           })
-          .then((module) => {
-            if (module) {
-              listeObjetsExercice[id] = new module.default() // Ajoute l'objet dans la liste des
-              if (listeObjetsExercice[id].typeExercice === 'XCas') {
-                besoinXCas = true
-              }
-            }
+          .then(({ default: Exo }) => {
+            listeObjetsExercice[id] = new Exo() // Ajoute l'objet dans la liste des
           })
       )
     }
+    // FIXME ce promise.all est lancé avant que le chargement de l'exo ne soit fini (listeObjetsExercice n'est pas encore complété), et on sait pas qui va terminer en premier
     Promise.all(promises)
       .then(() => {
         tableau_de_demandes.forEach(function (ligne) {
@@ -342,6 +337,10 @@ window.addEventListener('load', function () {
         // Affiche le code LaTeX
         $('#div_codeLatex').html('<pre><code class="language-latex">' + codeLatex + intro_correction +
                     codeLatex_corr + '</code></pre>')
+      })
+      .then(loadPrism)
+      .then(() => {
+        /* global Prism */
         const div = document.getElementById('div_codeLatex')
         Prism.highlightAllUnder(div) // Met à jour la coloration syntaxique
       })

@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,barycentre,vecteur,polygone,carre,nommePolygone,translation,rotation,homothetie,similitude,codageAngleDroit,codeSegments,codeAngle,grille,seyes,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Placer les sommets et les égalités de longueur...
  * Référence 6G20
  */
@@ -22,7 +23,7 @@ export default function Nommer_et_coder_des_polygones() {
     this.listeCorrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, carreaux
     ppc = 40
-    if (sortieHtml) {
+    if (context.isHtml) {
       sc = 0.5
     } else {
       sc = 0.4
@@ -37,7 +38,7 @@ export default function Nommer_et_coder_des_polygones() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      mathalea.pixelsParCm = 40;
+      context.pixelsParCm = 40;
       let pol, polcode, polsom, polnom
       function choisir_polygone(n) { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
@@ -190,7 +191,7 @@ export default function Nommer_et_coder_des_polygones() {
       pol.epaisseur = 2
       texte += `<br>` + mathalea2d(params, pol, polnom, g, carreaux)
       texteCorr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
@@ -199,7 +200,7 @@ export default function Nommer_et_coder_des_polygones() {
       cpt++;
     }
     listeQuestionsToContenu(this);
-    mathalea.pixelsParCm = 20
+    context.pixelsParCm = 20
   };
   this.besoinFormulaireNumerique = [
     "Type de cahier",

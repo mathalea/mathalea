@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5G24-1
 */
 export default function TrianglesEgaux () {
@@ -15,7 +16,7 @@ export default function TrianglesEgaux () {
   this.nbQuestions = 3
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1 // Niveau de difficulté 
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2

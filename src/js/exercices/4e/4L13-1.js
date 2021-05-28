@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texte_en_couleur} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,prenom,texteEnCouleur} from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'
 
 /**
@@ -24,23 +25,23 @@ export default function Forme_litterale_introduire_une_lettre() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  //sortieHtml? this.spacing = 3 : this.spacing = 2; 
-  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  //context.isHtml? this.spacing = 3 : this.spacing = 2; 
+  //context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      type_de_questions_disponibles = [1];
+      typesDeQuestionsDisponibles = [1];
     } else {
-      type_de_questions_disponibles = [1];
+      typesDeQuestionsDisponibles = [1];
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    type_de_questions_disponibles = [1];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    typesDeQuestionsDisponibles = [1];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -81,7 +82,7 @@ export default function Forme_litterale_introduire_une_lettre() {
         correction: `
         ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.
         <br> C'est à dire $${n}\\times ${situation.elt1.lettre} + ${p}\\times ${situation.elt2.lettre} = ${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.
-        <br>${texte_en_couleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
+        <br>${texteEnCouleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
         `
       })
       switch (listeTypeDeQuestions[i]) {
@@ -97,7 +98,7 @@ export default function Forme_litterale_introduire_une_lettre() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

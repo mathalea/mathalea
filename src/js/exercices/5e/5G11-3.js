@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul,choisitLettresDifferentes,lettreDepuisChiffre,arcenciel} from '../../modules/outils.js'
 import {point,tracePoint,labelPoint,codageMilieu,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d} from '../../modules/2d.js'
 
@@ -8,7 +9,7 @@ export const titre = 'Construire le symétrique d’un point avec cible auto-cor
 /**
  * Construction de symétrique avec dispositif d'auto-correction aléatoire
  * Ref 5G11-3
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 30/11/2020
  */
 export default function Construire_symetrique_point_5e() {
@@ -38,7 +39,7 @@ export default function Construire_symetrique_point_5e() {
 			this.consigne += `, $${noms[i]}$`;
 		}
 		this.consigne += ` et $${noms[nbpoints - 1]}$ par rapport à $O$.`;
-		let cibles = [], M = [], N = [], objets_enonce = [], objets_correction = []; //cibles, M point marqués, N symétrique de M
+		let cibles = [], M = [], N = [], objetsEnonce = [], objetsCorrection = []; //cibles, M point marqués, N symétrique de M
 		let cellules = [];
 		let xMin, yMin, xMax, yMax, nontrouve, assezloin;
 		[xMin, yMin, xMax, yMax] = [0, 0, 0, 0];
@@ -67,8 +68,8 @@ export default function Construire_symetrique_point_5e() {
 			}
 		}
 
-		objets_enonce.push(tracePoint(O), labelPoint(O));
-		objets_correction.push(tracePoint(O), labelPoint(O));
+		objetsEnonce.push(tracePoint(O), labelPoint(O));
+		objetsCorrection.push(tracePoint(O), labelPoint(O));
 
 		for (let i = 0; i < nbpoints; i++) {
 			cellules.push(celluleAlea(4));
@@ -81,10 +82,10 @@ export default function Construire_symetrique_point_5e() {
 		}
 		for (let i = 0; i < nbpoints; i++) {
 			M.push(rotation(N[i], O, 180, noms[i]));
-			objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i]);
-			objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i]);
-			objets_correction.push(segment(M[i], N[i], arcenciel(i)), codageMilieu(M[i], N[i], arcenciel(i + 5), marks[i]));
-			objets_correction.push(traceCompas(O, N[i], 20));
+			objetsEnonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i]);
+			objetsCorrection.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i]);
+			objetsCorrection.push(segment(M[i], N[i], arcenciel(i)), codageMilieu(M[i], N[i], arcenciel(i + 5), marks[i]));
+			objetsCorrection.push(traceCompas(O, N[i], 20));
 			texteCorr += `$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`;
 		}
 
@@ -97,11 +98,11 @@ export default function Construire_symetrique_point_5e() {
 
 		let fenetreMathalea2d = [xMin, yMin, xMax, yMax];
 
-		this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce));
-		this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction));
+		this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce));
+		this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection));
 		listeQuestionsToContenu(this);
 
-		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+		//  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
 	};
 	this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
 	// this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];	

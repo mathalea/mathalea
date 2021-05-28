@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint} from '../../modules/outils.js'
 
 export const titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
 
 /**
  * 2N11
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Extraire_un_carre_parfait_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function Extraire_un_carre_parfait_d_une_racine_carree() {
             texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`;
-            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
                 i++;

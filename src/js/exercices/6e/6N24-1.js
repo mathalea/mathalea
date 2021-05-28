@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,texNombre,texFraction} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,texFraction,calcul} from '../../modules/outils.js'
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 
@@ -8,7 +8,7 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  * Multiplier ou diviser un nombre entier par 10, 100 ou 1 000
  *
  * Le nombre entier est de la forme X, XX, X0X, X00X ou XXX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N24-1
  */
 export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {
@@ -44,7 +44,7 @@ export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_1
           "$ " +
           texFraction(texNombre(a), texNombre(b)) +
           " = " +
-          texNombre(Algebrite.eval(a / b)) +
+          texNombre(calcul(a / b)) +
           " $";
       } else {
         texte =
@@ -55,11 +55,11 @@ export default function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_1
           "\\times" +
           texNombre(b) +
           " = " +
-          texNombre(Algebrite.eval(a * b)) +
+          texNombre(calcul(a * b)) +
           " $";
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

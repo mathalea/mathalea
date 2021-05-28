@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, reduireAxPlusB, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
 import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 export const titre = 'Déterminer une fonction affine à partir de deux images.'
 
 /**
  * Déterminer une fonction affine à partir de deux images
-* @auteur Stéphane Guyon
+* @author Stéphane Guyon
 * 2F20
 */
 export default function Factoriser_Identites_remarquables2() {
@@ -23,24 +24,24 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [];
+        let typesDeQuestionsDisponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1]; // on donne f(a)=b et f(c)=d
+            typesDeQuestionsDisponibles = [1]; // on donne f(a)=b et f(c)=d
         }
         if (this.sup == 2) {
-            type_de_questions_disponibles = [2]; // On donne 2 points A(a;b) et B(c;d) avec le graphique
+            typesDeQuestionsDisponibles = [2]; // On donne 2 points A(a;b) et B(c;d) avec le graphique
         }
         if (this.sup == 3) {
-            type_de_questions_disponibles = [3]; // On donne 2 points A(a;b) et B(c;d) sans le graphique
+            typesDeQuestionsDisponibles = [3]; // On donne 2 points A(a;b) et B(c;d) sans le graphique
         }
         if (this.sup == 4) {
-            type_de_questions_disponibles = [1, 2, 3]; //méli-mélo
+            typesDeQuestionsDisponibles = [1, 2, 3]; //méli-mélo
             }
 
 
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, A, courbe, B, r, f, c, t, l, xA, xB, yA, yB, a, b, d, e, k, type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, A, courbe, B, r, f, c, t, l, xA, xB, yA, yB, a, b, d, e, k, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
             k = choice([-1, 1]);
             a = randint(1, 5);
             a = a * k;
@@ -61,7 +62,7 @@ export default function Factoriser_Identites_remarquables2() {
 
 
 
-            switch (type_de_questions) {
+            switch (typesDeQuestions) {
                 case 1:
                     texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
                         $f(${a})=${b}$ et que $f(${c})=${d}$.`;
@@ -405,7 +406,7 @@ export default function Factoriser_Identites_remarquables2() {
                     break;
 
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

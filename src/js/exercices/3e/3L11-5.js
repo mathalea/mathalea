@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texte_gras,warnMessage} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,texteGras,warnMessage} from '../../modules/outils.js'
 export const titre = 'Calcul mental et calcul littéral'
 
 /**
@@ -25,17 +26,17 @@ export default function identites_calculs() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;	
-	sortieHtml ? this.spacing = 1 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 1 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1;
 
 	this.listePackages = `bclogo`;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		//une fonction pour gérer un \hfill dans la sortie LaTeX
 		function myhfill() {
-			if (sortieHtml) {
+			if (context.isHtml) {
 				return `<br><br>`;
 			} else {
 				return `\\hfill`;
@@ -43,19 +44,19 @@ export default function identites_calculs() {
 		};
 		switch (Number(this.sup)) {
 			case 1:
-				type_de_questions_disponibles = [0, 0, 0]; //shuffle([choice([1,3]),choice([2,3]),0]);
+				typesDeQuestionsDisponibles = [0, 0, 0]; //shuffle([choice([1,3]),choice([2,3]),0]);
 				this.introduction = warnMessage(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 2:
-				type_de_questions_disponibles = [1, 1, 1]; //shuffle([choice([1,3]),choice([2,3]),0]); 
+				typesDeQuestionsDisponibles = [1, 1, 1]; //shuffle([choice([1,3]),choice([2,3]),0]); 
 				this.introduction = warnMessage(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 3:
-				type_de_questions_disponibles = [2, 2, 2]; //shuffle([choice([1,3]),choice([2,3]),0]);      			
+				typesDeQuestionsDisponibles = [2, 2, 2]; //shuffle([choice([1,3]),choice([2,3]),0]);      			
 				this.introduction = warnMessage(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 			case 4:
-				type_de_questions_disponibles = shuffle([0, 1, 2]); //shuffle([choice([1,3]),choice([2,3]),0]);      			
+				typesDeQuestionsDisponibles = shuffle([0, 1, 2]); //shuffle([choice([1,3]),choice([2,3]),0]);      			
 				this.introduction = warnMessage(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
 				break;
 		};
@@ -64,8 +65,8 @@ export default function identites_calculs() {
 		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -160,7 +161,7 @@ export default function identites_calculs() {
 					`,
 					question: ``,
 					correction1: `
-						${texte_gras(`Avec la double distributivité`)}<br>
+						${texteGras(`Avec la double distributivité`)}<br>
 						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
 						$${situations[k].lettre} = (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
 						$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
@@ -169,7 +170,7 @@ export default function identites_calculs() {
 						$${situations[k].lettre} = ${situations[k].resultat}$
 					`,
 					correction2: `
-					${texte_gras(`Avec une identité`)}<br>
+					${texteGras(`Avec une identité`)}<br>
 					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
 					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`, `(${situations[k].facteurs[1].str})`)} $<br>
 					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
@@ -189,7 +190,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;
@@ -211,7 +212,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;
@@ -233,7 +234,7 @@ export default function identites_calculs() {
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`;
 						texteCorr = ``;
 					} else {
-						if (sortieHtml) {
+						if (context.isHtml) {
 							texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`;
 						} else {
 							texteCorr = `Détaillons deux méthodes : <br><br>`;
@@ -250,7 +251,7 @@ export default function identites_calculs() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

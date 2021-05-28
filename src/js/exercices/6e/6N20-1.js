@@ -1,7 +1,8 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js';
 import {mathalea2d} from '../../modules/2d.js';
-import {fraction} from '../../modules/Fractions.js';
+import {fraction} from '../../modules/fractions.js';
 
 
 
@@ -9,7 +10,7 @@ export const titre = 'Encadrer une fraction entre deux nombres entiers'
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadredr entre 2 entiers
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N20-1
 */
 export default function Encadrer_fraction_entre_2_entiers() {
@@ -21,7 +22,7 @@ export default function Encadrer_fraction_entre_2_entiers() {
   this.nbCols = 2;
   this.nbColsCorr = 1;
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []; // Liste de questions
@@ -43,7 +44,7 @@ export default function Encadrer_fraction_entre_2_entiers() {
         );
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

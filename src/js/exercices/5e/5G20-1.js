@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texEnumerateSansNumero, texNombre, modalTexteLong, lampeMessage, Triangles } from '../../modules/outils.js'
 
 export const titre = 'Vocabulaire des triangles'
@@ -40,7 +41,7 @@ export default function VocabulaireDesTriangles () {
 
     let texteIntro = ''
     // eslint-disable-next-line no-undef
-    if (sortieHtml) {
+    if (context.isHtml) {
       if (this.classe === 6) {
         texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
         texteIntro += '<br>'
@@ -105,11 +106,11 @@ export default function VocabulaireDesTriangles () {
       if (this.sup === 1) {
         typeDeQuestionsDisponibles = [1, 3, 5, 7] // 6e facile isocèle, équilatéral et rectangle.
       } else if (this.sup === 2) {
-        // type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+        // typesDeQuestionsDisponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
         typeDeQuestionsDisponibles = [1, 4, 6, 8, 9] // 6e les autres cas sauf par les angles
       }
     } else if (this.classe === 5) {
-      // type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+      // typesDeQuestionsDisponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
       typeDeQuestionsDisponibles = [
         choice([1, 2]),
         choice([3, 4, 10]),
@@ -123,7 +124,7 @@ export default function VocabulaireDesTriangles () {
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    // let listeTypeDeQuestions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+    // let listeTypeDeQuestions = typesDeQuestionsDisponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

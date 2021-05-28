@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,modalTexteLong} from '../../modules/outils.js'
 import {point,segment,repere2,courbe,mathalea2d,} from '../../modules/2d.js'
 
@@ -6,7 +7,7 @@ export const titre = 'Calcul du discriminant d’une équation du second degré'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 1E10
 */
 export default function Calcul_discriminant() {
@@ -16,7 +17,7 @@ export default function Calcul_discriminant() {
   this.nbQuestions = 6;
   this.nbCols = 2;
   this.nbColsCorr = 2;
-  if (sortieHtml) {
+  if (context.isHtml) {
     this.spacingCorr = 2;
   }
   this.nouvelleVersion = function (numeroExercice) {
@@ -93,7 +94,7 @@ export default function Calcul_discriminant() {
         default:
           break;
       }
-      if (sortieHtml) {
+      if (context.isHtml) {
         let f = x => a * x ** 2 + b * x + c;
         let graphique = courbe(f);
         graphique.color = 'blue';
@@ -101,16 +102,16 @@ export default function Calcul_discriminant() {
         s.epaisseur = 3;
         s.color = 'red';
         let r = repere2({ afficheLabels: false, xLabelListe: [], yLabelListe: [] });
-        let label_bouton,icone
+        let labelBouton,icone
         let correction_complementaire = `Notons $f : x \\mapsto ${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`;
         correction_complementaire += `<br>On observe que la courbe représentative de $f$ ${a_nb_points_intersection} avec l'axe des abscisses.`;
         correction_complementaire += '<br>';
         correction_complementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
           graphique, r, s);
 
-        texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correction_complementaire, label_bouton = "Complément graphique", icone = "info circle");
+        texteCorr += modalTexteLong(numeroExercice, 'Complément graphique', correction_complementaire, labelBouton = "Complément graphique", icone = "info circle");
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

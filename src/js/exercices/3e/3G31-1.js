@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
 import { point, labelPoint, polygone, similitude, codageAngleDroit, codeAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
@@ -7,7 +8,7 @@ export const titre = 'Calculer toutes les mesures d’angle d’une figure compl
 
 /**
  * Deux triangles rectangles accolés, on connait deux longueurs et un angle, il faut déterminer tous les autres angles
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3G31-1
  * Février 2021
 */
@@ -21,8 +22,8 @@ export default function MonSuperExerciceTropBeau () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.spacingCorr = 3
   this.correctionDetailleeDisponible = true
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
-  // this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  // this.sup = 1; // Niveau de difficulté
   // this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
@@ -30,18 +31,18 @@ export default function MonSuperExerciceTropBeau () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const type_de_question = choice(['BA-AD-BAC', 'BA-AD-ACB'])
+    const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
     let texte, texteCorr
 
     const B = point(0, 0, '', 'below')
     const A = point(randint(4, 7), 0, '', 'below')
-    const C = point(0, randint(3, 7), '', 'above')
+    const C = point(0, randint(3, 7, longueur(A, B)), '', 'above') // On exclue AB pour ne pas avoir un triangle isocèle
     const t1 = polygone(A, B, C)
     const t1c = polygone(A, B, C)
     t1c.color = 'blue'
     t1c.epaisseur = 3
     const c1 = codageAngleDroit(A, B, C)
-    const D = similitude(C, A, -90, calcul(randint(7, 12) / 10), '', 'right')
+    const D = similitude(C, A, -90, calcul(randint(7, 12, 10) / 10), '', 'right') // On exclue 10 pour ne pas avoir un triangle isocèle
     const t2 = polygone(C, A, D)
     const t2c = polygone(C, A, D)
     t2c.color = 'blue'
@@ -54,7 +55,7 @@ export default function MonSuperExerciceTropBeau () {
     D.nom = nom[3]
     const labels = labelPoint(A, B, C, D)
     const BA = longueur(B, A)
-    const AD = Math.ceil(longueur(A, D), 1)
+    const AD = longueur(A, D, 1)
     const BAC = Math.ceil(angle(B, A, C))
     let AC = calcul(BA / Math.cos(radians(BAC)), 1)
     let ACD = Math.round(degres(Math.atan(AD / AC)))
@@ -66,14 +67,14 @@ export default function MonSuperExerciceTropBeau () {
     a5.epaisseur = 2
     const ACB = Math.ceil(angle(A, C, B))
 
-    const liste_objets_mathalea = [t1, t2, c1, c2, labels]
+    const objetsMathalea = [t1, t2, c1, c2, labels]
 
-    switch (type_de_question) { // Suivant le type de question, le contenu sera différent
+    switch (typesDeQuestion) { // Suivant le type de question, le contenu sera différent
       case 'BA-AD-BAC':
         if (this.sup) {
-          liste_objets_mathalea.push(a1, a2, a3)
+          objetsMathalea.push(a1, a2, a3)
         }
-        texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, liste_objets_mathalea)
+        texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
         if (!this.sup) {
           texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA)}$ cm, $${A.nom + D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}°$.`
         }
@@ -101,9 +102,9 @@ export default function MonSuperExerciceTropBeau () {
         ACD = Math.round(degres(Math.atan(AD / AC)))
         a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '°')
         if (this.sup) {
-          liste_objets_mathalea.push(a1, a2, a3)
+          objetsMathalea.push(a1, a2, a3)
         }
-        texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, liste_objets_mathalea)
+        texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
         if (!this.sup) {
           texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA)}$ cm, $${A.nom + D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}°$.`
         }

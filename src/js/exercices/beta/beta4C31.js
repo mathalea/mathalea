@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texte_en_couleur_et_gras,texNombre} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,combinaisonListes,randint,choice,rangeMinMax,ecriturePuissance,numAlpha,texteEnCouleurEtGras,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Puissances de 10'
 
@@ -14,7 +15,7 @@ export const titre = 'Puissances de 10'
  * 5 : mantisses (négatives) et exposants différents
  * 6 : Tous types
  * Programmes : p130 : "Comparer, ranger, encadrer des nombres rationnels en écriture décimale, fractionnaire ou scientifique
- * @auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * date : 15/11/2020
  * 4C30-4
  */
@@ -26,7 +27,7 @@ export default function Comparer_puissance10() {
   this.nbQuestions = 5; // Ici le nombre de questions
   this.nbQuestionsModifiable=true // Active le formulaire nombre de questions
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false;
   this.spacing = 2;
   this.spacingCorr = 2;
   this.nbQuestions = 5;
@@ -37,8 +38,8 @@ export default function Comparer_puissance10() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [];       
-    type_de_questions_disponibles = [1,2,3,4,5]; 
+    let typesDeQuestionsDisponibles = [];       
+    typesDeQuestionsDisponibles = [1,2,3,4,5]; 
 
     for (let i = 0, texte=``, texteCorr=``, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a1 = 0; // mantisse 1
@@ -49,8 +50,8 @@ export default function Comparer_puissance10() {
       let nbA2 = 0; // valeur numérique du nombre 2
       this.listeQuestions = [] // tableau contenant la liste des questions 
       this.listeCorrections = []
-      let type_de_questions_disponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
-      let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+      let typesDeQuestionsDisponibles=[1,2,3,4,5] // tableau à compléter par valeurs possibles des types de questions
+      let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
       switch (listeTypeDeQuestions[i]) {
         case 1:
           a1 = 1;
@@ -142,20 +143,20 @@ export default function Comparer_puissance10() {
           }
 
         }
-      texteCorr += texte_en_couleur_et_gras(`Conclusion : `);
+      texteCorr += texteEnCouleurEtGras(`Conclusion : `);
       } // fin de la correction détaillée
       // correction courte :
       if (nbA1 > nbA2) {
-        texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+        texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`);
        } else {
          if (nbA1 == nbA2) {
-          texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+          texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`);
            } else {
-           texteCorr += texte_en_couleur_et_gras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
+           texteCorr += texteEnCouleurEtGras(` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`);
          }
      }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

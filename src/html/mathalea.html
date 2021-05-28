@@ -88,7 +88,7 @@
   <div class="ui hidden divider"></div>
 
   <section class="ui  container ">
-
+    <div id="containerErreur"></div>
     <div id="choix_exercices_menu">
       <h3 class="ui block header">Choix des exercices </h3>
       <div class="ui fluid left icon input" data-tooltip="Identifiants des exercices séparés par des virgules"
@@ -107,7 +107,7 @@
         <div id="exercices_disponibles">
           <h3 class="ui block header">
 			<div id="divFiltre" class="ui form">
-            <select id="filtre">
+            <select id="filtre" class="ui dropdown">
               <option value="tous">Tous les exercices</option>
               <option value="interactif">Exercices interactifs</option>
               <option value="primaire">Niveau Primaire</option>
@@ -117,9 +117,9 @@
               <option value="outils">Outils</option>
             </select>
       
-            <span class="mode_choix" id="mode_choix_liste" data-tooltip="basculer vers l'affichage liste"
+            <span class="mode_choix" id="mode_choix_liste" data-tooltip="Basculer vers l'affichage liste"
               data-position="bottom center"> Mode "Liste par niveau" </span>
-            <span class="mode_choix" id="mode_choix_tableau" data-tooltip="basculer vers l'affichage tableau"
+            <span class="mode_choix" id="mode_choix_tableau" data-tooltip="Basculer vers l'affichage tableau"
               data-position="bottom center"> Mode "Tableau et recherche" </span>
             <span class="replier" id="replier" data-tooltip="Replier/Déplier la liste des exercices disponibles"> -
             </span>
@@ -171,7 +171,7 @@
 
 
           <div class="ui fluid accordion">
-            <div class="title">
+            <div class="title" id="btnCorrection">
               <i class="dropdown icon"></i>
               Corrections
             </div>

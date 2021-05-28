@@ -1,7 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,ecritureParentheseSiNegatif} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
-
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,calcul,combinaisonListes,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 
 export const titre = 'Tester une égalité'
 
@@ -12,7 +11,7 @@ export const titre = 'Tester une égalité'
 * * 3x+a=5x-b
 * * ax+b=(a+1)x-c
 * * a-2x=b+2x
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5L15
 */
 export default function Tester_une_egalite() {
@@ -29,14 +28,14 @@ export default function Tester_une_egalite() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles; // = range1(5)
+		let typesDeQuestionsDisponibles; // = range1(5)
 
-		//	let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//	let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		if (this.sup2 == false)
-			type_de_questions_disponibles = [1, 2, 3, 4, 5];
+			typesDeQuestionsDisponibles = [1, 2, 3, 4, 5];
 		else
-			type_de_questions_disponibles = [6, 7, 3];
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+			typesDeQuestionsDisponibles = [6, 7, 3];
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let a, b, c, d, x1, x2, x3;
@@ -69,13 +68,13 @@ export default function Tester_une_egalite() {
 					if (this.sup == 1) {
 						a = randint(1, 9);
 						b = randint(0, 4) * 2 + a % 2;
-						x1 = parseInt(Algebrite.eval((a + b) / 2));
+						x1 = parseInt(calcul((a + b) / 2));
 						x2 = randint(1, 9, x1);
 					}
 					else {
 						a = randint(-9, 9, [0]);
 						b = randint(-4, 4, [a, 0]) * 2 + a % 2;
-						x1 = parseInt(Algebrite.eval((a + b) / 2));
+						x1 = parseInt(calcul((a + b) / 2));
 						x2 = randint(-9, 9, [0, x1]);
 					}
 
@@ -91,13 +90,13 @@ export default function Tester_une_egalite() {
 					if (this.sup == 1) {
 						a = randint(1, 3);
 						b = randint(1, 3);
-						x2 = parseInt(Algebrite.eval((10 * a + 4 * b) / 2));
+						x2 = parseInt(calcul((10 * a + 4 * b) / 2));
 						x1 = randint(1, 9, x2);
 					}
 					else {
 						a = randint(-3, 3, [0]);
 						b = randint(-3, 3, [0]);
-						x2 = parseInt(Algebrite.eval((10 * a + 4 * b) / 2));
+						x2 = parseInt(calcul((10 * a + 4 * b) / 2));
 						x1 = randint(-9, 9, [0, x2]);
 					}
 
@@ -214,7 +213,7 @@ export default function Tester_une_egalite() {
 			}
 
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

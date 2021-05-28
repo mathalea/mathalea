@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,texte_en_couleur} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,texteEnCouleur} from '../../modules/outils.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
@@ -20,12 +21,12 @@ export default function Calculer_une_expression_litteraleBis() {
 	this.titre = titre;
 
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles
+		let typesDeQuestionsDisponibles
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
-		type_de_questions_disponibles = [5] //expressions complexes
+		typesDeQuestionsDisponibles = [5] //expressions complexes
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats, last_op
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			nb_operations = parseInt(listeTypeDeQuestions[i])
@@ -49,19 +50,19 @@ export default function Calculer_une_expression_litteraleBis() {
 						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
 						texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
 						texte += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
-						texte += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
+						texte += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 						texteCorr = ``;
 					} else {
 						texteCorr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
 						texteCorr += `<br>Le calcul serait le suivant : ${expc}.`;
 						texteCorr += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
-						texteCorr += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
+						texteCorr += texteEnCouleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 					};
 
 					break;
 
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

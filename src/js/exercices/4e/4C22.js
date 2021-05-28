@@ -1,6 +1,7 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenir_liste_fractions_irreductibles,obtenirListeNombresPremiers,decomposition_facteurs_premiers,texFraction} from '../../modules/outils.js'
-export const titre = 'Mutliplier des fractions'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,texFractionReduite,obtenirListeFacteursPremiers,obtenirListeFractionsIrreductibles,obtenirListeNombresPremiers,decompositionFacteursPremiers,texFraction} from '../../modules/outils.js'
+export const titre = 'Multiplier des fractions'
 
 /**
  * Exercice de calcul de produit de deux fractions.
@@ -10,7 +11,7 @@ export const titre = 'Mutliplier des fractions'
  * * 2 : deux questions niveau 1 puis deux questions niveau 3
  * * 3 : Produits de nombres relatifs
  * * Si décomposition cochée : les nombres utilisés sont plus importants.
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C22
  */
 export default function Exercice_multiplier_fractions() {
@@ -26,21 +27,21 @@ export default function Exercice_multiplier_fractions() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
-    let liste_fractions = obtenir_liste_fractions_irreductibles();
+    let typesDeQuestionsDisponibles;
+    let liste_fractions = obtenirListeFractionsIrreductibles();
 
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1, 2, 2, 2];
+      typesDeQuestionsDisponibles = [1, 2, 2, 2];
     } // 1*nombre entier,3*fraction (pas de négatifs)
     else if (this.sup == 2) {
-      type_de_questions_disponibles = [2, 2, 3, 3];
+      typesDeQuestionsDisponibles = [2, 2, 3, 3];
     } // fractions, 2*positifs, 2*relatifs
     else {
-      type_de_questions_disponibles = [3];
+      typesDeQuestionsDisponibles = [3];
     }
     let nombre_de_signe_moins;
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (
@@ -62,12 +63,12 @@ export default function Exercice_multiplier_fractions() {
       index,
       texte,
       texteCorr,
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       ab = choice(liste_fractions);
       cd = choice(liste_fractions);
       a = ab[0];
@@ -76,7 +77,7 @@ export default function Exercice_multiplier_fractions() {
       d = cd[1];
       if (this.sup2 == false) {
         // methode 1 : simplifications finale
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             if (a == 1) {
               a = randint(2, 9);
@@ -179,18 +180,18 @@ export default function Exercice_multiplier_fractions() {
         var listed = obtenirListeFacteursPremiers(d);
         var listeavf, listebvf;
 
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             texte = `$${a}\\times${texFraction(c, d)}=$`;
             texteCorr = `$${a}\\times${texFraction(c, d)}$`;
             texteCorr += `$=${texFraction(a + "\\times" + c, d)}$`;
             texteCorr += `$=${texFraction(
-              decomposition_facteurs_premiers(a) +
+              decompositionFacteursPremiers(a) +
               "\\times" +
-              decomposition_facteurs_premiers(c),
-              decomposition_facteurs_premiers(d)
+              decompositionFacteursPremiers(c),
+              decompositionFacteursPremiers(d)
             )}$`;
-            // texteCorr += `$=${texFraction(decomposition_facteurs_premiers(a * c), decomposition_facteurs_premiers(d))}$`
+            // texteCorr += `$=${texFraction(decompositionFacteursPremiers(a * c), decompositionFacteursPremiers(d))}$`
             for (let k in listec) {
               listea.push(listec[k]);
             }
@@ -420,7 +421,7 @@ export default function Exercice_multiplier_fractions() {
             break;
         }
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -1,12 +1,13 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,pgcd,texFractionReduite,calcul,texteEnCouleurEtGras} from '../../modules/outils.js'
 import {mathalea2d,labyrinthe} from '../../modules/2d.js'
-import { fraction } from '../../modules/Fractions.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Labyrinthe de fractions égales'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 11/12/2020
  * Ref : 6N41-1
  * Parcourir un labyrinthe de fractions en passant par des fractions égales.
@@ -51,11 +52,11 @@ export default function Exercice_labyrinthe_fractions_egales() {
     }
     let maximum = parseInt(this.sup)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
-    texteCorr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    texte = `${texteEnCouleurEtGras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${texFractionReduite(num,table)}$.<br>`
+    texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
- 
+
     for (let i = 2; i <= maximum; i++){
       listeMultiples.push(table * i)
     }
@@ -76,7 +77,7 @@ export default function Exercice_labyrinthe_fractions_egales() {
     for (let a=1;a<7;a++) {
       laby.nombres.push([fraction(1,1),fraction(1,1),fraction(1,1)])
     }
- 
+
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false

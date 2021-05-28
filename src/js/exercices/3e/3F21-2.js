@@ -1,7 +1,9 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, calcul, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { fraction } from '../../modules/Fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import { repere2, courbe2, mathalea2d, tracePoint, point } from '../../modules/2d.js'
+import { calcule } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
 
 /**
@@ -12,7 +14,7 @@ export const titre = 'Déterminer une fonction affine par la donnée des images 
  * cas 3 : f(x1) et f(x2) donnés a et b entiers
  * cas 4 : f(x1) et f(x2) donnés a et b rationnels
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3F21-2
 */
 export default function DeterminerFonctionAffine () {
@@ -47,7 +49,6 @@ export default function DeterminerFonctionAffine () {
       typeDeQuestionsDisponibles = [3, 4]
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    console.log(this.sup, typeDeQuestionsDisponibles, listeTypeDeQuestions)
     for (let i = 0, x1, x2, y1, y2, a, b, tA,tB,repere, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
@@ -68,7 +69,7 @@ export default function DeterminerFonctionAffine () {
             tA.color='red'
             tB.color='red'
             repere = repere2({ xMin: -5, yMin: Math.min(-1, b-1), xMax: 5, yMax: Math.max(b+1, 2) })
-            texteCorr += `<br>${mathalea2d({ xmin: -5, ymin: Math.min(-1, b-1), xmax: 5, ymax: Math.max(b+1, 2), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
+            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-1, b-1), xmax: 5, ymax: Math.max(b+1, 2), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
           }
           break
 
@@ -78,7 +79,7 @@ export default function DeterminerFonctionAffine () {
           x1 = 0
           y1 = b
           x2 = randint(-5, 5, 0)
-          y2 = calcul(b + a * x2)
+          y2 = calcule(b + a * x2)
           texteCorr = `Soit $f(x)=ax+b$. Nous savons que $f(0)=${y1}=b$.<br>`
           texteCorr += `Donc $f(x)=ax${ecritureAlgebrique(y1)}$. En utilisant la donnée $f(${x2})=${y2}$ on obtient : $a \\times ${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(b)}=${y2}$ d'où $a \\times ${ecritureParentheseSiNegatif(x2)}=${y2}${ecritureAlgebrique(-b)}=${y2 - b}$ donc $a=\\dfrac{${y2 - b}}{${x2}}=${a}$.<br>`
           texteCorr += `Donc $f(x)=${a}x${ecritureAlgebrique(b)}$.`
@@ -88,7 +89,7 @@ export default function DeterminerFonctionAffine () {
             tA.color='red'
             tB.color='red'
             repere = repere2({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
+            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
           }
           break
 
@@ -96,10 +97,12 @@ export default function DeterminerFonctionAffine () {
           a = randint(-5, 5, 0)
           b = randint(-5, 5, 0)
           x1 = randint(-5, 5, [-1, 0])
-          y1 = calcul(a * x1 + b)
+          y1 = calcule(a * x1 + b)
           x2 = x1 + 1
-          y2 = calcul(b + a * x2)
-          texteCorr = `Soit $f(x)=ax+b$. On passe de $${x1}$ à $${x2}$ en ajoutant 1, donc la pente $a$ de la droite correspond à $f(${x2})-f(${x1})=${y2}-${ecritureParentheseSiNegatif(y1)}=${y2}${ecritureAlgebrique(-y1)}=${a}$.<br>`
+          y2 = calcule(b + a * x2)
+          texteCorr = `Soit $f(x)=ax+b$. On passe de $${x1}$ à $${x2}$ en ajoutant 1, donc la pente $a$ de la droite correspond à $f(${x2})-f(${x1})=${y2}-${ecritureParentheseSiNegatif(y1)}=`
+          if (y1 < 0) texteCorr += `${y2}${ecritureAlgebrique(-y1)}=${a}$.<br>`
+          else texteCorr += `${a}$.<br>`
           texteCorr += `Donc $f(x)=${a}x+b$.<br>En utilisant la donnée $f(${x2})=${y2}$ on obtient : $${a} \\times ${ecritureParentheseSiNegatif(x2)}+b=${y2}$ d'où $${a * x2}+b=${y2}$ donc $b=${y2}${ecritureAlgebrique(-a * x2)}=${b}$.<br>`
           texteCorr += `Donc $f(x)=${a}x${ecritureAlgebrique(b)}$.`
           if (this.correctionDetaillee) {
@@ -108,7 +111,7 @@ export default function DeterminerFonctionAffine () {
             tA.color='red'
             tB.color='red'
             repere = repere2({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
+            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
           }
           break
 
@@ -116,9 +119,9 @@ export default function DeterminerFonctionAffine () {
           a = randint(-5, 5, 0)
           b = randint(-5, 5, 0)
           x1 = randint(-5, 5, 0)
-          y1 = calcul(a * x1 + b)
+          y1 = calcule(a * x1 + b)
           x2 = randint(-5, 5, [0, x1])
-          y2 = calcul(b + a * x2)
+          y2 = calcule(b + a * x2)
           texteCorr = `Soit $f(x)=ax+b$. En utilisant les données de l'énoncé, on obtient : $f(${x1})=${y1}=a \\times ${ecritureParentheseSiNegatif(x1)}+b$ et $f(${x2})=${y2}=a \\times ${ecritureParentheseSiNegatif(x2)}+b$<br>`
           texteCorr += `Donc d'une part : $b=${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}$ et d'autre part : $b=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
           texteCorr += `Par identification, on obtient : $${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
@@ -132,7 +135,7 @@ export default function DeterminerFonctionAffine () {
             tA.color='red'
             tB.color='red'
             repere = repere2({ xMin: -5, yMin: Math.min(-5 * a + b, 5 * a + b), xMax: 5, yMax: Math.max(-5 * a + b, 5 * a + b) })
-            texteCorr += `<br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
+            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.min(-5 * a + b, 5 * a + b), xmax: 5, ymax: Math.max(-5 * a + b, 5 * a + b), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
           }
           break
 
@@ -143,7 +146,6 @@ export default function DeterminerFonctionAffine () {
           y2 = randint(-5, 5)
           a = fraction(y2 - y1, x2 - x1)
           b = a.multiplieEntier(-x1).ajouteEntier(y1)
-          console.log(b)
           texteCorr = `Soit $f(x)=ax+b$. En utilisant les données de l'énoncé, on obtient : $f(${x1})=${y1}=a \\times ${ecritureParentheseSiNegatif(x1)}+b$ et $f(${x2})=${y2}=a \\times ${ecritureParentheseSiNegatif(x2)}+b$<br>`
           texteCorr += `Donc d'une part : $b=${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}$ et d'autre part : $b=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
           texteCorr += `Par identification, on obtient : $${y1}+a\\times ${ecritureParentheseSiNegatif(-x1)}=${y2}+a\\times ${ecritureParentheseSiNegatif(-x2)}$.<br>`
@@ -156,10 +158,10 @@ export default function DeterminerFonctionAffine () {
             tB=tracePoint(point(x2,y2))
             tA.color='red'
             tB.color='red'
-            a=calcul(a.num/a.den)
-            b=calcul(b.num/b.den)
+            a=calcule(a.num/a.den)
+            b=calcule(b.num/b.den)
             repere = repere2({ xMin: -5, yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xMax: 5, yMax: Math.round(Math.max(-5 * a + b, 5 * a + b)) })
-            texteCorr += `<br>${mathalea2d({ xmin: -5, ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xmax: 5, ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
+            texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xmax: 5, ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }),tA,tB)}`
           }
           break
       }

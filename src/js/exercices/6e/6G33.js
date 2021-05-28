@@ -1,49 +1,47 @@
-/* global sortieHtml mathalea */
-import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, choice, shuffle, shuffle2tableaux } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType = 2 // QCM
+export const interactifReady = true
+
 
 export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 
 /**
  * Reconnaitre un quadrilatère particulier à partir de ses propriétés
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G33
 */
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.consigne = ''
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.correctionDetailleeDisponible = true
-  sortieHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
-  this.qcmDisponible = true
-  this.modeQcm = false
+  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6G33', [], "Trouver la nature d'un quadrilatère.", 1]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    if (this.interactif) this.consigne = 'Cocher toutes les réponses possibles.'
 
     const listeDeQuestions = shuffle([choice(['losange1', 'losange2']), choice(['rectangle1', 'rectangle2']), choice(['carre1', 'carre2', 'carre3'])])
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
-      let A, B, C, D, O, ABCD, codage, codage1, codage2, codage3, sAC, sBD, marquesDemiDiagonales, marquesDemiDiagonales1, marquesDemiDiagonales2, marquesCotes, tabrep, tabicone
+      let A, B, C, D, O, ABCD, codage, codage1, codage2, codage3, sAC, sBD, marquesDemiDiagonales, marquesDemiDiagonales1, marquesDemiDiagonales2, marquesCotes
       switch (listeDeQuestions[i]) {
         case 'losange1':
           texte = "Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [1, 0, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant 4 côtés de même longueur ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(2, 3)
           C = point(0, 6)
@@ -66,11 +64,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'losange2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [1, 0, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(2, 3)
           C = point(0, 6)
@@ -90,11 +83,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'rectangle1':
           texte = "Quelle est la nature d'un quadrilatère ayant 3 angles droits ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 1, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant 3 angles droits ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -119,11 +107,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'rectangle2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 1, 0, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(5, 0)
           C = point(5, 3)
@@ -148,11 +131,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre1':
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -177,11 +155,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre2':
           texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -203,11 +176,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
         case 'carre3':
           texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ?"
-          tabrep = ['Losange', 'Rectangle', 'Carré', 'Trapèze', 'Parallélogramme']
-          tabicone = [0, 0, 1, 0, 0]
-          this.qcm[1].push(['Quelle est la nature d\'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ? \\\\ \n Réponses possibles : ',
-            tabrep,
-            tabicone])
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)
@@ -232,14 +200,66 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr += "C'est un carré."
           break
       }
-      shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
-        if (texteCorr.lastIndexOf('\n') > 0) {
-          texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))
+      // if (this.modeQcm && !context.isAmc) {
+      //   if (texteCorr.lastIndexOf('\n') > 0) {
+      //     texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))
+      //   }
+      //   this.tableauSolutionsDuQcm[i] = tabicone
+      //   texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
+      //   texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      // }
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Losange',
+          statut: false,
+          feedback: 'Tous les losanges ont leurs côtés opposés parallèles, ce sont donc aussi des parallélogrammes et des trapèzes.'
+        },
+        {
+          texte: 'Rectangle',
+          statut: false,
+          feedback: 'Tous les rectangles ont leurs côtés opposés parallèles, ce sont donc aussi des parallélogrammes et des trapèzes.'
+
+        },
+        {
+          texte: 'Carré',
+          statut: false,
+          feedback: 'Tous les carrés ont 4 angles droits, ce sont donc aussi des rectangles. Tous les carrés ont 4 côtés de même longueur, ce sont donc aussi des losanges.'
+
+        },
+        {
+          texte: 'Trapèze',
+          statut: false
+        },
+        {
+          texte: 'Parallélogramme',
+          statut: false
         }
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      ]
+      this.autoCorrection[i].options = {
+        ordered: true,
+        lastChoice: 5
+      }
+      if (listeDeQuestions[i] === 'losange1' || listeDeQuestions[i] === 'losange2') {
+        this.autoCorrection[i].propositions[0].statut = true
+        this.autoCorrection[i].propositions[3].statut = true
+        this.autoCorrection[i].propositions[4].statut = true
+      }
+      if (listeDeQuestions[i] === 'rectangle1' || listeDeQuestions[i] === 'rectangle2') {
+        this.autoCorrection[i].propositions[1].statut = true
+        this.autoCorrection[i].propositions[3].statut = true
+        this.autoCorrection[i].propositions[4].statut = true
+      }
+      if (listeDeQuestions[i] === 'carre1' || listeDeQuestions[i] === 'carre2' || listeDeQuestions[i] === 'carre3') {
+        this.autoCorrection[i].propositions[0].statut = true
+        this.autoCorrection[i].propositions[1].statut = true
+        this.autoCorrection[i].propositions[2].statut = true
+        this.autoCorrection[i].propositions[3].statut = true
+        this.autoCorrection[i].propositions[4].statut = true
+      }
+      if (this.interactif) {
+        texte += propositionsQcm(this, i).texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -251,7 +271,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
+
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,'1 : ....\n2 : .....,\n3 : .....];
 }
 

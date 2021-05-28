@@ -1,9 +1,10 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,obtenirListeFacteursPremiers,texNombre,miseEnEvidence,modalPdf,modalVideo,cribleEratostheneN,premiersEntreBornes,warnMessage} from '../../modules/outils.js'
 export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
- * 3A11-2 - Decomposition_facteurs_premiers
+ * 3A11-2 - decompositionFacteursPremiers
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
  * plusieurs type de nombres à décomposer
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
@@ -11,7 +12,7 @@ export const titre = 'Décomposition en facteurs premiers d’un entier'
  * type 3 : un gros premiers au delà de 1000 et inférieur à 2 000
  * @author Sébastien Lozano
  */
-export default function Decomposition_facteurs_premiers() {
+export default function decompositionFacteursPremiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
@@ -19,8 +20,8 @@ export default function Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 3;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -29,8 +30,8 @@ export default function Decomposition_facteurs_premiers() {
 	this.listePackages = `bclogo`;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		let typesDeQuestions;
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
@@ -42,11 +43,11 @@ export default function Decomposition_facteurs_premiers() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3];
-		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		let typesDeQuestionsDisponibles = [1, 2, 3];
+		typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles); // on mélange l'ordre des questions
 
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>` + cribleEratostheneN(100)[0];
 		for (let k = 1; k < cribleEratostheneN(100).length; k++) {
@@ -57,9 +58,9 @@ export default function Decomposition_facteurs_premiers() {
 		this.introduction = warnMessage(string_rappel, `nombres`, `Coup de pouce`);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
 					// on fixe le nombre de facteurs premier entre 3 et 5
 					let nb_de_premiers = randint(3, 5);
@@ -185,7 +186,7 @@ export default function Decomposition_facteurs_premiers() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

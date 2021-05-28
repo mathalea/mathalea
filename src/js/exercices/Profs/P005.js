@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {point,segment,polygone,carre,grille,grilleHorizontale,texteParPosition,mathalea2d,grilleVerticale} from '../../modules/2d.js'
 
 export const titre = 'Grilles décimales'
@@ -6,7 +7,7 @@ export const titre = 'Grilles décimales'
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
  * ref P005
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Feuille_de_grilles() {
   Exercice.call(this);

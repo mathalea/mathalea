@@ -1,9 +1,13 @@
 /* eslint-disable camelcase */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
+import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 4 // type de question AMC
+export const amcType = 4 // Question numérique
+export const interactifReady = true
+
 
 export const titre = 'Multiplications posées de nombres décimaux'
 
@@ -14,12 +18,15 @@ export const titre = 'Multiplications posées de nombres décimaux'
  * * xx,x * x,x
  * * x,xx * x0x
  * * 0,xx * x,x
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C30
  */
-export default function Multiplier_decimaux () {
+export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.interactifReady = interactifReady
+  this.amcType = amcType
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
@@ -27,19 +34,18 @@ export default function Multiplier_decimaux () {
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
-    this.qcm = ['6C30', [], 'Multiplications posées de nombres décimaux', 4]
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const type_de_questions_disponibles = [1, 2, 3, 4]
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let type_de_questions, reponse
+    let typesDeQuestions, reponse
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i]
-      switch (type_de_questions) {
+      typesDeQuestions = listeTypeDeQuestions[i]
+      switch (typesDeQuestions) {
         case 1: // xxx * xx,x chiffres inférieurs à 5
           a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)
           b = calcul(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10)
@@ -61,13 +67,14 @@ export default function Multiplier_decimaux () {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      setReponse(this, i, reponse)
+      this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        // Pour AMC
-        this.qcm[1].push([texte, [texteCorr, reponse], { digits: 0, decimals: 0, signe: false, exposant_nb_chiffres: 0, exposant_signe: false, approx: 0 }])
         i++
       }
       cpt++

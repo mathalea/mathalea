@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,pgcd} from '../../modules/outils.js'
-import {fraction} from '../../modules/Fractions.js'
+import {fraction} from '../../modules/fractions.js'
 export const titre = 'Déterminer les termes d’une suite définie de façon explicite'
 
 /**
  * 1N10
- * @Auteur Gaelle Morvan
+ * @author Gaelle Morvan
  */
 export default function Terme_d_une_suite_definie_explicitement() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -17,9 +18,9 @@ export default function Terme_d_une_suite_definie_explicitement() {
     this.listeQuestions = []; // Vide la liste de questions
     this.listeCorrections = []; // Vide la liste de questions corrigées
 
-    let type_de_questions_disponibles = [1, 2, 3];
+    let typesDeQuestionsDisponibles = [1, 2, 3];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -129,7 +130,7 @@ export default function Terme_d_une_suite_definie_explicitement() {
       }
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte); // Sinon on enregistre la question dans listeQuestions
         this.listeCorrections.push(texteCorr); // On fait pareil pour la correction
         i++; // On passe à la question suivante

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, choice,creerNomDePolygone, calcul } from '../../modules/outils.js';
 import {mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment   } from '../../modules/2d.js';
 
@@ -6,7 +7,7 @@ export const titre = 'Description et notation des droites, segments et demi-droi
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G10-1
  */
 export default function Description_segment_droite_demi_droite(){
@@ -20,8 +21,8 @@ export default function Description_segment_droite_demi_droite(){
   this.nouvelleVersion = function(numeroExercice) {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1, 4, choice([2, 3])];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let typesDeQuestionsDisponibles = [1, 4, choice([2, 3])];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions);
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let p = creerNomDePolygone(2, "P");
       let A = point(0, calcul(randint(0, 20) / 10), p[0]);
@@ -63,7 +64,7 @@ export default function Description_segment_droite_demi_droite(){
       texteCorr = dABCorr;
       
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

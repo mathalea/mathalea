@@ -31,6 +31,6 @@ const nom1 = creerNomDePolygone(3)
 const nom2 = creerNomDePolygone(3, nom1)
 nommePolygone(p1, nom1)
 nommePolygone(p2, nom2)
-mathalea.fenetreMathalea2d = [Math.min(A.x, B.x, C.x, D.x, E.x, F.x)-3, Math.min(A.y, B.y, C.y, D.y, E.y, F.y)-3,Math.max(A.x, B.x, C.x, D.x, E.x, F.x)+3,Math.max(A.y, B.y, C.y, D.y, E.y, F.y)+3]
+context.fenetreMathalea2d = [Math.min(A.x, B.x, C.x, D.x, E.x, F.x)-3, Math.min(A.y, B.y, C.y, D.y, E.y, F.y)-3,Math.max(A.x, B.x, C.x, D.x, E.x, F.x)+3,Math.max(A.y, B.y, C.y, D.y, E.y, F.y)+3]
 
 

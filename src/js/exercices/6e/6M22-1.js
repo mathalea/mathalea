@@ -1,5 +1,6 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, shuffle, arrondi, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires de disques'
@@ -11,7 +12,7 @@ export const titre = 'Périmètres et aires de disques'
  * * 3 : Calculer le périmètre et l'aire de disques
  *
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M22-1
  */
 export default function Perimetre_aire_disques (pa = 3) {

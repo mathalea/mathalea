@@ -3,7 +3,7 @@ export const titre = 'Calculer des longueurs avec la propriété de Thalès'
 
 /**
  * Calcul de longueurs avec le théorème de Thalès
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3G20
 */
 export default function Thales2D_3e() {

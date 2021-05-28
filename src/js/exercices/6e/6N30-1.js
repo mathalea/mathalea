@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { calcul, choice, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
@@ -7,7 +8,7 @@ export const titre = 'Lire l’abscisse décimale d’un point repéré par une 
 /**
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
  * demis, quart, cinquièmes dixièmes et centièmes
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N30-1
  */
 export default function Lire_abscisse_decimale_bis () {
@@ -26,13 +27,13 @@ export default function Lire_abscisse_decimale_bis () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 5) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      type_de_questions = combinaisonListes(
+    if (this.sup == 5) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
@@ -58,7 +59,7 @@ export default function Lire_abscisse_decimale_bis () {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 3: // Placer des demis ou des quarts sur un axe
           abs0 = 0
           pas1 = 1
@@ -88,7 +89,7 @@ export default function Lire_abscisse_decimale_bis () {
       x11 = randint(1, pas2 - 1)
       x22 = randint(1, pas2 - 1)
       x33 = randint(1, pas2 - 1)
-      if (sortieHtml) {
+      if (context.isHtml) {
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -172,7 +173,7 @@ export default function Lire_abscisse_decimale_bis () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

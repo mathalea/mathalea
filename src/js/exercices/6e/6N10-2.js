@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombrec} from '../../modules/outils.js'
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre de...)'
 
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N10-2
  */
 export default function Decomposition_nombre_decimal() {
@@ -19,7 +20,7 @@ export default function Decomposition_nombre_decimal() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       1,
       2,
       choice([3, 4, 5]),
@@ -28,7 +29,7 @@ export default function Decomposition_nombre_decimal() {
       choice([11, 12]),
     ]; // sans chevauchement ou avec chevauchement
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let m = randint(1, 9); // le nombre sera le même pour tout l'exercice
@@ -116,7 +117,7 @@ export default function Decomposition_nombre_decimal() {
 
       texteCorr += ".";
       texte += "\\ldots";
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

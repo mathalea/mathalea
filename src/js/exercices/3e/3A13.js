@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decomposition_facteurs_premiers,modalPdf,katexPopup2,numAlpha,warnMessage,lampeMessage,ppcm} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,decompositionFacteursPremiers,modalPdf,katexPopup2,numAlpha,warnMessage,lampeMessage,ppcm} from '../../modules/outils.js'
 import {SVG_engrenages} from '../../modules/macroSvgJs.js'
 export const titre = 'Engrenages'
 
@@ -18,8 +19,8 @@ export default function PPCM_Engrenages() {
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne = ``;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 2 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 4;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -29,13 +30,13 @@ export default function PPCM_Engrenages() {
 
 	var num_ex = '3A13'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-	if (sortieHtml) {
+	if (context.isHtml) {
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 	} else { // sortie LaTeX
 	};
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		let typesDeQuestions;
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A13.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire");
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
@@ -47,11 +48,11 @@ export default function PPCM_Engrenages() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 		let txt_intro = `Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`;
-		if (sortieHtml) {
+		if (context.isHtml) {
 			txt_intro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
 			txt_intro += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 			//this.introduction += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
@@ -66,9 +67,9 @@ export default function PPCM_Engrenages() {
 		});
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
-			if (sortieHtml) {
+			if (context.isHtml) {
 				let id_unique = `${num_ex}_${i}_${Date.now()}`;
 				//var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`;
 			}
@@ -76,14 +77,14 @@ export default function PPCM_Engrenages() {
 			var nb_dents_r1;
 			var nb_dents_r2;
 			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
-			//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
-			if (sortieHtml) {
+			//txt_popup += texteGras('les nombres a et b sont premiers entre eux');
+			if (context.isHtml) {
 				txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 			} else {
 				txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 			};
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // avec de petits nombres on calcule les mutliples
 					nb_dents_r1 = randint(5, 30);
 					nb_dents_r2 = randint(5, 30, nb_dents_r1);
@@ -92,13 +93,13 @@ export default function PPCM_Engrenages() {
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 						// let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
-						// //txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
-						// if (sortieHtml) {
+						// //txt_popup += texteGras('les nombres a et b sont premiers entre eux');
+						// if (context.isHtml) {
 						// 	txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
 						// } else {
 						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
 						// };
-						//${texte_gras('les nombres a et b sont premiers entre eux')}.`;
+						//${texteGras('les nombres a et b sont premiers entre eux')}.`;
 						texte += katexPopup2(
 							numeroExercice + 1,
 							1,
@@ -153,7 +154,7 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texteCorr += `<br><br>` + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
@@ -184,14 +185,14 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texte += `<br>` + numAlpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
 					texteCorr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`;
-					texteCorr += `<br>` + numAlpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
-					texteCorr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
-					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
+					texteCorr += `<br>` + numAlpha(0) + ` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decompositionFacteursPremiers(nb_dents_r1)}$.`;
+					texteCorr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decompositionFacteursPremiers(nb_dents_r2)}$.`;
+					texteCorr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decompositionFacteursPremiers(ppcm(nb_dents_r1, nb_dents_r2))}$.<br>`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texteCorr += `Le $ppcm(` + nb_dents_r1 + `;` + nb_dents_r2 + `)=` + nb_dents_r1 + `\\times` + nb_dents_r2 + `$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
 						texteCorr += katexPopup2(
@@ -199,7 +200,7 @@ export default function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
+							txt_popup //`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texteCorr += `<br><br>` + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${texNombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
@@ -254,7 +255,7 @@ export default function PPCM_Engrenages() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

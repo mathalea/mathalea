@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import Choisir_expression_numerique from './_Choisir_expression_numerique.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import Choisir_expression_litterale from './_Choisir_expression_litterale.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,katexPopup2} from '../../modules/outils.js'
 /**
-* Fonction noyau pour 7 fonctions qui utilisent les mêmes variables et la fonction Choisir_expression_numerique
-* @Auteur Jean-Claude Lhote
+* Fonction noyau pour 7 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
+* @author Jean-Claude Lhote
 * Référence 5C11,5C11-1, 5C11-2, 5C12, 5C12-1, 5L13, 5L13-1, 5L13-2, 5L13-3
 */
 export default function Ecrire_une_expression_numerique() {
@@ -20,21 +21,21 @@ export default function Ecrire_une_expression_numerique() {
 	this.version = 1; // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles = [];
+		let typesDeQuestionsDisponibles = [];
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune liste n'est saisie
-			type_de_questions_disponibles = [1, 2, 3, 4, 5]
+			typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 		}
 		else {
 			if (typeof (this.sup) == 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-				type_de_questions_disponibles[0] = this.sup
+				typesDeQuestionsDisponibles[0] = this.sup
 			} else {
-				type_de_questions_disponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				typesDeQuestionsDisponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 			}
 		}
 		let expf, expn, expc, decimal = 1, nbval, nb_operations, resultats
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 		if (this.sup2) decimal = 10;
 		for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			nb_operations = parseInt(listeTypeDeQuestions[i])
@@ -42,7 +43,7 @@ export default function Ecrire_une_expression_numerique() {
 			val2 = randint(6, 9)
 			if (this.version > 2 && nb_operations == 1 && !this.litteral) nb_operations++
 			if (!this.litteral)
-				resultats = Choisir_expression_numerique(nb_operations, decimal, this.sup3)
+				resultats = choisirExpressionNumerique(nb_operations, decimal, this.sup3)
 			else
 				resultats = Choisir_expression_litterale(nb_operations, decimal, val1, val2, this.sup3)
 			expf = resultats[0]
@@ -84,7 +85,7 @@ export default function Ecrire_une_expression_numerique() {
 					break
 
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

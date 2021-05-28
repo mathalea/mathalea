@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, calcul, choice, texNombre} from '../../modules/outils.js'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 
 /**
  * Problèmes avec des multiplications ou des divisions avec des puissances de 10 et des conversions
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4C32-3
  * 2021-02-05
 */
@@ -15,17 +16,17 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestions = 4;
   this.nbCols = 1; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  //this.sup = 1; // Niveau de difficulté 
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  sortieHtml? this.spacingCorr = 2 : this.spacingCorr = 1;
+  context.isHtml? this.spacingCorr = 2 : this.spacingCorr = 1;
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['info','info2','electricite','lumiere']
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['info','info2','electricite','lumiere']
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr,a, a1, b, b1, c, c1, u, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -80,7 +81,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

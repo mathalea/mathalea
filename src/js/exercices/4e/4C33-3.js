@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,simpExp,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Calculs automatisés et règles de calculs'
 
@@ -8,7 +9,7 @@ export const titre = 'Puissances : Calculs automatisés et règles de calculs'
  * * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
  * * Date initiale non renseignée
  * * Mise à jour le 2021-01-24
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  * 4C33-3
  */
 export default function Puissances_d_un_relatif_2() {
@@ -16,7 +17,7 @@ export default function Puissances_d_un_relatif_2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   //this.sup = 1;
   this.titre = titre;
-  sortieHtml
+  context.isHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");
   this.spacing = 2;
@@ -28,9 +29,9 @@ export default function Puissances_d_un_relatif_2() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8];
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
 
@@ -46,9 +47,9 @@ export default function Puissances_d_un_relatif_2() {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      let type_de_questions = listeTypeDeQuestions[i];
+      let typesDeQuestions = listeTypeDeQuestions[i];
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1:
           base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])]; // on a besoin de 3 exposants distincts
@@ -208,7 +209,7 @@ export default function Puissances_d_un_relatif_2() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

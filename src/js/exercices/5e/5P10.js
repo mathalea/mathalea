@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Tableaux et proportionnalité.'
 
 /** 
@@ -25,25 +26,25 @@ export default function Tableaux_et_proportionnalite() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		if (this.debug) {
-			type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
+			typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5];
 		} else {
-			//type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-			type_de_questions_disponibles = [choice([0, 1]), 2, choice([3, 4]), 5];
-			type_de_questions_disponibles = shuffle(type_de_questions_disponibles);
+			//typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+			typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5];
+			typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles);
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -131,7 +132,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(n1, n2, n3, coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(n1, n2, n3, coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -142,7 +143,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -153,7 +154,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_OK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L1L2'),
 					justification_L2_L1: justifications_OK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`C'est donc un tableau de proportionnalité.`),
 					areEgaux: `égaux`,
 
 				},
@@ -164,7 +165,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(n1, n2, n3, coeff, '+', 'L1L2'),
 					justification_L2_L1: justifications_KO(n1 + coeff, n2 + coeff, n3 + coeff, -coeff, '+', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 				},
 				{//case 4 --> addition ligne1 vers ligne2 Décimaux
@@ -174,7 +175,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L1L2'),
 					justification_L2_L1: justifications_KO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 
 				},
@@ -185,7 +186,7 @@ export default function Tableaux_et_proportionnalite() {
 					),
 					justification_L1_L2: justifications_KO(n1, n2, n3, coeff_soust, '-', 'L1L2'),
 					justification_L2_L1: justifications_KO(n1 - coeff_soust, n2 - coeff_soust, n3 - coeff_soust, -coeff_soust, '-', 'L2L1'),
-					isProportionnel: texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					isProportionnel: texteEnCouleurEtGras(`Ce n'est donc pas un tableau de proportionnalité.`),
 					areEgaux: `différents`,
 				},
 			];
@@ -271,7 +272,7 @@ export default function Tableaux_et_proportionnalite() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

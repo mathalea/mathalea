@@ -1,14 +1,15 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettre_minuscule_depuis_chiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,calcul,texNombrec,lettreMinusculeDepuisChiffre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 import {repere,courbe,mathalea2d,} from '../../modules/2d.js'
-const Algebrite = require('algebrite')
-
+import { calcule } from '../../modules/fonctionsMaths.js'
+import Algebrite from 'algebrite'
 
 
 export const titre = 'Trouver l’équation d’une parabole'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Trois type de questions proposées :
  * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
  * 2) Passant par un point et dont on connait le sommet
@@ -30,13 +31,13 @@ export const titre = 'Trouver l’équation d’une parabole'
       var pixelsParCm=20
       this.listeQuestions = []; // Liste de questions
       this.listeCorrections = []; // Liste de questions corrigées
-      let listeTypeDeQuestions,type_de_questions_disponibles;
-      if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
-      else type_de_questions_disponibles=[1,2,2,3,3]
+      let listeTypeDeQuestions,typesDeQuestionsDisponibles;
+      if (this.sup<4) typesDeQuestionsDisponibles=[parseInt(this.sup)]
+      else typesDeQuestionsDisponibles=[1,2,2,3,3]
       let f_name=[],Ymin,Yscale,Ymax
-      listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+      listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
       for (let i = 0, texte, texteCorr, a, b, c, x1, x2,x3,f,r,svgYmin,svgYmax,F, cpt = 0;i < this.nbQuestions && cpt < 50;) {
-        f_name.push(lettre_minuscule_depuis_chiffre(i+6))
+        f_name.push(lettreMinusculeDepuisChiffre(i+6))
         texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré `
         texteCorr=``
         switch (listeTypeDeQuestions[i]) {
@@ -48,20 +49,20 @@ export const titre = 'Trouver l’équation d’une parabole'
             x2=randint(-5,5,x1)
             x3=randint(-5,5,[x1,x2])
              f = function(x) {
-              return calcul(a*x**2+b*x+c)
+              return calcule(a*x**2+b*x+c)
             }
             texte+=`qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$ ?<br>`
             texteCorr=`Soit $\\mathscr{${f_name[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${f_name[i]}}(0)=${f(0)}$ nous en déduisons que $c=${miseEnEvidence(f(0),'red')}$.<br>`
             texteCorr+=`Donc $\\mathscr{${f_name[i]}}(x)=ax^2+bx${miseEnEvidence(ecritureAlgebrique(f(0)),'red')}$.<br>`
             texteCorr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
             texteCorr+=`$\\begin{cases}
-            ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecritureAlgebrique(f(0))}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(x1)+'b'+ecritureAlgebrique(f(0)))} \\\\
-            ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecritureAlgebrique(f(0))}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b'+ecritureAlgebrique(f(0)))}
+            ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecritureAlgebrique(f(0))}=${ecritureAlgebriqueSauf1(x1**2)}a ${ecritureAlgebriqueSauf1(x1)}b ${ecritureAlgebrique(f(0))} \\\\
+            ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecritureAlgebrique(f(0))}=${ecritureAlgebriqueSauf1(x1**2)}a ${ecritureAlgebriqueSauf1(-x1)}b ${ecritureAlgebrique(f(0))}
          \\end{cases}$<br>`
             if (this.correctionDetaillee) {
               texteCorr+=`Ce qui équivaut à <br>$\\begin{cases}
-                 ${f(x1)}${ecritureAlgebrique(-f(0))}=${f(x1)-f(0)}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a' + ecritureAlgebriqueSauf1(x1)+'b')} \\\\
-                 ${f(-x1)}${ecritureAlgebrique(-f(0))}=${f(-x1)-f(0)}=${Algebrite.eval(ecritureAlgebriqueSauf1(x1**2)+'a'+ecritureAlgebriqueSauf1(-x1)+'b')}
+                 ${f(x1)}${ecritureAlgebrique(-f(0))}=${f(x1)-f(0)}=${ecritureAlgebriqueSauf1(x1**2)}a ${ecritureAlgebriqueSauf1(x1)}b \\\\
+                 ${f(-x1)}${ecritureAlgebrique(-f(0))}=${f(-x1)-f(0)}=${ecritureAlgebriqueSauf1(x1**2)}a ${ecritureAlgebriqueSauf1(-x1)}b
                \\end{cases}$<br>`
                texteCorr+=`En ajoutant et en soustrayant les équations membre à membre, on obtient :<br>
                 $\\begin{cases}
@@ -77,19 +78,19 @@ export const titre = 'Trouver l’équation d’une parabole'
           a=randint(-3,3,0)
           b=randint(-3,3,0)*2*a
           c=randint(-10,10)
-          x1=calcul(-b/(2*a))
+          x1=calcule(-b/(2*a))
           x2=randint(-5,5,x1)
           x3=randint(-5,5,[x1,x2])
   
          f = function(x) {
-          return calcul(a*x**2+b*x+c)
+          return calcule(a*x**2+b*x+c)
         }
             texte+=`dont la parabole a pour sommet le point de coordonnées $(${x1};${f(x1)})$ et passe par le point de coordonnées $(${x2};${f(x2)})$ ?<br>`;
             texteCorr=`D'après les coordonnées $(${x1};${f(x1)})$ du sommet, $\\mathscr{${f_name[i]}}$ a pour forme canonique : $\\mathscr{${f_name[i]}}(x)=a(x${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}$.<br>`
             texteCorr+=`De plus $\\mathscr{${f_name[i]}}(${x2})=${f(x2)}$`
             if (this.correctionDetaillee) {
               texteCorr+=` donc $a(${x2}${ecritureAlgebrique(-x1)})^2${ecritureAlgebrique(f(x1))}=${f(x2)}$ `
-              texteCorr+=`soit $${Algebrite.eval(x2**2+'a'+ecritureAlgebrique(-2*x1*x2)+'a'+ecritureAlgebrique(x1**2)+'a'+ecritureAlgebrique(f(x1)))}=${f(x2)}$.<br>`
+              texteCorr+=`soit $${x2**2}a ${ecritureAlgebrique(-2*x1*x2)}a ${ecritureAlgebrique(x1**2)}a ${ecritureAlgebrique(f(x1))}=${f(x2)}$.<br>`
             if (x2**2-2*x1*x2+x1**2!=1)
               texteCorr+=`On en déduit que $a=\\dfrac{${f(x2)}${ecritureAlgebrique(-f(x1))}}{${(x2**2-2*x1*x2+x1**2)}}=${a}$.<br>`
             else
@@ -110,10 +111,10 @@ export const titre = 'Trouver l’équation d’une parabole'
           x2=randint(1,6,-x1)
           x3=randint(-5,5,[x1,x2])
           a=randint(-4,4,0)
-          b=calcul(-a*(x1+x2))
+          b=calcule(-a*(x1+x2))
           c=a*x1*x2
           f = function(x) {
-            return calcul(a*x**2+b*x+c)
+            return calcule(a*x**2+b*x+c)
           }
                texte+=`qui s'annule en $x=${x1}$ et en $x=${x2}$ et dont la parabole passe par le point de coordonnées $(${x3};${f(x3)})$ ?<br>`
             texteCorr+=`Comme $${x1}$ et $${x2}$ sont les deux solutions de l'équation $\\mathscr{${f_name[i]}}(x)=0$, on peut factoriser $\\mathscr{${f_name[i]}}(x)$ :<br>`
@@ -124,7 +125,7 @@ export const titre = 'Trouver l’équation d’une parabole'
               texteCorr+=`d'où $a=${f(x3)}\\div ${ecritureParentheseSiNegatif((x3-x1)*(x3-x2))}=${a}$.<br>`
             }
             else texteCorr+=`$a=${a}$.<br>`
-            texteCorr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${Algebrite.eval(`${ecritureAlgebriqueSauf1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}`)}$`
+            texteCorr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${rienSi1(a)}(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${ecritureAlgebriqueSauf1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x  ${ecritureAlgebrique(c)}$`
             break;
   
         }
@@ -138,7 +139,7 @@ export const titre = 'Trouver l’équation d’une parabole'
         }
   
         if (Ymax-Ymin<10) Yscale=2
-        else Yscale =Math.max(1,calcul(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))*2
+        else Yscale =Math.max(1,calcule(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))*2
         r = repere({
           xmin: -10,
           ymin: Ymin-Yscale,
@@ -149,11 +150,11 @@ export const titre = 'Trouver l’équation d’une parabole'
           positionLabelY:-0.8
         })
   
-        svgYmin=Math.min(calcul(Ymin/Yscale),-1)
-        svgYmax=Math.max(calcul(Ymax/Yscale),1)
+        svgYmin=Math.min(calcule(Ymin/Yscale),-1)
+        svgYmax=Math.max(calcule(Ymax/Yscale),1)
         F = x => a*x**2+b*x+c;
         texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+2,pixelsParCm:pixelsParCm,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);
           i++;

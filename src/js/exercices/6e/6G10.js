@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,creerNomDePolygone} from '../../modules/outils.js'
 import {point,labelPoint,droite,segment,demiDroite,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Notation des droites, segments et demi-droites'
 
 /**
  * Utiliser les notations des segments, droites et demi-droites
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G10
  */
 export default function Notation_segment_droite_demi_droite() {
@@ -68,7 +69,7 @@ export default function Notation_segment_droite_demi_droite() {
       );
       texteCorr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

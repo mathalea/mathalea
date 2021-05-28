@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,texNombre,numAlpha,tableauColonneLigne} from '../../modules/outils.js'
 import {point,polygone,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Produire une formule à partir d’un tableau'
@@ -26,24 +27,24 @@ export default function Tableaux_et_fonction() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	//this.nbQuestionsModifiable = false;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		if (this.debug) {
-			type_de_questions_disponibles = [0];
+			typesDeQuestionsDisponibles = [0];
 		} else {
-			//type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
-			type_de_questions_disponibles = [0];
+			//typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+			typesDeQuestionsDisponibles = [0];
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 			let L1 = randint(3, 7);
@@ -227,7 +228,7 @@ export default function Tableaux_et_fonction() {
 
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

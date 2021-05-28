@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 
 
@@ -6,7 +7,7 @@ export const titre = 'Existence d’une racine carrée'
 
 /**
  * 2N10
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Existence_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -20,11 +21,11 @@ export default function Existence_d_une_racine_carree() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7, 8],type_de_questions
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8],typesDeQuestions
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
         for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
-            switch (type_de_questions) {
+            typesDeQuestions = listeTypeDeQuestions[i];
+            switch (typesDeQuestions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
                 case 1:
@@ -71,7 +72,7 @@ export default function Existence_d_une_racine_carree() {
                     texteCorr = `$-${j}^{2}=-${j * j}$ est un réel négatif donc sa racine carrée n'est pas définie.`;
                     break;
             }
-            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
                 i++;

@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,arrondiVirgule,prenom,texNombre,premiereLettreEnMajuscule,numAlpha} from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
  * Organiser donnees depuis texte
- * @Auteur Erwan Duplessy
+ * @author Erwan Duplessy
  * Référence 6S11
  */
 
@@ -20,8 +21,8 @@ export default function Organiser_donnees_depuis_texte() {
   this.nbColsCorr = 1;
   this.sup = false; // false -> effectif ; true -> masse
   this.sup2 = 4; // paramètre nombre de fruit
-  sortieHtml ? this.spacing = 2 : this.spacing = 1;
-  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+  context.isHtml ? this.spacing = 2 : this.spacing = 1;
+  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions

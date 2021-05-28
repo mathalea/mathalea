@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js';
 export const titre = 'Opérations posées'
@@ -15,7 +16,7 @@ export const titre = 'Opérations posées'
  * * division par 11, 12, 15, 25
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6C11
  */
 export default function Operations_posees() {
@@ -23,7 +24,7 @@ export default function Operations_posees() {
     this.titre = titre;
     this.consigne = "";
     this.spacing = 2;
-    sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1); //Important sinon opidiv n'est pas joli
     this.nbQuestions = 1;
     this.nbQuestionsModifiable = false
     this.sup = 1;

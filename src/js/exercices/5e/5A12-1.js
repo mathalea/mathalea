@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur_et_gras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,nombreAvecEspace,texteEnCouleurEtGras,modalPdf,modalVideo,cribleEratostheneN,warnMessage} from '../../modules/outils.js'
 
 export const titre = 'Primalité ou pas'
 
@@ -17,8 +18,8 @@ export default function Premier_ou_pas_5e() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
 	//this.consigne += `<br>`;	
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 7;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 2;
@@ -27,8 +28,8 @@ export default function Premier_ou_pas_5e() {
 	this.listePackages = `bclogo`;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		let typesDeQuestions;
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-5A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
@@ -40,11 +41,11 @@ export default function Premier_ou_pas_5e() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6, 7];
-		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7];
+		typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles); // on mélange l'ordre des questions
 
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>` + cribleEratostheneN(100)[0];
 		for (let k = 1; k < cribleEratostheneN(30).length; k++) {
@@ -55,16 +56,16 @@ export default function Premier_ou_pas_5e() {
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			var N; // le nombre de la question
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // nombre pair
 					N = 2 * randint(51, 4999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 2: // Multiple de 3
 					let sum3 = 0; // pour la valeur de la somme;
@@ -72,22 +73,22 @@ export default function Premier_ou_pas_5e() {
 					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 3 * randint(34, 3333);
 					};
-					texte = nombre_avec_espace(N);
+					texte = nombreAvecEspace(N);
 					texteCorr = `Comme ` + N.toString().charAt(0);
 					sum3 = Number(N.toString().charAt(0));
 					for (let k = 1; k < N.toString().length; k++) {
 						texteCorr += ` + ` + N.toString().charAt(k);
 						sum3 += Number(N.toString().charAt(k));
 					};
-					texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += ` = ${sum3} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 3: // Multiple de 5
 					N = 5 * randint(20, 1999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `;
 					texteCorr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 4: // Multiple de 9
 					let sum9 = 0; // pour la valeur de la somme;
@@ -95,22 +96,22 @@ export default function Premier_ou_pas_5e() {
 					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 9 * randint(34, 3333);
 					};
-					texte = nombre_avec_espace(N);
+					texte = nombreAvecEspace(N);
 					texteCorr = `Comme ` + N.toString().charAt(0);
 					sum9 = Number(N.toString().charAt(0));
 					for (let k = 1; k < N.toString().length; k++) {
 						texteCorr += ` + ` + N.toString().charAt(k);
 						sum9 += Number(N.toString().charAt(k));
 					};
-					texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += ` = ${sum9} est un multiple de 9 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même, `;
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 5: // multiple de 10
 					N = 10 * randint(10, 999);
-					texte = nombre_avec_espace(N);
-					texteCorr = `Comme le nombre ${nombre_avec_espace(N)} se termine par un ${N.toString().charAt(N.toString().length - 1)} alors ${nombre_avec_espace(N)} est un multiple de 10, `;
+					texte = nombreAvecEspace(N);
+					texteCorr = `Comme le nombre ${nombreAvecEspace(N)} se termine par un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est un multiple de 10, `;
 					texteCorr += `il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même, `;
-					texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` n'est donc pas premier.`);
 					break;
 				case 6: // produit de deux nombres premiers inférieurs à 30
 					// rang du premier facteur premier
@@ -123,11 +124,11 @@ export default function Premier_ou_pas_5e() {
 					texte = N;
 					texteCorr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
 					if (prime1 == prime2) {
-						texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1 * prime2)} `;
+						texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)} `;
 					} else {
-						texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1 * prime2)}, `;
+						texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `;
 					};
-					texteCorr += texte_en_couleur_et_gras(`${N} = ` + nombre_avec_espace(prime1 * prime2) + ` n'est donc pas premier.`);
+					texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ` n'est donc pas premier.`);
 					break;
 				case 7: // nombre premier inférieur à 29
 					// rang du nombre premier choisi
@@ -144,12 +145,12 @@ export default function Premier_ou_pas_5e() {
 					//texteCorr += `.`;
 					// texteCorr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
 					texteCorr += `, le reste n'est jamais nul.`;
-					// texteCorr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
-					texteCorr += `<br>` + texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					// texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
+					texteCorr += `<br>` + texteEnCouleurEtGras(nombreAvecEspace(N) + ` est donc un nombre premier.`);
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

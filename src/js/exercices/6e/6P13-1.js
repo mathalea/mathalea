@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import { listeQuestionsToContenu, randint, choice, calcul, tex_prix } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texPrix } from '../../modules/outils.js'
 export const titre = 'Facture'
 
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6P13-1
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
@@ -15,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestionsModifiable = false;
   this.nbCols = 1; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  this.sup = 2; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 2; // Niveau de difficulté 
   this.tailleDiaporama = 20; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
@@ -45,7 +46,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
 
 
       if (this.sup == 1) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -53,11 +54,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
         texte += `\\text{Prix total (H.T.)} & & & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
@@ -67,7 +68,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortieHtml) {
+        if (context.isHtml) {
           texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -75,24 +76,24 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texteCorr += `\\hline\n`
         texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calcul(p2 * q2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calcul(p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total (H.T.)} & & & ${texPrix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 0.2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * 1.2))} \\\\ \n `
         texteCorr += `\\hline\n`
 
         texteCorr += `\\end{array}$`
       }
 
       if (this.sup == 2) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texte = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -100,11 +101,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
-        texte += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & \\ldots\\ldots \\\\ \n`
+        texte += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
         texte += `\\text{Prix total brut (H.T.)} & & & \\ldots\\ldots \\\\ \n`
         texte += `\\hline\n`
@@ -118,7 +119,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texte += `\\hline\n`
         texte += `\\end{array}$`
 
-        if (sortieHtml) {
+        if (context.isHtml) {
           texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|c|}\n`;
         } else {
           texteCorr = `$\\begin{array}{|c|c|c|c|}\n`;
@@ -126,27 +127,27 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         texteCorr += `\\hline\n`
         texteCorr += `\\text{Designations} & \\text{Quantités} & \\text{Prix unitaires H.T.} & \\text{Montants H.T.} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article1[0]}} & ${q1} & ${tex_prix(p1)} & ${tex_prix(calcul(p1 * q1))} \\\\ \n`
+        texteCorr += `\\text{${article1[0]}} & ${q1} & ${texPrix(p1)} & ${texPrix(calcul(p1 * q1))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article2[0]}} & ${q2} & ${tex_prix(p2)} & ${tex_prix(calcul(p2 * q2))} \\\\ \n`
+        texteCorr += `\\text{${article2[0]}} & ${q2} & ${texPrix(p2)} & ${texPrix(calcul(p2 * q2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{${article3[0]}} & ${q3} & ${tex_prix(p3)} & ${tex_prix(calcul(p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{${article3[0]}} & ${q3} & ${texPrix(p3)} & ${texPrix(calcul(p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${tex_prix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
+        texteCorr += `\\text{Prix total brut (H.T.)} & & & ${texPrix(calcul(p1 * q1 + p2 * q2 + p3 * q3))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
+        texteCorr += `\\text{Réduction (${r}~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * r / 100))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total net (H.T.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
+        texteCorr += `\\text{Prix total net (H.T.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100)))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{TVA (20~\\%)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
+        texteCorr += `\\text{TVA (20~\\%)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 0.2))} \\\\ \n`
         texteCorr += `\\hline\n`
-        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${tex_prix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
+        texteCorr += `\\text{Prix total (T.T.C.)} & & & ${texPrix(calcul((p1 * q1 + p2 * q2 + p3 * q3) * (1 - r / 100) * 1.2))} \\\\ \n `
         texteCorr += `\\hline\n`
 
         texteCorr += `\\end{array}$`
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

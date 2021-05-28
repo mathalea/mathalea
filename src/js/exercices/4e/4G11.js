@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,egal,randint,shuffle,nombre_avec_espace,texcolors} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,nombreAvecEspace,texcolors} from '../../modules/outils.js'
 import {tracePoint,vecteur,segment,translation,translationAnimee,codeSegment,texteParPosition,mathalea2d,pavage} from '../../modules/2d.js'
 export const titre = 'Trouver l’image d’une figure par une translation dans un pavage'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * publié le 16/12/2020
  * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
@@ -23,7 +24,7 @@ export default function Pavage_et_translation2d() {
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
   this.sup2=false // On cache les centres par défaut.
   this.sup3=7;
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
   this.nouvelleVersion = function () {
     let videcouples=function(tableau){
       for (let k=0;k<tableau.length;k++){
@@ -96,7 +97,7 @@ export default function Pavage_et_translation2d() {
       return result
     } 
 
-    let objets=[],objets_correction=[],P1,P2,P3,t
+    let objets=[],objetsCorrection=[],P1,P2,P3,t
     let taillePavage=parseInt(this.sup)
     if (taillePavage<1||taillePavage>2) {
       taillePavage=1
@@ -171,7 +172,7 @@ export default function Pavage_et_translation2d() {
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+      objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
     }
     if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -206,11 +207,11 @@ export default function Pavage_et_translation2d() {
         P3=translationAnimee(P1,v,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nbQuestions}s" id="poly-${i}-anim"`)
         P3.color=texcolors(i)
         P3.epaisseur=2
-        objets_correction.push(tracePoint(A,B),d,codeSegment(A,B,'//',texcolors(i)),P1,P2,P3)
+        objetsCorrection.push(tracePoint(A,B),d,codeSegment(A,B,'//',texcolors(i)),P1,P2,P3)
       }
     }
     if (this.correctionDetaillee){
-      texteCorr+=mathalea2d(fenetre, objets,objets_correction)
+      texteCorr+=mathalea2d(fenetre, objets,objetsCorrection)
     }
     this.listeQuestions.push(texte);
     this.listeCorrections.push(texteCorr);

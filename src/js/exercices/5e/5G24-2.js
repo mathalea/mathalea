@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres, texte_en_couleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, choisitLettresDifferentes, shuffleLettres, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5G24-1
 */
 export default function TrianglesEgaux () {
@@ -15,7 +16,7 @@ export default function TrianglesEgaux () {
   this.nbQuestions = 4
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1 // Niveau de difficulté 
   this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
@@ -108,7 +109,7 @@ export default function TrianglesEgaux () {
             scale: 0.5
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
-          texteCorr = `Ces deux triangles ne sont pas égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texte_en_couleur('semblables')}`
+          texteCorr = `Ces deux triangles ne sont pas égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}`
           break
         case 'CC':
           texte = '<br>' + mathalea2d({

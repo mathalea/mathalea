@@ -1,14 +1,17 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { shuffle2tableaux, calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence } from '../../modules/outils.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm, elimineDoublons } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType =1 // QCM 
+export const interactifReady = true
+
 
 export const titre = 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)'
 
 /**
- * @Auteur Jean-claude Lhote
+ * @author Jean-claude Lhote
  * Publié le 20/02/2021
  * Référence 6C30-5
  */
@@ -16,6 +19,9 @@ export default function MultiplierPar001 () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -24,8 +30,7 @@ export default function MultiplierPar001 () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.consigne = 'Compléter les pointillés.'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  this.qcmDisponible = true
-  this.modeQcm = false
+
   this.sup = false
   this.sup2 = 4
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
@@ -33,10 +38,9 @@ export default function MultiplierPar001 () {
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
+    this.sup2 = parseInt(this.sup2)
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
-    this.qcm = ['6C30-5', [], 'Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)', 1]
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
@@ -48,8 +52,7 @@ export default function MultiplierPar001 () {
     }
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const rang = ['millièmes', 'centièmes', 'dixièmes']
-    let tabrep; let tabicone = [1, 0, 0, 0]
-    this.qcm[1] = []
+
     for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
@@ -64,64 +67,106 @@ export default function MultiplierPar001 () {
       resultat = calcul(nombre * 10 ** coef)
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
-          tabrep = [`$${texNombre2(resultat)}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef)))}$`, `$${texNombre2(calcul(nombre * 10 ** (coef - 1)))}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`]
-          tabicone = [1, 0, 0, 0]
-          this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$.\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
           texte = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ = ~~\\ldots\\ldots\\ldots\\ldots$`
-          if (this.modeQcm) {
-            shuffle2tableaux(tabrep, tabicone)
-            this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-            break
-          }
           texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$ chaque chiffre prend une valeur $${texNombre2(calcul(10 ** (-coef)))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr = `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))}~~ =~~ ${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texNombre2(resultat)}$`,
+              statut: true
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef)))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre * 10 ** (coef - 1)))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`,
+              statut: false
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
+          }
+          if (this.interactif) {
+            texte += '<br>' + propositionsQcm(this, i).texte
+          }
           break
 
         case 2:
-          tabrep = [`$${texNombre2(calcul(10 ** coef))}$`, `$${texNombre2(calcul(10 ** (coef - 1)))}$`, `$${texNombre2(calcul(10 ** (coef + 1)))}$`, `$${texNombre2(calcul(10 ** (-coef)))}$`]
-          tabicone = [1, 0, 0, 0]
-          this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${texNombre2(resultat)}$.\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
           texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots~~ = ~~${texNombre2(resultat)}$`
-          if (this.modeQcm) {
-            shuffle2tableaux(tabrep, tabicone)
-            this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-            break
-          }
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$ chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr = `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef), 'blue')} ~~=~~ ${texNombre2(resultat)}$`
-
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texNombre2(calcul(10 ** coef))}$`,
+              statut: true
+            },
+            {
+              texte: `$${texNombre2(calcul(10 ** (coef - 1)))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(10 ** (coef - 1)))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(10 ** (-coef)))}$`,
+              statut: false
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
+          }
+          if (this.interactif) {
+            texte += '<br>' + propositionsQcm(this, i).texte
+          }
           break
 
         case 3:
-          tabrep = [`$${texNombre2(nombre)}$`, `$${texNombre2(calcul(nombre / 10))}$`, `$${texNombre2(calcul(nombre * 10))}$`, `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`]
-          tabicone = [1, 0, 0, 0]
-          this.qcm[1].push([`Que doit-on écrire à la place des pointillés ? $\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}~~ = ~~${texNombre2(resultat)}$.\\\\ \n Réponses possibles`,
-            tabrep,
-            tabicone])
-
           texte = `$\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}~~ = ~~${texNombre2(resultat)}$`
-          if (this.modeQcm) {
-            shuffle2tableaux(tabrep, tabicone)
-            this.tableauSolutionsDuQcm[i] = tabicone
-            texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-            texteCorr += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-            break
-          }
           texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFraction(1, 10 ** (-coef))}$ chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr = `$${miseEnEvidence(texNombre2(nombre), 'blue')} \\times ${texNombre2(10 ** coef)} = ${texNombre2(resultat)}$`
-
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texNombre2(nombre)}$`,
+              statut: true
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre / 10))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre * 10))}$`,
+              statut: false
+            },
+            {
+              texte: `$${texNombre2(calcul(nombre * 10 ** (-coef + 1)))}$`,
+              statut: false
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
+          }
+          if (this.interactif) {
+            texte += '<br>' + propositionsQcm(this, i).texte
+          }
           break
       }
 
@@ -138,7 +183,7 @@ export default function MultiplierPar001 () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-  gestionQcmInteractif(this)
+  
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
   this.besoinFormulaire2Numerique = ['Type de question', 4, '1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à retrouver\n 4 : Alternance des 3 types de question']
   // this.besoinFormulaire3CaseACocher =['Mode QCM',false]

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, quotientier, randint, reduireAxPlusB, choice, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere2, courbe2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 
@@ -26,18 +27,18 @@ export default function representer_fonction_affine() {
   this.nouvelleVersion = function () {
     this.listeQuestions = [];
     this.listeCorrections = [];
-    let type_de_questions_disponibles = [];
-    type_de_questions_disponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
+    let typesDeQuestionsDisponibles = [];
+    typesDeQuestionsDisponibles = [1, 2];// On complète selon le nb de cas dans l'exo (switch)
 
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
 
-    for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texteCorr, cpt = 0, type_de_questions;
+    for (let i = 0, A, B, a, b, r, f, c, t, l, xA, xB, yA, yB, texte, texteCorr, cpt = 0, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;) // on rajoute les variables dont on a besoin
     {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
 
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
 
         case 1:
           a = randint(0, 10)
@@ -114,7 +115,7 @@ export default function representer_fonction_affine() {
                 }
 
 
-                if (this.listeQuestions.indexOf(texte) == -1) {
+                if (this.listeQuestions.indexOf(texte) === -1) {
                   // Si la question n'a jamais été posée, on en créé une autre
                   this.listeQuestions.push(texte);
                   this.listeCorrections.push(texteCorr);

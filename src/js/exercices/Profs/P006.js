@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {arrondi,troncature,calcul,choisitLettresDifferentes} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d,} from '../../modules/2d.js'
 
@@ -7,7 +8,7 @@ export const titre = 'Placer un nombre décimal avec des zooms successifs'
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
  * ref P006
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Nombre_a_placer() {
   Exercice.call(this);
@@ -82,7 +83,7 @@ export default function Nombre_a_placer() {
 
     texte = mathalea2d(fenetre, objets);
     this.contenu += texte;
-    if (sortieHtml) {
+    if (context.isHtml) {
       this.contenu += '<br>';
     }
     else  {

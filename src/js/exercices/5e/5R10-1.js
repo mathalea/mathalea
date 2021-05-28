@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,shuffle,texNombrec,obtenirListeFacteursPremiers,choice,combinaisonListes} from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
@@ -6,7 +7,7 @@ export const titre = 'Deviner un nombre relatif'
 /**
  * Additions à trou dans les relatifs
  *
- *  @Auteur Jean-Claude Lhote à partir de CM000 de Rémi Angot
+ *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
 export default function Deviner_nombre_relatif() {
@@ -19,8 +20,8 @@ export default function Deviner_nombre_relatif() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles=[1,2,3]
-    let listeTypeDeQuestions=combinaisonListes(type_de_questions_disponibles,this.nbQuestions)
+    let typesDeQuestionsDisponibles=[1,2,3]
+    let listeTypeDeQuestions=combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions)
     let dixieme,signe,centieme,unite,somme,produit,facteurs,type=['négatif','nul','positif'];
     for (let i = 0, texte, texteCorr,cpt=0; i < this.nbQuestions;) {
         signe=choice([-1,1])
@@ -74,7 +75,7 @@ export default function Deviner_nombre_relatif() {
       }
       texteCorr = `Je suis $${texNombrec(signe*(unite+dixieme/10+centieme/100))}$.`;
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

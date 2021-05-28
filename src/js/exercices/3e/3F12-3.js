@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,pgcd,texFractionReduite,lettre_minuscule_depuis_chiffre} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,listeQuestionsToContenuSansNumero,randint,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,pgcd,texFractionReduite,lettreMinusculeDepuisChiffre} from '../../modules/outils.js'
 export const titre = 'Compléter un tableau de valeurs'
 
 /**
@@ -10,7 +11,7 @@ export const titre = 'Compléter un tableau de valeurs'
 * * Niveau 3 : Quotients de fonctions affines
 * * Niveau 4 : (ax+b)(cx+d)
 * * Niveau 5 : Mélange
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3F12-3
 */
 export default function Tableau_de_valeurs() {
@@ -28,26 +29,26 @@ export default function Tableau_de_valeurs() {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [];
+		let typesDeQuestionsDisponibles = [];
 		if (this.sup == 1) {
-			type_de_questions_disponibles = ['ax+b', 'ax'];
+			typesDeQuestionsDisponibles = ['ax+b', 'ax'];
 		}
 		if (this.sup == 2) {
-			type_de_questions_disponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx'];
+			typesDeQuestionsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx'];
 		}
 		if (this.sup == 3) {
-			type_de_questions_disponibles = ['a/cx+d', 'ax+b/cx+d'];
+			typesDeQuestionsDisponibles = ['a/cx+d', 'ax+b/cx+d'];
 		}
 		if (this.sup == 4) {
-			type_de_questions_disponibles = ['(ax+b)(cx+d)', '(ax+b)2'];
+			typesDeQuestionsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2'];
 		}
 		if (this.sup == 5) {
-			type_de_questions_disponibles = ['ax+b', 'ax', 'ax2+bx+c', 'ax2+c', 'ax2+bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2'];
+			typesDeQuestionsDisponibles = ['ax+b', 'ax', 'ax2+bx+c', 'ax2+c', 'ax2+bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2'];
 		}
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_x = combinaisonListes([[-3, 0, 3], [-2, 0, 2], [1, 2, 5], [-3, 6, 9]], this.nbQuestions);
 		for (let i = 0, texte, texteCorr, a, b, c, d, x1, x2, x3, expression, nomdef, ligne2, calculs = "", cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			nomdef = lettre_minuscule_depuis_chiffre(6 + i); // on commence par f puis on continue dans l'ordre alphabétique
+			nomdef = lettreMinusculeDepuisChiffre(6 + i); // on commence par f puis on continue dans l'ordre alphabétique
 			x1 = liste_de_x[i][0];
 			x2 = liste_de_x[i][1];
 			x3 = liste_de_x[i][2];
@@ -185,7 +186,7 @@ export default function Tableau_de_valeurs() {
 			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Compléter le tableau de valeurs suivant.`;
 			texteCorr = '';
 			texte += `<br><br>`;
-			if (sortieHtml) {
+			if (context.isHtml) {
 				texte += `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`;
 			} else {
 				texte += `$\\begin{array}{|l|c|c|c|}\n`;
@@ -199,7 +200,7 @@ export default function Tableau_de_valeurs() {
 			texte += `\\end{array}\n$`;
 
 
-			if (sortieHtml) {
+			if (context.isHtml) {
 				texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`;
 			} else {
 				texteCorr = `$\\begin{array}{|l|c|c|c|}\n`;
@@ -219,7 +220,7 @@ export default function Tableau_de_valeurs() {
 
 
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

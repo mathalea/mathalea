@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul,texNombre,texFraction} from '../../modules/outils.js'
 export const titre = 'Différentes écritures des nombres décimaux'
 
@@ -10,7 +11,7 @@ export const titre = 'Différentes écritures des nombres décimaux'
  * * u = .../10
  * * u = .../100
  * * n/10 = ... + .../10 + .../100
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N23-1
  */
 export default function Exercice_differentes_ecritures_nombres_decimaux() {
@@ -23,22 +24,22 @@ export default function Exercice_differentes_ecritures_nombres_decimaux() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestions
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
     if (this.nbQuestions == 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       let u = randint(2, 9); //chiffre des unités
       let d = randint(1, 9); //chiffre des dixièmes
       let c = randint(1, 9); //chiffre des centièmes
       let n = 100 * u + 10 * d + c;
       let ecriture_decimale;
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // n/100 = .../10 + .../100
           ecriture_decimale = texNombre(calcul(u + d / 10 + c / 100));
           texte = `$${texFraction(n, "100")}=\\ldots\\ldots+${texFraction(
@@ -94,7 +95,7 @@ export default function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

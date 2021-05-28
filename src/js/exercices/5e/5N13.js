@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 export const amcReady = true
 export const amcType = 3 // type de question AMC
@@ -8,7 +9,7 @@ export const titre = 'Simplification de fractions'
 
 /**
  * Simplifier une fraction, le facteur commun est inférieur à une valeur donnée en paramètre qui est 11 par défaut
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  *  5N13
  */
 export default function Exercice_fractions_simplifier (max = 11) {
@@ -18,10 +19,11 @@ export default function Exercice_fractions_simplifier (max = 11) {
   this.consigne = 'Simplifier les fractions suivantes.'
   this.spacing = 2
   this.spacingCorr = 2
+  this.amcType = amcType
+  this.amcReady = amcReady
 
   this.nouvelleVersion = function () {
-    this.qcm = ['5N13', [], 'Simplification de fractions', 3]
-
+    this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const liste_fractions = [
@@ -85,10 +87,8 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' $'
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
-      /*****************************************************/
-      // Pour AMC
-      this.qcm[1].push([texte, [texteCorr], [1]])
-    /****************************************************/
+      // Pour AMC question AmcOpen
+      this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }

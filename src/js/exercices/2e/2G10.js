@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,extraireRacineCarree,texRacineCarree,texNombre} from '../../modules/outils.js'
 
 export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
 
 /**
  * 2G10
- * @Auteur Stéphane Guyon
+ * @author Stéphane Guyon
  */
 export default function Distance() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -19,17 +20,17 @@ export default function Distance() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1, 2, 3],type_de_questions
+        let typesDeQuestionsDisponibles = [1, 2, 3],typesDeQuestions
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1];
+            typesDeQuestionsDisponibles = [1];
         }
         if (this.sup == 2) {
-            type_de_questions_disponibles = [2, 3];
+            typesDeQuestionsDisponibles = [2, 3];
         }
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
         for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
-            switch (type_de_questions) {
+            typesDeQuestions = listeTypeDeQuestions[i];
+            switch (typesDeQuestions) {
                 // Cas par cas, on définit le type de nombres que l'on souhaite
                 // Combien de chiffres ? Quelles valeurs ?
                 case 1:
@@ -135,7 +136,7 @@ export default function Distance() {
                     texteCorr += `On observe que $AC\\neq AB$ donc le point $C$ n'appartient pas au cercle de centre $A$ et passant par $B$`;
                     break;
             }
-            if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+            if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);
                 i++;

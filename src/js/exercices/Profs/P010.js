@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
-import { reduire_polynome_degre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { reduirePolynomeDegre3, calcul, unSiPositifMoinsUnSinon, signe, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, ecritureNombreRelatif ,xcas} from '../../modules/outils.js'
 import { tableau_de_variation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js';
 export const titre = 'étude de fonction de degré 3'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function variation_polynome_degre3() {
@@ -16,7 +17,7 @@ export default function variation_polynome_degre3() {
   this.nbQuestionsModifiable = false
   this.nbCols = 1; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  this.sup = "-1/-2/3/1"; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = "-1/-2/3/1"; // Niveau de difficulté 
   this.sup2 = true
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
@@ -83,7 +84,7 @@ export default function variation_polynome_degre3() {
     c = parseFloat(coef_f[2])
     d = parseFloat(coef_f[3])
     // [a, b, c, d] = coef_f //On récupère les coefficient du polynome
-    fxstring = `${reduire_polynome_degre3(a, b, c, d)}`
+    fxstring = `${reduirePolynomeDegre3(a, b, c, d)}`
     if (a != 0) { //degré 3
       a1 = 3 * a
       b1 = 2 * b

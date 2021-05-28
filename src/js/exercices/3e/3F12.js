@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
 import { SVG_machine_diag_3F12 } from '../../modules/macroSvgJs.js'
 export const titre = 'Fonctions : Calculs d’images'
@@ -18,8 +19,8 @@ export default function fonctions_calculs_d_images () {
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne += 'Calcule les images avec la méthode demandée.'
 
-  sortieHtml ? this.spacing = 2 : this.spacing = 1
-  sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  context.isHtml ? this.spacing = 2 : this.spacing = 1
+  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 4
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
@@ -28,38 +29,38 @@ export default function fonctions_calculs_d_images () {
 
   const num_ex = '3F12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-  if (sortieHtml) {
+  if (context.isHtml) {
     var pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
   } else { // sortie LaTeX
   };
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions
-    if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+    let typesDeQuestions
+    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       //			 this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
       //			 this.boutonAide += modalVideo('videoTest','/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let type_de_questions_disponibles = []
+    let typesDeQuestionsDisponibles = []
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1] // prog de calcul
+      typesDeQuestionsDisponibles = [1] // prog de calcul
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [2] // diagramme
+      typesDeQuestionsDisponibles = [2] // diagramme
     } else if (this.sup == 3) {
-      type_de_questions_disponibles = [3] // f(x) = ...
+      typesDeQuestionsDisponibles = [3] // f(x) = ...
     } else if (this.sup == 4) {
-      type_de_questions_disponibles = [4] // f : x ---> ...
+      typesDeQuestionsDisponibles = [4] // f : x ---> ...
     } else if (this.sup == 5) {
-      type_de_questions_disponibles = [1, 2, 3, 4] // mélange
+      typesDeQuestionsDisponibles = [1, 2, 3, 4] // mélange
     };
-    // let type_de_questions_disponibles = [1];
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions)
+    // let typesDeQuestionsDisponibles = [1];
+    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i]
+      typesDeQuestions = listeTypeDeQuestions[i]
 
-      if (sortieHtml) {
+      if (context.isHtml) {
         const id_unique = `${num_ex}_${i}_${Date.now()}`
         var id_du_div = `div_svg${numeroExercice}${id_unique}`
         var id_du_div_corr = `div_svg_corr${numeroExercice}${id_unique}`
@@ -69,12 +70,12 @@ export default function fonctions_calculs_d_images () {
       b = randint(2, 9)
       c = randint(2, 9)
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1:
           var j = 0 // pour la sous-numérotation
           texte = 'On donne le programme de calcul suivant qui correspond à une certaine fonction :'
           texteCorr = 'Avec ce programme de calcul :'
-          if (sortieHtml) {
+          if (context.isHtml) {
             texte += `
 							<br>
 							<div class="ui compact warning message">		
@@ -116,7 +117,7 @@ export default function fonctions_calculs_d_images () {
 
           // les variables a,b,c changent sans refaire un appel à randint
           texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}`
-          if (sortieHtml) {
+          if (context.isHtml) {
             // sous-question a/
             texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
             texte += '<br>'
@@ -147,7 +148,7 @@ export default function fonctions_calculs_d_images () {
 
           // les variables a,b,c changent sans refaire un appel à randint
           texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}`
-          if (sortieHtml) {
+          if (context.isHtml) {
             // sous-question a/
             texte += '<br>' + numAlpha(j) + ` Calculer l'image de ${c}`
             texte += '<br>'
@@ -181,7 +182,7 @@ export default function fonctions_calculs_d_images () {
 
           // les variables a,b,c changent sans refaire un appel à randint
           texte += 'Soit la fonction $h$ définie par le diagramme '
-          if (sortieHtml) {
+          if (context.isHtml) {
             // sous-question a/
             texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SVG_machine_diag_3F12(id_du_div, 800, 100, 'h', 'x', [['' + a, a + 'x'], ['' + b, a + 'x+' + b]])
@@ -209,7 +210,7 @@ export default function fonctions_calculs_d_images () {
           break
       };
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

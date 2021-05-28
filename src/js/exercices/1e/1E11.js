@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureAlgebriqueSauf1,ecritureParentheseSiNegatif,arrondiVirgule,texFractionReduite,texFractionSigne,texFraction} from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 1E11
 */
 export default function Resoudre_equation_degre_2() {
@@ -148,7 +149,7 @@ export default function Resoudre_equation_degre_2() {
         texteCorr += `<br>$\\mathcal{S}=\\emptyset$`;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

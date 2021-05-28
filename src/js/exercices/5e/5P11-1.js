@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombre_avec_espace, calcul, minToHour} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombreAvecEspace, calcul, minToHour} from '../../modules/outils.js'
 export const titre = 'Problème de vitesse'
 
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5P11-1
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
@@ -14,7 +15,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestions = 3;
   this.nbCols = 1; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.consigneCorrection = " À vitesse constante, la distance et le temps du trajet sont proportionnels. On peut donc utiliser la technique du produit en croix."
@@ -23,8 +24,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['vitesse','temps','distance'];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['vitesse','temps','distance'];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, d, v, t, pronomgenre, prenom, destination, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
         v = randint(8,26,[12]) * 5; // On évite le 60 km/h trop trivial
@@ -47,8 +48,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         }
         switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'vitesse': 
-            texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km. Déterminer sa vitesse moyenne.`;
-            if (sortieHtml) {
+            texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne.`;
+            if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {
                 texteCorr = `$\\begin{array}{|l|c|c|}\n`;
@@ -65,8 +66,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
              texteCorr += `Sa vitesse moyenne est de ${v} km/h.`
           break;
         case 'temps': 
-            texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombre_avec_espace(d)} km ?`;
-            if (sortieHtml) {
+            texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km ?`;
+            if (context.isHtml) {
                 texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
             } else {
                 texteCorr = `$\\begin{array}{|l|c|c|}\n`;
@@ -84,7 +85,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
           break;
           case 'distance': 
           texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue.`;
-          if (sortieHtml) {
+          if (context.isHtml) {
               texteCorr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n`;
           } else {
               texteCorr = `$\\begin{array}{|l|c|c|}\n`;
@@ -102,7 +103,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

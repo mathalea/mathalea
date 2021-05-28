@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenir_liste_fractions_irreductibles,obtenirListeFractionsIrreductiblesFaciles,texFraction,ppcm} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,abs,pgcd,produitDeDeuxFractions,simplificationDeFractionAvecEtapes,miseEnEvidence,texFractionSigne,obtenirListeFractionsIrreductibles,obtenirListeFractionsIrreductiblesFaciles,texFraction,ppcm} from '../../modules/outils.js'
 export const titre = 'Fractions et priorités opératoires'
 
 /**
@@ -7,7 +8,7 @@ export const titre = 'Fractions et priorités opératoires'
  * 1 : Calcul avec nombres positifs sans piège de priorité
  * * 2 : Calcul avec nombres positifs avec piège
  * * 3 : Calcul avec nombres relatifs
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 4C23
  */
 export default function Exercice_additionner_fraction_produit() {
@@ -25,25 +26,25 @@ export default function Exercice_additionner_fraction_produit() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles;
-    let liste_fractions = obtenir_liste_fractions_irreductibles();
+    let typesDeQuestionsDisponibles;
+    let liste_fractions = obtenirListeFractionsIrreductibles();
     let liste_fractions_faciles = obtenirListeFractionsIrreductiblesFaciles();
     let nombre_de_signe_moins;
     if (this.sup == 1)  {
-      type_de_questions_disponibles = [1, 2, 3, 4];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4];
     } // fractions faciles, relatifs
     else if (this.sup == 2)  {
-      type_de_questions_disponibles = [1, 2, 3, 2];
+      typesDeQuestionsDisponibles = [1, 2, 3, 2];
     } // 1*nombre entier,3*fraction (pas de négatifs)
     else if (this.sup == 3) {
-      type_de_questions_disponibles = [3, 3, 4, 4];
+      typesDeQuestionsDisponibles = [3, 3, 4, 4];
     } // fractions, 2*positifs, 2*relatifs
     else {
-      type_de_questions_disponibles = [4];
+      typesDeQuestionsDisponibles = [4];
     }
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     for (
@@ -65,12 +66,12 @@ export default function Exercice_additionner_fraction_produit() {
       texte,
       texteCorr,
       produit=[],
-      type_de_questions,
+      typesDeQuestions,
       cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       if (this.sup==1) {ab = choice(liste_fractions_faciles);cd = choice(liste_fractions_faciles);ef = choice(liste_fractions_faciles);}
       else {ab = choice(liste_fractions);cd = choice(liste_fractions);ef = choice(liste_fractions);}
 
@@ -80,7 +81,7 @@ export default function Exercice_additionner_fraction_produit() {
       d = cd[1];
       e = ef[0];
       f = ef[1];
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
           texte = `$${texFraction(a, b)}+${texFraction(c,d)}\\times${texFraction(e, f)}$`;
 
@@ -469,7 +470,7 @@ export default function Exercice_additionner_fraction_produit() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

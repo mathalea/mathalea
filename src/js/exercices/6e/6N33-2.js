@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes} from '../../modules/outils.js'
 import {point,pointSurSegment,rotation,codeAngle,texteParPoint,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Problèmes de calcul de pourcentage par complément à 100%'
 
 /**
  * Déduire un pourcentage par complément à 100%
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N33-2
  */
 export default function Calculer_un_pourcentage() {
@@ -19,8 +20,8 @@ export default function Calculer_un_pourcentage() {
   this.nbColsCorr = 1;
 
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles = [1, 2, 3]
-    let liste_choix = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles = [1, 2, 3]
+    let listeChoix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let liste_moyens = [`en bus`, `en deux-roues`, `à  pieds`, `en voiture`]
@@ -37,7 +38,7 @@ export default function Calculer_un_pourcentage() {
       p1 = randint(6, 9) * 5
       p2 = randint(6, 9) * 5
       p3 = 100 - p1 - p2
-      switch (liste_choix[i]) {
+      switch (listeChoix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1, moy2, moy3] = combinaisonListes(liste_moyens, 3)
           texte = `Dans un collège, $${p1}\\%$ des élèves se déplacent ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>`
@@ -69,7 +70,7 @@ export default function Calculer_un_pourcentage() {
       objets.push(codeAngle(depart, centre, -p3 * 3.6, 4.9, '', 'black', 2, 1, 'yellow', 0.4), texteParPoint(`${moy3.substring(3)}`, pointSurSegment(centre, rotation(depart, centre, -p3 * 1.8), 3), 0))
       texteCorr += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false, amplitude: 1 }, ...objets)
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

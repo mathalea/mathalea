@@ -1,22 +1,27 @@
-/* global mathalea */
-import Exercice from '../ClasseExercice.js'
-import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, shuffle2tableaux } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre } from '../../modules/outils.js'
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
-import { gestionQcmInteractif, propositionsQcm } from '../../modules/gestionQcm.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 1 // type de question AMC
+export const amcType =1 // QCM 
+export const interactifReady = true
+
 
 export const titre = 'Mesurer un angle'
 
 /**
  * Construire un angle
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6G23
  */
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
@@ -24,13 +29,9 @@ export default function MesurerUnAngle () {
   this.nbColsCorr = 2
   this.sup = 1
   this.video = 'TEzu9uky56M'
-  this.qcmDisponible = true
-  this.modeQcm = false
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.qcm = ['6G23-1', [], "Estimer la mesure d'un angle.", 1]
-    let tabrep, tabicone
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -46,12 +47,10 @@ export default function MesurerUnAngle () {
       } else {
         angle = randint(20, 160, 90)
       }
-      tabrep = [`$${angle}\\degree$`, `$${180 - angle}\\degree$`, `$${angle / 2}\\degree$`, `$${Math.round((180 + angle) / 2)}\\degree$`, '$180\\degree$', '$90\\degree$']
-      tabicone = [1, 0, 0, 0, 0, 0]
       anglerot = randint(-180, 180)
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
-      if (this.modeQcm) {
+      if (this.interactif) {
         texte = `Estime la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
       } else {
         texte = `Mesure l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
@@ -76,28 +75,50 @@ export default function MesurerUnAngle () {
       xMax = Math.max(A.x, C.x, B.x) + 1
       yMin = Math.min(A.y, C.y, B.y) - 1
       yMax = Math.max(A.y, C.y, B.y) + 1
-      mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+      context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
       objetsCorrection = [s1, s2, labels, Apos, Bpos, Cpos, secteur]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
       texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
-      /**********************************************/
-      // Ajout pour AMC
-      this.qcm[1].push([`${texte}\\\\ \n Réponses possibles : `,
-        tabrep,
-        tabicone])
-      /********************************************/
-      shuffle2tableaux(tabrep, tabicone)
-      if (this.modeQcm && !mathalea.sortieAMC) {
-        this.tableauSolutionsDuQcm[i] = tabicone
-        texte += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-        texteCorr += '<br><br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: `$${Math.abs(angle)}\\degree$`,
+          statut: true
+        },
+        {
+          texte: `$${Math.abs(180 - angle)}\\degree$`,
+          statut: false
+        },
+        {
+          texte: `$${Math.abs(angle / 2)}\\degree$`,
+          statut: false
+        },
+        {
+          texte: `$${Math.abs(Math.round((180 + angle) / 2))}\\degree$`,
+          statut: false
+        },
+        {
+          texte: '$180\\degree$',
+          statut: false
+        },
+        {
+          texte: '$90\\degree$',
+          statut: false
+        }
+      ]
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 6
+      }
+      if (this.interactif) {
+        texte += '<br>' + propositionsQcm(this, i).texte
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
   }
-  gestionQcmInteractif(this)
   this.besoinFormulaireNumerique = ['Précision de l\'angle', 3, '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°']
 }

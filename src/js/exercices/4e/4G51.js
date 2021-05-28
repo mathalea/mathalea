@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone} from '../../modules/outils.js'
 import {point,tracePoint,milieu,labelPoint,segment,translation2Points,similitude,grille,seyes,mathalea2d,} from '../../modules/2d.js'
 
@@ -8,7 +9,7 @@ export const titre = 'Compléter une représentation en perspective cavalière'
 /**
  * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
  * référence : 6G41
- * @Auteur Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
+ * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
 export default function Representer_un_solide4e() {
   Exercice.call(this); // Héritage de la classe Exercice ()
@@ -20,19 +21,19 @@ export default function Representer_un_solide4e() {
   this.sup2 = 1;
   this.classe=4;
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
 
     if (this.sup == 3)
-      type_de_questions_disponibles = [1, 2];
+      typesDeQuestionsDisponibles = [1, 2];
     else if (this.sup == 5)
-      type_de_questions_disponibles = [1, 2, 4];
+      typesDeQuestionsDisponibles = [1, 2, 4];
     else if (this.sup == 7)
-      type_de_questions_disponibles = [1, 2, 4, 6];
+      typesDeQuestionsDisponibles = [1, 2, 4, 6];
     else
-      type_de_questions_disponibles = [parseInt(this.sup)];
+      typesDeQuestionsDisponibles = [parseInt(this.sup)];
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -41,15 +42,15 @@ export default function Representer_un_solide4e() {
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
 
     if (this.classe == 6)
-      type_de_questions_disponibles = [1, 2];
+      typesDeQuestionsDisponibles = [1, 2];
 
     // sixième : cube et pavé droit
     else if (this.classe == 5)
-      type_de_questions_disponibles = [1, 2, 4];
+      typesDeQuestionsDisponibles = [1, 2, 4];
 
     // cinquième : on ajoute le prisme
     else if (this.classe == 4)
-      type_de_questions_disponibles = [1, 2, 4, 6];
+      typesDeQuestionsDisponibles = [1, 2, 4, 6];
     // Quatrième : on ajoute la pyramide
     if (this.sup2 == 1)
       sc = 0.5;
@@ -62,8 +63,8 @@ export default function Representer_un_solide4e() {
       enonce,
       correction,
       carreaux, g,
-      objets_enonce = [],
-      objets_correction = [], matrace = tracePoint(I);
+      objetsEnonce = [],
+      objetsCorrection = [], matrace = tracePoint(I);
 
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let nom = creerNomDePolygone(8, "PQ"),
@@ -72,20 +73,20 @@ export default function Representer_un_solide4e() {
         coeffpersp = 0.6;
       else
         coeffpersp = 0.4;
-      objets_correction = [];
-      objets_enonce = [];
+      objetsCorrection = [];
+      objetsEnonce = [];
 
       switch (listeTypeDeQuestions[i]) {
         case 1: //cube
           enonce = `$${nom}$ est un cube.<br>`;
-          if (sortieHtml)
+          if (context.isHtml)
             enonce += `Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction = `Figure complétée :<br>`;
           break;
 
         case 2: //pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`;
-          if (sortieHtml)
+          if (context.isHtml)
             enonce += `Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction = `Figure complétée :<br>`;
           break;
@@ -254,34 +255,34 @@ export default function Representer_un_solide4e() {
       };
 
       if (listeTypeDeQuestions[i] == 1) {
-        objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 2) {
-        objets_enonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
+        objetsEnonce.push(AB, BC, CD, DA, AE, labelPoint(A, B, C, D, E),
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 4) {
-        objets_enonce.push(AB, DA, BD, AE,
+        objetsEnonce.push(AB, DA, BD, AE,
           g,
           carreaux
         );
       }
 
       if (listeTypeDeQuestions[i] == 6) {
-        objets_enonce.push(AB, BF, tracePoint(I, .5, 'red'), labelPoint(I),
+        objetsEnonce.push(AB, BF, tracePoint(I, .5, 'red'), labelPoint(I),
           g,
           carreaux
         );
       }
 
-      enonce += mathalea2d(params, objets_enonce);
+      enonce += mathalea2d(params, objetsEnonce);
       if (listeTypeDeQuestions[i] == 1) {
         AB.color = 'green';
         BC.color = 'red';
@@ -295,7 +296,7 @@ export default function Representer_un_solide4e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
         );
@@ -314,7 +315,7 @@ export default function Representer_un_solide4e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
+        objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
         );
@@ -333,7 +334,7 @@ export default function Representer_un_solide4e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
+        objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
           g,
           carreaux
         );
@@ -352,14 +353,14 @@ export default function Representer_un_solide4e() {
         BF.color = 'blue';
         CG.color = 'blue';
         DH.color = 'blue';
-        objets_correction.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
+        objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
           g,
           carreaux
         );
       }
 
-      correction += mathalea2d(params, objets_correction);
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      correction += mathalea2d(params, objetsCorrection);
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");
         this.listeCorrections.push(correction + "<br>");

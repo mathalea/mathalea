@@ -1,99 +1,118 @@
-/* global mathalea sortieHtml */
 import { texteParPosition } from './2d.js'
-import { fraction } from './Fractions.js'
+import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate } from 'mathjs'
+import { loadScratchblocks } from './loaders'
+import { context } from './context.js'
+
 const math = { format: format, evaluate: evaluate }
+const epsilon = 0.000001
 
-// Fonctions diverses pour la création des exercices
+/**
+ * Fonctions diverses pour la création des exercices
+ * @module
+ */
 
-export function listeQuestionsToContenu (argument) {
-  if (sortieHtml) {
-    argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlEnumerate(argument.listeQuestions, argument.spacing)
-    if (argument.modeQcm) {
-      argument.contenu += `<button class="ui button" type="submit" style="margin-bottom: 20px" id="btnQcmEx${argument.numeroExercice}">Vérifier les réponses</button>`
+/**
+ * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
+ * @param {Exercice} exercice
+ */
+export function listeQuestionsToContenu (exercice) {
+  if (context.isHtml) {
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing)
+    if (exercice.interactif) {
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
     }
-    argument.contenuCorrection = htmlParagraphe(argument.consigneCorrection) + htmlEnumerate(argument.listeCorrections, argument.spacingCorr)
+    exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     let vspace = ''
-    if (argument.vspace) {
-      vspace = `\\vspace{${argument.vspace} cm}\n`
+    if (exercice.vspace) {
+      vspace = `\\vspace{${exercice.vspace} cm}\n`
     }
-    if (!mathalea.sortieAMC) {
+    if (!context.isAmc) {
       if (document.getElementById('supprimer_reference').checked === true) {
-        argument.contenu = texConsigne(argument.consigne) + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
+        exercice.contenu = texConsigne(exercice.consigne) + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       } else {
-        argument.contenu = texConsigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + vspace + texIntroduction(argument.introduction) + texMulticols(texEnumerate(argument.listeQuestions, argument.spacing), argument.nbCols)
+        exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + vspace + texIntroduction(exercice.introduction) + texMulticols(texEnumerate(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
       }
     }
-    argument.contenuCorrection = texConsigne('') + texIntroduction(argument.consigneCorrection) + texMulticols(texEnumerate(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+    exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   }
 }
-export function listeDeChosesAImprimer (argument) {
-  if (sortieHtml) {
-    argument.contenu = htmlLigne(argument.listeQuestions, argument.spacing)
-    argument.contenuCorrection = ''
+
+/**
+ * À documenter
+ * @param {Exercice} exercice
+ */
+export function listeDeChosesAImprimer (exercice) {
+  if (context.isHtml) {
+    exercice.contenu = htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenuCorrection = ''
   } else {
     // let vspace = ''
-    // if (argument.vspace) {
-    //   vspace = `\\vspace{${argument.vspace} cm}\n`
+    // if (exercice.vspace) {
+    //   vspace = `\\vspace{${exercice.vspace} cm}\n`
     // }
     if (document.getElementById('supprimer_reference').checked === true) {
-      argument.contenu = texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     } else {
-      argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     }
-    argument.contenuCorrection = ''
+    exercice.contenuCorrection = ''
   }
 }
 
 /**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenuCorrection
-*
-* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
-* @param {exercice}
-* @author Rémi Angot
-*/
-export function listeQuestionsToContenuSansNumero (argument) {
-  if (sortieHtml) {
-    argument.contenu = htmlConsigne(argument.consigne) + htmlParagraphe(argument.introduction) + htmlLigne(argument.listeQuestions, argument.spacing)
-    argument.contenuCorrection = htmlConsigne(argument.consigneCorrection) + htmlLigne(argument.listeCorrections, argument.spacingCorr)
+ * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
+ * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
+ * @param {Exercice} exercice
+ * @author Rémi Angot
+ */
+export function listeQuestionsToContenuSansNumero (exercice) {
+  if (context.isHtml) {
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    if (exercice.interactif) {
+      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}">Vérifier les réponses</button>`
+    }
+    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr)
   } else {
     if (document.getElementById('supprimer_reference').checked === true) {
-      argument.contenu = texConsigne(argument.consigne) + texIntroduction(argument.introduction) + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     } else {
-      argument.contenu = texConsigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + texIntroduction(argument.introduction) + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     }
-    // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
-    argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+    // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   }
 }
 
 /**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenuCorrection
-*
-* Uniquement en version LaTeX
-* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
-* @param {exercice}
-* @author Rémi Angot
-*/
-export function listeQuestionsToContenuSansNumeroEtSansConsigne (argument) {
+ * Utilise liste_questions et liste_corrections pour remplir contenu et contenuCorrection
+ *
+ * Uniquement en version LaTeX
+ * La liste des questions devient une liste HTML ou LaTeX avec html_ligne() ou tex_paragraphe()
+ * @param {Exercice} exercice
+ * @author Rémi Angot
+ */
+export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
   if (document.getElementById('supprimer_reference').checked === true) {
-    argument.contenu = texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+    exercice.contenu = texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
   } else {
-    argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + texMulticols(texParagraphe(argument.listeQuestions, argument.spacing), argument.nbCols)
+    exercice.contenu = `\n\\marginpar{\\footnotesize ${exercice.id}` + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
   }
-  // argument.contenuCorrection = texConsigne(argument.consigneCorrection) + texMulticols(texEnumerateSansNumero(argument.listeCorrections,argument.spacingCorr),argument.nbColsCorr)
-  argument.contenuCorrection = texMulticols(texParagraphe(argument.listeCorrections, argument.spacingCorr), argument.nbColsCorr)
+  // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+  exercice.contenuCorrection = texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
 }
 
 /**
-* Renvoie 2 chaines de caractères sur 2 colonnes différentes
-*
-* @author Rémi Angot
-*/
+ * Renvoie le html qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * @author Rémi Angot
+ * @param {string} cont1
+ * @param {string} cont2
+ * @return {string}
+ */
 export function deuxColonnes (cont1, cont2) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div style="float:left;min-width: fit-content;max-width : 35%;margin-right: 30px">
     ${cont1}
@@ -114,49 +133,83 @@ export function deuxColonnes (cont1, cont2) {
 }
 
 /**
- * fonctions de comparaison pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante.
+ * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
+ * @author Jean-Claude Lhote
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
- * @param {number} tolerance seuil positif en dessous duquel une valeur est considérée comme nulle
- * valeur de tolérance par défaut : 0.000001 = constante epsilon définie ci-dessous.
- * @Auteur Jean-Claude Lhote
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
  */
-const epsilon = 0.000001
 export function egal (a, b, tolerance = epsilon) {
-  if (Math.abs(a - b) < tolerance) return true
-  else return false
+  return (Math.abs(a - b) < tolerance)
 }
+
+/**
+ * Retourne true si a > b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function superieur (a, b, tolerance = epsilon) {
-  if (a - b > tolerance && (!egal(a, b, tolerance))) return true
-  else return false
+  return (a - b > tolerance)
 }
+/**
+ * Retourne true si a < b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function inferieur (a, b, tolerance = epsilon) {
-  if (b - a > tolerance && (!egal(a, b, tolerance))) return true
-  else return false
+  return (b - a > tolerance)
 }
+/**
+ * Retourne true si a ≥ b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function superieurouegal (a, b, tolerance = epsilon) {
-  if (a - b > tolerance || egal(a, b, tolerance)) return true
-  else return false
+  return (a - b > tolerance || egal(a, b, tolerance))
 }
+/**
+ * Retourne true si a ≤ b
+ * @param {number} a premier nombre
+ * @param {number} b deuxième nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function inferieurouegal (a, b, tolerance = epsilon) {
-  if (b - a > tolerance || egal(a, b, tolerance)) return true
-  else return false
+  return (b - a > tolerance || egal(a, b, tolerance))
 }
+/**
+ * Retourne true si a est entier ou "presque" entier
+ * @param {number} a premier nombre
+ * @param {number} [tolerance=0.000001] seuil positif en dessous duquel une valeur est considérée comme nulle
+ * @return {boolean}
+ */
 export function estentier (a, tolerance = epsilon) {
-  if (Math.abs(a - Math.round(a)) < tolerance) return true
-  else return false
+  return (Math.abs(a - Math.round(a)) < tolerance)
 }
+
+/**
+ * Retourne le quotient entier (donc sans le reste) de a/b si a & b sont entiers, false sinon
+ * @param {number} a
+ * @param {number} b
+ * @return {boolean|number}
+ */
 export function quotientier (a, b) {
-  if (Number.isInteger(a) && Number.isInteger(b)) {
-    let reste = a
-    let quotient = 0
-    while (reste >= b) {
-      reste -= b
-      quotient++
-    }
-    return quotient
-  } else return false
+  if (estentier(a) && estentier(b)) return Math.floor(a / b)
+  return false
 }
+
+/**
+ * Retourne true si x est un carré parfait (à epsilon près)
+ * @param {number} x
+ * @return {boolean}
+ */
 export function carreParfait (x) {
   if (estentier(Math.sqrt(x))) return true
   else return false
@@ -164,7 +217,7 @@ export function carreParfait (x) {
 
 // Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
 export function ecrireNombre2D (x, y, n) {
-  const nString = nombre_avec_espace(n)
+  const nString = nombreAvecEspace(n)
   const nombre2D = []
   for (let k = 0; k < nString.length; k++) {
     nombre2D.push(texteParPosition(nString[k], x + k * 0.8, y))
@@ -180,7 +233,7 @@ function ecrireAdditionPosee(x,y,...args){
     nString.push(texNombre(args[k]))
     n.push(args[k])
   }
-  let nb_chiffres_pe=Math.log10(Math.floor(Math.max(n)))
+  let nbChiffresPe=Math.log10(Math.floor(Math.max(n)))
 
   for (let k=0;k<args.length;k++){
 
@@ -223,6 +276,9 @@ class NombreDecimal {
 export function decimal (n) {
   return new NombreDecimal(n)
 }
+
+// FIXME {liste} n'existe pas dans jsdoc, si c'est un array de strings ça se note {string[]}
+
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
@@ -231,10 +287,8 @@ export function decimal (n) {
 * @param {liste} E1 - Liste
 * @param {liste} E2 - Liste
 * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
-*
 * @author Rémi Angot
 */
-
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
   let result = []; let temp = []
   for (const i in E1) {
@@ -354,7 +408,7 @@ export function compteOccurences (array, value) {
 
 /**
  * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
- * @Auteur Rémi Angot & Jean-Claude Lhote
+ * @author Rémi Angot & Jean-Claude Lhote
  */
 
 export function enleveElementBis (array, item = undefined) {
@@ -372,14 +426,14 @@ export function enleveElementBis (array, item = undefined) {
 
 /**
  * Enlève l'élément index d'un tableau
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function enleveElementNo (array, index) {
   array.splice(index, 1)
 }
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function enleveElementNoBis (array, index) {
   const tableaucopie = []
@@ -539,6 +593,16 @@ export function shuffle (array) {
   return arrayBis
 }
 
+export function shuffleJusqua (array, indice) {
+  if (indice > array.length || indice < 0 || indice === undefined) {
+    return shuffle(array)
+  } else {
+    const tableau1 = array.slice(0, indice)
+    const tableau2 = array.slice(indice)
+    return [...shuffle(tableau1), ...tableau2]
+  }
+}
+
 /*
 * Mélange les lettres d'un string
 *
@@ -600,7 +664,7 @@ export function tridictionnaire (dict) {
 *
 * @Example
 * filtreDictionnaire(dict,'6N') renvoie un dictionnaire où toutes les clés commencent par 6N
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaire (dict, sub) {
   return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({ [k]: v }))
@@ -635,7 +699,7 @@ if (!Object.fromEntries) {
 *
 * @Example
 * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
@@ -646,7 +710,7 @@ export function filtreDictionnaireValeurCle (dict, key, val) {
 *
 * @Example
 * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function filtreDictionnaireValeurTableauCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => cleExisteEtContient(v[key], val)))
@@ -668,7 +732,7 @@ function cleExisteEtContient (v, val) {
 * combinaisonListes([A,B,C],7)
 * // [B,C,A,C,B,A,A,B,C]
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function combinaisonListes (liste, tailleMinimale) {
   if (liste.length === 0) return []
@@ -691,7 +755,7 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @Example
 * //rienSi1(1)+'x' -> x
 * //rienSi1(-1)+'x' -> -x
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function rienSi1 (a) {
   if (a === 1) {
@@ -707,10 +771,10 @@ export function rienSi1 (a) {
 * Gère l'écriture de l'exposant en mode text
 * @Example
 * // 'dm'+exposant(3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function exposant (texte) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
     return `\\up{${texte}}`
@@ -721,7 +785,7 @@ export function exposant (texte) {
 * Ajoute les parenthèses et le signe
 * @Example
 * //(+3) ou (-3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureNombreRelatif (a) {
   let result = ''
@@ -754,7 +818,7 @@ export function ecritureNombreRelatifc (a) {
 * Ajoute le + devant les nombres positifs
 * @Example
 * //+3 ou -3
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureAlgebrique (a) {
   let result = ''
@@ -770,7 +834,7 @@ export function ecritureAlgebrique (a) {
 * Ajoute le + devant les nombres positifs, n'écrit rien si 1
 * @Example
 * //+3 ou -3
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureAlgebriqueSauf1 (a) {
   let result = ''
@@ -807,7 +871,7 @@ export function ecritureAlgebriquec (a) {
 * Ajoute des parenthèses aux nombres négatifs
 * @Example
 * // 3 ou (-3)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
@@ -823,7 +887,7 @@ export function ecritureParentheseSiNegatif (a) {
 * Ajoute des parenthèses si une expression commence par un moins
 * @Example
 * // (-3x)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function ecritureParentheseSiMoins (expr) {
   let result = ''
@@ -837,7 +901,7 @@ export function ecritureParentheseSiMoins (expr) {
 
 /**
  *
- * @Auteur Jean-claude Lhote
+ * @author Jean-claude Lhote
  * @param {numero} 1=A, 2=B ..
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
@@ -854,7 +918,7 @@ export function calculAligne (numero, etapes) {
 /**
 * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function valeurBase (n) {
   switch (n) {
@@ -874,7 +938,7 @@ export function valeurBase (n) {
  * @param {array} vecteur A tableau 3 nombres
  * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
  * elle retourne le vecteur [x,y,z] résultat de M.A
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
@@ -891,7 +955,7 @@ export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un 
  * @param {array} matrice1 Matrice A
  * @param {array} matrice2 Matrice B
  * retourne la matrice A.B
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
@@ -907,7 +971,7 @@ export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matr
  *
  * @param {array} point
  * calcule les coordonnées d'un point donné par ses coordonnées en repère orthonormal en repère (O,I,J) tel que IOJ=60°
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function changementDeBaseOrthoTri (point) {
   if (point.length === 2) point.push(1)
@@ -917,7 +981,7 @@ export function changementDeBaseOrthoTri (point) {
  *
  * @param {array} point
  * Changement de base inverse de la fonction précédente
- * @Auteur Jean-CLaude Lhote
+ * @author Jean-CLaude Lhote
  */
 export function changementDeBaseTriOrtho (point) {
   if (point.length === 2) point.push(1)
@@ -945,7 +1009,7 @@ export function changementDeBaseTriOrtho (point) {
 * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
 * @param {array} vecteur Vecteur de la translation
 * @param {number} rapport rapport d'homothétie
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
   // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
@@ -954,15 +1018,15 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
 
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-  const matrice_sym_yyprime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-  const matrice_sym_obl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-  const matrice_quart_de_tour_direct = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-  const matrice_quart_de_tour_indirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-  const matrice_sym_centrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-  const matrice_rot_60_direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matrice_rot_60_indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-  const matrice_rot_120_direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-  const matrice_rot_120_indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
+  const matriceSymObl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
+  const matriceQuartDeTourDirect = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
+  const matriceQuartDeTourIndirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
+  const matriceSymCentrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
+  const matriceRotation60Direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+  const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+  const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
 
   let pointA1 = [0, 0, 0]
   let pointA2 = [0, 0, 0]
@@ -974,60 +1038,60 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   const v = vecteur[1]
   const k = rapport // rapport d'homothétie
 
-  const matrice_chgt_repere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-  const matrice_chgt_repereinv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
-  const matrice_translation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-  const matrice_homothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-  const matrice_homothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
+  const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
+  const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
+  const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
+  const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
+  const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
 
   let matrice
 
   switch (transformation) {
     case 1:
-      matrice = matriceSymObl1.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 2:
-      matrice = matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymObl2.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 3:
-      matrice = matriceSymxxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymxxprime.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 4:
-      matrice = matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymYyPrime.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 5:
-      matrice = matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceQuartDeTourDirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 6:
-      matrice = matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceQuartDeTourIndirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 7:
-      matrice = matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceSymCentrale.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 11:
-      matrice = matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation60Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 12:
-      matrice = matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation60Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 13:
-      matrice = matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation120Direct.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 14:
-      matrice = matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceRotation120Indirect.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 8:
-      matrice = matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceTranslation.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 9:
-      matrice = matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceHomothetie.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
     case 10:
-      matrice = matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
+      matrice = matriceHomothetie2.multiplieMatriceCarree(matriceChangementDeRepereInv)
       break
   }
   pointA1 = matrice.multiplieVecteur(pointA)
-  pointA2 = matrice_chgt_repere.multiplieVecteur(pointA1)
+  pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1)
   return pointA2
 }
 
@@ -1035,7 +1099,7 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
 * Retourne le signe d'un nombre
 * @Example
 * // + ou -
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function signe (a) { // + ou -
   let result = ''
@@ -1051,7 +1115,7 @@ export function signe (a) { // + ou -
  *
  * @param {number} a
  * -1 si a est négatif, 1 sinon.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function unSiPositifMoinsUnSinon (a) {
   if (a < 0) return -1
@@ -1062,7 +1126,7 @@ export function unSiPositifMoinsUnSinon (a) {
 * @Example
 * sommeDesChiffress(123)
 * // 6
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */export function sommeDesChiffres (n) {
   let sommeString = ''
   for (let i = 0; i < n.length - 1; i++) {
@@ -1073,17 +1137,19 @@ export function unSiPositifMoinsUnSinon (a) {
 }
 
 /**
-* Retourne l'arrondi (par défaut au centième près)
-*
-* @Auteur Rémi Angot
-*/
+ * Retourne l'arrondi (par défaut au centième près)
+ * @author Rémi Angot
+ * @param {number} nombre
+ * @param {number} precision
+ * @return {number}
+ */
 export function arrondi (nombre, precision = 2) {
   const tmp = Math.pow(10, precision)
   return Math.round(nombre * tmp) / tmp
 }
 /**
  * Retourne la troncature signée de nombre.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function troncature (nombre, precision) {
   const tmp = Math.pow(10, precision)
@@ -1095,7 +1161,7 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function abs (a) {
   return Math.abs(a)
@@ -1103,7 +1169,7 @@ export function abs (a) {
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function arrondiVirgule (nombre, precision = 2) { //
   const tmp = Math.pow(10, precision)
@@ -1112,7 +1178,7 @@ export function arrondiVirgule (nombre, precision = 2) { //
 
 /**
 * Renvoie le PGCD de deux nombres
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function pgcd (a, b) {
   return parseInt(Algebrite.run(`gcd(${a},${b})`))
@@ -1120,7 +1186,7 @@ export function pgcd (a, b) {
 
 /**
 * Renvoie le PPCM de deux nombres
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export const ppcm = (a, b) => {
   return parseInt(Algebrite.run(`lcm(${a},${b})`))
@@ -1129,7 +1195,7 @@ export const ppcm = (a, b) => {
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
 * * **ATTENTION Fonction clonée dans la classe Fraction()**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function fractionSimplifiee (n, d) {
   const p = pgcd(n, d)
@@ -1146,7 +1212,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
 * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texFractionReduite (n, d) {
   if (Math.abs(n) % Math.abs(d) === 0) {
@@ -1186,7 +1252,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 *
 * Simplifie une fraction en montrant les étapes
 * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
   // Est-ce que le résultat est simplifiable ?
@@ -1205,7 +1271,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
 /**
  * Retourne l'égalité des produits en croix à partir d'un tableau contenant les deux fractions [[a,b],[c,d]] pour a/b=c/d retourne ad=bc
  * Le résultat est un string en mode maths inline
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a*d=b*c
@@ -1217,7 +1283,7 @@ export function produitsEnCroix ([[a, b], [c, d]]) { // écrit une chaine pour a
 /**
  * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c/a
@@ -1240,7 +1306,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
  */
@@ -1259,9 +1325,9 @@ export function reduireAxPlusB (a, b) {
 }
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
-export function reduire_polynome_degre3 (a, b, c, d) {
+export function reduirePolynomeDegre3 (a, b, c, d) {
   let result = ''
   if (a !== 0) {
     switch (a) {
@@ -1359,17 +1425,17 @@ export function reduire_polynome_degre3 (a, b, c, d) {
 /**
 *
 * Donne la liste des facteurs premiers d'un nombre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function obtenirListeFacteursPremiers (n) {
   // Algorithme de base où l'on divise par chacun des nombres premiers
   const liste = []
-  const liste_nombres_premiers = obtenirListeNombresPremiers()
+  const listeNombresPremiers = obtenirListeNombresPremiers()
   let i = 0
-  while (n > 1 && liste_nombres_premiers[i] <= n) {
-    if (n % liste_nombres_premiers[i] === 0) {
-      liste.push(liste_nombres_premiers[i])
-      n /= liste_nombres_premiers[i]
+  while (n > 1 && listeNombresPremiers[i] <= n) {
+    if (n % listeNombresPremiers[i] === 0) {
+      liste.push(listeNombresPremiers[i])
+      n /= listeNombresPremiers[i]
     } else {
       i++
     }
@@ -1381,7 +1447,7 @@ export function obtenirListeFacteursPremiers (n) {
  *
  * @param {Entier} n
  * Retourne la factorisation d'un entier sous la forme [[a0,n0],[a1,n1],...] où a0,a1 sont les facteurs premiers et n0, n1 sont les exposants de ces facteurs.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 
 export function factorisation (n) {
@@ -1408,7 +1474,7 @@ export function factorisation (n) {
  * @param {Entier} n
  * Extrait le plus grand nombre possible de la racine carrée de n
  * retourne le résulat [a,b] pour a²b=n
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function extraireRacineCarree (n) {
   const facto = factorisation(n)
@@ -1427,7 +1493,7 @@ export function extraireRacineCarree (n) {
  *
  * @param {Entier} n
  * retourne le code Latex de la racine carrée de n "réduite"
- * @Auteur Jean-CLaude Lhote
+ * @author Jean-CLaude Lhote
  */
 export function texRacineCarree (n) {
   const result = extraireRacineCarree(n)
@@ -1439,7 +1505,7 @@ export function texRacineCarree (n) {
 /**
 * Utilise giac/xcas
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function xcas (expression) {
   // eslint-disable-next-line no-undef
@@ -1449,7 +1515,7 @@ export function xcas (expression) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function calcul (expression, arrondir = false) {
   if (!arrondir) {
@@ -1462,7 +1528,7 @@ export function calcul (expression, arrondir = false) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
@@ -1474,7 +1540,7 @@ export function nombreDecimal (expression, arrondir = false) {
 
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombrec (expression) {
   return texNombre(parseFloat(Algebrite.eval(expression)))
@@ -1505,23 +1571,23 @@ export function triePositifsNegatifs (liste) {
 
 /**
 * Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function sommeDesTermesParSigne (liste) {
-  let somme_des_positifs = 0; let somme_des_negatifs = 0
+  let sommeDesPositifs = 0; let sommeDesNegatifs = 0
   for (let i = 0; i < liste.length; i++) {
     if (liste[i] > 0) {
-      somme_des_positifs += liste[i]
+      sommeDesPositifs += liste[i]
     } else {
-      somme_des_negatifs += liste[i]
+      sommeDesNegatifs += liste[i]
     }
   }
-  return [somme_des_positifs, somme_des_negatifs]
+  return [sommeDesPositifs, sommeDesNegatifs]
 }
 
 /**
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
@@ -1548,13 +1614,13 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
 
 /**
 * Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function possedeUnCaractereInterdit (texte, listeAEviter) {
   let result = false
-  for (const mot_a_eviter of listeAEviter) {
-    for (let i = 0; i < mot_a_eviter.length; i++) {
-      if (texte.indexOf(mot_a_eviter[i]) > -1) {
+  for (const motAeviter of listeAEviter) {
+    for (let i = 0; i < motAeviter.length; i++) {
+      if (texte.indexOf(motAeviter[i]) > -1) {
         result = true
       }
     }
@@ -1565,7 +1631,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter
  * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
  * les valeurs sont dans un ordre aléatoire.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  *
  */
 export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
@@ -1585,17 +1651,17 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
  * il y aura nombre lettres dans un ordre aléatoire
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
-export function choisitLettresDifferentes (nombre, lettres_a_eviter = '', majuscule = true) {
+export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscule = true) {
   const listeAEviter = []; const lettres = []
-  for (const l of lettres_a_eviter) {
+  for (const l of lettresAeviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
   }
   const index = choisitNombresEntreMetN(1, 26, nombre, listeAEviter)
   for (const n of index) {
     if (majuscule) lettres.push(lettreDepuisChiffre(n))
-    else lettres.push(lettre_minuscule_depuis_chiffre(n))
+    else lettres.push(lettreMinusculeDepuisChiffre(n))
   }
   return lettres
 }
@@ -1619,7 +1685,7 @@ export function codeCesar (mots, decal) {
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
-* @Auteur Rémi Angot
+* @author Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
 * // 27->AA ; 28 ->AB ...
@@ -1642,17 +1708,17 @@ export function lettreDepuisChiffre (i) {
 
 /**
 * Renvoie une lettre minuscule depuis un nombre compris entre 1 et 702
-* @Auteur Rémi Angot
+* @author Rémi Angot
 *@Example
 * // 0 -> @ 1->a ; 2->b...
 * // 27->aa ; 28 ->ab ...
 */
-export function lettre_minuscule_depuis_chiffre (i) {
+export function lettreMinusculeDepuisChiffre (i) {
   return lettreDepuisChiffre(i).toLowerCase()
 }
 
 /**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * @Example
 * //0h24 est accepté
 */
@@ -1670,7 +1736,7 @@ export function minToHoraire (minutes) {
 }
 
 /**
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * @Example
 * //on écrira 24 minutes plutôt que 0h24
 */
@@ -1693,7 +1759,7 @@ export function minToHour (minutes) {
 
 /**
 * Renvoie un prénom féminin au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenomF (n = 1) {
   if (n === 1) {
@@ -1705,7 +1771,7 @@ export function prenomF (n = 1) {
 
 /**
 * Renvoie un prénom masculin au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenomM (n = 1) {
   if (n === 1) {
@@ -1717,7 +1783,7 @@ export function prenomM (n = 1) {
 
 /**
 * Renvoie un prénom au hasard
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function prenom (n = 1) {
   if (n === 1) {
@@ -1729,7 +1795,7 @@ export function prenom (n = 1) {
 
 /**
 * Renvoie un petit objet féminin au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objetF () {
   return choice(['boîtes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'petites peluches'])
@@ -1737,7 +1803,7 @@ export function objetF () {
 
 /**
 * Renvoie un petit objet masculin au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objetM () {
   return choice(['auto-collants', 'gâteaux', 'cahiers', 'livres', 'stylos', 'crayons'])
@@ -1745,7 +1811,7 @@ export function objetM () {
 
 /**
 * Renvoie un petit objet au hasard
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function objet () {
   return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
@@ -1753,7 +1819,7 @@ export function objet () {
 
 /**
  * Définit l'objet personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 class Personne {
@@ -1781,7 +1847,7 @@ class Personne {
 
 /**
  * crée une instance de la classe Personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
@@ -1790,7 +1856,7 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
 
 /**
  * Crée un tableau de n objet de la classe Personne
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * le 14/03/2021
  */
 export function personnes (n) {
@@ -1814,7 +1880,7 @@ export function personnes (n) {
 
 /**
  * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
- *  @Auteur Jean-Claue Lhote
+ *  @author Jean-Claue Lhote
  */
 export function prenomPronom () {
   if (choice([true, false])) {
@@ -1826,68 +1892,68 @@ export function prenomPronom () {
 
 /**
 * Renvoie un tableau avec les résultats des tirages successifs
-* @param nombre_tirages Combien de tirages ?
-* @param nombre_faces Pour spécifier le type de dés
-* @param nombre_des Combien de dés à chaque tirage ?
-* @auteur Jean-Claude Lhote
+* @param nombreTirages Combien de tirages ?
+* @param nombreFaces Pour spécifier le type de dés
+* @param nombreDes Combien de dés à chaque tirage ?
+* @author Jean-Claude Lhote
 */
-export function tirer_les_des (nombre_tirages, nombre_faces, nombre_des) {
+export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
   const tirages = []
-  for (let i = 0; i <= (nombre_faces - 1) * nombre_des; i++) tirages.push([i + nombre_des, 0])
-  for (let i = 0, resultat; i < nombre_tirages; i++) {
+  for (let i = 0; i <= (nombreFaces - 1) * nombreDes; i++) tirages.push([i + nombreDes, 0])
+  for (let i = 0, resultat; i < nombreTirages; i++) {
     resultat = 0
-    for (let j = 0; j < nombre_des; j++) resultat += randint(1, nombre_faces)
-    tirages[resultat - nombre_des][1]++
+    for (let j = 0; j < nombreDes; j++) resultat += randint(1, nombreFaces)
+    tirages[resultat - nombreDes][1]++
   }
   return tirages
 }
 /**
 * Renvoie un tableau de nombres
-* @param nombre_notes
-* @param note_min
-* @param note_max
-* @auteur Jean-Claude Lhote
+* @param nombreNotes
+* @param noteMin
+* @param noteMax
+* @author Jean-Claude Lhote
 */
-export function liste_de_notes (nombre_notes, note_min, note_max) {
+export function listeDeNotes (nombreNotes, noteMin, noteMax) {
   const notes = []
-  for (let i = 0; i < nombre_notes; i++) notes.push(randint(note_min, note_max))
+  for (let i = 0; i < nombreNotes; i++) notes.push(randint(noteMin, noteMax))
   return notes
 }
 
 /**
 * Renvoie le nombre de jour d'un mois donné
 * @param n quantième du mois (janvier=1...)
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function jours_par_mois (n) {
-  const jours_mois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  return jours_mois[n - 1]
+export function joursParMois (n) {
+  const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  return joursMois[n - 1]
 }
 /**
 * Renvoie un tableau de températures
 * @param base température médiane
 * @mois quantième du mois (janvier=1...)
 * @annee pour déterminer si elle est bissextile ou non
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function unMoisDeTemperature (base, mois, annee) {
   const temperatures = []
-  let nombre_jours = jours_par_mois(mois)
+  let nombreJours = joursParMois(mois)
   if (mois === 2) {
-    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) nombre_jours = 29 // années bissextiles.
-    else nombre_jours = 28
+    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) nombreJours = 29 // années bissextiles.
+    else nombreJours = 28
   }
   temperatures.push(randint(-3, 3) + base)
-  for (let i = 1; i < nombre_jours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
+  for (let i = 1; i < nombreJours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
   return temperatures
 }
 
 /**
 * Renvoie le nom du mois
 * @param n quantième du mois
-* @auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function nom_du_mois (n) {
+export function nomDuMois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   return mois[n - 1]
 }
@@ -1895,9 +1961,9 @@ export function nom_du_mois (n) {
 /**
 * Renvoie le nom du jour
 * @param n quantième du jour
-* @auteur Mireille Gain
+* @author Mireille Gain
 */
-export function nom_du_jour (n) {
+export function nomDuJour (n) {
   const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
   return jour[n - 1]
 }
@@ -1905,7 +1971,7 @@ export function nom_du_jour (n) {
 /**
 * Renvoie le nom d'un jour au hasard
 * @param n quantième du jour
-* @auteur Mireille Gain
+* @author Mireille Gain
 */
 export function jour () {
   return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
@@ -1918,7 +1984,7 @@ export function jour () {
 * * `<br>`est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texEnumerate (liste, spacing) {
   let result = ''
@@ -1943,7 +2009,7 @@ export function texEnumerate (liste, spacing) {
       result += '\\end{spacing}\n'
     }
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
@@ -1951,7 +2017,7 @@ export function texEnumerate (liste, spacing) {
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texEnumerateSansNumero (liste, spacing) {
   // return texEnumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
@@ -1962,7 +2028,7 @@ export function texEnumerateSansNumero (liste, spacing) {
 * * Concatène les éléments d'une liste avec un saut de ligne entre chaque élément
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texParagraphe (liste, spacing = false) {
   let result = ''
@@ -1976,17 +2042,18 @@ export function texParagraphe (liste, spacing = false) {
   if (spacing > 1) {
     result += '\\end{spacing}'
   }
-  return result.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
+  // les <br> peuvent être 2 ou plus et peuvent être séparés par des sauts de ligne ou des espaces
+  return result.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n').replace(/€/g, '\\euro{}')
 }
 
 /**
 * * Recopie le texte.
 * * `<br>` est remplacé par un saut de paragraphe
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texIntroduction (texte) {
-  return texte.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+  return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 }
 
 /**
@@ -1994,7 +2061,7 @@ export function texIntroduction (texte) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlEnumerate (liste, spacing) {
   let result = ''
@@ -2018,10 +2085,10 @@ export function htmlEnumerate (liste, spacing) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function enumerate (liste, spacing) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return htmlEnumerate(liste, spacing)
   } else {
     return texEnumerate(liste, spacing)
@@ -2033,10 +2100,10 @@ export function enumerate (liste, spacing) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Sébastien Lozano
+* @author Sébastien Lozano
 */
 export function enumerateSansPuceSansNumero (liste, spacing) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     // return htmlEnumerate(liste,spacing)
     // for (let i=0; i<liste.length;i++) {
     // liste[i]='> '+liste[i];
@@ -2052,7 +2119,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 *  Renvoie un paragraphe HTML à partir d'un string
 *
 * @param string
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlParagraphe (texte) {
   if (texte.length > 1) {
@@ -2067,7 +2134,7 @@ export function htmlParagraphe (texte) {
 *
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlLigne (liste, spacing) {
   let result = ''
@@ -2088,7 +2155,7 @@ export function htmlLigne (liste, spacing) {
 
 /**
 * Renvoie un environnent LaTeX multicolonnes
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texMulticols (texte, nbCols = 2) {
   let result
@@ -2103,7 +2170,7 @@ export function texMulticols (texte, nbCols = 2) {
 
 /**
 * Renvoie la consigne en titre 4
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function htmlConsigne (consigne) {
   return '<h4>' + consigne + '</h4>\n\n'
@@ -2111,7 +2178,7 @@ export function htmlConsigne (consigne) {
 
 /**
 * Renvoie \exo{consigne}
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texConsigne (consigne) {
   return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
@@ -2119,16 +2186,16 @@ export function texConsigne (consigne) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  if (sortieHtml) {
+  if (context.isHtml) {
     // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}'); // .replace(',','{,}') servait à enlever l'espace disgracieux des décimaux mais ne passait qu'en mode LaTeX
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ') // \nombre n'est pas pris en charge par katex
   } else {
     let result
-    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
       result = nb.toString().replace('.', ',')
@@ -2139,33 +2206,33 @@ export function texNombre (nb) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texNombre2 (nb) {
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
-  const rang_virgule = nombre.indexOf(',')
-  let partie_entiere = ''
-  if (rang_virgule !== -1) {
-    partie_entiere = nombre.substring(0, rang_virgule)
+  const rangVirgule = nombre.indexOf(',')
+  let partieEntiere = ''
+  if (rangVirgule !== -1) {
+    partieEntiere = nombre.substring(0, rangVirgule)
   } else {
-    partie_entiere = nombre
+    partieEntiere = nombre
   }
-  let partie_decimale = ''
-  if (rang_virgule !== -1) {
-    partie_decimale = nombre.substring(rang_virgule + 1)
+  let partieDecimale = ''
+  if (rangVirgule !== -1) {
+    partieDecimale = nombre.substring(rangVirgule + 1)
   }
 
-  for (let i = partie_entiere.length - 3; i > 0; i -= 3) {
-    partie_entiere = partie_entiere.substring(0, i) + '\\thickspace ' + partie_entiere.substring(i)
+  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
   }
-  for (let i = 3; i <= partie_decimale.length; i += 3) {
-    partie_decimale = partie_decimale.substring(0, i) + '\\thickspace ' + partie_decimale.substring(i)
+  for (let i = 3; i <= partieDecimale.length; i += 3) {
+    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
     i += 12
   }
-  if (partie_decimale === '') {
-    nombre = partie_entiere
+  if (partieDecimale === '') {
+    nombre = partieEntiere
   } else {
-    nombre = partie_entiere + ',' + partie_decimale
+    nombre = partieEntiere + ',' + partieDecimale
   }
   return nombre
 }
@@ -2178,12 +2245,12 @@ export function nombrec2 (nb) {
 
 /**
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
-    if (sortieHtml) s += '&nbsp'
+    if (context.isHtml) s += '&nbsp'
     else s += '~'
   }
   return s
@@ -2192,15 +2259,15 @@ export function sp (nb = 1) {
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à texNombre()
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function nombre_avec_espace (nb) {
+export function nombreAvecEspace (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  if (sortieHtml) {
+  if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
     let result
-    if (nb > 999 || nombre_de_chiffres_dans_la_partie_decimale(nb) > 3) {
+    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
       result = nb.toString().replace('.', ',')
@@ -2211,38 +2278,38 @@ export function nombre_avec_espace (nb) {
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   const nombre = nb.toString()
-  const partie_entiere = nombre.split('.')[0]
-  const partie_decimale = nombre.split('.')[1]
+  const partieEntiere = nombre.split('.')[0]
+  const partieDecimale = nombre.split('.')[1]
   let result = ''
   let i
-  if (partie_entiere.length > 3) {
-    for (let i = 0; i < Math.floor(partie_entiere.length / 3); i++) {
-      result = ' ' + partie_entiere.slice(partie_entiere.length - i * 3 - 3, partie_entiere.length - i * 3) + result
+  if (partieEntiere.length > 3) {
+    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
+      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
     }
-    result = partie_entiere.slice(0, partie_entiere.length - i * 3) + result
-  } else result = partie_entiere
+    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
+  } else result = partieEntiere
   if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partie_decimale !== undefined) result += ',' + partie_decimale
+  if (partieDecimale !== undefined) result += ',' + partieDecimale
   return result
 }
 /**
 * Met en couleur et en gras
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function miseEnEvidence (texte, couleur = '#f15929') {
-  if (sortieHtml) {
-    return `\\mathbf{\\color{${couleur}}{${texte}}}`
+  if (context.isHtml) {
+    return `\\bm{{\\color{${couleur}}{${texte}}}}`
   } else {
     if (couleur[0] === '#') {
-      return `\\mathbf{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{{\\color[HTML]{${couleur.replace('#', '')}}${texte}}}`
     } else {
-      return `\\mathbf{\\color{${couleur.replace('#', '')}}${texte}}`
+      return `\\bm{{\\color{${couleur.replace('#', '')}}${texte}}}`
     }
   }
 }
@@ -2251,10 +2318,10 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
 * Met en couleur un texte
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function texte_en_couleur (texte, couleur = '#f15929') {
-  if (sortieHtml) {
+export function texteEnCouleur (texte, couleur = '#f15929') {
+  if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
@@ -2269,10 +2336,10 @@ export function texte_en_couleur (texte, couleur = '#f15929') {
 * Met en couleur et gras un texte
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function texte_en_couleur_et_gras (texte, couleur = '#f15929') {
-  if (sortieHtml) {
+export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
+  if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
@@ -2285,7 +2352,7 @@ export function texte_en_couleur_et_gras (texte, couleur = '#f15929') {
 /**
  * couleurAleatoire() renvoie le code d'une couleur au hasard
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export function couleurAleatoire () {
   // let color = "#";
@@ -2324,25 +2391,14 @@ export function texcolors (i, fondblanc = true) {
   if (fondblanc && i % 19 >= 17) i += 2
   return couleurs[i % 19]
 }
-export function couleur_en_gris (color) {
-  switch (color) {
-    case 'black':
-      return color
-    case 'white':
-      return color
-    case 'gray':
-      return color
-    case 'blue':
-  }
-}
 
 /**
 * Met gras un texte
 * @param {string} texte à mettre en gras
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function texte_gras (texte) {
-  if (sortieHtml) {
+export function texteGras (texte) {
+  if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {
     return `\\textbf{${texte}}`
@@ -2353,10 +2409,10 @@ export function texte_gras (texte) {
 * Affiche un lien vers une URL
 * @param {string} texte à afficher
 * @param {string} URL
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function href (texte, lien) {
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `<a target="_blank" href=${lien}> ${texte} </a>`
   } else {
     return `\\href{${lien}}{${texte}}`
@@ -2365,9 +2421,9 @@ export function href (texte, lien) {
 
 /**
 * Pour bien afficher les centimes avec 2 chiffres après la virgule
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function tex_prix (nb) {
+export function texPrix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
   let result
@@ -2381,15 +2437,15 @@ export function tex_prix (nb) {
 
 /**
 * Convertit en majuscule la première lettre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function nombre_de_chiffres_dans_la_partie_decimale (nb) {
+export function nombreDeChiffresDansLaPartieDecimale (nb) {
   if (String(nb).indexOf('.') > 0) {
     return String(nb).split('.')[1].length
   } else {
@@ -2397,43 +2453,51 @@ export function nombre_de_chiffres_dans_la_partie_decimale (nb) {
   }
 }
 
-export function nombre_de_chiffres_dans_la_partie_entiere (nb) {
-  if (String(nb).indexOf('.') > 0) {
-    return String(nb).split('.')[0].length
+export function nombreDeChiffresDansLaPartieEntiere (nb) {
+  let nombre
+  if (nb < 0) {
+    nombre = -nb
   } else {
-    return String(nb).length
+    nombre = nb
+  }
+  if (String(nombre).indexOf('.') > 0) {
+    return String(nombre).split('.')[0].length
+  } else {
+    return String(nombre).length
   }
 }
 
 /**
-* Écrit une fraction avec - devant si le numérateur ou le dénominateur est négatif
-* @Auteur Jean-Claude Lhote
-*/
-export function texFractionSigne (a, b) {
-  if (b !== 1) {
-    if (a * b > 0) {
-      return '\\dfrac{' + Math.abs(a) + '}{' + Math.abs(b) + '}'
-    } else {
-      return '-\\dfrac{' + Math.abs(a) + '}{' + Math.abs(b) + '}'
-    }
-  } else {
-    return a
+ * Retourne la string LaTeX de la fraction
+ * @param num
+ * @param den
+ * @return {string}
+ * @author Jean-Claude Lhote
+ */
+export function texFractionSigne (num, den) {
+  if (den === 1) return String(num)
+  if (num * den > 0) {
+    return `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
   }
+  if (num * den < 0) {
+    return `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+  }
+  return '0'
 }
 
 /**
 * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function texFraction_parentheses (a, b) {
+export function texFractionParentheses (a, b) {
   if (a * b > 0) { return texFractionSigne(a, b) } else { return '\\left(' + texFractionSigne(a, b) + '\\right)' }
 }
 
 /**
 * Retourne une liste de fractions irréductibles
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 */
-export function obtenir_liste_fractions_irreductibles () { // sous forme de tableaux [numérateur,dénominateur]
+export function obtenirListeFractionsIrreductibles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
     [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
     [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
@@ -2441,7 +2505,7 @@ export function obtenir_liste_fractions_irreductibles () { // sous forme de tabl
 
 /**
 * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
-* @Auteur Mireille Gain
+* @author Mireille Gain
 */
 export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 5], [2, 5], [3, 5], [4, 5],
@@ -2450,7 +2514,7 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 
 /**
 * Retourne la liste des nombres premiers inférieurs à 300
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function obtenirListeNombresPremiers () {
   return [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
@@ -2458,9 +2522,9 @@ export function obtenirListeNombresPremiers () {
 
 /**
 * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function decomposition_facteurs_premiers (n) {
+export function decompositionFacteursPremiers (n) {
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -2472,9 +2536,9 @@ export function decomposition_facteurs_premiers (n) {
 
 /**
 * Retourne la liste des diviseurs d'un entier
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function liste_des_diviseurs (n) {
+export function listeDesDiviseurs (n) {
   let k = 2
   const liste = [1]
   while (k <= n) {
@@ -2489,7 +2553,7 @@ export function liste_des_diviseurs (n) {
 
 /**
 * Retourne le code LaTeX d'une fraction a/b
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export function texFraction (a, b) {
   if (b !== 1) {
@@ -2505,136 +2569,45 @@ export function texFraction (a, b) {
 
 /**
 * Utilise printlatex et quote de Algebrite
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 
 export function printlatex (e) {
-  return Algebrite.run(`printlatex(quote(${e}))`)
+  if (e === '0x') {
+    return '0'
+  } else {
+    return Algebrite.run(`printlatex(quote(${e}))`)
+  }
 }
 
 /**
 * Écrit du texte en mode mathématiques
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function tex_texte (texte) {
+export function texTexte (texte) {
   return '~\\text{' + texte + '}'
 }
 
 /**
 * Retourne un environnement LaTeX itemize à partir d'une liste
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function itemize (tableau_de_texte) {
+export function itemize (tableauDeTexte) {
   let texte = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     texte = '<div>'
-    for (let i = 0; i < tableau_de_texte.length; i++) {
-      texte += '<div> − ' + tableau_de_texte[i] + '</div>'
+    for (let i = 0; i < tableauDeTexte.length; i++) {
+      texte += '<div> − ' + tableauDeTexte[i] + '</div>'
     }
     texte += '</div>'
   } else {
     texte = '\t\\begin{itemize}\n'
-    for (let i = 0; i < tableau_de_texte.length; i++) {
-      texte += '\t\t\\item ' + tableau_de_texte[i] + '\n'
+    for (let i = 0; i < tableauDeTexte.length; i++) {
+      texte += '\t\t\\item ' + tableauDeTexte[i] + '\n'
     }
     texte += '\t\\end{itemize}'
   }
   return texte
-}
-
-/**
-* Récupère le code JS d'un exercice qui modifie les valeurs d'une figure MG32 et actualise la figure
-* @Auteur Rémi Angot
-*/
-export function MG32_modifie_figure (numero_figure) {
-  let code_pour_modifier_la_figure = exercice[numero_figure].MG32code_pour_modifier_la_figure
-  if (window.mtg32App.docs.length === 1) {
-    code_pour_modifier_la_figure = code_pour_modifier_la_figure.replace('display', 'updateDisplay')
-  }
-  const modification = new Function('numero_figure', code_pour_modifier_la_figure)
-  modification(numero_figure)
-}
-
-/**
-* Actualise toutes les figures MG32 avec les nouvelles valeurs
-* @Auteur Rémi Angot
-*/
-export function MG32_modifie_toutes_les_figures () {
-  for (let i = 0; i < liste_des_exercices.length; i++) {
-    if (exercice[i].typeExercice === 'MG32') {
-      MG32_modifie_figure(i)
-    }
-  }
-}
-
-/**
-* Ajoute une figure MG32 dans le code HTML de la page
-* @Auteur Rémi Angot
-*/
-export function MG32_ajouter_figure (numeroExercice) {
-  if (window.mtg32App) {
-    for (let i = 0; i < mtg32App.docs.length; i++) {
-      mtg32App.removeDoc(mtg32App.docs[i].idDoc)
-    }
-  }
-  MG32_tableau_de_figures.push(
-    // pour chaque figure on précise ici ses options
-    {
-      idContainer: `MG32div${numeroExercice}`,
-      svgOptions: {
-        width: `${exercice[numeroExercice].dimensionsDivMg32[0]}`,
-        height: `${exercice[numeroExercice].dimensionsDivMg32[1]}`,
-        idSvg: `MG32svg${numeroExercice}`
-      },
-      mtgOptions: {
-        fig: exercice[numeroExercice].MG32codeBase64,
-        isEditable: exercice[numeroExercice].mg32Editable
-      }
-    }
-  )
-
-  if (exercice[numeroExercice].MG32codeBase64corr) {
-    MG32_tableau_de_figures.push(
-      // pour chaque figure on précise ici ses options
-      {
-        idContainer: `MG32divcorr${numeroExercice}`,
-        svgOptions: {
-          width: `${exercice[numeroExercice].dimensionsDivMg32[0]}`,
-          height: `${exercice[numeroExercice].dimensionsDivMg32[1]}`,
-          idSvg: `MG32svgcorr${numeroExercice}`
-        },
-        mtgOptions: {
-          fig: exercice[numeroExercice].MG32codeBase64corr,
-          isEditable: false
-        }
-      }
-    )
-  }
-}
-
-/**
-* Pour chaque figure on récupère une promesse de chargement,
-* on lance tout en parallèle,
-* et quand toutes seront résolues on continue
-* @Auteur Rémi Angot
-*/
-export function MG32_tracer_toutes_les_figures () {
-  (function verifie_div_MG32 () {
-    const el = document.getElementsByClassName('MG32')
-    // Sélectionne les div de classe MG32
-    if (el.length) { // S'ils existent, on peut appeler MG32
-      Promise.all(MG32_tableau_de_figures.map(({ idContainer, svgOptions, mtgOptions }) => mtgLoad(idContainer, svgOptions, mtgOptions)))
-        .then(results => {
-          // results est le tableau des valeurs des promesses résolues, avec la même instance du player pour chacune, la 1re valeur nous suffit donc
-          window.mtg32App = results[0]
-          // on peut l'utiliser…
-          MG32_modifie_toutes_les_figures()
-        })
-        .catch(error => console.error(error))
-    } else {
-      setTimeout(verifie_div_MG32, 300) // retente dans 300 milliseconds
-    }
-  })()
 }
 
 /**
@@ -2644,7 +2617,7 @@ export function MG32_tracer_toutes_les_figures () {
 * @author Rémi Angot
 */
 
-export function tex_graphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
+export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
   return `
   \\pgfplotsset{width=10cm,
       compat=1.9,
@@ -2681,7 +2654,7 @@ export function tex_graphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
  * Générateur de Matrice :
  * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
  * Sinon, c'est le tableau qui sert à remplir la Matrice
- *  @Auteur Jean-Claude Lhote
+ *  @author Jean-Claude Lhote
  */
 export function MatriceCarree (table) {
   let ligne
@@ -2699,13 +2672,13 @@ export function MatriceCarree (table) {
   }
   /**
    * Méthode : Calcule le déterminant de la matrice carrée
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.determinant = function () {
     const n = this.dim // taille de la matrice = nxn
     let determinant = 0; let M
     for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
-      //	if (n==1) determinant=this.table[0][0]
+      // if (n==1) determinant=this.table[0][0]
       if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
         M = this.matriceReduite(0, i)
         determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
@@ -2716,7 +2689,7 @@ export function MatriceCarree (table) {
   /**
    * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
    * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.matriceReduite = function (l, c) {
     const resultat = []; let ligne
@@ -2838,42 +2811,54 @@ export function matriceCarree (table) {
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  *
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
   const determinant = matrice.determinant()
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
   if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    const fa = fraction(a, determinant); const fb = fraction(b, determinant)
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  } else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
+  }
+  return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
-
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
   const determinant = matrice.determinant()
-  if (determinant === 0) return [[0, 0], [0, 0], [0, 0]]
-  else {
-    const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-    if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
-      const fa = fraction(a, determinant); const fb = fraction(b, determinant); const fc = fraction(c, determinant)
-      return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred], [fc.numIrred, fc.denIrred]]
-    } // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
-    else return [[calcul(a / determinant), 1], [calcul(b / determinant), 1], [calcul(b / determinant), 1]]
+  if (determinant === 0) {
+    return [[0, 0], [0, 0], [0, 0]]
   }
+  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
+  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // ici on retourne un tableau de couples [num,den] entiers !
+    const fa = fraction(a, determinant)
+    const fb = fraction(b, determinant)
+    const fc = fraction(c, determinant)
+    return [
+      [fa.numIrred, fa.denIrred],
+      [fb.numIrred, fb.denIrred],
+      [fc.numIrred, fc.denIrred]
+    ]
+    // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+  }
+  return [
+    [calcul(a / determinant), 1],
+    [calcul(b / determinant), 1],
+    [calcul(b / determinant), 1]
+  ]
 }
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
  * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10
  * sont des entiers compris eux aussi entre -10 et 10
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function criblePolynomeEntier () {
   let trouve = false
@@ -2900,7 +2885,7 @@ export function criblePolynomeEntier () {
 /**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function chercheMinMaxFonction ([a, b, c, d]) {
   const delta = 4 * b * b - 12 * a * c
@@ -2911,7 +2896,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
 }
 /**
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
   const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
@@ -3026,13 +3011,14 @@ export function simpNotPuissance (b, e) {
  * @author Sébastien Lozano
  */
 export function eclatePuissance (b, e, couleur) {
+  let str
   switch (e) {
     case 0:
       return `\\mathbf{\\color{${couleur}}{1}}`
     case 1:
       return `\\mathbf{\\color{${couleur}}{${b}}}`
     default:
-      let str = `\\mathbf{\\color{${couleur}}{${b}}} `
+      str = `\\mathbf{\\color{${couleur}}{${b}}} `
       for (let i = 1; i < e; i++) {
         str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`
       }
@@ -3047,13 +3033,14 @@ export function eclatePuissance (b, e, couleur) {
  * @author Rémi Angot
  */
 export function puissanceEnProduit (b, e) {
+  let str
   switch (e) {
     case 0:
       return '1'
     case 1:
       return `${b}`
     default:
-      let str = `${b}`
+      str = `${b}`
       for (let i = 1; i < e; i++) {
         str = str + `\\times ${b}`
       }
@@ -3068,16 +3055,17 @@ export function puissanceEnProduit (b, e) {
  * @param e exposant
  * @param couleur1
  * @param couleur2
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
+  let str
   switch (e) {
     case 0:
       return '1'
     case 1:
       return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`
     default:
-      let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
+      str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `
       for (let i = 1; i < e; i++) {
         str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`
       }
@@ -3091,11 +3079,11 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
  */
 export function ordreDeGrandeur (x, type) {
-  let signe, P
+  let signe
   if (x < 0) signe = -1
   else signe = 1
   x = Math.abs(x)
-  P = 10 ** Math.floor(Math.log10(x))
+  const P = 10 ** Math.floor(Math.log10(x))
   if (type === 0) return P * signe
   else if (type === 1) return P * 10 * signe
   else if (x - P < 10 * P - x) return P * signe
@@ -3107,10 +3095,10 @@ export function ordreDeGrandeur (x, type) {
 * @param numeroExercice
 * @param contenu code HTML
 * @param icone
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function creerModal (numeroExercice, contenu, label_bouton, icone) {
-  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
+export function creerModal (numeroExercice, contenu, labelBouton, icone) {
+  const HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numeroExercice}').modal('show');"><i class="large ${icone} icon"></i>${labelBouton}</button>
     <div class="ui modal" id="modal${numeroExercice}">
     ${contenu}
     </div>`
@@ -3121,10 +3109,10 @@ export function creerModal (numeroExercice, contenu, label_bouton, icone) {
 * @param numeroExercice
 * @param contenu code HTML
 * @param icone
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 'Aide', icone = 'info circle') {
-  const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${label_bouton}</button>`
+export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = 'Aide', icone = 'info circle') {
+  const HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
 
   return HTML
 }
@@ -3133,41 +3121,41 @@ export function creerBoutonMathalea2d (numeroExercice, fonction, label_bouton = 
 * Créé un bouton pour une aide modale avec un texte court
 * @param numeroExercice
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function modalTexteCourt (numeroExercice, texte, label_bouton = 'Aide', icone = 'info circle') {
+export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<div class="header">${texte}</div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
-* @param id_youtube
+* @param idYoutube
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 'Aide - Vidéo', icone = 'youtube') {
+export function modalYoutube (numeroExercice, idYoutube, texte, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
-  if (id_youtube.substr(0, 4) === 'http') {
-    if (id_youtube.slice(-4) === '.pdf') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
+  if (idYoutube.substr(0, 4) === 'http') {
+    if (idYoutube.slice(-4) === '.pdf') {
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${idYoutube}" width="560" height="315"> </object></p></div>`
     }
-    if (id_youtube.substr(0, 17) === 'https://youtu.be/') {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    if (idYoutube.substr(0, 17) === 'https://youtu.be/') {
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube.substring(17)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
     } else {
-      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
+      contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${idYoutube}" frameborder="0" allowfullscreen></iframe></p></div>`
     }
-  } else if (id_youtube.substr(0, 4) === '<ifr') {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${id_youtube}</p></div>`
+  } else if (idYoutube.substr(0, 4) === '<ifr') {
+    contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${idYoutube}</p></div>`
   } else {
-    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+    contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${idYoutube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   }
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
@@ -3175,14 +3163,14 @@ export function modalYoutube (numeroExercice, id_youtube, texte, label_bouton = 
 * @param numeroExercice
 * @param titre
 * @param texte
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Aide', icone = 'info circle') {
+export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle') {
   let contenu = `<div class="header">${titre}</div>`
   contenu += `<div class="content">${texte}</div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
@@ -3190,69 +3178,69 @@ export function modalTexteLong (numeroExercice, titre, texte, label_bouton = 'Ai
 * @param numeroExercice
 * @param titre
 * @param texte
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function modal_url (numeroExercice, url, label_bouton = 'Aide', icone = 'info circle') {
+export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numeroExercice
-* @param url_pdf
+* @param urlPdf
 * @param texte Texte court qui sera affiché comme un titre
-* @param label_bouton Titre du bouton (par défaut Aide)
+* @param labelBouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
-export function modalPdf (numeroExercice, url_pdf, texte = 'Aide', label_bouton = 'Aide - PDF', icone = 'file pdf') {
-  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${url_pdf} width=90% height=500 type='application/pdf'/></p></div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+export function modalPdf (numeroExercice, urlPdf, texte = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
+  const contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
  * Créé un bouton pour une aide modale avec une vidéo
- * @param id_du_modal désigne l'id du modal qui doit être unique
- * @param url_video
+ * @param idDuModal désigne l'id du modal qui doit être unique
+ * @param urlVideo
  * @param texte Texte court qui sera affiché comme un titre
- * @param label_bouton Titre du bouton (par défaut Vidéo)
+ * @param labelBouton Titre du bouton (par défaut Vidéo)
  * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
-export function modalVideo (id_du_modal, url_video, texte, label_bouton = 'Vidéo', icone = 'file video outline') {
-  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+export function modalVideo (idDuModal, urlVideo, texte, labelBouton = 'Vidéo', icone = 'file video outline') {
+  // let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${urlVideo}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
   const contenu = `
   <div class="header">${texte}</div>
   <div class="content">
     <div class="embed-responsive embed-responsive-16by9" align="center">
       <video width="560" height="315" controls  preload="none" style="max-width: 100%">
-        <source src="` + url_video + `">
-        Votre navigateur ne gère pas l\'élément <code>video</code>.
+        <source src="` + urlVideo + `">
+        Votre navigateur ne gère pas l'élément <code>video</code>.
       </video>
       </div>
   </div>`
-  return creerModal(id_du_modal, contenu, label_bouton, icone)
+  return creerModal(idDuModal, contenu, labelBouton, icone)
 }
 /**
  *
  * @param {number} numeroExercice
- * @param {string} url_image
+ * @param {string} urlImage
  * @param {string} texte = ce qui est écrit sur le bouton à côté de l'icône d'image.
- * @param {string} label_bouton = ce qui est écrit en titre de l'image
+ * @param {string} labelBouton = ce qui est écrit en titre de l'image
  * @param {string} icone
  */
-export function modalImage (numeroExercice, url_image, texte, label_bouton = 'Illustration', icone = 'image') {
-  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
-  return creerModal(numeroExercice, contenu, label_bouton, icone)
+export function modalImage (numeroExercice, urlImage, texte, labelBouton = 'Illustration', icone = 'image') {
+  const contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${urlImage}"></div>`
+  return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
  * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant
  * @param {integer} n
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function listeDiviseurs (n) {
   'use strict'
@@ -3277,14 +3265,14 @@ export function listeDiviseurs (n) {
 * @param {string} etape1 chaine en mode maths attention aux espaces et accents
 * @param {string} etape2 chaine en mode maths attention aux espaces et accents
 * @param {string} etape3 chaine en mode maths attention aux espaces et accents
-* @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
-* @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
-* @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
-* @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+* @param {string} xLigne1 chaine en mode maths attention aux espaces et accents
+* @param {string} xLigne2 chaine en mode maths attention aux espaces et accents
+* @param {string} yLigne1 chaine en mode maths attention aux espaces et accents
+* @param {string} yLigne2 chaine en mode maths attention aux espaces et accents
 * @author Sébastien Lozano
 */
 
-export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne2, y_ligne1, y_ligne2) {
+export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
   'use strict'
   return `
@@ -3301,142 +3289,142 @@ export function tikzMachineMaths (nom, etape1, etape2, etape3, x_ligne1, x_ligne
   \\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
   \\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
   \\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${xLigne1}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${xLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
   %\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${yLigne1}}$};
+  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${yLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-  \\end{tikzpicture}	
+  \\end{tikzpicture}
   `
 }
 
 /**
  * Crée un diagramme tikz pour une machine maths
  * @param {string} nom nom de la fonction
- * @param {string} x_ant nom du nombre de départ
- * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
+ * @param {string} xAnt nom du nombre de départ
+ * @param {array} etapesExpressions tableau contenant les etapes et le expressions algébriques
  * attention mode maths pour les chaines
  * @author Sébastien Lozano
  */
-export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
+export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
   'use strict'
-  const x_init = -10
+  const xInit = -10
   let saut = 0
   const pas = 1
   let sortie = ''
   sortie += `
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
   \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-  \\draw [line width=3pt,color=frvzsz] (` + x_init + ',0.5) -- (' + (x_init + pas) + ',0.5) -- (' + (x_init + pas) + ',-0.5) -- (' + x_init + `,-0.5) -- cycle;
-  \\node[text width=3cm,text centered, scale=1] at(` + (x_init + 0.5) + `,0){$${x_ant}$};
+  \\draw [line width=3pt,color=frvzsz] (` + xInit + ',0.5) -- (' + (xInit + pas) + ',0.5) -- (' + (xInit + pas) + ',-0.5) -- (' + xInit + `,-0.5) -- cycle;
+  \\node[text width=3cm,text centered, scale=1] at(` + (xInit + 0.5) + `,0){$${xAnt}$};
   `
   saut = saut + pas
-  for (let i = 0; i < etapes_expressions.length; i++) {
+  for (let i = 0; i < etapesExpressions.length; i++) {
     // si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere
     // on affiche donc chaque fois avec le nom de la fonction
-    if (etapes_expressions.length === i + 1) {
+    if (etapesExpressions.length === i + 1) {
       // si il y a une operation et une expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + `,0) circle(0.5);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',0.5) -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (x_init + saut + 5 * pas / 2) + `,-0.5) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + `,0) circle(0.5);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',0.5) -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-0.5) -- (' + (xInit + saut + 5 * pas / 2) + `,-0.5) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
         `
       }
       // si il y a une operation et pas d'expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = `${nom}(x)=\\ldots`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = `${nom}(x)=\\ldots`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
         `
       }
       // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${nom}(x)=${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=${etapesExpressions[i][1]}$};
         `
       }
       // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = `${nom}(x)=\\ldots`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = `${nom}(x)=\\ldots`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + x_ant + `)=\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${nom}(` + xAnt + `)=\\ldots$};
         `
       }
     } else { // sinon c'est une étape intermédiaire
       // si il y a une operation et une expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il y a une operation et pas d'expression algébrique
-      if (typeof etapes_expressions[i][0] !== 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = '\\ldots'.length
+      if (typeof etapesExpressions[i][0] !== 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = '\\ldots'.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$${etapes_expressions[i][0]}$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$${etapesExpressions[i][0]}$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il n'y a pas d'operation mais une expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] !== 'undefined') {
-        const w_etape = `${etapes_expressions[i][1]}`.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] !== 'undefined') {
+        const wEtape = `${etapesExpressions[i][1]}`.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$${etapes_expressions[i][1]}$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$${etapesExpressions[i][1]}$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
       // si il n'y ni une operation et ni expression algébrique
-      if (typeof etapes_expressions[i][0] === 'undefined' && typeof etapes_expressions[i][1] === 'undefined') {
-        const w_etape = '\\ldots'.length
+      if (typeof etapesExpressions[i][0] === 'undefined' && typeof etapesExpressions[i][1] === 'undefined') {
+        const wEtape = '\\ldots'.length
         sortie += `
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut) + ',0) -- (' + (x_init + saut + pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + pas) + ',0) circle(' + (pas / 2) + `);
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + pas) + `,0){$\\ldots$};
-        \\draw [->,line width=3pt,color=frvzsz] (` + (x_init + saut + 3 * pas / 2) + ',0) -- (' + (x_init + saut + 5 * pas / 2) + `,0);
-        \\draw [line width=3pt,color=frvzsz] (` + (x_init + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (x_init + saut + w_etape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (x_init + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
-        \\node [text width=3cm,text centered, scale=1] at(` + (x_init + saut + w_etape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut) + ',0) -- (' + (xInit + saut + pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + pas) + ',0) circle(' + (pas / 2) + `);
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + pas) + `,0){$\\ldots$};
+        \\draw [->,line width=3pt,color=frvzsz] (` + (xInit + saut + 3 * pas / 2) + ',0) -- (' + (xInit + saut + 5 * pas / 2) + `,0);
+        \\draw [line width=3pt,color=frvzsz] (` + (xInit + saut + 5 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',' + (pas / 2) + ') -- (' + (xInit + saut + wEtape / 4 + 6 * pas / 2) + ',-' + (pas / 2) + ') -- (' + (xInit + saut + 5 * pas / 2) + ',-' + (pas / 2) + `) -- cycle;
+        \\node [text width=3cm,text centered, scale=1] at(` + (xInit + saut + wEtape / 8 + 5.5 * pas / 2) + `,0){$\\ldots$};
         `
-        saut = saut + 3 * pas + w_etape / 4
+        saut = saut + 3 * pas + wEtape / 4
       }
     }
   }
@@ -3451,12 +3439,12 @@ export function tikzMachineDiag (nom, x_ant, etapes_expressions) {
  * @param {string} texte
  * @param {string} titrePopup
  * @param {string} textePopup
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function katexPopup (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     contenu = '<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> ' + texte + '</div>'
     contenu += '<div class="ui special popup" >'
     if (titrePopup !== '') {
@@ -3472,7 +3460,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
 export function katexPopupTest (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
-  if (sortieHtml) {
+  if (context.isHtml) {
     contenu = '<div class="ui right label katexPopup">' + texte + '</div>'
     contenu += '<div class="ui special popup" >'
     if (titrePopup !== '') {
@@ -3520,7 +3508,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
 * @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
 * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
-* @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
+* @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
@@ -3529,13 +3517,13 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
     case 0:
       return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
-      if (sortieHtml) {
+      if (context.isHtml) {
         return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
       } else {
         return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
       }
     case 2:
-      if (sortieHtml) {
+      if (context.isHtml) {
         return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
@@ -3546,11 +3534,11 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */
 export function numAlpha (k) {
   'use strict'
-  if (sortieHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + '/</span>'
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ') &nbsp;</span>'
   // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
   else return '\\textbf {' + String.fromCharCode(97 + k) + '.}'
 }
@@ -3570,7 +3558,7 @@ export function texCadreParOrange (texte) {
    \\setlength{\\fboxrule}{1.5mm}
    \\par\\vspace{0.25cm}
    \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{` + texte + `}}
-   \\par\\vspace{0.25cm}		 
+   \\par\\vspace{0.25cm} 
    `
 
   return sortie
@@ -3581,17 +3569,17 @@ export function texCadreParOrange (texte) {
  * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
  * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
  * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
- * @param {string} url_video
+ * @param {string} urlVideo
  * @author Sébastien Lozano
  */
 
-export function machineMathsVideo (url_video) {
+export function machineMathsVideo (urlVideo) {
   'use strict'
   const video = `
   <div style="text-align:center"> 
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
-    <source src="` + url_video + `">
-    Votre navigateur ne gère pas l\'élément <code>video</code>.
+    <source src="` + urlVideo + `">
+    Votre navigateur ne gère pas l'élément <code>video</code>.
   </video>
   </div>`
 
@@ -3604,15 +3592,15 @@ export function machineMathsVideo (url_video) {
  */
 export function detectSafariChromeBrowser () {
   'use strict'
-  let is_chrome = navigator.userAgent.indexOf('Chrome') > -1
+  let isChrome = navigator.userAgent.indexOf('Chrome') > -1
   // var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
   // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
-  let is_safari = navigator.userAgent.indexOf('Safari') > -1
-  const is_opera = navigator.userAgent.toLowerCase().indexOf('op') > -1
-  if ((is_chrome) && (is_safari)) { is_safari = false }
-  if ((is_chrome) && (is_opera)) { is_chrome = false }
+  let isSafari = navigator.userAgent.indexOf('Safari') > -1
+  const isOpera = navigator.userAgent.toLowerCase().indexOf('op') > -1
+  if ((isChrome) && (isSafari)) { isSafari = false }
+  if ((isChrome) && (isOpera)) { isChrome = false }
 
-  return (is_chrome || is_safari)
+  return (isChrome || isSafari)
 }
 
 /**
@@ -3623,6 +3611,7 @@ export function detectSafariChromeBrowser () {
 */
 export function premierMultipleSuperieur (k, n) {
   let result = n
+  let reste
   if (Number.isInteger(k) && Number.isInteger(n)) {
     while (result % k !== 0) {
       result += 1
@@ -3667,27 +3656,27 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  */
 export function cribleEratostheneN (n) {
   'use strict'
-  const tab_entiers = [] // pour tous les entiers de 2 à n
-  const test_max = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
+  const tabEntiers = [] // pour tous les entiers de 2 à n
+  const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
 
   // On rempli un tableau avec des booléeens de 2 à n
   for (let i = 0; i < n + 1; i++) {
-    tab_entiers.push(true)
+    tabEntiers.push(true)
   }
 
   // On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
-  for (let i = 2; i <= test_max; i++) {
-    if (tab_entiers[i]) {
+  for (let i = 2; i <= testMax; i++) {
+    if (tabEntiers[i]) {
       for (let j = i * i; j < n + 1; j += i) {
-        tab_entiers[j] = false
+        tabEntiers[j] = false
       }
     }
   }
 
   // On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
   for (let i = 2; i < n + 1; i++) {
-    if (tab_entiers[i]) {
+    if (tabEntiers[i]) {
       liste.push(i)
     }
   }
@@ -3707,13 +3696,13 @@ export function cribleEratostheneN (n) {
 export function premiersEntreBornes (min, max) {
   'use strict'
   // on crée les premiers jusque min
-  const premiers_a_suppr = cribleEratostheneN(min - 1)
+  const premiersASupprimer = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
-  const premiers_jusque_max = cribleEratostheneN(max)
+  const premiersJusqueMax = cribleEratostheneN(max)
   // on supprime le début de la liste jusque min
-  premiers_jusque_max.splice(0, premiers_a_suppr.length)
+  premiersJusqueMax.splice(0, premiersASupprimer.length)
   // on renvoie le tableau restant
-  return premiers_jusque_max
+  return premiersJusqueMax
 }
 
 /**
@@ -3743,13 +3732,13 @@ export function texteOuPas (texte) {
  * ------------------
  * |  2   | A2 | B2 |
  * ------------------
-* @param {array} tab_entetes_colonnes contient les entetes des colonnes
- * @param {array} tab_entetes_lignes contient les entetes des lignes
- * @param {array} tab_lignes contient les elements de chaque ligne
+* @param {array} tabEntetesColonnes contient les entetes des colonnes
+ * @param {array} tabEntetesLignes contient les entetes des lignes
+ * @param {array} tabLignes contient les elements de chaque ligne
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, tab_lignes, arraystretch) {
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch) {
   'use strict'
   let myLatexArraystretch
   if (typeof arraystretch === 'undefined') {
@@ -3759,63 +3748,63 @@ export function tableauColonneLigne (tab_entetes_colonnes, tab_entetes_lignes, t
   }
 
   // on définit le nombre de colonnes
-  const C = tab_entetes_colonnes.length
+  const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
-  const L = tab_entetes_lignes.length
+  const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-  let tableau_C_L = ''
-  if (sortieHtml) {
-    tableau_C_L += '$\\def\\arraystretch{2.5}\\begin{array}{|'
+  let tableauCL = ''
+  if (context.isHtml) {
+    tableauCL += '$\\def\\arraystretch{2.5}\\begin{array}{|'
   } else {
-    tableau_C_L += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
-    tableau_C_L += '\\begin{array}{|'
+    tableauCL += `$\\renewcommand{\\arraystretch}{${myLatexArraystretch}}\n`
+    tableauCL += '\\begin{array}{|'
   }
   // on construit la 1ere ligne avec toutes les colonnes
   for (let k = 0; k < C; k++) {
-    tableau_C_L += 'c|'
+    tableauCL += 'c|'
   }
-  tableau_C_L += '}\n'
+  tableauCL += '}\n'
 
-  tableau_C_L += '\\hline\n'
-  if (typeof tab_entetes_colonnes[0] === 'number') {
-    tableau_C_L += texNombre(tab_entetes_colonnes[0])
+  tableauCL += '\\hline\n'
+  if (typeof tabEntetesColonnes[0] === 'number') {
+    tableauCL += texNombre(tabEntetesColonnes[0])
   } else {
-    tableau_C_L += tab_entetes_colonnes[0]
+    tableauCL += tabEntetesColonnes[0]
   }
   for (let k = 1; k < C; k++) {
-    if (typeof tab_entetes_colonnes[k] === 'number') {
-      tableau_C_L += ' & ' + texNombre(tab_entetes_colonnes[k]) + ''
+    if (typeof tabEntetesColonnes[k] === 'number') {
+      tableauCL += ' & ' + texNombre(tabEntetesColonnes[k]) + ''
     } else {
-      tableau_C_L += ' & ' + tab_entetes_colonnes[k] + ''
+      tableauCL += ' & ' + tabEntetesColonnes[k] + ''
     }
   }
-  tableau_C_L += '\\\\\n'
-  tableau_C_L += '\\hline\n'
+  tableauCL += '\\\\\n'
+  tableauCL += '\\hline\n'
   // on construit toutes les lignes
   for (let k = 0; k < L; k++) {
-    if (typeof tab_entetes_lignes[k] === 'number') {
-      tableau_C_L += '' + texNombre(tab_entetes_lignes[k]) + ''
+    if (typeof tabEntetesLignes[k] === 'number') {
+      tableauCL += '' + texNombre(tabEntetesLignes[k]) + ''
     } else {
-      tableau_C_L += '' + tab_entetes_lignes[k] + ''
+      tableauCL += '' + tabEntetesLignes[k] + ''
     }
     for (let m = 1; m < C; m++) {
-      if (typeof tab_lignes[(C - 1) * k + m - 1] === 'number') {
-        tableau_C_L += ' & ' + texNombre(tab_lignes[(C - 1) * k + m - 1])
+      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
+        tableauCL += ' & ' + texNombre(tabLignes[(C - 1) * k + m - 1])
       } else {
-        tableau_C_L += ' & ' + tab_lignes[(C - 1) * k + m - 1]
+        tableauCL += ' & ' + tabLignes[(C - 1) * k + m - 1]
       }
     }
-    tableau_C_L += '\\\\\n'
-    tableau_C_L += '\\hline\n'
+    tableauCL += '\\\\\n'
+    tableauCL += '\\hline\n'
   }
-  tableau_C_L += '\\end{array}\n'
-  if (sortieHtml) {
-    tableau_C_L += '$'
+  tableauCL += '\\end{array}\n'
+  if (context.isHtml) {
+    tableauCL += '$'
   } else {
-    tableau_C_L += '\\renewcommand{\\arraystretch}{1}$\n'
+    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
   }
 
-  return tableau_C_L
+  return tableauCL
 }
 
 /**
@@ -3830,7 +3819,7 @@ export function warnMessage (texte, couleur, titre) {
   if (typeof (titre) === 'undefined') {
     titre = ''
   }
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <br>
     <div class="ui compact warning message">
@@ -3857,7 +3846,7 @@ export function warnMessage (texte, couleur, titre) {
 
 export function infoMessage ({ titre, texte, couleur }) {
   // 'use strict';
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div class="ui compact icon message">
       <i class="info circle icon"></i>
@@ -3886,7 +3875,7 @@ export function infoMessage ({ titre, texte, couleur }) {
 
 export function lampeMessage ({ titre, texte, couleur }) {
   // 'use strict';
-  if (sortieHtml) {
+  if (context.isHtml) {
     return `
     <div class="ui compact icon message">
       <i class="lightbulb outline icon"></i>
@@ -4259,9 +4248,8 @@ export function Relatif (...relatifs) {
     } catch (err) {
       console.log(err.message)
       console.log(err.stack)
-    } finally {
-      return signes
     }
+    return signes
   }
 
   /**
@@ -4483,31 +4471,31 @@ export function Relatif (...relatifs) {
 }
 
 export function nombreEnLettres (nb, type = 1) {
-  let partie_entiere, partie_decimale, nbstring, nb_dec, decstring
+  let partieEntiere, partieDecimale, nbstring, nbDec, decstring
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
-    partie_entiere = Math.floor(nb)
-    partie_decimale = calcul(nb - partie_entiere)
-    nb_dec = partie_decimale.toString().replace(/\d*\./, '').length
-    partie_decimale = calcul(partie_decimale * 10 ** nb_dec)
+    partieEntiere = Math.floor(nb)
+    partieDecimale = calcul(nb - partieEntiere)
+    nbDec = partieDecimale.toString().replace(/\d*\./, '').length
+    partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 
-    switch (nb_dec) {
+    switch (nbDec) {
       case 1:
-        if (partie_decimale > 1) decstring = ' dixièmes'
+        if (partieDecimale > 1) decstring = ' dixièmes'
         else decstring = ' dixième'
         break
       case 2:
-        if (partie_decimale > 1) decstring = ' centièmes'
+        if (partieDecimale > 1) decstring = ' centièmes'
         else decstring = ' centième'
         break
       case 3:
-        if (partie_decimale > 1) decstring = ' millièmes'
+        if (partieDecimale > 1) decstring = ' millièmes'
         else decstring = ' millième'
         break
     }
 
-    if (type === 1) nbstring = partieEntiereEnLettres(partie_entiere) + ' unités et ' + partieEntiereEnLettres(partie_decimale) + decstring
-    else nbstring = partieEntiereEnLettres(partie_entiere) + ' virgule ' + partieEntiereEnLettres(partie_decimale)
+    if (type === 1) nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
+    else nbstring = partieEntiereEnLettres(partieEntiere) + ' virgule ' + partieEntiereEnLettres(partieDecimale)
   }
   return nbstring
 }
@@ -5570,11 +5558,11 @@ export function partieEntiereEnLettres (nb) {
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
- * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operations_successives=[string1,string2,string3,string4,string5],expression]
+ * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operationsSuccessives=[string1,string2,string3,string4,string5],expression]
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
  * sert dans les exercices CM019,
  */
@@ -5594,18 +5582,18 @@ export function TrouverSolutionMathador (
   let d
   let e
   let tirage
-  let nombres_restants
-  let operations_restantes
-  let expression_en_cours_f
-  let expression_en_cours_d
+  let nombresRestants
+  let operationsRestantes
+  let expressionEnCoursF
+  let expressionEnCoursD
   let op
-  let part1_f
-  let part2_f
-  let part1_d
-  let part2_d
-  let operations_successives = []
+  let part1f
+  let part2f
+  let part1d
+  let part2d
+  let operationsSuccessives = []
   let solution
-  const liste_choix = [
+  const listeChoix = [
     1,
     2,
     2,
@@ -5643,139 +5631,139 @@ export function TrouverSolutionMathador (
     20
   ]
   eureka = false
-  const nb_determines = arguments.length - 2
+  const nbDetermines = arguments.length - 2
   while (eureka === false) {
     tirage = []
 
-    if (nb_determines < 1) a = parseInt(choice(liste_choix))
+    if (nbDetermines < 1) a = parseInt(choice(listeChoix))
     else a = A
-    if (nb_determines < 2) { b = parseInt(choice(liste_choix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
-    if (nb_determines < 3) {
+    if (nbDetermines < 2) { b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
+    if (nbDetermines < 3) {
       c = parseInt(
-        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
       )
     } else c = C
-    if (nb_determines < 4) {
+    if (nbDetermines < 4) {
       d = parseInt(
-        choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
+        choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
       )
     } else d = D
-    if (nb_determines < 5) { e = parseInt(choice(liste_choix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
+    if (nbDetermines < 5) { e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
     tirage.push(a, b, c, d, e)
-    nombres_restants = shuffle(tirage)
-    operations_restantes = ['\\times', '+', '-', '\\div']
-    operations_restantes = shuffle(operations_restantes)
-    expression_en_cours_f = [
-      `${nombres_restants[0]}`,
-      `${nombres_restants[1]}`,
-      `${nombres_restants[2]}`,
-      `${nombres_restants[3]}`,
-      `${nombres_restants[4]}`
+    nombresRestants = shuffle(tirage)
+    operationsRestantes = ['\\times', '+', '-', '\\div']
+    operationsRestantes = shuffle(operationsRestantes)
+    expressionEnCoursF = [
+      `${nombresRestants[0]}`,
+      `${nombresRestants[1]}`,
+      `${nombresRestants[2]}`,
+      `${nombresRestants[3]}`,
+      `${nombresRestants[4]}`
     ]
-    expression_en_cours_d = [
-      `${nombres_restants[0]}`,
-      `${nombres_restants[1]}`,
-      `${nombres_restants[2]}`,
-      `${nombres_restants[3]}`,
-      `${nombres_restants[4]}`
+    expressionEnCoursD = [
+      `${nombresRestants[0]}`,
+      `${nombresRestants[1]}`,
+      `${nombresRestants[2]}`,
+      `${nombresRestants[3]}`,
+      `${nombresRestants[4]}`
     ]
 
-    while (nombres_restants.length > 1) {
-      b = nombres_restants.pop()
-      a = nombres_restants.pop()
-      part2_f = expression_en_cours_f.pop()
-      part1_f = expression_en_cours_f.pop()
-      part2_d = expression_en_cours_d.pop()
-      part1_d = expression_en_cours_d.pop()
+    while (nombresRestants.length > 1) {
+      b = nombresRestants.pop()
+      a = nombresRestants.pop()
+      part2f = expressionEnCoursF.pop()
+      part1f = expressionEnCoursF.pop()
+      part2d = expressionEnCoursD.pop()
+      part1d = expressionEnCoursD.pop()
 
-      op = operations_restantes.pop()
+      op = operationsRestantes.pop()
       if (op === '\\times') {
         c = a * b
-        expression_en_cours_f.push(`${part1_f}${op}${part2_f}`)
-        expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
-        nombres_restants.push(c)
+        expressionEnCoursF.push(`${part1f}${op}${part2f}`)
+        expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+        nombresRestants.push(c)
       } else if (op === '\\div') {
         if (a % b === 0) {
           c = a / b
-          if (part1_f[0] === '\\') {
-            part1_f = part1_f.substring(6, part1_f.length)
-            part1_f = part1_f.substring(0, part1_f.length - 7)
+          if (part1f[0] === '\\') {
+            part1f = part1f.substring(6, part1f.length)
+            part1f = part1f.substring(0, part1f.length - 7)
           }
-          if (part2_f[0] === '\\') {
-            part2_f = part2_f.substring(6, part2_f.length)
-            part2_f = part2_f.substring(0, part2_f.length - 7)
+          if (part2f[0] === '\\') {
+            part2f = part2f.substring(6, part2f.length)
+            part2f = part2f.substring(0, part2f.length - 7)
           }
-          expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`)
-          expression_en_cours_d.push(`${part1_d}${op}${part2_d}`)
-          nombres_restants.push(c)
+          expressionEnCoursF.push(`\\dfrac{${part1f}}{${part2f}}`)
+          expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+          nombresRestants.push(c)
         } else break
       } else if (op === '-') {
         if (a > b) {
           c = a - b
-          expression_en_cours_f.push(
-            `\\left(${part1_f}${op}${part2_f}\\right)`
+          expressionEnCoursF.push(
+            `\\left(${part1f}${op}${part2f}\\right)`
           )
-          expression_en_cours_d.push(
-            `\\left(${part1_d}${op}${part2_d}\\right)`
+          expressionEnCoursD.push(
+            `\\left(${part1d}${op}${part2d}\\right)`
           )
-          nombres_restants.push(c)
+          nombresRestants.push(c)
         } else break
       } else if (op === '+') {
         c = a + b
-        if (part2_f.substring(0, 2) === '\\l') {
-          part2_f = part2_f.substring(6, part2_f.length)
-          part2_f = part2_f.substring(0, part2_f.length - 7)
+        if (part2f.substring(0, 2) === '\\l') {
+          part2f = part2f.substring(6, part2f.length)
+          part2f = part2f.substring(0, part2f.length - 7)
         }
-        expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`)
-        if (part2_d.substring(0, 2) === '\\l') {
-          part2_d = part2_d.substring(6, part2_d.length)
-          part2_d = part2_d.substring(0, part2_d.length - 7)
+        expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
+        if (part2d.substring(0, 2) === '\\l') {
+          part2d = part2d.substring(6, part2d.length)
+          part2d = part2d.substring(0, part2d.length - 7)
         }
-        expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`)
-        nombres_restants.push(c)
+        expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
+        nombresRestants.push(c)
       }
-      operations_successives.push(`${a}` + op + `${b}=${c}`)
+      operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
     }
 
-    if (nombres_restants.length === 1 && operations_restantes.length === 0) {
-      solution = nombres_restants[0]
+    if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
+      solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
         eureka = true
         if (
-          expression_en_cours_f[0][0] === '\\' &&
-          expression_en_cours_f[0][1] === 'l'
+          expressionEnCoursF[0][0] === '\\' &&
+          expressionEnCoursF[0][1] === 'l'
         ) {
-          expression_en_cours_f[0] = expression_en_cours_f[0].substring(
+          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             6,
-            expression_en_cours_f[0].length
+            expressionEnCoursF[0].length
           )
-          expression_en_cours_f[0] = expression_en_cours_f[0].substring(
+          expressionEnCoursF[0] = expressionEnCoursF[0].substring(
             0,
-            expression_en_cours_f[0].length - 7
+            expressionEnCoursF[0].length - 7
           )
         }
         if (
-          expression_en_cours_d[0][0] === '\\' &&
-          expression_en_cours_d[0][1] === 'l'
+          expressionEnCoursD[0][0] === '\\' &&
+          expressionEnCoursD[0][1] === 'l'
         ) {
-          expression_en_cours_d[0] = expression_en_cours_d[0].substring(
+          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             6,
-            expression_en_cours_d[0].length
+            expressionEnCoursD[0].length
           )
-          expression_en_cours_d[0] = expression_en_cours_d[0].substring(
+          expressionEnCoursD[0] = expressionEnCoursD[0].substring(
             0,
-            expression_en_cours_d[0].length - 7
+            expressionEnCoursD[0].length - 7
           )
         }
         return [
           tirage,
           solution,
-          operations_successives,
-          expression_en_cours_f,
-          expression_en_cours_d
+          operationsSuccessives,
+          expressionEnCoursF,
+          expressionEnCoursD
         ]
-      } else operations_successives = []
-    } else operations_successives = []
+      } else operationsSuccessives = []
+    } else operationsSuccessives = []
   }
 }
 
@@ -5803,14 +5791,14 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
 \\usepackage[french]{babel}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
+\\usepackage{multicol} 
+\\usepackage{calc} 
 \\usepackage{enumerate}
 \\usepackage{enumitem}
-\\usepackage{graphicx}				
+\\usepackage{graphicx}
 \\usepackage{tabularx}
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
@@ -5821,10 +5809,10 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          	
-\\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
-\\usepackage{setspace}	
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
+\\usepackage{setspace}
 \\usepackage{colortbl}
 \\usepackage{xcolor}
   \\definecolor{nombres}{cmyk}{0,.8,.95,0}
@@ -5834,21 +5822,21 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   \\definecolor{geo}{cmyk}{.62,.1,0,0}
   \\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}					
+\\usepackage{pgf,tikz}
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\newcounter{exo}          				
-\\setcounter{exo}{0}   				
-\\newcommand{\\exo}[1]{				
-  \\stepcounter{exo}        		
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\newcounter{exo}          
+\\setcounter{exo}{0}   
+\\newcommand{\\exo}[1]{
+  \\stepcounter{exo}        
   \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
 }
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
 \\setlength{\\fboxsep}{3mm}
 \\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
@@ -5872,30 +5860,30 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCoop (listePackages) {
   const introLatexCoop = `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
+\\usepackage[utf8]{inputenc}        
+\\usepackage[T1]{fontenc}
 \\usepackage[french]{babel}
 \\usepackage{hyperref}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
+\\usepackage{multicol} 
+\\usepackage{calc} 
 \\usepackage{enumerate}
 \\usepackage{enumitem}
-\\usepackage{graphicx}				
+\\usepackage{graphicx}
 \\usepackage{tabularx}
 %\\usepackage[autolanguage]{numprint}
-\\usepackage[autolanguage,np]{numprint}			
+\\usepackage[autolanguage,np]{numprint}
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          	
-\\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
+\\usepackage{fancyhdr,lastpage}          
+\\pagestyle{fancy}                      
+\\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{xcolor}
-\\usepackage{pgf,tikz}					% Pour les images et figures gÃ©omÃ©triques
+\\usepackage{pgf,tikz} % Pour les images et figures gÃ©omÃ©triques
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
@@ -5914,14 +5902,14 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
 \\usepackage{colortbl}
-\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+\\arrayrulecolor{couleur_theme} % Couleur des filets des tableaux
 
 %%% MISE EN PAGE %%%
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\setlength{\\parindent}{0mm}
+\\renewcommand{\\arraystretch}{1.5}
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}
 \\setlength{\\fboxsep}{3mm}
 
 \\setlength{\\headheight}{14.5pt}
@@ -6084,7 +6072,7 @@ export function preambulePersonnalise (listePackages) {
   \\ifthenelse { \\equal {#5} {} }
   {%pas d'argument optionnel, on trace juste l'axe ci-dessous
   }
-  {% un nombre est Ã  placer sur l'axe avec son label
+  {% un nombre est Ã placer sur l'axe avec son label
     \\placePoints{#5}
     %\\draw (#5,-.08) -- (#5,.08) node[above] {#6};
   }
@@ -6096,10 +6084,10 @@ export function preambulePersonnalise (listePackages) {
   % dÃ©but du segment reprÃ©sentant l'axe numÃ©ro 1
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 	
+    \\def\\Xorigine{\\Xmin} 
   }
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
     % pour la dÃ©co :
     \\draw (\\Xmin-1/\\Decoupage,-.05) -- (\\Xmin-1/\\Decoupage,.05);
   }
@@ -6113,7 +6101,7 @@ export function preambulePersonnalise (listePackages) {
         \\draw (\\Xgrad,-.05) -- (\\Xgrad,.05);
       }
   };
-  % derniÃ¨re graduation Ã  la mano 
+  % derniÃ¨re graduation Ã la mano 
   \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[below=.3] {\\Xmax};
 
 \\end{tikzpicture}
@@ -6124,8 +6112,8 @@ export function preambulePersonnalise (listePackages) {
 \\newcommand{\\axesZoom}[5]{
 {} \\hfill 
 \\begin{tikzpicture}
-  \\def\\XA{#1} % nombre (positif pour l'instant) Ã  placer (avec deux dÃ©cimales)
-  \\def\\Nom{#2} % nom du point Ã  placer. Laisser vide si vous ne souhaitez pas voir le point
+  \\def\\XA{#1} % nombre (positif pour l'instant) Ã placer (avec deux dÃ©cimales)
+  \\def\\Nom{#2} % nom du point Ã placer. Laisser vide si vous ne souhaitez pas voir le point
   \\def\\Xmin{#3} % premiÃ¨re valeur de x entiÃ¨re sur l'axe
   \\setboolean{affichePointilles}{true}  % affiche les pointillÃ©s indiquant le grossissement
   \\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction. 
@@ -6138,25 +6126,25 @@ export function preambulePersonnalise (listePackages) {
   }
   {
     \\def\\DebordementAGauche{0.5} % mettre 0.5 dans les autres cas.
-  }	
+  }
   
   \\pgfmathparse{int(\\Xmin+10)}\\let\\Xmax\\pgfmathresult; % Xmax vaut toujours Xmin+10
     
   \\pgfmathparse{int(\\XA)}\\let\\Unites\\pgfmathresult;
   \\pgfmathparse{int((\\XA-\\Unites)*10)}\\let\\Dixiemes\\pgfmathresult;
-  \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;	
+  \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;
 
   \\pgfmathparse{int(\\Unites+1)}\\let\\UnitesMaj\\pgfmathresult;
   \\pgfmathparse{int(\\Dixiemes+1)}\\let\\DixiemesMaj\\pgfmathresult;
-  \\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;				
+  \\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;
 
   \\pgfmathparse{\\Xmax+1}\\let\\Xfleche\\pgfmathresult;
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 	
+    \\def\\Xorigine{\\Xmin} 
   }
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }
 
   \\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
@@ -6179,7 +6167,7 @@ export function preambulePersonnalise (listePackages) {
   \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[above] {\\Xmax};
   \\ifthenelse{\\not\\equal{\\Unites}{0}}
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }{}
   \\draw[->,>=latex] (\\Xorigine,-2) -- (\\Xfleche,-2);
   \\foreach \\x in {1,...,9}{
@@ -6190,19 +6178,19 @@ export function preambulePersonnalise (listePackages) {
     }
     {
       \\draw (\\X,-2.1) -- (\\X,-1.9);
-    }		
+    }
     \\pgfmathparse{int(\\Dixiemes+\\Xmin)+\\x/10}\\let\\Xtirets\\pgfmathresult;
     \\draw (\\Xtirets,-2.05) -- (\\Xtirets,-1.95);
   };
   
   \\ifthenelse{\\boolean{afficheGraduations}}
-  {	
+  {
     \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) node[above] {\\UnitesMaj};
     \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) node[above] {\\Unites};
   }
   {
     \\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) ;
-    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;		
+    \\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;
   }
   
   \\pgfmathparse{int(\\Dixiemes+\\Xmin)}\\let\\XGaucheAxeBis\\pgfmathresult;
@@ -6218,7 +6206,7 @@ export function preambulePersonnalise (listePackages) {
   
   \\ifthenelse{\\not\\equal{\\Dixiemes}{0}}
   {
-    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+    \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
   }{}
   \\draw[->,>=latex] (\\Xorigine,-4) -- (\\Xfleche,-4);
   \\foreach \\x in {1,...,9}{
@@ -6237,35 +6225,35 @@ export function preambulePersonnalise (listePackages) {
   {
   \\ifthenelse{\\equal{\\Dixiemes}{9}}
     {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};		
-    }	
+    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};
+    }
     {
     \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\Unites,\\DixiemesMaj};
-    }	
+    }
   
   \\ifthenelse{\\equal{\\Dixiemes}{0}}
     {
     \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites};
     }
     {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};	
+    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};
     }
   }
   {
   \\ifthenelse{\\equal{\\Dixiemes}{9}}
     {
-    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);		
-    }	
+    \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);
+    }
     {
     \\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) ;
-    }	
+    }
   
   \\ifthenelse{\\equal{\\Dixiemes}{0}}
     {
     \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
     }
     {
-    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;	
+    \\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
     }
   \\pgfmathparse{int(\\Centiemes+\\Xmin)}\\let\\XGaucheAxeTer\\pgfmathresult;
   \\draw (\\XGaucheAxeTer,-4) node[below] {\\Nom};
@@ -6293,7 +6281,7 @@ export function preambulePersonnalise (listePackages) {
         result += '\\usepackage{tkz-euclide}'
         break
       case 'dnb':
-        // 	result += `
+        // result += `
         // \\usepackage{fourier}
         // \\usepackage[scaled=0.875]{helvet}
         // \\renewcommand{\\ttdefault}{lmtt}
@@ -6511,7 +6499,7 @@ export function preambulePersonnalise (listePackages) {
         %\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
         
         
-        %Tapuscrit : Denis Vergès				
+        %Tapuscrit : Denis Vergès
         
         `
         break
@@ -6522,7 +6510,13 @@ export function preambulePersonnalise (listePackages) {
   return result
 }
 
-export function scratchTraductionFr () {
+/**
+ * Charge scratchblocks puis sa traduction fr
+ * retourne une promesse rejetée en cas de pb de chargement (à gérer par l'appelant)
+ * @return {Promise}
+ */
+export async function scratchTraductionFr () {
+  await loadScratchblocks()
   window.scratchblocks.loadLanguages({
     fr: {
       commands: {
@@ -6734,310 +6728,390 @@ export function scratchTraductionFr () {
 
 /**
  *
- * @param {*} tabQCMs tableau de la forme [ref du groupe,tabQCMs,titre du groupe]
- * chaque tableau de tabQCMs est constitué par 3 éléments :
- * la question énoncée, le tableau des réponses, le tableau des booléens bon=1 mauvaise=0
- * Si le troisième tableau ne comporte que des 0, il s'agit d'une question ouverte.
- * c'est la longueur du tableau des réponses qui définit le nombre de réponses et donc le nombre de booléens nécessaires
- * Si c'est pour une question ouverte, il n'y aura qu'une réponse et une seule valeur dans le tableau des booléens qui déterminera le nombre de ligne à réserver pour la réponse
- * exemple : Pour l'exo 3G30 : tabQCMs=['3G30',[texte,[texteCorr],[4]],'Calculer des longueurs avec la trigonométrie']
- * exemple de type QCM : ​["6C30-3",[["Calcul : $62+23$.\\\\ \n Réponses possibles",[85,1426,8.5,850,86],[1,0,0,0,0]],
- * 			["Calcul : $80,88+50,34$.\\\\ \n Réponses possibles",[131.22,407150,13.122,1312.2,131.23],[1,0,0,0,0]]],'Opérations avec les nombres décimaux']
- * c'est la partie centrale qui contient autant de tableaux de QCM [question,tableau des réponses,tableaux des booléens] que de questions dans l'exercice.
- * chaque tableau est élaboré dans le corps de l'exercice
- * La fonction crée la partie préparation des groupes de questions du document AMC.
- * Elle retourne un tableau hybride contenant dans cet ordre :
- * Le code Latex du groupe de question, la référence du groupe (passée dans l'argument tabQCMs[0], le nombre de questions dans ce groupe (tabQCMs[1].length), et le titre du groupe passé dans l'argument tabQCM[2])
+ * @param {array} thisAmc tableau this.amc d'un exercice : [référence de l'exercice,this.autoCorrection de l'exercice,titre de l'exercice, type de question AMC,{options ?}]
+ * @param {number} idExo c'est un numéro unique pour gérer les noms des éléments d'un groupe de question, il est incrémenté par creerDocumentAmc()
  */
 
-export function exportQcmAmc (tabQCMs, idExo) {
-  const elimineDoublons = function (tabqcm) { // fonction qui va éliminer les doublons si il y en a
-    const reponses = tabqcm[1].slice()
-    const bools = tabqcm[2].slice()
-    for (let i = 0; i < reponses.length - 1; i++) {
-      for (let j = i + 1; j < reponses.length;) {
-        if (reponses[i] === reponses[j]) {
-          console.log('doublon trouvé', reponses[i], reponses[j]) // les réponses i et j sont les mêmes
-
-          if (bools[i] === 1) { // si la réponse i est bonne, on vire la j
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-          } else if (bools[j] === 1) { // si la réponse i est mauvaise et la réponse j bonne,
-            // comme ce sont les mêmes réponses, on vire la j mais on met la i bonne
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-            bools[i] = 1
-          } else { // Les deux réponses sont mauvaises
-            reponses.splice(j, 1)
-            bools.splice(j, 1)
-          }
-        } else {
-          j++
-        }
+export function exportQcmAmc (exercice, idExo) {
+  const ref = exercice.id
+  const autoCorrection = exercice.autoCorrection
+  console.log(exercice.autoCorrection, exercice.amcType)
+  const titre = exercice.titre
+  const type = exercice.amcType
+  let texQr = ''
+  let id = 0
+  let reponse, reponse2, reponse3
+  let horizontalite = 'reponseshoriz'
+  let lastchoice = false
+  let ordered = false
+  let nbChiffresPd, nbChiffresPe
+  for (let j = 0; j < autoCorrection.length; j++) {
+    if (autoCorrection[j].options !== undefined) {
+      if (autoCorrection[j].options.vertical === undefined) {
+        horizontalite = 'reponseshoriz'
+      } else {
+        horizontalite = 'reponses'
+      }
+      if (autoCorrection[j].options.ordered) {
+        ordered = true
+      }
+      if (autoCorrection[j].options.lastChoice !== undefined) {
+        lastchoice = autoCorrection[j].options.lastChoice
       }
     }
-    return [tabqcm[0], reponses, bools]
-  }
-
-  let tex_QR = ''; let type = ''; let tabQCM
-  let nbBonnes; let id = 0; let nb_chiffres_pe; let nb_chiffres_pd; let nb_chiffres; let reponse
-  let params, horizontalite
-  if (tabQCMs.length > 4) {
-    params = tabQCMs[4]
-    if (params.vertical === 'undefined') {
-      horizontalite = 'reponseshoriz'
-    } else {
-      horizontalite = 'reponses'
-    }
-  } else {
-    params = { ordered: false, lastChoices: 0 }
-    horizontalite = 'reponseshoriz'
-  }
-  for (let j = 0; j < tabQCMs[1].length; j++) {
-    tabQCM = tabQCMs[1][j].slice(0)
-    nbBonnes = 0
-    switch (tabQCMs[3]) {
+    // tabQCM = tabQCMs[1][j].propositions.slice(0)
+    switch (type) {
       case 1: // question QCM 1 bonne réponse
-        tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-        nbBonnes = 0
-        for (const b of tabQCM[2]) { // on vérifie qu'il y a bien une seule bonne réponse, sinon on a une question de type 2
-          if (b === 1) nbBonnes++
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\t\\begin{${horizontalite}}`
+        if (ordered) {
+          texQr += '[o]'
         }
-        if (nbBonnes === 1) {
-          type = 'question' // On est dans le cas 1 le type est question
-        } else if (nbBonnes > 1) {
-          type = 'questionmult' // On est dans le cas 2 le type est questionmult
-        }
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `		\\begin{${horizontalite}}`
-        if (params.ordered === true) {
-          tex_QR += '[o]'
-        }
-        tex_QR += '\n '
-        for (let i = 0; i < tabQCM[1].length; i++) {
-          if (params.lastChoices > 0 && i === params.lastChoices) {
-            tex_QR += '\\lastchoices\n'
+        texQr += '\n '
+        for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
+          if (lastchoice > 0 && i === lastchoice) {
+            texQr += '\t\t\\lastchoices\n'
           }
-          switch (tabQCM[2][i]) {
-            case 1:
-              tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-              break
-            case 0:
-              tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-              break
+          if (autoCorrection[j].propositions[i].statut) {
+            texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+          } else {
+            texQr += `\t\t\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        tex_QR += `		\\end{${horizontalite}}\n `
-        tex_QR += `	\\end{${type}}\n }\n `
+        texQr += `\t\\end{${horizontalite}}\n `
+        texQr += '\\end{question}\n }\n '
         id++
         break
 
       case 2: // question QCM plusieurs bonnes réponses (même si il n'y a qu'une seule bonne réponse, il y aura le symbole multiSymbole)
-        tabQCM = elimineDoublons(tabQCM) // On élimine les éventuels doublons (ça arrive quand on calcule des réponses)
-        type = 'questionmult' // On est dans le cas 2 le type est questionmult
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{${type}}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `		\\begin{${horizontalite}}`
-        if (params.ordered === true) {
-          tex_QR += '[o]'
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\\begin{questionmult}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\t\\begin{${horizontalite}}`
+        if (ordered) {
+          texQr += '[o]'
         }
-        tex_QR += ' \n '
-        for (let i = 0; i < tabQCM[1].length; i++) {
-          if (params.lastChoices > 0 && i === params.lastChoices) {
-            tex_QR += '\\lastchoices\n'
+        texQr += '\n '
+        for (let i = 0; i < autoCorrection[j].propositions.length; i++) {
+          if (lastchoice > 0 && i === lastchoice) {
+            texQr += '\t\t\\lastchoices\n'
           }
-          switch (tabQCM[2][i]) {
-            case 1:
-              tex_QR += `			\\bonne{${tabQCM[1][i]}}\n `
-              break
-            case 0:
-              tex_QR += `			\\mauvaise{${tabQCM[1][i]}}\n `
-              break
+          if (autoCorrection[j].propositions[i].statut) {
+            texQr += `\t\t\\bonne{${autoCorrection[j].propositions[i].texte}}\n `
+          } else {
+            texQr += `\t\t\\mauvaise{${autoCorrection[j].propositions[i].texte}}\n `
           }
         }
-        tex_QR += `		\\end{${horizontalite}}\n `
-        tex_QR += `	\\end{${type}}\n }\n `
+        texQr += `\t\\end{${horizontalite}}\n `
+        texQr += ' \\end{questionmult}\n }\n '
         id++
         break
       case 3: // AMCOpen question ouverte corrigée par l'enseignant
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[2][0]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[2][0]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n }\n'
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\t\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `\t\t${autoCorrection[j].enonce} \n `
+        texQr += `\t\t\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}\n` // le statut contiendra le nombre de lignes pour ce type
+        texQr += '\t\\end{question}\n }\n'
         id++
         break
       case 4: // AMCOpen question ouverte avec encodage numérique de la réponse
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
         // On pourra rajouter des options : les paramètres sont nommés.
-        // {digits=0,decimals=0,vertical=false,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
+        // {digits=0,decimals=0,vertical=false,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
-        // signe et exposant_signe sont des booléens
+        // signe et exposantSigne sont des booléens
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
         // La correction est dans tabQCM[1][0] et la réponse numérique est dans tabQCM[1][1]
         /********************************************************************/
-        if (tabQCM[2].exposant_nb_chiffres === 0) {
-          reponse = tabQCM[1][1]
-          if (tabQCM[2].digits === 0) {
-            nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-            tabQCM[2].decimals = nb_chiffres_pd
-            nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-            tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
+          reponse = autoCorrection[j].reponse.valeur
+          if (autoCorrection[j].reponse.param.digits === 0) {
+            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+            autoCorrection[j].reponse.param.decimals = nbChiffresPd
+            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+            autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+          } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+            autoCorrection[j].reponse.param.decimals = 0
           }
         }
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
-        if (tabQCM[2][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
         }
-        if (tabQCM[2].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2].approx},`
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
         }
-        if (typeof tabQCM[2].vertical !== 'undefined') {
-          tex_QR += `vertical=${tabQCM[2].vertical},`
+        texQr += `\\element{${ref}}{\n `
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
-        if (typeof tabQCM[2].strict !== 'undefined') {
-          tex_QR += `strict=${tabQCM[2].strict},`
+        if (autoCorrection[j].reponse.param.approx !== undefined && autoCorrection[j].reponse.param.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
         }
-        if (typeof tabQCM[2].vhead !== 'undefined') {
-          tex_QR += `vhead=${tabQCM[2].vhead},`
+        if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
+          texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
-        tex_QR += '\\end{questionmultx}\n }\n'
+        if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
+          texQr += `strict=${autoCorrection[j].reponse.param.strict},`
+        }
+        if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
+          texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
+        texQr += '\\end{questionmultx}\n }\n'
         id++
         break
 
-      case 5 : // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
+      case 5: // AMCOpen + AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericCoices
         // On pourra rajouter des options : les paramètres sont nommés.
-        // {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
+        // {digits=0,decimals=0,signe=false,exposantNbChiffres=0,exposantSigne=false,approx=0}
         // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
-        // signe et exposant_signe sont des booléens
+        // signe et exposantSigne sont des booléens
         // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
         // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
         /********************************************************************/
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
-        tex_QR += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[1][2]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n\\end{minipage}\n'
-        if (tabQCM[2].exposant_nb_chiffres === 0) {
-          reponse = tabQCM[1][1]
-          if (tabQCM[2].digits === 0) {
-            nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-            tabQCM[2].decimals = nb_chiffres_pd
-            nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-            tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: 2, feedback: '' }]
+        }
+        texQr += `\\element{${ref}}{\n `
+        texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
+        // texQr += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
+        texQr += '\\end{question}\n\\end{minipage}\n'
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
+          reponse = autoCorrection[j].reponse.valeur
+          if (autoCorrection[j].reponse.param.digits === 0) {
+            nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+            autoCorrection[j].reponse.param.decimals = nbChiffresPd
+            nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+            autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+          } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+            autoCorrection[j].reponse.param.decimals = 0
+          }
+          if (autoCorrection[j].reponse.param.exposantSigne === undefined) {
+            autoCorrection[j].reponse.param.exposantSigne = false
           }
         }
-        tex_QR += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1]}}{digits=${tabQCM[2].digits},decimals=${tabQCM[2].decimals},sign=${tabQCM[2].signe},`
-        if (tabQCM[2][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2].exposant_nb_chiffres},exposign=${tabQCM[2].exposant_signe},`
+        if (autoCorrection[j].reponse.param.signe === undefined) {
+          autoCorrection[j].reponse.param.signe = false
         }
-        if (tabQCM[2].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2].approx},`
+        texQr += '\\begin{minipage}[b]{0.3 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        if (autoCorrection[j].reponse.param.exposantNbChiffres === 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}}\n'
+        if (autoCorrection[j].reponse.param.approx !== 0 && autoCorrection[j].reponse.param.approx !== undefined) {
+          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+        }
+        if (autoCorrection[j].reponse.param.vertical !== undefined && autoCorrection[j].reponse.param.vertical) {
+          texQr += `vertical=${autoCorrection[j].reponse.param.vertical},`
+        }
+        if (autoCorrection[j].reponse.param.strict !== undefined && autoCorrection[j].reponse.param.strict) {
+          texQr += `strict=${autoCorrection[j].reponse.param.strict},`
+        }
+        if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
+          texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
-      case 6 : // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
+      case 6: // AMCOpen + deux AMCnumeric Choices. (Nouveau ! en test)
         /********************************************************************/
         // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
         // Pour ce type :
-        // =======tabQCM[0] contient toujours le texte de l'énoncé
-        // =======tabQCM[1] est un tableau de tableau avec :
-        // ===================tabQCM[1][0] qui contient ce qu'il faut pour le 1er numericchoice ['question 1','réponse1',réponse1 num]
-        // ===================tabQCM[1][1] qui contient ce qu'il faut pour le 2e numericchoice ['question 2','réponse2',réponse2 num]
-        // =======tabQCM[2] est un tableau de tableau avec :
-        // ===================tabQCM[2][0] qui contient les paramètres pour la réponse1 avec un texte en plus qui est inscrit au dessus du champ de code de la reponse 1
-        // =============================== {texte:'numérateur',digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}
-        // ===================tabQCM[2][1] qui contient les paramètres pour la réponse2 avec un texte en plus qui est inscrit au dessus du champ de code de la reponse 2
-        // =============================== {texte:'dénominateur',digits:3,decimals:0,signe:false,exposant_nb_chiffres:0,exposant_signe:false,approx:0}
-        //= ==================================================================================
-        // Dans ce cas, le tableau des booléens comprend les renseignements nécessaires pour paramétrer \AMCnumericChoices
-        // On pourra rajouter des options : les paramètres sont nommés.
-        // {digits=0,decimals=0,signe=false,exposant_nb_chiffres=0,exposant_signe=false,approx=0}
-        // si digits=0 alors la fonction va analyser le nombre décimal (ou entier) pour déterminer digits et decimals
-        // signe et exposant_signe sont des booléens
-        // approx est un entier : on enlève la virgule pour comparer la réponse avec la valeur : approx est le seuil de cette différence.
-        // La correction est dans tabQCM[1][0], la réponse numlérique est dans tabQCM[1][1] et le nombre de ligne pour le cadre dans tabQCM[1][2] et
+        // =======autoCorrection[j].enonce contient toujours le texte de l'énoncé
+        // les réponses à évaluer sont dans autoCorrection[j].reponse et autoCorrection[j].reponse2
         /********************************************************************/
-
-        tex_QR += `\\element{${tabQCMs[0]}}{\n `
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
+        }
+        texQr += `\\element{${ref}}{\n `
         // premier champ de codage
-        tex_QR += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
-        tex_QR += `	\\begin{question}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
-        tex_QR += `		${tabQCM[0]} \n `
-        tex_QR += `\\explain{${tabQCM[1][0][0]}}\n`
-        tex_QR += `\\notation{${tabQCM[1][0][2]}}\n`
-        // tex_QR += `\\AMCOpen{lines=${tabQCM[1][2]}}{\\mauvaise[NR]{NR}\\scoring{0}\\mauvaise[RR]{R}\\scoring{0.01}\\mauvaise[R]{R}\\scoring{0.33}\\mauvaise[V]{V}\\scoring{0.67}\\bonne[VV]{V}\\scoring{1}}\n`
-        tex_QR += '\\end{question}\n\\end{minipage}\n'
-        // Pour les deux champs supplémentaires
-        // if (tabQCM[2].exposant_nb_chiffres === 0) {
-        // 	reponse = tabQCM[1][1]
-        // 	if (tabQCM[2].digits === 0) {
-        // 		nb_chiffres_pd = nombre_de_chiffres_dans_la_partie_decimale(reponse)
-        // 		tabQCM[2].decimals = nb_chiffres_pd
-        // 		nb_chiffres_pe = nombre_de_chiffres_dans_la_partie_entiere(reponse)
-        // 		tabQCM[2].digits = nb_chiffres_pd + nb_chiffres_pe
-        // 	}
-        // }
+        texQr += '\\begin{minipage}[b]{0.7 \\linewidth}\n'
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
+        texQr += '\\end{question}\n\\end{minipage}\n'
+        reponse = autoCorrection[j].reponse.valeur
+        if (autoCorrection[j].reponse.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+          autoCorrection[j].reponse.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+          autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+          autoCorrection[j].reponse.param.decimals = 0
+        }
         // deuxième champ de codage numérique
-        tex_QR += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
-        tex_QR += `${tabQCM[2][0].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][0][1]}}{digits=${tabQCM[2][0].digits},decimals=${tabQCM[2][0].decimals},sign=${tabQCM[2][0].signe},`
-        if (tabQCM[2][0][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2][0].exposant_nb_chiffres},exposign=${tabQCM[2][0].exposant_signe},`
+        texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
-        if (tabQCM[2][0].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2][0].approx},`
+        if (autoCorrection[j].reponse.param.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}\n'
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}\n'
 
         // troisième champ de codage numérique
-        tex_QR += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
-        tex_QR += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-        tex_QR += `	\\begin{questionmultx}{question-${tabQCMs[0]}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
-        tex_QR += `${tabQCM[2][1].texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        tex_QR += `\\AMCnumericChoices{${tabQCM[1][1][1]}}{digits=${tabQCM[2][1].digits},decimals=${tabQCM[2][1].decimals},sign=${tabQCM[2][1].signe},`
-        if (tabQCM[2][1][3] !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
-          tex_QR += `exponent=${tabQCM[2][1].exposant_nb_chiffres},exposign=${tabQCM[2][1].exposant_signe},`
+        texQr += '\\begin{minipage}[b]{0.15 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
+        reponse2 = autoCorrection[j].reponse2.valeur
+        if (autoCorrection[j].reponse2.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
+          autoCorrection[j].reponse2.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse2)
+          autoCorrection[j].reponse2.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse2.param.decimals === undefined) {
+          autoCorrection[j].reponse2.param.decimals = 0
         }
-        if (tabQCM[2][1].approx !== 0) {
-          tex_QR += `approx=${tabQCM[2][1].approx},`
+        texQr += `${autoCorrection[j].reponse2.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse2.valeur}}{digits=${autoCorrection[j].reponse2.param.digits},decimals=${autoCorrection[j].reponse2.param.decimals},sign=${autoCorrection[j].reponse2.param.signe},`
+        if (autoCorrection[j].reponse2.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse2.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse2.param.exposantSigne},`
         }
-        tex_QR += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
-        tex_QR += '\\end{questionmultx}\n\\end{minipage}}\n'
+        if (autoCorrection[j].reponse2.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse2.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
 
+        id++
+        break
+
+      case 7: // Un amcOpen et trois  AMCnumeric Choices. (Nouveau ! en test)
+        /********************************************************************/
+        // /!\/!\/!\/!\ ATTENTION /!\/!\/!\/!\
+        // Pour ce type :
+        // =======autoCorrection[j].enonce contient toujours le texte de l'énoncé
+        // les réponses à évaluer sont dans autoCorrection[j].reponse, autoCorrection[j].reponse2 et autoCorrection[j].reponse3
+        /********************************************************************/
+        if (exercice.autoCorrection[j].enonce === undefined) {
+          exercice.autoCorrection[j].enonce = exercice.listeQuestions[j]
+        }
+        if (exercice.autoCorrection[j].propositions === undefined) {
+          exercice.autoCorrection[j].propositions = [{ texte: exercice.listeCorrections[j], statut: '', feedback: '' }]
+        }
+        texQr += `\\element{${ref}}{\n `
+        // premier champ de codage
+        texQr += '\\begin{minipage}[b]{0.4 \\linewidth}\n'
+        texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}a} \n `
+        texQr += `${autoCorrection[j].enonce} \n `
+        texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
+        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
+        texQr += '\\end{question}\n\\end{minipage}\n'
+        reponse = autoCorrection[j].reponse.valeur
+        if (autoCorrection[j].reponse.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
+          autoCorrection[j].reponse.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse)
+          autoCorrection[j].reponse.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse.param.decimals === undefined) {
+          autoCorrection[j].reponse.param.decimals = 0
+        }
+        // deuxième champ de codage numérique
+        texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
+        if (autoCorrection[j].reponse.textePosition === 'top') texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse.valeur}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse.param.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}'
+        if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
+        texQr += '\\end{questionmultx}\n\\end{minipage}\n'
+
+        // troisième champ de codage numérique
+        texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}c} \n `
+        reponse2 = autoCorrection[j].reponse2.valeur
+        if (autoCorrection[j].reponse2.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse2)
+          autoCorrection[j].reponse2.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse2)
+          autoCorrection[j].reponse2.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse2.param.decimals === undefined) {
+          autoCorrection[j].reponse2.param.decimals = 0
+        }
+        if (autoCorrection[j].reponse2.textePosition === 'top') texQr += `${autoCorrection[j].reponse2.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse2.textePosition === 'left') texQr += `${autoCorrection[j].reponse2.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse2.valeur}}{digits=${autoCorrection[j].reponse2.param.digits},decimals=${autoCorrection[j].reponse2.param.decimals},sign=${autoCorrection[j].reponse2.param.signe},`
+        if (autoCorrection[j].reponse2.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse2.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse2.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse2.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse2.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}'
+        if (autoCorrection[j].reponse2.textePosition === 'right') texQr += `${autoCorrection[j].reponse2.texte}\n`
+        texQr += '\\end{questionmultx}\n\\end{minipage}\n'
+
+        // quatrième champ de codage numérique
+        texQr += '\\begin{minipage}[b]{0.2 \\linewidth}\n'
+        texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+        texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}d} \n `
+        reponse3 = autoCorrection[j].reponse3.valeur
+        if (autoCorrection[j].reponse3.param.digits === 0) {
+          nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse3)
+          autoCorrection[j].reponse3.param.decimals = nbChiffresPd
+          nbChiffresPe = nombreDeChiffresDansLaPartieEntiere(reponse3)
+          autoCorrection[j].reponse3.param.digits = nbChiffresPd + nbChiffresPe
+        } else if (autoCorrection[j].reponse3.param.decimals === undefined) {
+          autoCorrection[j].reponse3.param.decimals = 0
+        }
+        if (autoCorrection[j].reponse3.textePosition === 'top') texQr += `${autoCorrection[j].reponse3.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
+        else if (autoCorrection[j].reponse3.textePosition === 'left') texQr += `${autoCorrection[j].reponse3.texte} `
+        texQr += `\\AMCnumericChoices{${autoCorrection[j].reponse3.valeur}}{digits=${autoCorrection[j].reponse3.param.digits},decimals=${autoCorrection[j].reponse3.param.decimals},sign=${autoCorrection[j].reponse3.param.signe},`
+        if (autoCorrection[j].reponse3.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
+          texQr += `exponent=${autoCorrection[j].reponse3.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse3.param.exposantSigne},`
+        }
+        if (autoCorrection[j].reponse3.approx !== 0) {
+          texQr += `approx=${autoCorrection[j].reponse3.param.approx},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true} '
+        if (autoCorrection[j].reponse3.textePosition === 'right') texQr += `${autoCorrection[j].reponse3.texte}\n`
+        texQr += '\\end{questionmultx}\n\\end{minipage}\n}\n'
         id++
         break
     }
   }
-  return [tex_QR, tabQCMs[0], tabQCMs[1].length, tabQCMs[2]]
+  return [texQr, ref, autoCorrection.length, titre]
 }
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
  *
  *  questions est un tableau d'éléments de type Exercice.QCM
@@ -7056,38 +7130,37 @@ export function exportQcmAmc (tabQCMs, idExo) {
  * nb_exemplaire est le nombre de copie à générer
  * matiere et titre se passe de commentaires : ils renseigne l'entête du sujet.
  */
-export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', type_entete = 'AMCcodeGrid', format = 'A4' }) {
-  // Attention questions est maintenant un tableau de tous les this.qcm des exos
+export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires = 1, matiere = 'Mathématiques', titre = 'Evaluation', typeEntete = 'AMCcodeGrid', format = 'A4' }) {
+  // Attention questions est maintenant un tableau de tous les this.amc des exos
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
-
-  let idExo = 0; let code; let index_of_code
-  const nombre_de_questions_indefinie = []
+  let idExo = 0; let code; let indexOfCode
+  const nombreDeQuestionsIndefinie = []
   const graine = randint(1, 100000)
-  const groupeDeQuestions = []; const tex_questions = [[]]; const titre_question = []
-  for (const qcm of questions) {
-    code = exportQcmAmc(qcm, idExo)
+  const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []
+  for (const exercice of questions) {
+    code = exportQcmAmc(exercice, idExo)
     idExo++
-    index_of_code = groupeDeQuestions.indexOf(code[1])
-    if (index_of_code === -1) { // si le groupe n'existe pas
+    indexOfCode = groupeDeQuestions.indexOf(code[1])
+    if (indexOfCode === -1) { // si le groupe n'existe pas
       groupeDeQuestions.push(code[1])
-      index_of_code = groupeDeQuestions.indexOf(code[1])
-      tex_questions[index_of_code] = code[0]
+      indexOfCode = groupeDeQuestions.indexOf(code[1])
+      texQuestions[indexOfCode] = code[0]
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-      if (typeof nbQuestions[index_of_code] === 'undefined') {
-        nombre_de_questions_indefinie[index_of_code] = true
-        nbQuestions[index_of_code] = code[2]
+      if (typeof nbQuestions[indexOfCode] === 'undefined') {
+        nombreDeQuestionsIndefinie[indexOfCode] = true
+        nbQuestions[indexOfCode] = code[2]
       } else { // Si le nombre de question (à restituer pour ce groupe de question) a été défini par l'utilisateur, alors on le laisse !
-        nombre_de_questions_indefinie[index_of_code] = false
+        nombreDeQuestionsIndefinie[indexOfCode] = false
       }
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-      titre_question[index_of_code] = code[3]
+      titreQuestion[indexOfCode] = code[3]
     } else { // Donc le groupe existe, on va vérifier si la question existe déjà et si non, on l'ajoute.
-      if (tex_questions[index_of_code].indexOf(code[0]) === -1) {
-        tex_questions[index_of_code] += code[0]
+      if (texQuestions[indexOfCode].indexOf(code[0]) === -1) {
+        texQuestions[indexOfCode] += code[0]
         // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
-        if (nombre_de_questions_indefinie[index_of_code]) {
-          nbQuestions[index_of_code] += code[2]
+        if (nombreDeQuestionsIndefinie[indexOfCode]) {
+          nbQuestions[indexOfCode] += code[2]
         }
       }
     }
@@ -7107,17 +7180,17 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '	 \\documentclass[10pt,a3paper,landscape,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a3paper,landscape,french]{article}\n'
   } else {
-    preambule += '	 	 \\documentclass[10pt,a4paper,french]{article}\n'
+    preambule += '\t \\documentclass[10pt,a4paper,french]{article}\n'
   }
 
-  preambule += `	 
-  %%%%% PACKAGES LANGUE %%%%%
-   \\usepackage{babel} % sans option => langue définie dans la classe du document
+  preambule += `\t 
+  %%%%% PACKAGES LANGUE %%%%%  
+  \\usepackage{babel} % sans option => langue définie dans la classe du document
    \\usepackage[T1]{fontenc} 
    \\usepackage[utf8x]{inputenc}
-   \\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
+   \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
    \\usepackage{fp}
   
   %%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
@@ -7130,26 +7203,27 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    \\usepackage{multicol} 
    \\usepackage{wrapfig}  
    \\usepackage{fancybox}  % pour \\doublebox \\shadowbox  \\ovalbox \\Ovalbox
-   \\usepackage{calc} 						% Calculs 
-   \\usepackage{enumerate}					% Pour modifier les numérotations
+   \\usepackage{calc} \t% Calculs 
+   \\usepackage{enumerate}\t% Pour modifier les numérotations
    \\usepackage{enumitem}
-   \\usepackage{tabularx}					% Pour faire des tableaux
+   \\usepackage{tabularx}\t% Pour faire des tableaux
 
   %%%%% PACKAGES FIGURES %%%%%
   %\\usepackage{pstricks,pst-plot,pstricks-add}
   %   POUR PSTRICKS d'où compilation sans PDFLateX mais : dvi, dvi2ps, ps2PDF...
   %   MAIS ON PRÉFÉRERA UTILISER TIKZ...
-  \\usepackage{etex}	  % pour avoir plus de "registres" mémoires / tikz...
+  \\RequirePackage{etex}\t  % pour avoir plus de "registres" mémoires / tikz...
   \\usepackage{xcolor}% [avant tikz] xcolor permet de nommer + de couleurs
   \\usepackage{pgf,tikz}
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
     shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-  \\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+  \\usepackage{tkz-tab,tkz-euclide,tkz-fct}\t% Géométrie euclidienne avec TikZ
   %\\usetkzobj{all} %problème de compilation
   
   %%%%% PACKAGES MATHS %%%%%
    \\usepackage{ucs}
+   \\usepackage{bm}
    \\usepackage{amsmath}
    \\usepackage{amsfonts}
    \\usepackage{amssymb}
@@ -7163,34 +7237,34 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    %  sous Ubuntu, paquet texlive-science à installer
    %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans introLatex
    \\usepackage{mathrsfs}  % Spécial math
-   %\\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
-   \\usepackage{pifont}						% Pour les symboles "ding"
-   \\usepackage{bbding}						% Pour les symboles
-   \\usepackage[misc]{ifsym}					% Pour les symboles
-   \\usepackage{cancel}						% Pour pouvoir barrer les nombres
+   %\\usepackage[squaren]{SIunits}\t% Pour les unités (gère le conflits avec  \\square de l'extension amssymb)
+   \\usepackage{pifont}\t% Pour les symboles "ding"
+   \\usepackage{bbding}\t% Pour les symboles
+   \\usepackage[misc]{ifsym}\t% Pour les symboles
+   \\usepackage{cancel}\t% Pour pouvoir barrer les nombres
 
 
   %%%%% AUTRES %%%%%
    \\usepackage{ifthen}
-   \\usepackage{url} 			        		% Pour afficher correctement les url
-   \\urlstyle{sf}                          	% qui s'afficheront en police sans serif
-   \\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
-    \\pagestyle{fancy}                      	% de pages personnalisés
-   \\usepackage{fancybox}					% Pour les encadrés
-   \\usepackage{xlop}						% Pour les calculs posés
-  %\\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
-   \\usepackage{multido}					% Pour faire des boucles
-  %\\usepackage{hyperref}					% Pour gérer les liens hyper-texte
+   \\usepackage{url} \t        \t% Pour afficher correctement les url
+   \\urlstyle{sf}                          \t% qui s'afficheront en police sans serif
+   \\usepackage{fancyhdr,lastpage}          \t% En-têtes et pieds
+    \\pagestyle{fancy}                      \t% de pages personnalisés
+   \\usepackage{fancybox}\t% Pour les encadrés
+   \\usepackage{xlop}\t% Pour les calculs posés
+  %\\usepackage{standalone}\t% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+   \\usepackage{multido}\t% Pour faire des boucles
+  %\\usepackage{hyperref}\t% Pour gérer les liens hyper-texte
    \\usepackage{fourier}
-   \\usepackage{colortbl} 					% Pour des tableaux en couleur
-   \\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
-   \\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
-  %\\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+   \\usepackage{colortbl} \t% Pour des tableaux en couleur
+   \\usepackage{setspace}\t% Pour \\begin{spacing}{2.0} \\end{spacing}
+   \\usepackage{multirow}\t% Pour des cellules multilignes dans un tableau
+  %\\usepackage{import}\t% Equivalent de input mais en spécifiant le répertoire de travail
   %\\usepackage[]{qrcode}
   %\\usepackage{pdflscape}
    \\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
    \\usepackage{tikzsymbols}
-  %\\usepackage{tasks}						% Pour les listes horizontales
+  %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
   
   %%%%% Librairies utilisées par Mathgraphe32 %%%% 
@@ -7230,10 +7304,10 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
    
   %%%%%% Définition des barèmes 
   \\baremeDefautS{
-    e=0.0001,	% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
-    b=1,		% bonne réponse 1
-    m=-0.01,		% mauvaise réponse 0,01 pour différencier de la 
-    v=0} 		% non réponse qui reste à 0
+    e=0.0001,% incohérence (plusieurs réponses données à 0,0001 pour définir des manquements au respect de consignes)
+    b=1,% bonne réponse 1
+    m=-0.01,% mauvaise réponse 0,01 pour différencier de la 
+    v=0} % non réponse qui reste à 0
   
   \\baremeDefautM{formula=((NBC-NMC)/NB)*((NBC-NMC)/NB>0)} % nombre de bonnes réponses cochées minorées des mauvaises réponses cochées, ramenées à 1, et ramenée à 0 si résultat négatif.
   
@@ -7263,12 +7337,12 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
 
   for (const g of groupeDeQuestions) {
     const i = groupeDeQuestions.indexOf(g)
-    debutDocument += tex_questions[i]
+    debutDocument += texQuestions[i]
   }
 
   // Variable qui contient l'entête d'une copie
   // A faire : Proposer différent type d'entête en fonction d'un paramètre ?
-  const entete_type_CodeGrid =	`\\begin{minipage}{10cm}
+  const enteteTypeCodeGrid = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
    \\\\
@@ -7288,7 +7362,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   ABCDEFGHIJKLMNOPQRSTUVWXYZ,
   ABCDEFGHIJKLMNOPQRSTUVWXYZ}
   `
-  const entete_type_champnom_simple =	`\\begin{minipage}{10cm}
+  const enteteTypeChampnomSimple = `\\begin{minipage}{10cm}
   \\champnom{\\fbox{\\parbox{10cm}{    
     Écrivez vos nom, prénom et classe : \\\\
    \\\\
@@ -7298,7 +7372,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %\\\\
   \\vspace{2mm}
   `
-  const entete_type_preremplie = `\\begin{center}
+  const enteteTypePreremplie = `\\begin{center}
   \\noindent{}\\fbox{\\vspace*{3mm}
        \\Large\\bf\\nom{}~\\prenom{}\\normalsize{}% 
         \\vspace*{3mm}
@@ -7306,7 +7380,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\end{center}\n`
 
   let enteteCopie = ''
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     enteteCopie += '\\newcommand{\\sujet}{\n'
   }
   enteteCopie += ` 
@@ -7315,7 +7389,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \\exemplaire{${nb_exemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ===  %
+  \\exemplaire{${nbExemplaires}}{   % <======  /!\\ PENSER À ADAPTER /!\\  ===  %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
@@ -7330,7 +7404,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   
   \\vspace{5mm}
   %\\noindent\\AMCcode{num.etud}{8}\\hspace*{\\fill} % Pour la version "verticale"
-  %\\noindent\\AMCcodeH{num.etud}{8}	 % version "horizontale"
+  %\\noindent\\AMCcodeH{num.etud}{8}\t % version "horizontale"
   \\begin{minipage}{7cm}
   \\begin{center} 
     \\textbf{${matiere}}
@@ -7339,19 +7413,19 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\end{center}
   \\end{minipage}
   \\hfill\n`
-  if (type_entete === 'AMCassociation') {
-    enteteCopie += entete_type_preremplie
-  } else if (type_entete === 'AMCcodeGrid') {
-    enteteCopie += entete_type_CodeGrid
+  if (typeEntete === 'AMCassociation') {
+    enteteCopie += enteteTypePreremplie
+  } else if (typeEntete === 'AMCcodeGrid') {
+    enteteCopie += enteteTypeCodeGrid
   } else {
-    enteteCopie += entete_type_champnom_simple
+    enteteCopie += enteteTypeChampnomSimple
   }
   enteteCopie +=
-  `\n{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
+    `\n{\\footnotesize REMPLIR avec un stylo NOIR la ou les cases pour chaque question. Si vous devez modifier un choix, NE PAS chercher à redessiner la case cochée par erreur, mettez simplement un coup de "blanc" dessus.
   
   Les questions précédées de \\multiSymbole peuvent avoir plusieurs réponses.\\\\ Les questions qui commencent par \\TT ne doivent pas être faites par les élèves disposant d'un tiers temps.
   
-  → Il est fortement conseillé de faire les calculs dans sa tête ou sur la partie blanche de la feuille sans regarder les solutions proposées avant de remplir la bonne case plutôt que d'essayer de choisir entre les propositions (ce qui demande de toutes les examiner et prend donc plus de temps) ←}
+   Il est fortement conseillé de faire les calculs dans sa tête ou sur la partie blanche de la feuille sans regarder les solutions proposées avant de remplir la bonne case plutôt que d'essayer de choisir entre les propositions (ce qui demande de toutes les examiner et prend donc plus de temps) }
   
   `
 
@@ -7359,8 +7433,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   // nb_question est un tableau passé en paramètre à la fonction creerDocumentAmc pour déterminer le nombre de questions à restituer par groupe.
   // si ce nombre est 0, on restitue toutes les questions du groupe
   let contenuCopie = ''
-  if (type_entete === 'AMCcodeGrid') {
-    contenuCopie += '		\\def\\AMCchoiceLabel##1{}'
+  if (typeEntete === 'AMCcodeGrid') {
+    contenuCopie += '\t \\def\\AMCchoiceLabel##1{}'
   }
   for (const g of groupeDeQuestions) {
     const i = groupeDeQuestions.indexOf(g)
@@ -7368,7 +7442,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   \\begin{center}
     \\hrule
     \\vspace{2mm}
-    \\bf\\Large ${titre_question[i]}
+    \\bf\\Large ${titreQuestion[i]}
     \\vspace{1mm}
     \\hrule
   \\end{center}\n`
@@ -7381,7 +7455,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
   if (format === 'A3') {
     contenuCopie += '\\end{multicols}\n'
   }
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     contenuCopie += `\\AMCassociation{\\id}\n
     }
   }\n`
@@ -7391,7 +7465,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nb_exemplaires 
 
   // On assemble les différents morceaux et on retourne le résultat
   codeLatex = preambule + '\n' + debutDocument + '\n' + enteteCopie + contenuCopie
-  if (type_entete === 'AMCassociation') {
+  if (typeEntete === 'AMCassociation') {
     codeLatex += '\n \n \\csvreader[head to column names]{liste.csv}{}{\\sujet}\n'
   }
   codeLatex += '\\end{document}\n'

@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes} from '../../modules/outils.js'
 export const titre = 'Connaitre le cours sur le périmètre et l’aire'
 
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M25
  */
 export default function Connaitre_formules_de_perimetre_et_aires() {
@@ -93,7 +94,7 @@ export default function Connaitre_formules_de_perimetre_et_aires() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

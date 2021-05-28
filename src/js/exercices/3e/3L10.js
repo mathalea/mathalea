@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 export const titre = 'Donner l’opposé d’une expression'
 
@@ -6,7 +7,7 @@ export const titre = 'Donner l’opposé d’une expression'
  * Donner l'opposé d'une expression.
  *
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3L10
  */
 export default function Oppose_expression() {
@@ -15,14 +16,14 @@ export default function Oppose_expression() {
   this.consigne = "Développer et réduire les expressions suivantes.";
   this.spacing = 1;
   this.nbQuestions = 6;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
 
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = ["-(ax+b)", "-(ax2+bx+c)"];
+    let typesDeQuestionsDisponibles = ["-(ax+b)", "-(ax2+bx+c)"];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -50,7 +51,7 @@ export default function Oppose_expression() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

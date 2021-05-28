@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,texTexte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions de longueur en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -10,7 +10,7 @@ const Algebrite = require('algebrite')
  * * 3 : Conversions en mètres
  * * 4 : Toutes les conversions de longueurs
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export default function Exercice_conversions_de_longueurs(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -45,19 +45,19 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let type_de_questions;
+      let typesDeQuestions;
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 4);
+        typesDeQuestions = randint(1, 4);
       }
       // k = randint(0,2); // Choix du préfixe
       k = liste_de_k[i]; //Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
       } else {
@@ -83,51 +83,51 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
-        resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
 
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\times" +
           texNombre(prefixe_multi[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
-      } else if (div && type_de_questions < 4) {
-        resultat = Algebrite.eval(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
+      } else if (div && typesDeQuestions < 4) {
+        resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\div" +
           texNombre(prefixe_div[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
       } else {
         // pour type de question = 4
@@ -138,58 +138,58 @@ export default function Exercice_conversions_de_longueurs(niveau = 1) {
         }
         let ecart = unite2 - unite1; // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
-          resultat = Algebrite.eval(a * Math.pow(10, ecart));
+          resultat = calcul(a * Math.pow(10, ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " =  " +
             texNombre(a) +
             "\\times" +
             texNombre(Math.pow(10, ecart)) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "$";
         } else {
-          resultat = Algebrite.eval(a / Math.pow(10, ecart));
+          resultat = calcul(a / Math.pow(10, ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             " =  " +
             texNombre(a) +
             "\\div" +
             texNombre(Math.pow(10, ecart)) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "$";
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"

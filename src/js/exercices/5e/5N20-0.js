@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texte_en_couleur,texte_gras,numAlpha} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texteEnCouleur,texteGras,numAlpha} from '../../modules/outils.js'
 import {point,labelPoint,segment,cercleCentrePoint,rotation,codageAngleDroit,codeAngle,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
@@ -20,24 +21,24 @@ export default function Problemes_additifs_fractions_5e () {
   this.nbCols = 1
   this.nbColsCorr = 1
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 1 : this.spacing = 1
-  sortieHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+  context.isHtml ? this.spacing = 1 : this.spacing = 1
+  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
 
-  let type_de_questions_disponibles
+  let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      type_de_questions_disponibles = [0]
+      typesDeQuestionsDisponibles = [0]
     } else {
-      // type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = [0]
+      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      typesDeQuestionsDisponibles = [0]
     };
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées		
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on définit les fractions pour les vols et les arguments pour le graphique
@@ -267,8 +268,8 @@ export default function Problemes_additifs_fractions_5e () {
         enonces.push({
           enonce: `
 					On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.<br>
-					${texte_gras('Les angles de même couleur ont la même mesure.')}<br>
-					${texte_gras('L\'angle vert est un angle plat.')}<br>
+					${texteGras('Les angles de même couleur ont la même mesure.')}<br>
+					${texteGras('L\'angle vert est un angle plat.')}<br>
 					${situations[k].fig}<br>
 					${numAlpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} ?<br>
 					${numAlpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?<br>
@@ -279,14 +280,14 @@ export default function Problemes_additifs_fractions_5e () {
 					`,
           correction: `
 					${numAlpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}<br>					
-					${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.<br>
+					${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.<br>
 					
 					${numAlpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}<br>				
-					${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
+					${texteEnCouleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
 
 					${numAlpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} :<br> 
 					$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}$<br>
-					${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}.`)}
+					${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total / situations[k].cat3.frac[1])}.`)}
 					`
         })
       };
@@ -305,7 +306,7 @@ export default function Problemes_additifs_fractions_5e () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

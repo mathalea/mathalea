@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,simplificationDeFractionAvecEtapes,prenom,texFraction,numAlpha} from '../../modules/outils.js'
 
 
@@ -6,7 +7,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 5S21
  */
 export default function fonctions_probabilite1() {
@@ -18,8 +19,8 @@ export default function fonctions_probabilite1() {
 	this.nbQuestionsModifiable = true;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 3 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1;
 	this.sup = 1;
 
 	this.nouvelleVersion = function () {
@@ -65,7 +66,7 @@ export default function fonctions_probabilite1() {
 			texteCorr += numAlpha(1) + ` Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est :<br> $${texFraction(n[p], somme)}${simplificationDeFractionAvecEtapes(n[p], somme)}$.<br>`;
 			texteCorr += numAlpha(2) + ` Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a ${somme} $-$ ${n[q]} $=$ ${somme - n[q]} autres ${objet} et il y a ${somme} ${objet} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est :<br> $${texFraction(somme - n[q], somme)}${simplificationDeFractionAvecEtapes(somme - n[q], somme)}$.<br>`;
 			texteCorr += numAlpha(3) + ` La probabilité d'un événement est la somme des probabilités des issues qui le composent. Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est :<br> $${texFraction(n[m], somme)}+${texFraction(n[p], somme)}=${texFraction(n[p] + n[m], somme)}${simplificationDeFractionAvecEtapes(n[p] + n[m], somme)}$.<br>`;
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

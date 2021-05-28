@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, numAlpha,arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
 import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from '../../modules/3d.js'
@@ -6,7 +7,7 @@ export const titre = 'Calculer la largeur d’une rivière'
 
 /**
  * Propose de calculer la largeur d'une rivière
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32
 */
 export default function Calculs_trigonometriques() {
@@ -26,7 +27,7 @@ export default function Calculs_trigonometriques() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let distance, hauteur,alfa,baita, beta,alf,bait, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
-    if (sortieHtml) {
+    if (context.isHtml) {
       alfa='α'
       baita='β'
     }
@@ -83,7 +84,7 @@ export default function Calculs_trigonometriques() {
             j++
             texteCorr+=`${numAlpha(j)}Donc $CS=${distance}\\times (\\tan(${beta})-\\tan(${alpha}))\\approx ${taille}$ m.<br>`
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

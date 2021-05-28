@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,ecritureNombreRelatif,ecritureAlgebrique} from '../../modules/outils.js'
 
 
@@ -8,7 +9,7 @@ export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et ca
 * Simplifier l'écriture d'une somme de 2 relatifs et calculer
 *
 * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 5R22-2
 */
 export default function Exercice_simplification_somme_algebrique(max = 20) {
@@ -34,7 +35,7 @@ export default function Exercice_simplification_somme_algebrique(max = 20) {
 				texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + (a - b) + ' $';
 			}
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

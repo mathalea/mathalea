@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,troncature,calcul,texNombre,texNombrec,tex_prix,carreParfait} from '../../modules/outils.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,troncature,calcul,texNombre,texNombrec,texPrix,carreParfait} from '../../modules/outils.js';
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**
  * Description didactique de l'exercice : Calculer_une_expression_litterale_type_pythagore
- * @Auteur Mireille Gain
+ * @author Mireille Gain
  * Référence : 4G20-4
 */
 export default function Calculer_une_expression_litterale_pythagore() {
@@ -22,8 +23,8 @@ export default function Calculer_une_expression_litterale_pythagore() {
     this.listeQuestions = []; 
     this.listeCorrections = []; 
     let a, b, n,s,d,racs,racd,miracs, miracd;
-    let type_de_questions_disponibles = ['type1','type2'];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions);
+    let typesDeQuestionsDisponibles = ['type1','type2'];
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions);
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
     
@@ -60,9 +61,9 @@ miracd = troncature(racd-troncature(racd,2),3);
   if (carreParfait(calcul(100*s))) {texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racs)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a*a+b*b)}}$)`;
 }else{
   if (1000*miracs < 5) {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs, 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racs, 2))}$`;
   } else {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racs+0.01,2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racs+0.01,2))}$`;
   }}
 
   texteCorr += `<br><br>$\\begin{aligned}a^2 - b^2& 
@@ -74,13 +75,13 @@ miracd = troncature(racd-troncature(racd,2),3);
   if (carreParfait(calcul(100*d))) {texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racd)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a*a-b*b)}}$)`;
 }else{
   if (1000*miracd < 5) {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature(racd, 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racd, 2))}$`;
   } else {
-    texteCorr += `$\\phantom{1}≈\\phantom{1}${tex_prix(troncature((racd+0.01), 2))}$`;
+    texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature((racd+0.01), 2))}$`;
   }}
   
 
-  if (this.listeQuestions.indexOf(texte) == -1) {
+  if (this.listeQuestions.indexOf(texte) === -1) {
     // Si la question n'a jamais été posée, on en crée une autre
     this.listeQuestions.push(texte);
     this.listeCorrections.push(texteCorr);

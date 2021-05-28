@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import {cube} from '../../modules/3d.js'
@@ -7,7 +8,7 @@ export const titre = 'Représentation de solides'
 
 /**
 * Vue de dessus, face et côté
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 3G41
 * mars 2021
 * Source : http://cache.media.education.gouv.fr/file/Geometrie_et_espace/47/1/RA16_C4_MATH_geo_espace_flash_567471.pdf
@@ -30,9 +31,9 @@ export default function VuesEmpilementCubes() {
   this.nouvelleVersion = function () {  
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = [];
-    let type_de_questions_disponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
-    let objets_enonce,objets_correction,params_enonce,params_correction ;
+    let typesDeQuestionsDisponibles=[parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let objetsEnonce,objetsCorrection,paramsEnonce,paramsCorrection ;
     
     function empilementCubes(long, larg, hmax) {
       let tabHauteurs = new Array(larg);
@@ -70,8 +71,8 @@ export default function VuesEmpilementCubes() {
     let hauteur = longueur; // hauteur de l'empilement
 
     for (let q = 0, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
-      objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objets_correction = [] // Idem pour la correction
+      objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+      objetsCorrection = [] // Idem pour la correction
 
       texte = ``; // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = ``; // Idem pour le texte de la correction.
@@ -90,15 +91,15 @@ export default function VuesEmpilementCubes() {
           beta = -30;
           texte += `Solide 1 : dessiner la vue de gauche (les faces grises) de cet empilement de cubes. <br>`
           L = empilementCubes(longueur, largeur, hauteur);
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-            objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -106,7 +107,7 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " "; 
           // correction :
           texteCorr += "Solide 1 : vue de gauche (les faces grises) : ";
           alpha = 90;
@@ -115,7 +116,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -123,18 +124,18 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
 
           // FACE
           texte += `Solide 2 : dessiner la vue de face (les faces vertes) de cet empilement de cubes. <br>`;
           L = empilementCubes(longueur, largeur, hauteur);
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-            objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           alpha = 15;
           beta = -30;
@@ -142,7 +143,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -150,7 +151,7 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " "; 
           // correction :
           texteCorr += "Solide 2 : vue de face (les faces vertes) : "
           alpha = 0;
@@ -159,7 +160,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -167,20 +168,20 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
 
           //HAUT
           texte += `Solide 3 : dessiner la vue de haut (les faces blanches) de cet empilement de cubes. <br>`
           L = empilementCubes(longueur, largeur);
           alpha = 15;
           beta = -30;
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-            objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           alpha = 15;
           beta = -30;
@@ -188,7 +189,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -196,7 +197,7 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " "; 
           // correction :
           texteCorr += "Solide 3 : vue de haut (les faces blanches) : "
           alpha = 0;
@@ -205,7 +206,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -213,11 +214,11 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
         break;
 
         case 2:
@@ -225,15 +226,15 @@ export default function VuesEmpilementCubes() {
           L = empilementCubes(longueur, largeur);
           alpha = 15;
           beta = -30;
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-            objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -241,18 +242,18 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " "; 
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " "; 
           alpha = 30;
           beta = -25;
-          objets_enonce = [] ;
+          objetsEnonce = [] ;
           for (let i = 0; i < L.length; i++) {
-            objets_enonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
+            objetsEnonce.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta,{}));
           }
           cosa = Math.cos(alpha*Math.PI/180);
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_enonce = {
+          paramsEnonce = {
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -260,7 +261,7 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false} ;       
-          texte += mathalea2d(params_enonce, objets_enonce) + " ";
+          texte += mathalea2d(paramsEnonce, objetsEnonce) + " ";
 
           // correction :
           texteCorr += "Vue de haut (les faces blanches) : "
@@ -270,7 +271,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -278,11 +279,11 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
 
           texteCorr += "Vue de droite (les faces vertes) : "
           alpha = 0;
@@ -291,7 +292,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -299,11 +300,11 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>"; 
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>"; 
 
           texteCorr += "Vue de gauche (les faces grises) : "
           alpha = 90;
@@ -312,7 +313,7 @@ export default function VuesEmpilementCubes() {
           sina = Math.sin(alpha*Math.PI/180);
           cosb = Math.cos(beta*Math.PI/180);
           sinb = Math.sin(beta*Math.PI/180);
-          params_correction = { 
+          paramsCorrection = { 
             xmin:-sina*largeur - 0.5, 
             ymin: -0.5, 
             xmax: cosa*longueur + 0.5, 
@@ -320,14 +321,14 @@ export default function VuesEmpilementCubes() {
             pixelsParCm: 20, 
             scale: 1, 
             mainlevee: false};
-          objets_correction = [];
+          objetsCorrection = [];
           for (let i = 0; i < L.length; i++) {
-              objets_correction.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
+              objetsCorrection.push(cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}));
           }
-          texteCorr += mathalea2d(params_correction, objets_correction) + "<br>";   
+          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + "<br>";   
         break
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

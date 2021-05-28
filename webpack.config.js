@@ -155,7 +155,9 @@ const config = {
         { from: 'src/assets', to: 'assets', info: { minimized: true } },
         { from: 'src/php', to: './', info: { minimized: true } },
         { from: 'src/assets/favicon.ico', to: './', info: { minimized: true } },
-        { from: 'src/.htaccess', to: './', info: { minimized: true } }
+        { from: 'src/.htaccess', to: './', info: { minimized: true } },
+        { from: 'node_modules/mathlive/dist/fonts', to: 'js/fonts', info: { minimized: true } },
+        { from: 'node_modules/mathlive/dist/sounds', to: 'js/sounds', info: { minimized: true } }
       ]
     }),
     new MiniCssExtractPlugin({
@@ -196,6 +198,11 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
+      chunks: ['mathalea2d']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/2dsvg.html',
+      filename: '2dsvg.html',
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
@@ -278,10 +285,10 @@ if (!isServeMode) {
     if (privateConfig && typeof privateConfig.bugsnagApiKey === 'string' && privateConfig.bugsnagApiKey) {
       console.log(`${privateConfigFile} existe et exporte bugsnagApiKey, on ajoute bugsnag à chaque entry`)
       // on génère un _private/bugsnag.js avec les constantes dont il a besoin
-      const {version} = require('./package.json')
+      const { version } = require('./package.json')
       const busgnagSrcFile = path.resolve(__dirname, 'src', 'js', 'bugsnag.js')
       const busgnagDstFile = path.resolve(privateDir, 'bugsnag.js')
-      const bugsnagContent = fs.readFileSync(busgnagSrcFile, {encoding: 'utf8'})
+      const bugsnagContent = fs.readFileSync(busgnagSrcFile, { encoding: 'utf8' })
         .replace(/^const apiKey *= ''/m, `const apiKey = '${privateConfig.bugsnagApiKey}'`)
         .replace(/^const appVersion *= ''/m, `const appVersion = '${version}'`)
         .replace(/^const releaseStage *= ''/m, `const releaseStage = '${config.mode}'`)

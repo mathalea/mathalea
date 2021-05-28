@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,valeurBase,texNombre,nombre_avec_espace,miseEnEvidence} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,valeurBase,texNombre,nombreAvecEspace,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 
 /**
@@ -9,7 +10,7 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 * * Convertir vers une base entre 2 et 7
 * * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 */
 export default function Passer_de_la_base_12_ou_16_a_la_10() {
 	'use strict';
@@ -20,19 +21,19 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 	this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 
 	this.nouvelleVersion = function () {
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['vers_base_10', 'vers_base_n_3_chiffres'];
+		let typesDeQuestionsDisponibles = ['vers_base_10', 'vers_base_n_3_chiffres'];
 		if (this.nbQuestions == 3) {
-			type_de_questions_disponibles.push(choice(['vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']));
+			typesDeQuestionsDisponibles.push(choice(['vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']));
 		}
 
 
-		let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let b = choice([12, 16]);
 		if (b == 12) {
 			this.introduction = 'Les symboles que l’on utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.';
@@ -70,7 +71,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 						chiffre3 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
 					n = valeurBase(chiffre1) * b ** 2 + valeurBase(chiffre2) * b + valeurBase(chiffre3);
-					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte = `Écrire en base ${b} le nombre ${nombreAvecEspace(n)}.`;
 					texteCorr = `$${texNombre(n)}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`;
 					texteCorr += `<br>$${Math.floor(n / b)}=${b}\\times${miseEnEvidence(valeurBase(chiffre1))}+${miseEnEvidence(valeurBase(chiffre2))}$`;
 					texteCorr += `<br> Finalement $${texNombre(n)}=(${chiffre1}${chiffre2}${chiffre3})_{${b}}$`;
@@ -88,7 +89,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 						chiffre4 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
 					n = valeurBase(chiffre1) * b ** 3 + valeurBase(chiffre2) * b ** 2 + valeurBase(chiffre3) * b + valeurBase(chiffre4);
-					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte = `Écrire en base ${b} le nombre ${nombreAvecEspace(n)}.`;
 					texteCorr = `$${texNombre(n)}=${b}\\times${Math.floor(n / b)}+${miseEnEvidence(n % b)}$`;
 					texteCorr += `<br>$${texNombre(Math.floor(n / b))}=${b}\\times${Math.floor(Math.floor(n / b) / b)}+${miseEnEvidence(Math.floor(n / b) % b)}$`;
 					texteCorr += `<br>$${texNombre(Math.floor(Math.floor(n / b) / b))}=${b}\\times${miseEnEvidence(valeurBase(chiffre1))}+${miseEnEvidence(valeurBase(chiffre2))}$`;
@@ -149,7 +150,7 @@ export default function Passer_de_la_base_12_ou_16_a_la_10() {
 
 
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

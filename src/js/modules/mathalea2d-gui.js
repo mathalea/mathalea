@@ -1,4 +1,4 @@
-/* globals mathalea $ */
+/* globals mathalea cmResize $ */
 /* eslint-disable camelcase */
 
 import CodeMirror from 'codemirror'
@@ -16,11 +16,12 @@ import 'codemirror/addon/edit/closebrackets.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import '../../css/style_mathalea.css'
-import globals from './globals.js'
+import initialiseEditeur from './initialiseEditeur.js'
 import { telechargeFichier } from './outils.js'
+import { context } from './context.js'
 
 // Les variables globales utiles pour l'autocomplétion
-globals()
+initialiseEditeur()
 
 // Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
@@ -63,6 +64,7 @@ window.addEventListener('load', function () {
     matchBrackets: true,
     lineWrapping: true
   })
+  cmResize(myCodeMirror) // Pour ajouter une poignet qui permet à l'utilisateur de changer la taille de l'éditeur
 
   const myCodeMirrorSvg = CodeMirror(divSortieSvg, {
     value: '',
@@ -114,16 +116,16 @@ window.addEventListener('load', function () {
       if (buttonURL) {
         buttonURL.style.visibility = 'visible'
       }
-      executeCode(
-         `mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; ${myCodeMirror.getValue()}`
-      )
-      const mesObjetsCopie = mathalea.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
-      const codeSvgcomplet = window.codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D)
+      executeCode(myCodeMirror.getValue())
+      const mesObjetsCopie = context.objets2D.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
+      const codeSvgcomplet = window.codeSvg(context.fenetreMathalea2d, context.pixelsParCm, context.mainlevee, context.objets2D)
       divSvg.innerHTML = codeSvgcomplet
+      const exercicesAffiches = new Event('exercicesAffiches', { bubbles: true })
+      document.dispatchEvent(exercicesAffiches)
       dragNReplace()
       myCodeMirrorSvg.setValue(codeSvgcomplet)
-      mathalea.objets2D = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
-      myCodeMirrorTikz.setValue(window.codeTikz(mathalea.fenetreMathalea2d, mathalea.scale, mathalea.mainlevee, mathalea.objets2D))
+      context.objets2D = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
+      myCodeMirrorTikz.setValue(window.codeTikz(context.fenetreMathalea2d, context.scale, context.mainlevee, context.objets2D))
 
       renderMathInElement(document.body, {
         delimiters: [
@@ -202,15 +204,15 @@ window.addEventListener('load', function () {
         }
 
         // We save the original values from the viewBox
-        const fenetrexmin = mathalea.fenetreMathalea2d[0]
-        const fenetreymin = mathalea.fenetreMathalea2d[1]
-        const fenetrexmax = mathalea.fenetreMathalea2d[2]
-        const fenetreymax = mathalea.fenetreMathalea2d[3]
+        const fenetrexmin = context.fenetreMathalea2d[0]
+        const fenetreymin = context.fenetreMathalea2d[1]
+        const fenetrexmax = context.fenetreMathalea2d[2]
+        const fenetreymax = context.fenetreMathalea2d[3]
         const viewBox = {
-          x: fenetrexmin * mathalea.pixelsParCm,
-          y: fenetreymin * mathalea.pixelsParCm,
-          width: (fenetrexmax - fenetrexmin) * mathalea.pixelsParCm,
-          height: (fenetreymax - fenetreymin) * mathalea.pixelsParCm
+          x: fenetrexmin * context.pixelsParCm,
+          y: fenetreymin * context.pixelsParCm,
+          width: (fenetrexmax - fenetrexmin) * context.pixelsParCm,
+          height: (fenetreymax - fenetreymin) * context.pixelsParCm
         }
 
         // The distances calculated from the pointer will be stored here
@@ -248,14 +250,14 @@ window.addEventListener('load', function () {
           // We apply the new viewBox values onto the SVG
           svg.setAttribute('viewBox', viewBoxString)
           myCodeMirrorSvg.setValue(divSvg.innerHTML)
-          const xmin = window.calcul(newViewBox.x / mathalea.pixelsParCm, 1)
-          const xmax = window.calcul(xmin + viewBox.width / mathalea.pixelsParCm, 1)
-          const ymax = window.calcul(newViewBox.y / mathalea.pixelsParCm * (-1), 1)
-          const ymin = window.calcul(ymax - viewBox.height / mathalea.pixelsParCm, 1)
-          if (myCodeMirror.getValue().indexOf('mathalea.fenetreMathalea2d') > -1) {
-            myCodeMirror.setValue(myCodeMirror.getValue().replace(/mathalea.fenetreMathalea2d.*/, `mathalea.fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
+          const xmin = window.calcul(newViewBox.x / context.pixelsParCm, 1)
+          const xmax = window.calcul(xmin + viewBox.width / context.pixelsParCm, 1)
+          const ymax = window.calcul(newViewBox.y / context.pixelsParCm * (-1), 1)
+          const ymin = window.calcul(ymax - viewBox.height / context.pixelsParCm, 1)
+          if (myCodeMirror.getValue().indexOf('fenetreMathalea2d') > -1) {
+            myCodeMirror.setValue(myCodeMirror.getValue().replace(/fenetreMathalea2d.*/, `fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
           } else {
-            myCodeMirror.setValue(`mathalea.fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]\n` + myCodeMirror.getValue())
+            myCodeMirror.setValue(`fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]\n` + myCodeMirror.getValue())
           }
           myCodeMirrorTikz.setValue(myCodeMirrorTikz.getValue().replace(/\\clip.*/, `\\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});`))
 
@@ -278,6 +280,11 @@ window.addEventListener('load', function () {
 })
 
 function executeCode (txt) {
-  // eslint-disable-next-line no-eval
-  return eval(txt)
+  // Les variables globales utiles pour l'autocomplétion
+  // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
+  const interpreter = initialiseEditeur()
+  let code = txt
+  code += '\n exports.fenetreMathalea2d = fenetreMathalea2d'
+  interpreter.run(code)
+  context.fenetreMathalea2d = interpreter.exports.fenetreMathalea2d
 }

@@ -1,5 +1,6 @@
 
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu, modalTexteCourt} from '../../modules/outils.js'
 import {randint, choice, combinaisonListes} from '../../modules/outils.js'
 
@@ -8,7 +9,7 @@ export const titre = 'Mon test'
 
 /**
  * Exercice de test
- * @Auteur 
+ * @author 
  * Référence 6test2
 */
 export default function MaFonctionQuiCreeExercice() {
@@ -56,7 +57,7 @@ export default function MaFonctionQuiCreeExercice() {
         texte = `$ ${a} + 9 $`
         texteCorr = `$ ${a} + 9 = ${a + 9} $`;
   
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on en crée une autre
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

@@ -1,5 +1,5 @@
-import Exercice from '../ClasseExercice.js'
-// eslint-disable-next-line camelcase
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebriqueSauf1, ecritureAlgebrique, rienSi1, texFraction, texFractionReduite, randint, pgcd, choice } from '../../modules/outils.js'
 export const titre = 'Équations du second degré se ramenant au premier degré'
 
@@ -9,7 +9,7 @@ export const titre = 'Équations du second degré se ramenant au premier degré'
  *
  * Résoudre une équation du type ax2 + bx = 0
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3L15
 */
 export default function ExerciceEquations () {
@@ -46,18 +46,18 @@ export default function ExerciceEquations () {
     for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'ax2+bx':
-          a = randint(-9, 9)
-          b = randint(-9, 9)
+          a = randint(-9, 9, 0)
+          b = randint(-9, 9, 0)
           texte = ax2plusbx(a, b)[0]
           texteCorr = ax2plusbx(a, b)[1]
           break
         case 'ax2+bxAvec1':
           if (randint(1, 2) === 1) {
             a = choice([-1, 1])
-            b = randint(-9, 9, [-1, 1])
+            b = randint(-9, 9, [-1, 0, 1])
           } else {
             b = choice([-1, 1])
-            a = randint(-9, 9, [-1, 1])
+            a = randint(-9, 9, [-1, 0, 1])
           }
           texte = ax2plusbx(a, b)[0]
           texteCorr = ax2plusbx(a, b)[1]
@@ -109,27 +109,27 @@ export default function ExerciceEquations () {
             texte = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
             texteCorr = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
             texteCorr += '<br>'
-            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d)}x $`
+            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d * b)}x $`
             texteCorr += '<br>'
-            texteCorr += `$ ${a} = ${rienSi1(d)}x $`
+            texteCorr += `$ ${a} = ${rienSi1(d * b)}x $`
             texteCorr += '<br>'
-            texteCorr += `$ ${texFraction(a, d)} = x $`
-            if ((a < 0 && d < 0) || pgcd(a, d) !== 1) {
+            texteCorr += `$ ${texFraction(a, d * b)} = x $`
+            if ((a < 0 && d * b < 0) || pgcd(a, d * b) !== 1) {
               texteCorr += '<br>'
-              texteCorr += ` $ x = ${texFractionReduite(a, d)} $`
+              texteCorr += ` $ x = ${texFractionReduite(a, d * b)} $`
             }
           } else {
             texte = `$ ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
             texteCorr = `$  ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
             texteCorr += '<br>'
-            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
+            texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(b * d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
             texteCorr += '<br>'
-            texteCorr += `$ ${rienSi1(d)}x = ${a} $`
+            texteCorr += `$ ${rienSi1(b * d)}x = ${a} $`
             texteCorr += '<br>'
-            texteCorr += `$ x = ${texFraction(a, d)}$`
-            if ((a < 0 && d < 0) || pgcd(a, d) !== 1) {
+            texteCorr += `$ x = ${texFraction(a, b * d)}$`
+            if ((a < 0 && b * d < 0) || pgcd(a, b * d) !== 1) {
               texteCorr += '<br>'
-              texteCorr += ` $ x = ${texFractionReduite(a, d)} $`
+              texteCorr += ` $ x = ${texFractionReduite(a, b * d)} $`
             }
           }
 

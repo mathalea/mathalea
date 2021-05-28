@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texte_en_couleur_et_gras,tableauColonneLigne,warnMessage} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,calcul,texNombre,texteEnCouleurEtGras,tableauColonneLigne,warnMessage} from '../../modules/outils.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
@@ -23,12 +24,12 @@ export default function Eq_resolvantes_Thales() {
 
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+	context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
 	this.listePackages = `bclogo`;
 
-	let type_de_questions_disponibles;
+	let typesDeQuestionsDisponibles;
 
 	this.nouvelleVersion = function () {
 		// une fonction pour dire que c'est trivial dans ce cas
@@ -51,17 +52,17 @@ export default function Eq_resolvantes_Thales() {
 		};
 
 		if (this.debug) {
-			type_de_questions_disponibles = [0, 1, 2, 3];
+			typesDeQuestionsDisponibles = [0, 1, 2, 3];
 		} else {
-			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
+			typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
 
 		this.listeQuestions = []; // Liste de questions
 		this.listeCorrections = []; // Liste de questions corrigées
 
 
-		//let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -180,11 +181,11 @@ export default function Eq_resolvantes_Thales() {
 					question: ``,
 					correction: `${corrPlusPremiereLigne}
 						$${situations[k].eq}$<br>
-						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
+						${texteEnCouleurEtGras(`Les produits en croix sont égaux.`)}<br>
 						$${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
-						${texte_en_couleur_et_gras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
+						${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
+						${texteEnCouleurEtGras(`On simplifie et on calcule.`)}<br>
 						$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
 						${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
 					`
@@ -236,7 +237,7 @@ export default function Eq_resolvantes_Thales() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

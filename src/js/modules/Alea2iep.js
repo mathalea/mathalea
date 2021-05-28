@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 import { vecteur, polygoneAvecNom, translation, symetrieAxiale, appartientDroite, point, pointAdistance, droite, droiteParPointEtPerpendiculaire, segment, triangle2points2longueurs, cercle, pointIntersectionLC, homothetie, longueur, milieu, pointSurSegment, rotation, pointIntersectionDD, translation2Points, droiteParPointEtParallele, projectionOrtho, centreCercleCirconscrit, angleOriente, norme } from './2d.js'
-import { calcul, randint, nombre_avec_espace as nombreAvecEspace, arrondi, texNombre } from './outils.js'
+import { calcul, randint, nombreAvecEspace, arrondi, texNombre } from './outils.js'
 import iepLoadPromise from 'instrumenpoche'
+import { context } from './context.js'
 
 /*
  * Classe parente de tous les objets Alea2iep
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export default function Alea2iep () {
   this.idIEP = 0 // Identifiant pour les tracés
@@ -134,7 +135,7 @@ export default function Alea2iep () {
    * @param {int} i - Numéro de la question
    */
   this.html = function (id1, id2) {
-    if (window.sortieHtml) {
+    if (context.isHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
       const codeHTML = `<div id="IEPContainer${id}" ></div>`
@@ -150,7 +151,7 @@ export default function Alea2iep () {
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
   this.htmlBouton = function (id1, id2 = '') {
-    if (window.sortieHtml) {
+    if (context.isHtml) {
       const id = `IEP_${id1}_${id2}`
       window.listeScriptsIep[id] = this.script() // On ajoute le script
       const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
@@ -2281,7 +2282,7 @@ export default function Alea2iep () {
    * @param {number} angle l'angle de la rotation
    * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
    * @param {objet} param4 options couleur et couleurCodage
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.rotationPoint = function (p, centre, angle, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = true } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
@@ -2315,7 +2316,7 @@ export default function Alea2iep () {
    * @param {objet} d axe de symétrie.
    * @param {string} nom nom de l'image
    * @param {objet} options couleur et couleurCodage
-   * @auteur Liouba Leroux et Jean-Claude Lhote
+   * @author Liouba Leroux et Jean-Claude Lhote
    */
   this.symetrieAxialePoint = function (p, d, nom, { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = '//' } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
@@ -2350,7 +2351,7 @@ export default function Alea2iep () {
    * @param {objet} le point d'arrivée de la translation
    * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
    * @param {objet} param4 options couleur et couleurCodage
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.translationPoint = function (p, A, B, nom, { couleur = 'black', couleurCodage = this.couleurCodage } = {}) {
     const v = vecteur(A, B)
@@ -2391,7 +2392,7 @@ export default function Alea2iep () {
    * @param {objet} centre le centre de symétrie
    * @param {string} nom le nom de l'image (si pas précisé ce sera le nom de l'antécédent avec un ')
    * @param {objet} param3 options couleur, couleurCodage et codage
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.demiTourPoint = function (p, centre, nom, { couleur = 'black', couleurCodage = this.couleurCodage, codage = '//' } = {}) {
     this.epaisseur = 0.5 // épaisseur et couleur de crayon de papier bien taillé pour la construction
@@ -2456,7 +2457,7 @@ export default function Alea2iep () {
    * @param {objet} p le polygone qui est déjà tracé
    * @param {objet} centre le centre de la rotation
    * @param {number} angle l'angle de rotation
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * @param {objet} param4 options couleur et couleurCodage
   */
   this.rotationPolygone = function (p, centre, angle, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
@@ -2492,7 +2493,7 @@ export default function Alea2iep () {
    * @param {objet} d axe de symétrie.
    * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
    * @param {objet} param3 options couleur et couleurCodage
-   * @auteur Liouba Leroux et Jean-Claude Lhote
+   * @author Liouba Leroux et Jean-Claude Lhote
    */
   this.symetrieAxialePolygone = function (p, d, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
     let nom
@@ -2526,7 +2527,7 @@ export default function Alea2iep () {
    * @param {objet} B point d'arrivée de la translation
    * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
  * @param {objet} param3 options couleur et couleurCodage
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
 */
   this.translationPolygone = function (p, A, B, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage, codage = 'O' } = {}) {
     let nom
@@ -2555,7 +2556,7 @@ export default function Alea2iep () {
    * @param {objet} centre le centre de symétrie
    * @param {array} noms les noms des sommets images (si pas précisé ce sera le nom de l'antécédent avec un ')
    * @param {objet} param3 options couleur et couleurCodage
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    */
   this.demiTourPolygone = function (p, centre, noms = [], { couleur = this.couleur, couleurCodage = this.couleurCodage } = {}) {
     const p2 = rotation(p, centre, 180) // Pour tracer la figure image à la fin de l'animation avec polygoneRapide

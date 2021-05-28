@@ -1,5 +1,6 @@
 /* global mathalea */
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { mathalea2d, tracePoint, labelPoint } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
@@ -49,9 +50,9 @@ export default function ReperageSurLaSphere () {
     Axe.p2d.epaisseur = 2
     Axe.p2d.color = 'blue'
     const normalV = vecteur3d(0, 0, 1)
-    M = rotationV3d(M, normalV, mathalea.anglePerspective)
+    M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
-    const origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), mathalea.anglePerspective)
+    const origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
     const normalH = rotationV3d(vecteur3d(O, origine), normalV, 90)
     const Sph = sphere3d(O, 10, 8, 9)
     const equateur1 = demicercle3d(O, normalV, R, 'visible', 'red', 0)
@@ -124,11 +125,11 @@ export default function ReperageSurLaSphere () {
     }
 
     // paramètres pour la perspective
-    mathalea.anglePerspective = 30
-    mathalea.coeffPerspective = 0.5
+    context.anglePerspective = 30
+    context.coeffPerspective = 0.5
     paramsEnonce = { xmin: -13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 0.3, mainlevee: false }
 
-    // texteCorr += mathalea2d(params_correction, objets_correction)
+    // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
     texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)

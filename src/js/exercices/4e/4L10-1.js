@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureAlgebrique,ecritureParentheseSiNegatif,ecritureParentheseSiMoins,lettreDepuisChiffre} from '../../modules/outils.js'
 export const titre = 'Réduire, si possible, une expression littérale simple'
 
@@ -20,7 +21,7 @@ export const titre = 'Réduire, si possible, une expression littérale simple'
  * * ax^2-ax
  * 
  * 
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4L10-1
  */
 export default function Reductions_pieges_classiques() {
@@ -35,7 +36,7 @@ export default function Reductions_pieges_classiques() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [
+    let typesDeQuestionsDisponibles = [
       'ax+b',
       'a+bx',
       'ax-a',
@@ -50,16 +51,16 @@ export default function Reductions_pieges_classiques() {
       'ax^2-a',
       'ax^2-ax^2'
     ];
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions),type_de_questions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions),typesDeQuestions; // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
       a = randint(2, 11)
       b = randint(2, 11)
       if (this.sup) {
         a *= choice([-1, 1])
         b *= choice([-1, 1])
       }
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case "ax+b":
           texte = `$${lettreDepuisChiffre(i + 1)}=${a}x${ecritureAlgebrique(b)}$`
           texteCorr = texte
@@ -116,7 +117,7 @@ export default function Reductions_pieges_classiques() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

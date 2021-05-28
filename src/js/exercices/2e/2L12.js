@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texte_en_couleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
-import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/Fractions.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,reduireAxPlusB,texteEnCouleur,choice, ecritureAlgebrique,ecritureParentheseSiNegatif} from '../../modules/outils.js'
+import {fraction,obtenirListeFractionsIrreductiblesFaciles} from '../../modules/fractions.js'
 export const titre = 'Résoudre les équations produit-nul'
 
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
-* @auteur Stéphane Guyon & Jean-claude Lhote
+* @author Stéphane Guyon & Jean-claude Lhote
 * 2L12
 * publié le 6/02/2021
 */
@@ -28,30 +29,30 @@ export default function Equations_produits_nuls2() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []; // Liste de questions
         this.listeCorrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+             let typesDeQuestionsDisponibles = [];
         if (this.sup <4) {
-            type_de_questions_disponibles = [parseInt(this.sup)];
+            typesDeQuestionsDisponibles = [parseInt(this.sup)];
       }
       else {
-        type_de_questions_disponibles = [1,2,3];
+        typesDeQuestionsDisponibles = [1,2,3];
       }
-     
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions);
-        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,type_de_questions; i < this.nbQuestions && cpt < 50;) {
-            type_de_questions = listeTypeDeQuestions[i];
+
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions);
+        for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+            typesDeQuestions = listeTypeDeQuestions[i];
 			a = randint(-9, 9,0);
             b = randint(-9, 9,0);
             c = randint(-9, 9,[0,a]);
             d = randint(1, 9,[0,b]);
             e = randint(-9, 9,[0,a,c]);
             f = randint(1, 9,[0,b,d]);
-            
-                 
-            switch (type_de_questions) {
+
+
+            switch (typesDeQuestions) {
                 case 1:
-                    texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`; 
+                    texte = `$(${reduireAxPlusB(a,b)})(${reduireAxPlusB(c,d)})=0$`;
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                    ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
                     texteCorr +=texte+'<br>' //optimisation du code
                     texteCorr+=`$\\iff ${reduireAxPlusB(a,b)}=0$ ou $${reduireAxPlusB(c,d)}=0$<br>`
                     if (this.correctionDetaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
@@ -67,7 +68,7 @@ export default function Equations_produits_nuls2() {
                         texteCorr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
                     }
                     else texteCorr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
-                   
+
                     break;
                 case 2:
                     fractions=obtenirListeFractionsIrreductiblesFaciles()
@@ -79,7 +80,7 @@ export default function Equations_produits_nuls2() {
                     f4=f2.inverse().multiplieEntier(-d)
                     texte =`$(${f1.texFraction}x${ecritureAlgebrique(b)})(${f2.texFraction}x${ecritureAlgebrique(d)})=0$`
                     texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
+                    ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
                     $(${f1.texFraction}x${ecritureAlgebrique(b)})(${f2.texFraction}x${ecritureAlgebrique(d)})=0$<br>`
                     texteCorr+=`$\\iff ${f1.texFraction}x${ecritureAlgebrique(b)}=0$ ou $${f2.texFraction}x${ecritureAlgebrique(d)}=0$<br>`
                     if (this.correctionDetaillee){
@@ -107,7 +108,7 @@ export default function Equations_produits_nuls2() {
                         f4=f2.entierDivise(-b)
                         texte =`$(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$`
                         texteCorr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                        ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
+                        ${texteEnCouleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
                         $(${reduireAxPlusB(a,0)}${f1.texFractionSignee})(${reduireAxPlusB(b,0)}${f2.texFractionSignee})=0$<br>`
                         texteCorr+=`$\\iff ${reduireAxPlusB(a,0)}${f1.texFractionSignee}=0$ ou $${reduireAxPlusB(b,0)}${f2.texFractionSignee}=0$<br>`
                         if (this.correctionDetaillee){
@@ -126,7 +127,7 @@ export default function Equations_produits_nuls2() {
                         else  texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
                         break
             }
-            if (this.listeQuestions.indexOf(texte) == -1) {
+            if (this.listeQuestions.indexOf(texte) === -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
                 this.listeQuestions.push(texte);
                 this.listeCorrections.push(texteCorr);

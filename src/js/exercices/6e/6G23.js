@@ -1,12 +1,13 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,lettreDepuisChiffre,texNombre} from '../../modules/outils.js'
-import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sensDeRotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 
 /**
  * Construire un angle
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6G23
  */
 export default function Construire_un_angle() {
@@ -25,7 +26,7 @@ export default function Construire_un_angle() {
     this.listeCorrections = []; // Liste de questions corrigées
 
       let angle,anglerot,Apos,Bpos,Cpos,fleche,signe=[],p,texte,texteCorr,A,B,s,C,s2
-      let labels,labels2,secteur,cible,xMin,xMax,yMin,yMax,objets_enonce,objets_correction
+      let labels,labels2,secteur,cible,xMin,xMax,yMin,yMax,objetsEnonce,objetsCorrection
       for (let i=0;i<this.nbQuestions;i++){
         signe.push((-1)**i)
       }
@@ -60,7 +61,7 @@ export default function Construire_un_angle() {
       s.epaisseur=2
       C = rotation(B,A,angle);
       Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.9),-signe[i]*90,0.1),'milieu')
-      fleche=sens_de_rotation(B,A,signe[i])
+      fleche=sensDeRotation(B,A,signe[i])
       s2 = demiDroiteAvecExtremite(A, C);
       labels=labelPoint(A,B)
       labels2=labelPoint(A,B,C)
@@ -71,13 +72,13 @@ export default function Construire_un_angle() {
       xMax=Math.max(B.x,C.x)+0.5
       yMin=Math.min(A.y-4,C.y)-0.5
       yMax=Math.max(A.y+4,C.y)+0.5
-        mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
-      objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
-      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
-      if ((!sortieHtml)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
-      if ((!sortieHtml)&&((i+1)%4==0)) texte+="\\newpage "
-      texteCorr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
+        context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+      objetsEnonce=[s,labels,cible,Apos,Bpos,fleche]
+      objetsCorrection=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
+      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
+      if ((!context.isHtml)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
+      if ((!context.isHtml)&&((i+1)%4==0)) texte+="\\newpage "
+      texteCorr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
   }

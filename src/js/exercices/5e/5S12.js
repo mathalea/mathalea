@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tableauColonneLigne, choice, randint } from '../../modules/outils.js'
 import {traceGraphiqueCartesien,segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre,cercleCentrePoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter des données par un diagramme'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 
  */
 export default function Construire_Un_Diagramme() {
@@ -26,23 +27,23 @@ export default function Construire_Un_Diagramme() {
     this.nouvelleVersion = function () {
         this.listeQuestions = []
         this.listeCorrections = []
-        let type_de_questions_disponibles
+        let typesDeQuestionsDisponibles
         if (this.sup3 < 5) {
-            type_de_questions_disponibles = [parseInt(this.sup3)]
+            typesDeQuestionsDisponibles = [parseInt(this.sup3)]
         }
         else {
-            type_de_questions_disponibles = [randint(1, 4)]
+            typesDeQuestionsDisponibles = [randint(1, 4)]
         }
         let liste_hachures_disponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
         let liste_motifs = combinaisonListes(liste_hachures_disponibles, 4)
-        let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+        let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
         let N = 0, nom, texte, texteCorr;
         let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
         let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
         let lstNombresAnimaux = []; // liste des effectifs de chaque animal
         let lstVal = [10, 20]; // liste des valeurs à éviter pour les effectifs
 
-        let objets_enonce, objets_correction, params_enonce, params_correction,coef,r,lstElementGraph,g
+        let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection,coef,r,lstElementGraph,g
         let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
         let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
             'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
@@ -83,8 +84,8 @@ export default function Construire_Un_Diagramme() {
             entete.push(`\\text{${nom}}`)
         }
         texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
-        objets_enonce = []
-        objets_correction = []
+        objetsEnonce = []
+        objetsCorrection = []
 
         switch (listeTypeDeQuestions[0]) {
             case 1:
@@ -110,14 +111,14 @@ export default function Construire_Un_Diagramme() {
                 B = point(6, 0)
                 T = point(7, 0)
                 a0 = cercleCentrePoint(A, B,'black')
-                objets_enonce.push(a0)
-                objets_correction.push(a0)
+                objetsEnonce.push(a0)
+                objetsCorrection.push(a0)
                 alpha = 0;
 
                 t = tracePoint(A)
                 t.style = '+'
-                objets_enonce.push(t)
-                objets_correction.push(t)
+                objetsEnonce.push(t)
+                objetsCorrection.push(t)
 
                 for (let i = 0; i < nbAnimaux; i++) {
                     angle = 360 * lstNombresAnimaux[i] / effectiftotal
@@ -126,7 +127,7 @@ export default function Construire_Un_Diagramme() {
                     a.hachures = hachures
                     a.couleurDeRemplissage=texcolors(i + 1)
                     a.couleurDesHachures=a.couleurDeRemplissage
-                    objets_correction.push(a)
+                    objetsCorrection.push(a)
                     alpha += angle
                     legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
                     legende.couleurDeRemplissage = a.couleurDeRemplissage
@@ -134,9 +135,9 @@ export default function Construire_Un_Diagramme() {
                     legende.hachures = hachures
                     legende.opaciteDeRemplissage = 0.7
                     textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
-                    objets_correction.push(legende, textelegende)
-                    params_enonce = { xmin: -6.5, ymin: -6.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
-                    params_correction = { xmin: -6.5, ymin: -6.5, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    objetsCorrection.push(legende, textelegende)
+                    paramsEnonce = { xmin: -6.5, ymin: -6.5, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    paramsCorrection = { xmin: -6.5, ymin: -6.5, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 }
                 break
@@ -163,14 +164,14 @@ export default function Construire_Un_Diagramme() {
                 B = point(6, 0)
                 T = point(7, 0)
                 a0 = arc(B, A, 180, true, 'white', 'black')
-                objets_enonce.push(a0)
-                objets_correction.push(a0)
+                objetsEnonce.push(a0)
+                objetsCorrection.push(a0)
                 alpha = 0;
                 angle, a, legende, textelegende, hachures
                 t = tracePoint(A)
                 t.style = '+'
-                objets_enonce.push(t)
-                objets_correction.push(t)
+                objetsEnonce.push(t)
+                objetsCorrection.push(t)
 
                 for (let i = 0; i < nbAnimaux; i++) {
                     angle = 180 * lstNombresAnimaux[i] / effectiftotal
@@ -179,7 +180,7 @@ export default function Construire_Un_Diagramme() {
                     a.hachures = hachures
                     a.couleurDeRemplissage=texcolors(i + 1)
                     a.couleurDesHachures=a.couleurDeRemplissage
-                    objets_correction.push(a)
+                    objetsCorrection.push(a)
                     alpha += angle
                     legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
                     legende.couleurDeRemplissage = a.couleurDeRemplissage
@@ -187,9 +188,9 @@ export default function Construire_Un_Diagramme() {
                     legende.hachures = hachures
                     legende.opaciteDeRemplissage = 0.7
                     textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + .5, 0, 'black', 1.5, 'gauche', false)
-                    objets_correction.push(legende, textelegende)
-                    params_enonce = { xmin: -6.5, ymin: -0.2, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
-                    params_correction = { xmin: -6.5, ymin: -0.2, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    objetsCorrection.push(legende, textelegende)
+                    paramsEnonce = { xmin: -6.5, ymin: -0.2, xmax: 6.5, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
+                    paramsCorrection = { xmin: -6.5, ymin: -0.2, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 }
                 break
@@ -221,11 +222,11 @@ export default function Construire_Un_Diagramme() {
 
                  lstElementGraph = []
                 for (let i = 0; i < nbAnimaux; i++) {
-                    objets_correction.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
+                    objetsCorrection.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: .1 / coef,couleurDeRemplissage:texcolors(i+1),hachures:"north east lines" }))
                 }
-                objets_correction.push(r)
-                params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
+                objetsCorrection.push(r)
+                paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
+                paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 break
 
@@ -258,8 +259,8 @@ export default function Construire_Un_Diagramme() {
                 lstElementGraph = []
                 for (let i = 0; i < nbAnimaux; i++) {
                 lstElementGraph.push([(i+1)*2,lstNombresAnimaux[i]])  
-                objets_correction.push(texteParPosition(lstAnimauxExo[i],(i+1)*2,-0.2,66,'black',1,'gauche')) 
-                objets_correction.push(segment((i+1)*2,-0.1,(i+1)*2,0.1))
+                objetsCorrection.push(texteParPosition(lstAnimauxExo[i],(i+1)*2,-0.2,66,'black',1,'gauche')) 
+                objetsCorrection.push(segment((i+1)*2,-0.1,(i+1)*2,0.1))
                 }
                 g=traceGraphiqueCartesien(lstElementGraph,r,{couleurDesPoints : 'red',
                 couleurDuTrait : 'lightgray',
@@ -268,15 +269,15 @@ export default function Construire_Un_Diagramme() {
                 styleDesPoints : 'o', //croix par défaut
                 tailleDesPoints : 3})
            
-                objets_correction.push(r,g)
+                objetsCorrection.push(r,g)
 
-                params_enonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-                params_correction = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7 , pixelsParCm: 20, scale: 1, mainlevee: false }
+                paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
+                paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7 , pixelsParCm: 20, scale: 1, mainlevee: false }
 
                 break
         }
-        texte += mathalea2d(params_enonce, objets_enonce)
-        texteCorr += mathalea2d(params_correction, objets_correction)
+        texte += mathalea2d(paramsEnonce, objetsEnonce)
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         listeQuestionsToContenuSansNumero(this); // On envoie l'exercice à la fonction de mise en page

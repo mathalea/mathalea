@@ -2,7 +2,7 @@ import Exercice_conversions from './_Exercice_conversions.js'
 export const titre = 'Conversions avec tous les préfixes de milli à tera.'
 
 /**
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * référence 6N34
  */
 

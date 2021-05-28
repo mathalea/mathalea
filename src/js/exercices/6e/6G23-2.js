@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -7,7 +8,7 @@ export const titre = 'Tracer un triangle dont on connait une longueur et 2 angle
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6G23-2
  */
 export default function TracerTriangle2Angles () {
@@ -70,7 +71,7 @@ export default function TracerTriangle2Angles () {
       const C = pointIntersectionDD(d1, d2, p[2])
       // const l = labelPoint(A0, B0, A1, B1, A2, B2, C)
 
-      // if (sortieHtml) {
+      // if (context.isHtml) {
       //   texteCorr = mathalea2d(
       //     { xmin: -1, xmax: 3 * c + 10, ymin: -1, ymax: 10 }, s0, s1, s2, s3, s4, s5, t1, t2, t3, l)
       //   texteCorr += '<br><br>'

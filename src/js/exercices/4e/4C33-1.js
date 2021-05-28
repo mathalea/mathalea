@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texte_gras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenuSansNumero,randint,choice,combinaisonListes,lettreDepuisChiffre,texteGras,simpNotPuissance,eclatePuissance,reorganiseProduitPuissance,modalPdf} from '../../modules/outils.js'
 export const titre = 'Puissances : Le sens des règles de calculs'
 
 /**
@@ -12,7 +13,7 @@ export const titre = 'Puissances : Le sens des règles de calculs'
  * * 3 : puissance de puissance
  * * 4 : produit de puissances de même exposant
  * * 5 : mélange des trois autres niveaux
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  * 4C33-1
  */
 export default function Puissances_d_un_relatif_1() {
@@ -20,11 +21,11 @@ export default function Puissances_d_un_relatif_1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1;
   this.titre = titre;
-  sortieHtml
+  context.isHtml
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
     : (this.consigne = "Écrire sous la forme $a^n$.");
-  sortieHtml ? (this.spacing = 3) : (this.spacing = 2);
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+  context.isHtml ? (this.spacing = 3) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
   this.nbQuestions = 5;
   this.correctionDetailleeDisponible = true;
   this.nbColsCorr = 1;
@@ -33,7 +34,7 @@ export default function Puissances_d_un_relatif_1() {
   this.listePackages = 'bclogo';
 
   this.nouvelleVersion = function (numeroExercice) {
-    let type_de_questions;
+    let typesDeQuestions;
     this.boutonAide = modalPdf(
       numeroExercice,
       "assets/pdf/FichePuissances-4N21.pdf",
@@ -44,21 +45,21 @@ export default function Puissances_d_un_relatif_1() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = [];
+    let typesDeQuestionsDisponibles = [];
     if (this.sup == 1) {
-      type_de_questions_disponibles = [1]; // produit de puissances de même base
+      typesDeQuestionsDisponibles = [1]; // produit de puissances de même base
     } else if (this.sup == 2) {
-      type_de_questions_disponibles = [2]; // quotient de puissances de même base
+      typesDeQuestionsDisponibles = [2]; // quotient de puissances de même base
     } else if (this.sup == 3) {
-      type_de_questions_disponibles = [3]; // puissance de puissance
+      typesDeQuestionsDisponibles = [3]; // puissance de puissance
     } else if (this.sup == 4) {
-      type_de_questions_disponibles = [4]; // produit de puissances de même exposant
+      typesDeQuestionsDisponibles = [4]; // produit de puissances de même exposant
     } else if (this.sup == 5) {
-      type_de_questions_disponibles = [1, 2, 3, 4]; // mélange
+      typesDeQuestionsDisponibles = [1, 2, 3, 4]; // mélange
     }
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
 
@@ -89,17 +90,17 @@ export default function Puissances_d_un_relatif_1() {
         let sortie = '';
         if (base < 0 && exposant % 2 == 0) {
           sortie += `<br>`;
-          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
+          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
         };
         if (base < 0 && exposant % 2 == 1) {
           sortie += `$<br>`;
-          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
+          sortie += `${texteGras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
         };
 
         return sortie;
       };
 
-      type_de_questions = listeTypeDeQuestions[i];
+      typesDeQuestions = listeTypeDeQuestions[i];
 
       base = randint(2, 9) * choice([-1, 1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
       exp0 = randint(1, 9);
@@ -116,7 +117,7 @@ export default function Puissances_d_un_relatif_1() {
 
       texteCorr = ``;
 
-      switch (type_de_questions) {
+      switch (typesDeQuestions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 
@@ -300,7 +301,7 @@ export default function Puissances_d_un_relatif_1() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

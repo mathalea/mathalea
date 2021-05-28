@@ -17,7 +17,7 @@
   <!-- JQuery-->
   <script src="/assets/externalJs/jquery-3.6.0.min.js"></script>
   <script src="/assets/externalJs/jquery-ui-1.12.1.min.js"></script>
-  
+
 
   <!-- Semantic UI-->
   <link rel="stylesheet" type="text/css" href="/assets/externalJs/semantic-ui/semantic.min.css">
@@ -26,22 +26,64 @@
 
 
   <title>MathALÉA</title>
+
+  <style>
+    #embedMathalea ol {
+      padding: 0;
+    }
+
+
+    #embedMathalea #exercices ol li {
+      margin: 0 !important;
+    }
+
+    #embedMathalea #affichage_exercices {
+      font-size: 1.5em;
+    }
+
+    #embedMathalea li {
+      line-height: 3;
+    }
+
+    #embedMathalea h4 {
+      font-size: 1em;
+    }
+
+    #embedMathalea .ui.dividing.header,
+    #embedMathalea .ui.block.header {
+      color: white !important;
+      background-color: #f15929;
+      border-radius: 5px;
+      padding: 5px 10px;
+    }
+
+    /* BONUS - lien "Corrections" sous forme de bouton (plus visible) */
+    #embedMathalea .ui.accordion .accordion .title,
+    #embedMathalea .ui.accordion .title {
+      display: inline-block;
+      cursor: pointer;
+      padding: 6px !important;
+      border-radius: 5px;
+      border: solid 2px black;
+    }
+  </style>
+
 </head>
 
 <body>
 
-  
-
- 
-
-<script type="text/javascript">
-     $(document).ready(function(){
-          $('.ui.dropdown') .dropdown();
-    });     
-   </script>
 
 
-<div style="position: fixed;
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.ui.dropdown').dropdown();
+    });
+  </script>
+
+
+  <div style="position: fixed;
   top: 10px;
   right: 110px;
   width: 50px;
@@ -50,7 +92,7 @@
   display: none;
   cursor:move;" id="horloge"></div>
 
-<div style="position: fixed;
+  <div style="position: fixed;
   top: 100px;
   right: 110px;
   width: 50px;
@@ -61,69 +103,76 @@
 
 
 
-
-<section class="ui container " >
-  <div  style="display: none;">
-    <h3 class="ui block header">Choix des exercices</h3>
-    <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
-     <i class="edit icon"></i>
-     <input id='choix_des_exercices'  type='text' >
-   </div>
- </div>
-
- 
-
-
-<div > 
-       <button class="btn ui labeled icon mini button" id="btn_mise_a_jour_code" style="margin:10px"><i class="redo icon"></i>Nouvelles données</button> 
-       <div class="ui mini buttons" style="margin:10px">
-        <button class="btn ui  right labeled icon mini button" id="btn_zoom_plus">Zoom<i class="plus icon"></i> </button>
-        <button class="btn ui  icon mini button" id="btn_zoom_moins"><i class="minus icon"></i> </button>  
+  <div id="containerErreur"></div>
+  <section class="ui container ">
+    <div style="display: none;">
+      <h3 class="ui block header">Choix des exercices</h3>
+      <div class="ui fluid left icon input" data-tooltip='Nombres séparés par des virgules' data-inverted="">
+        <i class="edit icon"></i>
+        <input id='choix_des_exercices' type='text'>
       </div>
-      <button style="display: none;" id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
-      <button style="display: none;" id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
-</div>
-
-<div class="ui hidden divider"></div>
-
-<div id="affichage_exercices">
-  <div id="exercices">  </div> 
-
-
-  <div class="ui fluid accordion">
-    <div class="title">
-      <i class="dropdown icon"></i>
-      Corrections
     </div>
-    <div class="content">
-      <div id="corrections"></div> 
+
+
+
+
+    <div>
+      <button class="btn ui labeled icon mini button" id="btn_mise_a_jour_code" style="margin:10px"><i
+          class="redo icon"></i>Nouvelles données</button>
+      <div class="ui mini buttons" style="margin:10px">
+        <button class="btn ui  right labeled icon mini button" id="btn_zoom_plus">Zoom<i class="plus icon"></i>
+        </button>
+        <button class="btn ui  icon mini button" id="btn_zoom_moins"><i class="minus icon"></i> </button>
+      </div>
+      <button style="display: none;" id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url"
+        data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les
+        exercices sélectionnés</button>
+      <button style="display: none;" id="btnLaTeX" style="margin:10px" class="btn ui button labeled icon"><i
+          class="edit icon"></i>Version LaTeX</button>
     </div>
-  </div>
-  <div class="ui  fluid accordion" style="display: none;">
-    <div class="title">
-      <i class="dropdown icon"></i>
-      Paramètres
+
+    <div class="ui hidden divider"></div>
+
+    <div id="embedMathalea">
+      <div id="affichage_exercices">
+        <div id="exercices"> </div>
+
+
+        <div class="ui fluid accordion">
+          <div class="title" id="btnCorrection">
+            <i class="dropdown icon"></i>
+            Corrections
+          </div>
+          <div class="content">
+            <div id="corrections"></div>
+          </div>
+        </div>
+        <div class="ui  fluid accordion" style="display: none;">
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Paramètres
+          </div>
+          <div class="content" id='parametres_generaux'>
+          </div>
+        </div>
+        <div class="ui right aligned container">
+
+          <a href="https://coopmaths.fr/mathalea" target="_blank"><img class="ui middle aligned image" height="25"
+              src="assets/images/logo2.png"></a>
+          <span class="ui header"></span>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
+      </div>
     </div>
-    <div class="content" id='parametres_generaux'>
-    </div>
-  </div>
-  <div class="ui right aligned container">
-
-    <a href="https://coopmaths.fr/mathalea" target="_blank"><img class="ui middle aligned image" height="25" src="assets/images/logo2.png"></a>
-    <span class="ui header"></span>
-  </div>
-  <div class="ui hidden divider"></div>
-  <div class="ui hidden divider"></div>
-</div>
 
 
 
 
-</section>
+  </section>
 
 
 
 </body>
+
 </html>
-
-

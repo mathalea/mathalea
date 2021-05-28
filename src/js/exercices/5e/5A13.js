@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,compareNombres,texNombre} from '../../modules/outils.js'
 
 
@@ -6,7 +7,7 @@ export const titre = 'Décomposition en facteurs premiers'
 
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 5A13
 */
 export default function Exercice_decomposer_en_facteurs_premiers() {
@@ -56,7 +57,7 @@ export default function Exercice_decomposer_en_facteurs_premiers() {
 			texteCorr += facteurs[facteurs.length - 1] + ' $';
 
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

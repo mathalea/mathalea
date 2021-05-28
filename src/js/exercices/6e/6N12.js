@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modal_url} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,modalUrl} from '../../modules/outils.js'
 export const titre = 'Multiplier un entier par 10, 100, 1 000...'
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N12
  */
 export default function Multiplier_entier_par_10_100_1000() {
@@ -17,14 +18,14 @@ export default function Multiplier_entier_par_10_100_1000() {
   this.sup = 2;
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modal_url(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
+    this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
       "Glisse-nombre"
     );
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9];
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let liste_de_b = []
@@ -77,7 +78,7 @@ export default function Multiplier_entier_par_10_100_1000() {
         texte = `$${texNombre(b)}\\times${texNombre(a)}$`
         texteCorr = `$${texNombre(b)}\\times${texNombre(a)}=${texNombre(a * b)}$`
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

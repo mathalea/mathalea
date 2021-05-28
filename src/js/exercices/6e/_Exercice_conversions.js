@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,tex_texte,calcul} from '../../modules/outils.js'
+  import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texFraction,texTexte,calcul} from '../../modules/outils.js'
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -9,7 +10,7 @@ import {listeQuestionsToContenu,randint,choice,arrondi,texNombre,texNombrec,texF
  * * 4 : Conversions d'octets
  * * 5 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 export default function Exercice_conversions(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -40,27 +41,27 @@ export default function Exercice_conversions(niveau = 1) {
       div,
       resultat,
       unite,
-      type_de_questions,
+      typesDeQuestions,
       texte,
       texteCorr,
       liste_unite_info,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 4);
+        typesDeQuestions = randint(1, 4);
       }
       k = randint(0, 2); // Choix du préfixe
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
-      } else if (type_de_questions == 3) {
+      } else if (typesDeQuestions == 3) {
         div = choice([true, false]); // Avec des multiplications ou des divisions
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         liste_unite_info = ["o", "ko", "Mo", "Go", "To"];
       }
 
@@ -83,13 +84,13 @@ export default function Exercice_conversions(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         if (k < 2) {
           // Choix de l'unité
           unite = choice(["m", "L", "g"]);
         } else if (k == 2) {
-          if (sortieHtml) {
+          if (context.isHtml) {
             unite = choice(["m", "L", "g"]); // pas de signe € pour KaTeX
           } else {
             unite = choice(["m", "L", "g", "€"]);
@@ -101,68 +102,68 @@ export default function Exercice_conversions(niveau = 1) {
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\times" +
           texNombre(prefixe_multi[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombrec(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
       } else if (div &&
-        type_de_questions < 4 &&
+        typesDeQuestions < 4 &&
         this.correction_avec_des_fractions) {
         unite = choice(["m", "L", "g"]);
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " =  " +
           texFraction(texNombre(a), texNombre(prefixe_div[k][1])) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         unite = choice(["m", "L", "g"]);
         resultat = calcul(a / prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           " =  " +
           texNombre(a) +
           "\\div" +
           texNombre(prefixe_div[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           " = " +
           texNombrec(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "$";
       } else {
         // pour type de question = 4
@@ -177,54 +178,54 @@ export default function Exercice_conversions(niveau = 1) {
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite_info[unite2]) +
+            texTexte(liste_unite_info[unite2]) +
             " = \\dotfill " +
-            tex_texte(liste_unite_info[unite1]) +
+            texTexte(liste_unite_info[unite1]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite_info[unite2]) +
+            texTexte(liste_unite_info[unite2]) +
             " =  " +
             texNombre(a) +
             "\\times" +
             texNombre(Math.pow(10, 3 * ecart)) +
-            tex_texte(liste_unite_info[unite1]) +
+            texTexte(liste_unite_info[unite1]) +
             " = " +
             texNombrec(resultat) +
-            tex_texte(liste_unite_info[unite1]) +
+            texTexte(liste_unite_info[unite1]) +
             "$";
         } else {
           resultat = calcul(a / Math.pow(10, 3 * ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite_info[unite1]) +
+            texTexte(liste_unite_info[unite1]) +
             " = \\dotfill " +
-            tex_texte(liste_unite_info[unite2]) +
+            texTexte(liste_unite_info[unite2]) +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite_info[unite1]) +
+            texTexte(liste_unite_info[unite1]) +
             " =  " +
             texNombre(a) +
             "\\div" +
             texNombre(Math.pow(10, 3 * ecart)) +
-            tex_texte(liste_unite_info[unite2]) +
+            texTexte(liste_unite_info[unite2]) +
             " = " +
             texNombrec(resultat) +
-            tex_texte(liste_unite_info[unite2]) +
+            texTexte(liste_unite_info[unite2]) +
             "$";
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"

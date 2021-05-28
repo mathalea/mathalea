@@ -1,7 +1,9 @@
-/* global mathalea $ */
+import { context } from './context.js'
+
 let premierClicSurPlay = true
 let chrono
 let intervalID = {}
+let pause = false
 
 $(document).ready(function () {
   $('#prev').hide()
@@ -9,22 +11,22 @@ $(document).ready(function () {
   $('#icones').hide()
   $('#corrections_et_parametres').hide()
   const formChoixDeLaDuree = document.getElementById('choix_de_la_duree')
-  if (mathalea.duree) {
-    formChoixDeLaDuree.value = mathalea.duree
+  if (context.duree) {
+    formChoixDeLaDuree.value = context.duree
   } else {
     formChoixDeLaDuree.value = 10
-    mathalea.duree = 10
+    context.duree = 10
   }
 
   formChoixDeLaDuree.addEventListener('change', function (e) {
     // Changement du texte
     if (e.target.value === '') {
-      mathalea.duree = 10
+      context.duree = 10
     } else {
-      mathalea.duree = e.target.value
-      chrono = mathalea.duree
+      context.duree = e.target.value
+      chrono = context.duree
       const params = new URL(document.location).searchParams
-      params.set('duree', mathalea.duree)
+      params.set('duree', context.duree)
       window.history.pushState(null, null, '?' + params.toString())
     }
   })
@@ -62,14 +64,15 @@ $(document).ready(function () {
   $('#formulaire_choix_des_exercices').hide()
   $('#exercices').hide()
 
-
-  $('#pause').click(function () {
+  /*fonctions de gestion des boutons du diaporama*/
+  function pauseDiapo() {
     clearInterval(intervalID)
-  })
-
-  $('#play').click(function () {
+    pause = true
+  }
+  
+  function playDiapo() {
     if (premierClicSurPlay) {
-	  $('#prev').show()
+      $('#prev').show()
       $('#next').show()
       chrono = 10
       $('.mathalea2d').css('font-size', 12)
@@ -110,22 +113,57 @@ $(document).ready(function () {
       timer()
       $('#timer').show()
     }
-  })
-
-  $('#prev').click(function () {
-    chrono = mathalea.duree * 1000
+    pause = false
+  }
+  
+  function slidePrecedente() {
+    chrono = context.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     $('.single-item').slick('slickPrev')
+  }
+  
+  function slideSuivante() {
+    chrono = context.duree * 1000
+    $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
+    $('.single-item').slick('slickNext')
+  }
+  
+  /*========*/
+  
+  $('#pause').click(function () {
+    pauseDiapo()
+  })
+
+  $('#play').click(function () {
+    playDiapo()
+  })
+  
+  $('#prev').click(function () {
+    slidePrecedente()
   })
 
   $('#next').click(function () {
-    chrono = mathalea.duree * 1000
-    $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
-    $('.single-item').slick('slickNext')
+    slideSuivante()
+  })
+
+  window.addEventListener('keydown', function(e) { //gestion du calcul mental avec le clavier
+    if (e.which === 32 && pause) { //touche espace pendant la pause
+      document.getElementById("play").focus()
+      playDiapo()
+    } else if (e.which === 32 && !pause) { //touche espace pendant le diaporama
+      document.getElementById("pause").focus()
+      pauseDiapo()
+    }
+    if (e.which === 37) { //fleche gauche
+      slidePrecedente()
+    }
+    if (e.which === 39) { //fleche droite
+      slideSuivante()
+    }
   })
 
   function timer () {
-    chrono = mathalea.duree * 1000
+    chrono = context.duree * 1000
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
     intervalID = setInterval(changeTimer, 1000)
   }
@@ -135,8 +173,9 @@ $(document).ready(function () {
       chrono -= 1000
     } else {
       $('.single-item').slick('slickNext')
-      chrono = mathalea.duree * 1000
+      chrono = context.duree * 1000
     }
     $('#timer').html('&ndash; ' + chrono / 1000 + ' s')
   }
+ 
 })

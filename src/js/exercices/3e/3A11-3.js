@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,modalPdf,modalVideo,listeDiviseurs,numAlpha,cribleEratostheneN,tableauColonneLigne} from '../../modules/outils.js'
 export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers.'
 
@@ -6,7 +7,7 @@ export const titre = 'Compter/lister les diviseurs d’un entier à partir de sa
  * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
  */
-export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
+export default function Lister_Diviseurs_Par_decompositionFacteursPremiers() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1;
@@ -14,8 +15,8 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
 	//this.consigne += `<br>`;
-	sortieHtml ? this.spacing = 2 : this.spacing = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacing = 2 : this.spacing = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
 	this.nbQuestions = 2;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
@@ -23,8 +24,8 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 	this.sup = 1;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		let typesDeQuestions;
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A11.pdf", "Aide mémoire sur les nombres premiers (Sébastien Lozano)", "Aide mémoire");
 			this.boutonAide += modalVideo('conteMathsNombresPremiers', '/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo');
@@ -36,15 +37,15 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
 					texte = `Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers`;
 					//let premiers_dispos = premiersEntreBornes(2,11);
@@ -99,7 +100,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `$, <br>`;
 					texte += numAlpha(0) + ` Compléter le tableau ci-dessous.`;
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `$\\medskip$`;
 					};
 					// on crée le tableau des entetes de lignes et des colonnes
@@ -135,7 +136,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					};
 					texte += `<br>`;
 					texte += tableauColonneLigne(ent_colonnes, ent_lignes, contenu_lignes);
-					if (!sortieHtml) {
+					if (!context.isHtml) {
 						texte += `$\\medskip$`;
 					};
 					texte += `<br>`;
@@ -237,7 +238,7 @@ export default function Lister_Diviseurs_Par_Decomposition_facteurs_premiers() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

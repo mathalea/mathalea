@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombre_avec_espace,texte_en_couleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,egal,randint,shuffle,shuffle2tableaux,combinaisonListesSansChangerOrdre,nombreAvecEspace,texteEnCouleur,modalPdf,listeDiviseurs} from '../../modules/outils.js'
 
 export const titre = 'Division Euclidienne - Diviseurs - Multiples'
 
@@ -14,18 +15,18 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.titre = titre;
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
-	//sortieHtml ? this.spacing = 3 : this.spacing = 2;
-	sortieHtml ? this.spacing = 1 : this.spacing = 2;
-	//sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
-	sortieHtml ? this.spacingCorr = 2 : this.spacingCorr = 2;
+	//context.isHtml ? this.spacing = 3 : this.spacing = 2;
+	context.isHtml ? this.spacing = 1 : this.spacing = 2;
+	//context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+	context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2;
 	this.nbQuestions = 5;
 	//this.correctionDetailleeDisponible = true;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
 
 	this.nouvelleVersion = function (numeroExercice) {
-		let type_de_questions;
-		if (sortieHtml) { // les boutons d'aide uniquement pour la version html
+		let typesDeQuestions;
+		if (context.isHtml) { // les boutons d'aide uniquement pour la version html
 			//this.boutonAide = '';
 			this.boutonAide = modalPdf(numeroExercice, "assets/pdf/FicheArithmetique-3A10.pdf", "Aide mémoire sur la division euclidienne (Sébastien Lozano)", "Aide mémoire");
 			//this.boutonAide += modalVideo('conteMathsNombresPremiers','/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
@@ -37,19 +38,19 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 		this.contenu = ''; // Liste de questions
 		this.contenuCorrection = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 4, 5];
-		//let type_de_questions_disponibles = [1];
-		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+		let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5];
+		//let typesDeQuestionsDisponibles = [1];
+		let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
 
 		for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-			type_de_questions = listeTypeDeQuestions[i];
+			typesDeQuestions = listeTypeDeQuestions[i];
 
 			var dividende;
 			var diviseur;
 			var quotient;
 			var reste;
 
-			switch (type_de_questions) {
+			switch (typesDeQuestions) {
 				case 1: // plus grand reste dans une division euclidienne
 					diviseur = randint(2, 99);
 					texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
@@ -61,10 +62,10 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					quotient = Math.trunc(dividende / diviseur);
 					reste = dividende % diviseur;
 
-					texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
+					texte = `On a ${nombreAvecEspace(dividende)}=${nombreAvecEspace(diviseur)}$\\times$${nombreAvecEspace(quotient)} $+$ ${nombreAvecEspace(reste)}`;
 					texte += `<br>`;
-					texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.`;
-					texteCorr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
+					texte += `Écrire le quotient et le reste de la division euclidienne de ${nombreAvecEspace(dividende)} par ${diviseur}.`;
+					texteCorr = `Dans la division euclidienne de ${nombreAvecEspace(dividende)} par ${diviseur}, le quotient vaut ${nombreAvecEspace(quotient)} et le reste ${reste}.`;
 					break;
 				case 3: // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 					dividende = randint(101, 9999);
@@ -80,30 +81,30 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					// Faut-il que je conditionne pour éviter le diviseur 1 ?
 					candidats_diviseurs = shuffle(candidats_diviseurs); // on mélange le tableau
 					texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
-					texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[0])}$\\times$${nombre_avec_espace(Math.trunc(dividende / candidats_diviseurs[0]))} $+$ ${nombre_avec_espace(dividende % candidats_diviseurs[0])}`;
+					texte += `${nombreAvecEspace(dividende)} = ${nombreAvecEspace(candidats_diviseurs[0])}$\\times$${nombreAvecEspace(Math.trunc(dividende / candidats_diviseurs[0]))} $+$ ${nombreAvecEspace(dividende % candidats_diviseurs[0])}`;
 					texte += `<br>`;
-					texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[1])}$\\times$${nombre_avec_espace(Math.trunc(dividende / candidats_diviseurs[1]))} $+$ ${nombre_avec_espace(dividende % candidats_diviseurs[1])}`;
+					texte += `${nombreAvecEspace(dividende)} = ${nombreAvecEspace(candidats_diviseurs[1])}$\\times$${nombreAvecEspace(Math.trunc(dividende / candidats_diviseurs[1]))} $+$ ${nombreAvecEspace(dividende % candidats_diviseurs[1])}`;
 					texte += `<br>`;
-					texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende / candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende % candidats_diviseurs[2])}`;
+					texte += `${nombreAvecEspace(dividende)} = ${nombreAvecEspace(candidats_diviseurs[2])}$\\times$${nombreAvecEspace(Math.trunc(dividende / candidats_diviseurs[2]))} $+$ ${nombreAvecEspace(dividende % candidats_diviseurs[2])}`;
 					texte += `<br>`;
-					texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
+					texte += `Sans calculer, dire si les nombres ${nombreAvecEspace(candidats_diviseurs[0])}; ${nombreAvecEspace(candidats_diviseurs[1])}; ${nombreAvecEspace(candidats_diviseurs[2])} sont des diviseurs de ${nombreAvecEspace(dividende)}. Justifier.`;
 					texteCorr = ``;
 					if (egal(dividende % candidats_diviseurs[0], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[0])} vaut 0 donc ${nombreAvecEspace(candidats_diviseurs[0])} est un diviseur de ${nombreAvecEspace(dividende)}`;
 					} else {
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombreAvecEspace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombreAvecEspace(dividende)}`;
 					}
 					texteCorr += `<br>`;
 					if (egal(dividende % candidats_diviseurs[1], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[1])} vaut 0 donc ${nombreAvecEspace(candidats_diviseurs[1])} divise ${nombreAvecEspace(dividende)}`;
 					} else {
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombreAvecEspace(candidats_diviseurs[1])} ne divise pas ${nombreAvecEspace(dividende)}`;
 					}
 					texteCorr += `<br>`;
 					if (egal(dividende % candidats_diviseurs[2], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[2])} vaut 0 donc ${nombreAvecEspace(dividende)} est divisible par ${nombreAvecEspace(candidats_diviseurs[2])}`;
 					} else {
-						texteCorr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
+						texteCorr += `Le reste de la division euclienne de ${nombreAvecEspace(dividende)} par ${nombreAvecEspace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombreAvecEspace(dividende)} n'est pas divisible par ${nombreAvecEspace(candidats_diviseurs[2])}`;
 					}
 					texteCorr += `<br>`;
 					break;
@@ -122,9 +123,9 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					for (let j = 0; j < 4; j++) {
 						multiples[j] = diviseurs[j] * multiplicateurs[j];
 						quotients[j] = multiples[j] / diviseurs[j];
-						diviseurs[j] = nombre_avec_espace(diviseurs[j]);
-						multiples[j] = nombre_avec_espace(multiples[j]);
-						quotients[j] = nombre_avec_espace(quotients[j]);
+						diviseurs[j] = nombreAvecEspace(diviseurs[j]);
+						multiples[j] = nombreAvecEspace(multiples[j]);
+						quotients[j] = nombreAvecEspace(quotients[j]);
 					};
 					// on crée les phrases 
 					textes[0] = `${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
@@ -137,15 +138,15 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					textes_corr[3] = `${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`;
 					// on ajoute deux cas ni multiple ni diviseur
 					// on choisit deux nombres
-					let n1 = nombre_avec_espace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]]));
-					let p1 = nombre_avec_espace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3], n1]));
+					let n1 = nombreAvecEspace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3]]));
+					let p1 = nombreAvecEspace(randint(2, 999, [diviseurs[0], diviseurs[1], diviseurs[2], diviseurs[3], n1]));
 					// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
-					let n2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(n1)));
-					let p2 = nombre_avec_espace(randint(2, 999, listeDiviseurs(p1)));
+					let n2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(n1)));
+					let p2 = nombreAvecEspace(randint(2, 999, listeDiviseurs(p1)));
 					textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
-					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texte_en_couleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texte_en_couleur(n2 % n1)}`;
+					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texteEnCouleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texteEnCouleur(n2 % n1)}`;
 					textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
-					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texte_en_couleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texte_en_couleur(p2 % p1)}`;
+					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
 					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;
@@ -205,7 +206,7 @@ export default function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					break;
 			};
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

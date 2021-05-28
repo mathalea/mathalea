@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,range1,combinaisonListesSansChangerOrdre,texNombrec,texFraction} from '../../modules/outils.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 
@@ -10,7 +11,7 @@ export const titre = 'Donner l’écriture décimale d’un nombre à partir de 
  * * 5 dixièmes
  * * 128/10
  * * 8+5/100+7/100
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N23-4
  */
 export default function Nombre_decimal_oralise_de_differentes_manieres() {
@@ -23,8 +24,8 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = range1(5);
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions);
+    let typesDeQuestionsDisponibles = range1(5);
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions);
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, choix; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 9);
@@ -84,10 +85,10 @@ export default function Nombre_decimal_oralise_de_differentes_manieres() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
-        if (!sortieHtml && i == 0) {
+        if (!context.isHtml && i == 0) {
           texteCorr = `\\setlength\\itemsep{2em}` + texteCorr;
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr);

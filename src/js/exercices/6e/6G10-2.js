@@ -4,7 +4,7 @@ export const titre = 'Utiliser le codage pour décrire une figure'
 /**
  * Exercice du test de positionnement 5e
  * Variantes à venir...
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6G10-2
  */
 export default function Utiliser_le_codage_pour_decrire_6e() {

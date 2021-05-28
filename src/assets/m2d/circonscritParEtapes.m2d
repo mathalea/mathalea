@@ -1,4 +1,4 @@
-mathalea.fenetreMathalea2d = [-1,-10,60,10]
+context.fenetreMathalea2d = [-1,-10,60,10]
 let A = point(4,0)
 let B = point(randint(10,13),randint(-3,3))
 let C = point(randint(1,9),randint(3,6))

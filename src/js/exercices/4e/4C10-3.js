@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,ecritureNombreRelatif,ecritureNombreRelatifc,ecritureParentheseSiNegatif} from '../../modules/outils.js'
 
 
@@ -9,7 +10,7 @@ export const titre = 'Multiplication de deux entiers relatifs'
 *
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-3
 */
 export default function Exercice_multiplications_relatifs(max = 10) {
@@ -43,7 +44,7 @@ export default function Exercice_multiplications_relatifs(max = 10) {
 				texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' \\times  ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a * b) + ' $';
 			}
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

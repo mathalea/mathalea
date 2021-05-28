@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint, texNombre, choice, calcul} from '../../modules/outils.js'
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pourcentage'
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5N11-3
  * 2021-02-06
 */
@@ -15,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestions = 6;
   this.nbCols = 2; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2; // Uniquement pour la sortie LaTeX
-  this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
@@ -44,7 +45,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
             texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den/100)}}}{${den}{\\color{blue}\\div${calcul(den/100)}}}=\\dfrac{${calcul(num*100/den)}}{100}=${calcul(num*100/den)}~\\%$`
         }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,shuffle,texte_en_couleur,texte_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,shuffle,texteEnCouleur,texteGras} from '../../modules/outils.js'
 import {point,tracePoint,milieu,pointSurSegment,pointIntersectionDD,labelPoint,barycentre,droite,vecteur,segment,polygone,nommePolygone,aireTriangle,arc,rotation,translationAnimee,rotationAnimee,codeSegments,grille,angleOriente,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles semblables dans différentes configurations'
 
@@ -21,8 +22,8 @@ export default function TrianglesSemblables() {
 		this.listeCorrections = []; // Liste de questions corrigées
 		let texte = '';
 		let texteCorr = '';
-		let type_de_questions = randint(1, 1);
-		switch (type_de_questions) {
+		let typesDeQuestions = randint(1, 1);
+		switch (typesDeQuestions) {
 			case 1:
 				let trouve = false, aireABC, A, B, C, M, p, q, r, s, X, G, Gq, nom1, grid;
 				// on génère le triangle ABC avec une contrainte sur son aire
@@ -247,7 +248,7 @@ export default function TrianglesSemblables() {
 					)}`,
 					corr_solution1: `
 						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.
-						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br> ${texteEnCouleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
 						fenetreMathalea2D,
@@ -263,7 +264,7 @@ export default function TrianglesSemblables() {
 					)}`,
 					corr_solution2: `
 						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.		
-						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br> ${texteEnCouleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
 						fenetreMathalea2D,
@@ -279,7 +280,7 @@ export default function TrianglesSemblables() {
 					)}`,
 					corr_animmee_sol1: `
 						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.						
-						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br> ${texteEnCouleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>						
 						${mathalea2d(
 						fenetreMathalea2D,
@@ -298,7 +299,7 @@ export default function TrianglesSemblables() {
 					)}`,
 					corr_animmee_sol2: `
 						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.
-						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br> ${texteEnCouleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						Une solution est donc le point ${I1.nom}
 						<br>
@@ -322,11 +323,11 @@ export default function TrianglesSemblables() {
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
 				if (this.debug) {
-					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
-					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+					texte += `<br>${texteGras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texte += `<br><br>${texteGras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				} else {
-					texteCorr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
-					texteCorr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+					texteCorr += `<br>${texteGras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texteCorr += `<br><br>${texteGras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				}
 				this.listeQuestions[0] = texte;
 				this.listeCorrections[0] = texteCorr;

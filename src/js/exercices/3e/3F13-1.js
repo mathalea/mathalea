@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {deuxColonnes,randint,texConsigne,numAlpha} from '../../modules/outils.js'
 import {repere2,graphiqueInterpole,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Lecture graphique d’images et d’antécédents'
 
 /**
  * Lecture d'images et antécédents sur un graphe sinusoidale
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 3F13-1
 */
 export default function Antecedent_et_image_graphique() {
@@ -15,7 +16,7 @@ export default function Antecedent_et_image_graphique() {
 	this.nbQuestionsModifiable = false;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	if (sortieHtml)
+	if (context.isHtml)
 		this.spacingCorr = 2;
 
 	this.nouvelleVersion = function () {
@@ -65,7 +66,7 @@ export default function Antecedent_et_image_graphique() {
 			this.contenuCorrection += `<br>${numAlpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`;
 			this.contenuCorrection += `<br>${numAlpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`;
 		}
-		if (!sortieHtml) {
+		if (!context.isHtml) {
 			this.contenu = texConsigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
 			this.contenuCorrection = this.contenuCorrection.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n');
 		} else {

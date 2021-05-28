@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, arrondiVirgule, lettreDepuisChiffre, texFraction } from '../../modules/outils.js'
 import { degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer un angle grâce à la trigonométrie'
 
 /**
- * @auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3G31
  * Calcul d'angle dans le triangle rectangle
  * Le niveau 1 se limite à l'utilisation de Arccos
@@ -20,7 +21,7 @@ export default function Exercice_Trigo_angles () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // 1 calcul avec Arccos
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-euclide'
   this.typeExercice = 'MG32'
 
@@ -35,12 +36,12 @@ export default function Exercice_Trigo_angles () {
     const lettre2 = randint(11, 25, [lettre0, lettre1])
     const s2 = lettreDepuisChiffre(lettre2)
     let angle1, angle2
-    let type_de_questions
+    let typesDeQuestions
     if (this.sup == 1) {
-      type_de_questions = randint(1, 2) // utilisation de Arccos
+      typesDeQuestions = randint(1, 2) // utilisation de Arccos
     }
     if (this.sup == 2) {
-      type_de_questions = randint(1, 6, [2]) // utilisation des 3 fonctions Arccos, Arcsin et Arctan
+      typesDeQuestions = randint(1, 6, [2]) // utilisation des 3 fonctions Arccos, Arcsin et Arctan
     }
 
     const nom_du_triangle = choice([
@@ -67,10 +68,10 @@ export default function Exercice_Trigo_angles () {
     const s12 = arrondiVirgule(dist12, 1)
     let texte
     let texteCorr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`
-    if (sortieHtml) {
+    if (context.isHtml) {
       // sortie html MG32
       let codeBase64
-      if (type_de_questions % 2 != 0) {
+      if (typesDeQuestions % 2 != 0) {
         if (alpha1deg < 0) {
           codeBase64 =
             'TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAACL#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAWAAFBAMA7AAAAAAAAwCAAAAAAAAAFAAFAcLFHrhR64UBneFHrhR64#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAABYAAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAAA4AAUkAwBgAAAAAAAAAAAAAAAAAAAUAAUBHq0OVgQYlAAAAAv####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAAEAAAAQABAAAAAQAAAAP#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AQAAAAAWAAABAAEAAAABAAAABP####8AAAABAAlDQ2VyY2xlT0EA#####wEAAAAAAQAAAAEAAAAD#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAAUAAAAG#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAAFgAAAQUAAQAAAAcAAAAJAP####8BAAAAAA4AAUoAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAAQAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MQABNgAAAAFAGAAAAAAAAAAAABEA#####wACeDIAATQAAAABQBAAAAAAAAAAAAARAP####8ACGFscGhhZGVnAAMtOTD#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAUBWgAAAAAAA#####wAAAAEAEENQb2ludERhbnNSZXBlcmUA#####wEAAAAAFgABWgDAFAAAAAAAAEAAAAAAAAAABwAAAAAKAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwD#####AQAAAAAWAAFGAAAAAAAAAAAAQAgAAAAAAAAHAAAAAAoAAAAOAAAADwAAAAEAAAAAAAAAAAAAABMA#####wEAAAAAFgABRAAAAAAAAAAAAEAIAAAAAAAABwAAAAAKAAAAAQAAAAAAAAAAAAAADgAAABD#####AAAAAQAJQ1JvdGF0aW9uAP####8AAAASAAAADgAAABEAAAAPAP####8AAAAAABYAAUIAQCoAAAAAAADALgAAAAAAAAcAAAAAEwAAABUAAAAPAP####8AAAAAABYAAUMAQBAAAAAAAADAOwAAAAAAAAcAAAAAFAAAABX#####AAAAAQAJQ1BvbHlnb25lAP####8AAAAAAAIAAAAEAAAAEgAAABYAAAAXAAAAEv####8AAAACABdDTWFycXVlQW5nbGVHZW9tZXRyaXF1ZQD#####AAAA#wAEAAAAAUAwAAAAAAAAAAAAFgAAABIAAAAX#####wAAAAEACENTZWdtZW50AP####8BAAD#ABAAAAEABAAAABcAAAAW#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wD#AAAB#####xBAh8ij1wo9cUBHYUeuFHrhAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAFQXBwQkMAAAAAAAEAAAAaAP####8AAAABABFDTWFjcm9EaXNwYXJpdGlvbgD#####AP8AAAH#####EECKaKPXCj1xQEphR64UeuECAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAZNYXNxQkMAAAAAAAEAAAAa#####wAAAAEAC0NNYWNyb1BhdXNlAP####8A#wAAAf####8QQI1oo9cKPXFASuFHrhR64QIAAAAAAAAAAAAAAAABAAAAAAAAAAAABVBhdXNlAAAAAAABAAAAGQD#####AAAA#wH#####EECIIKPXCj1xQFqwo9cKPXACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAApNYXNxQW5nZHJ0AAAAAAABAAAAGQAAABgA#####wAAAP8B#####xBAjAij1wo9cUBa8KPXCj1wAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAJQXBwQW5nRHJ0AAAAAAABAAAAGQD#####AAAAAQARQ01hY3JvU3VpdGVNYWNyb3MA#####wAAAP8B#####xBAWMUeuFHrhUB4fCj1wo9cAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAALaHlwb3TDqW51c2UAAAAAAAsAAAAeAAAAGwAAAB0AAAAfAAAAHAAAAB0AAAAeAAAAGwAAAB0AAAAcAAAAHwAAABYA#####wAAAP8ABQAAACBAQIGJiJxJngAAAAEAAAAWAAAAFwAAAA7##########w=='
@@ -89,37 +90,37 @@ export default function Exercice_Trigo_angles () {
       }
       texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$.<br>`
 
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // calcul de l'angle 1 (arccos)
         texte += `$${s1 + s2}=${s12}$ cm<br>`
         texte += `$${s0 + s1}=${s01}$ cm<br>`
         texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`
       }
-      if (type_de_questions == 2) {
+      if (typesDeQuestions == 2) {
         // Calcul de l'angle 2 (90-arccos)
         texte += `$${s1 + s2}=${s12}$ cm<br>`
         texte += `$${s0 + s1}=${s01}$ cm<br>`
         texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`
       }
-      if (type_de_questions == 3) {
+      if (typesDeQuestions == 3) {
         // calcul de l'angle 1 (arcsin)
         texte += `$${s0 + s2}=${s02}$ cm<br>`
         texte += `$${s1 + s2}=${s12}$ cm<br>`
         texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`
       }
-      if (type_de_questions == 4) {
+      if (typesDeQuestions == 4) {
         // Calcul de l'angle 2 (arcsin)
         texte += `$${s1 + s2}=${s12}$ cm<br>`
         texte += `$${s0 + s1}=${s01}$ cm<br>`
         texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`
       }
-      if (type_de_questions == 5) {
+      if (typesDeQuestions == 5) {
         // calcul de l'angle 1 (arctan)
         texte += `$${s0 + s2}=${s02}$ cm<br>`
         texte += `$${s0 + s1}=${s01}$ cm<br>`
         texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`
       }
-      if (type_de_questions == 6) {
+      if (typesDeQuestions == 6) {
         // Calcul de l'angle 2 (arctan)
         texte += `$${s0 + s2}=${s02}$ cm<br>`
         texte += `$${s0 + s1}=${s01}$ cm<br>`
@@ -128,53 +129,53 @@ export default function Exercice_Trigo_angles () {
 
       this.typeExercice = 'MG32'
       this.MG32codeBase64 = codeBase64
-      this.MG32code_pour_modifier_la_figure = `
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x2", "${y2}");
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "x1", "${x1}");
-			mtg32App.giveFormula2("MG32svg${numeroExercice}", "alphadeg", "${alpha1deg}");
-			mtg32App.rename("MG32svg${numeroExercice}","A","${s0}");
-			mtg32App.rename("MG32svg${numeroExercice}","B","${s1}");
-			mtg32App.rename("MG32svg${numeroExercice}","C","${s2}");
-			mtg32App.calculate("MG32svg${numeroExercice}");
-			mtg32App.display("MG32svg${numeroExercice}");
-			`
+      this.mg32init = (mtg32App, idDoc) => {
+        mtg32App.giveFormula2(idDoc, 'x2', y2)
+        mtg32App.giveFormula2(idDoc, 'x1', x1)
+        mtg32App.giveFormula2(idDoc, 'alphadeg', alpha1deg)
+        mtg32App.rename(idDoc, 'A', s0)
+        mtg32App.rename(idDoc, 'B', s1)
+        mtg32App.rename(idDoc, 'C', s2)
+        mtg32App.calculate(idDoc)
+        mtg32App.display(idDoc)
+      }
       texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`
     } else {
       // sortie Latex
       texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
       texte += `\n\t\\item Le triangle $${nom_du_triangle}$ est rectangle en $${s0}$;`
 
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // Calcul de l'angle coté adjacent (Arccos)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près. \\end{minipage}`
       }
-      if (type_de_questions == 2) {
+      if (typesDeQuestions == 2) {
         // Calcul de l'angle opposé (90-Arccos)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près. \\end{minipage}`
       }
-      if (type_de_questions == 3) {
+      if (typesDeQuestions == 3) {
         // Calcul de l'angle 1 (Arcsin)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près. \\end{minipage}`
       }
-      if (type_de_questions == 4) {
+      if (typesDeQuestions == 4) {
         // Calcul de l'angle 2 (Arcsin)
         texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près. \\end{minipage}`
       }
-      if (type_de_questions == 5) {
+      if (typesDeQuestions == 5) {
         // Calcul de l'angle 1 (Arctan)
         texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
         texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près. \\end{minipage}`
       }
-      if (type_de_questions == 6) {
+      if (typesDeQuestions == 6) {
         // Calcul de l'angle 2 (Arctan)
         texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`
         texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`
@@ -243,7 +244,7 @@ export default function Exercice_Trigo_angles () {
       texte += '\n \\end{tikzpicture}' // Balise de fin de figure
       texte += '\\end{minipage}'
     }
-    if (type_de_questions == 1) {
+    if (typesDeQuestions == 1) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -251,7 +252,7 @@ export default function Exercice_Trigo_angles () {
       texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arccos\\left(${texFraction(s01, s12)}\\right)$<br>`
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`
     }
-    if (type_de_questions == 2) {
+    if (typesDeQuestions == 2) {
       texteCorr += `Le cosinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\cos \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -261,7 +262,7 @@ export default function Exercice_Trigo_angles () {
       texteCorr += 'Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>'
       texteCorr += `$\\widehat{${s0 + s2 + s1}}\\approx90-${angle1}\\approx${angle2}\\degree$`
     }
-    if (type_de_questions == 3) {
+    if (typesDeQuestions == 3) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s1 + s2}}$ est défini par :<br>`
       texteCorr += `$\\sin \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -269,7 +270,7 @@ export default function Exercice_Trigo_angles () {
       texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arcsin\\left(${texFraction(s02, s12)}\\right)$<br>`
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`
     }
-    if (type_de_questions == 4) {
+    if (typesDeQuestions == 4) {
       texteCorr += `Le sinus de l'angle $\\widehat{${s0 + s2 + s1}}$ est défini par :<br>`
       texteCorr += `$\\sin \\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s0 + s1, s1 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -277,7 +278,7 @@ export default function Exercice_Trigo_angles () {
       texteCorr += `On en déduit que $\\widehat{${s0 + s2 + s1}}=\\arcsin\\left(${texFraction(s01, s12)}\\right)$<br>`
       texteCorr += `Soit $\\widehat{${s0 + s2 + s1}}\\approx${angle2}\\degree$`
     }
-    if (type_de_questions == 5) {
+    if (typesDeQuestions == 5) {
       texteCorr += `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`
       texteCorr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${texFraction(s0 + s2, s0 + s1)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'
@@ -285,7 +286,7 @@ export default function Exercice_Trigo_angles () {
       texteCorr += `On en déduit que $\\widehat{${s0 + s1 + s2}}=\\arctan\\left(${texFraction(s02, s01)}\\right)$<br>`
       texteCorr += `Soit $\\widehat{${s0 + s1 + s2}}\\approx${angle1}\\degree$`
     }
-    if (type_de_questions == 6) {
+    if (typesDeQuestions == 6) {
       texteCorr += `La tangente de l'angle $\\widehat{${s0 + s2 + s1}}$ est définie par :<br>`
       texteCorr += `$\\tan \\left(\\widehat{${s0 + s2 + s1}}\\right)=${texFraction(s0 + s1, s0 + s2)}$<br>`
       texteCorr += 'Avec les données numériques :<br>'

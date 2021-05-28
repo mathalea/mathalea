@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,tex_texte} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,arrondi,texNombre,texTexte,calcul} from '../../modules/outils.js'
 
 /**
  * Conversions d'aires en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -14,7 +14,7 @@ const Algebrite = require('algebrite')
  * * 5 : Conversions avec des ares, des centiares et des hectares
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M23
  */
 export default function Exercice_conversions_aires(niveau = 1) {
@@ -47,27 +47,27 @@ export default function Exercice_conversions_aires(niveau = 1) {
       k,
       div,
       resultat,
-      type_de_questions,
+      typesDeQuestions,
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 6) {
-        type_de_questions = this.sup;
+        typesDeQuestions = this.sup;
       } else {
-        type_de_questions = randint(1, 5);
+        typesDeQuestions = randint(1, 5);
       }
       // k = randint(0,2); // Choix du préfixe
       k = liste_de_k[i];
-      if (type_de_questions == 1) {
+      if (typesDeQuestions == 1) {
         // niveau 1
         div = false; // Il n'y aura pas de division
-      } else if (type_de_questions == 2) {
+      } else if (typesDeQuestions == 2) {
         // niveau 2
         div = true; // Avec des divisions
-      } else if (type_de_questions == 3) {
+      } else if (typesDeQuestions == 3) {
         div = choice([true, false]); // Avec des multiplications ou des divisions
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         div = choice([true, false]); // Avec des multiplications ou des divisions sans toujours revenir au m^2
       }
 
@@ -90,71 +90,71 @@ export default function Exercice_conversions_aires(niveau = 1) {
         // X, X0, X00, XX
       }
 
-      if (!div && type_de_questions < 4) {
+      if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
         prefixe_multi = [
           [" da", "\\times10\\times10", 100],
           [" h", "\\times100\\times100", 10000],
           [" k", "\\times1~000\\times1~000", 1000000],
         ]; // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = Algebrite.eval(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^2" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixe_multi[k][0] + unite) +
           "^2" +
           " =  " +
           texNombre(a) +
           prefixe_multi[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
-      } else if (div && type_de_questions < 4) {
+      } else if (div && typesDeQuestions < 4) {
         prefixe_div = [
           [" d", "\\div10\\div10", 100],
           [" c", "\\div100\\div100", 10000],
           [" m", "\\div1~000\\div1~000", 1000000],
         ];
         k = randint(0, 1); // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = Algebrite.eval(a / prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^2" +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_div[k][0] + unite) +
+          texTexte(prefixe_div[k][0] + unite) +
           "^2" +
           " =  " +
           texNombre(a) +
           prefixe_div[k][1] +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
-      } else if (type_de_questions == 4) {
+      } else if (typesDeQuestions == 4) {
         let unite1 = randint(0, 3);
         let ecart = randint(1, 2); // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (ecart > 4 - unite1) {
@@ -162,99 +162,99 @@ export default function Exercice_conversions_aires(niveau = 1) {
         }
         let unite2 = unite1 + ecart;
         if (randint(0, 1) > 0) {
-          resultat = Algebrite.eval(a * Math.pow(10, 2 * ecart));
+          resultat = calcul(a * Math.pow(10, 2 * ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " =  " +
             texNombre(a) +
             "\\times" +
             texNombre(Math.pow(10, 2 * ecart)) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             "$";
         } else {
-          resultat = Algebrite.eval(a / Math.pow(10, 2 * ecart));
+          resultat = calcul(a / Math.pow(10, 2 * ecart));
           texte =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " = \\dotfill " +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             "$";
           texteCorr =
             "$ " +
             texNombre(a) +
-            tex_texte(liste_unite[unite1]) +
+            texTexte(liste_unite[unite1]) +
             "^2" +
             " =  " +
             texNombre(a) +
             "\\div" +
             texNombre(Math.pow(10, 2 * ecart)) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             " = " +
             texNombre(resultat) +
-            tex_texte(liste_unite[unite2]) +
+            texTexte(liste_unite[unite2]) +
             "^2" +
             "$";
         }
-      } else if (type_de_questions == 5) {
-        // Pour type_de_questions==5
+      } else if (typesDeQuestions == 5) {
+        // Pour typesDeQuestions==5
         prefixe_multi = [
           ["ha", 10000],
           ["a", 100],
         ];
         k = randint(0, 1);
-        resultat = Algebrite.eval(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0]) +
+          texTexte(prefixe_multi[k][0]) +
           " = \\dotfill " +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
         texteCorr =
           "$ " +
           texNombre(a) +
-          tex_texte(prefixe_multi[k][0]) +
+          texTexte(prefixe_multi[k][0]) +
           " =  " +
           texNombre(a) +
           "\\times" +
           texNombre(prefixe_multi[k][1]) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           " = " +
           texNombre(resultat) +
-          tex_texte(unite) +
+          texTexte(unite) +
           "^2" +
           "$";
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
-        if (sortieHtml) {
+        if (context.isHtml) {
           texte = texte.replace(
             "\\dotfill",
             "................................................"

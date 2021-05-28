@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,calcul} from '../../modules/outils.js'
 export const titre = 'Quotient de deux entiers relatifs'
 
@@ -6,7 +7,7 @@ export const titre = 'Quotient de deux entiers relatifs'
 * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
 *
 * * On peut choisir de n'avoir que des tables de multiplications, par défaut il y a aussi des divisions simples par 2, 3 ou 4
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-4
 */
 export default function Exercice_quotients_relatifs() {
@@ -49,7 +50,7 @@ export default function Exercice_quotients_relatifs() {
       texte = `$\\dfrac{${a}}{${b}}$`
       texteCorr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

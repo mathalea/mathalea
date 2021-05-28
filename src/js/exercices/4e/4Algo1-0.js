@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texte_en_couleur} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,calcul,texteEnCouleur} from '../../modules/outils.js'
 import {creerLutin,avance,baisseCrayon,leveCrayon,tournerD,allerA,mathalea2d} from '../../modules/2d.js'
 import {combinaisonListes} from '../../modules/outils.js'
 
@@ -24,7 +25,7 @@ export const titre = 'Dessiner avec scratch'
   this.listePackages = "scratch3";
 	this.typeExercice = "Scratch";
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
   this.nbQuestions = 3;
   this.debug = false;
 
@@ -32,9 +33,9 @@ export const titre = 'Dessiner avec scratch'
   this.nouvelleVersion = function () {
 
     if (this.debug) {
-      type_de_questions_disponibles = [1,2,3,4,5];
+      typesDeQuestionsDisponibles = [1,2,3,4,5];
     } else {
-      type_de_questions_disponibles = [1,2,3,4,5];
+      typesDeQuestionsDisponibles = [1,2,3,4,5];
     };
 
     this.listeQuestions = []; // Liste de questions
@@ -44,14 +45,14 @@ export const titre = 'Dessiner avec scratch'
 //    var unitesLutinParCm = 100;
 
 
-    let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer la sortie HTML/LaTeX
       // code est un string contenant le code svg ou tikz
       function scratchblocks_Tikz(code_svg, code_tikz) {
-        if (sortieHtml) {
+        if (context.isHtml) {
           return code_svg;
         } else {
           return code_tikz;
@@ -280,7 +281,7 @@ export const titre = 'Dessiner avec scratch'
           correction: `
           <br> Les figures rouges sont erronées.
           <br> La figure tracée par le programme a ${situations[0].nb_cotes} côtés de même longueur et ${situations[0].nb_cotes} angles de même mesure, c'est un ${situations[0].nom}.
-          <br>${texte_en_couleur(`La bonne figure est donc la figure verte.`)}
+          <br>${texteEnCouleur(`La bonne figure est donc la figure verte.`)}
           <br><br>
           ${situations[0].fig_corr}
           `
@@ -350,7 +351,7 @@ export const titre = 'Dessiner avec scratch'
       };
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

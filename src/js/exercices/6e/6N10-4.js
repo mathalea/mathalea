@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,texNombre} from '../../modules/outils.js'
 export const titre = 'Écrire correctement les grands nombres entiers.'
 
 /**
  * 6N10-4
  * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Ecrire_nombres_entiers_formates() {
   "use strict"
@@ -46,11 +47,11 @@ export default function Ecrire_nombres_entiers_formates() {
         if (tranche[2] == 0) nombre = 0
       }
       nombrestring = zeroSuperflus(nombre)
-      if (!est_diaporama) texte = `$${nombrestring}$ : \\dotfill`
+      if (!context.isDiaporama) texte = `$${nombrestring}$ : \\dotfill`
       else texte = `$${nombrestring}$`
-      if (!est_diaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
+      if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$.`
       else texteCorr = `${texNombre(nombre)}.`
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

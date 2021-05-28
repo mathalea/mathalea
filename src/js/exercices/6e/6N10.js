@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,texNombre,nombreEnLettres} from '../../modules/outils.js'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 6N10
  */
 
@@ -25,14 +26,14 @@ export default function Ecrire_nombres_entiers() {
       this.consigne = "Écrire le nombre en lettres"
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles;
-    if (this.sup2 == 1) type_de_questions_disponibles = [1, 1, 1, 2, 2]
-    else if (this.sup2 == 2) type_de_questions_disponibles = [1, 2, 2, 2, 3]
-    else if (this.sup2 == 3) type_de_questions_disponibles = [2, 2, 3, 3, 4]
-    else type_de_questions_disponibles = [2, 3, 3, 4, 4]
+    let typesDeQuestionsDisponibles;
+    if (this.sup2 == 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
+    else if (this.sup2 == 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
+    else if (this.sup2 == 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
+    else typesDeQuestionsDisponibles = [2, 3, 3, 4, 4]
 
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
@@ -57,18 +58,18 @@ export default function Ecrire_nombres_entiers() {
         if (tranche[listeTypeDeQuestions[i] - 1] == 0) nombre = 0
       }
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
+        if (!context.isDiaporama) texte = `$${texNombre(nombre)}$ : \\dotfill`
         else texte = `$${texNombre(nombre)}$`
-        if (!est_diaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
+        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
         else texteCorr = `${nombreEnLettres(nombre)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
+        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!est_diaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
+        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$.`
         else texteCorr = `$${texNombre(nombre)}$.`
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -7,7 +7,7 @@ const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
 function getAllFiles (dir) {
   const files = []
   fs.readdirSync(dir).forEach(entry => {
-    if (entry === 'ClasseExercice.js') return
+    if (entry === 'Exercice.js') return
     const fullEntry = path.join(dir, entry)
     if (fs.statSync(fullEntry).isDirectory()) {
       getAllFiles(fullEntry).forEach(file => files.push(file))
@@ -33,81 +33,115 @@ const prefixLength = jsDir.length
 const exercicesList = getAllFiles(exercicesDir)
 
 const dicoAlea = {}
-const dicoAMC = {}
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+
+var warnings = 0;
+
+function beginWarnText() {
+  warnings+=1
+  if (warnings === 1) {
+    return console.log(`\x1b[33m ============================================================= WARNINGS =============================================================\x1b[37m`)
+  }  
+}
+
+function endWarnText() {
+  if (warnings != 0) {
+    return console.log(`\x1b[33m =========================================================== END WARNINGS ===========================================================\x1b[37m`)
+  }
+}
+
+
+function sumWarnings() {    
+    if (warnings === 1) {
+      out = `avec \x1b[33m ${warnings} WARNING\x1b[37m`
+    } else {
+      out = `avec \x1b[33m ${warnings} WARNINGS\x1b[37m`
+    };
+    return out;  
+}
 
 for (const file of exercicesList) {
   const name = path.basename(file, '.js')
-  // Pour l'instant je fais comme ça car je ne sais pas fair autrement
-  // Je systematise la lecture du contenu du fichier en esperant que ça ne ralentisse pas trop l'execution
-  const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
-  // qcmInteractif est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
+  // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
-  let titre, amcReady, amcType={}, qcmInteractif
+  // On avait un fonctionnement avec description cf commit 832f123  
+  let titre, amcReady, amcType={}, interactifReady, interactifType
   try {
     if (dicoAlea[name]) throw Error(`${file} en doublon, on avait déjà un ${name}`)
     const module = requireImport(file)
     if (!module.titre) {
       console.error(`${file} n’a pas d’export titre => IGNORÉ`)
       continue
-    }
+    } 
     titre = module.titre
-    // On teste à l'ancienne la présence de this.qcm dans le code car dans ce cas le booléen amcReady doit être true
-    // On affiche une erreur dans le terminal pour signaler qu'il faut l'ajouter    
     amcReady = Boolean(module.amcReady)
-    // Pour l'instant je mets ça en doublon, il faudra factoriser/nettoyer aussi qq lignes plus bas 
-    // const srcContentt = fs.readFileSync(file, { encoding: 'utf8' })    
-    if (/this.qcm/.test(srcContent) && !amcReady) {
-      console.error(`\x1b[41m${file} est amcReady mais n'a pas d'export amcReady => IL FAUT L'AJOUTER !!!\x1b[0m`)
-    }         
-    if (amcReady && !module.amcType) {
-      console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[0m`)
-    } else {
-      qcmInteractif = module.amcType in [1,2] ? true : false // seulement les types 1 et 2 sont de vrais qcm
+    interactifReady = Boolean(module.interactifReady)
+    // On avait un fonctionnement avec description cf commit 832f123  
+    // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin         
+    if (amcReady && !module.amcType) {      
+     beginWarnText()
+      console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (module)\x1b[37m`)
     }
+    if (module.amcType && !module.amcReady) {
+     beginWarnText()
+      console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+    } 
+    // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e
     if (amcReady) {    
-      amcType.num = module.amcType
-      // switch (amcType.num) {
-      //   case 1:
-      //     amcType.text = "qcmMono";
-      //     break;
-      //   case 2:
-      //     amcType.text = "qcmMult";
-      //     break;
-      //   case 3:
-      //     amcType.text = "AMCOpen "
-      //     break;
-      //   case 4:
-      //     amcType.text = "AMCOpen Num"
-      //     break;
-      //   case 5:
-      //     amcType.text = "AMCOpen NC"
-      //     break;
-      //   case 6:
-      //     amcType.text = "AMCOpen double NC"
-      //     break;
-      //   default:
-      //     console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
-      //     amcType.text = "type de question AMC non prévu"
-      // }
+      amcType.num = module.amcType      
     }    
+
+    if (module.interactifType && !module.interactifReady) {
+    beginWarnText()
+      console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+    }
+    if (interactifReady) {
+      // On verifie s'il y a un interactifType
+      if (!module.interactifType) {
+        interactifType = 'export const interactifType non présent'
+      } else {
+        interactifType = module.interactifType
+      }
+      
+    }      
   } catch (error) {
+    //console.log(`${error} dans ${file}`)
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
-    //const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
+    const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
     const chunks = /export const titre *= *(['"])([^'"]+)\1/.exec(srcContent)
     if (chunks) {
       titre = chunks[2]
       amcReady = /export +const +amcReady *= *true/.test(srcContent)
-      // Pas sûr que ce qui suit fonctionne, notamment pour mes regex
+      interactifReady = /export +const +interactifReady *= *true/.test(srcContent)
+      // On avait un fonctionnement avec description cf commit 832f123  
+      // On verifie s'il y a une incohérence amcType amcReady et on affiche un warning au besoin               
       if (amcReady && !/export +const +amcType */.test(srcContent)) {
-        console.error(`\x1b[41m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[0m`)
-      } else {
-        qcmInteractif = /export +const +amcType *= *([1-2])/.test(srcContent) // seulement les types 1 et 2 sont de vrais qcm       
-      }      
-      if (amcReady) {
-        // Je ne sais pas récupérer le nombre dans la ligne du fichier export const amcType = 4 par exemple
-        //amcType.num = module.amcType
+       beginWarnText()
+        console.error(`\x1b[33m${file} n'a pas d'export amcType => IL FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
+      if (/export +const +amcType */.test(srcContent) && !amcReady) {
+       beginWarnText()
+        console.error(`\x1b[33m${file} a un export amcType mais amcReady est false => VÉRIFIER ÇA !!! (à l'ancienne)\x1b[37m`)
+      }
+      // Avant on testait le type AMC pour définir qcmInteractif cf commmit f59bb8e   
+      if (amcReady) {
+        amcType.num = parseInt(srcContent.match(/export +const +amcType *= *(\d*)/)[1])
+      }
+      // On vérifie la cohérence interactifType, interactifReady
+      if (/export +const +interactifType */.test(srcContent) && !interactifReady) {
+      beginWarnText()
+        console.error(`\x1b[34m${file} a un export interactifType mais interactifReady est false => VÉRIFIER ÇA !!! (module)\x1b[37m`)
+      }
+      if (interactifReady) {
+        // On verifie s'il y a un interactifType
+        if (/export +const +interactifType */.test(srcContent)) {
+          //regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
+          interactifType = srcContent.match(/export +const +interactifType *= *(\"[a-zA-Z0-9].*\")/)[1]
+        } else {
+          interactifType = `export const interactifType non présent (à l'ancienne)`
+        }        
+      }    
     } else {
       console.error(Error(`Pas trouvé de titre dans ${file} => IGNORÉ`))
     }
@@ -119,61 +153,90 @@ for (const file of exercicesList) {
     const url = file.substr(prefixLength).replace(/\\/g, '/')
     // On ajoute amcType que si amcReady est à true
     if (amcReady) {
-      // On ajuste la propriété text de amcType
-      switch (amcType.num) {
-        case 1:
-          amcType.text = "qcmMono";
-          break;
-        case 2:
-          amcType.text = "qcmMult";
-          break;
-        case 3:
-          amcType.text = "AMCOpen "
-          break;
-        case 4:
-          amcType.text = "AMCOpen Num"
-          break;
-        case 5:
-          amcType.text = "AMCOpen NC"
-          break;
-        case 6:
-          amcType.text = "AMCOpen double NC"
-          break;
-        default:
-          console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!\x1b[0m`)
-          amcType.text = "type de question AMC non prévu"
+      // On ajuste la propriété text de amcType différemment si c'est un tableau ou non
+      let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum✖︎2","AMCOpenNum✖︎3"]      
+      //let typeText = ["qcmMono","qcmMult","AMCOpen","AMCNum","AMCOpenNum","AMCOpenNum×2","AMCOpenNum×3"]      
+      if (typeof amcType.num === 'number')  {        
+        switch (amcType.num) {
+          case 1:
+            amcType.text = typeText[0];
+            break;
+          case 2:
+            amcType.text = typeText[1];
+            break;
+          case 3:
+            amcType.text = typeText[2];
+            break;
+          case 4:
+            amcType.text = typeText[3];
+            break;
+          case 5:
+            amcType.text = typeText[4];
+            break;
+          case 6:
+            amcType.text = typeText[5];
+            break;
+          case 7:
+            amcType.text = typeText[6];
+            break;  
+          default:
+           beginWarnText()
+            console.error(`\x1b[33m${file} contient un amcType numerique non prévu => IL FAUT VÉRIFIER ÇA (number)!!!\x1b[37m`)
+            amcType.text = "type de question AMC non prévu";
+        }
+      } else  if (typeof amcType.num === 'object')  {
+        amcType.text = []
+        amcType.num.forEach(
+          function(num) { 
+            switch (num) {
+              case 1:
+                amcType.text = typeText[0];
+                break;
+              case 2:
+                amcType.text = typeText[1];
+                break;
+              case 3:
+                amcType.text = typeText[2];
+                break;
+              case 4:
+                amcType.text = typeText[3];
+                break;
+              case 5:
+                amcType.text = typeText[4];
+                break;
+              case 6:
+                amcType.text = typeText[5];
+                break;
+              case 7:
+                amcType.text = typeText[6];
+                break;  
+              default:
+               beginWarnText()
+                console.error(`\x1b[33m${file} contient un element numérique non prévu dans le tableau amcType => IL FAUT VÉRIFIER ÇA (object)!!!\x1b[37m`)
+                amcType.text.push("type de question AMC non prévu");
+            }
+          }        
+        )
+      } else {
+       beginWarnText()
+        console.error(`\x1b[33m${file} contient amcType ni entier ni liste => IL FAUT VÉRIFIER ÇA !!!\x1b[37m`)
+        amcType.text = "bug amcType.num"
       }
-      dicoAlea[name] = { titre, url, amcReady, amcType, qcmInteractif, name }
+      // On avait un fonctionnement avec description cf commit 832f123  
+      if (interactifReady) {
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, interactifType, name }
+      } else {
+        dicoAlea[name] = { titre, url, amcReady, amcType, interactifReady, name}
+      }            
     } else {
-      dicoAlea[name] = { titre, url, amcReady, qcmInteractif, name }
-    }    
-    // En attendant de virer le fichier dictionnaireDesExercicesAMC.js
-    if (amcReady) {
-      switch (amcType.num) {
-        case 1:
-          amcType.text = "qcmMono";
-          break;
-        case 2:
-          amcType.text = "qcmMult";
-          break;
-        case 3:
-          amcType.text = "AMCOpen "
-          break;
-        case 4:
-          amcType.text = "AMCOpen Num"
-          break;
-        case 5:
-          amcType.text = "AMCOpen NC"
-          break;
-        case 6:
-          amcType.text = "AMCOpen double NC"
-          break;
-        default:
-          console.error(`\x1b[41m${file} contient un amcType non prévu => IL FAUT VÉRIFIER ÇA !!!(pour dictionnaireDesExercicesAMC.js en attendant sa suppression)\x1b[0m`)
-          amcType.text = "type de question AMC non prévu"
+      if (interactifReady) {
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, interactifType, name}
+      } else {
+        dicoAlea[name] = { titre, url, amcReady, interactifReady, name}
       }
-      dicoAMC[name] = { titre, url, amcType, qcmInteractif }
-    }
+      
+    }    
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
     logIfVerbose(`${name} traité (${titre})`)
   } else {
     console.error(`${name} ignoré (pas de titre)`)
@@ -182,9 +245,23 @@ for (const file of exercicesList) {
 
 let dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAleatoires.js')
 fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAlea, null, 2)}`)
-console.log(`${dictFile} généré`)
-dictFile = path.resolve(jsDir, 'modules', 'dictionnaireDesExercicesAMC.js')
-fs.writeFileSync(dictFile, `export default ${JSON.stringify(dicoAMC, null, 2)}`)
-console.log(`${dictFile} généré`)
+endWarnText()
+console.log(`${dictFile} généré ${sumWarnings()}`)
+// ligne supprimée avant il y avait un dico spécifique pour AMC cf commit 7dac24e
+const mdDir = path.resolve(__dirname, '..', 'src', '.')
+let mdFile  = path.resolve(mdDir,'.','exosAmcInteractifs.md')
+// On avait un fonctionnement avec description cf commit 832f123  
+fs.writeFileSync(mdFile,`|id|titre|amcReady|amcType|interactifReady|interactifType|\r\n`)
+fs.appendFileSync(mdFile,`|:-:|:-:|:-:|:-:|:-:|:-:|\r\n`)
+Object.entries(dicoAlea).forEach(([id,props]) => {
+  if (props.amcReady && props.interactifReady) {
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|OK|${props.interactifType}|\r\n`)    
+  } else if (props.amcReady && !props.interactifReady) {
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|OK|${props.amcType.text}|KO|KO|\r\n`)    
+  } else if (!props.amcReady && props.interactifReady) {
+    fs.appendFileSync(mdFile,`|${id}|${props.titre}|KO|KO|OK|${props.interactifType}|\r\n`)    
+  }
+})
+console.log(`${mdFile} généré`)
 const fin = Date.now()
 console.log(`${path.resolve(__dirname, __filename)} terminé en ${fin - debut}ms`)

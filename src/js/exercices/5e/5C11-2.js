@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,prenom, TrouverSolutionMathador} from '../../modules/outils.js'
 
 
@@ -6,7 +7,7 @@ export const titre = 'Traduire une succession des opérations par une expression
 
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 5C11-2
  */
 export default function Ecrire_une_expression_mathador() {
@@ -36,7 +37,7 @@ export default function Ecrire_une_expression_mathador() {
 			}
 			texte += `Écris cette succession d'opérations en une seule expression.`;
 			texteCorr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`;
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

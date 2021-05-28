@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureAlgebriqueSauf1,lettre_minuscule_depuis_chiffre,xcas} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique,ecritureAlgebriqueSauf1,lettreMinusculeDepuisChiffre,xcas} from '../../modules/outils.js'
 import { simplify } from 'mathjs'
 const math = { simplify: simplify }
 
@@ -7,7 +8,7 @@ export const titre = 'Calculs de dérivés'
 
 /**
  * Calculs de dérivés
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 1F10
 */
 export default function CalculsDeDerives() {
@@ -122,8 +123,8 @@ export default function CalculsDeDerives() {
 
       }
 
-      texte = `$${lettre_minuscule_depuis_chiffre(i + 6)}:x\\longmapsto ${xcas(expression)}$`;
-      texteCorr = `$${lettre_minuscule_depuis_chiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettre_minuscule_depuis_chiffre(i + 6)}':x\\longmapsto ${xcas(`simplifier(deriver(${expression}))`)}$`;
+      texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${xcas(expression)}$`;
+      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${xcas(`simplifier(deriver(${expression}))`)}$`;
 
       
 

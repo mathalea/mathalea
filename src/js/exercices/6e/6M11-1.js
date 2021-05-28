@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { mathalea2d, codageAngleDroit, codeSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires carrés, rectangles et triangles rectangles'
@@ -11,7 +12,7 @@ export const titre = 'Périmètres et aires carrés, rectangles et triangles rec
  * Il faut calculer les aires et périmètres.
  *
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M11-1
  */
 export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
@@ -23,7 +24,7 @@ export default function Perimetre_ou_aire_de_carres_rectangles_triangles () {
   this.nbColsCorr = 1
 
   // eslint-disable-next-line no-undef
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,fractionSimplifiee,texFractionReduite,simplificationDeFractionAvecEtapes,prenomF,prenomM,texFraction,numAlpha,ppcm,} from '../../modules/outils.js'
 
 
@@ -7,7 +8,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * 3S20
  */
 export default function fonctions_probabilite2() {
@@ -18,8 +19,8 @@ export default function fonctions_probabilite2() {
 	this.nbQuestionsModifiable = true;
 	this.nbCols = 1;
 	this.nbColsCorr = 1;
-	sortieHtml ? this.spacing = 2 : this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 3 : this.spacingCorr = 2;
+	context.isHtml ? this.spacing = 2 : this.spacing = 2;
+	context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2;
 	this.sup = 1;
 
 	this.nouvelleVersion = function () {
@@ -377,7 +378,7 @@ export default function fonctions_probabilite2() {
 					}
 					break;
 			}
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte);
 				this.listeCorrections.push(texteCorr);
 				i++;

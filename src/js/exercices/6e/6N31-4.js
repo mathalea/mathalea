@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombre,infoMessage} from '../../modules/outils.js'
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
 
 /**
  * Intercaler un nombre décimal entre deux décimaux
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6N31-4
 */
 export default function Intercaler_decimal_entre_2_decimaux() {
@@ -103,7 +104,7 @@ export default function Intercaler_decimal_entre_2_decimaux() {
           texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`;
           texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`;
 
-          if (this.listeQuestions.indexOf(texte) == -1) {
+          if (this.listeQuestions.indexOf(texte) === -1) {
               // Si la question n'a jamais été posée, on en crée une autre
               this.listeQuestions.push(texte);
               this.listeCorrections.push(texteCorr);
@@ -112,7 +113,7 @@ export default function Intercaler_decimal_entre_2_decimaux() {
           cpt++;
       }
       listeQuestionsToContenu(this);
-      if (sortieHtml){
+      if (context.isHtml){
         this.contenuCorrection = infoMessage({ titre: "Remarque", texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.", couleur: "black" }) + this.contenuCorrection;
       }
     };

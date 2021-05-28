@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texte_en_couleur,numAlpha} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,combinaisonListes,arrondi,texNombre,texteEnCouleur,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,droiteParPointEtPerpendiculaire,segment,rotation,codageAngleDroit,afficheCoteSegment,grille,seyes,longueur,mathalea2d} from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
@@ -9,7 +10,7 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Parallele_et_Perpendiculaires() {
   "use strict";
@@ -22,10 +23,10 @@ export default function Parallele_et_Perpendiculaires() {
   this.type=3;
   this.typeExercice = "IEP";
   this.nouvelleVersion = function () {
-    let type_de_questions_disponibles;
-    type_de_questions_disponibles = [this.type]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
+    let typesDeQuestionsDisponibles;
+    typesDeQuestionsDisponibles = [this.type]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     );
     this.listeQuestions = []; // Liste de questions
@@ -66,8 +67,8 @@ let anim;
       BB,
       carreaux,
       k,
-      objets_enonce = [],
-      objets_correction = [],
+      objetsEnonce = [],
+      objetsCorrection = [],
 
       p;
     for (
@@ -77,8 +78,8 @@ let anim;
     ) {
       anim=new Alea2iep()
       anim.equerreZoom(150)
-      objets_enonce.length=0
-      objets_correction.length=0
+      objetsEnonce.length=0
+      objetsCorrection.length=0
       if (this.sup == 2)
         k = 0.8;
       else
@@ -115,7 +116,7 @@ let anim;
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          objets_correction.push(s1,
+          objetsCorrection.push(s1,
             s2,
             dC,
             dD,
@@ -145,12 +146,12 @@ let anim;
               "red"
             )
           );
-          objets_enonce.push(
+          objetsEnonce.push(
             tracePoint(A, B, C, D),
             labelPoint(A, B, C, D),
             d,
           );
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=
             numAlpha(1) +
@@ -200,10 +201,10 @@ let anim;
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          objets_correction.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
-          objets_enonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
+          objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, .2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
+          objetsEnonce.push(tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F), d, p);
 
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce += numAlpha(1) + ` Tracer la droite parallèle à $(AB)$ passant par $C$ et nommer $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce += numAlpha(2) + ` Tracer la droite parallèle à $(AB)$ passant par $D$ et nommer $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
@@ -263,7 +264,7 @@ let anim;
           cF = codageAngleDroit(C, EE, E, 'red')
           cG = codageAngleDroit(C, FF, D, 'red')
 
-          objets_correction.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
+          objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
             segment(A, CC),
             `${texNombre(lC)} cm`,
             0.5,
@@ -290,8 +291,8 @@ let anim;
               -0.5,
               "green"
             ));
-          objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
-          if (sortieHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
+          if (context.isHtml) enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           else enonce = numAlpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce += numAlpha(1) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce += numAlpha(2) + ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
@@ -306,7 +307,7 @@ let anim;
           )}$ cm et $AO \\approx${texNombre(
             lE
           )}$ cm.<br>`;
-          correction += `Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`, 'red')}.<br>`
+          correction += `Les angle droits en rouge se justifient par la propriété :<br> ${texteEnCouleur(`Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`, 'red')}.<br>`
           correction += `Vérifier les angles droits à l'équerre.<br>`
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
@@ -331,8 +332,8 @@ let anim;
         sc = 0.5;
         carreaux = "";
       }
-      objets_enonce.push(g, carreaux)
-      objets_correction.push(g, carreaux)
+      objetsEnonce.push(g, carreaux)
+      objetsCorrection.push(g, carreaux)
 
       enonce += mathalea2d(
         {
@@ -343,7 +344,7 @@ let anim;
           pixelsParCm: ppc,
           scale: sc,
         },
-        objets_enonce
+        objetsEnonce
       );
       correction += mathalea2d(
         {
@@ -354,10 +355,10 @@ let anim;
           pixelsParCm: ppc,
           scale: sc,
         },
-        objets_correction
+        objetsCorrection
       );
       correction += anim.htmlBouton(this.numeroExercice, i)
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + "<br>");
         this.listeCorrections.push(correction + "<br>");

@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,choisitLettresDifferentes} from '../../modules/outils.js'
 import { mathalea2d,point,rotation,codeSegments,segment, polygoneAvecNom,codageAngleDroit,labelPoint,similitude, } from '../../modules/2d.js';
 export const titre = 'Nature de parallélogrammes'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function demonstrations_parallelogrammes() {
@@ -22,8 +23,8 @@ export default function demonstrations_parallelogrammes() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0,objets,O,A,B,C,D,p,t1,t2,t3,t4,s1,s2,s3,s4,d1,d2, texte, texteCorr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       noms=choisitLettresDifferentes(5,'Q')
       nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
@@ -124,7 +125,7 @@ export default function demonstrations_parallelogrammes() {
       texteCorr += `Si un parralélogramme ${prop1}, alors c'est un ${type}.<br>`;
       texteCorr +=`${nom} est donc un ${type}.`
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

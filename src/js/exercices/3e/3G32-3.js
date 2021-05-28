@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../modules/outils.js'
 import { texteSurSegment, pointAdistance,polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
 export const titre = 'Calculer la hauteur d’une falaise'
 
 /**
  * Propose de calculer la hauteur d'une falaise en utilisant les angles de vue depuis deux positions d'un bateau sans s'en approcher.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Référence 3G32-3
 */
 export default function Calculs_trigonometriques3() {
@@ -14,7 +15,7 @@ export default function Calculs_trigonometriques3() {
   this.consigne = "";
   this.nbCols = 1; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1; // Uniquement pour la sortie LaTeX
-  this.sup = true; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = true; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.nbQuestions = 1
@@ -25,7 +26,7 @@ export default function Calculs_trigonometriques3() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
     let distance, alfa,baita, beta, alpha, taille, A, B, H, S, objets = [], p
-    if (sortieHtml) {
+    if (context.isHtml) {
       alfa='α'
       baita='β'
     }
@@ -74,7 +75,7 @@ export default function Calculs_trigonometriques3() {
           texteCorr += `$h=\\dfrac{${distance}\\times \\tan(${alpha})\\times \\tan(${alpha + 5})}{\\tan(${alpha + 5})-\\tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
           texteCorr += `$BH=\\dfrac{${distance}\\times \\tan(${alpha})}{\\tan(${alpha + 5})-\\tan(${alpha})}\\approx ${texNombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
           texteCorr += `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${texNombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`;
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,range1,shuffle,combinaisonListes,calcul} from '../../modules/outils.js'
 
 export const titre = 'Le compte est bon original'
 
 /**
  * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
- *  @Auteur Jean-Claude Lhote
+ *  @author Jean-Claude Lhote
  * Référence CM021
  */
 export default function Compte_Est_Bon() {
@@ -20,22 +21,22 @@ export default function Compte_Est_Bon() {
   this.sup = 1; // niveau de calcul souhaité
 
   this.nouvelleVersion = function () {
-    let type_de_questions, a, b, c, d, cible, tirage, choix;
+    let typesDeQuestions, a, b, c, d, cible, tirage, choix;
     if (!this.sup) {
       // Si rien n'est saisi
-      type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions);
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions);
     } else {
       if (typeof this.sup == "number") {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        type_de_questions = combinaisonListes(
+        typesDeQuestions = combinaisonListes(
           [parseInt(this.sup)],
           this.nbQuestions
         );
       } else {
-        type_de_questions = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < type_de_questions.length; i++)
-          type_de_questions[i] = parseInt(type_de_questions[i]);
-        this.nbQuestions = type_de_questions.length;
+        typesDeQuestions = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestions.length; i++)
+          typesDeQuestions[i] = parseInt(typesDeQuestions[i]);
+        this.nbQuestions = typesDeQuestions.length;
       }
     }
     choix = combinaisonListes(range1(5), this.nbQuestions);
@@ -43,7 +44,7 @@ export default function Compte_Est_Bon() {
     this.listeCorrections = []; // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1:
           a = randint(2, 9);
           b = randint(2, 8, a);
@@ -146,7 +147,7 @@ export default function Compte_Est_Bon() {
       texte += `${tirage[5]}.<br>`;
       texte += `Et le nombre à trouver est : ${cible}.`;
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

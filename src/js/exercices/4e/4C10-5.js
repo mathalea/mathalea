@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,ecritureAlgebrique} from '../../modules/outils.js'
 export const titre = 'Multiplications de deux entiers relatifs dans un tableau à double entrée'
 
 /**
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 4C10-5
 */
 export default function Exercice_tableau_multiplications_relatifs() {

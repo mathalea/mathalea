@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,numAlpha} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListesSansChangerOrdre,calcul,prenom,texteEnCouleur,texteGras,texPrix,numAlpha} from '../../modules/outils.js'
 import {point,segment,repere,courbe,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l’aide d’un graphique'
 
@@ -23,25 +24,25 @@ export default function Graphiques_et_proportionnalite2() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 2 : this.spacing = 1;
-  //sortieHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
+  context.isHtml ? this.spacing = 2 : this.spacing = 1;
+  //context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.debug) {
-      type_de_questions_disponibles = [1];
+      typesDeQuestionsDisponibles = [1];
     } else {
-      type_de_questions_disponibles = [1];
+      typesDeQuestionsDisponibles = [1];
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    //type_de_questions_disponibles=[1];			
+    //typesDeQuestionsDisponibles=[1];			
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
@@ -156,17 +157,17 @@ export default function Graphiques_et_proportionnalite2() {
         //question:``,
         correction: `
         <br> ${numAlpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
-        <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
+        <br> ${texteEnCouleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
 
-        <br> ${numAlpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${numAlpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texteEnCouleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
         <br> ${situation.fig_corr}
         <br> ${numAlpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
-        <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
-        <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
-        <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
-        <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
-        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
-        <br><br>${texte_en_couleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
+        <br><br> ${texteGras(`Première méthode par lecture graphique :`)} 
+        <br> Il faut prendre en compte que chaque petit carreau représente $${texPrix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
+        <br><br> ${texteGras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
+        <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
+        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${texPrix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
+        <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${texPrix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
         `
       })
       switch (listeTypeDeQuestions[i]) {
@@ -184,7 +185,7 @@ export default function Graphiques_et_proportionnalite2() {
       }
 
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,texNombre,texFraction} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,texNombre,texFraction,calcul} from '../../modules/outils.js'
 
 export const titre = 'Donner l’écriture décimale d’une fraction décimale'
 
@@ -8,7 +8,7 @@ export const titre = 'Donner l’écriture décimale d’une fraction décimale'
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  *
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 6N23
  */
 export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {
@@ -44,11 +44,11 @@ export default function Exercice_ecriture_decimale_a_partir_de_fraction_decimale
         "$ " +
         texFraction(texNombre(a), texNombre(b)) +
         " = " +
-        texNombre(Algebrite.eval(a / b)) +
+        texNombre(calcul(a / b)) +
         " $";
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (est_diaporama) {
+        if (context.isDiaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
         this.listeQuestions.push(texte);

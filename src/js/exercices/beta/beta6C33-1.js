@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,calcul} from '../../modules/outils.js'
 export const titre = 'Parenthèses manquantes'
 
 /**
  * Priorités opératoires, placer les parenthèses.
- * @Auteur Cédric Grolleau
+ * @author Cédric Grolleau
  * Référence 6C33-1
  */
 export default function Priorites() {
@@ -74,7 +75,7 @@ export default function Priorites() {
 			}
 				
 		}
-		if (this.listeQuestions.indexOf(texte) == -1) {
+		if (this.listeQuestions.indexOf(texte) === -1) {
 			// Si la question n'a jamais été posée, on en crée une autre
 			this.listeQuestions.push(texte);
 			this.listeCorrections.push(texteCorr);

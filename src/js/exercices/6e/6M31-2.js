@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,calcul,texNombrec,texNombre} from '../../modules/outils.js'
 export const titre = 'Conversions avec des unités de volumes ou de capacités'
 
@@ -14,7 +15,7 @@ export const titre = 'Conversions avec des unités de volumes ou de capacités'
  * * 5 :
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 6M31-2
  */
 export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
@@ -167,7 +168,7 @@ export default function Unites_de_volumes_et_de_capacite(niveau = 1) {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

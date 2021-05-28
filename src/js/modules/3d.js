@@ -1,6 +1,6 @@
-/* global mathalea */
 import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
+import { context } from './context.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
@@ -12,7 +12,7 @@ const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot
 /*
  * Classe parente de tous les objets de MathALEA2D
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  */
 let numId = 0
 function ObjetMathalea2D () {
@@ -27,7 +27,7 @@ function ObjetMathalea2D () {
   this.id = numId
   numId++
   //   mesObjets.push(this);
-  mathalea.objets2D.push(this)
+  context.objets2D.push(this)
 }
 
 /*
@@ -39,33 +39,34 @@ function ObjetMathalea2D () {
 /**
  * LE POINT
  *
-* @Auteur Jean-Claude Lhote
+* @author Jean-Claude Lhote
 * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
 * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
 */
 class Point3d {
-  constructor (x3d, y3d, z3d, visible, label) {
-    const alpha = mathalea.anglePerspective * Math.PI / 180
-    const rapport = mathalea.coeffPerspective
+  constructor (x, y, z, visible, label, positionLabel) {
+    const alpha = context.anglePerspective * Math.PI / 180
+    const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
-    this.x3d = x3d
-    this.y3d = y3d
-    this.z3d = z3d
+    this.x = x
+    this.y = y
+    this.z = z
     this.visible = visible
     this.label = label
-    const V = math.matrix([this.x3d, this.y3d, this.z3d])
+    this.typeObjet = 'point3d'
+    const V = math.matrix([this.x, this.y, this.z])
     const W = math.multiply(MT, V)
-    this.p2d = point(W._data[0], W._data[1], this.label)
+    this.p2d = point(W._data[0], W._data[1], this.label, positionLabel)
   }
 }
-export function point3d (x3d, y3d, z3d = 0, visible = true, label = '') {
-  return new Point3d(x3d, y3d, z3d, visible, label)
+export function point3d (x, y, z = 0, visible = true, label = '', positionLabel) {
+  return new Point3d(x, y, z, visible, label, positionLabel)
 }
 
 /**
    * LE VECTEUR
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
    * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
 s et dans toutes les transformations.import Nature_polygone from './../exercices/2e/2G12';
@@ -84,25 +85,26 @@ import Exercice_fractions_decomposer from './../exercices/6e/6N20';
    */
 class Vecteur3d {
   constructor (...args) {
-    const alpha = mathalea.anglePerspective * Math.PI / 180
-    const rapport = mathalea.coeffPerspective
+    const alpha = context.anglePerspective * Math.PI / 180
+    const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]])
-    if (args.length == 2) {
-      this.x3d = args[1].x3d - args[0].x3d
-      this.y3d = args[1].y3d - args[0].y3d
-      this.z3d = args[1].z3d - args[0].z3d
+    if (args.length === 2) {
+      this.x = args[1].x - args[0].x
+      this.y = args[1].y - args[0].y
+      this.z = args[1].z - args[0].z
     } else {
       if (typeof (args[0]) === 'number') {
-        this.x3d = args[0]
-        this.y3d = args[1]
-        this.z3d = args[2]
-      } else if (args.length == 1) {
-        this.x3d = args[0]._data[0]
-        this.y3d = args[0]._data[1]
-        this.z3d = args[0]._data[2]
+        this.x = args[0]
+        this.y = args[1]
+        this.z = args[2]
+      } else if (args.length === 1) {
+        this.x = args[0]._data[0]
+        this.y = args[0]._data[1]
+        this.z = args[0]._data[2]
       }
     }
-    this.matrice = math.matrix([this.x3d, this.y3d, this.z3d])
+    this.matrice = math.matrix([this.x, this.y, this.z])
+    this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2)
     const W = math.multiply(MT, this.matrice)
     this.p2d = vecteur(W._data[0], W._data[1])
     this.representant = function (A) {
@@ -118,17 +120,17 @@ export function vecteur3d (...args) { // A,B deux Point3d ou x,y,z les composant
 
 /**
    * L'ARETE
-   * @Auteur Jean-Claude lhote
+   * @author Jean-Claude lhote
    *
    *
    *
    */
 class Arete3d {
-  constructor (point1, point2, color) {
+  constructor (point1, point2, color, visible) {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = color
-    if (!point1.visible || !point2.visible) {
+    if (!point1.visible || !point2.visible || !visible) {
       this.visible = false
     } else {
       this.visible = true
@@ -141,23 +143,23 @@ class Arete3d {
     }
   }
 }
-export function arete3d (p1, p2, color = 'black') {
-  return new Arete3d(p1, p2, color)
+export function arete3d (p1, p2, color = 'black', visible = true) {
+  return new Arete3d(p1, p2, color, visible)
 }
 
 /**
    * LA DROITE
    *
-   * @Auteur Jean-claude Lhote
+   * @author Jean-claude Lhote
    * Droite de l'espace définie par point et vecteur directeur droite3d(A,v)
    * Droite de l'espace définie par 2 points droite3d(A,B)
    * Les droites servent principalement à définir des axes de rotation dans l'espace
    */
 class Droite3d {
   constructor (point3D, vecteur3D) {
-    if (vecteur3D.constructor == Vecteur3d) {
+    if (vecteur3D.constructor === Vecteur3d) {
       this.directeur = vecteur3D
-    } else if (vecteur3D.constructor == Point3d) {
+    } else if (vecteur3D.constructor === Point3d) {
       this.directeur = vecteur3d(point3D, vecteur3D)
     }
     this.origine = point3D
@@ -175,7 +177,7 @@ export function droite3d (point3D, vecteur3D) {
 /**
  * LE DEMI-CERCLE
  *
- *@Auteur Jean-Claude Lhote
+ *@author Jean-Claude Lhote
  * Le nom est trompeur, il s'agit le plus souvent d'une demi-ellipse représentant un cercle projeté
  * Utilisé pour représenter un cercle dont une moitié est visible mais pas l'autre.
  *
@@ -187,9 +189,9 @@ export function droite3d (point3D, vecteur3D) {
  * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
  *
  */
-export function demicercle3d (centre, normal, rayon, cote, color, angledepart = mathalea.anglePerspective) {
-  let demiCercle; let signe; const M = []; const listepoints = []
-  if (cote == 'caché') {
+export function demicercle3d (centre, normal, rayon, cote, color, angledepart = context.anglePerspective) {
+  let signe; const M = []; const listepoints = []
+  if (cote === 'caché') {
     signe = 1
   } else {
     signe = -1
@@ -202,8 +204,8 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
     M.push(rotation3d(M[i - 1], d, 10 * signe))
     listepoints.push(M[i].p2d)
   }
-  demiCercle = polyline(listepoints, color)
-  if (cote == 'caché') {
+  const demiCercle = polyline(listepoints, color)
+  if (cote === 'caché') {
     demiCercle.pointilles = 2
     demiCercle.opacite = 0.3
   }
@@ -213,22 +215,22 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
 /**
     * LE CERCLE
     *
-    * @Auteur Jean-Claude Lhote
+    * @author Jean-Claude Lhote
     *
     * C'est la version entière du cercle : soit totalement visible, soit totalement caché.
     * visible est un booléen
     *
     */
 export function cercle3d (centre, normal, rayon, visible = true, color = 'black') {
-  let C; const M = []; const listepoints = []
+  const M = []; const listepoints = []
   const d = droite3d(centre, normal)
-  M.push(rotation3d(translation3d(centre, rayon), d, mathalea.anglePerspective))
+  M.push(rotation3d(translation3d(centre, rayon), d, context.anglePerspective))
   listepoints.push(M[0].p2d)
   for (let i = 1; i < 37; i++) {
     M.push(rotation3d(M[i - 1], d, 10))
     listepoints.push(M[i].p2d)
   }
-  C = polygone(listepoints, color)
+  const C = polygone(listepoints, color)
   if (!visible) {
     C.pointilles = 2
   }
@@ -238,7 +240,7 @@ export function cercle3d (centre, normal, rayon, visible = true, color = 'black'
 /**
    * LE POLYGONE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
    */
 class Polygone3d {
@@ -280,44 +282,43 @@ export function polygone3d (...args) {
 /**
    * LA SPHERE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Produit une sphère : choisir un nombre de parallèles impair pour avoir l'équateur. normal défini l'axe Nord-Sud.
    * rayon est le rayon de la sphère. l'équateur est dans le plan xy l'axe Nord-Sud est sur z
    * @param {Point3d} centre
    * @param {Number} rayon
-   * @param {Number} nb_paralleles
-   * @param {Number} nb_meridiens
+   * @param {Number} nbParalleles
+   * @param {Number} nbMeridiens
    * @param {string} color
    */
-function Sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color) {
+function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
   ObjetMathalea2D.call(this)
   this.centre = centre
   this.rayon = vecteur3d(rayon, 0, 0)
   this.normal = vecteur3d(0, 0, 1)
   this.color = color
-  this.nb_meridiens = nb_meridiens
-  this.nb_paralleles = nb_paralleles
+  this.nbMeridiens = nbMeridiens
+  this.nbParalleles = nbParalleles
   const objets = []; let c1; let c2; let c3; let c4; let C; let D
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  let cote1, cote2, rayon2, R
-  rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
-  R = rayon
-  cote1 = 'caché'
-  cote2 = 'visible'
-  // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
-  for (let k = 0, rayon3; k < 1; k += 1 / (this.nb_paralleles + 1)) {
-    C = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(k * Math.PI / 2))
-    D = point3d(centre.x3d, centre.y3d, centre.z3d + R * Math.sin(-k * Math.PI / 2))
+  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
+  const R = rayon
+  const cote1 = 'caché'
+  const cote2 = 'visible'
+  // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,context.anglePerspective),rotationV3d(this.rayon,this.normal,context.anglePerspective),true,this.color))
+  for (let k = 0, rayon3; k < 1; k += 1 / (this.nbParalleles + 1)) {
+    C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
+    D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
     rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
-    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, mathalea.anglePerspective)
-    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, mathalea.anglePerspective)
-    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, mathalea.anglePerspective)
-    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, mathalea.anglePerspective)
+    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
+    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
+    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
     objets.push(c1, c2, c3, c4)
   }
-  for (let k = 0, V, W; k < 1; k += 1 / this.nb_meridiens) {
-    V = rotationV3d(prodvec, this.normal, 90 + mathalea.anglePerspective + k * 90)
-    W = rotationV3d(prodvec, this.normal, 90 + mathalea.anglePerspective - (k + 1 / this.nb_meridiens) * 90)
+  for (let k = 0, V, W; k < 1; k += 1 / this.nbMeridiens) {
+    V = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective + k * 90)
+    W = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective - (k + 1 / this.nbMeridiens) * 90)
     c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
     c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
     c3 = demicercle3d(this.centre, W, rayon2, cote2, this.color, 0)
@@ -340,14 +341,14 @@ function Sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color) {
     return code
   }
 }
-export function sphere3d (centre, rayon, nb_paralleles, nb_meridiens, color = 'black') {
-  return new Sphere3d(centre, rayon, nb_paralleles, nb_meridiens, color)
+export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
+  return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
 }
 
 /**
     * LE CONE
     *
-    * @Auteur Jean-Claude Lhote
+    * @author Jean-Claude Lhote
     *
     * centrebase est le centre du disque de base
     * sommet est le sommet du cône
@@ -359,9 +360,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
   this.sommet = sommet
   this.centrebase = centrebase
   this.normal = normal
-  this.rayon = rayon
-  const objets = []; let c1; let c2; let s; let color1; let color2
-  const prodvec = vecteur3d(math.cross(normal.matrice, rayon.matrice))
+  this.rayon = vecteur3d(rayon, 0, 0)
+  const objets = []; let s; let color1; let color2
+  const prodvec = vecteur3d(math.cross(normal.matrice, this.rayon.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
   if (prodscal > 0) {
@@ -375,13 +376,13 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
     color1 = 'black'
     color2 = 'gray'
   }
-  c1 = demicercle3d(this.centrebase, this.normal, this.rayon, cote1, color1)
-  c2 = demicercle3d(this.centrebase, this.normal, this.rayon, cote2, color2)
+  const c1 = demicercle3d(this.centrebase, this.normal, this.rayon, cote1, color1)
+  const c2 = demicercle3d(this.centrebase, this.normal, this.rayon, cote2, color2)
 
   for (let i = 0; i < c1.listePoints.length; i++) {
-    if (i % generatrices == 0) {
+    if (i % generatrices === 0) {
       s = segment(this.sommet.p2d, c1.listePoints[i])
-      if (cote1 == 'caché') {
+      if (cote1 === 'caché') {
         s.pointilles = 2
         s.color = 'gray'
       } else {
@@ -391,9 +392,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
     }
   }
   for (let i = 0; i < c2.listePoints.length; i++) {
-    if (i % generatrices == 0) {
+    if (i % generatrices === 0) {
       s = segment(this.sommet.p2d, c2.listePoints[i])
-      if (cote2 == 'caché') {
+      if (cote2 === 'caché') {
         s.pointilles = 2
         s.color = 'gray'
       } else {
@@ -425,7 +426,7 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
 /**
    * LE CYLINDRE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Crée un cylindre de révolution définit par les centres de ses 2 bases
    * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes
    * @param {Point3d} centrebase1
@@ -442,7 +443,7 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
   this.rayon1 = rayon1
   this.rayon2 = rayon2
   this.color = color
-  const objets = []; let c1; let c2; let c3; let c4; let s; let color1; let color2
+  const objets = []; let s; let color1; let color2
   const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
   const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
   let cote1, cote2
@@ -457,15 +458,15 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     color1 = this.color
     color2 = this.color
   }
-  c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, color1)
-  c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, color1)
-  c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, color2)
-  c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, color2)
+  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, color1)
+  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, color1)
+  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, color2)
+  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, color2)
   c3.pointilles = false
   c3.color = this.color
   for (let i = 0; i < c1.listePoints.length; i += 2) {
     s = segment(c3.listePoints[i], c1.listePoints[i])
-    if (cote1 == 'caché') {
+    if (cote1 === 'caché') {
       s.pointilles = 2
       s.color = this.color
       s.opacite = 0.3
@@ -476,7 +477,7 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
   }
   for (let i = 0; i < c2.listePoints.length; i += 2) {
     s = segment(c4.listePoints[i], c2.listePoints[i])
-    if (cote2 == 'caché') {
+    if (cote2 === 'caché') {
       s.pointilles = 2
       s.color = this.color
       s.opacite = 0.3
@@ -508,7 +509,7 @@ export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, col
 /**
    * LE PRISME
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
    */
 class Prisme3d {
@@ -556,14 +557,13 @@ export function prisme3d (base, vecteur, color = 'black') {
 
 /**
    * LE cube
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usage : cube(x,y,z,c,color) construit le cube d'arète c dont le sommet en bas à gauche a les coordonnées x,y,z.
    * le face avant est dans le plan xz
    *
 */
 class Cube3d {
   constructor (x, y, z, c, color = 'black') {
-    let faceAV, faceDr, faceTOP
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
@@ -575,9 +575,9 @@ class Cube3d {
     const F = translation3d(E, vx)
     const G = translation3d(F, vz)
     const H = translation3d(D, vy)
-    faceAV = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
-    faceDr = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
-    faceTOP = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
+    const faceAV = polygone([A.p2d, B.p2d, C.p2d, D.p2d], color)
+    const faceDr = polygone([B.p2d, F.p2d, G.p2d, C.p2d], color)
+    const faceTOP = polygone([D.p2d, C.p2d, G.p2d, H.p2d], color)
     faceAV.couleurDeRemplissage = '#A9A9A9'
     faceTOP.couleurDeRemplissage = 'white'
     faceDr.couleurDeRemplissage = '#A5C400'
@@ -673,7 +673,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 
 /**
    * LE PAVE
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] sont délimitent 3 faces adjacentes.
    *
 */
@@ -694,14 +694,14 @@ class Pave3d {
     this.aretes = [arete3d(A, B, color), arete3d(A, D, color), arete3d(A, E, color), arete3d(C, B, color), arete3d(F, B, color), arete3d(C, D, color), arete3d(C, G, color), arete3d(F, G, color), arete3d(F, E, color), arete3d(H, G, color), arete3d(H, E, color), arete3d(H, D, color)]
     this.svg = function (coeff) {
       let code = ''
-      for (const arete of aretes) {
+      for (const arete of this.aretes) {
         code += '\n\t' + arete.p2d.svg(coeff)
       }
       return code
     }
     this.tikz = function () {
       let code = ''
-      for (const arete of aretes) {
+      for (const arete of this.aretes) {
         code += '\n\t' + arete.p2d.tikz()
       }
       return code
@@ -721,7 +721,7 @@ export function pave3d (A, B, C, E, color = 'black') {
 /**
    * LA ROTATION VECTORIELLE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * Cette rotation se distingue de la rotation d'axe (d) par le fait qu'on tourne autour d'une droite vectorielle
    * Elle sert à faire tourner des vecteurs essentiellement.
    * Si on l'utilise sur un point, alors il tournera autour d'une droite passant par l'origine.
@@ -731,18 +731,18 @@ export function pave3d (A, B, C, E, color = 'black') {
    * @param {*} angle Angle de rotation
    */
 export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
-  let matrice, V, p2
+  let V, p2
   const norme = math.norm(vecteur3D.matrice)
   const unitaire = math.multiply(vecteur3D.matrice, 1 / norme)
   const u = unitaire._data[0]; const v = unitaire._data[1]; const w = unitaire._data[2]
   const c = Math.cos(angle * Math.PI / 180); const s = Math.sin(angle * Math.PI / 180)
   const k = 1 - c
-  matrice = math.matrix([[u * u * k + c, u * v * k - w * s, u * w * k + v * s], [u * v * k + w * s, v * v * k + c, v * w * k - u * s], [u * w * k - v * s, v * w * k + u * s, w * w * k + c]])
-  if (point3D.constructor == Point3d) {
-    V = math.matrix([point3D.x3d, point3D.y3d, point3D.z3d])
+  const matrice = math.matrix([[u * u * k + c, u * v * k - w * s, u * w * k + v * s], [u * v * k + w * s, v * v * k + c, v * w * k - u * s], [u * w * k - v * s, v * w * k + u * s, w * w * k + c]])
+  if (point3D.constructor === Point3d) {
+    V = math.matrix([point3D.x, point3D.y, point3D.z])
     p2 = math.multiply(matrice, V)
     return point3d(p2._data[0], p2._data[1], p2._data[2])
-  } else if (point3D.constructor == Vecteur3d) {
+  } else if (point3D.constructor === Vecteur3d) {
     V = point3D
     p2 = math.multiply(matrice, V.matrice)
     return vecteur3d(p2._data[0], p2._data[1], p2._data[2])
@@ -752,7 +752,7 @@ export function rotationV3d (point3D, vecteur3D, angle) { // point = ce qu'on fa
 /**
    * LA ROTATION D'AXE UNE DROITE
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    *
    * @param {Point3d} point3D Pour l'instant on ne fait tourner qu'un point3d
    * Remarque : ça n'a aucun sens de faire tourner un vecteur autour d'une droite particulière, on utilise la rotation vectorielle pour ça.
@@ -764,15 +764,15 @@ export function rotation3d (point3D, droite3D, angle, color) {
   const directeur = droite3D.directeur
   const origine = droite3D.origine
   const p = []
-  if (point3D.constructor == Point3d) {
+  if (point3D.constructor === Point3d) {
     const V = vecteur3d(origine, point3d(0, 0, 0))
     const W = vecteur3d(point3d(0, 0, 0), origine)
     const M = translation3d(point3D, V)
     const N = rotationV3d(M, directeur, angle)
     return translation3d(N, W)
-  } else if (point3D.constructor == Vecteur3d) {
+  } else if (point3D.constructor === Vecteur3d) {
     return rotationV3d(point3D, directeur, angle)
-  } else if (point3D.constructor == Polygone3d) {
+  } else if (point3D.constructor === Polygone3d) {
     for (let i = 0; i < point3D.listePoints.length; i++) {
       p.push(rotation3d(point3D.listePoints[i], droite3D, angle))
     }
@@ -786,7 +786,7 @@ function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   ObjetMathalea2D.call(this)
   this.epaisseur = epaisseur
   this.color = color
-  let M; let N; let s; const objets = []; let d; let A; let B
+  let M; let N; let s; const objets = []
   M = translation3d(axe.origine, rayon)
   for (let i = 0; i < angle; i += 5) {
     N = rotation3d(M, axe, 5)
@@ -801,9 +801,9 @@ function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
   s.color = this.color
   s.epaisseur = this.epaisseur
   objets.push(s)
-  d = droite3d(N, axe.directeur)
-  A = rotation3d(M, d, 30)
-  B = rotation3d(M, d, -30)
+  const d = droite3d(N, axe.directeur)
+  const A = rotation3d(M, d, 30)
+  const B = rotation3d(M, d, -30)
   s = segment(N.p2d, A.p2d)
   s.color = this.color
   s.epaisseur = this.epaisseur
@@ -834,17 +834,17 @@ export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
 /**
    * LA TRANSLATION
    *
-   * @Auteur Jean-Claude Lhote
+   * @author Jean-Claude Lhote
    * @param {Point3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
    * @param {Vecteur3d} vecteur3D
    */
 export function translation3d (point3D, vecteur3D) {
-  if (point3D.constructor == Point3d) {
-    const x = point3D.x3d + vecteur3D.x3d
-    const y = point3D.y3d + vecteur3D.y3d
-    const z = point3D.z3d + vecteur3D.z3d
+  if (point3D.constructor === Point3d) {
+    const x = point3D.x + vecteur3D.x
+    const y = point3D.y + vecteur3D.y
+    const z = point3D.z + vecteur3D.z
     return point3d(x, y, z)
-  } else if (point3D.constructor == Polygone3d) {
+  } else if (point3D.constructor === Polygone3d) {
     const p = []
     for (let i = 0; i < point3D.listePoints.length; i++) {
       p.push(translation3d(point3D.listePoints[i], vecteur3D))
@@ -855,19 +855,19 @@ export function translation3d (point3D, vecteur3D) {
 export function homothetie3d (point3D, centre, rapport, color) {
   let V
   const p = []
-  if (point3D.constructor == Point3d) {
+  if (point3D.constructor === Point3d) {
     V = vecteur3d(centre, point3D)
-    V.x3d *= rapport
-    V.y3d *= rapport
-    V.y3d *= rapport
+    V.x *= rapport
+    V.y *= rapport
+    V.y *= rapport
     return translation3d(centre, V)
-  } else if (point3D.constructor == Vecteur3d) {
+  } else if (point3D.constructor === Vecteur3d) {
     V = point3D
-    V.x3d *= rapport
-    V.y3d *= rapport
-    V.y3d *= rapport
+    V.x *= rapport
+    V.y *= rapport
+    V.y *= rapport
     return V
-  } else if (point3D.constructor == Polygone3d) {
+  } else if (point3D.constructor === Polygone3d) {
     for (let i = 0; i < point3D.listePoints.length; i++) {
       p.push(homothetie3d(point3D.listePoints[i], centre, rapport, color))
     }

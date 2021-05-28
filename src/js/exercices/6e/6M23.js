@@ -2,7 +2,7 @@ import Exercice_conversions_aires from './_Exercice_conversions_aires.js'
 export const titre = 'Conversions d’aires'
 
 /** 
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * référence 6M23
  * 
 */

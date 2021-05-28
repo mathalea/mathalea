@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d,point,rotation,latexParPoint } from '../../modules/2d.js'
 import {point3d,polygone3d,rotation3d,droite3d} from '../../modules/3d.js'
 import {texcolors} from '../../modules/outils.js'

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,rienSi1,ecritureAlgebrique,ecritureParentheseSiNegatif,signe,abs,pgcd,texFractionReduite,miseEnEvidence,texFraction} from '../../modules/outils.js'
 export const titre = 'Équation du premier degré (utilisant la distributivité)'
 
@@ -8,7 +9,7 @@ export const titre = 'Équation du premier degré (utilisant la distributivité)
 * * Type 2 : k(ax+b)=cx+d
 * * Type 3 : k-(ax+b)=cx+d
 * * Tous les types
-* @Auteur Rémi Angot
+* @author Rémi Angot
 * 3L13-1
 */
 export default function Exercice_equation1_2() {
@@ -16,9 +17,9 @@ export default function Exercice_equation1_2() {
 	this.titre = titre;
 	this.consigne = 'Résoudre les équations suivantes';
 	this.spacing = 2;
-	sortieHtml ? this.spacingCorr = 3 : this.spacingCorr = 2;
+	context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2;
 	this.correctionDetailleeDisponible = true;
-	if (!sortieHtml) {
+	if (!context.isHtml) {
 		this.correctionDetaillee = false;
 	}
 	this.nbQuestions = 3;
@@ -148,7 +149,7 @@ export default function Exercice_equation1_2() {
 				texteCorr += `<br> La solution est $${texFractionReduite(d - b, a - c)}$.`;
 			}
 
-			if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+			if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.listeQuestions.push(texte); //replace(/1x/g,'x')); //remplace 1x par x
 				this.listeCorrections.push(texteCorr); //.replace(/1x/g,'x')); //remplace 1x par x
 				i++;

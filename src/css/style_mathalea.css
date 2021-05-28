@@ -28,6 +28,22 @@
   margin-top: 40px;
 }
 
+/* Pour les formulaire avec la classe inline */
+
+.ui.form.inline {
+  display: inline-block;
+}
+
+#affichageErreur {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#affichageErreur .header{
+  font-size:1.8em;
+}
+
 /* Timer pour le calcul chronométré*/
 
 #timer, #numero_question {
@@ -516,11 +532,28 @@ body.dragging, body.dragging * {
   font-size:1.2rem;
 }
 
-#filtre {
-	display:inline;
-  background-color:#f15929;
-	color:white;
-  width:220px;
+#divFiltre .selection {
+  background-color:#f15929 !important;
+	color:white !important;
+  font-size:1.2rem !important;
+  width:190px;
+}
+
+#divFiltre .item {
+  background-color:#f15929 !important;
+	color:white;  
+  border:none;
+  padding:1px;
+}
+
+#divFiltre .selection .menu{
+  max-height:25em;
+}
+ 
+#divFiltre .text {
+  background-color:#f15929 !important;
+	color:white;  
+  width:190px;
 }
 
 h3 i.double {

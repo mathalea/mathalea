@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes} from '../../modules/outils.js'
 import { choice, calcul, randint, texNombre, modalTexteCourt } from '../../modules/outils.js';
 export const titre = 'Puissances de 10 et préfixes kilo, méga, giga, téra'
 
 /**
  * Utiliser les puissances de 10 et les préfixes kilo, Méga, Giga, Téra
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 4C32-2
  * 2021-02-05
 */
@@ -16,11 +17,11 @@ export default function ConversionsPuissancesDe10(numeroExercice) {
   this.nbQuestions = 10;
   this.nbCols = 2; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2; // Uniquement pour la sortie LaTeX
-  //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  //this.sup = 1; // Niveau de difficulté 
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.correction_detaille_disponible = true;
-  this.correctionDetaillee = sortieHtml ?  true : false;
+  this.correctionDetaillee = context.isHtml ?  true : false;
 
   this.boutonAide = modalTexteCourt(numeroExercice,
     `Téra : mille-milliards $\\times10^{12}$<br>
@@ -36,8 +37,8 @@ nano : milliardième $\\times10^{-9}$<br>
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['m>km','u>M','u>G','g>t','M>G','M>T','G>T','m>mm','m>um','m>nm']; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['m>km','u>M','u>G','g>t','M>G','M>T','G>T','m>mm','m>um','m>nm']; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let liste_de_sens = combinaisonListes(['div','fois'],this.nbQuestions)
     for (let i = 0, a, n, unite, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
@@ -232,7 +233,7 @@ nano : milliardième $\\times10^{-9}$<br>
         
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

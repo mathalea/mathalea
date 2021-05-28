@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,combinaisonListes, randint, calcul, texNombre, tex_prix, arrondi} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,combinaisonListes, randint, calcul, texNombre, texPrix, arrondi} from '../../modules/outils.js'
 export const titre = 'Exprimer une fractions sous la forme d’une valeur approchée d’un pourcentage'
 
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Référence 5N11-4
  * 2021-02-06
 */
@@ -15,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestions = 6;
   this.nbCols = 2; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2; // Uniquement pour la sortie LaTeX
-  this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
@@ -37,7 +38,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         }
         texte = `$\\dfrac{${num}}{${den}}\\approx \\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$`
         if (this.sup == 1) {
-            texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${tex_prix(calcul(num/den,2))} $ soit environ $${calcul(calcul(num/den,2)*100)}~\\%$ $\\left(\\text{car } ${tex_prix(calcul(num/den,2))}=\\dfrac{${calcul(calcul(num/den,2)*100)}}{100}\\right)$.`
+            texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texPrix(calcul(num/den,2))} $ soit environ $${calcul(calcul(num/den,2)*100)}~\\%$ $\\left(\\text{car } ${texPrix(calcul(num/den,2))}=\\dfrac{${calcul(calcul(num/den,2)*100)}}{100}\\right)$.`
         }
         if (this.sup == 2) {
             texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(calcul(num/den,3))} $ soit environ $${texNombre(calcul(num/den*100,1))}~\\%$ $\\left(\\text{car } ${texNombre(calcul(num/den,3))}=\\dfrac{${texNombre(calcul(num/den*100,1))}}{100}\\right)$.`
@@ -45,7 +46,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
 
       
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

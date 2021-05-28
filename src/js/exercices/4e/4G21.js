@@ -1,36 +1,45 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,enleveElement,choice,combinaisonListes,calcul,texNombrec,creerNomDePolygone,texNombre} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas.'
+export const amcReady = true
+export const amcType = 1 // QCM
+export const interactifReady = true
+
 
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 4G21
  */
-export default function Reciproque_Pythagore() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = titre;
-  this.consigne = "";
-  this.nbQuestions = 3;
-  this.nbCols = 1;
-  this.nbColsCorr = 1;
-  this.sup = 3;
-  sortieHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1);
+export default function ReciproquePythagore () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.titre = titre
+  this.amcReady = amcReady
+  this.amcType = amcType
+  this.interactifReady = interactifReady
+  this.interactif = true
+  this.consigne = ''
+  this.nbQuestions = 3
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.sup = 3
+  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = []; // Liste de questions
-    this.listeCorrections = []; // Liste de questions corrigées
+    this.sup = parseInt(this.sup)
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []
-    if (this.sup == 1) {
-      listeTypeDeQuestions = combinaisonListes(["rectangle"], this.nbQuestions);
+    if (this.sup === 1) {
+      listeTypeDeQuestions = combinaisonListes(['rectangle'], this.nbQuestions)
+    } else if (this.sup === 2) {
+      listeTypeDeQuestions = combinaisonListes(['pas_rectangle'], this.nbQuestions)
+    } else { // (this.sup === 3)
+      listeTypeDeQuestions = combinaisonListes(['rectangle', 'pas_rectangle'], this.nbQuestions)
     }
-    else if (this.sup == 2) {
-      listeTypeDeQuestions = combinaisonListes(["pas_rectangle"], this.nbQuestions);
-    }
-    else { // (this.sup == 3)
-      listeTypeDeQuestions = combinaisonListes(["rectangle", "pas_rectangle"], this.nbQuestions);
-    }
-    let liste_triplets_pythagoriciens = [
+    const listeTripletsPythagoriciens = [
       [3, 4, 5],
       [5, 12, 13],
       [6, 8, 10],
@@ -82,91 +91,109 @@ export default function Reciproque_Pythagore() {
       [57, 76, 95],
       [60, 63, 87],
       [60, 80, 100],
-      [65, 72, 97],
-    ];
-    let liste_noms_triangles = []; // on mémorise les noms des triangles pour ne pas les redonner
+      [65, 72, 97]
+    ]
+    const nomsTriangles = [] // on mémorise les noms des triangles pour ne pas les redonner
     for (
       let i = 0,
-      texte,
-      texteCorr,
-      a,
-      b,
-      c,A,B,C,
-      nom_triangle,
-      triplet,
-      ordre_des_cotes,
-      cpt = 0;
+        texte,
+        texteCorr,
+        a,
+        b,
+        c, A, B, C,
+        nomTriangle,
+        triplet,
+        ordreDesCotes,
+        cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      nom_triangle = creerNomDePolygone(3, liste_noms_triangles);
-      liste_noms_triangles.push(nom_triangle);
-      A = nom_triangle[0];
-      B = nom_triangle[1];
-      C = nom_triangle[2];
-      triplet = choice(liste_triplets_pythagoriciens);
-      enleveElement(liste_triplets_pythagoriciens, triplet); // Supprime le triplet pour les prochaines questions
-      a = triplet[0];
-      b = triplet[1];
-      c = triplet[2];
-      if (listeTypeDeQuestions[i] == "pas_rectangle") {
+      this.autoCorrection[i] = {}
+
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Oui',
+          statut: false
+        },
+        {
+          texte: 'Non',
+          statut: false
+        }
+      ]
+      nomTriangle = creerNomDePolygone(3, nomsTriangles)
+      nomsTriangles.push(nomTriangle)
+      A = nomTriangle[0]
+      B = nomTriangle[1]
+      C = nomTriangle[2]
+      triplet = choice(listeTripletsPythagoriciens)
+      enleveElement(listeTripletsPythagoriciens, triplet) // Supprime le triplet pour les prochaines questions
+      a = triplet[0]
+      b = triplet[1]
+      c = triplet[2]
+      if (listeTypeDeQuestions[i] === 'pas_rectangle') {
         c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
-        while (a ** 2 + b ** 2 == c ** 2) {
+        while (a ** 2 + b ** 2 === c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
           c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         }
       }
       if (a > 9 && choice([true, true, true, false])) {
-        //le plus souvent on utilise des décimaux
-        a = calcul(a / 10);
-        b = calcul(b / 10);
-        c = calcul(c / 10);
+        // le plus souvent on utilise des décimaux
+        a = calcul(a / 10)
+        b = calcul(b / 10)
+        c = calcul(c / 10)
       }
-      ordre_des_cotes = randint(1, 3);
-      switch (ordre_des_cotes) {
+      ordreDesCotes = randint(1, 3)
+      switch (ordreDesCotes) {
         case 1:
-          texte = `Le triangle $${nom_triangle}$ est tel que $${A + B
+          texte = `Le triangle $${nomTriangle}$ est tel que $${A + B
             }=${texNombre(c)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${B + C
-            }=${texNombre(a)}$ cm.`;
-          break;
+            }=${texNombre(a)}$ cm.`
+          break
         case 2:
-          texte = `Le triangle $${nom_triangle}$ est tel que  $${B + C
+          texte = `Le triangle $${nomTriangle}$ est tel que  $${B + C
             }=${texNombre(a)}$ cm, $${A + C}=${texNombre(b)}$ cm et $${A + B
-            }=${texNombre(c)}$ cm.`;
-          break;
+            }=${texNombre(c)}$ cm.`
+          break
         case 3:
-          texte = `Le triangle $${nom_triangle}$ est tel que $${A + C
+          texte = `Le triangle $${nomTriangle}$ est tel que $${A + C
             }=${texNombre(b)}$ cm, $${A + B}=${texNombre(c)}$ cm,  et $${B + C
-            }=${texNombre(a)}$ cm.`;
-          break;
+            }=${texNombre(a)}$ cm.`
+          break
       }
-      texte += `<br>Ce triangle est-il rectangle ?`;
-      texteCorr = `Dans le triangle $${nom_triangle}$, le plus grand côté est $[${A + B
-        }]$.`;
+      texte += '<br>Ce triangle est-il rectangle ?'
+      texteCorr = `Dans le triangle $${nomTriangle}$, le plus grand côté est $[${A + B
+        }]$.`
       texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombrec(
         c ** 2
-      )}$`;
+      )}$`
       texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
         a
-      )}^2=${texNombrec(b ** 2 + a ** 2)}$`;
-      if (listeTypeDeQuestions[i] == "rectangle") {
+      )}^2=${texNombrec(b ** 2 + a ** 2)}$`
+      if (listeTypeDeQuestions[i] === 'rectangle') {
+        this.autoCorrection[i].propositions[0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore est vérifiée donc $${nom_triangle}$ est rectangle en $${C}$.`;
+          }^2$, l'égalité de Pythagore est vérifiée donc $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
+        this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nom_triangle}$ n'est pas rectangle.`;
+          }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nomTriangle}$ n'est pas rectangle.`
       }
-
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = texte
+        this.autoCorrection[i].propositions[0].feedback = texteCorr
+      }
+      texte += propositionsQcm(this, i).texte
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte);
-        this.listeCorrections.push(texteCorr);
-        i++;
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
       }
-      cpt++;
+      cpt++
     }
-    listeQuestionsToContenu(this);
-  };
-  this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "];
+    listeQuestionsToContenu(this)
+  }
+  this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
 }
-

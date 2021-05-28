@@ -1,10 +1,11 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes,texNombre,puissanceEnProduit} from '../../modules/outils.js'
 export const titre = 'Écriture décimale d’une puissance'
 
 /**
  * Donner l'écriture décimale d'une puissance de 10
- * @Auteur Rémi Angot
+ * @author Rémi Angot
 * Référence 4C30-3
  */
 export default function EcritureDecimalePuissance() {
@@ -54,7 +55,7 @@ export default function EcritureDecimalePuissance() {
 
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,texte_en_couleur_et_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence,texteEnCouleurEtGras} from '../../modules/outils.js'
 export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant'
 
 /** 
@@ -25,24 +26,24 @@ export default function Ranger_ordre_croissant_decroissant() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2;
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+  context.isHtml ? this.spacing = 3 : this.spacing = 2;
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.beta) {
-      type_de_questions_disponibles = [0, 1];
+      typesDeQuestionsDisponibles = [0, 1];
     } else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
-      type_de_questions_disponibles = [0, 1];
+      //typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+      typesDeQuestionsDisponibles = [0, 1];
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // les chiffres
@@ -102,7 +103,7 @@ export default function Ranger_ordre_croissant_decroissant() {
         $${texNombre(nombres[0])}$   ;   $${texNombre(nombres[1])}$   ;   $${texNombre(nombres[2])}$   ;   $${texNombre(nombres[3])}$   ;   $${texNombre(nombres[4])}$   ;   $${texNombre(nombres[5])}$          
         `,
           question: ``,
-          correction: `Les nombres rangés dans l'ordre ${texte_en_couleur_et_gras(situations[k].ordre)} :<br>
+          correction: `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(situations[k].ordre)} :<br>
         $${texNombre(nombres_ranges[0])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[1])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[2])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[3])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[4])}$   ${situations[k].symbole}   $${texNombre(nombres_ranges[5])}$
         `
         });
@@ -133,7 +134,7 @@ export default function Ranger_ordre_croissant_decroissant() {
           break;
       };
 
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

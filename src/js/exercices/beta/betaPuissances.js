@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombre, texNombrec, lettreDepuisChiffre, texFractionReduite, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
 
 export const titre = 'Exercice exemple'
 
 /**
  * Description didactique de l'exercice
- * @Auteur 
+ * @author 
  * Référence 
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
@@ -15,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
   this.nbQuestions = 10;
   this.nbCols = 2; // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2; // Uniquement pour la sortie LaTeX
-  this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.spacing = 4;
@@ -25,8 +26,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let typesDeQuestionsDisponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let a, b, c, c1, c2, e1, e2, e3, e4, e5;
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -74,7 +75,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
           break;
 
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

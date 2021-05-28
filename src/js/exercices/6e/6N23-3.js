@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenuSansNumero,randint,troncature,calcul,choisitLettresDifferentes,texNombre,texFraction} from '../../modules/outils.js'
 import {point,segment,droiteGraduee2,mathalea2d} from '../../modules/2d.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
@@ -12,7 +13,7 @@ export default function LireUneAbscisseAvecZoom() {
   this.sup = 3;
   this.titre = titre;
   this.consigne = "";
-  if (sortieHtml) {
+  if (context.isHtml) {
     this.spacing = 2;
     this.spacingCorr = 3;
   }

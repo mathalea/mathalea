@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import { texNombrec, choice, texte_gras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre ,miseEnEvidence} from '../../modules/outils.js'
 import { cercle, demiDroite,droite,cercleCentrePoint,pointIntersectionDD, codeSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 
@@ -8,7 +9,7 @@ export const titre = 'Construire des quadrilatères particuliers'
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
  * Ref 4G41
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 3/02/2020
  */
 export default function Constructions_parallelogrammes_particuliers() {
@@ -35,14 +36,14 @@ export default function Constructions_parallelogrammes_particuliers() {
         let noms = choisitLettresDifferentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
         let nom = `$${noms[0] + noms[1] + noms[2] + noms[3]}$`
         let A, B, C, D, O, p, d1, d2, c1, c2, c3, c4, dd1, dd2, dd3, dd4, alpha, tri, t1, t2, t3, t4,t5
-        let objets_enonce = [], objets_correction = [], result2, result1, cible1, cible2, cible3, cellule1, cellule2, cellule3, result3
-        let type_de_question, type_de_questions_disponibles
+        let objetsEnonce = [], objetsCorrection = [], result2, result1, cible1, cible2, cible3, cellule1, cellule2, cellule3, result3
+        let type_de_question, typesDeQuestionsDisponibles
         let xMin, yMin, xMax, yMax,xm,ym,xM,yM
-        if (this.sup == 1) type_de_questions_disponibles = [1, 2, 3]
-        else if (this.sup == 2) type_de_questions_disponibles = [4, 5, 6,7]
-        else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6,7]
+        if (this.sup == 1) typesDeQuestionsDisponibles = [1, 2, 3]
+        else if (this.sup == 2) typesDeQuestionsDisponibles = [4, 5, 6,7]
+        else typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6,7]
 
-        type_de_question = choice(type_de_questions_disponibles)
+        type_de_question = choice(typesDeQuestionsDisponibles)
         switch (type_de_question) {
             case 1:
                 A = point(0, 0, noms[0])
@@ -59,7 +60,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme tel que `
                 texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${texNombre(d1)}$ cm.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
+                objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
                 if (this.correctionDetaillee) {
                 texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu.<br>`
                 texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.`
@@ -67,12 +68,12 @@ export default function Constructions_parallelogrammes_particuliers() {
                 }
                 if (longueur(B, D) != longueur(A, C)) {
                     texteCorr += `Comme $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$ et que $${noms[0] + noms[2]}\\ne ${noms[3] + noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
-                    texteCorr += `${nom} ${texte_gras('est un simple paraléllogramme')}.<br>`
+                    texteCorr += `${nom} ${texteGras('est un simple paraléllogramme')}.<br>`
                 }
                 else {
                     texteCorr += `Comme $$${noms[0] + noms[2]} = ${noms[3] + noms[1]}$ et que $${noms[0] + noms[3]}\\ne ${noms[0] + noms[1]}$, le paralélogramme ${nom} est un rectangle.<br>`
                 }
-                objets_correction.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
+                objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
                 t1 = traceCompas(A, D, 15)
                 t2 = traceCompas(B, D, 15)
                 t3 = traceCompas(O, C, 20)
@@ -96,7 +97,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
                 texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, O), labelPoint(A, O))
+                objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
                 if (this.correctionDetaillee) {
                 texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
                 texteCorr += `$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance ${noms[4] + noms[1]} est égale à la moitié de ${noms[1] + noms[3]}.<br>`
@@ -122,15 +123,15 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme tel que `
                 texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm, $${noms[1] + noms[3]}=${noms[0] + noms[2]}$.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
+                objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
-                texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texte_gras(nom)} ${texte_gras(' est donc un rectangle')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texteGras(nom)} ${texteGras(' est donc un rectangle')}.<br>`
                 if (this.correctionDetaillee) {
                 texteCorr += `Soit $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$ au milieu de $[${noms[1] + noms[3]}]$.<br>`
                 texteCorr+=`Les quatre sommets de ${nom} sont sur le cercle de centre $${noms[4]}$ passant par $${noms[0]}$. $[${noms[0]}${noms[2]}]$ et $[${noms[1]}${noms[3]}]$ sont des diamètres de ce cercle.<br>`
                 }
-                objets_correction.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
+                objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
                 t1=cercleCentrePoint(O,A)
                 t1.color='gray'
                 t1.opacite=0.5
@@ -156,14 +157,14 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme tel que `
                 texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm, $[${noms[0] + noms[2]}]\\perp [${noms[1] + noms[3]}]$.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
+                objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
 
-                texteCorr += `Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ sont perpendiculaires, ${nom}${texte_gras(' est un losange')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0] + noms[2]}]$ et $[${noms[1] + noms[3]}]$ sont perpendiculaires, ${nom}${texteGras(' est un losange')}.<br>`
                 if (this.correctionDetaillee){
                 texteCorr += `Il en résulte que le triangle $${noms[0] + noms[1] + noms[3]}$ est isoclèle en $${noms[0]}$.<br>`
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$ puis $${noms[4]}$, le milieu de $[${noms[1] + noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
                 }
-                objets_correction.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
+                objetsCorrection.push(afficheLongueurSegment(A, B, 'black', -0.5), afficheLongueurSegment(A, D, 'black', 0.5))
                 t1 = traceCompas(A, D, 15)
                 t2 = traceCompas(B, D, 15)
                 t3 = traceCompas(O, C, 20)
@@ -186,13 +187,13 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
                 texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
+                objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
                 if (this.correctionDetaillee) {
                 texteCorr += `Comme ${nom} est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}\\degree$.<br>`
                 texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>`
                 texteCorr += `Puis le point $${noms[2]}$ symétrique  de $${noms[0]}$ par rapport à $${noms[4]}$, milieu de $[${noms[1] + noms[3]}]$.<br>`
             }
-                texteCorr += `Comme ${nom} est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, ${texte_gras('c\'est un simple parallélogramme')}.<br>`
+                texteCorr += `Comme ${nom} est un parallélogramme qui ne possède pas d'angle droit et que ses côtés consécutifs sont de longueurs différentes, ${texteGras('c\'est un simple parallélogramme')}.<br>`
                 t1 = traceCompas(A, D, 15)
                 t2 = traceCompas(A, B, 15)
                 t3 = traceCompas(O, C, 20)
@@ -218,7 +219,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
                 texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[4] + noms[2]}=${texNombre(c2)}$ cm et $${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
                 texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                objets_enonce.push(tracePoint(A, B), labelPoint(A, B))
+                objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
                 if (this.correctionDetaillee) {
                 texteCorr += `Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
                 texteCorr += `On en déduit que $${noms[0] + noms[4]}=${noms[4] + noms[2]}=${texNombre(c2)}$ cm et que $${noms[1] + noms[4]}=${noms[4] + noms[3]}=${texNombre(c3)}$ cm.<br>`
@@ -227,12 +228,12 @@ export default function Constructions_parallelogrammes_particuliers() {
                 }
                 if (c1 * c1 != (c2 * c2 + c3 * c3)) {
                     texteCorr += `le triangle $${noms[0] + noms[1] + noms[4]}$ n'est pas un triangle rectangle, donc les diagonales ne sont pas perpendiculaires.<br>`
-                    if (c2 == c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texte_gras('c\'est donc un rectangle')}.<br>`
-                    else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texte_gras('est un simple parallélogramme')}.<br>`
+                    if (c2 == c3) texteCorr += `Les diagonales ont la même longueur. ${nom} est un parallélogramme dont les diagonales sont de même longueur, ${texteGras('c\'est donc un rectangle')}.<br>`
+                    else texteCorr += `De plus elles n'ont pas la même longueur, donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
                 }
                 else {
                     texteCorr += `Le triangle $${noms[0] + noms[1] + noms[4]}$ est un triangle rectangle, donc les diagonales sont perpendiculaires.<br>`
-                    if (c2 == c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texte_gras('c\'est donc un carré')}.<br>`
+                    if (c2 == c3) texteCorr += `de plus les diagonales ont même longueur. ${nom} est un parallélogramme dont les diagonales sont perpendiculaires et de même longueur, ${texteGras('c\'est donc un carré')}.<br>`
                 }
                 t1 = traceCompas(A, O, 20)
                 t2 = traceCompas(B, O, 20)
@@ -262,7 +263,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                     texte = `${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
                     texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}\\degree$  dans le sens des aiguilles d'une montre.<br>`
                     texte += `Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
-                    objets_enonce.push(tracePoint(A, C), labelPoint(A, C))
+                    objetsEnonce.push(tracePoint(A, C), labelPoint(A, C))
                     if (this.correctionDetaillee) {
                     texteCorr += `Comme ${nom} est un parallélogramme, ses côtés opposés sont parallèles.<br>`
                     texteCorr +=`La diagonale $[${noms[0]}${noms[2]}]$ forme des angles $\\widehat{${noms[4] + noms[0] + noms[1]}}$ et $\\widehat{${noms[4] + noms[2] + noms[3]}}$ alternes-internes égaux.<br>`
@@ -273,13 +274,13 @@ export default function Constructions_parallelogrammes_particuliers() {
                     }
                   
                         texteCorr += `Le triangle $${noms[0] + noms[1] + noms[2]}$ n'est pas un triangle isocèle car ses angles ne sont pas égaux.<br>`
-                        texteCorr += `De plus dans ce triangle  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180-c2-c3}\\degree$ donc ${nom} ${texte_gras('est un simple parallélogramme')}.<br>`
+                        texteCorr += `De plus dans ce triangle  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180-c2-c3}\\degree$ donc ${nom} ${texteGras('est un simple parallélogramme')}.<br>`
                     t1 = afficheMesureAngle(O, A,B, 'blue',1,texNombre(c2)+'°')
                     t2 = afficheMesureAngle(O, C,B, 'red',1,texNombre(c3)+'°')
                     t3 = traceCompas(O, D, 30)
                     t5 = tracePoint(O)
                     t5.style = '+'
-                    objets_correction.push(t1,t2)
+                    objetsCorrection.push(t1,t2)
                     tri = polygoneAvecNom(A, B, C)
                     xm = Math.min(A.x, B.x, C.x)-0.8;
                     ym = Math.min(A.y, B.y ,C.y)-0.8;
@@ -320,54 +321,54 @@ export default function Constructions_parallelogrammes_particuliers() {
 
         switch (type_de_question) {
             case 1:
-                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B))+'<br>'
-                objets_enonce.push(cible3, cible2)
-                objets_correction.push(p[0], p[1], t3)
-                objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheLongueurSegment(O,B))
+                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B))+'<br>'
+                objetsEnonce.push(cible3, cible2)
+                objetsCorrection.push(p[0], p[1], t3)
+                objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheLongueurSegment(O,B))
                 break
             case 2:
                 if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codeSegments("||", "red", A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C))+'<br>'
-                objets_enonce.push(cible3, cible2, cible1)
-                objets_correction.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
-                objets_correction.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'))
+                objetsEnonce.push(cible3, cible2, cible1)
+                objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
+                objetsCorrection.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'))
 
                 break
             case 3:
-                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], codageAngleDroit(D,A,B))+'<br>'
-                objets_enonce.push(cible3, cible2)
-                objets_correction.push(p[0], p[1], t1,t3)
-                objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("||", "red", B, O, O, D))
+                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], codageAngleDroit(D,A,B))+'<br>'
+                objetsEnonce.push(cible3, cible2)
+                objetsCorrection.push(p[0], p[1], t1,t3)
+                objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("||", "red", B, O, O, D))
 
                 break
             case 4:
-                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60))+'<br>'
-                objets_enonce.push(cible3, cible2)
-                objets_correction.push(p[0], p[1], t3,afficheLongueurSegment(O,B))
-                objets_correction.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
+                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60))+'<br>'
+                objetsEnonce.push(cible3, cible2)
+                objetsCorrection.push(p[0], p[1], t3,afficheLongueurSegment(O,B))
+                objetsCorrection.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
                 break
             case 5:
                 if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, tri[0], tri[1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D))+'<br>'
-                objets_enonce.push(cible3, cible2)
-                objets_correction.push(p[0], p[1], t3)
-                objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
+                objetsEnonce.push(cible3, cible2)
+                objetsCorrection.push(p[0], p[1], t3)
+                objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
 
                 break
             case 6:
-                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2,t5)+'<br>'
-                objets_enonce.push(cible3, cible2)
-                objets_correction.push(p[0], p[1], t3, t4)
-                objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
+                if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2,t5)+'<br>'
+                objetsEnonce.push(cible3, cible2)
+                objetsCorrection.push(p[0], p[1], t3, t4)
+                objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
                 break
                 case 7:
-                    if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(C, O),afficheLongueurSegment(O,A),labelPoint(O),t5,codeSegments("||", "red", A, O, O, C))+'<br>'
-                    objets_enonce.push(cible3, cible1)
-                    objets_correction.push(p[0], p[1], t3)
-                    objets_correction.push(cible3, t1,t2,t3,cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheMesureAngle(O, A,D, 'red',1,texNombre(c3)+'°'),afficheMesureAngle(O, C,D, 'blue',1,texNombre(c2)+'°'))
+                    if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(C, O),afficheLongueurSegment(O,A),labelPoint(O),t5,codeSegments("||", "red", A, O, O, C))+'<br>'
+                    objetsEnonce.push(cible3, cible1)
+                    objetsCorrection.push(p[0], p[1], t3)
+                    objetsCorrection.push(cible3, t1,t2,t3,cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheMesureAngle(O, A,D, 'red',1,texNombre(c3)+'°'),afficheMesureAngle(O, C,D, 'blue',1,texNombre(c2)+'°'))
                     break
     
         }
-        texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_enonce)
-        texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction)
+        texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)
+        texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsCorrection)
 
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

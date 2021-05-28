@@ -1,6 +1,7 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2d.js'
-import { fraction } from '../../modules/Fractions'
+import { fraction } from '../../modules/fractions'
 import { combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 
 export const titre = 'Faire des camenberts pour travailler les fractions'
@@ -8,7 +9,7 @@ export const titre = 'Faire des camenberts pour travailler les fractions'
 /**
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
  * ref P012
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  */
 export default function Camemberts () {
   Exercice.call(this)
@@ -36,7 +37,7 @@ export default function Camemberts () {
     for (let i = 0; i < this.nbQuestions; i++) {
       f = fraction(parseInt(secteurs[i]) * parseInt(unites[i]), parseInt(secteurs[i])).representation(0, 0, 2, 0, 'gateau', 'white')
       this.contenu += mathalea2d(fenetre, f)
-      if (sortieHtml) {
+      if (context.isHtml) {
         this.contenu += '<br>'
       } else {
         this.contenu += '\\\\'

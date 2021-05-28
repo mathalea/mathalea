@@ -1,9 +1,10 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,combinaisonListes,creerNomDePolygone,numAlpha} from '../../modules/outils.js'
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteVerticaleParPoint,droiteParPointEtPente,codageMediatrice,codageMilieu,segment,polygone,nommePolygone,rotation,symetrieAxiale,grille,seyes,mathalea2d} from '../../modules/2d.js'
 
 /**
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
@@ -20,17 +21,17 @@ export default function Construire_par_Symetrie() {
 	this.sup2 = 1;
 	this.figure = false
 	this.nouvelleVersion = function () {
-		let type_de_questions_disponibles;
+		let typesDeQuestionsDisponibles;
 		if (this.sup == 3) 	  //Symétrie axiale ou centrale
-			if (this.figure == false) type_de_questions_disponibles = [0, 1, 2]; // points
-			else type_de_questions_disponibles = [3, 4, 5] // triangle
+			if (this.figure == false) typesDeQuestionsDisponibles = [0, 1, 2]; // points
+			else typesDeQuestionsDisponibles = [3, 4, 5] // triangle
 
 		else
-			if (this.figure == false) type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
-			else type_de_questions_disponibles = [parseInt(this.sup) + 3] //figures
+			if (this.figure == false) typesDeQuestionsDisponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
+			else typesDeQuestionsDisponibles = [parseInt(this.sup) + 3] //figures
 
 		let listeTypeDeQuestions = combinaisonListes(
-			type_de_questions_disponibles,
+			typesDeQuestionsDisponibles,
 			this.nbQuestions
 		);
 		this.listeQuestions = []; // Liste de questions
@@ -50,16 +51,16 @@ export default function Construire_par_Symetrie() {
 			g,
 			carreaux,
 			k,
-			objets_enonce = [],
-			objets_correction = [],
+			objetsEnonce = [],
+			objetsCorrection = [],
 			p1, p2, p1nom;
 		for (
 			let i = 0, cpt = 0;
 			i < this.nbQuestions && cpt < 50;
 
 		) {
-			objets_enonce.length = 0
-			objets_correction.length = 0
+			objetsEnonce.length = 0
+			objetsCorrection.length = 0
 			switch (listeTypeDeQuestions[i]) {
 				case 0: // 3 symétries axiales simples de points (6ème)
 					p1nom = creerNomDePolygone(5, "PQ")
@@ -103,8 +104,8 @@ export default function Construire_par_Symetrie() {
 
 
 
-					objets_correction.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
-					objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
+					objetsCorrection.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
+					objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
 					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
@@ -154,8 +155,8 @@ export default function Construire_par_Symetrie() {
 
 
 
-					objets_correction.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
-					objets_enonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
+					objetsCorrection.push(d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
+					objetsEnonce.push(tracePoint(A, B, C, D, E), labelPoint(A, B, C, D, E), d);
 					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
@@ -185,8 +186,8 @@ export default function Construire_par_Symetrie() {
 					sD = segment(D, DD)
 					sA = segment(A, AA)
 
-					objets_correction.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
-					objets_enonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D));
+					objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
+					objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D));
 					enonce = numAlpha(0) + ` Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
 					enonce += numAlpha(2) + ` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
@@ -230,8 +231,8 @@ export default function Construire_par_Symetrie() {
 					sCE.pointilles = true
 					sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
 					sED.pointilles = true
-					objets_correction.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
-					objets_enonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
+					objetsCorrection.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
+					objetsEnonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
 					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 					enonce += numAlpha(2) + ` Coder la figure.<br>`;
@@ -272,8 +273,8 @@ export default function Construire_par_Symetrie() {
 					sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
 					sED.pointilles = true
 					inter = pointIntersectionDD(sCE, sED)
-					objets_correction.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
-					objets_enonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
+					objetsCorrection.push(d, tracePoint(A, B), labelPoint(A, B), cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
+					objetsEnonce.push(d, tracePoint(A, B), labelPoint(A, B), CC, p1);
 					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 					enonce += numAlpha(2) + ` Coder la figure.<br>`;
@@ -304,8 +305,8 @@ export default function Construire_par_Symetrie() {
 					sC = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
 					sD = segment(p1.listePoints[2], p2.listePoints[2], 'green')
 
-					objets_correction.push(tracePoint(B), labelPoint(B), cC, cD, cA, sC, sD, sA, DD, CC, p1, p2)
-					objets_enonce.push(tracePoint(B), labelPoint(B), CC, p1);
+					objetsCorrection.push(tracePoint(B), labelPoint(B), cC, cD, cA, sC, sD, sA, DD, CC, p1, p2)
+					objetsEnonce.push(tracePoint(B), labelPoint(B), CC, p1);
 					enonce = numAlpha(0) + `Reproduire la figure ci-dessous.<br>`
 					enonce += numAlpha(1) + ` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 					enonce += numAlpha(2) + ` Coder la figure.<br>`;
@@ -335,15 +336,15 @@ export default function Construire_par_Symetrie() {
 				k = 0.5;
 				carreaux = "";
 			}
-			objets_enonce.push(g, carreaux)
-			objets_correction.push(g, carreaux)
+			objetsEnonce.push(g, carreaux)
+			objetsCorrection.push(g, carreaux)
 			enonce += mathalea2d(params
 				,
-				objets_enonce
+				objetsEnonce
 			);
 			correction += mathalea2d(
 				params,
-				objets_correction
+				objetsCorrection
 			);
 			if (this.listeQuestions.indexOf(enonce) == -1) {
 				// Si la question n'a jamais été posée, on en créé une autre

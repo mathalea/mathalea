@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { pointAdistance, point, mathalea2d, arc, codeSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
 
 export const titre = 'Périmètres et aires de portions de cercles'
@@ -11,7 +12,7 @@ export const titre = 'Périmètres et aires de portions de cercles'
  * * 2 : Calculer les aires
  * * 3 : Calculer les périmètres et aires
  * Pas de version LaTeX
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * Rééférence 6M22-2
  */
 export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
@@ -24,7 +25,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   this.nbCols = 1
   this.nbColsCorr = 1
   // eslint-disable-next-line no-undef
-  sortieHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
@@ -32,7 +33,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
-    const objets_enonce = []
+    const objetsEnonce = []
     let params
     const C1 = point(5, 10)
     const C2 = point(15, 10)
@@ -62,7 +63,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
       quartDeDisque = arc(A1, C1, 90, true, 'white', 'black', 0.2)
       demiDisque = arc(A2, C2, 180, true, 'white', 'black', 0.2)
       troisQuartDeDisque = arc(A3, C3, 270, true, 'white', 'black', 0.2)
-      objets_enonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
+      objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
         codeSegments('//', 'blue', A1, C1, C1, B1), codeSegments('O', 'green', A3, C3, C3, B3),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(A2, B2), afficheLongueurSegment(A3, C3))
 
@@ -160,7 +161,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
       quartDeDisque = arc(A1, C1, 90, true, 'white', 'black', 0.2)
       demiDisque = arc(A3, C3, -180, true, 'white', 'black', 0.2)
       troisQuartDeDisque = arc(A2, C2, 270, true, 'white', 'black', 0.2)
-      objets_enonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
+      objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
         codeSegments('//', 'blue', A1, C1, C1, B1), codeSegments('O', 'green', A2, C2, C2, B2),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(B3, A3), afficheLongueurSegment(A2, C2))
       texteCorr = `La première figure est un quart de cercle de rayon ${r} cm auquel il faut ajouter les 2 rayons qui ferment la figure.<br>`
@@ -246,7 +247,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
           )}~\\text{cm}^2$<br>`
       }
     }
-    this.listeQuestions.push(mathalea2d(params, objets_enonce))
+    this.listeQuestions.push(mathalea2d(params, objetsEnonce))
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }

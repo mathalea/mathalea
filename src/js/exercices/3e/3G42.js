@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {randint, listeQuestionsToContenu,combinaisonListes, nombreDecimal,exposant, calcul,texte_gras} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {randint, listeQuestionsToContenu,combinaisonListes, nombreDecimal,exposant, calcul,texteGras} from '../../modules/outils.js'
 import {mathalea2d} from '../../modules/2d.js'
 import {point3d, vecteur3d, sphere3d, cylindre3d} from "../../modules/3d.js"
 
@@ -7,7 +8,7 @@ export const titre = 'Volume d’une boule'
 
 /**
 * Calculer le volume d'une boule
-* @auteur Erwan DUPLESSY
+* @author Erwan DUPLESSY
 * 3G42
 * date : 2021/02/09
 */
@@ -32,27 +33,27 @@ export default function Volume_boule() {
 
     this.listeQuestions = []; // tableau contenant la liste des questions
     this.listeCorrections = [];
-    let type_de_questions_disponibles = []; // tableau à compléter par valeurs possibles des types de questions
-    type_de_questions_disponibles = [1,2,3,4];
+    let typesDeQuestionsDisponibles = []; // tableau à compléter par valeurs possibles des types de questions
+    typesDeQuestionsDisponibles = [1,2,3,4];
     let listeTypeDeQuestions = [];
-    type_de_questions_disponibles.splice(this.sup, 5-parseInt(this.sup));
-    listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    typesDeQuestionsDisponibles.splice(this.sup, 5-parseInt(this.sup));
+    listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
       // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
       // La boucle s'arrête après 50 tentatives.
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
         texte = ``; // Nous utilisons souvent cette variable pour construire le texte de la question.
         texteCorr = ``; // Idem pour le texte de la correction.
-        let type_de_questions = [];
-        type_de_questions = listeTypeDeQuestions[i];
+        let typesDeQuestions = [];
+        typesDeQuestions = listeTypeDeQuestions[i];
 
-        switch (type_de_questions) {
+        switch (typesDeQuestions) {
           case 1:
             let r = randint(2,30);
             texte += `Calculer le volume d'une boule de rayon ${r} cm. `;
             texteCorr += `Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*r*r*r, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*r*r*r, 4) + ` cm` + exposant(3) + `. <br>`);
           break;
 
           case 2:
@@ -61,7 +62,7 @@ export default function Volume_boule() {
             texteCorr += `Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>`;
             texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*d*d*d, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*d*d*d, 4) + ` cm` + exposant(3) + `. <br>`);
           break
 
           case 3:
@@ -76,7 +77,7 @@ export default function Volume_boule() {
             let rayon = calcul(Math.sqrt(A/(4*Math.PI)));
             texteCorr += `On obtient donc une valeur approchée de $r$ : $r \\approx ` +nombreDecimal(rayon)+ `$. <br>`;
             texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (` +nombreDecimal(rayon)+ ` \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*rayon*rayon*rayon, 4) + ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume de la boule est donc environ : ` + nombreDecimal(4/3*Math.PI*rayon*rayon*rayon, 4) + ` cm` + exposant(3) + `. <br>`);
           break
 
           case 4:
@@ -93,7 +94,7 @@ export default function Volume_boule() {
               let normal = vecteur3d(0,0,1);
               let s = sphere3d(o,2.5,5,5,'blue');
               let c=cylindre3d(O,OO,normal,R,R,'black');
-          //mathalea.anglePerspective=20;
+          //context.anglePerspective=20;
             texteCorr +='<br>'+ mathalea2d({xmin:-5,max:9,ymin:-1.5,ymax:6,scale:.8}, s,c)+`<br>`;
             texteCorr += `Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>`;
             texteCorr += `Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>`;
@@ -102,10 +103,10 @@ export default function Volume_boule() {
             texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${diam} \\text{ cm})^2 \\times (${2*diam}\\text{ cm})$. <br>`;
             texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`;
             texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${diam} \\text{ cm})^2 \\times (${2*diam}\\text{ cm}) - \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`;
-            texteCorr += texte_gras(`Le volume cherché est environ : ` + nombreDecimal(Math.PI*diam*diam*2*diam-4/3*Math.PI*diam*diam*diam)+ ` cm` + exposant(3) + `. <br>`);
+            texteCorr += texteGras(`Le volume cherché est environ : ` + nombreDecimal(Math.PI*diam*diam*2*diam-4/3*Math.PI*diam*diam*diam)+ ` cm` + exposant(3) + `. <br>`);
           break
         }
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes, randint,ecritureAlgebrique, texFractionReduite,texFraction,pgcd} from '../../modules/outils.js'
 
 export const titre = 'Déterminer un antécédent'
 
 /**
  * Reconnaître une fonction affine
-* @auteur Erwan Duplessy
+* @author Erwan Duplessy
 * 3F23
 * date : 2021/02/21
 * référentiel 3F23 - Déterminer de manière algébrique l’antécédent par une fonction, dans des cas se ramenant à la résolution d’une équation du premier degré.
@@ -27,7 +28,7 @@ export default function antecedent_par_calcul() {
     this.nbColsCorr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pasDeVersionLatex=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-    this.spacingCorr = sortieHtml ? 3 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
   //  this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
@@ -39,8 +40,8 @@ export default function antecedent_par_calcul() {
  
     this.listeQuestions = [] // tableau contenant la liste des questions 
     this.listeCorrections = []
-    let type_de_questions_disponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
-    let listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+    let typesDeQuestionsDisponibles=[1,2,3,4] // tableau à compléter par valeurs possibles des types de questions
+    let listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
   
       for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
 
@@ -143,7 +144,7 @@ export default function antecedent_par_calcul() {
           break            
         }
 
-        if (this.listeQuestions.indexOf(texte) == -1) {
+        if (this.listeQuestions.indexOf(texte) === -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
           this.listeQuestions.push(texte);
           this.listeCorrections.push(texteCorr);

@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,texte_en_couleur} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,randint,choice,combinaisonListes,ecritureParentheseSiNegatif,calcul,texteEnCouleur} from '../../modules/outils.js'
 
 export const titre = 'Tester si un nombre est solution d’une équation'
 
@@ -31,21 +31,21 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    let type_de_questions_disponibles;
+    let typesDeQuestionsDisponibles;
     if (this.exo == "4L14-1") {
-      //type_de_questions_disponibles = [1, 2, 3, 4, 5, 8];
-      type_de_questions_disponibles = [choice([1, 2]), 3, choice([4, 5]), 8];
+      //typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8];
+      typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8];
     } else if (this.exo == "4L14-2") {
-      type_de_questions_disponibles = [9, 6, 7];
+      typesDeQuestionsDisponibles = [9, 6, 7];
     } else {
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9];
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8, 6, 7, 9];
     }
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+    //let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
     this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -80,7 +80,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}+${ecritureParentheseSiNegatif(b)}=${2 * x1 + b}$<br>`;
           texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $3x-${ecritureParentheseSiNegatif(
               a
             )}=2x+${ecritureParentheseSiNegatif(b)}~$`
@@ -96,7 +96,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}+${ecritureParentheseSiNegatif(b)}=${2 * x2 + b}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ est donc solution de l'équation $3x-${ecritureParentheseSiNegatif(
               a
             )}=2x+${ecritureParentheseSiNegatif(b)}~$`
@@ -106,12 +106,12 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
           if (this.sup == 1) {
             a = randint(1, 9);
             b = randint(0, 4) * 2 + (a % 2);
-            x1 = parseInt(Algebrite.eval((a + b) / 2));
+            x1 = parseInt(calcul((a + b) / 2));
             x2 = randint(1, 9, x1);
           } else {
             a = randint(-9, 9, [0]);
             b = randint(-4, 4, [a, 0]) * 2 + (a % 2);
-            x1 = parseInt(Algebrite.eval((a + b) / 2));
+            x1 = parseInt(calcul((a + b) / 2));
             x2 = randint(-9, 9, [0, x1]);
           }
 
@@ -131,7 +131,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}-${ecritureParentheseSiNegatif(b)}=${5 * x1 - b}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $3x+${ecritureParentheseSiNegatif(
               a
             )}=5x-${ecritureParentheseSiNegatif(b)}~$`
@@ -147,7 +147,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}-${ecritureParentheseSiNegatif(b)}=${5 * x2 - b}$<br>`;
           texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ n'est donc pas solution de l'équation $3x+${ecritureParentheseSiNegatif(
               a
             )}=5x-${ecritureParentheseSiNegatif(b)}~$`
@@ -157,12 +157,12 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
           if (this.sup == 1) {
             a = randint(1, 3);
             b = randint(1, 3);
-            x2 = parseInt(Algebrite.eval((10 * a + 4 * b) / 2));
+            x2 = parseInt(calcul((10 * a + 4 * b) / 2));
             x1 = randint(1, 9, x2);
           } else {
             a = randint(-3, 3, [0]);
             b = randint(-3, 3, [0]);
-            x2 = parseInt(Algebrite.eval((10 * a + 4 * b) / 2));
+            x2 = parseInt(calcul((10 * a + 4 * b) / 2));
             x1 = randint(-9, 9, [0, x2]);
           }
 
@@ -182,7 +182,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`;
           texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $10(x-${ecritureParentheseSiNegatif(
               a
             )})=4(2x+${ecritureParentheseSiNegatif(b)})~$`
@@ -198,7 +198,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ est donc solution de l'équation $10(x-${ecritureParentheseSiNegatif(
               a
             )})=4(2x+${ecritureParentheseSiNegatif(b)})~$`
@@ -235,7 +235,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x1 - c}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $${ecritureParentheseSiNegatif(
               a
             )}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$`
@@ -251,7 +251,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x2 - c}$<br>`;
           texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $${ecritureParentheseSiNegatif(
               a
             )}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}~$`
@@ -278,7 +278,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}=${b + 2 * x1}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $${a}-2x=${b}+2x~$`
           )}<br><br>`;
           texteCorr += `Pour $x=${x2}$ : <br>`;
@@ -288,7 +288,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}=${b + 2 * x2}$<br>`;
           texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`
           )}<br><br>`;
           break;
@@ -324,7 +324,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b
           )}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
@@ -340,7 +340,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b
           )}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${x2 * x2 - b * x2}$<br>`;
           texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
@@ -356,7 +356,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b
           )}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x3}$ est donc solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
@@ -392,7 +392,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b * c
           )}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`;
           texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
           )}<br><br>`;
           texteCorr += `Pour $x=${x2}$ : <br>`;
@@ -404,7 +404,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b * c
           )}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${a * c * x2 * x2 - b * c * x2}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ est donc solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
           )}<br><br>`;
           texteCorr += `Pour $x=${x3}$ : <br>`;
@@ -416,7 +416,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             b * c
           )}\\times ${ecritureParentheseSiNegatif(x3)}=${a * c * x3 * x3}-${ecritureParentheseSiNegatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x3}$ est donc solution de l'équation $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x~$`
           )}`;
           break;
@@ -424,12 +424,12 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
           if (this.sup == 1) {
             a = randint(1, 3);
             b = randint(1, 3);
-            x2 = parseInt(Algebrite.eval((4 * a + 4 * b) / 4));
+            x2 = parseInt(calcul((4 * a + 4 * b) / 4));
             x1 = randint(9, x2);
           } else {
             a = randint(-3, 3, [0]);
             b = randint(-3, 3, [0]);
-            x2 = parseInt(Algebrite.eval((4 * a + 4 * b) / 4));
+            x2 = parseInt(calcul((4 * a + 4 * b) / 4));
             x1 = randint(-9, 9, [0, x2]);
           }
 
@@ -449,7 +449,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x1
           )}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`;
           texteCorr += `$${12 * x1 - 4 * a}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ n'est donc pas solution de l'équation $12x-${ecritureParentheseSiNegatif(
               4 * a
             )}=4(2x+${ecritureParentheseSiNegatif(b)})~$`
@@ -465,7 +465,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             x2
           )}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`;
           texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $12x-${ecritureParentheseSiNegatif(
               4 * a
             )}=4(2x+${ecritureParentheseSiNegatif(b)})~$`
@@ -507,7 +507,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             (a + b) * x1
           )}+${ecritureParentheseSiNegatif(a * b)}=${x1 * x1 - (a + b) * x1 + a * b}$<br>`;
           texteCorr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x1}$ est donc solution de l'équation $x^2-${ecritureParentheseSiNegatif(
               b + a
             )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
@@ -527,7 +527,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             (a + b) * x2
           )}+${ecritureParentheseSiNegatif(a * b)}=${x2 * x2 - (a + b) * x2 + a * b}$<br>`;
           texteCorr += `$${x2 * x2 - (a + b) * x2 + a * b}\\not=0$ donc l'égalité n'est pas vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecritureParentheseSiNegatif(
               b + a
             )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
@@ -547,7 +547,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
             (a + b) * x3
           )}+${ecritureParentheseSiNegatif(a * b)}=${x3 * x3 - (a + b) * x3 + a * b}$<br>`;
           texteCorr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`;
-          texteCorr += `${texte_en_couleur(
+          texteCorr += `${texteEnCouleur(
             `$x=${x3}$ est donc solution de l'équation $x^2-${ecritureParentheseSiNegatif(
               b + a
             )}x-${ecritureParentheseSiNegatif(a * b)}=0~$`
@@ -555,7 +555,7 @@ export default function Tester_si_un_nombre_est_solution_d_une_equation() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

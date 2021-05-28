@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,shuffle,combinaisonListesSansChangerOrdre,texNombre,miseEnEvidence} from '../../modules/outils.js'
 export const titre = 'Encadrer un entier entre deux entiers consécutifs'
 
@@ -25,23 +26,23 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
   this.nbCols = 1;
   this.nbColsCorr = 1;
   //this.nbQuestionsModifiable = false;
-  sortieHtml ? this.spacing = 3 : this.spacing = 2;
-  sortieHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
+  context.isHtml ? this.spacing = 3 : this.spacing = 2;
+  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5;
 
-  let type_de_questions_disponibles;
+  let typesDeQuestionsDisponibles;
 
   this.nouvelleVersion = function () {
     if (this.beta) {
-      type_de_questions_disponibles = [0, 1, 2, 3, 4, 5];
+      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5];
     } else {
-      type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3]), choice([4, 5])]);
+      typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3]), choice([4, 5])]);
     };
 
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
 
-    //let listeTypeDeQuestions  = combinaisonListes(type_de_questions_disponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(type_de_questions_disponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+    //let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       //pour la précision d'encadrement
@@ -221,7 +222,7 @@ export default function Encadrer_un_entier_par_deux_entiers_consecutifs() {
           };
           break;
       };
-      if (this.listeQuestions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);
         i++;

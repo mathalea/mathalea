@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 export const titre = 'Tracer des droites graduées'
 
 /**
  * Pour imprimer des repères vierges pour les élèves.
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * référence : P003
  * publié le ?/2/2020
  */
@@ -36,7 +37,7 @@ export default function feuille_d_axes_gradues () {
     this.contenuCorrection = '' // Liste de questions corrigées
     pas = parseInt(this.sup)
     for (let i = 0, id_unique, texte; i < 14; i++) {
-      if (sortieHtml) {
+      if (context.isHtml) {
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -55,7 +56,7 @@ export default function feuille_d_axes_gradues () {
       }
       this.listeQuestions.push(texte)
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = ['Nombres de parts', 10, '']
 }

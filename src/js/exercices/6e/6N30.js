@@ -1,12 +1,13 @@
 import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre } from '../../modules/outils.js'
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { SVG_reperage_sur_un_axe, Latex_reperage_sur_un_axe } from '../../modules/macroSvgJs.js'
 
 export const titre = 'Lire l’abscisse décimale d’un point'
 
 /**
  * Lire l'abscisse décimale d'un point
- * @Auteur Jean-Claude Lhote et Rémi Angot
+ * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
 export default function Lire_abscisse_decimale () {
@@ -25,13 +26,13 @@ export default function Lire_abscisse_decimale () {
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    let type_de_questions
+    let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup == 4) { type_de_questions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
-      type_de_questions = combinaisonListes(
+    if (this.sup == 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+      typesDeQuestions = combinaisonListes(
         [parseInt(this.sup)],
         this.nbQuestions
       )
@@ -57,7 +58,7 @@ export default function Lire_abscisse_decimale () {
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
-      switch (type_de_questions[i]) {
+      switch (typesDeQuestions[i]) {
         case 1: // Placer des décimaux sur un axe (1 décimale)
           abs0 = randint(0, 9)
           pas1 = 1
@@ -82,7 +83,7 @@ export default function Lire_abscisse_decimale () {
       x11 = randint(1, 9)
       x22 = randint(1, 9)
       x33 = randint(1, 3)
-      if (sortieHtml) {
+      if (context.isHtml) {
         id_unique = `${i}_${Date.now()}`
         this.contenu += `<div id="div_svg${numeroExercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
         SVG_reperage_sur_un_axe(
@@ -158,7 +159,7 @@ export default function Lire_abscisse_decimale () {
         this.listeCorrections.push(texteCorr)
       }
     }
-    if (!sortieHtml) { listeQuestionsToContenu(this) }
+    if (!context.isHtml) { listeQuestionsToContenu(this) }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

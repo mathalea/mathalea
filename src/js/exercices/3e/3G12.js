@@ -1,11 +1,12 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombre_avec_espace,arcenciel,texcolors} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,egal,randint,choice,shuffle,nombreAvecEspace,arcenciel,texcolors} from '../../modules/outils.js'
 import {pavage,tracePoint,labelPoint,segment,rotation,rotationAnimee,codeAngle,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 export const titre = 'Trouver l’image d’une figure par une rotation dans un pavage'
 
 /**
  * Publié le 16/12/2020
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */
@@ -23,7 +24,7 @@ export default function Pavage_et_rotation2d() {
 	this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
 	this.sup2 = false; // On cache les barycentres par défaut.
 	this.sup3 = 7;
-	sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+	context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
 	this.nouvelleVersion = function () {
 		let videcouples = function (tableau) {
 			for (let k = 0; k < tableau.length; k++) {
@@ -105,7 +106,7 @@ export default function Pavage_et_rotation2d() {
 			return result;
 		};
 
-		let objets = [], objets_correction = [];
+		let objets = [], objetsCorrection = [];
 		let taillePavage = parseInt(this.sup);
 		if (taillePavage < 1 || taillePavage > 2) {
 			taillePavage = 1;
@@ -189,7 +190,7 @@ export default function Pavage_et_rotation2d() {
 		objets.push(label); // et son label
 		couples = shuffle(couples); // on mélange les couples
 		for (let i = 0; i < monpavage.nb_polygones; i++) {
-			objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true));
+			objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true));
 		}
 		if (this.sup2) { // Doit-on montrer les centres des figures ?
 			for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -235,12 +236,12 @@ export default function Pavage_et_rotation2d() {
 				P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`);
 				P3.color = texcolors(i);
 				P3.epaisseur = 2;
-				objets_correction.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codeAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3);
+				objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codeAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3);
 
 			}
 		}
 		if (this.correctionDetaillee) {
-			texteCorr += mathalea2d(fenetre, objets, objets_correction);
+			texteCorr += mathalea2d(fenetre, objets, objetsCorrection);
 		}
 		this.listeQuestions.push(texte);
 		this.listeCorrections.push(texteCorr);

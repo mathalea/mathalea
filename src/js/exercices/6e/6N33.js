@@ -1,6 +1,6 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,choice,arrondi,simplificationDeFractionAvecEtapes,calcul,texNombrec,miseEnEvidence,texFraction} from '../../modules/outils.js'
-const Algebrite = require('algebrite')
 
 export const titre = 'Calculer la fraction d’un nombre'
 
@@ -8,7 +8,7 @@ export const titre = 'Calculer la fraction d’un nombre'
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
- * @Auteur Rémi Angot + Jean-Claude Lhote
+ * @author Rémi Angot + Jean-Claude Lhote
  * référence 6N33
  */
 export default function Fraction_d_un_nombre() {
@@ -16,8 +16,8 @@ export default function Fraction_d_un_nombre() {
   this.titre = titre;
   this.nbQuestions = 5;
   this.consigne = "Calculer";
-  sortieHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
-  sortieHtml ? (this.spacing = 2) : (this.spacing = 2);
+  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2);
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = true;
   this.sup2 = false;
   this.nbCols = 2;
@@ -82,7 +82,7 @@ export default function Fraction_d_un_nombre() {
             a,
             miseEnEvidence(b)
           )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombrec(
-            Algebrite.eval(n / b)
+            calcul(n / b)
           )}$`;
         // si résultat décimal
         else
@@ -99,8 +99,8 @@ export default function Fraction_d_un_nombre() {
           )}\\times${n}=(${n}\\div${miseEnEvidence(
             b
           )})\\times${a}=${texNombrec(
-            Algebrite.eval(n / b)
-          )}\\times${a}=${texNombrec(Algebrite.eval((n / b) * a))}$<br>`;
+            calcul(n / b)
+          )}\\times${a}=${texNombrec(calcul((n / b) * a))}$<br>`;
         } else {
           if (calcul((n * a) / b - arrondi((n * a) / b, 4)) == 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
@@ -109,9 +109,9 @@ export default function Fraction_d_un_nombre() {
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
               b
-            )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(
+            )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
-            )}=${texNombrec(Algebrite.eval((n / b) * a))}$<br>`;
+            )}=${texNombrec(calcul((n / b) * a))}$<br>`;
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${texFraction(
@@ -119,7 +119,7 @@ export default function Fraction_d_un_nombre() {
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
               b
-            )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(
+            )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
             )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
           }
@@ -136,8 +136,8 @@ export default function Fraction_d_un_nombre() {
             miseEnEvidence(b)
           )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
             b
-          )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(b)}=${texNombrec(
-            Algebrite.eval((n / b) * a)
+          )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombrec(
+            calcul((n / b) * a)
           )}$<br>`;
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
@@ -147,7 +147,7 @@ export default function Fraction_d_un_nombre() {
               miseEnEvidence(b)
             )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
               b
-            )}=${Algebrite.eval(n * a)}\\div${miseEnEvidence(
+            )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
             )}=${texFraction(n * a, miseEnEvidence(b))}$<br>`;
         }
@@ -159,10 +159,10 @@ export default function Fraction_d_un_nombre() {
           )}\\times${n}=(${a}\\div${miseEnEvidence(
             b
           )})\\times${n}=${texNombrec(
-            Algebrite.eval(a / b)
-          )}\\times${n}=${texNombrec(Algebrite.eval((n / b) * a))}$`;
+            calcul(a / b)
+          )}\\times${n}=${texNombrec(calcul((n / b) * a))}$`;
       }
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

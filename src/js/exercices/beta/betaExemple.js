@@ -1,11 +1,11 @@
-import Exercice from '../ClasseExercice.js'
-// eslint-disable-next-line camelcase
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Exercice exemple'
 
 /**
  * Description didactique de l'exercice
- * @Auteur
+ * @author
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
@@ -16,7 +16,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
+  // this.sup = 1; // Niveau de difficulté 
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 

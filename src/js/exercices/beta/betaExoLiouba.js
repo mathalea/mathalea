@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,combinaisonListes,randint} from "../../modules/outils.js"
 import {symetrieAnimee,rotationAnimee,translationAnimee,polygone,pointIntersectionDD,mathalea2d,point,milieu,pointSurSegment,droite,mediatrice,translation,similitude,rotation,pointAdistance,longueur,symetrieAxiale,vecteur,latexParPoint,tracePoint,labelPoint,polygoneAvecNom, renommePolygone} from "../../modules/2d.js"
 import { nommePolygone } from '../../modules/2d.js';
@@ -31,17 +32,17 @@ export default function LeNomDeLaFonctionExercice() {
     this.listeCorrections = []
   // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
   /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
-  if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-      else type_de_questions_disponibles = [1, 2, 3,4]
-  listeTypeDeQuestions = combinaisonListes(type_de_questions_disponibles, this.nbQuestions)
+  if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]
+      else typesDeQuestionsDisponibles = [1, 2, 3,4]
+  listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
   */
   // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
   // La boucle s'arrête après 50 tentatives.
   
-      let objets_enonce,objets_correction,params_enonce,params_correction
+      let objetsEnonce,objetsCorrection,paramsEnonce,paramsCorrection
   
-        objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-        objets_correction = [] // Idem pour la correction
+        objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+        objetsCorrection = [] // Idem pour la correction
   
 
         let texteCorr = `` // Idem pour le texte de la correction.
@@ -132,20 +133,20 @@ anim.translationPolygone(triangle3,D,F,['A_3','B_3','C_3'],{couleur:'brown',coul
 anim.rotationPolygone(triangle4,F,alpha,['A_4','B_4','C_4'],{couleur:'green',couleurCodage:'lightgreen'})
 anim.crayonMasquer()
 
-mathalea.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
-   objets_enonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
-  objets_correction.push(triangle0,triangle[1],traces,labels,med,nomd,triangle2,nommePolygone(triangle2),triangle3,nommePolygone(triangle3),triangle4,nommePolygone(triangle4),triangle5,nommePolygone(triangle5),triangle2a,triangle3a,triangle4a,triangle5a)
+context.fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+   objetsEnonce.push (triangle0,triangle[1],traces,labels,med,nomd) // On rempli les tableaux d'objets Mathalea2d
+  objetsCorrection.push(triangle0,triangle[1],traces,labels,med,nomd,triangle2,nommePolygone(triangle2),triangle3,nommePolygone(triangle3),triangle4,nommePolygone(triangle4),triangle5,nommePolygone(triangle5),triangle2a,triangle3a,triangle4a,triangle5a)
   
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-    //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
+    //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
   //paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-        params_enonce = { xmin:xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1, mainlevee: false}
+        paramsEnonce = { xmin:xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1, mainlevee: false}
   //paramètres de la fenêtre Mathalea2d pour la correction
-        params_correction = {xmin:xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }
+        paramsCorrection = {xmin:xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }
   // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-        texte += mathalea2d(params_enonce, objets_enonce)
+        texte += mathalea2d(paramsEnonce, objetsEnonce)
   // On ajoute au texte de la correction, la figure de la correction
-        texteCorr += mathalea2d(params_correction, objets_correction)
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
         texteCorr += '<br>'
         texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}A').beginElement()"><i class="redo circle icon"></i>symétrie axiale</button>`
         texteCorr += `<button class="ui mini compact button"  style="margin:10px" onclick="document.getElementById('anim${numeroExercice}B').beginElement()"><i class="redo circle icon"></i>symétrie centrale</button>`

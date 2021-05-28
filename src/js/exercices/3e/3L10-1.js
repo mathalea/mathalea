@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,combinaisonListes,lettreDepuisChiffre,printlatex} from '../../modules/outils.js'
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
 
@@ -6,7 +7,7 @@ export const titre = 'Additionner ou soustraire une expression entre parenthèse
  * Développer et réduire des expressions avec des parenthèses précédées d'un signe + ou -
  *
  *
- * @Auteur Rémi Angot
+ * @author Rémi Angot
  * 3L10-1
  */
 export default function Parentheses_precedes_de_moins_ou_plus() {
@@ -20,9 +21,9 @@ export default function Parentheses_precedes_de_moins_ou_plus() {
   this.nouvelleVersion = function () {
     this.listeQuestions = []; // Liste de questions
     this.listeCorrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = ["a-()", "a+()"];
+    let typesDeQuestionsDisponibles = ["a-()", "a+()"];
     let listeTypeDeQuestions = combinaisonListes(
-      type_de_questions_disponibles,
+      typesDeQuestionsDisponibles,
       this.nbQuestions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -60,7 +61,7 @@ export default function Parentheses_precedes_de_moins_ou_plus() {
           break;
       }
 
-      if (this.listeQuestions.indexOf(texte) == -1) {
+      if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte);
         this.listeCorrections.push(texteCorr);

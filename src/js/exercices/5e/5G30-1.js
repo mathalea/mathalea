@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js';
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import {listeQuestionsToContenu,randint,arrondi,choisitLettresDifferentes,miseEnEvidence,numAlpha} from '../../modules/outils.js'
 import {point,pointSurSegment,pointIntersectionDD,labelPoint,droite,droiteParPointEtParallele,rotation,similitude,codeAngle,longueur,angle,mathalea2d} from '../../modules/2d.js'
 
@@ -8,14 +9,14 @@ export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
  * ref 5G30-1
  * publié le 14/11/2020
- * @Auteur Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
+ * @author Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
 export default function Egalite_d_angles() {
 	"use strict";
 	Exercice.call(this);
 	this.sup = 1;
 	this.nbQuestions = 1;
-	if (sortieHtml) {
+	if (context.isHtml) {
 		this.spacing = 2;
 		this.spacingCorr = 3;
 	}
@@ -34,7 +35,7 @@ export default function Egalite_d_angles() {
 		let fig1 = function () {
 			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
 			let noms = choisitLettresDifferentes(5, 'Q', true), gras;
-			sortieHtml ? gras = "#f15929" : gras = `black`;
+			context.isHtml ? gras = "#f15929" : gras = `black`;
 			A = point(0, 0, noms[0], 'above left');
 			a = randint(45, 85);
 			ac = randint(8, 10);

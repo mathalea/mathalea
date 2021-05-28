@@ -1,5 +1,6 @@
-import Exercice from '../ClasseExercice.js';
-import {listeQuestionsToContenu,nombre_avec_espace} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
+import {listeQuestionsToContenu,nombreAvecEspace} from '../../modules/outils.js'
 import {pavage,texteParPosition,mathalea2d,} from '../../modules/2d.js'
 
 
@@ -7,7 +8,7 @@ export const titre = 'Fabriquer des pavages pour travailler les transformations'
 
 /**
  * Outil de création de pavages pour le prof
- * @Auteur Jean-Claude Lhote
+ * @author Jean-Claude Lhote
  * Publié le 12/12/2020
  * Ref : P007
  */
@@ -25,7 +26,7 @@ export default function Pavages_mathalea2d() {
   this.sup3 = true;
   this.correctionDetaillee = false;
   this.correctionDetailleeDisponible = true;
-  sortieHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5);
   this.nouvelleVersion = function () {
     let objets = [];
     let Nx, Ny; // nombres de dalles en x et en y
@@ -50,7 +51,7 @@ export default function Pavages_mathalea2d() {
     monpavage.construit(type_de_pavage, Nx, Ny, 3); // On initialise toutes les propriétés de l'objet.
     if (this.sup3) { // Doit-on afficher les Numéros ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
-        objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true));
+        objets.push(texteParPosition(nombreAvecEspace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true));
       }
     }
     if (this.correctionDetaillee) { // Doit-on montrer les centres des figures ?

@@ -1,4 +1,5 @@
-import Exercice from '../ClasseExercice.js'
+import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice } from '../../modules/outils.js'
 import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionLC, texteParPosition, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, homothetie, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -8,7 +9,7 @@ export const titre = 'Construire des parallélogrammes avec dispositif d’auto-
 /**
  * Terminer la construction d'un parallélogramme
  * Ref 5G40
- * @Auteur Jean-Claude Lhote (exercice) et Rémi Angot (animations)
+ * @author Jean-Claude Lhote (exercice) et Rémi Angot (animations)
  * Publié le 30/11/2020
  */
 export default function Constructions_parallelogrammes () {
@@ -39,8 +40,8 @@ export default function Constructions_parallelogrammes () {
     if (this.sup < 5) type_de_question = parseInt(this.sup)
     else type_de_question = randint(1, 4)
     const nom = `${noms[0] + noms[1] + noms[2] + noms[3]}`
-    const objets_enonce = []
-    const objets_correction = []
+    const objetsEnonce = []
+    const objetsCorrection = []
     // Préparation de la figure aléatoire et des objets 2d utiles
     const O = point(0, 0, noms[4])
     const A = rotation(pointAdistance(O, calcul(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
@@ -103,8 +104,8 @@ export default function Constructions_parallelogrammes () {
         c1.styleExtremites = '-|'
         c4.styleExtremites = '|-'
         P = polygoneAvecNom(D, A, B)
-        objets_enonce.push(c1, c4, P[1], cible)
-        objets_correction.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
+        objetsEnonce.push(c1, c4, P[1], cible)
+        objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
         animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
         break
       case 2: // trois sommets consécutifs
@@ -128,8 +129,8 @@ export default function Constructions_parallelogrammes () {
         animIEP.regleMasquer(0)
         animIEP.crayonMasquer(0)
         animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
-        objets_enonce.push(tracePoint(A, B, D), P[1], cible)
-        objets_correction.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
+        objetsEnonce.push(tracePoint(A, B, D), P[1], cible)
+        objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
 
         break
       case 3: // deux sommmets consécutifs plus le centre
@@ -143,8 +144,8 @@ export default function Constructions_parallelogrammes () {
         texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
         P = polygoneAvecNom(O, A, B)
         animIEP.parallelogramme2sommetsConsecutifsCentre(A, B, O)
-        objets_enonce.push(tracePoint(A, B, O), P[1], cible, cible2)
-        objets_correction.push(p[0], p[1], labelPoint(O), cible, cible2, d1, d2, d3, d4, codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D))
+        objetsEnonce.push(tracePoint(A, B, O), P[1], cible, cible2)
+        objetsCorrection.push(p[0], p[1], labelPoint(O), cible, cible2, d1, d2, d3, d4, codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D))
 
         break
       case 4: // Un angle formé par deux demi-droites et le centre
@@ -160,13 +161,13 @@ export default function Constructions_parallelogrammes () {
         animIEP.regleZoom(200)
         animIEP.equerreZoom(200)
         animIEP.parallelogrammeAngleCentre(D, A, B, O)
-        objets_enonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), 1)), texteParPoint('y', similitude(B, A, 4, 1.3)), cible, cible2, cible3)
-        objets_correction.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), cible, cible2, cible3, d1, d3, codeSegments('||', 'red', A, O, O, C))
+        objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), 1)), texteParPoint('y', similitude(B, A, 4, 1.3)), cible, cible2, cible3)
+        objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), cible, cible2, cible3, d1, d3, codeSegments('||', 'red', A, O, O, C))
 
         break
     }
-    texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce)
-    texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction)
+    texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
+    texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection)
     texteCorr += animIEP.htmlBouton(this.umeroExercice)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
