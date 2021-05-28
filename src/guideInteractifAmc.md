@@ -109,6 +109,7 @@ type 6 : idem type 4 avec présence d'un autre attribut reponse2 qui fonctionne 
 
 # Les fonctions
 Pour gérer l'interactivité Rémi Angot a implémenté quelques fonctions dont l'appel permet de générer le code nécessaire facilement :
+
 ```js
 function setReponse (exercice, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0} = {}) // cette fonction permet de fixer une réponse numérique à une exercice interactif/AMC de type 4 ou de type 5. ( à développer une fonction setReponses() qui fixent les réponses des exercices de type 6). Les trois premiers arguments sont obligatoires : l'exercice appelant (this), l'index de la question (i), une réponse numérique (a). le quatrième est facultatif et ne sert que pour AMC (des valeurs par défaut seront mises garantissant un fonctionnement correct dans la plupart des cas : la fonction d'export AMC calculera le nombre de chiffres à coder à partir de la réponse)
 function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true } = {}) // Cette fonction permet d'ajouter facilement un formulaire texte en bout d'une question pour récupérer la réponses de l'utilisateur. Les deux premiers arguments sont obligatoires.
@@ -119,4 +120,7 @@ function propositionsQcm (exercice, i) // Cette fonction va retourner un objet {
 
 Il suffit de définir `this.interactiveType = 'mathLive'`, de mettre dans la boucle `setReponse(this, i, maRéponse)` avec maRéponse un string LaTeX ou une valeur numérique (donc sans texNombre ou des équivalents) puis de faire `texte += ajouteChampTexteMathLive(this, i)` pour ajouter le champ de réponse.
 
-
+## Remarque  : 
+Afin de ne pas se retrouver avec un code hors contexte, les fonctions ajouteChampTexte, propositionsQcm et ajouteChampTexteMathLive retourne des chaines vides lorsque le contexte est la sortie Latex ou le générateur AMC.
+Il convient donc de ne pas utiliser l'affectation texte = ... mais la concaténation texte += ...
+En effet, le texte initial de l'énoncé sert souvent tel quel pour les énoncés AMC. en cas d'affectation texte transmettrait une chaine vide comme énoncé pour AMC. Il en va de même pour l'utilisation de propositionsQcm() qui retourne un tableau avec deux chaines vides dans ce contexte de sortie AMC.
