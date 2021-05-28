@@ -4,7 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = ' '
+
 export const amcType = 1 //type de question AMC 
 
 export const titre = 'Tables de multiplications et nombres décimaux'
@@ -24,8 +24,6 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100
-  //this.interactifReady = true  
-  //this.interactif = true
   this.interactifReady = interactifReady
   this.amcReady = amcReady
   this.amcType = amcType

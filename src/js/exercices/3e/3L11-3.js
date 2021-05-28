@@ -16,7 +16,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.interactifReady = true
+  this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5

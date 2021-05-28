@@ -5,7 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType =1 //type de question AMC 
 export const interactifReady = true
-export const interactifType = ' '
+
 export const titre = 'Critères de divisibilité'
 
 /**
@@ -22,6 +22,7 @@ export default function CriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4 // Correspond au facteur commun
   this.titre = titre
+  this.amcReady = amcReady
   this.interactifReady = interactifReady
   this.amcType = amcType
   this.consigne = 'Répondre aux questions suivantes en justifiant.'
