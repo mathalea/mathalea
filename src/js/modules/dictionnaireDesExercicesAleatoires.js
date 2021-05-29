@@ -324,8 +324,7 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "3F21-3",
-    "description": "pas de description"
+    "name": "3F21-3"
   },
   "3F21": {
     "titre": "Déterminer une fonction linéaire",
@@ -1048,7 +1047,7 @@ export default {
     "titre": "Arrondir une valeur arrondie comprenant un cosinus",
     "url": "/exercices/4e/4G40-1.js",
     "amcReady": false,
-    "qcmInteractif": false,
+    "interactifReady": false,
     "name": "4G40-1"
   },
   "4G40-MG32": {
@@ -1505,8 +1504,7 @@ export default {
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "5L13",
-    "description": "pas de description"
+    "name": "5L13"
   },
   "5L14-1": {
     "titre": "Calculer une expression littérale pour les valeurs données en détaillant les calculs",
@@ -2328,10 +2326,15 @@ export default {
     "name": "6G24"
   },
   "6G25-1": {
-    "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)",
+    "titre": "Symétries axiales en pavage triangulaire",
     "url": "/exercices/6e/6G25-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "num": 1,
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": 1,
     "name": "6G25-1"
   },
   "6G25-2": {
@@ -3247,6 +3250,13 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "2G50_1": {
+    "titre": "Coefficient directeur",
+    "url": "/exercices/beta/2G50_1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50_1"
+  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
@@ -3344,13 +3354,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta4G20-3"
-  },
-  "beta4N10": {
-    "titre": "Arrondir une valeur numérique",
-    "url": "/exercices/beta/beta4N10.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4N10"
   },
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
