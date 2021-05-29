@@ -24,7 +24,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const typeQuestionsDisponibles = ['A et B', 'A et u'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'A et B':
@@ -70,12 +70,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         case 'A et u':
           xA = randint(-5, 5)
           yA = randint(-5, 5)
-          xB = randint(-5, 5, xA)
-          yB = randint(-5, 5)
+          xu = randint(-5, 5)
+          yu = randint(-5, 5)
           n = yB - yA
           d = xB - xA
 
-          texte = `passant par les point $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB})$ `
+          texte = `passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec {u} \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur. `
           texteCorr = 'On observe que $ x_B\\neq x_A$.'
           texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
           texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
