@@ -122,16 +122,119 @@ export async function loadScratchblocks () {
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
-    const { default: MathfieldElement } = await import('mathlive')
-    // Ne pourrait-on pas donner un style par défaut ?
+    await import('mathlive')
     for (const mf of champs) {
       mf.setOptions({
+        customVirtualKeyboardLayers: collegeKeyboardLayer,
+        customVirtualKeyboards: collegeKeyboard,
+        virtualKeyboards: 'collegeKeyboard roman',
         inlineShortcuts: {
-          '*': { mode: 'math', value: '\\times' }
+          '*': { mode: 'math', value: '\\times' },
+          '.': { mode: 'math', value: ',' }
         },
-        virtualKeyboards: 'numeric roman'
+        // virtualKeyboards: 'numeric roman',
+        virtualKeyboardMode: 'onfocus'
       })
       mf.style = 'font-size: 20px; margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);}'
     }
+  }
+}
+
+// Définit un clavier personnalisé cf https://cortexjs.io/mathlive/guides/virtual-keyboards/
+const collegeKeyboardLayer = {
+  collegeLayer: {
+    styles: '',
+    rows: [
+      [
+        { latex: 'a' },
+        { latex: 'x' },
+        { class: 'separator w5' },
+        { label: '7', key: '7' },
+        // Will display the label using the system font. To display
+        // with the TeX font, use:
+        // { class: "tex", label: "7", key: "7" },
+        // or
+        // { latex: "7"},
+        { label: '8', key: '8' },
+        { label: '9', key: '9' },
+        { latex: '\\div' },
+        { class: 'separator w5' },
+        {
+          class: 'tex small',
+          label: '<span><i>x</i>&thinsp;²</span>',
+          insert: '$$#@^{2}$$'
+        },
+        {
+          class: 'tex small',
+          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
+          insert: '$$#@^{3}$$'
+        },
+        {
+          class: 'small',
+          latex: '\\sqrt{#0}',
+          insert: '$$\\sqrt{#0}$$'
+        }
+      ],
+      [
+        { class: 'tex', latex: 'b' },
+        { class: 'tex', latex: 'y' },
+        { class: 'separator w5' },
+        { label: '4', latex: '4' },
+        { label: '5', key: '5' },
+        { label: '6', key: '6' },
+        { latex: '\\times' },
+        { class: 'separator w5' },
+        { class: 'small', latex: '\\frac{#0}{#0}' },
+        { class: 'separator' },
+        { class: 'separator' }
+      ],
+      [
+        { class: 'tex', label: '<i>c</i>' },
+        { class: 'tex', label: '<i>z</i>' },
+        { class: 'separator w5' },
+        { label: '1', key: '1' },
+        { label: '2', key: '2' },
+        { label: '3', key: '3' },
+        { latex: '-' },
+        { class: 'separator w5' },
+        { class: 'separator' },
+        { class: 'separator' },
+        { class: 'separator' }
+      ],
+      [
+        { latex: '(' },
+        { latex: ')' },
+
+        { class: 'separator w5' },
+        { label: '0', key: '0' },
+        { latex: ',' },
+        { latex: '\\pi' },
+        { latex: '+' },
+        { class: 'separator w5' },
+        {
+          class: 'action',
+          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
+          command: ['performWithFeedback', 'moveToPreviousChar']
+        },
+        {
+          class: 'action',
+          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
+          command: ['performWithFeedback', 'moveToNextChar']
+        },
+        {
+          class: 'action font-glyph',
+          label: '&#x232b;',
+          command: ['performWithFeedback', 'deleteBackward']
+        }
+      ]
+    ]
+  }
+}
+
+const collegeKeyboard = {
+  collegeKeyboard: {
+    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
+    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
+    layer: 'collegeLayer'
   }
 }
