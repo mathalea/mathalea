@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, listeQuestionsToContenu, choice, randint, rienSi1, texNombre } from '../../modules/outils.js'
+import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre } from '../../modules/outils.js'
 import { mathalea2d, repere2, courbe2, cercle, point, segment, milieu, texteParPoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine"
@@ -28,7 +28,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const a = choice([0.5, 1, 1.5, 2, 2.5, -0.5, -1, -1.5, -2, -2.5])
+    const num = randint(-5, 5, 0)
+    const den = randint(1, 2)
+    const a = calcul(num / den)
     const b = randint(-4, 4, 0)
     const xMin = -8
     const xMax = -xMin
@@ -75,8 +77,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     question3 += ajouteChampTexteMathLive(this, 2)
 
     setReponse(this, 0, b)
-    setReponse(this, 1, a)
+    setReponse(this, 1, [a, `\\frac{${num}}{${den}}`])
     setReponse(this, 2, `${texNombre(a)}x+${b}`)
+    if (den === 2) setReponse(this, 2, [`${texNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
 
     const correction1 = `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
     let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de ${texNombre(a)} ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
