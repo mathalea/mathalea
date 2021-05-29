@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, Signe, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 export const titre = 'Coefficient directeur'
 
 /**
@@ -61,7 +61,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
             texteCorr += `$${texFractionReduite(n, d)}x$`
           } else {
-            if (n === 0) {} else { texteCorr += `$${texFraction(n, d)}x$` }
+            if (n !== 0) { texteCorr += `$${texFraction(n, d)}x$` }
           }
           if (d * d * yA - n * xA * d > 0) { texteCorr += '$+$' }
           texteCorr += `$${texFractionReduite(d * yA - n * xA, d)} .$`
