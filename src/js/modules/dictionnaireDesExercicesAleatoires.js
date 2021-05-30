@@ -3433,6 +3433,13 @@ export default {
     "interactifReady": false,
     "name": "betaExempleQuestionsDifferentes"
   },
+  "betaExempleTableau": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/betaExempleTableau.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExempleTableau"
+  },
   "betaExercice_constructions_basiques": {
     "titre": "Programmes de constructions (en chantier)",
     "url": "/exercices/beta/betaExercice_constructions_basiques.js",
