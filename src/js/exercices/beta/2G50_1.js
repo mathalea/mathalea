@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-export const titre = 'Equation réduite de droite'
+export const titre = 'Déterminer une équation réduite de droite'
 
 /**
  * Description didactique de l'exercice
