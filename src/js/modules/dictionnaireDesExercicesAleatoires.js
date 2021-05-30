@@ -2885,6 +2885,13 @@ export default {
     "interactifReady": false,
     "name": "6P11-1"
   },
+  "6P11-2": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/6e/6P11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6P11-2"
+  },
   "6P11": {
     "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
     "url": "/exercices/6e/6P11.js",
