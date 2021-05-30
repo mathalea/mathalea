@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
+import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Symétries axiales en pavage triangulaire'
@@ -24,6 +24,7 @@ export default function betaExoPavage6e () {
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   context.fenetreMathalea2d = [0, -0.1, 15, 10]
   this.sup = 1
+  this.sup2 = 1
   this.amcReady = amcReady
   this.interactifReady = interactifReady
   this.amcType = amcType
@@ -308,6 +309,7 @@ export default function betaExoPavage6e () {
     let texte = ''
     let texteCorr = ''
     let typesDeQuestionsDisponibles
+    const scaleFigure = arrondi(parseFloat(this.sup2),1)
     // construction du pavage triangulaire
     const triAngles = [{}] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []
@@ -329,10 +331,10 @@ export default function betaExoPavage6e () {
       }
     }
     for (let i = 0; i < triAngles.length; i++) {
-      triAngles[i].num = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.7)
+      triAngles[i].num = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.5)
       objetsEnonce.push(triAngles[i].tri, triAngles[i].num)
     }
-    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 50, scale: 1.5, mainlevee: false }
+    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, scale: scaleFigure, mainlevee: false }
     if (parseInt(this.sup) === 1) {
       this.nbQuestions = 3
       typesDeQuestionsDisponibles = [0, 1, 2]
@@ -423,4 +425,5 @@ export default function betaExoPavage6e () {
     }
   }
   this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
+  this.besoinFormulaire2Texte = ['Echelle de la figure (nombre avec un point comme séparateur décimal)']
 }
