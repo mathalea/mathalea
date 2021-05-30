@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
-export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'
+export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur.'
 
 /**
  * Description didactique de l'exercice
@@ -10,7 +10,7 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 export default function equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer l\'équation cartésienne de la droite $(d)$'
+  this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$'
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -46,8 +46,10 @@ export default function equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-            texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
-          // totoche
+            if (xu !== 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ ` }
+            if (xu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${yu}x ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ ` }
+            if (xu === 1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${yu}x-y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ ` }
+            if (xu === -1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${yu}x+y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ ` }
           }
           if (this.sup === 2) {
             texteCorr = 'On sait qu\'une équation cartésienne de la droite $(d)$ est de la forme '
