@@ -45,6 +45,7 @@ export default function equationcartesienne () {
           texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
           texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
           texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
+          // totoche
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
