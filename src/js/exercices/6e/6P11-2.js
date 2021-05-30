@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, objet, randint, prenom, texPrix, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, objet, randint, prenom, texPrix, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
 export const titre = 'Résoudre des problèmes de proportionnalité linétaire dans un tableau'
 
@@ -36,7 +36,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     let np, cm, ng, o, pp, pg, pu, tp
-    for (let i = 0, texte, correction, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
@@ -47,13 +47,13 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           pg = cm * pp
           o = choice([objet()])
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
-          const monTableau = tableau({
-            ligne1: [`Nombre de ${o}`, np, ng],
-            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${texPrix(pg)}`],
-            flecheHaut: [[1, 2, `\\times ${cm}`]]
+          monTableau = tableau({
+            ligne1: [`\\text{Nombre de ${o}}`, np, ng],
+            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
+            flecheHaut: [[1, 2, `\\times ${miseEnEvidence(cm)}`]]
           })
-          this.correction = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
-          this.listeCorrections.push(correction)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
+          this.listeCorrections.push(texteCorr)
           break
         case 2: // division
           np = randint(1, 10)
@@ -63,7 +63,13 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           pg = cm * pp
           o = choice([objet()])
           texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
-          texteCorr = `${texPrix(pp)} €`
+          monTableau = tableau({
+            ligne1: [`\\text{Nombre de ${o}}`, np, ng],
+            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
+            flecheHaut: [[1, 2, `\\div ${miseEnEvidence(cm)}`]]
+          })
+          texteCorr = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
+          this.listeCorrections.push(texteCorr)
           break
         case 3: // passage par l'unité
           pu = (1, 19) / 10
@@ -73,7 +79,13 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           pg = pu * ng
           o = choice([objet()])
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
-          texteCorr = `${texPrix(pg)} €`
+          monTableau = tableau({
+            ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
+            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pp))}`],
+            flecheHaut: [[1, 2, `\\div ${miseEnEvidence(np)}`], [2, 3, `\\times ${miseEnEvidence(ng)}`]]
+          })
+          texteCorr = mathalea2d({ xmin: -1, xmax: 22, ymin: -5, ymax: 10 }, monTableau)
+          this.listeCorrections.push(texteCorr)
           break
         case 4: // Non proportionnalité
           tp = randint(120, 165) / 100
