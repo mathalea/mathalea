@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-export const titre = 'Coefficient directeur'
+export const titre = 'Déterminer le coefficient directeur d\'une droite'
 
 /**
  * Description didactique de l'exercice
