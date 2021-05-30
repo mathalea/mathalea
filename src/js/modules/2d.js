@@ -8008,13 +8008,13 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
             }" id="${this.id}" >${texte}</text>\n `
           break
         case 'gauche':
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
           break
         case 'droite':
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
@@ -8055,6 +8055,82 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
 }
 export function texteParPoint (...args) {
   return new TexteParPoint(...args)
+}
+
+function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', math_on = false) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.contour = false
+  this.taille = 10 * scale
+  this.opacite = 1
+  this.svg = function (coeff) {
+    let code = ''; let style = ''
+    if (math_on) style = ' font-family= "KaTeX_Math" '
+    if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+    else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
+    if (typeof (orientation) === 'number') {
+      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+        coeff
+      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${this.color
+        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+          coeff
+        )})" id="${this.id}" >${texte}</text>\n `
+    } else {
+      switch (orientation) {
+        case 'milieu':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+        case 'gauche':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+        case 'droite':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+      }
+    }
+
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    if (math_on) texte = '$' + texte + '$'
+    if (typeof orientation === 'number') {
+      let anchor = 'center'
+      if (ancrageDeRotation === 'gauche') {
+        anchor = 'west'
+      }
+      if (ancrageDeRotation === 'droite') {
+        anchor = 'east'
+      }
+      code = `\\draw [${color}] (${A.x},${A.y
+        }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
+    } else {
+      let anchor = ''
+      if (orientation === 'gauche') {
+        anchor = `node[anchor = east,scale=${scale * context.scale}]`
+      }
+      if (orientation === 'droite') {
+        anchor = `node[anchor = west,scale=${scale * context.scale}]`
+      }
+      if (orientation === 'milieu') {
+        anchor = `node[anchor = center,scale=${scale * context.scale}]`
+      }
+      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+    }
+    return code
+  }
+}
+export function texteParPointEchelle (...args) {
+  return new TexteParPointEchelle(...args)
 }
 
 /**
