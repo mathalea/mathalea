@@ -3250,6 +3250,34 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "2G50": {
+    "titre": "Coefficient directeur",
+    "url": "/exercices/beta/2G50.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50"
+  },
+  "2G50_1": {
+    "titre": "Equation réduite de droite",
+    "url": "/exercices/beta/2G50_1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50_1"
+  },
+  "2G51-1": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/beta/2G51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51-1"
+  },
+  "2G51": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/beta/2G51.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51"
+  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
@@ -3277,6 +3305,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F22"
+  },
+  "beta2F30": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/beta/beta2F30.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F30"
   },
   "beta2G13": {
     "titre": "Déterminer les coordonnées d’un vecteur.",
@@ -3474,13 +3509,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaXcas"
-  },
-  "beta_modele_vide_stephane": {
-    "titre": "titre à donner",
-    "url": "/exercices/beta/beta_modele_vide_stephane.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta_modele_vide_stephane"
   },
   "betabonhomme": {
     "titre": "bonhomme de neige",
