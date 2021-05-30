@@ -14,11 +14,12 @@ export default function equationcartesienne () {
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 2 // Niveau de difficulté
+  this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
+    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -33,19 +34,36 @@ export default function equationcartesienne () {
           xu = randint(-5, 5)
           yu = randint(-5, 5)
           texte = `passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et atant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
-          texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme '
-          texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
-          texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
-          texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
-          texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$.`
-          texteCorr += ` <br>On en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
-          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y + c=0$. `
-          texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$. `
-          texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
-          texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
-          texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
+          if (this.sup === 1) {
+            texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme '
+            texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
+            texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
+            texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
+            texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$.`
+            texteCorr += ` <br>On en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
+            texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y + c=0$. `
+            texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$. `
+            texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
+            texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
+            texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
+            texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
           // totoche
+          }
+          if (this.sup === 2) {
+            texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme '
+            texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
+            texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
+            texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
+            texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$.`
+            texteCorr += ` <br>On en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
+            texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y + c=0$. `
+            texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$. `
+            texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
+            texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
+            texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
+            texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
+          // totoche
+          }
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -58,5 +76,5 @@ export default function equationcartesienne () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
+  this.besoinFormulaireNumerique = ['Type de correction :', 2, '1 : Avec le cours\n2 : Avec la démonstration']
 }
