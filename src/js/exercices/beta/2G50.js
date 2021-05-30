@@ -11,7 +11,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $(AB)$ :'
-  this.nbQuestions = 5
+  this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté

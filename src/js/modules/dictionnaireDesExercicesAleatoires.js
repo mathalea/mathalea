@@ -3258,11 +3258,25 @@ export default {
     "name": "2G50"
   },
   "2G50_1": {
-    "titre": "Coefficient directeur",
+    "titre": "Equation réduite de droite",
     "url": "/exercices/beta/2G50_1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2G50_1"
+  },
+  "2G51-1": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/beta/2G51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51-1"
+  },
+  "2G51": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/beta/2G51.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51"
   },
   "beta1F10": {
     "titre": "Calculs de dérivés",
@@ -3488,13 +3502,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaXcas"
-  },
-  "beta_modele_vide_stephane": {
-    "titre": "titre à donner",
-    "url": "/exercices/beta/beta_modele_vide_stephane.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta_modele_vide_stephane"
   },
   "betabonhomme": {
     "titre": "bonhomme de neige",

@@ -24,30 +24,27 @@ export default function equationcartesienne () {
 
     const typeQuestionsDisponibles = ['cartesienne1']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, xA, yA, xB, yB, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, xA, yA, xu, yu, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cartesienne1':
           xA = randint(-5, 5)
           yA = randint(-5, 5)
-          xB = randint(-5, 5)
-          yB = randint(-5, 5)
-          texte = `avec les point $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB})$ `
-          texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme :'
+          xu = randint(-5, 5)
+          yu = randint(-5, 5)
+          texte = `passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et atant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
+          texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme '
           texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
           texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
-          texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$'
-          texteCorr += ' <br>Il suffit donc de trouver un vecteur directeur à cette droite pour déterminer une valeur possible pour les coefficients $a$ et $b$. <br>Or le vecteur $\\overrightarrow{AB}$ est un vecteur directeur directeur de la droite, dont on peut calculer les coordonnées :'
-          texteCorr += ' <br>$\\overrightarrow{AB}  \\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$'
-          texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB}-${xA}\\\\${yB}-${yA}\\end{pmatrix}$`
-          texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB - xA}\\\\${yB - yA}\\end{pmatrix}$`
-          texteCorr += ` <br>On en déduit donc que :$-b = ${xB - xA}$ et $a=${yB - yA}$`
-          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y + c=0$ `
-          texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$ `
-          texteCorr += ` <br>$\\iff ${yB - yA} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(xA - xB)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
-          texteCorr += ` <br>$\\iff  ${yB * xA - yA * xA} ${ecritureAlgebrique(xA * yA - xB * yA)} + c=0$ `
-          texteCorr += ` <br>$\\iff  c= ${-xA * yA + xB * yA - yB * xA + yA * xA}$ `
-          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y ${ecritureAlgebriqueSauf1(-xA * yA + xB * yA - yB * xA + yA * xA)}=0$ `
+          texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
+          texteCorr += `<br>Avec les données de l'énoncé, $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$.`
+          texteCorr += ` <br>On en déduit donc que :$-b = ${xu}$ et $a=${yu}$.`
+          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y + c=0$. `
+          texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA};${yA}) \\in(AB)$. `
+          texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
+          texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
+          texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
+          texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
