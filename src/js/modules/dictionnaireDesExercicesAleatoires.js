@@ -3250,6 +3250,20 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "2G51-1": {
+    "titre": "Déterminer une équation cartésienne de droite à partir de deux points",
+    "url": "/exercices/beta/2G51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51-1"
+  },
+  "2G51": {
+    "titre": "Equation cartésienne de droite",
+    "url": "/exercices/beta/2G51.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G51"
+  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
