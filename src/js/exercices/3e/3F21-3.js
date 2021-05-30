@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre } from '../../modules/outils.js'
 import { mathalea2d, repere2, courbe2, cercle, point, segment, milieu, texteParPoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +33,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     const den = randint(1, 2)
     const a = calcul(num / den)
     const b = randint(-4, 4, 0)
-    const xMin = -8
+    let xMin
+    context.isHtml ? xMin = -10 : xMin = -8
     const xMax = -xMin
     const yMin = xMin
     const yMax = -yMin
