@@ -285,6 +285,9 @@ function executeCode (txt) {
   const interpreter = initialiseEditeur()
   let code = txt
   code += '\n exports.fenetreMathalea2d = fenetreMathalea2d'
+  code += '\n exports.pixelsParCm = pixelsParCm'
   interpreter.run(code)
   context.fenetreMathalea2d = interpreter.exports.fenetreMathalea2d
+  context.pixelsParCm = interpreter.exports.pixelsParCm
+
 }
