@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-export const titre = 'Déterminer le coefficient directeur d\'une droite'
+export const titre = 'Déterminer le coefficient directeur d\'une droite.'
 
 /**
  * Description didactique de l'exercice
@@ -10,7 +10,7 @@ export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $(AB)$ :'
+  this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -35,7 +35,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           n = yB - yA
           d = xB - xA
 
-          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$ `
+          texte = `avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B\\neq x_A$.'
           texteCorr += '<br>La droite $(AB)$ n\'est donc pas verticale.'
           texteCorr += '<br>On peut donc calculer le coefficient directeur de la droite.'
@@ -54,7 +54,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           n = yB - yA
           d = xB - xA
 
-          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$ `
+          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
           texteCorr += '<br>Elle n\'admet donc pas de coefficient directeur.'
