@@ -2886,7 +2886,7 @@ export default {
     "name": "6P11-1"
   },
   "6P11-2": {
-    "titre": "Exercice exemple",
+    "titre": "Résoudre des problèmes de proportionnalité linétaire dans un tableau",
     "url": "/exercices/6e/6P11-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3257,22 +3257,29 @@ export default {
     "interactifReady": false,
     "name": "P012"
   },
+  "2G50-1": {
+    "titre": "Déterminer une équation réduite de droite",
+    "url": "/exercices/beta/2G50-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50-1"
+  },
   "2G50": {
-    "titre": "Coefficient directeur",
+    "titre": "Déterminer le coefficient directeur d'une droite.",
     "url": "/exercices/beta/2G50.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2G50"
   },
   "2G50_1": {
-    "titre": "Equation réduite de droite",
+    "titre": "Déterminer une équation réduite de droite",
     "url": "/exercices/beta/2G50_1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "2G50_1"
   },
   "2G51-1": {
-    "titre": "Equation cartésienne de droite",
+    "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
     "url": "/exercices/beta/2G51-1.js",
     "amcReady": false,
     "interactifReady": false,
