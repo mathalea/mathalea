@@ -333,10 +333,10 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
     }
     return code
   }
-  this.tikz = function (scaleFigure) {
+  this.tikz = function () {
     let code = ''
     for (const objet of objets) {
-      code += '\n\t' + objet.tikz(scaleFigure)
+      code += '\n\t' + objet.tikz()
     }
     return code
   }
@@ -411,10 +411,10 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
     }
     return code
   }
-  this.tikz = function (scaleFigure) {
+  this.tikz = function () {
     let code = ''
     for (const objet of objets) {
-      code += '\n\t' + objet.tikz(scaleFigure)
+      code += '\n\t' + objet.tikz()
     }
     return code
   }
@@ -494,10 +494,10 @@ function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
     }
     return code
   }
-  this.tikz = function (scaleFigure) {
+  this.tikz = function () {
     let code = ''
     for (const objet of objets) {
-      code += '\n\t' + objet.tikz(scaleFigure)
+      code += '\n\t' + objet.tikz()
     }
     return code
   }
@@ -541,10 +541,10 @@ class Prisme3d {
       }
       return code
     }
-    this.tikz = function (scaleFigure) {
+    this.tikz = function () {
       let code = ''
       for (const objet of objets) {
-        code += '\n\t' + objet.tikz(scaleFigure)
+        code += '\n\t' + objet.tikz()
       }
       return code
     }
@@ -584,8 +584,8 @@ class Cube3d {
     this.svg = function (coeff) {
       return faceAV.svg(coeff) + '\n' + faceTOP.svg(coeff) + '\n' + faceDr.svg(coeff)
     }
-    this.tikz = function (scaleFigure) {
-      return faceAV.tikz(scaleFigure) + '\n' + faceTOP.tikz(scaleFigure) + '\n' + faceDr.tikz(scaleFigure)
+    this.tikz = function () {
+      return faceAV.tikz() + '\n' + faceTOP.tikz() + '\n' + faceDr.tikz()
     }
   }
 }
@@ -644,10 +644,10 @@ class Cube {
       code = `<g id="${this.id}">${code}</g>`
       return code
     }
-    this.tikz = function (scaleFigure) {
+    this.tikz = function () {
       let code = ''
       for (let i = 0; i < 3; i++) {
-        code += '\n\t' + this.lstPolygone[i].tikz(scaleFigure)
+        code += '\n\t' + this.lstPolygone[i].tikz()
       }
       return code
     }
@@ -699,10 +699,10 @@ class Pave3d {
       }
       return code
     }
-    this.tikz = function (scaleFigure) {
+    this.tikz = function () {
       let code = ''
       for (const arete of this.aretes) {
-        code += '\n\t' + arete.p2d.tikz(scaleFigure)
+        code += '\n\t' + arete.p2d.tikz()
       }
       return code
     }
@@ -819,10 +819,10 @@ function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
     }
     return code
   }
-  this.tikz = function (scaleFigure) {
+  this.tikz = function () {
     let code = ''
     for (const objet of objets) {
-      code += '\n\t' + objet.tikz(scaleFigure)
+      code += '\n\t' + objet.tikz()
     }
     return code
   }
