@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
-import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, translation, vecteur } from '../../modules/2d.js'
+import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
+import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPoint, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Symétries axiales en pavage triangulaire'
 export const interactifReady = true
@@ -22,8 +22,9 @@ export default function betaExoPavage6e () {
   this.nbQuestions = 3
   this.nbQuestionsModifiable = false
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-  context.fenetreMathalea2d = [0, -0.1, 21, 13]
+  context.fenetreMathalea2d = [0, -0.1, 15, 10]
   this.sup = 1
+  this.sup2 = 1
   this.amcReady = amcReady
   this.interactifReady = interactifReady
   this.amcType = amcType
@@ -308,14 +309,15 @@ export default function betaExoPavage6e () {
     let texte = ''
     let texteCorr = ''
     let typesDeQuestionsDisponibles
+    const scaleFigure = arrondi(parseFloat(this.sup2),1)
     // construction du pavage triangulaire
     const triAngles = [{}] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []
     const A = point(0, 0, '')
-    const B = point(2, 0, '')
+    const B = point(1.2, 0, '')
     const C = rotation(B, A, 60, '')
-    const v = vecteur(2, 0)
-    const w = rotation(vecteur(2, 0), A, 60)
+    const v = vecteur(1.2, 0)
+    const w = rotation(vecteur(1.2, 0), A, 60)
     triAngles[0] = { tri: polygone(A, B, C), gra: centreGraviteTriangle(A, B, C) }
     triAngles[1] = { tri: rotation(triAngles[0].tri, B, -60), gra: rotation(triAngles[0].gra, B, -60) }
     for (let i = 0; i < 7; i++) {
@@ -329,10 +331,10 @@ export default function betaExoPavage6e () {
       }
     }
     for (let i = 0; i < triAngles.length; i++) {
-      triAngles[i].num = texteParPoint(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 1)
+      triAngles[i].num = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.5)
       objetsEnonce.push(triAngles[i].tri, triAngles[i].num)
     }
-    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 21, ymax: 13, pixelsParCm: 30, scale: 0.5, mainlevee: false }
+    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, scale: scaleFigure, mainlevee: false }
     if (parseInt(this.sup) === 1) {
       this.nbQuestions = 3
       typesDeQuestionsDisponibles = [0, 1, 2]
@@ -355,20 +357,18 @@ export default function betaExoPavage6e () {
         case 3: // axe parallèle à [BC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
-          d[i] = droite(M, N, `(d_${i + 1})`)
-          d[i].color = couleurs[i]
-          d[i].epaisseur = 2
-          d[i].opacite = 0.7
+          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i].epaisseur = 3
+          d[i].opacite = 0.6
           break
         case 1: // axe vertical
         case 4: // axe perpendicualire à [BC]
         case 5: // axe perpendicualire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
-          d[i] = droite(M, N, `(d_${i + 1})`)
-          d[i].color = couleurs[i]
-          d[i].epaisseur = 2
-          d[i].opacite = 0.7
+          d[i] = droite(M, N, `(d_${i + 1})`, couleurs[i])
+          d[i].epaisseur = 3
+          d[i].opacite = 0.6
           break
       }
       objetsEnonce.push(d[i])
@@ -425,4 +425,5 @@ export default function betaExoPavage6e () {
     }
   }
   this.besoinFormulaireNumerique = ['Choix des axes :', 2, '1 : Axe horizontal\n2 : Axe vertical']
+  this.besoinFormulaire2Texte = ['Echelle de la figure (nombre avec un point comme séparateur décimal)']
 }
