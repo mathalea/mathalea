@@ -1,5 +1,5 @@
-context.fenetreMathalea2d = [-2,-15,27,4]
-context.pixelsParCm = 40 // L'unité fait 30 pixels
+fenetreMathalea2d = [-2,-15,27,4]
+pixelsParCm = 40 // L'unité fait 30 pixels
 grille(0,0,10,4) // Rectangle de carreaux avec xmin = ymin = 0, xmax = 10, ymax = 4
 let A = point(1,1,'A') // Créé un point A qui a pour nom...'A'
 let B = point(5,2,'B')

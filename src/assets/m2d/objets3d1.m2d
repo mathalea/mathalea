@@ -1,4 +1,4 @@
-context.fenetreMathalea2d = [-0.9,-8.1,29.1,11.9]
+fenetreMathalea2d = [-0.9,-8.1,29.1,11.9]
 context.anglePerspective=30 // angle de la direction de fuite
 context.coeffPerspective=0.5 // coefficient de réduction des longueurs fuyantes
 // on définit les points par leur coordonnées cartésiennes
