@@ -4,10 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
 import { ajouteChampTexte, exerciceInteractif } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType = 4 //type de question AMC NumeriqueChoice 
+export const amcType = 4 // type de question AMC NumeriqueChoice
 export const interactifReady = true
-
-
 
 export const titre = 'Substitution'
 
@@ -153,9 +151,6 @@ export default function ExerciceSubstituer (difficulte = 1) {
         i++
       }
       cpt++
-    }
-    if (context.isAmc) {
-      
     }
     listeQuestionsToContenu(this)
   }
