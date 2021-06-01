@@ -6,11 +6,16 @@ import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
 
 export function exerciceInteractif (exercice) {
-  if (exercice.amcType === 4 || exercice.amcType === 5) questionNumerique(exercice)
-  if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
-  if (exercice.interactifType === 'custom') exerciceCustom(exercice)
-  // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
-  if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+  if (context.isAmc) {
+    if (exercice.amcType === 4 || exercice.amcType === 5) exerciceNumerique(exercice)
+    if (exercice.amcType === 1 || exercice.amcType === 2) exerciceQcm(exercice)
+  } else if (context.isHtml && !context.isDiaporama) {
+    if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
+    if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)
+    if (exercice.interactifType === 'custom') exerciceCustom(exercice)
+    // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
+    if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+  }
 }
 
 /**
@@ -171,7 +176,7 @@ export function elimineDoublons (propositions) { // fonction qui va éliminer le
  * et on y ajoute un listenner pour vérifier les réponses cochées
  * @param {object} exercice
  */
-export function questionNumerique (exercice) {
+export function exerciceNumerique (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}`)
     if (button) {

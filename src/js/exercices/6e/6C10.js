@@ -7,6 +7,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif'
 export const amcReady = true
 export const amcType = 4 // type de question AMC
 export const interactifReady = true
+export const interactifType = 'numerique'
 
 export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
 
@@ -28,6 +29,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.interactif = 1
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2

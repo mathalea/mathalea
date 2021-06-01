@@ -2,7 +2,7 @@ import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
 
 export const titre = 'Tables de multiplication'
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 4 // Question numérique
 
@@ -19,5 +19,6 @@ export default function TablesParametres (tables_par_defaut = '2-3-4-5-6-7-8-9')
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.tailleDiaporama = 100
 }

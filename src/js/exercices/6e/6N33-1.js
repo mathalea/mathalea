@@ -5,6 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 4 // type de question AMC
+export const interactifType = 'numerique'
 
 export const titre = 'Calculer le pourcentage d’un nombre de tête'
 
@@ -26,6 +27,7 @@ export default function PourcentageDunNombre () {
   this.sup = 1
   this.amcReady = amcReady
   this.amcType = amcType
+  this.interactifType = interactifType
 
   this.nouvelleVersion = function () {
     let listePourcentages = []

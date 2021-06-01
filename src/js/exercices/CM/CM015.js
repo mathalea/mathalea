@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Somme de deux nombres mariés'
 export const amcReady = true
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcType = 4
 
 /**
@@ -23,7 +23,7 @@ export default function SommeDeDeuxNombresMaries () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-
+  this.interactifType = interactifType
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

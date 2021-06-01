@@ -880,7 +880,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "4C32-1"
   },
   "4C32-2": {
@@ -984,7 +984,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "4G20-2"
   },
   "4G20-5": {
@@ -1003,7 +1003,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "4G20"
   },
   "4G20MG32": {
@@ -1022,7 +1022,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "4G21"
   },
   "4G22": {
@@ -1469,7 +1469,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5L10-2"
   },
   "5L10-3": {
@@ -1536,7 +1536,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5L14-2"
   },
   "5L14-3": {
@@ -1669,7 +1669,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5N14-3"
   },
   "5N14": {
@@ -1742,7 +1742,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R10"
   },
   "5R11-2": {
@@ -1794,7 +1794,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R20-3"
   },
   "5R20-4": {
@@ -1820,7 +1820,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "5R20"
   },
   "5R21": {
@@ -1832,7 +1832,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R21"
   },
   "5R22-2": {
@@ -1851,7 +1851,7 @@ export default {
       "text": "AMCOpenNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "5R22"
   },
   "5S12": {
@@ -1938,7 +1938,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C10-3"
   },
   "6C10-4": {
@@ -1950,7 +1950,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C10-4"
   },
   "6C10-5": {
@@ -1973,7 +1973,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C10"
   },
   "6C10bis": {
@@ -2026,7 +2026,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C20"
   },
   "6C21": {
@@ -2049,7 +2049,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C23"
   },
   "6C30-1": {
@@ -2061,7 +2061,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30-1"
   },
   "6C30-2": {
@@ -2073,7 +2073,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30-2"
   },
   "6C30-3": {
@@ -2085,7 +2085,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-3"
   },
   "6C30-4": {
@@ -2097,7 +2097,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-4"
   },
   "6C30-5": {
@@ -2121,7 +2121,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C30"
   },
   "6C31-2": {
@@ -2140,7 +2140,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C31"
   },
   "6C32": {
@@ -2159,7 +2159,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C33"
   },
   "6C34": {
@@ -2171,7 +2171,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "6C34"
   },
   "6C35": {
@@ -2349,7 +2349,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": 1,
+    "interactifType": "qcm",
     "name": "6G25-1"
   },
   "6G25-2": {
@@ -2901,7 +2901,7 @@ export default {
     "name": "6P11-1"
   },
   "6P11-2": {
-    "titre": "Résoudre des problèmes de proportionnalité linétaire dans un tableau",
+    "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité multiplicative",
     "url": "/exercices/6e/6P11-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2944,7 +2944,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM000"
   },
   "CM001": {
@@ -2956,7 +2956,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM001"
   },
   "CM002": {
@@ -2968,7 +2968,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM002"
   },
   "CM003": {
@@ -2980,7 +2980,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "mathLive",
     "name": "CM003"
   },
   "CM004": {
@@ -2992,7 +2992,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM004"
   },
   "CM005": {
@@ -3004,7 +3004,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM005"
   },
   "CM006": {
@@ -3016,7 +3016,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM006"
   },
   "CM007": {
@@ -3028,7 +3028,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM007"
   },
   "CM008": {
@@ -3040,7 +3040,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM008"
   },
   "CM009": {
@@ -3052,7 +3052,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM009"
   },
   "CM010": {
@@ -3064,7 +3064,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM010"
   },
   "CM011": {
@@ -3076,7 +3076,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM011"
   },
   "CM012": {
@@ -3088,7 +3088,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM012"
   },
   "CM013": {
@@ -3100,7 +3100,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM013"
   },
   "CM014": {
@@ -3112,7 +3112,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM014"
   },
   "CM015": {
@@ -3124,7 +3124,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM015"
   },
   "CM016": {
@@ -3136,7 +3136,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM016"
   },
   "CM017": {
@@ -3148,7 +3148,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM017"
   },
   "CM018": {
@@ -3160,7 +3160,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "numerique",
     "name": "CM018"
   },
   "CM019": {

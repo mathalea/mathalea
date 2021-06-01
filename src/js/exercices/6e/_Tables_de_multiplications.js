@@ -20,6 +20,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.spacing = 2
   this.interactif = true
   this.amcType = 4
+  this.interactifType = 'numerique'
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)

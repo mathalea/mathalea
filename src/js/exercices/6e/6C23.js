@@ -2,7 +2,7 @@ import ExerciceAdditionnerOuSoustraireDesFractions5e from '../5e/5N20.js'
 
 export const amcReady = true
 export const interactifReady = true
-
+export const interactifType = 'qcm'
 export const amcType = 1 //type de question AMC 
 
 export const titre = 'Additionner ou soustraire des fractions de même dénominateur'
@@ -15,6 +15,7 @@ export default function ExerciceAdditionnerFractions6e () {
   this.titre = titre
   this.besoinFormulaireNumerique2 = false
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 }

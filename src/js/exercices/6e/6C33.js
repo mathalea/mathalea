@@ -5,7 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcType = 4 // Question numérique
 
 /**
@@ -46,6 +46,7 @@ export default function Priorites () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = 'Calculer'
   this.nbQuestions = 5
@@ -316,10 +317,10 @@ export default function Priorites () {
           setReponse(this, i, a * (b / c + d))
           break
       }
-      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length-1) + '~=$' + ajouteChampTexte(this, i)
+      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexte(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
-          this.autoCorrection[i].enonce = texte.substring(0, texte.length-1) + '~=$'
+          this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$'
           this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
           this.autoCorrection[i].reponse.param.digits = nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur) + 1
           this.autoCorrection[i].reponse.param.decimals = 0

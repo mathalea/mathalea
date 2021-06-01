@@ -4,6 +4,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
 export const amcReady = true
 export const amcType = 1 // QCM
+export const interactifType = 'qcm'
 export const interactifReady = true
 
 
@@ -21,6 +22,7 @@ export default function PlacerLaVirgule () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.interactif = true
   this.interactifObligatoire = true
   this.nbQuestions = 4 // Ici le nombre de questions

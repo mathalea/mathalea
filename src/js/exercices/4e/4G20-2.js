@@ -4,9 +4,9 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 import { context } from '../../modules/context.js'
 export const titre = 'Racine carré d’un carré parfait (calcul mental)'
 export const amcReady = true
-export const interactifReady = true
-
 export const amcType = 4
+export const interactifType = 'numerique'
+export const interactifReady = true
 
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
@@ -19,6 +19,7 @@ export default function RacineCareeDeCarresParfaits () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.interactif = true
   this.consigne = 'Calculer de tête les racines suivantes.'
   this.nbQuestions = 4
@@ -43,8 +44,8 @@ export default function RacineCareeDeCarresParfaits () {
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = `$\\sqrt{${c}}=\\dotfill$`
-          this.autoCorrection[i].propositions = [{ texte : `$\\sqrt{${c}}=${a}$`, statut: '' }]
-          this.autoCorrection[i].reponse = { valeur: a, param: { digits:2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
+          this.autoCorrection[i].propositions = [{ texte: `$\\sqrt{${c}}=${a}$`, statut: '' }]
+          this.autoCorrection[i].reponse = { valeur: a, param: { digits: 2, decimals: 0, exposantNbChiffres: 0, exposantSigne: false, signe: false } }
         }
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

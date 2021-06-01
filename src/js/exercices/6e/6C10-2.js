@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
-export const amcType =1 //type de question AMC 
+export const amcType = 1 // type de question AMC
 export const interactifReady = true
-
+export const interactifType = ['qcm', 'mathLive']
 
 export const titre = 'Tables de multiplications et multiples de 10'
 
@@ -20,6 +20,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = tablesParDefaut
+  this.sup2 = 1
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
@@ -29,6 +30,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.tailleDiaporama = 100
 
   this.nouvelleVersion = function () {
+    this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let tables = []
     this.listeQuestions = [] // Liste de questions
@@ -114,19 +116,18 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ordered: false,
         lastChoice: 5
       }
-      if (this.interactif) {
+      if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
+      } else {
+        texte += ajouteChampTexteMathLive(this, i)
+        setReponse(this, i, a * b)
+        texte = texte.replace('\\dotfill', '')
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    if (context.isAmc) {
-      
-    }
   }
-  this.besoinFormulaireTexte = [
-    'Choix des tables',
-    'Nombres séparés par des tirets'
-  ] // Texte, tooltip
+  this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets'] // Texte, tooltip
+  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

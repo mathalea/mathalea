@@ -5,9 +5,9 @@ import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, s
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Symétries axiales en pavage triangulaire'
 export const interactifReady = true
+export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 1
-export const interactifType = 1
 
 export default function betaExoPavage6e () {
   'use strict'
