@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, objet, randint, prenom, texPrix, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
-export const titre = 'Résoudre des problèmes de proportionnalité linétaire dans un tableau'
+export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité multiplicative'
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau

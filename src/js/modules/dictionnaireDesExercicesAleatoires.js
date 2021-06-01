@@ -62,6 +62,20 @@ export default {
     "interactifReady": false,
     "name": "2G12"
   },
+  "2G50-1": {
+    "titre": "Déterminer une équation réduite de droite",
+    "url": "/exercices/2e/2G50-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50-1"
+  },
+  "2G50": {
+    "titre": "Déterminer le coefficient directeur d'une droite.",
+    "url": "/exercices/2e/2G50.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G50"
+  },
   "2L10": {
     "titre": "Développer avec les identités remarquables",
     "url": "/exercices/2e/2L10.js",
@@ -1557,7 +1571,8 @@ export default {
     "titre": "Calculer la valeur d’une expression littérale",
     "url": "/exercices/5e/5L14.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "5L14"
   },
   "5L15": {
@@ -3256,27 +3271,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P012"
-  },
-  "2G50-1": {
-    "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/beta/2G50-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G50-1"
-  },
-  "2G50": {
-    "titre": "Déterminer le coefficient directeur d'une droite.",
-    "url": "/exercices/beta/2G50.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G50"
-  },
-  "2G50_1": {
-    "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/beta/2G50_1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2G50_1"
   },
   "2G51-1": {
     "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",

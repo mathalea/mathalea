@@ -2427,7 +2427,7 @@ export function texPrix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
   let result
-  if (nombre === nombre.toFixed(0)) {
+  if (nombre.toString() === nombre.toFixed(0)) {
     result = nombre
   } else {
     result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers

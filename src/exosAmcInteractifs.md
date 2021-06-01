@@ -29,6 +29,7 @@
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|export const interactifType non présent|
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
 |5L14-2|Substitution|OK|AMCNum|OK|export const interactifType non présent|
+|5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
 |5N13-2|Égalités entre fractions simples|OK|qcmMono|KO|KO|
 |5N13|Simplification de fractions|OK|AMCOpen|KO|KO|
 |5N14-3|Fractions égales et égalité des produits en croix|OK|qcmMono|OK|export const interactifType non présent|
