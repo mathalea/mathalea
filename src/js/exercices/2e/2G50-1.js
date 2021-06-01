@@ -58,15 +58,50 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
         texteCorr += `<br>$${yA}=${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)} +p$`
         texteCorr += `<br>$\\iff p=${yA}-${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)}$`
         texteCorr += `<br>$\\iff p=${texFractionReduite(d * yA - n * xA, d)} .$`
-        texteCorr += '<br>Au final, $(AB) : y=$'
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `$${texFractionReduite(n, d)}x$`
-        } else {
-          if (n !== 0) { texteCorr += `$${texFraction(n, d)}x$` }
+        texteCorr += '<br>Au final, $(AB) : y='
+        if (d * yA - n * xA === 0) { // cas où p=0
+          if (n === d) { // cas où m=1 et p=0
+            texteCorr += 'x'
+          }
+          if (n === -d) { // cas où m=-1 et p=0
+            texteCorr += '-x'
+          }
+          if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
+            texteCorr += `${texFractionReduite(n, d)}x$`
+          } else { // m fraction irréductible
+            if (n !== 0) { texteCorr += `${texFractionReduite(n, d)}x$` }
+          }
         }
-        if (d * d * yA - n * xA * d > 0) { texteCorr += '$+$' }
-        texteCorr += `$${texFractionReduite(d * yA - n * xA, d)} .$`
-
+        // cas ou p!=0 :
+        if (d * yA - n * xA !== 0) {
+        // on gère cas particulier ou m=+/-1
+          if (n === d) { // m =1, on écrit x
+            texteCorr += 'x' // on écrit x
+            if (d * d * yA - n * xA * d > 0) { // p>0
+              texteCorr += '+'
+            }
+          }
+          if (n === -d) { // m=-1
+            texteCorr += '-x' // on écrit -x
+            if (d * d * yA - n * xA * d > 0) { // p>0
+              texteCorr += '+'
+            }
+          }
+          // cas ou m=+/- 1 traités.
+          // cas général :
+          if ((pgcd(n, d) !== 1 || d === 1) && n !== 0 && n / d !== 1 && n / d !== -1) {
+            // m fraction réductible ou entier non nul.
+            texteCorr += `${texFractionReduite(n, d)}x` // on affiche m
+          } else {
+            // m fraction irréductible non nul :
+            if (n !== 0 && n / d !== 1 && n / d !== -1) { texteCorr += `${texFractionReduite(n, d)}x` }
+          }
+          if (d * d * yA - n * xA * d > 0 && n / d !== 1 && n / d !== -1) { // p>0
+            texteCorr += '+'
+          }
+          // tous les cas précédents :
+          texteCorr += `${texFractionReduite(d * yA - n * xA, d)} .$`
+        }
         // break
       }
       if (this.sup === 2) {
