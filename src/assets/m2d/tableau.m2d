@@ -1,0 +1,12 @@
+const t = tableau({
+ ligne1: ['\\text{Masse (en g)}', 150, 450, 600, '4~500'], // En mode LaTeX par défaut
+ ligne2: [ '\\text{Prix (en euros)}', 3],
+ nbColonnes:6, // facultatif
+ largeurTitre:10,
+ flecheHaut: [[1, 2, '\\times3'], [2, 4, '\\times10']], 
+ // [[indice départ, indice arrivé, texte]]
+ flecheBas: [[1, 2, '\\times3'], [2, 3, '\\times \\dfrac{4}{3}',1]],
+ flecheDroite: '?', 
+ flecheDroiteSens: 'haut'  // 'bas' par défaut
+})
+

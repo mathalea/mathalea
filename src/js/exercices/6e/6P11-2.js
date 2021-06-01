@@ -48,10 +48,10 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           o = choice([objet()])
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
           monTableau = tableau({
+            largeurTitre: 9,
             ligne1: [`\\text{Nombre de ${o}}`, np, ng],
             ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
             flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]],
-            largeurTitre: 9
           })
           texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
