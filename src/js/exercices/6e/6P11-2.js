@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, objet, randint, prenom, texPrix, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
-export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité multiplicative'
+export const titre = 'Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité'
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
@@ -81,7 +81,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
           monTableau = tableau({
             ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
-            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pp))}`],
+            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pg))}`],
             flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
             largeurTitre: 9
           })
