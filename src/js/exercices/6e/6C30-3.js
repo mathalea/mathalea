@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 1 // QCM
 export const interactifReady = true
+export const interactifType = 'qcm'
 
 export const titre = 'Opérations avec les nombres décimaux'
 
@@ -25,6 +26,7 @@ export default function MultiplicationMentalDecimaux () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.interactifObligatoire = true // Il n'existe pas de version non QCM
   this.interactif = true
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'

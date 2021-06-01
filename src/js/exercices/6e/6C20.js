@@ -5,8 +5,8 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre,
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 4 // Question numérique
+export const interactifType = 'numerique'
 export const interactifReady = true
-
 
 export const titre = 'Additions et soustractions de nombres décimaux'
 
@@ -28,6 +28,7 @@ export default function AdditionnerSoustrairesDecimaux () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
@@ -158,7 +159,7 @@ export default function AdditionnerSoustrairesDecimaux () {
       if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexte(this, i)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{texte: texteCorr, statut: ''}]
+        this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse = { valeur: reponse, param: { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 } }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

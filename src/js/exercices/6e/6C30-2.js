@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChanger
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const interactifReady = true
+export const interactifType = 'numerique'
 
 export const amcType = 4 // Question numérique
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
@@ -27,6 +28,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = ''
 
@@ -145,7 +147,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse = { valeur: reponse, param: { digits: nombreDeChiffresDansLaPartieEntiere(reponse) + nombreDeChiffresDansLaPartieDecimale(reponse) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(reponse) + 1, signe: false, exposantNbChiffres: 0 } }
-      } 
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

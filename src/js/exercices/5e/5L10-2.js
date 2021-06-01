@@ -5,6 +5,8 @@ import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 1 //type de question AMC 
 export const interactifReady = true
+export const interactifType = 'qcm'
+
 
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 
@@ -24,6 +26,7 @@ export default function TraduireUnProgrammeDeCalcul () {
   this.spacing = 1
   this.interactif = false
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
   

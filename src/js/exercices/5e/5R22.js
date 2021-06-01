@@ -5,7 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 5
 
@@ -30,6 +30,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   this.nbQuestions = 5
   this.interactif = true
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 
