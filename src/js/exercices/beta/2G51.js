@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
 export const titre = 'Equation cartésienne de droite'
 
 /**
@@ -32,10 +32,14 @@ export default function equationcartesienne () {
           yA = randint(-5, 5)
           xB = randint(-5, 5)
           yB = randint(-5, 5)
+          if (xA === xB & yA === yB) { // Cas des deux points confondus
+            xA = xA + randint(1, 2)
+            yB = yB + randint(1, 3)
+          }
           texte = `avec les point $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB}).$<br> `
 
-          texte += `<i>On demande une démonstration utilisant un résultat de cours. $ ${this.sup}$`
           if (this.sup === 1) {
+            texte += '<i>On demande une rédaction utilisant un résultat de cours. </i>'
             texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme :'
             texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
             texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
@@ -50,13 +54,27 @@ export default function equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yB - yA} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(xA - xB)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yB * xA - yA * xA} ${ecritureAlgebrique(xA * yA - xB * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yA + xB * yA - yB * xA + yA * xA}$ `
-            if (-xA * yA + xB * yA - yB * xA + yA * xA === 0) {
-              texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (AB) : ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y =0$ `
-            } else {
-              texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (AB) : ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y ${ecritureAlgebriqueSauf1(-xA * yA + xB * yA - yB * xA + yA * xA)}=0$ `
+            texteCorr += ' <br>Une équation cartésienne est donc de la forme : $ (AB) :  '
+            if (yB !== yA) { // cas où a != 0
+              texteCorr += `${reduireAxPlusB(yB - yA, 0)}`
             }
+            if (xA - xB === 1) { // cas b=1
+              if (yB !== yA) { texteCorr += '+' }
+              texteCorr += 'y'
+            }
+            if (xA - xB === -1) { // cas b=-1
+              texteCorr += '-y'
+            }
+            if (xA - xB !== 1 & xA - xB !== -1 & xA !== xB) { // cas général, non nul
+              texteCorr += `${ecritureAlgebrique(xA - xB)}y`
+            }
+            if (-xA * yA + xB * yA - yB * xA + yA * xA !== 0) { // cas p !=0
+              texteCorr += `${ecritureAlgebrique(-xA * yA + xB * yA - yB * xA + yA * xA)}`
+            }
+            texteCorr += '=0$'
           }
           if (this.sup === 2) {
+            texte += '<i>On demande de rédiger une démonstration sans utiliser de résultat de cours. </i>'
             texteCorr = 'On sait que le vecteur $\\overrightarrow {AB}$ est un vecteur directeur de la droite $(AB)$.<br> '
             texteCorr += 'Soit $M(x;y) \\in (AB)$'
             texteCorr += ' <br>$\\overrightarrow {AM}$ est aussi un vecteur directeur de la droite $(AB)$. '
@@ -67,11 +85,24 @@ export default function equationcartesienne () {
             texteCorr += `<br>$\\phantom{On en déduit que} \\iff \\begin{vmatrix}x-${ecritureParentheseSiNegatif(xA)}&${xB - xA}\\\\y-${ecritureParentheseSiNegatif(yA)}&${yB - yA}\\end{vmatrix}=0$<br>`
             texteCorr += `<br>$\\phantom{On en déduit que} \\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${ecritureParentheseSiNegatif(yB - yA)} -( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xB - xA)}=0$`
             texteCorr += `<br>$\\phantom{On en déduit que} \\iff ${yB - yA} x  ${ecritureAlgebrique(xA - xB)} y -${ecritureParentheseSiNegatif(xA)} \\times ${ecritureParentheseSiNegatif(yB - yA)} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xB - xA)}=0$`
-            if (-xA * yA + xB * yA - yB * xA + yA * xA === 0) {
-              texteCorr += ` <br>Après réduction, une équation cartésienne est donc de la forme : $ (AB) : ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y =0$ `
-            } else {
-              texteCorr += ` <br>Après réduction, une équation cartésienne est donc de la forme : $ (AB) : ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y ${ecritureAlgebriqueSauf1(-xA * yA + xB * yA - yB * xA + yA * xA)}=0$ `
+            texteCorr += ' <br>Une équation cartésienne est donc de la forme : $ (AB) :  '
+            if (yB !== yA) { // cas où a != 0
+              texteCorr += `${reduireAxPlusB(yB - yA, 0)}`
             }
+            if (xA - xB === 1) { // cas b=1
+              if (yB !== yA) { texteCorr += '+' }
+              texteCorr += 'y'
+            }
+            if (xA - xB === -1) { // cas b=-1
+              texteCorr += '-y'
+            }
+            if (xA - xB !== 1 & xA - xB !== -1 & xA !== xB) { // cas général, non nul
+              texteCorr += `${ecritureAlgebrique(xA - xB)}y`
+            }
+            if (-xA * yA + xB * yA - yB * xA + yA * xA !== 0) { // cas p !=0
+              texteCorr += `${ecritureAlgebrique(-xA * yA + xB * yA - yB * xA + yA * xA)}`
+            }
+            texteCorr += '=0$'
           }
           break
       }
