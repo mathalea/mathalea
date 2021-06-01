@@ -18,7 +18,7 @@
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
-|4C32|Notation scientifique|OK|AMCNum|KO|KO|
+|4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|numerique|
@@ -40,7 +40,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|numerique|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|numerique|
-|6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|export const interactifType non présent|
+|6C10-2|Tables de multiplications et multiples de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Tables de multiplications et nombres décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Addition de deux entiers|OK|AMCNum|OK|numerique|
 |6C10-5|Labyrinthe de multiples|OK|AMCOpen|KO|KO|
@@ -55,7 +55,7 @@
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
 |6C30-3|Opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
 |6C30-4|Multiplication par 0,1 ; 0,01 ; 0,001 (Placer la virgule)|OK|qcmMono|OK|qcm|
-|6C30-5|Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|export const interactifType non présent|
+|6C30-5|Multiplication par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)|OK|qcmMono|OK|qcm|
 |6C30|Multiplications posées de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C31|Divisions décimales|OK|AMCNum|OK|numerique|
 |6C33|Calculer en utilisant les priorités opératoires|OK|AMCNum|OK|numerique|
@@ -68,7 +68,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|export const interactifType non présent|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|export const interactifType non présent|
-|6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|KO|KO|
+|6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|export const interactifType non présent|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|
