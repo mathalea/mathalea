@@ -10,7 +10,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
 */export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre sous forme d\'un tableau.'
+  this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -30,7 +30,7 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
     } else if (this.sup === 3) {
       typeDeQuestionsDisponibles = [3, 3, 3, 3, 4]
     } else if (this.sup === 4) {
-      typeDeQuestionsDisponibles = [1, 2, 3, 4]
+      typeDeQuestionsDisponibles = [1, 2, 3, 2, 4]
     }
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -43,33 +43,33 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           np = randint(1, 10)
           cm = randint(2, 7)
           ng = np * cm
-          pp = randint(2, 99) / 10
+          pp = np * randint(8, 9) / 10
           pg = cm * pp
           o = choice([objet()])
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
           monTableau = tableau({
-            largeurTitre: 8,
+            largeurTitre: 9,
             ligne1: [`\\text{Nombre de ${o}}`, np, ng],
             ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
-            flecheHaut: [[1, 2, `${miseEnEvidence('\\times ' + cm)}`]]
+            flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]],
           })
-          texteCorr = mathalea2d({ xmin: -1, xmax: 17, ymin: -2, ymax: 6.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
         case 2: // division
           np = randint(1, 10)
           cm = randint(2, 7)
           ng = np * cm
-          pp = randint(2, 99) / 10
+          pp = np * randint(8, 9) / 10
           pg = cm * pp
           o = choice([objet()])
           texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
           monTableau = tableau({
-            largeurTitre: 8,
-            ligne1: [`\\text{Nombre de ${o}}`, np, ng],
+            ligne1: [`\\text{Nombre de ${o}}`, ng, np],
             ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
-            flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
+            flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
+            largeurTitre: 9
           })
-          texteCorr = mathalea2d({ xmin: -1, xmax: 17, ymin: -2, ymax: 6.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
         case 3: // passage par l'unité
           pu = (1, 19) / 10
@@ -80,12 +80,12 @@ export const titre = 'Résoudre des problèmes de proportionnalité linétaire d
           o = choice([objet()])
           texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
           monTableau = tableau({
-            largeurTitre: 8,
             ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
             ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pp))}`],
-            flecheHaut: [[1, 2, `\\div ${miseEnEvidence(np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
+            flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
+            largeurTitre: 9
           })
-          texteCorr = mathalea2d({ xmin: -1, xmax: 17, ymin: -2, ymax: 6.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
         case 4: // Non proportionnalité
           tp = randint(120, 165) / 100

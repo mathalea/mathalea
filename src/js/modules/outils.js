@@ -1814,7 +1814,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
+  return choice(['lots de billes', 'lots de bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**
