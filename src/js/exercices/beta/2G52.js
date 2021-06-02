@@ -19,13 +19,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  const typeQuestionsDisponibles = ['type1', 'type2'] // On créé 2 types de questions
+  const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] // On créé 2 types de questions
   const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, a1, b1, c1, a2, b2, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a1, b1, c1, k, a2, b2, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
@@ -80,7 +80,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += ', on en déduit que : $\\vec {u} \\begin{pmatrix} '
           if (b1 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b1)}` }
           texteCorr += `\\\\${a1}\\end{pmatrix}$`
-          texteCorr += `<br>De même pour $(d')$ : $a=${a2}$ , $b=${b2}$ , $c=${c2}$ `
+          texteCorr += `<br>De même, appelons $\\vec {u'}$ le vecteur directeur de $(d')$. Comme ici, on a : $a=${a2}$ , $b=${b2}$ , $c=${c2}$ `
           texteCorr += ', on en déduit que : $\\vec {u\'} \\begin{pmatrix} '
           if (b2 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b2)}` }
           texteCorr += `\\\\${a2}\\end{pmatrix}$`
@@ -88,10 +88,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += '<br> Pour cela, on calcule leur déterminant : '
           texteCorr += `$Det\\big(\\vec u;\\vec {u'}\\big)=\\begin{vmatrix}${-b1}&${-b2}\\\\${a1}&${a2}\\end{vmatrix}=${ecritureParentheseSiNegatif(-b1)} \\times ${ecritureParentheseSiNegatif(a2)} - ${ecritureParentheseSiNegatif(a1)} \\times ${ecritureParentheseSiNegatif(-b2)}=${-b1 * a2 + a1 * b2}$`
           if (-b1 * a2 + a1 * b2 !== 0) {
-            texteCorr += '<br>On onserve que le déterminant est non-nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
-            texteCorr += 'Les droites $(d)$ et $(d\')$ ne sont donc pas parallèles.'
+            texteCorr += '<br>On observe que le déterminant est non-nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
+            texteCorr += '<br>Les droites $(d)$ et $(d\')$ ne sont donc pas parallèles.'
           } else {
-            texteCorr += '<br>On onserve que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'
+            texteCorr += '<br>On observe que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'
             texteCorr += '<br>Les droites $(d)$ et $(d\')$ sont alors parallèles.'
           }
           if (a1 * b2 === a2 * b1 & a1 * c1 === a2 * c2 & b1 * c2 === b2 * c1) {
@@ -102,8 +102,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           a1 = randint(-5, 5)
           b1 = randint(-5, 5)
           c1 = randint(-5, 5)
-          a2 = randint(-5, 5)
-          b2 = randint(-5, 5)
+          k = randint(-2, 2, 0)
+          a2 = a1 * k
+          b2 = b1 * k
           c2 = randint(-5, 5)
 
           texte = 'On donne : $(d) : '
@@ -158,14 +159,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr += '<br> Pour cela, on calcule leur déterminant : '
           texteCorr += `$Det\\big(\\vec u;\\vec {u'}\\big)=\\begin{vmatrix}${-b1}&${-b2}\\\\${a1}&${a2}\\end{vmatrix}=${ecritureParentheseSiNegatif(-b1)} \\times ${ecritureParentheseSiNegatif(a2)} - ${ecritureParentheseSiNegatif(a1)} \\times ${ecritureParentheseSiNegatif(-b2)}=${-b1 * a2 + a1 * b2}$`
           if (-b1 * a2 + a1 * b2 !== 0) {
-            texteCorr += '<br>On onserve que le déterminant est non-nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
-            texteCorr += 'Les droites $(d)$ et $(d\')$ ne sont donc pas parallèles.'
+            texteCorr += '<br>On observe que le déterminant est non-nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
+            texteCorr += '<br>Les droites $(d)$ et $(d\')$ ne sont donc pas parallèles.'
           } else {
-            texteCorr += '<br>On onserve que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'
+            texteCorr += '<br>On observe que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'
             texteCorr += '<br>Les droites $(d)$ et $(d\')$ sont alors parallèles.'
           }
           if (a1 * b2 === a2 * b1 & a1 * c1 === a2 * c2 & b1 * c2 === b2 * c1) {
-            texteCorr += 'On observe même que dans cette situation, les équations étant multiples l\'une de l\'autre, les deux droites sont confondues.'
+            texteCorr += '<br>On observe même que dans cette situation, les équations étant multiples l\'une de l\'autre, les deux droites sont confondues.'
           }
           break
       }
