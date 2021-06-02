@@ -3271,7 +3271,7 @@ export default {
     "name": "P011"
   },
   "P012": {
-    "titre": "Faire des camenberts pour travailler les fractions",
+    "titre": "Faire des camemberts pour travailler les fractions",
     "url": "/exercices/Profs/P012.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3290,6 +3290,13 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2G51"
+  },
+  "2G52": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/2G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G52"
   },
   "beta1F10": {
     "titre": "Calculs de dérivés",
