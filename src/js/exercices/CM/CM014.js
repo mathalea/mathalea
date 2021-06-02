@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, range1, combinaisonListes } from '../
 export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcType = 4
 
 /**
@@ -17,6 +17,7 @@ export default function DoubleMoitieTiersTriple () {
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType
+  this.interactifType = interactifType
   this.interactifReady = interactifReady
   this.consigne = 'Calculer'
   this.nbQuestions = 10

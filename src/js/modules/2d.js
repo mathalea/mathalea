@@ -816,7 +816,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     s.isVisible = false
     return s.svgml(coeff, amp) + leNom.svg(coeff)
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
@@ -919,7 +919,7 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
   this.svgml = function (coeff, amp) {
     return c.svgml(coeff, amp) + '\n' + v.svg(coeff)
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     return c.tikzml(amp) + '\n' + v.tikz()
   }
 }
@@ -1028,7 +1028,7 @@ function ConstructionMediatrice (
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
@@ -1259,7 +1259,7 @@ function Polyline (...points) {
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const tableauOptions = []
     if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color)
@@ -1690,7 +1690,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     else code += ` ${Math.round(B.xSVG(coeff), 0)}, ${arrondi(B.ySVG(coeff), 0)} ${arrondi(B.xSVG(coeff), 0)}, ${arrondi(B.ySVG(coeff), 0)}" stroke="${this.color}" ${this.style}/>`
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     let optionsDraw = []
@@ -1931,7 +1931,7 @@ function Polygone (...points) {
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''; let segment_courant
     let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
@@ -2463,7 +2463,7 @@ function Cercle (O, r, color) {
     code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let optionsDraw = []
     const tableauOptions = []
     if (this.color.length > 1 && this.color !== 'black') {
@@ -2591,7 +2591,7 @@ function Ellipse (O, rx, ry, color) {
   //   let code =`<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" />`
   //   return code;
   // }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let optionsDraw = []
     const tableauOptions = []
     if (this.color.length > 1 && this.color !== 'black') {
@@ -3020,7 +3020,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     }
   }
 
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let optionsDraw = []
     const tableauOptions = []
     const A = point(Omega.x + 1, Omega.y)
@@ -4578,7 +4578,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     }
     return polyline([a, o, b], color).svgml(coeff, amp)
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
@@ -5027,7 +5027,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     code += arcangle.svgml(coeff, amp)
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
@@ -5175,7 +5175,7 @@ function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (!context.mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
@@ -5340,7 +5340,7 @@ function DroiteGraduee2 ({
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
@@ -6352,7 +6352,7 @@ function Repere2 ({
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
@@ -6442,7 +6442,7 @@ function TraceGraphiqueCartesien (data, repere, {
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
@@ -7454,7 +7454,7 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', text_abs = '
     Sy.pointilles = true
     return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const x0 = calcul(this.x / this.xscale)
     const y0 = calcul(this.y / this.yscale)
     const M = point(x, y)
@@ -7528,7 +7528,7 @@ function LectureAntecedent (x, y, xscale, yscale, color, text_ord, text_abs) {
     Sy.pointilles = true
     return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.text_abs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.text_ord, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     const x0 = calcul(this.x / this.xscale)
     const y0 = calcul(this.y / this.yscale)
     const M = point(x0, y0)
@@ -7685,7 +7685,7 @@ function Courbe2 (f, {
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
@@ -8008,13 +8008,13 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
             }" id="${this.id}" >${texte}</text>\n `
           break
         case 'gauche':
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
           break
         case 'droite':
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${this.color
             }" id="${this.id}" >${texte}</text>\n `
@@ -8055,6 +8055,82 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
 }
 export function texteParPoint (...args) {
   return new TexteParPoint(...args)
+}
+
+function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', math_on = false) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.contour = false
+  this.taille = 10 * scale
+  this.opacite = 1
+  this.svg = function (coeff) {
+    let code = ''; let style = ''
+    if (math_on) style = ' font-family= "KaTeX_Math" '
+    if (this.contour) style += ` style="font-size:${this.taille * coeff / 20}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+    else style += ` style="font-size:${this.taille * coeff / 20}px;fill:${this.color};fill-opacity:${this.opacite}" `
+    if (typeof (orientation) === 'number') {
+      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+        coeff
+      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${this.color
+        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+          coeff
+        )})" id="${this.id}" >${texte}</text>\n `
+    } else {
+      switch (orientation) {
+        case 'milieu':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+        case 'gauche':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+        case 'droite':
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+            coeff
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+            }" id="${this.id}" >${texte}</text>\n `
+          break
+      }
+    }
+
+    return code
+  }
+  this.tikz = function (scaleFigure) {
+    let code = ''
+    if (math_on) texte = '$' + texte + '$'
+    if (typeof orientation === 'number') {
+      let anchor = 'center'
+      if (ancrageDeRotation === 'gauche') {
+        anchor = 'west'
+      }
+      if (ancrageDeRotation === 'droite') {
+        anchor = 'east'
+      }
+      code = `\\draw [${color}] (${A.x},${A.y
+        }) node[anchor = ${anchor},scale=${scale * scaleFigure}, rotate = ${-orientation}] {${texte}};`
+    } else {
+      let anchor = ''
+      if (orientation === 'gauche') {
+        anchor = `node[anchor = east,scale=${scale * scaleFigure}]`
+      }
+      if (orientation === 'droite') {
+        anchor = `node[anchor = west,scale=${scale * scaleFigure}]`
+      }
+      if (orientation === 'milieu') {
+        anchor = `node[anchor = center,scale=${scale * scaleFigure}]`
+      }
+      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+    }
+    return code
+  }
+}
+export function texteParPointEchelle (...args) {
+  return new TexteParPointEchelle(...args)
 }
 
 /**
@@ -9028,7 +9104,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
       for (let i = 0; i < objet.length; i++) {
         try {
           if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz() + '\n'
+            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
             else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
           }
         } catch (error) { }
@@ -9036,7 +9112,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     }
     try {
       if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
+        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
         else code += '\t' + objet.tikzml(context.amplitude) + '\n'
       }
     } catch (error) { }
@@ -9143,16 +9219,16 @@ export function mathalea2d (
         for (let i = 0; i < objet.length; i++) {
           try {
             if (objet[i].isVisible) {
-              if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz() + '\n'
-              else code += '\t' + objet[i].tikzml(amplitude) + '\n'
+              if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
+              else code += '\t' + objet[i].tikzml(amplitude, scale) + '\n'
             }
           } catch (error) { }
         }
       }
       try {
         if (objet.isVisible) {
-          if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz() + '\n'
-          else code += '\t' + objet.tikzml(amplitude) + '\n'
+          if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
+          else code += '\t' + objet.tikzml(amplitude, scale) + '\n'
         }
       } catch (error) { }
     }
@@ -10251,7 +10327,7 @@ function Tableau ({
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = function(amp) {
     let code = ''
     for (const objet of objets) {
       if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()

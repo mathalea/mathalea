@@ -6,7 +6,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 4
 
@@ -28,6 +28,7 @@ export default function TablesAdditionsSoustractions () {
   this.tailleDiaporama = 100
   this.interactif = true
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 

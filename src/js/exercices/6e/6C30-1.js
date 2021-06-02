@@ -5,6 +5,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const amcReady = true
 export const amcType = 4 // Question numérique
 export const interactifReady = true
+export const interactifType = 'numerique'
 
 export const titre = 'Multiplications d’un nombre décimal par 10, 100 ou 1 000.'
 
@@ -25,6 +26,7 @@ export default function MultiplierDecimauxPar101001000 () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = 'Calculer.'
   this.sup = 3

@@ -327,7 +327,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       if (obj.interactif || obj.interactifObligatoire) {
         exerciceInteractif(obj)
       }
-      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) || (!$('#liste_des_exercices').is(':visible') && !$('#exercices_disponibles').is(':visible') && !$('#exo_plein_ecran').is(':visible'))) { // Dans exercice.html et exo.html on ne mets pas les raccourcis vers interactif et paramètres.
+      if ((!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) || (window.location.href.indexOf('exo.html') > 0)) { // Dans exo.html on ne mets pas les raccourcis vers interactif et paramètres.
         contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
       } else {
         if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
@@ -922,7 +922,7 @@ function miseAJourDeLaListeDesExercices (preview) {
       }
     })
     .then(() => {
-      if (!preview) {
+      if (!preview || context.isHtml) { //ajout de context.isHtml par conserver les infos sur le fait que les exercices sont en mode interactif
         // Récupère les paramètres passés dans l'URL
         const urlVars = getUrlVars()
         // trier et mettre de côté les urlvars qui ne sont plus dans la liste des exercices
@@ -1022,8 +1022,15 @@ function miseAJourDeLaListeDesExercices (preview) {
       // gestion de l'affichage des exercices
         const output = context.isHtml
         context.isHtml = true // pour que l'aperçu fonctionne dans mathalealatex besoin d'avoir l'exercice en mode html
+        let filtre
+        if (document.getElementById('filtre')) {
+          filtre = document.getElementById('filtre').value
+        } 
         if (typeof listeObjetsExercice[listeExercices.length - 1].nouvelleVersion === 'function') {
           try {
+            if (filtre && filtre === 'interactif') { //lorsqu'on est en mode interactif la prévisualisation est en mode interactif.
+                listeObjetsExercice[listeExercices.length - 1].interactif=1
+            }
             listeObjetsExercice[listeExercices.length - 1].nouvelleVersion(0)
           } catch (error) {
             console.log(error)

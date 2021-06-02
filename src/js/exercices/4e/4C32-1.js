@@ -5,6 +5,7 @@ export const titre = 'Calcul avec les puissances de dix'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType = 1 // QCM
+export const interactifType = 'qcm'
 export const interactifReady = true
 
 /**
@@ -21,6 +22,7 @@ export default function CalculsAvecPuissancesDeDix () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 5

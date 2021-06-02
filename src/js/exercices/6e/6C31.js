@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
-
+export const interactifType = 'numerique'
 export const amcType = 4 // Question numérique
 export const titre = 'Divisions décimales'
 
@@ -29,6 +29,7 @@ export default function DivisionDecimale () {
   this.titre = titre
   this.amcReady = amcReady
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2
@@ -143,7 +144,7 @@ export default function DivisionDecimale () {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
         this.autoCorrection[i].reponse = { valeur: q, param: { digits: nombreDeChiffresDansLaPartieEntiere(q) + nombreDeChiffresDansLaPartieDecimale(q) + 2, decimals: nombreDeChiffresDansLaPartieDecimale(q) + 1, signe: false, exposantNbChiffres: 0 } }
-      } 
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

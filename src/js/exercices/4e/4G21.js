@@ -5,6 +5,8 @@ import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas.'
 export const amcReady = true
 export const amcType = 1 // QCM
+export const interactifType = 'qcm'
+
 export const interactifReady = true
 
 
@@ -20,6 +22,7 @@ export default function ReciproquePythagore () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.interactif = true
+  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1

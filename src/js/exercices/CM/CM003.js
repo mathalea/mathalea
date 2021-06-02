@@ -4,9 +4,10 @@ import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randi
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
 export const amcReady = true
-export const interactifReady = true
-
 export const amcType = 4
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
 
 /**
  * Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
@@ -26,6 +27,7 @@ export default function TablesMultiplicationsDivisions (
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.consigne = 'Calculer'
   this.spacing = 2
   this.tailleDiaporama = 100

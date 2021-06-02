@@ -5,7 +5,8 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Notation scientifique'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'numerique'
 export const amcReady = true
 export const amcType = 4 // type de question AMC
 
@@ -25,6 +26,7 @@ export default function NotationScientifique () {
   this.nbQuestions = 5
   this.interactif = false
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 

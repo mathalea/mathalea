@@ -1814,7 +1814,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bougies', 'cartes de voeux', 'gommes', 'images', 'auto-collants', 'bonbons', 'cahiers', 'livres', 'stylos'])
+  return choice(['lots de billes', 'lots de bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**
@@ -2427,7 +2427,7 @@ export function texPrix (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
   let result
-  if (nombre === nombre.toFixed(0)) {
+  if (nombre.toString() === nombre.toFixed(0)) {
     result = nombre
   } else {
     result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers

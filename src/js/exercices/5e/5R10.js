@@ -7,6 +7,7 @@ export const interactifReady = true
 
 export const amcReady = true
 export const amcType = 4
+export const interactifType = 'numerique'
 export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
 
 /**
@@ -27,6 +28,7 @@ export default function TermeInconnuDeSomme () {
   this.spacing = 2
   this.interactif = false
   this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.amcType = amcType
   this.amcReady = amcReady
 
