@@ -46,10 +46,6 @@ export default function equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-<<<<<<< Updated upstream
-            texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
-          // totoche
-=======
             if (xu === 0) {
               texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ `
             } else {
@@ -58,7 +54,6 @@ export default function equationcartesienne () {
               if (xu === -1 & yu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
               if (xu !== 0 & xu !== 1 & xu !== -1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
             }
->>>>>>> Stashed changes
           }
           if (this.sup === 2) {
             texteCorr = 'On sait qu\'une équation cartésienne de la droite $(d)$ est de la forme '
