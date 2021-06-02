@@ -3291,6 +3291,13 @@ export default {
     "interactifReady": false,
     "name": "2G51"
   },
+  "2G52": {
+    "titre": "Exercice exemple",
+    "url": "/exercices/beta/2G52.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2G52"
+  },
   "beta1F10": {
     "titre": "Calculs de dérivés",
     "url": "/exercices/beta/beta1F10.js",
