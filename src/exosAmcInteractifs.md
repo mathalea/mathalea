@@ -18,7 +18,7 @@
 |3P10|Variations en pourcentage|KO|KO|OK|mathLive|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCOpenNum✖︎2|KO|KO|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
-|4C32|Notation scientifique|OK|AMCNum|KO|KO|
+|4C32|Notation scientifique|OK|AMCNum|OK|numerique|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
 |4G20-2|Racine carré d’un carré parfait (calcul mental)|OK|AMCNum|OK|numerique|
 |4G20|Calculer une longueur avec le théorème de Pythagore|OK|AMCOpenNum|OK|numerique|
@@ -68,7 +68,7 @@
 |6N20|Décomposer une fraction (partie entière + fraction inférieure à 1).|KO|KO|OK|mathLive|
 |6N23-5|Sens de l’écriture fractionnaire|OK|qcmMono|OK|export const interactifType non présent|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|export const interactifType non présent|
-|6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|KO|KO|
+|6N33-1|Calculer le pourcentage d’un nombre de tête|OK|AMCNum|OK|numerique|
 |6N41|Égalités entre fractions simples|OK|qcmMono|OK|export const interactifType non présent|
 |6N43-2|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|KO|KO|
 |6N43-3|Diviseur, multiple, divisible - Vrai ou faux|OK|qcmMono|OK|export const interactifType non présent|
