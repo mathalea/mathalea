@@ -1926,7 +1926,10 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6C10-2"
   },
   "6C10-3": {
@@ -2109,7 +2112,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-5"
   },
   "6C30": {
@@ -3266,7 +3269,7 @@ export default {
     "name": "P011"
   },
   "P012": {
-    "titre": "Faire des camenberts pour travailler les fractions",
+    "titre": "Faire des camemberts pour travailler les fractions",
     "url": "/exercices/Profs/P012.js",
     "amcReady": false,
     "interactifReady": false,
