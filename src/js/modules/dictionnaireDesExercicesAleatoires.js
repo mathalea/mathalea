@@ -905,7 +905,8 @@ export default {
       "num": 4,
       "text": "AMCNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "4C32"
   },
   "4C33-1": {
@@ -1926,7 +1927,10 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
     "name": "6C10-2"
   },
   "6C10-3": {
@@ -2109,7 +2113,7 @@ export default {
       "text": "qcmMono"
     },
     "interactifReady": true,
-    "interactifType": "export const interactifType non présent",
+    "interactifType": "qcm",
     "name": "6C30-5"
   },
   "6C30": {
@@ -2794,7 +2798,8 @@ export default {
       "num": 4,
       "text": "AMCNum"
     },
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "numerique",
     "name": "6N33-1"
   },
   "6N33-2": {
@@ -2901,7 +2906,7 @@ export default {
     "name": "6P11-1"
   },
   "6P11-2": {
-    "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité multiplicative",
+    "titre": "Résoudre des problèmes de proportionnalité dans un tableau avec la linéarité",
     "url": "/exercices/6e/6P11-2.js",
     "amcReady": false,
     "interactifReady": false,
