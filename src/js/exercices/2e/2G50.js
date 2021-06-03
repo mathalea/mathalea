@@ -69,7 +69,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       if (!this.interactif) {
         this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
       } else {
-        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire $\\bm{\\times}$ ou "non" si la droite n\'a pas de coefficicient directeur,'
+        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire "non" si la droite n\'a pas de coefficicient directeur,'
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
