@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur.'
-
+// totoche
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
@@ -46,11 +46,10 @@ export default function equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-            if (xu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` } 
-            else {
+            if (xu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` } else {
               if (xu === 1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)}-y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu!==0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)}+y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu===0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+              if (xu === -1 & yu !== 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)}+y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+              if (xu === -1 & yu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
               if (xu !== 0 & xu !== 1 & xu !== -1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
             }
           }
