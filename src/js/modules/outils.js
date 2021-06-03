@@ -1534,7 +1534,7 @@ export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
     return stringNombre(calcul(expression))
   } else {
-    return stringNombre(calcul(expression, 1))
+    return stringNombre(calcul(expression, arrondir))
   }
 }
 

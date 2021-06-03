@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texFractionReduite, pgcd, ecritureParentheseSiNegatif } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite.'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
@@ -10,7 +13,8 @@ export const titre = 'Déterminer le coefficient directeur d\'une droite.'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
+  this.interactifReady = interactifReady
+  this.interactifType = interactifType
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -45,6 +49,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += `=${texFractionReduite(n, d)}`
           }
           texteCorr += '$'
+          setReponse(this, i, texFractionReduite(n, d))
           break
         case 'Droite verticale':
           xA = randint(-5, 5)
@@ -58,8 +63,15 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
           texteCorr += '<br>Elle n\'admet donc pas de coefficient directeur.'
+          setReponse(this, i, ['non', '\\times'])
           break
       }
+      if (!this.interactif) {
+        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,'
+      } else {
+        this.consigne = 'Déterminer, s\'il existe et en l\'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire "non" si la droite n\'a pas de coefficicient directeur,'
+      }
+      texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
