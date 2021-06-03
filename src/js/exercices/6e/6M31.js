@@ -21,10 +21,11 @@ export const interactifType = ['qcm', 'mathLive']
  * @author Rémi Angot
  * Référence 6M31
  */
-export default function Exercice_conversions_volumes (niveau = 1) {
+export default function ExerciceConversionsVolumes (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
+  this.sup3 = 1
   this.titre = titre
   this.consigne = 'Compléter'
   this.spacing = 2
@@ -38,18 +39,18 @@ export default function Exercice_conversions_volumes (niveau = 1) {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const prefixe_multi = [
+    const prefixeMulti = [
       ['da', '10\\times10\\times10', 1000],
       ['h', '100\\times100\\times100', 1000000],
       ['k', '1~000\\times1~000\\times1~000', 1000000000]
     ]
-    const prefixe_div = [
+    const prefixeDiv = [
       ['d', '10\\div10\\div10', 1000],
       ['c', '100\\div100\\div100', 1000000],
       ['m', '1~000\\div1~000\\div1~000', 1000000000]
     ]
     const unite = 'm'
-    const liste_unite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
+    const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
     for (
       let i = 0,
         a,
@@ -108,14 +109,14 @@ export default function Exercice_conversions_volumes (niveau = 1) {
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
 
-        resultat = calcul(a * prefixe_multi[k][2]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][2]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = calcul(a * 10 ** (k + 1))
         resultat3 = calcul(a * 10 ** (k - 2))
         resultat4 = calcul(a * 10 ** ((k + 2)))
         texte =
           '$ ' +
           texNombre(a) +
-          texTexte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixeMulti[k][0] + unite) +
           '^3' +
           ' = \\dotfill ' +
           texTexte(unite) +
@@ -124,12 +125,12 @@ export default function Exercice_conversions_volumes (niveau = 1) {
         texteCorr =
           '$ ' +
           texNombre(a) +
-          texTexte(prefixe_multi[k][0] + unite) +
+          texTexte(prefixeMulti[k][0] + unite) +
           '^3' +
           ' =  ' +
           texNombre(a) +
           '\\times' +
-          prefixe_multi[k][1] +
+          prefixeMulti[k][1] +
           texTexte(unite) +
           '^3' +
           ' = ' +
@@ -139,14 +140,14 @@ export default function Exercice_conversions_volumes (niveau = 1) {
           '$'
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = calcul(a / prefixe_multi[k][2]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixeMulti[k][2]).toString() // Attention aux notations scientifiques pour 10e-8
         resultat2 = calcul(a / 10 ** (k + 1))
         resultat3 = calcul(a / 10 ** (k - 2))
         resultat4 = calcul(a / 10 ** ((k + 2)))
         texte =
           '$ ' +
           texNombre(a) +
-          texTexte(prefixe_div[k][0] + unite) +
+          texTexte(prefixeDiv[k][0] + unite) +
           '^3' +
           ' = \\dotfill ' +
           texTexte(unite) +
@@ -155,12 +156,12 @@ export default function Exercice_conversions_volumes (niveau = 1) {
         texteCorr =
           '$ ' +
           texNombre(a) +
-          texTexte(prefixe_div[k][0] + unite) +
+          texTexte(prefixeDiv[k][0] + unite) +
           '^3' +
           ' =  ' +
           texNombre(a) +
           '\\div' +
-          prefixe_div[k][1] +
+          prefixeDiv[k][1] +
           texTexte(unite) +
           '^3' +
           ' = ' +
@@ -175,18 +176,18 @@ export default function Exercice_conversions_volumes (niveau = 1) {
           ecart = 4 - unite1
         }
         const unite2 = unite1 + ecart
-        let multiplications_par_1000 = ''
+        let multiplicationsPar1000 = ''
 
         if (randint(0, 1) > 0) {
           switch (ecart) {
             case 1:
-              multiplications_par_1000 = '\\times 1~000'
+              multiplicationsPar1000 = '\\times 1~000'
               break
             case 2:
-              multiplications_par_1000 = '\\times 1~000 \\times 1~000'
+              multiplicationsPar1000 = '\\times 1~000 \\times 1~000'
               break
             case 3:
-              multiplications_par_1000 =
+              multiplicationsPar1000 =
                 '\\times 1~000 \\times 1~000 \\times 1~000'
               break
           }
@@ -197,37 +198,37 @@ export default function Exercice_conversions_volumes (niveau = 1) {
           texte =
             '$ ' +
             texNombre(a) +
-            texTexte(liste_unite[unite2]) +
+            texTexte(listeUnite[unite2]) +
             '^3' +
             ' = \\dotfill ' +
-            texTexte(liste_unite[unite1]) +
+            texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
           texteCorr =
             '$ ' +
             texNombre(a) +
-            texTexte(liste_unite[unite2]) +
+            texTexte(listeUnite[unite2]) +
             '^3' +
             ' =  ' +
             texNombre(a) +
-            multiplications_par_1000 +
-            texTexte(liste_unite[unite1]) +
+            multiplicationsPar1000 +
+            texTexte(listeUnite[unite1]) +
             '^3' +
             ' = ' +
             texNombre(resultat) +
-            texTexte(liste_unite[unite1]) +
+            texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
         } else {
           switch (ecart) {
             case 1:
-              multiplications_par_1000 = '\\div 1~000'
+              multiplicationsPar1000 = '\\div 1~000'
               break
             case 2:
-              multiplications_par_1000 = '\\div 1~000 \\div 1~000'
+              multiplicationsPar1000 = '\\div 1~000 \\div 1~000'
               break
             case 3:
-              multiplications_par_1000 = '\\div 1~000 \\div 1~000 \\div 1~000'
+              multiplicationsPar1000 = '\\div 1~000 \\div 1~000 \\div 1~000'
               break
           }
           resultat = calcul(a / Math.pow(10, 3 * ecart))
@@ -237,36 +238,36 @@ export default function Exercice_conversions_volumes (niveau = 1) {
           texte =
             '$ ' +
             texNombre(a) +
-            texTexte(liste_unite[unite1]) +
+            texTexte(listeUnite[unite1]) +
             '^3' +
             ' = \\dotfill ' +
-            texTexte(liste_unite[unite2]) +
+            texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
           texteCorr =
             '$ ' +
             texNombre(a) +
-            texTexte(liste_unite[unite1]) +
+            texTexte(listeUnite[unite1]) +
             '^3' +
             ' =  ' +
             texNombre(a) +
-            multiplications_par_1000 +
-            texTexte(liste_unite[unite2]) +
+            multiplicationsPar1000 +
+            texTexte(listeUnite[unite2]) +
             '^3' +
             ' = ' +
             texNombre(resultat) +
-            texTexte(liste_unite[unite2]) +
+            texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
         }
       }
       // else if(typesDeQuestions==5) { // Pour typesDeQuestions==5
-      // 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
-      // 	k = randint(0,1)
-      // 	resultat = calcul(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-      // 	texte = '$ '+ texNombre(a) + texTexte(prefixe_multi[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
-      // 	texteCorr = '$ '+ texNombre(a) + texTexte(prefixe_multi[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixe_multi[k][1]) + texTexte(unite)  + '^3'
-      // 		 + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';
+      // prefixeMulti = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
+      // k = randint(0,1)
+      // resultat = calcul(a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+      // texte = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
+      // texteCorr = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + '^3'
+      //  + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';
       // }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
@@ -315,8 +316,7 @@ export default function Exercice_conversions_volumes (niveau = 1) {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    '1 : Conversions en mètres-cubes avec des multiplications\n\
-2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions'
+    '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
