@@ -268,7 +268,6 @@ export default function Exercice_conversions_volumes (niveau = 1) {
       // 	texteCorr = '$ '+ texNombre(a) + texTexte(prefixe_multi[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixe_multi[k][1]) + texTexte(unite)  + '^3'
       // 		 + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';
       // }
-
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat)}$`,
@@ -291,8 +290,9 @@ export default function Exercice_conversions_volumes (niveau = 1) {
         texte += propositionsQcm(this, i).texte
       } else {
         texte += ajouteChampTexteMathLive(this, i)
-        setReponse(this, i, resultat)
+        setReponse(this, i, parseFloat(resultat))
       }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isDiaporama) {
