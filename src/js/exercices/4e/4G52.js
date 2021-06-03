@@ -35,7 +35,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       context.anglePerspective = 60
       context.coeffPerspective = 0.4
     } else if (parseInt(this.sup) === 2) {
-      context.anglePerspective = 25
+      context.anglePerspective = 45
       context.coeffPerspective = 0.3
     } else if (parseInt(this.sup) === 1) {
       context.anglePerspective = 30
@@ -55,9 +55,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     let nbgraduationy = randint(2, 3)
     let nbgraduationz = randint(2, 4)
     while ((nbgraduationx >= 3) && (nbgraduationy >= 3)) {
-      nbgraduationx = randint(2, 4)
-      nbgraduationy = randint(2, 3)
-      nbgraduationz = randint(2, 4)
+      nbgraduationx = randint(2, 5)
+      nbgraduationy = randint(2, 3,nbgraduationx)
+      nbgraduationz = randint(2, 5, [nbgraduationx, nbgraduationy])
     }
     const deltax = largeur / nbgraduationx
     const deltay = profondeur / nbgraduationy
