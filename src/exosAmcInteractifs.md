@@ -1,5 +1,6 @@
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpen|KO|KO|
 |3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G21|Contrôler si deux droites sont parallèles|OK|AMCOpen|KO|KO|
