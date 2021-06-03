@@ -55,6 +55,13 @@ export default {
     "interactifReady": false,
     "name": "2F21"
   },
+  "2F22": {
+    "titre": "Représentation graphique d’une fonction affine",
+    "url": "/exercices/2e/2F22.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F22"
+  },
   "2G10": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
     "url": "/exercices/2e/2G10.js",
@@ -3319,27 +3326,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta1F10"
-  },
-  "beta2F20": {
-    "titre": "Reconnaître une fonction affine.",
-    "url": "/exercices/beta/beta2F20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F20"
-  },
-  "beta2F21": {
-    "titre": "Déterminer une fonction affine à partir de deux images.",
-    "url": "/exercices/beta/beta2F21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F21"
-  },
-  "beta2F22": {
-    "titre": "Représentation graphique d’une fonction affine",
-    "url": "/exercices/beta/beta2F22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F22"
   },
   "beta2F30": {
     "titre": "Reconnaître une fonction affine.",
