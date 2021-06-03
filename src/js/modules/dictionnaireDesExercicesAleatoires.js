@@ -3292,7 +3292,7 @@ export default {
     "name": "2G51"
   },
   "2G52": {
-    "titre": "Exercice exemple",
+    "titre": "Déterminer si des droites $(d)$ et (d')$ sont parallèles, sécantes ou confondues :",
     "url": "/exercices/beta/2G52.js",
     "amcReady": false,
     "interactifReady": false,
