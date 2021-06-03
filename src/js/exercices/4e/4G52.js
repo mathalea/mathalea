@@ -1,7 +1,7 @@
 import { labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { lettreDepuisChiffre, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { radians } from '../../modules/fonctionsMaths.js'
+import { radians, sin } from '../../modules/fonctionsMaths.js'
 import { point3d, arete3d } from '../../modules/3d.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
@@ -35,7 +35,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       context.anglePerspective = 60
       context.coeffPerspective = 0.4
     } else if (parseInt(this.sup) === 2) {
-      context.anglePerspective = 25
+      context.anglePerspective = 45
       context.coeffPerspective = 0.3
     } else if (parseInt(this.sup) === 1) {
       context.anglePerspective = 30
@@ -55,9 +55,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     let nbgraduationy = randint(2, 3)
     let nbgraduationz = randint(2, 4)
     while ((nbgraduationx >= 3) && (nbgraduationy >= 3)) {
-      nbgraduationx = randint(2, 4)
-      nbgraduationy = randint(2, 3)
-      nbgraduationz = randint(2, 4)
+      nbgraduationx = randint(2, 5)
+      nbgraduationy = randint(2, 3,nbgraduationx)
+      nbgraduationz = randint(2, 5, [nbgraduationx, nbgraduationy])
     }
     const deltax = largeur / nbgraduationx
     const deltay = profondeur / nbgraduationy
@@ -119,9 +119,17 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       objetsAtracer.push(s.p2d)
     }
 
-    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, pointCoord, s1, s2, s3, x, y, z, t, pointAplacer, objetsAtracerCorr; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      pointCoord = [randint(0, nbgraduationx), randint(0, nbgraduationy), randint(0, nbgraduationz)]
+      x = 0
+      y = 0
+      z = 0
+      while (x === 0 && y === 0 && z === 0) {
+        x = randint(0, nbgraduationx)
+        y = randint(0, nbgraduationy)
+        z = randint(0, nbgraduationz)
+      }
+      pointCoord = [x, y, z]
       texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]},${pointCoord[1]},${pointCoord[2]})$`
       pointAplacer = point3d(pointCoord[0] * deltax, pointCoord[1] * deltay, pointCoord[2] * deltaz, lettreDepuisChiffre(i + 12), `${lettreDepuisChiffre(i + 12)}`, 'below right')
       s1 = arete3d(A, point3d(pointAplacer.x, 0, 0), 'red', true)
@@ -135,7 +143,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       t.color = 'red'
       t.taille = 6
       objetsAtracerCorr = [s1.p2d, s2.p2d, s3.p2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
-      texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: 1 + hauteur + profondeur * Math.sin(radians(context.anglePerspective)) }, objetsAtracerCorr)
+      texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective) }, objetsAtracerCorr)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -144,7 +152,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       }
       cpt++
     }
-    this.introduction = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: 1 + hauteur + profondeur * Math.sin(radians(context.anglePerspective)) }, objetsAtracer)
+    this.introduction = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective) }, objetsAtracer)
 
     listeQuestionsToContenu(this)
   }
