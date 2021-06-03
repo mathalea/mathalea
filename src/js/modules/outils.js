@@ -1534,7 +1534,7 @@ export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
     return stringNombre(calcul(expression))
   } else {
-    return stringNombre(calcul(expression, 1))
+    return stringNombre(calcul(expression, arrondir))
   }
 }
 
@@ -6763,9 +6763,9 @@ export function exportQcmAmc (exercice, idExo) {
     switch (type) {
       case 1: // question QCM 1 bonne réponse
         texQr += `\\element{${ref}}{\n `
-        if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined){
-          texQr += `${exercice.introduction}\\\\ \n`
-        }
+        //  if (j === 0 && exercice.introduction !== '' && exercice.introduction !== undefined) {
+        //  texQr += `${exercice.introduction}\\\\ \n`
+        // }
         texQr += `\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
         texQr += `${autoCorrection[j].enonce} \n `
         texQr += `\t\\begin{${horizontalite}}`
