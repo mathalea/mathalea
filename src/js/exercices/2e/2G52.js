@@ -11,7 +11,7 @@ export const titre = 'Déterminer si des droites $(d)$ et $(d\')$ sont parallèl
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Déterminer si les droites $\\bm{(d)}$ et $\\bm{(d\')}$ dont on donne ci-dessous les équations cartésiennes, sont parallèles, confondues ou sécantes.'
+  this.consigne = 'Déterminer si les droites $\\bm{(d)}$ et $\\bm{(d\')}$ dont on donne ci-dessous des équations cartésiennes, sont parallèles, confondues ou sécantes.'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -71,17 +71,16 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           }
           texte += '=0$'
 
-          texteCorr = 'On sait qu\'une équation cartésienne de droite de la forme :'
+          texteCorr = 'On sait qu\'une droite $(d)$ d\'équation cartésienne :'
           texteCorr += ' $(d) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
           texteCorr += '<br>admet un vecteur directeur de coordonnées :  '
           texteCorr += '$\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
-          texteCorr += '<br>Soit $\\vec {u}$ le vecteur directeur de $(d)$ :'
-          texteCorr += `<br>Comme on a d'après l'énoncé  : $a=${a1}$ , $b=${b1}$ , $c=${c1}$ `
-          texteCorr += ', on en déduit que : $\\vec {u} \\begin{pmatrix} '
+          texteCorr += `<br>Comme on a d'après l'énoncé  : $a=${a1}$ , $b=${b1}$ , $c=${c1}$ ,`
+          texteCorr += '<br> on en déduit que : $\\vec {u} \\begin{pmatrix} '
           if (b1 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b1)}` }
-          texteCorr += `\\\\${a1}\\end{pmatrix}$`
-          texteCorr += `<br>De même, appelons $\\vec {u'}$ le vecteur directeur de $(d')$. Comme ici, on a : $a=${a2}$ , $b=${b2}$ , $c=${c2}$ `
-          texteCorr += ', on en déduit que : $\\vec {u\'} \\begin{pmatrix} '
+          texteCorr += `\\\\${a1}\\end{pmatrix}$   est un vecteur directeur de $(d)$.`
+          texteCorr += `<br>De même, appelons $\\vec {u'}$ le vecteur directeur de $(d')$. <br>Comme ici, on a : $a=${a2}$ , $b=${b2}$ , $c=${c2}$ ,`
+          texteCorr += '<br> on en déduit que : $\\vec {u\'} \\begin{pmatrix} '
           if (b2 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b2)}` }
           texteCorr += `\\\\${a2}\\end{pmatrix}$`
           texteCorr += '<br> Pour déterminer la position relative de $(d)$ et $(d\')$, on étudie la colinéarité des deux vecteurs directeurs. '
