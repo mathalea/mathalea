@@ -1,6 +1,7 @@
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |2G50|Déterminer le coefficient directeur d'une droite.|KO|KO|OK|mathLive|
+|3F21-1|Déterminer une fonction affine|OK|AMCOpen|KO|KO|
 |3F10|Lectures d’images et d’antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
 |3F12-2|Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique|KO|KO|OK|mathLive|
 |3F13-1|Lecture graphique d’images et d’antécédents|KO|KO|OK|mathLive|

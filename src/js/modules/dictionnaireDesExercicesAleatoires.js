@@ -41,6 +41,20 @@ export default {
     "interactifReady": false,
     "name": "1N11"
   },
+  "2F20": {
+    "titre": "Reconnaître une fonction affine.",
+    "url": "/exercices/2e/2F20.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F20"
+  },
+  "2F21": {
+    "titre": "Déterminer une fonction affine à partir de deux images.",
+    "url": "/exercices/2e/2F21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F21"
+  },
   "2G10": {
     "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
     "url": "/exercices/2e/2G10.js",
