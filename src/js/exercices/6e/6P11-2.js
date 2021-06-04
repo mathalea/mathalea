@@ -35,24 +35,54 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
 
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    let np, cm, ng, o, pp, pg, pu, tp
+    let np, cm, ng, o, pp, pg, pu, tp, index
+    const fruits = [
+      ['pêches', 4, 10, 30],
+      ['Noix', 5.4, 4, 13],
+      ['cerises', 5.6, 11, 20],
+      ['pommes', 2.2, 20, 40],
+      ['framboises', 15, 1, 5],
+      ['fraises', 7.5, 5, 10],
+      ['citrons', 1.5, 15, 30],
+      ['bananes', 1.5, 15, 25]
+    ]
+
+    const a = choice([1, 2, 3])
+
     for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
-          np = randint(1, 10)
-          cm = randint(2, 7)
-          ng = np * cm
-          pp = np * randint(8, 9) / 10
-          pg = cm * pp
-          o = choice([objet()])
-          texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
-          monTableau = tableau({
-            largeurTitre: 9,
-            ligne1: [`\\text{Nombre de ${o}}`, np, ng],
-            ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
-            flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]],
-          })
+          if (a === 1) {
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * randint(8, 9) / 10
+            pg = cm * pp
+            o = choice([objet()])
+            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            monTableau = tableau({
+              largeurTitre: 9,
+              ligne1: [`\\text{Nombre de ${o}}`, np, ng],
+              ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
+            })
+          } else {
+            index = randint(0, 7)
+            np = randint(1, 10)
+            cm = randint(2, 7)
+            ng = np * cm
+            pp = np * fruits[index][1]
+            pg = cm * pp
+            o = choice([fruits()])
+            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            monTableau = tableau({
+              largeurTitre: 9,
+              ligne1: [`\\text{Nombre de ${o}}`, np, ng],
+              ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
+              flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
+            })
+          }
           texteCorr = mathalea2d({ xmin: -1, xmax: 15, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
         case 2: // division
@@ -88,12 +118,28 @@ export const titre = 'Résoudre des problèmes de proportionnalité dans un tabl
           texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7, style: 'display: block' }, monTableau)
           break
         case 4: // Non proportionnalité
-          tp = randint(120, 165) / 100
-          np = randint(10, 14)
-          cm = randint(2, 5)
-          ng = np * cm
-          texte = `${prenom()} mesure ${texNombre(tp)} m à ${np} ans. Quelle sera sa taille à ${ng} ans ?`
-          texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
+          if (a === 1) {
+            tp = randint(120, 165) / 100
+            np = randint(10, 14)
+            cm = randint(2, 5)
+            ng = np * cm
+            texte = `${prenom()} mesure ${texNombre(tp)} m à ${np} ans. Quelle sera sa taille à ${ng} ans ?`
+            texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
+          } else if (a === 2) {
+            tp = randint(30, 45)
+            np = randint(10, 13)
+            cm = randint(2, 5)
+            ng = np * cm
+            texte = `${prenom()} pèse ${texNombre(tp)} kg à ${np} ans. Quelle sera son poids à ${ng} ans ?`
+            texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
+          } else if (a === 3) {
+            tp = randint(35, 39)
+            np = randint(10, 13)
+            cm = randint(2, 5)
+            ng = np * cm
+            texte = `${prenom()} chausse du ${texNombre(tp)} à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
+            texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
+          }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
